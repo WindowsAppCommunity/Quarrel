@@ -36,6 +36,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using Discord_UWP.SharedModels;
 using static Discord_UWP.Common;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -985,7 +986,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        if (((Messages.Items.Last() as ListViewItem).Tag as Nullable<SharedModels.Message>).HasValue)
+                        if (((Messages.Items.Last() as ListViewItem)?.Tag as Message?).HasValue)
                         {
                             Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (Messages.Items.Last() as Nullable<SharedModels.Message>).Value.Id);
                         }

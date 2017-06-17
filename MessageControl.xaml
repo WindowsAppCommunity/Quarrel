@@ -5,7 +5,7 @@
     xmlns:local="using:Discord_UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding">
@@ -37,7 +37,7 @@
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
-        <tk:MarkdownTextBlock x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6" Background="#00FF0000" Canvas.ZIndex="1"/>
+        <md:MarkdownTextBlock x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6" Background="#00FF0000" Canvas.ZIndex="1" FontSize="14" />
         <Grid x:Name="EditBox" Grid.Row="2" Padding="6" Grid.Column="1" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

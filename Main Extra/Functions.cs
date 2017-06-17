@@ -245,7 +245,7 @@ namespace Discord_UWP
             Paragraph txtPara = new Paragraph();
 
             InlineUIContainer mDcontainer = new InlineUIContainer();
-            MarkdownTextBlock mdTxtBlock = new MarkdownTextBlock();
+            MarkdownTextBlock.MarkdownTextBlock mdTxtBlock = new MarkdownTextBlock.MarkdownTextBlock();
             mDcontainer.Child = mdTxtBlock;
             mdTxtBlock.Text = message.Content;
            

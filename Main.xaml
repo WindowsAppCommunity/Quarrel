@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP"
+    xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
@@ -119,7 +120,7 @@
             <Border Margin="-256,0,-256,0" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.ColumnSpan="10"></Border>
             <StackPanel HorizontalAlignment="Left" Margin="12">
                 <TextBlock x:Name="ChannelName" FontWeight="Bold"/>
-                <TextBlock x:Name="ChannelTopic" TextWrapping="Wrap" FontSize="13"/>
+                <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
             </StackPanel>
 
             <ListView x:Name="Messages" SelectionMode="None" Grid.Row="1">

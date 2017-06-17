@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using static Discord_UWP.Common;
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -240,7 +241,7 @@ namespace Discord_UWP
             MessageBox.Document.GetText(TextGetOptions.None, out val);
             MessageBox.Document.SetText(TextSetOptions.None, val);
             EditBox.Visibility = Visibility.Visible;
-            MessageBox.Focus(FocusState.Programmatic);
+            MessageBox.Focus(FocusState.Keyboard);
         }
     }
 }
