@@ -446,7 +446,7 @@
                     <StackPanel Padding="12">
                         <Button HorizontalAlignment="Stretch" Content="Discus on Twitter" Click="OpenTwitter" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="0,0,0,6"/>
                         <Button Grid.Column="1" HorizontalAlignment="Stretch"  Content="Join Discord UWP Server" Click="OpenDiscordWeb" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                        <TextBlock Text="Developped by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,12,0,0"/>
+                        <TextBlock Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,12,0,0"/>
                         <TextBlock Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                     </StackPanel>
 
