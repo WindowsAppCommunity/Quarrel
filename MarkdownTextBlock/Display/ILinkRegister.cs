@@ -10,6 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
@@ -20,5 +21,6 @@ namespace Discord_UWP.MarkdownTextBlock.Display
     internal interface ILinkRegister
     {
         void RegisterNewHyperLink(Hyperlink newHyperlink, string linkUrl);
+        void RegisterNewHyperLink(HyperlinkButton newHyperlink, string linkUrl);
     }
 }

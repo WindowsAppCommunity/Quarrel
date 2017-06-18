@@ -9,6 +9,9 @@
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
                     <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
+                    <Color x:Key="BlurpleColor">#7289DA</Color>
+                    <SolidColorBrush x:Key="BlurpleTranslucent" Color="#197289DA"/>
+                    <Color x:Key="BlurpleTranslucentColor">#197289DA</Color>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#e0ebfa"/>
                     <SolidColorBrush x:Key="LiteBG_hover" Color="#edf4fc"/>
@@ -25,6 +28,9 @@
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
+                    <Color x:Key="BlurpleColor">#7289DA</Color>
+                    <SolidColorBrush x:Key="BlurpleTranslucent" Color="#197289DA"/>
+                    <Color x:Key="BlurpleTranslucentColor">#197289DA</Color>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#2C2F33"/>
                     <SolidColorBrush x:Key="LiteBG_hover" Color="#272a2d"/>
@@ -1815,6 +1821,87 @@
               Width="1"
               HorizontalAlignment="Right"/>
                                 </Grid>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DiscordMentionHyperlink" TargetType="HyperlinkButton">
+                <Setter Property="Foreground" Value="{ThemeResource Blurple}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
+                <Setter Property="Margin" Value="0,0,0,-3"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="HyperlinkButton">
+                            <Grid x:Name="RootGrid" Background="{ThemeResource BlurpleTranslucent}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <ColorAnimation To="{ThemeResource BlurpleColor}" Duration="0:0:0.3"  Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentPresenter">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                                <ColorAnimation To="{ThemeResource BlurpleTranslucentColor}" Duration="0:0:0.3"  Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)" Storyboard.TargetName="RootGrid">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ColorAnimation To="White" Duration="0:0:0.3"  Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentPresenter">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                                <ColorAnimation To="{ThemeResource BlurpleColor}" Duration="0:0:0.3"  Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)" Storyboard.TargetName="RootGrid">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ColorAnimation To="{ThemeResource BlurpleColor}" Duration="0:0:0.3"  Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ContentPresenter">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                                <ColorAnimation To="White" Duration="0:0:0.3"  Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)" Storyboard.TargetName="RootGrid">
+                                                    <ColorAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </ColorAnimation.EasingFunction>
+                                                </ColorAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonForegroundDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBackgroundDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBorderBrushDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                
+                                <TextBlock x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>

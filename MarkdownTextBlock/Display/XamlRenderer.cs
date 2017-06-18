@@ -983,22 +983,35 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="context"> Persistent state. </param>
         private void RenderHyperlink(InlineCollection inlineCollection, HyperlinkInline element, RenderContext context)
         {
-            var link = new Hyperlink();
 
-            // Register the link
-            _linkRegister.RegisterNewHyperLink(link, element.Url);
-
-            // Make a text block for the link
-            Run linkText = new Run
+            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention)
             {
-                Text = CollapseWhitespace(context, element.Text),
-                Foreground = LinkForeground ?? context.Foreground
-            };
+                var link = new HyperlinkButton();
+                link.Content = CollapseWhitespace(context, element.Text);
+                link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                link.FontSize = 13.333;
+                _linkRegister.RegisterNewHyperLink(link, element.Url);
+                InlineUIContainer linkContainer = new InlineUIContainer();
+                linkContainer.Child = link;
+                inlineCollection.Add(linkContainer);
+            }
+            else
+            {
+                var link = new Hyperlink();
+                _linkRegister.RegisterNewHyperLink(link, element.Url);
 
-            link.Inlines.Add(linkText);
+                Run linkText = new Run
+                {
+                    Text = CollapseWhitespace(context, element.Text),
+                    Foreground = LinkForeground ?? context.Foreground
+                };
 
-            // Add it to the current inlines
-            inlineCollection.Add(link);
+                link.Inlines.Add(linkText);
+
+                // Add it to the current inlines
+                inlineCollection.Add(link);
+            }
+            // Make a text block for the link
         }
 
         /// <summary>
