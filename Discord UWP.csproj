@@ -270,7 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Discord-UWP">
-      <HintPath>..\Discord-UWP\Discord-UWP\obj\x86\Debug\Discord-UWP.dll</HintPath>
+      <HintPath>Discord-UWP.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
