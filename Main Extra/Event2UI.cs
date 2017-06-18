@@ -284,7 +284,6 @@ namespace Discord_UWP
             });
         }
 
-
         private async void GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
             if (!Storage.Cache.Guilds.ContainsKey(e.EventData.Id))
@@ -387,13 +386,13 @@ namespace Discord_UWP
 
         private async void GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            Storage.Cache.Guilds[e.EventData.Id].RawGuild = e.EventData;
+            /*await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
                    LoadGuilds();
-               });
+               });*/
         }
-
 
         private async void GuildChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
@@ -431,6 +430,20 @@ namespace Discord_UWP
                });
         }
 
+        private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
+        {
+            Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new SharedModels.GuildMember(){Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User});
+        }
+
+        private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
+        {
+            Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User);
+        }
+
+        private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
+        {
+            Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw = new SharedModels.GuildMember(){Nick = e.EventData.Nick, Roles = e.EventData.Roles};
+        }
 
         private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
         {
@@ -469,7 +482,6 @@ namespace Discord_UWP
                    }
                });
         }
-
 
         private async void PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
         {
