@@ -95,6 +95,7 @@ namespace Discord_UWP
 
         public void UpdateControl()
         {
+            if (!Message.HasValue) return;
             if (_message?.Id == null)
             {
                 Debug.WriteLine("message is null");
@@ -116,7 +117,7 @@ namespace Discord_UWP
 
             username.Text = _message.Value.User.Username;
                 SharedModels.GuildMember member;
-                if (Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
                 {
                     member = Storage.Cache.Guilds[App.CurrentId].Members[Message.Value.User.Id].Raw;
                 }
