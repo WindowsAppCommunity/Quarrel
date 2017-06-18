@@ -533,6 +533,7 @@ namespace Discord_UWP
         public static Dictionary<string, SharedModels.Presence> PrecenseDict = new Dictionary<string, SharedModels.Presence>();
         public static bool Unlocked;
         public static bool Online;
+        public static bool SlowSpeeds;
         public static string Editcache;
     }
 }

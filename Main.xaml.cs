@@ -217,9 +217,19 @@ namespace Discord_UWP
 
             Session.Gateway.PresenceUpdated += PresenceUpdated;
             Session.Gateway.TypingStarted += TypingStarted;
-            await Session.Gateway.ConnectAsync();
+            try
+            {
+                await Session.Gateway.ConnectAsync();
+                Session.SlowSpeeds = false;
+            } catch
+            {
+                Session.SlowSpeeds = true;
+                RefreshButton.Visibility = Visibility.Visible;
+            }
+            //Session.SlowSpeeds = true;
+            //RefreshButton.Visibility = Visibility.Visible;
         }
-
+        
         #region LoadUser
         private void LoadUser()
         {
@@ -1096,7 +1106,16 @@ namespace Discord_UWP
           //      MessageScroller.ChangeView(0.0f, MessageScroller.ScrollableHeight, 1f);
           //  }
         }
-
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+            {
+                DownloadDmChannelMessages();
+            }
+            else {
+                DownloadChannelMessages();
+            }
+        }
         private void TogglePeopleShow(object sender, RoutedEventArgs e)
         {
             if (!Members.IsPaneOpen && (Members.DisplayMode == SplitViewDisplayMode.Overlay || Members.DisplayMode == SplitViewDisplayMode.CompactOverlay))
