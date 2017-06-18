@@ -651,6 +651,7 @@
             <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
             <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow"></AppBarButton>
             <AppBarToggleButton x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
+            <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
             <CommandBar.Content>
                 <AppBarButton Click="ToggleServerListFull" Width="64" Label="">
                     <AppBarButton.Icon>
