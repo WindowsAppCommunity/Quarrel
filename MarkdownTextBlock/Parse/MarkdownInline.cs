@@ -57,7 +57,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         /// <summary>
         /// A superscript run
         /// </summary>
-        Superscript,
+      /*  Superscript, */
 
         /// <summary>
         /// A code run

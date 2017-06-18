@@ -10,6 +10,7 @@
 // THE CODE OR THE USE OR OTHER DEALINGS IN THE CODE.
 // ******************************************************************
 
+/*
 namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
 {
     /// <summary>
@@ -78,3 +79,4 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
         }
     }
 }
+*/
