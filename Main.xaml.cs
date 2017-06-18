@@ -791,24 +791,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, message.Value.Raw);
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        Messages.Items.Insert(1, new SharedModels.Message() { Id = null });
+                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -818,24 +804,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
                 {
                     adCheck--;
-                    PinnedMessages.Items.Insert(0, message.Value.Raw);
+                    PinnedMessages.Items.Insert(0, NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        PinnedMessages.Items.Insert(1, null);
+                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -905,25 +877,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, message.Value.Raw);
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-              
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Center;
-                        ad.Margin = new Thickness(0, 6, 0, 6);
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        Messages.Items.Insert(1, adstack);
+                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -944,25 +901,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
                 {
                     adCheck--;
-                    PinnedMessages.Items.Insert(0, message.Value.Raw);
+                    PinnedMessages.Items.Insert(0, NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Center;
-                        ad.Margin = new Thickness(0, 6, 0, 6);
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        PinnedMessages.Items.Insert(1, adstack);
+                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -982,13 +924,13 @@ namespace Discord_UWP
                 {
                     if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id))
                     {
-                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id] = (Messages.Items.Last()  as Nullable<SharedModels.Message>).Value.Id;
+                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id] = (Messages.Items.Last() as MessageContainer).Message.Value.Id;
                     }
                     else
                     {
-                        if (((Messages.Items.Last() as ListViewItem)?.Tag as Message?).HasValue)
+                        if (((Messages.Items.Last() as MessageContainer).Message).HasValue)
                         {
-                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (Messages.Items.Last() as Nullable<SharedModels.Message>).Value.Id);
+                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (Messages.Items.Last() as MessageContainer).Message.Value.Id);
                         }
                     }
                     Storage.SaveMessages();
@@ -1024,7 +966,7 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, message.Value.Raw);
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
                         StackPanel adstack = new StackPanel();
@@ -1042,7 +984,7 @@ namespace Discord_UWP
                         ad.AdUnitId = "336795";
                         ad.Tag = "Ad";
                         adstack.Children.Add(ad);
-                        Messages.Items.Insert(1, adstack);
+                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -1095,25 +1037,10 @@ namespace Discord_UWP
             foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
             {
                 adCheck--;
-                Messages.Items.Insert(1, message.Value.Raw);
+                Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
                 if (adCheck == 0 && ShowAds)
                 {
-                    StackPanel adstack = new StackPanel();
-                    adstack.Orientation = Orientation.Horizontal;
-
-                    TextBlock txt = new TextBlock();
-                    txt.Text = "Ad:";
-                    adstack.Children.Add(txt);
-                    AdControl ad = new AdControl();
-                    ad.HorizontalAlignment = HorizontalAlignment.Center;
-                    ad.Margin = new Thickness(0, 6, 0, 6);
-                    ad.Width = 300;
-                    ad.Height = 50;
-                    ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                    ad.AdUnitId = "336795";
-                    ad.Tag = "Ad";
-                    adstack.Children.Add(ad);
-                    Messages.Items.Insert(1, adstack);
+                    Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                     adCheck = 5;
                 }
             }
@@ -1198,7 +1125,7 @@ namespace Discord_UWP
         }
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
-            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore((sender as ListViewItem).Tag.ToString(), (Messages.Items[2] as Nullable<SharedModels.Message>).Value.Id);
+            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore((sender as ListViewItem).Tag.ToString(), (Messages.Items[2] as MessageContainer).Message.Value.Id);
 
             int adCheck = 5;
 
@@ -1819,6 +1746,11 @@ namespace Discord_UWP
                 }
             }
             catch (Exception) { }
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenChannelSettings(null,null);
         }
     }
 }
