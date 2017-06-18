@@ -221,6 +221,7 @@ namespace Discord_UWP
             {
                 await Session.Gateway.ConnectAsync();
                 Session.SlowSpeeds = false;
+                RefreshButton.Visibility = Visibility.Collapsed;
             } catch
             {
                 Session.SlowSpeeds = true;
