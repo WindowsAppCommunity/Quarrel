@@ -570,6 +570,9 @@ namespace Discord_UWP
                 if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
                 {
                     Storage.Cache.Guilds[id].Members.Add(member.User.Id, new CacheModels.Member(member));
+                } else
+                {
+                    Storage.Cache.Guilds[id].Members[member.User.Id] = new CacheModels.Member(member);
                 }
             }
 
