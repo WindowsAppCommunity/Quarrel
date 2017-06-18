@@ -432,12 +432,12 @@ namespace Discord_UWP
 
         private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
         {
-            Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new SharedModels.GuildMember(){Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User});
+            Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new CacheModels.Member(new SharedModels.GuildMember(){Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User}));
         }
 
         private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
         {
-            Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User);
+            Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User.Id);
         }
 
         private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
