@@ -666,7 +666,7 @@
                 </AppBarButton>
             </CommandBar.Content>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Refresh" Click="AppBarButton_Click" />
+                <AppBarButton Label="Refresh" Click="AppBarButton_Click" Visibility="Collapsed" />
                 <AppBarButton Label="What's New?" Click="OpenWhatsNew"/>
                 <AppBarButton x:Name="FeedbackButton" Label="Feedback Hub" Click="OpenFeedbackHub"/>
                 <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>

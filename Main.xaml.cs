@@ -212,6 +212,10 @@ namespace Discord_UWP
             Session.Gateway.GuildChannelDeleted += GuildChannelDeleted;
             Session.Gateway.GuildChannelUpdated += GuildChannelUpdated;
 
+            Session.Gateway.GuildMemberAdded += GuildMemberAdded;
+            Session.Gateway.GuildMemberRemoved += GuildMemberRemoved;
+            Session.Gateway.GuildMemberUpdated += GuildMemberUpdated;
+
             Session.Gateway.DirectMessageChannelCreated += DirectMessageChannelCreated;
             Session.Gateway.DirectMessageChannelDeleted += DirectMessageChannelDeleted;
 
@@ -230,7 +234,7 @@ namespace Discord_UWP
             //Session.SlowSpeeds = true;
             //RefreshButton.Visibility = Visibility.Visible;
         }
-        
+
         #region LoadUser
         private void LoadUser()
         {
