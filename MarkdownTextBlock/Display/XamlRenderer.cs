@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Shapes;
 using Discord_UWP.MarkdownTextBlock.Parse;
 using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
 using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
+using NeoSmart.Unicode;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
 {
@@ -457,13 +458,13 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 case MarkdownBlockType.Paragraph:
                     RenderParagraph((ParagraphBlock)element, blockUIElementCollection, context);
                     break;
-                case MarkdownBlockType.Quote:
-                    RenderQuote((QuoteBlock)element, blockUIElementCollection, context);
+             /*   case MarkdownBlockType.Quote:
+                    RenderQuote((QuoteBlock)element, blockUIElementCollection, context);*/
                     break;
                 case MarkdownBlockType.Code:
                     RenderCode((CodeBlock)element, blockUIElementCollection, context);
                     break;
-                case MarkdownBlockType.Header:
+             /*   case MarkdownBlockType.Header:
                     RenderHeader((HeaderBlock)element, blockUIElementCollection, context);
                     break;
                 case MarkdownBlockType.List:
@@ -474,7 +475,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     break;
                 case MarkdownBlockType.Table:
                     RenderTable((TableBlock)element, blockUIElementCollection, context);
-                    break;
+                    break;*/
             }
         }
 
@@ -497,7 +498,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <summary>
         /// Renders a header element.
         /// </summary>
-        private void RenderHeader(HeaderBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
+   /*     private void RenderHeader(HeaderBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
             var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
 
@@ -553,12 +554,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
             // Add it to the blocks
             textBlock.Blocks.Add(paragraph);
-        }
+        }*/
 
         /// <summary>
         /// Renders a list element.
         /// </summary>
-        private void RenderListElement(ListBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
+        /*private void RenderListElement(ListBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
             // Create a grid with two columns.
             Grid grid = new Grid
@@ -604,12 +605,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             }
 
             blockUIElementCollection.Add(grid);
-        }
+        }*/
 
         /// <summary>
         /// Renders a horizontal rule element.
         /// </summary>
-        private void RenderHorizontalRule(UIElementCollection blockUIElementCollection, RenderContext context)
+        /*private void RenderHorizontalRule(UIElementCollection blockUIElementCollection, RenderContext context)
         {
             var rectangle = new Rectangle
             {
@@ -620,12 +621,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             };
 
             blockUIElementCollection.Add(rectangle);
-        }
+        }*/
 
         /// <summary>
         /// Renders a quote element.
         /// </summary>
-        private void RenderQuote(QuoteBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
+        /*private void RenderQuote(QuoteBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
             if (QuoteForeground != null)
             {
@@ -647,7 +648,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             };
 
             blockUIElementCollection.Add(border);
-        }
+        }*/
 
         /// <summary>
         /// Renders a code element.
@@ -678,7 +679,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <summary>
         /// Renders a table element.
         /// </summary>
-        private void RenderTable(TableBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
+        /*private void RenderTable(TableBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
             var table = new MarkdownTable(element.ColumnDefinitions.Count, element.Rows.Count, TableBorderThickness, TableBorderBrush)
             {
@@ -725,7 +726,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             }
 
             blockUIElementCollection.Add(table);
-        }
+        }*/
 
         /// <summary>
         /// Renders all of the children for the given element.
@@ -774,9 +775,9 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 case MarkdownInlineType.Strikethrough:
                     RenderStrikethroughRun(inlineCollection, (StrikethroughTextInline)element, context);
                     break;
-                case MarkdownInlineType.Superscript:
+              /*  case MarkdownInlineType.Superscript:
                     RenderSuperscriptRun(inlineCollection, (SuperscriptTextInline)element, parent, context);
-                    break;
+                    break;*/
                 case MarkdownInlineType.Code:
                     RenderCodeRun(inlineCollection, (CodeInline)element, context);
                     break;
@@ -836,7 +837,8 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             {
                 Text = CollapseWhitespace(context, element.Text)
             };
-
+            if (Emoji.IsEmoji(element.Text, 27))
+                textRun.FontSize = 28;
             // Add it
             inlineCollection.Add(textRun);
         }
@@ -889,7 +891,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // HACK: Superscript is not allowed within a hyperlink.  But if we switch it around, so
             // that the superscript is outside the hyperlink, then it will render correctly.
             // This assumes that the entire hyperlink is to be rendered as superscript.
-            if (AllTextIsSuperscript(element) == false)
+          /*  if (AllTextIsSuperscript(element) == false)
             {
                 // Regular ol' hyperlink.
                 var link = new Hyperlink();
@@ -898,7 +900,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
 
                 // Remove superscripts.
-                RemoveSuperscriptRuns(element, insertCaret: true);
+               RemoveSuperscriptRuns(element, insertCaret: true);
 
                 // Render the children into the link inline.
                 var childContext = context.Clone();
@@ -933,7 +935,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
                 // Now render it.
                 RenderSuperscriptRun(inlineCollection, fakeSuperscript, parent, context);
-            }
+            }*/
         }
 
         /// <summary>
@@ -1059,7 +1061,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderSuperscriptRun(InlineCollection inlineCollection, SuperscriptTextInline element, TextElement parent, RenderContext context)
+/*        private void RenderSuperscriptRun(InlineCollection inlineCollection, SuperscriptTextInline element, TextElement parent, RenderContext context)
         {
             // Le <sigh>, InlineUIContainers are not allowed within hyperlinks.
             if (context.WithinHyperlink)
@@ -1094,7 +1096,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // Add it to the current inlines
             inlineCollection.Add(inlineUIContainer);
         }
-
+        */
         /// <summary>
         /// Renders a code element
         /// </summary>
@@ -1191,7 +1193,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 FontStretch = FontStretch,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                LineHeight=24,
+                LineHeight=22,
                 Foreground = context.Foreground,
                 IsTextSelectionEnabled = IsTextSelectionEnabled,
                 TextWrapping = TextWrapping
@@ -1226,7 +1228,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// Checks if all text elements inside the given container are superscript.
         /// </summary>
         /// <returns> <c>true</c> if all text is superscript (level 1); <c>false</c> otherwise. </returns>
-        private bool AllTextIsSuperscript(IInlineContainer container, int superscriptLevel = 0)
+    /*    private bool AllTextIsSuperscript(IInlineContainer container, int superscriptLevel = 0)
         {
             foreach (var inline in container.Inlines)
             {
@@ -1293,6 +1295,6 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     RemoveSuperscriptRuns((IInlineContainer)inline, insertCaret);
                 }
             }
-        }
+        }*/
     }
 }

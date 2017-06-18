@@ -13,31 +13,47 @@
     <Grid x:Name="rootGrid" Margin="12,6" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
-                <VisualState x:Name="Advert"/>
+                <VisualState x:Name="Advert">
+                    <VisualState.Setters>
+                        <Setter Target="contentStacker.(Visibility)" Value="Collapsed"/>
+                        <Setter Target="row2.(Height)" Value="0"/>
+                        <Setter Target="col3.(Width)" Value="0"/>
+                        <Setter Target="rootGrid.(Panel.Background)">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#33000000"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="rootGrid.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>-12,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
                 <VisualState x:Name="VisualState"/>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition x:Name="lastColumn" Width="20"/>
+            <ColumnDefinition x:Name="col1" Width="Auto"/>
+            <ColumnDefinition x:Name="col2" Width="*"/>
+            <ColumnDefinition x:Name="col3" Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="row1" Height="Auto"/>
+            <RowDefinition x:Name="row2" Height="Auto"/>
+            <RowDefinition x:Name="row3" Height="*"/>
+            <RowDefinition x:Name="row4" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#19FFFFFF" VerticalAlignment="Top" Grid.RowSpan="2" Margin="6" Grid.Row="1"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
+        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="6,6,6,0" Grid.Row="1"/>
+        <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
             <TextBlock x:Name="username" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
             <Border x:Name="BotIndicator" Visibility="Collapsed" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2">
                 <TextBlock Text="BOT" FontSize="12" VerticalAlignment="Center"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
-        <md:MarkdownTextBlock x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6" Background="#00FF0000" Canvas.ZIndex="1" FontSize="14" />
+        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6,2,6,0" Background="#00FF0000" Canvas.ZIndex="1" FontSize="14" VerticalAlignment="Top" />
         <Grid x:Name="EditBox" Grid.Row="2" Padding="6" Grid.Column="1" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

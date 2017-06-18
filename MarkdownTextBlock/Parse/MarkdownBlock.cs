@@ -27,7 +27,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         /// <summary>
         /// A quote block
         /// </summary>
-        Quote,
+    /*    Quote,*/
 
         /// <summary>
         /// A code block
@@ -37,7 +37,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         /// <summary>
         /// A header block
         /// </summary>
-        Header,
+  /*      Header,
 
         /// <summary>
         /// A list block
@@ -57,7 +57,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         /// <summary>
         /// A table block
         /// </summary>
-        Table,
+        Table, */
 
         /// <summary>
         /// A link block

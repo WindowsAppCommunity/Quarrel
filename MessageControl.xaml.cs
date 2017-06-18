@@ -29,7 +29,7 @@ namespace Discord_UWP
 {
     public sealed partial class MessageControl : UserControl
     {
-        private bool _isadvert;
+        private bool _isadvert = false;
         public bool IsAdvert
         {
             get { return _isadvert; }
@@ -41,6 +41,7 @@ namespace Discord_UWP
         private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((MessageControl)d)._isadvert = (bool)e.NewValue;
+
         }
 
         private bool _iscontinuation;
@@ -91,29 +92,29 @@ namespace Discord_UWP
         private void Notify(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
-
-        public void UpdateControl()
-        {
-            if (!Message.HasValue) return;
-            if (_message?.Id == null)
+            if (_isadvert == true && (_message == null))
             {
-                Debug.WriteLine("message is null");
-                lastColumn.Width = new GridLength(0);
+                VisualStateManager.GoToState(this, "Advert", false);
                 AdControl ad = new AdControl();
                 ad.HorizontalAlignment = HorizontalAlignment.Center;
                 ad.Width = 300;
                 ad.Height = 50;
                 ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
                 ad.AdUnitId = "336795";
-                this.Tag = "Ad";
                 ad.Margin = new Thickness(6);
-                rootGrid.Background = new SolidColorBrush(Color.FromArgb(40, 0, 0, 0));
-                Grid.SetColumn(ad, 1);
-                Grid.SetRow(ad, 1);
+                ad.Background = new SolidColorBrush(Colors.Red);
+                Grid.SetColumnSpan(ad, 10);
+                Grid.SetRowSpan(ad, 10);
                 rootGrid.Children.Add(ad);
                 return;
             }
+        }
+
+        public void UpdateControl()
+        {
+            
+
+            if (!Message.HasValue) return;
 
             username.Text = _message.Value.User.Username;
                 SharedModels.GuildMember member;
@@ -269,7 +270,6 @@ namespace Discord_UWP
             MessageBox.Document.GetText(TextGetOptions.None, out val);
             MessageBox.Document.SetText(TextSetOptions.None, val);
             EditBox.Visibility = Visibility.Visible;
-            MessageBox.Focus(FocusState.Keyboard);
         }
     }
 }

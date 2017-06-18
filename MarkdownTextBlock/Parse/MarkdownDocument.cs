@@ -190,12 +190,12 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
                     // Or a quote if the line starts with a greater than character (optionally preceded by whitespace).
                     // Or a horizontal rule if the line contains nothing but 3 '*', '-' or '_' characters (with optional whitespace).
                     MarkdownBlock newBlockElement = null;
-                    if (nonSpaceChar == '#' && nonSpacePos == startOfLine)
+                  /*  if (nonSpaceChar == '#' && nonSpacePos == startOfLine)
                     {
                         // Hash-prefixed header.
                         newBlockElement = HeaderBlock.ParseHashPrefixedHeader(markdown, startOfLine, endOfLine);
-                    }
-                    else if ((nonSpaceChar == '-' || nonSpaceChar == '=') && nonSpacePos == startOfLine && paragraphText.Length > 0)
+                    }*/
+                   /* else if ((nonSpaceChar == '-' || nonSpaceChar == '=') && nonSpacePos == startOfLine && paragraphText.Length > 0)
                     {
                         // Underline style header. These are weird because you don't know you've
                         // got one until you've gone past it.
@@ -216,32 +216,32 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
                             // We already made sure that there is a paragraph in progress.
                             paragraphText.Length = paragraphText.Length - (previousEndOfLine - previousStartOfLine);
                         }
-                    }
+                    }*/
 
                     // These characters overlap with the underline-style header - this check should go after that one.
-                    if (newBlockElement == null && (nonSpaceChar == '*' || nonSpaceChar == '-' || nonSpaceChar == '_'))
+                    /*if (newBlockElement == null && (nonSpaceChar == '*' || nonSpaceChar == '-' || nonSpaceChar == '_'))
                     {
                         newBlockElement = HorizontalRuleBlock.Parse(markdown, startOfLine, endOfLine);
                     }
-
-                    if (newBlockElement == null && lineStartsNewParagraph)
+                    */
+                    if (lineStartsNewParagraph)
                     {
                         // Some block elements must start on a new paragraph (tables, lists and code).
                         int endOfBlock = startOfNextLine;
-                        if (nonSpaceChar == '*' || nonSpaceChar == '+' || nonSpaceChar == '-' || (nonSpaceChar >= '0' && nonSpaceChar <= '9'))
+                   /*     if (nonSpaceChar == '*' || nonSpaceChar == '+' || nonSpaceChar == '-' || (nonSpaceChar >= '0' && nonSpaceChar <= '9'))
                         {
                             newBlockElement = ListBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out endOfBlock);
                         }
-
-                        if (newBlockElement == null && (nonSpacePos > startOfLine || nonSpaceChar == '`'))
+*/
+                        if ( (nonSpacePos > startOfLine || nonSpaceChar == '`'))
                         {
                             newBlockElement = CodeBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out endOfBlock);
                         }
 
-                        if (newBlockElement == null)
+                      /*  if (newBlockElement == null)
                         {
                             newBlockElement = TableBlock.Parse(markdown, realStartOfLine, endOfLine, end, quoteDepth, out endOfBlock);
-                        }
+                        }*/
 
                         if (newBlockElement != null)
                         {
@@ -250,10 +250,10 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
                     }
 
                     // This check needs to go after the code block check.
-                    if (newBlockElement == null && nonSpaceChar == '>')
+                 /*   if (newBlockElement == null && nonSpaceChar == '>')
                     {
                         newBlockElement = QuoteBlock.Parse(markdown, realStartOfLine, end, quoteDepth, out startOfNextLine);
-                    }
+                    }*/
 
                     // This check needs to go after the code block check.
                     if (newBlockElement == null && nonSpaceChar == '[')

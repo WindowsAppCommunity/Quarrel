@@ -83,7 +83,7 @@ namespace Discord_UWP
                 //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
                 var timedif = (e.EventData as SharedModels.Message?).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp).TotalSeconds;
                 if (previousMessage.Message.Value.User.Id == (e.EventData as SharedModels.Message?).Value.User.Id && timedif < 120)
-                    Messages.Items?.Add(NewMessageContainer(e.EventData, true,false, null));
+                    Messages.Items?.Add(NewMessageContainer(e.EventData, true, false, null));
                 else
                     Messages.Items?.Add(NewMessageContainer(e.EventData, false, false, null));
             }

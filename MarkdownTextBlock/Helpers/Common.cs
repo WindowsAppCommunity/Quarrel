@@ -107,7 +107,7 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
             MarkdownLinkInline.AddTripChars(_triggerList);
             HyperlinkInline.AddTripChars(_triggerList);
             StrikethroughTextInline.AddTripChars(_triggerList);
-            SuperscriptTextInline.AddTripChars(_triggerList);
+           /* SuperscriptTextInline.AddTripChars(_triggerList);*/
             CodeInline.AddTripChars(_triggerList);
             ImageInline.AddTripChars(_triggerList);
 
@@ -266,9 +266,9 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                             case InlineParseMethod.Strikethrough:
                                 parseResult = StrikethroughTextInline.Parse(markdown, pos, end);
                                 break;
-                            case InlineParseMethod.Superscript:
+                       /*     case InlineParseMethod.Superscript:
                                 parseResult = SuperscriptTextInline.Parse(markdown, pos, end);
-                                break;
+                                break;*/
                             case InlineParseMethod.Code:
                                 parseResult = CodeInline.Parse(markdown, pos, end);
                                 break;
