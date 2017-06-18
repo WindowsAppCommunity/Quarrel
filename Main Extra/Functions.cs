@@ -40,6 +40,7 @@ using System.Diagnostics;
 using System.Globalization;
 using static Discord_UWP.Common;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using System.ComponentModel;
 
 namespace Discord_UWP
 {
@@ -75,21 +76,60 @@ namespace Discord_UWP
         //This function renders the messages in a smart way, depending on the one before it
         private void SmartMessageTunnel(Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
-            if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(ListViewItem))
+            if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(MessageContainer))
             {
-                ListViewItem previousMessageLvi = Messages.Items.Last() as ListViewItem;
-                var previousMessage = previousMessageLvi.Tag as SharedModels.Message?;
+                MessageContainer previousMessage = Messages.Items.Last() as MessageContainer;
+
                 //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
-                var timedif = (e.EventData as SharedModels.Message?).Value.Timestamp.Subtract(previousMessage.Value.Timestamp).TotalSeconds;
-                if (previousMessage.Value.User.Id == (e.EventData as SharedModels.Message?).Value.User.Id && timedif < 120)
-                    Messages.Items?.Add(e.EventData);
+                var timedif = (e.EventData as SharedModels.Message?).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp).TotalSeconds;
+                if (previousMessage.Message.Value.User.Id == (e.EventData as SharedModels.Message?).Value.User.Id && timedif < 120)
+                    Messages.Items?.Add(NewMessageContainer(e.EventData, true,false, null));
                 else
-                    Messages.Items?.Add(e.EventData);
+                    Messages.Items?.Add(NewMessageContainer(e.EventData, false, false, null));
             }
             else
-                Messages.Items?.Add(e.EventData);
+                Messages.Items?.Add(NewMessageContainer(e.EventData, false, false, null));
         }
 
+        public class MessageContainer : INotifyPropertyChanged
+        {
+            private SharedModels.Message? _message;
+            public SharedModels.Message? Message {
+                get => _message;
+                set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); } }
+
+            private bool _iscontinuation;
+            public bool IsContinuation{
+                get => _iscontinuation;
+                set { if (_iscontinuation == value) return; _iscontinuation = value; OnPropertyChanged("IsContinuation"); } }
+
+            private bool _isadvert;
+            public bool IsAdvert{
+                get => _isadvert;
+                set { if (_isadvert == value) return; _isadvert = value; OnPropertyChanged("IsAdvert"); } }
+
+            private string _header;
+            public string Header {
+                get => _header;
+                set { if (_header == value) return; _header = value; OnPropertyChanged("Header"); } }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public MessageContainer NewMessageContainer(SharedModels.Message? message, bool isContinuation, bool isAdvert, string header)
+        {
+            return new MessageContainer()
+            {
+                Header = header,
+                IsAdvert = isAdvert,
+                IsContinuation = isContinuation,
+                Message = message
+            };
+        }
         private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
         {
             Permissions perms = new Permissions();
@@ -491,7 +531,7 @@ namespace Discord_UWP
                     HorizontalAlignment = HorizontalAlignment.Stretch,
                     Tag = message.Id
                 };
-                edit.Click += RenderEdit;
+               // edit.Click += RenderEdit;
                 flyoutcontent.Children.Add(edit);
                 Button delete = new Button()
                 {
@@ -529,61 +569,7 @@ namespace Discord_UWP
 
             return listviewitem;
         }
-        private void RenderEdit(object sender, RoutedEventArgs e)
-        {
-            int x = 0;
-            foreach (UIElement item in Messages.Items)
-            {
-                if (item is ListViewItem && (item as ListViewItem).Tag != null && ((item as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id == (sender as Button).Tag.ToString())
-                {
-                    Messages.Items.RemoveAt(x);
-                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
-                    {
-                        Messages.Items.Insert(x, EditMessageRender(((item as ListViewItem).Tag as Nullable<SharedModels.Message>).Value));
-                    }
-                    else
-                    {
-                        Messages.Items.Insert(x, EditMessageRender(((item as ListViewItem).Tag as Nullable<SharedModels.Message>).Value));
-                    }
-                }
-                x++;
-            }
-        }
-        private UIElement EditMessageRender(SharedModels.Message message)
-        {
-            ListViewItem item = new ListViewItem();
-            item.Margin = new Thickness(10, 5, 10, 5);
-            item.Background = GetSolidColorBrush("#FF222222");
-            item.Padding = new Thickness(5);
-            item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            item.VerticalAlignment = VerticalAlignment.Stretch;
-            item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            Grid grid = new Grid();
-            grid.HorizontalAlignment = HorizontalAlignment.Stretch;
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
 
-            RichEditBox txtbox = new RichEditBox();
-            txtbox.Document.SetText(Windows.UI.Text.TextSetOptions.None, message.Content);
-            txtbox.TextChanged += UpdateEditText;
-
-            Button sendMsg = new Button()
-            {
-                Content = "",
-                FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Tag = new Tuple<string, string>(message.ChannelId, message.Id)
-            };
-
-            sendMsg.Click += SendMessageEdit;
-
-            grid.Children.Add(txtbox);
-
-            Grid.SetColumn(sendMsg, 1);
-            grid.Children.Add(sendMsg);
-            item.Content = grid;
-            return item;
-        }
         private void UpdateEditText(object sender, RoutedEventArgs e)
         {
             (sender as RichEditBox).Document.GetText(Windows.UI.Text.TextGetOptions.None, out Session.Editcache);

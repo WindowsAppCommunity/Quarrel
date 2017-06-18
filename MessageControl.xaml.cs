@@ -29,7 +29,7 @@ namespace Discord_UWP
 {
     public sealed partial class MessageControl : UserControl
     {
-        private bool _isadvert = false;
+        private bool _isadvert;
         public bool IsAdvert
         {
             get { return _isadvert; }
@@ -37,18 +37,45 @@ namespace Discord_UWP
         }
         public static readonly DependencyProperty IsAdvertProperty =
         DependencyProperty.Register("IsAdvert", typeof(bool), typeof(MessageControl),
-        new PropertyMetadata(string.Empty, OnIsAdvertPropertyChanged));
+        new PropertyMetadata(false, OnIsAdvertPropertyChanged));
         private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((MessageControl)d)._isadvert = (bool)e.NewValue;
         }
 
+        private bool _iscontinuation;
+        public bool IsContinuation
+        {
+            get { return _iscontinuation; }
+            set { _iscontinuation = value; Notify("IsContinuation"); }
+        }
+        public static readonly DependencyProperty IsContinuationProperty =
+            DependencyProperty.Register("IsContinuation", typeof(bool), typeof(MessageControl),
+                new PropertyMetadata(false, OnIsContinuationPropertyChanged));
+        private static void OnIsContinuationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((MessageControl)d)._iscontinuation = (bool)e.NewValue;
+        }
 
-        Message? _currentmessage;
+        private string _header;
+        public string Header
+        {
+            get { return _header; }
+            set { _header = value; Notify("Header"); }
+        }
+        public static readonly DependencyProperty HeaderProperty =
+            DependencyProperty.Register("Header", typeof(string), typeof(MessageControl),
+                new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
+        private static void OnHeaderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((MessageControl)d)._header = (string)e.NewValue;
+        }
+
+        Message? _message;
         public Message? Message
         {
-            get { return _currentmessage; }
-            set { _currentmessage = value; Notify("message"); }
+            get { return _message; }
+            set { _message = value; Notify("message"); }
         }
         public static readonly DependencyProperty MessageProperty =
         DependencyProperty.Register("Message", typeof(Message?), typeof(MessageControl),
@@ -57,7 +84,7 @@ namespace Discord_UWP
         {
             if ((Message?) e.NewValue == null) return;
             Debug.WriteLine("New message");
-            ((MessageControl)d)._currentmessage = (Message?)e.NewValue;
+            ((MessageControl)d)._message = (Message?)e.NewValue;
             ((MessageControl)d).UpdateControl();
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,7 +95,7 @@ namespace Discord_UWP
 
         public void UpdateControl()
         {
-            if (_currentmessage?.Id == null)
+            if (_message?.Id == null)
             {
                 Debug.WriteLine("message is null");
                 lastColumn.Width = new GridLength(0);
@@ -87,7 +114,7 @@ namespace Discord_UWP
                 return;
             }
 
-            username.Text = _currentmessage.Value.User.Username;
+            username.Text = _message.Value.User.Username;
                 SharedModels.GuildMember member;
                 if (Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
                 {
@@ -113,21 +140,21 @@ namespace Discord_UWP
                 }
             }
 
-            if (_currentmessage.Value.User.Bot == true)
+            if (_message.Value.User.Bot == true)
                 BotIndicator.Visibility = Visibility.Visible;
 
-            if (!string.IsNullOrEmpty(_currentmessage.Value.User.Avatar))
+            if (!string.IsNullOrEmpty(_message.Value.User.Avatar))
             {
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + _currentmessage.Value.User.Id + "/" + _currentmessage.Value.User.Avatar + ".jpg")) };
+                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + _message.Value.User.Id + "/" + _message.Value.User.Avatar + ".jpg")) };
             }
             else
             {
                 avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")) };
             }
 
-            timestamp.Text = Common.HumanizeDate(_currentmessage.Value.Timestamp, null);
-            if (_currentmessage.Value.EditedTimestamp.HasValue)
-                timestamp.Text += " (Edited " + Common.HumanizeDate(_currentmessage.Value.EditedTimestamp.Value, _currentmessage.Value.Timestamp) + ")";
+            timestamp.Text = Common.HumanizeDate(_message.Value.Timestamp, null);
+            if (_message.Value.EditedTimestamp.HasValue)
+                timestamp.Text += " (Edited " + Common.HumanizeDate(_message.Value.EditedTimestamp.Value, _message.Value.Timestamp) + ")";
 
             if (Message.Value.Reactions != null)
             {
@@ -164,12 +191,12 @@ namespace Discord_UWP
                 rootGrid.Children.Add(gridview);
             }
 
-            string text = _currentmessage.Value.Content;
-            foreach(var m in _currentmessage.Value.Mentions)
+            string text = _message.Value.Content;
+            foreach(var m in _message.Value.Mentions)
             {
                 text = text.Replace(m.Id, "");
             }
-            content.Text = _currentmessage.Value.Content;
+            content.Text = _message.Value.Content;
         }
         public MessageControl()
         {

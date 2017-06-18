@@ -136,7 +136,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <local:MessageControl Message="{Binding}"/>
+                        <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>
@@ -239,7 +239,13 @@
 
         <SplitView x:Name="PinnedMessagesPopup" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource SystemAltMediumHighColor}" DisplayMode="Inline" Grid.Row="1"  PaneClosing="SP_PaneClosing">
             <SplitView.Pane>
-                <ListView x:Name="PinnedMessages"/>
+                <ListView x:Name="PinnedMessages">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </SplitView.Pane>
         </SplitView>
 
@@ -659,6 +665,7 @@
                 </AppBarButton>
             </CommandBar.Content>
             <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Refresh" Click="AppBarButton_Click" />
                 <AppBarButton Label="What's New?" Click="OpenWhatsNew"/>
                 <AppBarButton x:Name="FeedbackButton" Label="Feedback Hub" Click="OpenFeedbackHub"/>
                 <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>

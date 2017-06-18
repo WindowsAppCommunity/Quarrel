@@ -152,7 +152,7 @@ namespace Discord_UWP
                 {
                     if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id)
                     {
-                        Messages.Items.Add(e.EventData);
+                        Messages.Items.Add(NewMessageContainer(e.EventData, false, false, null));
                     }
                 }
             });
@@ -251,9 +251,9 @@ namespace Discord_UWP
                     {
                         if (TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id == e.EventData.ChannelId)
                         {
-                            foreach (UIElement item in Messages.Items)
+                            foreach (MessageContainer item in Messages.Items)
                             {
-                                if (item is ListViewItem && (item as ListViewItem).Tag != null && ((item as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id == e.EventData.MessageId)
+                                if (item.Message != null && item.Message.Value.Id == e.EventData.MessageId)
                                 {
                                     Messages.Items.Remove(item);
                                 }
