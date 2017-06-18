@@ -1055,16 +1055,16 @@ namespace Discord_UWP
                 }
             }
 
-            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages != null)
+            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache).Raw.Id].Messages != null)
             {
-                if (Storage.RecentMessages.ContainsKey(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id))
+                if (Storage.RecentMessages.ContainsKey(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw.Id))
                 {
-                    Storage.RecentMessages[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw
-                        .Id] = (Messages.Items.Last() as Nullable<SharedModels.Message>).Value.Id;
+                    Storage.RecentMessages[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw
+                        .Id] = (Messages.Items.Last() as Message?)?.Id;
                 }
                 else
                 {
-                    Storage.RecentMessages.Add(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id, (Messages.Items.Last() as Nullable<SharedModels.Message>).Value.Id);
+                    Storage.RecentMessages.Add(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw.Id, (Messages.Items.Last() as Message?)?.Id);
                 }
                 Storage.SaveMessages();
             }
