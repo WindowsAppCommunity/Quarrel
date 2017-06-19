@@ -75,13 +75,14 @@ namespace Discord_UWP
                     {
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new CacheModels.Message(e.EventData));
                         Storage.SaveCache();
+                        Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
                 else
                 {
                     if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id)
                     {
-                        Messages.Items.Add(NewMessageContainer(e.EventData, false, false, null));
+                        Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
             });

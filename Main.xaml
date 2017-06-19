@@ -132,11 +132,14 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinHeight" Value="0"/>
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}"/>
+                        <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>
@@ -242,7 +245,7 @@
                 <ListView x:Name="PinnedMessages">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}"/>
+                            <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

@@ -809,10 +809,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
@@ -895,10 +895,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
@@ -984,10 +984,10 @@ namespace Discord_UWP
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
+                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
@@ -1040,10 +1040,10 @@ namespace Discord_UWP
             foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
             {
                 adCheck--;
-                Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, false, false, null));
+                Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
                 if (adCheck == 0 && ShowAds)
                 {
-                    Messages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                    Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
                     adCheck = 5;
                 }
             }

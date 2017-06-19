@@ -104,7 +104,7 @@ namespace Discord_UWP
         public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header)
         {
             
-            if (isContinuation == null)
+            if (!isContinuation.HasValue)
             {
                 if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(MessageContainer))
                 {
@@ -114,11 +114,12 @@ namespace Discord_UWP
                     {
                         var timedif = (message).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp)
                             .TotalSeconds;
-                        if (previousMessage.Message.Value.User.Id == message.Value.User.Id && timedif < 120)
+                        if (previousMessage.Message.Value.User.Id == message.Value.User.Id && timedif < 20)
                             isContinuation = true;
                         else
                             isContinuation = false;
                     }
+                    else isContinuation = false;
                 }
                 else
                     isContinuation = false;
