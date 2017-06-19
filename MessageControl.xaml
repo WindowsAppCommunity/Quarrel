@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6">
 
-    <Grid x:Name="rootGrid" Margin="12,6,12,0" HorizontalAlignment="Stretch">
+    <Grid x:Name="rootGrid" Margin="12,24,12,6" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Advert">
@@ -42,7 +42,12 @@
                         </Setter>
                         <Setter Target="rootGrid.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>12,-24,12,24</Thickness>
+                                <Thickness>12,2,12,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="moresymbol.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="avatar.(UIElement.Visibility)" Value="Collapsed"/>
@@ -63,7 +68,7 @@
             <RowDefinition x:Name="row4" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,0" Grid.Row="1"/>
+        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
             <TextBlock x:Name="username" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
             <Border x:Name="BotIndicator" Visibility="Collapsed" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2">
@@ -88,7 +93,7 @@
                     <MenuFlyoutItem Text="Delete" HorizontalContentAlignment="Right"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
-            <SymbolIcon Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,6,0,0"/>
+            <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
     </Grid>
 </UserControl>
