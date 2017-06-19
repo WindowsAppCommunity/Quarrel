@@ -115,6 +115,84 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
+    <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
+    <Compile Include="DiscordAPI\API\BasicRestFactory.cs" />
+    <Compile Include="DiscordAPI\API\Channel\IChannelService.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\BulkDelete.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\ChannelInvite.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\EditChannel.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\EditMessage.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\MessageUpsert.cs" />
+    <Compile Include="DiscordAPI\API\Channel\Models\ModifyChannel.cs" />
+    <Compile Include="DiscordAPI\API\DiscordAPIConfiguration.cs" />
+    <Compile Include="DiscordAPI\API\Gateway\IGatewayService.cs" />
+    <Compile Include="DiscordAPI\API\Guild\IGuildService.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\CreateGuild.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\CreateGuildBan.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\CreateGuildChannel.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\CreateIntegration.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\ModifyGuild.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\ModifyGuildChannel.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\ModifyGuildMember.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\ModifyGuildRole.cs" />
+    <Compile Include="DiscordAPI\API\Guild\Models\ModifyIntegration.cs" />
+    <Compile Include="DiscordAPI\API\Invite\IInviteService.cs" />
+    <Compile Include="DiscordAPI\API\Login\ILoginService.cs" />
+    <Compile Include="DiscordAPI\API\Login\Models\LoginRequest.cs" />
+    <Compile Include="DiscordAPI\API\Login\Models\LoginResult.cs" />
+    <Compile Include="DiscordAPI\API\User\IUserService.cs" />
+    <Compile Include="DiscordAPI\API\User\Models\ModifyUser.cs" />
+    <Compile Include="DiscordAPI\API\Voice\IVoiceService.cs" />
+    <Compile Include="DiscordAPI\Authentication\AuthenticationTicket.cs" />
+    <Compile Include="DiscordAPI\Authentication\DiscordAuthenticator.cs" />
+    <Compile Include="DiscordAPI\Authentication\IAuthenticator.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildDelete.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Resumed.cs" />
+    <Compile Include="DiscordAPI\Gateway\EventNames.cs" />
+    <Compile Include="DiscordAPI\Gateway\Gateway.cs" />
+    <Compile Include="DiscordAPI\Gateway\GatewayEvent.cs" />
+    <Compile Include="DiscordAPI\Gateway\IGateway.cs" />
+    <Compile Include="DiscordAPI\Gateway\OperationCode.cs" />
+    <Compile Include="DiscordAPI\Gateway\Sockets\IWebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Gateway\Sockets\IWebSocketExtensions.cs" />
+    <Compile Include="DiscordAPI\Gateway\Sockets\WebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GatewayResume.cs" />
+    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\Identify.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Attachment.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Connection.cs" />
+    <Compile Include="DiscordAPI\SharedModels\DirectMessageChannel.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Embed.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Emoji.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Friend.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Game.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GatewayConfig.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Guild.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildChannel.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildEmbed.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildMember.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildMemberAdd.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildMemberRemove.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildMemberUpdate.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Integration.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Invite.cs" />
+    <Compile Include="DiscordAPI\SharedModels\InviteMetadata.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Message.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Overwrite.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Presence.cs" />
+    <Compile Include="DiscordAPI\SharedModels\PruneStatus.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Reactions.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Role.cs" />
+    <Compile Include="DiscordAPI\SharedModels\TypingStart.cs" />
+    <Compile Include="DiscordAPI\SharedModels\User.cs" />
+    <Compile Include="DiscordAPI\SharedModels\UserGuild.cs" />
+    <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
+    <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
     <Compile Include="LockScreen.xaml.cs">
       <DependentUpon>LockScreen.xaml</DependentUpon>
     </Compile>
@@ -258,12 +336,7 @@
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="DiscordAPI\Discord-UWP.csproj">
-      <Project>{b15b5192-7746-4797-8838-488d4367f399}</Project>
-      <Name>Discord-UWP</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

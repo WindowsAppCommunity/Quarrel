@@ -1,13 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord UWP", "Discord UWP.csproj", "{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B15B5192-7746-4797-8838-488D4367F399} = {B15B5192-7746-4797-8838-488D4367F399}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord-UWP", "DiscordAPI\Discord-UWP.csproj", "{B15B5192-7746-4797-8838-488D4367F399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,22 +38,6 @@ Global
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Release|x86.ActiveCfg = Release|x86
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Release|x86.Build.0 = Release|x86
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Release|x86.Deploy.0 = Release|x86
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|ARM.ActiveCfg = Debug|ARM
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|ARM.Build.0 = Debug|ARM
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|x64.ActiveCfg = Debug|x64
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|x64.Build.0 = Debug|x64
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|x86.ActiveCfg = Debug|x86
-		{B15B5192-7746-4797-8838-488D4367F399}.Debug|x86.Build.0 = Debug|x86
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|ARM.ActiveCfg = Release|ARM
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|ARM.Build.0 = Release|ARM
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|x64.ActiveCfg = Release|x64
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|x64.Build.0 = Release|x64
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|x86.ActiveCfg = Release|x86
-		{B15B5192-7746-4797-8838-488D4367F399}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -73,7 +73,6 @@ namespace Discord_UWP
                 {
                     if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id)
                     {
-                        SmartMessageTunnel(e);
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new CacheModels.Message(e.EventData));
                         Storage.SaveCache();
                     }
