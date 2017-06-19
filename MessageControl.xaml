@@ -8,15 +8,16 @@
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding">
+    d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6">
 
-    <Grid x:Name="rootGrid" Margin="12,6" HorizontalAlignment="Stretch">
+    <Grid x:Name="rootGrid" Margin="12,6,12,0" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Advert">
                     <VisualState.Setters>
                         <Setter Target="contentStacker.(Visibility)" Value="Collapsed"/>
                         <Setter Target="row2.(Height)" Value="0"/>
+                        <Setter Target="col1.(Width)" Value="0"/>
                         <Setter Target="col3.(Width)" Value="0"/>
                         <Setter Target="rootGrid.(Panel.Background)">
                             <Setter.Value>
@@ -31,12 +32,29 @@
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VisualState"/>
+                <VisualState x:Name="Continuation">
+                    <VisualState.Setters>
+                        <Setter Target="row2.(Height)" Value="0"/>
+                        <Setter Target="content.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>6,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="rootGrid.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>12,-24,12,24</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="avatar.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="contentStacker.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="col1" Width="Auto"/>
-            <ColumnDefinition x:Name="col2" Width="*"/>
-            <ColumnDefinition x:Name="col3" Width="20"/>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="row1" Height="Auto"/>
@@ -45,7 +63,7 @@
             <RowDefinition x:Name="row4" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="6,6,6,0" Grid.Row="1"/>
+        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,0" Grid.Row="1"/>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
             <TextBlock x:Name="username" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
             <Border x:Name="BotIndicator" Visibility="Collapsed" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2">
@@ -63,8 +81,6 @@
             <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
         </Grid>
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
-            <SymbolIcon Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,6,0,0">
-            </SymbolIcon>
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Add reaction"/>
@@ -72,6 +88,7 @@
                     <MenuFlyoutItem Text="Delete" HorizontalContentAlignment="Right"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
+            <SymbolIcon Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,6,0,0"/>
         </Button>
     </Grid>
 </UserControl>
