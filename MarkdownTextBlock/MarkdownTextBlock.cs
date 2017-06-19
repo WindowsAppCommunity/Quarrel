@@ -79,6 +79,20 @@ namespace Discord_UWP.MarkdownTextBlock
             set { SetValue(TextProperty, value); }
         }
 
+        public string MessageId
+        {
+            get { return (string)GetValue(MessageIdProperty); }
+            set { SetValue(MessageIdProperty, value); }
+        }
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty MessageIdProperty = DependencyProperty.Register(
+            nameof(MessageId),
+            typeof(string),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
+
         /// <summary>
         /// Gets or sets the markdown text to display.
         /// </summary>
@@ -1118,7 +1132,7 @@ namespace Discord_UWP.MarkdownTextBlock
                 markdown.Parse(Text);
 
                 // Now try to display it
-                var renderer = new XamlRenderer(markdown, this, Users)
+                var renderer = new XamlRenderer(markdown, this, Users, MessageId)
                 {
                     Background = Background,
                     BorderBrush = BorderBrush,

@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
@@ -175,15 +176,15 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                     //Channel mention
                     if(scheme == "#") type=HyperlinkType.DiscordChannelMention;
                     //Role mention
-                    else if(scheme == "@" && markdown.ElementAt(innerStart + 2) == '&') type= HyperlinkType.DiscordRoleMention;
+                    else if(scheme == "@" && markdown.ElementAt(innerStart + 1) == '&') type= HyperlinkType.DiscordRoleMention;
                     //Nick mention
-                    else if (scheme == "@" && markdown.ElementAt(innerStart + 2) == '!') type = HyperlinkType.DiscordNickMention;
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '!') type = HyperlinkType.DiscordNickMention;
                     //User mention
                     else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
                     break;
                 }
             }
-
+            Debug.WriteLine("mention type=" + type);
             if (pos == -1)
             {
                 return null;

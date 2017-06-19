@@ -1901,7 +1901,7 @@
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 
-                                <TextBlock x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
