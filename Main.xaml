@@ -145,7 +145,7 @@
                 <ListView.Footer>
                     <Grid Height="12" Margin="0,0,0,0">
                         <TextBlock Margin="12,-12.1,12,0" x:Name="NoMessageChached" Text="No messages cached" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                        <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom"/>
+                        <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                     </Grid>
                 </ListView.Footer>
             </ListView>
@@ -163,7 +163,7 @@
                 <Rectangle Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                 <!--<Image x:Name="AttachmentImage" Grid.ColumnSpan="3"/>-->
                 <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
-                <RichEditBox x:Name="MessageBox" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanging="TypingStarted" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>
+                <RichEditBox MaxHeight="128" x:Name="MessageBox" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanging="TypingStarted" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>
                 <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
                 <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="10" Margin="0,8"/>
             </Grid>
