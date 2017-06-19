@@ -259,12 +259,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="API86">
-      <HintPath>.\API86.dll</HintPath>
-    </Reference>
-    <Reference Include="APIARM">
-      <HintPath>.\APIARM.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="DiscordAPI\Discord-UWP.csproj">
+      <Project>{b15b5192-7746-4797-8838-488d4367f399}</Project>
+      <Name>Discord-UWP</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
