@@ -56,6 +56,11 @@ namespace Discord_UWP
         private static void OnIsContinuationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((MessageControl)d)._iscontinuation = (bool)e.NewValue;
+            if ((bool)e.NewValue)
+            {
+                Debug.WriteLine("IS CONTINUATION");
+                VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+            }
         }
 
         private string _header;
@@ -113,12 +118,6 @@ namespace Discord_UWP
         public void UpdateControl()
         {
             if (!Message.HasValue) return;
-
-            if (_iscontinuation == true && (_message != null))
-            {
-                Debug.WriteLine("IS CONTINUATION");
-                VisualStateManager.GoToState(this, "Continuation", false);
-            }
                 username.Text = _message.Value.User.Username;
                 SharedModels.GuildMember member;
                 if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))

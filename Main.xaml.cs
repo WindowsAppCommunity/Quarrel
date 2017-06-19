@@ -806,26 +806,26 @@ namespace Discord_UWP
 
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
+                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
+                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
+                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
 
                 PinnedMessages.Items.Clear();
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
+                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Reverse())
                 {
                     adCheck--;
-                    PinnedMessages.Items.Insert(0, NewMessageContainer(message.Value.Raw, false, false, null));
+                    PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        PinnedMessages.Items.Add(NewMessageContainer(null, false, true, null));
                         adCheck = 5;
                     }
                 }
@@ -892,34 +892,34 @@ namespace Discord_UWP
                 int adCheck = 5;
 
                 //Normal messages
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
+                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
+                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
+                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
               
               //  //Pinned messages
                 PinnedMessages.Items.Clear();
-                await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Clear();
+                await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Clear();
 
                 foreach (SharedModels.Message message in pinnedmessages)
                 {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Add(message.Id, new CacheModels.Message(message));
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new CacheModels.Message(message));
                 }
 
                 adCheck = 5;
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
+                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
                 {
                     adCheck--;
-                    PinnedMessages.Items.Insert(0, NewMessageContainer(message.Value.Raw, false, false, null));
+                    PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
                         PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
@@ -927,28 +927,29 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Name;
+                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Name;
 
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Topic != null)
+                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Topic != null)
                 {
-                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Topic;
+                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Topic;
                 }
                 else
                 {
                     ChannelTopic.Text = "";
                 }
 
-                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages != null)
+                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Messages != null)
                 {
-                    if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id))
+                    if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id))
                     {
-                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id] = (Messages.Items.Last() as MessageContainer).Message.Value.Id;
+                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
                     }
                     else
                     {
-                        if (((Messages.Items.Last() as MessageContainer).Message).HasValue)
+                        var messageContainer = Messages.Items.Last() as MessageContainer;
+                        if (messageContainer != null && (messageContainer.Message).HasValue)
                         {
-                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (Messages.Items.Last() as MessageContainer).Message.Value.Id);
+                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
                         }
                     }
                     Storage.SaveMessages();
@@ -981,13 +982,13 @@ namespace Discord_UWP
                 //loadmsgs.Tapped += LoadMoreMessages;
                 Messages.Items.Add(loadmsgs);
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
+                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
-                    Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
+                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
+                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
@@ -1037,13 +1038,13 @@ namespace Discord_UWP
                 Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
             }
 
-            foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
+            foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
             {
                 adCheck--;
-                Messages.Items.Insert(1, NewMessageContainer(message.Value.Raw, null, false, null));
+                Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
                 if (adCheck == 0 && ShowAds)
                 {
-                    Messages.Items.Insert(1, NewMessageContainer(null, null, true, null));
+                    Messages.Items.Add(NewMessageContainer(null, null, true, null));
                     adCheck = 5;
                 }
             }
