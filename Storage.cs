@@ -125,8 +125,6 @@ namespace Discord_UWP
     public enum Theme { Dark, Light, Auto }
     public class Settings
     {
-        public double DetailsViewSize = 250;
-        public double NmiOpacity = 40;
         public bool LockChannels = false;
         public bool AutoHideChannels = true;
         public bool AutoHidePeople = false;
