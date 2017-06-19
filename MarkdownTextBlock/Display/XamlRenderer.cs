@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Windows.Data.Pdf;
 using Windows.UI.Text;
@@ -40,10 +41,13 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// </summary>
         private readonly ILinkRegister _linkRegister;
 
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister)
+        private readonly IEnumerable<SharedModels.User> _users;
+
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users)
         {
             _document = document;
             _linkRegister = linkRegister;
+            _users = users;
         }
 
         /// <summary>
@@ -986,13 +990,24 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention)
             {
+                var content = element.Text;
+                try
+                {
+                    if (element.LinkType == HyperlinkType.DiscordUserMention)
+                        content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 1)).Username;
+
+                    else if (element.LinkType == HyperlinkType.DiscordNickMention)
+                        content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 2)).Username;
+                }
+                catch (Exception) { content = "<Unvalid Mention>";}
+                
+                    
                 var link = new HyperlinkButton();
-                link.Content = CollapseWhitespace(context, element.Text);
+                 
+                link.Content = CollapseWhitespace(context, content);
                 link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
-                link.FontSize = 13.333;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
-                InlineUIContainer linkContainer = new InlineUIContainer();
-                linkContainer.Child = link;
+                InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
                 inlineCollection.Add(linkContainer);
             }
             else
