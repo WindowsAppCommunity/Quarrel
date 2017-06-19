@@ -305,21 +305,22 @@ namespace Discord_UWP
 
         private async void GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
         {
+            Storage.Cache.Guilds.Remove(e.EventData.MessageId);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               () =>
+               async () =>
                {
-                   LoadGuilds();
+                   await DownloadGuilds();
                });
         }
 
         private async void GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
             Storage.Cache.Guilds[e.EventData.Id].RawGuild = e.EventData;
-            /*await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               async () =>
                {
-                   LoadGuilds();
-               });*/
+                   await DownloadGuilds();
+               });
         }
 
         private async void GuildChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
