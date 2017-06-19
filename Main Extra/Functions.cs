@@ -110,7 +110,7 @@ namespace Discord_UWP
                 {
                     MessageContainer previousMessage = Messages.Items.Last() as MessageContainer;
                     //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
-                    if (message != null)
+                    if (message != null && previousMessage?.Message != null)
                     {
                         var timedif = (message).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp)
                             .TotalSeconds;
