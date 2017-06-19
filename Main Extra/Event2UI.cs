@@ -43,76 +43,6 @@ namespace Discord_UWP
                 Session.PrecenseDict.Add(presence.User.Id, presence);
             }
 
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
-                {
-                    if (ServerList.SelectedIndex > 0)
-                    {
-                        if (MemberList != null)
-                        {
-                            MemberList.Children.Clear();
-                        };
-
-                        #region Roles
-
-                        List<ListView> listBuffer = new List<ListView>();
-                        while (listBuffer.Count < 1000)
-                        {
-                            listBuffer.Add(new ListView());
-                        }
-
-                        await Session.GetGuildMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                        await Session.GetGuild((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                        if (Session.Guild.Roles != null)
-                        {
-                            foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                            {
-                                if (role.Hoist)
-                                {
-                                    ListView listview = new ListView();
-                                    listview.Header = role.Name;
-                                    listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                                    listview.SelectionMode = ListViewSelectionMode.None;
-
-                                    foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                                    {
-                                        if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                                        {
-                                            ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                            listview.Items.Add(listviewitem);
-                                        }
-                                    }
-                                    listBuffer.Insert(1000 - role.Position * 3, listview);
-                                }
-                            }
-                        }
-
-                        foreach (ListView listview in listBuffer)
-                        {
-                            if (listview.Items.Count != 0)
-                            {
-                                MemberList.Children.Add(listview);
-                            }
-                        }
-
-                        ListView fulllistview = new ListView();
-                        fulllistview.Header = "Everyone";
-
-                        foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                        {
-                            if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
-                            {
-                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new CacheModels.Member(member.Value.Raw));
-                            }
-                            ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            fulllistview.Items.Add(listviewitem);
-                        }
-                        MemberList.Children.Add(fulllistview);
-
-                        #endregion
-                    }
-                });
-
             Session.Friends = e.EventData.Friends;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
@@ -303,7 +233,7 @@ namespace Discord_UWP
             if (e.EventData.Presences != null)
             {
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
+                () =>
                 {
                     if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
                     {
@@ -320,10 +250,8 @@ namespace Discord_UWP
                         {
                             listBuffer.Add(new ListView());
                         }
-
-                        await Session.GetGuildMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                        await Session.GetGuild((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                        if (Session.Guild.Roles != null)
+                        
+                        if (Storage.Cache.Guilds[e.EventData.Id].Roles != null)
                         {
                             foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                             {
@@ -432,17 +360,26 @@ namespace Discord_UWP
 
         private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
         {
-            Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new CacheModels.Member(new SharedModels.GuildMember(){Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User}));
+            if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
+            {
+                Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new CacheModels.Member(new SharedModels.GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User }));
+            }
         }
 
         private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
         {
-            Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User.Id);
+            if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
+            {
+                Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User.Id);
+            }
         }
 
         private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
         {
-            Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw = new SharedModels.GuildMember(){Nick = e.EventData.Nick, Roles = e.EventData.Roles};
+            if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
+            {
+                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw = new SharedModels.GuildMember() { Nick = e.EventData.Nick, Roles = e.EventData.Roles };
+            }
         }
 
         private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
@@ -491,7 +428,7 @@ namespace Discord_UWP
             }
             Session.PrecenseDict.Add(e.EventData.User.Id, e.EventData);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
+                () =>
                 {
                     if (ServerList.SelectedIndex != -1 && ServerList.SelectedIndex != 0)
                     {
@@ -505,10 +442,8 @@ namespace Discord_UWP
                             {
                                 listBuffer.Add(new ListView());
                             }
-
-                            await Session.GetGuildMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                            await Session.GetGuild((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                            if (Session.Guild.Roles != null)
+                            
+                            if (Storage.Cache.Guilds[e.EventData.GuildId].Roles != null)
                             {
                                 foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                                 {

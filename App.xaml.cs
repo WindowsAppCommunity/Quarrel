@@ -135,7 +135,6 @@ namespace Discord_UWP
                     Storage.Settings.AutoHidePeople = false;
                     Storage.Settings.Toasts = true;
                     Storage.Settings.HighlightEveryone = true;
-                    Storage.Settings.DetailsViewSize = 250;
                     Storage.SaveAppSettings();
                 }
             }
@@ -145,7 +144,6 @@ namespace Discord_UWP
                 Storage.Settings.AutoHidePeople = false;
                 Storage.Settings.Toasts = true;
                 Storage.Settings.HighlightEveryone = true;
-                Storage.Settings.DetailsViewSize = 250;
                 Storage.SaveAppSettings();
 
                 MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");

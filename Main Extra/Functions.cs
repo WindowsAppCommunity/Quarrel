@@ -1059,10 +1059,10 @@ namespace Discord_UWP
             }
 
 
-            if (Storage.MutedChannels.Contains(channel.Raw.Id))
+            /*if (Storage.MutedChannels.Contains(channel.Raw.Id))
             {
                 SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
-                brush.Opacity = Storage.Settings.NmiOpacity / 100;
+                brush.Opacity = 30;
                 listviewitem.Background = brush;
             }
             else if (Storage.RecentMessages.ContainsKey(channel.Raw.Id) && Storage.RecentMessages[channel.Raw.Id] != channel.Raw.LastMessageId)
@@ -1070,10 +1070,10 @@ namespace Discord_UWP
                 var uiSettings = new Windows.UI.ViewManagement.UISettings();
                 Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
                 SolidColorBrush accent = new SolidColorBrush(c);
-                accent.Opacity = Storage.Settings.NmiOpacity / 100;
+                accent.Opacity = 30;
                 listviewitem.Background = accent;
                 listviewitem.Tapped += ClearColor;
-            }
+            }*/
 
             stack.Children.Add(image);
 
@@ -1094,7 +1094,7 @@ namespace Discord_UWP
 
             ListViewItem listviewitem = new ListViewItem();
 
-            if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id && channel.Raw.Id != channel.Raw.GuildId)
+            if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id && channel.Raw.Id != channel.Raw.GuildId)
             {
                 listviewitem.IsEnabled = false;
                 //listviewitem.Visibility = Visibility.Collapsed;
@@ -1106,10 +1106,11 @@ namespace Discord_UWP
             {
                 listviewitem.Content = txtblock;
                 listviewitem.Tag = channel;
-                if (Storage.MutedChannels.Contains(channel.Raw.Id))
+
+                /*if (Storage.MutedChannels.Contains(channel.Raw.Id))
                 {
                     SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
-                    brush.Opacity = Storage.Settings.NmiOpacity / 100;
+                    brush.Opacity = 30;
                     listviewitem.Background = brush;
                 }
                 else if (Storage.RecentMessages.ContainsKey(channel.Raw.Id) && Storage.RecentMessages[channel.Raw.Id] != channel.Raw.LastMessageId)
@@ -1117,17 +1118,17 @@ namespace Discord_UWP
                     var uiSettings = new Windows.UI.ViewManagement.UISettings();
                     Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
                     SolidColorBrush accent = new SolidColorBrush(c);
-                    accent.Opacity = Storage.Settings.NmiOpacity / 100;
+                    accent.Opacity = 30;
                     listviewitem.Background = accent;
                     listviewitem.Tapped += ClearColor;
-                }
+                }*/
 
                 #region Flyout
                 Flyout flyout = new Flyout();
                 StackPanel flyoutcontent = new StackPanel();
                 flyoutcontent.Margin = new Thickness(-10);
 
-                if (perms.EffectivePerms.ManageChannels || perms.EffectivePerms.Administrator)
+                if (perms.EffectivePerms.ManageChannels || perms.EffectivePerms.Administrator || Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
                 {
                     Button channelSettings = new Button()
                     {
@@ -1161,11 +1162,6 @@ namespace Discord_UWP
                 flyout.Content = flyoutcontent;
                 listviewitem.ContextFlyout = flyout;
                 #endregion
-
-                //if (!perms.EffectivePerms.ReadMessages)
-                //{
-                //    listviewitem.IsEnabled = false;
-                //}
 
                 //return listviewitem;
             }
@@ -1210,7 +1206,7 @@ namespace Discord_UWP
                         if ((item.Tag as CacheModels.GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
                         {
                             SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
-                            brush.Opacity = Storage.Settings.NmiOpacity / 100;
+                            brush.Opacity = 30;
                             item.Background = brush;
                         }
                     }

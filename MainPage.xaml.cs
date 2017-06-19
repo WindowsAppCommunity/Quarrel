@@ -166,7 +166,7 @@ namespace Discord_UWP
             Members.IsPaneOpen = !Members.IsPaneOpen;
         }
 
-        private void ToggleDetails(object sender, RoutedEventArgs e)
+        /*private void ToggleDetails(object sender, RoutedEventArgs e)
         {
             if (Details_Width.Width == new GridLength(Storage.Settings.DetailsViewSize))
             {
@@ -180,7 +180,7 @@ namespace Discord_UWP
                 MemberListToggle.IsChecked = false;
                 Members.IsPaneOpen = false;
             }
-        }
+        }*/
 
 
         private void LoadGuild(object sender, SelectionChangedEventArgs e)
@@ -1134,8 +1134,6 @@ namespace Discord_UWP
             AutoHidePeople.IsOn = Storage.Settings.AutoHidePeople;
             HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
             Toasts.IsOn = Storage.Settings.Toasts;
-            DetailsSize.Value = Storage.Settings.DetailsViewSize;
-            NMIOp.Value = Storage.Settings.NmiOpacity;
             UserSettings.Visibility = Visibility.Visible;
         }
 
