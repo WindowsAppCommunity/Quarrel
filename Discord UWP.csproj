@@ -124,12 +124,6 @@
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage Extra\Events2UI.cs" />
-    <Compile Include="MainPage Extra\Actions.cs" />
-    <Compile Include="MainPage Extra\Functions.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MarkdownTextBlock\Display\ILinkRegister.cs" />
     <Compile Include="MarkdownTextBlock\Display\MarkdownTable.cs" />
     <Compile Include="MarkdownTextBlock\Display\XamlRenderer.cs" />
@@ -241,10 +235,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Main.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

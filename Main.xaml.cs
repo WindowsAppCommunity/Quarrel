@@ -426,7 +426,7 @@ namespace Discord_UWP
                 }
                 #endregion
 
-                if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
+                if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
                 {
                     AddChannelButton.Visibility = Visibility.Collapsed;
                 }
@@ -602,7 +602,7 @@ namespace Discord_UWP
             }
             #endregion
 
-            if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 AddChannelButton.Visibility = Visibility.Collapsed;
             }
@@ -1627,8 +1627,6 @@ namespace Discord_UWP
             //   AutoHidePeople.IsOn = Storage.settings.AutoHidePeople;
             HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
             Toasts.IsOn = Storage.Settings.Toasts;
-            DetailsSize.Value = Storage.Settings.DetailsViewSize;
-            NMIOp.Value = Storage.Settings.NmiOpacity;
 
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
@@ -1646,14 +1644,13 @@ namespace Discord_UWP
             DarkenMessageArea.Begin();
             UserSettings.IsPaneOpen = !UserSettings.IsPaneOpen;
         }
+
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-       //     Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
+        //    Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
         //    Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
             Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
             Storage.Settings.Toasts = Toasts.IsOn;
-            Storage.Settings.DetailsViewSize = DetailsSize.Value;
-            Storage.Settings.NmiOpacity = NMIOp.Value;
 
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;
