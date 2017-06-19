@@ -259,9 +259,11 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Discord-UWP, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Discord-UWP.dll</HintPath>
+    <Reference Include="API86">
+      <HintPath>.\API86.dll</HintPath>
+    </Reference>
+    <Reference Include="APIARM">
+      <HintPath>.\APIARM.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
