@@ -72,25 +72,6 @@ namespace Discord_UWP
             return new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
         }
 
-
-        //This function renders the messages in a smart way, depending on the one before it
-        private void SmartMessageTunnel(Gateway.GatewayEventArgs<SharedModels.Message> e)
-        {
-            if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(MessageContainer))
-            {
-                MessageContainer previousMessage = Messages.Items.Last() as MessageContainer;
-
-                //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
-                var timedif = (e.EventData as SharedModels.Message?).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp).TotalSeconds;
-                if (previousMessage.Message.Value.User.Id == (e.EventData as SharedModels.Message?).Value.User.Id && timedif < 120)
-                    Messages.Items?.Add(NewMessageContainer(e.EventData, true, false, null));
-                else
-                    Messages.Items?.Add(NewMessageContainer(e.EventData, false, false, null));
-            }
-            else
-                Messages.Items?.Add(NewMessageContainer(e.EventData, false, false, null));
-        }
-
         public class MessageContainer : INotifyPropertyChanged
         {
             private SharedModels.Message? _message;
@@ -120,13 +101,33 @@ namespace Discord_UWP
             }
         }
 
-        public MessageContainer NewMessageContainer(SharedModels.Message? message, bool isContinuation, bool isAdvert, string header)
+        public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header)
         {
+            
+            if (isContinuation == null)
+            {
+                if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(MessageContainer))
+                {
+                    MessageContainer previousMessage = Messages.Items.Last() as MessageContainer;
+                    //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
+                    if (message != null)
+                    {
+                        var timedif = (message).Value.Timestamp.Subtract(previousMessage.Message.Value.Timestamp)
+                            .TotalSeconds;
+                        if (previousMessage.Message.Value.User.Id == message.Value.User.Id && timedif < 120)
+                            isContinuation = true;
+                        else
+                            isContinuation = false;
+                    }
+                }
+                else
+                    isContinuation = false;
+            }
             return new MessageContainer()
             {
                 Header = header,
                 IsAdvert = isAdvert,
-                IsContinuation = isContinuation,
+                IsContinuation = isContinuation.Value,
                 Message = message
             };
         }
