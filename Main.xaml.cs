@@ -212,6 +212,10 @@ namespace Discord_UWP
             Session.Gateway.GuildChannelDeleted += GuildChannelDeleted;
             Session.Gateway.GuildChannelUpdated += GuildChannelUpdated;
 
+            Session.Gateway.GuildMemberAdded += GuildMemberAdded;
+            Session.Gateway.GuildMemberRemoved += GuildMemberRemoved;
+            Session.Gateway.GuildMemberUpdated += GuildMemberUpdated;
+
             Session.Gateway.DirectMessageChannelCreated += DirectMessageChannelCreated;
             Session.Gateway.DirectMessageChannelDeleted += DirectMessageChannelDeleted;
 
@@ -230,7 +234,7 @@ namespace Discord_UWP
             //Session.SlowSpeeds = true;
             //RefreshButton.Visibility = Visibility.Visible;
         }
-        
+
         #region LoadUser
         private void LoadUser()
         {
@@ -422,7 +426,7 @@ namespace Discord_UWP
                 }
                 #endregion
 
-                if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
+                if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
                 {
                     AddChannelButton.Visibility = Visibility.Collapsed;
                 }
@@ -566,6 +570,9 @@ namespace Discord_UWP
                 if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
                 {
                     Storage.Cache.Guilds[id].Members.Add(member.User.Id, new CacheModels.Member(member));
+                } else
+                {
+                    Storage.Cache.Guilds[id].Members[member.User.Id] = new CacheModels.Member(member);
                 }
             }
 
@@ -595,7 +602,7 @@ namespace Discord_UWP
             }
             #endregion
 
-            if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 AddChannelButton.Visibility = Visibility.Collapsed;
             }
@@ -1620,8 +1627,6 @@ namespace Discord_UWP
             //   AutoHidePeople.IsOn = Storage.settings.AutoHidePeople;
             HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
             Toasts.IsOn = Storage.Settings.Toasts;
-            DetailsSize.Value = Storage.Settings.DetailsViewSize;
-            NMIOp.Value = Storage.Settings.NmiOpacity;
 
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
@@ -1639,14 +1644,13 @@ namespace Discord_UWP
             DarkenMessageArea.Begin();
             UserSettings.IsPaneOpen = !UserSettings.IsPaneOpen;
         }
+
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-       //     Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
+        //    Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
         //    Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
             Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
             Storage.Settings.Toasts = Toasts.IsOn;
-            Storage.Settings.DetailsViewSize = DetailsSize.Value;
-            Storage.Settings.NmiOpacity = NMIOp.Value;
 
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;

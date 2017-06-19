@@ -407,10 +407,6 @@
                                     <RadioButton x:Name="radio_Light" Content="Light" GroupName="Theme"/>
                                     <RadioButton x:Name="radio_Auto" Content="System" GroupName="Theme"/>
                                     <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
-                                    <Slider x:Name="DetailsSize" Header="Channel List Size" Minimum="150" Maximum="300" Margin="0,6,0,0"/>
-                                    <Slider x:Name="NMIOp" Header="New Message/Mute Indicator Opacity %" Minimum="20" Maximum="100"/>
-                                    
-
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -666,7 +662,7 @@
                 </AppBarButton>
             </CommandBar.Content>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Refresh" Click="AppBarButton_Click" />
+                <AppBarButton Label="Refresh" Click="AppBarButton_Click" Visibility="Collapsed" />
                 <AppBarButton Label="What's New?" Click="OpenWhatsNew"/>
                 <AppBarButton x:Name="FeedbackButton" Label="Feedback Hub" Click="OpenFeedbackHub"/>
                 <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>

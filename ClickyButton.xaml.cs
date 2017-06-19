@@ -30,8 +30,8 @@ namespace Discord_UWP
         private void RandomColor(object sender, RoutedEventArgs e)
         {
             Random rand = new Random();
-            ClickButton.Foreground = MainPage.GetSolidColorBrush(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-            ClickButton.Background = MainPage.GetSolidColorBrush(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+            ClickButton.Foreground = Main.GetSolidColorBrush(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+            ClickButton.Background = Main.GetSolidColorBrush(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
         }
     }
 }

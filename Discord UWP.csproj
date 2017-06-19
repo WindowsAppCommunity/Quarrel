@@ -124,12 +124,6 @@
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage Extra\Events2UI.cs" />
-    <Compile Include="MainPage Extra\Actions.cs" />
-    <Compile Include="MainPage Extra\Functions.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MarkdownTextBlock\Display\ILinkRegister.cs" />
     <Compile Include="MarkdownTextBlock\Display\MarkdownTable.cs" />
     <Compile Include="MarkdownTextBlock\Display\XamlRenderer.cs" />
@@ -244,10 +238,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -269,8 +259,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Discord-UWP">
-      <HintPath>Discord-UWP.dll</HintPath>
+    <Reference Include="Discord-UWP, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Discord-UWP.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
