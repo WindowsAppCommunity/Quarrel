@@ -196,6 +196,7 @@ namespace Discord_UWP
             }
 
             string text = _message.Value.Content;
+            content.Users = _message.Value.Mentions;
             foreach(var m in _message.Value.Mentions)
             {
                 text = text.Replace(m.Id, "");

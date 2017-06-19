@@ -54,6 +54,11 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         DiscordUserMention,
 
         /// <summary>
+        /// A discord nick mention link (e.g. "@UserNickname").
+        /// </summary>
+        DiscordNickMention,
+
+        /// <summary>
         /// A discord role mention link (e.g. "@!Admins").
         /// </summary>
         DiscordRoleMention,
@@ -171,6 +176,8 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                     if(scheme == "#") type=HyperlinkType.DiscordChannelMention;
                     //Role mention
                     else if(scheme == "@" && markdown.ElementAt(innerStart + 2) == '&') type= HyperlinkType.DiscordRoleMention;
+                    //Nick mention
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 2) == '!') type = HyperlinkType.DiscordNickMention;
                     //User mention
                     else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
                     break;

@@ -80,6 +80,23 @@ namespace Discord_UWP.MarkdownTextBlock
         }
 
         /// <summary>
+        /// Gets or sets the markdown text to display.
+        /// </summary>
+        public IEnumerable<SharedModels.User> Users
+        {
+            get { return (IEnumerable<SharedModels.User>)GetValue(UsersProperty); }
+            set { SetValue(UsersProperty, value); }
+        }
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty UsersProperty = DependencyProperty.Register(
+            nameof(Users),
+            typeof(IEnumerable<SharedModels.User>),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
         /// Gets the dependency property for <see cref="Text"/>.
         /// </summary>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
@@ -1101,7 +1118,7 @@ namespace Discord_UWP.MarkdownTextBlock
                 markdown.Parse(Text);
 
                 // Now try to display it
-                var renderer = new XamlRenderer(markdown, this)
+                var renderer = new XamlRenderer(markdown, this, Users)
                 {
                     Background = Background,
                     BorderBrush = BorderBrush,
