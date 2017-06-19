@@ -35,7 +35,7 @@ namespace Discord_UWP.MarkdownTextBlock
         /// <summary>
         /// Holds a list of hyperlinks we are listening to.
         /// </summary>
-        private readonly List<Hyperlink> _listeningHyperlinks = new List<Hyperlink>();
+        private readonly List<object> _listeningHyperlinks = new List<object>();
 
         /// <summary>
         /// The root element for our rendering.
@@ -1182,9 +1182,12 @@ namespace Discord_UWP.MarkdownTextBlock
         private void UnhookListeners()
         {
             // Clear any hyper link events if we have any
-            foreach (Hyperlink link in _listeningHyperlinks)
+            foreach (object link in _listeningHyperlinks)
             {
-                link.Click -= Hyperlink_Click;
+                if(link.GetType() == typeof(Hyperlink))
+                   (link as Hyperlink).Click -= Hyperlink_Click;
+                if (link.GetType() == typeof(HyperlinkButton))
+                    (link as HyperlinkButton).Click -= NewHyperlinkButton_Click;
             }
 
             // Clear everything that exists.
@@ -1208,6 +1211,32 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Add it to our list
             _listeningHyperlinks.Add(newHyperlink);
+        }
+        public void RegisterNewHyperLink(HyperlinkButton newHyperlink, string linkUrl)
+        {
+            // Setup a listener for clicks.
+            newHyperlink.Click += NewHyperlinkButton_Click; ;
+
+            // Associate the URL with the hyperlink.
+            newHyperlink.SetValue(HyperlinkUrlProperty, linkUrl);
+
+            // Add it to our list
+            _listeningHyperlinks.Add(newHyperlink);
+        }
+
+        private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            // Get the hyperlink URL.
+            var url = (string)(sender as HyperlinkButton).GetValue(HyperlinkUrlProperty);
+            if (url == null)
+            {
+                return;
+            }
+
+            // Fire off the event.
+            var eventArgs = new LinkClickedEventArgs(url);
+            LinkClicked?.Invoke(this, eventArgs);
         }
 
         private bool multiClickDetectionTriggered;
@@ -1239,5 +1268,7 @@ namespace Discord_UWP.MarkdownTextBlock
             var eventArgs = new LinkClickedEventArgs(url);
             LinkClicked?.Invoke(this, eventArgs);
         }
+
+        
     }
 }
