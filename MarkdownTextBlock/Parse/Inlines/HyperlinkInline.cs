@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
 {
@@ -48,9 +49,20 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         User,
 
         /// <summary>
-        /// A discord mention link (e.g. "/u/quinbd").
+        /// A discord user mention link (e.g. "@User").
         /// </summary>
-        DiscordMention
+        DiscordUserMention,
+
+        /// <summary>
+        /// A discord role mention link (e.g. "@!Admins").
+        /// </summary>
+        DiscordRoleMention,
+
+        /// <summary>
+        /// A discord channel mention link (e.g. "#general").
+        /// </summary>
+        DiscordChannelMention,
+
     }
 
     /// <summary>
@@ -142,9 +154,11 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// <returns> A parsed URL, or <c>null</c> if this is not a URL. </returns>
         internal static Helpers.Common.InlineParseResult ParseAngleBracketLink(string markdown, int start, int maxEnd)
         {
+            HyperlinkType type = HyperlinkType.BracketedUrl;
             int innerStart = start + 1;
 
-            // Check for a known scheme e.g. "https://".
+            
+            // Check for a known scheme e.g. "https://" o
             int pos = -1;
             foreach (var scheme in BracketSchemes)
             {
@@ -152,6 +166,13 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                 {
                     // URL scheme found.
                     pos = innerStart + scheme.Length;
+
+                    //Channel mention
+                    if(scheme == "#") type=HyperlinkType.DiscordChannelMention;
+                    //Role mention
+                    else if(scheme == "@" && markdown.ElementAt(innerStart + 2) == '&') type= HyperlinkType.DiscordRoleMention;
+                    //User mention
+                    else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
                     break;
                 }
             }
@@ -175,7 +196,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
             }
 
             var url = markdown.Substring(innerStart, innerEnd - innerStart);
-            return new Helpers.Common.InlineParseResult(new HyperlinkInline { Url = url, Text = url, LinkType = HyperlinkType.BracketedUrl }, start, innerEnd + 1);
+            return new Helpers.Common.InlineParseResult(new HyperlinkInline { Url = url, Text = url, LinkType = type }, start, innerEnd + 1);
         }
 
         /// <summary>

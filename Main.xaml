@@ -669,5 +669,6 @@
                 <AppBarButton Label="Settings" Click="OpenUserSettings"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
+        
     </Grid>
 </Page>
