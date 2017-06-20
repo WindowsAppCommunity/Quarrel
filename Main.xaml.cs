@@ -1099,14 +1099,14 @@ namespace Discord_UWP
           //      MessageScroller.ChangeView(0.0f, MessageScroller.ScrollableHeight, 1f);
           //  }
         }
-        private void Refresh(object sender, RoutedEventArgs e)
+        private async void Refresh(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != "DMs")
             {
-                DownloadDmChannelMessages();
+                await DownloadDmChannelMessages();
             }
             else {
-                DownloadChannelMessages();
+                await DownloadChannelMessages();
             }
         }
         private void TogglePeopleShow(object sender, RoutedEventArgs e)
@@ -1133,7 +1133,8 @@ namespace Discord_UWP
         }
         private void TogglePinnedShow(object sender, RoutedEventArgs e)
         {
-            PinnedMessagesPopup.IsPaneOpen = !PinnedMessagesPopup.IsPaneOpen;
+
+           // PinnedMessagesPopup.IsPaneOpen = !PinnedMessagesPopup.IsPaneOpen;
         }
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
@@ -1760,6 +1761,11 @@ namespace Discord_UWP
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
             OpenChannelSettings(null,null);
+        }
+
+        private void Messages_RefreshRequested(object sender, EventArgs e)
+        {
+            Refresh(null,null);
         }
     }
 }

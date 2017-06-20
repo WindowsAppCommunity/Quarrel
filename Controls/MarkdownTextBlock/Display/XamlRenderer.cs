@@ -993,6 +993,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention)
             {
                 var content = element.Text;
+                SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                 try
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention)
@@ -1000,6 +1001,18 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
                         content = "@" + Storage.Cache.Guilds[App.CurrentId].Members[element.Text.Remove(0, 2)].Raw.Nick;
+
+                    else if (element.LinkType == HyperlinkType.DiscordChannelMention)
+                        content = "#" + Storage.Cache.Guilds[App.CurrentId]
+                                      .Channels[element.Text.Remove(0, 1)]
+                                      .Raw.Name;
+
+                    else if (element.LinkType == HyperlinkType.DiscordRoleMention)
+                    {
+                        var role = Storage.Cache.Guilds[App.CurrentId].Roles[element.Text.Remove(0, 2)];
+                        content = "@" + role.Name;
+                        foreground = Common.IntToColor(role.Color);
+                    }
                 }
                 catch (Exception) { content = "<Invalid Mention>";}
                 
@@ -1007,6 +1020,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 var link = new HyperlinkButton();
                  
                 link.Content = CollapseWhitespace(context, content);
+                link.Foreground = foreground;
                 link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
