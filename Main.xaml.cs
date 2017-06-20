@@ -1018,6 +1018,8 @@ namespace Discord_UWP
                 Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
             }
 
+            Messages.Items.Add(new MessageControl()); //Necessary for no good reason
+
             foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
             {
                 adCheck--;
@@ -1028,6 +1030,8 @@ namespace Discord_UWP
                     adCheck = 5;
                 }
             }
+
+            Messages.Items.RemoveAt(0);
 
             if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache).Raw.Id].Messages != null)
             {
