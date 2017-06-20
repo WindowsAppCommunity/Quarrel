@@ -231,39 +231,34 @@ namespace Discord_UWP
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
-            // if(perms == null)
-            // {
-            //     Permissions perms = new Permissions();
-            //     if (App.CurrentId != App.DMid)
-            //     {
-            //         foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
-            //         {
-            //             if (!Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-            //             {
-            //                 Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
-            //             }
-            // 
-            //             if (Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-            //             {
-            //                 perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles);
-            //             }
-            //             else
-            //             {
-            //                 perms.GetPermissions(0);
-            //             }
-            //         }
-            //     }
-            // }
-            // if (!perms.EffectivePerms.ManageMessages)
-            // {
-            //     MoreEdit.Visibility = Visibility.Collapsed;
-            //     MoreDelete.Visibility = Visibility.Collapsed;
-            // }
-            /*else*/
-            if (_message.Value.User.Id != )
+            Permissions perms = new Permissions();
+            if (App.CurrentId != App.DMid)
+            {
+                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                {
+                    if (!Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    {
+                        Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
+                    }
+
+                    if (Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    {
+                        perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles);
+                    }
+                    else
+                    {
+                        perms.GetPermissions(0);
+                    }
+                }
+            }
+            if (!perms.EffectivePerms.ManageMessages && Message.Value.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            {
+                MoreDelete.Visibility = Visibility.Collapsed;
+            }
+
+            if (Message.Value.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MoreEdit.Visibility = Visibility.Collapsed;
-                MoreDelete.Visibility = Visibility.Collapsed;
             }
             FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
