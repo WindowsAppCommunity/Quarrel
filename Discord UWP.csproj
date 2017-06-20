@@ -115,6 +115,9 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\EmbedControl.xaml.cs">
+      <DependentUpon>EmbedControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
     <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
     <Compile Include="DiscordAPI\API\BasicRestFactory.cs" />
@@ -202,40 +205,40 @@
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MarkdownTextBlock\Display\ILinkRegister.cs" />
-    <Compile Include="MarkdownTextBlock\Display\MarkdownTable.cs" />
-    <Compile Include="MarkdownTextBlock\Display\XamlRenderer.cs" />
-    <Compile Include="MarkdownTextBlock\Helpers\Common.cs" />
-    <Compile Include="MarkdownTextBlock\Helpers\DebuggingReporter.cs" />
-    <Compile Include="MarkdownTextBlock\LinkClickedEventArgs.cs" />
-    <Compile Include="MarkdownTextBlock\MarkdownRenderedEventArgs.cs" />
-    <Compile Include="MarkdownTextBlock\MarkdownTextBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\CodeBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\HeaderBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\HorizontalRuleBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\LinkReferenceBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\ListBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\ParagraphBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\QuoteBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Blocks\TableBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\BoldTextInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\CodeInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\HyperlinkInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\IInlineContainer.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\IInlineLeaf.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\ILinkElement.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\ImageInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\EmojiInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\ItalicTextInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\MarkdownLinkInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\StrikethroughTextInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\SuperscriptTextInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\Inlines\TextRunInline.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\MarkdownBlock.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\MarkdownDocument.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\MarkdownElement.cs" />
-    <Compile Include="MarkdownTextBlock\Parse\MarkdownInline.cs" />
-    <Compile Include="MessageControl.xaml.cs">
+    <Compile Include="Controls\MarkdownTextBlock\Display\ILinkRegister.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Display\MarkdownTable.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Display\XamlRenderer.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Helpers\Common.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Helpers\DebuggingReporter.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\LinkClickedEventArgs.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\MarkdownRenderedEventArgs.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\MarkdownTextBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\CodeBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HeaderBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HorizontalRuleBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\LinkReferenceBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ListBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ParagraphBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\QuoteBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\TableBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\CodeInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\HyperlinkInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineContainer.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineLeaf.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ILinkElement.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ImageInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\EmojiInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ItalicTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\MarkdownLinkInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\StrikethroughTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\SuperscriptTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\TextRunInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownDocument.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownElement.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownInline.cs" />
+    <Compile Include="Controls\MessageControl.xaml.cs">
       <DependentUpon>MessageControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
@@ -289,7 +292,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="MarkdownTextBlock\About.txt" />
+    <Content Include="Controls\MarkdownTextBlock\About.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -308,6 +311,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\EmbedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LockScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -316,7 +323,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MessageControl.xaml">
+    <Page Include="Controls\MessageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

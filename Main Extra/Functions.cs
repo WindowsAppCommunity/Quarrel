@@ -89,6 +89,7 @@ namespace Discord_UWP
                 get => _isadvert;
                 set { if (_isadvert == value) return; _isadvert = value; OnPropertyChanged("IsAdvert"); } }
 
+
             private string _header;
             public string Header {
                 get => _header;
@@ -101,7 +102,7 @@ namespace Discord_UWP
             }
         }
 
-        public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header)
+        public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header, bool HideMoreButton = false)
         {
             
             if (!isContinuation.HasValue)
@@ -129,6 +130,7 @@ namespace Discord_UWP
                 Header = header,
                 IsAdvert = isAdvert,
                 IsContinuation = isContinuation.Value,
+                
                 Message = message
             };
         }

@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" >
     <Page.Resources>
@@ -22,6 +23,35 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <Style x:Key="FlyoutPresenterStyle1" TargetType="FlyoutPresenter">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeHighBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}"/>
+            <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}"/>
+            <Setter Property="MaxHeight" Value="{ThemeResource FlyoutThemeMaxHeight}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="FlyoutPresenter">
+                        <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource DeepBG}" CornerRadius="4">
+                            <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Grid Background="Black">
         <VisualStateManager.VisualStateGroups>
@@ -123,7 +153,7 @@
                 <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
             </StackPanel>
 
-            <ListView x:Name="Messages" SelectionMode="None" Grid.Row="1">
+            <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
@@ -148,7 +178,7 @@
                         <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                     </Grid>
                 </ListView.Footer>
-            </ListView>
+            </tk:PullToRefreshListView>
 
             <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
                 <Grid.RowDefinitions>
@@ -237,18 +267,6 @@
                 <ScrollViewer>
                     <StackPanel x:Name="MemberList"/>
                 </ScrollViewer>
-            </SplitView.Pane>
-        </SplitView>
-
-        <SplitView x:Name="PinnedMessagesPopup" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource SystemAltMediumHighColor}" DisplayMode="Inline" Grid.Row="1"  PaneClosing="SP_PaneClosing">
-            <SplitView.Pane>
-                <ListView x:Name="PinnedMessages">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
             </SplitView.Pane>
         </SplitView>
 
@@ -397,7 +415,7 @@
                     <Pivot Grid.ColumnSpan="2" Margin="12,12,12,0" Grid.Row="0">
                         <PivotItem Header="UI">
                             <ScrollViewer>
-                            <StackPanel x:Name="UI_Menu">
+                                <StackPanel x:Name="UI_Menu">
                                     <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <Slider x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000"/>
                                     <Slider x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000"></Slider>
@@ -420,7 +438,7 @@
                             </StackPanel>
                         </PivotItem>
                     </Pivot>
-                    
+
                     <Button Grid.Row="1" VerticalAlignment="Bottom" Margin="12,0,12,64" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Content="Logout" Background="#FFCD3232" Click="CheckLogout" Style="{StaticResource DiscordButton}"/>
                     <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="12,0,4,12"/>
                     <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloseUserSettings" Style="{StaticResource DiscordButton}" Margin="6,0,12,12"/>
@@ -654,7 +672,35 @@
 
         <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}">
             <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
-            <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow"></AppBarButton>
+            <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
+                <AppBarButton.Flyout>
+                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                        <ListView x:Name="PinnedMessages" SelectionMode="None">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="MinHeight" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <local:MessageControl Message="{Binding Message}" MoreButtonVisibility="Collapsed" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.Footer>
+                                <Rectangle Height="24"/>
+                            </ListView.Footer>
+                        </ListView>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
             <AppBarToggleButton x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
             <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
             <CommandBar.Content>
@@ -665,13 +711,12 @@
                 </AppBarButton>
             </CommandBar.Content>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Refresh" Click="AppBarButton_Click" Visibility="Collapsed" />
                 <AppBarButton Label="What's New?" Click="OpenWhatsNew"/>
                 <AppBarButton x:Name="FeedbackButton" Label="Feedback Hub" Click="OpenFeedbackHub"/>
                 <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
                 <AppBarButton Label="Settings" Click="OpenUserSettings"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-        
+
     </Grid>
 </Page>
