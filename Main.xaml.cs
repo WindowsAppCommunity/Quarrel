@@ -436,8 +436,6 @@ namespace Discord_UWP
                 }
 
                 #region Roles
-
-
                 List<ListView> memberListBuffer = new List<ListView>();
                 while (memberListBuffer.Count < 1000)
                 {
@@ -760,6 +758,7 @@ namespace Discord_UWP
             {
                 NoDMSCached.Visibility = Visibility.Visible;
             }
+            App.CurrentId = "DMs";
         }
         private async Task DownloadDMs()
         {
@@ -777,8 +776,8 @@ namespace Discord_UWP
             {
                 DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
             }
-
             DMsLoading.IsActive = false;
+            App.CurrentId = "DMs";
         }
         #endregion
         #endregion
