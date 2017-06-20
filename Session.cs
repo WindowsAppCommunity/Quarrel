@@ -420,7 +420,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 Task<SharedModels.User> userTask = userService.ModifyCurrentUser(modifyuser);
                 userTask.Wait();
-                CurrentUser = userTask.Result;
+                Storage.Cache.CurrentUser = new CacheModels.User(userTask.Result);
             }
             catch (Exception e)
             {
@@ -512,22 +512,11 @@ namespace Discord_UWP
         }
 
         public static string Token;
-        //public static IEnumerable<SharedModels.Message> pinnedmessages;
-        //public static IEnumerable<SharedModels.Message> messages;
-        //public static Dictionary<string, SharedModels.Role> rolesdict = new Dictionary<string, SharedModels.Role>();
-        //public static List<SharedModels.Friend> users = new List<SharedModels.Friend>();
-        //public static IEnumerable<SharedModels.GuildMember> members;
-        //public static IEnumerable<SharedModels.GuildChannel> channels;
-        //public static IEnumerable<SharedModels.DirectMessageChannel> DMchannels;
-        //public static IEnumerable<SharedModels.UserGuild> userguilds;
-        //public static IEnumerable<SharedModels.Guild> guilds;
         public static IEnumerable<SharedModels.Friend> Friends;
         public static List<SharedModels.TypingStart> Typers = new List<SharedModels.TypingStart>();
         public static SharedModels.Guild Guild;
-        public static SharedModels.User CurrentUser;
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;
-        //public static Gateway.Gateway guildgateway;
         public static LoginResult Loginresult;
         public static LoginRequest LoginRequest = new LoginRequest();
         public static Dictionary<string, SharedModels.Presence> PrecenseDict = new Dictionary<string, SharedModels.Presence>();
