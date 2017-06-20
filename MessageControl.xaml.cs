@@ -41,7 +41,6 @@ namespace Discord_UWP
         private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((MessageControl)d)._isadvert = (bool)e.NewValue;
-
         }
 
         private bool _iscontinuation;
@@ -118,7 +117,9 @@ namespace Discord_UWP
         public void UpdateControl()
         {
             if (!Message.HasValue) return;
-                username.Text = _message.Value.User.Username;
+            username.Text = _message.Value.User.Username;
+            if (App.CurrentId != "DMs")
+            {
                 SharedModels.GuildMember member;
                 if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
                 {
@@ -133,16 +134,18 @@ namespace Discord_UWP
                     username.Text = member.Nick;
                 }
 
-            if (member.Roles != null && member.Roles.Count() > 0)
-            {
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                if (member.Roles != null && member.Roles.Count() > 0)
                 {
-                    if (role.Id == member.Roles.First<string>())
+                    foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
                     {
-                        username.Foreground = IntToColor(role.Color);
+                        if (role.Id == member.Roles.First<string>())
+                        {
+                            username.Foreground = IntToColor(role.Color);
+                        }
                     }
                 }
             }
+                
 
             if (_message.Value.User.Bot == true)
                 BotIndicator.Visibility = Visibility.Visible;
@@ -206,7 +209,6 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-
         }
 
         private void moreButton_Click(object sender, RoutedEventArgs e)

@@ -56,7 +56,6 @@ namespace Discord_UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
-        public static Dictionary<string, Member> Members;
         internal static string CurrentId;
 
         /// <summary>
@@ -133,7 +132,7 @@ namespace Discord_UWP
                 {
                     Storage.Settings.AutoHideChannels = true;
                     Storage.Settings.AutoHidePeople = false;
-                    Storage.Settings.Toasts = true;
+                    Storage.Settings.Toasts = false;
                     Storage.Settings.HighlightEveryone = true;
                     Storage.SaveAppSettings();
                 }
@@ -142,7 +141,7 @@ namespace Discord_UWP
             {
                 Storage.Settings.AutoHideChannels = true;
                 Storage.Settings.AutoHidePeople = false;
-                Storage.Settings.Toasts = true;
+                Storage.Settings.Toasts = false;
                 Storage.Settings.HighlightEveryone = true;
                 Storage.SaveAppSettings();
 
