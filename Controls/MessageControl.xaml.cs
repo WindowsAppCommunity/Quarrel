@@ -23,12 +23,20 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using static Discord_UWP.Common;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Discord_UWP
 {
     public sealed partial class MessageControl : UserControl
     {
+
+        /// <summary>
+        /// Fired when a link element in the markdown was tapped.
+        /// </summary>
+        public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
+
         private bool _isadvert = false;
         public bool IsAdvert
         {
@@ -223,6 +231,40 @@ namespace Discord_UWP
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
+            // if(perms == null)
+            // {
+            //     Permissions perms = new Permissions();
+            //     if (App.CurrentId != App.DMid)
+            //     {
+            //         foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+            //         {
+            //             if (!Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+            //             {
+            //                 Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
+            //             }
+            // 
+            //             if (Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+            //             {
+            //                 perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles);
+            //             }
+            //             else
+            //             {
+            //                 perms.GetPermissions(0);
+            //             }
+            //         }
+            //     }
+            // }
+            // if (!perms.EffectivePerms.ManageMessages)
+            // {
+            //     MoreEdit.Visibility = Visibility.Collapsed;
+            //     MoreDelete.Visibility = Visibility.Collapsed;
+            // }
+            /*else*/
+            if (_message.Value.User.Id != )
+            {
+                MoreEdit.Visibility = Visibility.Collapsed;
+                MoreDelete.Visibility = Visibility.Collapsed;
+            }
             FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
 
@@ -236,10 +278,6 @@ namespace Discord_UWP
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
-        private void MessageBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EditBox.Visibility = Visibility.Collapsed;
-        }
         private void ToggleReaction(object sender, RoutedEventArgs e)
         {
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
@@ -268,11 +306,15 @@ namespace Discord_UWP
                 }
             }
         }
-        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Document.SetText(TextSetOptions.None, content.Text);
+                            
+
+            string val = "";
+            MessageBox.Document.GetText(TextGetOptions.None, out val);
+            if (val.Trim() == "")
+                MessageBox.Document.SetText(TextSetOptions.None, content.Text);
             EditBox.Visibility = Visibility.Visible;
-            MessageBox.Focus(FocusState.Programmatic);
         }
 
         private void CreateMessage(object sender, RoutedEventArgs e)
@@ -280,6 +322,38 @@ namespace Discord_UWP
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
             Session.EditMessage(_message.Value.ChannelId, _message.Value.Id, editedText);
+        }
+
+        private void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        {
+            LinkClicked(sender, e);
+        }
+
+        private void MessageBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            string text = "";
+            MessageBox.Document.GetText(TextGetOptions.None, out text);
+            if (text != "")
+                SendBox.IsEnabled = true;
+            else
+                SendBox.IsEnabled = false;
+        }
+        Permissions perms;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            EditBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            Session.DeleteMessage(_message.Value.ChannelId, _message.Value.Id);
+        }
+
+        private void MoreCopyId_Click(object sender, RoutedEventArgs e)
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(_message.Value.Id);
+            Clipboard.SetContent(dataPackage);
         }
     }
 }

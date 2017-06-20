@@ -38,6 +38,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using Discord_UWP.SharedModels;
 using static Discord_UWP.Common;
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -1766,6 +1767,36 @@ namespace Discord_UWP
         private void Messages_RefreshRequested(object sender, EventArgs e)
         {
             Refresh(null,null);
+        }
+
+        private async void ShowUserDetails(string id)
+        {
+           await new MessageDialog("Sorry, but this feature hasn't yet been added into Discord UWP, it will be available in the next update. The fact that we didn't add it means you got access to the rest of the app sooner ;)", "Coming soon™")
+                .ShowAsync();
+        }
+        private void MessageControl_OnLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        {
+            if (e.Link.StartsWith("#"))
+            {
+                string val = e.Link.Remove(0, 1);
+                foreach (ListViewItem item in TextChannels.Items)
+                {
+                    if ((item.Tag as GuildChannel).Raw.Id == val)
+                    {
+                        TextChannels.SelectedItem = item;
+                    }
+                }
+            }
+            if (e.Link.StartsWith("@!"))
+            {
+                string val = e.Link.Remove(0, 2);
+                ShowUserDetails(val);
+            }
+            else if (e.Link.StartsWith("@&"))
+            {
+                string val = e.Link.Remove(0, 2);
+                ShowUserDetails(val);
+            }
         }
     }
 }
