@@ -777,7 +777,7 @@ namespace Discord_UWP
                 DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
             }
             DMsLoading.IsActive = false;
-            App.CurrentId = "DMs";
+            App.CurrentId = null;
         }
         #endregion
         #endregion
