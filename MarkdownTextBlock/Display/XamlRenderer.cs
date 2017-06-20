@@ -42,12 +42,14 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private readonly ILinkRegister _linkRegister;
 
         private readonly IEnumerable<SharedModels.User> _users;
+        private string _messageid;
 
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users)
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId)
         {
             _document = document;
             _linkRegister = linkRegister;
             _users = users;
+            _messageid = MessageId;
         }
 
         /// <summary>
@@ -988,7 +990,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private void RenderHyperlink(InlineCollection inlineCollection, HyperlinkInline element, RenderContext context)
         {
 
-            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention)
+            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention)
             {
                 var content = element.Text;
                 try
@@ -997,9 +999,9 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                         content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 1)).Username;
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
-                        content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 2)).Username;
+                        content = "@" + Storage.Cache.Guilds[App.CurrentId].Members[element.Text.Remove(0, 2)].Raw.Nick;
                 }
-                catch (Exception) { content = "<Unvalid Mention>";}
+                catch (Exception) { content = "<Invalid Mention>";}
                 
                     
                 var link = new HyperlinkButton();
