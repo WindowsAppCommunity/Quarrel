@@ -9,6 +9,35 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6">
+    <UserControl.Resources>
+        <Style x:Key="MenuFlyoutPresenterStyle1" TargetType="MenuFlyoutPresenter">
+            <Setter Property="Background" Value="{ThemeResource DarkBG}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource MenuFlyoutPresenterBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="{ThemeResource MenuFlyoutPresenterThemePadding}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False"/>
+            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False"/>
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+            <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}"/>
+            <Setter Property="MinHeight" Value="{ThemeResource MenuFlyoutThemeMinHeight}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuFlyoutPresenter">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer" AutomationProperties.AccessibilityView="Raw" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" Margin="{TemplateBinding BorderThickness}" MinWidth="{Binding TemplateSettings.FlyoutContentMinWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}" Padding="{TemplateBinding Padding}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ItemsPresenter Margin="0,4"/>
+                            </ScrollViewer>
+                            <Border CornerRadius="0" x:Name="MenuFlyoutPresenterBorder" BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid x:Name="rootGrid" Margin="12,24,12,6" HorizontalAlignment="Stretch">
         <VisualStateManager.VisualStateGroups>
@@ -92,11 +121,11 @@
         </Grid>
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
             <FlyoutBase.AttachedFlyout>
-                <MenuFlyout>
+                <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <!--<MenuFlyoutItem Text="Add reaction" HorizontalContentAlignment="Right"/>-->
-                    <MenuFlyoutItem x:Name="MoreEdit" Text="Edit" HorizontalContentAlignment="Right" Click="MenuFlyoutItem_Click"/>
-                    <MenuFlyoutItem x:Name="MoreDelete" Text="Delete" HorizontalContentAlignment="Right" Click="MenuFlyoutItem_Click_1"/>
-                    <MenuFlyoutItem x:Name="MoreCopyId" Text="Copy ID" HorizontalContentAlignment="Right" Click="MoreCopyId_Click"/>
+                    <MenuFlyoutItem x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
+                    <MenuFlyoutItem x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
+                    <MenuFlyoutItem x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
