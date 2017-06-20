@@ -54,7 +54,7 @@ namespace Discord_UWP
                 new PropertyMetadata(false, OnIsContinuationPropertyChanged));
         private static void OnIsContinuationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._iscontinuation = (bool)e.NewValue;
+            ((MessageControl)d).IsContinuation = (bool)e.NewValue;
             if ((bool)e.NewValue)
             {
                 Debug.WriteLine("IS CONTINUATION");
@@ -73,7 +73,7 @@ namespace Discord_UWP
                 new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
         private static void OnHeaderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._header = (string)e.NewValue;
+            ((MessageControl)d).Header = (string)e.NewValue;
         }
 
         Message? _message;
@@ -89,7 +89,7 @@ namespace Discord_UWP
         {
             if ((Message?) e.NewValue == null) return;
             Debug.WriteLine("New message");
-            ((MessageControl)d)._message = (Message?)e.NewValue;
+            ((MessageControl)d).Message = (Message?)e.NewValue;
             ((MessageControl)d).UpdateControl();
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -174,7 +174,6 @@ namespace Discord_UWP
                 };
                 foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count>0))
                 {
-                    
                     ToggleButton gridviewitem = new ToggleButton();
                     gridviewitem.IsChecked = reaction.Me;
                     gridviewitem.Tag = new Tuple<string, string, SharedModels.Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
