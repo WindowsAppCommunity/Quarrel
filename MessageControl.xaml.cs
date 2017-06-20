@@ -178,10 +178,6 @@ namespace Discord_UWP
                     gridviewitem.IsChecked = reaction.Me;
                     gridviewitem.Tag = new Tuple<string, string, SharedModels.Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
                     gridviewitem.Click += ToggleReaction;
-                    if (reaction.Me)
-                    {
-                        gridviewitem.IsChecked = true;
-                    }
 
                     StackPanel stack = new StackPanel();
                     stack.Orientation = Orientation.Horizontal;
@@ -193,7 +189,7 @@ namespace Discord_UWP
                     gridviewitem.Style = (Style)App.Current.Resources["EmojiButton"];
                     gridview.Items.Add(gridviewitem);
                 }
-                Grid.SetRow(gridview, 2);
+                Grid.SetRow(gridview, 3);
                 Grid.SetColumn(gridview, 1);
                 rootGrid.Children.Add(gridview);
             }
