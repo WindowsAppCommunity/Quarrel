@@ -169,7 +169,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
+                        <local:MessageControl Message="{Binding Message}" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}" LinkClicked="MessageControl_OnLinkClicked"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>
