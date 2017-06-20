@@ -40,7 +40,7 @@ namespace Discord_UWP
         new PropertyMetadata(false, OnIsAdvertPropertyChanged));
         private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._isadvert = (bool)e.NewValue;
+            ((MessageControl)d).IsAdvert = (bool)e.NewValue;
         }
 
         private bool _iscontinuation;
@@ -99,7 +99,7 @@ namespace Discord_UWP
             if (_isadvert == true && (_message == null))
             {
                 VisualStateManager.GoToState(this, "Advert", false);
-                AdControl ad = new AdControl();
+                /*AdControl ad = new AdControl();
                 ad.HorizontalAlignment = HorizontalAlignment.Center;
                 ad.Width = 300;
                 ad.Height = 50;
@@ -109,7 +109,8 @@ namespace Discord_UWP
                 ad.Background = new SolidColorBrush(Colors.Red);
                 Grid.SetColumnSpan(ad, 10);
                 Grid.SetRowSpan(ad, 10);
-                rootGrid.Children.Add(ad);
+                rootGrid.Children.Add(ad);*/
+                Ad.Visibility = Visibility.Visible;
                 return;
             }
         }

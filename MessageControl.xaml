@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
+    xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6">
@@ -16,14 +17,19 @@
                 <VisualState x:Name="Advert">
                     <VisualState.Setters>
                         <Setter Target="contentStacker.(Visibility)" Value="Collapsed"/>
-                        <Setter Target="row2.(Height)" Value="0"/>
-                        <Setter Target="col1.(Width)" Value="0"/>
-                        <Setter Target="col3.(Width)" Value="0"/>
-                        <Setter Target="rootGrid.(Panel.Background)">
+                        <Setter Target="Ad.(Visibility)" Value="Visible"/>
+                        <Setter Target="EditBox.(Visibility)" Value="Collapsed"/>
+                        <Setter Target="content.(Visibility)" Value="Collapsed"/>
+                        <Setter Target="moreButton.(Visibility)" Value="Collapsed"/>
+                        <Setter Target="avatar.(Visibility)" Value="Collapsed"/>
+                        <!--<Setter Target="row2.(Height)" Value="0"/>-->
+                        <!--<Setter Target="col1.(Width)" Value="0"/>-->
+                        <!--<Setter Target="col3.(Width)" Value="0"/>-->
+                        <!--<Setter Target="rootGrid.(Panel.Background)">
                             <Setter.Value>
                                 <SolidColorBrush Color="#33000000"/>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="rootGrid.(FrameworkElement.Margin)">
                             <Setter.Value>
                                 <Thickness>-12,6</Thickness>
@@ -95,5 +101,7 @@
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
+        <ad:AdControl x:Name="Ad" HorizontalAlignment="Center" Width="300" Height="50" ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee" AdUnitId="336795" Margin="6" Grid.Column="1" Grid.Row="10" Visibility="Collapsed"/>
+        <!--<Rectangle x:Name="Ad" HorizontalAlignment="Center" Width="300" Height="50" Fill="Red" Margin="6" Grid.Column="10" Grid.Row="10" Visibility="Collapsed"/>-->
     </Grid>
 </UserControl>
