@@ -811,6 +811,8 @@ namespace Discord_UWP
                     }
                 }
 
+                Messages.Items.RemoveAt(0);
+
                 PinnedMessages.Items.Clear();
 
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Reverse())
@@ -890,7 +892,9 @@ namespace Discord_UWP
                         adCheck = 5;
                     }
                 }
-              
+
+                Messages.Items.RemoveAt(0);
+
                 //Pinned messages
                 PinnedMessages.Items.Clear();
                 await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
