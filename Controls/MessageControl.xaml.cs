@@ -260,7 +260,7 @@ namespace Discord_UWP
             //     MoreDelete.Visibility = Visibility.Collapsed;
             // }
             /*else*/
-            if (_message.Value.User.Id != )
+            if (_message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MoreEdit.Visibility = Visibility.Collapsed;
                 MoreDelete.Visibility = Visibility.Collapsed;
