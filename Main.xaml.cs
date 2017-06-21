@@ -1572,6 +1572,7 @@ namespace Discord_UWP
             }
             _settingsPaneId = (sender as Button).Tag.ToString();
             ChannelSettings.IsPaneOpen = true;
+            DarkenMessageArea.Begin();
             if (!Session.Online)
             {
                 SaveChannelSettingsButton.IsEnabled = false;
