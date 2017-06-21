@@ -232,8 +232,6 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
-            //Session.SlowSpeeds = true;
-            //RefreshButton.Visibility = Visibility.Visible;
         }
 
         #region LoadUser
@@ -797,12 +795,8 @@ namespace Discord_UWP
                 MuteToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
-                ListViewItem loadmsgs = new ListViewItem();
-                loadmsgs.Content = "Load more messages";
-                loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-                //loadmsgs.Tapped += LoadMoreMessages;
-                loadmsgs.Visibility = Visibility.Collapsed;
-                Messages.Items.Add(loadmsgs);
+
+                Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
                 int adCheck = 5;
 
@@ -816,6 +810,8 @@ namespace Discord_UWP
                         adCheck = 5;
                     }
                 }
+
+                Messages.Items.RemoveAt(0);
 
                 PinnedMessages.Items.Clear();
 
@@ -880,16 +876,10 @@ namespace Discord_UWP
                     Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
                 }
 
-                ListViewItem loadmsgs = new ListViewItem();
-                loadmsgs.Content = "Load more messages";
-                loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-                loadmsgs.Tapped += LoadMoreMessages;
-                loadmsgs.Tag = messages.First().ChannelId;
-                //loadmsgs.Visibility = Visibility.Collapsed;
-                Messages.Items.Add(loadmsgs);
-
 
                 int adCheck = 5;
+
+                Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
                 //Normal messages
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Reverse())
@@ -902,8 +892,10 @@ namespace Discord_UWP
                         adCheck = 5;
                     }
                 }
-              
-              //  //Pinned messages
+
+                Messages.Items.RemoveAt(0);
+
+                //Pinned messages
                 PinnedMessages.Items.Clear();
                 await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
                 IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
@@ -975,12 +967,6 @@ namespace Discord_UWP
 
                 Messages.Items.Clear();
                 int adCheck = 5;
-                ListViewItem loadmsgs = new ListViewItem();
-                loadmsgs.Content = "Load more messages";
-                loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-                loadmsgs.Visibility = Visibility.Collapsed;
-                //loadmsgs.Tapped += LoadMoreMessages;
-                Messages.Items.Add(loadmsgs);
 
                 foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
                 {
@@ -1019,12 +1005,6 @@ namespace Discord_UWP
 
             Messages.Items.Clear();
             int adCheck = 5;
-            ListViewItem loadmsgs = new ListViewItem();
-            loadmsgs.Content = "Load more messages";
-            loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-            loadmsgs.Visibility = Visibility.Collapsed;
-            //loadmsgs.Tapped += LoadMoreMessages;
-            Messages.Items.Add(loadmsgs);
 
             IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id);
 
@@ -1038,6 +1018,8 @@ namespace Discord_UWP
                 Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
             }
 
+            Messages.Items.Add(new MessageControl()); //Necessary for no good reason
+
             foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
             {
                 adCheck--;
@@ -1048,6 +1030,8 @@ namespace Discord_UWP
                     adCheck = 5;
                 }
             }
+
+            Messages.Items.RemoveAt(0);
 
             if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache).Raw.Id].Messages != null)
             {
