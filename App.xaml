@@ -426,7 +426,7 @@
                                                         <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.4" To="1.2">
+                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:1" To="1.35">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>

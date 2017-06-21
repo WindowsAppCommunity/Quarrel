@@ -302,42 +302,50 @@
             </SplitView.Pane>
         </SplitView>
 
-        <SplitView x:Name="CreateChannel" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource SystemAltMediumHighColor}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
+        <SplitView x:Name="CreateChannel" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource DeepBG}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
             <SplitView.Pane>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Pivot Grid.ColumnSpan="2" Margin="0,0,0,32">
                         <PivotItem Header="Overview">
-                            <TextBox x:Name="CreateChannelName" Header="Channel Name" VerticalAlignment="Top"/>
+                            <TextBox x:Name="CreateChannelName" Header="Channel Name" VerticalAlignment="Top" BorderThickness="1"/>
                         </PivotItem>
                     </Pivot>
-                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveCreateChannel" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloaseCreateChannel"/>
+                    <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveCreateChannel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="12,0,4,12"/>
+                    <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloaseCreateChannel" Style="{StaticResource DiscordButton}" Margin="6,0,12,12"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>
 
-        <SplitView x:Name="ChannelSettings" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource SystemAltMediumHighColor}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
+        <SplitView x:Name="ChannelSettings" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource DeepBG}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
             <SplitView.Pane>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Pivot Grid.ColumnSpan="2" Margin="0,0,0,32">
                         <PivotItem Header="Overview">
                             <StackPanel>
-                                <TextBox x:Name="ChannelNameChange" Header="Channel Name"/>
-                                <TextBox x:Name="ChannelTopicChnage" Header="Channel Topic"/>
+                                <TextBox x:Name="ChannelNameChange" Header="Channel Name" BorderThickness="1"/>
+                                <TextBox x:Name="ChannelTopicChnage" Header="Channel Topic" BorderThickness="1" Margin="0,12,0,0"/>
                             </StackPanel>
                         </PivotItem>
                     </Pivot>
-                    <Button VerticalAlignment="Bottom" Margin="0,0,0,32" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Content="Delete" Background="#7FFF0000" Click="CheckDeleteChannel"/>
-                    <Button x:Name="SaveChannelSettingsButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloseChannelSettings"/>
+                    <Button Grid.Row="1" VerticalAlignment="Bottom" Margin="12,0,12,64" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Content="Delete channel" Background="#FFCD3232" Click="CheckDeleteChannel" Style="{StaticResource DiscordButton}"/>
+                    <Button x:Name="SaveChannelSettingsButton" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="12,0,4,12"/>
+                    <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloseChannelSettings" Style="{StaticResource DiscordButton}" Margin="6,0,12,12"/>
                 </Grid>
             </SplitView.Pane>
         </SplitView>
@@ -427,7 +435,7 @@
                                     <RadioButton x:Name="radio_Dark" Content="Dark" GroupName="Theme" Margin="0,6,0,0"/>
                                     <RadioButton x:Name="radio_Light" Content="Light" GroupName="Theme"/>
                                     <RadioButton x:Name="radio_Auto" Content="System" GroupName="Theme"/>
-                                    <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                               <!-- <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>-->
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
