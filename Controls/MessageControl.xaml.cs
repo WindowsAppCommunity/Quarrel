@@ -215,14 +215,73 @@ namespace Discord_UWP
                 rootGrid.Children.Add(gridview);
             }
 
-            string text = _message.Value.Content;
+            LoadAttachements(true);
             content.Users = _message.Value.Mentions;
-            foreach(var m in _message.Value.Mentions)
+            if (Message?.Content == "")
             {
-                text = text.Replace(m.Id, "");
+                content.Visibility = Visibility.Collapsed;
+                Grid.SetRow(moreButton, 4);
             }
             content.Text = _message.Value.Content;
         }
+
+        readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
+        private void LoadAttachements(bool EnableImages)
+        {
+            if (Message.Value.Attachments.Any())
+            {
+                var attachement = Message.Value.Attachments.First();
+                bool IsImage = false;
+                if (EnableImages)
+                {
+                    foreach (string ext in ImageFiletypes)
+                        if (attachement.Filename.ToLower().EndsWith(ext))
+                        {
+                            IsImage = true;
+                            if (attachement.Filename.EndsWith(".svg"))
+                                AttachedImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
+                            else
+                            {
+                                AttachedImageViewer.Source = new BitmapImage(new Uri(attachement.Url));
+                            }
+                            break;
+                        }
+                }
+                if (IsImage)
+                {
+                    AttachedImageViewer.Visibility = Visibility.Visible;
+                    LoadingImage.Visibility = Visibility.Visible;
+                    LoadingImage.IsActive = true;
+                    AttachedImageViewer.ImageOpened += AttachedImageViewer_ImageLoaded;
+                    AttachedImageViewer.ImageFailed += AttachementImageViewer_ImageFailed;
+                }
+                else
+                {
+                    FileName.NavigateUri = new Uri(attachement.Url);
+                    FileName.Content = attachement.Filename;
+                    FileSize.Text = HumanizeFileSize(attachement.Size);
+                    AttachedFileViewer.Visibility = Visibility.Visible;
+                }
+            }
+        }
+        private void AttachedImageViewer_ImageLoaded(object sender, RoutedEventArgs e)
+        {
+            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
+            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
+            LoadingImage.IsActive = false;
+            LoadingImage.Visibility=Visibility.Collapsed;
+        }
+
+        private void AttachementImageViewer_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
+            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
+            LoadingImage.IsActive = false;
+            LoadingImage.Visibility = Visibility.Collapsed;
+            //Reload attachements but with images disabled
+            LoadAttachements(false);
+        }
+
         public MessageControl()
         {
             this.InitializeComponent();
