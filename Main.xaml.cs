@@ -757,7 +757,7 @@ namespace Discord_UWP
             {
                 NoDMSCached.Visibility = Visibility.Visible;
             }
-            App.CurrentId = "DMs";
+            App.CurrentId = null;
         }
         private async Task DownloadDMs()
         {
