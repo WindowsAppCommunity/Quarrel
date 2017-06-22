@@ -239,22 +239,6 @@ namespace Discord_UWP
             return null;
         }
 
-        /*public static IEnumerable<SharedModels.Message> GetChannelMessagesBefore(string id, string position)
-        {
-            try
-            {
-                IChannelService channelservice = authenticatedRestFactory.GetChannelService();
-                Task<IEnumerable<SharedModels.Message>> message_task = channelservice.GetChannelMessagesBefore(id, position);
-                message_task.Wait();
-                return message_task.Result;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return null;
-        }*/
-
         public static async Task<IEnumerable<SharedModels.Message>> GetChannelPinnedMessages(string id)
         {
             try
@@ -512,9 +496,7 @@ namespace Discord_UWP
         }
 
         public static string Token;
-        public static IEnumerable<SharedModels.Friend> Friends;
         public static List<SharedModels.TypingStart> Typers = new List<SharedModels.TypingStart>();
-        public static SharedModels.Guild Guild;
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;
         public static LoginResult Loginresult;

@@ -32,16 +32,16 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 #endregion
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+/* The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236 */
 
 namespace Discord_UWP
 {
     public sealed partial class MessageControl : UserControl
     {
+        /*<summary>
+        Fired when a link element in the markdown was tapped.
+        </summary>*/
 
-        /// <summary>
-        /// Fired when a link element in the markdown was tapped.
-        /// </summary>
         public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
 
         private bool _isadvert = false;
