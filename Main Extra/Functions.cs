@@ -636,7 +636,6 @@ namespace Discord_UWP
             return listviewitem;
         }
 
-
         private UIElement ChannelRender(CacheModels.GuildChannel channel, Permissions perms)
         {
             Permissions chnperms = perms;
@@ -666,6 +665,11 @@ namespace Discord_UWP
                     channelcontainer.Opacity = 1;
                     channelcontainer.Children.Add(new Border{Background=(SolidColorBrush)App.Current.Resources["InvertedBG"], Margin=new Thickness(-14,2,4,0), Height=10, Width=4, CornerRadius = new CornerRadius(0,6,6,0)});
                     listviewitem.Tapped += ClearColor;
+
+                    if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+                    {
+                        listviewitem.Visibility = Visibility.Collapsed;
+                    }
                 }
 
                 #region Flyout
@@ -881,7 +885,6 @@ namespace Discord_UWP
                 await msg.ShowAsync();
             }
         }
-
         private async void LoadMessages()
         {
             try
