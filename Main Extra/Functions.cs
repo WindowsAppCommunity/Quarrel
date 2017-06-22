@@ -555,6 +555,7 @@ namespace Discord_UWP
             StackPanel stack = new StackPanel();
             stack.Orientation = Orientation.Horizontal;
 
+            
             Grid image = new Grid();
             Rectangle avatar = new Rectangle();
             avatar.RadiusX = 100;

@@ -103,7 +103,8 @@
     </Compile>
     <Compile Include="BackgroundGateway.cs" />
     <Compile Include="BackgroundTaskComponent.cs" />
-    <Compile Include="Cache.cs" />
+    <Compile Include="CacheModels\Cache.cs" />
+    <Compile Include="CacheModels\CurrentUser.cs" />
     <Compile Include="CacheModels\DMCache.cs" />
     <Compile Include="CacheModels\Guild.cs" />
     <Compile Include="CacheModels\GuildChannel.cs" />

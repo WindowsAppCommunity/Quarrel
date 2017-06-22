@@ -1,34 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Windows.Storage;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-
 
 namespace Discord_UWP.CacheModels
 {
-    public class User
+    class CurrentUser
     {
-        public User(SharedModels.User input)
+        public CurrentUser(SharedModels.User input)
         {
             Raw = input;
             //avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + input.Id + "/" + input.Avatar + ".jpg"));
         }
 
-        public User(TempUser input)
+        public CurrentUser(TempCurrentUser input)
         {
             Raw = input.Raw;
+            /*foreach ()
+            {
 
+            }*/
             //avatar = input.avatar;
         }
 
         public SharedModels.User Raw = new SharedModels.User();
-        //public string token;
-        //public ImageBrush avatar = new ImageBrush();
+        //public Dictionary<string, CacheModels.User> Friends = new Dictionary<string, User>();
     }
 }
