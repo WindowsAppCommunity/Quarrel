@@ -1751,7 +1751,7 @@ namespace Discord_UWP
 
         private void Messages_RefreshRequested(object sender, EventArgs e)
         {
-            Refresh(null,null);
+            LoadMoreMessages(null,null);
         }
 
         private async void ShowUserDetails(string id)
