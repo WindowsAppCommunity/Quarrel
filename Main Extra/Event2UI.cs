@@ -50,26 +50,6 @@ namespace Discord_UWP
                 }
                 Session.PrecenseDict.Add(presence.User.Id, presence);
             }
-
-            /*Storage.Cache.CurrentUser.Friends = e.EventData.Friends;*/
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 () =>
-                 {
-                     if (ServerList.SelectedIndex > 0)
-                     {
-                         if (MemberList != null)
-                         {
-                             MemberList.Children.Clear();
-                         };
-
-                         ListView fulllistview = new ListView();
-                         foreach (Friend friend in Session.Friends)
-                         {
-                             fulllistview.Items.Add(FriendRender(friend));
-                         }
-                         MemberList.Children.Add(fulllistview);
-                     }
-                 });
         }
 
         private async void MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
