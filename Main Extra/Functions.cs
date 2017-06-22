@@ -41,6 +41,14 @@ using System.Globalization;
 using static Discord_UWP.Common;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System.ComponentModel;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+#region CacheModels Overrule
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Message = Discord_UWP.CacheModels.Message;
+using User = Discord_UWP.CacheModels.User;
+using Guild = Discord_UWP.CacheModels.Guild;
+#endregion
 
 namespace Discord_UWP
 {
@@ -53,7 +61,7 @@ namespace Discord_UWP
             byte r = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
             byte g = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
             byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
-            return new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
+            return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
         public static SolidColorBrush GetSolidColorBrush(int alpha, int red, int green, int blue)
         {
@@ -61,15 +69,15 @@ namespace Discord_UWP
             byte r = (byte)red;
             byte g = (byte)green;
             byte b = (byte)blue;
-            return new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
+            return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
-        public static SolidColorBrush GetSolidColorBrush(Windows.UI.Color color)
+        public static SolidColorBrush GetSolidColorBrush(Color color)
         {
             byte a = color.A;
             byte r = color.R;
             byte g = color.G;
             byte b = color.B;
-            return new SolidColorBrush(Windows.UI.Color.FromArgb(a, r, g, b));
+            return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
         public class MessageContainer : INotifyPropertyChanged
@@ -135,7 +143,7 @@ namespace Discord_UWP
             };
         }
 
-        private UIElement GuildRender(CacheModels.Guild guild)
+        private UIElement GuildRender(Guild guild)
         {
             ListViewItem listviewitem = new ListViewItem();
             //listviewitem.Margin = new Thickness(0, 5, 0 ,5);
@@ -204,7 +212,7 @@ namespace Discord_UWP
             return listviewitem;
         }
 
-        private UIElement GuildMemberRender(SharedModels.GuildMember member)
+        private UIElement GuildMemberRender(GuildMember member)
         {
             ListViewItem listviewitem = new ListViewItem();
             StackPanel stack = new StackPanel();
@@ -290,7 +298,7 @@ namespace Discord_UWP
 
             if (member.Roles != null && member.Roles.Count() > 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles != null)
             {
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                 {
                     if (role.Id == member.Roles.First<string>())
                     {
@@ -369,7 +377,7 @@ namespace Discord_UWP
 
             return listviewitem;
         }
-        private UIElement FriendRender(SharedModels.Friend friend)
+        private UIElement FriendRender(Friend friend)
         {
             ListViewItem listviewitem = new ListViewItem();
             StackPanel stack = new StackPanel();
@@ -519,7 +527,7 @@ namespace Discord_UWP
         {
             if (sender is Button)
             {
-                SharedModels.GuildMember user;
+                GuildMember user;
                 if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(((sender as Button).Tag as Tuple<string, string>).Item2))
                 {
                     user = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[((sender as Button).Tag as Tuple<string, string>).Item2].Raw;
@@ -527,7 +535,7 @@ namespace Discord_UWP
                 else
                 {
                     user = Session.GetGuildMember(((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(user.User.Id, new CacheModels.Member(user));
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(user.User.Id, new Member(user));
                 }
 
                 if (user.User.Id != null && user.User.Avatar != null)
@@ -548,7 +556,7 @@ namespace Discord_UWP
             }
         }
 
-        private UIElement ChannelRender(CacheModels.DmCache channel)
+        private UIElement ChannelRender(DmCache channel)
         {
 
             ListViewItem listviewitem = new ListViewItem();
@@ -637,7 +645,7 @@ namespace Discord_UWP
             return listviewitem;
         }
 
-        private UIElement ChannelRender(CacheModels.GuildChannel channel, Permissions perms)
+        private UIElement ChannelRender(GuildChannel channel, Permissions perms)
         {
             Permissions chnperms = perms;
             if (channel.Raw.PermissionOverwrites != null)
@@ -733,7 +741,7 @@ namespace Discord_UWP
                     Storage.MutedChannels.Remove((sender as ToggleButton).Tag.ToString());
                     foreach (ListViewItem item in TextChannels.Items)
                     {
-                        if ((item.Tag as CacheModels.GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
+                        if ((item.Tag as GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
                         {
                             /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] != User.messages.First().Id)
                             {
@@ -756,7 +764,7 @@ namespace Discord_UWP
                     Storage.MutedChannels.Add((sender as ToggleButton).Tag.ToString());
                     foreach (ListViewItem item in TextChannels.Items)
                     {
-                        if ((item.Tag as CacheModels.GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
+                        if ((item.Tag as GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
                         {
                             SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
                             brush.Opacity = 30;
@@ -773,7 +781,7 @@ namespace Discord_UWP
                     Storage.MutedChannels.Remove((sender as AppBarToggleButton).Tag.ToString());
                     foreach (ListViewItem item in TextChannels.Items)
                     {
-                        if ((item.Tag as CacheModels.GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
+                        if ((item.Tag as GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
                         {
                             /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] < User.messages.First().Timestamp.Ticks)
                             {
@@ -795,7 +803,7 @@ namespace Discord_UWP
                     Storage.MutedChannels.Add((sender as AppBarToggleButton).Tag.ToString());
                     foreach (ListViewItem item in TextChannels.Items)
                     {
-                        if ((item.Tag as CacheModels.GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
+                        if ((item.Tag as GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
                         {
                             item.Background = GetSolidColorBrush("#11FF0000");
                         }
@@ -816,15 +824,15 @@ namespace Discord_UWP
         }
         private async void PinChannelToStart(object sender, RoutedEventArgs e)
         {
-            if (!SecondaryTile.Exists(((sender as Button).Tag as CacheModels.GuildChannel).Raw.Id))
+            if (!SecondaryTile.Exists(((sender as Button).Tag as GuildChannel).Raw.Id))
             {
                 var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
 
                 //var currentTime = new DateTime();
                 //var tileActivationArguments = "timeTileWasPinned=" + currentTime;
-                var tileActivationArguments = ((sender as Button).Tag as CacheModels.GuildChannel).Raw.Id + ":" + ((sender as Button).Tag as CacheModels.GuildChannel).Raw.GuildId;
+                var tileActivationArguments = ((sender as Button).Tag as GuildChannel).Raw.Id + ":" + ((sender as Button).Tag as GuildChannel).Raw.GuildId;
 
-                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as CacheModels.GuildChannel).Raw.Id, ((sender as Button).Tag as CacheModels.GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
+                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
                 tile.VisualElements.ShowNameOnSquare150x150Logo = true;
                 tile.VisualElements.ShowNameOnWide310x150Logo = true;
                 tile.VisualElements.ShowNameOnWide310x150Logo = true;
@@ -844,7 +852,7 @@ namespace Discord_UWP
             }
             else
             {
-                var tileToDelete = new SecondaryTile(((sender as Button).Tag as CacheModels.GuildChannel).Raw.Id);
+                var tileToDelete = new SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id);
 
                 bool isDeleted = await tileToDelete.RequestDeleteAsync();
                 if (isDeleted)
@@ -869,9 +877,9 @@ namespace Discord_UWP
                 StorageFile file = await Storage.SavedData.GetFileAsync("cache");
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
+                    XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
                     StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
-                    Storage.Cache = new Cache((CacheModels.TempCache)serializer.Deserialize(messageReader));
+                    Storage.Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
                 }
                 catch
                 {
@@ -954,11 +962,11 @@ namespace Discord_UWP
             Permissions perms = new Permissions();
             if (App.CurrentId != null)
             {
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                 {
                     if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                     {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
+                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
                     }
 
                     if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
@@ -1032,14 +1040,14 @@ namespace Discord_UWP
 
                 if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
                 {
-                    SharedModels.GuildMember member;
+                    GuildMember member;
                     if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(message.User.Id))
                     {
                         member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[message.User.Id].Raw;
                     }
                     else
                     {
-                        member = new SharedModels.GuildMember();
+                        member = new GuildMember();
                     }
                     if (member.Nick != null)
                     {
@@ -1057,7 +1065,7 @@ namespace Discord_UWP
 
                     if (member.Roles != null && member.Roles.Count() > 0)
                     {
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                        foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                         {
                             if (role.Id == member.Roles.First<string>())
                             {
@@ -1122,7 +1130,7 @@ namespace Discord_UWP
             {
                 if (message.Embeds != null)
                 {
-                    foreach (SharedModels.Embed embed in message.Embeds)
+                    foreach (Embed embed in message.Embeds)
                     {
                         Paragraph paragraph = new Paragraph();
                         Hyperlink hyp = new Hyperlink();
@@ -1170,7 +1178,7 @@ namespace Discord_UWP
 
                 if (message.Attachments != null)
                 {
-                    foreach (SharedModels.Attachment attach in message.Attachments)
+                    foreach (Attachment attach in message.Attachments)
                     {
                         Paragraph paragraph = new Paragraph();
                         Hyperlink hyp = new Hyperlink();
@@ -1199,7 +1207,7 @@ namespace Discord_UWP
             StringBuilder run3Rep = new StringBuilder(mdTxtBlock.Text);
             if (App.CurrentId != null)
             {
-                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[App.CurrentId].Channels)
+                foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[App.CurrentId].Channels)
                 {
                     string channelMention = "<#" + channel.Value.Raw.Id + ">";
                     run3Rep.Replace(channelMention, "#" + channel.Value.Raw.Name);
@@ -1214,14 +1222,14 @@ namespace Discord_UWP
                 string mentionIntent = "<@" + mention.Id + ">";
                 if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
                 {
-                    SharedModels.GuildMember member;
+                    GuildMember member;
                     if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
                     {
                         member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
                     }
                     else
                     {
-                        member = new SharedModels.GuildMember();
+                        member = new GuildMember();
                     }
                     if (member.Nick != null)
                     {
@@ -1240,14 +1248,14 @@ namespace Discord_UWP
                 mentionIntent = "<@!" + mention.Id + ">";
                 if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
                 {
-                    SharedModels.GuildMember member;
+                    GuildMember member;
                     if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
                     {
                         member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
                     }
                     else
                     {
-                        member = new SharedModels.GuildMember();
+                        member = new GuildMember();
                     }
                     if (member.Nick != null)
                     {
@@ -1283,12 +1291,12 @@ namespace Discord_UWP
                 gridview.SelectionMode = ListViewSelectionMode.None;
                 gridview.Margin = new Thickness(0);
                 gridview.Padding = new Thickness(0);
-                foreach (SharedModels.Reactions reaction in message.Reactions)
+                foreach (Reactions reaction in message.Reactions)
                 {
                     //GridViewItem gridviewitem = new GridViewItem();
                     ToggleButton gridviewitem = new ToggleButton();
                     gridviewitem.IsChecked = reaction.Me;
-                    gridviewitem.Tag = new Tuple<string, string, SharedModels.Reactions>(message.ChannelId, message.Id, reaction);
+                    gridviewitem.Tag = new Tuple<string, string, Reactions>(message.ChannelId, message.Id, reaction);
                     gridviewitem.Click += ToggleReaction;
                     if (reaction.Me)
                     {

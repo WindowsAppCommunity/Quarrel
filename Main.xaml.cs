@@ -1,11 +1,22 @@
 ﻿/* Style Guide!!! (We despeartly we need this)
  * Comments:
  * //Is used to comment-out any code while \**\ is used for notes
- * //can be used for comments at the end of a line
  * Old functions in a file (commented or active) should be put in a Region called OldCode and placed at the bottom of the file
+ * If the commented code is midfunction just put new in Region OldCode around it
+ * 
+ * Object naming:
+ * Properties and class instance object should be capitalized
+ * Function specific objects should be lowercased with caps inplace of space 
+ * Property objects should be named with an underscore infront then lowercase
+ * 
  * Properties:
  * if a Property {get;} only returns the object call the Property (this is for Get References)
  * 
+ * Random:
+ * App.CurrentId should be used instead of ServerList.SelectedItem in everycase where it is not necessary
+ * SharedModels and CacheModels should be included in all files that use them
+ * CacheModels overrule SharedModels
+ * Use lambdas meaningly, nothing is dumber than excessive lambda use
 */
 using Discord_UWP.API;
 using Discord_UWP.API.User;
@@ -45,17 +56,23 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using Discord_UWP.SharedModels;
 using static Discord_UWP.Common;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+#region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Message = Discord_UWP.CacheModels.Message;
+using User = Discord_UWP.CacheModels.User;
+using Guild = Discord_UWP.CacheModels.Guild;
+#endregion
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+/* The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238 */
 
 namespace Discord_UWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+   /*<summary>
+     An empty page that can be used on its own or navigated to within a Frame.
+     </summary>*/
     
     public sealed partial class Main : Page
     {
@@ -64,33 +81,33 @@ namespace Discord_UWP
             this.InitializeComponent();
             UpdateUIfromSettings();
 
+            #region OldCode
             #region TypingCheckTimer
-            /*Timer timer = new Timer( async (object state) =>
-            {
-                if (Session.typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
-                {
-                    Session.typers.RemoveAt(Session.typers.Count);
-                }
+            //Timer timer = new Timer( async (object state) =>
+            //{
+            //    if (Session.Typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
+            //    {
+            //        Session.Typers.RemoveAt(Session.Typers.Count);
+            //    }
 
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    TypingIndicator.Text = "";
-                    if (Session.typers.Count > 0)
-                    {
-                        foreach (SharedModels.TypingStart typing in Session.typers)
-                        {
-                            if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).raw.Id)
-                            {
-                                TypingIndicator.Text += " " + Storage.cache.guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].members[typing.userId] + " ";
-                            }
-                        }
-                    }
-                });
+            //    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //    {
+            //        TypingIndicator.Text = "";
+            //        if (Session.Typers.Count > 0)
+            //        {
+            //            foreach (SharedModels.TypingStart typing in Session.Typers)
+            //            {
+            //                if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
+            //                {
+            //                    TypingIndicator.Text += " " + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[typing.userId] + " ";
+            //                }
+            //            }
+            //        }
+            //    });
 
-            }, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
-            */
+            //}, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
             #endregion
-
+            #endregion
             LoadCache();
             LoadMessages();
             LoadMutedChannels();
@@ -136,31 +153,33 @@ namespace Discord_UWP
         {
             InitializeComponent();
 
+            #region OldCode
             #region TypingCheckTimer
-            /*Timer timer = new Timer( async (object state) =>
-            {
-                if (Session.typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
-                {
-                    Session.typers.RemoveAt(Session.typers.Count);
-                }
+            //Timer timer = new Timer( async (object state) =>
+            //{
+            //    if (Session.Typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
+            //    {
+            //        Session.Typers.RemoveAt(Session.Typers.Count);
+            //    }
 
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    TypingIndicator.Text = "";
-                    if (Session.typers.Count > 0)
-                    {
-                        foreach (SharedModels.TypingStart typing in Session.typers)
-                        {
-                            if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).raw.Id)
-                            {
-                                TypingIndicator.Text += " " + Storage.cache.guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].members[typing.userId] + " ";
-                            }
-                        }
-                    }
-                });
+            //    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //    {
+            //        TypingIndicator.Text = "";
+            //        if (Session.Typers.Count > 0)
+            //        {
+            //            foreach (SharedModels.TypingStart typing in Session.Typers)
+            //            {
+            //                if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
+            //                {
+            //                    TypingIndicator.Text += " " + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members
+            //                    [typing.userId] + " ";
+            //                }
+            //            }
+            //        }
+            //    });
 
-            }, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
-            */
+            //}, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
+            #endregion
             #endregion
 
             LoadCache();
@@ -257,12 +276,12 @@ namespace Discord_UWP
                 DownloadUser();
             } else
             {
-                //disable online functions
+                /*disable online functions*/
             }
         }
         private async void DownloadUser()
         {
-            Storage.Cache.CurrentUser = new CacheModels.User(await Session.GetCurrentUser());
+            Storage.Cache.CurrentUser = new User(await Session.GetCurrentUser());
 
             Username.Text = Storage.Cache.CurrentUser.Raw.Username;
             Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
@@ -280,7 +299,7 @@ namespace Discord_UWP
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;
-            foreach (KeyValuePair<string, CacheModels.Guild> guild in Storage.Cache.Guilds)
+            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
                 ServerList.Items.Add(GuildRender(guild.Value));
             }
@@ -289,27 +308,27 @@ namespace Discord_UWP
                 await DownloadGuilds();
             } else
             {
-                //disable online functions
+                /*disable online functions*/
             }
         }
         private async Task DownloadGuilds()
         {
-            IEnumerable<SharedModels.UserGuild> guilds = await Session.GetGuilds();
+            IEnumerable<UserGuild> guilds = await Session.GetGuilds();
 
-            foreach (SharedModels.UserGuild guild in guilds)
+            foreach (UserGuild guild in guilds)
             {
                 if (Storage.Cache.Guilds.ContainsKey(guild.Id))
                 {
                     var channels = Storage.Cache.Guilds[guild.Id].Channels;
                     var members = Storage.Cache.Guilds[guild.Id].Members;
-                    Storage.Cache.Guilds[guild.Id] = new CacheModels.Guild(guild);
+                    Storage.Cache.Guilds[guild.Id] = new Guild(guild);
                     Storage.Cache.Guilds[guild.Id].RawGuild = await Session.GetGuild(guild.Id);
                     Storage.Cache.Guilds[guild.Id].Channels = channels;
                     Storage.Cache.Guilds[guild.Id].Members = members;
                 }
                 else
                 {
-                    Storage.Cache.Guilds.Add(guild.Id, new CacheModels.Guild(guild));
+                    Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
                     Storage.Cache.Guilds[guild.Id].RawGuild = await Session.GetGuild(guild.Id);
                 }
             }
@@ -317,7 +336,7 @@ namespace Discord_UWP
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;
-            foreach (KeyValuePair<string, CacheModels.Guild> guild in Storage.Cache.Guilds)
+            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
                 ServerList.Items.Add(GuildRender(guild.Value));
             }
@@ -350,7 +369,7 @@ namespace Discord_UWP
         #region LoadGuild
         private async void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListView).SelectedItem != null) //Called upon clearing
+            if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
             {
                 _onlyAllowOpeningPane = true;
                 ToggleServerListFull(null, null);
@@ -387,7 +406,7 @@ namespace Discord_UWP
                     {
                         foreach (ListViewItem channel in TextChannels.Items)
                         {
-                            if ((channel.Tag as CacheModels.GuildChannel).Raw.Id == SelectChannelId)
+                            if ((channel.Tag as GuildChannel).Raw.Id == SelectChannelId)
                             {
                                 TextChannels.SelectedItem = channel;
                             }
@@ -472,7 +491,7 @@ namespace Discord_UWP
 
                             listview.SelectionMode = ListViewSelectionMode.None;
                             listview.FontSize = 13.333;
-                            foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[id].Members)
+                            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
                             {
                                 if (member.Value.Raw.Roles.Contains<string>(role.Id))
                                 {
@@ -496,7 +515,7 @@ namespace Discord_UWP
                 ListView fulllistview = new ListView();
                 fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
 
-                foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[id].Members)
+                foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
                 {
                     if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
                     {
@@ -510,7 +529,7 @@ namespace Discord_UWP
 
                 if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
                 {
-                    foreach (SharedModels.Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
+                    foreach (Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
                     {
                         if (Session.PrecenseDict.ContainsKey(presence.User.Id))
                         {
@@ -527,7 +546,7 @@ namespace Discord_UWP
                 }
 
                 TextChannels.Items.Clear();
-                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
+                foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
                 {
                     if (channel.Value.Raw.Type == "text")
                     {
@@ -569,16 +588,16 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds[id].RawGuild = await Session.GetGuild(id);
 
-            IEnumerable<SharedModels.GuildMember> members = await Session.GetGuildMembers(id);
+            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
 
-            foreach (SharedModels.GuildMember member in members)
+            foreach (GuildMember member in members)
             {
                 if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
                 {
-                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new CacheModels.Member(member));
+                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
                 } else
                 {
-                    Storage.Cache.Guilds[id].Members[member.User.Id] = new CacheModels.Member(member);
+                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
                 }
             }
 
@@ -591,11 +610,11 @@ namespace Discord_UWP
 
             #region Permissions
             Permissions perms = new Permissions();
-            foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+            foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
             {
                 if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                 {
-                    Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
+                    Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
                 }
                 if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                 {
@@ -628,7 +647,7 @@ namespace Discord_UWP
             {
                 Storage.Cache.Guilds[id].Roles.Clear();
                 
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+                foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
                     if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
                     {
@@ -646,7 +665,7 @@ namespace Discord_UWP
                         listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
                         listview.SelectionMode = ListViewSelectionMode.None;
 
-                        foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[id].Members)
+                        foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
                         {
                             if (member.Value.Raw.Roles.Contains<string>(role.Id))
                             {
@@ -671,7 +690,7 @@ namespace Discord_UWP
             fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
             fulllistview.SelectionMode = ListViewSelectionMode.None;
 
-            foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
             {
 
                 if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
@@ -703,7 +722,7 @@ namespace Discord_UWP
                 Storage.Cache.Guilds[id].Channels.Clear();
                 foreach (SharedModels.GuildChannel channel in channels)
                 {
-                    Storage.Cache.Guilds[id].Channels.Add(channel.Id, new CacheModels.GuildChannel(channel));
+                    Storage.Cache.Guilds[id].Channels.Add(channel.Id, new GuildChannel(channel));
                 }
             }
 
@@ -715,7 +734,7 @@ namespace Discord_UWP
             }
 
             TextChannels.Items.Clear();
-            foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
+            foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
             {
                 if (channel.Value.Raw.Type == "text")
                 {
@@ -753,7 +772,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
-            foreach (KeyValuePair<string, CacheModels.DmCache> channel in Storage.Cache.DMs)
+            foreach (KeyValuePair<string, DmCache> channel in Storage.Cache.DMs)
             {
                 DirectMessageChannels.Items.Add(ChannelRender(channel.Value));
             }
@@ -775,12 +794,12 @@ namespace Discord_UWP
             {
                 if (!Storage.Cache.DMs.ContainsKey(dm.Id))
                 {
-                    Storage.Cache.DMs.Add(dm.Id, new CacheModels.DmCache(dm));
+                    Storage.Cache.DMs.Add(dm.Id, new DmCache(dm));
                 }
             }
 
             DirectMessageChannels.Items.Clear();
-            foreach (KeyValuePair<string, CacheModels.DmCache> dm in Storage.Cache.DMs)
+            foreach (KeyValuePair<string, DmCache> dm in Storage.Cache.DMs)
             {
                 DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
             }
@@ -793,23 +812,23 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            if (TextChannels.SelectedItem != null) //Called upon clear
+            if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
+                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
+                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
                 MuteToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
 
-                Messages.Items.Add(new MessageControl()); //Necessary for no good reason
+                Messages.Items.Add(new MessageControl()); /*Necessary for no good reason*/
 
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -824,7 +843,7 @@ namespace Discord_UWP
 
                 PinnedMessages.Items.Clear();
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].PinnedMessages.Reverse())
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
@@ -835,11 +854,11 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Name;
+                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Name;
 
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Topic != null)
+                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Topic != null)
                 {
-                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Raw.Topic;
+                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Topic;
                 }
                 else
                 {
@@ -867,22 +886,22 @@ namespace Discord_UWP
             if (TextChannels.SelectedItem != null)
             {
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
+                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
+                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
                 MuteToggle.Visibility = Visibility.Visible;
                 Messages.Items.Clear();
-                IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
+                IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
 
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Clear();
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Clear();
 
                 while (messages == null)
                 {
-                    //Messages may not be downloaded yet
+                    /*Messages may not be downloaded yet*/
                 }
 
                 foreach (SharedModels.Message message in messages)
                 {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(message.Id, new Message(message));
                 }
 
 
@@ -891,7 +910,7 @@ namespace Discord_UWP
                 Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
                 //Normal messages
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -906,18 +925,18 @@ namespace Discord_UWP
 
                 //Pinned messages
                 PinnedMessages.Items.Clear();
-                await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
-                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id);
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Clear();
+                await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
 
                 foreach (SharedModels.Message message in pinnedmessages)
                 {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new CacheModels.Message(message));
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
                 }
 
                 adCheck = 5;
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
@@ -928,29 +947,29 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Name;
+                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Name;
 
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Topic != null)
+                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Topic != null)
                 {
-                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Raw.Topic;
+                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Topic;
                 }
                 else
                 {
                     ChannelTopic.Text = "";
                 }
 
-                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id].Messages != null)
+                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Messages != null)
                 {
-                    if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id))
+                    if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id))
                     {
-                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
+                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
                     }
                     else
                     {
                         var messageContainer = Messages.Items.Last() as MessageContainer;
                         if (messageContainer != null && (messageContainer.Message).HasValue)
                         {
-                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.GuildChannel)?.Raw.Id, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
+                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
                         }
                     }
                     Storage.SaveMessages();
@@ -977,7 +996,7 @@ namespace Discord_UWP
                 Messages.Items.Clear();
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -988,7 +1007,7 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Raw.User.Username;
+                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.User.Username;
                 ChannelTopic.Text = "";
 
                 if (Session.Online)
@@ -1015,21 +1034,21 @@ namespace Discord_UWP
             Messages.Items.Clear();
             int adCheck = 5;
 
-            IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id);
+            IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id);
 
             if (Storage.Cache.DMs != null)
             {
-                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Clear();
+                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Clear();
             }
 
             foreach (SharedModels.Message message in messages)
             {
-                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
+                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Add(message.Id, new Message(message));
             }
 
             Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
-            foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Reverse())
+            foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Reverse())
             {
                 adCheck--;
                 Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -1042,16 +1061,16 @@ namespace Discord_UWP
 
             Messages.Items.RemoveAt(0);
 
-            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache).Raw.Id].Messages != null)
+            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache).Raw.Id].Messages != null)
             {
-                if (Storage.RecentMessages.ContainsKey(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw.Id))
+                if (Storage.RecentMessages.ContainsKey(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id))
                 {
-                    Storage.RecentMessages[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw
-                        .Id] = (Messages.Items.Last() as Message?)?.Id;
+                    Storage.RecentMessages[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw
+                        .Id] = (Messages.Items.Last() as SharedModels.Message?)?.Id;
                 }
                 else
                 {
-                    Storage.RecentMessages.Add(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as CacheModels.DmCache)?.Raw.Id, (Messages.Items.Last() as Message?)?.Id);
+                    Storage.RecentMessages.Add(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id, (Messages.Items.Last() as SharedModels.Message?)?.Id);
                 }
                 Storage.SaveMessages();
             }
@@ -1085,13 +1104,6 @@ namespace Discord_UWP
                 Servers.IsPaneOpen = true;
 
             _onlyAllowOpeningPane = false;
-        }
-        private void Scrolldown(object sender, SizeChangedEventArgs e)
-        {
-          //  if (e.PreviousSize.Height < 10)
-          //  {
-          //      MessageScroller.ChangeView(0.0f, MessageScroller.ScrollableHeight, 1f);
-          //  }
         }
         private async void Refresh(object sender, RoutedEventArgs e)
         {
@@ -1132,7 +1144,7 @@ namespace Discord_UWP
         }
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
-            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentId, (Messages.Items[2] as MessageContainer).Message.Value.Id);
+            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
 
             int adCheck = 5;
 
@@ -1614,13 +1626,15 @@ namespace Discord_UWP
         #region UserSettings
         private void OpenUserSettings(object sender, RoutedEventArgs e)
         {
-            //     LockChannelList.IsOn = Storage.settings.LockChannels;
+            #region OldCode
+            //   LockChannelList.IsOn = Storage.settings.LockChannels;
             //   if (Storage.settings.LockChannels)
             //  {
             //      AutoHideChannels.IsEnabled = false;
             //   }
             //  AutoHideChannels.IsOn = Storage.settings.AutoHideChannels;
             //   AutoHidePeople.IsOn = Storage.settings.AutoHidePeople;
+            #endregion
             HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
             Toasts.IsOn = Storage.Settings.Toasts;
 
@@ -1643,8 +1657,10 @@ namespace Discord_UWP
 
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-        //    Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
-        //    Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
+            #region OldCode
+            //Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
+            //Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
+            #endregion
             Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
             Storage.Settings.Toasts = Toasts.IsOn;
 
@@ -1668,20 +1684,6 @@ namespace Discord_UWP
         private void CloseUserSettings(object sender, RoutedEventArgs e)
         {
             UserSettings.IsPaneOpen = false;
-        }
-        private void LockChannelsToggled(object sender, RoutedEventArgs e)
-        {
-            if ((sender as ToggleSwitch).IsOn)
-            {
-           //     AutoHideChannels.IsEnabled = false;
-           //     AutoHideChannels.IsOn = false;
-            }
-            else
-            {
-           //     AutoHideChannels.IsEnabled = true;
-           //     AutoHideChannels.IsOn = Storage.settings.AutoHideChannels;
-            }
-
         }
         private async void CheckLogout(object sender, RoutedEventArgs e)
         {
@@ -1739,12 +1741,12 @@ namespace Discord_UWP
         {
             try
             {
-                //This fires when the selected item is DMs
+                /*This fires when the selected item is DMs*/
                 if(e.ClickedItem.ToString() == "" && ServerList.SelectedIndex == 0)
                 {
                     ToggleServerListFull(null, null);
                 }
-                //And this fires when it's a normal item
+                /*And this fires when it's a normal item*/
                 else if (ServerList.SelectedItem == (e.ClickedItem as StackPanel)?.Parent)
                 {
                     ToggleServerListFull(null, null);
@@ -1797,5 +1799,29 @@ namespace Discord_UWP
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://aka.ms/Wp1zo6"));
         }
+
+        #region OldCode
+        //private void LockChannelsToggled(object sender, RoutedEventArgs e)
+        //{
+        //    if ((sender as ToggleSwitch).IsOn)
+        //    {
+        //             AutoHideChannels.IsEnabled = false;
+        //             AutoHideChannels.IsOn = false;
+        //    }
+        //    else
+        //    {
+        //             AutoHideChannels.IsEnabled = true;
+        //             AutoHideChannels.IsOn = Storage.settings.AutoHideChannels;
+        //    }
+        //}
+
+        //private void Scrolldown(object sender, SizeChangedEventArgs e)
+        //{
+        //    if (e.PreviousSize.Height < 10)
+        //    {
+        //          MessageScroller.ChangeView(0.0f, MessageScroller.ScrollableHeight, 1f);
+        //    }
+        //}
+        #endregion
     }
 }

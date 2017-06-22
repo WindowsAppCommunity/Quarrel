@@ -27,6 +27,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+#region CacheModels Overrule
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Message = Discord_UWP.CacheModels.Message;
+using User = Discord_UWP.CacheModels.User;
+using Guild = Discord_UWP.CacheModels.Guild;
+#endregion
 
 namespace Discord_UWP
 {
@@ -34,7 +42,7 @@ namespace Discord_UWP
     {
         private async void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
-            foreach (SharedModels.Presence presence in e.EventData.Presences)
+            foreach (Presence presence in e.EventData.Presences)
             {
                 if (Session.PrecenseDict.ContainsKey(presence.User.Id))
                 {
@@ -43,7 +51,7 @@ namespace Discord_UWP
                 Session.PrecenseDict.Add(presence.User.Id, presence);
             }
 
-            //Storage.Cache.CurrentUser.Friends = e.EventData.Friends;
+            /*Storage.Cache.CurrentUser.Friends = e.EventData.Friends;*/
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
@@ -55,7 +63,7 @@ namespace Discord_UWP
                          };
 
                          ListView fulllistview = new ListView();
-                         foreach (SharedModels.Friend friend in Session.Friends)
+                         foreach (Friend friend in Session.Friends)
                          {
                              fulllistview.Items.Add(FriendRender(friend));
                          }
@@ -71,16 +79,16 @@ namespace Discord_UWP
             {
                 if (ServerList.SelectedIndex != 0)
                 {
-                    if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id)
+                    if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
                     {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new CacheModels.Message(e.EventData));
+                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new Message(e.EventData));
                         Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
                 else
                 {
-                    if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id)
+                    if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
                     {
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
@@ -173,13 +181,13 @@ namespace Discord_UWP
             {
                 if (ServerList.SelectedItem != null)
                 {
-                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs" && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id == e.EventData.ChannelId)
+                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs" && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id == e.EventData.ChannelId)
                     {
                         LoadDmChannelMessages(null, null);
                     }
                     else
                     {
-                        if (TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id == e.EventData.ChannelId)
+                        if (TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id == e.EventData.ChannelId)
                         {
                             foreach (SharedModels.Message? item in Messages.Items)
                                 if (item.HasValue && item.Value.Id == e.EventData.MessageId)
@@ -195,7 +203,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id == e.EventData.ChannelId)
+                if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id == e.EventData.ChannelId)
                 {
                     for (int x = 0; x < Messages.Items.Count; x++)
                     {
@@ -205,7 +213,7 @@ namespace Discord_UWP
                         }
                     }
                 }
-                else if(TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id == e.EventData.ChannelId)
+                else if(TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id == e.EventData.ChannelId)
                         for (int x = 0; x < Messages.Items.Count; x++)
                 {
                     if ((Messages.Items[x] as MessageContainer).Message?.Id == e.EventData.Id)
@@ -220,16 +228,16 @@ namespace Discord_UWP
         {
             if (!Storage.Cache.Guilds.ContainsKey(e.EventData.Id))
             {
-                Storage.Cache.Guilds.Add(e.EventData.Id, new CacheModels.Guild(e.EventData));
+                Storage.Cache.Guilds.Add(e.EventData.Id, new Guild(e.EventData));
             } else
             {
-                Storage.Cache.Guilds[e.EventData.Id] = new CacheModels.Guild(e.EventData);
+                Storage.Cache.Guilds[e.EventData.Id] = new Guild(e.EventData);
             }
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                ServerList.Items.Add(GuildRender(new CacheModels.Guild(e.EventData)));
+                ServerList.Items.Add(GuildRender(new Guild(e.EventData)));
             });
 
             if (e.EventData.Presences != null)
@@ -255,7 +263,7 @@ namespace Discord_UWP
                         
                         if (Storage.Cache.Guilds[e.EventData.Id].Roles != null)
                         {
-                            foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                            foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                             {
                                 if (role.Hoist)
                                 {
@@ -264,7 +272,7 @@ namespace Discord_UWP
                                     listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
                                     listview.SelectionMode = ListViewSelectionMode.None;
 
-                                    foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+                                    foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
                                     {
                                         if (member.Value.Raw.Roles.Contains<string>(role.Id))
                                         {
@@ -288,11 +296,11 @@ namespace Discord_UWP
                         ListView fulllistview = new ListView();
                         fulllistview.Header = "Everyone";
 
-                        foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+                        foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
                         {
                             if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
                             {
-                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new CacheModels.Member(member.Value.Raw));
+                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new Member(member.Value.Raw));
                             }
                             ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
                             fulllistview.Items.Add(listviewitem);
@@ -361,15 +369,15 @@ namespace Discord_UWP
                });
         }
 
-        private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
+        private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
             {
-                Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new CacheModels.Member(new SharedModels.GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User }));
+                Storage.Cache.Guilds[e.EventData.guildId].Members.Add(e.EventData.User.Id, new Member(new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User }));
             }
         }
 
-        private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
+        private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
             {
@@ -377,22 +385,22 @@ namespace Discord_UWP
             }
         }
 
-        private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
+        private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId].Members.ContainsKey(e.EventData.User.Id))
             {
-                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw = new SharedModels.GuildMember() { Nick = e.EventData.Nick, Roles = e.EventData.Roles };
+                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw = new GuildMember() { Nick = e.EventData.Nick, Roles = e.EventData.Roles };
             }
         }
 
-        private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
                    if (ServerList.SelectedIndex == 0)
                    {
-                       SharedModels.DirectMessageChannel channel = e.EventData;
+                       DirectMessageChannel channel = e.EventData;
                        ListViewItem listviewitem = new ListViewItem();
                        StackPanel stack = new StackPanel();
                        stack.Orientation = Orientation.Horizontal;
@@ -411,7 +419,7 @@ namespace Discord_UWP
                });
         }
 
-        private async void DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private async void DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                async () =>
@@ -456,7 +464,7 @@ namespace Discord_UWP
                                         listview.Header = role.Name;
                                         listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
 
-                                        foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+                                        foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
                                         {
                                             if (member.Value.Raw.Roles.Contains<string>(role.Id))
                                             {
@@ -488,11 +496,11 @@ namespace Discord_UWP
                             ListView fulllistview = new ListView();
                             fulllistview.Header = "Everyone";
 
-                            foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+                            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
                             {
                                 if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
                                 {
-                                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new CacheModels.Member(member.Value.Raw));
+                                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new Member(member.Value.Raw));
                                     ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
                                     fulllistview.Items.Add(listviewitem);
                                 }

@@ -57,7 +57,7 @@ namespace Discord_UWP
             this.Suspending += OnSuspending;
         }
         internal static string CurrentId;
-        internal static string DMid;
+        //internal static string ChannelId;
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

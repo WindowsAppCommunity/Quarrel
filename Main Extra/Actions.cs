@@ -29,6 +29,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+#region CacheModels Overrule
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Message = Discord_UWP.CacheModels.Message;
+using User = Discord_UWP.CacheModels.User;
+using Guild = Discord_UWP.CacheModels.Guild;
+#endregion
 
 namespace Discord_UWP
 {
@@ -36,14 +44,14 @@ namespace Discord_UWP
     {
         private void DeleteThisMessage(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
+            if (App.CurrentId == null)
             {
-                Session.DeleteMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id, (sender as Button).Tag.ToString());
+                Session.DeleteMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id, (sender as Button).Tag.ToString());
                 LoadDmChannelMessages(null, null);
             }
             else
             {
-                Session.DeleteMessage(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (sender as Button).Tag.ToString());
+                Session.DeleteMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id, (sender as Button).Tag.ToString());
                 LoadChannelMessages(null, null);
             }
         }
@@ -53,59 +61,31 @@ namespace Discord_UWP
             if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
             {
                 MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
-                Session.CreateMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id, txt);
+                Session.CreateMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id, txt);
                 MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
             }
             else
             {
                 MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
                 StringBuilder msg = new StringBuilder(txt);
-                foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+                foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
                 {
                     msg.Replace("@" + member.Value.Raw.User.Username + "#" + member.Value.Raw.User.Discriminator, "<@" + member.Value.Raw.User.Id + ">");
                 }
-                Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, msg.ToString());
+                Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id, msg.ToString());
+                #region OldCode
                 //if (AttachmentImage.Source != null)
                 //{
-                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).raw.Id, msg.ToString(), AttachmentImage.Tag as StorageFile);
+                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).raw.Id, msg.ToString(), AttachmentImage.Tag as StorageFile);
                 //} else
                 //{
-                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).raw.Id, msg.ToString());
+                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).raw.Id, msg.ToString());
                 //}
+                #endregion
                 MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
             }
         }
-
-        //private async void AddAttachment(object sender, RoutedEventArgs e)
-        //{
-        //    var picker = new Windows.Storage.Pickers.FileOpenPicker();
-        //    picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-        //    picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-        //    picker.FileTypeFilter.Add(".jpg");
-        //    picker.FileTypeFilter.Add(".jpeg");
-        //    picker.FileTypeFilter.Add(".png");
-
-        //    StorageFile file = await picker.PickSingleFileAsync();
-        //    if (file != null)
-        //    {
-        //        using (Windows.Storage.Streams.IRandomAccessStream fileStream =
-        //       await file.OpenAsync(FileAccessMode.Read))
-        //        {
-        //            // Set the image source to the selected bitmap.
-        //            BitmapImage bitmapImage = new BitmapImage();
-        //            bitmapImage.SetSource(fileStream);
-        //            AttachmentImage.Height = 250;
-        //            AttachmentImage.Source = bitmapImage;
-        //            AttachmentImage.Tag = fileStream;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageDialog msg = new MessageDialog("Couldn't attach");
-        //        await msg.ShowAsync();
-        //    }
-        //}
-
+        
         private void EditMessage(object sender, RoutedEventArgs e)
         {
             if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
@@ -115,7 +95,7 @@ namespace Discord_UWP
             }
             else
             {
-                Session.EditMessage(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
+                Session.EditMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
                 LoadChannelMessages(null, null);
             }
         }
@@ -140,7 +120,7 @@ namespace Discord_UWP
                 }
                 else
                 {
-                    await Session.TriggerTypingIndicator(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
+                    await Session.TriggerTypingIndicator(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
                 }
             }
             catch
@@ -173,6 +153,67 @@ namespace Discord_UWP
             Session.DeleteChannel(_settingsPaneId);
         }
 
+        private void ToggleReaction(object sender, RoutedEventArgs e)
+        {
+            if ((sender as ToggleButton).IsChecked == false) //Inverted since it changed
+            {
+                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item2, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji);
+
+                if (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Me)
+                {
+                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Count - 1).ToString();
+                }
+                else
+                {
+                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Count).ToString();
+                }
+            }
+            else
+            {
+                Session.CreateReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item2, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji);
+
+                if (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Me)
+                {
+                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Count).ToString();
+                }
+                else
+                {
+                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Count + 1).ToString();
+                }
+            }
+        }
+
+        #region OldCode
+        //private async void AddAttachment(object sender, RoutedEventArgs e)
+        //{
+        //    var picker = new Windows.Storage.Pickers.FileOpenPicker();
+        //    picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+        //    picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+        //    picker.FileTypeFilter.Add(".jpg");
+        //    picker.FileTypeFilter.Add(".jpeg");
+        //    picker.FileTypeFilter.Add(".png");
+
+        //    StorageFile file = await picker.PickSingleFileAsync();
+        //    if (file != null)
+        //    {
+        //        using (Windows.Storage.Streams.IRandomAccessStream fileStream =
+        //       await file.OpenAsync(FileAccessMode.Read))
+        //        {
+        //            // Set the image source to the selected bitmap.
+        //            BitmapImage bitmapImage = new BitmapImage();
+        //            bitmapImage.SetSource(fileStream);
+        //            AttachmentImage.Height = 250;
+        //            AttachmentImage.Source = bitmapImage;
+        //            AttachmentImage.Tag = fileStream;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageDialog msg = new MessageDialog("Couldn't attach");
+        //        await msg.ShowAsync();
+        //    }
+        //}
+
         public void ToggleLoading(bool @on)
         {
             if (@on)
@@ -186,35 +227,6 @@ namespace Discord_UWP
                 //LoadingRing.IsActive = false;
             }
         }
-
-        private void ToggleReaction(object sender, RoutedEventArgs e)
-        {
-            if ((sender as ToggleButton).IsChecked == false) //Inverted since it changed
-            {
-                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item1, ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item2, ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji);
-
-                if (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Me)
-                {
-                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Count - 1).ToString();
-                }
-                else
-                {
-                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Count).ToString();
-                }
-            }
-            else
-            {
-                Session.CreateReaction(((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item1, ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item2, ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji);
-
-                if (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Me)
-                {
-                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Count).ToString();
-                }
-                else
-                {
-                    (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>).Item3.Count + 1).ToString();
-                }
-            }
-        }
+        #endregion
     }
 }
