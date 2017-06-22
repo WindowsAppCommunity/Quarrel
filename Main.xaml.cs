@@ -1,4 +1,13 @@
-﻿using Discord_UWP.API;
+﻿/* Style Guide!!! (We despeartly we need this)
+ * Comments:
+ * //Is used to comment-out any code while \**\ is used for notes
+ * //can be used for comments at the end of a line
+ * Old functions in a file (commented or active) should be put in a Region called OldCode and placed at the bottom of the file
+ * Properties:
+ * if a Property {get;} only returns the object call the Property (this is for Get References)
+ * 
+*/
+using Discord_UWP.API;
 using Discord_UWP.API.User;
 using Discord_UWP.API.User.Models;
 using Discord_UWP.Authentication;

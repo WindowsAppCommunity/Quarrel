@@ -48,7 +48,7 @@ namespace Discord_UWP
         new PropertyMetadata(false, OnIsAdvertPropertyChanged));
         private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._isadvert = (bool)e.NewValue;
+            ((MessageControl)d).IsAdvert = (bool)e.NewValue;
         }
 
         public Visibility MoreButtonVisibility
@@ -75,7 +75,7 @@ namespace Discord_UWP
                 new PropertyMetadata(false, OnIsContinuationPropertyChanged));
         private static void OnIsContinuationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._iscontinuation = (bool)e.NewValue;
+            ((MessageControl)d).IsContinuation = (bool)e.NewValue;
             if ((bool)e.NewValue)
             {
                 Debug.WriteLine("IS CONTINUATION");
@@ -94,7 +94,7 @@ namespace Discord_UWP
                 new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
         private static void OnHeaderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((MessageControl)d)._header = (string)e.NewValue;
+            ((MessageControl)d).Header = (string)e.NewValue;
         }
 
         Message? _message;
@@ -110,14 +110,14 @@ namespace Discord_UWP
         {
             if ((Message?) e.NewValue == null) return;
             Debug.WriteLine("New message");
-            ((MessageControl)d)._message = (Message?)e.NewValue;
+            ((MessageControl)d).Message = (Message?)e.NewValue;
             ((MessageControl)d).UpdateControl();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         private void Notify(string propName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-            if (_isadvert == true && (_message == null))
+            if (IsAdvert == true && (Message == null))
             {
                 VisualStateManager.GoToState(this, "Advert", false);
                 AdControl ad = new AdControl();
@@ -138,7 +138,7 @@ namespace Discord_UWP
         public void UpdateControl()
         {
             if (!Message.HasValue) return;
-                username.Text = _message.Value.User.Username;
+                username.Text = Message.Value.User.Username;
                 SharedModels.GuildMember member;
                 if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
                 {
@@ -164,21 +164,21 @@ namespace Discord_UWP
                 }
             }
 
-            if (_message.Value.User.Bot == true)
+            if (Message.Value.User.Bot == true)
                 BotIndicator.Visibility = Visibility.Visible;
 
-            if (!string.IsNullOrEmpty(_message.Value.User.Avatar))
+            if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
             {
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + _message.Value.User.Id + "/" + _message.Value.User.Avatar + ".jpg")) };
+                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Message.Value.User.Id + "/" + Message.Value.User.Avatar + ".jpg")) };
             }
             else
             {
                 avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")) };
             }
 
-            timestamp.Text = Common.HumanizeDate(_message.Value.Timestamp, null);
-            if (_message.Value.EditedTimestamp.HasValue)
-                timestamp.Text += " (Edited " + Common.HumanizeDate(_message.Value.EditedTimestamp.Value, _message.Value.Timestamp) + ")";
+            timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
+            if (Message.Value.EditedTimestamp.HasValue)
+                timestamp.Text += " (Edited " + Common.HumanizeDate(Message.Value.EditedTimestamp.Value, Message.Value.Timestamp) + ")";
 
             if (Message.Value.Reactions != null)
             {
@@ -216,13 +216,13 @@ namespace Discord_UWP
             }
 
             LoadAttachements(true);
-            content.Users = _message.Value.Mentions;
+            content.Users = Message.Value.Mentions;
             if (Message?.Content == "")
             {
                 content.Visibility = Visibility.Collapsed;
                 Grid.SetRow(moreButton, 4);
             }
-            content.Text = _message.Value.Content;
+            content.Text = Message.Value.Content;
         }
 
         readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
@@ -312,12 +312,13 @@ namespace Discord_UWP
                     }
                 }
             }
+
             if (!perms.EffectivePerms.ManageMessages)
             {
                 MoreDelete.Visibility = Visibility.Collapsed;
             }
             else
-            if (_message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MoreEdit.Visibility = Visibility.Collapsed;
             }
@@ -377,7 +378,7 @@ namespace Discord_UWP
         {
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
-            Session.EditMessage(_message.Value.ChannelId, _message.Value.Id, editedText);
+            Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText);
         }
 
         private void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
@@ -402,13 +403,13 @@ namespace Discord_UWP
 
         private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
-            Session.DeleteMessage(_message.Value.ChannelId, _message.Value.Id);
+            Session.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
         }
 
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
         {
             var dataPackage = new DataPackage();
-            dataPackage.SetText(_message.Value.Id);
+            dataPackage.SetText(Message.Value.Id);
             Clipboard.SetContent(dataPackage);
         }
     }
