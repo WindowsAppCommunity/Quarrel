@@ -118,6 +118,9 @@
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserListControl.xaml.cs">
+      <DependentUpon>UserListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
     <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
     <Compile Include="DiscordAPI\API\BasicRestFactory.cs" />
@@ -312,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\EmbedControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
