@@ -762,7 +762,7 @@ namespace Discord_UWP
         private async Task DownloadDMs()
         {
             Storage.Cache.DMs.Clear();
-            foreach (SharedModels.DirectMessageChannel dm in await Session.GetDMs())
+            foreach (DirectMessageChannel dm in await Session.GetDMs())
             {
                 if (!Storage.Cache.DMs.ContainsKey(dm.Id))
                 {
@@ -1782,6 +1782,11 @@ namespace Discord_UWP
                 string val = e.Link.Remove(0, 2);
                 ShowUserDetails(val);
             }
+        }
+
+        private async void Upvote_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://aka.ms/Wp1zo6"));
         }
     }
 }

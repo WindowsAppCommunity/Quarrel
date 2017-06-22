@@ -234,6 +234,14 @@
                                 </ListViewItem>
                                 <TextBlock x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
+                                <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                                    <ListView.Header>
+                                        <TextBlock Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                    </ListView.Header>
+                                </ListView>
+                                <ListViewItem x:Name="Upvote" Height="50" Tapped="Upvote_Tapped">
+                                    <TextBlock Text="Upvote this for Voice support"/>
+                                </ListViewItem>
                             </StackPanel>
                         </ScrollViewer>
                         <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
