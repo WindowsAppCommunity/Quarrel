@@ -193,18 +193,24 @@ namespace Discord_UWP
         private async void MessageUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            async () =>
+            () =>
             {
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs" && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id == e.EventData.ChannelId)
+                if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id == e.EventData.ChannelId)
                 {
-                    LoadDmChannelMessages(null, null);
-                }
-                else
-                {
-                    if (TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id == e.EventData.ChannelId)
+                    for (int x = 0; x < Messages.Items.Count; x++)
                     {
-                        Messages.Items.Clear();
-                        await DownloadChannelMessages();
+                        if ((Messages.Items[x] as MessageContainer).Message?.Id == e.EventData.Id)
+                        {
+                            Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
+                        }
+                    }
+                }
+                else if(TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id == e.EventData.ChannelId)
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                {
+                    if ((Messages.Items[x] as MessageContainer).Message?.Id == e.EventData.Id)
+                    {
+                        Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
                     }
                 }
             });
