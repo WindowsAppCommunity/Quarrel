@@ -1088,6 +1088,8 @@ namespace Discord_UWP
             listviewitem.Height = 48;
             return listviewitem;
         }
+
+
         private UIElement ChannelRender(CacheModels.GuildChannel channel, Permissions perms)
         {
             Permissions chnperms = perms;
@@ -1097,32 +1099,25 @@ namespace Discord_UWP
             }
 
             ListViewItem listviewitem = new ListViewItem();
-            Grid backdrop = new Grid();
-            if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id && channel.Raw.Id != channel.Raw.GuildId)
-            {
-                listviewitem.IsEnabled = false;
-                //listviewitem.Visibility = Visibility.Collapsed;
-            }
-
+            
+            StackPanel channelcontainer = new StackPanel();
+            channelcontainer.Orientation = Orientation.Horizontal;
             TextBlock txtblock = new TextBlock();
             txtblock.Text = "#" + channel.Raw.Name;
+            channelcontainer.Opacity = 0.8;
             if (channel.Raw.Type == "text")
             {
-                backdrop.Children.Add(txtblock);
                 listviewitem.Tag = channel;
 
                 if (Storage.MutedChannels.Contains(channel.Raw.Id))
                 {
-                    SolidColorBrush brush = GetSolidColorBrush("#33FF0000");
-                    backdrop.Background = brush;
+                    channelcontainer.Children.Add(new SymbolIcon{Symbol = Symbol.Mute, Opacity=0.6, Margin=new Thickness(0,0,4,0)});
+                    channelcontainer.Opacity = 0.6;
                 }
                 else if (Storage.RecentMessages.ContainsKey(channel.Raw.Id) && Storage.RecentMessages[channel.Raw.Id] != channel.Raw.LastMessageId)
                 {
-                    var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                    Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                    SolidColorBrush accent = new SolidColorBrush(c);
-                    accent.Opacity = 30;
-                    backdrop.Background = accent;
+                    channelcontainer.Opacity = 1;
+                    channelcontainer.Children.Add(new Border{Background=(SolidColorBrush)App.Current.Resources["InvertedBG"], Margin=new Thickness(-14,2,4,0), Height=10, Width=4, CornerRadius = new CornerRadius(0,6,6,0)});
                     listviewitem.Tapped += ClearColor;
                 }
 
@@ -1172,7 +1167,9 @@ namespace Discord_UWP
             {
                 //TODO: Support voice channels
             }
-            listviewitem.Content = backdrop;
+            channelcontainer.Children.Add(txtblock);
+
+            listviewitem.Content = channelcontainer;
             return listviewitem;
         }
         private void MuteAChannel(object sender, RoutedEventArgs e)
@@ -1257,7 +1254,13 @@ namespace Discord_UWP
         }
         private void ClearColor(object sender, TappedRoutedEventArgs e)
         {
-            ((sender as ListViewItem).Content as Grid).Background = GetSolidColorBrush("#00000000");
+            try
+            {
+                ((sender as ListViewItem).Content as StackPanel).Children.Remove(
+                ((sender as ListViewItem).Content as StackPanel).Children.First() as Border);
+                ((sender as ListViewItem).Content as StackPanel).Opacity = 0.8;
+            }
+            catch (Exception){}
         }
         private async void PinChannelToStart(object sender, RoutedEventArgs e)
         {
