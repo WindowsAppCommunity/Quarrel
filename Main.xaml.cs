@@ -1086,7 +1086,7 @@ namespace Discord_UWP
         }
         private async void Refresh(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != "DMs")
+            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != null)
             {
                 await DownloadDmChannelMessages();
             }
