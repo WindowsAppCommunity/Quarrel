@@ -53,6 +53,33 @@ namespace Discord_UWP
             byte b = (byte)(color >> 0);
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
+        public static string HumanizeFileSize(int i)
+        {
+            long absolute_i = (i < 0 ? -i : i);
+            string suffix;
+            double readable;
+            if (absolute_i >= 0x40000000) // Gigabyte
+            {
+                suffix = "GB";
+                readable = (i >> 20);
+            }
+            else if (absolute_i >= 0x100000) // Megabyte
+            {
+                suffix = "MB";
+                readable = (i >> 10);
+            }
+            else if (absolute_i >= 0x400) // Kilobyte
+            {
+                suffix = "KB";
+                readable = i;
+            }
+            else
+            {
+                return i.ToString("0 B"); // Byte
+            }
+            readable = (readable / 1024);
+            return readable.ToString("0.### ") + suffix;
+        }
 
         public class Permissions
         {

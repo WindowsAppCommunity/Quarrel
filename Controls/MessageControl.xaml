@@ -95,6 +95,7 @@
             <RowDefinition x:Name="row2" Height="Auto"/>
             <RowDefinition x:Name="row3" Height="*"/>
             <RowDefinition x:Name="row4" Height="Auto"/>
+            <RowDefinition x:Name="row5" Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
@@ -119,7 +120,7 @@
             <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
             <Button FontSize="14" Grid.Row="1" Content="Cancel" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" HorizontalAlignment="Right" Padding="12,8" Margin="0,4,0,0" Grid.ColumnSpan="2" Click="Button_Click"/>
         </Grid>
-        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
+        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <!--<MenuFlyoutItem Text="Add reaction" HorizontalContentAlignment="Right"/>-->
@@ -130,5 +131,19 @@
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
+        <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <FontIcon FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
+            <StackPanel Grid.Column="1">
+            <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}"/>
+            <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
+            </StackPanel>
+        </Grid>
+        <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
+        <Image HorizontalAlignment="Left" x:Name="AttachedImageViewer" Grid.Row="4" MaxWidth="480" MaxHeight="300" Stretch="Uniform" Grid.Column="1" Margin="6" Visibility="Collapsed"/>
     </Grid>
 </UserControl>
