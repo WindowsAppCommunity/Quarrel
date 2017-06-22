@@ -134,459 +134,6 @@ namespace Discord_UWP
                 Message = message
             };
         }
-        private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
-        {
-          Permissions perms = new Permissions();
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-            {
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                {
-                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
-                    }
-
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                    {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
-                    }
-                    else
-                    {
-                        perms.GetPermissions(0);
-                    }
-                }
-            }
-
-            ListViewItem listviewitem = new ListViewItem();
-            listviewitem.Style = (Style)App.Current.Resources["MessageStyle"];
-      
-            listviewitem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            listviewitem.VerticalAlignment = VerticalAlignment.Stretch;
-            listviewitem.Tag = new Nullable<SharedModels.Message>(message);
-            Grid grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(64, GridUnitType.Pixel) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50, GridUnitType.Auto) });
-            grid.VerticalAlignment = VerticalAlignment.Stretch;
-
-            //Rectangle avatar = new Rectangle();
-            //avatar.Height = 50;
-            //avatar.RadiusX = 100;
-            //avatar.RadiusY = 100;
-            //avatar.VerticalAlignment = VerticalAlignment.Top;
-            //avatar.HorizontalAlignment = HorizontalAlignment.Left;
-            //ImageBrush imagebrush = new ImageBrush();
-            //imagebrush.Stretch = Stretch.Uniform;
-            //imagebrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg"));
-            //avatar.Fill = imagebrush;
-            //grid.Children.Add(avatar);
-
-            if (!isContinuation)
-            {
-                Rectangle img = new Rectangle();
-                img.Height = 48;
-                img.Width = 48;
-                img.RadiusX = 48;
-                img.RadiusY = 48;
-                img.VerticalAlignment = VerticalAlignment.Top;
-                img.HorizontalAlignment = HorizontalAlignment.Left;
-                img.Margin = new Thickness(0, 0, 12, 0);
-                if (message.User.Avatar != "" && message.User.Avatar != null)
-                {
-                    img.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg")) };
-                }
-                else
-                {
-                    img.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")) };
-                }
-                grid.Children.Add(img);
-            }
-            StackPanel innerstack = new StackPanel();
-            innerstack.VerticalAlignment = VerticalAlignment.Stretch;
-            StackPanel msgData = new StackPanel();
-            msgData.Orientation = Orientation.Horizontal;
-
-            if (!isContinuation)
-            {
-                #region RichTextBlock (user)
-                RichTextBlock user = new RichTextBlock();
-                user.TextWrapping = TextWrapping.WrapWholeWords;
-                Paragraph userPara = new Paragraph();
-                Bold boldBlock = new Bold();
-                Run run1 = new Run();
-
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-                {
-                    SharedModels.GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(message.User.Id))
-                    {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[message.User.Id].Raw;
-                    }
-                    else
-                    {
-                        member = new SharedModels.GuildMember();
-                    }
-                    if (member.Nick != null)
-                    {
-                        run1.Text = member.Nick;
-                    }
-                    else
-                    {
-                        run1.Text = message.User.Username;
-                    }
-
-                    if (member.User.Bot)
-                    {
-                        run1.Text += " (BOT)";
-                    }
-
-                    if (member.Roles != null && member.Roles.Count() > 0)
-                    {
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                        {
-                            if (role.Id == member.Roles.First<string>())
-                            {
-                                userPara.Foreground = IntToColor(role.Color);
-                            }
-                        }
-                    }
-                }
-
-                boldBlock.Inlines.Add(run1);
-                userPara.Inlines.Add(boldBlock);
-                user.Blocks.Add(userPara);
-                user.Margin = new Thickness(0, 0, 8, 0);
-                msgData.Children.Add(user);
-                #endregion
-
-                #region RichTextBlock (timestamp)
-                RichTextBlock timestamp = new RichTextBlock();
-                Paragraph timePara = new Paragraph();
-                Run run2 = new Run();
-                run2.Text = Common.HumanizeDate(message.Timestamp, null);
-                timestamp.Opacity = 0.5;
-                timestamp.FontSize = 12;
-                timePara.Inlines.Add(run2);
-                if (message.EditedTimestamp != null)
-                {
-                    Run editedrun2 = new Run();
-                    editedrun2.Text = " (Edited " + Common.HumanizeDate((DateTime)message.EditedTimestamp, message.Timestamp) + ")";
-                    timePara.Inlines.Add(editedrun2);
-                }
-                timestamp.Blocks.Add(timePara);
-                timestamp.Padding = new Thickness(0, 3, 0, 0);
-
-                msgData.Children.Add(timestamp);
-                #endregion
-
-            }
-            
-            innerstack.Children.Add(msgData);
-
-            #region RichTextBlock
-            RichTextBlock txtblock = new RichTextBlock();
-            txtblock.TextWrapping = TextWrapping.WrapWholeWords;
-            Paragraph txtPara = new Paragraph();
-
-            InlineUIContainer mDcontainer = new InlineUIContainer();
-            MarkdownTextBlock.MarkdownTextBlock mdTxtBlock = new MarkdownTextBlock.MarkdownTextBlock();
-            mDcontainer.Child = mdTxtBlock;
-            mdTxtBlock.Text = message.Content;
-           
-            /*if (message.Content == "" )
-            {
-                run3.Text = "Call";
-            }*/
-            txtPara.Inlines.Add(mDcontainer);
-            mdTxtBlock.FontSize = 13.333;
-            mdTxtBlock.Foreground = (SolidColorBrush)App.Current.Resources["MessageForeground"];
-            //mdTxtBlock.Link = (SolidColorBrush)App.Current.Resources["LinkColor"];
-            txtPara.LineHeight = 18;
-            txtblock.Blocks.Add(txtPara);
-            if (Session.Online)
-            {
-                if (message.Embeds != null)
-                {
-                    foreach (SharedModels.Embed embed in message.Embeds)
-                    {
-                        Paragraph paragraph = new Paragraph();
-                        Hyperlink hyp = new Hyperlink();
-                        hyp.Foreground = (SolidColorBrush)App.Current.Resources["LinkColor"];
-                        hyp.FontSize = 13.333;
-                        if (embed.Url != null)
-                        {
-                            hyp.NavigateUri = new Uri(embed.Url);
-                        }
-                        if (embed.title != null)
-                        {
-                            Run title = new Run();
-                            title.Text = embed.title + "\n";
-                            hyp.Inlines.Add(title);
-                        }
-                        if (embed.Description != null)
-                        {
-                            Run desc = new Run();
-                            desc.Text = embed.Description + "\n";
-                            hyp.Inlines.Add(desc);
-                        }
-                        paragraph.Inlines.Add(hyp);
-                        if (embed.Thumbnail.ProxyUrl != null)
-                        {
-                            InlineUIContainer container = new InlineUIContainer();
-                            BitmapImage bi = new BitmapImage(new Uri(embed.Thumbnail.ProxyUrl));
-                            Image image = new Image();
-                            image.Height = 300;
-                            image.Source = bi;
-                            container.Child = image;
-                            paragraph.Inlines.Add(container);
-                        }
-                        else if (embed.Video.Url != null)
-                        {
-                            InlineUIContainer container = new InlineUIContainer();
-                            MediaElement video = new MediaElement();
-                            video.Height = 300;
-                            video.Source = (new Uri(embed.Video.Url));
-                            container.Child = video;
-                            paragraph.Inlines.Add(container);
-                        }
-                        txtblock.Blocks.Add(paragraph);
-                    }
-                }
-
-                if (message.Attachments != null)
-                {
-                    foreach (SharedModels.Attachment attach in message.Attachments)
-                    {
-                        Paragraph paragraph = new Paragraph();
-                        Hyperlink hyp = new Hyperlink();
-                        hyp.Foreground = (SolidColorBrush)App.Current.Resources["LinkColor"];
-                        hyp.FontSize = 13.333;
-                        hyp.NavigateUri = new Uri(attach.Url);
-                        Run run = new Run();
-                        run.Text = attach.Filename;
-                        BitmapImage bi = new BitmapImage(new Uri(attach.Url));
-                        Image image = new Image();
-                        image.MaxHeight = 300;
-                        image.Source = bi;
-                        InlineUIContainer container = new InlineUIContainer();
-                        container.Child = image;
-                        hyp.Inlines.Add(run);
-                        paragraph.Inlines.Add(hyp);
-                        paragraph.Inlines.Add(new LineBreak());
-                        paragraph.Inlines.Add(container);
-                        txtblock.Blocks.Add(paragraph);
-                    }
-                }
-            }
-            
-            #endregion
-
-            StringBuilder run3Rep = new StringBuilder(mdTxtBlock.Text);
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-            {
-                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels)
-                {
-                    string channelMention = "<#" + channel.Value.Raw.Id + ">";
-                    run3Rep.Replace(channelMention, "#" + channel.Value.Raw.Name);
-                }
-            }
-
-            foreach (SharedModels.User mention in message.Mentions)
-            {
-                //HyperlinkButton hyp = new HyperlinkButton();
-                //hyp.Tag = mention.Id;
-                //hyp.Click += OpenProfile;
-                string mentionIntent = "<@" + mention.Id + ">";
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-                {
-                    SharedModels.GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
-                    {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
-                    }
-                    else
-                    {
-                        member = new SharedModels.GuildMember();
-                    }
-                    if (member.Nick != null)
-                    {
-
-                        run3Rep.Replace(mentionIntent, "@" + member.Nick); ;
-                    }
-                    else
-                    {
-                        run3Rep.Replace(mentionIntent, "@" + mention.Username);
-                    }
-                }
-                else
-                {
-                    run3Rep.Replace(mentionIntent, "@" + mention.Username);
-                }
-                mentionIntent = "<@!" + mention.Id + ">";
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-                {
-                    SharedModels.GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
-                    {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
-                    }
-                    else
-                    {
-                        member = new SharedModels.GuildMember();
-                    }
-                    if (member.Nick != null)
-                    {
-
-                        run3Rep.Replace(mentionIntent, "@" + member.Nick); ;
-                    }
-                    else
-                    {
-                        run3Rep.Replace(mentionIntent, "@" + mention.Username);
-                    }
-                }
-                else
-                {
-                    run3Rep.Replace(mentionIntent, "@" + mention.Username);
-                }
-                if (mention.Id == Storage.Cache.CurrentUser.Raw.Id)
-                {
-                    listviewitem.Background = GetSolidColorBrush("#19faa61a");
-                }
-            }
-
-            if (Storage.Settings.HighlightEveryone && (mdTxtBlock.Text.Contains("@everyone") || mdTxtBlock.Text.Contains("@here")))
-            {
-                listviewitem.Background = GetSolidColorBrush("#19faa61a");
-            }
-
-            mdTxtBlock.Text = run3Rep.ToString();
-            innerstack.Children.Add(txtblock);
-
-            if (message.Reactions != null)
-            {
-                GridView gridview = new GridView();
-                gridview.SelectionMode = ListViewSelectionMode.None;
-                gridview.Margin = new Thickness(0);
-                gridview.Padding = new Thickness(0);
-                foreach (SharedModels.Reactions reaction in message.Reactions)
-                {
-                    //GridViewItem gridviewitem = new GridViewItem();
-                    ToggleButton gridviewitem = new ToggleButton();
-                    gridviewitem.IsChecked = reaction.Me;
-                    gridviewitem.Tag = new Tuple<string, string, SharedModels.Reactions>(message.ChannelId, message.Id, reaction);
-                    gridviewitem.Click += ToggleReaction;
-                    if (reaction.Me)
-                    {
-                        //var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                        //Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                        //SolidColorBrush accent = new SolidColorBrush(c);
-                        //gridviewitem.Background = accent;
-                        gridviewitem.IsChecked = true;
-                    }
-
-                    StackPanel stack = new StackPanel();
-                    stack.Orientation = Orientation.Horizontal;
-
-                    TextBlock textblock = new TextBlock();
-                    textblock.Text = reaction.Emoji.Name + " " + reaction.Count.ToString();
-                    stack.Children.Add(textblock);
-
-                    gridviewitem.Content = stack;
-                    gridviewitem.Style = (Style)App.Current.Resources["EmojiButton"];
-                    gridview.Items.Add(gridviewitem);
-                }
-                innerstack.Children.Add(gridview);
-            }
-
-            Grid.SetColumn(innerstack, 1);
-            grid.Children.Add(innerstack);
-
-            if (Session.Online)
-            {
-                #region Flyout
-                Button flyoutbutton = new Button();
-                flyoutbutton.VerticalAlignment = VerticalAlignment.Stretch;
-                flyoutbutton.FontFamily = new FontFamily("Segoe MDL2 Assets");
-                flyoutbutton.Content = "";
-                flyoutbutton.Style = (Style)App.Current.Resources["IntegratedButton"];
-                Grid.SetColumn(flyoutbutton, 2);
-
-                Flyout flyout = new Flyout();
-                StackPanel flyoutcontent = new StackPanel();
-                flyoutcontent.Margin = new Thickness(-10);
-                /*Button AddRection = new Button()
-                {
-                    Content = "Add Reaction",
-                    HorizontalAlignment = HorizontalAlignment.Stretch
-                };
-                flyoutcontent.Children.Add(AddRection);*/
-                /*Button Pin = new Button()
-                {
-                    Content = "Pin",
-                    Tag = message.Id,
-                    HorizontalAlignment = HorizontalAlignment.Stretch
-                };
-                Pin.Click += PinMessage;
-                flyoutcontent.Children.Add(Pin);*/
-                Button edit = new Button()
-                {
-                    Content = "Edit",
-                    BorderThickness=new Thickness(0),
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Tag = message.Id
-                };
-               // edit.Click += RenderEdit;
-                flyoutcontent.Children.Add(edit);
-                Button delete = new Button()
-                {
-                    Content = "Delete",
-                    BorderThickness = new Thickness(0),
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Tag = message.Id
-                };
-                delete.Click += DeleteThisMessage;
-                flyoutcontent.Children.Add(delete);
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
-                {
-                    if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        delete.IsEnabled = false;
-                    }
-                    if (message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        edit.IsEnabled = false;
-                    }
-                }
-                flyout.Content = flyoutcontent;
-                flyoutbutton.ContextFlyout = flyout;
-                flyoutbutton.Click += OpenFlyout;
-                grid.Children.Add(flyoutbutton);
-                #endregion
-            }
-
-            listviewitem.Content = grid;
-
-            if (isContinuation)
-                listviewitem.Padding = new Thickness(12,-14,12,16);
-            else
-                listviewitem.Padding = new Thickness(12,6,12,6);
-
-            return listviewitem;
-        }
-
-        private void UpdateEditText(object sender, RoutedEventArgs e)
-        {
-            (sender as RichEditBox).Document.GetText(Windows.UI.Text.TextGetOptions.None, out Session.Editcache);
-        }
-        private void SendMessageEdit(object sender, RoutedEventArgs e)
-        {
-            Session.EditMessage(((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2, Session.Editcache);
-            LoadChannelMessages(null, null);
-        }
-        private void OpenFlyout(object sender, RoutedEventArgs e)
-        {
-            (sender as Button).ContextFlyout.ShowAt((sender as Button));
-        }
 
         private UIElement GuildRender(CacheModels.Guild guild)
         {
@@ -1396,5 +943,460 @@ namespace Discord_UWP
         {
             (sender as ListViewItem).ContextFlyout.ShowAt((sender as ListViewItem));
         }
+
+        #region Depricated
+        private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
+        {
+            Permissions perms = new Permissions();
+            if (App.CurrentId != null)
+            {
+                foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                {
+                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    {
+                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
+                    }
+
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    {
+                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
+                    }
+                    else
+                    {
+                        perms.GetPermissions(0);
+                    }
+                }
+            }
+
+            ListViewItem listviewitem = new ListViewItem();
+            listviewitem.Style = (Style)App.Current.Resources["MessageStyle"];
+
+            listviewitem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            listviewitem.VerticalAlignment = VerticalAlignment.Stretch;
+            listviewitem.Tag = new Nullable<SharedModels.Message>(message);
+            Grid grid = new Grid();
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(64, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50, GridUnitType.Auto) });
+            grid.VerticalAlignment = VerticalAlignment.Stretch;
+
+            //Rectangle avatar = new Rectangle();
+            //avatar.Height = 50;
+            //avatar.RadiusX = 100;
+            //avatar.RadiusY = 100;
+            //avatar.VerticalAlignment = VerticalAlignment.Top;
+            //avatar.HorizontalAlignment = HorizontalAlignment.Left;
+            //ImageBrush imagebrush = new ImageBrush();
+            //imagebrush.Stretch = Stretch.Uniform;
+            //imagebrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg"));
+            //avatar.Fill = imagebrush;
+            //grid.Children.Add(avatar);
+
+            if (!isContinuation)
+            {
+                Rectangle img = new Rectangle();
+                img.Height = 48;
+                img.Width = 48;
+                img.RadiusX = 48;
+                img.RadiusY = 48;
+                img.VerticalAlignment = VerticalAlignment.Top;
+                img.HorizontalAlignment = HorizontalAlignment.Left;
+                img.Margin = new Thickness(0, 0, 12, 0);
+                if (message.User.Avatar != "" && message.User.Avatar != null)
+                {
+                    img.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg")) };
+                }
+                else
+                {
+                    img.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")) };
+                }
+                grid.Children.Add(img);
+            }
+            StackPanel innerstack = new StackPanel();
+            innerstack.VerticalAlignment = VerticalAlignment.Stretch;
+            StackPanel msgData = new StackPanel();
+            msgData.Orientation = Orientation.Horizontal;
+
+            if (!isContinuation)
+            {
+                #region RichTextBlock (user)
+                RichTextBlock user = new RichTextBlock();
+                user.TextWrapping = TextWrapping.WrapWholeWords;
+                Paragraph userPara = new Paragraph();
+                Bold boldBlock = new Bold();
+                Run run1 = new Run();
+
+                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                {
+                    SharedModels.GuildMember member;
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(message.User.Id))
+                    {
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[message.User.Id].Raw;
+                    }
+                    else
+                    {
+                        member = new SharedModels.GuildMember();
+                    }
+                    if (member.Nick != null)
+                    {
+                        run1.Text = member.Nick;
+                    }
+                    else
+                    {
+                        run1.Text = message.User.Username;
+                    }
+
+                    if (member.User.Bot)
+                    {
+                        run1.Text += " (BOT)";
+                    }
+
+                    if (member.Roles != null && member.Roles.Count() > 0)
+                    {
+                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                        {
+                            if (role.Id == member.Roles.First<string>())
+                            {
+                                userPara.Foreground = IntToColor(role.Color);
+                            }
+                        }
+                    }
+                }
+
+                boldBlock.Inlines.Add(run1);
+                userPara.Inlines.Add(boldBlock);
+                user.Blocks.Add(userPara);
+                user.Margin = new Thickness(0, 0, 8, 0);
+                msgData.Children.Add(user);
+                #endregion
+
+                #region RichTextBlock (timestamp)
+                RichTextBlock timestamp = new RichTextBlock();
+                Paragraph timePara = new Paragraph();
+                Run run2 = new Run();
+                run2.Text = Common.HumanizeDate(message.Timestamp, null);
+                timestamp.Opacity = 0.5;
+                timestamp.FontSize = 12;
+                timePara.Inlines.Add(run2);
+                if (message.EditedTimestamp != null)
+                {
+                    Run editedrun2 = new Run();
+                    editedrun2.Text = " (Edited " + Common.HumanizeDate((DateTime)message.EditedTimestamp, message.Timestamp) + ")";
+                    timePara.Inlines.Add(editedrun2);
+                }
+                timestamp.Blocks.Add(timePara);
+                timestamp.Padding = new Thickness(0, 3, 0, 0);
+
+                msgData.Children.Add(timestamp);
+                #endregion
+
+            }
+
+            innerstack.Children.Add(msgData);
+
+            #region RichTextBlock
+            RichTextBlock txtblock = new RichTextBlock();
+            txtblock.TextWrapping = TextWrapping.WrapWholeWords;
+            Paragraph txtPara = new Paragraph();
+
+            InlineUIContainer mDcontainer = new InlineUIContainer();
+            MarkdownTextBlock.MarkdownTextBlock mdTxtBlock = new MarkdownTextBlock.MarkdownTextBlock();
+            mDcontainer.Child = mdTxtBlock;
+            mdTxtBlock.Text = message.Content;
+
+            /*if (message.Content == "" )
+            {
+                run3.Text = "Call";
+            }*/
+            txtPara.Inlines.Add(mDcontainer);
+            mdTxtBlock.FontSize = 13.333;
+            mdTxtBlock.Foreground = (SolidColorBrush)App.Current.Resources["MessageForeground"];
+            //mdTxtBlock.Link = (SolidColorBrush)App.Current.Resources["LinkColor"];
+            txtPara.LineHeight = 18;
+            txtblock.Blocks.Add(txtPara);
+            if (Session.Online)
+            {
+                if (message.Embeds != null)
+                {
+                    foreach (SharedModels.Embed embed in message.Embeds)
+                    {
+                        Paragraph paragraph = new Paragraph();
+                        Hyperlink hyp = new Hyperlink();
+                        hyp.Foreground = (SolidColorBrush)App.Current.Resources["LinkColor"];
+                        hyp.FontSize = 13.333;
+                        if (embed.Url != null)
+                        {
+                            hyp.NavigateUri = new Uri(embed.Url);
+                        }
+                        if (embed.title != null)
+                        {
+                            Run title = new Run();
+                            title.Text = embed.title + "\n";
+                            hyp.Inlines.Add(title);
+                        }
+                        if (embed.Description != null)
+                        {
+                            Run desc = new Run();
+                            desc.Text = embed.Description + "\n";
+                            hyp.Inlines.Add(desc);
+                        }
+                        paragraph.Inlines.Add(hyp);
+                        if (embed.Thumbnail.ProxyUrl != null)
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            BitmapImage bi = new BitmapImage(new Uri(embed.Thumbnail.ProxyUrl));
+                            Image image = new Image();
+                            image.Height = 300;
+                            image.Source = bi;
+                            container.Child = image;
+                            paragraph.Inlines.Add(container);
+                        }
+                        else if (embed.Video.Url != null)
+                        {
+                            InlineUIContainer container = new InlineUIContainer();
+                            MediaElement video = new MediaElement();
+                            video.Height = 300;
+                            video.Source = (new Uri(embed.Video.Url));
+                            container.Child = video;
+                            paragraph.Inlines.Add(container);
+                        }
+                        txtblock.Blocks.Add(paragraph);
+                    }
+                }
+
+                if (message.Attachments != null)
+                {
+                    foreach (SharedModels.Attachment attach in message.Attachments)
+                    {
+                        Paragraph paragraph = new Paragraph();
+                        Hyperlink hyp = new Hyperlink();
+                        hyp.Foreground = (SolidColorBrush)App.Current.Resources["LinkColor"];
+                        hyp.FontSize = 13.333;
+                        hyp.NavigateUri = new Uri(attach.Url);
+                        Run run = new Run();
+                        run.Text = attach.Filename;
+                        BitmapImage bi = new BitmapImage(new Uri(attach.Url));
+                        Image image = new Image();
+                        image.MaxHeight = 300;
+                        image.Source = bi;
+                        InlineUIContainer container = new InlineUIContainer();
+                        container.Child = image;
+                        hyp.Inlines.Add(run);
+                        paragraph.Inlines.Add(hyp);
+                        paragraph.Inlines.Add(new LineBreak());
+                        paragraph.Inlines.Add(container);
+                        txtblock.Blocks.Add(paragraph);
+                    }
+                }
+            }
+
+            #endregion
+
+            StringBuilder run3Rep = new StringBuilder(mdTxtBlock.Text);
+            if (App.CurrentId != null)
+            {
+                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[App.CurrentId].Channels)
+                {
+                    string channelMention = "<#" + channel.Value.Raw.Id + ">";
+                    run3Rep.Replace(channelMention, "#" + channel.Value.Raw.Name);
+                }
+            }
+
+            foreach (SharedModels.User mention in message.Mentions)
+            {
+                //HyperlinkButton hyp = new HyperlinkButton();
+                //hyp.Tag = mention.Id;
+                //hyp.Click += OpenProfile;
+                string mentionIntent = "<@" + mention.Id + ">";
+                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                {
+                    SharedModels.GuildMember member;
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
+                    {
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
+                    }
+                    else
+                    {
+                        member = new SharedModels.GuildMember();
+                    }
+                    if (member.Nick != null)
+                    {
+
+                        run3Rep.Replace(mentionIntent, "@" + member.Nick); ;
+                    }
+                    else
+                    {
+                        run3Rep.Replace(mentionIntent, "@" + mention.Username);
+                    }
+                }
+                else
+                {
+                    run3Rep.Replace(mentionIntent, "@" + mention.Username);
+                }
+                mentionIntent = "<@!" + mention.Id + ">";
+                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                {
+                    SharedModels.GuildMember member;
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
+                    {
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
+                    }
+                    else
+                    {
+                        member = new SharedModels.GuildMember();
+                    }
+                    if (member.Nick != null)
+                    {
+
+                        run3Rep.Replace(mentionIntent, "@" + member.Nick); ;
+                    }
+                    else
+                    {
+                        run3Rep.Replace(mentionIntent, "@" + mention.Username);
+                    }
+                }
+                else
+                {
+                    run3Rep.Replace(mentionIntent, "@" + mention.Username);
+                }
+                if (mention.Id == Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    listviewitem.Background = GetSolidColorBrush("#19faa61a");
+                }
+            }
+
+            if (Storage.Settings.HighlightEveryone && (mdTxtBlock.Text.Contains("@everyone") || mdTxtBlock.Text.Contains("@here")))
+            {
+                listviewitem.Background = GetSolidColorBrush("#19faa61a");
+            }
+
+            mdTxtBlock.Text = run3Rep.ToString();
+            innerstack.Children.Add(txtblock);
+
+            if (message.Reactions != null)
+            {
+                GridView gridview = new GridView();
+                gridview.SelectionMode = ListViewSelectionMode.None;
+                gridview.Margin = new Thickness(0);
+                gridview.Padding = new Thickness(0);
+                foreach (SharedModels.Reactions reaction in message.Reactions)
+                {
+                    //GridViewItem gridviewitem = new GridViewItem();
+                    ToggleButton gridviewitem = new ToggleButton();
+                    gridviewitem.IsChecked = reaction.Me;
+                    gridviewitem.Tag = new Tuple<string, string, SharedModels.Reactions>(message.ChannelId, message.Id, reaction);
+                    gridviewitem.Click += ToggleReaction;
+                    if (reaction.Me)
+                    {
+                        //var uiSettings = new Windows.UI.ViewManagement.UISettings();
+                        //Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
+                        //SolidColorBrush accent = new SolidColorBrush(c);
+                        //gridviewitem.Background = accent;
+                        gridviewitem.IsChecked = true;
+                    }
+
+                    StackPanel stack = new StackPanel();
+                    stack.Orientation = Orientation.Horizontal;
+
+                    TextBlock textblock = new TextBlock();
+                    textblock.Text = reaction.Emoji.Name + " " + reaction.Count.ToString();
+                    stack.Children.Add(textblock);
+
+                    gridviewitem.Content = stack;
+                    gridviewitem.Style = (Style)App.Current.Resources["EmojiButton"];
+                    gridview.Items.Add(gridviewitem);
+                }
+                innerstack.Children.Add(gridview);
+            }
+
+            Grid.SetColumn(innerstack, 1);
+            grid.Children.Add(innerstack);
+
+            if (Session.Online)
+            {
+                #region Flyout
+                Button flyoutbutton = new Button();
+                flyoutbutton.VerticalAlignment = VerticalAlignment.Stretch;
+                flyoutbutton.FontFamily = new FontFamily("Segoe MDL2 Assets");
+                flyoutbutton.Content = "";
+                flyoutbutton.Style = (Style)App.Current.Resources["IntegratedButton"];
+                Grid.SetColumn(flyoutbutton, 2);
+
+                Flyout flyout = new Flyout();
+                StackPanel flyoutcontent = new StackPanel();
+                flyoutcontent.Margin = new Thickness(-10);
+                /*Button AddRection = new Button()
+                {
+                    Content = "Add Reaction",
+                    HorizontalAlignment = HorizontalAlignment.Stretch
+                };
+                flyoutcontent.Children.Add(AddRection);*/
+                /*Button Pin = new Button()
+                {
+                    Content = "Pin",
+                    Tag = message.Id,
+                    HorizontalAlignment = HorizontalAlignment.Stretch
+                };
+                Pin.Click += PinMessage;
+                flyoutcontent.Children.Add(Pin);*/
+                Button edit = new Button()
+                {
+                    Content = "Edit",
+                    BorderThickness = new Thickness(0),
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Tag = message.Id
+                };
+                // edit.Click += RenderEdit;
+                flyoutcontent.Children.Add(edit);
+                Button delete = new Button()
+                {
+                    Content = "Delete",
+                    BorderThickness = new Thickness(0),
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Tag = message.Id
+                };
+                delete.Click += DeleteThisMessage;
+                flyoutcontent.Children.Add(delete);
+                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                {
+                    if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                    {
+                        delete.IsEnabled = false;
+                    }
+                    if (message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                    {
+                        edit.IsEnabled = false;
+                    }
+                }
+                flyout.Content = flyoutcontent;
+                flyoutbutton.ContextFlyout = flyout;
+                flyoutbutton.Click += OpenFlyout;
+                grid.Children.Add(flyoutbutton);
+                #endregion
+            }
+
+            listviewitem.Content = grid;
+
+            if (isContinuation)
+                listviewitem.Padding = new Thickness(12, -14, 12, 16);
+            else
+                listviewitem.Padding = new Thickness(12, 6, 12, 6);
+
+            return listviewitem;
+        }
+        private void UpdateEditText(object sender, RoutedEventArgs e)
+        {
+            (sender as RichEditBox).Document.GetText(Windows.UI.Text.TextGetOptions.None, out Session.Editcache);
+        }
+        private void SendMessageEdit(object sender, RoutedEventArgs e)
+        {
+            Session.EditMessage(((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2, Session.Editcache);
+            LoadChannelMessages(null, null);
+        }
+        private void OpenFlyout(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ContextFlyout.ShowAt((sender as Button));
+        }
+        #endregion
     }
 }
