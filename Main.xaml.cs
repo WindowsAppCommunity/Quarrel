@@ -1123,7 +1123,7 @@ namespace Discord_UWP
         }
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
-            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore((sender as ListViewItem).Tag.ToString(), (Messages.Items[2] as MessageContainer).Message.Value.Id);
+            IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentId, (Messages.Items[2] as MessageContainer).Message.Value.Id);
 
             int adCheck = 5;
 
