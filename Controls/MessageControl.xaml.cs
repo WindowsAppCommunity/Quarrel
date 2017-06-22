@@ -1,5 +1,4 @@
-﻿using Discord_UWP.SharedModels;
-using Microsoft.Advertising.WinRT.UI;
+﻿using Microsoft.Advertising.WinRT.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +24,14 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using static Discord_UWP.Common;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+#region CacheModels Overrule
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Message = Discord_UWP.CacheModels.Message;
+using User = Discord_UWP.CacheModels.User;
+using Guild = Discord_UWP.CacheModels.Guild;
+#endregion
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Discord_UWP
@@ -97,20 +104,20 @@ namespace Discord_UWP
             ((MessageControl)d).Header = (string)e.NewValue;
         }
 
-        Message? _message;
-        public Message? Message
+        SharedModels.Message? _message;
+        public SharedModels.Message? Message
         {
             get { return _message; }
             set { _message = value; Notify("message"); }
         }
         public static readonly DependencyProperty MessageProperty =
-        DependencyProperty.Register("Message", typeof(Message?), typeof(MessageControl),
+        DependencyProperty.Register("Message", typeof(SharedModels.Message?), typeof(MessageControl),
         new PropertyMetadata(null, OnmessagePropertyChanged));
         private static void OnmessagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((Message?) e.NewValue == null) return;
+            if ((SharedModels.Message?) e.NewValue == null) return;
             Debug.WriteLine("New message");
-            ((MessageControl)d).Message = (Message?)e.NewValue;
+            ((MessageControl)d).Message = (SharedModels.Message?)e.NewValue;
             ((MessageControl)d).UpdateControl();
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -139,14 +146,14 @@ namespace Discord_UWP
         {
             if (!Message.HasValue) return;
                 username.Text = Message.Value.User.Username;
-                SharedModels.GuildMember member;
+                GuildMember member;
                 if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
                 {
                     member = Storage.Cache.Guilds[App.CurrentId].Members[Message.Value.User.Id].Raw;
                 }
                 else
                 {
-                    member = new SharedModels.GuildMember();
+                    member = new GuildMember();
                 }
                 if (member.Nick != null)
                 {
@@ -155,7 +162,7 @@ namespace Discord_UWP
 
             if (member.Roles != null && member.Roles.Count() > 0)
             {
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
                 {
                     if (role.Id == member.Roles.First<string>())
                     {
@@ -193,7 +200,7 @@ namespace Discord_UWP
                     
                     ToggleButton reactionToggle = new ToggleButton();
                     reactionToggle.IsChecked = reaction.Me;
-                    reactionToggle.Tag = new Tuple<string, string, SharedModels.Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
+                    reactionToggle.Tag = new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
                     reactionToggle.Click += ToggleReaction;
                     if (reaction.Me)
                     {
@@ -292,13 +299,13 @@ namespace Discord_UWP
             if (perms == null)
             {
                 perms = new Permissions();
-                if (App.CurrentId != App.DMid)
+                if (App.CurrentId != null)
                 {
-                    foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                    foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
                     {
                         if (!Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                         {
-                            Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
+                            Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
                         }
 
                         if (Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
@@ -339,23 +346,23 @@ namespace Discord_UWP
         {
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
-                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
+                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count - 1).ToString();
+                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count - 1).ToString();
                 }
                 else
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
+                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
                 }
             }
             else
             {
-                Session.CreateReaction((((ToggleButton) sender).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
+                Session.CreateReaction((((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
 
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, SharedModels.Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
+                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
                 }
                 else
                 {
@@ -363,10 +370,8 @@ namespace Discord_UWP
                 }
             }
         }
-        private async void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-                            
-
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {           
             string val = "";
             MessageBox.Document.GetText(TextGetOptions.None, out val);
             if (val.Trim() == "")
