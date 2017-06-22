@@ -291,7 +291,7 @@ namespace Discord_UWP
         {
             if (perms == null)
             {
-                Permissions perms = new Permissions();
+                perms = new Permissions();
                 if (App.CurrentId != App.DMid)
                 {
                     foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
