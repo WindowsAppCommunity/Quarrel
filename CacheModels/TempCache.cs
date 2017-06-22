@@ -38,6 +38,24 @@ namespace Discord_UWP.CacheModels
         public List<TempDmCache> DMs = new List<TempDmCache>();
     }
 
+    class TempCurrentUser
+    {
+        public TempCurrentUser(SharedModels.User input)
+        {
+            Raw = input;
+            //avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + input.Id + "/" + input.Avatar + ".jpg"));
+        }
+
+        public TempCurrentUser(TempUser input)
+        {
+            Raw = input.Raw;
+
+            //avatar = input.avatar;
+        }
+
+        public SharedModels.User Raw = new SharedModels.User();
+    }
+
     public class TempUser
     {
         public TempUser(){}

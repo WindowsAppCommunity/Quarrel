@@ -43,7 +43,7 @@ namespace Discord_UWP
                 Session.PrecenseDict.Add(presence.User.Id, presence);
             }
 
-            Session.Friends = e.EventData.Friends;
+            //Storage.Cache.CurrentUser.Friends = e.EventData.Friends;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
