@@ -948,7 +948,7 @@ namespace Discord_UWP
             (sender as ListViewItem).ContextFlyout.ShowAt((sender as ListViewItem));
         }
 
-        #region Depricated
+        #region OldCode
         private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
         {
             Permissions perms = new Permissions();
