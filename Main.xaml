@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d" >
     <Page.Resources>
         <Storyboard x:Name="DarkenMessageArea" >
@@ -488,18 +489,56 @@
                         <TextBlock Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,12,0,0"/>
                         <TextBlock Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                     </StackPanel>
-
                     <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,0,0">
-                        <ListViewHeaderItem Content="Version 3.4.0"/>
-                        <ListViewItem Content="In-message markdown support"/>
+                        <ListViewHeaderItem Content="Version 4.1.1"/>
                         <ListViewItem>
-                            <TextBlock Text="Messages less than 2 minutes apart posted from the same user display in the same block" TextWrapping="Wrap"/>
+                            <TextBlock Text="New UI" TextWrapping="Wrap"/>
                         </ListViewItem>
                         <ListViewItem>
-                            <TextBlock Text="Completely new responsive UI and UX" TextWrapping="Wrap"/>
+                            <TextBlock Text="Fixed permissions" TextWrapping="Wrap"/>
                         </ListViewItem>
-                        <ListViewItem Content="App bar can be aligned at the bottom"/>
-                        <ListViewItem Content="In-app theme selection"/>
+                        <ListViewItem>
+                            <TextBlock Text="No longer reloads all messages when one is changed" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Response code specific messages in login screen" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Channel mentions functional" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Proper mention messages" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Removed channel list width options" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Server list will collapse on thin screens" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Server specific emojis" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Added upvote for voice channels button" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Pull to refresh loads more channels" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Combines messages sent 2 minutes apart or under by the same person" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Better message box" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Different message list progress (loading) bar" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="In-app theme selection" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Discord markdown used" TextWrapping="Wrap"/>
+                        </ListViewItem>
                         <ListViewHeaderItem Content="Version 3.3.1"/>
                         <ListViewItem Content="Added loading more messages"/>
                         <ListViewHeaderItem Content="Version 3.2.4"/>
@@ -733,6 +772,5 @@
                 <AppBarButton Label="Settings" Click="OpenUserSettings"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-
     </Grid>
 </Page>
