@@ -117,6 +117,7 @@
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkdownTextBlock\LinkClickedEventArgs.cs" />
     <Compile Include="Controls\UserListControl.xaml.cs">
       <DependentUpon>UserListControl.xaml</DependentUpon>
     </Compile>
@@ -213,7 +214,6 @@
     <Compile Include="Controls\MarkdownTextBlock\Display\XamlRenderer.cs" />
     <Compile Include="Controls\MarkdownTextBlock\Helpers\Common.cs" />
     <Compile Include="Controls\MarkdownTextBlock\Helpers\DebuggingReporter.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\LinkClickedEventArgs.cs" />
     <Compile Include="Controls\MarkdownTextBlock\MarkdownRenderedEventArgs.cs" />
     <Compile Include="Controls\MarkdownTextBlock\MarkdownTextBlock.cs" />
     <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\CodeBlock.cs" />
