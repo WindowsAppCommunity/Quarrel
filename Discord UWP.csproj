@@ -101,8 +101,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundGateway.cs" />
-    <Compile Include="BackgroundTaskComponent.cs" />
     <Compile Include="CacheModels\Cache.cs" />
     <Compile Include="CacheModels\CurrentUser.cs" />
     <Compile Include="CacheModels\DMCache.cs" />
@@ -247,7 +245,6 @@
     </Compile>
     <Compile Include="Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToastNotficationBackgroundTask.cs" />
     <Compile Include="Session.cs" />
   </ItemGroup>
   <ItemGroup>
