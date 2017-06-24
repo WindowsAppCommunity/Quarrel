@@ -16,12 +16,11 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.ToastNotificationBackgroundTask">
-          <BackgroundTasks>
-            <Task Type="systemEvent" />
-            <Task Type="timer" />
-          </BackgroundTasks>
-        </Extension>
+          <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTasks.SampleBackgroundTask">
+            <BackgroundTasks>
+              <Task Type="pushNotification"/>
+            </BackgroundTasks>
+          </Extension>
       </Extensions>
       <uap:VisualElements DisplayName="Discord UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Discord UWP" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Discord UWP" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
@@ -31,6 +30,7 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#23272A" />
+        <uap:LockScreen Notification="badge" BadgeLogo="Images\badgelogo.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
