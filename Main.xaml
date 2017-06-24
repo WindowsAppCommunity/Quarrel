@@ -260,13 +260,18 @@
                                     <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordIcon.png"/>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="12,0,0,0">
-                                <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
-                                <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                            <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
+                                    <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Playing" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="Playing" Text="" PlaceholderText="Game" Opacity="0.5" Margin="6,0,0,0" TextChanged="UpdateGame"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
-
                 </Grid>
             </SplitView.Pane>
         </SplitView>

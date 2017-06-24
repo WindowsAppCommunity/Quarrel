@@ -1829,5 +1829,10 @@ namespace Discord_UWP
         //    }
         //}
         #endregion
+
+        private void UpdateGame(object sender, TextChangedEventArgs e)
+        {
+            //Session.Gateway.
+        }
     }
 }
