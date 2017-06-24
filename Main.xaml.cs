@@ -269,6 +269,8 @@ namespace Discord_UWP
             {
                 Username.Text = Storage.Cache.CurrentUser.Raw.Username;
                 Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
+                LargeUsername.Text = Username.Text;
+                LargeDiscriminator.Text = Discriminator.Text;
             }
 
             if (Session.Online)
@@ -285,10 +287,13 @@ namespace Discord_UWP
 
             Username.Text = Storage.Cache.CurrentUser.Raw.Username;
             Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
+            LargeUsername.Text = Username.Text;
+            LargeDiscriminator.Text = Discriminator.Text;
 
             ImageBrush image = new ImageBrush();
             image.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Storage.Cache.CurrentUser.Raw.Id + "/" + Storage.Cache.CurrentUser.Raw.Avatar + ".jpg"));
             Avatar.Fill = image;
+            LargeAvatar.Fill = image;
             Storage.SaveCache();
         }
         #endregion
@@ -1833,6 +1838,28 @@ namespace Discord_UWP
         private void UpdateGame(object sender, TextChangedEventArgs e)
         {
             //Session.Gateway.
+        }
+
+        private void Messages_OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.InRecycleQueue)
+            {
+                args.ItemContainer.ContentTemplate = null;
+                args.ItemContainer.DataContext = null;
+            }
+                
+        }
+
+        private void UserStatus_Checked(object sender, RoutedEventArgs e)
+        {
+            if(UserStatusOnline.IsChecked == true)
+            { /* Change status to online */}
+            else if (UserStatusIdle.IsChecked == true)
+            { /* Change status to idle */}
+            else if (UserStatusDND.IsChecked == true)
+            { /* Change status to do not disturb */}
+            else if (UserStatusInvisible.IsChecked == true)
+            { /* Change status to invisible */}
         }
     }
 }
