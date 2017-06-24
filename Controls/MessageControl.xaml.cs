@@ -317,12 +317,11 @@ namespace Discord_UWP
                 }
             }
 
-            if (!perms.EffectivePerms.ManageMessages)
+            if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MoreDelete.Visibility = Visibility.Collapsed;
             }
-            else
-            if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MoreEdit.Visibility = Visibility.Collapsed;
             }
