@@ -44,86 +44,75 @@ namespace Discord_UWP
 
         public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
 
-        private bool _isadvert = false;
-        public bool IsAdvert
-        {
-            get { return _isadvert; }
-            set { _isadvert = value; Notify("IsAdvert"); }
-        }
-        public static readonly DependencyProperty IsAdvertProperty =
-        DependencyProperty.Register("IsAdvert", typeof(bool), typeof(MessageControl),
-        new PropertyMetadata(false, OnIsAdvertPropertyChanged));
-        private static void OnIsAdvertPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((MessageControl)d).IsAdvert = (bool)e.NewValue;
-        }
-
+        //Is the more button visible?
         public Visibility MoreButtonVisibility
         {
             get { return moreButton.Visibility; }
-            set { moreButton.Visibility = value; Notify("MoreButtonVisibility"); }
-        }
-        public static readonly DependencyProperty MoreButtonVisibilityProperty =
-        DependencyProperty.Register("MoreButtonVisibility", typeof(Visibility), typeof(MessageControl),
-        new PropertyMetadata(Visibility.Visible, OnMoreButtonVisibilityPropertyChanged));
-        private static void OnMoreButtonVisibilityPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as MessageControl).moreButton.Visibility = (Visibility)e.NewValue;
+            set { moreButton.Visibility = value; }
         }
 
-        private bool _iscontinuation;
+        //Is the message an advert?
+        public bool IsAdvert
+        {
+            get { return (bool)GetValue(IsAdvertProperty); }
+            set { SetValue(IsAdvertProperty, value); }
+        }
+        public static readonly DependencyProperty IsAdvertProperty = DependencyProperty.Register(
+            nameof(IsAdvert),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
+        //Is the message the continuation of another one?
         public bool IsContinuation
         {
-            get { return _iscontinuation; }
-            set { _iscontinuation = value; Notify("IsContinuation"); }
+            get { return (bool)GetValue(IsContinuationProperty); }
+            set { SetValue(IsContinuationProperty, value); }
         }
-        public static readonly DependencyProperty IsContinuationProperty =
-            DependencyProperty.Register("IsContinuation", typeof(bool), typeof(MessageControl),
-                new PropertyMetadata(false, OnIsContinuationPropertyChanged));
-        private static void OnIsContinuationPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((MessageControl)d).IsContinuation = (bool)e.NewValue;
-            if ((bool)e.NewValue)
-            {
-                Debug.WriteLine("IS CONTINUATION");
-                VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
-            }
-        }
+        public static readonly DependencyProperty IsContinuationProperty = DependencyProperty.Register(
+            nameof(IsContinuation),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        private string _header;
+        //The header of the messages, that can indicate data such as "new messages" or the date
         public string Header
         {
-            get { return _header; }
-            set { _header = value; Notify("Header"); }
+            get { return (string)GetValue(HeaderProperty); }
+            set { SetValue(HeaderProperty, value); }
         }
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(MessageControl),
-                new PropertyMetadata(string.Empty, OnHeaderPropertyChanged));
-        private static void OnHeaderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((MessageControl)d).Header = (string)e.NewValue;
-        }
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+            nameof(Header),
+            typeof(string),
+            typeof(MessageControl),
+            new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
-        SharedModels.Message? _message;
+        //The message to be displayed
         public SharedModels.Message? Message
         {
-            get { return _message; }
-            set { _message = value; Notify("message"); }
+            get { return (SharedModels.Message?)GetValue(MessageProperty); }
+            set { SetValue(MessageProperty, value); }
         }
-        public static readonly DependencyProperty MessageProperty =
-        DependencyProperty.Register("Message", typeof(SharedModels.Message?), typeof(MessageControl),
-        new PropertyMetadata(null, OnmessagePropertyChanged));
-        private static void OnmessagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
+            nameof(Message),
+            typeof(SharedModels.Message?),
+            typeof(MessageControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+
+        //Calls OnPropertyChanged
+        private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((SharedModels.Message?) e.NewValue == null) return;
-            Debug.WriteLine("New message");
-            ((MessageControl)d).Message = (SharedModels.Message?)e.NewValue;
-            ((MessageControl)d).UpdateControl();
+            var instance = d as MessageControl;
+
+            // Defer to the instance method.
+            instance?.OnPropertyChanged(d, e.Property);
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void Notify(string propName)
+
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            if (IsContinuation == true) VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+
             if (IsAdvert == true && (Message == null))
             {
                 VisualStateManager.GoToState(this, "Advert", false);
@@ -140,11 +129,24 @@ namespace Discord_UWP
                 rootGrid.Children.Add(ad);
                 return;
             }
+
+            if (Message == null) return;
+            UpdateControl();
+            
+        }
+
+        public MessageControl()
+        {
+            this.InitializeComponent();
+            RegisterPropertyChangedCallback(MessageProperty, OnPropertyChanged);
+            RegisterPropertyChangedCallback(HeaderProperty, OnPropertyChanged);
+            RegisterPropertyChangedCallback(IsContinuationProperty, OnPropertyChanged);
+            RegisterPropertyChangedCallback(IsAdvertProperty, OnPropertyChanged);
         }
 
         public void UpdateControl()
         {
-            if (!Message.HasValue) return;
+            if (Message == null) return;
                 username.Text = Message.Value.User.Username;
                 GuildMember member;
                 if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
@@ -287,11 +289,6 @@ namespace Discord_UWP
             LoadingImage.Visibility = Visibility.Collapsed;
             //Reload attachements but with images disabled
             LoadAttachements(false);
-        }
-
-        public MessageControl()
-        {
-            this.InitializeComponent();
         }
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
