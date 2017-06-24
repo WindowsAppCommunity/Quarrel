@@ -113,22 +113,22 @@ namespace Discord_UWP
         {
             if (IsContinuation == true) VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
 
-            if (IsAdvert == true && (Message == null))
-            {
-                VisualStateManager.GoToState(this, "Advert", false);
-                AdControl ad = new AdControl();
-                ad.HorizontalAlignment = HorizontalAlignment.Center;
-                ad.Width = 300;
-                ad.Height = 50;
-                ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                ad.AdUnitId = "336795";
-                ad.Margin = new Thickness(6);
-                ad.Background = new SolidColorBrush(Colors.Red);
-                Grid.SetColumnSpan(ad, 10);
-                Grid.SetRowSpan(ad, 10);
-                rootGrid.Children.Add(ad);
-                return;
-            }
+            //if (IsAdvert == true && (Message == null))
+            //{
+            //    VisualStateManager.GoToState(this, "Advert", false);
+            //    AdControl ad = new AdControl();
+            //    ad.HorizontalAlignment = HorizontalAlignment.Center;
+            //    ad.Width = 300;
+            //    ad.Height = 50;
+            //    ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
+            //    ad.AdUnitId = "336795";
+            //    ad.Margin = new Thickness(6);
+            //    ad.Background = new SolidColorBrush(Colors.Red);
+            //    Grid.SetColumnSpan(ad, 10);
+            //    Grid.SetRowSpan(ad, 10);
+            //    rootGrid.Children.Add(ad);
+            //    return;
+            //}
 
             if (Message == null) return;
             UpdateControl();
