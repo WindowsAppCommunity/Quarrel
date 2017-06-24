@@ -127,8 +127,21 @@ namespace Discord_UWP.Gateway
                 LastSequenceNumberReceived = lastGatewayEvent?.SequenceNumber.Value ?? 0
             };
 
-            await _webMessageSocket.SendJsonObjectAsync(token);
+            await _webMessageSocket.SendJsonObjectAsync(resume);
         }
+
+        #region OldCode
+        //public async Task RequestAllGuildMembers(string guildid)
+        //{
+        //    var Request = new GuildMembersRequest()
+        //    {
+        //        GuildId = guildid,
+        //        Query = "",
+        //       Limit = 0
+        //    };
+        //    await _webMessageSocket.SendJsonObjectAsync(Request);
+        //}
+        #endregion
 
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {

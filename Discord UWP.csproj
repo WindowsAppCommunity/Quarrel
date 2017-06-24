@@ -168,6 +168,7 @@
     <Compile Include="DiscordAPI\Gateway\Sockets\IWebSocketExtensions.cs" />
     <Compile Include="DiscordAPI\Gateway\Sockets\WebMessageSocket.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GatewayResume.cs" />
+    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GuildMembersRequest.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\Identify.cs" />
     <Compile Include="DiscordAPI\SharedModels\Attachment.cs" />
     <Compile Include="DiscordAPI\SharedModels\Connection.cs" />

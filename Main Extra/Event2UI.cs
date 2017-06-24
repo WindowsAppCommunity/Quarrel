@@ -40,7 +40,7 @@ namespace Discord_UWP
 {
     public sealed partial class Main : Page
     {
-        private async void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             foreach (Presence presence in e.EventData.Presences)
             {
