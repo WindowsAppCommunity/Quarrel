@@ -130,18 +130,28 @@ namespace Discord_UWP.Gateway
             await _webMessageSocket.SendJsonObjectAsync(resume);
         }
 
-        #region OldCode
-        //public async Task RequestAllGuildMembers(string guildid)
-        //{
-        //    var Request = new GuildMembersRequest()
-        //    {
-        //        GuildId = guildid,
-        //        Query = "",
-        //       Limit = 0
-        //    };
-        //    await _webMessageSocket.SendJsonObjectAsync(Request);
-        //}
-        #endregion
+        public async void UpdateStatus(string onlinestatus, int? idleSince, Game? game)
+        {
+            status = new StatusUpdate()
+            {
+                Status = onlinestatus,
+                IdleSince = idleSince,
+                IsAFK = false,
+                Game = game
+            };
+            await UpdateStatus();
+        }
+        
+        public async Task RequestAllGuildMembers(string guildid)
+        {
+            var Request = new GuildMembersRequest()
+            {
+                GuildId = guildid,
+                Query = "",
+                Limit = 0
+            };
+            await _webMessageSocket.SendJsonObjectAsync(Request);
+        }
 
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {
@@ -315,20 +325,52 @@ namespace Discord_UWP.Gateway
             while (true)
             {
                 await Task.Delay(interval);
-                await SendHeartbeatAsync();
+                bool worked = false;
+                int tried = 3;
+                while (!worked && tried > 0)
+                {
+                    try
+                    {
+                        await SendHeartbeatAsync();
+                        await UpdateStatus();
+                        worked = true;
+                    }
+                    catch
+                    {
+                        tried--;
+                    }
+                }
             }
         }
 
         private async Task SendHeartbeatAsync()
         {
-            var heartbeatEvent = new GatewayEvent
+            try
             {
-                Operation = OperationCode.Heartbeat.ToInt(),
-                Data = lastGatewayEvent?.SequenceNumber ?? 0
-            };
+                var heartbeatEvent = new GatewayEvent
+                {
+                    Operation = OperationCode.Heartbeat.ToInt(),
+                    Data = lastGatewayEvent?.SequenceNumber ?? 0
+                };
 
-            await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+                await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+            }
+            catch
+            {
+
+            }
         }
 
+        private async Task UpdateStatus()
+        {
+            var statusevent = new GatewayEvent()
+            {
+                Operation = 3,
+                Data = status
+            };
+            await _webMessageSocket.SendJsonObjectAsync(statusevent);
+        }
+
+        StatusUpdate status = new StatusUpdate();
     }
 }

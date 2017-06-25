@@ -253,6 +253,9 @@ namespace Discord_UWP
                     case "idle":
                         rect.Fill = GetSolidColorBrush("#fffaa61a");
                         break;
+                    case "dnd":
+                        rect.Fill = GetSolidColorBrush("#FFf04747");
+                        break;
                     case "offline":
                         rect.Fill = GetSolidColorBrush("#FFAAAAAA");
                         break;

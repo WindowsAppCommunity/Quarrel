@@ -23,8 +23,6 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class MemberControl : UserControl
     {
-
-
         public Member DisplayedMember
         {
             get { return (Member)GetValue(MemberProperty); }
