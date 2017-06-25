@@ -258,7 +258,7 @@ namespace Discord_UWP
                 }
                 if (IsImage)
                 {
-                    AttachedImageViewer.Visibility = Visibility.Visible;
+                    AttachedImageViewbox.Visibility = Visibility.Visible;
                     LoadingImage.Visibility = Visibility.Visible;
                     LoadingImage.IsActive = true;
                     AttachedImageViewer.ImageOpened += AttachedImageViewer_ImageLoaded;
