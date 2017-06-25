@@ -354,7 +354,10 @@
                 <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
                 <RichEditBox MaxHeight="128" x:Name="MessageBox" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanging="TypingStarted" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>
                 <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
-                <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="10" Margin="0,8"/>
+                <StackPanel Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32">
+                    <controls:TypingIndicator x:Name="typingIndicator" Visibility="Collapsed" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
             </Grid>
         </Grid>
         <SplitView Name="Servers" DisplayMode="Overlay"  Grid.ColumnSpan="3" CompactPaneLength="320" Grid.Row="1" PaneClosing="SP_PaneClosing" Margin="0,0,-50,0" Style="{StaticResource DiscordSplitView}">
@@ -498,7 +501,7 @@
                         </ListView>
                     </SemanticZoom.ZoomedInView>
                     <SemanticZoom.ZoomedOutView>
-                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" >
+                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6,0" >
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
