@@ -157,6 +157,7 @@
     <Compile Include="Gateway\UpstreamEvents\GatewayResume.cs" />
     <Compile Include="Gateway\UpstreamEvents\GuildMembersRequest.cs" />
     <Compile Include="Gateway\UpstreamEvents\Identify.cs" />
+    <Compile Include="Gateway\UpstreamEvents\StatusUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedModels\Attachment.cs" />
     <Compile Include="SharedModels\Connection.cs" />
