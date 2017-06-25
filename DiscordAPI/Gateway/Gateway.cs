@@ -130,18 +130,27 @@ namespace Discord_UWP.Gateway
             await _webMessageSocket.SendJsonObjectAsync(resume);
         }
 
-        #region OldCode
-        //public async Task RequestAllGuildMembers(string guildid)
-        //{
-        //    var Request = new GuildMembersRequest()
-        //    {
-        //        GuildId = guildid,
-        //        Query = "",
-        //       Limit = 0
-        //    };
-        //    await _webMessageSocket.SendJsonObjectAsync(Request);
-        //}
-        #endregion
+        public async void UpdateStatus(string onlinestatus, int? idleSince, Game? game)
+        {
+            status = new StatusUpdate()
+            {
+                Status = onlinestatus,
+                IdleSince = idleSince,
+                Game = game
+            };
+            await UpdateStatus();
+        }
+        
+        public async Task RequestAllGuildMembers(string guildid)
+        {
+            var Request = new GuildMembersRequest()
+            {
+                GuildId = guildid,
+                Query = "",
+                Limit = 0
+            };
+            await _webMessageSocket.SendJsonObjectAsync(Request);
+        }
 
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {
@@ -316,19 +325,33 @@ namespace Discord_UWP.Gateway
             {
                 await Task.Delay(interval);
                 await SendHeartbeatAsync();
+                await UpdateStatus();
             }
         }
 
         private async Task SendHeartbeatAsync()
         {
-            var heartbeatEvent = new GatewayEvent
+            try
             {
-                Operation = OperationCode.Heartbeat.ToInt(),
-                Data = lastGatewayEvent?.SequenceNumber ?? 0
-            };
+                var heartbeatEvent = new GatewayEvent
+                {
+                    Operation = OperationCode.Heartbeat.ToInt(),
+                    Data = lastGatewayEvent?.SequenceNumber ?? 0
+                };
 
-            await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+                await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+            }
+            catch
+            {
+
+            }
         }
 
+        private async Task UpdateStatus()
+        {
+            await _webMessageSocket.SendJsonObjectAsync(status);
+        }
+
+        StatusUpdate status = new StatusUpdate();
     }
 }
