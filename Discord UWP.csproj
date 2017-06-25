@@ -118,8 +118,11 @@
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MarkdownTextBlock\LinkClickedEventArgs.cs" />
-    <Compile Include="Controls\UserListControl.xaml.cs">
-      <DependentUpon>UserListControl.xaml</DependentUpon>
+    <Compile Include="Controls\MemberControl.xaml.cs">
+      <DependentUpon>MemberControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TypingIndicator.xaml.cs">
+      <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
     <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
@@ -318,7 +321,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\UserListControl.xaml">
+    <Page Include="Controls\MemberControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TypingIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
