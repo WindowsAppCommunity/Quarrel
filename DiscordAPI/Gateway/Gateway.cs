@@ -324,8 +324,19 @@ namespace Discord_UWP.Gateway
             while (true)
             {
                 await Task.Delay(interval);
-                await SendHeartbeatAsync();
-                await UpdateStatus();
+                try
+                {
+                    await SendHeartbeatAsync();
+                    await UpdateStatus();
+                }
+                catch
+                {
+                    while (true)
+                    {
+                        await SendHeartbeatAsync();
+                        await UpdateStatus();
+                    }
+                }
             }
         }
 
