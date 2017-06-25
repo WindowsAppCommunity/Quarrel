@@ -1,4 +1,4 @@
-﻿/* Style Guide!!! (We despeartly we need this)
+﻿/* Style Guide!!! (We need this)
  * Comments:
  * //Is used to comment-out any code while \**\ is used for notes
  * Old functions in a file (commented or active) should be put in a Region called OldCode and placed at the bottom of the file
@@ -1882,6 +1882,75 @@ namespace Discord_UWP
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://aka.ms/Wp1zo6"));
         }
 
+        private void Messages_OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.InRecycleQueue)
+            {
+                args.ItemContainer.ContentTemplate = null;
+                args.ItemContainer.DataContext = null;
+            }
+
+        }
+
+        private void UpdateGame(Control sender, FocusDisengagedEventArgs args)
+        {
+            UserStatus_Checked(null, null);
+        }
+
+        private void UserStatus_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Playing != null) /*Called pre-full-initialization*/
+            {
+                if (UserStatusOnline.IsChecked == true)
+                {
+                    if (Playing.Text == "")
+                    {
+                        Session.Gateway.UpdateStatus("online", null, null);
+                    }
+                    else
+                    {
+                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                    }
+                    Playing.IsEnabled = true;
+                }
+                else if (UserStatusIdle.IsChecked == true)
+                {
+                    if (Playing.Text == "")
+                    {
+                        Session.Gateway.UpdateStatus("idle", 10000, null);
+                    }
+                    else
+                    {
+                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                    }
+                    Playing.IsEnabled = true;
+                }
+                else if (UserStatusDND.IsChecked == true)
+                {
+                    if (Playing.Text == "")
+                    {
+                        Session.Gateway.UpdateStatus("dnd", null, null);
+                    }
+                    else
+                    {
+                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                    }
+                    Playing.IsEnabled = true;
+                }
+                else if (UserStatusInvisible.IsChecked == true)
+                {
+                    Session.Gateway.UpdateStatus("invisible", null, null);
+                    Playing.IsEnabled = false;
+                }
+            }
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            DarkenMessageArea.Begin();
+            UserSettings.IsPaneOpen = true;
+        }
+
         #region OldCode
         //private void LockChannelsToggled(object sender, RoutedEventArgs e)
         //{
@@ -1905,38 +1974,5 @@ namespace Discord_UWP
         //    }
         //}
         #endregion
-
-        private void UpdateGame(object sender, TextChangedEventArgs e)
-        {
-            //Session.Gateway.
-        }
-
-        private void Messages_OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-            if (args.InRecycleQueue)
-            {
-                args.ItemContainer.ContentTemplate = null;
-                args.ItemContainer.DataContext = null;
-            }
-                
-        }
-
-        private void UserStatus_Checked(object sender, RoutedEventArgs e)
-        {
-            if(UserStatusOnline.IsChecked == true)
-            { /* Change status to online */}
-            else if (UserStatusIdle.IsChecked == true)
-            { /* Change status to idle */}
-            else if (UserStatusDND.IsChecked == true)
-            { /* Change status to do not disturb */}
-            else if (UserStatusInvisible.IsChecked == true)
-            { /* Change status to invisible */}
-        }
-
-        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
-        {
-            DarkenMessageArea.Begin();
-            UserSettings.IsPaneOpen = true;
-        }
     }
 }

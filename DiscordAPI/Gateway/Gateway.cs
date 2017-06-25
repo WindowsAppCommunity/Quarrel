@@ -136,6 +136,7 @@ namespace Discord_UWP.Gateway
             {
                 Status = onlinestatus,
                 IdleSince = idleSince,
+                IsAFK = false,
                 Game = game
             };
             await UpdateStatus();
@@ -324,17 +325,19 @@ namespace Discord_UWP.Gateway
             while (true)
             {
                 await Task.Delay(interval);
-                try
+                bool worked = false;
+                int tried = 3;
+                while (!worked && tried > 0)
                 {
-                    await SendHeartbeatAsync();
-                    await UpdateStatus();
-                }
-                catch
-                {
-                    while (true)
+                    try
                     {
                         await SendHeartbeatAsync();
                         await UpdateStatus();
+                        worked = true;
+                    }
+                    catch
+                    {
+                        tried--;
                     }
                 }
             }
@@ -360,7 +363,12 @@ namespace Discord_UWP.Gateway
 
         private async Task UpdateStatus()
         {
-            await _webMessageSocket.SendJsonObjectAsync(status);
+            var statusevent = new GatewayEvent()
+            {
+                Operation = 3,
+                Data = status
+            };
+            await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
 
         StatusUpdate status = new StatusUpdate();
