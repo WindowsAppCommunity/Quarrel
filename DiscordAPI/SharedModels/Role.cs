@@ -25,5 +25,7 @@ namespace Discord_UWP.SharedModels
         public bool Managed { get; set; }
         [JsonProperty("mentionable")]
         public bool Mentionable { get; set; }
+
+        public int MemberCount { get; set; }
     }
 }
