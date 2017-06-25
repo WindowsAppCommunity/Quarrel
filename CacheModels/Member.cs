@@ -30,7 +30,9 @@ namespace Discord_UWP.CacheModels
             //avatar = input.avatar;
         }
 
-        public SharedModels.GuildMember Raw = new SharedModels.GuildMember();
+        public SharedModels.GuildMember Raw;
         //public ImageBrush avatar = new ImageBrush();
+
+        public bool IsTyping { get; set; }
     }
 }

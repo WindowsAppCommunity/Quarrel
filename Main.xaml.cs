@@ -42,6 +42,7 @@ using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Services.Store;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
@@ -422,6 +423,74 @@ namespace Discord_UWP
             }
         }
 
+        #region Members
+        public async void LoadMembers(string id)
+        {
+            int totalrolecounter = 0;
+            if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
+            {
+                foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+                {
+                    int rolecounter = 0;
+                    foreach(Member m in Storage.Cache.Guilds[id].Members.Values)
+                        if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                    var roleAlt = role;
+                    totalrolecounter += rolecounter;
+                    roleAlt.MemberCount = rolecounter;
+                    if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
+                    {
+                        Storage.Cache.Guilds[id].Roles[role.Id] = roleAlt;
+                    }
+                    else
+                    {
+                        Storage.Cache.Guilds[id].Roles.Add(role.Id, roleAlt);
+                    }
+                }
+                int everyonecounter = Storage.Cache.Guilds[id].Members.Count() - totalrolecounter;
+                var memberscvs = Storage.Cache.Guilds[id].Members;
+                MembersCVS.Source = memberscvs.GroupBy(m => GetRole(m.Value.Raw.Roles.FirstOrDefault(), id, everyonecounter))
+                    .OrderBy(m => m.Key.Position).ToList();
+                TempRoleCache.Clear();
+            }
+        }
+
+        private class DisplayedRole
+        {
+            public string Id { get; set; }
+            public int Position { get; set; }
+            public string Name { get; set; }
+            public int Membercount { get; set; }
+            public SolidColorBrush Brush { get; set; }
+
+            public DisplayedRole(string id, int position, string name, int membercount, SolidColorBrush brush)
+            { Id = id; Position = position; Name = name; Membercount = membercount; Brush = brush; }
+        }
+
+        private List<DisplayedRole> TempRoleCache = new List<DisplayedRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
+        private DisplayedRole GetRole(string roleid, string guildid, int everyonecounter)
+        {
+            var cachedRole = TempRoleCache.FirstOrDefault(x => x.Id == roleid);
+            if (cachedRole != null) return cachedRole;
+            else
+            {
+                if (roleid == null)
+                {
+                    var role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    TempRoleCache.Add(role);
+                    return role;
+                }
+                else
+                {
+                    var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
+                    var role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
+                    TempRoleCache.Add(role);
+                    return role;
+                }
+
+            }
+        }
+
+        #endregion
         #region Guild
         private void LoadGuild(string id)
         {
@@ -432,10 +501,6 @@ namespace Discord_UWP
 
                 Messages.Items.Clear();
 
-                if (MemberList != null)
-                {
-                    MemberList.Children.Clear();
-                }
 
                 #region Permissions
                 Permissions perms = new Permissions();
@@ -468,67 +533,70 @@ namespace Discord_UWP
                 }
 
                 #region Roles
-                List<ListView> memberListBuffer = new List<ListView>();
-                while (memberListBuffer.Count < 1000)
-                {
-                    memberListBuffer.Add(new ListView());
-                }
 
-                if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
-                {
-                    
-                    Storage.Cache.Guilds[id].Roles.Clear();
-                    foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
-                    {
-                        if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
-                        {
-                            Storage.Cache.Guilds[id].Roles[role.Id] = role;
-                        }
-                        else
-                        {
-                            Storage.Cache.Guilds[id].Roles.Add(role.Id, role);
-                        }
-
-                        if (role.Hoist)
-                        {
-                            ListView listview = new ListView();
-                            listview.Header = new TextBlock() { Text = role.Name.ToUpper(), TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize=13.333, Margin= new Thickness(12) };
-
-                            listview.SelectionMode = ListViewSelectionMode.None;
-                            listview.FontSize = 13.333;
-                            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
-                            {
-                                if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                                {
-                                    ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                    listview.Items.Add(listviewitem);
-                                }
-                            }
-                            memberListBuffer.Insert(1000 - role.Position * 3, listview);
-                        }
-                    }
-                }
-
-                foreach (ListView listview in memberListBuffer)
-                {
-                    if (listview.Items.Count != 0)
-                    {
-                        MemberList.Children.Add(listview);
-                    }
-                }
-
-                ListView fulllistview = new ListView();
-                fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
-
-                foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
-                {
-                    if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
-                    {
-                        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                        fulllistview.Items.Add(listviewitem);
-                    }
-                }
-                MemberList.Children.Add(fulllistview);
+                MembersCVS.Source = null;
+                LoadMembers(id);
+                 
+                //List<ListView> memberListBuffer = new List<ListView>();
+                //while (memberListBuffer.Count < 1000)
+                //{
+                //    memberListBuffer.Add(new ListView());
+                //}
+                //
+                //if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
+                //{
+                //    Storage.Cache.Guilds[id].Roles.Clear();
+                //    foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+                //    {
+                //        if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
+                //        {
+                //            Storage.Cache.Guilds[id].Roles[role.Id] = role;
+                //        }
+                //        else
+                //        {
+                //            Storage.Cache.Guilds[id].Roles.Add(role.Id, role);
+                //        }
+                //
+                //        if (role.Hoist)
+                //        {
+                //            ListView listview = new ListView();
+                //            listview.Header = new TextBlock() { Text = role.Name.ToUpper(), TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize=13.333, Margin= new Thickness(12) };
+                //
+                //            listview.SelectionMode = ListViewSelectionMode.None;
+                //            listview.FontSize = 13.333;
+                //            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
+                //            {
+                //                if (member.Value.Raw.Roles.Contains<string>(role.Id))
+                //                {
+                //                    ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
+                //                    listview.Items.Add(listviewitem);
+                //                }
+                //            }
+                //            memberListBuffer.Insert(1000 - role.Position * 3, listview);
+                //        }
+                //    }
+                //}
+                //
+                //foreach (ListView listview in memberListBuffer)
+                //{
+                //    if (listview.Items.Count != 0)
+                //    {
+                //        MemberList.Children.Add(listview);
+                //    }
+                //}
+                //
+                //ListView fulllistview = new ListView();
+                //fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
+                //
+                //foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
+                //{
+                //    if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
+                //    {
+                //        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
+                //        fulllistview.Items.Add(listviewitem);
+                //    }
+                //}
+                //MemberList.Children.Add(fulllistview);
 
                 #endregion
 
@@ -589,6 +657,7 @@ namespace Discord_UWP
             }
             App.CurrentId = id;
         }
+
         private async Task DownloadGuild(string id)
         {
             Storage.Cache.Guilds[id].RawGuild = await Session.GetGuild(id);
@@ -608,10 +677,7 @@ namespace Discord_UWP
 
             Messages.Items.Clear();
 
-            if (MemberList != null)
-            {
-                MemberList.Children.Clear();
-            }
+            MembersCVS.Source = null;
 
             #region Permissions
             Permissions perms = new Permissions();
@@ -642,69 +708,73 @@ namespace Discord_UWP
             }
 
             #region Roles
-            List<ListView> memberListBuffer = new List<ListView>();
-            while (memberListBuffer.Count < 1000)
-            {
-                memberListBuffer.Add(new ListView());
-            }
 
-            if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
-            {
-                Storage.Cache.Guilds[id].Roles.Clear();
-                
-                foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
-                {
-                    if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
-                    {
-                        Storage.Cache.Guilds[id].Roles[role.Id] = role;
-                    }
-                    else
-                    {
-                        Storage.Cache.Guilds[id].Roles.Add(role.Id, role);
-                    }
+            MembersCVS.Source = null;
+            LoadMembers(id);
 
-                    if (role.Hoist)
-                    {
-                        ListView listview = new ListView();
-                        listview.Header = new TextBlock() { Text = role.Name.ToUpper(), TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
-                        listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                        listview.SelectionMode = ListViewSelectionMode.None;
-
-                        foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
-                        {
-                            if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                            {
-                                ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                listview.Items.Add(listviewitem);
-                            }
-                        }
-                        memberListBuffer.Insert(1000 - role.Position * 3, listview);
-                    }
-                }
-            }
-
-            foreach (ListView listview in memberListBuffer)
-            {
-                if (listview.Items.Count != 0)
-                {
-                    MemberList.Children.Add(listview);
-                }
-            }
-
-            ListView fulllistview = new ListView();
-            fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
-            fulllistview.SelectionMode = ListViewSelectionMode.None;
-
-            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-            {
-
-                if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
-                {
-                    ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                    fulllistview.Items.Add(listviewitem);
-                }
-            }
-            MemberList.Children.Add(fulllistview);
+            //List<ListView> memberListBuffer = new List<ListView>();
+            //while (memberListBuffer.Count < 1000)
+            //{
+            //    memberListBuffer.Add(new ListView());
+            //}
+            //
+            //if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
+            //{
+            //    Storage.Cache.Guilds[id].Roles.Clear();
+            //    
+            //    foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+            //    {
+            //        if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
+            //        {
+            //            Storage.Cache.Guilds[id].Roles[role.Id] = role;
+            //        }
+            //        else
+            //        {
+            //            Storage.Cache.Guilds[id].Roles.Add(role.Id, role);
+            //        }
+            //
+            //        if (role.Hoist)
+            //        {
+            //            ListView listview = new ListView();
+            //            listview.Header = new TextBlock() { Text = role.Name.ToUpper(), TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
+            //            listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
+            //            listview.SelectionMode = ListViewSelectionMode.None;
+            //
+            //            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[id].Members)
+            //            {
+            //                if (member.Value.Raw.Roles.Contains<string>(role.Id))
+            //                {
+            //                    ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
+            //                    listview.Items.Add(listviewitem);
+            //                }
+            //            }
+            //            memberListBuffer.Insert(1000 - role.Position * 3, listview);
+            //        }
+            //    }
+            //}
+            //
+            //foreach (ListView listview in memberListBuffer)
+            //{
+            //    if (listview.Items.Count != 0)
+            //    {
+            //        MemberList.Children.Add(listview);
+            //    }
+            //}
+            //
+            //ListView fulllistview = new ListView();
+            //fulllistview.Header = new TextBlock() { Text = "EVERYONE", TextWrapping = TextWrapping.Wrap, Opacity = 0.6, Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"], FontSize = 13.333, Margin = new Thickness(12) };
+            //fulllistview.SelectionMode = ListViewSelectionMode.None;
+            //
+            //foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
+            //{
+            //
+            //    if (Storage.Cache.Guilds[id].Members.ContainsKey(member.Value.Raw.User.Id))
+            //    {
+            //        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
+            //        fulllistview.Items.Add(listviewitem);
+            //    }
+            //}
+            //MemberList.Children.Add(fulllistview);
             App.CurrentId = id;
             #endregion
 
@@ -769,10 +839,7 @@ namespace Discord_UWP
         private void LoadDMs()
         {
             DMsLoading.IsActive = true;
-            if (MemberList != null)
-            {
-                MemberList.Children.Clear();
-            }
+            MembersCVS.Source = null;
             PinnedMessageToggle.Visibility = Visibility.Collapsed;
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
@@ -1781,7 +1848,7 @@ namespace Discord_UWP
            await new MessageDialog("Sorry, but this feature hasn't yet been added into Discord UWP, it will be available in the next update. The fact that we didn't add it means you got access to the rest of the app sooner ;)", "Coming soon™")
                 .ShowAsync();
         }
-        private void MessageControl_OnLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        private async void MessageControl_OnLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
         {
             if (e.Link.StartsWith("#"))
             {
@@ -1803,6 +1870,10 @@ namespace Discord_UWP
             {
                 string val = e.Link.Remove(0, 2);
                 ShowUserDetails(val);
+            }
+            else
+            {
+                await Launcher.LaunchUriAsync(new Uri(e.Link));
             }
         }
 
@@ -1860,6 +1931,12 @@ namespace Discord_UWP
             { /* Change status to do not disturb */}
             else if (UserStatusInvisible.IsChecked == true)
             { /* Change status to invisible */}
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            DarkenMessageArea.Begin();
+            UserSettings.IsPaneOpen = true;
         }
     }
 }

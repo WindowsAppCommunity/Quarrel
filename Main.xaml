@@ -189,6 +189,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="GroupHeaderStyle" TargetType="ListViewHeaderItem">
+            <Setter Property="Margin" Value="6,6,6,-4"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewHeaderItem">
+                        <ContentPresenter x:Name="ContentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTransitions="{TemplateBinding ContentTransitions}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <CollectionViewSource x:Name="MembersCVS" IsSourceGrouped="True"/>
     </Page.Resources>
     <Grid Background="Black">
         <VisualStateManager.VisualStateGroups>
@@ -289,7 +311,7 @@
                 <TextBlock x:Name="ChannelName" FontWeight="Bold"/>
                 <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
             </StackPanel>
-
+            
             <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -394,7 +416,8 @@
                             <Button.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                     <StackPanel Padding="12">
-                                        <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,6,0,0"/>
+                                        <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="AppBarButton_Click_1"/>
+                                        <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
                                         <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
                                         <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
                                         <RadioButton x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
@@ -413,18 +436,18 @@
                                 </Flyout>
                             </Button.Flyout>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="8">
-                            <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
-                                <Rectangle.Fill>
-                                    <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
-                                    <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                                <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
+                                        <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>
                         </Button>
                     </Grid>
                 </Grid>
@@ -433,9 +456,73 @@
 
         <SplitView Name="Members" Grid.ColumnSpan="3" PanePlacement="Right" PaneBackground="{ThemeResource LightBG}" Style="{StaticResource DiscordSplitView}" DisplayMode="Overlay" Grid.Row="1" PaneClosing="SP_PaneClosing" OpenPaneLength="240">
             <SplitView.Pane>
-                <ScrollViewer>
-                    <StackPanel x:Name="MemberList"/>
-                </ScrollViewer>
+                <SemanticZoom>
+                    <SemanticZoom.ZoomedInView>
+                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="MinHeight" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Group.Key.Brush}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.GroupStyle>
+                                <GroupStyle HidesIfEmpty="True">
+                                    <GroupStyle.HeaderContainerStyle>
+                                        <Style TargetType="ListViewBaseHeaderItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </GroupStyle.HeaderContainerStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid VerticalAlignment="Top">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Margin="0"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </SemanticZoom.ZoomedInView>
+                    <SemanticZoom.ZoomedOutView>
+                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
+                                        <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.Footer>
+                                <Rectangle Height="48"/>
+                            </ListView.Footer>
+                        </ListView>
+                    </SemanticZoom.ZoomedOutView>
+                </SemanticZoom>
+                
             </SplitView.Pane>
         </SplitView>
 
