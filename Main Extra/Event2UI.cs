@@ -377,6 +377,7 @@ namespace Discord_UWP
 
         private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
+            Storage.Cache.DMs.Add(e.EventData.Id, new DmCache(e.EventData));
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
@@ -384,18 +385,35 @@ namespace Discord_UWP
                    {
                        DirectMessageChannel channel = e.EventData;
                        ListViewItem listviewitem = new ListViewItem();
-                       StackPanel stack = new StackPanel();
-                       stack.Orientation = Orientation.Horizontal;
-                       Image image = new Image();
-                       image.Height = 50;
-                       image.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.User.Id + "/" + channel.User.Avatar + ".jpg"));
-                       TextBlock txtblock = new TextBlock();
-                       txtblock.Text = channel.User.Username;
-                       txtblock.VerticalAlignment = VerticalAlignment.Center;
-                       stack.Children.Add(image);
-                       stack.Children.Add(txtblock);
-                       listviewitem.Content = stack;
-                       listviewitem.Tag = channel.Id;
+                       if (channel.Type == 1) /*Direct Channel*/
+                       {
+                           StackPanel stack = new StackPanel();
+                           stack.Orientation = Orientation.Horizontal;
+                           Image image = new Image();
+                           image.Height = 50;
+                           image.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.User.First().Id + "/" + channel.User.First().Avatar + ".jpg"));
+                           TextBlock txtblock = new TextBlock();
+                           txtblock.Text = channel.User.First().Username;
+                           txtblock.VerticalAlignment = VerticalAlignment.Center;
+                           stack.Children.Add(image);
+                           stack.Children.Add(txtblock);
+                           listviewitem.Content = stack;
+                           listviewitem.Tag = channel.Id;
+                       } else if (channel.Type == 3) /*Group Channel*/
+                       {
+                           StackPanel stack = new StackPanel();
+                           stack.Orientation = Orientation.Horizontal;
+                           Image image = new Image();
+                           image.Height = 50;
+                           image.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.User.First().Id + "/" + channel.User.First().Avatar + ".jpg"));
+                           TextBlock txtblock = new TextBlock();
+                           txtblock.Text = "Group channel";
+                           txtblock.VerticalAlignment = VerticalAlignment.Center;
+                           stack.Children.Add(image);
+                           stack.Children.Add(txtblock);
+                           listviewitem.Content = stack;
+                           listviewitem.Tag = channel.Id;
+                       }
                        DirectMessageChannels.Items.Add(listviewitem);
                    }
                });
