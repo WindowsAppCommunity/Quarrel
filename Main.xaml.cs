@@ -1079,16 +1079,8 @@ namespace Discord_UWP
                     }
                 }
 
-                if (Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Type == 1)
-                {
-                    ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.User.First().Username;
-                    ChannelTopic.Text = "";
-                } else
-                {
-                    ChannelName.Text = "Group DM";
-                    ChannelTopic.Text = "";
-                }
-                
+                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.User.Username;
+                ChannelTopic.Text = "";
 
                 if (Session.Online)
                 {
