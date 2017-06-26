@@ -887,7 +887,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
             // Attempt to resolve references.
             element.ResolveReference(_document);
-            if (element.Url == null)
+            if (element.Url == null || _document.enableHiddenLinks == false)
             {
                 // The element couldn't be resolved, just render it as text.
                 RenderInlineChildren(inlineCollection, element.Inlines, parent, context);
@@ -898,7 +898,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // that the superscript is outside the hyperlink, then it will render correctly.
             // This assumes that the entire hyperlink is to be rendered as superscript.
           /*  if (AllTextIsSuperscript(element) == false)
-            {
+            {*/
                 // Regular ol' hyperlink.
                 var link = new Hyperlink();
 
@@ -906,7 +906,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
 
                 // Remove superscripts.
-               RemoveSuperscriptRuns(element, insertCaret: true);
+              /* RemoveSuperscriptRuns(element, insertCaret: true);*/
 
                 // Render the children into the link inline.
                 var childContext = context.Clone();
@@ -922,7 +922,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
                 // Add it to the current inlines
                 inlineCollection.Add(link);
-            }
+            /*}
             else
             {
                 // THE HACK IS ON!
