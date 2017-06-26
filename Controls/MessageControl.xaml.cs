@@ -25,6 +25,7 @@ using static Discord_UWP.Common;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Discord_UWP.CacheModels;
+using Discord_UWP.Controls;
 using Discord_UWP.SharedModels;
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
@@ -130,7 +131,7 @@ namespace Discord_UWP
                 return;
             }
 
-            if (Message == null) return;
+            if (Message == null && prop != MessageProperty) return;
             UpdateControl();
             
         }
@@ -138,10 +139,10 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-            RegisterPropertyChangedCallback(MessageProperty, OnPropertyChanged);
-            RegisterPropertyChangedCallback(HeaderProperty, OnPropertyChanged);
-            RegisterPropertyChangedCallback(IsContinuationProperty, OnPropertyChanged);
-            RegisterPropertyChangedCallback(IsAdvertProperty, OnPropertyChanged);
+           // RegisterPropertyChangedCallback(MessageProperty, OnPropertyChanged);
+           // RegisterPropertyChangedCallback(HeaderProperty, OnPropertyChanged);
+           // RegisterPropertyChangedCallback(IsContinuationProperty, OnPropertyChanged);
+           // RegisterPropertyChangedCallback(IsAdvertProperty, OnPropertyChanged);
         }
 
         public void UpdateControl()
@@ -225,6 +226,7 @@ namespace Discord_UWP
             }
 
             LoadAttachements(true);
+            LoadEmbeds();
             content.Users = Message.Value.Mentions;
             if (Message?.Content == "")
             {
@@ -232,6 +234,21 @@ namespace Discord_UWP
                 Grid.SetRow(moreButton, 4);
             }
             content.Text = Message.Value.Content;
+        }
+
+        private void LoadEmbeds()
+        {
+            if (Message.Value.Embeds.Any())
+                EmbedViewer.Visibility = Visibility.Visible;
+            else
+            {
+                EmbedViewer.Visibility=Visibility.Collapsed;
+                return;
+            }
+            foreach (Embed embed in Message.Value.Embeds)
+            {
+                EmbedViewer.Children.Add(new EmbedControl(){Content = embed});
+            }
         }
 
         readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };

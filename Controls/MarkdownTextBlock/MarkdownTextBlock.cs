@@ -93,6 +93,20 @@ namespace Discord_UWP.MarkdownTextBlock
             typeof(MarkdownTextBlock),
             new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
+        public bool EnableHiddenLinks
+        {
+            get { return (bool)GetValue(EnableHiddenLinksProperty); }
+            set { SetValue(EnableHiddenLinksProperty, value); }
+        }
+        /// <summary>
+        /// Gets the dependency property for <see cref="Text"/>.
+        /// </summary>
+        public static readonly DependencyProperty EnableHiddenLinksProperty = DependencyProperty.Register(
+            nameof(EnableHiddenLinks),
+            typeof(bool),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         /// <summary>
         /// Gets or sets the markdown text to display.
         /// </summary>
@@ -1129,7 +1143,7 @@ namespace Discord_UWP.MarkdownTextBlock
             {
                 // Try to parse the markdown.
                 MarkdownDocument markdown = new MarkdownDocument();
-                markdown.Parse(Text);
+                markdown.Parse(Text, EnableHiddenLinks);
 
                 // Now try to display it
                 var renderer = new XamlRenderer(markdown, this, Users, MessageId)

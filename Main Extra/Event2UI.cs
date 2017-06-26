@@ -169,9 +169,10 @@ namespace Discord_UWP
                     {
                         if (TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id == e.EventData.ChannelId)
                         {
-                            foreach (SharedModels.Message? item in Messages.Items)
-                                if (item.HasValue && item.Value.Id == e.EventData.MessageId)
-                                    Messages.Items.Remove(item);
+                            if (Messages.Items != null)
+                                foreach (MessageContainer item in Messages.Items)
+                                    if (item.Message.HasValue && item.Message.Value.Id == e.EventData.MessageId)
+                                        Messages.Items.Remove(item);
                         }
                     }
                 }
