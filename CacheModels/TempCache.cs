@@ -31,11 +31,34 @@ namespace Discord_UWP.CacheModels
             {
                 DMs.Add(new TempDmCache(dm.Value));
             }
+
+            foreach (KeyValuePair<int, string> guild in input.guildOrder)
+            {
+                guildOrder.Add(new TempGuildPosition(guild.Key, guild.Value));
+            }
         }
 
         public TempUser CurrentUser;
+        public List<TempGuildPosition> guildOrder = new List<TempGuildPosition>();
         public List<TempGuild> Guilds = new List<TempGuild>();
         public List<TempDmCache> DMs = new List<TempDmCache>();
+    }
+
+    public class TempGuildPosition
+    {
+        public TempGuildPosition()
+        {
+
+        }
+
+        public TempGuildPosition(int pos, string guild)
+        {
+            position = pos;
+            guildid = guild;
+        }
+
+        public int position;
+        public string guildid;
     }
 
     class TempCurrentUser

@@ -42,6 +42,13 @@ namespace Discord_UWP
     {
         private void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
+            int pos = 0;
+            foreach (string guild in e.EventData.settings.GuildOrder)
+            {
+                pos++;
+                Storage.Cache.guildOrder.Add(pos, guild);
+            }
+
             foreach (Presence presence in e.EventData.Presences)
             {
                 if (Session.PrecenseDict.ContainsKey(presence.User.Id))
