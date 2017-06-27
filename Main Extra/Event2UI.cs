@@ -50,9 +50,15 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(pos, guild);
             }
 
+            Storage.Cache.DMs.Clear();
+            foreach (DirectMessageChannel dm in e.EventData.PrivateChannels)
+            {
+                Storage.Cache.DMs.Add(dm.Id, new DmCache(dm));
+            }
+
             foreach (SharedModels.Guild guild in e.EventData.Guilds)
             {
-                foreach (SharedModels.Presence status in guild.Presences)
+                foreach (Presence status in guild.Presences)
                 {
                     if (!Session.PrecenseDict.ContainsKey(status.User.Id))
                     {
@@ -411,11 +417,11 @@ namespace Discord_UWP
         private async void DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
                    if (ServerList.SelectedIndex == 0)
                    {
-                       await DownloadDMs();
+                       DownloadDMs();
                    }
                });
         }

@@ -135,9 +135,9 @@ namespace Discord_UWP.Controls
                 ChannelImage.Visibility = Visibility.Visible;
                 ChannelImage.Margin = new Thickness(0, 6, 6, 6);
                 ChannelImageBrush.ImageSource =
-                    new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.User.Id + "/" +
-                                            DmChannel.Value.User.Avatar + ".png?size=64"));
-                ChannelName.Text = DmChannel.Value.User.Username;
+                    new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.Users.FirstOrDefault().Id + "/" +
+                                            DmChannel.Value.Users.FirstOrDefault().Avatar + ".png?size=64"));
+                ChannelName.Text = DmChannel.Value.Users.FirstOrDefault().Username;
                 
                 //if (DmChannel.Value.Users.Any() && DmChannel.Value.Users.Count() > 1)
                 //{
