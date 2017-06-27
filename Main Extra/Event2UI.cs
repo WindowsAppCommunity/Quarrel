@@ -49,6 +49,17 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(pos, guild);
             }
 
+            foreach (SharedModels.Guild guild in e.EventData.Guilds)
+            {
+                foreach (SharedModels.Presence status in guild.Presences)
+                {
+                    if (!Session.PrecenseDict.ContainsKey(status.User.Id))
+                    {
+                        Session.PrecenseDict.Add(status.User.Id, status);
+                    }
+                }
+            }
+
             foreach (Presence presence in e.EventData.Presences)
             {
                 if (Session.PrecenseDict.ContainsKey(presence.User.Id))
