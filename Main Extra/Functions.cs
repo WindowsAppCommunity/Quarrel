@@ -574,8 +574,7 @@ namespace Discord_UWP
             avatar.VerticalAlignment = VerticalAlignment.Center;
             TextBlock txtblock = new TextBlock();
             txtblock.Margin = new Thickness(12, 0, 0, 0);
-            if (channel.Raw.User.Username != null)
-                txtblock.Text = channel.Raw.User.Username;
+            txtblock.Text = channel.Raw.User.Username;
 
             txtblock.VerticalAlignment = VerticalAlignment.Center;
             image.Children.Add(avatar);
@@ -851,7 +850,7 @@ namespace Discord_UWP
 
 
         public async void LoadCache()
-        {/*
+        {
             try
             {
                 StorageFile file = await Storage.SavedData.GetFileAsync("cache");
@@ -873,7 +872,6 @@ namespace Discord_UWP
                 MessageDialog msg = new MessageDialog("You had no cache, the app will now start caching data to improve loading times");
                 await msg.ShowAsync();
             }
-            */
         }
         private async void LoadMessages()
         {
