@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
+using Microsoft.Toolkit.Uwp;
 
 namespace Discord_UWP
 {
@@ -41,7 +44,7 @@ namespace Discord_UWP
         }
 
         public static async void SaveCache()
-        {/*
+        {
             XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
             StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
 
@@ -54,7 +57,7 @@ namespace Discord_UWP
             catch
             {
 
-            }*/
+            }
         }
 
         public static async void SaveMessages()
@@ -135,5 +138,6 @@ namespace Discord_UWP
         public double RespUiXl = 1024;
         public bool AppBarAtBottom = false;
         public Theme Theme = Theme.Dark;
+        public string AccentBrush = Color.FromArgb(255,114,137,218).ToHex();
     }
 }

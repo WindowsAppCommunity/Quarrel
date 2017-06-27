@@ -60,6 +60,8 @@ using Windows.UI.Xaml.Shapes;
 using static Discord_UWP.Common;
 using Discord_UWP.CacheModels;
 using Discord_UWP.SharedModels;
+using Microsoft.Toolkit.Uwp;
+
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 using Message = Discord_UWP.CacheModels.Message;
@@ -432,7 +434,7 @@ namespace Discord_UWP
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
                     int rolecounter = 0;
-                    foreach(Member m in Storage.Cache.Guilds[id].Members.Values)
+                    foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
                         if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
                     var roleAlt = role;
                     totalrolecounter += rolecounter;
@@ -451,6 +453,13 @@ namespace Discord_UWP
                 foreach (Member m in memberscvs.Values)
                 {
                     m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
+                    {
+                        m.status = Session.PrecenseDict[m.Raw.User.Id];
+                    } else
+                    {
+                        m.status = new Presence() { Status = "offline", Game = null};
+                    }
                 }
                 MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
@@ -472,9 +481,17 @@ namespace Discord_UWP
                 }
                 else
                 {
-                    var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
-                    var role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
-                    TempRoleCache.Add(role);
+                    DisplayedRole role;
+                    if (Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
+                    {
+                        var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
+                        role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
+                        TempRoleCache.Add(role);
+                    } else
+                    {
+                        role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                        TempRoleCache.Add(role);
+                    }
                     return role;
                 }
 
@@ -1705,6 +1722,7 @@ namespace Discord_UWP
             RespUI_L.Value = Storage.Settings.RespUiL;
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
+            accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
 
             if (Storage.Settings.Theme == Theme.Dark)
                 radio_Dark.IsChecked = true;
@@ -1731,6 +1749,7 @@ namespace Discord_UWP
             Storage.Settings.RespUiL = RespUI_L.Value;
             Storage.Settings.RespUiXl = RespUI_XL.Value;
             Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
+            Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
 
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;
