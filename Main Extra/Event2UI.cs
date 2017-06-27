@@ -42,6 +42,18 @@ namespace Discord_UWP
     {
         private void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
+            Storage.Cache.DMs.Clear();
+            foreach (DirectMessageChannel dm in e.EventData.PrivateChannels)
+            {
+                Storage.Cache.DMs.Add(dm.Id, new DmCache(dm));
+            }
+
+            /*Storage.Cache.Guilds.Clear();
+            foreach (SharedModels.Guild guild in e.EventData.Guilds)
+            {
+                Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
+            }*/
+
             foreach (Presence presence in e.EventData.Presences)
             {
                 if (Session.PrecenseDict.ContainsKey(presence.User.Id))
@@ -62,7 +74,7 @@ namespace Discord_UWP
                     if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
                     {
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                        Storage.SaveCache();
+                        //Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
@@ -377,26 +389,13 @@ namespace Discord_UWP
 
         private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
+            Storage.Cache.DMs.Add(e.EventData.Id, new DmCache(e.EventData));
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
                    if (ServerList.SelectedIndex == 0)
                    {
-                       DirectMessageChannel channel = e.EventData;
-                       ListViewItem listviewitem = new ListViewItem();
-                       StackPanel stack = new StackPanel();
-                       stack.Orientation = Orientation.Horizontal;
-                       Image image = new Image();
-                       image.Height = 50;
-                       image.Source = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.User.Id + "/" + channel.User.Avatar + ".jpg"));
-                       TextBlock txtblock = new TextBlock();
-                       txtblock.Text = channel.User.Username;
-                       txtblock.VerticalAlignment = VerticalAlignment.Center;
-                       stack.Children.Add(image);
-                       stack.Children.Add(txtblock);
-                       listviewitem.Content = stack;
-                       listviewitem.Tag = channel.Id;
-                       DirectMessageChannels.Items.Add(listviewitem);
+                       DirectMessageChannels.Items.Add(ChannelRender(new DmCache(e.EventData)));
                    }
                });
         }
