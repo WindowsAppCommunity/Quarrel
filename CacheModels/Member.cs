@@ -35,6 +35,7 @@ namespace Discord_UWP.CacheModels
 
         public bool IsTyping { get; set; }
         public DisplayedRole MemberDisplayedRole { get; set; }
+        public SharedModels.Presence status { get; set; }
     }
 
     public class DisplayedRole

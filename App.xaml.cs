@@ -22,6 +22,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -34,6 +35,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.CacheModels;
+using Microsoft.Toolkit.Uwp;
 
 namespace Discord_UWP
 {
@@ -53,6 +55,7 @@ namespace Discord_UWP
                 this.RequestedTheme = ApplicationTheme.Dark;
             else if (Storage.Settings.Theme == Theme.Light)
                 this.RequestedTheme = ApplicationTheme.Light;
+            
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -135,6 +138,13 @@ namespace Discord_UWP
                     Storage.Settings.AutoHidePeople = false;
                     Storage.Settings.Toasts = false;
                     Storage.Settings.HighlightEveryone = true;
+                    Storage.Settings.Toasts = false;
+                    Storage.Settings.RespUiM = 569;
+                    Storage.Settings.RespUiL = 768;
+                    Storage.Settings.RespUiXl = 1024;
+                    Storage.Settings.AppBarAtBottom = false;
+                    Storage.Settings.Theme = Theme.Dark;
+                    Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
                     Storage.SaveAppSettings();
                 }
             }
@@ -144,6 +154,14 @@ namespace Discord_UWP
                 Storage.Settings.AutoHidePeople = false;
                 Storage.Settings.Toasts = false;
                 Storage.Settings.HighlightEveryone = true;
+                Storage.Settings.Toasts = false;
+                Storage.Settings.RespUiM = 569;
+                Storage.Settings.RespUiL = 768;
+                Storage.Settings.RespUiXl = 1024;
+                Storage.Settings.AppBarAtBottom = false;
+                Storage.Settings.Theme = Theme.Dark;
+                Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
+                Storage.SaveAppSettings();
                 Storage.SaveAppSettings();
 
                 MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
@@ -170,7 +188,7 @@ namespace Discord_UWP
             view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["LiteBG_hover"]).Color;
             view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["LiteBG_hover"]).Color;
-
+            App.Current.Resources["Blurple"] = Common.GetSolidColorBrush(Storage.Settings.AccentBrush);
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 
