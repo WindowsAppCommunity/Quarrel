@@ -96,8 +96,8 @@
         <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
             <TextBlock x:Name="username" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
-            <Border x:Name="BotIndicator" Visibility="Collapsed" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2">
-                <TextBlock Text="BOT" FontSize="12" VerticalAlignment="Center"/>
+            <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2">
+                <TextBlock Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
@@ -126,6 +126,7 @@
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
+        <StackPanel x:Name="EmbedViewer" Grid.Row="4" Grid.Column="1" Padding="0" Visibility="Collapsed"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

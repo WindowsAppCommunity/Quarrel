@@ -115,7 +115,7 @@ namespace Discord_UWP
             
             if (!isContinuation.HasValue)
             {
-                if (Messages.Items.Last() != null && Messages.Items.Last().GetType() == typeof(MessageContainer))
+                if (Messages.Items.LastOrDefault() != null && Messages.Items.LastOrDefault().GetType() == typeof(MessageContainer))
                 {
                     MessageContainer previousMessage = Messages.Items.Last() as MessageContainer;
                     //If the previous message is from the same user and there is less than a two minute difference between the two messages, render it without the message headers
