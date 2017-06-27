@@ -451,6 +451,13 @@ namespace Discord_UWP
                 foreach (Member m in memberscvs.Values)
                 {
                     m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
+                    {
+                        m.status = Session.PrecenseDict[m.Raw.User.Id];
+                    } else
+                    {
+                        m.status = new Presence() { Status = "offline", Game = null};
+                    }
                 }
                 MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
