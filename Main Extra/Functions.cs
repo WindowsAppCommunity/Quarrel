@@ -577,11 +577,12 @@ namespace Discord_UWP
                 avatar.VerticalAlignment = VerticalAlignment.Center;
                 TextBlock txtblock = new TextBlock();
                 txtblock.Margin = new Thickness(12, 0, 0, 0);
+                if(channel.Raw.User.Username != null)
                 txtblock.Text = channel.Raw.User.Username;
 
                 txtblock.VerticalAlignment = VerticalAlignment.Center;
                 image.Children.Add(avatar);
-                if (Session.PrecenseDict.ContainsKey(channel.Raw.User.Id))
+                if (channel.Raw.User.Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.User.Id))
                 {
                     Rectangle rect = new Rectangle();
                     rect.RadiusX = 100;
