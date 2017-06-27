@@ -472,9 +472,17 @@ namespace Discord_UWP
                 }
                 else
                 {
-                    var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
-                    var role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
-                    TempRoleCache.Add(role);
+                    DisplayedRole role;
+                    if (Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
+                    {
+                        var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
+                        role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
+                        TempRoleCache.Add(role);
+                    } else
+                    {
+                        role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                        TempRoleCache.Add(role);
+                    }
                     return role;
                 }
 
