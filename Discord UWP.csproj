@@ -114,6 +114,9 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\ChannelControl.xaml.cs">
+      <DependentUpon>ChannelControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
@@ -262,6 +265,8 @@
     <Content Include="Assets\DiscordIcon.png" />
     <Content Include="Assets\DiscordLogo.jpg" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Friends_black.svg" />
+    <Content Include="Assets\Friends_white.svg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -314,6 +319,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ClickyButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ChannelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
