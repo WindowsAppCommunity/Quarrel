@@ -561,96 +561,67 @@ namespace Discord_UWP
 
         private UIElement ChannelRender(DmCache channel)
         {
-
             ListViewItem listviewitem = new ListViewItem();
             StackPanel stack = new StackPanel();
             stack.Orientation = Orientation.Horizontal;
-            if (channel.Raw.Users == null || channel.Raw.Users.Count() == 1)
-            {
-                Grid image = new Grid();
-                Rectangle avatar = new Rectangle();
-                avatar.RadiusX = 100;
-                avatar.RadiusY = 100;
-                avatar.Height = 36;
-                avatar.Width = 36;
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.User.Id + "/" + channel.Raw.User.Avatar + ".jpg")) };
-                avatar.VerticalAlignment = VerticalAlignment.Center;
-                TextBlock txtblock = new TextBlock();
-                txtblock.Margin = new Thickness(12, 0, 0, 0);
-                if(channel.Raw.User.Username != null)
+            Grid image = new Grid();
+            Rectangle avatar = new Rectangle();
+            avatar.RadiusX = 100;
+            avatar.RadiusY = 100;
+            avatar.Height = 36;
+            avatar.Width = 36;
+            avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.User.Id + "/" + channel.Raw.User.Avatar + ".jpg")) };
+            avatar.VerticalAlignment = VerticalAlignment.Center;
+            TextBlock txtblock = new TextBlock();
+            txtblock.Margin = new Thickness(12, 0, 0, 0);
+            if (channel.Raw.User.Username != null)
                 txtblock.Text = channel.Raw.User.Username;
 
-                txtblock.VerticalAlignment = VerticalAlignment.Center;
-                image.Children.Add(avatar);
-                if (channel.Raw.User.Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.User.Id))
-                {
-                    Rectangle rect = new Rectangle();
-                    rect.RadiusX = 100;
-                    rect.RadiusY = 100;
-                    rect.Height = 10;
-                    rect.Width = 10;
-                    rect.HorizontalAlignment = HorizontalAlignment.Right;
-                    rect.VerticalAlignment = VerticalAlignment.Bottom;
-
-                    switch (Session.PrecenseDict[channel.Raw.User.Id].Status)
-                    {
-                        case "online":
-                            rect.Fill = GetSolidColorBrush("#ff43b581");
-                            break;
-                        case "idle":
-                            rect.Fill = GetSolidColorBrush("#fffaa61a");
-                            break;
-                        case "offline":
-                            rect.Fill = GetSolidColorBrush("#FFAAAAAA");
-                            break;
-                    }
-
-                    image.Children.Add(rect);
-                }
-                else
-                {
-                    Rectangle rect = new Rectangle();
-                    rect.RadiusX = 100;
-                    rect.RadiusY = 100;
-                    rect.Height = 10;
-                    rect.Width = 10;
-                    rect.HorizontalAlignment = HorizontalAlignment.Right;
-                    rect.VerticalAlignment = VerticalAlignment.Bottom;
-                    rect.Fill = GetSolidColorBrush("#FFAAAAAA");
-                    image.Children.Add(rect);
-                    stack.Children.Add(image);
-                }
-                stack.Children.Add(txtblock);
-                listviewitem.Content = stack;
-                listviewitem.Tag = channel;
-                listviewitem.Style = (Style)App.Current.Resources["ChannelItemStyle"];
-                listviewitem.Height = 48;
-            } else
+            txtblock.VerticalAlignment = VerticalAlignment.Center;
+            image.Children.Add(avatar);
+            if (channel.Raw.User.Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.User.Id))
             {
-                Grid image = new Grid();
-                Rectangle avatar = new Rectangle();
-                avatar.RadiusX = 100;
-                avatar.RadiusY = 100;
-                avatar.Height = 36;
-                avatar.Width = 36;
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.User.Id + "/" + channel.Raw.User.Avatar + ".jpg")) };
-                avatar.VerticalAlignment = VerticalAlignment.Center;
-                TextBlock Icon = new TextBlock();
-                Icon.Text = "";
-                Icon.FontFamily = new FontFamily("Segoe MDL2 Assets");
-                TextBlock txtblock = new TextBlock();
-                txtblock.Margin = new Thickness(12, 0, 0, 0);
-                txtblock.Text = "Group DM";
-                txtblock.VerticalAlignment = VerticalAlignment.Center;
-                image.Children.Add(avatar);
-                image.Children.Add(Icon);
+                Rectangle rect = new Rectangle();
+                rect.RadiusX = 100;
+                rect.RadiusY = 100;
+                rect.Height = 10;
+                rect.Width = 10;
+                rect.HorizontalAlignment = HorizontalAlignment.Right;
+                rect.VerticalAlignment = VerticalAlignment.Bottom;
 
-                stack.Children.Add(txtblock);
-                listviewitem.Content = stack;
-                listviewitem.Tag = channel;
-                listviewitem.Style = (Style)App.Current.Resources["ChannelItemStyle"];
-                listviewitem.Height = 48;
+                switch (Session.PrecenseDict[channel.Raw.User.Id].Status)
+                {
+                    case "online":
+                        rect.Fill = GetSolidColorBrush("#ff43b581");
+                        break;
+                    case "idle":
+                        rect.Fill = GetSolidColorBrush("#fffaa61a");
+                        break;
+                    case "offline":
+                        rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                        break;
+                }
+
+                image.Children.Add(rect);
             }
+            else
+            {
+                Rectangle rect = new Rectangle();
+                rect.RadiusX = 100;
+                rect.RadiusY = 100;
+                rect.Height = 10;
+                rect.Width = 10;
+                rect.HorizontalAlignment = HorizontalAlignment.Right;
+                rect.VerticalAlignment = VerticalAlignment.Bottom;
+                rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                image.Children.Add(rect);
+                stack.Children.Add(image);
+            }
+            stack.Children.Add(txtblock);
+            listviewitem.Content = stack;
+            listviewitem.Tag = channel;
+            listviewitem.Style = (Style)App.Current.Resources["ChannelItemStyle"];
+            listviewitem.Height = 48;
             return listviewitem;
         }
 
