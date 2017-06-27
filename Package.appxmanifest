@@ -30,7 +30,6 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#23272A" />
-        <uap:LockScreen Notification="badge" BadgeLogo="Images\badgelogo.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
