@@ -31,9 +31,15 @@ namespace Discord_UWP
             {
                 DMs.Add(dm.Raw.Id, new DmCache(dm));
             }
+
+            foreach(TempGuildPosition guild in input.guildOrder)
+            {
+                guildOrder.Add(guild.position, guild.guildid);
+            }
         }
 
         public User CurrentUser;
+        public Dictionary<int, string> guildOrder = new Dictionary<int, string>();
         public Dictionary<string, Guild> Guilds = new Dictionary<string, Guild>();
         public Dictionary<string, DmCache> DMs = new Dictionary<string, DmCache>();
     }
