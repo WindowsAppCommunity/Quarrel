@@ -424,7 +424,7 @@ namespace Discord_UWP
         }
 
         #region Members
-        public async void LoadMembers(string id)
+        public void LoadMembers(string id)
         {
             int totalrolecounter = 0;
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
@@ -448,22 +448,13 @@ namespace Discord_UWP
                 }
                 int everyonecounter = Storage.Cache.Guilds[id].Members.Count() - totalrolecounter;
                 var memberscvs = Storage.Cache.Guilds[id].Members;
-                MembersCVS.Source = memberscvs.GroupBy(m => GetRole(m.Value.Raw.Roles.FirstOrDefault(), id, everyonecounter))
-                    .OrderBy(m => m.Key.Position).ToList();
+                foreach (Member m in memberscvs.Values)
+                {
+                    m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                }
+                MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
             }
-        }
-
-        private class DisplayedRole
-        {
-            public string Id { get; set; }
-            public int Position { get; set; }
-            public string Name { get; set; }
-            public int Membercount { get; set; }
-            public SolidColorBrush Brush { get; set; }
-
-            public DisplayedRole(string id, int position, string name, int membercount, SolidColorBrush brush)
-            { Id = id; Position = position; Name = name; Membercount = membercount; Brush = brush; }
         }
 
         private List<DisplayedRole> TempRoleCache = new List<DisplayedRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member

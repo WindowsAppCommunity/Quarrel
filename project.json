@@ -8,7 +8,8 @@
     "Newtonsoft.Json": "10.0.2",
     "QueryString.NET": "1.0.0",
     "Refit": "3.1.0",
-    "Unicode.net": "0.1.2"
+    "Unicode.net": "0.1.2",
+    "UniversalWrapPanel": "1.0.0"
   },
   "frameworks": {
     "uap10.0": {}

@@ -17,6 +17,12 @@ namespace Discord_UWP.SharedModels
         public string Description { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
+        [JsonProperty("timestamp")]
+        public string Timestamp { get; set; }
+        [JsonProperty("color")]
+        public int Color { get; set; }
+        [JsonProperty("footer")]
+        public EmbedFooter Footer { get; set; }
         [JsonProperty("image")]
         public EmbedImage Image { get; set; }
         [JsonProperty("thumbnail")]
@@ -25,6 +31,10 @@ namespace Discord_UWP.SharedModels
         public EmbedVideo Video { get; set; }
         [JsonProperty("provider")]
         public EmbedProvider Provider { get; set; }
+        [JsonProperty("author")]
+        public EmbedAuthor Author { get; set; }
+        [JsonProperty("fields")]
+        public EmbedField[] Fields { get; set; }
     }
 
     public struct EmbedThumbnail
@@ -67,5 +77,37 @@ namespace Discord_UWP.SharedModels
         public string Name { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
+    }
+
+    public struct EmbedFooter
+    {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+        [JsonProperty("icon_url")]
+        public string IconUrl { get; set; }
+        [JsonProperty("proxy_icon_url")]
+        public string ProxyIconUrl { get; set; }
+    }
+
+    public struct EmbedAuthor
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("icon_url")]
+        public string IconUrl { get; set; }
+        [JsonProperty("proxy_icon_url")]
+        public string ProxyIconUrl { get; set; }
+    }
+
+    public struct EmbedField
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("value")]
+        public string Value { get; set; }
+        [JsonProperty("inline")]
+        public bool Inline { get; set; }
     }
 }
