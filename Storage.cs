@@ -44,7 +44,7 @@ namespace Discord_UWP
         }
 
         public static async void SaveCache()
-        {/*
+        {
             XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
             StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
 
@@ -57,7 +57,7 @@ namespace Discord_UWP
             catch
             {
 
-            }*/
+            }
         }
 
         public static async void SaveMessages()

@@ -51,6 +51,27 @@ namespace Discord_UWP.Controls
             username.Text = DisplayedMember.Raw.Nick ?? DisplayedMember.Raw.User.Username;
             if(DisplayedMember.Raw.User.Avatar != null)
                 Avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DisplayedMember.Raw.User.Id + "/" + DisplayedMember.Raw.User.Avatar + ".png?size=64"));
+            switch (DisplayedMember.status.Status)
+            {
+                case "online":
+                    rectangle.Fill = Common.GetSolidColorBrush("#ff43b581");
+                    break;
+                case "idle":
+                    rectangle.Fill = Common.GetSolidColorBrush("#fffaa61a");
+                    break;
+                case "dnd":
+                    rectangle.Fill = Common.GetSolidColorBrush("#FFf04747");
+                    break;
+                case "offline":
+                    rectangle.Fill = Common.GetSolidColorBrush("#FFAAAAAA");
+                    break;
+            }
+            if (DisplayedMember.status.Game != null)
+            {
+                playing.Visibility = Visibility.Visible;
+                game.Visibility = Visibility.Visible;
+                game.Text = DisplayedMember.status.Game.Value.Name;
+            }
         }
         public MemberControl()
         {
