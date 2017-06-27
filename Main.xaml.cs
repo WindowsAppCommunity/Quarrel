@@ -431,19 +431,22 @@ namespace Discord_UWP
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
-                    int rolecounter = 0;
-                    foreach(Member m in Storage.Cache.Guilds[id].Members.Values)
-                        if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                    var roleAlt = role;
-                    totalrolecounter += rolecounter;
-                    roleAlt.MemberCount = rolecounter;
-                    if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
+                    if (role.Hoist)
                     {
-                        Storage.Cache.Guilds[id].Roles[role.Id] = roleAlt;
-                    }
-                    else
-                    {
-                        Storage.Cache.Guilds[id].Roles.Add(role.Id, roleAlt);
+                        int rolecounter = 0;
+                        foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
+                            if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                        var roleAlt = role;
+                        totalrolecounter += rolecounter;
+                        roleAlt.MemberCount = rolecounter;
+                        if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
+                        {
+                            Storage.Cache.Guilds[id].Roles[role.Id] = roleAlt;
+                        }
+                        else
+                        {
+                            Storage.Cache.Guilds[id].Roles.Add(role.Id, roleAlt);
+                        }
                     }
                 }
                 int everyonecounter = Storage.Cache.Guilds[id].Members.Count() - totalrolecounter;
