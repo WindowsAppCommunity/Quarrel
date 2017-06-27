@@ -42,6 +42,7 @@ namespace Discord_UWP
     {
         private void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
+            Storage.Cache.guildOrder.Clear();
             int pos = 0;
             foreach (string guild in e.EventData.settings.GuildOrder)
             {
