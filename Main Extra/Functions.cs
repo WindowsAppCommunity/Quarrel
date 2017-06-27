@@ -614,8 +614,8 @@ namespace Discord_UWP
                 rect.VerticalAlignment = VerticalAlignment.Bottom;
                 rect.Fill = GetSolidColorBrush("#FFAAAAAA");
                 image.Children.Add(rect);
-                stack.Children.Add(image);
             }
+            stack.Children.Add(image);
             stack.Children.Add(txtblock);
             listviewitem.Content = stack;
             listviewitem.Tag = channel;
