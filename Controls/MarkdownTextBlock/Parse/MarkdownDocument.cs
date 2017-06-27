@@ -38,12 +38,14 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         public IList<MarkdownBlock> Blocks { get; set; }
 
         public int length = 0;
+        public bool enableHiddenLinks;
         /// <summary>
         /// Parses markdown document text.
         /// </summary>
         /// <param name="markdownText"> The markdown text. </param>
-        public void Parse(string markdownText)
+        public void Parse(string markdownText, bool enableHiddenLinksProp)
         {
+            enableHiddenLinks = enableHiddenLinksProp;
             length = markdownText.Trim().Length;
             int actualEnd;
             Blocks = Parse(markdownText, 0, markdownText.Length, quoteDepth: 0, actualEnd: out actualEnd);

@@ -461,7 +461,7 @@
             <SplitView.Pane>
                 <SemanticZoom>
                     <SemanticZoom.ZoomedInView>
-                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None">
+                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None" Margin="6,0,0,0">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -473,7 +473,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
-                                        <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Group.Key.Brush}"/>
+                                        <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -501,7 +501,15 @@
                         </ListView>
                     </SemanticZoom.ZoomedInView>
                     <SemanticZoom.ZoomedOutView>
-                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="6,0" >
+                        <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" Margin="0" >
+                            <ListView.Background>
+                                <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
+                            </ListView.Background>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsStackPanel VerticalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -525,7 +533,6 @@
                         </ListView>
                     </SemanticZoom.ZoomedOutView>
                 </SemanticZoom>
-                
             </SplitView.Pane>
         </SplitView>
 
