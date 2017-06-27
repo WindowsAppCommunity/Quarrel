@@ -63,7 +63,6 @@ namespace Discord_UWP
             byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
-
         public static SolidColorBrush GetSolidColorBrush(int alpha, int red, int green, int blue)
         {
             byte a = (byte)alpha;
