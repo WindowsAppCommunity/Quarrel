@@ -16,7 +16,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         public User User { get; set; }
         [JsonProperty("private_channels")]
         public IEnumerable<DirectMessageChannel> PrivateChannels { get; set; }
-        [JsonProperty("guild")]
+        [JsonProperty("guilds")]
         public IEnumerable<Guild> Guilds { get; set; }
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
