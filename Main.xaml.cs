@@ -392,7 +392,7 @@ namespace Discord_UWP
                     if (Session.Online)
                     {
                         ChannelsLoading.IsActive = true;
-                        await DownloadDMs();
+                        DownloadDMs();
                     } else
                     {
                         LoadDMs();
@@ -867,17 +867,8 @@ namespace Discord_UWP
             }
             App.CurrentId = null;
         }
-        private async Task DownloadDMs()
+        private void DownloadDMs()
         {
-            Storage.Cache.DMs.Clear();
-            foreach (DirectMessageChannel dm in await Session.GetDMs())
-            {
-                if (!Storage.Cache.DMs.ContainsKey(dm.Id))
-                {
-                    Storage.Cache.DMs.Add(dm.Id, new DmCache(dm));
-                }
-            }
-
             DirectMessageChannels.Items.Clear();
             foreach (KeyValuePair<string, DmCache> dm in Storage.Cache.DMs)
             {
@@ -1087,7 +1078,7 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.User.Username;
+                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Users.FirstOrDefault().Username;
                 ChannelTopic.Text = "";
 
                 if (Session.Online)
