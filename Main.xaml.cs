@@ -831,7 +831,6 @@ namespace Discord_UWP
                     {
                         Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
-                        await Task.Delay(100);
                     }
                 }
 
@@ -858,7 +857,6 @@ namespace Discord_UWP
                     {
                         PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                         adCheck = 5;
-                        await Task.Delay(100);
                     }
                 }
 
@@ -1759,7 +1757,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }
@@ -1771,7 +1769,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }
@@ -1783,7 +1781,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }

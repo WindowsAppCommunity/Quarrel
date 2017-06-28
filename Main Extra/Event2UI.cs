@@ -538,7 +538,7 @@ namespace Discord_UWP
                 });
         }
 
-        private void TypingStarted(object sender, Gateway.GatewayEventArgs<SharedModels.TypingStart> e)
+        private void TypingStarted(object sender, Gateway.GatewayEventArgs<TypingStart> e)
         {
             Session.Typers.Add(e.EventData);
         }
