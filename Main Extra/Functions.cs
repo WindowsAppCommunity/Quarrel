@@ -52,6 +52,44 @@ using Guild = Discord_UWP.CacheModels.Guild;
 
 namespace Discord_UWP
 {
+    public class MessageContainer : INotifyPropertyChanged
+    {
+        private SharedModels.Message? _message;
+        public SharedModels.Message? Message
+        {
+            get => _message;
+            set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); }
+        }
+
+        private bool _iscontinuation;
+        public bool IsContinuation
+        {
+            get => _iscontinuation;
+            set { if (_iscontinuation == value) return; _iscontinuation = value; OnPropertyChanged("IsContinuation"); }
+        }
+
+        private bool _isadvert;
+        public bool IsAdvert
+        {
+            get => _isadvert;
+            set { if (_isadvert == value) return; _isadvert = value; OnPropertyChanged("IsAdvert"); }
+        }
+
+
+        private string _header;
+        public string Header
+        {
+            get => _header;
+            set { if (_header == value) return; _header = value; OnPropertyChanged("Header"); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
     public sealed partial class Main : Page
     {
         public static SolidColorBrush GetSolidColorBrush(string hex)
@@ -80,35 +118,7 @@ namespace Discord_UWP
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
-        public class MessageContainer : INotifyPropertyChanged
-        {
-            private SharedModels.Message? _message;
-            public SharedModels.Message? Message {
-                get => _message;
-                set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); } }
 
-            private bool _iscontinuation;
-            public bool IsContinuation{
-                get => _iscontinuation;
-                set { if (_iscontinuation == value) return; _iscontinuation = value; OnPropertyChanged("IsContinuation"); } }
-
-            private bool _isadvert;
-            public bool IsAdvert{
-                get => _isadvert;
-                set { if (_isadvert == value) return; _isadvert = value; OnPropertyChanged("IsAdvert"); } }
-
-
-            private string _header;
-            public string Header {
-                get => _header;
-                set { if (_header == value) return; _header = value; OnPropertyChanged("Header"); } }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
 
         public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header, bool HideMoreButton = false)
         {
