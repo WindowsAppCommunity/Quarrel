@@ -9,6 +9,8 @@ namespace Discord_UWP.SharedModels
 {
     public struct UserSettings
     {
+        [JsonProperty("theme")]
+        public string Theme { get; set; }
         [JsonProperty("guild_positions")]
         public IEnumerable<string> GuildOrder { get; set; }
     }
