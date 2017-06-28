@@ -1908,18 +1908,18 @@ namespace Discord_UWP
         //}
         #endregion
 
-        private bool autoscrolldown = true;
+    //    private bool autoscrolldown = true;
         private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling
-            autoscrolldown = !((message_scroller.ScrollableHeight - message_scroller.VerticalOffset) > 20);
+          //  autoscrolldown = !((message_scroller.ScrollableHeight - message_scroller.VerticalOffset) > 20);
         }
 
 
         private void Messages_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(autoscrolldown)
-                message_scroller.ChangeView(null, message_scroller.ScrollableHeight, null);
+           // if(autoscrolldown)
+            //    message_scroller.ChangeView(null, message_scroller.ScrollableHeight, null);
         }
 
         private void Message_scroller_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
