@@ -304,6 +304,7 @@ namespace Discord_UWP
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;
+
             List<UIElement> TempGuildList = new List<UIElement>();
             while (TempGuildList.Count < 100)
             {
@@ -312,8 +313,9 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                TempGuildList.Add(GuildRender(guild.Value));
+                //TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                //TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
 
             foreach (UIElement item in TempGuildList)
@@ -457,7 +459,10 @@ namespace Discord_UWP
                         m.status = new Presence() { Status = "offline", Game = null};
                     }
                 }
-                MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                if (Storage.Settings.ShowOfflineMembers)
+                    MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                else
+                    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
             }
         }
@@ -1902,5 +1907,25 @@ namespace Discord_UWP
         //    }
         //}
         #endregion
+
+        private bool autoscrolldown = true;
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling
+            autoscrolldown = !((message_scroller.ScrollableHeight - message_scroller.VerticalOffset) > 20);
+        }
+
+
+        private void Messages_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(autoscrolldown)
+                message_scroller.ChangeView(null, message_scroller.ScrollableHeight, null);
+        }
+
+        private void Message_scroller_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            
+        }
+
     }
 }
