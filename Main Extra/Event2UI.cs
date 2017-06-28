@@ -47,7 +47,7 @@ namespace Discord_UWP
             foreach (string guild in e.EventData.Settings.GuildOrder)
             {
                 pos++;
-                Storage.Cache.guildOrder.Add(pos, guild);
+                Storage.Cache.guildOrder.Add(guild, pos);
             }
 
             Storage.Cache.DMs.Clear();
