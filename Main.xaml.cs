@@ -155,7 +155,7 @@ namespace Discord_UWP
         public Main(string args)
         {
             InitializeComponent();
-
+            
             #region OldCode
             #region TypingCheckTimer
             //Timer timer = new Timer( async (object state) =>
@@ -1788,7 +1788,7 @@ namespace Discord_UWP
                     }
                 }
             }
-            if (e.Link.StartsWith("@!"))
+            else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
                 ShowUserDetails(val);
@@ -1796,6 +1796,9 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@&"))
             {
                 string val = e.Link.Remove(0, 2);
+                ShowUserDetails(val);
+            } else if (e.Link.StartsWith("@")){
+                string val = e.Link.Remove(0, 1);
                 ShowUserDetails(val);
             }
             else

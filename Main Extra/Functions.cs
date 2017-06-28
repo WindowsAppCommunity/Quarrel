@@ -138,7 +138,6 @@ namespace Discord_UWP
                 Header = header,
                 IsAdvert = isAdvert,
                 IsContinuation = isContinuation.Value,
-                
                 Message = message
             };
         }
