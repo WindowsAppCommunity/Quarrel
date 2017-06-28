@@ -467,73 +467,12 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ServerList.SelectedIndex != -1 && ServerList.SelectedIndex != 0)
+                    if (ServerList.SelectedIndex == 0)
                     {
-                        if (ServerList.SelectedIndex == 0)
-                        {
-                            //MemberList.Children.Clear();
-                            #region Roles
-                            LoadMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                            //List<ListView> listBuffer = new List<ListView>();
-                            //while (listBuffer.Count < 1000)
-                            //{
-                            //    listBuffer.Add(new ListView());
-                            //}
-                            //
-                            //if (Storage.Cache.Guilds[e.EventData.GuildId].Roles != null)
-                            //{
-                            //    foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                            //    {
-                            //        if (role.Hoist)
-                            //        {
-                            //            ListView listview = new ListView();
-                            //            listview.Header = role.Name;
-                            //            listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                            //
-                            //            foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                            //            {
-                            //                if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                            //                {
-                            //                    ListViewItem listviewitem = new ListViewItem();
-                            //                    if (Session.PrecenseDict.ContainsKey(member.Value.Raw.User.Id))
-                            //                    {
-                            //                        listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            //                    }
-                            //                    else
-                            //                    {
-                            //                        listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            //                    }
-                            //                    listview.Items.Add(listviewitem);
-                            //                }
-                            //            }
-                            //            listBuffer.Insert(1000 - role.Position * 3, listview);
-                            //        }
-                            //    }
-                            //}
-                            //
-                            //foreach (ListView listview in listBuffer)
-                            //{
-                            //    if (listview.Items.Count != 0)
-                            //    {
-                            //        MemberList.Children.Add(listview);
-                            //    }
-                            //}
-                            //
-                            //ListView fulllistview = new ListView();
-                            //fulllistview.Header = "Everyone";
-                            //
-                            //foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                            //{
-                            //    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
-                            //    {
-                            //        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new Member(member.Value.Raw));
-                            //        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            //        fulllistview.Items.Add(listviewitem);
-                            //    }
-                            //}
-                            //MemberList.Children.Add(fulllistview);
-                            #endregion
-                        }
+                        LoadMembers(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id);
+                    } else
+                    {
+                        LoadMembers(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
                     }
                 });
         }
