@@ -114,7 +114,7 @@ namespace Discord_UWP.Controls
                 ChannelName.Text = GuildChannel.Value.Name;
                 ChannelImage.Visibility = Visibility.Collapsed;
                 ChannelImageBackdrop.Visibility = Visibility.Collapsed;
-                if (GuildChannel.Value.Type.ToLower() == "text")
+                if (GuildChannel.Value.Type == 0)
                 {
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;

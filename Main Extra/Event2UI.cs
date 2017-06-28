@@ -40,11 +40,11 @@ namespace Discord_UWP
 {
     public sealed partial class Main : Page
     {
-        private void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private async void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             Storage.Cache.guildOrder.Clear();
             int pos = 0;
-            foreach (string guild in e.EventData.settings.GuildOrder)
+            foreach (string guild in e.EventData.Settings.GuildOrder)
             {
                 pos++;
                 Storage.Cache.guildOrder.Add(pos, guild);
@@ -59,7 +59,17 @@ namespace Discord_UWP
             Storage.Cache.Guilds.Clear();
             foreach (SharedModels.Guild guild in e.EventData.Guilds)
             {
-                Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
+                if (!Storage.Cache.Guilds.ContainsKey(guild.Id))
+                {
+                    Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
+                }
+
+                Storage.Cache.Guilds[guild.Id].Members.Clear();
+                foreach (GuildMember member in guild.Members)
+                {
+                    Storage.Cache.Guilds[guild.Id].Members.Add(member.User.Id, new Member(member));
+                }
+
                 foreach (Presence status in guild.Presences)
                 {
                     if (!Session.PrecenseDict.ContainsKey(status.User.Id))
@@ -71,7 +81,9 @@ namespace Discord_UWP
                 Storage.Cache.Guilds[guild.Id].Channels.Clear();
                 foreach (SharedModels.GuildChannel chn in guild.Channels)
                 {
-                    Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(chn));
+                    SharedModels.GuildChannel channel = chn;
+                    channel.GuildId = guild.Id;
+                    Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(channel));
                 }
             }
 
@@ -83,6 +95,12 @@ namespace Discord_UWP
                 }
                 Session.PrecenseDict.Add(presence.User.Id, presence);
             }
+
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                LoadGuilds();
+            });
         }
 
         private async void MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
@@ -333,9 +351,9 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds.Remove(e.EventData.MessageId);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
-                   await DownloadGuilds();
+                   DownloadGuilds();
                });
         }
 
@@ -343,9 +361,9 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds[e.EventData.Id].RawGuild = e.EventData;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
-                   await DownloadGuilds();
+                   DownloadGuilds();
                });
         }
 
@@ -353,11 +371,11 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds[e.EventData.GuildId].Channels.Add(e.EventData.Id, new GuildChannel(e.EventData));
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
                    {
-                       await DownloadGuild(e.EventData.GuildId);
+                       DownloadGuild(e.EventData.GuildId);
                    }
                });
         }
@@ -366,11 +384,11 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds[e.EventData.GuildId].Channels.Remove(e.EventData.Id);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
                    {
-                       await DownloadGuild(e.EventData.GuildId);
+                       DownloadGuild(e.EventData.GuildId);
                    }
                });
         }
@@ -379,11 +397,11 @@ namespace Discord_UWP
         {
             Storage.Cache.Guilds[e.EventData.GuildId].Channels[e.EventData.Id].Raw = e.EventData;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-               async () =>
+               () =>
                {
                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
                    {
-                       await DownloadGuild(e.EventData.GuildId);
+                       DownloadGuild(e.EventData.GuildId);
                    }
                });
         }

@@ -217,7 +217,7 @@ namespace Discord_UWP.CacheModels
         public string Id;
         public string GuildId;
         public string Name;
-        public string Type;
+        public int Type;
         public int Position;
         public bool IsPrivate;
         public string Topic;
