@@ -29,7 +29,7 @@ namespace Discord_UWP
 
             foreach(TempDmCache dm in input.DMs)
             {
-                DMs.Add(dm.Raw.Id, new DmCache(dm));
+                DMs.Add(dm.Id, new DmCache(dm));
             }
 
             foreach(TempGuildPosition guild in input.guildOrder)

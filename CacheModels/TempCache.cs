@@ -85,12 +85,9 @@ namespace Discord_UWP.CacheModels
         public TempUser(User input)
         {
             Raw = input.Raw;
-            //avatar = input.avatar;
         }
 
         public SharedModels.User Raw = new SharedModels.User();
-
-        //public ImageBrush avatar = new ImageBrush();
     }
 
     [XmlInclude(typeof(TempMessage))]
@@ -99,15 +96,22 @@ namespace Discord_UWP.CacheModels
         public TempDmCache() { }
         public TempDmCache(DmCache input)
         {
-            Raw = input.Raw;
+            Id = input.Raw.Id;
+            Private = input.Raw.Private;
+            //User = input.Raw.User;
+            Users = input.Raw.Users.ToList();
+            LastMessageId = input.Raw.LastMessageId;
             foreach (KeyValuePair<string, Message> message in input.Messages)
             {
                 Messages.Add(new TempMessage(message.Value));
             }
         }
-
-        public SharedModels.DirectMessageChannel Raw = new SharedModels.DirectMessageChannel();
         public List<TempMessage> Messages = new List<TempMessage>();
+        public string Id;
+        public bool Private;
+        //public SharedModels.User User;
+        public List<SharedModels.User> Users;
+        public string LastMessageId;
     }
     
     public class TempMember
@@ -124,7 +128,6 @@ namespace Discord_UWP.CacheModels
             JoinedAt = input.Raw.JoinedAt;
             Deaf = input.Raw.Deaf;
             Mute = input.Raw.Mute;
-            //avatar = input.avatar;
         }
 
         public SharedModels.User User;
@@ -133,8 +136,6 @@ namespace Discord_UWP.CacheModels
         public DateTime JoinedAt;
         public bool Deaf;
         public bool Mute;
-        
-        //public ImageBrush avatar = new ImageBrush();
     }
     
     [XmlInclude(typeof(TempGuildChannel))]
