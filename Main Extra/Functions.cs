@@ -570,15 +570,15 @@ namespace Discord_UWP
             avatar.RadiusY = 100;
             avatar.Height = 36;
             avatar.Width = 36;
-            avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.User.Id + "/" + channel.Raw.User.Avatar + ".jpg")) };
+            avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.Users.First().Id + "/" + channel.Raw.Users.First().Avatar + ".jpg")) };
             avatar.VerticalAlignment = VerticalAlignment.Center;
             TextBlock txtblock = new TextBlock();
             txtblock.Margin = new Thickness(12, 0, 0, 0);
-            txtblock.Text = channel.Raw.User.Username;
+            txtblock.Text = channel.Raw.Users.First().Username;
 
             txtblock.VerticalAlignment = VerticalAlignment.Center;
             image.Children.Add(avatar);
-            if (channel.Raw.User.Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.User.Id))
+            if (channel.Raw.Users.First().Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.Users.First().Id))
             {
                 Rectangle rect = new Rectangle();
                 rect.RadiusX = 100;
@@ -588,7 +588,7 @@ namespace Discord_UWP
                 rect.HorizontalAlignment = HorizontalAlignment.Right;
                 rect.VerticalAlignment = VerticalAlignment.Bottom;
 
-                switch (Session.PrecenseDict[channel.Raw.User.Id].Status)
+                switch (Session.PrecenseDict[channel.Raw.Users.First().Id].Status)
                 {
                     case "online":
                         rect.Fill = GetSolidColorBrush("#ff43b581");
