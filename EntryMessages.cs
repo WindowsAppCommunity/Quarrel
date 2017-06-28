@@ -11,8 +11,8 @@ namespace Discord_UWP
         public static string GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 8))
-            //switch (x)
+            switch (rand.Next(0, 10))
+            //switch (11)
             {
                 case 0:
                     return "HUZZAH";
@@ -30,6 +30,12 @@ namespace Discord_UWP
                     return "Food doesn't grow on trees";
                 case 8:
                     return "😬";
+                case 9:
+                    return "Pushing the Payload";
+                case 10:
+                    return "Hunting robot dinosaurs";
+                case 11:
+                    return "Microsoft FTW (Submitted by @dabezt31#9977)";
                 default:
                     return "Waiting for Ready Packet";
             }
