@@ -855,10 +855,10 @@
             <ScrollViewer Grid.Row="1">
                 <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging">
                     <!-- <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
-                     </ItemsPanelTemplate>
-                </ListView.ItemsPanel> -->
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel> -->
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -1336,6 +1336,13 @@
                         <TextBlock Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                     </StackPanel>
                     <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,0,0">
+                        <ListViewHeaderItem Content="Version 4.1.2"/>
+                        <ListViewItem>
+                            <TextBlock Text="Significant performance improvements" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Fixed everyone is a bot glitch" TextWrapping="Wrap"/>
+                        </ListViewItem>
                         <ListViewHeaderItem Content="Version 4.1.1"/>
                         <ListViewItem>
                             <TextBlock Text="New UI" TextWrapping="Wrap"/>
@@ -1387,6 +1394,9 @@
                         </ListViewItem>
                         <ListViewItem>
                             <TextBlock Text="Discord markdown compatibility" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Online status settings" TextWrapping="Wrap"/>
                         </ListViewItem>
                         <ListViewHeaderItem Content="Version 3.3.1"/>
                         <ListViewItem Content="Added loading more messages"/>

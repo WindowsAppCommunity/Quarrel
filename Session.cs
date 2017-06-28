@@ -46,11 +46,9 @@ namespace Discord_UWP
             {
                 BaseUrl = "https://discordapp.com/api"
             };
-
             BasicRestFactory basicRestFactory = new BasicRestFactory(config);
 
             ILoginService loginService = basicRestFactory.GetLoginService();
-            IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
 
             LoginRequest.Email = email;
             LoginRequest.Password = password;
@@ -59,6 +57,7 @@ namespace Discord_UWP
             Token = Loginresult.Token;
             IAuthenticator authenticator = new DiscordAuthenticator(Token);
             AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
+            IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
 
             SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
             Gateway = new Gateway.Gateway(gateconfig, authenticator);
