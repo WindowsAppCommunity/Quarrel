@@ -117,7 +117,7 @@
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource LiteBG_hover}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MidBG_hover}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PlaceholderTextContentPresenter">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlPlaceholderForegroundPointerOver}"/>
@@ -130,7 +130,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="0.5"/>
                                             </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource LiteBG_hover}"/>
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MidBG_hover}"/>
                                                 </ObjectAnimationUsingKeyFrames>
 
                                         </Storyboard>
@@ -252,7 +252,7 @@
                                     <VisualState x:Name="PointerOver">
                                             <Storyboard>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource LiteBG_hover}"/>
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MidBG_hover}"/>
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                     </VisualState>
@@ -262,7 +262,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="0.5"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource LiteBG_focus}"/>
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource MidBG_focus}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TextControlBorderBrushFocused}"/>

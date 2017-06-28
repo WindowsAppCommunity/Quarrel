@@ -182,9 +182,9 @@ namespace Discord_UWP
             view.TitleBar.ButtonPressedBackgroundColor = ((SolidColorBrush)Application.Current.Resources["LightBG"]).Color;
             view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
             view.TitleBar.ButtonInactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["LiteBG_hover"]).Color;
+            view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
             view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["LiteBG_hover"]).Color;
+            view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
             App.Current.Resources["Blurple"] = Common.GetSolidColorBrush(Storage.Settings.AccentBrush);
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
@@ -240,41 +240,33 @@ namespace Discord_UWP
 
                     if (loggedIn)
                     {
-                        try
+                        // await Session.AutoLogin();
+                        // Session.Online = true;
+                        //rootFrame.Navigate(typeof(Main), e.Arguments);
+                        if (IsConsole)
                         {
-                            await Session.AutoLogin();
-                            Session.Online = true;
-                            //rootFrame.Navigate(typeof(Main), e.Arguments);
-                            if (IsConsole)
+                            if (e.Arguments != "")
                             {
-                                if (e.Arguments != "")
-                                {
-                                    rootFrame.Navigate(typeof(Main), e.Arguments);
-                                }
-                                else
-                                {
-                                    rootFrame.Navigate(typeof(Main));
-                                }
-                            } else
+                                rootFrame.Navigate(typeof(Main), e.Arguments);
+                            }
+                            else
                             {
-                                if (e.Arguments != "")
-                                {
-                                    rootFrame.Content = new Main(e.Arguments);
-                                }
-                                else
-                                {
-                                    rootFrame.Content = new Main();
-                                }
+                                rootFrame.Navigate(typeof(Main));
                             }
                         }
-                        catch
+                        else
                         {
-                            MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
-                            Session.Online = false;
-                            rootFrame.Navigate(typeof(Main), e.Arguments);
-                            await msg.ShowAsync();
+                            if (e.Arguments != "")
+                            {
+                                rootFrame.Content = new Main(e.Arguments);
+                            }
+                            else
+                            {
+                                rootFrame.Content = new Main();
+                            }
                         }
-                    } else
+                    }
+                    else
                     {
                         rootFrame.Navigate(typeof(LockScreen), e.Arguments);
                     }

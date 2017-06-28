@@ -533,8 +533,8 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Grid Height="32" VerticalAlignment="Top" Margin="0">
-                                <Rectangle x:Name="RectangleFill" Fill="{ThemeResource Blurple}" Width="20" Height="20" Opacity="21"/>
-                                <Rectangle x:Name="NormalRectangle" Height="20" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="20">
+                                <Rectangle x:Name="RectangleFill" RadiusX="3" RadiusY="3" Fill="{ThemeResource Blurple}" Width="20" Height="20" Opacity="21"/>
+                                <Rectangle x:Name="NormalRectangle" RadiusX="3" RadiusY="3" Height="20" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="20">
                                     <Rectangle.RenderTransform>
                                         <ScaleTransform x:Name="RectangleScale" CenterX="10" CenterY="10"/>
                                     </Rectangle.RenderTransform>
@@ -751,6 +751,87 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="PullToRefreshListViewStyle1" TargetType="tk:PullToRefreshListView">
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="TabNavigation" Value="Once" />
+            <Setter Property="IsSwipeEnabled" Value="True" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+            <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+            <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+            <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+            <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+            <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+            <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+            <Setter Property="OverscrollLimit" Value="0.4" />
+            <Setter Property="ItemContainerTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                        <ContentThemeTransition />
+                        <ReorderThemeTransition />
+                        <EntranceThemeTransition IsStaggeringEnabled="False" />
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="tk:PullToRefreshListView">
+                        <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Border x:Name="RefreshIndicator"
+                                    VerticalAlignment="Top">
+                                    <Border.RenderTransform>
+                                        <CompositeTransform x:Name="RefreshIndicatorTransform" />
+                                    </Border.RenderTransform>
+                                    <Grid>
+                                        <ContentPresenter x:Name="PullAndReleaseIndicatorContent"
+                                            HorizontalAlignment="Center"
+                                            FontSize="20" />
+                                        <ContentPresenter Content="{TemplateBinding RefreshIndicatorContent}" />
+                                    </Grid>
+                                </Border>
+                                <ScrollViewer x:Name="ScrollViewer"
+                                    AutomationProperties.AccessibilityView="Raw"
+                                    BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                    HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                    HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                    IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                    IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                    IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                    IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                    IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                    TabNavigation="{TemplateBinding TabNavigation}"
+                                    VerticalScrollBarVisibility="Hidden"
+                                    VerticalScrollMode="Disabled"
+                                    ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                    <ItemsPresenter x:Name="ItemsPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        Footer="{TemplateBinding Footer}"
+                                        FooterTemplate="{TemplateBinding FooterTemplate}"
+                                        FooterTransitions="{TemplateBinding FooterTransitions}"
+                                        Header="{TemplateBinding Header}"
+                                        HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                                        HeaderTransitions="{TemplateBinding HeaderTransitions}" />
+                                </ScrollViewer>
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Grid Background="Black">
         <VisualStateManager.VisualStateGroups>
@@ -845,20 +926,14 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <CheckBox Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>
             <!-- The border may seem pointless, but it's just a trick to not get ugly black flashes when the Inline Splitviews are animating -->
             <Border Margin="-256,0,-256,0" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.ColumnSpan="10"></Border>
             <StackPanel HorizontalAlignment="Left" Margin="12">
                 <TextBlock x:Name="ChannelName" FontWeight="Bold"/>
                 <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
             </StackPanel>
-            <ScrollViewer Grid.Row="1">
-                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging">
-                    <!-- <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel> -->
+            <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">
+                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging" Style="{StaticResource PullToRefreshListViewStyle1}" SizeChanged="Messages_SizeChanged">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -1231,6 +1306,7 @@
                         <PivotItem Header="UI">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu">
+                                    <CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>
                                     <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <Slider x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
@@ -1631,15 +1707,6 @@
                 <AppBarButton Label="Settings" Click="OpenUserSettings"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-
-        <Grid x:Name="Loading" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.Column="10">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid>
-                    <ProgressRing IsActive="True" Height="100" Width="100"/>
-                    <Image Source="Assets\DiscordIcon.png" Width="100"/>
-                </Grid>
-                <TextBlock x:Name="WaitingText" FontWeight="SemiBold" FontStyle="Italic" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
+        <controls:LoadingControl x:Name="LoadingSplash" Visibility="Collapsed" Grid.RowSpan="10" Grid.Column="10"/>
     </Grid>
 </Page>
