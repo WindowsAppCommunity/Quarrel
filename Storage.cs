@@ -137,6 +137,7 @@ namespace Discord_UWP
         public double RespUiL = 768;
         public double RespUiXl = 1024;
         public bool AppBarAtBottom = false;
+        public bool ShowOfflineMembers = false;
         public Theme Theme = Theme.Dark;
         public string AccentBrush = Color.FromArgb(255,114,137,218).ToHex();
     }
