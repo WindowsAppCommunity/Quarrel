@@ -138,7 +138,6 @@ namespace Discord_UWP
                     Storage.Settings.AutoHidePeople = false;
                     Storage.Settings.Toasts = false;
                     Storage.Settings.HighlightEveryone = true;
-                    Storage.Settings.Toasts = false;
                     Storage.Settings.RespUiM = 569;
                     Storage.Settings.RespUiL = 768;
                     Storage.Settings.RespUiXl = 1024;

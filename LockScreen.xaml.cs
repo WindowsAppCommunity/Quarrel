@@ -47,9 +47,10 @@ namespace Discord_UWP
             try
             {
                 await Session.Login(Email.Text, Password.Password);
+                Session.Online = true;
                 Storage.Token = Session.Token;
                 Storage.SaveUser();
-                this.Frame.Navigate(typeof(Main));
+                Frame.Content = new Main();
             }
             catch (Exception ex)
             {
