@@ -129,10 +129,12 @@ namespace Discord_UWP
             }
             else
             {
+                Loading.Visibility = Visibility.Collapsed;
                 ShowAds = false;
                 FeedbackButton.Visibility = Visibility.Collapsed;
                 IAPSButton.Visibility = Visibility.Collapsed;
             }
+
             if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
             {
                 Servers.IsPaneOpen = true;
@@ -204,6 +206,7 @@ namespace Discord_UWP
             }
             else
             {
+                Loading.Visibility = Visibility.Collapsed;
                 ShowAds = false;
                 FeedbackButton.Visibility = Visibility.Collapsed;
                 IAPSButton.Visibility = Visibility.Collapsed;
