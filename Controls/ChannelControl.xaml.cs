@@ -133,35 +133,30 @@ namespace Discord_UWP.Controls
             {
                 ChannelImageBackdrop.Visibility = Visibility.Visible;
                 ChannelImage.Visibility = Visibility.Visible;
-                ChannelImage.Margin = new Thickness(0, 6, 6, 6);
-                ChannelImageBrush.ImageSource =
-                    new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.User.Id + "/" +
-                                            DmChannel.Value.User.Avatar + ".png?size=64"));
-                ChannelName.Text = DmChannel.Value.User.Username;
-                
-                //if (DmChannel.Value.Users.Any() && DmChannel.Value.Users.Count() > 1)
-                //{
-                //    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                //        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_white.svg"));
-                //    else
-                //        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_black.svg"));
 
-                //    ChannelImage.Margin = new Thickness(6, 12, 12, 12);
-                //    List<string> channelMembers = new List<string>();
-                //    foreach (var user in DmChannel.Value.Users)
-                //        channelMembers.Add(user.Username);
-                //    ChannelName.Text = string.Join(", ", channelMembers);
-                //    PlayingBlock.Visibility = Visibility.Visible;
-                //    PlayingBlock.Text = DmChannel.Value.Users.Count().ToString() + " members";
-                //}
-                //else
-                //{
-                //    ChannelImage.Margin = new Thickness(0, 6, 6, 6);
-                //    ChannelImageBrush.ImageSource =
-                //        new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.User.Id + "/" +
-                //                                DmChannel.Value.User.Avatar + ".png?size=64"));
-                //    ChannelName.Text = DmChannel.Value.User.Username;
-                //}
+                if (DmChannel.Value.Users.Any() && DmChannel.Value.Users.Count() > 1)
+                {
+                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_white.svg"));
+                    else
+                        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_black.svg"));
+
+                    ChannelImage.Margin = new Thickness(6, 12, 12, 12);
+                    List<string> channelMembers = new List<string>();
+                    foreach (var user in DmChannel.Value.Users)
+                        channelMembers.Add(user.Username);
+                    ChannelName.Text = string.Join(", ", channelMembers);
+                    PlayingBlock.Visibility = Visibility.Visible;
+                    PlayingBlock.Text = DmChannel.Value.Users.Count().ToString() + " members";
+                }
+                else
+                {
+                    ChannelImage.Margin = new Thickness(0, 6, 6, 6);
+                    ChannelImageBrush.ImageSource =
+                        new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.Users.FirstOrDefault().Id + "/" +
+                                                DmChannel.Value.Users.FirstOrDefault().Avatar + ".png?size=64"));
+                    ChannelName.Text = DmChannel.Value.Users.FirstOrDefault().Username;
+                }
             }
         }
 
