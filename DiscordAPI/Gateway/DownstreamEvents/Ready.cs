@@ -13,7 +13,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         [JsonProperty("v")]
         public int GatewayVersion { get; set; }
         [JsonProperty("user_settings")]
-        public UserSettings settings { get; set; }
+        public UserSettings Settings { get; set; }
         [JsonProperty("user")]
         public User User { get; set; }
         [JsonProperty("private_channels")]

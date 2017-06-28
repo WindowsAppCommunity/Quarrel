@@ -16,7 +16,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public int Type { get; set; }
         [JsonProperty("position")]
         public int Position { get; set; }
         [JsonProperty("is_private")]

@@ -35,6 +35,8 @@ namespace Discord_UWP.SharedModels
         public IEnumerable<VoiceState> VoiceStates { get; set; }
         [JsonProperty("channels")]
         public IEnumerable<GuildChannel> Channels { get; set; }
+        [JsonProperty("members")]
+        public IEnumerable<GuildMember> Members { get; set; }
         [JsonProperty("roles")]
         public IEnumerable<Role> Roles { get; set; }
         [JsonProperty("emojis")]

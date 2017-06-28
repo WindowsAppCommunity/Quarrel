@@ -639,7 +639,7 @@ namespace Discord_UWP
             TextBlock txtblock = new TextBlock();
             txtblock.Text = "#" + channel.Raw.Name;
             channelcontainer.Opacity = 0.8;
-            if (channel.Raw.Type == "text")
+            if (channel.Raw.Type == 0)
             {
                 listviewitem.Tag = channel;
 
@@ -893,7 +893,7 @@ namespace Discord_UWP
                     Storage.RecentMessages.Clear();
                     Storage.SaveMessages();
                     MessageDialog msg = new MessageDialog("There was an issue loading message history saves. History cleared so it can work in the future");
-                    msg.ShowAsync();
+                    await msg.ShowAsync();
                 }
             }
             catch
@@ -917,7 +917,7 @@ namespace Discord_UWP
                     Storage.MutedChannels.Clear();
                     Storage.SaveMutedChannels();
                     MessageDialog msg = new MessageDialog("There was an issue loading muted channels. Cleared so it can work in the future");
-                    msg.ShowAsync();
+                    await msg.ShowAsync();
                 }
             }
             catch
