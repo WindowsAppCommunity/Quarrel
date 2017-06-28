@@ -208,6 +208,7 @@
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
+    <Compile Include="EntryMessages.cs" />
     <Compile Include="LockScreen.xaml.cs">
       <DependentUpon>LockScreen.xaml</DependentUpon>
     </Compile>
