@@ -8,7 +8,7 @@ namespace Discord_UWP
 {
     class EntryMessages
     {
-        string GetMessage()
+        public static string GetMessage()
         {
             Random rand = new Random();
             switch (rand.Next(0, 5))
