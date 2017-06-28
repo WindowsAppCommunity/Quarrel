@@ -30,7 +30,7 @@ namespace Discord_UWP
                 case 16: return "418: I'm a teapot";
                 case 17: return "404: Joke not found";
                 case 18: return "Catch Phrase";
-                case 19: return "Microsoft's working on Windows Mobile !?!?!? (Submitted by @Dikas#8802)";
+                case 19: return "Microsoft's working on Windows Mobile!?!?!? (Submitted by @Dikas#8802)";
                 case 20: return "Splash screen* (Submitted by @ToonWK#5841)";
                 case 21: return "I don't mean to be rude but...";
                 case 22: return "Converting caffine to code";
