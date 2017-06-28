@@ -32,9 +32,9 @@ namespace Discord_UWP.CacheModels
                 DMs.Add(new TempDmCache(dm.Value));
             }
 
-            foreach (KeyValuePair<int, string> guild in input.guildOrder)
+            foreach (KeyValuePair<string, int> guild in input.guildOrder)
             {
-                guildOrder.Add(new TempGuildPosition(guild.Key, guild.Value));
+                guildOrder.Add(new TempGuildPosition(guild.Value, guild.Key));
             }
         }
 

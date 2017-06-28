@@ -143,6 +143,7 @@ namespace Discord_UWP
             }
                 
         }
+
         private void UpdateUIfromSettings()
         {
             if (Storage.Settings.AppBarAtBottom)
@@ -310,40 +311,39 @@ namespace Discord_UWP
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;
+            List<UIElement> TempGuildList = new List<UIElement>();
+            while (TempGuildList.Count < 100)
+            {
+                TempGuildList.Add(new Grid());
+            }
+
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                ServerList.Items.Add(GuildRender(guild.Value));
+                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
-            if (Session.Online)
+
+            foreach (UIElement item in TempGuildList)
             {
-                DownloadGuilds();
-            } else
+                if (item is ListViewItem)
+                {
+                    ServerList.Items.Add(item);
+                }
+            }
+            Storage.SaveCache();
+            if (SelectChannel)
             {
-                /*disable online functions*/
+                foreach (ListViewItem guild in ServerList.Items)
+                {
+                    if (guild.Tag.ToString() == SelectGuildId)
+                    {
+                        ServerList.SelectedItem = guild;
+                    }
+                }
             }
         }
         private void DownloadGuilds()
         {
-            //IEnumerable<UserGuild> guilds = await Session.GetGuilds();
-
-            //foreach (UserGuild guild in guilds)
-            //{
-            //    if (Storage.Cache.Guilds.ContainsKey(guild.Id))
-            //    {
-            //        var channels = Storage.Cache.Guilds[guild.Id].Channels;
-            //        var members = Storage.Cache.Guilds[guild.Id].Members;
-            //        Storage.Cache.Guilds[guild.Id] = new Guild(guild);
-            //        Storage.Cache.Guilds[guild.Id].RawGuild = await Session.GetGuild(guild.Id);
-            //        Storage.Cache.Guilds[guild.Id].Channels = channels;
-            //        Storage.Cache.Guilds[guild.Id].Members = members;
-            //    }
-            //    else
-            //    {
-            //        Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
-            //        Storage.Cache.Guilds[guild.Id].RawGuild = await Session.GetGuild(guild.Id);
-            //    }
-            //}
-
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;

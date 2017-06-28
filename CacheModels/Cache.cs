@@ -34,12 +34,12 @@ namespace Discord_UWP
 
             foreach(TempGuildPosition guild in input.guildOrder)
             {
-                guildOrder.Add(guild.position, guild.guildid);
+                guildOrder.Add(guild.guildid, guild.position);
             }
         }
 
         public User CurrentUser;
-        public Dictionary<int, string> guildOrder = new Dictionary<int, string>();
+        public Dictionary<string, int> guildOrder = new Dictionary<string, int>();
         public Dictionary<string, Guild> Guilds = new Dictionary<string, Guild>();
         public Dictionary<string, DmCache> DMs = new Dictionary<string, DmCache>();
     }
