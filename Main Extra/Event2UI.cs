@@ -354,7 +354,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
-                   DownloadGuilds();
+                   LoadGuilds();
                });
         }
 
@@ -364,7 +364,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
-                   DownloadGuilds();
+                   LoadGuilds();
                });
         }
 

@@ -319,8 +319,11 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                if (Storage.Cache.guildOrder.ContainsKey(guild.Key))
+                {
+                    TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                    TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                }
             }
 
             foreach (UIElement item in TempGuildList)
@@ -329,27 +332,6 @@ namespace Discord_UWP
                 {
                     ServerList.Items.Add(item);
                 }
-            }
-            Storage.SaveCache();
-            if (SelectChannel)
-            {
-                foreach (ListViewItem guild in ServerList.Items)
-                {
-                    if (guild.Tag.ToString() == SelectGuildId)
-                    {
-                        ServerList.SelectedItem = guild;
-                    }
-                }
-            }
-        }
-        private void DownloadGuilds()
-        {
-            ServerList.Items.Clear();
-            ServerList.Items.Add(MakeDmIcon());
-            ServerList.SelectedIndex = 0;
-            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
-            {
-                ServerList.Items.Add(GuildRender(guild.Value));
             }
             Storage.SaveCache();
             if (SelectChannel)
