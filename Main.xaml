@@ -1638,7 +1638,7 @@
                     <ProgressRing IsActive="True" Height="100" Width="100"/>
                     <Image Source="Assets\DiscordIcon.png" Width="100"/>
                 </Grid>
-                <TextBlock x:Name="WaitingText" FontWeight="SemiBold" FontStyle="Italic"/>
+                <TextBlock x:Name="WaitingText" FontWeight="SemiBold" FontStyle="Italic" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Grid>
