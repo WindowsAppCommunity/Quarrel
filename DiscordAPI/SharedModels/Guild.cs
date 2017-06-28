@@ -33,6 +33,8 @@ namespace Discord_UWP.SharedModels
         public int VerificationLevel { get; set; }
         [JsonProperty("voice_states")]
         public IEnumerable<VoiceState> VoiceStates { get; set; }
+        [JsonProperty("channels")]
+        public IEnumerable<GuildChannel> Channels { get; set; }
         [JsonProperty("roles")]
         public IEnumerable<Role> Roles { get; set; }
         [JsonProperty("emojis")]

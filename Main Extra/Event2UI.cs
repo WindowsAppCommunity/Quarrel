@@ -56,14 +56,22 @@ namespace Discord_UWP
                 Storage.Cache.DMs.Add(dm.Id, new DmCache(dm));
             }
 
+            Storage.Cache.Guilds.Clear();
             foreach (SharedModels.Guild guild in e.EventData.Guilds)
             {
+                Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
                 foreach (Presence status in guild.Presences)
                 {
                     if (!Session.PrecenseDict.ContainsKey(status.User.Id))
                     {
                         Session.PrecenseDict.Add(status.User.Id, status);
                     }
+                }
+
+                Storage.Cache.Guilds[guild.Id].Channels.Clear();
+                foreach (SharedModels.GuildChannel chn in guild.Channels)
+                {
+                    Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(chn));
                 }
             }
 
@@ -343,6 +351,7 @@ namespace Discord_UWP
 
         private async void GuildChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
+            Storage.Cache.Guilds[e.EventData.GuildId].Channels.Add(e.EventData.Id, new GuildChannel(e.EventData));
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                async () =>
                {
@@ -355,6 +364,7 @@ namespace Discord_UWP
 
         private async void GuildChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
+            Storage.Cache.Guilds[e.EventData.GuildId].Channels.Remove(e.EventData.Id);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                async () =>
                {
@@ -367,6 +377,7 @@ namespace Discord_UWP
 
         private async void GuildChannelUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
+            Storage.Cache.Guilds[e.EventData.GuildId].Channels[e.EventData.Id].Raw = e.EventData;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                async () =>
                {
@@ -416,6 +427,7 @@ namespace Discord_UWP
 
         private async void DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
+            Storage.Cache.DMs.Remove(e.EventData.Id);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                () =>
                {
