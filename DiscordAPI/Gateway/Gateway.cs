@@ -144,11 +144,17 @@ namespace Discord_UWP.Gateway
         
         public async Task RequestAllGuildMembers(string guildid)
         {
-            var Request = new GuildMembersRequest()
+            var payload = new GuildMembersRequest()
             {
                 GuildId = guildid,
                 Query = "",
                 Limit = 0
+            };
+
+            var Request = new GatewayEvent()
+            {
+                Operation = 8,
+                Data = payload
             };
             await _webMessageSocket.SendJsonObjectAsync(Request);
         }
