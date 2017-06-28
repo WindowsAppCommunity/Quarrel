@@ -79,10 +79,74 @@ namespace Discord_UWP
     
     public sealed partial class Main : Page
     {
+        public async void Login(string args = null)
+        {
+            LoadingSplash.Show(false);
+            UpdateUIfromSettings();
+            try
+            {
+                LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
+                LoadingSplash.Status = "LOGGING IN...";
+                await Session.AutoLogin();
+                Session.Online = true;
+                EstablishGateway();
+                LoadingSplash.Show(false);
+                LoadingSplash.Status = "LOADING...";
+
+                LoadCache();
+                LoadMessages();
+                LoadMutedChannels();
+
+                LoadUser();
+                LoadGuilds();
+
+                var licenseInformation = CurrentApp.LicenseInformation;
+                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                {
+                    ShowAds = false;
+                }
+
+            }
+            catch
+            {
+                LoadingSplash.Hide(false);
+                ShowAds = false;
+                FeedbackButton.Visibility = Visibility.Collapsed;
+                IAPSButton.Visibility = Visibility.Collapsed;
+                MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
+                Session.Online = false;
+                await msg.ShowAsync();
+            }
+            if(args != null)
+            {
+                bool guildId = true;
+                foreach (char c in args)
+                {
+                    if (c == ':')
+                    {
+                        guildId = false;
+                    }
+                    else if (guildId)
+                    {
+                        SelectGuildId += c;
+                    }
+                    else
+                    {
+                        SelectChannelId += c;
+                    }
+                }
+                SelectChannel = true;
+            }
+            if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
+            {
+                Servers.IsPaneOpen = true;
+                MessageArea.Opacity = 0.5;
+            }
+        }
         public Main()
         {
             this.InitializeComponent();
-            UpdateUIfromSettings();
+
 
             #region OldCode
             #region TypingCheckTimer
@@ -111,37 +175,8 @@ namespace Discord_UWP
             //}, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
             #endregion
             #endregion
-            LoadCache();
-            LoadMessages();
-            LoadMutedChannels();
 
-            LoadUser();
-            LoadGuilds();
-
-            if (Session.Online)
-            {
-                EstablishGateway();
-                WaitingText.Text = EntryMessages.GetMessage();
-                var licenseInformation = CurrentApp.LicenseInformation;
-                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                {
-                    ShowAds = false;
-                }
-            }
-            else
-            {
-                Loading.Visibility = Visibility.Collapsed;
-                ShowAds = false;
-                FeedbackButton.Visibility = Visibility.Collapsed;
-                IAPSButton.Visibility = Visibility.Collapsed;
-            }
-
-            if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
-            {
-                Servers.IsPaneOpen = true;
-                MessageArea.Opacity = 0.5;
-            }
-                
+            Login();     
         }
 
         private void UpdateUIfromSettings()
@@ -159,7 +194,7 @@ namespace Discord_UWP
         public Main(string args)
         {
             InitializeComponent();
-            
+
             #region OldCode
             #region TypingCheckTimer
             //Timer timer = new Timer( async (object state) =>
@@ -189,49 +224,7 @@ namespace Discord_UWP
             #endregion
             #endregion
 
-            LoadCache();
-            LoadMessages();
-            LoadMutedChannels();
-
-            LoadUser();
-            LoadGuilds();
-
-
-            if (Session.Online)
-            {
-                EstablishGateway();
-                var licenseInformation = CurrentApp.LicenseInformation;
-                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                {
-                    ShowAds = false;
-                }
-            }
-            else
-            {
-                Loading.Visibility = Visibility.Collapsed;
-                ShowAds = false;
-                FeedbackButton.Visibility = Visibility.Collapsed;
-                IAPSButton.Visibility = Visibility.Collapsed;
-            }
-            
-
-            bool guildId = true;
-            foreach (char c in args)
-            {
-                if (c == ':')
-                {
-                    guildId = false;
-                }
-                else if (guildId)
-                {
-                    SelectGuildId += c;
-                }
-                else
-                {
-                    SelectChannelId += c;
-                }
-            }
-            SelectChannel = true;
+            Login(args);
         }
 
         async void EstablishGateway()
@@ -311,6 +304,7 @@ namespace Discord_UWP
             ServerList.Items.Clear();
             ServerList.Items.Add(MakeDmIcon());
             ServerList.SelectedIndex = 0;
+
             List<UIElement> TempGuildList = new List<UIElement>();
             while (TempGuildList.Count < 100)
             {
@@ -319,11 +313,9 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                if (Storage.Cache.guildOrder.ContainsKey(guild.Key))
-                {
-                    TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                    TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
-                }
+                TempGuildList.Add(GuildRender(guild.Value));
+                //TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                //TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
 
             foreach (UIElement item in TempGuildList)
@@ -332,6 +324,27 @@ namespace Discord_UWP
                 {
                     ServerList.Items.Add(item);
                 }
+            }
+            Storage.SaveCache();
+            if (SelectChannel)
+            {
+                foreach (ListViewItem guild in ServerList.Items)
+                {
+                    if (guild.Tag.ToString() == SelectGuildId)
+                    {
+                        ServerList.SelectedItem = guild;
+                    }
+                }
+            }
+        }
+        private void DownloadGuilds()
+        {
+            ServerList.Items.Clear();
+            ServerList.Items.Add(MakeDmIcon());
+            ServerList.SelectedIndex = 0;
+            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
+            {
+                ServerList.Items.Add(GuildRender(guild.Value));
             }
             Storage.SaveCache();
             if (SelectChannel)
@@ -446,7 +459,10 @@ namespace Discord_UWP
                         m.status = new Presence() { Status = "offline", Game = null};
                     }
                 }
-                MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                if (Storage.Settings.ShowOfflineMembers)
+                    MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                else
+                    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
             }
         }
@@ -1864,6 +1880,7 @@ namespace Discord_UWP
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             DarkenMessageArea.Begin();
+         
             UserSettings.IsPaneOpen = true;
         }
 
@@ -1890,5 +1907,25 @@ namespace Discord_UWP
         //    }
         //}
         #endregion
+
+        private bool autoscrolldown = true;
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling
+            autoscrolldown = !((message_scroller.ScrollableHeight - message_scroller.VerticalOffset) > 20);
+        }
+
+
+        private void Messages_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(autoscrolldown)
+                message_scroller.ChangeView(null, message_scroller.ScrollableHeight, null);
+        }
+
+        private void Message_scroller_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            
+        }
+
     }
 }
