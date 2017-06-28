@@ -1412,6 +1412,10 @@
                         <TextBlock Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                     </StackPanel>
                     <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,0,0">
+                        <ListViewHeaderItem Content="Version 4.1.3"/>
+                        <ListViewItem>
+                            <TextBlock Text="Added loading overlay" TextWrapping="Wrap"/>
+                        </ListViewItem>
                         <ListViewHeaderItem Content="Version 4.1.2"/>
                         <ListViewItem>
                             <TextBlock Text="Significant performance improvements" TextWrapping="Wrap"/>
