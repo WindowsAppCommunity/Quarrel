@@ -1634,8 +1634,11 @@
 
         <Grid x:Name="Loading" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.Column="10">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ProgressRing IsActive="True" Height="100" Width="100"/>
-                <TextBlock Text="Waiting for Ready packet"/>
+                <Grid>
+                    <ProgressRing IsActive="True" Height="100" Width="100"/>
+                    <Image Source="Assets\DiscordIcon.png" Width="100"/>
+                </Grid>
+                <TextBlock x:Name="WaitingText" FontWeight="SemiBold" FontStyle="Italic"/>
             </StackPanel>
         </Grid>
     </Grid>
