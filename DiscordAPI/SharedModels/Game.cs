@@ -11,5 +11,7 @@ namespace Discord_UWP.SharedModels
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("type")]
+        public int Type { get; set; }
     }
 }
