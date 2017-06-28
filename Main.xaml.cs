@@ -1222,7 +1222,7 @@ namespace Discord_UWP
             foreach (SharedModels.Message msg in newMessages)
             {
                 adCheck--;
-                Messages.Items.Insert(1, msg);
+                Messages.Items.Insert(0, msg);
                 if (adCheck == 0 && ShowAds)
                 {
                     StackPanel adstack = new StackPanel();
