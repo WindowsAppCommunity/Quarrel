@@ -99,7 +99,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                Loading.Visibility = Visibility.Collapsed;
+                LoadingSplash.Hide(true);
                 LoadGuilds();
             });
         }

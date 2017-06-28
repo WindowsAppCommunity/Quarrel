@@ -854,11 +854,11 @@
             </StackPanel>
             <ScrollViewer Grid.Row="1">
                 <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging">
-                    <!-- <ListView.ItemsPanel>
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
                         </ItemsPanelTemplate>
-                    </ListView.ItemsPanel> -->
+                    </ListView.ItemsPanel> 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -1631,15 +1631,6 @@
                 <AppBarButton Label="Settings" Click="OpenUserSettings"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
-
-        <Grid x:Name="Loading" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.Column="10">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid>
-                    <ProgressRing IsActive="True" Height="100" Width="100"/>
-                    <Image Source="Assets\DiscordIcon.png" Width="100"/>
-                </Grid>
-                <TextBlock x:Name="WaitingText" FontWeight="SemiBold" FontStyle="Italic"/>
-            </StackPanel>
-        </Grid>
+        <controls:LoadingControl x:Name="LoadingSplash" Visibility="Collapsed" Grid.RowSpan="10" Grid.Column="10"/>
     </Grid>
 </Page>

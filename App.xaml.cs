@@ -240,41 +240,33 @@ namespace Discord_UWP
 
                     if (loggedIn)
                     {
-                        try
+                        // await Session.AutoLogin();
+                        // Session.Online = true;
+                        //rootFrame.Navigate(typeof(Main), e.Arguments);
+                        if (IsConsole)
                         {
-                            await Session.AutoLogin();
-                            Session.Online = true;
-                            //rootFrame.Navigate(typeof(Main), e.Arguments);
-                            if (IsConsole)
+                            if (e.Arguments != "")
                             {
-                                if (e.Arguments != "")
-                                {
-                                    rootFrame.Navigate(typeof(Main), e.Arguments);
-                                }
-                                else
-                                {
-                                    rootFrame.Navigate(typeof(Main));
-                                }
-                            } else
+                                rootFrame.Navigate(typeof(Main), e.Arguments);
+                            }
+                            else
                             {
-                                if (e.Arguments != "")
-                                {
-                                    rootFrame.Content = new Main(e.Arguments);
-                                }
-                                else
-                                {
-                                    rootFrame.Content = new Main();
-                                }
+                                rootFrame.Navigate(typeof(Main));
                             }
                         }
-                        catch
+                        else
                         {
-                            MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
-                            Session.Online = false;
-                            rootFrame.Navigate(typeof(Main), e.Arguments);
-                            await msg.ShowAsync();
+                            if (e.Arguments != "")
+                            {
+                                rootFrame.Content = new Main(e.Arguments);
+                            }
+                            else
+                            {
+                                rootFrame.Content = new Main();
+                            }
                         }
-                    } else
+                    }
+                    else
                     {
                         rootFrame.Navigate(typeof(LockScreen), e.Arguments);
                     }
