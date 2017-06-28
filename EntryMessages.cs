@@ -33,7 +33,7 @@ namespace Discord_UWP
                 case 19: return "Microsoft's working on Windows Mobile !?!?!? (Submitted by @Dikas#8802)";
                 case 20: return "Splash screen* (Submitted by @ToonWK#5841)";
                 case 21: return "I don't mean to be rude but...";
-                case 22: return "Food doesn't grow on trees";
+                case 22: return "Converting caffine to code";
                 case 23: return "😬";
                 case 24: return "Burning evidence...";
                 default: return "Waiting for Ready Packet";
