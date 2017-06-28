@@ -121,6 +121,7 @@ namespace Discord_UWP
             if (Session.Online)
             {
                 EstablishGateway();
+                WaitingText.Text = EntryMessages.GetMessage();
                 var licenseInformation = CurrentApp.LicenseInformation;
                 if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
                 {
