@@ -172,8 +172,6 @@ namespace Discord_UWP
 
             //Set the title bar colors:
 
-
-
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
