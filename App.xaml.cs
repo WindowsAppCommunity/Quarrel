@@ -188,10 +188,8 @@ namespace Discord_UWP
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 
-            if (BackgroundExecutionManager.GetAccessStatus() == BackgroundAccessStatus.Unspecified)
-            {
-                RegisterBackgroundTask();
-            }
+
+            //RegisterBackgroundTask();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -328,7 +326,7 @@ namespace Discord_UWP
             //
             // A time trigger that repeats at 15-minute intervals.
             //
-            IBackgroundTrigger trigger = new TimeTrigger(1, false);
+            IBackgroundTrigger trigger = new TimeTrigger(15, false);
             SystemCondition internetCondition = new SystemCondition(SystemConditionType.InternetAvailable);
 
             //
@@ -348,6 +346,10 @@ namespace Discord_UWP
             await BackgroundExecutionManager.RequestAccessAsync();
         }
 
-        
+        private void OnCompleted(IBackgroundTaskRegistration task, BackgroundTaskCompletedEventArgs args)
+        {
+            
+        }
+
     }
 }

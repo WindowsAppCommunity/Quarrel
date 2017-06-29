@@ -9,14 +9,18 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Microsoft.Toolkit.Uwp;
+using Windows.UI.Popups;
+using System.ComponentModel;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP
 {
     class Storage
     {
-        public static void Clear()
+        public static async void Clear()
         {
-            ApplicationData.Current.ClearAsync();
+            await ApplicationData.Current.ClearAsync();
         }
 
         public static void SaveUser()
