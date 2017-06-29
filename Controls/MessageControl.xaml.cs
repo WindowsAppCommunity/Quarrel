@@ -172,7 +172,7 @@ namespace Discord_UWP
                 GuildMember member;
                 if (App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
                 {
-                member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
+                    member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
                 }
                 else
                 {
