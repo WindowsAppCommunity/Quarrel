@@ -868,7 +868,7 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                     <DataTemplate x:DataType="local:MessageContainer">
-                        <local:MessageControl  Message="{x:Bind Message}" IsAdvert="{x:Bind IsAdvert}" Header="{x:Bind Header}" IsContinuation="{x:Bind IsContinuation}"/>
+                        <local:MessageControl  Message="{Binding Message, Mode=TwoWay, FallbackValue=null}" IsAdvert="{Binding IsAdvert, Mode=TwoWay, FallbackValue=False}" Header="{Binding Header, Mode=TwoWay, FallbackValue=null}" IsContinuation="{Binding IsContinuation, Mode=TwoWay, FallbackValue=False}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Footer>

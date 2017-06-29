@@ -235,27 +235,34 @@ namespace Discord_UWP
         private async void MessageUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () =>
-            {
-                if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null && ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id == e.EventData.ChannelId)
+                () =>
                 {
-                    for (int x = 0; x < Messages.Items.Count; x++)
+                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                        e.EventData.ChannelId)
                     {
-                        if ((Messages.Items[x] as MessageContainer).Message?.Id == e.EventData.Id)
+                        for (int x = 0; x < Messages.Items.Count; x++)
                         {
-                            Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.Id)
+                            {
+                                Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
+                            }
                         }
                     }
-                }
-                else if(TextChannels.SelectedItem != null && (TextChannels.SelectedItem as ListViewItem).Tag != null && ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id == e.EventData.ChannelId)
+                    else if (TextChannels.SelectedItem != null &&
+                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
+                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
+                             e.EventData.ChannelId)
                         for (int x = 0; x < Messages.Items.Count; x++)
-                {
-                    if ((Messages.Items[x] as MessageContainer).Message?.Id == e.EventData.Id)
-                    {
-                        Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
-                    }
-                }
-            });
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.Id)
+                            {
+                                Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
+                            }
+                        }
+                });
         }
 
         private async void GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
