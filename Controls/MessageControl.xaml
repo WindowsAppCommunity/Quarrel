@@ -101,7 +101,7 @@
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
-        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6,2,6,0" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" LinkClicked="content_LinkClicked" />
+        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6,2,6,0" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" LinkClicked="content_LinkClicked" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>
         <Grid x:Name="EditBox" Grid.Row="2" Padding="4" Grid.Column="1" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
