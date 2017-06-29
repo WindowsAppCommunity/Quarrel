@@ -872,7 +872,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Footer>
-                        <Grid Height="12" Margin="0,0,0,0">
+                        <Grid Height="22" Margin="0,0,0,0">
                             <TextBlock Margin="12,-12.1,12,0" x:Name="NoMessageChached" Text="No messages cached" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                             <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                         </Grid>

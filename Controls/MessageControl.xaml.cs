@@ -173,10 +173,9 @@ namespace Discord_UWP
                 else
                     username.Text = "";
                 GuildMember member;
-                if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId]
-                        .Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
                 {
-                    member = Storage.Cache.Guilds[App.CurrentId].Members[Message.Value.User.Id].Raw;
+                member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
                 }
                 else
                 {
@@ -189,7 +188,7 @@ namespace Discord_UWP
 
                 if (member.Roles != null && member.Roles.Count() > 0)
                 {
-                    foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                    foreach (Role role in App.CurrentGuild.RawGuild.Roles)
                     {
                         if (role.Id == member.Roles.First<string>())
                         {
