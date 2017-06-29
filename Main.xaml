@@ -923,7 +923,7 @@
                         <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name"/>
                         <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
                             <StackPanel>
-                                <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                                <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True" ContainerContentChanging="Reordering">
                                     <ListView.Header>
                                         <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                     </ListView.Header>
