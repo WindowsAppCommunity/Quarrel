@@ -1081,25 +1081,10 @@ namespace Discord_UWP
                 foreach (SharedModels.Message msg in newMessages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(0, msg);
+                    Messages.Items.Insert(0, NewMessageContainer(msg, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Center;
-                        ad.Margin = new Thickness(0, 6, 0, 6);
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        ad.Background = (SolidColorBrush)App.Current.Resources["DarkBG"];
-                        adstack.Children.Add(ad);
-                        Messages.Items.Insert(1, adstack);
+                        Messages.Items.Insert(0, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
