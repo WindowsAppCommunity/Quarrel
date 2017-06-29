@@ -593,7 +593,7 @@ namespace Discord_UWP
         {
             IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
 
-            if (Members != null)
+            if (members != null)
             {
                 foreach (GuildMember member in members)
                 {
