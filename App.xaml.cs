@@ -190,7 +190,7 @@ namespace Discord_UWP
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 
-            RegisterBackgroundTask();
+            //RegisterBackgroundTask();
 
             Frame rootFrame = Window.Current.Content as Frame;
 

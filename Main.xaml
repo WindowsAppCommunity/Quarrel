@@ -1230,7 +1230,7 @@
                         <PivotItem Header="UI">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu">
-                                    <CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                     <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <Slider x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
@@ -1345,6 +1345,18 @@
                         <ListViewHeaderItem Content="Version 4.1.3"/>
                         <ListViewItem>
                             <TextBlock Text="Added loading overlay" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Auto scroll is back" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Servers show in proper order" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Sped up message loading" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Added pinning" TextWrapping="Wrap"/>
                         </ListViewItem>
                         <ListViewHeaderItem Content="Version 4.1.2"/>
                         <ListViewItem>
