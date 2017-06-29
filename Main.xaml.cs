@@ -725,7 +725,10 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()];
+            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+            {
+                App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()];
+            }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
