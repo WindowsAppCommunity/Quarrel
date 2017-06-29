@@ -109,30 +109,48 @@ namespace Discord_UWP
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
-
+        AdControl advert;
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (IsContinuation == true) VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
-
-            if (IsAdvert == true && (Message == null))
+            if (prop == IsContinuationProperty)
             {
-                VisualStateManager.GoToState(this, "Advert", false);
-                AdControl ad = new AdControl();
-                ad.HorizontalAlignment = HorizontalAlignment.Center;
-                ad.Width = 300;
-                ad.Height = 50;
-                ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                ad.AdUnitId = "336795";
-                ad.Margin = new Thickness(6);
-                ad.Background = new SolidColorBrush(Colors.Red);
-                Grid.SetColumnSpan(ad, 10);
-                Grid.SetRowSpan(ad, 10);
-                rootGrid.Children.Add(ad);
-                return;
+                if (IsContinuation)
+                    VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+                else
+                    VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
             }
 
-            if (Message == null && prop != MessageProperty) return;
-            UpdateControl();
+
+            if (prop == IsAdvertProperty)
+            {
+                if (IsAdvert)
+                {
+                    VisualStateManager.GoToState(this, "Advert", false);
+                    advert = new AdControl();
+                    advert.HorizontalAlignment = HorizontalAlignment.Center;
+                    advert.Width = 300;
+                    advert.Height = 50;
+                    advert.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
+                    advert.AdUnitId = "336795";
+                    advert.Margin = new Thickness(6);
+                    advert.Background = new SolidColorBrush(Colors.Red);
+                    Grid.SetColumnSpan(advert, 10);
+                    Grid.SetRowSpan(advert, 10);
+                    rootGrid.Children.Add(advert);
+                    return;
+                }
+                else
+                {
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
+                    VisualStateManager.GoToState(this, "VisualState", false);
+                }
+            }
+            if (prop == MessageProperty)
+            {
+                UpdateMessage();
+            }
             
         }
 
@@ -145,12 +163,18 @@ namespace Discord_UWP
            // RegisterPropertyChangedCallback(IsAdvertProperty, OnPropertyChanged);
         }
 
-        public void UpdateControl()
+        private GridView reactionView;
+        public void UpdateMessage()
         {
-            if (Message == null) return;
-                username.Text = Message.Value.User.Username;
+            if (Message.HasValue)
+            {
+                if (Message.Value.User.Username != null)
+                    username.Text = Message.Value.User.Username;
+                else
+                    username.Text = "";
                 GuildMember member;
-                if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentId != null && Storage.Cache.Guilds[App.CurrentId]
+                        .Members.ContainsKey(Message.Value.User.Id))
                 {
                     member = Storage.Cache.Guilds[App.CurrentId].Members[Message.Value.User.Id].Raw;
                 }
@@ -163,90 +187,117 @@ namespace Discord_UWP
                     username.Text = member.Nick;
                 }
 
-            if (member.Roles != null && member.Roles.Count() > 0)
-            {
-                foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                if (member.Roles != null && member.Roles.Count() > 0)
                 {
-                    if (role.Id == member.Roles.First<string>())
+                    foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
                     {
-                        username.Foreground = IntToColor(role.Color);
+                        if (role.Id == member.Roles.First<string>())
+                        {
+                            username.Foreground = IntToColor(role.Color);
+                        }
                     }
                 }
-            }
 
-            if (Message.Value.User.Bot == true)
-                BotIndicator.Visibility = Visibility.Visible;
-            if (Message.Value.Pinned)
-                MorePin.Text = "Unpin";
+                if (Message.Value.User.Bot == true)
+                    BotIndicator.Visibility = Visibility.Visible;
+                if (Message.Value.Pinned)
+                    MorePin.Text = "Unpin";
 
-            if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
-            {
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Message.Value.User.Id + "/" + Message.Value.User.Avatar + ".jpg")) };
+                if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
+                {
+                    avatar.Fill = new ImageBrush()
+                    {
+                        ImageSource = new BitmapImage(
+                            new Uri("https://cdn.discordapp.com/avatars/" + Message.Value.User.Id + "/" +
+                                    Message.Value.User.Avatar + ".jpg"))
+                    };
+                }
+                else
+                {
+                    avatar.Fill = new ImageBrush()
+                    {
+                        ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png"))
+                    };
+                }
+
+                timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
+                if (Message.Value.EditedTimestamp.HasValue)
+                    timestamp.Text += " (Edited " +
+                                      Common.HumanizeDate(Message.Value.EditedTimestamp.Value,
+                                          Message.Value.Timestamp) + ")";
+
+                if (Message.Value.Reactions != null)
+                {
+                    reactionView = new GridView
+                    {
+                        SelectionMode = ListViewSelectionMode.None,
+                        Margin = new Thickness(0),
+                        Padding = new Thickness(0)
+                    };
+                    foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count > 0))
+                    {
+
+                        ToggleButton reactionToggle = new ToggleButton();
+                        reactionToggle.IsChecked = reaction.Me;
+                        reactionToggle.Tag =
+                            new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
+                        reactionToggle.Click += ToggleReaction;
+                        if (reaction.Me)
+                        {
+                            reactionToggle.IsChecked = true;
+                        }
+
+                        reactionToggle.Content = reaction.Emoji.Name + " " + reaction.Count.ToString();
+                        ;
+                        reactionToggle.Style = (Style) App.Current.Resources["EmojiButton"];
+                        reactionToggle.MinHeight = 0;
+
+                        GridViewItem gridViewItem = new GridViewItem() {Content = reactionToggle};
+
+                        gridViewItem.MinHeight = 0;
+                        reactionView.Margin = new Thickness(6, 0, 0, 0);
+                        reactionView.Items.Add(gridViewItem);
+                    }
+                    Grid.SetRow(reactionView, 3);
+                    Grid.SetColumn(reactionView, 1);
+                    rootGrid.Children.Add(reactionView);
+                }
+                else
+                {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
+                    reactionView = null;
+                }
+                LoadAttachements(true);
+                LoadEmbeds();
+                content.Users = Message.Value.Mentions;
+                if (Message?.Content == "")
+                {
+                    content.Visibility = Visibility.Collapsed;
+                    Grid.SetRow(moreButton, 4);
+                }
+                content.Text = Message.Value.Content;
             }
             else
             {
-                avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png")) };
+                username.Text = "";
+                avatar.Fill = null;
+                timestamp.Text = "";
+                content.Text = "";
+                if (rootGrid.Children.Contains(reactionView))
+                    rootGrid.Children.Remove(reactionView);
+                reactionView = null;
             }
-
-            timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
-            if (Message.Value.EditedTimestamp.HasValue)
-                timestamp.Text += " (Edited " + Common.HumanizeDate(Message.Value.EditedTimestamp.Value, Message.Value.Timestamp) + ")";
-
-            if (Message.Value.Reactions != null)
-            {
-                GridView gridview = new GridView
-                {
-                    SelectionMode = ListViewSelectionMode.None,
-                    Margin = new Thickness(0),
-                    Padding = new Thickness(0)
-                };
-                foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count>0))
-                {
-                    
-                    ToggleButton reactionToggle = new ToggleButton();
-                    reactionToggle.IsChecked = reaction.Me;
-                    reactionToggle.Tag = new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
-                    reactionToggle.Click += ToggleReaction;
-                    if (reaction.Me)
-                    {
-                        reactionToggle.IsChecked = true;
-                    }
-
-                    reactionToggle.Content = reaction.Emoji.Name + " " + reaction.Count.ToString(); ;
-                    reactionToggle.Style = (Style)App.Current.Resources["EmojiButton"];
-                    reactionToggle.MinHeight = 0;
-                   
-                    GridViewItem gridViewItem = new GridViewItem(){Content=reactionToggle};
-                    
-                    gridViewItem.MinHeight = 0;
-                    gridview.Margin = new Thickness(6,0,0,0);
-                    gridview.Items.Add(gridViewItem);
-                }
-                Grid.SetRow(gridview, 3);
-                Grid.SetColumn(gridview, 1);
-                rootGrid.Children.Add(gridview);
-            }
-
-            LoadAttachements(true);
-            LoadEmbeds();
-            content.Users = Message.Value.Mentions;
-            if (Message?.Content == "")
-            {
-                content.Visibility = Visibility.Collapsed;
-                Grid.SetRow(moreButton, 4);
-            }
-            content.Text = Message.Value.Content;
         }
 
         private void LoadEmbeds()
         {
+            EmbedViewer.Visibility = Visibility.Collapsed;
+            EmbedViewer.Children.Clear();
+            if (!Message.HasValue) return;
+
             if (Message.Value.Embeds.Any())
                 EmbedViewer.Visibility = Visibility.Visible;
-            else
-            {
-                EmbedViewer.Visibility=Visibility.Collapsed;
-                return;
-            }
             foreach (Embed embed in Message.Value.Embeds)
             {
                 EmbedViewer.Children.Add(new EmbedControl(){Content = embed});
@@ -256,6 +307,10 @@ namespace Discord_UWP
         readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
         private void LoadAttachements(bool EnableImages)
         {
+            AttachedImageViewer.Source = null;
+            AttachedImageViewbox.Visibility = Visibility.Collapsed;
+            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
+            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
             if (Message.Value.Attachments.Any())
             {
                 var attachement = Message.Value.Attachments.First();

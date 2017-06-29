@@ -313,9 +313,9 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                //TempGuildList.Add(GuildRender(guild.Value));
-                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                TempGuildList.Add(GuildRender(guild.Value));
+                //TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                //TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
 
             foreach (UIElement item in TempGuildList)
