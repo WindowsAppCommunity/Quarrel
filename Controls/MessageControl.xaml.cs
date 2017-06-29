@@ -170,7 +170,7 @@ namespace Discord_UWP
                 else
                     username.Text = "";
                 GuildMember member;
-                if (App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuild != null && App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
                 {
                 member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
                 }
