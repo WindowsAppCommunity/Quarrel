@@ -169,7 +169,6 @@ namespace Discord_UWP
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-
             //Set the title bar colors:
 
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
@@ -188,6 +187,11 @@ namespace Discord_UWP
             App.Current.Resources["Blurple"] = Common.GetSolidColorBrush(Storage.Settings.AccentBrush);
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
+
+            if (BackgroundExecutionManager.GetAccessStatus() == BackgroundAccessStatus.Unspecified)
+            {
+                RegisterBackgroundTask();
+            }
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -309,71 +313,41 @@ namespace Discord_UWP
             deferral.Complete();
         }
 
-        /*private bool _isInitialized = false;
-        private async Task InitializeApp()
+        private async void RegisterBackgroundTask()
         {
-            if (_isInitialized)
-                return;
+            //
+            // A friendly task name.
+            //
+            String name = "BackgroundActivity";
 
-            RegisterBackgroundTask();
+            //
+            // Must be the same entry point that is specified in the manifest.
+            //
+            String taskEntryPoint = "Discord_UWP.BackgroundActivity";
 
-            _isInitialized = true;
+            //
+            // A time trigger that repeats at 15-minute intervals.
+            //
+            IBackgroundTrigger trigger = new TimeTrigger(1, false);
+            SystemCondition internetCondition = new SystemCondition(SystemConditionType.InternetAvailable);
+
+            //
+            // Builds the background task.
+            //
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+
+            builder.Name = name;
+            builder.TaskEntryPoint = taskEntryPoint;
+            builder.SetTrigger(trigger);
+            builder.AddCondition(internetCondition);
+
+            //
+            // Registers the background task, and get back a BackgroundTaskRegistration object representing the registered task.
+            //
+            BackgroundTaskRegistration task = builder.Register();
+            await BackgroundExecutionManager.RequestAccessAsync();
         }
 
-        private void RegisterBackgroundTask()
-        {
-            const string taskName = "ToastBackgroundTask";
-
-            // If background task is already registered, do nothing
-            if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
-                return;
-
-            // Otherwise create the background task
-            var builder = new BackgroundTaskBuilder()
-            {
-                Name = taskName,
-                TaskEntryPoint = typeof(ToastNotificationBackgroundTask).FullName
-            };
-            // And set the toast action trigger
-            builder.SetTrigger(new ToastNotificationActionTrigger());
-            // And register the task
-            builder.Register();
-        }
-
-        private async Task HandleReply(QueryString args)
-        {
-            // Get the conversation the toast is about
-            string conversationId = args["conversationId"];
-
-            // Get the message that the user typed in the toast
-            string messagetext = args["message"];
-
-            DiscordApiConfiguration config = new DiscordApiConfiguration
-            {
-                BaseUrl = "https://discordapp.com/api"
-            };
-
-            IAuthenticator authenticator = new DiscordAuthenticator(Storage.token);
-            AuthenticatedRestFactory authenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
-
-            SharedModels.GatewayConfig gateconfig = new SharedModels.GatewayConfig()
-            {
-                BaseUrl = "wss://gateway.discord.gg/"
-            };
-
-            Gateway.Gateway gateway = new Gateway.Gateway(gateconfig, authenticator);
-
-            MessageUpsert message = new MessageUpsert();
-            message.Content = messagetext;
-            IChannelService channelservice = authenticatedRestFactory.GetChannelService();
-            Task<SharedModels.Message> message_task = channelservice.CreateMessage(conversationId, message);
-
-            //message_task.Wait();
-
-
-            // In a real app, you most likely should NOT notify your user that the request completed (only notify them if there's an error)
-            //SendToast("Your message has been sent! Your message: " + message);
-
-        }*/
+        
     }
 }
