@@ -593,15 +593,18 @@ namespace Discord_UWP
         {
             IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
 
-            foreach (GuildMember member in members)
+            if (Members != null)
             {
-                if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                foreach (GuildMember member in members)
                 {
-                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
-                }
-                else
-                {
-                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                    if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                    {
+                        Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                    }
+                    else
+                    {
+                        Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                    }
                 }
             }
 
