@@ -1619,7 +1619,10 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.Footer>
-                                <Rectangle Height="24"/>
+                                <StackPanel>
+                                    <Rectangle Height="24"/>
+                                    <ProgressBar x:Name="PinnedMessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                                </StackPanel>
                             </ListView.Footer>
                         </ListView>
                     </Flyout>

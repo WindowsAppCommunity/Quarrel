@@ -101,6 +101,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BackgroundActivity.cs" />
     <Compile Include="CacheModels\Cache.cs" />
     <Compile Include="CacheModels\CurrentUser.cs" />
     <Compile Include="CacheModels\DMCache.cs" />

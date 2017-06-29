@@ -9,14 +9,18 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Microsoft.Toolkit.Uwp;
+using Windows.UI.Popups;
+using System.ComponentModel;
+using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP
 {
     class Storage
     {
-        public static void Clear()
+        public static async void Clear()
         {
-            ApplicationData.Current.ClearAsync();
+            await ApplicationData.Current.ClearAsync();
         }
 
         public static void SaveUser()
@@ -30,7 +34,6 @@ namespace Discord_UWP
             serializer.Serialize(settingsWriter, Token);
             SavedSettings.Values["user"] = settingsWriter.ToString();
         }
-
         public static void SaveAppSettings()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Settings));
@@ -42,24 +45,29 @@ namespace Discord_UWP
             serializer.Serialize(settingsWriter, Settings);
             SavedSettings.Values["settings"] = settingsWriter.ToString();
         }
-
         public static async void SaveCache()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
-            StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
-
-            StringWriter settingsWriter = new StringWriter();
             try
             {
-                serializer.Serialize(settingsWriter, new CacheModels.TempCache(Cache));
-                await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
+                StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
+
+                StringWriter settingsWriter = new StringWriter();
+                try
+                {
+                    serializer.Serialize(settingsWriter, new CacheModels.TempCache(Cache));
+                    await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                }
+                catch
+                {
+
+                }
             }
             catch
             {
 
             }
         }
-
         public static async void SaveMessages()
         {
             List<ChannelTimeSave> temp = new List<ChannelTimeSave>();
@@ -82,7 +90,6 @@ namespace Discord_UWP
 
             }
         }
-
         public static async void SaveMutedChannels()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<string>));

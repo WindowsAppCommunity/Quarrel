@@ -13,6 +13,8 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("is_private")]
         public bool Private { get; set; }
+        [JsonProperty("type")]
+        public int Type { get; set; }
         /*[JsonProperty("recipient")]
         public User User { get; set; }*/
         [JsonProperty("recipients")]

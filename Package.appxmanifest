@@ -16,8 +16,9 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTasks.SampleBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.BackgroundActivity">
           <BackgroundTasks>
+            <Task Type="timer" />
             <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
