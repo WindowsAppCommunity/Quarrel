@@ -313,9 +313,9 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                TempGuildList.Add(GuildRender(guild.Value));
-                //TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                //TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                //TempGuildList.Add(GuildRender(guild.Value));
+                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
 
             foreach (UIElement item in TempGuildList)
@@ -410,12 +410,15 @@ namespace Discord_UWP
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
-                    int rolecounter = 0;
-                    foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
-                        if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                    var roleAlt = role;
-                    totalrolecounter += rolecounter;
-                    roleAlt.MemberCount = rolecounter;
+                    Role roleAlt = role;
+                    if (role.Hoist)
+                    {
+                        int rolecounter = 0;
+                        foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
+                            if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                        totalrolecounter += rolecounter;
+                        roleAlt.MemberCount = rolecounter;
+                    }
                     if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
                     {
                         Storage.Cache.Guilds[id].Roles[role.Id] = roleAlt;
@@ -429,7 +432,14 @@ namespace Discord_UWP
                 var memberscvs = Storage.Cache.Guilds[id].Members;
                 foreach (Member m in memberscvs.Values)
                 {
-                    m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    if (m.Raw.Roles.FirstOrDefault() != null && Storage.Cache.Guilds[id].Roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                    {
+                        m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    } else
+                    {
+
+                        m.MemberDisplayedRole = GetRole(null, id, everyonecounter);
+                    }
                     if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
                     {
                         m.status = Session.PrecenseDict[m.Raw.User.Id];
@@ -453,28 +463,19 @@ namespace Discord_UWP
             if (cachedRole != null) return cachedRole;
             else
             {
-                if (roleid == null)
+                DisplayedRole role;
+                if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
-                    var role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
-                    return role;
                 }
                 else
                 {
-                    DisplayedRole role;
-                    if (Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
-                    {
-                        var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
-                        role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
-                        TempRoleCache.Add(role);
-                    } else
-                    {
-                        role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
-                        TempRoleCache.Add(role);
-                    }
-                    return role;
+                    var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
+                    role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
+                    TempRoleCache.Add(role);
                 }
-
+                return role;
             }
         }
 
@@ -831,36 +832,10 @@ namespace Discord_UWP
                     {
                         Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
-                        await Task.Delay(100);
                     }
                 }
 
                 Messages.Items.RemoveAt(0);
-
-                //Pinned messages
-                PinnedMessages.Items.Clear();
-                await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
-                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
-
-                foreach (SharedModels.Message message in pinnedmessages)
-                {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
-                }
-
-                adCheck = 5;
-
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
-                {
-                    adCheck--;
-                    PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
-                    if (adCheck == 0 && ShowAds)
-                    {
-                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
-                        adCheck = 5;
-                        await Task.Delay(100);
-                    }
-                }
 
                 ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Name;
 
@@ -892,6 +867,32 @@ namespace Discord_UWP
                 Storage.SaveCache();
 
                 MessagesLoading.Visibility = Visibility.Collapsed;
+            }
+        }
+        private async Task DownloadChannelPinnedMessages()
+        {
+            //Pinned messages
+            PinnedMessages.Items.Clear();
+            await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+            IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
+
+            foreach (SharedModels.Message message in pinnedmessages)
+            {
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
+            }
+
+            int adCheck = 5;
+
+            foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
+            {
+                adCheck--;
+                PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
+                if (adCheck == 0 && ShowAds)
+                {
+                    PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                    adCheck = 5;
+                }
             }
         }
         #endregion
@@ -1052,10 +1053,11 @@ namespace Discord_UWP
                 Members.IsPaneOpen = !Members.IsPaneOpen;
             }
         }
-        private void TogglePinnedShow(object sender, RoutedEventArgs e)
+        private async void TogglePinnedShow(object sender, RoutedEventArgs e)
         {
-
-           // PinnedMessagesPopup.IsPaneOpen = !PinnedMessagesPopup.IsPaneOpen;
+            PinnedMessagesLoading.Visibility = Visibility.Visible;
+            await DownloadChannelPinnedMessages();
+            PinnedMessagesLoading.Visibility = Visibility.Collapsed;
         }
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
@@ -1759,7 +1761,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }
@@ -1771,7 +1773,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }
@@ -1783,7 +1785,7 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text });
+                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
                     }
                     Playing.IsEnabled = true;
                 }
@@ -1826,7 +1828,7 @@ namespace Discord_UWP
         //}
         #endregion
 
-    //    private bool autoscrolldown = true;
+        //private bool autoscrolldown = true;
         private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling

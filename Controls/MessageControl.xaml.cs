@@ -176,6 +176,8 @@ namespace Discord_UWP
 
             if (Message.Value.User.Bot == true)
                 BotIndicator.Visibility = Visibility.Visible;
+            if (Message.Value.Pinned)
+                MorePin.Text = "Unpin";
 
             if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
             {
@@ -417,6 +419,17 @@ namespace Discord_UWP
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EditBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void MorePin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Message.Value.Pinned)
+            {
+                Session.UnpinMessage(Message.Value.ChannelId, Message.Value.Id);
+            } else
+            {
+                Session.PinMesage(Message.Value.ChannelId, Message.Value.Id);
+            }
         }
 
         private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
