@@ -843,6 +843,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             {
                 Text = CollapseWhitespace(context, element.Text)
             };
+
             if (Emoji.IsEmoji(element.Text, 27))
                 textRun.FontSize = 28;
             // Add it
