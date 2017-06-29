@@ -313,9 +313,9 @@ namespace Discord_UWP
 
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
-                TempGuildList.Add(GuildRender(guild.Value));
-                //TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                //TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
+                //TempGuildList.Add(GuildRender(guild.Value));
+                TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
+                TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
             }
 
             foreach (UIElement item in TempGuildList)
@@ -448,10 +448,10 @@ namespace Discord_UWP
                         m.status = new Presence() { Status = "offline", Game = null};
                     }
                 }
-                if (Storage.Settings.ShowOfflineMembers)
+                //if (Storage.Settings.ShowOfflineMembers)
                     MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
-                else
-                    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                //else
+                //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
             }
         }
@@ -725,7 +725,10 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()];
+            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+            {
+                App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()];
+            }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
