@@ -1000,16 +1000,16 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                         content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 1)).Username;
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
-                        content = "@" + Storage.Cache.Guilds[App.CurrentId].Members[element.Text.Remove(0, 2)].Raw.Nick;
+                        content = "@" + App.CurrentGuild.Members[element.Text.Remove(0, 2)].Raw.Nick;
 
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
-                        content = "#" + Storage.Cache.Guilds[App.CurrentId]
+                        content = "#" + App.CurrentGuild
                                       .Channels[element.Text.Remove(0, 1)]
                                       .Raw.Name;
 
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
-                        var role = Storage.Cache.Guilds[App.CurrentId].Roles[element.Text.Remove(0, 2)];
+                        var role = App.CurrentGuild.Roles[element.Text.Remove(0, 2)];
                         content = "@" + role.Name;
                         foreground = Common.IntToColor(role.Color);
                     }

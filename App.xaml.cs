@@ -60,6 +60,8 @@ namespace Discord_UWP
             this.Suspending += OnSuspending;
         }
         internal static string CurrentId;
+
+        internal static Guild CurrentGuild;
         //internal static string ChannelId;
 
         /// <summary>
