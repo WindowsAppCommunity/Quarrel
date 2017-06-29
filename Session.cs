@@ -441,6 +441,19 @@ namespace Discord_UWP
             }
         }
 
+        public static void ModifyGuildChannelPositions(string channelid, int Position)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                guildservice.ModifyGuildChannelPositions(channelid, Position).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static void ModifyGuild(string guildid, string newName)
         {
             try
