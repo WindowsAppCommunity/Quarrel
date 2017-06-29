@@ -147,7 +147,6 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
 
-
             #region OldCode
             #region TypingCheckTimer
             //Timer timer = new Timer( async (object state) =>
@@ -1858,6 +1857,5 @@ namespace Discord_UWP
         {
             
         }
-
     }
 }
