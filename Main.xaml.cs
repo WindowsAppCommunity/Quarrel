@@ -469,7 +469,7 @@ namespace Discord_UWP
                         TempRoleCache.Add(role);
                     } else
                     {
-                        role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                        role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                         TempRoleCache.Add(role);
                     }
                     return role;
@@ -1827,7 +1827,7 @@ namespace Discord_UWP
         //}
         #endregion
 
-    //    private bool autoscrolldown = true;
+        //private bool autoscrolldown = true;
         private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling
