@@ -33,7 +33,7 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 #endregion
-/* The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236 */
+
 
 namespace Discord_UWP
 {
@@ -101,15 +101,16 @@ namespace Discord_UWP
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
 
-        //Calls OnPropertyChanged
+        //Calls OnPropertyChanged for this instance of the control
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as MessageControl;
-
-            // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
         AdControl advert;
+
+        /* IT IS VERY IMPORTANT TO REMEMBER THE MESSAGECONTROL GET RECYCLED BY VIRTUALIZATION, AND THAT VALUES MUST SYSTEMATICALLY BE RESET
+         * For example, if you change a color depending on a boolean property, make sure to include a `else` that will reset the color */
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == IsContinuationProperty)
@@ -157,10 +158,6 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-           // RegisterPropertyChangedCallback(MessageProperty, OnPropertyChanged);
-           // RegisterPropertyChangedCallback(HeaderProperty, OnPropertyChanged);
-           // RegisterPropertyChangedCallback(IsContinuationProperty, OnPropertyChanged);
-           // RegisterPropertyChangedCallback(IsAdvertProperty, OnPropertyChanged);
         }
 
         private GridView reactionView;
@@ -186,7 +183,7 @@ namespace Discord_UWP
                     username.Text = member.Nick;
                 }
 
-                if (member.Roles != null && member.Roles.Count() > 0)
+                if (member.Roles != null && member.Roles.Any())
                 {
                     foreach (Role role in App.CurrentGuild.RawGuild.Roles)
                     {
@@ -196,11 +193,18 @@ namespace Discord_UWP
                         }
                     }
                 }
-
+                else
+                {
+                    username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
+                }
                 if (Message.Value.User.Bot == true)
                     BotIndicator.Visibility = Visibility.Visible;
+                else
+                    BotIndicator.Visibility = Visibility.Collapsed;
                 if (Message.Value.Pinned)
                     MorePin.Text = "Unpin";
+                else
+                    MorePin.Text = "Pin";
 
                 if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
                 {
@@ -275,10 +279,17 @@ namespace Discord_UWP
                     content.Visibility = Visibility.Collapsed;
                     Grid.SetRow(moreButton, 4);
                 }
+                else
+                {
+                    content.Visibility = Visibility.Visible;
+                    Grid.SetRow(moreButton, 2);
+                }
                 content.Text = Message.Value.Content;
             }
             else
             {
+                content.Visibility = Visibility.Visible;
+                Grid.SetRow(moreButton,2);
                 username.Text = "";
                 avatar.Fill = null;
                 timestamp.Text = "";
@@ -286,6 +297,10 @@ namespace Discord_UWP
                 if (rootGrid.Children.Contains(reactionView))
                     rootGrid.Children.Remove(reactionView);
                 reactionView = null;
+
+                /* The resetting of the embed and attachement related stuff is handled by these functions: */
+                LoadEmbeds();
+                LoadAttachements(false);
             }
         }
 
@@ -293,8 +308,8 @@ namespace Discord_UWP
         {
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
-            if (!Message.HasValue) return;
 
+            if (!Message.HasValue) return;
             if (Message.Value.Embeds.Any())
                 EmbedViewer.Visibility = Visibility.Visible;
             foreach (Embed embed in Message.Value.Embeds)
@@ -310,6 +325,10 @@ namespace Discord_UWP
             AttachedImageViewbox.Visibility = Visibility.Collapsed;
             AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
             AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
+            LoadingImage.IsActive = false;
+            LoadingImage.Visibility = Visibility.Collapsed;
+            AttachedFileViewer.Visibility = Visibility.Collapsed;
+            if (!Message.HasValue || (Message.HasValue && Message.Value.Attachments == null)) return;
             if (Message.Value.Attachments.Any())
             {
                 var attachement = Message.Value.Attachments.First();
