@@ -1346,6 +1346,18 @@
                         <ListViewItem>
                             <TextBlock Text="Added loading overlay" TextWrapping="Wrap"/>
                         </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Auto scroll is back" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Servers show in proper order" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Sped up message loading" TextWrapping="Wrap"/>
+                        </ListViewItem>
+                        <ListViewItem>
+                            <TextBlock Text="Added pinning" TextWrapping="Wrap"/>
+                        </ListViewItem>
                         <ListViewHeaderItem Content="Version 4.1.2"/>
                         <ListViewItem>
                             <TextBlock Text="Significant performance improvements" TextWrapping="Wrap"/>
