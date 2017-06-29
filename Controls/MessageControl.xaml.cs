@@ -249,9 +249,27 @@ namespace Discord_UWP
                         {
                             reactionToggle.IsChecked = true;
                         }
-
-                        reactionToggle.Content = reaction.Emoji.Name + " " + reaction.Count.ToString();
-                        ;
+                        StackPanel stack = new StackPanel(){Orientation=Orientation.Horizontal};
+                        if (App.CurrentGuild.RawGuild.Emoji.Any(x => x.Name == reaction.Emoji.Name))
+                        {
+                            stack.Children.Add(new Image()
+                            {
+                                Width = 20,
+                                Height = 20,
+                                Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + reaction.Emoji.Id + ".png"))
+                            });
+                        }
+                        else
+                        {
+                            stack.Children.Add(new TextBlock()
+                            {
+                               FontSize=20,
+                               Text = reaction.Emoji.Name,
+                               FontFamily = new FontFamily("ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji")
+                        });
+                        }
+                        stack.Children.Add(new TextBlock(){ Text = reaction.Count.ToString(), Margin=new Thickness(4,0,0,0) });
+                        reactionToggle.Content = stack;
                         reactionToggle.Style = (Style) App.Current.Resources["EmojiButton"];
                         reactionToggle.MinHeight = 0;
 
@@ -432,16 +450,17 @@ namespace Discord_UWP
 
         private void ToggleReaction(object sender, RoutedEventArgs e)
         {
+            var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
                 Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count - 1).ToString();
+                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
                 }
                 else
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
+                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
                 }
             }
             else
@@ -450,11 +469,11 @@ namespace Discord_UWP
 
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
-                    ((ToggleButton) sender).Content = (((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count).ToString();
+                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
                 }
                 else
                 {
-                    ((ToggleButton) sender).Content = ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji.Name + " " + (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Count + 1).ToString();
+                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count + 1).ToString();
                 }
             }
         }
