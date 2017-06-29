@@ -34,7 +34,6 @@ namespace Discord_UWP
             serializer.Serialize(settingsWriter, Token);
             SavedSettings.Values["user"] = settingsWriter.ToString();
         }
-
         public static void SaveAppSettings()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Settings));
@@ -46,7 +45,6 @@ namespace Discord_UWP
             serializer.Serialize(settingsWriter, Settings);
             SavedSettings.Values["settings"] = settingsWriter.ToString();
         }
-
         public static async void SaveCache()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
@@ -63,7 +61,6 @@ namespace Discord_UWP
 
             }
         }
-
         public static async void SaveMessages()
         {
             List<ChannelTimeSave> temp = new List<ChannelTimeSave>();
@@ -86,7 +83,6 @@ namespace Discord_UWP
 
             }
         }
-
         public static async void SaveMutedChannels()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
