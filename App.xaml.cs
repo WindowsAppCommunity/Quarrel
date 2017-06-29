@@ -188,8 +188,7 @@ namespace Discord_UWP
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 
-
-            //RegisterBackgroundTask();
+            RegisterBackgroundTask();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -343,7 +342,7 @@ namespace Discord_UWP
             // Registers the background task, and get back a BackgroundTaskRegistration object representing the registered task.
             //
             BackgroundTaskRegistration task = builder.Register();
-            await BackgroundExecutionManager.RequestAccessAsync();
+            BackgroundExecutionManager.RemoveAccess();
         }
 
         private void OnCompleted(IBackgroundTaskRegistration task, BackgroundTaskCompletedEventArgs args)
