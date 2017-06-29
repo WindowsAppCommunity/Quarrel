@@ -410,12 +410,15 @@ namespace Discord_UWP
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
-                    int rolecounter = 0;
-                    foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
-                        if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                    var roleAlt = role;
-                    totalrolecounter += rolecounter;
-                    roleAlt.MemberCount = rolecounter;
+                    Role roleAlt = role;
+                    if (role.Hoist)
+                    {
+                        int rolecounter = 0;
+                        foreach (Member m in Storage.Cache.Guilds[id].Members.Values)
+                            if (m.Raw.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                        totalrolecounter += rolecounter;
+                        roleAlt.MemberCount = rolecounter;
+                    }
                     if (Storage.Cache.Guilds[id].Roles.ContainsKey(role.Id))
                     {
                         Storage.Cache.Guilds[id].Roles[role.Id] = roleAlt;
@@ -429,7 +432,14 @@ namespace Discord_UWP
                 var memberscvs = Storage.Cache.Guilds[id].Members;
                 foreach (Member m in memberscvs.Values)
                 {
-                    m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    if (m.Raw.Roles.FirstOrDefault() != null && Storage.Cache.Guilds[id].Roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                    {
+                        m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
+                    } else
+                    {
+
+                        m.MemberDisplayedRole = GetRole(null, id, everyonecounter);
+                    }
                     if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
                     {
                         m.status = Session.PrecenseDict[m.Raw.User.Id];
@@ -453,28 +463,19 @@ namespace Discord_UWP
             if (cachedRole != null) return cachedRole;
             else
             {
-                if (roleid == null)
+                DisplayedRole role;
+                if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
-                    var role = new DisplayedRole(roleid, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
-                    return role;
                 }
                 else
                 {
-                    DisplayedRole role;
-                    if (Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
-                    {
-                        var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
-                        role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
-                        TempRoleCache.Add(role);
-                    } else
-                    {
-                        role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
-                        TempRoleCache.Add(role);
-                    }
-                    return role;
+                    var storageRole = Storage.Cache.Guilds[guildid].Roles[roleid];
+                    role = new DisplayedRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, IntToColor(storageRole.Color));
+                    TempRoleCache.Add(role);
                 }
-
+                return role;
             }
         }
 
