@@ -95,7 +95,7 @@
 
         <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
-            <TextBlock x:Name="username" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
+            <TextBlock x:Name="username" Foreground="{ThemeResource Foreground}" Text="Username" Margin="6,0" FontWeight="SemiBold"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
             </Border>
