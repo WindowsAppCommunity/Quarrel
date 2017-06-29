@@ -1282,6 +1282,12 @@
                                         </ComboBoxItem>
                                         <ComboBoxItem>
                                             <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#FF0079B2"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Seableen"  FontSize="13" FontWeight="SemiBold" Foreground="#FF0079B2"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
                                                 <SolidColorBrush Color="#dac372"/>
                                             </ComboBoxItem.Tag>
                                             <TextBlock Text="Yellaki" FontSize="13" FontWeight="SemiBold" Foreground="#dac372"/>

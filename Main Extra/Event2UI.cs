@@ -7,6 +7,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -540,6 +541,7 @@ namespace Discord_UWP
 
         private void TypingStarted(object sender, Gateway.GatewayEventArgs<SharedModels.TypingStart> e)
         {
+            Debug.WriteLine("typing");
             Session.Typers.Add(e.EventData);
         }
     }
