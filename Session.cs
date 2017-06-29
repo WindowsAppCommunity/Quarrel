@@ -354,6 +354,19 @@ namespace Discord_UWP
             }
         }
 
+        public static void PinMesage(string chnId, string msgId)
+        {
+            IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+            channelservice.AddPinnedChannelMessage(chnId, msgId);
+        }
+
+        public static void UnpinMessage(string chnId, string msgId)
+        {
+
+            IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+            channelservice.DeletePinnedChannelMessage(chnId, msgId);
+        }
+
         public static async Task<SharedModels.Message> GetMessage(string chnid, string msgid)
         {
             try
