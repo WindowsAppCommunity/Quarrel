@@ -1144,7 +1144,6 @@ namespace Discord_UWP.MarkdownTextBlock
                 // Try to parse the markdown.
                 MarkdownDocument markdown = new MarkdownDocument();
                 markdown.Parse(Text, EnableHiddenLinks);
-
                 // Now try to display it
                 var renderer = new XamlRenderer(markdown, this, Users, MessageId)
                 {

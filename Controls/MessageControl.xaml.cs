@@ -309,7 +309,7 @@ namespace Discord_UWP
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
 
-            if (!Message.HasValue) return;
+            if (!Message.HasValue || (Message.HasValue && Message.Value.Embeds == null)) return;
             if (Message.Value.Embeds.Any())
                 EmbedViewer.Visibility = Visibility.Visible;
             foreach (Embed embed in Message.Value.Embeds)
