@@ -8,7 +8,7 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Discord_UWP.Controls"
-    mc:Ignorable="d" >
+    mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="DarkenMessageArea" >
             <DoubleAnimation Storyboard.TargetName="MessageArea" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.4">
@@ -996,7 +996,7 @@
                 </Grid>
             </SplitView.Pane>
         </SplitView>
-
+        
         <SplitView Name="Members" Grid.ColumnSpan="3" PanePlacement="Right" PaneBackground="{ThemeResource LightBG}" Style="{StaticResource DiscordSplitView}" DisplayMode="Overlay" Grid.Row="1" PaneClosing="SP_PaneClosing" OpenPaneLength="240">
             <SplitView.Pane>
                 <SemanticZoom>
@@ -1605,7 +1605,7 @@
                 </Grid>
             </SplitView.Pane>
         </SplitView>
-
+        
         <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}">
             <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
             <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
@@ -1641,7 +1641,7 @@
                 </AppBarButton.Flyout>
             </AppBarButton>
             <AppBarToggleButton x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
-            <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
+            <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Connect" Click="Refresh"/>
             <CommandBar.Content>
                 <AppBarButton Click="ToggleServerListFull" Width="64" Label="">
                     <AppBarButton.Icon>
