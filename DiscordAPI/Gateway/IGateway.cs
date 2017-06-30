@@ -28,6 +28,11 @@ namespace Discord_UWP.Gateway
         event EventHandler<GatewayEventArgs<Message>> MessageUpdated;
         event EventHandler<GatewayEventArgs<MessageDelete>> MessageDeleted;
 
+        event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
+        event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
+        event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
+        event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
+
         event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
 

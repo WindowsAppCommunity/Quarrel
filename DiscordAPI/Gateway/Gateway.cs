@@ -58,6 +58,7 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
         public event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
         public event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
+        public event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
 
         public event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         public event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
@@ -100,6 +101,7 @@ namespace Discord_UWP.Gateway
                 { EventNames.GUILD_MEMBER_ADDED, OnGuildMemberAdded},
                 { EventNames.GUILD_MEMBER_REMOVED, OnGuildMemberRemoved },
                 { EventNames.GUILD_MEMBER_UPDATED, OnGuildMemberUpdated },
+                { EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted}
             };
@@ -307,6 +309,11 @@ namespace Discord_UWP.Gateway
         private void OnGuildMemberUpdated(GatewayEvent gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberUpdated);
+        }
+
+        private void OnGuildMemberChunk(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, GuildMemberChunk);
         }
 
         private void OnPresenceUpdated(GatewayEvent gatewayEvent)
