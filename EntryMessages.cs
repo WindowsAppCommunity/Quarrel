@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static string GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 25))
+            switch (rand.Next(0, 26))
             {
                 case 0: return "HUZZAH";
                 case 1: return "Beam me up Scotty!!!";
@@ -33,10 +33,11 @@ namespace Discord_UWP
                 case 19: return "Microsoft's working on Windows Mobile!?!?!? (Submitted by @Dikas#8802)";
                 case 20: return "Splash screen* (Submitted by @ToonWK#5841)";
                 case 21: return "I don't mean to be rude but...";
-                case 22: return "Converting caffine to code";
+                case 22: return "Converting caffeine to code";
                 case 23: return "😬";
                 case 24: return "Burning evidence...";
                 case 25: return "Oh, it's you";
+                case 26: return "Making covfefe";
                 default: return "Waiting for Ready Packet";
             }
         }
