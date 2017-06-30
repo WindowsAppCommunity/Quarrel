@@ -118,8 +118,6 @@ namespace Discord_UWP
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
-
-
         public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header, bool HideMoreButton = false)
         {
             
