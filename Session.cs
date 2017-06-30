@@ -441,7 +441,7 @@ namespace Discord_UWP
             }
         }
 
-        public static void ModifyGuildChannelPositions(string channelid, int Position)
+        /*public static void ModifyGuildChannelPositions(string channelid, int Position)
         {
             try
             {
@@ -452,7 +452,7 @@ namespace Discord_UWP
             {
                 Showmsg(e);
             }
-        }
+        }*/
 
         public static void ModifyGuild(string guildid, string newName)
         {

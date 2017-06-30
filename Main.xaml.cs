@@ -244,6 +244,7 @@ namespace Discord_UWP
             Session.Gateway.GuildMemberAdded += GuildMemberAdded;
             Session.Gateway.GuildMemberRemoved += GuildMemberRemoved;
             Session.Gateway.GuildMemberUpdated += GuildMemberUpdated;
+            Session.Gateway.GuildMemberChunk += GuildMemberChunked;
 
             Session.Gateway.DirectMessageChannelCreated += DirectMessageChannelCreated;
             Session.Gateway.DirectMessageChannelDeleted += DirectMessageChannelDeleted;
@@ -407,8 +408,21 @@ namespace Discord_UWP
         }
 
         #region Members
-        public void LoadMembers(string id)
+        public async void LoadMembers(string id)
         {
+            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
+
+            foreach (GuildMember member in members)
+            {
+                if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                {
+                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                } else
+                {
+                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                }
+            }
+
             int totalrolecounter = 0;
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
             {
@@ -590,23 +604,6 @@ namespace Discord_UWP
         }
         private async void DownloadGuild(string id)
         {
-            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
-
-            if (members != null)
-            {
-                foreach (GuildMember member in members)
-                {
-                    if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
-                    {
-                        Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
-                    }
-                    else
-                    {
-                        Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
-                    }
-                }
-            }
-
             Messages.Items.Clear();
 
             MembersCVS.Source = null;
@@ -642,6 +639,7 @@ namespace Discord_UWP
             #region Roles
 
             MembersCVS.Source = null;
+            //await Session.Gateway.RequestAllGuildMembers(id);
             LoadMembers(id);
             App.CurrentId = id;
             #endregion
