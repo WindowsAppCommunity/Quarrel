@@ -79,7 +79,7 @@ namespace Discord_UWP
     
     public sealed partial class Main : Page
     {
-        public async void Login(string args = null)
+        public async void Login(string args = null, bool animate = false)
         {
             LoadingSplash.Show(false);
             UpdateUIfromSettings();
@@ -90,10 +90,9 @@ namespace Discord_UWP
                 await Session.AutoLogin();
                 Session.Online = true;
                 EstablishGateway();
-                LoadingSplash.Show(false);
                 LoadingSplash.Status = "LOADING...";
 
-                LoadCache();
+                await LoadCache();
                 LoadMessages();
                 LoadMutedChannels();
 
@@ -106,16 +105,24 @@ namespace Discord_UWP
                     ShowAds = false;
                 }
 
+                LoadingSplash.Status = "Connected";
+                await Task.Delay(2000);
+                LoadingSplash.Hide(animate);
             }
             catch
             {
-                LoadingSplash.Hide(false);
+                LoadingSplash.Status = "Failed, opening offline mode";
                 ShowAds = false;
                 FeedbackButton.Visibility = Visibility.Collapsed;
                 IAPSButton.Visibility = Visibility.Collapsed;
-                MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
-                await msg.ShowAsync();
+                await LoadCache();
+                LoadMessages();
+                LoadMutedChannels();
+                LoadUser();
+                LoadGuilds();
+                await Task.Delay(3000);
+                LoadingSplash.Hide(animate);
             }
             if(args != null)
             {
@@ -294,7 +301,10 @@ namespace Discord_UWP
             ImageBrush image = new ImageBrush() {ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Storage.Cache.CurrentUser.Raw.Id + "/" + Storage.Cache.CurrentUser.Raw.Avatar + ".jpg"))};
             Avatar.Fill = image;
             LargeAvatar.Fill = image;
-            Storage.SaveCache();
+            if (Session.Online)
+            {
+                Storage.SaveCache();
+            }
         }
         #endregion
 
@@ -330,7 +340,10 @@ namespace Discord_UWP
                     ServerList.Items.Add(item);
                 }
             }
-            Storage.SaveCache();
+            if (Session.Online)
+            {
+                Storage.SaveCache();
+            }
             if (SelectChannel)
             {
                 foreach (ListViewItem guild in ServerList.Items)
@@ -411,15 +424,18 @@ namespace Discord_UWP
         public async void LoadMembers(string id)
         {
             IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
-
-            foreach (GuildMember member in members)
+            if (members != null)
             {
-                if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                foreach (GuildMember member in members)
                 {
-                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
-                } else
-                {
-                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                    if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                    {
+                        Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                    }
+                    else
+                    {
+                        Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                    }
                 }
             }
 
@@ -602,7 +618,7 @@ namespace Discord_UWP
             }
             App.CurrentId = id;
         }
-        private async void DownloadGuild(string id)
+        private void DownloadGuild(string id)
         {
             Messages.Items.Clear();
 
@@ -873,7 +889,10 @@ namespace Discord_UWP
                     }
                     Storage.SaveMessages();
                 }
-                Storage.SaveCache();
+                if (Session.Online)
+                {
+                    Storage.SaveCache();
+                }
 
                 MessagesLoading.Visibility = Visibility.Collapsed;
             }
@@ -1030,16 +1049,12 @@ namespace Discord_UWP
 
             _onlyAllowOpeningPane = false;
         }
+
         private async void Refresh(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != null)
-            {
-                await DownloadDmChannelMessages();
-            }
-            else {
-                await DownloadChannelMessages();
-            }
+            Login(null, true);
         }
+
         private void TogglePeopleShow(object sender, RoutedEventArgs e)
         {
             if (!Members.IsPaneOpen && (Members.DisplayMode == SplitViewDisplayMode.Overlay || Members.DisplayMode == SplitViewDisplayMode.CompactOverlay))

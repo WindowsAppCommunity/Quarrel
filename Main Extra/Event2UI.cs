@@ -115,7 +115,10 @@ namespace Discord_UWP
                     if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
                     {
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                        Storage.SaveCache();
+                        if (Session.Online)
+                        {
+                            Storage.SaveCache();
+                        }
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }

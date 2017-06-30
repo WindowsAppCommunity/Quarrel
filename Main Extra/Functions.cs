@@ -858,20 +858,23 @@ namespace Discord_UWP
         }
 
 
-        public async void LoadCache()
+        public async Task LoadCache()
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
             try
             {
                 StorageFile file = await Storage.SavedData.GetFileAsync("cache");
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
                     StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
                     Storage.Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
                 }
-                catch
+                catch (Exception e)
                 {
-                    await file.DeleteAsync();
+                    if (Session.Online)
+                    {
+                        await file.DeleteAsync();
+                    }
                     //MessageDialog msg = new MessageDialog("You had a currupted cache, loading was slowed and cache as been reset");
                     //await msg.ShowAsync();
                 }
@@ -882,6 +885,7 @@ namespace Discord_UWP
                 await msg.ShowAsync();
             }
         }
+
         private async void LoadMessages()
         {
             try
@@ -910,6 +914,7 @@ namespace Discord_UWP
                 MessageDialog msg = new MessageDialog("You have no history message history saved");
             }
         }
+
         private async void LoadMutedChannels()
         {
             try
