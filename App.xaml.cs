@@ -55,7 +55,12 @@ namespace Discord_UWP
                 this.RequestedTheme = ApplicationTheme.Dark;
             else if (Storage.Settings.Theme == Theme.Light)
                 this.RequestedTheme = ApplicationTheme.Light;
-            
+            else if (Storage.Settings.Theme == Theme.Discord)
+                if (Storage.Settings.DiscordLightTheme)
+                    this.RequestedTheme = ApplicationTheme.Light;
+                else
+                    this.RequestedTheme = ApplicationTheme.Dark;
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

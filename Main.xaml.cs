@@ -152,6 +152,26 @@ namespace Discord_UWP
                 MessageArea.Opacity = 0.5;
             }
         }
+        
+        //public void ThemeChange()
+        //{
+        //    switch (Storage.Settings.Theme)
+        //    {
+        //        case Theme.Dark:
+        //            RequestedTheme = ElementTheme.Dark;
+        //            break;
+        //        case Theme.Light:
+        //            RequestedTheme = ElementTheme.Light;
+        //            break;
+        //        case Theme.Windows:
+        //            RequestedTheme = ElementTheme.Default;
+        //            break;
+        //    }
+        //    App.Current.Resources["Blurple"] = Common.GetSolidColorBrush(Storage.Settings.AccentBrush);
+        //    this.InitializeComponent();
+        //    LoadGuilds();
+        //}
+
         public Main()
         {
             this.InitializeComponent();
@@ -1579,9 +1599,10 @@ namespace Discord_UWP
                 radio_Dark.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Light)
                 radio_Light.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Auto)
-                radio_Auto.IsChecked = true;
-
+            else if (Storage.Settings.Theme == Theme.Windows)
+                radio_Windows.IsChecked = true;
+            else if (Storage.Settings.Theme == Theme.Discord)
+                radio_Discord.IsChecked = true;
 
             DarkenMessageArea.Begin();
             UserSettings.IsPaneOpen = !UserSettings.IsPaneOpen;
@@ -1589,12 +1610,31 @@ namespace Discord_UWP
 
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
+            bool ThemeChanged = false;
+
             #region OldCode
             //Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
             //Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
             #endregion
             Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
             Storage.Settings.Toasts = Toasts.IsOn;
+
+            //ThemeChanged = RespUI_M.Value != Storage.Settings.RespUiM ? true : ThemeChanged;
+            //ThemeChanged = RespUI_L.Value != Storage.Settings.RespUiL ? true : ThemeChanged;
+            //ThemeChanged = RespUI_XL.Value != Storage.Settings.RespUiXl ? true : ThemeChanged;
+            //ThemeChanged = accent_combobox.SelectedItem != accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush) ? true : ThemeChanged;
+            //switch (Storage.Settings.Theme)
+            //{
+            //    case Theme.Windows:
+            //        ThemeChanged = (bool)radio_Auto.IsChecked ? ThemeChanged : true;
+            //        break;
+            //    case Theme.Dark:
+            //        ThemeChanged = (bool)radio_Dark.IsChecked ? ThemeChanged : true;
+            //        break;
+            //    case Theme.Light:
+            //        ThemeChanged = (bool)radio_Light.IsChecked ? ThemeChanged : true;
+            //        break;
+            //}
 
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;
@@ -1606,12 +1646,18 @@ namespace Discord_UWP
                 Storage.Settings.Theme = Theme.Dark;
             else if ((bool)radio_Light.IsChecked)
                 Storage.Settings.Theme = Theme.Light;
-            else if ((bool)radio_Auto.IsChecked)
-                Storage.Settings.Theme = Theme.Auto;
+            else if ((bool)radio_Windows.IsChecked)
+                Storage.Settings.Theme = Theme.Windows;
+            else if ((bool)radio_Discord.IsChecked)
+                Storage.Settings.Theme = Theme.Discord;
 
             Storage.SaveAppSettings();
             UserSettings.IsPaneOpen = false;
             UpdateUIfromSettings();
+            //if (ThemeChanged)
+            //{
+            //    ThemeChange();
+            //}
         }
 
         private void CloseUserSettings(object sender, RoutedEventArgs e)

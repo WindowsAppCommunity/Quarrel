@@ -179,7 +179,7 @@ namespace Discord_UWP
         public string Msgid;
     }
 
-    public enum Theme { Dark, Light, Auto }
+    public enum Theme { Dark, Light, Windows, Discord }
     public class Settings
     {
         public bool LockChannels = false;
@@ -192,6 +192,7 @@ namespace Discord_UWP
         public double RespUiXl = 1024;
         public bool AppBarAtBottom = false;
         public bool ShowOfflineMembers = false;
+        public bool DiscordLightTheme = false;
         public Theme Theme = Theme.Dark;
         public string AccentBrush = Color.FromArgb(255,114,137,218).ToHex();
     }
