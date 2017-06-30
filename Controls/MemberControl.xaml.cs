@@ -70,7 +70,14 @@ namespace Discord_UWP.Controls
                         rectangle.Fill = Common.GetSolidColorBrush("#FFf04747");
                         break;
                     case "offline":
-                        rectangle.Fill = Common.GetSolidColorBrush("#FFAAAAAA");
+                        if (Session.Online)
+                        {
+                            rectangle.Fill = Common.GetSolidColorBrush("#FFAAAAAA");
+                        }
+                        else
+                        {
+                            rectangle.Visibility = Visibility.Collapsed;
+                        }
                         break;
                 }
             if (DisplayedMember.status.Game != null)
