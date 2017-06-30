@@ -900,6 +900,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        
         <SplitView Name="Servers" DisplayMode="Overlay"  Grid.ColumnSpan="3" CompactPaneLength="320" Grid.Row="1" PaneClosing="SP_PaneClosing" Margin="0,0,-50,0" Style="{StaticResource DiscordSplitView}">
             <SplitView.Pane>
                 <Grid>
@@ -1234,7 +1235,8 @@
                                     <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                     <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,0"/>
                                     <RadioButton x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme"/>
-                                    <RadioButton x:Name="radio_Auto" Style="{StaticResource DiscordRadioButton}" Content="System" GroupName="Theme"/>
+                                    <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme"/>
+                                    <RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
                                     <TextBlock Text="Accent color" FontSize="13" Margin="0,6,0,0"/>
                                     <ComboBox x:Name="accent_combobox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
                                         <ComboBoxItem>
@@ -1320,7 +1322,7 @@
                 </Grid>
             </SplitView.Pane>
         </SplitView>
-
+        
         <SplitView x:Name="IAPs" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource DeepBG}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
             <SplitView.Pane>
                 <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="12">
