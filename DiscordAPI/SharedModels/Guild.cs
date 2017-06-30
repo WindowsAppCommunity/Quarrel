@@ -40,7 +40,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("roles")]
         public IEnumerable<Role> Roles { get; set; }
         [JsonProperty("emojis")]
-        public IEnumerable<Emoji> Emoji { get; set; }
+        public IEnumerable<Emoji> Emojis { get; set; }
         [JsonProperty("features")]
         public IEnumerable<string> Features { get; set; }
         [JsonProperty("unavailable")]

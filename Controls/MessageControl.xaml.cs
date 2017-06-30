@@ -250,13 +250,22 @@ namespace Discord_UWP
                             reactionToggle.IsChecked = true;
                         }
                         StackPanel stack = new StackPanel(){Orientation=Orientation.Horizontal};
-                        if (App.CurrentGuild.RawGuild.Emoji.Any(x => x.Name == reaction.Emoji.Name))
+                        string serversideEmoji = null;
+                        Debug.WriteLine(reaction.Emoji.Name);
+                        foreach (Emoji emoji in App.CurrentGuild.RawGuild.Emojis)
+                        {
+                            if (emoji.Name == reaction.Emoji.Name)
+                            {
+                                serversideEmoji = emoji.Id;
+                            }
+                        }
+                        if (serversideEmoji != null)
                         {
                             stack.Children.Add(new Image()
                             {
                                 Width = 20,
                                 Height = 20,
-                                Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + reaction.Emoji.Id + ".png"))
+                                Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png"))
                             });
                         }
                         else
