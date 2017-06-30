@@ -252,6 +252,7 @@ namespace Discord_UWP
                         StackPanel stack = new StackPanel(){Orientation=Orientation.Horizontal};
                         string serversideEmoji = null;
                         Debug.WriteLine(reaction.Emoji.Name);
+                        if(App.CurrentGuild.RawGuild.Emojis != null)
                         foreach (Emoji emoji in App.CurrentGuild.RawGuild.Emojis)
                         {
                             if (emoji.Name == reaction.Emoji.Name)

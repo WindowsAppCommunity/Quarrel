@@ -29,6 +29,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.CacheModels;
+using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
+using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
@@ -260,6 +262,105 @@ namespace Discord_UWP
                             if (messageContainer != null && messageContainer.Message?.Id == e.EventData.Id)
                             {
                                 Messages.Items[x] = NewMessageContainer(e.EventData, null, false, null);
+                            }
+                        }
+                });
+        }
+
+        private async void MessageReactionRemovedAll(object sender, Gateway.GatewayEventArgs<MessageReactionRemoveAll> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                        e.EventData.ChannelId)
+                    {
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO REMOVE ALL REACTIONS
+                            }
+                        }
+                    }
+                    else if (TextChannels.SelectedItem != null &&
+                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
+                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
+                             e.EventData.ChannelId)
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO REMOVE ALL REACTIONS
+                            }
+                        }
+                });
+        }
+
+        private async void MessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                        e.EventData.ChannelId)
+                    {
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO REMOVE REACTION
+                            }
+                        }
+                    }
+                    else if (TextChannels.SelectedItem != null &&
+                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
+                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
+                             e.EventData.ChannelId)
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO REMOVE REACTION
+                            }
+                        }
+                });
+        }
+
+        private async void MessageReactionAdded(object sender, Gateway.GatewayEventArgs<DiscordAPI.Gateway.DownstreamEvents.MessageReactionUpdate> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                        e.EventData.ChannelId)
+                    {
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO ADD REACTION
+                            }
+                        }
+                    }
+                    else if (TextChannels.SelectedItem != null &&
+                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
+                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
+                             e.EventData.ChannelId)
+                        for (int x = 0; x < Messages.Items.Count; x++)
+                        {
+                            var messageContainer = Messages.Items[x] as MessageContainer;
+                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
+                            {
+                                //TODO ADD REACTION
                             }
                         }
                 });
@@ -508,7 +609,6 @@ namespace Discord_UWP
 
         private void TypingStarted(object sender, Gateway.GatewayEventArgs<TypingStart> e)
         {
-            Debug.WriteLine("typing");
             Session.Typers.Add(e.EventData);
         }
     }
