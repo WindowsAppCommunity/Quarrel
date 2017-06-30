@@ -147,7 +147,6 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
 
-
             #region OldCode
             #region TypingCheckTimer
             //Timer timer = new Timer( async (object state) =>
@@ -245,6 +244,7 @@ namespace Discord_UWP
             Session.Gateway.GuildMemberAdded += GuildMemberAdded;
             Session.Gateway.GuildMemberRemoved += GuildMemberRemoved;
             Session.Gateway.GuildMemberUpdated += GuildMemberUpdated;
+            Session.Gateway.GuildMemberChunk += GuildMemberChunked;
 
             Session.Gateway.DirectMessageChannelCreated += DirectMessageChannelCreated;
             Session.Gateway.DirectMessageChannelDeleted += DirectMessageChannelDeleted;
@@ -408,8 +408,21 @@ namespace Discord_UWP
         }
 
         #region Members
-        public void LoadMembers(string id)
+        public async void LoadMembers(string id)
         {
+            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
+
+            foreach (GuildMember member in members)
+            {
+                if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                {
+                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                } else
+                {
+                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                }
+            }
+
             int totalrolecounter = 0;
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
             {
@@ -591,20 +604,6 @@ namespace Discord_UWP
         }
         private async void DownloadGuild(string id)
         {
-            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
-
-            foreach (GuildMember member in members)
-            {
-                if (!Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
-                {
-                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
-                }
-                else
-                {
-                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
-                }
-            }
-
             Messages.Items.Clear();
 
             MembersCVS.Source = null;
@@ -640,6 +639,7 @@ namespace Discord_UWP
             #region Roles
 
             MembersCVS.Source = null;
+            //await Session.Gateway.RequestAllGuildMembers(id);
             LoadMembers(id);
             App.CurrentId = id;
             #endregion
@@ -1079,25 +1079,10 @@ namespace Discord_UWP
                 foreach (SharedModels.Message msg in newMessages)
                 {
                     adCheck--;
-                    Messages.Items.Insert(0, msg);
+                    Messages.Items.Insert(0, NewMessageContainer(msg, null, false, null));
                     if (adCheck == 0 && ShowAds)
                     {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Center;
-                        ad.Margin = new Thickness(0, 6, 0, 6);
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        ad.Background = (SolidColorBrush)App.Current.Resources["DarkBG"];
-                        adstack.Children.Add(ad);
-                        Messages.Items.Insert(1, adstack);
+                        Messages.Items.Insert(0, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
                     }
                 }
@@ -1849,6 +1834,5 @@ namespace Discord_UWP
         {
             
         }
-
     }
 }
