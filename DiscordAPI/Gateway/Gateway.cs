@@ -7,9 +7,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
 
 namespace Discord_UWP.Gateway
 {
@@ -54,6 +54,9 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<Message>> MessageCreated;
         public event EventHandler<GatewayEventArgs<Message>> MessageUpdated;
         public event EventHandler<GatewayEventArgs<MessageDelete>> MessageDeleted;
+        public event EventHandler<GatewayEventArgs<MessageReactionUpdate>> MessageReactionAdded;
+        public event EventHandler<GatewayEventArgs<MessageReactionUpdate>> MessageReactionRemoved;
+        public event EventHandler<GatewayEventArgs<MessageReactionRemoveAll>> MessageReactionRemovedAll;
 
         public event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
         public event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
@@ -95,6 +98,9 @@ namespace Discord_UWP.Gateway
                 { EventNames.MESSAGE_CREATED, OnMessageCreated },
                 { EventNames.MESSAGE_UPDATED, OnMessageUpdated },
                 { EventNames.MESSAGE_DELETED, OnMessageDeleted },
+                { EventNames.MESSAGE_REACTION_ADD, OnMessageReactionAdd },
+                { EventNames.MESSAGE_REACTION_REMOVE, OnMessageReactionRemove },
+                { EventNames.MESSAGE_REACTION_REMOVE_ALL, OnMessageReactionRemoveAll },
                 { EventNames.CHANNEL_CREATED, OnChannelCreated },
                 { EventNames.CHANNEL_UPDATED, OnChannelUpdated },
                 { EventNames.CHANNEL_DELETED, OnChannelDeleted },
@@ -246,6 +252,21 @@ namespace Discord_UWP.Gateway
             FireEventOnDelegate(gatewayEvent, MessageDeleted);
         }
 
+        private void OnMessageReactionAdd(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, MessageReactionAdded);
+        }
+
+        private void OnMessageReactionRemove(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, MessageReactionRemoved);
+        }
+
+        private void OnMessageReactionRemoveAll(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, MessageReactionRemovedAll);
+        }
+
         private void OnChannelCreated(GatewayEvent gatewayEvent)
         {
             if (IsChannelAGuildChannel(gatewayEvent))
@@ -323,6 +344,7 @@ namespace Discord_UWP.Gateway
 
         private void OnTypingStarted(GatewayEvent gatewayEvent)
         {
+            Debug.WriteLine("TYPING");
             FireEventOnDelegate(gatewayEvent, TypingStarted);
         }
 

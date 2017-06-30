@@ -62,6 +62,12 @@ namespace Discord_UWP
         internal static string CurrentId;
 
         internal static Guild CurrentGuild;
+        public static event EventHandler SubpageClosedHandler;
+
+        public static void SubpageClosed()
+        {
+            SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
+        }
         //internal static string ChannelId;
 
         /// <summary>
@@ -186,7 +192,14 @@ namespace Discord_UWP
             view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
             view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
-            App.Current.Resources["Blurple"] = Common.GetSolidColorBrush(Storage.Settings.AccentBrush);
+
+            var accentString = Storage.Settings.AccentBrush;
+            var accentColor = accentString.ToColor();
+            App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
+            App.Current.Resources["BlurpleColor"] = accentColor;
+            App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
+            App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
+
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 

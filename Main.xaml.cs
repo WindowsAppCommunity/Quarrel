@@ -59,14 +59,18 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using static Discord_UWP.Common;
 using Discord_UWP.CacheModels;
+using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
+using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
+using Windows.UI.Xaml.Media.Animation;
 #endregion
 
 /* The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238 */
@@ -82,7 +86,6 @@ namespace Discord_UWP
         public async void Login(string args = null)
         {
             LoadingSplash.Show(false);
-            UpdateUIfromSettings();
             try
             {
                 LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
@@ -111,7 +114,6 @@ namespace Discord_UWP
             {
                 LoadingSplash.Hide(false);
                 ShowAds = false;
-                FeedbackButton.Visibility = Visibility.Collapsed;
                 IAPSButton.Visibility = Visibility.Collapsed;
                 MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
@@ -175,20 +177,11 @@ namespace Discord_UWP
             #endregion
             #endregion
 
-            Login();     
+            Login();
+
+            SetupUI();
         }
 
-        private void UpdateUIfromSettings()
-        {
-            if (Storage.Settings.AppBarAtBottom)
-                VisualStateManager.GoToState(this, "AppBarAlignment_Bottom", false);
-            else
-                VisualStateManager.GoToState(this, "AppBarAlignment_Top", false);
-
-            ResponsiveUI_M_Trigger.MinWindowWidth = Storage.Settings.RespUiM;
-            ResponsiveUI_L_Trigger.MinWindowWidth = Storage.Settings.RespUiL;
-            ResponsiveUI_XL_Trigger.MinWindowWidth = Storage.Settings.RespUiXl;
-        }
 
         public Main(string args)
         {
@@ -224,6 +217,32 @@ namespace Discord_UWP
             #endregion
 
             Login(args);
+            SetupUI();
+        }
+        private void SetupUI()
+        {
+            var info = new DrillInNavigationTransitionInfo();
+            TransitionCollection collection = new TransitionCollection();
+            NavigationThemeTransition theme = new NavigationThemeTransition();
+            NavigationCacheMode = NavigationCacheMode.Disabled;
+            theme.DefaultNavigationTransitionInfo = info;
+            collection.Add(theme);
+            SubFrame.ContentTransitions = collection;
+            Storage.SettingsChangedHandler += SettingsChanged;
+            App.SubpageClosedHandler += SubpageClosed;
+            SettingsChanged(null, null);
+        }
+
+        private void SettingsChanged(object sender, EventArgs e)
+        {
+            if (Storage.Settings.AppBarAtBottom)
+                VisualStateManager.GoToState(this, "AppBarAlignment_Bottom", false);
+            else
+                VisualStateManager.GoToState(this, "AppBarAlignment_Top", false);
+
+            ResponsiveUI_M_Trigger.MinWindowWidth = Storage.Settings.RespUiM;
+            ResponsiveUI_L_Trigger.MinWindowWidth = Storage.Settings.RespUiL;
+            ResponsiveUI_XL_Trigger.MinWindowWidth = Storage.Settings.RespUiXl;
         }
 
         async void EstablishGateway()
@@ -232,6 +251,9 @@ namespace Discord_UWP
             Session.Gateway.MessageCreated += MessageCreated;
             Session.Gateway.MessageDeleted += MessageDeleted;
             Session.Gateway.MessageUpdated += MessageUpdated;
+            Session.Gateway.MessageReactionAdded += MessageReactionAdded;
+            Session.Gateway.MessageReactionRemoved += MessageReactionRemoved;
+            Session.Gateway.MessageReactionRemovedAll += MessageReactionRemovedAll;
 
             Session.Gateway.GuildCreated += GuildCreated;
             Session.Gateway.GuildDeleted += GuildDeleted;
@@ -256,7 +278,8 @@ namespace Discord_UWP
                 await Session.Gateway.ConnectAsync();
                 Session.SlowSpeeds = false;
                 RefreshButton.Visibility = Visibility.Collapsed;
-            } catch
+            }
+            catch
             {
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
@@ -1088,23 +1111,10 @@ namespace Discord_UWP
                 }
             }
         }
-        private async void OpenFeedbackHub(object sender, RoutedEventArgs e)
-        {
-            var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
-            await launcher.LaunchAsync();
-        }
-        private async void OpenTwitter(object sender, RoutedEventArgs e)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://twitter.com/AvishaiDernis"));
-        }
-        private async void OpenDiscordWeb(object sender, RoutedEventArgs e)
-        {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discord.gg/HWTEfjW"));
-        }
+
         private void OpenWhatsNew(object sender, RoutedEventArgs e)
         {
-            DarkenMessageArea.Begin();
-            WhatsNew.IsPaneOpen = true;
+            SubFrameNavigator(typeof(SubPages.About));
         }
         private void OpenIaPs(object sender, RoutedEventArgs e)
         {
@@ -1536,92 +1546,6 @@ namespace Discord_UWP
         }
         #endregion
 
-        #region UserSettings
-        private void OpenUserSettings(object sender, RoutedEventArgs e)
-        {
-            #region OldCode
-            //   LockChannelList.IsOn = Storage.settings.LockChannels;
-            //   if (Storage.settings.LockChannels)
-            //  {
-            //      AutoHideChannels.IsEnabled = false;
-            //   }
-            //  AutoHideChannels.IsOn = Storage.settings.AutoHideChannels;
-            //   AutoHidePeople.IsOn = Storage.settings.AutoHidePeople;
-            #endregion
-            HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
-            Toasts.IsOn = Storage.Settings.Toasts;
-
-            RespUI_M.Value = Storage.Settings.RespUiM;
-            RespUI_L.Value = Storage.Settings.RespUiL;
-            RespUI_XL.Value = Storage.Settings.RespUiXl;
-            AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
-            accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
-
-            if (Storage.Settings.Theme == Theme.Dark)
-                radio_Dark.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Light)
-                radio_Light.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Auto)
-                radio_Auto.IsChecked = true;
-
-
-            DarkenMessageArea.Begin();
-            UserSettings.IsPaneOpen = !UserSettings.IsPaneOpen;
-        }
-
-        private void SaveUserSettings(object sender, RoutedEventArgs e)
-        {
-            #region OldCode
-            //Storage.settings.AutoHideChannels = AutoHideChannels.IsOn;
-            //Storage.settings.AutoHidePeople = AutoHidePeople.IsOn;
-            #endregion
-            Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
-            Storage.Settings.Toasts = Toasts.IsOn;
-
-            Storage.Settings.RespUiM = RespUI_M.Value;
-            Storage.Settings.RespUiL = RespUI_L.Value;
-            Storage.Settings.RespUiXl = RespUI_XL.Value;
-            Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
-            Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
-
-            if ((bool)radio_Dark.IsChecked)
-                Storage.Settings.Theme = Theme.Dark;
-            else if ((bool)radio_Light.IsChecked)
-                Storage.Settings.Theme = Theme.Light;
-            else if ((bool)radio_Auto.IsChecked)
-                Storage.Settings.Theme = Theme.Auto;
-
-            Storage.SaveAppSettings();
-            UserSettings.IsPaneOpen = false;
-            UpdateUIfromSettings();
-        }
-
-        private void CloseUserSettings(object sender, RoutedEventArgs e)
-        {
-            UserSettings.IsPaneOpen = false;
-        }
-        private async void CheckLogout(object sender, RoutedEventArgs e)
-        {
-            MessageDialog winnerAnounce = new MessageDialog("Are you sure? logging back in can be a hassel");
-            winnerAnounce.Commands.Add(new UICommand(
-        "Logout",
-        new UICommandInvokedHandler(ConfirmLogout)));
-            winnerAnounce.Commands.Add(new UICommand(
-                "No",
-                new UICommandInvokedHandler(CancelLogout)));
-            await winnerAnounce.ShowAsync();
-        }
-        private void CancelLogout(IUICommand command)
-        {
-
-        }
-        private void ConfirmLogout(IUICommand command)
-        {
-            Storage.Clear();
-            Session.Logout();
-            Frame.Navigate(typeof(LockScreen), null);
-        }
-        #endregion
 
         public static bool ShowAds = true;
         public bool SelectChannel = false;
@@ -1634,23 +1558,6 @@ namespace Discord_UWP
             LightenMessageArea.Begin();
         }
 
-        bool _ignoreRespUiChanges = false;
-        private void RespUI_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            if (!_ignoreRespUiChanges)
-            {
-                if (RespUI_L.Value < RespUI_M.Value) RespUI_L.Value = RespUI_M.Value;
-                if (RespUI_XL.Value < RespUI_L.Value) RespUI_XL.Value = RespUI_L.Value;
-            }
-        }
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ignoreRespUiChanges = true;
-            RespUI_M.Value = 569;
-            RespUI_L.Value = 768;
-            RespUI_XL.Value = 1024;
-            _ignoreRespUiChanges = false;
-        }
 
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -1787,10 +1694,22 @@ namespace Discord_UWP
 
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
-            DarkenMessageArea.Begin();
-         
-            UserSettings.IsPaneOpen = true;
+            SubFrameNavigator(typeof(SubPages.Settings));
         }
+
+        private async void SubFrameNavigator(Type page, object args = null)
+        {
+            /*maybe enable this blur effect later, depending on the GPU */
+            //content.Blur(3,600).Start();
+            SubFrame.Visibility = Visibility.Visible;
+            SubFrame.Navigate(page, args);
+        }
+        private async void SubpageClosed(object sender, EventArgs e)
+        {
+            /*maybe enable this blur effect later, depending on the GPU */
+           // content.Blur(0,600).Start();
+        }
+
 
         #region OldCode
         //private void LockChannelsToggled(object sender, RoutedEventArgs e)
@@ -1834,5 +1753,11 @@ namespace Discord_UWP
         {
             
         }
+
+        private void OpenUserSettings(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.Settings));
+        }
+
     }
 }

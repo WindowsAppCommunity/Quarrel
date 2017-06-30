@@ -89,8 +89,8 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
             <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Margin="0,0,5,0"/>
-                <TextBlock Visibility="Collapsed" x:Name="game" Text="" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold"/>
+                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
+                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
         </StackPanel>
 

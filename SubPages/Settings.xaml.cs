@@ -1,0 +1,141 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp;
+using Windows.UI.Popups;
+
+// Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace Discord_UWP.SubPages
+{
+    /// <summary>
+    /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
+    /// </summary>
+    public sealed partial class Settings : Page
+    {
+        public Settings()
+        {
+            this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
+            Toasts.IsOn = Storage.Settings.Toasts;
+            RespUI_M.Value = Storage.Settings.RespUiM;
+            RespUI_L.Value = Storage.Settings.RespUiL;
+            RespUI_XL.Value = Storage.Settings.RespUiXl;
+            AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
+            accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
+
+            if (Storage.Settings.Theme == Theme.Dark)
+                radio_Dark.IsChecked = true;
+            else if (Storage.Settings.Theme == Theme.Light)
+                radio_Light.IsChecked = true;
+            else if (Storage.Settings.Theme == Theme.Auto)
+                radio_Auto.IsChecked = true;
+            
+        }
+
+        private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+
+
+        }
+
+        private void SaveUserSettings(object sender, RoutedEventArgs e)
+        {
+            Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
+            Storage.Settings.Toasts = Toasts.IsOn;
+
+            Storage.Settings.RespUiM = RespUI_M.Value;
+            Storage.Settings.RespUiL = RespUI_L.Value;
+            Storage.Settings.RespUiXl = RespUI_XL.Value;
+            Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
+            Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+
+            if ((bool)radio_Dark.IsChecked)
+                Storage.Settings.Theme = Theme.Dark;
+            else if ((bool)radio_Light.IsChecked)
+                Storage.Settings.Theme = Theme.Light;
+            else if ((bool)radio_Auto.IsChecked)
+                Storage.Settings.Theme = Theme.Auto;
+
+            Storage.SaveAppSettings();
+            Storage.SettingsChanged();
+            CloseButton_Click(null, null);
+        }
+
+        bool _ignoreRespUiChanges = false;
+        private void RespUI_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (!_ignoreRespUiChanges)
+            {
+                if (RespUI_L.Value < RespUI_M.Value) RespUI_L.Value = RespUI_M.Value;
+                if (RespUI_XL.Value < RespUI_L.Value) RespUI_XL.Value = RespUI_L.Value;
+            }
+        }
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ignoreRespUiChanges = true;
+            RespUI_M.Value = 569;
+            RespUI_L.Value = 768;
+            RespUI_XL.Value = 1024;
+            _ignoreRespUiChanges = false;
+        }
+
+        private void NavAway_Completed(object sender, object e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            CloseButton_Click(null, null);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            scale.CenterY = this.ActualHeight / 2;
+            scale.CenterX = this.ActualWidth / 2;
+            NavAway.Begin();
+            App.SubpageClosed();
+        }
+
+        private async void CheckLogout(object sender, RoutedEventArgs e)
+        {
+            MessageDialog winnerAnounce = new MessageDialog("Are you sure? logging back in can be a hassel");
+            winnerAnounce.Commands.Add(new UICommand(
+        "Logout",
+        new UICommandInvokedHandler(ConfirmLogout)));
+            winnerAnounce.Commands.Add(new UICommand(
+                "No",
+                new UICommandInvokedHandler(CancelLogout)));
+            await winnerAnounce.ShowAsync();
+        }
+        private void CancelLogout(IUICommand command)
+        {
+
+        }
+        private void ConfirmLogout(IUICommand command)
+        {
+            Storage.Clear();
+            Session.Logout();
+            (Window.Current.Content as Frame).Navigate(typeof(LockScreen), null);
+        }
+    }
+}

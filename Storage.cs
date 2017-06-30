@@ -18,6 +18,13 @@ namespace Discord_UWP
 {
     class Storage
     {
+        public static event EventHandler SettingsChangedHandler;
+
+        public static void SettingsChanged()
+        {
+            SettingsChangedHandler?.Invoke(typeof(Storage), EventArgs.Empty);
+        }
+
         public static async void Clear()
         {
             await ApplicationData.Current.ClearAsync();

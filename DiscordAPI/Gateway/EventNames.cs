@@ -20,7 +20,8 @@ namespace Discord_UWP.Gateway
         public const string GUILD_DELETED = "GUILD_DELETE";
 
         public const string GUILD_BAN_ADDED = "GUILD_BAN_ADD";
-        public const string GUILD_EMOJI_UPDATED = "GUILD_EMOJI_UPDATE";
+        public const string GUILD_BAN_REMOVED = "GUILD_BAN_REMOVE";
+        public const string GUILD_EMOJI_UPDATED = "GUILD_EMOJIS_UPDATE";
         public const string GUILD_INTEGRATIONS_UPDATED = "GUILD_INTEGRATIONS_UPDATE";
 
         public const string GUILD_MEMBER_ADDED = "GUILD_MEMBER_ADD";
@@ -36,6 +37,9 @@ namespace Discord_UWP.Gateway
         public const string MESSAGE_UPDATED = "MESSAGE_UPDATE";
         public const string MESSAGE_DELETED = "MESSAGE_DELETE";
         public const string MESSAGE_DELETED_BULK = "MESSAGE_DELETE_BULK";
+        public const string MESSAGE_REACTION_ADD = "MESSAGE_REACTION_ADD";
+        public const string MESSAGE_REACTION_REMOVE = "MESSAGE_REACTION_REMOVE";
+        public const string MESSAGE_REACTION_REMOVE_ALL = "MESSAGE_REACTION_REMOVE_ALL";
 
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";

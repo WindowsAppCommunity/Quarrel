@@ -94,6 +94,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\DiscordBlurpleIcon.png" />
+    <Content Include="Assets\DiscordIcon.svg" />
     <Content Include="Assets\emojifont.ttf" />
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="project.json" />
@@ -167,6 +169,7 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildDelete.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
@@ -262,6 +265,12 @@
     <Compile Include="Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="SubPages\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -307,6 +316,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Twitter.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -359,6 +369,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
