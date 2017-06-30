@@ -604,7 +604,13 @@ namespace Discord_UWP
                         rect.Fill = GetSolidColorBrush("#fffaa61a");
                         break;
                     case "offline":
-                        rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                        if (Session.Online)
+                        {
+                            rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                        } else
+                        {
+                            rect.Visibility = Visibility.Collapsed;
+                        }
                         break;
                 }
 
@@ -630,7 +636,6 @@ namespace Discord_UWP
             listviewitem.Height = 48;
             return listviewitem;
         }
-
         private UIElement ChannelRender(GuildChannel channel, Permissions perms)
         {
             Permissions chnperms = perms;
@@ -867,7 +872,7 @@ namespace Discord_UWP
                     StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
                     Storage.Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     if (Session.Online)
                     {
