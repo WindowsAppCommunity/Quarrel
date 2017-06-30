@@ -118,8 +118,6 @@ namespace Discord_UWP
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
-
-
         public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header, bool HideMoreButton = false)
         {
             
@@ -606,7 +604,13 @@ namespace Discord_UWP
                         rect.Fill = GetSolidColorBrush("#fffaa61a");
                         break;
                     case "offline":
-                        rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                        if (Session.Online)
+                        {
+                            rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                        } else
+                        {
+                            rect.Visibility = Visibility.Collapsed;
+                        }
                         break;
                 }
 
@@ -632,7 +636,6 @@ namespace Discord_UWP
             listviewitem.Height = 48;
             return listviewitem;
         }
-
         private UIElement ChannelRender(GuildChannel channel, Permissions perms)
         {
             Permissions chnperms = perms;
@@ -858,20 +861,23 @@ namespace Discord_UWP
         }
 
 
-        public async void LoadCache()
+        public async Task LoadCache()
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
             try
             {
                 StorageFile file = await Storage.SavedData.GetFileAsync("cache");
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
                     StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
                     Storage.Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
                 }
-                catch
+                catch (Exception)
                 {
-                    await file.DeleteAsync();
+                    if (Session.Online)
+                    {
+                        await file.DeleteAsync();
+                    }
                     //MessageDialog msg = new MessageDialog("You had a currupted cache, loading was slowed and cache as been reset");
                     //await msg.ShowAsync();
                 }
@@ -882,6 +888,7 @@ namespace Discord_UWP
                 await msg.ShowAsync();
             }
         }
+
         private async void LoadMessages()
         {
             try
@@ -910,6 +917,7 @@ namespace Discord_UWP
                 MessageDialog msg = new MessageDialog("You have no history message history saved");
             }
         }
+
         private async void LoadMutedChannels()
         {
             try
@@ -943,7 +951,6 @@ namespace Discord_UWP
         {
             (sender as ListViewItem).ContextFlyout.ShowAt((sender as ListViewItem));
         }
-
 
         #region OldCode
         private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)

@@ -5,7 +5,6 @@
     xmlns:local="using:Discord_UWP">
     <Application.Resources>
         <ResourceDictionary>
-            
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Background" Color="#7FFFFFFF"/>
@@ -19,7 +18,7 @@
                     <SolidColorBrush x:Key="MidBG" Color="#e3e8ed"/>
                     <SolidColorBrush x:Key="MidBG_hover" Color="#2e3036"/>
                     <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
-                    
+
                     <SolidColorBrush x:Key="LightBG" Color="#f6f7f9"/>
                     <SolidColorBrush x:Key="InvertedBG" Color="#161b2b"/>
                     <SolidColorBrush x:Key="MessageForeground" Color="#BF000000"/>
@@ -30,7 +29,7 @@
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#2a2c31"/>
-                    
+
                     <SolidColorBrush x:Key="DeepBG" Color="#222529"/>
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                     <SolidColorBrush x:Key="MidBG" Color="#2a2c31"/>
@@ -175,7 +174,7 @@
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DarkBG}"/>
                                                 </ObjectAnimationUsingKeyFrames>
-                                               
+
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
@@ -334,7 +333,7 @@
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
                                             </Storyboard>
-                                            
+
                                         </VisualState>
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
@@ -1084,7 +1083,7 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Border CornerRadius="4" x:Name="bgColor" Background="{TemplateBinding Background}"/>
                                 <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                
+
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -1157,7 +1156,7 @@
                                         </VisualState>
                                         <VisualState x:Name="Checked">
                                             <Storyboard>
-                                                
+
                                                 <DoubleAnimation Storyboard.TargetName="blurpleFill" Storyboard.TargetProperty="Opacity" To="0.3" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase/>
@@ -1298,7 +1297,7 @@
                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                           AutomationProperties.AccessibilityView="Raw"/>
-                                
+
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -1933,7 +1932,7 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                            
+
                                 <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                                 <TextBlock x:Name="whiteContentPresenter" Foreground="White"  Opacity="0" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
@@ -2013,7 +2012,7 @@
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="MinWidth" Value="120"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True"/>
-                
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="RadioButton">
@@ -3816,5 +3815,5 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-        </Application.Resources>
+    </Application.Resources>
 </Application>

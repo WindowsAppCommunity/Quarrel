@@ -160,16 +160,17 @@ namespace Discord_UWP
 
         async void loadCache()
         {
+            XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
             try
             {
                 StorageFile file = await Storage.SavedData.GetFileAsync("cache");
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
                     StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
-                    Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
+                    await Task.Delay(100); //Idk why this is needed
+                    Storage.Cache = new Cache((TempCache)serializer.Deserialize(messageReader));
                 }
-                catch
+                catch (Exception e)
                 {
                     await file.DeleteAsync();
                     //MessageDialog msg = new MessageDialog("You had a currupted cache, loading was slowed and cache as been reset");
