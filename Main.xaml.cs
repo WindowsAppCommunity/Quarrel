@@ -1634,13 +1634,7 @@ namespace Discord_UWP
         {
             Storage.Clear();
             Session.Logout();
-            if (App.IsConsole)
-            {
-                Frame.Navigate(typeof(LockScreen), null);
-            } else
-            {
-                Frame.Content = new LockScreen();
-            }
+            Frame.Navigate(typeof(LockScreen), null);
         }
         #endregion
 
