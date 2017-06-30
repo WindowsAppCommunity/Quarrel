@@ -439,6 +439,27 @@ namespace Discord_UWP
             }
         }
 
+        private async void GuildMemberChunked(object sender, Gateway.GatewayEventArgs<GuildMemberChunk> e)
+        {
+            foreach (GuildMember member in e.EventData.Members)
+            {
+                if (!Storage.Cache.Guilds[e.EventData.GuildId].Members.ContainsKey(member.User.Id))
+                {
+                    Storage.Cache.Guilds[e.EventData.GuildId].Members.Add(member.User.Id, new Member(member));
+                }
+                else
+                {
+                    Storage.Cache.Guilds[e.EventData.GuildId].Members[member.User.Id] = new Member(member);
+                }
+            }
+
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   LoadMembers(e.EventData.GuildId);
+               });
+        }
+
         private async void DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<DirectMessageChannel> e)
         {
             Storage.Cache.DMs.Add(e.EventData.Id, new DmCache(e.EventData));
