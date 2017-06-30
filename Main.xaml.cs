@@ -106,14 +106,14 @@ namespace Discord_UWP
                 var licenseInformation = CurrentApp.LicenseInformation;
                 if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
                 {
-                    ShowAds = false;
+                    App.ShowAds = false;
                 }
 
             }
             catch
             {
                 LoadingSplash.Hide(false);
-                ShowAds = false;
+                App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed;
                 MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
@@ -777,7 +777,7 @@ namespace Discord_UWP
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && ShowAds)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
@@ -793,7 +793,7 @@ namespace Discord_UWP
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
-                    if (adCheck == 0 && ShowAds)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         PinnedMessages.Items.Add(NewMessageContainer(null, false, true, null));
                         adCheck = 5;
@@ -860,7 +860,7 @@ namespace Discord_UWP
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && ShowAds)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
@@ -920,7 +920,7 @@ namespace Discord_UWP
             {
                 adCheck--;
                 PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
-                if (adCheck == 0 && ShowAds)
+                if (adCheck == 0 && App.ShowAds)
                 {
                     PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
                     adCheck = 5;
@@ -948,7 +948,7 @@ namespace Discord_UWP
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && ShowAds)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         Messages.Items.Add(NewMessageContainer(null, null, true, null));
                         adCheck = 5;
@@ -1000,7 +1000,7 @@ namespace Discord_UWP
             {
                 adCheck--;
                 Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                if (adCheck == 0 && ShowAds)
+                if (adCheck == 0 && App.ShowAds)
                 {
                     Messages.Items.Add(NewMessageContainer(null, null, true, null));
                     adCheck = 5;
@@ -1103,7 +1103,7 @@ namespace Discord_UWP
                 {
                     adCheck--;
                     Messages.Items.Insert(0, NewMessageContainer(msg, null, false, null));
-                    if (adCheck == 0 && ShowAds)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         Messages.Items.Insert(0, NewMessageContainer(null, null, true, null));
                         adCheck = 5;
@@ -1118,216 +1118,9 @@ namespace Discord_UWP
         }
         private void OpenIaPs(object sender, RoutedEventArgs e)
         {
-            DarkenMessageArea.Begin();
-            IAPs.IsPaneOpen = true;
+            SubFrameNavigator(typeof(SubPages.InAppPurchases));
         }
-        private async void MakePurchase(object sender, RoutedEventArgs e)
-        {
-            LicenseInformation licenseInformation = CurrentApp.LicenseInformation;
-            switch ((sender as Button).Tag.ToString())
-            {
-                case "RemoveAds":
-                    if (!licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RemoveAds");
 
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Polite":
-                    if (!licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("Polite Dontation");
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Significant":
-                    if (!licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDontation");
-
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "OMGTHX":
-                    if (!licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("OMGTHXDonation");
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Ridiculous":
-                    if (!licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RidiculousDonation");
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-            }
-        }
         #endregion
 
         #region GuildSettings
@@ -1546,8 +1339,6 @@ namespace Discord_UWP
         }
         #endregion
 
-
-        public static bool ShowAds = true;
         public bool SelectChannel = false;
         public string SelectChannelId = "";
         public string SelectGuildId = "";
