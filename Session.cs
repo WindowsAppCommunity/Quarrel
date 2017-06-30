@@ -446,7 +446,7 @@ namespace Discord_UWP
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                guildservice.ModifyGuildChannelPositions(channelid, Position).Wait();
+               // guildservice.ModifyGuildChannelPositions(channelid, Position).Wait();
             }
             catch (Exception e)
             {
