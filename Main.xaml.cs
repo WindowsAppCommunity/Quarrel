@@ -520,6 +520,7 @@ namespace Discord_UWP
         #region Guild
         private void LoadGuild(string id)
         {
+            NoMessageCached.Visibility = Visibility.Collapsed;
             if (Storage.Cache.Guilds[id] != null)
             {
                 ChannelsLoading.IsActive = true;
@@ -813,11 +814,11 @@ namespace Discord_UWP
                     MessagesLoading.Visibility = Visibility.Collapsed;
                     if (Messages.Items.Count > 0)
                     {
-                        NoMessageChached.Visibility = Visibility.Collapsed;
+                        NoMessageCached.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        NoMessageChached.Visibility = Visibility.Visible;
+                        NoMessageCached.Visibility = Visibility.Visible;
                     }
                 }
             }
@@ -964,10 +965,10 @@ namespace Discord_UWP
                     MessagesLoading.Visibility = Visibility.Collapsed;
                     if (Messages.Items.Count > 0)
                     {
-                        NoMessageChached.Visibility = Visibility.Collapsed;
+                        NoMessageCached.Visibility = Visibility.Collapsed;
                     } else
                     {
-                        NoMessageChached.Visibility = Visibility.Visible;
+                        NoMessageCached.Visibility = Visibility.Visible;
                     }
                 }
             }
