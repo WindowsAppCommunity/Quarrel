@@ -92,17 +92,14 @@
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
-                                    <Slider x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
-                                    <Slider x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
-                                    <Slider x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
+                                    <TextBlock Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <CheckBox x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <HyperlinkButton Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
-                                    <TextBlock Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                  <TextBlock Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
                                     <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                     <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,0"/>
                                     <RadioButton x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme"/>
-                                    <RadioButton x:Name="radio_Auto" Style="{StaticResource DiscordRadioButton}" Content="System" GroupName="Theme"/>
+                                    <RadioButton x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme"/>
+                                    <RadioButton x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
                                     <TextBlock Text="Accent color" FontSize="13" Margin="0,6,0,0"/>
                                     <ComboBox x:Name="accent_combobox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
                                         <ComboBoxItem>
@@ -165,6 +162,17 @@
                             <StackPanel x:Name="UserNotifications_Menu">
                                 <ToggleSwitch x:Name="HighlightEveryone" Header="Highlight @everyone"/>
                                 <ToggleSwitch x:Name="Toasts" Header="Toast Notification (While in app)"/>
+                            </StackPanel>
+                        </PivotItem>
+                        <PivotItem Header="Advanced">
+                            <StackPanel>
+                                <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
+                                <TextBlock Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
+                                <Slider x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
+                            <Slider x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
+                            <Slider x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"></Slider>
+                                <HyperlinkButton Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
+
                             </StackPanel>
                         </PivotItem>
                     </Pivot>

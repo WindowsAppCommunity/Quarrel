@@ -45,9 +45,11 @@ namespace Discord_UWP.SubPages
                 radio_Dark.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Light)
                 radio_Light.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Auto)
-                radio_Auto.IsChecked = true;
-            
+            else if (Storage.Settings.Theme == Theme.Windows)
+                radio_Windows.IsChecked = true;
+            else if (Storage.Settings.Theme == Theme.Discord)
+                radio_Discord.IsChecked = true;
+
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -72,8 +74,10 @@ namespace Discord_UWP.SubPages
                 Storage.Settings.Theme = Theme.Dark;
             else if ((bool)radio_Light.IsChecked)
                 Storage.Settings.Theme = Theme.Light;
-            else if ((bool)radio_Auto.IsChecked)
-                Storage.Settings.Theme = Theme.Auto;
+            else if ((bool)radio_Windows.IsChecked)
+                Storage.Settings.Theme = Theme.Windows;
+            else if ((bool)radio_Discord.IsChecked)
+                Storage.Settings.Theme = Theme.Discord;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();
