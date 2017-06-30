@@ -65,8 +65,8 @@ namespace Discord_UWP
             this.Suspending += OnSuspending;
         }
         internal static string CurrentId;
-
         internal static Guild CurrentGuild;
+        internal static bool ShowAds = true;
         public static event EventHandler SubpageClosedHandler;
 
         public static void SubpageClosed()

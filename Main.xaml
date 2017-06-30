@@ -690,20 +690,7 @@
             </SplitView.Pane>
         </SplitView>
 
-        <SplitView x:Name="IAPs" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource DeepBG}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
-            <SplitView.Pane>
-                <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="12">
-                    <Button x:Name="BuyAdRemovalButton" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Remove Ads $1.29" Tag="RemoveAds" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                    <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Margin="12" Opacity="0.5"/>
-                    <Button x:Name="PoliteDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Polite Donatation $0.99" Margin="0,0,0,6" Tag="Polite" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                    <Button x:Name="SignificantDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Significant Donation $1.99" Margin="0,0,0,6" Tag="Significant" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                    <Button x:Name="OMGTHXDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="OMG thank you Donation $2.99" Margin="0,0,0,6" Tag="OMGTHX" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                    <Button x:Name="RidiculousDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Ridiculous Donation $4.99" Margin="0,0,0,6" Tag="Ridiculous" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                </StackPanel>
-            </SplitView.Pane>
-        </SplitView>
-
-        <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}" IsOpen="True" Style="{StaticResource CommandBarStyle1}">
+        <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}" Style="{StaticResource CommandBarStyle1}">
             <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
             <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
                 <AppBarButton.Flyout>
