@@ -49,13 +49,13 @@ namespace Discord_UWP
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(CacheModels.TempCache));
+                XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
                 StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
 
                 StringWriter settingsWriter = new StringWriter();
                 try
                 {
-                    serializer.Serialize(settingsWriter, new CacheModels.TempCache(Cache));
+                    serializer.Serialize(settingsWriter, new TempCache(Cache));
                     await FileIO.WriteTextAsync(file, settingsWriter.ToString());
                 }
                 catch
@@ -68,6 +68,52 @@ namespace Discord_UWP
 
             }
         }
+
+        public static async void CacheImage(string id, string avatar, bool guild)
+        {
+            StorageFolder imageFolder;
+            try
+            {
+                imageFolder = await SavedData.GetFolderAsync("images");
+            }
+            catch
+            {
+                imageFolder = await SavedData.CreateFolderAsync("images");
+            }
+
+            StorageFolder avatarFolder;
+
+            if (guild)
+            {
+                try
+                {
+                    avatarFolder = await imageFolder.GetFolderAsync("users");
+                }
+                catch
+                {
+                    avatarFolder = await imageFolder.CreateFolderAsync("users");
+                }
+
+                StorageFile icon = await avatarFolder.CreateFileAsync(id + "-" + avatar + ".png", CreationCollisionOption.ReplaceExisting);
+                //Set image
+            }
+            else
+            {
+                try
+                {
+                    avatarFolder = await imageFolder.GetFolderAsync("guilds");
+                }
+                catch
+                {
+                    avatarFolder = await imageFolder.CreateFolderAsync("guilds");
+                }
+
+
+                StorageFile icon = await avatarFolder.CreateFileAsync(id + "-" + avatar + ".png", CreationCollisionOption.ReplaceExisting);
+                //Set image
+            }
+        }
+
         public static async void SaveMessages()
         {
             List<ChannelTimeSave> temp = new List<ChannelTimeSave>();
@@ -106,6 +152,7 @@ namespace Discord_UWP
 
             }
         }
+
 
         public static Settings Settings = new Settings(); //this just represents the storage
         public static Dictionary<string, string> RecentMessages = new Dictionary<string, string>();

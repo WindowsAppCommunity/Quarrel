@@ -81,7 +81,7 @@ namespace Discord_UWP
     {
         public async void Login(string args = null, bool animate = false)
         {
-            LoadingSplash.Show(false);
+            LoadingSplash.Show(animate);
             UpdateUIfromSettings();
             try
             {
@@ -89,9 +89,10 @@ namespace Discord_UWP
                 LoadingSplash.Status = "LOGGING IN...";
                 await Session.AutoLogin();
                 Session.Online = true;
-                EstablishGateway();
-                LoadingSplash.Status = "LOADING...";
+                LoadingSplash.Status = "CONNECTING...";
+                await EstablishGateway();
 
+                LoadingSplash.Status = "LOADING...";
                 await LoadCache();
                 LoadMessages();
                 LoadMutedChannels();
@@ -104,10 +105,11 @@ namespace Discord_UWP
                 {
                     ShowAds = false;
                 }
-
-                LoadingSplash.Status = "Connected";
+                FeedbackButton.Visibility = Visibility.Collapsed;
+                IAPSButton.Visibility = Visibility.Collapsed;
+                LoadingSplash.Status = "DONE";
                 await Task.Delay(2000);
-                LoadingSplash.Hide(animate);
+                LoadingSplash.Hide(true);
             }
             catch
             {
@@ -122,7 +124,7 @@ namespace Discord_UWP
                 LoadUser();
                 LoadGuilds();
                 await Task.Delay(3000);
-                LoadingSplash.Hide(animate);
+                LoadingSplash.Hide(true);
             }
             if(args != null)
             {
@@ -233,7 +235,7 @@ namespace Discord_UWP
             Login(args);
         }
 
-        async void EstablishGateway()
+        async Task EstablishGateway()
         {
             Session.Gateway.Ready += OnReady;
             Session.Gateway.MessageCreated += MessageCreated;
