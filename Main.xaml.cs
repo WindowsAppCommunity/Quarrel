@@ -71,6 +71,7 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
+using Discord_UWP.Gateway.DownstreamEvents;
 #endregion
 
 /* The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238 */
@@ -273,6 +274,7 @@ namespace Discord_UWP
 
             Session.Gateway.PresenceUpdated += PresenceUpdated;
             Session.Gateway.TypingStarted += TypingStarted;
+            Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             try
             {
                 await Session.Gateway.ConnectAsync();
@@ -284,6 +286,11 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private void UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
+        {
+            Debug.WriteLine(e.EventData.Note);
         }
 
         #region LoadUser
@@ -1550,5 +1557,11 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.Settings));
         }
 
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            //JUST FOR TESTING, SHOULD NOT MAKE IT TO PRODUCTION
+            if(e.Key == VirtualKey.Add)
+                SubFrameNavigator(typeof(SubPages.UserProfile));
+        }
     }
 }
