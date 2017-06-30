@@ -141,13 +141,13 @@
                                 <CornerRadius>0</CornerRadius>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="appBarButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="appBarButton.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="appBarButton.(Canvas.ZIndex)" Value="2"/>
                         <Setter Target="border.(FrameworkElement.Margin)">
                             <Setter.Value>
                                 <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="button.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="rootgrid.(Grid.Padding)">
                             <Setter.Value>
                                 <Thickness>100</Thickness>
