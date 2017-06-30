@@ -13,11 +13,11 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
-        /*[JsonProperty("roles")]
+        [JsonProperty("roles")]
         public IEnumerable<string> Roles { get; set; }
         [JsonProperty("require_colons")]
         public bool RequireColons { get; set; }
         [JsonProperty("managed")]
-        public bool Managed { get; set; }*/
+        public bool Managed { get; set; }
     }
 }
