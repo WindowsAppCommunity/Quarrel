@@ -171,8 +171,8 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
     <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
