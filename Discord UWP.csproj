@@ -94,6 +94,21 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\ConnectionLogos\battlenet.png" />
+    <Content Include="Assets\ConnectionLogos\facebook.png" />
+    <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />
+    <Content Include="Assets\ConnectionLogos\patreon.png" />
+    <Content Include="Assets\ConnectionLogos\reddit.png" />
+    <Content Include="Assets\ConnectionLogos\skype.png" />
+    <Content Include="Assets\ConnectionLogos\steam_dark.png" />
+    <Content Include="Assets\ConnectionLogos\steam_light.png" />
+    <Content Include="Assets\ConnectionLogos\twitch.png" />
+    <Content Include="Assets\ConnectionLogos\twitter.png" />
+    <Content Include="Assets\ConnectionLogos\youtube.png" />
+    <Content Include="Assets\DiscordBadges\hypesquad.png" />
+    <Content Include="Assets\DiscordBadges\nitro.png" />
+    <Content Include="Assets\DiscordBadges\partner.png" />
+    <Content Include="Assets\DiscordBadges\staff.png" />
     <Content Include="Assets\DiscordBlurpleIcon.png" />
     <Content Include="Assets\DiscordIcon.svg" />
     <Content Include="Assets\emojifont.ttf" />

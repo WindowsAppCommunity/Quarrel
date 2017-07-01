@@ -120,7 +120,7 @@ namespace Discord_UWP
                 }
                 else
                 {
-                    await Session.TriggerTypingIndicator(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
+                     await Session.TriggerTypingIndicator(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
                 }
             }
             catch

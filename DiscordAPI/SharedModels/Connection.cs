@@ -17,6 +17,7 @@ namespace Discord_UWP.SharedModels
         public string Type { get; set; }
         [JsonProperty("revoked")]
         public bool Revoked { get; set; }
+
         [JsonProperty("integrations")]
         public IEnumerable<Integration> Integrations { get; set; }
     }

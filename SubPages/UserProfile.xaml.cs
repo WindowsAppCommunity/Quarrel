@@ -36,43 +36,110 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private User? user;
+        private SharedModels.UserProfile profile;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is string)
+            if (!(e.Parameter is string))
             {
-                user = await Session.GetUser(e.Parameter as string);
+                CloseButton_Click(null, null);
+                return;
             }
-            else if (e.Parameter is User)
-            {
-                user = e.Parameter as User?;
-            }
-            if (!user.HasValue) CloseButton_Click(null, null);
 
-            username.Text = user.Value.Username;
-            discriminator.Text = "#" + user.Value.Discriminator;
-            if(user.Value.Note != null)
-                NoteBox.Text = user.Value.Note;
+            profile = await Session.GetUserProfile(e.Parameter as string);
+            username.Text = profile.User.Username;
+            username.Fade(1, 400);
+            discriminator.Text = "#" + profile.User.Discriminator;
+            discriminator.Fade(0.4f, 800);
+            //if(user. != null)
+              //  NoteBox.Text = user.Value.Note;
+            
+            if (App.Notes.ContainsKey(profile.User.Id))
+                NoteBox.Text = App.Notes[profile.User.Id];
 
-            if (App.UpdatedNotes.Any())
-            {
-                var newNote = App.UpdatedNotes.FirstOrDefault(x => x.Key == user.Value.Id);
-                if (newNote.Value != null)
-                    NoteBox.Text = newNote.Value;
-            }
             Session.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
 
-            BackgroundGrid.Blur(8,200).Start();
-            var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + user.Value.Id + "/" + user.Value.Avatar + ".png?size=64"));
+            BackgroundGrid.Blur(8,0).Start();
+
+            for (int i = 1; i < profile.ConnectedAccount.Count(); i++)
+            {
+                var element = profile.ConnectedAccount.ElementAt(i);
+                string themeExt = "";
+                if (element.Type.ToLower() == "steam")
+                {
+                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                        themeExt = "_light";
+                    else
+                        themeExt = "_dark";
+                }
+                element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
+                Connections.Items.Add(element);
+                
+            }
+            switch (profile.User.Flags)
+            {
+                case 1:
+                {
+                    var img = new Image()
+                    {
+                        MaxHeight = 28,
+                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/staff.png")),
+                        Opacity=0
+                    };
+                    ToolTipService.SetToolTip(img,"DISCORD STAFF");
+                    BadgePanel.Children.Add(img);
+                    img.Fade(1).Start();
+                    break;
+                }
+                case 2:
+                {
+                    var img = new Image()
+                    {
+                        MaxHeight = 28,
+                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/partner.png")),
+                        Opacity = 0
+                    };
+                    ToolTipService.SetToolTip(img, "DISCORD PARTNER");
+                    BadgePanel.Children.Add(img);
+                    img.Fade(1).Start();
+                    break;
+                    }
+                case 4:
+                {
+                    var img = new Image()
+                    {
+                        MaxHeight = 28,
+                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/hypesquad.png")),
+                        Opacity = 0
+                    };
+                    ToolTipService.SetToolTip(img, "HYPESQUAD");
+                    BadgePanel.Children.Add(img);
+                    img.Fade(1).Start();
+                    break;
+                }
+            }
+
+            if (profile.PremiumSince.HasValue)
+            {
+                var img = new Image()
+                {
+                    MaxHeight = 28,
+                    Source = new BitmapImage(new Uri("/Assets/DiscordBadges/nitro.png")),
+                    Opacity = 0
+                };
+                ToolTipService.SetToolTip(img, "Premium member since " + Common.HumanizeDate(profile.PremiumSince.Value,null));
+                BadgePanel.Children.Add(img);
+                img.Fade(1.2f);
+            }
+            var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + ".png"));
             AvatarFull.ImageSource = image;
             AvatarBlurred.Source = image;
         }
 
         private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
-            if (e.EventData.UserId == user.Value.Id)
+            if (e.EventData.UserId == profile.User.Id)
             {
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
@@ -98,12 +165,63 @@ namespace Discord_UWP.SubPages
 
         private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            Session.AddNote(user.Value.Id, NoteBox.Text);
+            Session.AddNote(profile.User.Id, NoteBox.Text);
         }
 
-        private void AvatarBlurred_ImageOpened(object sender, RoutedEventArgs e)
+        private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
         {
             (sender as Image).Fade(0.2f).Start();
+        }
+
+        private void AvatarFull_OnImageOpened(object sender, RoutedEventArgs e)
+        {
+            Avatar.Fade(1).Start();
+        }
+
+        private void Connections_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var item = (ConnectedAccount) e.ClickedItem;
+            if(item.Id == null) return;
+            var url = "";
+            switch (item.Type)
+            {
+                case "steam": url = "https://steamcommunity.com/profiles/" + item.Id;
+                    break;
+                case "skype": url = "skype:" + item.Id + "?userinfo";
+                    break;
+                case "reddit": url = "https://www.reddit.com/u/" + item.Id;
+                    break;
+                case "facebook": url = "https://www.facebook.com/" + item.Id;
+                    break;
+                case "patreon": url = "https://www.patreon.com/" + item.Id;
+                    break;
+                case "twitter": url = "https://www.twitter.com/" + item.Id;
+                    break;
+                case "twitch": url = "https://www.twitch.tv/" + item.Id;
+                    break;
+                case "youtube": url = "https://www.youtube.com/channel/" + item.Id;
+                    break;
+            }
+        }
+    }
+    public class BooleanToVisibilityConverter : IValueConverter
+    {
+        public BooleanToVisibilityConverter()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is bool && (bool)value)
+            {
+                return Visibility.Visible;
+            }
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return (value is Visibility && (Visibility)value == Visibility.Visible);
         }
     }
 }

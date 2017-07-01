@@ -7,24 +7,25 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-<Page.Resources>
-    <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
-        <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
-            <DoubleAnimation.EasingFunction>
-                <SineEase EasingMode="EaseIn"/>
-            </DoubleAnimation.EasingFunction>
-        </DoubleAnimation>
-        <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleX" From="1" To="0.94" Storyboard.TargetName="scale">
-            <DoubleAnimation.EasingFunction>
-                <SineEase EasingMode="EaseIn"/>
-            </DoubleAnimation.EasingFunction>
-        </DoubleAnimation>
-        <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleY" From="1" To="0.94" Storyboard.TargetName="scale">
-            <DoubleAnimation.EasingFunction>
-                <SineEase EasingMode="EaseIn"/>
-            </DoubleAnimation.EasingFunction>
-        </DoubleAnimation>
-    </Storyboard>
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleX" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleY" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -80,42 +81,97 @@
         <Rectangle Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="0,24,0,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="-24,-24,-24,0" Padding="24,64,24,48" Background="{ThemeResource DarkBG}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid x:Name="BackgroundGrid" Height="208"  Margin="-24,-64,-24,-48" Grid.ColumnSpan="2">
-                            <Image Opacity="0" VerticalAlignment="Center" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="AvatarBlurred_ImageOpened"/>
-                            <!-- add blurred image -->
+                    <Grid Margin="0,-24,0,0" Padding="24,0" Background="{ThemeResource DarkBG}">
+                        <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
+                            <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
                         </Grid>
+                        <StackPanel x:Name="Stacker"  Orientation="Horizontal" HorizontalAlignment="Center" Padding="0,48,0,64" Margin="0">
+                            <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0" HorizontalAlignment="Right">
+                                <Rectangle.Fill>
+                                    <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="username" Text="Username" FontSize="20"/>
+                                    <TextBlock x:Name="discriminator" Text="#0000" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
+                                </StackPanel>
+                                <StackPanel x:Name="BadgePanel">
 
-                        <Rectangle x:Name="Avatar" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" HorizontalAlignment="Right">
-                            <Rectangle.Fill>
-                                <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock x:Name="username" Text="Username" FontSize="20"/>
-                                <TextBlock x:Name="discriminator" Text="#0000" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom"/>
+                                </StackPanel>
+                                <Button x:Name="friendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6"/>
                             </StackPanel>
-                            <Button x:Name="friendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6"/>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Row="1">
-                        <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                        <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
-                    </StackPanel>
+                    <ListView Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="-24,24,-24,0" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListViewItem Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
+                        <ListViewItem Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
+                        <ListViewItem Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
+                    </ListView>
+                    <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0">
+                        <PivotItem Margin="0,-48,0,0">
+                            <Grid Margin="24,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+
+                                <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
+                                <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="164" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Padding="12" MinWidth="104" Background="{ThemeResource LightBG}">
+                                                <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
+                                                <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                    <tk:AdaptiveGridView.Footer>
+                                        <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left">
+                                            <HyperlinkButton Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0">
+                                                <Grid>
+                                                    <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
+                                                    <TextBlock Text="Send Message" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}">
+                                                <Grid>
+                                                    <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
+                                                    <TextBlock Text="Block" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                    </tk:AdaptiveGridView.Footer>
+                                </tk:AdaptiveGridView>
+                            </Grid>
+
+                        </PivotItem>
+                        <PivotItem  Margin="0,-48,0,0">
+
+                        </PivotItem>
+                        <PivotItem  Margin="0,-48,0,0">
+
+                        </PivotItem>
+                    </Pivot>
+
                 </Grid>
             </Border>
         </Grid>
     </Grid>
 
 </Page>
+
