@@ -216,12 +216,16 @@
                                     <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 4.1.5" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed a bug with DMs" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 4.1.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed some bugs with login" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added Discord themem settings" TextWrapping="Wrap"/>
+                                <TextBlock Text="Added Discord themeS settings" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Began changing panes to a new page" TextWrapping="Wrap"/>
