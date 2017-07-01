@@ -107,6 +107,20 @@ namespace Discord_UWP
             return new User();
         }
 
+        public static async Task<SharedModels.UserProfile> GetUserProfile(string id)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetUserProfile(id);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return new SharedModels.UserProfile();
+        }
+
         public static async Task<IEnumerable<SharedModels.Connection>> GetUserConnections(string id)
         {
             try
@@ -146,17 +160,6 @@ namespace Discord_UWP
                 Showmsg(e);
             }
             return new SharedModels.Guild();
-            /*try
-            {
-                IGuildService guildservice = authenticatedRestFactory.GetGuildService();
-                Task<SharedModels.Guild> guild_task = guildservice.GetGuild(id);
-                guild_task.Wait();
-                guild = guild_task.Result;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }*/
         }
 
         public static async Task<IEnumerable<SharedModels.GuildChannel>> GetGuildData(string id)

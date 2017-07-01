@@ -912,25 +912,50 @@ namespace Discord_UWP
         {
             //Pinned messages
             PinnedMessages.Items.Clear();
-            await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
-            IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
-            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
-
-            foreach (SharedModels.Message message in pinnedmessages)
+            if (App.CurrentId != null)
             {
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
-            }
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
 
-            int adCheck = 5;
-
-            foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
-            {
-                adCheck--;
-                PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
-                if (adCheck == 0 && App.ShowAds)
+                foreach (SharedModels.Message message in pinnedmessages)
                 {
-                    PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
-                    adCheck = 5;
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
+                }
+
+                int adCheck = 5;
+
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
+                {
+                    adCheck--;
+                    PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
+                    if (adCheck == 0 && App.ShowAds)
+                    {
+                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        adCheck = 5;
+                    }
+                }
+            }
+            else
+            {
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id);
+                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Clear();
+
+                foreach (SharedModels.Message message in pinnedmessages)
+                {
+                    Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
+                }
+
+                int adCheck = 5;
+
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Reverse())
+                {
+                    adCheck--;
+                    PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
+                    if (adCheck == 0 && App.ShowAds)
+                    {
+                        PinnedMessages.Items.Insert(1, NewMessageContainer(null, false, true, null));
+                        adCheck = 5;
+                    }
                 }
             }
         }
@@ -963,7 +988,31 @@ namespace Discord_UWP
                 }
 
                 ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Users.FirstOrDefault().Username;
-                ChannelTopic.Text = "";
+                UserProfile profile = await Session.GetUserProfile(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Users.FirstOrDefault().Id);
+                if (profile.MutualGuilds != null)
+                {
+                    ChannelTopic.Text = "A.K.A: ";
+                    bool first = true;
+                    foreach (MutualGuild guild in profile.MutualGuilds)
+                    {
+                        if (!first)
+                        {
+                            ChannelTopic.Text += ", ";
+                        }
+                        if (guild.Nick != null)
+                        {
+                            ChannelTopic.Text += guild.Nick;
+                        }
+                    }
+                    if (ChannelTopic.Text == "A.K.A: ")
+                    {
+                        ChannelTopic.Text = "";
+                    }
+                }
+                else
+                {
+                    ChannelTopic.Text = "";
+                }
 
                 if (Session.Online)
                 {
@@ -1133,12 +1182,12 @@ namespace Discord_UWP
         #region GuildSettings
         private async void OpenGuildSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.Guild guild = await Session.GetGuild((sender as Button).Tag.ToString());
+            SharedModels.Guild guild = await Session.GetGuild((sender as ListViewItem).Tag.ToString());
             ServerNameChange.Text = guild.Name;
             ServerNameChange.PlaceholderText = guild.Name;
-            _settingsPaneId = (sender as Button).Tag.ToString();
+            _settingsPaneId = (sender as ListViewItem).Tag.ToString();
             RoleList.Items.Clear();
-            foreach (SharedModels.Role role in guild.Roles)
+            foreach (Role role in guild.Roles)
             {
                 ListViewItem listviewitem = new ListViewItem();
                 listviewitem.Content = role.Name;
@@ -1290,7 +1339,7 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.GuildChannel channel = Session.GetGuildChannel((sender as Button).Tag.ToString());
+            SharedModels.GuildChannel channel = Storage.Cache.Guilds[App.CurrentId].Channels[(sender as Button).Tag.ToString()].Raw;
             ChannelNameChange.Text = channel.Name;
             ChannelNameChange.PlaceholderText = channel.Name;
             if (channel.Topic != null)
@@ -1355,7 +1404,6 @@ namespace Discord_UWP
         {
             LightenMessageArea.Begin();
         }
-
 
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {

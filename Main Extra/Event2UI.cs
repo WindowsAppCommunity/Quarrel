@@ -607,10 +607,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ServerList.SelectedIndex == 0 && ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id != null)
-                    {
-                        LoadMembers(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id);
-                    } else if (((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id != null)
+                    if (((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id != null)
                     {
                         LoadMembers(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
                     }

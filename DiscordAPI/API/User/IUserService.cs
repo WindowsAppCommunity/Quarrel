@@ -40,5 +40,8 @@ namespace Discord_UWP.API.User
 
         [Put("/users/@me/notes/{userId}")]
         Task AddNote([AliasAs("userId")] string userId, [Body] Note note);
+
+        [Get("/v6/users/{userID}/profile")]
+        Task<UserProfile> GetUserProfile([AliasAs("userId")] string id);
     }
 }

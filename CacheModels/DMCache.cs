@@ -19,6 +19,11 @@ namespace Discord_UWP.CacheModels
             {
                 Messages.Add(message.Id, new Message(message));
             }
+
+            foreach (TempMessage message in input.PinnedMessages)
+            {
+                PinnedMessages.Add(message.Id, new Message(message));
+            }
         }
 
         public DmCache(SharedModels.DirectMessageChannel input)
@@ -29,5 +34,6 @@ namespace Discord_UWP.CacheModels
 
         public SharedModels.DirectMessageChannel Raw = new SharedModels.DirectMessageChannel();
         public Dictionary<string, Message> Messages = new Dictionary<string, Message>();
+        public Dictionary<string, Message> PinnedMessages = new Dictionary<string, Message>();
     }
 }

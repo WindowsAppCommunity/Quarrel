@@ -105,8 +105,15 @@ namespace Discord_UWP.CacheModels
             {
                 Messages.Add(new TempMessage(message.Value));
             }
+
+            foreach (KeyValuePair<string, Message> message in input.PinnedMessages)
+            {
+                PinnedMessages.Add(new TempMessage(message.Value));
+            }
         }
+
         public List<TempMessage> Messages = new List<TempMessage>();
+        public List<TempMessage> PinnedMessages = new List<TempMessage>();
         public string Id;
         public bool Private;
         //public SharedModels.User User;
