@@ -1568,7 +1568,6 @@ namespace Discord_UWP
             }
         }
 
-
         #region OldCode
         //private void LockChannelsToggled(object sender, RoutedEventArgs e)
         //{

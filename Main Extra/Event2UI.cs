@@ -60,6 +60,11 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(guild, pos);
             }
 
+            foreach (Friend friend in e.EventData.Friends)
+            {
+                Storage.Cache.Friends.Add(friend.Id, new User(friend.user));
+            }
+
             Storage.Cache.DMs.Clear();
             foreach (DirectMessageChannel dm in e.EventData.PrivateChannels)
             {
