@@ -905,8 +905,8 @@ namespace Discord_UWP
                     Storage.SaveMessages();
                 }
                 Storage.SaveCache();
-
                 MessagesLoading.Visibility = Visibility.Collapsed;
+                Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
             }
         }
         private async Task DownloadChannelPinnedMessages()
@@ -1079,8 +1079,8 @@ namespace Discord_UWP
                 }
                 Storage.SaveMessages();
             }
-
             MessagesLoading.Visibility = Visibility.Collapsed;
+            Session.AckMessages(Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Id);
         }
         #endregion
 
