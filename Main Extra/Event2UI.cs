@@ -62,7 +62,10 @@ namespace Discord_UWP
 
             foreach (Friend friend in e.EventData.Friends)
             {
-                Storage.Cache.Friends.Add(friend.Id, new User(friend.user));
+                if (!Storage.Cache.Friends.ContainsKey(friend.Id))
+                {
+                    Storage.Cache.Friends.Add(friend.Id, new User(friend.user));
+                }
             }
 
             Storage.Cache.DMs.Clear();
