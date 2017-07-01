@@ -820,6 +820,7 @@ namespace Discord_UWP
                 if (Session.Online)
                 {
                     await DownloadChannelMessages();
+                    Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
                 } else
                 {
                     MessagesLoading.Visibility = Visibility.Collapsed;
