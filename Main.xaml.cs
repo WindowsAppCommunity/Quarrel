@@ -103,6 +103,8 @@ namespace Discord_UWP
 
                 LoadUser();
                 LoadGuilds();
+                LoadingSplash.Status = "CONNECTED";
+                await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
                 if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
@@ -116,6 +118,7 @@ namespace Discord_UWP
                 LoadingSplash.Hide(false);
                 App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed;
+                await Task.Delay(3000);
                 MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
                 await msg.ShowAsync();
@@ -1110,15 +1113,9 @@ namespace Discord_UWP
 
             _onlyAllowOpeningPane = false;
         }
-        private async void Refresh(object sender, RoutedEventArgs e)
+        private void Refresh(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != null)
-            {
-                await DownloadDmChannelMessages();
-            }
-            else {
-                await DownloadChannelMessages();
-            }
+            Login();
         }
         private void TogglePeopleShow(object sender, RoutedEventArgs e)
         {
