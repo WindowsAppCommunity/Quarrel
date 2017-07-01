@@ -981,7 +981,31 @@ namespace Discord_UWP
                 }
 
                 ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Users.FirstOrDefault().Username;
-                ChannelTopic.Text = "";
+                UserProfile profile = await Session.GetUserProfile(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Users.FirstOrDefault().Id);
+                if (profile.MutualGuilds != null)
+                {
+                    ChannelTopic.Text = "A.K.A: ";
+                    bool first = true;
+                    foreach (MutualGuild guild in profile.MutualGuilds)
+                    {
+                        if (!first)
+                        {
+                            ChannelTopic.Text += ", ";
+                        }
+                        if (guild.Nick != null)
+                        {
+                            ChannelTopic.Text += guild.Nick;
+                        }
+                    }
+                    if (ChannelTopic.Text == "A.K.A: ")
+                    {
+                        ChannelTopic.Text = "";
+                    }
+                }
+                else
+                {
+                    ChannelTopic.Text = "";
+                }
 
                 if (Session.Online)
                 {
