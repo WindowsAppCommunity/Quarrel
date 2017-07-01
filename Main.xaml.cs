@@ -1308,7 +1308,7 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.GuildChannel channel = Session.GetGuildChannel((sender as Button).Tag.ToString());
+            SharedModels.GuildChannel channel = Storage.Cache.Guilds[App.CurrentId].Channels[(sender as Button).Tag.ToString()].Raw;
             ChannelNameChange.Text = channel.Name;
             ChannelNameChange.PlaceholderText = channel.Name;
             if (channel.Topic != null)
@@ -1373,7 +1373,6 @@ namespace Discord_UWP
         {
             LightenMessageArea.Begin();
         }
-
 
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {

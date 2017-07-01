@@ -192,7 +192,7 @@
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
                                     <TextBlock x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                                    <TextBlock FontSize="13" Text="Discord UWP is an unofficial client for Discord. The developpers are in now way affiliated with Hammer &amp; Chisel, Inc" TextWrapping="Wrap" Margin="0"/>
+                                    <TextBlock FontSize="13" Text="Discord UWP is an unofficial client for Discord. The developers are in now way affiliated with Hammer &amp; Chisel, Inc" TextWrapping="Wrap" Margin="0"/>
                                     <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
@@ -216,6 +216,31 @@
                                     <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 4.1.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed some bugs with login" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added Discord themem settings" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Began changing panes to a new page" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed channel settings" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Uses Discord emojis" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added Direct Messages pinnedmessage" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed offline mode" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Uses Twitter (Discord) emojis instead of Windows" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 4.1.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Added loading overlay" TextWrapping="Wrap"/>
