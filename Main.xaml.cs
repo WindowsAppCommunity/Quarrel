@@ -1552,10 +1552,10 @@ namespace Discord_UWP
         private async void SubFrameNavigator(Type page, object args = null)
         {
             /*maybe enable this blur effect later, depending on the GPU */
-            //if (Storage.Settings.ExpensiveRender)
-            //{
-                content.Blur(0, 600).Start();
-            //}
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(1, 600).Start();
+            }
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
