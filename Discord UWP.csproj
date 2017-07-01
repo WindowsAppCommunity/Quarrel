@@ -216,6 +216,7 @@
     <Compile Include="DiscordAPI\SharedModels\Reactions.cs" />
     <Compile Include="DiscordAPI\SharedModels\Role.cs" />
     <Compile Include="DiscordAPI\SharedModels\TypingStart.cs" />
+    <Compile Include="DiscordAPI\SharedModels\SharedFriend.cs" />
     <Compile Include="DiscordAPI\SharedModels\User.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserGuild.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserProfile.cs" />

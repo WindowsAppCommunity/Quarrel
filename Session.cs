@@ -79,7 +79,7 @@ namespace Discord_UWP
             guildgateway = new Gateway.Gateway(gateconfig, authenticator);
         }*/
 
-        public static async Task<SharedModels.User> GetCurrentUser()
+        public static async Task<User> GetCurrentUser()
         {
             try
             {
@@ -93,7 +93,9 @@ namespace Discord_UWP
             return Storage.Cache.CurrentUser.Raw;
         }
 
-        public static async Task<SharedModels.User> GetUser(string userid)
+
+
+        public static async Task<User> GetUser(string userid)
         {
             try
             {
@@ -107,7 +109,7 @@ namespace Discord_UWP
             return new User();
         }
 
-        public static async Task<SharedModels.UserProfile> GetUserProfile(string id)
+        public static async Task<UserProfile> GetUserProfile(string id)
         {
             try
             {
@@ -119,6 +121,21 @@ namespace Discord_UWP
                 Showmsg(e);
             }
             return new SharedModels.UserProfile();
+        }
+
+
+        public static async Task<IEnumerable<SharedFriend>> GetUserRelationShips(string id)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetUserReleations(id);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
         }
 
         public static async Task<IEnumerable<SharedModels.Connection>> GetUserConnections(string id)
