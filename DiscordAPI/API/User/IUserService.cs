@@ -14,8 +14,11 @@ namespace Discord_UWP.API.User
         [Get("/users")]
         Task<IEnumerable<SharedModels.User>> GetUsers([AliasAs("q")] string usernameQuery, [AliasAs("limit")] int limit);
 
-        [Get("/users/@me")]
+        [Get("/v6/users/@me")]
         Task<SharedModels.User> GetCurrentUser();
+
+        [Patch("/v6/users/@me/settings")]
+        Task UpdateSettings(UserSettings settings);
 
         [Patch("/users/@me")]
         Task<SharedModels.User> ModifyCurrentUser([Body] ModifyUser modifyUser);

@@ -63,6 +63,14 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(guild, pos);
             }
 
+            foreach (Friend friend in e.EventData.Friends)
+            {
+                if (!Storage.Cache.Friends.ContainsKey(friend.Id))
+                {
+                    Storage.Cache.Friends.Add(friend.Id, new User(friend.user));
+                }
+            }
+
             Storage.Cache.DMs.Clear();
             foreach (DirectMessageChannel dm in e.EventData.PrivateChannels)
             {
@@ -112,6 +120,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
+                switch (e.EventData.Settings.status)
+                {
+                    case "online":
+                        UserStatusOnline.IsChecked = true;
+                        break;
+                    case "idle":
+                        UserStatusIdle.IsChecked = true;
+                        break;
+                    case "dnd":
+                        UserStatusDND.IsChecked = true;
+                        break;
+                    default:
+                        UserStatusOnline.IsChecked = true;
+                        break;
+                }
+
                 LoadingSplash.Hide(true);
                 LoadGuilds();
             });
@@ -127,10 +151,8 @@ namespace Discord_UWP
                     if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
                     {
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                        if (Session.Online)
-                        {
-                            Storage.SaveCache();
-                        }
+                        Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                        Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
@@ -138,6 +160,8 @@ namespace Discord_UWP
                 {
                     if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
                     {
+                        Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                        Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
@@ -600,7 +624,7 @@ namespace Discord_UWP
                });
         }
 
-        private async void PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        private async void PresenceUpdated(object sender, GatewayEventArgs<SharedModels.Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))
             {
@@ -617,7 +641,7 @@ namespace Discord_UWP
                 });
         }
 
-        private void TypingStarted(object sender, Gateway.GatewayEventArgs<TypingStart> e)
+        private void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
             Session.Typers.Add(e.EventData);
         }
