@@ -286,6 +286,19 @@ namespace Discord_UWP
             return null;
         }
 
+        public static void ChangeUserSettings(UserSettings settings)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.UpdateSettings(settings).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static void CreateMessage(string id, string text)
         {
             try

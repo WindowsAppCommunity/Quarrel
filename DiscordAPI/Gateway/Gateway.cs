@@ -374,7 +374,7 @@ namespace Discord_UWP.Gateway
                     try
                     {
                         await SendHeartbeatAsync();
-                        await UpdateStatus();
+                        //await UpdateStatus();
                         worked = true;
                     }
                     catch

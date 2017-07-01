@@ -13,5 +13,7 @@ namespace Discord_UWP.SharedModels
         public string Theme { get; set; }
         [JsonProperty("guild_positions")]
         public IEnumerable<string> GuildOrder { get; set; }
+        [JsonProperty("status")]
+        public string status { get; set; }
     }
 }

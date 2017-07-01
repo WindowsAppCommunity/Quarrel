@@ -50,6 +50,7 @@ namespace Discord_UWP
         /// </summary>
         public App()
         {
+            this.InitializeComponent();
             LoadSettings();
             if (Storage.Settings.Theme == Theme.Dark)
                 this.RequestedTheme = ApplicationTheme.Dark;
@@ -60,8 +61,6 @@ namespace Discord_UWP
                     this.RequestedTheme = ApplicationTheme.Light;
                 else
                     this.RequestedTheme = ApplicationTheme.Dark;
-
-            this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
         internal static string CurrentId;
@@ -156,6 +155,8 @@ namespace Discord_UWP
                     Storage.Settings.RespUiL = 768;
                     Storage.Settings.RespUiXl = 1024;
                     Storage.Settings.AppBarAtBottom = false;
+                    Storage.Settings.DiscordLightTheme = false;
+                    Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
                     Storage.SaveAppSettings();
@@ -172,6 +173,8 @@ namespace Discord_UWP
                 Storage.Settings.RespUiL = 768;
                 Storage.Settings.RespUiXl = 1024;
                 Storage.Settings.AppBarAtBottom = false;
+                Storage.Settings.DiscordLightTheme = false;
+                Storage.Settings.ExpensiveRender = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
                 Storage.SaveAppSettings();
@@ -304,6 +307,15 @@ namespace Discord_UWP
             {
                 var qualifiers = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
                 return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
+            }
+        }
+
+        public static bool IsMobile
+        {
+            get
+            {
+                var qualifiers = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
+                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
             }
         }
 
