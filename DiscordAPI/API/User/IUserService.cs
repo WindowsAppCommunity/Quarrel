@@ -43,5 +43,8 @@ namespace Discord_UWP.API.User
 
         [Get("/v6/users/{userID}/profile")]
         Task<UserProfile> GetUserProfile([AliasAs("userId")] string id);
+
+        [Get("/v6/users/{userID}/relationships")]
+        Task<IEnumerable<SharedFriend>> GetUserReleations([AliasAs("userId")] string id);
     }
 }
