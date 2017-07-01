@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP
 {
@@ -90,6 +91,20 @@ namespace Discord_UWP
                 Showmsg(e);
             }
             return Storage.Cache.CurrentUser.Raw;
+        }
+
+        public static async Task<SharedModels.User> GetUser(string userid)
+        {
+            try
+            {
+                IUserService userService = AuthenticatedRestFactory.GetUserService();
+                return await userService.GetUser(userid);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return new User();
         }
 
         public static async Task<IEnumerable<SharedModels.Connection>> GetUserConnections(string id)
@@ -491,6 +506,19 @@ namespace Discord_UWP
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.TriggerTypingIndicator(channelId);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void AddNote(string userid, string note)
+        {
+            try
+            {
+                IUserService channelservice = AuthenticatedRestFactory.GetUserService();
+                channelservice.AddNote(userid, new Note(){note = note}).Wait();
             }
             catch (Exception e)
             {

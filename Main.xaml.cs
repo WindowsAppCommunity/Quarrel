@@ -1387,8 +1387,9 @@ namespace Discord_UWP
 
         private async void ShowUserDetails(string id)
         {
-           await new MessageDialog("Sorry, but this feature hasn't yet been added into Discord UWP, it will be available in the next update. The fact that we didn't add it means you got access to the rest of the app sooner ;)", "Coming soon™")
-                .ShowAsync();
+            SubFrameNavigator(typeof(SubPages.UserProfile), id);
+       //    await new MessageDialog("Sorry, but this feature hasn't yet been added into Discord UWP, it will be available in the next update. The fact that we didn't add it means you got access to the rest of the app sooner ;)", "Coming soon™")
+         //       .ShowAsync();
         }
         private async void MessageControl_OnLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
         {
@@ -1562,6 +1563,17 @@ namespace Discord_UWP
             //JUST FOR TESTING, SHOULD NOT MAKE IT TO PRODUCTION
             if(e.Key == VirtualKey.Add)
                 SubFrameNavigator(typeof(SubPages.UserProfile));
+        }
+
+        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var member = ((KeyValuePair<string,Member>)e.ClickedItem).Value;
+            if (member != null)
+            {
+                var user = member.Raw.User;
+                SubFrameNavigator(typeof(SubPages.UserProfile), user);
+            }
+            
         }
     }
 }

@@ -91,23 +91,27 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Height="208"  Margin="-24,-64,-24,-48" Grid.ColumnSpan="2">
-                            <Rectangle Fill="{ThemeResource Background}" Opacity="0.5"/>
+                        <Grid x:Name="BackgroundGrid" Height="208"  Margin="-24,-64,-24,-48" Grid.ColumnSpan="2">
+                            <Image Opacity="0" VerticalAlignment="Center" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="AvatarBlurred_ImageOpened"/>
                             <!-- add blurred image -->
                         </Grid>
 
                         <Rectangle x:Name="Avatar" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" HorizontalAlignment="Right">
                             <Rectangle.Fill>
-                                <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg"/>
+                                <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg"/>
                             </Rectangle.Fill>
                         </Rectangle>
                         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0">
-                            <TextBlock x:Name="username" Text="Username" FontSize="20"/>
-                        <TextBlock Text="Id"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="username" Text="Username" FontSize="20"/>
+                                <TextBlock x:Name="discriminator" Text="#0000" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom"/>
+                            </StackPanel>
+                            <Button x:Name="friendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6"/>
                         </StackPanel>
                     </Grid>
                     <StackPanel Grid.Row="1">
                         <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                        <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
                     </StackPanel>
                 </Grid>
             </Border>
