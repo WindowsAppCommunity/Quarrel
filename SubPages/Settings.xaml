@@ -94,6 +94,7 @@
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                     <TextBlock Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <CheckBox x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}"/>
                                   <TextBlock Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
                                     <TextBlock Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                     <RadioButton x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,0"/>

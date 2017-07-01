@@ -103,6 +103,8 @@ namespace Discord_UWP
 
                 LoadUser();
                 LoadGuilds();
+                LoadingSplash.Status = "CONNECTED";
+                await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
                 if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
@@ -116,6 +118,7 @@ namespace Discord_UWP
                 LoadingSplash.Hide(false);
                 App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed;
+                await Task.Delay(3000);
                 MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
                 await msg.ShowAsync();
@@ -823,6 +826,7 @@ namespace Discord_UWP
                 if (Session.Online)
                 {
                     await DownloadChannelMessages();
+                    Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
                 } else
                 {
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -907,8 +911,8 @@ namespace Discord_UWP
                     Storage.SaveMessages();
                 }
                 Storage.SaveCache();
-
                 MessagesLoading.Visibility = Visibility.Collapsed;
+                Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
             }
         }
         private async Task DownloadChannelPinnedMessages()
@@ -1081,8 +1085,8 @@ namespace Discord_UWP
                 }
                 Storage.SaveMessages();
             }
-
             MessagesLoading.Visibility = Visibility.Collapsed;
+            Session.AckMessages(Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Id);
         }
         #endregion
 
@@ -1112,15 +1116,9 @@ namespace Discord_UWP
 
             _onlyAllowOpeningPane = false;
         }
-        private async void Refresh(object sender, RoutedEventArgs e)
+        private void Refresh(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem)?.Tag.ToString() != null)
-            {
-                await DownloadDmChannelMessages();
-            }
-            else {
-                await DownloadChannelMessages();
-            }
+            Login();
         }
         private void TogglePeopleShow(object sender, RoutedEventArgs e)
         {
@@ -1500,6 +1498,7 @@ namespace Discord_UWP
             {
                 if (UserStatusOnline.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "online" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("online", null, null);
@@ -1512,6 +1511,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusIdle.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "idle" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("idle", 10000, null);
@@ -1524,6 +1524,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusDND.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "dnd" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("dnd", null, null);
@@ -1536,6 +1537,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusInvisible.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "invisible" });
                     Session.Gateway.UpdateStatus("invisible", null, null);
                     Playing.IsEnabled = false;
                 }
@@ -1550,16 +1552,21 @@ namespace Discord_UWP
         private async void SubFrameNavigator(Type page, object args = null)
         {
             /*maybe enable this blur effect later, depending on the GPU */
-            //content.Blur(3,600).Start();
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(1, 600).Start();
+            }
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
         private async void SubpageClosed(object sender, EventArgs e)
         {
             /*maybe enable this blur effect later, depending on the GPU */
-           // content.Blur(0,600).Start();
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(0, 600).Start();
+            }
         }
-
 
         #region OldCode
         //private void LockChannelsToggled(object sender, RoutedEventArgs e)

@@ -123,7 +123,6 @@ namespace Discord_UWP
             return new SharedModels.UserProfile();
         }
 
-
         public static async Task<IEnumerable<SharedFriend>> GetUserRelationShips(string id)
         {
             try
@@ -287,6 +286,19 @@ namespace Discord_UWP
             return null;
         }
 
+        public static void ChangeUserSettings(UserSettings settings)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.UpdateSettings(settings).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static void CreateMessage(string id, string text)
         {
             try
@@ -311,6 +323,32 @@ namespace Discord_UWP
                 message.file = await Windows.Storage.FileIO.ReadTextAsync(file);
                  IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.CreateMessage(id, message).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void AckMessages(string chnId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                channelservice.AckMessages(chnId).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void AckMessage(string chnId, string msgId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                channelservice.AckMessage(chnId, msgId).Wait();
             }
             catch (Exception e)
             {
