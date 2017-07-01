@@ -26,13 +26,13 @@ namespace Discord_UWP.API.Channel
         [Get("/channels/{channelId}/messages")]
         Task DeleteChannelMessages([AliasAs("channelId")] string channelId);
 
-        [Get("/channels/{channelId}/messages/{messageId)")]
+        [Get("/v6/channels/{channelId}/messages/{messageId)")]
         Task<Message> GetChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
-        [Get("/channels/{channelId}/messages")]
+        [Get("/v6/channels/{channelId}/messages")]
         Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId);
 
-        [Get("/channels/{channelId}/messages?limit=50&before={messageId}")]
+        [Get("/v6/channels/{channelId}/messages?limit=50&before={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesBefore([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
         [Post("/channels/{channelId}/messages")]
@@ -44,6 +44,9 @@ namespace Discord_UWP.API.Channel
         // Set up Properly
         [Post("/channels/{channelId}/messages")]
         Task<Message> UploadFile([AliasAs("channelId")] string channelId);
+
+        [Post("/channels/{channelId}/messages/ack")]
+        Task AckMessages([AliasAs("channelId")] string channelId);
 
         [Patch("/channels/{channelId}/messages/{messageId}")]
         Task<Message> EditMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [Body] EditMessage editMessage);
@@ -72,7 +75,7 @@ namespace Discord_UWP.API.Channel
         [Delete("/channels/{channelId}/permissions/{overwriteId}")]
         Task DeleteChannelPermission([AliasAs("channelId")] string channelId, [AliasAs("overwriteId")] string overwriteId);
 
-        [Post("/channels/{channelId}/typing")]
+        [Post("/v6/channels/{channelId}/typing")]
         Task TriggerTypingIndicator([AliasAs("channelId")] string channelId);
 
         [Get("/channels/{channelId}/pins")]
