@@ -35,11 +35,13 @@ namespace Discord_UWP.SubPages
 
             HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
             Toasts.IsOn = Storage.Settings.Toasts;
+
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
+            ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
 
             if (Storage.Settings.Theme == Theme.Dark)
                 radio_Dark.IsChecked = true;
@@ -49,7 +51,6 @@ namespace Discord_UWP.SubPages
                 radio_Windows.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Discord)
                 radio_Discord.IsChecked = true;
-
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -69,6 +70,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.RespUiXl = RespUI_XL.Value;
             Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
             Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
 
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;

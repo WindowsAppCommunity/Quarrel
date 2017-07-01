@@ -198,6 +198,7 @@ namespace Discord_UWP
         public double RespUiL = 768;
         public double RespUiXl = 1024;
         public bool AppBarAtBottom = false;
+        public bool ExpensiveRender = false;
         public bool ShowOfflineMembers = false;
         public bool DiscordLightTheme = false;
         public Theme Theme = Theme.Dark;

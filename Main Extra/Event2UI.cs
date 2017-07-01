@@ -109,6 +109,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
+                switch (e.EventData.Settings.status)
+                {
+                    case "online":
+                        UserStatusOnline.IsChecked = true;
+                        break;
+                    case "idle":
+                        UserStatusIdle.IsChecked = true;
+                        break;
+                    case "dnd":
+                        UserStatusDND.IsChecked = true;
+                        break;
+                    default:
+                        UserStatusOnline.IsChecked = true;
+                        break;
+                }
+
                 LoadingSplash.Hide(true);
                 LoadGuilds();
             });
@@ -597,7 +613,7 @@ namespace Discord_UWP
                });
         }
 
-        private async void PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        private async void PresenceUpdated(object sender, GatewayEventArgs<SharedModels.Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))
             {
@@ -614,7 +630,7 @@ namespace Discord_UWP
                 });
         }
 
-        private void TypingStarted(object sender, Gateway.GatewayEventArgs<TypingStart> e)
+        private void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
             Session.Typers.Add(e.EventData);
         }

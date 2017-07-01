@@ -1498,6 +1498,7 @@ namespace Discord_UWP
             {
                 if (UserStatusOnline.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "online" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("online", null, null);
@@ -1510,6 +1511,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusIdle.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "idle" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("idle", 10000, null);
@@ -1522,6 +1524,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusDND.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "dnd" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("dnd", null, null);
@@ -1534,6 +1537,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusInvisible.IsChecked == true)
                 {
+                    Session.ChangeUserSettings(new UserSettings() { status = "invisible" });
                     Session.Gateway.UpdateStatus("invisible", null, null);
                     Playing.IsEnabled = false;
                 }
@@ -1548,14 +1552,20 @@ namespace Discord_UWP
         private async void SubFrameNavigator(Type page, object args = null)
         {
             /*maybe enable this blur effect later, depending on the GPU */
-            //content.Blur(3,600).Start();
+            //if (Storage.Settings.ExpensiveRender)
+            //{
+                content.Blur(0, 600).Start();
+            //}
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
         private async void SubpageClosed(object sender, EventArgs e)
         {
             /*maybe enable this blur effect later, depending on the GPU */
-           // content.Blur(0,600).Start();
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(0, 600).Start();
+            }
         }
 
 
