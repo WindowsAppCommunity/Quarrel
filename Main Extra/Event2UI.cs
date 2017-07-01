@@ -148,10 +148,8 @@ namespace Discord_UWP
                     if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
                     {
                         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                        if (Session.Online)
-                        {
-                            Storage.SaveCache();
-                        }
+                        Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                        Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
@@ -159,6 +157,8 @@ namespace Discord_UWP
                 {
                     if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId == ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
                     {
+                        Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                        Storage.SaveCache();
                         Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                     }
                 }
