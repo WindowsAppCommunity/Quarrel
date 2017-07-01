@@ -37,5 +37,8 @@ namespace Discord_UWP.API.User
 
         [Get("/users/@me/connections")]
         Task<IEnumerable<Connection>> GetCurrentUserConnections();
+
+        [Get("/v6/users/{userID}/profile")]
+        Task<UserProfile> GetUserProfile(string id);
     }
 }
