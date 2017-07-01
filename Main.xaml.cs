@@ -1151,12 +1151,12 @@ namespace Discord_UWP
         #region GuildSettings
         private async void OpenGuildSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.Guild guild = await Session.GetGuild((sender as Button).Tag.ToString());
+            SharedModels.Guild guild = await Session.GetGuild((sender as ListViewItem).Tag.ToString());
             ServerNameChange.Text = guild.Name;
             ServerNameChange.PlaceholderText = guild.Name;
-            _settingsPaneId = (sender as Button).Tag.ToString();
+            _settingsPaneId = (sender as ListViewItem).Tag.ToString();
             RoleList.Items.Clear();
-            foreach (SharedModels.Role role in guild.Roles)
+            foreach (Role role in guild.Roles)
             {
                 ListViewItem listviewitem = new ListViewItem();
                 listviewitem.Content = role.Name;

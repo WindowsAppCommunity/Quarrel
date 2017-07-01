@@ -201,21 +201,12 @@ namespace Discord_UWP
             txtblock.Text = guild.RawGuild.Name;
             txtblock.VerticalAlignment = VerticalAlignment.Center;
             stack.Children.Add(txtblock);
-
-            Button serverSettings = new Button()
-            {
-                Content = new TextBlock() { Text = "", FontFamily = new FontFamily("Segoe MDL2 Assets") },
-                Background = GetSolidColorBrush("#00000000"),
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Tag = guild.RawGuild.Id,
-                IsEnabled = false
-            };
-            serverSettings.Click += OpenGuildSettings;
-            stack.Children.Add(serverSettings);
             listviewitem.Height = 56;
             listviewitem.Content = stack;
             listviewitem.Tag = guild.RawGuild.Id;
             ToolTipService.SetToolTip(listviewitem, guild.RawGuild.Name);
+            //listviewitem.RightTapped += OpenGuildSettings;
+            //listviewitem.Holding += OpenGuildSettings;
             return listviewitem;
         }
 
