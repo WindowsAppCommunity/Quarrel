@@ -172,6 +172,7 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
+    <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="DiscordAPI\SharedModels\Invite.cs" />
     <Compile Include="DiscordAPI\SharedModels\InviteMetadata.cs" />
     <Compile Include="DiscordAPI\SharedModels\Message.cs" />
+    <Compile Include="DiscordAPI\SharedModels\MutualGuild.cs" />
     <Compile Include="DiscordAPI\SharedModels\Overwrite.cs" />
     <Compile Include="DiscordAPI\SharedModels\Presence.cs" />
     <Compile Include="DiscordAPI\SharedModels\PruneStatus.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="DiscordAPI\SharedModels\TypingStart.cs" />
     <Compile Include="DiscordAPI\SharedModels\User.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserGuild.cs" />
+    <Compile Include="DiscordAPI\SharedModels\UserProfile.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
