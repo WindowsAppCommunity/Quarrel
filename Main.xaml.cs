@@ -290,7 +290,10 @@ namespace Discord_UWP
 
         private void UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
         {
-            Debug.WriteLine(e.EventData.Note);
+            if (App.Notes.ContainsKey(e.EventData.UserId))
+                App.Notes[e.EventData.UserId] = e.EventData.Note;
+            else
+                App.Notes.Add(e.EventData.UserId, e.EventData.Note);
         }
 
         #region LoadUser
@@ -1619,7 +1622,7 @@ namespace Discord_UWP
             if (member != null)
             {
                 var user = member.Raw.User;
-                SubFrameNavigator(typeof(SubPages.UserProfile), user);
+                SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
             }
             
         }

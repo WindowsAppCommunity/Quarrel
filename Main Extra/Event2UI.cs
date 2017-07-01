@@ -45,6 +45,9 @@ namespace Discord_UWP
     {
         private async void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
+            if (e.EventData.Notes != null)
+                App.Notes = e.EventData.Notes;
+
             Storage.Cache.guildOrder.Clear();
             int pos = 0;
 

@@ -35,6 +35,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.CacheModels;
+using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
 
 namespace Discord_UWP
@@ -67,7 +68,7 @@ namespace Discord_UWP
         internal static string CurrentId;
         internal static Guild CurrentGuild;
         internal static bool ShowAds = true;
-        internal static List<KeyValuePair<string,string>> UpdatedNotes = new List<KeyValuePair<string, string>>();
+        internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
         public static event EventHandler SubpageClosedHandler;
 
         public static void SubpageClosed()

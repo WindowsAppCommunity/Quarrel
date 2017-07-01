@@ -25,7 +25,7 @@ namespace Discord_UWP.SharedModels
         public bool Verified { get; set; }
         [JsonProperty("email")]
         public string Email { get; set; }
-        [JsonProperty("note")]
-        public string Note { get; set; }
+        [JsonProperty("flags")]
+        public int Flags { get; set; }
     }
 }

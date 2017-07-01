@@ -16,6 +16,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("type")]
         public string Type { get; set; }
         [JsonProperty("verified")]
-        public string Verified { get; set; }
+        public bool Verified { get; set; }
+        public string ImagePath { get; set; }
     }
 }
