@@ -39,6 +39,6 @@ namespace Discord_UWP.API.User
         Task<IEnumerable<Connection>> GetCurrentUserConnections();
 
         [Put("/users/@me/notes/{userId}")]
-        Task AddNote([AliasAs("userId")] string userId, [Body] string note);
+        Task AddNote([AliasAs("userId")] string userId, [Body] Note note);
     }
 }

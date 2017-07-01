@@ -67,6 +67,7 @@ namespace Discord_UWP
         internal static string CurrentId;
         internal static Guild CurrentGuild;
         internal static bool ShowAds = true;
+        internal static List<KeyValuePair<string,string>> UpdatedNotes = new List<KeyValuePair<string, string>>();
         public static event EventHandler SubpageClosedHandler;
 
         public static void SubpageClosed()
