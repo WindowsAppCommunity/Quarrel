@@ -118,10 +118,17 @@ namespace Discord_UWP
                 LoadingSplash.Hide(false);
                 App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed;
+
+                await LoadCache();
+                LoadMessages();
+                LoadMutedChannels();
+
+                LoadUser();
+                LoadGuilds();
+
+                LoadingSplash.Status = "OFFLINE";
                 await Task.Delay(3000);
-                MessageDialog msg = new MessageDialog("You're offline, loading only cached data");
                 Session.Online = false;
-                await msg.ShowAsync();
             }
             if(args != null)
             {
@@ -439,16 +446,20 @@ namespace Discord_UWP
         #region Members
         public async void LoadMembers(string id)
         {
-            IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
-
-            foreach (GuildMember member in members)
+            if (Session.Online)
             {
-                if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
+
+                foreach (GuildMember member in members)
                 {
-                    Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
-                } else
-                {
-                    Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                    if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                    {
+                        Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                    }
+                    else
+                    {
+                        Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                    }
                 }
             }
 
