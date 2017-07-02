@@ -255,7 +255,7 @@ namespace Discord_UWP.SubPages
                     {
                         var relationship = relationships.ElementAt(i);
                         relationship.Discriminator = "#" + relationship.Discriminator;
-                        relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + ".png";
+                        relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
                         MutualFriends.Items.Add(relationship);
                     }
             }
