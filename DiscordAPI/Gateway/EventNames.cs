@@ -14,6 +14,7 @@ namespace Discord_UWP.Gateway
         public const string CHANNEL_CREATED = "CHANNEL_CREATE";
         public const string CHANNEL_UPDATED = "CHANNEL_UPDATE";
         public const string CHANNEL_DELETED = "CHANNEL_DELETE";
+        public const string CHANNEL_PIN_UPDATED = "CHANNEL_PINS_UPDATE";
 
         public const string GUILD_CREATED = "GUILD_CREATE";
         public const string GUILD_UPDATED = "GUILD_UPDATE";

@@ -58,5 +58,8 @@ namespace Discord_UWP.API.User
         [Put("/v6/users/@me/relationships/{userID}")]
         [Headers("Content-Type: application/json;")]
         Task SendFriendRequest([AliasAs("userId")] string id, [Body] string body = "{}");
+
+        [Get("/v6/users/@me/mentions?limit={limit}&roles={ShowRoles}&everyone={ShowEveryone}")]
+        Task<IEnumerable<Message>> GetRecentMentions([AliasAs("limit")] int limit, [AliasAs("ShowRoles")] bool ShowRoles, [AliasAs("ShowEveryone")] bool ShowEveryone);
     }
 }
