@@ -41,6 +41,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.UI;
 using Windows.Services.Store;
 using Windows.System;
 using Windows.UI.Core;
@@ -1488,7 +1489,7 @@ namespace Discord_UWP
 
         private void UpdateGame(Control sender, FocusDisengagedEventArgs args)
         {
-            UserStatus_Checked(null, null);
+            Session.ChangeCurrentGame(Playing.Text);
         }
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
@@ -1496,49 +1497,22 @@ namespace Discord_UWP
             if (Playing != null) /*Called pre-full-initialization*/
             {
                 if (UserStatusOnline.IsChecked == true)
-                {
-                    Session.ChangeUserSettings(new UserSettings() { Status = "online" });
-                    if (Playing.Text == "")
-                    {
-                        Session.Gateway.UpdateStatus("online", null, null);
-                    }
-                    else
-                    {
-                        Session.Gateway.UpdateStatus("online", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
-                    }
-                    Playing.IsEnabled = true;
-                }
+                    Session.ChangeUserSettings("online");
+
                 else if (UserStatusIdle.IsChecked == true)
-                {
-                    Session.ChangeUserSettings(new UserSettings() { Status = "idle" });
-                    if (Playing.Text == "")
-                    {
-                        Session.Gateway.UpdateStatus("idle", 10000, null);
-                    }
-                    else
-                    {
-                        Session.Gateway.UpdateStatus("idle", 10000, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
-                    }
-                    Playing.IsEnabled = true;
-                }
+                    Session.ChangeUserSettings("idle");
+
                 else if (UserStatusDND.IsChecked == true)
-                {
-                    Session.ChangeUserSettings(new UserSettings() { Status = "dnd" });
-                    if (Playing.Text == "")
-                    {
-                        Session.Gateway.UpdateStatus("dnd", null, null);
-                    }
-                    else
-                    {
-                        Session.Gateway.UpdateStatus("dnd", null, new Game() { Name = Playing.Text == "" ? null : Playing.Text, Type = 0 });
-                    }
-                    Playing.IsEnabled = true;
-                }
+                    Session.ChangeUserSettings("dnd");
+
                 else if (UserStatusInvisible.IsChecked == true)
                 {
-                    Session.ChangeUserSettings(new UserSettings() { Status = "invisible" });
-                    Session.Gateway.UpdateStatus("invisible", null, null);
-                    Playing.IsEnabled = false;
+                    Session.ChangeUserSettings("invisible");
+                    if (Playing.Text != "")
+                    {
+                        Playing.Text = "";
+                        Session.ChangeCurrentGame("");
+                    }
                 }
             }
         }
