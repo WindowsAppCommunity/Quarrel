@@ -37,15 +37,15 @@ namespace Discord_UWP
                 guildOrder.Add(guild.guildid, guild.position);
             }
 
-            foreach (TempUser friend in input.Friends)
+            foreach (TempFriend friend in input.Friends)
             {
-                Friends.Add(friend.Raw.Id, new User(friend));
+                Friends.Add(friend.Raw.Id, new Friend(friend));
             }
         }
 
         public User CurrentUser;
         public Dictionary<string, int> guildOrder = new Dictionary<string, int>();
-        public Dictionary<string, User> Friends = new Dictionary<string, User>();
+        public Dictionary<string, Friend> Friends = new Dictionary<string, Friend>();
         public Dictionary<string, Guild> Guilds = new Dictionary<string, Guild>();
         public Dictionary<string, DmCache> DMs = new Dictionary<string, DmCache>();
     }

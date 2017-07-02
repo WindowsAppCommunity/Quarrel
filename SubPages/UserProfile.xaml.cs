@@ -270,6 +270,11 @@ namespace Discord_UWP.SubPages
                     }
             }
         }
+
+        private void SendFriendRequest(object sender, RoutedEventArgs e)
+        {
+            Session.SendFriendRequest(profile.User.Id);
+        }
     }
 
     public class BooleanToVisibilityConverter : IValueConverter

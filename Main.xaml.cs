@@ -277,6 +277,7 @@ namespace Discord_UWP
 
             Session.Gateway.PresenceUpdated += PresenceUpdated;
             Session.Gateway.TypingStarted += TypingStarted;
+            Session.Gateway.RelationShipAdded += RelationShipAdded;
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             try
             {
@@ -289,14 +290,6 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
-        }
-
-        private void UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
-        {
-            if (App.Notes.ContainsKey(e.EventData.UserId))
-                App.Notes[e.EventData.UserId] = e.EventData.Note;
-            else
-                App.Notes.Add(e.EventData.UserId, e.EventData.Note);
         }
 
         #region LoadUser

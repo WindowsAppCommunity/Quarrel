@@ -62,6 +62,8 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<GuildMemberUpdate>> GuildMemberUpdated;
         public event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
 
+        public event EventHandler<GatewayEventArgs<Friend>> RelationShipAdded;
+
         public event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         public event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
         public event EventHandler<GatewayEventArgs<UserNote>> UserNoteUpdated;
@@ -109,6 +111,7 @@ namespace Discord_UWP.Gateway
                 { EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted},
+                { EventNames.RELATIONSHIP_ADD, OnRelationShipAdded },
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated }
             };
         }
@@ -346,6 +349,11 @@ namespace Discord_UWP.Gateway
         {
             Debug.WriteLine("TYPING");
             FireEventOnDelegate(gatewayEvent, TypingStarted);
+        }
+
+        private void OnRelationShipAdded(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, RelationShipAdded);
         }
 
         private void OnUserNoteUpdated(GatewayEvent gatewayEvent)
