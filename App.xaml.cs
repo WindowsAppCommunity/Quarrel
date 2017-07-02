@@ -157,6 +157,7 @@ namespace Discord_UWP
                     Storage.Settings.RespUiXl = 1024;
                     Storage.Settings.AppBarAtBottom = false;
                     Storage.Settings.DiscordLightTheme = false;
+                    Storage.Settings.DevMode = false;
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
@@ -176,6 +177,7 @@ namespace Discord_UWP
                 Storage.Settings.AppBarAtBottom = false;
                 Storage.Settings.DiscordLightTheme = false;
                 Storage.Settings.ExpensiveRender = false;
+                Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
                 Storage.SaveAppSettings();

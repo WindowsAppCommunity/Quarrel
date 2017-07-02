@@ -51,12 +51,15 @@ namespace Discord_UWP
             Storage.Cache.guildOrder.Clear();
             int pos = 0;
 
+            Storage.Settings.DevMode = e.EventData.Settings.DevMode;
+
             if (e.EventData.Settings.Theme == "Light")
             {
                 Storage.Settings.DiscordLightTheme = true;
+
                 Storage.SaveAppSettings();
             }
-            
+
             foreach (string guild in e.EventData.Settings.GuildOrder)
             {
                 pos++;

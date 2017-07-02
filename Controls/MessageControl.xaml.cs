@@ -206,6 +206,9 @@ namespace Discord_UWP
                 else
                     MorePin.Text = "Pin";
 
+                if (!Storage.Settings.DevMode)
+                    MoreCopyId.Visibility = Visibility.Collapsed;
+
                 if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
                 {
                     avatar.Fill = new ImageBrush()

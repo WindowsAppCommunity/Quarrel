@@ -200,6 +200,7 @@ namespace Discord_UWP
         public bool AppBarAtBottom = false;
         public bool ExpensiveRender = false;
         public bool ShowOfflineMembers = false;
+        public bool DevMode = false;
         public bool DiscordLightTheme = false;
         public Theme Theme = Theme.Dark;
         public string AccentBrush = Color.FromArgb(255,114,137,218).ToHex();
