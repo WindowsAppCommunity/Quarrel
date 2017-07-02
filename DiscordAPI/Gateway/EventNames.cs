@@ -14,6 +14,7 @@ namespace Discord_UWP.Gateway
         public const string CHANNEL_CREATED = "CHANNEL_CREATE";
         public const string CHANNEL_UPDATED = "CHANNEL_UPDATE";
         public const string CHANNEL_DELETED = "CHANNEL_DELETE";
+        public const string CHANNEL_PIN_UPDATED = "CHANNEL_PINS_UPDATE";
 
         public const string GUILD_CREATED = "GUILD_CREATE";
         public const string GUILD_UPDATED = "GUILD_UPDATE";
@@ -44,10 +45,14 @@ namespace Discord_UWP.Gateway
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";
         public const string RELATIONSHIP_ADD = "RELATIONSHIP_ADD";
-        public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATED";
+        public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATE";
         public const string USER_UPDATED = "USER_UPDATE";
         public const string USER_NOTE_UPDATED = "USER_NOTE_UPDATE";
         public const string VOICE_STATE_UPDATED = "VOICE_STATE_UPDATE";
         public const string VOICE_SERVER_UPDATED = "VOICE_SERVER_UPDATE";
+
+        public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
+        public const string FRIEND_ADDED = "RELATIONSHIP_ADD";
+        //{"t":"RELATIONSHIP_ADD","s":792,"op":0,"d":{"user":{USER OBJECT},"type":4,"id":"323755494026117120"}}
     }
 }

@@ -44,7 +44,7 @@ namespace Discord_UWP
     {
         private void DeleteThisMessage(object sender, RoutedEventArgs e)
         {
-            if (App.CurrentId == null)
+            if (App.CurrentGuildId == null)
             {
                 Session.DeleteMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id, (sender as Button).Tag.ToString());
                 LoadDmChannelMessages(null, null);

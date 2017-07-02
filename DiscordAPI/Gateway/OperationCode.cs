@@ -19,7 +19,8 @@ namespace Discord_UWP.Gateway
         RequestGuildMember = 8,
         InvalidSession = 9,
         Hello = 10,
-        HeartbeatAck = 11
+        HeartbeatAck = 11,
+        SubscribeToGuild = 12
     }
 
     public static class OperationCodeExtensions
