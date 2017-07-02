@@ -12,14 +12,14 @@
     mc:Ignorable="d" KeyDown="Page_KeyDown" >
     <Page.Resources>
         <Storyboard x:Name="DarkenMessageArea" >
-            <DoubleAnimation Storyboard.TargetName="MessageArea" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.4">
+            <DoubleAnimation Storyboard.TargetName="ContentCache" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.4">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="LightenMessageArea" >
-            <DoubleAnimation Storyboard.TargetName="MessageArea" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15">
+            <DoubleAnimation Storyboard.TargetName="ContentCache" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.15">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -214,7 +214,7 @@
         <CollectionViewSource x:Name="MembersCVS" IsSourceGrouped="True"/>
 
     </Page.Resources>
-    <Grid Background="Black">
+    <Grid Background="{ThemeResource DeepBG}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ResponsiveUI_VisualStates">
                 <VisualState x:Name="Small">
@@ -302,15 +302,13 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <Grid x:Name="MessageArea" Grid.Column="2" Margin="0"  Grid.Row="1">
+
+            <Grid x:Name="MessageArea" Background="{ThemeResource DeepBG}" Grid.Column="2" Margin="0"  Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <!-- The border may seem pointless, but it's just a trick to not get ugly black flashes when the Inline Splitviews are animating -->
-                <Border Margin="-256,0,-256,0" Background="{ThemeResource DeepBG}" Grid.RowSpan="10" Grid.ColumnSpan="10"></Border>
                 <Grid Margin="12,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -376,7 +374,7 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            
+            <Rectangle x:Name="ContentCache" IsHitTestVisible="False" Opacity="0" Fill="Black" Grid.Column="2" Margin="0"  Grid.Row="1"/>
             <SplitView Name="Servers" DisplayMode="Overlay"  Grid.ColumnSpan="3" CompactPaneLength="320" Grid.Row="1" PaneClosing="SP_PaneClosing" Margin="0,0,-50,0" Style="{StaticResource DiscordSplitView}">
             <SplitView.Pane>
                 <Grid>
