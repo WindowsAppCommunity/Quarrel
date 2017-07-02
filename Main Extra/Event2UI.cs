@@ -654,6 +654,23 @@ namespace Discord_UWP
                 App.Notes.Add(e.EventData.UserId, e.EventData.Note);
         }
 
+        private async void GatewayOnUserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> gatewayEventArgs)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                LocalStatusChangeEnabled = false;
+                if (gatewayEventArgs.EventData.Status == "online")
+                    UserStatusOnline.IsChecked = true;
+                if (gatewayEventArgs.EventData.Status == "idle")
+                    UserStatusIdle.IsChecked = true;
+                if (gatewayEventArgs.EventData.Status == "online")
+                    UserStatusDND.IsChecked = true;
+                if (gatewayEventArgs.EventData.Status == "online")
+                    UserStatusInvisible.IsChecked = true;
+                
+            });
+        }
+
         private async void PresenceUpdated(object sender, GatewayEventArgs<SharedModels.Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))

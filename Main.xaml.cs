@@ -279,6 +279,7 @@ namespace Discord_UWP
             Session.Gateway.TypingStarted += TypingStarted;
             Session.Gateway.RelationShipAdded += RelationShipAdded;
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
+            Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
 
             App.LinkClicked += MessageControl_OnLinkClicked;
             try
@@ -1482,35 +1483,28 @@ namespace Discord_UWP
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://aka.ms/Wp1zo6"));
         }
 
-        private void Messages_OnContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-            if (args.InRecycleQueue)
-            {
-                args.ItemContainer.ContentTemplate = null;
-                args.ItemContainer.DataContext = null;
-            }
-
-        }
+        private bool LocalStatusChangeEnabled = false;
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
         {
             if (Playing != null) /*Called pre-full-initialization*/
             {
                 Playing.IsEnabled = true;
-                if (UserStatusOnline.IsChecked == true)
+                if (UserStatusOnline.IsChecked == true && LocalStatusChangeEnabled)
                     Session.ChangeUserSettings("online");
 
-                else if (UserStatusIdle.IsChecked == true)
+                else if (UserStatusIdle.IsChecked == true && LocalStatusChangeEnabled)
                     Session.ChangeUserSettings("idle");
 
-                else if (UserStatusDND.IsChecked == true)
+                else if (UserStatusDND.IsChecked == true && LocalStatusChangeEnabled)
                     Session.ChangeUserSettings("dnd");
 
-                else if (UserStatusInvisible.IsChecked == true)
+                else if (UserStatusInvisible.IsChecked == true && LocalStatusChangeEnabled)
                 {
                     Session.ChangeUserSettings("invisible");
                     Playing.IsEnabled = false;
                 }
             }
+            LocalStatusChangeEnabled = true;
         }
 
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)

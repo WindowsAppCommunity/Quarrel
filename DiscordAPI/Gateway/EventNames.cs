@@ -44,7 +44,7 @@ namespace Discord_UWP.Gateway
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";
         public const string RELATIONSHIP_ADD = "RELATIONSHIP_ADD";
-        public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATED";
+        public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATE";
         public const string USER_UPDATED = "USER_UPDATE";
         public const string USER_NOTE_UPDATED = "USER_NOTE_UPDATE";
         public const string VOICE_STATE_UPDATED = "VOICE_STATE_UPDATE";
