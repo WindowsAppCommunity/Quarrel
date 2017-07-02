@@ -449,7 +449,7 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
-                                            <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0" FocusDisengaged="UpdateGame" Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2"/>
+                                            <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
                                         </Grid>
                                     </StackPanel>
                                 </Flyout>

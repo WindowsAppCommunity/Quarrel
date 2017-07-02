@@ -68,6 +68,15 @@ namespace Discord_UWP
         internal static Guild CurrentGuild;
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
+        /// <summary>
+        /// Fired when a link element in the markdown was tapped.
+        /// </summary>
+        public static event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
+
+        public static void FireLinkClicked(MarkdownTextBlock.LinkClickedEventArgs LinkeventArgs)
+        {
+            LinkClicked?.Invoke(typeof(App), LinkeventArgs);
+        }
 
         public static event EventHandler SubpageClosedHandler;
         public static void SubpageClosed()
