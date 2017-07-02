@@ -62,7 +62,7 @@ namespace Discord_UWP.SubPages
 
             BackgroundGrid.Blur(8,0).Start();
 
-            for (int i = 1; i < profile.ConnectedAccount.Count(); i++)
+            for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
             {
                 var element = profile.ConnectedAccount.ElementAt(i);
                 string themeExt = "";
