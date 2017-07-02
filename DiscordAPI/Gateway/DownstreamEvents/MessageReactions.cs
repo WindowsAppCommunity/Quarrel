@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
 
-namespace Discord_UWP.DiscordAPI.Gateway.DownstreamEvents
+namespace Discord_UWP.Gateway.DownstreamEvents
 {
     public struct MessageReactionUpdate
     {
@@ -19,6 +19,7 @@ namespace Discord_UWP.DiscordAPI.Gateway.DownstreamEvents
         [JsonProperty("emoji")]
         public Emoji Emoji { get; set; }
     }
+
     public struct MessageReactionRemoveAll
     {
         [JsonProperty("channel_id")]
