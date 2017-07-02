@@ -419,18 +419,18 @@ namespace Discord_UWP
             if (perms == null)
             {
                 perms = new Permissions();
-                if (App.CurrentId != null)
+                if (App.CurrentGuildId != null)
                 {
-                    foreach (Role role in Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles)
+                    foreach (Role role in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles)
                     {
-                        if (!Storage.Cache.Guilds[App.CurrentId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                        if (!Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                         {
-                            Storage.Cache.Guilds[App.CurrentId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(App.CurrentId, Storage.Cache.CurrentUser.Raw.Id)));
+                            Storage.Cache.Guilds[App.CurrentGuildId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(App.CurrentGuildId, Storage.Cache.CurrentUser.Raw.Id)));
                         }
 
-                        if (Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                         {
-                            perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentId].RawGuild.Roles);
+                            perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
                         }
                         else
                         {

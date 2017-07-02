@@ -203,6 +203,20 @@ namespace Discord_UWP
             return null;
         }
 
+        public static async Task<IEnumerable<SharedModels.Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
+
         public static SharedModels.GuildChannel GetGuildChannel(string id)
         {
             try
@@ -288,6 +302,7 @@ namespace Discord_UWP
         {
             try
             {
+                Gateway.UpdateStatus(settings,0,null);
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 userservice.UpdateSettings("{\"status\":\"" +settings + "\"}").Wait();
             }
@@ -302,7 +317,7 @@ namespace Discord_UWP
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.UpdateGame("{\"game\":\"" + game + "\"}").Wait();
+                userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
             }
             catch (Exception e)
             {
@@ -346,7 +361,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.AckMessages(chnId).Wait();
+          //      channelservice.AckMessages(chnId).Wait();
             }
             catch (Exception e)
             {
@@ -359,7 +374,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.AckMessage(chnId, msgId).Wait();
+     //           channelservice.AckMessage(chnId, msgId).Wait();
             }
             catch (Exception e)
             {
@@ -631,7 +646,6 @@ namespace Discord_UWP
         }
 
         public static string Token;
-        public static List<TypingStart> Typers = new List<TypingStart>();
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;

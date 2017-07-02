@@ -326,7 +326,7 @@
                     </Rectangle>
                 </Grid>
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
-                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging" SizeChanged="Messages_SizeChanged">
+                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" SizeChanged="Messages_SizeChanged">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
@@ -368,8 +368,8 @@
                     <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
                     <RichEditBox MaxHeight="128" x:Name="MessageBox" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanging="TypingStarted" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>
                     <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
-                    <StackPanel Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32">
-                        <controls:TypingIndicator x:Name="typingIndicator" Visibility="Collapsed" VerticalAlignment="Center"/>
+                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32">
+                        <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
@@ -449,7 +449,7 @@
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
-                                            <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0" FocusDisengaged="UpdateGame" Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2"/>
+                                            <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
                                         </Grid>
                                     </StackPanel>
                                 </Flyout>

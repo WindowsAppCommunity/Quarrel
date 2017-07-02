@@ -67,6 +67,8 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         public event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
         public event EventHandler<GatewayEventArgs<UserNote>> UserNoteUpdated;
+        public event EventHandler<GatewayEventArgs<UserSettings>> UserSettingsUpdated;
+
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
             _webMessageSocket = new WebMessageSocket();
@@ -112,7 +114,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted},
                 { EventNames.RELATIONSHIP_ADD, OnRelationShipAdded },
-                { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated }
+                { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
+                { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated }
             };
         }
 
@@ -143,14 +146,13 @@ namespace Discord_UWP.Gateway
 
         public async void UpdateStatus(string onlinestatus, int? idleSince, Game? game)
         {
-            status = new StatusUpdate()
-            {
-                Status = onlinestatus,
-                IdleSince = idleSince,
-                IsAFK = false,
-                Game = game
-            };
-            await UpdateStatus();
+            await UpdateStatus(new StatusUpdate()
+                {
+                    Status = onlinestatus,
+                    IdleSince = idleSince,
+                    IsAFK = false,
+                    Game = game
+                });
         }
         
         public async Task RequestAllGuildMembers(string guildid)
@@ -168,6 +170,16 @@ namespace Discord_UWP.Gateway
                 Data = payload
             };
             await _webMessageSocket.SendJsonObjectAsync(Request);
+        }
+
+        public async void SubscribeToGuild(string[] guildIDs)
+        {
+            var identifyEvent = new GatewayEvent
+            {
+                Operation = OperationCode.SubscribeToGuild.ToInt(),
+                Data = guildIDs
+            };
+            await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
@@ -361,6 +373,10 @@ namespace Discord_UWP.Gateway
             FireEventOnDelegate(gatewayEvent, UserNoteUpdated);
         }
 
+        private void OnUserSettingsUpdated(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, UserSettingsUpdated);
+        }
 
         private void FireEventOnDelegate<TEventData>(GatewayEvent gatewayEvent, EventHandler<GatewayEventArgs<TEventData>> eventHandler)
         {
@@ -410,7 +426,7 @@ namespace Discord_UWP.Gateway
             }
         }
 
-        private async Task UpdateStatus()
+        private async Task UpdateStatus(StatusUpdate status)
         {
             var statusevent = new GatewayEvent()
             {
@@ -419,7 +435,5 @@ namespace Discord_UWP.Gateway
             };
             await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
-
-        StatusUpdate status = new StatusUpdate();
     }
 }
