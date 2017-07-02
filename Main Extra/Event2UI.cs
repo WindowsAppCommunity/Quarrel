@@ -120,7 +120,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
-                switch (e.EventData.Settings.status)
+                switch (e.EventData.Settings.Status)
                 {
                     case "online":
                         UserStatusOnline.IsChecked = true;

@@ -1498,7 +1498,7 @@ namespace Discord_UWP
             {
                 if (UserStatusOnline.IsChecked == true)
                 {
-                    Session.ChangeUserSettings(new UserSettings() { status = "online" });
+                    Session.ChangeUserSettings(new UserSettings() { Status = "online" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("online", null, null);
@@ -1511,7 +1511,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusIdle.IsChecked == true)
                 {
-                    Session.ChangeUserSettings(new UserSettings() { status = "idle" });
+                    Session.ChangeUserSettings(new UserSettings() { Status = "idle" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("idle", 10000, null);
@@ -1524,7 +1524,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusDND.IsChecked == true)
                 {
-                    Session.ChangeUserSettings(new UserSettings() { status = "dnd" });
+                    Session.ChangeUserSettings(new UserSettings() { Status = "dnd" });
                     if (Playing.Text == "")
                     {
                         Session.Gateway.UpdateStatus("dnd", null, null);
@@ -1537,7 +1537,7 @@ namespace Discord_UWP
                 }
                 else if (UserStatusInvisible.IsChecked == true)
                 {
-                    Session.ChangeUserSettings(new UserSettings() { status = "invisible" });
+                    Session.ChangeUserSettings(new UserSettings() { Status = "invisible" });
                     Session.Gateway.UpdateStatus("invisible", null, null);
                     Playing.IsEnabled = false;
                 }
