@@ -13,7 +13,7 @@
  * if a Property {get;} only returns the object call the Property (this is for Get References)
  * 
  * Random:
- * App.CurrentGuild and then App.CurrentId should be used instead of ServerList.SelectedItem in everycase where it is not necessary
+ * App.CurrentGuild and then App.CurrentGuildId should be used instead of ServerList.SelectedItem in everycase where it is not necessary
  * SharedModels and CacheModels should be included in all files that use them
  * CacheModels overrule SharedModels
  * Use lambdas meaningly, nothing is dumber than excessive lambda use
@@ -394,12 +394,12 @@ namespace Discord_UWP
             {
                 _onlyAllowOpeningPane = true;
                 ToggleServerListFull(null, null);
-
                 ServerName.Text = ToolTipService.GetToolTip((sender as ListView).SelectedItem as DependencyObject).ToString();
                 TextChannels.Items.Clear();
                 SendMessage.Visibility = Visibility.Collapsed;
                 if (((sender as ListView).SelectedItem as ListViewItem).Tag.ToString() == "DMs")
                 {
+                    App.CurrentGuildIsDM = true;
                     Channels.Visibility = Visibility.Collapsed;
                     DMs.Visibility = Visibility.Visible;
                     if (Session.Online)
@@ -410,9 +410,11 @@ namespace Discord_UWP
                     {
                         LoadDMs();
                     }
+
                 }
                 else
                 {
+                    App.CurrentGuildIsDM = false;
                     Channels.Visibility = Visibility.Visible;
                     DMs.Visibility = Visibility.Collapsed;
                     if (Session.Online)
@@ -631,7 +633,7 @@ namespace Discord_UWP
             {
                 NoGuildChannelsCached.Visibility = Visibility.Visible;
             }
-            App.CurrentId = id;
+            App.CurrentGuildId = id;
         }
         private void DownloadGuild(string id)
         {
@@ -672,7 +674,7 @@ namespace Discord_UWP
             MembersCVS.Source = null;
             //await Session.Gateway.RequestAllGuildMembers(id);
             LoadMembers(id);
-            App.CurrentId = id;
+            App.CurrentGuildId = id;
             #endregion
 
             if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
@@ -743,7 +745,7 @@ namespace Discord_UWP
             {
                 NoDMSCached.Visibility = Visibility.Visible;
             }
-            App.CurrentId = null;
+            App.CurrentGuildId = null;
         }
         private void DownloadDMs()
         {
@@ -753,7 +755,7 @@ namespace Discord_UWP
                 DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
             }
             DMsLoading.IsActive = false;
-            App.CurrentId = null;
+            App.CurrentGuildId = null;
         }
         #endregion
         #endregion
@@ -767,6 +769,10 @@ namespace Discord_UWP
             }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
+                App.CurrentGuildIsDM = false;
+                App.CurrentChannelId = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
+                Session.Gateway.SubscribeToGuild(new string[]{App.CurrentGuildId});
+                UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
@@ -914,7 +920,7 @@ namespace Discord_UWP
         {
             //Pinned messages
             PinnedMessages.Items.Clear();
-            if (App.CurrentId != null)
+            if (App.CurrentGuildId != null)
             {
                 IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
                 Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
@@ -968,6 +974,9 @@ namespace Discord_UWP
         {
             if (DirectMessageChannels.SelectedItem != null)
             {
+                App.CurrentChannelId = ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id;
+                Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
+                UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
@@ -1147,7 +1156,7 @@ namespace Discord_UWP
         {
             if (Messages.Items.Count > 0)
             {
-                IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
+                IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentGuildId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
 
                 int adCheck = 5;
 
@@ -1335,7 +1344,7 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.GuildChannel channel = Storage.Cache.Guilds[App.CurrentId].Channels[(sender as Button).Tag.ToString()].Raw;
+            SharedModels.GuildChannel channel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[(sender as Button).Tag.ToString()].Raw;
             ChannelNameChange.Text = channel.Name;
             ChannelNameChange.PlaceholderText = channel.Name;
             if (channel.Topic != null)

@@ -32,6 +32,8 @@ using Discord_UWP.CacheModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 using Message = Discord_UWP.CacheModels.Message;
@@ -285,7 +287,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
                         ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
                         e.EventData.ChannelId)
                     {
@@ -318,7 +320,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
                         ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
                         e.EventData.ChannelId)
                     {
@@ -351,7 +353,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
                         ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
                         e.EventData.ChannelId)
                     {
@@ -384,7 +386,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentId == null && DirectMessageChannels.SelectedItem != null &&
+                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
                         ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
                         e.EventData.ChannelId)
                     {
@@ -668,10 +670,97 @@ namespace Discord_UWP
                     }
                 });
         }
-
-        private void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
+        
+        Dictionary<TypingStart, DispatcherTimer> Typers = new Dictionary<TypingStart, DispatcherTimer>();
+        List<DispatcherTimer> TyperTimers = new List<DispatcherTimer>();
+        private async void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
-            Session.Typers.Add(e.EventData);
+            Debug.WriteLine("TYPING STARTED");
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                DispatcherTimer timer = new DispatcherTimer();
+                /*If the user was already typing in that channel before...*/
+                if (Typers.Count>0 && Typers.Any(x => x.Key.userId == e.EventData.userId && x.Key.channelId == e.EventData.channelId))
+                {
+                    /*...Reset the timer by calling Start again*/
+                    Typers.First(x => x.Key.userId == e.EventData.userId && x.Key.channelId == e.EventData.channelId).Value.Start();
+                }
+                else
+                {
+                    /*...Otherwise, create a new timer and add it, with the EventData, to "Typers" */
+                    timer.Interval = TimeSpan.FromSeconds(8);
+                    timer.Tick += (sender2, o1) =>
+                    {
+                        timer.Stop();
+                        Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                        UpdateTypingUI();
+                    };
+                    timer.Start();
+                    Typers.Add(e.EventData, timer);
+                    UpdateTypingUI();
+                }
+            });
+        }
+
+        private async void UpdateTypingUI()
+        {
+            try
+            {
+                string typingString = "";
+                int DisplayedTyperCounter = 0;
+                for (int i = 0; i < Typers.Count; i++)
+                {
+                    var typer = Typers.ElementAt(i);
+                    if (App.CurrentChannelId != null)
+                    {
+                        if (App.CurrentGuildIsDM)
+                        {
+                            typingString = Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username;
+                        }
+                        else
+                        {
+                            if (App.CurrentChannelId == typer.Key.channelId)
+                            {
+                                var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[typer.Key.userId];
+                                string DisplayedName = member.Raw.User.Username;
+                                if (member.Raw.Nick != null) DisplayedName = member.Raw.Nick;
+
+                                if (i == 0)
+                                    typingString += DisplayedName;
+                                else if (i == Typers.Count)
+                                    typingString += " and " + DisplayedName;
+                                else
+                                    typingString += ", " + DisplayedName;
+                            }
+                            else
+                            {
+                                //TODO Display typing indicator on channel list
+                            }
+                            //TODO Display typing indicator on member list
+                        }
+                        DisplayedTyperCounter++;
+                    }
+                }
+                if (Typers.Count > 1)
+                    typingString += " are typing...";
+                else
+                    typingString += " is typing...";
+
+                if (DisplayedTyperCounter == 0)
+                {
+                    TypingIndicator.Text = "";
+                    TypingStackPanel.Fade(0, 200).Start();
+                }
+                else
+                {
+                    TypingIndicator.Text = typingString;
+                    TypingStackPanel.Fade(1, 200).Start();
+                }
+            }
+            catch (Exception)
+            {
+                TypingStackPanel.Fade(0, 200).Start();
+            }
         }
     }
 }

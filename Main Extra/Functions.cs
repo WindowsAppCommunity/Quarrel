@@ -601,7 +601,7 @@ namespace Discord_UWP
         private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
         {
             Permissions perms = new Permissions();
-            if (App.CurrentId != null)
+            if (App.CurrentGuildId != null)
             {
                 foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
                 {
@@ -846,9 +846,9 @@ namespace Discord_UWP
             #endregion
 
             StringBuilder run3Rep = new StringBuilder(mdTxtBlock.Text);
-            if (App.CurrentId != null)
+            if (App.CurrentGuildId != null)
             {
-                foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[App.CurrentId].Channels)
+                foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[App.CurrentGuildId].Channels)
                 {
                     string channelMention = "<#" + channel.Value.Raw.Id + ">";
                     run3Rep.Replace(channelMention, "#" + channel.Value.Raw.Name);

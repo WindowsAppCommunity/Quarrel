@@ -631,7 +631,6 @@ namespace Discord_UWP
         }
 
         public static string Token;
-        public static List<TypingStart> Typers = new List<TypingStart>();
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;

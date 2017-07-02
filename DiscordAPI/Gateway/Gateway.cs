@@ -170,6 +170,16 @@ namespace Discord_UWP.Gateway
             await _webMessageSocket.SendJsonObjectAsync(Request);
         }
 
+        public async void SubscribeToGuild(string[] guildIDs)
+        {
+            var identifyEvent = new GatewayEvent
+            {
+                Operation = OperationCode.SubscribeToGuild.ToInt(),
+                Data = guildIDs
+            };
+            await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
+        }
+
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {
             var gatewayEvent = JsonConvert.DeserializeObject<GatewayEvent>(args.Message);
