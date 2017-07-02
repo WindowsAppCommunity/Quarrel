@@ -37,6 +37,7 @@ using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
+using Friend = Discord_UWP.CacheModels.Friend;
 #endregion
 
 namespace Discord_UWP
@@ -66,11 +67,11 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(guild, pos);
             }
 
-            foreach (Friend friend in e.EventData.Friends)
+            foreach (SharedModels.Friend friend in e.EventData.Friends)
             {
                 if (!Storage.Cache.Friends.ContainsKey(friend.Id))
                 {
-                    Storage.Cache.Friends.Add(friend.Id, new User(friend.user));
+                    Storage.Cache.Friends.Add(friend.Id, new CacheModels.Friend(friend));
                 }
             }
 
@@ -630,6 +631,25 @@ namespace Discord_UWP
                        DownloadDMs();
                    }
                });
+        }
+
+        private void RelationShipAdded(object sender, GatewayEventArgs<SharedModels.Friend> e)
+        {
+            if (!Storage.Cache.Friends.ContainsKey(e.EventData.Id))
+            {
+                Storage.Cache.Friends.Add(e.EventData.Id, new Friend(e.EventData));
+            } else
+            {
+                Storage.Cache.Friends[e.EventData.Id] = new Friend(e.EventData);
+            }
+        }
+
+        private void UserNoteUpdated(object sender, GatewayEventArgs<UserNote> e)
+        {
+            if (App.Notes.ContainsKey(e.EventData.UserId))
+                App.Notes[e.EventData.UserId] = e.EventData.Note;
+            else
+                App.Notes.Add(e.EventData.UserId, e.EventData.Note);
         }
 
         private async void PresenceUpdated(object sender, GatewayEventArgs<SharedModels.Presence> e)
