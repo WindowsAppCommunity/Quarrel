@@ -1539,6 +1539,9 @@ namespace Discord_UWP
             if (Storage.Settings.ExpensiveRender)
             {
                 content.Blur(0, 600).Start();
+            } else
+            {
+                content.Blur(0, 0).Start();
             }
         }
 
