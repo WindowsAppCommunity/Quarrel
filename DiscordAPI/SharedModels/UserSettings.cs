@@ -27,6 +27,9 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("render_embeds")]
         public bool RenderEmbeds { get; set; }
 
+        [JsonProperty("developer_mode")]
+        public bool DevMode { get; set; }
+
         [JsonProperty("message_display_compact")]
         public bool MessageDisplayCompact { get; set; }
 
