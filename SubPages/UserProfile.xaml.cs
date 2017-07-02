@@ -6,7 +6,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Media.Audio;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,7 +48,14 @@ namespace Discord_UWP.SubPages
             }
 
             profile = await Session.GetUserProfile(e.Parameter as string);
-            pivot.IsLocked = false;
+            if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
+            {
+                profile.Friend = true;
+            } else
+            {
+                profile.Friend = false;
+            }
+
             username.Text = profile.User.Username;
             username.Fade(1, 400);
             discriminator.Text = "#" + profile.User.Discriminator;
@@ -274,6 +280,27 @@ namespace Discord_UWP.SubPages
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return (value is Visibility && (Visibility)value == Visibility.Visible);
+        }
+    }
+
+    public class BooleanToVisibilityConverterInverse : IValueConverter
+    {
+        public BooleanToVisibilityConverterInverse()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is bool && (bool)value)
+            {
+                return Visibility.Collapsed;
+            }
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return (value is Visibility && (Visibility)value == Visibility.Collapsed);
         }
     }
 }

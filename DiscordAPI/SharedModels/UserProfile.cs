@@ -17,5 +17,6 @@ namespace Discord_UWP.SharedModels
         public User User { get; set; }
         [JsonProperty("connected_accounts")]
         public IEnumerable<ConnectedAccount> ConnectedAccount { get; set; }
+        public bool Friend { get; set; }
     }
 }
