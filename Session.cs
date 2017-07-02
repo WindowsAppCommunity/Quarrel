@@ -288,6 +288,7 @@ namespace Discord_UWP
         {
             try
             {
+                Gateway.UpdateStatus(settings,0,null);
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 userservice.UpdateSettings("{\"status\":\"" +settings + "\"}").Wait();
             }

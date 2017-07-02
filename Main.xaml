@@ -326,7 +326,7 @@
                     </Rectangle>
                 </Grid>
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
-                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" ContainerContentChanging="Messages_OnContainerContentChanging" SizeChanged="Messages_SizeChanged">
+                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" SizeChanged="Messages_SizeChanged">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>

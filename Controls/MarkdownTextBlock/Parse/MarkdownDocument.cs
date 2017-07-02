@@ -272,17 +272,17 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
                         if (paragraphText.Length > 0)
                         {
                             paragraphText.Append("\n");
-                            // If the previous two characters were both spaces, then append a line break.
-                            //if (paragraphText.Length > 2 && paragraphText[paragraphText.Length - 1] == ' ' && paragraphText[paragraphText.Length - 2] == ' ')
-                            //{
-                            //    // Replace the two spaces with a line break.
-                            //    paragraphText[paragraphText.Length - 2] = '\r';
-                            //     paragraphText[paragraphText.Length - 1] = '\n';
-                            //  }
-                            //  else
-                            //  {
-                            //      paragraphText.Append(" ");
-                            //  }
+                          //// If the previous two characters were both spaces, then append a line break.
+                          //if (paragraphText.Length > 2 && paragraphText[paragraphText.Length - 1] == ' ' && paragraphText[paragraphText.Length - 2] == ' ')
+                          //{
+                          //    // Replace the two spaces with a line break.
+                          //     paragraphText[paragraphText.Length - 2] = '\r';
+                          //     paragraphText[paragraphText.Length - 1] = '\n';
+                          //  }
+                          //  else
+                          //  {
+                          //     paragraphText.Append(" ");
+                          //  }
                         }
 
                         // Add the last paragraph if we are at the end of the input text.
