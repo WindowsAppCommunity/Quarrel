@@ -17,5 +17,6 @@ namespace Discord_UWP.SharedModels
         public string Discriminator { get; set; }
         [JsonProperty("avatar")]
         public string Avatar { get; set; }
+        public string ImagePath { get; internal set; }
     }
 }
