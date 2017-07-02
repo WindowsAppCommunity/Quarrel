@@ -64,8 +64,10 @@ namespace Discord_UWP
                     this.RequestedTheme = ApplicationTheme.Dark;
             this.Suspending += OnSuspending;
         }
-        internal static string CurrentId;
+        internal static string CurrentGuildId;
+        internal static string CurrentChannelId;
         internal static Guild CurrentGuild;
+        internal static bool CurrentGuildIsDM = false;
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
         /// <summary>
