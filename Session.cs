@@ -620,12 +620,13 @@ namespace Discord_UWP
         }
 
         public static string Token;
-        public static List<SharedModels.TypingStart> Typers = new List<SharedModels.TypingStart>();
+        public static List<TypingStart> Typers = new List<TypingStart>();
+        public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;
         public static LoginResult Loginresult;
         public static LoginRequest LoginRequest = new LoginRequest();
-        public static Dictionary<string, SharedModels.Presence> PrecenseDict = new Dictionary<string, SharedModels.Presence>();
+        public static Dictionary<string, Presence> PrecenseDict = new Dictionary<string, Presence>();
         public static bool Unlocked;
         public static bool Online;
         public static bool SlowSpeeds;

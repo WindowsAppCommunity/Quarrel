@@ -272,6 +272,7 @@ namespace Discord_UWP
                 rect.Fill = GetSolidColorBrush("#FFAAAAAA");
                 image.Children.Add(rect);
             }
+
             stack.Children.Add(image);
             stack.Children.Add(txtblock);
             listviewitem.Content = stack;
@@ -304,7 +305,7 @@ namespace Discord_UWP
                     channelcontainer.Children.Add(new SymbolIcon{Symbol = Symbol.Mute, Opacity=0.6, Margin=new Thickness(0,0,4,0)});
                     channelcontainer.Opacity = 0.6;
                 }
-                else if (Storage.RecentMessages.ContainsKey(channel.Raw.Id) && Storage.RecentMessages[channel.Raw.Id] != channel.Raw.LastMessageId)
+                else if (Session.RPC.ContainsKey(channel.Raw.Id) && Session.RPC[channel.Raw.Id].LastMessageId != channel.Raw.LastMessageId)
                 {
                     channelcontainer.Opacity = 1;
                     channelcontainer.Children.Add(new Border{Background=(SolidColorBrush)App.Current.Resources["InvertedBG"], Margin=new Thickness(-14,2,4,0), Height=10, Width=4, CornerRadius = new CornerRadius(0,6,6,0)});
