@@ -74,9 +74,17 @@ namespace Discord_UWP.SubPages
                         themeExt = "_dark";
                 }
                 element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
-                Connections.Items.Add(element);
-                
+                Connections.Items.Add(element);   
             }
+
+            for (int i = 0; i < profile.MutualGuilds.Count(); i++)
+            {
+                var element = profile.MutualGuilds.ElementAt(i);
+                element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
+                element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
+                MutualGuilds.Items.Add(element);
+            }
+
             switch (profile.User.Flags)
             {
                 case 1:
@@ -179,7 +187,7 @@ namespace Discord_UWP.SubPages
             Avatar.Fade(1).Start();
         }
 
-        private void Connections_OnItemClick(object sender, ItemClickEventArgs e)
+        private async void Connections_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var item = (ConnectedAccount) e.ClickedItem;
             if(item.Id == null) return;
@@ -203,8 +211,15 @@ namespace Discord_UWP.SubPages
                 case "youtube": url = "https://www.youtube.com/channel/" + item.Id;
                     break;
             }
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+        }
+
+        private void MutualGuilds_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //TODO: Open guild
         }
     }
+
     public class BooleanToVisibilityConverter : IValueConverter
     {
         public BooleanToVisibilityConverter()
