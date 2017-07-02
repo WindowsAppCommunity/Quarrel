@@ -84,7 +84,7 @@ namespace Discord_UWP.SubPages
                     var img = new Image()
                     {
                         MaxHeight = 28,
-                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/staff.png")),
+                        Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/staff.png")),
                         Opacity=0
                     };
                     ToolTipService.SetToolTip(img,"DISCORD STAFF");
@@ -97,7 +97,7 @@ namespace Discord_UWP.SubPages
                     var img = new Image()
                     {
                         MaxHeight = 28,
-                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/partner.png")),
+                        Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/partner.png")),
                         Opacity = 0
                     };
                     ToolTipService.SetToolTip(img, "DISCORD PARTNER");
@@ -110,7 +110,7 @@ namespace Discord_UWP.SubPages
                     var img = new Image()
                     {
                         MaxHeight = 28,
-                        Source = new BitmapImage(new Uri("/Assets/DiscordBadges/hypesquad.png")),
+                        Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/hypesquad.png")),
                         Opacity = 0
                     };
                     ToolTipService.SetToolTip(img, "HYPESQUAD");
@@ -125,13 +125,14 @@ namespace Discord_UWP.SubPages
                 var img = new Image()
                 {
                     MaxHeight = 28,
-                    Source = new BitmapImage(new Uri("/Assets/DiscordBadges/nitro.png")),
+                    Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/nitro.png")),
                     Opacity = 0
                 };
                 ToolTipService.SetToolTip(img, "Premium member since " + Common.HumanizeDate(profile.PremiumSince.Value,null));
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }
+            //TODO figure out how we know if the avatar is a gif
             var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + ".png"));
             AvatarFull.ImageSource = image;
             AvatarBlurred.Source = image;
