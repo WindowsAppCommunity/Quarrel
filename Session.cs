@@ -347,7 +347,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.AckMessages(chnId).Wait();
+          //      channelservice.AckMessages(chnId).Wait();
             }
             catch (Exception e)
             {
@@ -360,7 +360,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.AckMessage(chnId, msgId).Wait();
+     //           channelservice.AckMessage(chnId, msgId).Wait();
             }
             catch (Exception e)
             {
