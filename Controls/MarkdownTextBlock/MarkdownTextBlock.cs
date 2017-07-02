@@ -48,11 +48,6 @@ namespace Discord_UWP.MarkdownTextBlock
         public event EventHandler<MarkdownRenderedEventArgs> MarkdownRendered;
 
         /// <summary>
-        /// Fired when a link element in the markdown was tapped.
-        /// </summary>
-        public event EventHandler<LinkClickedEventArgs> LinkClicked;
-
-        /// <summary>
         /// Gets the dependency property for <see cref="ImageStretch"/>.
         /// </summary>
         public static readonly DependencyProperty ImageStretchProperty = DependencyProperty.Register(
@@ -1280,7 +1275,7 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
-            LinkClicked?.Invoke(this, eventArgs);
+            App.FireLinkClicked(eventArgs);
         }
 
         private bool multiClickDetectionTriggered;
@@ -1310,7 +1305,7 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
-            LinkClicked?.Invoke(this, eventArgs);
+            App.FireLinkClicked(eventArgs);
         }
 
         

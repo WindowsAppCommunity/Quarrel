@@ -302,7 +302,7 @@ namespace Discord_UWP
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.UpdateGame("{\"game\":\"" + game + "\"}").Wait();
+                userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
             }
             catch (Exception e)
             {

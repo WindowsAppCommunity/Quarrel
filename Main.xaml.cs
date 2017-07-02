@@ -278,6 +278,8 @@ namespace Discord_UWP
             Session.Gateway.PresenceUpdated += PresenceUpdated;
             Session.Gateway.TypingStarted += TypingStarted;
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
+
+            App.LinkClicked += MessageControl_OnLinkClicked;
             try
             {
                 await Session.Gateway.ConnectAsync();
@@ -1486,16 +1488,11 @@ namespace Discord_UWP
             }
 
         }
-
-        private void UpdateGame(Control sender, FocusDisengagedEventArgs args)
-        {
-            Session.ChangeCurrentGame(Playing.Text);
-        }
-
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
         {
             if (Playing != null) /*Called pre-full-initialization*/
             {
+                Playing.IsEnabled = true;
                 if (UserStatusOnline.IsChecked == true)
                     Session.ChangeUserSettings("online");
 
@@ -1508,11 +1505,7 @@ namespace Discord_UWP
                 else if (UserStatusInvisible.IsChecked == true)
                 {
                     Session.ChangeUserSettings("invisible");
-                    if (Playing.Text != "")
-                    {
-                        Playing.Text = "";
-                        Session.ChangeCurrentGame("");
-                    }
+                    Playing.IsEnabled = false;
                 }
             }
         }
@@ -1605,6 +1598,11 @@ namespace Discord_UWP
                 SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
             }
             
+        }
+
+        private void Playing_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            Session.ChangeCurrentGame(Playing.Text);
         }
     }
 }
