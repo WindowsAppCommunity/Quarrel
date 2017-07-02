@@ -14,6 +14,7 @@ namespace Discord_UWP.CacheModels
     [XmlInclude(typeof(TempGuild))]
     [XmlInclude(typeof(TempDmCache))]
     [XmlInclude(typeof(TempUser))]
+    [XmlInclude(typeof(TempFriend))]
     public class TempCache
     {
         public TempCache(){}
@@ -37,15 +38,15 @@ namespace Discord_UWP.CacheModels
                 guildOrder.Add(new TempGuildPosition(guild.Value, guild.Key));
             }
 
-            foreach (KeyValuePair<string, User> friend in input.Friends)
+            foreach (KeyValuePair<string, Friend> friend in input.Friends)
             {
-                Friends.Add(new TempUser(friend.Value));
+                Friends.Add(new TempFriend(friend.Value));
             }
         }
 
         public TempUser CurrentUser;
         public List<TempGuildPosition> guildOrder = new List<TempGuildPosition>();
-        public List<TempUser> Friends = new List<TempUser>();
+        public List<TempFriend> Friends = new List<TempFriend>();
         public List<TempGuild> Guilds = new List<TempGuild>();
         public List<TempDmCache> DMs = new List<TempDmCache>();
     }
@@ -94,6 +95,17 @@ namespace Discord_UWP.CacheModels
         }
 
         public SharedModels.User Raw = new SharedModels.User();
+    }
+
+    public class TempFriend
+    {
+        public TempFriend() { }
+        public TempFriend(Friend input)
+        {
+            Raw = input.Raw;
+        }
+
+        public SharedModels.Friend Raw = new SharedModels.Friend();
     }
 
     [XmlInclude(typeof(TempMessage))]
