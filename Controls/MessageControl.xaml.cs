@@ -503,9 +503,10 @@ namespace Discord_UWP
             Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText);
         }
 
-        private void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
         {
-            LinkClicked(sender, e);
+            //LinkClicked(sender, e);
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
         private void MessageBox_TextChanged(object sender, RoutedEventArgs e)
