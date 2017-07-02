@@ -683,7 +683,8 @@ namespace Discord_UWP
                 {
                     if (((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id != null)
                     {
-                        LoadMembers(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+                        //TODO REPLACE WITH ADD/REMOVE
+                       // LoadMembers(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
                     }
                 });
         }
