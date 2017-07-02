@@ -286,12 +286,25 @@ namespace Discord_UWP
             return null;
         }
 
-        public static void ChangeUserSettings(UserSettings settings)
+        public static void ChangeUserSettings(string settings)
         {
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.UpdateSettings(settings).Wait();
+                userservice.UpdateSettings("{\"status\":\"" +settings + "\"}").Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void ChangeCurrentGame(string game)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.UpdateGame("{\"game\":\"" + game + "\"}").Wait();
             }
             catch (Exception e)
             {
