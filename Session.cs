@@ -93,8 +93,6 @@ namespace Discord_UWP
             return Storage.Cache.CurrentUser.Raw;
         }
 
-
-
         public static async Task<User> GetUser(string userid)
         {
             try
@@ -472,6 +470,19 @@ namespace Discord_UWP
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.DeleteMessage(chnid, msgid).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void SendFriendRequest(string userId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.SendFriendRequest(userId).Wait();
             }
             catch (Exception e)
             {

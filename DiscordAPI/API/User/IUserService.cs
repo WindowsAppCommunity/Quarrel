@@ -54,5 +54,8 @@ namespace Discord_UWP.API.User
 
         [Get("/v6/users/{userID}/relationships")]
         Task<IEnumerable<SharedFriend>> GetUserReleations([AliasAs("userId")] string id);
+
+        [Put("/v6/users/@me/relationships/{userID}")]
+        Task SendFriendRequest([AliasAs("userId")] string id);
     }
 }
