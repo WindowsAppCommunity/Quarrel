@@ -100,8 +100,8 @@
                             </Rectangle>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,0,0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="username" Text="Username" FontSize="20"/>
-                                    <TextBlock x:Name="discriminator" Text="#0000" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
+                                    <TextBlock x:Name="username" Text="" FontSize="20"/>
+                                    <TextBlock x:Name="discriminator" Text="" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
                                 </StackPanel>
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 
@@ -121,7 +121,7 @@
                         <ListViewItem Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
                         <ListViewItem Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
-                    <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0">
+                    <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="True">
                         <PivotItem Margin="0,-48,0,0">
                             <Grid Margin="24,0">
                                 <Grid.RowDefinitions>
@@ -131,10 +131,10 @@
 
                                 <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                 <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
-                                <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="164" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
+                                <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                     <GridView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Padding="12" MinWidth="104" Background="{ThemeResource LightBG}">
+                                            <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource LightBG}">
                                                 <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
                                                 <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
                                                 <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
@@ -168,28 +168,48 @@
                         </PivotItem>
                         <PivotItem  Margin="0,-48,0,0">
                             <Grid>
-                                <ListView x:Name="MutualGuilds" SelectionMode="None">
+                                <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="24,0" Padding="0,12,0,0">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Padding="12" MinWidth="104" Background="{ThemeResource LightBG}" Margin="0, 10">
-                                                <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
+                                                <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
                                                     <Rectangle.Fill>
                                                         <ImageBrush ImageSource="{Binding ImagePath}"/>
                                                     </Rectangle.Fill>
                                                 </Rectangle>
-                                                <StackPanel>
+                                                <StackPanel VerticalAlignment="Center">
                                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                                                    <TextBlock Text="{Binding Nick}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
+                                                    <TextBlock Text="{Binding Nick}" Visibility="{Binding NickVisibility}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                                <TextBlock Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem  Margin="0,-48,0,0">
-                            
+                            <Grid>
+                                <ListView x:Name="MutualFriends" SelectionMode="None" Margin="24,0" Padding="0,12,0,0">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
+                                                <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
+                                                    <Rectangle.Fill>
+                                                        <ImageBrush ImageSource="{Binding ImagePath}"/>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Username}" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75" VerticalAlignment="Bottom"/>
+                                                    <TextBlock Text="{Binding Discriminator}" Margin="4,0,0,0" FontSize="11" Opacity="0.5" VerticalAlignment="Bottom"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <ProgressRing x:Name="LoadingMutualFriends" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
+                                <TextBlock x:Name="NoMutualFriends" Visibility="Visible" Text="NO FRIENDS IN COMMON" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                            </Grid>
                         </PivotItem>
                     </Pivot>
                 </Grid>

@@ -90,7 +90,12 @@ namespace Discord_UWP.SubPages
                 var element = profile.MutualGuilds.ElementAt(i);
                 element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
                 element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
+
+                if (element.Nick != null) element.NickVisibility = Visibility.Visible;
+                else element.NickVisibility = Visibility.Collapsed;
+
                 MutualGuilds.Items.Add(element);
+                NoCommonServers.Visibility = Visibility.Collapsed;
             }
 
             switch (profile.User.Flags)
@@ -148,8 +153,9 @@ namespace Discord_UWP.SubPages
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }
-            //TODO figure out how we know if the avatar is a gif
-            var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + ".png"));
+            var AvatarExtension = ".png";
+            if (profile.User.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
+            var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + AvatarExtension));
             AvatarFull.ImageSource = image;
             AvatarBlurred.Source = image;
         }
@@ -199,14 +205,14 @@ namespace Discord_UWP.SubPages
         {
             var item = (ConnectedAccount) e.ClickedItem;
             if(item.Id == null) return;
-            var url = "";
+            string url = null;
             switch (item.Type)
             {
                 case "steam": url = "https://steamcommunity.com/profiles/" + item.Id;
                     break;
                 case "skype": url = "skype:" + item.Id + "?userinfo";
                     break;
-                case "reddit": url = "https://www.reddit.com/u/" + item.Id;
+                case "reddit": url = "https://www.reddit.com/u/" + item.Name;
                     break;
                 case "facebook": url = "https://www.facebook.com/" + item.Id;
                     break;
@@ -218,13 +224,41 @@ namespace Discord_UWP.SubPages
                     break;
                 case "youtube": url = "https://www.youtube.com/channel/" + item.Id;
                     break;
+                case "leagueoflegends": url = null;
+                    break;
+                default: url = null;
+                    break;
+
             }
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+            if(url != null) await Windows.System.Launcher.LaunchUriAsync(new Uri(url));
         }
 
         private void MutualGuilds_ItemClick(object sender, ItemClickEventArgs e)
         {
             //TODO: Open guild
+        }
+
+        private bool LoadedRelationships = false;
+
+        private async void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (pivot.SelectedIndex == 2 && !LoadedRelationships)
+            {
+                LoadedRelationships = true;
+                var relationships = await Session.GetUserRelationShips(profile.User.Id);
+                int relationshipcount = relationships.Count();
+                LoadingMutualFriends.Fade(0, 200).Start();
+                if (relationshipcount == 0)
+                    NoMutualFriends.Fade(0.2f, 200).Start();
+                else
+                    for (int i = 0; i < relationshipcount; i++)
+                    {
+                        var relationship = relationships.ElementAt(i);
+                        relationship.Discriminator = "#" + relationship.Discriminator;
+                        relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + ".png";
+                        MutualFriends.Items.Add(relationship);
+                    }
+            }
         }
     }
 

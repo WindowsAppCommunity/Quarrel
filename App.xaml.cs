@@ -68,11 +68,42 @@ namespace Discord_UWP
         internal static Guild CurrentGuild;
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
-        public static event EventHandler SubpageClosedHandler;
 
+        public static event EventHandler SubpageClosedHandler;
         public static void SubpageClosed()
         {
             SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
+        }
+
+        public class GuildNavigationArgs : EventArgs
+        {
+            public string Guildid { get; set; }
+        }
+        public static event EventHandler NavigateToGuildHandler;
+        public static void NavigateToGuild(string guildId)
+        {
+            NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs(){Guildid = guildId});
+        }
+
+        public class ChannelNavigationArgs : EventArgs
+        {
+            public string Guildid { get; set; }
+            public string Channelid { get; set; }
+        }
+        public static event EventHandler NavigateToChannelHandler;
+        public static void NavigateToChannel(string guildId, string channelId)
+        {
+            NavigateToChannelHandler?.Invoke(typeof(App), new ChannelNavigationArgs() { Guildid = guildId, Channelid = channelId });
+        }
+
+        public class ProfileNavigationArgs : EventArgs
+        {
+            public string UserId { get; set; }
+        }
+        public static event EventHandler NavigateToProfileHandler;
+        public static void NavigateToProfile(string userId)
+        {
+            NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { UserId = userId });
         }
         //internal static string ChannelId;
 
