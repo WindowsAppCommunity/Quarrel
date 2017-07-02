@@ -157,18 +157,31 @@
                                     </tk:AdaptiveGridView.Footer>
                                 </tk:AdaptiveGridView>
                             </Grid>
-
                         </PivotItem>
                         <PivotItem  Margin="0,-48,0,0">
                             <Grid>
-                                <ListView x:Name="CommonServers">
-                                    
+                                <ListView x:Name="MutualGuilds" SelectionMode="None">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Padding="12" MinWidth="104" Background="{ThemeResource LightBG}" Margin="0, 10">
+                                                <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
+                                                    <Rectangle.Fill>
+                                                        <ImageBrush ImageSource="{Binding ImagePath}"/>
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
+                                                    <TextBlock Text="{Binding Nick}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
                                 </ListView>
                                 <TextBlock Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem  Margin="0,-48,0,0">
-
+                            
                         </PivotItem>
                     </Pivot>
                 </Grid>
