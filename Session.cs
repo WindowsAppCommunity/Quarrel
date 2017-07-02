@@ -451,7 +451,7 @@ namespace Discord_UWP
             channelservice.DeletePinnedChannelMessage(chnId, msgId);
         }
 
-        public static async Task<SharedModels.Message> GetMessage(string chnid, string msgid)
+        public static async Task<Message> GetMessage(string chnid, string msgid)
         {
             try
             {
@@ -490,7 +490,7 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task<IEnumerable<SharedModels.DirectMessageChannel>> GetDMs()
+        public static async Task<IEnumerable<DirectMessageChannel>> GetDMs()
         {
             try
             {
@@ -566,12 +566,12 @@ namespace Discord_UWP
             }
         }
 
-        public static SharedModels.GuildMember GetGuildMember(string guildid, string userid)
+        public static GuildMember GetGuildMember(string guildid, string userid)
         {
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                Task<SharedModels.GuildMember> memberTask = guildservice.GetGuildMemeber(guildid, userid);
+                Task<GuildMember> memberTask = guildservice.GetGuildMemeber(guildid, userid);
                 memberTask.Wait();
                 return memberTask.Result;
             }

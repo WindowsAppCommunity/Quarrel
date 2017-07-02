@@ -153,11 +153,19 @@ namespace Discord_UWP.SubPages
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }
-            var AvatarExtension = ".png";
-            if (profile.User.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
-            var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + AvatarExtension));
-            AvatarFull.ImageSource = image;
-            AvatarBlurred.Source = image;
+            if (profile.User.Avatar != null)
+            {
+                var AvatarExtension = ".png";
+                if (profile.User.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
+                var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + AvatarExtension));
+                AvatarFull.ImageSource = image;
+                AvatarBlurred.Source = image;
+            } else
+            {
+                var image = new BitmapImage(new Uri("ms-appx:///Assets/DiscordIcon.png"));
+                AvatarFull.ImageSource = image;
+                AvatarBlurred.Source = image;
+            }
         }
 
         private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
@@ -255,7 +263,9 @@ namespace Discord_UWP.SubPages
                     {
                         var relationship = relationships.ElementAt(i);
                         relationship.Discriminator = "#" + relationship.Discriminator;
-                        relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
+                        if (relationship.Avatar != null) relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
+                        else relationship.ImagePath = "ms-appx:///Assets/DiscordIcon.png";
+
                         MutualFriends.Items.Add(relationship);
                     }
             }
