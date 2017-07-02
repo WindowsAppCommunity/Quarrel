@@ -445,6 +445,7 @@ namespace Discord_UWP
         {
             IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
 
+            if (members != null)
             foreach (GuildMember member in members)
             {
                 if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
