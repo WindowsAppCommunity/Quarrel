@@ -29,7 +29,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.CacheModels;
-using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
+using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 #region CacheModels Overrule
@@ -115,6 +115,11 @@ namespace Discord_UWP
                     Session.PrecenseDict.Remove(presence.User.Id);
                 }
                 Session.PrecenseDict.Add(presence.User.Id, presence);
+            }
+
+            foreach (ReadState readstate in e.EventData.ReadStates)
+            {
+                Session.RPC.Add(readstate.Id, readstate);
             }
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -370,7 +375,7 @@ namespace Discord_UWP
                 });
         }
 
-        private async void MessageReactionAdded(object sender, Gateway.GatewayEventArgs<DiscordAPI.Gateway.DownstreamEvents.MessageReactionUpdate> e)
+        private async void MessageReactionAdded(object sender, Gateway.GatewayEventArgs<MessageReactionUpdate> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>

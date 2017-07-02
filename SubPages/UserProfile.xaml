@@ -127,7 +127,6 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-
                                 <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                 <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
                                 <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="164" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
@@ -172,7 +171,6 @@
 
                         </PivotItem>
                     </Pivot>
-
                 </Grid>
             </Border>
         </Grid>

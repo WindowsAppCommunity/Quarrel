@@ -60,7 +60,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using static Discord_UWP.Common;
 using Discord_UWP.CacheModels;
-using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
+using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp;
@@ -72,7 +72,6 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
-using Discord_UWP.Gateway.DownstreamEvents;
 #endregion
 
 /* The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238 */
@@ -98,7 +97,7 @@ namespace Discord_UWP
                 LoadingSplash.Show(false);
                 LoadingSplash.Status = "LOADING...";
 
-                LoadCache();
+                await LoadCache();
                 LoadMessages();
                 LoadMutedChannels();
 
@@ -639,7 +638,7 @@ namespace Discord_UWP
             }
             App.CurrentId = id;
         }
-        private async void DownloadGuild(string id)
+        private void DownloadGuild(string id)
         {
             Messages.Items.Clear();
 
@@ -1435,7 +1434,7 @@ namespace Discord_UWP
             LoadMoreMessages(null,null);
         }
 
-        private async void ShowUserDetails(string id)
+        private void ShowUserDetails(string id)
         {
             SubFrameNavigator(typeof(SubPages.UserProfile), id);
        //    await new MessageDialog("Sorry, but this feature hasn't yet been added into Discord UWP, it will be available in the next update. The fact that we didn't add it means you got access to the rest of the app sooner ;)", "Coming soon™")
@@ -1523,7 +1522,7 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.Settings));
         }
 
-        private async void SubFrameNavigator(Type page, object args = null)
+        private void SubFrameNavigator(Type page, object args = null)
         {
             /*maybe enable this blur effect later, depending on the GPU */
             if (Storage.Settings.ExpensiveRender)
@@ -1533,7 +1532,7 @@ namespace Discord_UWP
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
-        private async void SubpageClosed(object sender, EventArgs e)
+        private void SubpageClosed(object sender, EventArgs e)
         {
             /*maybe enable this blur effect later, depending on the GPU */
             if (Storage.Settings.ExpensiveRender)

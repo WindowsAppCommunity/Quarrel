@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Discord_UWP.DiscordAPI.Gateway.DownstreamEvents;
 
 namespace Discord_UWP.Gateway
 {
