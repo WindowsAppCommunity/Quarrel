@@ -48,6 +48,14 @@ namespace Discord_UWP.SubPages
             }
 
             profile = await Session.GetUserProfile(e.Parameter as string);
+            if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
+            {
+                profile.Friend = true;
+            } else
+            {
+                profile.Friend = false;
+            }
+
             username.Text = profile.User.Username;
             username.Fade(1, 400);
             discriminator.Text = "#" + profile.User.Discriminator;
@@ -238,6 +246,27 @@ namespace Discord_UWP.SubPages
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return (value is Visibility && (Visibility)value == Visibility.Visible);
+        }
+    }
+
+    public class BooleanToVisibilityConverterInverse : IValueConverter
+    {
+        public BooleanToVisibilityConverterInverse()
+        {
+        }
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is bool && (bool)value)
+            {
+                return Visibility.Collapsed;
+            }
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return (value is Visibility && (Visibility)value == Visibility.Collapsed);
         }
     }
 }
