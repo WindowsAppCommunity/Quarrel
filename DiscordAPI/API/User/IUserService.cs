@@ -18,7 +18,12 @@ namespace Discord_UWP.API.User
         Task<SharedModels.User> GetCurrentUser();
 
         [Patch("/v6/users/@me/settings")]
-        Task UpdateSettings(UserSettings settings);
+        [Headers("Content-Type: application/json;")]
+        Task UpdateSettings([Body] string settings);
+
+        [Patch("/v6/users/@me/settings")]
+        [Headers("Content-Type: application/json;")]
+        Task UpdateGame([Body] string game);
 
         [Patch("/users/@me")]
         Task<SharedModels.User> ModifyCurrentUser([Body] ModifyUser modifyUser);

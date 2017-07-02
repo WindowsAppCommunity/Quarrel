@@ -75,6 +75,9 @@ namespace Discord_UWP.SubPages
                 }
                 element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
                 Connections.Items.Add(element);
+            }
+            foreach (var guild in profile.MutualGuilds)
+            {
                 
             }
             switch (profile.User.Flags)
