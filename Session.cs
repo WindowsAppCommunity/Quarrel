@@ -203,6 +203,20 @@ namespace Discord_UWP
             return null;
         }
 
+        public static async Task<IEnumerable<SharedModels.Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
+
         public static SharedModels.GuildChannel GetGuildChannel(string id)
         {
             try
