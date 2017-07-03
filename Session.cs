@@ -592,6 +592,14 @@ namespace Discord_UWP
             }
         }*/
 
+        public static void CreateGuild(string name)
+        {
+            API.Guild.Models.CreateGuild guild = new API.Guild.Models.CreateGuild();
+            guild.Name = name;
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.CreateGuild(guild);
+        }
+
         public static void ModifyGuild(string guildid, string newName)
         {
             try
