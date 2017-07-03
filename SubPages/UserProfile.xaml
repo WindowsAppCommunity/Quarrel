@@ -143,13 +143,13 @@
                                     </GridView.ItemTemplate>
                                     <tk:AdaptiveGridView.Footer>
                                         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left">
-                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVis}}">
+                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVis}}" Click="RemoveFriend">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Remove Friend" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
-                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVisInverse}}" Click="RemoveFriend">
+                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVisInverse}}">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Send Message" Margin="28,0,0,0"/>

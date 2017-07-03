@@ -69,12 +69,10 @@ namespace Discord_UWP
                 Storage.Cache.guildOrder.Add(guild, pos);
             }
 
+            Storage.Cache.Friends.Clear();
             foreach (SharedModels.Friend friend in e.EventData.Friends)
             {
-                if (!Storage.Cache.Friends.ContainsKey(friend.Id))
-                {
-                    Storage.Cache.Friends.Add(friend.Id, new CacheModels.Friend(friend));
-                }
+                Storage.Cache.Friends.Add(friend.Id, new Friend(friend));
             }
 
             Storage.Cache.DMs.Clear();
