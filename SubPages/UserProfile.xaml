@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="BoolToVis" />
-        <local:BooleanToVisibilityConverterInverse x:Key="BoolToVisInverse" />
+
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
             <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
                 <DoubleAnimation.EasingFunction>

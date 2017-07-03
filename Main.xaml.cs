@@ -613,27 +613,7 @@ namespace Discord_UWP
                     channelListBuffer.Add(new Grid());
                 }
 
-                TextChannels.Items.Clear();
-                foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
-                {
-                    if (channel.Value.Raw.Type == 0)
-                    {
-                        channelListBuffer.RemoveAt(channel.Value.Raw.Position);
-                        channelListBuffer.Insert(channel.Value.Raw.Position, ChannelRender(channel.Value, perms));
-                    }
-                }
-
-                foreach (UIElement element in channelListBuffer)
-                {
-                    if (element is Grid)
-                    {
-
-                    }
-                    else if (element is ListViewItem)
-                    {
-                        TextChannels.Items.Add(element);
-                    }
-                }
+                LoadChannelList();
             } else
             {
 
@@ -713,27 +693,7 @@ namespace Discord_UWP
                 channelListBuffer.Add(new Grid());
             }
 
-            TextChannels.Items.Clear();
-            foreach (KeyValuePair<string, GuildChannel> channel in Storage.Cache.Guilds[id].Channels)
-            {
-                if (channel.Value.Raw.Type == 0)
-                {
-                    channelListBuffer.RemoveAt(channel.Value.Raw.Position);
-                    channelListBuffer.Insert(channel.Value.Raw.Position, ChannelRender(channel.Value, perms));
-                }
-            }
-
-            foreach (UIElement element in channelListBuffer)
-            {
-                if (element is Grid)
-                {
-
-                }
-                else if (element is ListViewItem)
-                {
-                    TextChannels.Items.Add(element);
-                }
-            }
+            LoadChannelList();
             #endregion
 
             ChannelsLoading.IsActive = false;
@@ -787,15 +747,15 @@ namespace Discord_UWP
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
                 App.CurrentGuildIsDM = false;
-                App.CurrentChannelId = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
+                App.CurrentChannelId = ((SimpleChannel)TextChannels.SelectedItem).Id;
                 Session.Gateway.SubscribeToGuild(new string[]{App.CurrentGuildId});
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
+                MuteToggle.Tag = App.CurrentChannelId;
+                MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentChannelId);
                 MuteToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
@@ -804,7 +764,7 @@ namespace Discord_UWP
 
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[App.CurrentChannelId].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -820,7 +780,7 @@ namespace Discord_UWP
 
                 PinnedMessages.Items.Clear();
 
-                foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].PinnedMessages.Reverse())
+                foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[App.CurrentChannelId].PinnedMessages.Reverse())
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
@@ -831,11 +791,11 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "#" + App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Name;
+                ChannelName.Text = "#" + App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Name;
 
-                if (App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Topic != null)
+                if (App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Topic != null)
                 {
-                    ChannelTopic.Text = App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Topic;
+                    ChannelTopic.Text = App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Topic;
                 }
                 else
                 {
@@ -844,7 +804,7 @@ namespace Discord_UWP
                 if (Session.Online)
                 {
                     await DownloadChannelMessages();
-                    Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
+                    Session.AckMessages(App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Id);
                 } else
                 {
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -864,13 +824,13 @@ namespace Discord_UWP
             if (TextChannels.SelectedItem != null)
             {
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
+                MuteToggle.Tag = App.CurrentGuildId;
+                MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentGuildId);
                 MuteToggle.Visibility = Visibility.Visible;
                 Messages.Items.Clear();
-                IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
+                IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(App.CurrentChannelId);
 
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Clear();
+                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Clear();
 
                 while (messages == null)
                 {
@@ -879,7 +839,7 @@ namespace Discord_UWP
 
                 foreach (SharedModels.Message message in messages)
                 {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Add(message.Id, new Message(message));
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Add(message.Id, new Message(message));
                 }
 
 
@@ -888,7 +848,7 @@ namespace Discord_UWP
                 Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
                 //Normal messages
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -901,36 +861,36 @@ namespace Discord_UWP
 
                 Messages.Items.RemoveAt(0);
 
-                ChannelName.Text = "#" + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Name;
+                ChannelName.Text = "#" + Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Name;
 
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Topic != null)
+                if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic != null)
                 {
-                    ChannelTopic.Text = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Raw.Topic;
+                    ChannelTopic.Text = Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic;
                 }
                 else
                 {
                     ChannelTopic.Text = "";
                 }
 
-                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].Messages != null)
+                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Messages != null)
                 {
-                    if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id))
+                    if (Storage.RecentMessages.ContainsKey(App.CurrentChannelId))
                     {
-                        Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
+                        Storage.RecentMessages[App.CurrentChannelId] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
                     }
                     else
                     {
                         var messageContainer = Messages.Items.Last() as MessageContainer;
                         if (messageContainer != null && (messageContainer.Message).HasValue)
                         {
-                            Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
+                            Storage.RecentMessages.Add(App.CurrentChannelId, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
                         }
                     }
                     Storage.SaveMessages();
                 }
                 Storage.SaveCache();
                 MessagesLoading.Visibility = Visibility.Collapsed;
-                Session.AckMessages(App.CurrentGuild.Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id].Raw.Id);
+                Session.AckMessages(App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Id);
             }
         }
         private async Task DownloadChannelPinnedMessages()
@@ -939,17 +899,17 @@ namespace Discord_UWP
             PinnedMessages.Items.Clear();
             if (App.CurrentGuildId != null)
             {
-                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Clear();
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(App.CurrentChannelId);
+                Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].PinnedMessages.Clear();
 
                 foreach (SharedModels.Message message in pinnedmessages)
                 {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
+                    Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].PinnedMessages.Add(message.Id, new Message(message));
                 }
 
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem)?.Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id].PinnedMessages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].PinnedMessages.Reverse())
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
@@ -1596,13 +1556,6 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.Settings));
         }
 
-        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            //JUST FOR TESTING, SHOULD NOT MAKE IT TO PRODUCTION
-            if(e.Key == VirtualKey.Add)
-                SubFrameNavigator(typeof(SubPages.UserProfile));
-        }
-
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var member = ((KeyValuePair<string,Member>)e.ClickedItem).Value;
@@ -1617,6 +1570,11 @@ namespace Discord_UWP
         private void Playing_OnLostFocus(object sender, RoutedEventArgs e)
         {
             Session.ChangeCurrentGame(Playing.Text);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (TextChannels.Items[2] as SimpleChannel).Name = "Test name";
         }
     }
 }
