@@ -744,7 +744,7 @@ namespace Discord_UWP
             });
         }
 
-        private async void PresenceUpdated(object sender, GatewayEventArgs<SharedModels.Presence> e)
+        private async void PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))
             {
@@ -810,7 +810,14 @@ namespace Discord_UWP
                 {
                     if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
                     {
-                        NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
+                        try
+                        {
+                            NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     else
                     {
