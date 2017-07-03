@@ -282,7 +282,11 @@ namespace Discord_UWP
 
             Session.Gateway.PresenceUpdated += PresenceUpdated;
             Session.Gateway.TypingStarted += TypingStarted;
+
             Session.Gateway.RelationShipAdded += RelationShipAdded;
+            Session.Gateway.RelationShipRemoved += RelationShipRemoved;
+            Session.Gateway.RelationShipUpdated += RelationShipUpdated;
+
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
 

@@ -106,11 +106,14 @@
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 
                                 </StackPanel>
-                                <Button x:Name="friendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="150" Click="SendFriendRequest"/>
-                                <Button x:Name="Message" Content="Message" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="150"/>
+                                <Button x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest"/>
+                                <Button x:Name="acceptFriend" Content="Accept Friend Request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest"/>
+                                <Button x:Name="pendingFriend" Content="Friend Request Pending" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175"/>
+                                <Button x:Name="Message" Content="Message" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
+                    
                     <ListView Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="-24,24,-24,0" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
