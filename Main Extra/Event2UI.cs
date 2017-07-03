@@ -791,7 +791,7 @@ namespace Discord_UWP
                 var typer = Typers.ElementAt(i);
                 if (App.CurrentChannelId != null)
                 {
-                    if (App.CurrentGuildIsDM)
+                    if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
                     {
                         NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
                     }
@@ -812,6 +812,7 @@ namespace Discord_UWP
                     }
                 }
             }
+
             DisplayedTyperCounter = NamesTyping.Count();
             for (int i = 0; i < DisplayedTyperCounter; i++)
             {
