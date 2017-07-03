@@ -714,14 +714,14 @@ namespace Discord_UWP
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                LocalStatusChangeEnabled = false;
+                //LocalStatusChangeEnabled = false;
                 if (gatewayEventArgs.EventData.Status == "online")
                     UserStatusOnline.IsChecked = true;
                 if (gatewayEventArgs.EventData.Status == "idle")
                     UserStatusIdle.IsChecked = true;
-                if (gatewayEventArgs.EventData.Status == "online")
+                if (gatewayEventArgs.EventData.Status == "dnd")
                     UserStatusDND.IsChecked = true;
-                if (gatewayEventArgs.EventData.Status == "online")
+                if (gatewayEventArgs.EventData.Status == "offline")
                     UserStatusInvisible.IsChecked = true;
 
             });
