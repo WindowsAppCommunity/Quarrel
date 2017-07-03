@@ -63,6 +63,8 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<GuildMemberChunk>> GuildMemberChunk;
 
         public event EventHandler<GatewayEventArgs<Friend>> RelationShipAdded;
+        public event EventHandler<GatewayEventArgs<Friend>> RelationShipRemoved;
+        public event EventHandler<GatewayEventArgs<Friend>> RelationShipUpdated;
 
         public event EventHandler<GatewayEventArgs<Presence>> PresenceUpdated;
         public event EventHandler<GatewayEventArgs<TypingStart>> TypingStarted;
@@ -113,7 +115,9 @@ namespace Discord_UWP.Gateway
                 { EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
                 { EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
                 { EventNames.TYPING_START, OnTypingStarted},
-                { EventNames.RELATIONSHIP_ADD, OnRelationShipAdded },
+                { EventNames.FRIEND_ADDED, OnRelationShipAdded },
+                { EventNames.FRIEND_REMOVED, OnRelationShipRemoved },
+                { EventNames.FRIEND_UPDATE, OnRelationShipUpdated },
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
                 { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated }
             };
@@ -366,6 +370,16 @@ namespace Discord_UWP.Gateway
         private void OnRelationShipAdded(GatewayEvent gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, RelationShipAdded);
+        }
+
+        private void OnRelationShipRemoved(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, RelationShipRemoved);
+        }
+
+        private void OnRelationShipUpdated(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, RelationShipUpdated);
         }
 
         private void OnUserNoteUpdated(GatewayEvent gatewayEvent)

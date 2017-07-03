@@ -46,7 +46,7 @@ namespace Discord_UWP
 {
     public sealed partial class Main : Page
     {
-        private async void OnReady(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private async void OnReady(object sender, GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             if (e.EventData.Notes != null)
                 App.Notes = e.EventData.Notes;
@@ -695,6 +695,25 @@ namespace Discord_UWP
                 Storage.Cache.Friends.Add(e.EventData.Id, new Friend(e.EventData));
             }
             else
+            {
+                Storage.Cache.Friends[e.EventData.Id] = new Friend(e.EventData);
+            }
+        }
+
+        private void RelationShipRemoved(object sender, GatewayEventArgs<SharedModels.Friend> e)
+        {
+            if (!Storage.Cache.Friends.ContainsKey(e.EventData.Id))
+            {
+                Storage.Cache.Friends.Remove(e.EventData.Id);
+            }
+        }
+
+        private void RelationShipUpdated(object sender, GatewayEventArgs<SharedModels.Friend> e)
+        {
+            if (!Storage.Cache.Friends.ContainsKey(e.EventData.Id))
+            {
+                Storage.Cache.Friends.Add(e.EventData.Id, new Friend(e.EventData));
+            } else
             {
                 Storage.Cache.Friends[e.EventData.Id] = new Friend(e.EventData);
             }
