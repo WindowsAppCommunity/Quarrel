@@ -518,6 +518,19 @@ namespace Discord_UWP
             }
         }
 
+        public static void BlockUser(string userId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.BlockUser(userId).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static async Task<IEnumerable<DirectMessageChannel>> GetDMs()
         {
             try
@@ -579,6 +592,14 @@ namespace Discord_UWP
             }
         }*/
 
+        public static void CreateGuild(string name)
+        {
+            API.Guild.Models.CreateGuild guild = new API.Guild.Models.CreateGuild();
+            guild.Name = name;
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.CreateGuild(guild);
+        }
+
         public static void ModifyGuild(string guildid, string newName)
         {
             try
@@ -634,6 +655,12 @@ namespace Discord_UWP
             {
                 Showmsg(e);
             }
+        }
+
+        public static void AcceptInvite(string code)
+        {
+            IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
+            inviteservice.AcceptInvite(code);
         }
 
         public static async void Showmsg(Exception e)

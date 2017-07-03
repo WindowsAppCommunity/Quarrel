@@ -44,15 +44,15 @@ namespace Discord_UWP.Gateway
 
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";
-        public const string RELATIONSHIP_ADD = "RELATIONSHIP_ADD";
         public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATE";
         public const string USER_UPDATED = "USER_UPDATE";
         public const string USER_NOTE_UPDATED = "USER_NOTE_UPDATE";
         public const string VOICE_STATE_UPDATED = "VOICE_STATE_UPDATE";
         public const string VOICE_SERVER_UPDATED = "VOICE_SERVER_UPDATE";
 
-        public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
         public const string FRIEND_ADDED = "RELATIONSHIP_ADD";
+        public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
+        public const string FRIEND_UPDATE = "RELATIONSHIP_UPDATE";
         //{"t":"RELATIONSHIP_ADD","s":792,"op":0,"d":{"user":{USER OBJECT},"type":4,"id":"323755494026117120"}}
     }
 }
