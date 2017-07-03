@@ -50,19 +50,42 @@ namespace Discord_UWP.SubPages
             profile = await Session.GetUserProfile(e.Parameter as string);
             if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
             {
-                profile.Friend = true;
+                profile.Friend = Storage.Cache.Friends[profile.User.Id].Raw;
             } else
             {
-                profile.Friend = false;
+                profile.Friend = null;
             }
 
             username.Text = profile.User.Username;
             username.Fade(1, 400);
             discriminator.Text = "#" + profile.User.Discriminator;
             discriminator.Fade(0.4f, 800);
-            //if(user. != null)
-              //  NoteBox.Text = user.Value.Note;
-            
+
+            if (profile.Friend.HasValue)
+            {
+                switch (profile.Friend.Value.Type)
+                {
+                    case 1:
+                        friendRequest.Visibility = Visibility.Collapsed;
+                        SendMessageLink.Visibility = Visibility.Collapsed;
+                        break;
+                    case 2:
+                        //TODO: Blocked UI
+                        break;
+                    case 3:
+                        //TODO: Accept request UI
+                        break;
+                    case 4:
+                        //TODO: Pending request UI
+                        break;
+                }
+            } else
+            {
+                Message.Visibility = Visibility.Collapsed;
+                RemoveFriendLink.Visibility = Visibility.Collapsed;
+            }
+
+
             if (App.Notes.ContainsKey(profile.User.Id))
                 NoteBox.Text = App.Notes[profile.User.Id];
 
@@ -274,6 +297,11 @@ namespace Discord_UWP.SubPages
         private void SendFriendRequest(object sender, RoutedEventArgs e)
         {
             Session.SendFriendRequest(profile.User.Id);
+        }
+
+        private void RemoveFriend(object sender, RoutedEventArgs e)
+        {
+            Session.RemoveFriend(profile.User.Id);
         }
     }
 

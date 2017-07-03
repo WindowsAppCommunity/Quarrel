@@ -840,10 +840,5 @@ namespace Discord_UWP
                 TypingStackPanel.Fade(1, 200).Start();
             }
         }
-
-        //     catch (Exception)
-        //     {
-        //         TypingStackPanel.Fade(0, 200).Start();
-        //    }
     }
 }
