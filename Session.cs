@@ -505,6 +505,19 @@ namespace Discord_UWP
             }
         }
 
+        public static void RemoveFriend(string userId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.RemoveFriend(userId).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static async Task<IEnumerable<DirectMessageChannel>> GetDMs()
         {
             try
