@@ -61,8 +61,9 @@ namespace Discord_UWP
             if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
             {
                 MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
-                Session.CreateMessage(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id, txt);
+                Task.Run(() => Session.CreateMessage(App.CurrentChannelId, txt));
                 MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
+                
             }
             else
             {
@@ -72,7 +73,7 @@ namespace Discord_UWP
                 {
                     msg.Replace("@" + member.Value.Raw.User.Username + "#" + member.Value.Raw.User.Discriminator, "<@" + member.Value.Raw.User.Id + ">");
                 }
-                Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id, msg.ToString());
+                Task.Run(() => Session.CreateMessage(App.CurrentChannelId, msg.ToString()));
                 #region OldCode
                 //if (AttachmentImage.Source != null)
                 //{
@@ -90,13 +91,11 @@ namespace Discord_UWP
         {
             if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
             {
-                Session.EditMessage((DirectMessageChannels.SelectedItem as ListViewItem).Tag.ToString(), ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
-                LoadChannelMessages(null, null);
+                Session.EditMessage(App.CurrentChannelId, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
             }
             else
             {
-                Session.EditMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
-                LoadChannelMessages(null, null);
+                Session.EditMessage(App.CurrentChannelId, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
             }
         }
 
@@ -114,14 +113,7 @@ namespace Discord_UWP
                     SendBox.IsEnabled = true;
                 }
 
-                if (ServerList.SelectedIndex == 0)
-                {
-                    await Session.TriggerTypingIndicator((DirectMessageChannels.SelectedItem as ListViewItem).Tag.ToString());
-                }
-                else
-                {
-                     await Session.TriggerTypingIndicator(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id);
-                }
+                await Task.Run(() => Session.TriggerTypingIndicator(App.CurrentChannelId));
             }
             catch
             {

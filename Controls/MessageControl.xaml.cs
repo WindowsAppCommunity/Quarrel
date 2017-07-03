@@ -7,9 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -512,14 +514,17 @@ namespace Discord_UWP
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
-        private void MessageBox_TextChanged(object sender, RoutedEventArgs e)
+        private async void MessageBox_TextChanged(object sender, RoutedEventArgs e)
         {
-            string text = "";
-            MessageBox.Document.GetText(TextGetOptions.None, out text);
-            if (text != "")
-                SendBox.IsEnabled = true;
-            else
-                SendBox.IsEnabled = false;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                string text = "";
+                MessageBox.Document.GetText(TextGetOptions.None, out text);
+                if (text != "")
+                    SendBox.IsEnabled = true;
+                else
+                    SendBox.IsEnabled = false;
+            });
         }
         Permissions perms;
         private void Button_Click(object sender, RoutedEventArgs e)
