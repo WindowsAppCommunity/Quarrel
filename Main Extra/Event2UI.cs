@@ -702,7 +702,7 @@ namespace Discord_UWP
 
         private void RelationShipRemoved(object sender, GatewayEventArgs<SharedModels.Friend> e)
         {
-            if (!Storage.Cache.Friends.ContainsKey(e.EventData.Id))
+            if (Storage.Cache.Friends.ContainsKey(e.EventData.Id))
             {
                 Storage.Cache.Friends.Remove(e.EventData.Id);
             }

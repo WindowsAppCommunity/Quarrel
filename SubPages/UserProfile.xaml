@@ -106,10 +106,11 @@
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 
                                 </StackPanel>
-                                <Button x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest"/>
-                                <Button x:Name="acceptFriend" Content="Accept Friend Request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest"/>
-                                <Button x:Name="pendingFriend" Content="Friend Request Pending" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175"/>
-                                <Button x:Name="Message" Content="Message" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175"/>
+                                <Button x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
+                                <Button x:Name="acceptFriend" Content="Accept Friend Request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
+                                <Button x:Name="pendingFriend" Content="Friend Request Pending" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed"/>
+                                <Button x:Name="Message" Content="Message" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed"/>
+                                <Button x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -146,19 +147,19 @@
                                     </GridView.ItemTemplate>
                                     <tk:AdaptiveGridView.Footer>
                                         <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left">
-                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVis}}" Click="RemoveFriend">
+                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Remove Friend" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
-                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="{Binding Friend, Converter={StaticResource BoolToVisInverse}}">
+                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Send Message" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
-                                            <HyperlinkButton Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}">
+                                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Block" Margin="28,0,0,0"/>
