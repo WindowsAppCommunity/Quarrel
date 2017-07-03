@@ -66,23 +66,35 @@ namespace Discord_UWP.SubPages
                 switch (profile.Friend.Value.Type)
                 {
                     case 1:
-                        friendRequest.Visibility = Visibility.Collapsed;
-                        SendMessageLink.Visibility = Visibility.Collapsed;
+                        //Friend
+                        Message.Visibility = Visibility.Visible;
+                        RemoveFriendLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                     case 2:
-                        //TODO: Blocked UI
+                        //Blocked
+                        Unblock.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
                         break;
                     case 3:
-                        //TODO: Accept request UI
+                        //Pending incoming friend request
+                        acceptFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                     case 4:
-                        //TODO: Pending request UI
+                        //Pending outgoing friend request
+                        pendingFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                 }
             } else
             {
-                Message.Visibility = Visibility.Collapsed;
-                RemoveFriendLink.Visibility = Visibility.Collapsed;
+                //None
+                sendFriendRequest.Visibility = Visibility.Visible;
+                SendMessageLink.Visibility = Visibility.Visible;
+                Block.Visibility = Visibility.Visible;
             }
 
 

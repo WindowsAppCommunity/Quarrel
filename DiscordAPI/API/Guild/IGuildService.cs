@@ -11,7 +11,7 @@ namespace Discord_UWP.API.Guild
 {
     public interface IGuildService
     {
-        [Post("/guilds")]
+        [Post("/v6/guilds")]
         Task<SharedModels.Guild> CreateGuild([Body] CreateGuild createGuild);
 
         [Get("/guilds/{guildId}")]
