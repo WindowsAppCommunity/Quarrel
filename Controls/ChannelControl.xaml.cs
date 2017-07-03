@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -22,27 +24,82 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class ChannelControl : UserControl
     {
-        public GuildChannel? GuildChannel
+        public string Id
         {
-            get { return (GuildChannel?)GetValue(GuildChannelProperty); }
-            set { SetValue(GuildChannelProperty, value); }
+            get { return (string)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
         }
-        public static readonly DependencyProperty GuildChannelProperty = DependencyProperty.Register(
-            nameof(GuildChannel),
-            typeof(GuildChannel?),
+        public static readonly DependencyProperty IdProperty = DependencyProperty.Register(
+            nameof(Id),
+            typeof(string),
             typeof(ChannelControl),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
-        
-        public DirectMessageChannel? DmChannel
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public string Name
         {
-            get { return (DirectMessageChannel?)GetValue(DmChannelProperty); }
-            set { SetValue(DmChannelProperty, value); }
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
         }
-        public static readonly DependencyProperty DmChannelProperty = DependencyProperty.Register(
-            nameof(DmChannel),
-            typeof(DirectMessageChannel?),
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register(
+            nameof(Name),
+            typeof(string),
             typeof(ChannelControl),
-            new PropertyMetadata(null, OnPropertyChangedStatic));
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public string UserStatus
+        {
+            get { return (string)GetValue(UserStatusProperty); }
+            set { SetValue(UserStatusProperty, value); }
+        }
+        public static readonly DependencyProperty UserStatusProperty = DependencyProperty.Register(
+            nameof(UserStatus),
+            typeof(string),
+            typeof(ChannelControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public string Subtitle
+        {
+            get { return (string)GetValue(SubtitleProperty); }
+            set { SetValue(SubtitleProperty, value); }
+        }
+        public static readonly DependencyProperty SubtitleProperty = DependencyProperty.Register(
+            nameof(Subtitle),
+            typeof(string),
+            typeof(ChannelControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public string ImageUrl
+        {
+            get { return (string)GetValue(ImageUrlProperty); }
+            set { SetValue(ImageUrlProperty, value); }
+        }
+        public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register(
+            nameof(ImageUrl),
+            typeof(string),
+            typeof(ChannelControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public int Type
+        {
+            get { return (int)GetValue(TypeProperty); }
+            set { SetValue(TypeProperty, value); }
+        }
+        public static readonly DependencyProperty TypeProperty = DependencyProperty.Register(
+            nameof(Type),
+            typeof(int),
+            typeof(ChannelControl),
+            new PropertyMetadata(0, OnPropertyChangedStatic));
+
+        public int NotificationCount
+        {
+            get { return (int)GetValue(NotificationCountProperty); }
+            set { SetValue(NotificationCountProperty, value); }
+        }
+        public static readonly DependencyProperty NotificationCountProperty = DependencyProperty.Register(
+            nameof(NotificationCount),
+            typeof(int),
+            typeof(ChannelControl),
+            new PropertyMetadata(0, OnPropertyChangedStatic));
 
         public bool IsUnread
         {
@@ -55,16 +112,16 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        public string Playing
+        public bool IsTyping
         {
-            get { return (string)GetValue(PlayingProperty); }
-            set { SetValue(PlayingProperty, value); }
+            get { return (bool)GetValue(IsTypingProperty); }
+            set { SetValue(IsTypingProperty, value); }
         }
-        public static readonly DependencyProperty PlayingProperty = DependencyProperty.Register(
-            nameof(Playing),
-            typeof(string),
+        public static readonly DependencyProperty IsTypingProperty = DependencyProperty.Register(
+            nameof(IsTyping),
+            typeof(bool),
             typeof(ChannelControl),
-            new PropertyMetadata("", OnPropertyChangedStatic));
+            new PropertyMetadata(false, OnPropertyChangedStatic));
 
         public bool IsMuted
         {
@@ -87,12 +144,16 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == PlayingProperty)
+            if (prop == UserStatusProperty)
             {
-                if (Playing != "")
+                //TODO add userstatus features
+            }
+            if (prop == SubtitleProperty)
+            {
+                if (Subtitle != "")
                 {
                     PlayingBlock.Visibility = Visibility.Visible;
-                    PlayingBlock.Text = Playing;
+                    PlayingBlock.Text = Subtitle;
                 }
                 else
                 {
@@ -109,53 +170,65 @@ namespace Discord_UWP.Controls
                 if (IsMuted) MuteIcon.Visibility = Visibility.Collapsed;
                 else MuteIcon.Visibility = Visibility.Visible;
             }
-            if (prop == GuildChannelProperty && GuildChannel.HasValue)
+            if (prop == IsTypingProperty)
             {
-                ChannelName.Text = GuildChannel.Value.Name;
-                ChannelImage.Visibility = Visibility.Collapsed;
-                ChannelImageBackdrop.Visibility = Visibility.Collapsed;
-                if (GuildChannel.Value.Type == 0)
+                if(IsTyping) TypingIndic.Fade(1,200).Start();
+                else TypingIndic.Fade(0,200).Start();
+            }
+            if (prop == NotificationCountProperty)
+            {
+                if (NotificationCount > 0)
                 {
+                    NotificationBorder.Visibility = Visibility.Visible;
+                    NotificationCounter.Text = NotificationCount.ToString();
+                }
+                else
+                {
+                    NotificationBorder.Visibility = Visibility.Collapsed;
+                }
+            }
+            if (prop == NameProperty)
+            {
+                ChannelName.Text = Name;
+            }
+            if (prop == ImageUrlProperty)
+            {
+                ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
+            }
+            if (prop == TypeProperty)
+            {
+
+                if (Type == 0)
+                {
+                    //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
                 }
-                else
+                else if(Type == 2)
                 {
+                    //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
                 }
-                if(GuildChannel.Value.Topic != null)
-                    ToolTipService.SetToolTip(this, GuildChannel.Value.Topic);
-                else
-                    ToolTipService.SetToolTip(this, null);
-            }
-            if (prop == DmChannelProperty && DmChannel.HasValue)
-            {
-                ChannelImageBackdrop.Visibility = Visibility.Visible;
-                ChannelImage.Visibility = Visibility.Visible;
-
-                if (DmChannel.Value.Users.Any() && DmChannel.Value.Users.Count() > 1)
+                else if (Type == 1)
                 {
+                    //DM
+                    ChannelImageBackdrop.Visibility = Visibility.Visible;
+                    ChannelImage.Visibility = Visibility.Visible;
+                    ChannelImage.Margin = new Thickness(0, 6, 6, 6);
+                }
+                else if (Type == 3)
+                {
+                    //GROUP DM
+                    ChannelImageBackdrop.Visibility = Visibility.Visible;
+                    ChannelImage.Visibility = Visibility.Visible;
+
                     if (App.Current.RequestedTheme == ApplicationTheme.Dark)
                         ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_white.svg"));
                     else
                         ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_black.svg"));
 
                     ChannelImage.Margin = new Thickness(6, 12, 12, 12);
-                    List<string> channelMembers = new List<string>();
-                    foreach (var user in DmChannel.Value.Users)
-                        channelMembers.Add(user.Username);
-                    ChannelName.Text = string.Join(", ", channelMembers);
-                    PlayingBlock.Visibility = Visibility.Visible;
-                    PlayingBlock.Text = DmChannel.Value.Users.Count().ToString() + " members";
-                }
-                else
-                {
-                    ChannelImage.Margin = new Thickness(0, 6, 6, 6);
-                    ChannelImageBrush.ImageSource =
-                        new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DmChannel.Value.Users.FirstOrDefault().Id + "/" +
-                                                DmChannel.Value.Users.FirstOrDefault().Avatar + ".png?size=64"));
-                    ChannelName.Text = DmChannel.Value.Users.FirstOrDefault().Username;
                 }
             }
         }

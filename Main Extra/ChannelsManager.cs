@@ -1,0 +1,143 @@
+﻿using Discord_UWP.CacheModels;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+
+namespace Discord_UWP
+{
+    public sealed partial class Main : Page
+    {
+        public class SimpleChannel : INotifyPropertyChanged
+        {
+            /* This is a really ugly class, but it's necessary to have the values update correctly */
+
+            //id = channel id
+            //name = the displayed name of the channel
+            //userstatus = the displayed status (online, idle, etc...) as an int
+            //subtitle = the text shown below, such as the member count for group DMs or the "Playing __" for DMs
+            //imageurl = the URL of the image displayed for DMs
+            //type = the type of Channel: 0=text, 1=DM, 2=Voice, 3=GroupDM
+            //notificationcount = the amount of pending notifications in this channel
+            //isunread = is the unread messages indicator visible?
+            //istyping = is someone typing in that channel?
+            //ismuted = is the channel muted?
+
+            private string _id;
+            public string Id
+            {
+                get { return _id; }
+                set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
+            }
+
+            private string _name;
+            public string Name
+            {
+                get { return _name; }
+                set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
+            }
+
+            private string _userstatus;
+            public string UserStatus
+            {
+                get { return _userstatus; }
+                set { if (_userstatus == value) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
+            }
+
+            private string _subtitle;
+            public string Subtitle
+            {
+                get { return _subtitle; }
+                set { if (_subtitle == value) return; _subtitle = value; OnPropertyChanged("Subtitle"); }
+            }
+
+            private string _imageurl;
+            public string ImageURL
+            {
+                get { return _imageurl; }
+                set { if (_imageurl == value) return; _imageurl = value; OnPropertyChanged("ImageURL"); }
+            }
+
+            private int _type;
+            public int Type
+            {
+                get { return _type; }
+                set { if (_type == value) return; _type = value; OnPropertyChanged("Type"); }
+            }
+
+            private int _notificationcount;
+            public int NotificationCount
+            {
+                get { return _notificationcount; }
+                set { if (_notificationcount == value) return; _notificationcount = value; OnPropertyChanged("NotificationCount"); }
+            }
+
+            private bool _isunread;
+            public bool IsUnread
+            {
+                get { return _isunread; }
+                set { if (_isunread == value) return; _isunread = value; OnPropertyChanged("UnreadIndicator"); }
+            }
+
+            private bool _istyping;
+            public bool IsTyping
+            {
+                get { return _istyping; }
+                set { if (_istyping == value) return; _istyping = value; OnPropertyChanged("IsTyping"); }
+            }
+
+            private bool _ismuted;
+            public bool IsMuted
+            {
+                get { return _ismuted; }
+                set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged(string propertyName)
+            { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
+        }
+
+
+
+        private IEnumerable<KeyValuePair<string, GuildChannel>> DisplayedChannels = null;
+        private void LoadChannelList()
+        {
+            if (App.CurrentGuildIsDM) return; //Fuck DMs (for the moment)
+
+            foreach (var channel in Storage.Cache.Guilds[App.CurrentGuildId].Channels.OrderBy(x => x.Value.Raw.Position))
+            {
+                var sc = new SimpleChannel();
+                sc.Name = channel.Value.Raw.Name;
+                sc.Id = channel.Value.Raw.Id;
+                var type = channel.Value.Raw.Type;
+                if (type == 1)
+                {
+                    //DM
+                    sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Members.FirstOrDefault().Key + "/" + channel.Value.Members.FirstOrDefault().Value.Raw.User.Avatar + ".png?size=64";
+                    sc.Name = channel.Value.Members.FirstOrDefault().Value.Raw.User.Username;
+                    //TODO Check the playing text
+                }
+                else if (type == 3)
+                {
+                    //GROUP DM
+                    sc.Subtitle = channel.Value.Members.Count().ToString() + " members";
+                    List<string> channelMembers = new List<string>();
+                    foreach (var d in channel.Value.Members.Values)
+                        channelMembers.Add(d.Raw.User.Username);
+                    sc.Name = string.Join(", ", channelMembers);
+                }
+                if (true) //TODO replace by a check on the data sent in the ready packet
+                {
+                    sc.IsUnread = false;
+                    sc.IsTyping = true;
+                }
+                TextChannels.Items.Add(sc);
+            }
+        }
+    }
+
+}

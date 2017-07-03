@@ -9,7 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Discord_UWP.Controls"
     xmlns:gregstoll="using:Gregstoll"
-    mc:Ignorable="d" KeyDown="Page_KeyDown" >
+    xmlns:u="using:UpdateControls"
+    mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="DarkenMessageArea" >
             <DoubleAnimation Storyboard.TargetName="ContentCache" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.4">
@@ -212,6 +213,7 @@
             </Setter>
         </Style>
         <CollectionViewSource x:Name="MembersCVS" IsSourceGrouped="True"/>
+        <CollectionViewSource x:Name="ChannelsCVS"/>
 
     </Page.Resources>
     <Grid Background="{ThemeResource DeepBG}">
@@ -326,7 +328,7 @@
                     </Rectangle>
                 </Grid>
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
-                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested" SizeChanged="Messages_SizeChanged">
+                <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
@@ -399,10 +401,25 @@
                         <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name"/>
                         <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
                             <StackPanel>
-                                <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True">
+                                <Button Foreground="Red" Content="DEBUG BUTTON" Click="Button_Click"/>
+                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True">
                                     <ListView.Header>
-                                        <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
-                                    </ListView.Header>
+                                            <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                        </ListView.Header>
+                                    <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <controls:ChannelControl Id="{Binding Id}" 
+                                                                         Name="{Binding Name}" 
+                                                                         UserStatus="{Binding UserStatus}" 
+                                                                         Subtitle="{Binding Subtitle}" 
+                                                                         ImageUrl="{Binding ImageURL}" 
+                                                                         Type="{Binding Type}" 
+                                                                         NotificationCount="{Binding NotificationCount}" 
+                                                                         IsUnread="{Binding IsUnread}" 
+                                                                         IsTyping="{Binding IsTyping}" 
+                                                                         IsMuted="{Binding IsMuted}"/>
+                                            </DataTemplate>
+                                    </ListView.ItemTemplate>
                                 </ListView>
                                 <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
                                     <StackPanel Orientation="Horizontal">
