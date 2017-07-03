@@ -657,6 +657,12 @@ namespace Discord_UWP
             }
         }
 
+        public static void AcceptInvite(string code)
+        {
+            IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
+            inviteservice.AcceptInvite(code);
+        }
+
         public static async void Showmsg(Exception e)
         {
             //MessageDialog msg = new MessageDialog("An error occured: " + e.Message + " You've either triggered an unexpected event, a feature has been implimented incorrectly or you're offline. I'm likely looking to fix this next update. You will also likely experience other unexpected behavior if necessary data was not recieved.");

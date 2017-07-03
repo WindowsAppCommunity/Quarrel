@@ -37,6 +37,11 @@ namespace Discord_UWP.API
             return RestService.For<IGuildService>(GetAuthenticatingHttpClient());
         }
 
+        public IInviteService GetInviteService()
+        {
+            return RestService.For<IInviteService>(GetAuthenticatingHttpClient());
+        }
+
         public IVoiceService GetVoiceService()
         {
             return RestService.For<IVoiceService>(GetAuthenticatingHttpClient());
