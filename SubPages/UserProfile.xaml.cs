@@ -66,37 +66,35 @@ namespace Discord_UWP.SubPages
                 switch (profile.Friend.Value.Type)
                 {
                     case 1:
-                        sendFriendRequest.Visibility = Visibility.Collapsed;
-                        SendMessageLink.Visibility = Visibility.Collapsed;
-                        acceptFriend.Visibility = Visibility.Collapsed;
-                        pendingFriend.Visibility = Visibility.Collapsed;
+                        //Friend
+                        Message.Visibility = Visibility.Visible;
+                        RemoveFriendLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                     case 2:
-                        //TODO: Blocked UI
+                        //Blocked
+                        Unblock.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
                         break;
                     case 3:
-                        //TODO: Accept request UI
-                        sendFriendRequest.Visibility = Visibility.Collapsed;
-                        SendMessageLink.Visibility = Visibility.Collapsed;
-                        Message.Visibility = Visibility.Collapsed;
-                        RemoveFriendLink.Visibility = Visibility.Collapsed;
-                        pendingFriend.Visibility = Visibility.Collapsed;
+                        //Pending incoming friend request
+                        acceptFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                     case 4:
-                        //TODO: Pending request UI
-                        sendFriendRequest.Visibility = Visibility.Collapsed;
-                        SendMessageLink.Visibility = Visibility.Collapsed;
-                        Message.Visibility = Visibility.Collapsed;
-                        RemoveFriendLink.Visibility = Visibility.Collapsed;
-                        acceptFriend.Visibility = Visibility.Collapsed;
+                        //Pending outgoing friend request
+                        pendingFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
                         break;
                 }
             } else
             {
-                Message.Visibility = Visibility.Collapsed;
-                RemoveFriendLink.Visibility = Visibility.Collapsed;
-                pendingFriend.Visibility = Visibility.Collapsed;
-                acceptFriend.Visibility = Visibility.Collapsed;
+                //None
+                sendFriendRequest.Visibility = Visibility.Visible;
+                SendMessageLink.Visibility = Visibility.Visible;
+                Block.Visibility = Visibility.Visible;
             }
 
 
