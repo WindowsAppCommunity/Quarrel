@@ -157,12 +157,10 @@ namespace Discord_UWP
                 {
                     if (ServerList.SelectedIndex != 0)
                     {
-                        if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId ==
-                            ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
+                        if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == App.CurrentChannelId)
                         {
                             Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()]
-                                .Channels[((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id]
-                                .Messages.Add(e.EventData.Id, new Message(e.EventData));
+                                .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
                             Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));

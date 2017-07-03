@@ -693,7 +693,7 @@
                 <Setter Property="Height" Value="32"/>
                 <Setter Property="Margin" Value="12,2,24,2"/>
                 <Setter Property="FontSize" Value="15"/>
-                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True" />
                 <Setter Property="Template">
