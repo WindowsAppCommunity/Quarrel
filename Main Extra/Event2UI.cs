@@ -287,27 +287,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ServerList.SelectedItem != null)
+                    if (ServerList.SelectedItem != null && TextChannels.SelectedItem != null)
                     {
-                        if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs" &&
-                            DirectMessageChannels.SelectedItem != null &&
-                            ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id ==
-                            e.EventData.ChannelId)
+                        if (App.CurrentChannelId == e.EventData.ChannelId)
                         {
-                            LoadDmChannelMessages(null, null);
-                        }
-                        else
-                        {
-                            if (TextChannels.SelectedItem != null &&
-                                (TextChannels.SelectedItem as ListViewItem).Tag != null &&
-                                ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id ==
-                                e.EventData.ChannelId)
+                            if (App.CurrentGuildIsDM)
+                            {
+                                LoadDmChannelMessages(null, null);
+                            }
+                            else
                             {
                                 if (Messages.Items != null)
                                     foreach (MessageContainer item in Messages.Items)
                                         if (item.Message.HasValue && item.Message.Value.Id == e.EventData.MessageId)
                                             Messages.Items.Remove(item);
                             }
+                            
                         }
                     }
                 });

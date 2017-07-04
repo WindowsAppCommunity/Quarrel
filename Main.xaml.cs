@@ -151,7 +151,7 @@ namespace Discord_UWP
             if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
             {
                 Servers.IsPaneOpen = true;
-                MessageArea.Opacity = 0.5;
+                ContentCache.Opacity = 0.5;
             }
         }
         public Main()
