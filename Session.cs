@@ -325,14 +325,14 @@ namespace Discord_UWP
             }
         }
 
-        public static void CreateMessage(string id, string text)
+        public static async Task CreateMessage(string id, string text)
         {
             try
             {
                 MessageUpsert message = new MessageUpsert();
                 message.Content = text;
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.CreateMessage(id, message).Wait();
+                await channelservice.CreateMessage(id, message);
             }
             catch (Exception e)
             {

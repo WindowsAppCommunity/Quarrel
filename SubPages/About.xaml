@@ -138,7 +138,7 @@
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
                                     <TextBlock x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                                    <TextBlock FontSize="13" Text="Discord UWP is an unofficial client for Discord. The developers are in now way affiliated with Hammer &amp; Chisel, Inc" TextWrapping="Wrap" Margin="0"/>
+                                    <TextBlock FontSize="13" Text="Discord UWP is an unofficial client for Discord. The developers are in no way affiliated with Hammer &amp; Chisel, Inc" TextWrapping="Wrap" Margin="0"/>
                                     <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
