@@ -114,6 +114,12 @@ namespace Discord_UWP
                 sc.Name = channel.Value.Raw.Name;
                 sc.Id = channel.Value.Raw.Id;
                 var type = channel.Value.Raw.Type;
+                sc.Type = type;
+                if (Storage.MutedChannels.Contains(sc.Id))
+                    sc.IsMuted = true;
+                else
+                    sc.IsMuted = false;
+
                 if (type == 1)
                 {
                     //DM
