@@ -501,11 +501,11 @@ namespace Discord_UWP
             EditBox.Visibility = Visibility.Visible;
         }
 
-        private void CreateMessage(object sender, RoutedEventArgs e)
+        private async void CreateMessage(object sender, RoutedEventArgs e)
         {
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
-            Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText);
+            await Task.Run(() => Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText));
         }
 
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)

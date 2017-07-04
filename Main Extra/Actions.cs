@@ -89,6 +89,7 @@ namespace Discord_UWP
         
         private void EditMessage(object sender, RoutedEventArgs e)
         {
+            /*
             if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
             {
                 Session.EditMessage(App.CurrentChannelId, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
@@ -97,6 +98,7 @@ namespace Discord_UWP
             {
                 Session.EditMessage(App.CurrentChannelId, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
             }
+            */
         }
 
         private async void TypingStarted(object sender, RoutedEventArgs args)
@@ -148,6 +150,7 @@ namespace Discord_UWP
 
         private void ToggleReaction(object sender, RoutedEventArgs e)
         {
+            /*
             if ((sender as ToggleButton).IsChecked == false) //Inverted since it changed
             {
                 Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item2, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji);
@@ -174,6 +177,7 @@ namespace Discord_UWP
                     (sender as ToggleButton).Content = ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Emoji.Name + " " + (((sender as ToggleButton).Tag as Tuple<string, string, Reactions>).Item3.Count + 1).ToString();
                 }
             }
+            */
         }
 
         #region OldCode
