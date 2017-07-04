@@ -282,44 +282,30 @@ namespace Discord_UWP
         }
 
         private async void MessageDeleted(object sender,
-            Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
+            GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (ServerList.SelectedItem != null)
-                    {
-                        if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs" &&
-                            DirectMessageChannels.SelectedItem != null &&
-                            ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id ==
-                            e.EventData.ChannelId)
-                        {
-                            LoadDmChannelMessages(null, null);
-                        }
-                        else
-                        {
-                            if (TextChannels.SelectedItem != null &&
-                                (TextChannels.SelectedItem as ListViewItem).Tag != null &&
-                                ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id ==
+                    if (App.CurrentChannelId != null &&
+                                App.CurrentChannelId ==
                                 e.EventData.ChannelId)
-                            {
-                                if (Messages.Items != null)
-                                    foreach (MessageContainer item in Messages.Items)
-                                        if (item.Message.HasValue && item.Message.Value.Id == e.EventData.MessageId)
-                                            Messages.Items.Remove(item);
-                            }
-                        }
+                    {
+                        if (Messages.Items != null)
+                            foreach (MessageContainer item in Messages.Items)
+                                if (item.Message.HasValue && item.Message.Value.Id == e.EventData.MessageId)
+                                    Messages.Items.Remove(item);
                     }
                 });
         }
 
-        private async void MessageUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private async void MessageUpdated(object sender, GatewayEventArgs<SharedModels.Message> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
-                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                    if (App.CurrentGuildId == null && App.CurrentChannelId != null &&
+                        App.CurrentChannelId ==
                         e.EventData.ChannelId)
                     {
                         for (int x = 0; x < Messages.Items.Count; x++)
@@ -347,13 +333,13 @@ namespace Discord_UWP
         }
 
         private async void MessageReactionRemovedAll(object sender,
-            Gateway.GatewayEventArgs<MessageReactionRemoveAll> e)
+            GatewayEventArgs<MessageReactionRemoveAll> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
-                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                    if (App.CurrentGuildId == null &&
+                        App.CurrentChannelId ==
                         e.EventData.ChannelId)
                     {
                         for (int x = 0; x < Messages.Items.Count; x++)
@@ -366,18 +352,6 @@ namespace Discord_UWP
                             }
                         }
                     }
-                    else if (TextChannels.SelectedItem != null &&
-                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
-                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
-                             e.EventData.ChannelId)
-                        for (int x = 0; x < Messages.Items.Count; x++)
-                        {
-                            var messageContainer = Messages.Items[x] as MessageContainer;
-                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
-                            {
-                                //TODO REMOVE ALL REACTIONS
-                            }
-                        }
                 });
         }
 
@@ -386,8 +360,9 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
-                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+
+                    if (App.CurrentGuildId == null && App.CurrentChannelId != null &&
+                        App.CurrentChannelId ==
                         e.EventData.ChannelId)
                     {
                         for (int x = 0; x < Messages.Items.Count; x++)
@@ -400,18 +375,6 @@ namespace Discord_UWP
                             }
                         }
                     }
-                    else if (TextChannels.SelectedItem != null &&
-                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
-                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
-                             e.EventData.ChannelId)
-                        for (int x = 0; x < Messages.Items.Count; x++)
-                        {
-                            var messageContainer = Messages.Items[x] as MessageContainer;
-                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
-                            {
-                                //TODO REMOVE REACTION
-                            }
-                        }
                 });
         }
 
@@ -420,8 +383,8 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (App.CurrentGuildId == null && DirectMessageChannels.SelectedItem != null &&
-                        ((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id ==
+                    if (App.CurrentGuildId == null && App.CurrentChannelId != null &&
+                        App.CurrentChannelId ==
                         e.EventData.ChannelId)
                     {
                         for (int x = 0; x < Messages.Items.Count; x++)
@@ -434,18 +397,6 @@ namespace Discord_UWP
                             }
                         }
                     }
-                    else if (TextChannels.SelectedItem != null &&
-                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
-                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
-                             e.EventData.ChannelId)
-                        for (int x = 0; x < Messages.Items.Count; x++)
-                        {
-                            var messageContainer = Messages.Items[x] as MessageContainer;
-                            if (messageContainer != null && messageContainer.Message?.Id == e.EventData.MessageId)
-                            {
-                                //TODO ADD REACTION
-                            }
-                        }
                 });
         }
 

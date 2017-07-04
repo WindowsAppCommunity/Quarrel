@@ -18,6 +18,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Text;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -63,7 +64,6 @@ namespace Discord_UWP
                 MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
                 Task.Run(() => Session.CreateMessage(App.CurrentChannelId, txt));
                 MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
-                
             }
             else
             {
@@ -99,19 +99,19 @@ namespace Discord_UWP
             }
         }
 
-        private async void TypingStarted(RichEditBox sender, RichEditBoxTextChangingEventArgs args)
+        private async void TypingStarted(object sender, RoutedEventArgs args)
         {
             try
             {
-                sender.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string text);
-                if (text == "\r")
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    SendBox.IsEnabled = false;
-                }
-                else
-                {
-                    SendBox.IsEnabled = true;
-                }
+                    string text = "";
+                    MessageBox.Document.GetText(TextGetOptions.None, out text);
+                    if (text != "")
+                        SendBox.IsEnabled = true;
+                    else
+                        SendBox.IsEnabled = false;
+                });
 
                 await Task.Run(() => Session.TriggerTypingIndicator(App.CurrentChannelId));
             }
@@ -132,17 +132,18 @@ namespace Discord_UWP
             CreateChannelName.Text = "";
         }
 
-        private void SaveChannelCreate(object sender, RoutedEventArgs e)
+        private async void SaveChannelCreate(object sender, RoutedEventArgs e)
         {
             CreateChannel.Visibility = Visibility.Collapsed;
             TextChannels.SelectedIndex = TextChannels.Items.Count - 2;
-            Session.CreateChannel((ServerList.SelectedItem as ListViewItem).Tag.ToString(), CreateChannelName.Text);
+            await Task.Run(() => Session.CreateChannel(App.CurrentGuildId, CreateChannelName.Text));
         }
 
         private void DeleteChannel(object sender, RoutedEventArgs e)
         {
             ChannelSettings.Visibility = Visibility.Collapsed;
             Session.DeleteChannel(_settingsPaneId);
+            //await Task.Run(() => Session.DeleteChannel(_settingsPaneId));
         }
 
         private void ToggleReaction(object sender, RoutedEventArgs e)
