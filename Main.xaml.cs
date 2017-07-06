@@ -571,7 +571,6 @@ namespace Discord_UWP
             if (Storage.Cache.Guilds[id] != null)
             {
                 ChannelsLoading.IsActive = true;
-                MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
 
                 Messages.Items.Clear();
 
@@ -637,8 +636,7 @@ namespace Discord_UWP
             }
 
             ChannelsLoading.IsActive = false;
-            MessageBox.IsEnabled = false;
-            MessageBox.PlaceholderText = "Can't send messages while offline";
+            MessageBox1.IsEnabled = false;
             if (TextChannels.Items.Count > 0)
             {
                 NoGuildChannelsCached.Visibility = Visibility.Collapsed;
@@ -981,7 +979,6 @@ namespace Discord_UWP
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
-                SendBox.IsEnabled = false;
                 MuteToggle.Visibility = Visibility.Collapsed;
 
                 Messages.Items.Clear();
