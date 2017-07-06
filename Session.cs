@@ -356,12 +356,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void AckMessage(string chnId, string msgId)
+        public static async Task AckMessage(string chnId, string msgId)
         {
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.AckMessage(chnId, msgId).Wait();
+                await channelservice.AckMessage(chnId, msgId);
             }
             catch (Exception e)
             {
