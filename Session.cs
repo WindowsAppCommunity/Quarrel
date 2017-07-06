@@ -356,12 +356,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void AckMessages(string chnId)
+        public static void AckMessage(string chnId, string msgId)
         {
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-          //      channelservice.AckMessages(chnId).Wait();
+                channelservice.AckMessage(chnId, msgId).Wait();
             }
             catch (Exception e)
             {
@@ -369,12 +369,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void AckMessage(string chnId, string msgId)
+        public static void AckGuild(string guildId)
         {
             try
             {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-     //           channelservice.AckMessage(chnId, msgId).Wait();
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                guildservice.AckGuild(guildId).Wait();
             }
             catch (Exception e)
             {

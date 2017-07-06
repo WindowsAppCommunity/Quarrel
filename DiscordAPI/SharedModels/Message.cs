@@ -40,4 +40,11 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("pinned")]
         public bool Pinned { get; set; }
     }
+    public struct MessageAck
+    {
+        [JsonProperty("message_id")]
+        public string Id { get; set; }
+        [JsonProperty("channel_id")]
+        public string ChannelId { get; set; }
+    }
 }

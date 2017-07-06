@@ -41,6 +41,7 @@ namespace Discord_UWP.Gateway
         public const string MESSAGE_REACTION_ADD = "MESSAGE_REACTION_ADD";
         public const string MESSAGE_REACTION_REMOVE = "MESSAGE_REACTION_REMOVE";
         public const string MESSAGE_REACTION_REMOVE_ALL = "MESSAGE_REACTION_REMOVE_ALL";
+        public const string MESSAGE_ACK = "MESSAGE_ACK"; /*RECEIVED WHENEVER ANOTHER DISCORD INSTANCE ACKs A CHANNEL*/
 
         public const string PRESENCE_UPDATED = "PRESENCE_UPDATE";
         public const string TYPING_START = "TYPING_START";
@@ -53,6 +54,5 @@ namespace Discord_UWP.Gateway
         public const string FRIEND_ADDED = "RELATIONSHIP_ADD";
         public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
         public const string FRIEND_UPDATE = "RELATIONSHIP_UPDATE";
-        //{"t":"RELATIONSHIP_ADD","s":792,"op":0,"d":{"user":{USER OBJECT},"type":4,"id":"323755494026117120"}}
     }
 }

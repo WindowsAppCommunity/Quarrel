@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400" VerticalAlignment="Top">
 
-    <Grid VerticalAlignment="Top">
+    <Grid VerticalAlignment="Top" Margin="0" Padding="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -23,19 +23,19 @@
             </Rectangle.Fill>
         </Rectangle>
         
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <SymbolIcon x:Name="MuteIcon" Visibility="Collapsed" Symbol="Mute" Margin="0,0,4,0" Opacity="0.6"/>
                 <SymbolIcon x:Name="VoiceIcon" Visibility="Collapsed" Symbol="Volume" Margin="0,0,4,0" Opacity="0.6"/>
                 <TextBlock x:Name="HashtagIcon" Text="#" Opacity="0.6"/>
-                <TextBlock x:Name="ChannelName" Text="general"/>
+                <TextBlock x:Name="ChannelName" Text="general" Opacity="0.75"/>
             </StackPanel>
             <TextBlock x:Name="PlayingBlock" Visibility="Collapsed" Text="Playing..." FontSize="11" FontWeight="SemiBold" Opacity="0.4" Margin="0,4,0,0"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Horizontal">
             <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
-            <Border Visibility="Collapsed" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1">
-                <TextBlock x:Name="NotificationCounter" Text="2" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6"/>
+            <Border Visibility="Collapsed" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,-5,0">
+                <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
             
         </StackPanel>

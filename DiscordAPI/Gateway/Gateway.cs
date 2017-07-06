@@ -56,6 +56,7 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<MessageReactionUpdate>> MessageReactionAdded;
         public event EventHandler<GatewayEventArgs<MessageReactionUpdate>> MessageReactionRemoved;
         public event EventHandler<GatewayEventArgs<MessageReactionRemoveAll>> MessageReactionRemovedAll;
+        public event EventHandler<GatewayEventArgs<MessageAck>> MessageAck;
 
         public event EventHandler<GatewayEventArgs<GuildMemberAdd>> GuildMemberAdded;
         public event EventHandler<GatewayEventArgs<GuildMemberRemove>> GuildMemberRemoved;
@@ -106,6 +107,7 @@ namespace Discord_UWP.Gateway
                 { EventNames.MESSAGE_REACTION_ADD, OnMessageReactionAdd },
                 { EventNames.MESSAGE_REACTION_REMOVE, OnMessageReactionRemove },
                 { EventNames.MESSAGE_REACTION_REMOVE_ALL, OnMessageReactionRemoveAll },
+                { EventNames.MESSAGE_ACK, OnMessageAck },
                 { EventNames.CHANNEL_CREATED, OnChannelCreated },
                 { EventNames.CHANNEL_UPDATED, OnChannelUpdated },
                 { EventNames.CHANNEL_DELETED, OnChannelDeleted },
@@ -284,6 +286,11 @@ namespace Discord_UWP.Gateway
         private void OnMessageReactionRemoveAll(GatewayEvent gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageReactionRemovedAll);
+        }
+
+        private void OnMessageAck(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, MessageAck);
         }
 
         private void OnChannelCreated(GatewayEvent gatewayEvent)
