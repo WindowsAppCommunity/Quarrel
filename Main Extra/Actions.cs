@@ -57,34 +57,14 @@ namespace Discord_UWP
             }
         }
 
-        private void CreateMessage(object sender, RoutedEventArgs e)
+        private async void CreateMessage(object sender, RoutedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
+            string txt = MessageBox1.Text;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
-                Task.Run(() => Session.CreateMessage(App.CurrentChannelId, txt));
-                MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
-            }
-            else
-            {
-                MessageBox.Document.GetText(Windows.UI.Text.TextGetOptions.None, out string txt);
-                StringBuilder msg = new StringBuilder(txt);
-                foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                {
-                    msg.Replace("@" + member.Value.Raw.User.Username + "#" + member.Value.Raw.User.Discriminator, "<@" + member.Value.Raw.User.Id + ">");
-                }
-                Task.Run(() => Session.CreateMessage(App.CurrentChannelId, msg.ToString()));
-                #region OldCode
-                //if (AttachmentImage.Source != null)
-                //{
-                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).raw.Id, msg.ToString(), AttachmentImage.Tag as StorageFile);
-                //} else
-                //{
-                //    Session.CreateMessage(((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).raw.Id, msg.ToString());
-                //}
-                #endregion
-                MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
-            }
+                MessageBox1.Clear();
+            });
+            await Task.Run(() => Session.CreateMessage(App.CurrentChannelId, txt));
         }
         
         private void EditMessage(object sender, RoutedEventArgs e)
@@ -101,20 +81,10 @@ namespace Discord_UWP
             */
         }
 
-        private async void TypingStarted(object sender, RoutedEventArgs args)
+        private async void TypingStarted(object sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             try
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                {
-                    string text = "";
-                    MessageBox.Document.GetText(TextGetOptions.None, out text);
-                    if (text != "")
-                        SendBox.IsEnabled = true;
-                    else
-                        SendBox.IsEnabled = false;
-                });
-
                 await Task.Run(() => Session.TriggerTypingIndicator(App.CurrentChannelId));
             }
             catch

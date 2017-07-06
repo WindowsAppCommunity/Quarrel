@@ -361,7 +361,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                await channelservice.AckMessage(chnId, msgId);
+                //await channelservice.AckMessage(chnId, msgId);
             }
             catch (Exception e)
             {

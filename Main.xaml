@@ -365,10 +365,7 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <Rectangle Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                    <!--<Image x:Name="AttachmentImage" Grid.ColumnSpan="3"/>-->
-                    <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
-                    <RichEditBox MaxHeight="128" x:Name="MessageBox" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanged="TypingStarted" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>
-                    <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="CreateMessage" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
+                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage"/>
                     <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32">
                         <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
