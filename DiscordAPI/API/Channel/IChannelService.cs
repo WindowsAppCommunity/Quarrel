@@ -45,9 +45,6 @@ namespace Discord_UWP.API.Channel
         [Post("/channels/{channelId}/messages")]
         Task<Message> UploadFile([AliasAs("channelId")] string channelId);
 
-        [Post("/channels/{channelId}/messages/ack")]
-        Task AckMessages([AliasAs("channelId")] string channelId);
-
         [Patch("/channels/{channelId}/messages/{messageId}")]
         Task<Message> EditMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [Body] EditMessage editMessage);
 

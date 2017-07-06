@@ -263,6 +263,7 @@ namespace Discord_UWP
             Session.Gateway.MessageReactionAdded += MessageReactionAdded;
             Session.Gateway.MessageReactionRemoved += MessageReactionRemoved;
             Session.Gateway.MessageReactionRemovedAll += MessageReactionRemovedAll;
+            Session.Gateway.MessageAck += OnMessageAck;
 
             Session.Gateway.GuildCreated += GuildCreated;
             Session.Gateway.GuildDeleted += GuildDeleted;
@@ -289,7 +290,7 @@ namespace Discord_UWP
 
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
-
+            
             App.LinkClicked += MessageControl_OnLinkClicked;
             try
             {
@@ -398,6 +399,8 @@ namespace Discord_UWP
         #endregion
 
         #region LoadGuild
+
+        Dictionary<string, Member> memberscvs;
         private void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
@@ -406,6 +409,9 @@ namespace Discord_UWP
                 ToggleServerListFull(null, null);
                 ServerName.Text = ToolTipService.GetToolTip((sender as ListView).SelectedItem as DependencyObject).ToString();
                 TextChannels.Items.Clear();
+                Typers.Clear();
+                MembersCVS = null;
+                App.GuildMembers = null;
                 SendMessage.Visibility = Visibility.Collapsed;
                 if (((sender as ListView).SelectedItem as ListViewItem).Tag.ToString() == "DMs")
                 {
@@ -453,6 +459,10 @@ namespace Discord_UWP
         #region Members
         public async void LoadMembers(string id)
         {
+            await Task.Run(() =>
+            {
+
+            });
             if (Session.Online)
             {
                 IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
@@ -470,12 +480,14 @@ namespace Discord_UWP
                             Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
                         }
                     }
+                    App.GuildMembers = Storage.Cache.Guilds[id].Members;
                 }
             }
-
             int totalrolecounter = 0;
+            
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
             {
+                
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
                     Role roleAlt = role;
@@ -497,7 +509,7 @@ namespace Discord_UWP
                     }
                 }
                 int everyonecounter = Storage.Cache.Guilds[id].Members.Count() - totalrolecounter;
-                var memberscvs = Storage.Cache.Guilds[id].Members;
+                memberscvs = Storage.Cache.Guilds[id].Members;
                 foreach (Member m in memberscvs.Values)
                 {
                     if (m.Raw.Roles.FirstOrDefault() != null && Storage.Cache.Guilds[id].Roles[m.Raw.Roles.FirstOrDefault()].Hoist)
@@ -516,8 +528,12 @@ namespace Discord_UWP
                         m.status = new Presence() { Status = "offline", Game = null};
                     }
                 }
-                //if (Storage.Settings.ShowOfflineMembers)
+                try
+                {
                     MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                }
+                catch { }
+                    
                 //else
                 //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
@@ -613,8 +629,9 @@ namespace Discord_UWP
                     channelListBuffer.Add(new Grid());
                 }
 
-                LoadChannelList();
-            } else
+                LoadChannelList(new List<int>() { 0 });
+            }
+            else
             {
 
             }
@@ -636,25 +653,26 @@ namespace Discord_UWP
         {
             Messages.Items.Clear();
 
-            MembersCVS.Source = null;
-
             #region Permissions
             Permissions perms = new Permissions();
-            foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+            Task.Run(() =>
             {
-                if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
-                    Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
+                    if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    {
+                        Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
+                    }
+                    if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    {
+                        perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                    }
+                    else
+                    {
+                        perms.GetPermissions(0);
+                    }
                 }
-                if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                {
-                    perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                }
-                else
-                {
-                    perms.GetPermissions(0);
-                }
-            }
+            });
             #endregion
 
             if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
@@ -667,24 +685,23 @@ namespace Discord_UWP
             }
 
             #region Roles
-
-            MembersCVS.Source = null;
             //await Session.Gateway.RequestAllGuildMembers(id);
             LoadMembers(id);
             App.CurrentGuildId = id;
             #endregion
 
-            if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
+            Task.Run(() =>
             {
-                foreach (Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
-                {
-                    if (Session.PrecenseDict.ContainsKey(presence.User.Id))
+                if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
+                    foreach (Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
                     {
-                        Session.PrecenseDict.Remove(presence.User.Id);
+                        if (Session.PrecenseDict.ContainsKey(presence.User.Id))
+                        {
+                            Session.PrecenseDict.Remove(presence.User.Id);
+                        }
+                        Session.PrecenseDict.Add(presence.User.Id, presence);
                     }
-                    Session.PrecenseDict.Add(presence.User.Id, presence);
-                }
-            }
+            });
 
             #region Channels
             List<UIElement> channelListBuffer = new List<UIElement>();
@@ -693,7 +710,7 @@ namespace Discord_UWP
                 channelListBuffer.Add(new Grid());
             }
 
-            LoadChannelList();
+            LoadChannelList(new List<int>(){0});
             #endregion
 
             ChannelsLoading.IsActive = false;
@@ -804,7 +821,6 @@ namespace Discord_UWP
                 if (Session.Online)
                 {
                     await DownloadChannelMessages();
-                    Session.AckMessages(App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Id);
                 } else
                 {
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -890,7 +906,6 @@ namespace Discord_UWP
                 }
                 Storage.SaveCache();
                 MessagesLoading.Visibility = Visibility.Collapsed;
-                Session.AckMessages(App.CurrentGuild.Channels[App.CurrentChannelId].Raw.Id);
             }
         }
         private async Task DownloadChannelPinnedMessages()
@@ -1067,7 +1082,6 @@ namespace Discord_UWP
                 Storage.SaveMessages();
             }
             MessagesLoading.Visibility = Visibility.Collapsed;
-            Session.AckMessages(Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Id);
         }
         #endregion
 
@@ -1442,8 +1456,17 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@&"))
             {
                 string val = e.Link.Remove(0, 2);
-                ShowUserDetails(val);
-            } else if (e.Link.StartsWith("@")){
+                //TODO Fix this shit
+                MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberDisplayedRole.Id == val));
+                if (!Members.IsPaneOpen)
+                {
+                    if (ResponsiveUI_VisualStates.CurrentState != Large)
+                        DarkenMessageArea.Begin();
+                    Members.IsPaneOpen = true;
+                }
+            }
+            else if (e.Link.StartsWith("@"))
+            {
                 string val = e.Link.Remove(0, 1);
                 ShowUserDetails(val);
             }

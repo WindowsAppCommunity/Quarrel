@@ -142,7 +142,7 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == UserStatusProperty)
             {
@@ -162,18 +162,41 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsUnreadProperty)
             {
-                if (IsUnread) UnreadIndicator.Visibility = Visibility.Collapsed;
-                else UnreadIndicator.Visibility = Visibility.Visible;
+                if (IsUnread)
+                {
+                    ChannelName.Fade(1,200).Start();
+                    UnreadIndicator.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ChannelName.Fade(0.75f, 200).Start();
+                    UnreadIndicator.Visibility = Visibility.Collapsed;
+                }
             }
             if (prop == IsMutedProperty)
             {
-                if (IsMuted) MuteIcon.Visibility = Visibility.Collapsed;
-                else MuteIcon.Visibility = Visibility.Visible;
+                if (IsMuted)
+                {
+                    ChannelName.Opacity = 0.5;
+                    MuteIcon.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MuteIcon.Visibility = Visibility.Collapsed;
+                }
             }
             if (prop == IsTypingProperty)
             {
-                if(IsTyping) TypingIndic.Fade(1,200).Start();
-                else TypingIndic.Fade(0,200).Start();
+                if (IsTyping)
+                {
+                    TypingIndic.Visibility = Visibility.Visible;
+                    TypingIndic.Fade(1, 200).Start();
+                }
+                else
+                {
+                    await TypingIndic.Fade(0,200).StartAsync();
+                    TypingIndic.Visibility = Visibility.Collapsed;
+                }
             }
             if (prop == NotificationCountProperty)
             {
@@ -181,9 +204,17 @@ namespace Discord_UWP.Controls
                 {
                     NotificationBorder.Visibility = Visibility.Visible;
                     NotificationCounter.Text = NotificationCount.ToString();
+                    NotificationBorder.Fade(1).Start();
+                    var centerX = (float) NotificationBorder.ActualWidth / 2;
+                    var centerY = (float) NotificationBorder.ActualHeight / 2;
+                    NotificationBorder.Scale(0.5f, 0.5f, centerX, centerY, 0).Start();
+                    NotificationBorder.Scale(1, 1, centerX, centerY, 200,0, EasingType.Back).Start();
                 }
                 else
                 {
+                    NotificationBorder.Fade(0).Start();
+                    await NotificationBorder.Scale(0.5f, 0.5f, (float)NotificationBorder.ActualWidth / 2f,
+                        (float)NotificationBorder.ActualHeight / 2, 200, 0, EasingType.Back).StartAsync();
                     NotificationBorder.Visibility = Visibility.Collapsed;
                 }
             }

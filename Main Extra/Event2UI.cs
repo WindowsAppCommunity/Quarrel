@@ -181,8 +181,15 @@ namespace Discord_UWP
                                 UpdateTypingUI();
                             }
                             catch (Exception exception) {}
-
                         }
+                        try
+                        {
+                            var channel =
+                            (TextChannels.Items.FirstOrDefault(
+                                x => (x as SimpleChannel).Id == e.EventData.ChannelId) as SimpleChannel);
+                            if(channel != null) channel.IsTyping = false;
+                        }
+                        catch (Exception) { }
                     }
                     else
                     {
@@ -398,6 +405,11 @@ namespace Discord_UWP
                         }
                     }
                 });
+        }
+
+        private void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
+        {
+            //TODO Remove unread and notification indicators
         }
 
         private async void GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
@@ -752,6 +764,8 @@ namespace Discord_UWP
             string typingString = "";
             int DisplayedTyperCounter = 0;
             List<string> NamesTyping = new List<string>();
+            foreach (var channel in TextChannels.Items)
+                (channel as SimpleChannel).IsTyping = false;
             for (int i = 0; i < Typers.Count; i++)
             {
                 var typer = Typers.ElementAt(i);
@@ -770,17 +784,20 @@ namespace Discord_UWP
                     }
                     else
                     {
-                        if (App.CurrentChannelId == typer.Key.channelId)
+                        if (App.CurrentChannelId == typer.Key.channelId && App.GuildMembers.ContainsKey(typer.Key.userId))
                         {
-                            var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[typer.Key.userId];
+                            var member = App.GuildMembers[typer.Key.userId];
                             string DisplayedName = member.Raw.User.Username;
                             if (member.Raw.Nick != null) DisplayedName = member.Raw.Nick;
                             NamesTyping.Add(DisplayedName);
                         }
-                        else
+                        try
                         {
-                            //TODO Display typing indicator on channel list
+                            (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
+                                .IsTyping = true;
                         }
+                        catch(Exception) { }
+                        
                         //TODO Display typing indicator on member list
                     }
                 }

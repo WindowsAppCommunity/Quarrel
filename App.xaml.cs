@@ -70,6 +70,7 @@ namespace Discord_UWP
         internal static bool CurrentGuildIsDM = false;
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
+        internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
         /// <summary>
         /// Fired when a link element in the markdown was tapped.
         /// </summary>

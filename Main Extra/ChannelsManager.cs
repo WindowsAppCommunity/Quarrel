@@ -1,11 +1,12 @@
-﻿using Discord_UWP.CacheModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Discord_UWP.SharedModels;
+using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 
 namespace Discord_UWP
 {
@@ -104,11 +105,14 @@ namespace Discord_UWP
 
 
         private IEnumerable<KeyValuePair<string, GuildChannel>> DisplayedChannels = null;
-        private void LoadChannelList()
+
+        private void LoadChannelList(List<int> ChannelType)
         {
             if (App.CurrentGuildIsDM) return; //Fuck DMs (for the moment)
-
-            foreach (var channel in Storage.Cache.Guilds[App.CurrentGuildId].Channels.OrderBy(x => x.Value.Raw.Position))
+            var FilteredChannels = Storage.Cache.Guilds[App.CurrentGuildId]
+                .Channels.Where(x => ChannelType.Contains(x.Value.Raw.Type))
+                .OrderBy(x => x.Value.Raw.Position);
+            foreach (var channel in FilteredChannels)
             {
                 var sc = new SimpleChannel();
                 sc.Name = channel.Value.Raw.Name;
@@ -136,11 +140,18 @@ namespace Discord_UWP
                         channelMembers.Add(d.Raw.User.Username);
                     sc.Name = string.Join(", ", channelMembers);
                 }
-                if (true) //TODO replace by a check on the data sent in the ready packet
+                if (Session.RPC.ContainsKey(sc.Id))
                 {
-                    sc.IsUnread = false;
-                    sc.IsTyping = true;
+                    ReadState readstate = Session.RPC[sc.Id];
+                    sc.NotificationCount = readstate.MentionCount;
+                    var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
+                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                        readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                        sc.IsUnread = true;
+                    else
+                        sc.IsUnread = false;
                 }
+                
                 TextChannels.Items.Add(sc);
             }
         }

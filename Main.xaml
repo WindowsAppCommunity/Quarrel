@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Discord_UWP.Controls"
     xmlns:gregstoll="using:Gregstoll"
-    xmlns:u="using:UpdateControls"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="DarkenMessageArea" >
@@ -494,7 +493,7 @@
                 <SplitView.Pane>
                     <SemanticZoom>
                         <SemanticZoom.ZoomedInView>
-                            <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True" ItemClick="ListViewBase_OnItemClick">
+                            <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True" ItemClick="ListViewBase_OnItemClick">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
