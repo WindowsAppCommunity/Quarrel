@@ -1,0 +1,158 @@
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
+using Windows.System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
+
+// Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace Discord_UWP.SubPages
+{
+    /// <summary>
+    /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
+    /// </summary>
+    public sealed partial class PreviewAttachement : Page
+    {
+        public PreviewAttachement()
+        {
+            this.InitializeComponent();
+        }
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            CloseButton_Click(null, null);
+        }
+
+        private SharedModels.Attachment attachement;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is SharedModels.Attachment)
+            {
+                attachement = (SharedModels.Attachment)e.Parameter;
+                if (attachement.Url.EndsWith(".svg"))
+                    ImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
+                else
+                    ImageViewer.Source = new BitmapImage(new Uri(attachement.Url));
+            }
+            base.OnNavigatedTo(e);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            scale.CenterY = this.ActualHeight / 2;
+            scale.CenterX = this.ActualWidth / 2;
+            NavAway.Begin();
+            App.SubpageClosed();
+        }
+
+        private void NavAway_Completed(object sender, object e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
+        }
+
+        private async void ImageViewer_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            await ImageViewer.Fade(1, 200).StartAsync();
+            LoadingRing.IsActive = false;
+        }
+
+        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var sc = (sender as ScrollViewer);
+            if (sc.ZoomFactor > 1 && cbContainer.Opacity == 1)
+                cbContainer.Fade(0, 100).Start();
+            else if (sc.ZoomFactor == 1)
+                cbContainer.Fade(1, 100).Start();
+        }
+
+        private void ScrollViewer_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var sc = (sender as ScrollViewer);
+            if (cbContainer.Opacity == 1)
+                cbContainer.Fade(0, 200).Start();
+            else if (cbContainer.Opacity == 0)
+                cbContainer.Fade(1, 200).Start();
+        }
+
+        private void PreviewAttachement_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (attachement.Width != null && attachement.Width < ActualWidth)
+                ImageViewer.MaxWidth = (int)attachement.Width;
+            else if (ActualWidth < 700)
+                ImageViewer.MaxWidth = ActualWidth;
+            else
+                ImageViewer.MaxWidth = 700;
+
+            if (attachement.Height != null && attachement.Height < ActualHeight)
+                ImageViewer.MaxHeight = (int)attachement.Height;
+            else if (ActualHeight < 700)
+                ImageViewer.MaxHeight = ActualHeight;
+            else
+                ImageViewer.MaxHeight = 700;
+        }
+
+        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            CloseButton_Click(null,null);
+        }
+
+        private void Filename_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBlock).Text = attachement.Filename;
+        }
+
+        private void Filesize_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBlock).Text = Common.HumanizeFileSize(attachement.Size);
+        }
+
+        private void Width_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBlock).Text = attachement.Width.ToString();
+        }
+
+        private void Height_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBlock).Text = attachement.Height.ToString();
+        }
+
+        private void CopyLink_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(attachement.Url);
+            Clipboard.SetContent(dataPackage);
+        }
+
+        private async void Open_OnClick(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri(attachement.Url));
+        }
+
+        private void Share_OnClick(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += (sender1, args) =>
+            {
+                DataRequest request = args.Request;
+                request.Data.Properties.Title = attachement.Filename;
+                var rasr = RandomAccessStreamReference.CreateFromUri(new Uri(attachement.Url));
+                request.Data.SetBitmap(rasr);
+                request.Data.Properties.Thumbnail = rasr;
+            };
+            DataTransferManager.ShowShareUI();
+        }
+    }
+}

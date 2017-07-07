@@ -228,6 +228,8 @@ namespace Discord_UWP
             Login(args);
             SetupUI();
         }
+
+        private bool VibrationEnabled = true;
         private void SetupUI()
         {
             var info = new DrillInNavigationTransitionInfo();
@@ -239,6 +241,7 @@ namespace Discord_UWP
             SubFrame.ContentTransitions = collection;
             Storage.SettingsChangedHandler += SettingsChanged;
             App.SubpageClosedHandler += SubpageClosed;
+            
             SettingsChanged(null, null);
         }
 
@@ -249,9 +252,11 @@ namespace Discord_UWP
             else
                 VisualStateManager.GoToState(this, "AppBarAlignment_Top", false);
 
-            ResponsiveUI_M_Trigger.MinWindowWidth = Storage.Settings.RespUiM;
-            ResponsiveUI_L_Trigger.MinWindowWidth = Storage.Settings.RespUiL;
-            ResponsiveUI_XL_Trigger.MinWindowWidth = Storage.Settings.RespUiXl;
+            var settings = Storage.Settings;;
+            ResponsiveUI_M_Trigger.MinWindowWidth = settings.RespUiM;
+            ResponsiveUI_L_Trigger.MinWindowWidth = settings.RespUiL;
+            ResponsiveUI_XL_Trigger.MinWindowWidth = settings.RespUiXl;
+            VibrationEnabled = settings.Vibrate;
         }
 
         async void EstablishGateway()
@@ -292,6 +297,7 @@ namespace Discord_UWP
             Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
             
             App.LinkClicked += MessageControl_OnLinkClicked;
+            App.OpenAttachementHandler += OpenAttachement;
             try
             {
                 await Session.Gateway.ConnectAsync();
@@ -303,6 +309,11 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private void OpenAttachement(object sender, Attachment e)
+        {
+            SubFrameNavigator(typeof(SubPages.PreviewAttachement), e);
         }
 
         #region LoadUser

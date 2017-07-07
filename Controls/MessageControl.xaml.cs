@@ -163,6 +163,7 @@ namespace Discord_UWP
         }
 
         private GridView reactionView;
+        private Attachment attachement;
         public void UpdateMessage()
         {
             if (Message.HasValue)
@@ -364,7 +365,7 @@ namespace Discord_UWP
             if (!Message.HasValue || (Message.HasValue && Message.Value.Attachments == null)) return;
             if (Message.Value.Attachments.Any())
             {
-                var attachement = Message.Value.Attachments.First();
+                attachement = Message.Value.Attachments.First();
                 bool IsImage = false;
                 if (EnableImages)
                 {
@@ -373,7 +374,10 @@ namespace Discord_UWP
                         {
                             IsImage = true;
                             if (attachement.Filename.EndsWith(".svg"))
+                            {
                                 AttachedImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
+                            }
+                               
                             else
                             {
                                 AttachedImageViewer.Source = new BitmapImage(new Uri(attachement.Url));
@@ -553,6 +557,11 @@ namespace Discord_UWP
             var dataPackage = new DataPackage();
             dataPackage.SetText(Message.Value.Id);
             Clipboard.SetContent(dataPackage);
+        }
+
+        private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            App.OpenAttachement(attachement);
         }
     }
 }

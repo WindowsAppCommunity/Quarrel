@@ -77,7 +77,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Rectangle Tapped="UIElement_OnTapped" Margin="-100"/>
+        <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="364" VerticalAlignment="Center" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="24,18,24,0" Margin="0,48,0,0">

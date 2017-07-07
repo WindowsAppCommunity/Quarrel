@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -150,6 +151,7 @@ namespace Discord_UWP
                 });
         }
 
+        private TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
         private async void MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -164,6 +166,9 @@ namespace Discord_UWP
                             Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
+
+                            if(VibrationEnabled)
+                                Windows.Phone.Devices.Notification.VibrationDevice.GetDefault().Vibrate(VibrationDuration);
                             try
                             {
                                 var ToRemove = new List<TypingStart>();

@@ -91,7 +91,7 @@ namespace Discord_UWP
         {
             public string Guildid { get; set; }
         }
-        public static event EventHandler NavigateToGuildHandler;
+        public static event EventHandler<GuildNavigationArgs> NavigateToGuildHandler;
         public static void NavigateToGuild(string guildId)
         {
             NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs(){Guildid = guildId});
@@ -102,7 +102,7 @@ namespace Discord_UWP
             public string Guildid { get; set; }
             public string Channelid { get; set; }
         }
-        public static event EventHandler NavigateToChannelHandler;
+        public static event EventHandler<ChannelNavigationArgs> NavigateToChannelHandler;
         public static void NavigateToChannel(string guildId, string channelId)
         {
             NavigateToChannelHandler?.Invoke(typeof(App), new ChannelNavigationArgs() { Guildid = guildId, Channelid = channelId });
@@ -112,14 +112,21 @@ namespace Discord_UWP
         {
             public string UserId { get; set; }
         }
-        public static event EventHandler NavigateToProfileHandler;
+        public static event EventHandler<ProfileNavigationArgs> NavigateToProfileHandler;
         public static void NavigateToProfile(string userId)
         {
             NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { UserId = userId });
         }
+
+        public enum AttachementType { Image, Video, Webpage }
+        public static event EventHandler<SharedModels.Attachment> OpenAttachementHandler;
+        public static void OpenAttachement(SharedModels.Attachment args)
+        {
+            OpenAttachementHandler?.Invoke(typeof(App), args);
+        }
         //internal static string ChannelId;
 
-            /// <summary>
+        /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>

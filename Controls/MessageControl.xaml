@@ -142,7 +142,7 @@
         </Grid>
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
         <Viewbox x:Name="AttachedImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
-            <Image x:Name="AttachedImageViewer"/>
+            <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped"/>
         </Viewbox>
         
     </Grid>
