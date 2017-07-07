@@ -261,7 +261,7 @@ namespace Discord_UWP.SubPages
                     break;
                 case "patreon": url = "https://www.patreon.com/" + item.Id;
                     break;
-                case "twitter": url = "https://www.twitter.com/" + item.Id;
+                case "twitter": url = "https://www.twitter.com/" + item.Name;
                     break;
                 case "twitch": url = "https://www.twitch.tv/" + item.Id;
                     break;

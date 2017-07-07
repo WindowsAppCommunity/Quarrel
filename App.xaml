@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="Background" Color="#7FFFFFFF"/>
+                    <SolidColorBrush x:Key="Background" Color="#96FFFFFF"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -26,7 +26,7 @@
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="Background" Color="#7F000000"/>
+                    <SolidColorBrush x:Key="Background" Color="#96000000"/>
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#2a2c31"/>

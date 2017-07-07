@@ -33,8 +33,9 @@ namespace Discord_UWP.SubPages
         {
             base.OnNavigatedTo(e);
 
-            HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
-            Toasts.IsOn = Storage.Settings.Toasts;
+            HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
+            Toasts.IsChecked = Storage.Settings.Toasts;
+            Vibrate.IsChecked = Storage.Settings.Vibrate;
 
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
@@ -62,8 +63,9 @@ namespace Discord_UWP.SubPages
 
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-            Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
-            Storage.Settings.Toasts = Toasts.IsOn;
+            Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
+            Storage.Settings.Toasts = (bool)Toasts.IsChecked;
+            Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
 
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;

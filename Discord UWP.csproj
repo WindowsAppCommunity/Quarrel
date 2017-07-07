@@ -299,6 +299,9 @@
     <Compile Include="SubPages\InAppPurchases.xaml.cs">
       <DependentUpon>InAppPurchases.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\PreviewAttachement.xaml.cs">
+      <DependentUpon>PreviewAttachement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -418,6 +421,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\PreviewAttachement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -440,6 +447,9 @@
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup />
