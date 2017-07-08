@@ -155,7 +155,7 @@ namespace Discord_UWP
         private async void MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                async () =>
                 {
                     if (ServerList.SelectedIndex != 0)
                     {
@@ -163,7 +163,7 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()]
                                 .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                            Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
 
@@ -201,7 +201,7 @@ namespace Discord_UWP
                         if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId ==
                             ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
                         {
-                            Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                             try
@@ -752,7 +752,11 @@ namespace Discord_UWP
                     timer.Tick += (sender2, o1) =>
                     {
                         timer.Stop();
-                        Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                        try
+                        {
+                            Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                        }
+                        catch { }
                         UpdateTypingUI();
                     };
                     timer.Start();
