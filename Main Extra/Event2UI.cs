@@ -163,7 +163,7 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()]
                                 .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                            await Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
 
@@ -201,7 +201,7 @@ namespace Discord_UWP
                         if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId ==
                             ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
                         {
-                            await Session.AckMessage(e.EventData.ChannelId, e.EventData.Id);
+                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                             try

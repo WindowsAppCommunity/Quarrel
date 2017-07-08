@@ -754,7 +754,7 @@ namespace Discord_UWP
         {
             DirectMessageChannels.Items.Clear();
             foreach (KeyValuePair<string, DmCache> dm in Storage.Cache.DMs)
-            {
+             {
                 DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
             }
             DMsLoading.IsActive = false;
@@ -919,7 +919,7 @@ namespace Discord_UWP
                             Storage.SaveMessages();
                         }
                         Storage.SaveCache();
-                        await Session.AckMessage(App.CurrentChannelId, Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.LastMessageId);
+                        await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.LastMessageId));
                         MessagesLoading.Visibility = Visibility.Collapsed;
                     }
                 });
@@ -1014,13 +1014,14 @@ namespace Discord_UWP
                     bool first = true;
                     foreach (MutualGuild guild in profile.MutualGuilds)
                     {
-                        if (!first)
+                        if (!first && guild.Nick != null)
                         {
                             ChannelTopic.Text += ", ";
                         }
                         if (guild.Nick != null)
                         {
                             ChannelTopic.Text += guild.Nick;
+                            first = false;
                         }
                     }
                     if (ChannelTopic.Text == "A.K.A: ")
