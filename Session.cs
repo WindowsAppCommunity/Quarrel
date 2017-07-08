@@ -361,7 +361,7 @@ namespace Discord_UWP
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                //await channelservice.AckMessage(chnId, msgId);
+                await channelservice.AckMessage(chnId, msgId);
             }
             catch (Exception e)
             {
@@ -369,12 +369,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void AckGuild(string guildId)
+        public static async Task AckGuild(string guildId)
         {
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                guildservice.AckGuild(guildId).Wait();
+                await guildservice.AckGuild(guildId);
             }
             catch (Exception e)
             {

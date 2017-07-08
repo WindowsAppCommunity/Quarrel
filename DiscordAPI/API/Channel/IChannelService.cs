@@ -57,8 +57,9 @@ namespace Discord_UWP.API.Channel
         [Delete("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me")]
         Task DeleteReaction([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [AliasAs("emoji")] string emoji);
 
-        [Post("/channels/{channelId}/messages/{messageId}/ack")]
-        Task AckMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
+        [Post("/v6/channels/{channelId}/messages/{messageId}/ack")]
+        [Headers("Content-Type: application/json;")]
+        Task AckMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId, [Body] string body = "{}");
 
         [Put("/channels/{channelId}/permissions/{overwriteId}")]
         Task EditChannelPermissions([AliasAs("channelId")] string channelId, [AliasAs("overwriteId")] string overwriteId, [Body] EditChannel editChannel);
