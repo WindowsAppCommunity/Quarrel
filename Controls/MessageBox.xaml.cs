@@ -211,6 +211,11 @@ namespace Discord_UWP.Controls
         {
             SelectSuggestion(e.ClickedItem as string);
         }
+
+        private void MessageEditor_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            SuggestionPopup.IsOpen = false;
+        }
     }
     public class NegationConverter : IValueConverter
     {
