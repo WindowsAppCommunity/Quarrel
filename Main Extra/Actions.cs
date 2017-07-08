@@ -81,7 +81,7 @@ namespace Discord_UWP
             */
         }
 
-        private async void TypingStarted(object sender, AutoSuggestBoxTextChangedEventArgs args)
+        private async void TypingStarted(object sender, TextChangedEventArgs args)
         {
             try
             {

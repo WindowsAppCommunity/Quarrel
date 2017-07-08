@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,7 +23,7 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class MessageBox : UserControl
     {
-        public event EventHandler<AutoSuggestBoxTextChangedEventArgs> TextChanged;
+        public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
 
         public string Text
@@ -83,86 +84,145 @@ namespace Discord_UWP.Controls
         string PureText = "";
         int selectionstart = 0;
         bool EnableChanges = true;
-        private void MessageEditor_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+
+        private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
                 SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
                 //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
-                if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+                SuggestionBlock.ItemsSource = null;
+                string str = MessageEditor.Text;
+                Debug.WriteLine("TEXTCHANGED");
+                if (MessageEditor.SelectionStart < str.Length)
                 {
-                    MessageEditor.ItemsSource = null;
-                    string str = MessageEditor.Text;
-                    Debug.WriteLine("TEXTCHANGED");
-                    if (UnderlyingTextBox.SelectionStart < str.Length)
-                    {
-                        selectionstart = UnderlyingTextBox.SelectionStart;
-                        str = str.Remove(UnderlyingTextBox.SelectionStart);
-                    }
+                    selectionstart = MessageEditor.SelectionStart;
+                    str = str.Remove(MessageEditor.SelectionStart);
+                }
+                else
+                {
+                    selectionstart = MessageEditor.Text.Length;
+                }
 
-                    if (!String.IsNullOrWhiteSpace(str))
+                if (!String.IsNullOrWhiteSpace(str))
+                {
+                    if (str.Last() != ' ' || str.Count() < 2
+                    ) //cancel if the last letter is a space or there are less than 2 chars
                     {
-                        if (str.Last() != ' ' || str.Count() < 2) //cancel if the last letter is a space or there are less than 2 chars
+                        str = str.Trim();
+                        string word = "";
+                        //if the letter contains a space, get the last word, otherwise the string is a single word
+                        if (str.Contains(' '))
+                            word = str.Split(' ').Last();
+                        else
+                            word = str;
+
+                        if (word.StartsWith("@"))
                         {
-                            str = str.Trim();
-                            string word = "";
-                            //if the letter contains a space, get the last word, otherwise the string is a single word
-                            if (str.Contains(' '))
-                                word = str.Split(' ').Last();
-                            else
-                                word = str;
-
-                            if (word.StartsWith("@"))
+                            string query = word.Remove(0, 1);
+                            selectionstart = selectionstart - word.Length;
+                            PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
+                            if (query != "")
                             {
-                                string query = word.Remove(0, 1);
-                                PureText = MessageEditor.Text.Remove(selectionstart - word.Length, word.Length);
-                                PureText = MessageEditor.Text.Insert(selectionstart - word.Length, "<&&DISCORD_UWP//MENTION&&>");
-                                if (query != "")
-                                {
-                                    IEnumerable<string> userlist = App.GuildMembers.Where(x => x.Value.Raw.User.Username.StartsWith(query)).Select(x => "@" + x.Value.Raw.User.Username);
-                                    IEnumerable<string> rolelist = App.CurrentGuild.Roles.Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable).Select(x => "@" + x.Value.Name);
-                                    rolelist.Concat(new List<string> { "@here", "@everyone" });
-                                    MessageEditor.ItemsSource = userlist.Concat(rolelist);
-                                }
-                            }
-                            if (word.StartsWith("#"))
-                            {
-                                PureText = MessageEditor.Text.Remove(selectionstart - word.Length, word.Length);
-                                PureText = MessageEditor.Text.Insert(selectionstart - word.Length, "<&&DISCORD_UWP//MENTION&&>");
-                                string query = word.Remove(0, 1);
-                                MessageEditor.ItemsSource = App.CurrentGuild.Channels.Where(x => x.Value.Raw.Type == 0 && x.Value.Raw.Name.StartsWith(query)).Select(x => "#" + x.Value.Raw.Name);
+                                IEnumerable<string> userlist =
+                                    App.GuildMembers.Where(x => x.Value.Raw.User.Username.StartsWith(query))
+                                        .Select(x => "@" + x.Value.Raw.User.Username);
+                                IEnumerable<string> rolelist =
+                                    App.CurrentGuild.Roles
+                                        .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
+                                        .Select(x => "@" + x.Value.Name);
+                                rolelist.Concat(new List<string> {"@here", "@everyone"});
+                                SuggestionBlock.ItemsSource = userlist.Concat(rolelist);
+                                SuggestionPopup.IsOpen = true;
                             }
                         }
-
+                        if (word.StartsWith("#"))
+                        {
+                            string query = word.Remove(0, 1);
+                            selectionstart = selectionstart - word.Length;
+                            PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
+                            
+                            SuggestionBlock.ItemsSource = App.CurrentGuild.Channels
+                                .Where(x => x.Value.Raw.Type == 0 && x.Value.Raw.Name.StartsWith(query))
+                                .Select(x => "#" + x.Value.Raw.Name);
+                            SuggestionPopup.IsOpen = true;
+                        }
                     }
-                    else
-                    {
-                        MessageEditor.ItemsSource = null;
-                    }
 
-                    Text = str;
-                    
                 }
+                else
+                {
+                    SuggestionBlock.ItemsSource = null;
+                    SuggestionPopup.IsOpen = false;
+                }
+                Text = str;
             }
             catch
             {
-                MessageEditor.ItemsSource = null;
+                SuggestionBlock.ItemsSource = null;
+                SuggestionPopup.IsOpen = false;
             }
-            TextChanged?.Invoke(sender, args);
+            TextChanged?.Invoke(sender, e);
         }
-        TextBox UnderlyingTextBox;
-        private void MessageEditor_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+
+        private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            PopupTransform.Y = -e.NewSize.Height;
+        }
+
+        private void SelectSuggestion(string suggestion)
         {
             EnableChanges = false;
             var str = MessageEditor.Text;
-            MessageEditor.Text = PureText.Replace("<&&DISCORD_UWP//MENTION&&>", args.SelectedItem as string);
-            UnderlyingTextBox.SelectionStart = PureText.IndexOf("<&&DISCORD_UWP//MENTION&&>") + (args.SelectedItem as string).Length;
+            MessageEditor.Text = PureText.Insert(selectionstart, suggestion);
+            MessageEditor.Focus(FocusState.Pointer);
+            MessageEditor.SelectionStart = selectionstart + suggestion.Length;
+            SuggestionBlock.ItemsSource = null;
+            SuggestionPopup.IsOpen = false;
             EnableChanges = true;
         }
-
-        private void TextBox_Loaded(object sender, RoutedEventArgs e)
+        private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            UnderlyingTextBox = sender as TextBox;
+            if (SuggestionBlock.Items.Count == 0) return;
+
+            if (e.Key == VirtualKey.Up)
+            {
+                e.Handled = true;
+                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)                
+                    SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count-1;
+                else
+                    SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
+            }
+            else if (e.Key == VirtualKey.Down)
+            {
+                e.Handled = true;
+                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count-1)
+                    SuggestionBlock.SelectedIndex = 0;
+                else
+                    SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
+            }
+            else if (e.Key == VirtualKey.Enter)
+            {
+                SelectSuggestion(SuggestionBlock.SelectedItem as string);
+            }
+        }
+
+        private void SuggestionBlock_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            SelectSuggestion(e.ClickedItem as string);
         }
     }
+    public class NegationConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return -(double)value;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return -(double) value;
+        }
+    }
+
 }
