@@ -222,7 +222,7 @@
                                         </ComboBoxItem>
                                     </ComboBox>
                                     <TextBlock Text="Idle color" FontSize="13" Margin="0,6,0,0"/>
-                                    <ComboBox x:Name="Idle_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
+                                    <ComboBox x:Name="idle_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
                                         <ComboBoxItem>
                                             <ComboBoxItem.Tag>
                                                 <SolidColorBrush Color="#fffaa61a"/>
@@ -288,7 +288,7 @@
                                         </ComboBoxItem>
                                     </ComboBox>
                                     <TextBlock Text="Do Not Distrub color" FontSize="13" Margin="0,6,0,0"/>
-                                    <ComboBox x:Name="Dnd_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
+                                    <ComboBox x:Name="dnd_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
                                         <ComboBoxItem>
                                             <ComboBoxItem.Tag>
                                                 <SolidColorBrush Color="#fff04747"/>
