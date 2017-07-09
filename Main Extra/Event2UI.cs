@@ -752,8 +752,8 @@ namespace Discord_UWP
         private async void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
             Debug.WriteLine("TYPING STARTED");
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
+          //  await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+          //  {
                 DispatcherTimer timer = new DispatcherTimer();
                 /*If the user was already typing in that channel before...*/
                 if (Typers.Count > 0 && Typers.Any(x => x.Key.userId == e.EventData.userId &&
@@ -781,81 +781,89 @@ namespace Discord_UWP
                     Typers.Add(e.EventData, timer);
                     UpdateTypingUI();
                 }
-            });
+          //  });
         }
 
         private async void UpdateTypingUI()
         {
-            //  try
-            //      {
-            string typingString = "";
-            int DisplayedTyperCounter = 0;
-            List<string> NamesTyping = new List<string>();
-            foreach (var channel in TextChannels.Items)
-                (channel as SimpleChannel).IsTyping = false;
-            for (int i = 0; i < Typers.Count; i++)
-            {
-                var typer = Typers.ElementAt(i);
-                if (App.CurrentChannelId != null)
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
                 {
-                    if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
+                    string typingString = "";
+                    int DisplayedTyperCounter = 0;
+                    List<string> NamesTyping = new List<string>();
+                    foreach (var channel in TextChannels.Items)
+                        (channel as SimpleChannel).IsTyping = false;
+                    for (int i = 0; i < Typers.Count; i++)
                     {
-                        try
+                        var typer = Typers.ElementAt(i);
+                        if (App.CurrentChannelId != null)
                         {
-                            NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
-                        }
-                        catch
-                        {
+                            if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
+                            {
+                                try
+                                {
+                                    NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
+                                }
+                                catch
+                                {
 
+                                }
+                            }
+                            else
+                            {
+                                if (App.CurrentChannelId == typer.Key.channelId &&
+                                    App.GuildMembers.ContainsKey(typer.Key.userId))
+                                {
+                                    var member = App.GuildMembers[typer.Key.userId];
+                                    string DisplayedName = member.Raw.User.Username;
+                                    if (member.Raw.Nick != null) DisplayedName = member.Raw.Nick;
+                                    NamesTyping.Add(DisplayedName);
+                                }
+                                try
+                                {
+                                    (TextChannels.Items.FirstOrDefault(
+                                            x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
+                                        .IsTyping = true;
+                                }
+                                catch (Exception)
+                                {
+                                }
+
+                                //TODO Display typing indicator on member list
+                            }
                         }
+                    }
+
+                    DisplayedTyperCounter = NamesTyping.Count();
+                    for (int i = 0; i < DisplayedTyperCounter; i++)
+                    {
+                        if (i == 0)
+                            typingString += NamesTyping.ElementAt(i); //first element, no prefix
+                        else if (i == 2 && i == DisplayedTyperCounter)
+                            typingString += " and " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
+                        else if (i == DisplayedTyperCounter)
+                            typingString +=
+                                ", and " +
+                                NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
+                        else
+                            typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
+                    }
+                    if (DisplayedTyperCounter > 1)
+                        typingString += " are typing...";
+                    else
+                        typingString += " is typing...";
+
+                    if (DisplayedTyperCounter == 0)
+                    {
+                        TypingStackPanel.Fade(0, 200).Start();
                     }
                     else
                     {
-                        if (App.CurrentChannelId == typer.Key.channelId && App.GuildMembers.ContainsKey(typer.Key.userId))
-                        {
-                            var member = App.GuildMembers[typer.Key.userId];
-                            string DisplayedName = member.Raw.User.Username;
-                            if (member.Raw.Nick != null) DisplayedName = member.Raw.Nick;
-                            NamesTyping.Add(DisplayedName);
-                        }
-                        try
-                        {
-                            (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
-                                .IsTyping = true;
-                        }
-                        catch(Exception) { }
-                        
-                        //TODO Display typing indicator on member list
+                        TypingIndicator.Text = typingString;
+                        TypingStackPanel.Fade(1, 200).Start();
                     }
-                }
-            }
-
-            DisplayedTyperCounter = NamesTyping.Count();
-            for (int i = 0; i < DisplayedTyperCounter; i++)
-            {
-                if (i == 0)
-                    typingString += NamesTyping.ElementAt(i); //first element, no prefix
-                else if (i == 2 && i == DisplayedTyperCounter)
-                    typingString += " and " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
-                else if (i == DisplayedTyperCounter)
-                    typingString += ", and " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
-                else
-                    typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
-            }
-            if (DisplayedTyperCounter > 1)
-                typingString += " are typing...";
-            else
-                typingString += " is typing...";
-
-            if (DisplayedTyperCounter == 0)
-            {
-                TypingStackPanel.Fade(0, 200).Start();
-            }
-            else
-            {
-                TypingIndicator.Text = typingString;
-                TypingStackPanel.Fade(1, 200).Start();
-            }
+                });
         }
     }
 }

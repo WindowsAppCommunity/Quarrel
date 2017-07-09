@@ -485,7 +485,7 @@ namespace Discord_UWP
             var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
-                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
+                Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
                     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
@@ -497,7 +497,7 @@ namespace Discord_UWP
             }
             else
             {
-                Session.CreateReaction((((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
+                Session.CreateReactionAsync((((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
 
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
@@ -522,7 +522,7 @@ namespace Discord_UWP
         {
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
-            await Task.Run(() => Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText));
+            await Task.Run(() => Session.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editedText));
         }
 
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
