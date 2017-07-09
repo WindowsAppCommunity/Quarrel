@@ -46,11 +46,16 @@ namespace Discord_UWP
             LoginText.Visibility = Visibility.Collapsed;
             try
             {
-                await Session.Login(Email.Text, Password.Password);
-                Session.Online = true;
-                Storage.Token = Session.Token;
-                Storage.SaveUser();
-                Frame.Content = new Main();
+                string email = Email.Text;
+                string password = Password.Password;
+                await Task.Run(async () =>
+                {
+                    await Session.Login(email, password);
+                    Session.Online = true;
+                    Storage.Token = Session.Token;
+                    Storage.SaveUser();
+                });
+                Frame.Navigate(typeof(Main));
             }
             catch (Exception ex)
             {
