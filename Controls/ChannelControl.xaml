@@ -22,7 +22,7 @@
                 <ImageBrush x:Name="ChannelImageBrush"/>
             </Rectangle.Fill>
         </Rectangle>
-        
+
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,6">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <SymbolIcon x:Name="MuteIcon" Visibility="Collapsed" Symbol="Mute" Margin="0,0,4,0" Opacity="0.6"/>
@@ -37,8 +37,6 @@
             <Border Visibility="Collapsed" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,-5,0">
                 <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
-            
         </StackPanel>
-
     </Grid>
 </UserControl>
