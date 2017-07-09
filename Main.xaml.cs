@@ -420,7 +420,7 @@ namespace Discord_UWP
 
         #region LoadGuild
 
-        Dictionary<string, Member> memberscvs;
+        Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
