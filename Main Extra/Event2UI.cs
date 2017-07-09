@@ -752,8 +752,8 @@ namespace Discord_UWP
         private async void TypingStarted(object sender, GatewayEventArgs<TypingStart> e)
         {
             Debug.WriteLine("TYPING STARTED");
-          //  await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-          //  {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
                 DispatcherTimer timer = new DispatcherTimer();
                 /*If the user was already typing in that channel before...*/
                 if (Typers.Count > 0 && Typers.Any(x => x.Key.userId == e.EventData.userId &&
@@ -774,14 +774,16 @@ namespace Discord_UWP
                         {
                             Typers.Remove(Typers.First(t => t.Value == timer).Key);
                         }
-                        catch { }
+                        catch
+                        {
+                        }
                         UpdateTypingUI();
                     };
                     timer.Start();
                     Typers.Add(e.EventData, timer);
                     UpdateTypingUI();
                 }
-          //  });
+            });
         }
 
         private async void UpdateTypingUI()

@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
+
     public struct Friend
     {
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("user")]
         public User user { get; set; }
+
+        /// <summary>
+        /// Friend=1, Blocked=2, Incoming=3, Outgoing=4
+        /// </summary>
         [JsonProperty("type")]
         public int Type { get; set; }
     }
