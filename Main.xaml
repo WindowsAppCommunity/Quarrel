@@ -321,7 +321,7 @@
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop/>
-                                <GradientStop Color="{ThemeResource DeepBG}" Offset="1"/>
+                                <!--<GradientStop Color="{ThemeResource DeepBG}" Offset="1"/>-->
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>

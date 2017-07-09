@@ -114,8 +114,9 @@ namespace Discord_UWP.Controls
                         //if the letter contains a space, get the last word, otherwise the string is a single word
                         if (str.Contains(' '))
                             word = str.Split(' ').Last();
-                        else
-                            word = str;
+                        else if (str.Contains('\r'))
+                            word = str.Split('\r').Last();
+                        else word = str;
 
                         if (word.StartsWith("@"))
                         {
@@ -183,6 +184,7 @@ namespace Discord_UWP.Controls
         }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
+            
             if (SuggestionBlock.Items.Count == 0) return;
 
             if (e.Key == VirtualKey.Up)
@@ -196,6 +198,7 @@ namespace Discord_UWP.Controls
             else if (e.Key == VirtualKey.Down)
             {
                 e.Handled = true;
+
                 if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count-1)
                     SuggestionBlock.SelectedIndex = 0;
                 else
@@ -217,17 +220,4 @@ namespace Discord_UWP.Controls
             SuggestionPopup.IsOpen = false;
         }
     }
-    public class NegationConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            return -(double)value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return -(double) value;
-        }
-    }
-
 }
