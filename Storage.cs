@@ -220,7 +220,10 @@ namespace Discord_UWP
         public bool DevMode = false;
         public bool DiscordLightTheme = false;
         public Theme Theme = Theme.Dark;
-        public string AccentBrush = Color.FromArgb(255,114,137,218).ToHex();
+        public string AccentBrush = Color.FromArgb(255, 114,137,218).ToHex();
+        public string OnlineBursh = Color.FromArgb(255, 67, 181, 129).ToHex();
+        public string IdleBrush = Color.FromArgb(255, 250, 166, 26).ToHex();
+        public string DndBrush = Color.FromArgb(255, 240, 71, 71).ToHex();
         public bool Vibrate = false;
     }
 }

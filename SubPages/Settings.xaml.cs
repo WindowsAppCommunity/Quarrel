@@ -57,8 +57,6 @@ namespace Discord_UWP.SubPages
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
-
-
         }
 
         private void SaveUserSettings(object sender, RoutedEventArgs e)
@@ -72,6 +70,9 @@ namespace Discord_UWP.SubPages
             Storage.Settings.RespUiXl = RespUI_XL.Value;
             Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
             Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            Storage.Settings.OnlineBursh = ((SolidColorBrush)(online_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            Storage.Settings.IdleBrush = ((SolidColorBrush)(idle_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            Storage.Settings.DndBrush = ((SolidColorBrush)(dnd_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
 
             if ((bool)radio_Dark.IsChecked)

@@ -194,7 +194,7 @@ namespace Discord_UWP
 
         public Main(string args)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             #region OldCode
             #region TypingCheckTimer
@@ -420,7 +420,7 @@ namespace Discord_UWP
 
         #region LoadGuild
 
-        Dictionary<string, Member> memberscvs;
+        Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
@@ -555,6 +555,7 @@ namespace Discord_UWP
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
+                            MembersCVS = new CollectionViewSource();
                             MembersCVS.Source = sortedMembers;
                         });
                 }
