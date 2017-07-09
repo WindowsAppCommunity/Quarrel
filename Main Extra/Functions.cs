@@ -242,15 +242,15 @@ namespace Discord_UWP
                 switch (Session.PrecenseDict[channel.Raw.Users.First().Id].Status)
                 {
                     case "online":
-                        rect.Fill = GetSolidColorBrush("#ff43b581");
+                        rect.Fill = (SolidColorBrush)App.Current.Resources["Online"];
                         break;
                     case "idle":
-                        rect.Fill = GetSolidColorBrush("#fffaa61a");
+                        rect.Fill = (SolidColorBrush)App.Current.Resources["Idle"];
                         break;
                     case "offline":
                         if (Session.Online)
                         {
-                            rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+                            rect.Fill = (SolidColorBrush)App.Current.Resources["Dnd"];
                         } else
                         {
                             rect.Visibility = Visibility.Collapsed;
