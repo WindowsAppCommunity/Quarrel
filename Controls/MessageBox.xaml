@@ -22,15 +22,15 @@
         <!--<Image x:Name="AttachmentImage" Grid.ColumnSpan="3"/>-->
         <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
         
-        <TextBox x:Name="MessageEditor" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown"/>
+        <TextBox x:Name="MessageEditor" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" AcceptsReturn="True"/>
         <!--<RichEditBox MaxHeight="128" x:Name="MessageEditor" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanged="MessageEditor_OnTextChanged" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>-->
         <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
-        <Popup x:Name="SuggestionPopup" IsOpen="True" MaxHeight="128" Margin="0" Grid.ColumnSpan="2">
+        <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="0" Grid.ColumnSpan="2">
             <Popup.RenderTransform>
                 <TranslateTransform x:Name="PopupTransform"/>
             </Popup.RenderTransform>
             <Border CornerRadius="4,4,0,0" SizeChanged="FrameworkElement_OnSizeChanged" BorderBrush="{ThemeResource Blurple}" BorderThickness="1,1,1,0" Background="{ThemeResource DeepBG}">
-                <ListView x:Name="SuggestionBlock" Width="{Binding ActualWidth, ElementName=MessageEditor}" IsItemClickEnabled="True" ItemClick="SuggestionBlock_OnItemClick">
+                <ListView x:Name="SuggestionBlock" MaxHeight="128" Width="{Binding ActualWidth, ElementName=MessageEditor}" IsItemClickEnabled="True" ItemClick="SuggestionBlock_OnItemClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom"/>
