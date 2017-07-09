@@ -107,9 +107,8 @@
 
                                 </StackPanel>
                                 <Button x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                <Button x:Name="acceptFriend" Content="Accept Friend Request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                <Button x:Name="pendingFriend" Content="Friend Request Pending" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed"/>
-                                <Button x:Name="Message" Content="Message" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed"/>
+                                <Button x:Name="acceptFriend" Content="Accept Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
+                                <Button x:Name="pendingFriend" Content="Friend Request sent" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False"/>
                                 <Button x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
                             </StackPanel>
                         </StackPanel>
@@ -125,7 +124,7 @@
                         <ListViewItem Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
                         <ListViewItem Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
-                    <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="True">
+                    <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
                             <Grid Margin="24,0">
                                 <Grid.RowDefinitions>
