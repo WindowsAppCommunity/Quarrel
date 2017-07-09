@@ -298,6 +298,7 @@ namespace Discord_UWP
             
             App.LinkClicked += MessageControl_OnLinkClicked;
             App.OpenAttachementHandler += OpenAttachement;
+            App.NavigateToProfileHandler += OnNavigateToProfile;
             try
             {
                 await Session.Gateway.ConnectAsync();
@@ -309,6 +310,11 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private void OnNavigateToProfile(object sender, App.ProfileNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.UserProfile), e.UserId);
         }
 
         private void OpenAttachement(object sender, Attachment e)
