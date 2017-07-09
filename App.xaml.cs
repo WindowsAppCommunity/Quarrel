@@ -90,6 +90,7 @@ namespace Discord_UWP
         internal static Guild CurrentGuild;
         internal static bool CurrentGuildIsDM = false;
         internal static string CurrentUserId = "";
+        internal static bool IsInFocus = true;
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
         internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
