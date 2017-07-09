@@ -90,9 +90,9 @@ namespace Discord_UWP
                     Storage.Cache.Guilds.Add(guild.Id, new Guild(guild));
                 }
 
-                Storage.Cache.Guilds[guild.Id].Members.Clear();
                 if (guild.Members != null)
                 {
+                    Storage.Cache.Guilds[guild.Id].Members.Clear();
                     foreach (GuildMember member in guild.Members)
                     {
                         Storage.Cache.Guilds[guild.Id].Members.Add(member.User.Id, new Member(member));
@@ -110,12 +110,15 @@ namespace Discord_UWP
                     }
                 }
 
-                Storage.Cache.Guilds[guild.Id].Channels.Clear();
-                foreach (SharedModels.GuildChannel chn in guild.Channels)
+                if (guild.Channels != null)
                 {
-                    SharedModels.GuildChannel channel = chn;
-                    channel.GuildId = guild.Id;
-                    Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+                    Storage.Cache.Guilds[guild.Id].Channels.Clear();
+                    foreach (SharedModels.GuildChannel chn in guild.Channels)
+                    {
+                        SharedModels.GuildChannel channel = chn;
+                        channel.GuildId = guild.Id;
+                        Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+                    }
                 }
             }
 
