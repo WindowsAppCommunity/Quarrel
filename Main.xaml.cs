@@ -432,7 +432,7 @@ namespace Discord_UWP
                 ServerName.Text = ToolTipService.GetToolTip((sender as ListView).SelectedItem as DependencyObject).ToString();
                 TextChannels.Items.Clear();
                 Typers.Clear();
-                MembersCVS = null;
+                MembersCvs.Source = null;
                 App.GuildMembers = null;
                 SendMessage.Visibility = Visibility.Collapsed;
                 if (((sender as ListView).SelectedItem as ListViewItem).Tag.ToString() == "DMs")
@@ -551,14 +551,14 @@ namespace Discord_UWP
                 }
                 try
                 {
-                    var sortedMembers = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole)
-                        .OrderBy(m => m.Key.Position)
-                        .ToList();
+                    var sortedMembers =
+                        memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
-                            MembersCVS = new CollectionViewSource();
-                            MembersCVS.Source = sortedMembers;
+                           // MembersCVS = new CollectionViewSource();
+                            MembersCvs.Source = sortedMembers;
                         });
                 }
                 catch
@@ -583,7 +583,7 @@ namespace Discord_UWP
                 if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
 
-                    role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    role = new DisplayedRole(null, 0, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
                 }
                 else
@@ -643,7 +643,6 @@ namespace Discord_UWP
                 }
 
                 #region Roles
-                MembersCVS.Source = null;
                 LoadMembers(id);
                 #endregion
 
@@ -760,7 +759,7 @@ namespace Discord_UWP
         private void LoadDMs()
         {
             DMsLoading.IsActive = true;
-            MembersCVS.Source = null;
+            MembersCvs.Source = null;
             PinnedMessageToggle.Visibility = Visibility.Collapsed;
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
