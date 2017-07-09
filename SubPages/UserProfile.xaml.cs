@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -185,6 +186,7 @@ namespace Discord_UWP.SubPages
 
         private void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
         {
+            
             if(gatewayEventArgs.EventData.user.Id == profile.User.Id)
             SwitchFriendValues(gatewayEventArgs.EventData.Type);
         }
@@ -197,51 +199,53 @@ namespace Discord_UWP.SubPages
 
         private void Gateway_RelationshipRemoved(object sender, GatewayEventArgs<Friend> e)
         {
-            if (e.EventData.user.Id == profile.User.Id)
-                SwitchFriendValues(e.EventData.Type);
+            if (e.EventData.Id == profile.User.Id)
+                SwitchFriendValues(0);
         }
 
-        private void SwitchFriendValues(int type)
+        private async void SwitchFriendValues(int type)
         {
-            Message.Visibility = Visibility.Collapsed;
-            RemoveFriendLink.Visibility = Visibility.Collapsed;
-            Block.Visibility = Visibility.Collapsed;
-            SendMessageLink.Visibility = Visibility.Collapsed;
-            pendingFriend.Visibility = Visibility.Collapsed;
-            acceptFriend.Visibility = Visibility.Collapsed;
-            sendFriendRequest.Visibility = Visibility.Collapsed;
-            switch (type)
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                case 0:
-                    //No relationship
-                    Block.Visibility = Visibility.Visible;
-                    sendFriendRequest.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    //Friend
-                    Message.Visibility = Visibility.Visible;
-                    RemoveFriendLink.Visibility = Visibility.Visible;
-                    SendMessageLink.Visibility = Visibility.Visible;
-                    Block.Visibility = Visibility.Visible;
-                    break;
-                case 2:
-                    //Blocked
-                    Unblock.Visibility = Visibility.Visible;
-                    SendMessageLink.Visibility = Visibility.Visible;
-                    break;
-                case 3:
-                    //Pending incoming friend request
-                    acceptFriend.Visibility = Visibility.Visible;
-                    SendMessageLink.Visibility = Visibility.Visible;
-                    Block.Visibility = Visibility.Visible;
-                    break;
-                case 4:
-                    //Pending outgoing friend request
-                    pendingFriend.Visibility = Visibility.Visible;
-                    SendMessageLink.Visibility = Visibility.Visible;
-                    Block.Visibility = Visibility.Visible;
-                    break;
-            }
+
+                RemoveFriendLink.Visibility = Visibility.Collapsed;
+                Block.Visibility = Visibility.Collapsed;
+                SendMessageLink.Visibility = Visibility.Visible;
+                pendingFriend.Visibility = Visibility.Collapsed;
+                acceptFriend.Visibility = Visibility.Collapsed;
+                sendFriendRequest.Visibility = Visibility.Collapsed;
+                switch (type)
+                {
+                    case 0:
+                        //No relationship
+                        Block.Visibility = Visibility.Visible;
+                        sendFriendRequest.Visibility = Visibility.Visible;
+                        break;
+                    case 1:
+                        //Friend
+                        RemoveFriendLink.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
+                        break;
+                    case 2:
+                        //Blocked
+                        Unblock.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        break;
+                    case 3:
+                        //Pending incoming friend request
+                        acceptFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
+                        break;
+                    case 4:
+                        //Pending outgoing friend request
+                        pendingFriend.Visibility = Visibility.Visible;
+                        SendMessageLink.Visibility = Visibility.Visible;
+                        Block.Visibility = Visibility.Visible;
+                        break;
+                }
+            });
         }
         private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
@@ -349,14 +353,21 @@ namespace Discord_UWP.SubPages
             }
         }
 
-        private void SendFriendRequest(object sender, RoutedEventArgs e)
+        private async void SendFriendRequest(object sender, RoutedEventArgs e)
         {
-            Session.SendFriendRequest(profile.User.Id);
+            await Task.Run(() =>
+            {
+                Session.SendFriendRequest(profile.User.Id);
+            });
+
         }
 
-        private void RemoveFriend(object sender, RoutedEventArgs e)
+        private async void RemoveFriend(object sender, RoutedEventArgs e)
         {
-            Session.RemoveFriend(profile.User.Id);
+            await Task.Run(() =>
+            {
+                Session.RemoveFriend(profile.User.Id);
+            });
         }
     }
 
