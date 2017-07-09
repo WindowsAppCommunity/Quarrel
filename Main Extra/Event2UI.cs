@@ -412,8 +412,26 @@ namespace Discord_UWP
                 });
         }
 
-        private void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
+        private async void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    foreach (SimpleChannel sc in TextChannels.Items)
+                        if (sc.Id == e.EventData.ChannelId)
+                        {
+                            sc.IsUnread = false;
+                            sc.NotificationCount = 0;
+                        }
+                });
+            if (Session.RPC.ContainsKey(e.EventData.ChannelId))
+            {
+                var item = Session.RPC[e.EventData.ChannelId];
+                item.Id = e.EventData.Id;
+                item.LastMessageId = e.EventData.ChannelId;
+                item.MentionCount = 0;
+            }
+                
             //TODO Remove unread and notification indicators
         }
 

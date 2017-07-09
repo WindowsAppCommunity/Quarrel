@@ -1614,7 +1614,7 @@ namespace Discord_UWP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            (TextChannels.Items[2] as SimpleChannel).Name = "Test name";
+            (TextChannels.Items[2] as SimpleChannel).IsUnread = true;
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Discord_UWP
             public bool IsUnread
             {
                 get { return _isunread; }
-                set { if (_isunread == value) return; _isunread = value; OnPropertyChanged("UnreadIndicator"); }
+                set { if (_isunread == value) return; _isunread = value; OnPropertyChanged("IsUnread"); }
             }
 
             private bool _istyping;
