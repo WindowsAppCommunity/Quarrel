@@ -319,10 +319,12 @@ namespace Discord_UWP
         #region LoadUser
         private void LoadUser()
         {
-            if (Storage.Cache.CurrentUser != null)
+            var currentUser = Storage.Cache.CurrentUser;
+            if (currentUser != null)
             {
-                Username.Text = Storage.Cache.CurrentUser.Raw.Username;
-                Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
+                Username.Text = currentUser.Raw.Username;
+                App.CurrentUserId = currentUser.Raw.Id;
+                Discriminator.Text = "#" + currentUser.Raw.Discriminator;
                 LargeUsername.Text = Username.Text;
                 LargeDiscriminator.Text = Discriminator.Text;
             }
@@ -338,13 +340,14 @@ namespace Discord_UWP
         private async void DownloadUser()
         {
             Storage.Cache.CurrentUser = new User(await Session.GetCurrentUser());
-
-            Username.Text = Storage.Cache.CurrentUser.Raw.Username;
-            Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
+            var currentUser = Storage.Cache.CurrentUser;
+            Username.Text = currentUser.Raw.Username;
+            App.CurrentUserId = currentUser.Raw.Id;
+            Discriminator.Text = "#" + currentUser.Raw.Discriminator;
             LargeUsername.Text = Username.Text;
             LargeDiscriminator.Text = Discriminator.Text;
 
-            ImageBrush image = new ImageBrush() {ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Storage.Cache.CurrentUser.Raw.Id + "/" + Storage.Cache.CurrentUser.Raw.Avatar + ".jpg"))};
+            ImageBrush image = new ImageBrush() {ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + currentUser.Raw.Id + "/" + currentUser.Raw.Avatar + ".jpg"))};
             Avatar.Fill = image;
             LargeAvatar.Fill = image;
             Storage.SaveCache();

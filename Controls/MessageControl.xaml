@@ -61,7 +61,7 @@
                         <Setter Target="row2.(Height)" Value="0"/>
                         <Setter Target="content.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>6,0</Thickness>
+                                <Thickness>3,0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="rootGrid.(FrameworkElement.Margin)">
@@ -101,7 +101,7 @@
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
-        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Margin="6,6,6,0" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>
+        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0"/>
         <Grid x:Name="EditBox" Grid.Row="2" Padding="4" Grid.Column="1" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
