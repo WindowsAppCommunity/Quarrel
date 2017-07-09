@@ -61,18 +61,18 @@ namespace Discord_UWP.Controls
                 switch (DisplayedMember.status.Status)
                 {
                     case "online":
-                        rectangle.Fill = Common.GetSolidColorBrush("#ff43b581");
+                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Online"];
                         break;
                     case "idle":
-                        rectangle.Fill = Common.GetSolidColorBrush("#fffaa61a");
+                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Idle"];
                         break;
                     case "dnd":
-                        rectangle.Fill = Common.GetSolidColorBrush("#FFf04747");
+                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Dnd"];
                         break;
                     case "offline":
                         if (Session.Online)
                         {
-                            rectangle.Fill = Common.GetSolidColorBrush("#FFAAAAAA");
+                            rectangle.Fill = (SolidColorBrush)App.Current.Resources["Offline"];
                         }
                         else
                         {

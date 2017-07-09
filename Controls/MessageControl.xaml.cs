@@ -154,7 +154,6 @@ namespace Discord_UWP
             {
                 UpdateMessage();
             }
-            
         }
 
         public MessageControl()
