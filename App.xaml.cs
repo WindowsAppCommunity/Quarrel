@@ -288,13 +288,14 @@ namespace Discord_UWP
             var idleColor = idleString.ToColor();
             var dndString = Storage.Settings.DndBrush;
             var dndColor = onlineString.ToColor();
-            //var offlineString = Storage.Settings.off;
-            //var offlineColor = offlineString.ToColor();
+            var offlineString = Storage.Settings.OfflineBrush;
+            var offlineColor = offlineString.ToColor();
             App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
             App.Current.Resources["BlurpleColor"] = accentColor;
-            App.Current.Resources["Online"] = onlineColor;
-            App.Current.Resources["Idle"] = idleColor;
-            App.Current.Resources["Dnd"] = dndColor;
+            App.Current.Resources["Online"] = new SolidColorBrush(onlineColor);
+            App.Current.Resources["Idle"] = new SolidColorBrush(idleColor);
+            App.Current.Resources["Dnd"] = new SolidColorBrush(dndColor);
+            App.Current.Resources["Offline"] = new SolidColorBrush(offlineColor);
             App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
             App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
 
