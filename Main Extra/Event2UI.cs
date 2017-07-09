@@ -473,7 +473,7 @@ namespace Discord_UWP
 
                             #region Roles
 
-                            MembersCVS.Source = null;
+                            MembersCvs.Source = null;
                             LoadMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
 
                             // List<ListView> listBuffer = new List<ListView>();
