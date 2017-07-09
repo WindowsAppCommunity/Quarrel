@@ -239,9 +239,14 @@ namespace Discord_UWP
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
+
+            App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
             App.SubpageClosedHandler += SubpageClosed;
-            
+            App.LinkClicked += MessageControl_OnLinkClicked;
+            App.OpenAttachementHandler += OpenAttachement;
+            App.NavigateToProfileHandler += OnNavigateToProfile;
+
             SettingsChanged(null, null);
         }
 
@@ -296,9 +301,6 @@ namespace Discord_UWP
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
             
-            App.LinkClicked += MessageControl_OnLinkClicked;
-            App.OpenAttachementHandler += OpenAttachement;
-            App.NavigateToProfileHandler += OnNavigateToProfile;
             try
             {
                 await Session.Gateway.ConnectAsync();

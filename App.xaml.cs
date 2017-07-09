@@ -68,6 +68,24 @@ namespace Discord_UWP
             }
             catch { }
         }
+
+
+        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn}
+
+        public class MenuArgs : EventArgs
+        {
+            public Type Type { get; set; }
+            public string Id { get; set; }
+            public string ParentId { get; set; }
+            public double X { get; set; }
+            public double Y { get; set; }
+        }
+        public static event EventHandler<MenuArgs> MenuHandler;
+        public static void ShowUserFlyout(Type type, string Id, string parentId, double x, double y)
+        {
+            MenuHandler?.Invoke(typeof(App), new MenuArgs() { Type = type, Id = Id, ParentId = parentId, X = x, Y = y });
+        }
+
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
         internal static Guild CurrentGuild;
@@ -264,8 +282,15 @@ namespace Discord_UWP
 
             var accentString = Storage.Settings.AccentBrush;
             var accentColor = accentString.ToColor();
+            var onlineString = Storage.Settings.OnlineBursh;
+            var onlineColor = onlineString.ToColor();
+            var idleString = Storage.Settings.IdleBrush;
+            var idleColor = idleString.ToColor();
+            var dndString = Storage.Settings.DndBrush;
+            var dnd = onlineString.ToColor();
             App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
             App.Current.Resources["BlurpleColor"] = accentColor;
+            App.Current.Resources["Online"] = Storage.Settings.OnlineBursh;
             App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
             App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
 
