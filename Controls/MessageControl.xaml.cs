@@ -168,18 +168,20 @@ namespace Discord_UWP
         {
             if (Message.HasValue)
             {
-                if (Message.Value.MentionEveryone)
+                if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == App.CurrentUserId))
                 {
-                    content.Background = GetSolidColorBrush("#33ffc100");
+                    content.Background = GetSolidColorBrush("#33FAA61A");
+                    content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
+                    content.BorderThickness = new Thickness(2,0,0,0);
                 }
 
-                foreach (SharedModels.User user in Message.Value.Mentions)
+                else
                 {
-                    if (user.Id == Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        content.Background = GetSolidColorBrush("#33ffc100");
-                    }
+                    content.Background = null;
+                    content.BorderBrush = null;
+                    content.BorderThickness = new Thickness(0);
                 }
+                    
 
                 if (Message.Value.User.Username != null)
                     username.Text = Message.Value.User.Username;
@@ -480,12 +482,12 @@ namespace Discord_UWP
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
-        private void ToggleReaction(object sender, RoutedEventArgs e)
+        private async void ToggleReaction(object sender, RoutedEventArgs e)
         {
             var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
-                Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
+                await Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>)(sender as ToggleButton).Tag).Item3.Emoji);
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
                     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
@@ -497,7 +499,7 @@ namespace Discord_UWP
             }
             else
             {
-                Session.CreateReactionAsync((((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
+                await Session.CreateReactionAsync((((ToggleButton)sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item2, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Emoji);
 
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
