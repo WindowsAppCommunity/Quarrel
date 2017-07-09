@@ -105,6 +105,7 @@
     <Content Include="Assets\ConnectionLogos\twitch.png" />
     <Content Include="Assets\ConnectionLogos\twitter.png" />
     <Content Include="Assets\ConnectionLogos\youtube.png" />
+    <Content Include="Assets\DiscordAssets\default_avatar.jpg" />
     <Content Include="Assets\DiscordBadges\hypesquad.png" />
     <Content Include="Assets\DiscordBadges\nitro.png" />
     <Content Include="Assets\DiscordBadges\partner.png" />
@@ -145,6 +146,9 @@
     </Compile>
     <Compile Include="Controls\FriendControl.xaml.cs">
       <DependentUpon>FriendControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FriendPanel.xaml.cs">
+      <DependentUpon>FriendPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LoadingControl.xaml.cs">
       <DependentUpon>LoadingControl.xaml</DependentUpon>
@@ -397,6 +401,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FriendControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FriendPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
