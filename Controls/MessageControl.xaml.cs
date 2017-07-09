@@ -168,6 +168,19 @@ namespace Discord_UWP
         {
             if (Message.HasValue)
             {
+                if (Message.Value.MentionEveryone)
+                {
+                    content.Background = GetSolidColorBrush("#33ffc100");
+                }
+
+                foreach (SharedModels.User user in Message.Value.Mentions)
+                {
+                    if (user.Id == Storage.Cache.CurrentUser.Raw.Id)
+                    {
+                        content.Background = GetSolidColorBrush("#33ffc100");
+                    }
+                }
+
                 if (Message.Value.User.Username != null)
                     username.Text = Message.Value.User.Username;
                 else
