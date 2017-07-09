@@ -224,6 +224,7 @@ namespace Discord_UWP
         public string OnlineBursh = Color.FromArgb(255, 67, 181, 129).ToHex();
         public string IdleBrush = Color.FromArgb(255, 250, 166, 26).ToHex();
         public string DndBrush = Color.FromArgb(255, 240, 71, 71).ToHex();
+        public string OfflineBrush = Color.FromArgb(255, 170, 170, 170).ToHex();
         public bool Vibrate = false;
     }
 }
