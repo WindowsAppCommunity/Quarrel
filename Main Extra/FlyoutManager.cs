@@ -49,21 +49,11 @@ namespace Discord_UWP
                 case App.Type.DMChn:
                     MakeDMChannelMenu(Storage.Cache.DMs[e.Id]);
                     break;
+                case App.Type.TextChn:
+                    flyout = MakeTextChnMenu(Storage.Cache.Guilds[e.ParentId].Channels[e.Id]);
+                    break;
             }
-            flyout.ShowAt(Frame, new Point(e.X, e.Y));
-        }
-
-        private MenuFlyout MakeDMChannelMenu(DmCache dm)
-        {
-            MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = "Profile", Tag = dm.Raw.Users.FirstOrDefault().Id };
-            profile.Click += OpenProfile;
-            return menu;
-        }
-
-        private void OpenProfile(object sender, RoutedEventArgs e)
-        {
-            ShowUserDetails((sender as MenuFlyoutItem).Tag.ToString());
+            flyout.ShowAt((sender as UIElement), e.Point);
         }
     }
 }

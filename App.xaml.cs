@@ -77,13 +77,12 @@ namespace Discord_UWP
             public Type Type { get; set; }
             public string Id { get; set; }
             public string ParentId { get; set; }
-            public double X { get; set; }
-            public double Y { get; set; }
+            public Point Point { get; set; }
         }
         public static event EventHandler<MenuArgs> MenuHandler;
-        public static void ShowUserFlyout(Type type, string Id, string parentId, double x, double y)
+        public static void ShowMenuFlyout(object sender, Type type, string Id, string parentId, Point point)
         {
-            MenuHandler?.Invoke(typeof(App), new MenuArgs() { Type = type, Id = Id, ParentId = parentId, X = x, Y = y });
+            MenuHandler?.Invoke(sender, new MenuArgs() { Type = type, Id = Id, ParentId = parentId, Point = point});
         }
 
         internal static string CurrentGuildId;
