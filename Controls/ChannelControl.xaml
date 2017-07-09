@@ -8,7 +8,42 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400" VerticalAlignment="Top">
-
+    <UserControl.Resources>
+        <Storyboard x:Name="ShowBadge">
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid VerticalAlignment="Top" Margin="0" Padding="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -34,7 +69,10 @@
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Horizontal">
             <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
-            <Border Visibility="Collapsed" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,-5,0">
+            <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,-5,0">
+                <Border.RenderTransform>
+                    <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
+                </Border.RenderTransform>
                 <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
         </StackPanel>

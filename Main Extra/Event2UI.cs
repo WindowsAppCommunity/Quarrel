@@ -15,6 +15,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
@@ -159,7 +160,7 @@ namespace Discord_UWP
                     LoadGuilds();
                 });
         }
-
+        
         private TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
         private async void MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
@@ -193,6 +194,7 @@ namespace Discord_UWP
                                 foreach (var key in ToRemove)
                                     Typers.Remove(key);
                                 UpdateTypingUI();
+                                
                             }
                             catch (Exception exception) {}
                         }
@@ -202,6 +204,31 @@ namespace Discord_UWP
                             (TextChannels.Items.FirstOrDefault(
                                 x => (x as SimpleChannel).Id == e.EventData.ChannelId) as SimpleChannel);
                             if(channel != null) channel.IsTyping = false;
+
+                            ReadState rpc = new ReadState();
+                            if (Session.RPC.ContainsKey(e.EventData.ChannelId))
+                                rpc = Session.RPC[e.EventData.ChannelId];
+                            else
+                                Session.RPC.Add(e.EventData.ChannelId, rpc);
+                            if (e.EventData.MentionEveryone ||
+                                e.EventData.Mentions.Any(x => x.Id == App.CurrentUserId))
+                                rpc.MentionCount = rpc.MentionCount+1;
+
+                            Session.RPC[e.EventData.ChannelId] = rpc;
+                            var guild = Storage.Cache.Guilds.FirstOrDefault(
+                                x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
+                            if(guild.Value != null)
+                                guild.Value.Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
+                            Storage.Cache.Guilds[guild.Key] = guild.Value;
+                            foreach (SimpleChannel ch in TextChannels.Items)
+                            {
+                                if (ch.Id == e.EventData.ChannelId)
+                                {
+                                    if (rpc.LastMessageId != e.EventData.Id)
+                                        ch.IsUnread = true;
+                                    ch.NotificationCount = rpc.MentionCount;
+                                }
+                            }
                         }
                         catch (Exception) { }
                     }
