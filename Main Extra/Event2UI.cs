@@ -99,11 +99,14 @@ namespace Discord_UWP
                     }
                 }
 
-                foreach (Presence status in guild.Presences)
+                if (guild.Presences != null)
                 {
-                    if (!Session.PrecenseDict.ContainsKey(status.User.Id))
+                    foreach (Presence status in guild.Presences)
                     {
-                        Session.PrecenseDict.Add(status.User.Id, status);
+                        if (!Session.PrecenseDict.ContainsKey(status.User.Id))
+                        {
+                            Session.PrecenseDict.Add(status.User.Id, status);
+                        }
                     }
                 }
 
