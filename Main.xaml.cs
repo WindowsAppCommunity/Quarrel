@@ -470,35 +470,31 @@ namespace Discord_UWP
         #region Members
         public async void LoadMembers(string id)
         {
-            await Task.Run(() =>
-            {
-
-            });
-            if (Session.Online)
-            {
-                IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
-
-                if (members != null)
+                if (Session.Online)
                 {
-                    foreach (GuildMember member in members)
+                    IEnumerable<GuildMember> members = await Session.GetGuildMembers(id);
+
+                    if (members != null)
                     {
-                        if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                        foreach (GuildMember member in members)
                         {
-                            Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                            if (Storage.Cache.Guilds[id].Members.ContainsKey(member.User.Id))
+                            {
+                                Storage.Cache.Guilds[id].Members[member.User.Id] = new Member(member);
+                            }
+                            else
+                            {
+                                Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
+                            }
                         }
-                        else
-                        {
-                            Storage.Cache.Guilds[id].Members.Add(member.User.Id, new Member(member));
-                        }
+                        App.GuildMembers = Storage.Cache.Guilds[id].Members;
                     }
-                    App.GuildMembers = Storage.Cache.Guilds[id].Members;
                 }
-            }
-            int totalrolecounter = 0;
-            
+                int totalrolecounter = 0;
+
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
             {
-                
+
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
                     Role roleAlt = role;
@@ -523,10 +519,12 @@ namespace Discord_UWP
                 memberscvs = Storage.Cache.Guilds[id].Members;
                 foreach (Member m in memberscvs.Values)
                 {
-                    if (m.Raw.Roles.FirstOrDefault() != null && Storage.Cache.Guilds[id].Roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                    if (m.Raw.Roles.FirstOrDefault() != null &&
+                        Storage.Cache.Guilds[id].Roles[m.Raw.Roles.FirstOrDefault()].Hoist)
                     {
                         m.MemberDisplayedRole = GetRole(m.Raw.Roles.FirstOrDefault(), id, everyonecounter);
-                    } else
+                    }
+                    else
                     {
 
                         m.MemberDisplayedRole = GetRole(null, id, everyonecounter);
@@ -534,17 +532,27 @@ namespace Discord_UWP
                     if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
                     {
                         m.status = Session.PrecenseDict[m.Raw.User.Id];
-                    } else
+                    }
+                    else
                     {
-                        m.status = new Presence() { Status = "offline", Game = null};
+                        m.status = new Presence() {Status = "offline", Game = null};
                     }
                 }
                 try
                 {
-                    MembersCVS.Source = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                    var sortedMembers = memberscvs.GroupBy(m => m.Value.MemberDisplayedRole)
+                        .OrderBy(m => m.Key.Position)
+                        .ToList();
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            MembersCVS.Source = sortedMembers;
+                        });
                 }
-                catch { }
-                    
+                catch
+                {
+                }
+
                 //else
                 //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 TempRoleCache.Clear();
@@ -554,6 +562,7 @@ namespace Discord_UWP
         private List<DisplayedRole> TempRoleCache = new List<DisplayedRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
         private DisplayedRole GetRole(string roleid, string guildid, int everyonecounter)
         {
+
             var cachedRole = TempRoleCache.FirstOrDefault(x => x.Id == roleid);
             if (cachedRole != null) return cachedRole;
             else
@@ -561,6 +570,7 @@ namespace Discord_UWP
                 DisplayedRole role;
                 if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
+
                     role = new DisplayedRole(null, 10000, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
                 }
@@ -588,23 +598,27 @@ namespace Discord_UWP
 
                 #region Permissions
                 Permissions perms = new Permissions();
-                if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
+                Task.Run(() =>
                 {
-                    foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+                    if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
                     {
-                        if (Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                        foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                         {
-                            if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                            if (Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                             {
-                                perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                            }
-                            else
-                            {
-                                perms.GetPermissions(0);
+                                if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                                {
+                                    perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                                }
+                                else
+                                {
+                                    perms.GetPermissions(0);
+                                }
                             }
                         }
                     }
-                }
+                });
+
                 #endregion
 
                 if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
@@ -621,17 +635,21 @@ namespace Discord_UWP
                 LoadMembers(id);
                 #endregion
 
-                if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
+                Task.Run(() =>
                 {
-                    foreach (Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
+                    if (Storage.Cache.Guilds[id].RawGuild.Presences != null)
                     {
-                        if (Session.PrecenseDict.ContainsKey(presence.User.Id))
+                        foreach (Presence presence in Storage.Cache.Guilds[id].RawGuild.Presences)
                         {
-                            Session.PrecenseDict.Remove(presence.User.Id);
+                            if (Session.PrecenseDict.ContainsKey(presence.User.Id))
+                            {
+                                Session.PrecenseDict.Remove(presence.User.Id);
+                            }
+                            Session.PrecenseDict.Add(presence.User.Id, presence);
                         }
-                        Session.PrecenseDict.Add(presence.User.Id, presence);
                     }
-                }
+                });
+
 
                 List<UIElement> channelListBuffer = new List<UIElement>();
                 while (channelListBuffer.Count < 1000)
@@ -1524,6 +1542,7 @@ namespace Discord_UWP
 
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
+            UserFlyoutBtn.Flyout.Hide();
             SubFrameNavigator(typeof(SubPages.Settings));
         }
 
@@ -1572,24 +1591,6 @@ namespace Discord_UWP
         //    }
         //}
         #endregion
-
-        //private bool autoscrolldown = true;
-        private void ScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            //if user is scrolled more than 20 pixels away from the bottom, disable automatic scrolling
-          //  autoscrolldown = !((message_scroller.ScrollableHeight - message_scroller.VerticalOffset) > 20);
-        }
-
-        private void Messages_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-           // if(autoscrolldown)
-            //    message_scroller.ChangeView(null, message_scroller.ScrollableHeight, null);
-        }
-
-        private void Message_scroller_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
-        {
-            
-        }
 
         private void OpenUserSettings(object sender, RoutedEventArgs e)
         {

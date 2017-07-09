@@ -43,37 +43,46 @@ namespace Discord_UWP
         }
         public static void SaveAppSettings()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-            if (!SavedSettings.Containers.ContainsKey("settings"))
+            Task.Run(() =>
             {
-                SavedSettings.CreateContainer("settings", ApplicationDataCreateDisposition.Always);
-            }
-            StringWriter settingsWriter = new StringWriter();
-            serializer.Serialize(settingsWriter, Settings);
-            SavedSettings.Values["settings"] = settingsWriter.ToString();
+                XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+                if (!SavedSettings.Containers.ContainsKey("settings"))
+                {
+                    SavedSettings.CreateContainer("settings", ApplicationDataCreateDisposition.Always);
+                }
+                StringWriter settingsWriter = new StringWriter();
+                serializer.Serialize(settingsWriter, Settings);
+                SavedSettings.Values["settings"] = settingsWriter.ToString();
+            });
+
         }
         public static async void SaveCache()
         {
-            try
+            await Task.Run(async () =>
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
-                StorageFile file = await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
-
-                StringWriter settingsWriter = new StringWriter();
                 try
                 {
-                    serializer.Serialize(settingsWriter, new TempCache(Cache));
-                    await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                    XmlSerializer serializer = new XmlSerializer(typeof(TempCache));
+                    StorageFile file =
+                        await SavedData.CreateFileAsync("cache", CreationCollisionOption.ReplaceExisting);
+
+                    StringWriter settingsWriter = new StringWriter();
+                    try
+                    {
+                        serializer.Serialize(settingsWriter, new TempCache(Cache));
+                        await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                    }
+                    catch
+                    {
+
+                    }
                 }
                 catch
                 {
 
                 }
-            }
-            catch
-            {
+            });
 
-            }
         }
 
         public static async void CacheImage(string id, string avatar, bool guild)
@@ -123,41 +132,49 @@ namespace Discord_UWP
 
         public static async void SaveMessages()
         {
-            List<ChannelTimeSave> temp = new List<ChannelTimeSave>();
-            foreach (KeyValuePair<string, string> keyvalue in Storage.RecentMessages)
+            await Task.Run(async () =>
             {
-                temp.Add(new ChannelTimeSave(keyvalue.Key, keyvalue.Value));
-            }
+                List<ChannelTimeSave> temp = new List<ChannelTimeSave>();
+                foreach (KeyValuePair<string, string> keyvalue in Storage.RecentMessages)
+                {
+                    temp.Add(new ChannelTimeSave(keyvalue.Key, keyvalue.Value));
+                }
 
-            XmlSerializer serializer = new XmlSerializer(typeof(List<ChannelTimeSave>));
-            StorageFile file = await SavedData.CreateFileAsync("messages", CreationCollisionOption.ReplaceExisting);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<ChannelTimeSave>));
+                StorageFile file = await SavedData.CreateFileAsync("messages", CreationCollisionOption.ReplaceExisting);
 
-            StringWriter settingsWriter = new StringWriter();
-            serializer.Serialize(settingsWriter, temp);
-            try
-            {
-                await FileIO.WriteTextAsync(file, settingsWriter.ToString());
-            }
-            catch
-            {
+                StringWriter settingsWriter = new StringWriter();
+                serializer.Serialize(settingsWriter, temp);
+                try
+                {
+                    await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                }
+                catch
+                {
 
-            }
+                }
+            });
+
         }
         public static async void SaveMutedChannels()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
-            StorageFile file = await SavedData.CreateFileAsync("mutedchannels", CreationCollisionOption.ReplaceExisting);
-
-            StringWriter settingsWriter = new StringWriter();
-            serializer.Serialize(settingsWriter, MutedChannels);
-            try
+            await Task.Run(async () =>
             {
-                await FileIO.WriteTextAsync(file, settingsWriter.ToString());
-            }
-            catch
-            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                StorageFile file =
+                    await SavedData.CreateFileAsync("mutedchannels", CreationCollisionOption.ReplaceExisting);
 
-            }
+                StringWriter settingsWriter = new StringWriter();
+                serializer.Serialize(settingsWriter, MutedChannels);
+                try
+                {
+                    await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                }
+                catch
+                {
+
+                }
+            });
         }
 
 

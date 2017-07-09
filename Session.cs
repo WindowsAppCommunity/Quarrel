@@ -298,13 +298,17 @@ namespace Discord_UWP
             return null;
         }
 
-        public static void ChangeUserSettings(string settings)
+        public static async void ChangeUserSettings(string settings)
         {
             try
             {
-                Gateway.UpdateStatus(settings,0,null);
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.UpdateSettings("{\"status\":\"" +settings + "\"}").Wait();
+                await Task.Run(() =>
+                {
+                    Gateway.UpdateStatus(settings, 0, null);
+                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                    userservice.UpdateSettings("{\"status\":\"" + settings + "\"}").Wait();
+                });
+
             }
             catch (Exception e)
             {
@@ -312,12 +316,15 @@ namespace Discord_UWP
             }
         }
 
-        public static void ChangeCurrentGame(string game)
+        public static async void ChangeCurrentGame(string game)
         {
             try
             {
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
+                await Task.Run(() =>
+                {
+                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                    userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
+                });
             }
             catch (Exception e)
             {
@@ -360,8 +367,11 @@ namespace Discord_UWP
         {
             try
             {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                await channelservice.AckMessage(chnId, msgId);
+                await Task.Run(async () =>
+                {
+                    IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                    await channelservice.AckMessage(chnId, msgId);
+                });
             }
             catch (Exception e)
             {
@@ -382,12 +392,15 @@ namespace Discord_UWP
             }
         }
 
-        public static void CreateReaction(string channelid, string messageid, SharedModels.Emoji emoji)
+        public static async Task CreateReactionAsync(string channelid, string messageid, SharedModels.Emoji emoji)
         {
             try
             {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.CreateReaction(channelid, messageid, emoji.Name).Wait();
+                await Task.Run(() =>
+                {
+                    IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                    channelservice.CreateReaction(channelid, messageid, emoji.Name).Wait();
+                });
             }
             catch (Exception e)
             {
@@ -395,12 +408,15 @@ namespace Discord_UWP
             }
         }
 
-        public static void DeleteReaction(string channelid, string messageid, SharedModels.Emoji emoji)
+        public static async Task DeleteReactionAsync(string channelid, string messageid, SharedModels.Emoji emoji)
         {
             try
             {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.DeleteReaction(channelid, messageid, emoji.Name).Wait();
+                await Task.Run(() =>
+                {
+                    IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                    channelservice.DeleteReaction(channelid, messageid, emoji.Name).Wait();
+                });
             }
             catch (Exception e)
             {
@@ -438,15 +454,19 @@ namespace Discord_UWP
             }
         }
 
-        public static void EditMessage(string chnid, string msgid, string content)
+        public static async Task EditMessageAsync(string chnid, string msgid, string content)
         {
             try
             {
-                EditMessage editmessage = new EditMessage();
-                editmessage.Content = content;
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.EditMessage(chnid, msgid, editmessage).Wait();
+                await Task.Run(() =>
+                {
+                    EditMessage editmessage = new EditMessage();
+                    editmessage.Content = content;
+                    IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                    channelservice.EditMessage(chnid, msgid, editmessage).Wait();
+                });
             }
+
             catch (Exception e)
             {
                 Showmsg(e);
