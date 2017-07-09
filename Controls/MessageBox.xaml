@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <local:NegationConverter x:Name="Negate"></local:NegationConverter>
+
     </UserControl.Resources>
 
     <Grid>

@@ -163,28 +163,33 @@ namespace Discord_UWP
 
         private GridView reactionView;
         private Attachment attachement;
+        private string userid = "";
         public void UpdateMessage()
         {
             if (Message.HasValue)
             {
-                if (Message.Value.MentionEveryone)
+                if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == App.CurrentUserId))
                 {
-                    content.Background = GetSolidColorBrush("#33ffc100");
+                    content.Background = GetSolidColorBrush("#33FAA61A");
+                    content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
+                    content.BorderThickness = new Thickness(2,0,0,0);
                 }
 
-                foreach (SharedModels.User user in Message.Value.Mentions)
+                else
                 {
-                    if (user.Id == Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        content.Background = GetSolidColorBrush("#33ffc100");
-                    }
+                    content.Background = null;
+                    content.BorderBrush = null;
+                    content.BorderThickness = new Thickness(0);
                 }
+                    
 
                 if (Message.Value.User.Username != null)
-                    username.Text = Message.Value.User.Username;
+                    username.Content = Message.Value.User.Username;
                 else
-                    username.Text = "";
+                    username.Content = "";
                 GuildMember member;
+                if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
+                else userid = "";
                 if (App.CurrentGuild != null && App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
                 {
                     member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
@@ -195,7 +200,7 @@ namespace Discord_UWP
                 }
                 if (member.Nick != null)
                 {
-                    username.Text = member.Nick;
+                    username.Content = member.Nick;
                 }
 
                 if (member.Roles != null && member.Roles.Any())
@@ -336,7 +341,7 @@ namespace Discord_UWP
             {
                 content.Visibility = Visibility.Visible;
                 Grid.SetRow(moreButton,2);
-                username.Text = "";
+                username.Content = "";
                 avatar.Fill = null;
                 timestamp.Text = "";
                 content.Text = "";
@@ -479,12 +484,12 @@ namespace Discord_UWP
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
-        private void ToggleReaction(object sender, RoutedEventArgs e)
+        private async void ToggleReaction(object sender, RoutedEventArgs e)
         {
             var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
-                Session.DeleteReaction(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>) (sender as ToggleButton).Tag).Item3.Emoji);
+                await Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>)(sender as ToggleButton).Tag).Item3.Emoji);
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
                     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
@@ -496,7 +501,7 @@ namespace Discord_UWP
             }
             else
             {
-                Session.CreateReaction((((ToggleButton) sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item2, ((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Emoji);
+                await Session.CreateReactionAsync((((ToggleButton)sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item2, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Emoji);
 
                 if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
                 {
@@ -521,7 +526,7 @@ namespace Discord_UWP
         {
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
-            await Task.Run(() => Session.EditMessage(Message.Value.ChannelId, Message.Value.Id, editedText));
+            await Task.Run(() => Session.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editedText));
         }
 
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
@@ -574,6 +579,11 @@ namespace Discord_UWP
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
             App.OpenAttachement(attachement);
+        }
+
+        private void Username_OnClick(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToProfile(userid);
         }
     }
 }

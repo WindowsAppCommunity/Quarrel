@@ -1043,7 +1043,7 @@ namespace Discord_UWP
         }
         private void SendMessageEdit(object sender, RoutedEventArgs e)
         {
-            Session.EditMessage(((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2, Session.Editcache);
+            Session.EditMessageAsync(((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2, Session.Editcache);
             LoadChannelMessages(null, null);
         }
         private void OpenFlyout(object sender, RoutedEventArgs e)
