@@ -1532,7 +1532,7 @@ namespace Discord_UWP
             /*maybe enable this blur effect later, depending on the GPU */
             if (Storage.Settings.ExpensiveRender)
             {
-                content.Blur(1, 600).Start();
+                content.Blur(2, 600).Start();
             }
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
