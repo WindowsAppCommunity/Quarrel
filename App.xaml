@@ -47,6 +47,16 @@
             <Color x:Key="BlurpleColor">#7289DA</Color>
             <SolidColorBrush x:Key="BlurpleTranslucent" Color="#197289DA"/>
             <Color x:Key="BlurpleTranslucentColor">#197289DA</Color>
+
+            <SolidColorBrush x:Key="Online" Color="#ff43b581"/>
+            <Color x:Key="OnlineColor">#ff43b581</Color>
+            <SolidColorBrush x:Key="Idle" Color="#fffaa61a"/>
+            <Color x:Key="IdleColor">#fffaa61a</Color>
+            <SolidColorBrush x:Key="Dnd" Color="#fff04747"/>
+            <Color x:Key="DndColor">#fff04747</Color>
+            <SolidColorBrush x:Key="Offline" Color="#FFAAAAAA"/>
+            <Color x:Key="OfflineColor">#FFAAAAAA</Color>
+
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
