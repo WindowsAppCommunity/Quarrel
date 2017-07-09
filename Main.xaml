@@ -321,7 +321,7 @@
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                 <GradientStop/>
-                                <GradientStop Color="{ThemeResource DeepBG}" Offset="1"/>
+                                <!--<GradientStop Color="{ThemeResource DeepBG}" Offset="1"/>-->
                             </LinearGradientBrush>
                         </Rectangle.Fill>
                     </Rectangle>
@@ -444,9 +444,9 @@
                         </ScrollViewer>
                     </Grid>
                     <Grid Grid.Row="2" Background="{ThemeResource MidBG}" Grid.ColumnSpan="2">
-                        <Button BorderThickness="0" Background="Transparent" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <Button x:Name="UserFlyoutBtn" BorderThickness="0" Background="Transparent" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <Button.Flyout>
-                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                <Flyout  FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                     <StackPanel Padding="12">
                                         <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="AppBarButton_Click_1"/>
                                         <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>

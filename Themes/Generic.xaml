@@ -68,6 +68,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:MarkdownTextBlock">
                     <Border x:Name="RootElement"
+                            CornerRadius="4"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" />
