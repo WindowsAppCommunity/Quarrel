@@ -50,6 +50,19 @@ namespace Discord_UWP
                 string password = Password.Password;
                 await Task.Run(async () =>
                 {
+                    //Clear all data from Session
+                    try
+                    {
+                        Session.RPC.Clear();
+                        Session.PrecenseDict.Clear();
+                        App.CurrentChannelId = null;
+                        App.CurrentGuild = null;
+                        App.GuildMembers.Clear();
+                        App.Notes.Clear();
+                    }
+                    catch (Exception) { }
+
+                    //Login
                     await Session.Login(email, password);
                     Session.Online = true;
                     Storage.Token = Session.Token;
