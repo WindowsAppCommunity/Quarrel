@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.SharedModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -69,8 +70,11 @@ namespace Discord_UWP.Controls
 
         private async void Load()
         {
-            foreach (var f in await Session.GetUserRelationShips(App.CurrentUserId))
+            foreach (var f in Storage.Cache.Friends)
             {
+                var friend = new SimpleFriend();
+                friend.User = friend.User;
+                friend.RelationshipStatus = f.Value.Raw.Type;
 
             }
         }

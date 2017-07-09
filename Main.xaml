@@ -211,7 +211,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <CollectionViewSource x:Name="MembersCVS" IsSourceGrouped="True"/>
+        <CollectionViewSource x:Name="MembersCvs" IsSourceGrouped="True"/>
         <CollectionViewSource x:Name="ChannelsCVS"/>
 
     </Page.Resources>
@@ -490,7 +490,7 @@
                 <SplitView.Pane>
                     <SemanticZoom>
                         <SemanticZoom.ZoomedInView>
-                            <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCVS}}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True" ItemClick="ListViewBase_OnItemClick">
+                            <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True" ItemClick="ListViewBase_OnItemClick">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -530,7 +530,7 @@
                             </ListView>
                         </SemanticZoom.ZoomedInView>
                         <SemanticZoom.ZoomedOutView>
-                            <ListView ItemsSource="{Binding Source={StaticResource MembersCVS}, Path=CollectionGroups}" Margin="0" >
+                            <ListView ItemsSource="{Binding Source={StaticResource MembersCvs}, Path=CollectionGroups}" Margin="0" >
                                 <ListView.Background>
                                     <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
                                 </ListView.Background>
