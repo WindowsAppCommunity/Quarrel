@@ -91,9 +91,12 @@ namespace Discord_UWP
                 }
 
                 Storage.Cache.Guilds[guild.Id].Members.Clear();
-                foreach (GuildMember member in guild.Members)
+                if (guild.Members != null)
                 {
-                    Storage.Cache.Guilds[guild.Id].Members.Add(member.User.Id, new Member(member));
+                    foreach (GuildMember member in guild.Members)
+                    {
+                        Storage.Cache.Guilds[guild.Id].Members.Add(member.User.Id, new Member(member));
+                    }
                 }
 
                 foreach (Presence status in guild.Presences)
