@@ -235,7 +235,9 @@ namespace Discord_UWP
                 Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
-                Storage.SaveAppSettings();
+                Storage.Settings.OnlineBursh = Color.FromArgb(255, 67, 181, 129).ToHex();
+                Storage.Settings.IdleBrush = Color.FromArgb(255, 250, 166, 26).ToHex();
+                Storage.Settings.DndBrush = Color.FromArgb(255, 240, 71, 71).ToHex();
                 Storage.SaveAppSettings();
 
                 MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
