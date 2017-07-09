@@ -52,17 +52,21 @@ namespace Discord_UWP
         public App()
         {
             this.InitializeComponent();
-            LoadSettings();
-            if (Storage.Settings.Theme == Theme.Dark)
-                this.RequestedTheme = ApplicationTheme.Dark;
-            else if (Storage.Settings.Theme == Theme.Light)
-                this.RequestedTheme = ApplicationTheme.Light;
-            else if (Storage.Settings.Theme == Theme.Discord)
-                if (Storage.Settings.DiscordLightTheme)
-                    this.RequestedTheme = ApplicationTheme.Light;
-                else
+            try
+            {
+                LoadSettings();
+                if (Storage.Settings.Theme == Theme.Dark)
                     this.RequestedTheme = ApplicationTheme.Dark;
-            this.Suspending += OnSuspending;
+                else if (Storage.Settings.Theme == Theme.Light)
+                    this.RequestedTheme = ApplicationTheme.Light;
+                else if (Storage.Settings.Theme == Theme.Discord)
+                    if (Storage.Settings.DiscordLightTheme)
+                        this.RequestedTheme = ApplicationTheme.Light;
+                    else
+                        this.RequestedTheme = ApplicationTheme.Dark;
+                this.Suspending += OnSuspending;
+            }
+            catch { }
         }
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
