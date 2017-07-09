@@ -68,6 +68,7 @@ namespace Discord_UWP
             }
             catch { }
         }
+       
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
         internal static Guild CurrentGuild;
@@ -243,7 +244,6 @@ namespace Discord_UWP
                 MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
             }
         }
-
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             //Set the title bar colors:
