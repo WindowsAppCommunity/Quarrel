@@ -164,6 +164,7 @@ namespace Discord_UWP
 
         private GridView reactionView;
         private Attachment attachement;
+        private string userid = "";
         public void UpdateMessage()
         {
             if (Message.HasValue)
@@ -184,10 +185,12 @@ namespace Discord_UWP
                     
 
                 if (Message.Value.User.Username != null)
-                    username.Text = Message.Value.User.Username;
+                    username.Content = Message.Value.User.Username;
                 else
-                    username.Text = "";
+                    username.Content = "";
                 GuildMember member;
+                if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
+                else userid = "";
                 if (App.CurrentGuild != null && App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
                 {
                     member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
@@ -198,7 +201,7 @@ namespace Discord_UWP
                 }
                 if (member.Nick != null)
                 {
-                    username.Text = member.Nick;
+                    username.Content = member.Nick;
                 }
 
                 if (member.Roles != null && member.Roles.Any())
@@ -339,7 +342,7 @@ namespace Discord_UWP
             {
                 content.Visibility = Visibility.Visible;
                 Grid.SetRow(moreButton,2);
-                username.Text = "";
+                username.Content = "";
                 avatar.Fill = null;
                 timestamp.Text = "";
                 content.Text = "";
@@ -577,6 +580,11 @@ namespace Discord_UWP
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
             App.OpenAttachement(attachement);
+        }
+
+        private void Username_OnClick(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToProfile(userid);
         }
     }
 }
