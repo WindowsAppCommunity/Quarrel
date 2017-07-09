@@ -267,6 +267,12 @@ namespace Discord_UWP.Controls
         public ChannelControl()
         {
             this.InitializeComponent();
+            this.Holding += OpenMenuFlyout;
+        }
+
+        private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
+        {
+            //TODO:
         }
     }
 }

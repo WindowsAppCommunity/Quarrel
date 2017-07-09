@@ -727,7 +727,7 @@
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
         </Frame>
-        
+
         <controls:LoadingControl x:Name="LoadingSplash" Visibility="Collapsed" Grid.RowSpan="10" Grid.Column="10"/>
     </Grid>
 </Page>

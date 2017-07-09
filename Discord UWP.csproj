@@ -138,6 +138,9 @@
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CreateChannel.xaml.cs">
+      <DependentUpon>CreateChannel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
@@ -257,6 +260,7 @@
     <Compile Include="Main Extra\Actions.cs" />
     <Compile Include="Main Extra\ChannelsManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />
+    <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Functions.cs" />
     <Compile Include="Main Extra\UnreadManager.cs" />
     <Compile Include="Main.xaml.cs">
@@ -385,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ChannelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CreateChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
