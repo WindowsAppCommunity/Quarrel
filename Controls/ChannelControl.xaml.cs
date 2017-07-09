@@ -268,11 +268,45 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             this.Holding += OpenMenuFlyout;
+            this.RightTapped += OpenMenuFlyout;
+        }
+
+        private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
+        {
+            switch (Type)
+            {
+                case 0: /*Text*/
+                    App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
+                    break;
+                case 1: /*DM*/
+
+                    break;
+                case 2: /*Voice*/
+
+                    break;
+                case 3: /*Group*/
+
+                    break;
+            }
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
-            //TODO:
+            switch (Type)
+            {
+                case 0: /*Text*/
+                    App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                    break;
+                case 1: /*DM*/
+
+                    break;
+                case 2: /*Voice*/
+
+                    break;
+                case 3: /*Group*/
+
+                    break;
+            }
         }
     }
 }

@@ -261,6 +261,8 @@
     <Compile Include="Main Extra\ChannelsManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />
     <Compile Include="Main Extra\FlyoutManager.cs" />
+    <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
+    <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
     <Compile Include="Main Extra\Functions.cs" />
     <Compile Include="Main Extra\UnreadManager.cs" />
     <Compile Include="Main.xaml.cs">
