@@ -204,18 +204,13 @@ namespace Discord_UWP.Controls
                 {
                     NotificationBorder.Visibility = Visibility.Visible;
                     NotificationCounter.Text = NotificationCount.ToString();
-                    NotificationBorder.Fade(1).Start();
-                    var centerX = (float) NotificationBorder.ActualWidth / 2;
-                    var centerY = (float) NotificationBorder.ActualHeight / 2;
-                    NotificationBorder.Scale(0.5f, 0.5f, centerX, centerY, 0).Start();
-                    NotificationBorder.Scale(1, 1, centerX, centerY, 200,0, EasingType.Back).Start();
+                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
+                    ShowBadge.Begin();
                 }
                 else
                 {
-                    NotificationBorder.Fade(0).Start();
-                    await NotificationBorder.Scale(0.5f, 0.5f, (float)NotificationBorder.ActualWidth / 2f,
-                        (float)NotificationBorder.ActualHeight / 2, 200, 0, EasingType.Back).StartAsync();
-                    NotificationBorder.Visibility = Visibility.Collapsed;
+                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
+                    HideBadge.Begin();
                 }
             }
             if (prop == NameProperty)
@@ -273,6 +268,11 @@ namespace Discord_UWP.Controls
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             //TODO:
+        }
+
+        private void HideBadge_Completed(object sender, object e)
+        {
+            NotificationBorder.Visibility = Visibility.Collapsed;
         }
     }
 }
