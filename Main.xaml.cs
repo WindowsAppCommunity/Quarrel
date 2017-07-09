@@ -194,7 +194,7 @@ namespace Discord_UWP
 
         public Main(string args)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             #region OldCode
             #region TypingCheckTimer
@@ -555,6 +555,7 @@ namespace Discord_UWP
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
+                            MembersCVS = new CollectionViewSource();
                             MembersCVS.Source = sortedMembers;
                         });
                 }
