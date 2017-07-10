@@ -170,7 +170,7 @@ namespace Discord_UWP
             {
                 if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == App.CurrentUserId))
                 {
-                    content.Background = GetSolidColorBrush("#33FAA61A");
+                    content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
                     content.BorderThickness = new Thickness(2,0,0,0);
                 }

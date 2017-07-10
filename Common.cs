@@ -108,12 +108,12 @@ namespace Discord_UWP
             return readable.ToString("0.### ") + suffix;
         }
 
-        public static Uri AvatarUri(string s)
+        public static Uri AvatarUri(string s, string userid="", string suffix="")
         {
             if(String.IsNullOrEmpty(s))
                 return new Uri("ms-appx:///Assets/DiscordAssets/default_avatar.png");
             else
-                return new Uri(s);
+                return new Uri("https://cdn.discordapp.com/avatars/"+userid+"/"+s+".jpg"+suffix);
         }
 
         public class Permissions
