@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400" VerticalAlignment="Top">
+    d:DesignWidth="400" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
     <UserControl.Resources>
         <Storyboard x:Name="ShowBadge">
             <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
