@@ -16,7 +16,26 @@ namespace Discord_UWP
             MenuFlyout menu = new MenuFlyout();
             MenuFlyoutItem profile = new MenuFlyoutItem() { Text = "Profile", Tag = dm.Raw.Users.FirstOrDefault().Id };
             profile.Click += OpenProfile;
+            menu.Items.Add(profile);
+            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep1);
+            MenuFlyoutItem removeFriend = new MenuFlyoutItem() { Text = "Remove Friend", Tag = dm.Raw.Users.FirstOrDefault().Id };
+            removeFriend.Click += RemoveFriend;
+            menu.Items.Add(removeFriend);
+            MenuFlyoutItem block = new MenuFlyoutItem() { Text = "Block", Tag = dm.Raw.Users.FirstOrDefault().Id };
+            block.Click += BlockUser;
+            menu.Items.Add(block);
             return menu;
+        }
+
+        private void BlockUser(object sender, RoutedEventArgs e)
+        {
+            Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
+        }
+
+        private void RemoveFriend(object sender, RoutedEventArgs e)
+        {
+            Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
         }
 
         private void OpenProfile(object sender, RoutedEventArgs e)
