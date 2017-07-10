@@ -651,6 +651,21 @@ namespace Discord_UWP
             return new SharedModels.GuildMember();
         }
 
+        public static async Task<IEnumerable<Invite>> GetChannelInvites(string channelId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                var ch = await channelservice.GetChannelInvites(channelId);
+                return ch;
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
+
         public static async Task TriggerTypingIndicator(string channelId)
         {
             try

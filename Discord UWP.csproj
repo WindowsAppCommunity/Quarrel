@@ -150,6 +150,9 @@
     <Compile Include="Controls\FriendPanel.xaml.cs">
       <DependentUpon>FriendPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\InviteControl.xaml.cs">
+      <DependentUpon>InviteControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LoadingControl.xaml.cs">
       <DependentUpon>LoadingControl.xaml</DependentUpon>
     </Compile>
@@ -410,6 +413,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\FriendPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\InviteControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
