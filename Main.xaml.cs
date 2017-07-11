@@ -246,10 +246,12 @@ namespace Discord_UWP
             App.LinkClicked += MessageControl_OnLinkClicked;
             App.OpenAttachementHandler += OpenAttachement;
             App.NavigateToProfileHandler += OnNavigateToProfile;
+            App.ShowMemberFlyoutHandler += OnShowMemberFlyoutHandler;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
 
             SettingsChanged(null, null);
         }
+
 
         private void SettingsChanged(object sender, EventArgs e)
         {
@@ -313,6 +315,11 @@ namespace Discord_UWP
                 Session.SlowSpeeds = true;
                 RefreshButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private void OnShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs profileNavigationArgs)
+        {
+            ShowUserDetails(sender, profileNavigationArgs.UserId);
         }
 
         private void OnNavigateToProfile(object sender, App.ProfileNavigationArgs e)
@@ -1623,7 +1630,8 @@ namespace Discord_UWP
             if (member != null)
             {
                 var user = member.Raw.User;
-                SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
+                ShowUserDetails(sender,  member.Raw.User.Id);
+               // SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
             }
             
         }

@@ -166,6 +166,9 @@
     <Compile Include="Controls\TypingIndicator.xaml.cs">
       <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserDetailsControl.xaml.cs">
+      <DependentUpon>UserDetailsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
     <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
     <Compile Include="DiscordAPI\API\BasicRestFactory.cs" />
@@ -266,6 +269,7 @@
     <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
+    <Compile Include="Main Extra\Flyouts\UserDetails.cs" />
     <Compile Include="Main Extra\Functions.cs" />
     <Compile Include="Main Extra\UnreadManager.cs" />
     <Compile Include="Main.xaml.cs">
@@ -433,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TypingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
