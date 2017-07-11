@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,6 +34,19 @@ namespace Discord_UWP.Controls
             typeof(InviteControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public string ShareText
+        {
+            get { return (string) GetValue(ShareTextProperty); }
+            set { SetValue(ShareTextProperty, value);}
+        }
+        public static readonly DependencyProperty ShareTextProperty = DependencyProperty.Register(
+            nameof(ShareText),
+            typeof(string),
+            typeof(InviteControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public event EventHandler DeleteInvite;
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as InviteControl;
@@ -47,7 +62,6 @@ namespace Discord_UWP.Controls
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedInvite.Inviter.Avatar, DisplayedInvite.Inviter.Id));
                 Username.Text = DisplayedInvite.Inviter.Username;
                 var creationTime = DateTime.Parse(DisplayedInvite.CreatedAt);
-                CreationTime.Text = Common.HumanizeDate(creationTime, null);
                 InviteCode.Text = DisplayedInvite.String;
 
                 string useField = DisplayedInvite.Uses.ToString();
@@ -57,27 +71,40 @@ namespace Discord_UWP.Controls
                 else
                     useField += " uses, ";
 
-                if (!DisplayedInvite.Temporary)
+                if (DisplayedInvite.Temporary)
                 {
-                    useField += "no expiry date";
+                    TempInvite.Visibility = Visibility.Visible;
+                    ToolTipService.SetToolTip(TempInvite, "People who use this link will automatically be kicked out when they disconnect, unless they have been assigned a role");
                 }
-                else if(DisplayedInvite.MaxAge != 0)
+                else
                 {
-                    var timeDiff = TimeSpan.FromSeconds(DisplayedInvite.MaxAge - DateTime.Now.Subtract(creationTime).TotalSeconds);
-                    useField += "expires in " + timeDiff.ToString("hh:mm:ss");
+                    TempInvite.Visibility = Visibility.Collapsed;
+                }
+                if (DisplayedInvite.MaxAge != 0)
+                {
+                    var timeDiff = TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
+                                                        DateTime.Now.Subtract(creationTime).TotalSeconds);
+                    useField += "expires in " + timeDiff.ToString(@"hh\:mm\:ss");
 
                     DispatcherTimer timer = new DispatcherTimer();
                     timer.Interval = TimeSpan.FromSeconds(1);
                     timer.Start();
                     timer.Tick += (sender, o) =>
                     {
-                        var timeDiffLive = TimeSpan.FromSeconds(DisplayedInvite.MaxAge - DateTime.Now.Subtract(creationTime).TotalSeconds);
+                        var timeDiffLive =
+                            TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
+                                                 DateTime.Now.Subtract(creationTime).TotalSeconds);
                         if (timeDiffLive.TotalSeconds == 0)
                             Description.Text = "Expired link";
                         else
-                            Description.Text = useField.Remove(useField.Length - 8) + timeDiffLive.ToString("hh:mm:ss");
+                            Description.Text = useField.Remove(useField.Length - 8) +
+                                               timeDiffLive.ToString(@"hh\:mm\:ss");
+                        timer.Start();
                     };
                 }
+                else
+                    useField += " no expiry time";
+
                 Description.Text = useField;
             }
         }
@@ -89,7 +116,33 @@ namespace Discord_UWP.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteInvite?.Invoke(this.DataContext,null);
+        }
+
+        private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataPackage dp = new DataPackage();
+            dp.SetText("http://discord.gg/" + InviteCode.Text);
+            Clipboard.SetContent(dp);
+        }
+
+        private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += (manager, args) =>
+            {
+                args.Request.Data.SetWebLink(new Uri("http://discord.gg/" + InviteCode.Text));
+                if (DisplayedInvite.Channel.Name != null)
+                    args.Request.Data.Properties.Title = "Invite to #" + DisplayedInvite.Channel.Name;
+                else
+                    args.Request.Data.Properties.Title = "Invite to " + DisplayedInvite.Guild.Name;
+            };
+            DataTransferManager.ShowShareUI();
         }
     }
 }

@@ -294,6 +294,7 @@ namespace Discord_UWP
             App.Current.Resources["BlurpleColor"] = accentColor;
             App.Current.Resources["Online"] = new SolidColorBrush(onlineColor);
             App.Current.Resources["Idle"] = new SolidColorBrush(idleColor);
+            App.Current.Resources["DndColor"] = dndColor;
             App.Current.Resources["Dnd"] = new SolidColorBrush(dndColor);
             App.Current.Resources["Offline"] = new SolidColorBrush(offlineColor);
             App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
