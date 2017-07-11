@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.ServiceModel.Channels;
+using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -269,41 +272,44 @@ namespace Discord_UWP.Controls
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             e.Handled = true;
-            switch (Type)
-            {
-                case 0: /*Text*/
-                    App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
-                    break;
-                case 1: /*DM*/
-                    App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
-                    break;
-                case 2: /*Voice*/
+            if(e.PointerDeviceType != PointerDeviceType.Touch)
+                switch (Type)
+                {
+                    case 0: /*Text*/
+                        App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
+                        break;
+                    case 1: /*DM*/
+                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        break;
+                    case 2: /*Voice*/
 
-                    break;
-                case 3: /*Group*/
+                        break;
+                    case 3: /*Group*/
 
-                    break;
-            }
+                        break;
+                }
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
-            switch (Type)
-            {
-                case 0: /*Text*/
-                    App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                    break;
-                case 1: /*DM*/
-                    App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
-                    break;
-                case 2: /*Voice*/
+            if (e.HoldingState == HoldingState.Started)
+                switch (Type)
+                {
+                    case 0: /*Text*/
+                        App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                        break;
+                    case 1: /*DM*/
+                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        break;
+                    case 2: /*Voice*/
 
-                    break;
-                case 3: /*Group*/
+                        break;
+                    case 3: /*Group*/
 
-                    break;
-            }
+                        break;
+                }
+
         }
 
         private void HideBadge_Completed(object sender, object e)
