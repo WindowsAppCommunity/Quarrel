@@ -19,6 +19,7 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -176,8 +177,19 @@ namespace Discord_UWP
                             await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
-
-                            if(VibrationEnabled)
+                            if (e.EventData.TTS)
+                            {
+                                MediaElement mediaplayer = new MediaElement();
+                                using (var speech = new SpeechSynthesizer())
+                                {
+                                    speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Female);
+                                    string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
+                                    SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                                    mediaplayer.SetSource(stream, stream.ContentType);
+                                    mediaplayer.Play();
+                                }
+                            }
+                            if (VibrationEnabled)
                                 Windows.Phone.Devices.Notification.VibrationDevice.GetDefault().Vibrate(VibrationDuration);
                             try
                             {
@@ -240,6 +252,18 @@ namespace Discord_UWP
                             await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
+                            if (e.EventData.TTS)
+                            {
+                                MediaElement mediaplayer = new MediaElement();
+                                using (var speech = new SpeechSynthesizer())
+                                {
+                                    speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Female);
+                                    string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
+                                    SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                                    mediaplayer.SetSource(stream, stream.ContentType);
+                                    mediaplayer.Play();
+                                }
+                            }
                             try
                             { Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key); }
                             catch (Exception exception) { }
