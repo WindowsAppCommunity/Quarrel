@@ -605,7 +605,8 @@ namespace Discord_UWP
                 {
                     if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
                     {
-                        DownloadGuild(e.EventData.GuildId);
+                        TextChannels.Items.Remove(
+                            TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == e.EventData.Id));
                     }
                 });
         }

@@ -309,8 +309,8 @@
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\ChannelEdit.xaml.cs">
-      <DependentUpon>ChannelEdit.xaml</DependentUpon>
+    <Compile Include="SubPages\EditChannel.xaml.cs">
+      <DependentUpon>EditChannel.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\InAppPurchases.xaml.cs">
       <DependentUpon>InAppPurchases.xaml</DependentUpon>
@@ -445,7 +445,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\ChannelEdit.xaml">
+    <Page Include="SubPages\EditChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
