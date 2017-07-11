@@ -113,7 +113,6 @@ namespace Discord_UWP
 
         private void DeleteChannel(object sender, RoutedEventArgs e)
         {
-            ChannelSettings.Visibility = Visibility.Collapsed;
             Session.DeleteChannel(_settingsPaneId);
             //await Task.Run(() => Session.DeleteChannel(_settingsPaneId));
         }
