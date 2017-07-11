@@ -85,6 +85,17 @@ namespace Discord_UWP
             MenuHandler?.Invoke(sender, new MenuArgs() { Type = type, Id = Id, ParentId = parentId, Point = point});
         }
 
+        public class UserDetailsArgs
+        {
+            public string Id { get; set; }
+            public Point Point { get; set; }
+        }
+        public static event EventHandler<UserDetailsArgs> ShowUserFlyoutHandler;
+        public static void ShowUserFlyout(object sender, string userid, Point point)
+        {
+            ShowUserFlyoutHandler?.Invoke(sender, new UserDetailsArgs(){ Point = point, Id = userid});
+        }
+
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
         internal static Guild CurrentGuild;
@@ -140,6 +151,12 @@ namespace Discord_UWP
         {
             NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { UserId = userId });
         }
+        public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
+        public static void ShowMemberFlyout(object sender, string userId)
+        {
+            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { UserId = userId });
+        }
+
 
         public class ChannelEditNavigationArgs : EventArgs
         {

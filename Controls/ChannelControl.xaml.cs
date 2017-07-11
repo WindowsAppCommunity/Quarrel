@@ -308,7 +308,7 @@ namespace Discord_UWP.Controls
                     case 3: /*Group*/
 
                         break;
-                }
+                        }
 
         }
 
