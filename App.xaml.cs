@@ -141,6 +141,16 @@ namespace Discord_UWP
             NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { UserId = userId });
         }
 
+        public class ChannelEditNavigationArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+        }
+        public static event EventHandler<ChannelEditNavigationArgs> NavigateToChannelEditHandler;
+        public static void NavigateToChannelEdit(string channelId)
+        {
+            NavigateToChannelEditHandler?.Invoke(typeof(App), new ChannelEditNavigationArgs() { ChannelId = channelId });
+        }
+
         public enum AttachementType { Image, Video, Webpage }
         public static event EventHandler<SharedModels.Attachment> OpenAttachementHandler;
         public static void OpenAttachement(SharedModels.Attachment args)
