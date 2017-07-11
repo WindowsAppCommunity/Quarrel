@@ -154,6 +154,7 @@ namespace Discord_UWP
                 ContentCache.Opacity = 0.5;
             }
         }
+
         public Main()
         {
             this.InitializeComponent();
@@ -190,7 +191,6 @@ namespace Discord_UWP
 
             SetupUI();
         }
-
 
         public Main(string args)
         {
@@ -246,6 +246,7 @@ namespace Discord_UWP
             App.LinkClicked += MessageControl_OnLinkClicked;
             App.OpenAttachementHandler += OpenAttachement;
             App.NavigateToProfileHandler += OnNavigateToProfile;
+            App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
 
             SettingsChanged(null, null);
         }
@@ -317,6 +318,11 @@ namespace Discord_UWP
         private void OnNavigateToProfile(object sender, App.ProfileNavigationArgs e)
         {
             SubFrameNavigator(typeof(SubPages.UserProfile), e.UserId);
+        }
+
+        private void OnNavigateToChannelEdit(object sender, App.ChannelEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditChannel), e.ChannelId);
         }
 
         private void OpenAttachement(object sender, Attachment e)
@@ -1184,12 +1190,14 @@ namespace Discord_UWP
                 Members.IsPaneOpen = !Members.IsPaneOpen;
             }
         }
+
         private async void TogglePinnedShow(object sender, RoutedEventArgs e)
         {
             PinnedMessagesLoading.Visibility = Visibility.Visible;
             await DownloadChannelPinnedMessages();
             PinnedMessagesLoading.Visibility = Visibility.Collapsed;
         }
+
         private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
         {
             if (Messages.Items.Count > 0)

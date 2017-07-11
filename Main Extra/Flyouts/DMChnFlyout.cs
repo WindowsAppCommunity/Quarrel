@@ -40,7 +40,8 @@ namespace Discord_UWP
 
         private void OpenProfile(object sender, RoutedEventArgs e)
         {
-            ShowUserDetails((sender as MenuFlyoutItem).Tag.ToString());
+            App.NavigateToProfile((sender as MenuFlyoutItem).Tag.ToString());
+            //ShowUserDetails((sender as MenuFlyoutItem).Tag.ToString());
         }
     }
 }
