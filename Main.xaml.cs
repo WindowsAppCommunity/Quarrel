@@ -322,7 +322,7 @@ namespace Discord_UWP
 
         private void OnNavigateToChannelEdit(object sender, App.ChannelEditNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.ChannelEdit), e.ChannelId);
+            SubFrameNavigator(typeof(SubPages.EditChannel), e.ChannelId);
         }
 
         private void OpenAttachement(object sender, Attachment e)
@@ -696,7 +696,7 @@ namespace Discord_UWP
         private void DownloadGuild(string id)
         {
             Messages.Items.Clear();
-
+            TextChannels.Items.Clear();
             #region Permissions
             Permissions perms = new Permissions();
             Task.Run(() =>
@@ -943,10 +943,10 @@ namespace Discord_UWP
                             {
                                 Storage.RecentMessages[App.CurrentChannelId] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
                             }
-                            else
+                            else if(Messages.Items.Count > 0)
                             {
                                 var messageContainer = Messages.Items.Last() as MessageContainer;
-                                if (messageContainer != null && (messageContainer.Message).HasValue)
+                                if (messageContainer?.Message != null)
                                 {
                                     Storage.RecentMessages.Add(App.CurrentChannelId, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
                                 }
@@ -954,6 +954,7 @@ namespace Discord_UWP
                             Storage.SaveMessages();
                         }
                         Storage.SaveCache();
+                        if(Messages.Items.Count > 0)
                         await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.LastMessageId));
                         MessagesLoading.Visibility = Visibility.Collapsed;
                     }
