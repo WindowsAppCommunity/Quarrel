@@ -42,7 +42,7 @@ namespace Discord_UWP
                 Tag = chn.Raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
                 Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
             };
             menu.Items.Add(markasread);
             markasread.Click += MarkAsReadOnClick;
@@ -53,8 +53,14 @@ namespace Discord_UWP
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.Delete),
                 Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
             };
+
+            if (!chn.chnPerms.EffectivePerms.ManageChannels && !chn.chnPerms.EffectivePerms.Administrator)
+            {
+                deleteChannel.IsEnabled = false;
+            }
+
             menu.Items.Add(deleteChannel);
             deleteChannel.Click += DeleteChannelOnClick;
             return menu;

@@ -221,6 +221,7 @@ namespace Discord_UWP.CacheModels
             Topic = input.Raw.Topic;
             LastMessageId = input.Raw.LastMessageId;
             Overwrites = input.Raw.PermissionOverwrites.ToList();
+            chnPerms = input.chnPerms;
 
             foreach (KeyValuePair<string, Message> message in input.Messages)
             {
@@ -248,6 +249,7 @@ namespace Discord_UWP.CacheModels
         public string Topic;
         public string LastMessageId;
         public List<SharedModels.Overwrite> Overwrites;
+        public Common.Permissions chnPerms = new Common.Permissions();
 
         public List<TempMessage> Messages = new List<TempMessage>();
         public List<TempMessage> Pinnedmessages = new List<TempMessage>();
