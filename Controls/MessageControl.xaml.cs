@@ -591,7 +591,7 @@ namespace Discord_UWP
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(userid);
+            App.ShowMemberFlyout(this, userid);
         }
     }
 }
