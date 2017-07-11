@@ -347,34 +347,33 @@
             <Rectangle x:Name="ContentCache" IsHitTestVisible="False" Opacity="0" Fill="Black" Grid.Column="2" Margin="0"  Grid.Row="1"/>
             
             <SplitView Name="Servers" DisplayMode="Overlay"  Grid.ColumnSpan="3" CompactPaneLength="320" Grid.Row="1" PaneClosing="SP_PaneClosing" Margin="0,0,-50,0" Style="{StaticResource DiscordSplitView}">
-            <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="64"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <ListView x:Name="ServerList" SelectionChanged="CatchServerSelection" Grid.Row="0" Background="{ThemeResource DarkBG}" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True" ItemClick="ServerList_ItemClick">
-                        <ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>
-                    </ListView>
-                    <Grid x:Name="ChannelListParent" Grid.Column="1" Grid.Row="0" Background="{ThemeResource LightBG}">
+                <SplitView.Pane>
+                    <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name"/>
-                        <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
-                            <StackPanel>
-                                <Button Foreground="Red" Content="DEBUG BUTTON" Click="Button_Click"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="64"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <ListView x:Name="ServerList" SelectionChanged="CatchServerSelection" Grid.Row="0" Background="{ThemeResource DarkBG}" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True" ItemClick="ServerList_ItemClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            <ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>
+                        </ListView>
+                        <Grid x:Name="ChannelListParent" Grid.Column="1" Grid.Row="0" Background="{ThemeResource LightBG}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name"/>
+                            <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
+                                <StackPanel>
                                     <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True">
-                                    <ListView.Header>
+                                        <ListView.Header>
                                             <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
-                                    <ListView.ItemTemplate>
+                                        <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChannelControl Id="{Binding Id}" 
                                                                          Name="{Binding Name}" 
@@ -387,76 +386,76 @@
                                                                          IsTyping="{Binding IsTyping}" 
                                                                          IsMuted="{Binding IsMuted}"/>
                                             </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                                <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                        <TextBlock Text="Add Channel"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <TextBlock x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
-                                <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
-                                    <ListView.Header>
-                                        <TextBlock Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
-                                    </ListView.Header>
-                                </ListView>
-                                <ListViewItem x:Name="Upvote" Height="50" Tapped="Upvote_Tapped">
-                                    <TextBlock Text="Upvote this for Voice support"/>
-                                </ListViewItem>
-                            </StackPanel>
-                        </ScrollViewer>
-                        <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
-                            <StackPanel>
-                                <ListView x:Name="DirectMessageChannels" SelectionChanged="LoadDmChannelMessages"/>
-                                <TextBlock x:Name="NoDMSCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                <ProgressRing x:Name="DMsLoading"></ProgressRing>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                    <Grid Grid.Row="2" Background="{ThemeResource MidBG}" Grid.ColumnSpan="2">
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
+                                            <TextBlock Text="Add Channel"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <TextBlock x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                    <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
+                                    <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                                        <ListView.Header>
+                                            <TextBlock Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                        </ListView.Header>
+                                    </ListView>
+                                    <ListViewItem x:Name="Upvote" Height="50" Tapped="Upvote_Tapped">
+                                        <TextBlock Text="Upvote this for Voice support"/>
+                                    </ListViewItem>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
+                                <StackPanel>
+                                    <ListView x:Name="DirectMessageChannels" SelectionChanged="LoadDmChannelMessages"/>
+                                    <TextBlock x:Name="NoDMSCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                    <ProgressRing x:Name="DMsLoading"></ProgressRing>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid Grid.Row="2" Background="{ThemeResource MidBG}" Grid.ColumnSpan="2">
                             <Button x:Name="UserFlyoutBtn" BorderThickness="0" Background="Transparent" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                            <Button.Flyout>
-                                <Flyout  FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                    <StackPanel Padding="12">
-                                        <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="AppBarButton_Click_1"/>
-                                        <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
-                                        <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                                        <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
-                                        <RadioButton x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                        <RadioButton x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                        <RadioButton x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                        <RadioButton x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                        <Grid Width="256" Margin="0,6,0,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
-                                            <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </Flyout>
-                            </Button.Flyout>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="8">
-                                <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
-                                    <Rectangle.Fill>
-                                        <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
-                                        <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                                <Button.Flyout>
+                                    <Flyout  FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                        <StackPanel Padding="12">
+                                            <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="AppBarButton_Click_1"/>
+                                            <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
+                                            <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                                            <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
+                                            <RadioButton x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <Grid Width="256" Margin="0,6,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
+                                                <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="8">
+                                    <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
+                                            <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
+                                        </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                        </Button>
+                            </Button>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </SplitView.Pane>
-        </SplitView>
+                </SplitView.Pane>
+            </SplitView>
 
             <SplitView Name="Members" Grid.ColumnSpan="3" PanePlacement="Right" PaneBackground="{ThemeResource LightBG}" Style="{StaticResource DiscordSplitView}" DisplayMode="Overlay" Grid.Row="1" PaneClosing="SP_PaneClosing" OpenPaneLength="240">
                 <SplitView.Pane>
