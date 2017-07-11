@@ -331,7 +331,7 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <controls:InviteControl DisplayedInvite="{Binding}"/>
+                                            <controls:InviteControl DisplayedInvite="{Binding}" DeleteInvite="InviteControl_OnDeleteInvite"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>

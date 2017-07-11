@@ -666,6 +666,19 @@ namespace Discord_UWP
             return null;
         }
 
+        public static async Task DeleteInvite(string channelId)
+        {
+            try
+            {
+                IInviteService channelservice = AuthenticatedRestFactory.GetInviteService();
+                var ch = await channelservice.DeleteInvite(channelId);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static async Task TriggerTypingIndicator(string channelId)
         {
             try

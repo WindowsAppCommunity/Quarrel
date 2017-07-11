@@ -268,6 +268,7 @@ namespace Discord_UWP.Controls
 
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
+            e.Handled = true;
             switch (Type)
             {
                 case 0: /*Text*/
@@ -287,6 +288,7 @@ namespace Discord_UWP.Controls
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
+            e.Handled = true;
             switch (Type)
             {
                 case 0: /*Text*/
