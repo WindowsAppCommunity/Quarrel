@@ -147,6 +147,14 @@ namespace Discord_UWP.Controls
 
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            if (!App.CurrentGuildIsDM && Id != "")
+            {
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.Administrator && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.ReadMessages)
+                {
+                    this.Visibility = Visibility.Collapsed;
+                }
+            }
+
             if (prop == UserStatusProperty)
             {
                 //TODO add userstatus features

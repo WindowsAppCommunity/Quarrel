@@ -456,11 +456,35 @@ namespace Discord_UWP
 
         private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
+            if (App.CurrentGuildId != null)
+            {
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MoreDelete.Visibility = Visibility.Collapsed;
+                    MoreEdit.Visibility = Visibility.Collapsed;
+                }
+                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MoreEdit.Visibility = Visibility.Collapsed;
+                }
+            }
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
         private void UserControl_Holding(object sender, HoldingRoutedEventArgs e)
         {
+            if (App.CurrentGuildId != null)
+            {
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MoreDelete.Visibility = Visibility.Collapsed;
+                    MoreEdit.Visibility = Visibility.Collapsed;
+                }
+                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MoreEdit.Visibility = Visibility.Collapsed;
+                }
+            }
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
