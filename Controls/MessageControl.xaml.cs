@@ -439,37 +439,17 @@ namespace Discord_UWP
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
-            if (perms == null)
+            if (App.CurrentGuildId != null)
             {
-                perms = new Permissions();
-                if (App.CurrentGuildId != null)
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.EffectivePerms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    foreach (Role role in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles)
-                    {
-                        if (!Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                        {
-                            Storage.Cache.Guilds[App.CurrentGuildId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(App.CurrentGuildId, Storage.Cache.CurrentUser.Raw.Id)));
-                        }
-
-                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                        {
-                            perms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
-                        }
-                        else
-                        {
-                            perms.GetPermissions(0);
-                        }
-                    }
+                    MoreDelete.Visibility = Visibility.Collapsed;
+                    MoreEdit.Visibility = Visibility.Collapsed;
                 }
-            }
-
-            if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MoreDelete.Visibility = Visibility.Collapsed;
-            }
-            else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MoreEdit.Visibility = Visibility.Collapsed;
+                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MoreEdit.Visibility = Visibility.Collapsed;
+                }
             }
             FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
@@ -547,7 +527,8 @@ namespace Discord_UWP
                     SendBox.IsEnabled = false;
             });
         }
-        Permissions perms;
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EditBox.Visibility = Visibility.Collapsed;
