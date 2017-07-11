@@ -1390,59 +1390,16 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
-            SharedModels.GuildChannel channel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[(sender as Button).Tag.ToString()].Raw;
-            ChannelNameChange.Text = channel.Name;
-            ChannelNameChange.PlaceholderText = channel.Name;
-            if (channel.Topic != null)
-            {
-                ChannelTopicChnage.Text = channel.Topic;
-                ChannelTopicChnage.PlaceholderText = channel.Topic;
-            }
-            _settingsPaneId = (sender as Button).Tag.ToString();
-            ChannelSettings.IsPaneOpen = true;
-            DarkenMessageArea.Begin();
-            if (!Session.Online)
-            {
-                SaveChannelSettingsButton.IsEnabled = false;
-            }
-        }
-        private void SaveChannelSettings(object sender, RoutedEventArgs e)
-        {
-            Session.ModifyGuildChannel(_settingsPaneId, ChannelNameChange.Text, ChannelTopicChnage.Text);
-            ChannelSettings.IsPaneOpen = false;
-        }
-        private void CloseChannelSettings(object sender, RoutedEventArgs e)
-        {
-            ChannelSettings.IsPaneOpen = false;
+            App.NavigateToChannelEdit((sender as Button).Tag.ToString());
         }
         private void SaveCreateChannel(object sender, RoutedEventArgs e)
         {
             Session.CreateChannel((ServerList.SelectedItem as ListViewItem).Tag.ToString(), CreateChannelName.Text);
             CreateChannel.IsPaneOpen = false;
         }
-        private void CloaseCreateChannel(object sender, RoutedEventArgs e)
+        private void CloseCreateChannel(object sender, RoutedEventArgs e)
         {
             CreateChannel.IsPaneOpen = false;
-        }
-        private async void CheckDeleteChannel(object sender, RoutedEventArgs e)
-        {
-            MessageDialog winnerAnounce = new MessageDialog("Are you sure? The channel and all it's messages cannot be recovered");
-            winnerAnounce.Commands.Add(new UICommand(
-        "Delete",
-        new UICommandInvokedHandler(ConfirmDelete)));
-            winnerAnounce.Commands.Add(new UICommand(
-                "No",
-                new UICommandInvokedHandler(CancelDelete)));
-            await winnerAnounce.ShowAsync();
-        }
-        private void CancelDelete(IUICommand command)
-        {
-
-        }
-        private void ConfirmDelete(IUICommand command)
-        {
-            Session.DeleteChannel(_settingsPaneId);
-            ChannelSettings.IsPaneOpen = false;
         }
         #endregion
 

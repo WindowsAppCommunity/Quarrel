@@ -582,16 +582,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void ModifyGuildChannel(string channelid, string newChannelName, string newChannelTopic)
+        public static void ModifyGuildChannel(string chnId, ModifyChannel newChn)
         {
             try
             {
-                ModifyChannel modifychannel = new ModifyChannel();
-                modifychannel.Bitrate = 64000;
-                modifychannel.Name = newChannelName;
-                modifychannel.Topic = newChannelTopic;
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.ModifyChannel(channelid, modifychannel).Wait();
+                channelservice.ModifyChannel(chnId, newChn).Wait();
             }
             catch (Exception e)
             {

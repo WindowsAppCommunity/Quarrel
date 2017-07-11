@@ -38,11 +38,10 @@ namespace Discord_UWP.SubPages
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
         {
-            string name = ChannelName.Text;
-            string topic = ChannelTopic.Text;
+            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = Storage.Cache.Guilds[App.CurrentGuildId].Channels[channelId].Raw.Position };
             Task.Run(() =>
             {
-                Session.ModifyGuildChannel(channelId, name, topic);
+                Session.ModifyGuildChannel(channelId, modifychannel);
             });
             CloseButton_Click(null,null);
         }
