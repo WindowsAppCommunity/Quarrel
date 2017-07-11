@@ -530,7 +530,10 @@ namespace Discord_UWP
         {
             string editedText = "";
             MessageBox.Document.GetText(TextGetOptions.None, out editedText);
-            await Task.Run(() => Session.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editedText));
+            string chnId = Message.Value.ChannelId;
+            string msgId = Message.Value.Id;
+            string newMeg = editedText;
+            await Task.Run(() => Session.EditMessageAsync(chnId, msgId, newMeg));
         }
 
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
