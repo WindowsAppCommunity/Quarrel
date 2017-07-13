@@ -55,6 +55,8 @@ namespace Discord_UWP
             };
             editchannel.Click += Editchannel;
             menu.Items.Add(editchannel);
+            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep1);
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = "Mute Channel",
@@ -75,6 +77,8 @@ namespace Discord_UWP
             };
             menu.Items.Add(markasread);
             markasread.Click += MarkAsReadOnClick;
+            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep2);
             MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
             {
                 Text = "Delete channel",

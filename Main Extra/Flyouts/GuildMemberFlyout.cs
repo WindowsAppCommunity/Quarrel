@@ -63,6 +63,7 @@ namespace Discord_UWP
             message.Click += mentionUser;
             menu.Items.Add(message);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep1);
             MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
             {
                 Text = "Invite to Server",
@@ -80,7 +81,92 @@ namespace Discord_UWP
 
             }
             menu.Items.Add(InviteToServer);
+
+            MenuFlyoutItem addFriend = new MenuFlyoutItem()
+            {
+                Text = "Add Friend",
+                Tag = member.Raw.User.Id,
+                Icon = new SymbolIcon(Symbol.AddFriend)
+            };
+            addFriend.Click += AddFriend;
+            MenuFlyoutItem removeFriend = new MenuFlyoutItem()
+            {
+                Text = "Remove Friend",
+                Tag = member.Raw.User.Id,
+                Icon = new SymbolIcon(Symbol.ContactPresence)
+            };
+            removeFriend.Click += RemoveFriendClick;
+            MenuFlyoutItem block = new MenuFlyoutItem()
+            {
+                Text = "Block",
+                Tag = member.Raw.User.Id,
+                Icon = new SymbolIcon(Symbol.BlockContact)
+            };
+            block.Click += Block;
+            MenuFlyoutItem unBlock = new MenuFlyoutItem()
+            {
+                Text = "Unblock",
+                Tag = member.Raw.User.Id,
+                Icon = new SymbolIcon(Symbol.ContactPresence)
+            };
+            unBlock.Click += RemoveFriendClick;
+            MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
+            {
+                Text = "Accept Friend Request",
+                Tag = member.Raw.User.Id,
+                Icon = new SymbolIcon(Symbol.AddFriend)
+            };
+            acceptFriendRequest.Click += AddFriend;
+
+            if (Storage.Cache.Friends.ContainsKey(member.Raw.User.Id))
+            {
+                switch (Storage.Cache.Friends[member.Raw.User.Id].Raw.Type)
+                {
+                    case 1:
+                        menu.Items.Add(removeFriend);
+                        menu.Items.Add(block);
+                        break;
+                    case 2:
+                        menu.Items.Add(unBlock);
+                        break;
+                    case 3:
+                        menu.Items.Add(acceptFriendRequest);
+                        menu.Items.Add(block);
+                        break;
+                    case 4:
+                        menu.Items.Add(block);
+                        break;
+                }
+            } else
+            {
+                menu.Items.Add(addFriend);
+                menu.Items.Add(block);
+            }
             return menu;
+        }
+
+        private async void Block(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString());
+            }); //TODO: Confirm
+        }
+
+        private async void RemoveFriendClick(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString());
+            }); //TODO: Confirm
+        }
+
+        private async void AddFriend(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                Session.SendFriendRequest((sender as MenuFlyoutItem).Tag.ToString());
+            });
         }
 
         private void inviteToServer(object sender, RoutedEventArgs e)
