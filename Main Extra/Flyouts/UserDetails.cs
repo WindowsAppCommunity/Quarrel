@@ -23,5 +23,16 @@ namespace Discord_UWP
             flyout.FlyoutPresenterStyle = (Style) App.Current.Resources["FlyoutPresenterStyle1"];
             return flyout;
         }
+
+        private Flyout MakeUserDetailsFlyout(SharedModels.User user)
+        {
+            Flyout flyout = new Flyout();
+            flyout.Content = new UserDetailsControl()
+            {
+                DisplayedMember = new Member() { Raw = new GuildMember() { User = user }}
+            };
+            flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
+            return flyout;
+        }
     }
 }

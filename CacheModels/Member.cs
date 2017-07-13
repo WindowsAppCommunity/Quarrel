@@ -13,6 +13,11 @@ namespace Discord_UWP.CacheModels
 {
     public class Member
     {
+        public Member()
+        {
+
+        }
+
         public Member(SharedModels.GuildMember input)
         {
             Raw = input;

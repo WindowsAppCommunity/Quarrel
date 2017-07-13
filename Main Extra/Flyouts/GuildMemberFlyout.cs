@@ -49,7 +49,7 @@ namespace Discord_UWP
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
                 Text = "Profile",
-                Tag = member.Raw.User.Id,
+                Tag = member.Raw.User,
                 Icon = new SymbolIcon(Symbol.ContactInfo)
             };
             profile.Click += gotoProfile;
@@ -196,7 +196,7 @@ namespace Discord_UWP
 
         private void gotoProfile(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile((sender as MenuFlyoutItem).Tag.ToString());
+            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as Nullable<SharedModels.User>).Value);
         }
     }
 }

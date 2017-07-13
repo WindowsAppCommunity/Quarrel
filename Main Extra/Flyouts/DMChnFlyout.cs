@@ -14,7 +14,7 @@ namespace Discord_UWP
         private MenuFlyout MakeDMChannelMenu(DmCache dm)
         {
             MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = "Profile", Tag = dm.Raw.Users.FirstOrDefault().Id };
+            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = "Profile", Tag = dm.Raw.Users.FirstOrDefault() };
             profile.Click += OpenProfile;
             menu.Items.Add(profile);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
@@ -43,7 +43,7 @@ namespace Discord_UWP
 
         private void OpenProfile(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile((sender as MenuFlyoutItem).Tag.ToString());
+            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as Nullable<SharedModels.User>).Value);
             //ShowUserDetails((sender as MenuFlyoutItem).Tag.ToString());
         }
     }
