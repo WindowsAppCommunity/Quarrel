@@ -425,6 +425,21 @@ namespace Discord_UWP
                 {
                     TempGuildList.Add(GuildRender(guild.Value));
                 }
+                foreach (Role role in Storage.Cache.Guilds[guild.Key].RawGuild.Roles)
+                {
+                    if (!Storage.Cache.Guilds[guild.Key].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    {
+                        Storage.Cache.Guilds[guild.Key].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(guild.Key, Storage.Cache.CurrentUser.Raw.Id)));
+                    }
+                    if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    {
+                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
+                    }
+                    else
+                    {
+                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(0);
+                    }
+                }
             }
 
             foreach (UIElement item in TempGuildList)
@@ -1126,7 +1141,9 @@ namespace Discord_UWP
             Messages.Items.Clear();
             int adCheck = 5;
 
-            IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id);
+            IEnumerable<SharedModels.Message> messages = null;
+
+            await Task.Run(async () => { messages = await Session.GetChannelMessages(App.CurrentChannelId); });
 
             if (Storage.Cache.DMs != null)
             {

@@ -101,6 +101,15 @@ namespace Discord_UWP
                     }
                 }
 
+                if (guild.Roles != null)
+                {
+                    Storage.Cache.Guilds[guild.Id].Roles.Clear();
+                    foreach (Role role in guild.Roles)
+                    {
+                        Storage.Cache.Guilds[guild.Id].Roles.Add(role.Id, role);
+                    }
+                }
+
                 if (guild.Presences != null)
                 {
                     foreach (Presence status in guild.Presences)
