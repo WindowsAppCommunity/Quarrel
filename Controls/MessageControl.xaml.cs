@@ -593,5 +593,23 @@ namespace Discord_UWP
         {
             App.ShowMemberFlyout(this, userid);
         }
+
+        private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            {
+                if (!App.CurrentGuildIsDM)
+                    App.ShowMenuFlyout(this, App.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+            }
+        }
+
+        private void username_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                if (!App.CurrentGuildIsDM)
+                    App.ShowMenuFlyout(this, App.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+            }
+        }
     }
 }
