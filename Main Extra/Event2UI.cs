@@ -513,6 +513,51 @@ namespace Discord_UWP
             else
             {
                 Storage.Cache.Guilds[e.EventData.Id] = new Guild(e.EventData);
+
+                if (!Storage.Cache.Guilds.ContainsKey(e.EventData.Id))
+                {
+                    Storage.Cache.Guilds.Add(e.EventData.Id, new Guild(e.EventData));
+                }
+
+                if (e.EventData.Members != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Members.Clear();
+                    foreach (GuildMember member in e.EventData.Members)
+                    {
+                        Storage.Cache.Guilds[e.EventData.Id].Members.Add(member.User.Id, new Member(member));
+                    }
+                }
+
+                if (e.EventData.Roles != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Roles.Clear();
+                    foreach (Role role in e.EventData.Roles)
+                    {
+                        Storage.Cache.Guilds[e.EventData.Id].Roles.Add(role.Id, role);
+                    }
+                }
+
+                if (e.EventData.Presences != null)
+                {
+                    foreach (Presence status in e.EventData.Presences)
+                    {
+                        if (!Session.PrecenseDict.ContainsKey(status.User.Id))
+                        {
+                            Session.PrecenseDict.Add(status.User.Id, status);
+                        }
+                    }
+                }
+
+                if (e.EventData.Channels != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Channels.Clear();
+                    foreach (SharedModels.GuildChannel chn in e.EventData.Channels)
+                    {
+                        SharedModels.GuildChannel channel = chn;
+                        channel.GuildId = e.EventData.Id;
+                        Storage.Cache.Guilds[e.EventData.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+                    }
+                }
             }
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

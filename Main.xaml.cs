@@ -664,30 +664,27 @@ namespace Discord_UWP
 
 
                 #region Permissions
-                Permissions perms = new Permissions();
                 Task.Run(() =>
                 {
-                    if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
+                    foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                     {
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
+                        if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                         {
-                            if (Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                            {
-                                if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                                {
-                                    perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                                }
-                                else
-                                {
-                                    perms.GetPermissions(0);
-                                }
-                            }
+                            Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
+                        }
+                        if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                        {
+                            Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                        }
+                        else
+                        {
+                            Storage.Cache.Guilds[id].perms.GetPermissions(0);
                         }
                     }
                 });
                 #endregion
 
-                if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
+                if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
                 {
                     AddChannelButton.Visibility = Visibility.Collapsed;
                 }
@@ -747,7 +744,6 @@ namespace Discord_UWP
             TextChannels.Items.Clear();
 
             #region Permissions
-            /*
             Task.Run(() =>
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
@@ -760,13 +756,16 @@ namespace Discord_UWP
                     {
                         Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
                     }
+                    else if (role.Name == "@everyone")
+                    {
+                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                    }
                     else
                     {
                         Storage.Cache.Guilds[id].perms.GetPermissions(0);
                     }
                 }
             });
-            */
             #endregion
 
             if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)

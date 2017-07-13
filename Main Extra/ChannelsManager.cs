@@ -109,52 +109,76 @@ namespace Discord_UWP
         private void LoadChannelList(List<int> ChannelType)
         {
             if (App.CurrentGuildIsDM) return; //Fuck DMs (for the moment)
-            var FilteredChannels = Storage.Cache.Guilds[App.CurrentGuildId]
-                .Channels.Where(x => ChannelType.Contains(x.Value.Raw.Type))
-                .OrderBy(x => x.Value.Raw.Position);
-            foreach (var channel in FilteredChannels)
             {
-                var sc = new SimpleChannel();
-                sc.Name = channel.Value.Raw.Name;
-                sc.Id = channel.Value.Raw.Id;
-                var type = channel.Value.Raw.Type;
-                sc.Type = type;
-                if (Storage.MutedChannels.Contains(sc.Id))
-                    sc.IsMuted = true;
-                else
-                    sc.IsMuted = false;
 
-                if (type == 1)
+                var FilteredChannels = Storage.Cache.Guilds[App.CurrentGuildId]
+                    .Channels.Where(x => ChannelType.Contains(x.Value.Raw.Type))
+                    .OrderBy(x => x.Value.Raw.Position);
+                foreach (var channel in FilteredChannels)
                 {
-                    //DM
-                    sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Members.FirstOrDefault().Key + "/" + channel.Value.Members.FirstOrDefault().Value.Raw.User.Avatar + ".png?size=64";
-                    sc.Name = channel.Value.Members.FirstOrDefault().Value.Raw.User.Username;
-                    //TODO Check the playing text
-                }
-                else if (type == 3)
-                {
-                    //GROUP DM
-                    sc.Subtitle = channel.Value.Members.Count().ToString() + " members";
-                    List<string> channelMembers = new List<string>();
-                    foreach (var d in channel.Value.Members.Values)
-                        channelMembers.Add(d.Raw.User.Username);
-                    sc.Name = string.Join(", ", channelMembers);
-                }
-                if (Session.RPC.ContainsKey(sc.Id))
-                {
-                    ReadState readstate = Session.RPC[sc.Id];
-                    sc.NotificationCount = readstate.MentionCount;
-                    var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
-                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                        readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                        sc.IsUnread = true;
+                    foreach (Role role in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles)
+                    {
+                        if (!Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                        {
+                            Storage.Cache.Guilds[App.CurrentGuildId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentGuildId, Storage.Cache.CurrentUser.Raw.Id)));
+                        }
+                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                        {
+                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
+                        }
+                        else if (role.Name == "@everyone")
+                        {
+                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
+                        }
+                        else
+                        {
+                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(0);
+                        }
+                    }
+
+                    Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.AddOverwrites(channel.Value.Raw.PermissionOverwrites, App.CurrentGuildId);
+
+                    var sc = new SimpleChannel();
+                    sc.Name = channel.Value.Raw.Name;
+                    sc.Id = channel.Value.Raw.Id;
+                    var type = channel.Value.Raw.Type;
+                    sc.Type = type;
+                    if (Storage.MutedChannels.Contains(sc.Id))
+                        sc.IsMuted = true;
                     else
-                        sc.IsUnread = false;
+                        sc.IsMuted = false;
+
+                    if (type == 1)
+                    {
+                        //DM
+                        sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Members.FirstOrDefault().Key + "/" + channel.Value.Members.FirstOrDefault().Value.Raw.User.Avatar + ".png?size=64";
+                        sc.Name = channel.Value.Members.FirstOrDefault().Value.Raw.User.Username;
+                        //TODO Check the playing text
+                    }
+                    else if (type == 3)
+                    {
+                        //GROUP DM
+                        sc.Subtitle = channel.Value.Members.Count().ToString() + " members";
+                        List<string> channelMembers = new List<string>();
+                        foreach (var d in channel.Value.Members.Values)
+                            channelMembers.Add(d.Raw.User.Username);
+                        sc.Name = string.Join(", ", channelMembers);
+                    }
+                    if (Session.RPC.ContainsKey(sc.Id))
+                    {
+                        ReadState readstate = Session.RPC[sc.Id];
+                        sc.NotificationCount = readstate.MentionCount;
+                        var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
+                        if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                            readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                            sc.IsUnread = true;
+                        else
+                            sc.IsUnread = false;
+                    }
+
+                    TextChannels.Items.Add(sc);
                 }
-                
-                TextChannels.Items.Add(sc);
             }
         }
     }
-
 }
