@@ -33,9 +33,12 @@ namespace Discord_UWP
             Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
         }
 
-        private void RemoveFriend(object sender, RoutedEventArgs e)
+        private async void RemoveFriend(object sender, RoutedEventArgs e)
         {
-            Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
+            await Task.Run(() =>
+            {
+                Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString());
+            }); //TODO: Confirm
         }
 
         private void OpenProfile(object sender, RoutedEventArgs e)

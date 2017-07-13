@@ -66,6 +66,9 @@ namespace Discord_UWP.SubPages
             if (profile.Friend.HasValue)
             {
                 SwitchFriendValues(profile.Friend.Value.Type);
+            } else if (profile.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+            {
+
             } else
             {
                 //None
