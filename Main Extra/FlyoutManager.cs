@@ -59,10 +59,16 @@ namespace Discord_UWP
             flyout.ShowAt((sender as UIElement), e.Point);
         }
 
-        private void ShowUserDetails(object sender, string e)
+        private void ShowUserDetails(object sender, SharedModels.User e)
         {
-            var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[e];
-            MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
+            if (!App.CurrentGuildIsDM)
+            {
+                var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Id];
+                MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
+            } else
+            {
+                MakeUserDetailsFlyout(e).ShowAt(sender as FrameworkElement);
+            }
         }
         private void ShowUserDetails(object sender, Member e)
         {

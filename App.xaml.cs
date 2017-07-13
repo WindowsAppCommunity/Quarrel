@@ -144,17 +144,17 @@ namespace Discord_UWP
 
         public class ProfileNavigationArgs : EventArgs
         {
-            public string UserId { get; set; }
+            public SharedModels.User User { get; set; }
         }
         public static event EventHandler<ProfileNavigationArgs> NavigateToProfileHandler;
-        public static void NavigateToProfile(string userId)
+        public static void NavigateToProfile(SharedModels.User user)
         {
-            NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { UserId = userId });
+            NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { User = user });
         }
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
-        public static void ShowMemberFlyout(object sender, string userId)
+        public static void ShowMemberFlyout(object sender, SharedModels.User user)
         {
-            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { UserId = userId });
+            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user});
         }
 
 

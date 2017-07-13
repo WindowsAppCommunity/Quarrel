@@ -554,8 +554,7 @@ namespace Discord_UWP
                     SendBox.IsEnabled = false;
             });
         }
-
-
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             EditBox.Visibility = Visibility.Collapsed;
@@ -591,7 +590,7 @@ namespace Discord_UWP
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(this, userid);
+            App.ShowMemberFlyout(this, Message.Value.User);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)

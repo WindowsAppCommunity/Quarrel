@@ -320,12 +320,12 @@ namespace Discord_UWP
 
         private void OnShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs profileNavigationArgs)
         {
-            ShowUserDetails(sender, profileNavigationArgs.UserId);
+            ShowUserDetails(sender, profileNavigationArgs.User);
         }
 
         private void OnNavigateToProfile(object sender, App.ProfileNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.UserProfile), e.UserId);
+            SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
         }
 
         private void OnNavigateToChannelEdit(object sender, App.ChannelEditNavigationArgs e)
@@ -1632,7 +1632,7 @@ namespace Discord_UWP
             if (member != null)
             {
                 var user = member.Raw.User;
-                ShowUserDetails(sender,  member.Raw.User.Id);
+                ShowUserDetails(sender,  member.Raw.User);
                // SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
             }
             

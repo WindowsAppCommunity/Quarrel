@@ -73,34 +73,42 @@ namespace Discord_UWP.Controls
                     Avatar.ImageSource = image;
                     AvatarBlurred.Source = image;
                 }
-                if (DisplayedMember.Raw.Roles.Count() == 0)
+                if (!App.CurrentGuildIsDM)
                 {
-                    RoleHeader.Visibility = Visibility.Collapsed;
+                    if (DisplayedMember.Raw.Roles.Count() == 0)
+                    {
+                        RoleHeader.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        var roles = Storage.Cache.Guilds[App.CurrentGuildId].Roles;
+                        foreach (var roleStr in DisplayedMember.Raw.Roles)
+                        {
+                            var role = roles[roleStr];
+                            var c = Common.IntToColor(role.Color);
+                            Border b = new Border()
+                            {
+                                CornerRadius = new CornerRadius(3, 3, 3, 3),
+                                Background = new SolidColorBrush(Color.FromArgb(50, c.Color.R, c.Color.G, c.Color.B)),
+                                BorderThickness = new Thickness(1),
+                                BorderBrush = c,
+                                Margin = new Thickness(2, 2, 2, 2),
+                                Child = new TextBlock()
+                                {
+                                    FontSize = 12,
+                                    Foreground = c,
+                                    Padding = new Thickness(4, 2, 4, 4),
+                                    Text = role.Name
+                                }
+                            };
+                            RoleWrapper.Children.Add(b);
+                        }
+                    }
                 }
                 else
                 {
-                    var roles = Storage.Cache.Guilds[App.CurrentGuildId].Roles;
-                    foreach (var roleStr in DisplayedMember.Raw.Roles)
-                    {
-                        var role = roles[roleStr];
-                        var c = Common.IntToColor(role.Color);
-                        Border b = new Border()
-                        {
-                            CornerRadius = new CornerRadius(3, 3, 3, 3),
-                            Background =new SolidColorBrush(Color.FromArgb(50, c.Color.R, c.Color.G, c.Color.B)),
-                            BorderThickness=new Thickness(1),
-                            BorderBrush=c,
-                            Margin=new Thickness(2,2,2,2),
-                            Child=new TextBlock()
-                            {
-                                FontSize=12,
-                                Foreground = c,
-                                Padding=new Thickness(4,2,4,4),
-                                Text = role.Name
-                            }
-                        };
-                        RoleWrapper.Children.Add(b);
-                    }
+                    RoleHeader.Visibility = Visibility.Collapsed;
+                    RoleWrapper.Visibility = Visibility.Collapsed;
                 }
                 //TODO: Note functionality and hook it up to the NoteChanged events
                 //TODO: DM Functionality
@@ -121,7 +129,7 @@ namespace Discord_UWP.Controls
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(DisplayedMember.Raw.User.Id);
+            App.NavigateToProfile(DisplayedMember.Raw.User);
         }
     }
 }
