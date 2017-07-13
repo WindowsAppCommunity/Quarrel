@@ -701,6 +701,12 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task<Invite> CreateInvite(string chnId, CreateInvite invite)
+        {
+            IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+            return await channelservice.CreateChannelInvite(chnId, invite);
+        }
+
         public static void AcceptInvite(string code)
         {
             IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();

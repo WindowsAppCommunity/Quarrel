@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -95,6 +97,21 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
+            RightTapped += OpenMenuFlyout;
+            Holding += OpenMenuFlyout;
+        }
+
+        private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
+        {
+            if (e.HoldingState == HoldingState.Started)
+                App.ShowMenuFlyout(this, App.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
+
+        }
+
+        private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
+        {
+            if (e.PointerDeviceType != PointerDeviceType.Touch)
+                App.ShowMenuFlyout(this, App.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
     }
 }

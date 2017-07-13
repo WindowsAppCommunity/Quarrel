@@ -1,13 +1,42 @@
-﻿using System;
+﻿using Discord_UWP.API;
+using Discord_UWP.API.Channel;
+using Discord_UWP.API.Channel.Models;
+using Discord_UWP.API.Gateway;
+using Discord_UWP.API.Guild;
+using Discord_UWP.API.Login;
+using Discord_UWP.API.Login.Models;
+using Discord_UWP.API.User;
+using Discord_UWP.API.User.Models;
+using Discord_UWP.Authentication;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.QueryStringDotNET;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.CacheModels;
+using Discord_UWP.Gateway.DownstreamEvents;
+using Microsoft.Toolkit.Uwp;
 
 namespace Discord_UWP
 {
@@ -102,7 +131,6 @@ namespace Discord_UWP
         private void Editchannel(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.EditChannel), (sender as MenuFlyoutItem).Tag as string);
-            //TODO:
         }
     }
 }

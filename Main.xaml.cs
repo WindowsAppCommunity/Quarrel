@@ -247,11 +247,12 @@ namespace Discord_UWP
             App.OpenAttachementHandler += OpenAttachement;
             App.NavigateToProfileHandler += OnNavigateToProfile;
             App.ShowMemberFlyoutHandler += OnShowMemberFlyoutHandler;
+            App.NavigateToChannelHandler += OnNavigateToChannel;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
+            App.MentionHandler += OnMention;
 
             SettingsChanged(null, null);
         }
-
 
         private void SettingsChanged(object sender, EventArgs e)
         {
@@ -335,6 +336,32 @@ namespace Discord_UWP
         private void OpenAttachement(object sender, Attachment e)
         {
             SubFrameNavigator(typeof(SubPages.PreviewAttachement), e);
+        }
+
+        private void OnMention(object sender, App.MentionArgs e)
+        {
+            if (MessageBox1.Text.LastOrDefault() == ' ')
+            {
+                MessageBox1.Text += " ";
+            }
+            MessageBox1.Text += "@" + e.Username;
+        }
+
+        private void OnNavigateToChannel(object sender, App.ChannelNavigationArgs e)
+        {
+            if (e.Guildid == null)
+            {
+                ServerList.SelectedIndex = 0;
+            }
+            foreach (ListViewItem guild in ServerList.Items)
+            {
+                if (guild.Tag.ToString() == e.Guildid)
+                {
+                    ServerList.SelectedItem = guild;
+                }
+            }
+            SelectChannel = true;
+            SelectChannelId = e.Channelid;
         }
 
         #region LoadUser
@@ -643,7 +670,6 @@ namespace Discord_UWP
                         }
                     }
                 });
-
                 #endregion
 
                 if ((!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id) || !Session.Online)
@@ -705,7 +731,6 @@ namespace Discord_UWP
             Messages.Items.Clear();
             TextChannels.Items.Clear();
             #region Permissions
-            Permissions perms = new Permissions();
             Task.Run(() =>
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
@@ -716,17 +741,17 @@ namespace Discord_UWP
                     }
                     if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                     {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
                     }
                     else
                     {
-                        perms.GetPermissions(0);
+                        Storage.Cache.Guilds[id].perms.GetPermissions(0);
                     }
                 }
             });
             #endregion
 
-            if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 AddChannelButton.Visibility = Visibility.Collapsed;
             }
@@ -1596,11 +1621,6 @@ namespace Discord_UWP
         private void Playing_OnLostFocus(object sender, RoutedEventArgs e)
         {
             Session.ChangeCurrentGame(Playing.Text);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            (TextChannels.Items[2] as SimpleChannel).IsUnread = true;
         }
     }
 }
