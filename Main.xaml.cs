@@ -745,7 +745,9 @@ namespace Discord_UWP
         {
             Messages.Items.Clear();
             TextChannels.Items.Clear();
+
             #region Permissions
+            /*
             Task.Run(() =>
             {
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
@@ -764,6 +766,7 @@ namespace Discord_UWP
                     }
                 }
             });
+            */
             #endregion
 
             if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
