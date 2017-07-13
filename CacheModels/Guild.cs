@@ -60,5 +60,6 @@ namespace Discord_UWP.CacheModels
         public Dictionary<string, SharedModels.Role> Roles = new Dictionary<string, SharedModels.Role>();
         public Dictionary<string, GuildChannel> Channels = new Dictionary<string, GuildChannel>();
         public Dictionary<string, Member> Members = new Dictionary<string, Member>();
+        public Common.Permissions perms = new Common.Permissions();
     }
 }

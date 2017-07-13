@@ -67,9 +67,6 @@ namespace Discord_UWP.API.Channel
         [Get("/channels/{channelId}/invites")]
         Task<IEnumerable<SharedModels.Invite>> GetChannelInvites([AliasAs("channelId")] string channelId);
 
-        [Post("/channels/{channelId}/invites")]
-        Task<SharedModels.Invite> CreateChannelInvite([AliasAs("channelId")] string channelId);
-
         [Delete("/channels/{channelId}/permissions/{overwriteId}")]
         Task DeleteChannelPermission([AliasAs("channelId")] string channelId, [AliasAs("overwriteId")] string overwriteId);
 
@@ -84,5 +81,8 @@ namespace Discord_UWP.API.Channel
 
         [Delete("/channels/{channelId}/pins/{messageId}")]
         Task DeletePinnedChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
+
+        [Post("channels/{channelId}/invites")]
+        Task<SharedModels.Invite> CreateChannelInvite([AliasAs("channelId")] string channelid, [Body] CreateInvite invite);
     }
 }

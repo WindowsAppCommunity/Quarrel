@@ -52,9 +52,13 @@ namespace Discord_UWP
                 case App.Type.TextChn:
                     flyout = MakeTextChnMenu(Storage.Cache.Guilds[e.ParentId].Channels[e.Id]);
                     break;
+                case App.Type.GuildMember:
+                    flyout = MakeGuildMemberMenu(Storage.Cache.Guilds[e.ParentId].Members[e.Id]);
+                    break;
             }
             flyout.ShowAt((sender as UIElement), e.Point);
         }
+
         private void ShowUserDetails(object sender, string e)
         {
             var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[e];

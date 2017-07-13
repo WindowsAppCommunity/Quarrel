@@ -21,6 +21,7 @@ namespace Discord_UWP.SharedModels
         public void OnPropertyChanged(string propertyName)
         { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
     }
+
     public struct Invite
     {
         /// <summary>
@@ -66,6 +67,18 @@ namespace Discord_UWP.SharedModels
         public string Name { get; set; }
         [JsonProperty("splash_hash")]
         public string SplashHash { get; set; }
+    }
+
+    public struct CreateInvite
+    {
+        [JsonProperty("max_age")]
+        public int MaxAge { get; set; }
+        [JsonProperty("max_uses")]
+        public int MaxUses { get; set; }
+        [JsonProperty("temporary")]
+        public bool Temporary { get; set; }
+        [JsonProperty("unique")]
+        public bool Unique { get; set; }
     }
 
     public struct InviteChannel

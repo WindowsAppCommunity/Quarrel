@@ -168,6 +168,16 @@ namespace Discord_UWP
             NavigateToChannelEditHandler?.Invoke(typeof(App), new ChannelEditNavigationArgs() { ChannelId = channelId });
         }
 
+        public class MentionArgs : EventArgs
+        {
+            public string Username { get; set; }
+        }
+        public static event EventHandler<MentionArgs> MentionHandler;
+        public static void MentionUser(string username)
+        {
+            MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username });
+        }
+
         public enum AttachementType { Image, Video, Webpage }
         public static event EventHandler<SharedModels.Attachment> OpenAttachementHandler;
         public static void OpenAttachement(SharedModels.Attachment args)
