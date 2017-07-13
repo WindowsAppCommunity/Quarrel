@@ -145,12 +145,12 @@
                                             <TextBlock Text="Discuss on Twitter" Margin="12,0,0,0"/>
                                         </StackPanel>
                                     </HyperlinkButton>
-                                    <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="#FF738BD7" Style="{StaticResource HyperlinkButtonStyle1}">
-                                        <StackPanel Orientation="Horizontal">
+                                    <Button Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer">
+                                        <StackPanel Orientation="Horizontal" Margin="-10,0,0,0">
                                             <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,-2"/>
                                             <TextBlock Text="Join Discord UWP server" Margin="12,0,0,0"/>
                                         </StackPanel>
-                                    </HyperlinkButton>
+                                    </Button>
                                     <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
