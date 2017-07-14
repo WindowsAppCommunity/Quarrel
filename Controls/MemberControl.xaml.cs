@@ -56,7 +56,7 @@ namespace Discord_UWP.Controls
                 username.Text = DisplayedMember.Raw.User.Username;
             else
                 username.Text = "";
-            
+
             if(DisplayedMember.Raw.User.Avatar != null)
                 Avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DisplayedMember.Raw.User.Id + "/" + DisplayedMember.Raw.User.Avatar + ".png?size=64"));
             if(DisplayedMember.status.Status != null)

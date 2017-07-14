@@ -737,8 +737,9 @@ namespace Discord_UWP
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId]
                     .Members.ContainsKey(e.EventData.User.Id))
             {
-                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw =
-                    new GuildMember() {Nick = e.EventData.Nick, Roles = e.EventData.Roles};
+                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.Nick = e.EventData.Nick;
+                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.Roles = e.EventData.Roles;
+                Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.User = e.EventData.User;
             }
         }
 

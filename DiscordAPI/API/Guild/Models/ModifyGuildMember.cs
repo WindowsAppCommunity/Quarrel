@@ -13,7 +13,7 @@ namespace Discord_UWP.API.Guild.Models
         [JsonProperty("nick")]
         public string Nick { get; set; }
         [JsonProperty("roles")]
-        public IEnumerable<Role> Roles { get; set; }
+        public IEnumerable<string> Roles { get; set; }
         [JsonProperty("mute")]
         public bool Mute { get; set; }
         [JsonProperty("deaf")]
