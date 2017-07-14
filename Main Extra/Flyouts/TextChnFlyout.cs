@@ -60,9 +60,8 @@ namespace Discord_UWP
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = "Mute Channel",
-                Tag = chn.Raw.Id,
                 Icon = new SymbolIcon(Symbol.Mute),
-                Margin = new Thickness(-26, 0, 0, 0)
+                Tag = chn.Raw.Id
             };
             mute.IsChecked = Storage.MutedChannels.Contains(chn.Raw.Id);
             mute.Click += MuteChannel;

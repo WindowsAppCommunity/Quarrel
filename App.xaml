@@ -4361,6 +4361,61 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <!--<Style x:Key="ToggleOnlyCheckbox" TargetType="ToggleMenuFlyoutItem">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+                <Setter Property="Padding" Value="{ThemeResource MenuFlyoutItemThemePadding}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleMenuFlyoutItem">
+                            <Grid x:Name="LayoutRoot"
+                                  Padding="{TemplateBinding Padding}"
+                                  Background="{TemplateBinding Background}" 
+                                  BorderBrush="{TemplateBinding BorderBrush}" 
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+
+                                <CheckBox x:Name="TextBlock" 
+                                          Content="{TemplateBinding Text}" 
+                                          Foreground="{TemplateBinding Foreground}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          IsChecked="{TemplateBinding IsChecked}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ToggleWithOthers" TargetType="ToggleMenuFlyoutItem">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+                <Setter Property="Padding" Value="{ThemeResource MenuFlyoutItemThemePadding}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleMenuFlyoutItem">
+                            <Grid x:Name="LayoutRoot"
+                                  Padding="{TemplateBinding Padding}"
+                                  Background="{TemplateBinding Background}" 
+                                  BorderBrush="{TemplateBinding BorderBrush}" 
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+                                <CheckBox x:Name="TextBlock" 
+                                          Content="{TemplateBinding Text}" 
+                                          Foreground="{TemplateBinding Foreground}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          IsChecked="{TemplateBinding IsChecked}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

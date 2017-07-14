@@ -376,83 +376,19 @@ namespace Discord_UWP
         }
         private void MuteAChannel(object sender, RoutedEventArgs e)
         {
-            if ((sender as ToggleButton).Tag != null)
+            if (Storage.MutedChannels.Contains((sender as ToggleButton).Tag.ToString()))
             {
-                if (Storage.MutedChannels.Contains((sender as ToggleButton).Tag.ToString()))
-                {
-                    Storage.MutedChannels.Remove((sender as ToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if ((item.Tag as GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
-                        {
-                            /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] != User.messages.First().Id)
-                            {
-                                var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                                Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                                SolidColorBrush accent = new SolidColorBrush(c);
-                                accent.Opacity = Storage.settings.NMIOpacity / 100;
-                                item.Background = accent;
-                            }
-                            else
-                            {
-                                item.Background = GetSolidColorBrush("#00000000");
-                            }*/
-                            item.Background = GetSolidColorBrush("#00000000");
-                        }
-                    }
-                }
-                else
-                {
-                    Storage.MutedChannels.Add((sender as ToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if ((item.Tag as GuildChannel).Raw.Id == (sender as ToggleButton).Tag.ToString())
-                        {
-                            SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
-                            brush.Opacity = 30;
-                            item.Background = brush;
-                        }
-                    }
-                }
-                Storage.SaveMutedChannels();
+                Storage.MutedChannels.Remove((sender as ToggleButton).Tag.ToString());
+                (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == (sender as ToggleButton).Tag.ToString()) as SimpleChannel)
+                    .IsMuted = false;
             }
-            else if ((sender as AppBarToggleButton).Tag != null)
+            else
             {
-                if (Storage.MutedChannels.Contains((sender as AppBarToggleButton).Tag.ToString()))
-                {
-                    Storage.MutedChannels.Remove((sender as AppBarToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if ((item.Tag as GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
-                        {
-                            /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] < User.messages.First().Timestamp.Ticks)
-                            {
-                                var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                                Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                                SolidColorBrush accent = new SolidColorBrush(c);
-                                accent.Opacity = Storage.settings.NMIOpacity / 100;
-                                item.Background = accent;
-                            } else
-                            {
-                                item.Background = GetSolidColorBrush("#00000000");
-                            }*/
-                            item.Background = GetSolidColorBrush("#00000000");
-                        }
-                    }
-                }
-                else
-                {
-                    Storage.MutedChannels.Add((sender as AppBarToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if ((item.Tag as GuildChannel).Raw.Id == (sender as AppBarToggleButton).Tag.ToString())
-                        {
-                            item.Background = GetSolidColorBrush("#11FF0000");
-                        }
-                    }
-                }
-                Storage.SaveMutedChannels();
+                Storage.MutedChannels.Add((sender as ToggleButton).Tag.ToString());
+                (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == (sender as ToggleButton).Tag.ToString()) as SimpleChannel)
+                    .IsMuted = true;
             }
+            Storage.SaveMutedChannels();
         }
         private void ClearColor(object sender, TappedRoutedEventArgs e)
         {
