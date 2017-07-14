@@ -447,7 +447,6 @@ namespace Discord_UWP
             }
         }
 
-
         public async Task LoadCache()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(TempCache));

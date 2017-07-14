@@ -167,11 +167,13 @@ namespace Discord_UWP
                     ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
                     {
                         Text = role.Name,
+                        Tag = new Tuple<string, string>(role.Id, member.Raw.User.Id),
                         Foreground = Common.IntToColor(role.Color),
                         IsChecked = Storage.Cache.Guilds[App.CurrentGuildId].Members[member.Raw.User.Id].Raw.Roles.Contains(role.Id),
                         //Style = (Style)App.Current.Resources["ToggleOnlyCheckbox"],
-                        IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || role.Position == Storage.Cache.Guilds[App.CurrentGuildId].Roles.Count-1)  //TODO: Double check role system
+                        IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)  //TODO: Double check role system
                     };
+                    roleItem.Click += AddRole;
                     if (role.Name != "@everyone")
                     {
                         roles.Items.Add(roleItem);
@@ -201,6 +203,22 @@ namespace Discord_UWP
                 };
             }
             return menu;
+        }
+
+        private void AddRole(object sender, RoutedEventArgs e)
+        {
+            Tuple<string, string> data = ((sender as ToggleMenuFlyoutItem).Tag as Tuple<string, string>);
+            API.Guild.Models.ModifyGuildMember modify = new API.Guild.Models.ModifyGuildMember();
+            List<string> roles = Storage.Cache.Guilds[App.CurrentGuildId].Members[data.Item2].Raw.Roles.ToList();
+            if (roles.Contains(data.Item1))
+            {
+                roles.Remove(data.Item1);
+            } else
+            {
+                roles.Add(data.Item1);
+            }
+            modify.Roles = roles.AsEnumerable();
+            Session.ModifyGuildMember(App.CurrentGuildId, data.Item2, modify);
         }
 
         private void ChangeNickname(object sender, RoutedEventArgs e)
