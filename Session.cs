@@ -753,6 +753,12 @@ namespace Discord_UWP
             guildservice.ModifyGuildMember(guildId, userId, new ModifyGuildMember() { Nick = nickname });
         }
 
+        public static void RemoveGuildMember(string guildId, string userId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.RemoveGuildMember(guildId, userId);
+        }
+
         public static string Token;
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;

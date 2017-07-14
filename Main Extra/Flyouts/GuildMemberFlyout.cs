@@ -92,6 +92,7 @@ namespace Discord_UWP
             {
                 Text = "Remove Friend",
                 Tag = member.Raw.User.Id,
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.ContactPresence)
             };
             removeFriend.Click += RemoveFriendClick;
@@ -99,6 +100,7 @@ namespace Discord_UWP
             {
                 Text = "Block",
                 Tag = member.Raw.User.Id,
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.BlockContact)
             };
             block.Click += Block;
@@ -181,6 +183,30 @@ namespace Discord_UWP
                 }
                 menu.Items.Add(roles);
             }
+            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.KickMembers)
+            {
+                MenuFlyoutItem kickMember = new MenuFlyoutItem()
+                {
+                    Text = "Kick Member",
+                    Tag = member.Raw.User.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.BlockContact)
+                };
+                kickMember.Click += KickMember;
+                menu.Items.Add(kickMember);
+            }
+            /*if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers)
+            {
+                MenuFlyoutItem banMember = new MenuFlyoutItem()
+                {
+                    Text = "Ban Member",
+                    Tag = member.Raw.User.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.BlockContact)
+                };
+
+                menu.Items.Add(banMember);
+            }*/
             if (false)
             {
                 //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
@@ -203,6 +229,11 @@ namespace Discord_UWP
                 };
             }
             return menu;
+        }
+
+        private void KickMember(object sender, RoutedEventArgs e)
+        {
+            Session.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
         }
 
         private void AddRole(object sender, RoutedEventArgs e)
