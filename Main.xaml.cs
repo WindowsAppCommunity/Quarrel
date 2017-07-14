@@ -97,11 +97,10 @@ namespace Discord_UWP
                 LoadingSplash.Show(false);
                 LoadingSplash.Status = "LOADING...";
 
-                await LoadCache();
                 LoadMessages();
                 LoadMutedChannels();
 
-                LoadUser();
+                await LoadUser();
                 LoadGuilds();
                 LoadingSplash.Status = "CONNECTED";
                 await Task.Delay(1000);
@@ -121,7 +120,7 @@ namespace Discord_UWP
                 LoadMessages();
                 LoadMutedChannels();
 
-                LoadUser();
+                await LoadUser();
                 LoadGuilds();
 
                 LoadingSplash.Status = "OFFLINE";
@@ -365,7 +364,7 @@ namespace Discord_UWP
         }
 
         #region LoadUser
-        private void LoadUser()
+        private async Task LoadUser()
         {
             var currentUser = Storage.Cache.CurrentUser;
             if (currentUser != null)
@@ -379,13 +378,13 @@ namespace Discord_UWP
 
             if (Session.Online)
             {
-                DownloadUser();
+                await DownloadUser();
             } else
             {
                 /*disable online functions*/
             }
         }
-        private async void DownloadUser()
+        private async Task DownloadUser()
         {
             Storage.Cache.CurrentUser = new User(await Session.GetCurrentUser());
             var currentUser = Storage.Cache.CurrentUser;
@@ -431,13 +430,13 @@ namespace Discord_UWP
                     {
                         Storage.Cache.Guilds[guild.Key].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(guild.Key, Storage.Cache.CurrentUser.Raw.Id)));
                     }
-                    if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    if (role.Name == "@everyone" && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
                     {
                         Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
                     }
-                    else
+                    if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                     {
-                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(0);
+                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
                     }
                 }
             }
@@ -676,6 +675,10 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
                         }
+                        else if (role.Name == "@everyone" && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0)
+                        {
+                            Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                        }
                         else
                         {
                             Storage.Cache.Guilds[id].perms.GetPermissions(0);
@@ -752,17 +755,13 @@ namespace Discord_UWP
                     {
                         Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
                     }
+                    if (role.Name == "@everyone" && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
+                    {
+                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
+                    }
                     if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                     {
                         Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                    }
-                    else if (role.Name == "@everyone")
-                    {
-                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                    }
-                    else
-                    {
-                        Storage.Cache.Guilds[id].perms.GetPermissions(0);
                     }
                 }
             });

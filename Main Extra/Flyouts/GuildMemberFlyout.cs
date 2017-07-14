@@ -142,6 +142,7 @@ namespace Discord_UWP
                 menu.Items.Add(addFriend);
                 menu.Items.Add(block);
             }
+
             return menu;
         }
 
