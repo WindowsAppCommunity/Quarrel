@@ -143,7 +143,27 @@ namespace Discord_UWP
                 menu.Items.Add(block);
             }
 
+            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep2);
+
+            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator)
+            {
+                MenuFlyoutItem changeNickname = new MenuFlyoutItem()
+                {
+                    Text = "Change Nickname",
+                    Tag = member.Raw.User.Id,
+                    Icon = new SymbolIcon(Symbol.Edit)
+                };
+                changeNickname.Click += ChangeNickname;
+                menu.Items.Add(changeNickname);
+            }
+
             return menu;
+        }
+
+        private void ChangeNickname(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private async void Block(object sender, RoutedEventArgs e)

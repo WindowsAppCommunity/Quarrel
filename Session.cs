@@ -735,6 +735,24 @@ namespace Discord_UWP
             Unlocked = false;
         }
 
+        public static void ModifyCurrentUserNickname(string guildId, string nickname)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember() { Nick = nickname});
+        }
+
+        public static void ModifyGuildMember(string guildId, string userId, ModifyGuildMember modify)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyGuildMember(guildId, userId, modify);
+        }
+
+        public static void ModifyGuildMemberNickname(string guildId, string userId, string nickname)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyGuildMember(guildId, userId, new ModifyGuildMember() { Nick = nickname });
+        }
+
         public static string Token;
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
