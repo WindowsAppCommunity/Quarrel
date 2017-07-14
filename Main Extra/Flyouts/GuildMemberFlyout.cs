@@ -66,9 +66,9 @@ namespace Discord_UWP
             menu.Items.Add(sep1);
             MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
             {
-                Text = "Invite to Server",
-                Tag = member.Raw.User.Id
-                //Icon = new SymbolIcon(Symbol.),
+                Text = "Invite to Server"
+                //Tag = member.Raw.User.Id,
+                //Icon = new SymbolIcon(Symbol.)
             };
             foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
             {
@@ -81,7 +81,6 @@ namespace Discord_UWP
 
             }
             menu.Items.Add(InviteToServer);
-
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
                 Text = "Add Friend",
@@ -117,7 +116,6 @@ namespace Discord_UWP
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
             acceptFriendRequest.Click += AddFriend;
-
             if (Storage.Cache.Friends.ContainsKey(member.Raw.User.Id))
             {
                 switch (Storage.Cache.Friends[member.Raw.User.Id].Raw.Type)
@@ -142,10 +140,8 @@ namespace Discord_UWP
                 menu.Items.Add(addFriend);
                 menu.Items.Add(block);
             }
-
             MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
             menu.Items.Add(sep2);
-
             if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator)
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
@@ -156,6 +152,31 @@ namespace Discord_UWP
                 };
                 changeNickname.Click += ChangeNickname;
                 menu.Items.Add(changeNickname);
+            }
+            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageRoles)
+            {
+                MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
+                {
+                    Text = "Roles"
+                    //Tag = member.Raw.User.Id,
+                    //Icon = new SymbolIcon(Symbol.)
+                };
+
+                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentGuildId].Roles.Values)
+                {
+                    ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
+                    {
+                        Text = role.Name,
+                        Foreground = Common.IntToColor(role.Color),
+                        IsChecked = Storage.Cache.Guilds[App.CurrentGuildId].Members[member.Raw.User.Id].Raw.Roles.Contains(role.Id),
+                        IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || role.Position == Storage.Cache.Guilds[App.CurrentGuildId].Roles.Count-1)  //TODO: Double check role system
+                    };
+                    if (role.Name != "@everyone")
+                    {
+                        roles.Items.Add(roleItem);
+                    }
+                }
+                menu.Items.Add(roles);
             }
 
             return menu;
