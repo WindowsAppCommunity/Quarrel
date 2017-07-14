@@ -590,7 +590,7 @@ namespace Discord_UWP
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(this, Message.Value.User);
+            App.ShowMemberFlyout(username, Message.Value.User);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)
