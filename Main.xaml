@@ -461,7 +461,7 @@
                 <SplitView.Pane>
                     <SemanticZoom>
                         <SemanticZoom.ZoomedInView>
-                            <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True" ItemClick="ListViewBase_OnItemClick">
+                            <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

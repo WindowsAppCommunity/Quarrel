@@ -424,19 +424,22 @@ namespace Discord_UWP
                 {
                     TempGuildList.Add(GuildRender(guild.Value));
                 }
-                foreach (Role role in Storage.Cache.Guilds[guild.Key].RawGuild.Roles)
+                if (Storage.Cache.Guilds[guild.Key].RawGuild.Roles != null)
                 {
-                    if (!Storage.Cache.Guilds[guild.Key].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    foreach (Role role in Storage.Cache.Guilds[guild.Key].RawGuild.Roles)
                     {
-                        Storage.Cache.Guilds[guild.Key].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(guild.Key, Storage.Cache.CurrentUser.Raw.Id)));
-                    }
-                    if (role.Name == "@everyone" && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
-                    {
-                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
-                    }
-                    if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                    {
-                        Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
+                        if (!Storage.Cache.Guilds[guild.Key].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                        {
+                            Storage.Cache.Guilds[guild.Key].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(guild.Key, Storage.Cache.CurrentUser.Raw.Id)));
+                        }
+                        if (role.Name == "@everyone" && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
+                        {
+                            Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
+                        }
+                        if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                        {
+                            Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
+                        }
                     }
                 }
             }
@@ -1622,18 +1625,6 @@ namespace Discord_UWP
         private void OpenUserSettings(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.Settings));
-        }
-
-        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            var member = ((KeyValuePair<string,Member>)e.ClickedItem).Value;
-            if (member != null)
-            {
-                var user = member.Raw.User;
-                ShowUserDetails(sender,  member.Raw.User);
-               // SubFrameNavigator(typeof(SubPages.UserProfile), user.Id);
-            }
-            
         }
 
         private void Playing_OnLostFocus(object sender, RoutedEventArgs e)

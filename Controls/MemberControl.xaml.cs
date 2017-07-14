@@ -97,8 +97,14 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
+            Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
+        }
+
+        private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
+        {
+            App.ShowMemberFlyout(this, DisplayedMember.Raw.User);
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)

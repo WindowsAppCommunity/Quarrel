@@ -70,6 +70,7 @@ namespace Discord_UWP
                 MakeUserDetailsFlyout(e).ShowAt(sender as FrameworkElement);
             }
         }
+
         private void ShowUserDetails(object sender, Member e)
         {
             MakeUserDetailsFlyout(e).ShowAt(sender as FrameworkElement);

@@ -162,13 +162,14 @@ namespace Discord_UWP
                     //Icon = new SymbolIcon(Symbol.)
                 };
 
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentGuildId].Roles.Values)
+                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentGuildId].Roles.Values.OrderByDescending(x => x.Position))
                 {
                     ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
                     {
                         Text = role.Name,
                         Foreground = Common.IntToColor(role.Color),
                         IsChecked = Storage.Cache.Guilds[App.CurrentGuildId].Members[member.Raw.User.Id].Raw.Roles.Contains(role.Id),
+                        //Style = (Style)App.Current.Resources["ToggleOnlyCheckbox"],
                         IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || role.Position == Storage.Cache.Guilds[App.CurrentGuildId].Roles.Count-1)  //TODO: Double check role system
                     };
                     if (role.Name != "@everyone")
@@ -178,13 +179,33 @@ namespace Discord_UWP
                 }
                 menu.Items.Add(roles);
             }
+            if (false)
+            {
+                //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
+                ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
+                {
+                    Text = "Mute",
+                    Icon = new SymbolIcon(Symbol.Mute)
+                };
 
+
+                ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
+                {
+                    Text = "Deafen",
+                    Icon = new SymbolIcon(Symbol.Mute)
+                };
+
+                MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
+                {
+                    Text = "Move Channel"
+                };
+            }
             return menu;
         }
 
         private void ChangeNickname(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private async void Block(object sender, RoutedEventArgs e)
