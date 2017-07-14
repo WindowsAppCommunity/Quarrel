@@ -153,60 +153,66 @@ namespace Discord_UWP
         private UIElement GuildRender(Guild guild)
         {
             ListViewItem listviewitem = new ListViewItem();
-            //listviewitem.Margin = new Thickness(0, 5, 0 ,5);
-            StackPanel stack = new StackPanel();
-            stack.Orientation = Orientation.Horizontal;
+            if (guild.RawGuild.Name != null)
+            {
+                //listviewitem.Margin = new Thickness(0, 5, 0 ,5);
+                StackPanel stack = new StackPanel();
+                stack.Orientation = Orientation.Horizontal;
 
-            if (guild.RawGuild.Icon != null && Session.Online)
+                if (guild.RawGuild.Icon != null && Session.Online)
+                {
+                    Grid grid = new Grid();
+                    grid.Margin = new Thickness(8, 4, 8, 4);
+                    Rectangle rect = new Rectangle();
+                    rect.Height = 48;
+                    rect.Width = 48;
+                    rect.RadiusX = 100;
+                    rect.RadiusY = 100;
+                    ImageBrush guildimage = new ImageBrush();
+                    //guildimage.Stretch = Stretch.Uniform;
+                    guildimage.ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.RawGuild.Id + "/icons/" + guild.RawGuild.Icon + ".jpg"));
+                    rect.Fill = guildimage;
+                    //stack.Children.Add(rect);
+                    //Image icon = new Image();
+                    //icon.Height = 50;
+                    //icon.Margin = new Thickness(-10, 0, 0, 0);
+                    //icon.Source = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg"));
+                    grid.Children.Add(rect);
+                    stack.Children.Add(grid);
+                }
+                else
+                {
+                    Grid grid = new Grid();
+                    //grid.Background = GetSolidColorBrush("#FF738AD6");
+                    grid.Margin = new Thickness(8, 4, 8, 4);
+                    grid.Height = 48;
+                    grid.Width = 48;
+                    Rectangle rect = new Rectangle();
+                    rect.Fill = (SolidColorBrush)App.Current.Resources["Blurple"];
+                    rect.RadiusX = 100;
+                    rect.RadiusY = 100;
+                    grid.Children.Add(rect);
+                    TextBlock icon = new TextBlock();
+                    icon.Text = guild.RawGuild.Name[0].ToString();
+                    icon.HorizontalAlignment = HorizontalAlignment.Center;
+                    icon.VerticalAlignment = VerticalAlignment.Center;
+                    grid.Children.Add(icon);
+                    stack.Children.Add(grid);
+                }
+                TextBlock txtblock = new TextBlock();
+                txtblock.Text = guild.RawGuild.Name;
+                txtblock.VerticalAlignment = VerticalAlignment.Center;
+                stack.Children.Add(txtblock);
+                listviewitem.Height = 56;
+                listviewitem.Content = stack;
+                listviewitem.Tag = guild.RawGuild.Id;
+                ToolTipService.SetToolTip(listviewitem, guild.RawGuild.Name);
+                //listviewitem.RightTapped += OpenGuildSettings;
+                //listviewitem.Holding += OpenGuildSettings;
+            } else
             {
-                Grid grid = new Grid();
-                grid.Margin = new Thickness(8, 4, 8, 4);
-                Rectangle rect = new Rectangle();
-                rect.Height = 48;
-                rect.Width = 48;
-                rect.RadiusX = 100;
-                rect.RadiusY = 100;
-                ImageBrush guildimage = new ImageBrush();
-                //guildimage.Stretch = Stretch.Uniform;
-                guildimage.ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.RawGuild.Id + "/icons/" + guild.RawGuild.Icon + ".jpg"));
-                rect.Fill = guildimage;
-                //stack.Children.Add(rect);
-                //Image icon = new Image();
-                //icon.Height = 50;
-                //icon.Margin = new Thickness(-10, 0, 0, 0);
-                //icon.Source = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg"));
-                grid.Children.Add(rect);
-                stack.Children.Add(grid);
+                listviewitem.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                Grid grid = new Grid();
-                //grid.Background = GetSolidColorBrush("#FF738AD6");
-                grid.Margin = new Thickness(8, 4, 8, 4);
-                grid.Height = 48;
-                grid.Width = 48;
-                Rectangle rect = new Rectangle();
-                rect.Fill = (SolidColorBrush)App.Current.Resources["Blurple"];
-                rect.RadiusX = 100;
-                rect.RadiusY = 100;
-                grid.Children.Add(rect);
-                TextBlock icon = new TextBlock();
-                icon.Text = guild.RawGuild.Name[0].ToString();
-                icon.HorizontalAlignment = HorizontalAlignment.Center;
-                icon.VerticalAlignment = VerticalAlignment.Center;
-                grid.Children.Add(icon);
-                stack.Children.Add(grid);
-            }
-            TextBlock txtblock = new TextBlock();
-            txtblock.Text = guild.RawGuild.Name;
-            txtblock.VerticalAlignment = VerticalAlignment.Center;
-            stack.Children.Add(txtblock);
-            listviewitem.Height = 56;
-            listviewitem.Content = stack;
-            listviewitem.Tag = guild.RawGuild.Id;
-            ToolTipService.SetToolTip(listviewitem, guild.RawGuild.Name);
-            //listviewitem.RightTapped += OpenGuildSettings;
-            //listviewitem.Holding += OpenGuildSettings;
             return listviewitem;
         }
 

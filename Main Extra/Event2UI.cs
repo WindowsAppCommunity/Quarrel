@@ -169,6 +169,8 @@ namespace Discord_UWP
                     LoadingSplash.Hide(true);
                     LoadGuilds();
                 });
+
+            Storage.Cache.CurrentUser = new User(e.EventData.User);
         }
         
         private TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);

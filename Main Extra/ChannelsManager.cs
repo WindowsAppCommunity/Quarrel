@@ -126,7 +126,7 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
                         }
-                        else if (role.Name == "@everyone")
+                        else if (role.Name == "@everyone" && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0)
                         {
                             Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
                         }

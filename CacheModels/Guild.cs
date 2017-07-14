@@ -21,6 +21,7 @@ namespace Discord_UWP.CacheModels
         public Guild(SharedModels.Guild input)
         {
             RawGuild = input;
+
         }
 
         public async void GetGuild(string id)
