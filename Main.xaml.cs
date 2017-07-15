@@ -110,7 +110,6 @@ namespace Discord_UWP
                 {
                     App.ShowAds = false;
                 }
-
             }
             catch
             {
@@ -246,11 +245,26 @@ namespace Discord_UWP
             App.OpenAttachementHandler += OpenAttachement;
             App.NavigateToProfileHandler += OnNavigateToProfile;
             App.ShowMemberFlyoutHandler += OnShowMemberFlyoutHandler;
-            App.NavigateToChannelHandler += OnNavigateToChannel;
+            App.NavigateToGuildChannelHandler += OnNavigateToGuildChannel;
+            App.NavigateToDMChannelHandler += OnNavigateToDMChannel;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
             App.MentionHandler += OnMention;
 
             SettingsChanged(null, null);
+        }
+
+        private async void OnNavigateToDMChannel(object sender, App.DMChannelNavigationArgs e)
+        {
+            SelectChannel = true;
+            SelectChannelId = e.UserId;
+            ServerList.SelectedIndex = 0;
+            if (e.Message != null && e.Send)
+            {
+                await Session.CreateMessage(App.CurrentChannelId, e.Message);
+            } else if (e.Message != null && !e.Send)
+            {
+                MessageBox1.Text = e.Message;
+            }
         }
 
         private void SettingsChanged(object sender, EventArgs e)
@@ -346,21 +360,17 @@ namespace Discord_UWP
             MessageBox1.Text += "@" + e.Username;
         }
 
-        private void OnNavigateToChannel(object sender, App.ChannelNavigationArgs e)
+        private void OnNavigateToGuildChannel(object sender, App.GuildChannelNavigationArgs e)
         {
-            if (e.Guildid == null)
-            {
-                ServerList.SelectedIndex = 0;
-            }
             foreach (ListViewItem guild in ServerList.Items)
             {
-                if (guild.Tag.ToString() == e.Guildid)
+                if (guild.Tag.ToString() == e.GuildId)
                 {
                     ServerList.SelectedItem = guild;
                 }
             }
             SelectChannel = true;
-            SelectChannelId = e.Channelid;
+            SelectChannelId = e.ChannelId;
         }
 
         #region LoadUser
@@ -505,7 +515,20 @@ namespace Discord_UWP
                     {
                         LoadDMs();
                     }
-
+                    if (SelectChannel)
+                    {
+                        foreach (ListViewItem channel in DirectMessageChannels.Items)
+                        {
+                            if ((channel.Tag as DmCache).Raw.Users.Count() == 1 && (channel.Tag as DmCache).Raw.Users.FirstOrDefault().Id == SelectChannelId)
+                            {
+                                DirectMessageChannels.SelectedItem = channel;
+                            } else
+                            {
+                                //TODO: Create DM
+                            }
+                        }
+                        SelectChannel = false;
+                    }
                 }
                 else
                 {

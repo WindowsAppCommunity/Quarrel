@@ -120,7 +120,6 @@ namespace Discord_UWP
 
         public MessageContainer NewMessageContainer(SharedModels.Message? message, bool? isContinuation, bool isAdvert, string header, bool HideMoreButton = false)
         {
-            
             if (!isContinuation.HasValue)
             {
                 if (Messages.Items.LastOrDefault() != null && Messages.Items.LastOrDefault().GetType() == typeof(MessageContainer))

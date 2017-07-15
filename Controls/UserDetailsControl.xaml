@@ -1,14 +1,14 @@
 ﻿<UserControl
-    x:Class="Discord_UWP.Controls.UserDetailsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Class="Discord_UWP.Controls.UserDetailsControl"
     mc:Ignorable="d"
     d:DesignHeight="500"
-    d:DesignWidth="248" >
+    d:DesignWidth="248">
     <Grid Width="248" Padding="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,10 +17,9 @@
         <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{Binding ActualWidth, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="0" Grid.ColumnSpan="4">
             <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
         </Grid>
-        <Rectangle Height="96" Width="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top">
-        </Rectangle>
+        <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
         <StackPanel x:Name="Stacker">
-            <Rectangle Height="96" Width="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0">
+            <Rectangle Height="96" Width="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0" Stroke="{ThemeResource Blurple}" StrokeThickness="3" Tapped="Rectangle_Tapped">
                 <Rectangle.Fill>
                     <ImageBrush x:Name="Avatar"/>
                 </Rectangle.Fill>
@@ -32,19 +31,23 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="12">
+            <StackPanel.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
+                </TransitionCollection>
+            </StackPanel.Transitions>
             <TextBlock x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
-            <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0">
-            </tk:WrapPanel>
+            <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
             <TextBlock Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0"/>
-            <TextBlock Text="ACTIONS" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+            <!--<TextBlock Text="ACTIONS" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <StackPanel Background="Transparent" HorizontalAlignment="Left" Orientation="Horizontal">
                 <AppBarButton Height="48" Width="48" Icon="ContactInfo" Click="AppBarButton_Click"/>
-                    <AppBarButton Height="48" Width="48" Icon="Message"/>
+                <AppBarButton Height="48" Width="48" Icon="Message"/>
                 <AppBarButton Height="48" Width="48"  Icon="AddFriend"/>
-            </StackPanel>
+            </StackPanel>-->
             <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Opacity="0.4" Margin="0,12"/>
-            <TextBox x:Name="SendPM" PlaceholderText="Send direct message" BorderThickness="1"/>
+            <local:MessageBox x:Name="SendDM"/>
         </StackPanel>
     </Grid>
 </UserControl>

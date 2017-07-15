@@ -123,23 +123,37 @@ namespace Discord_UWP
 
         public class GuildNavigationArgs : EventArgs
         {
-            public string Guildid { get; set; }
+            public string GuildId { get; set; }
         }
         public static event EventHandler<GuildNavigationArgs> NavigateToGuildHandler;
         public static void NavigateToGuild(string guildId)
         {
-            NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs(){Guildid = guildId});
+            NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs(){GuildId = guildId});
         }
 
-        public class ChannelNavigationArgs : EventArgs
+        public class GuildChannelNavigationArgs : EventArgs
         {
-            public string Guildid { get; set; }
-            public string Channelid { get; set; }
+            public string GuildId { get; set; }
+            public string ChannelId { get; set; }
+            public string Message { get; set; }
+            public bool Send { get; set; }
         }
-        public static event EventHandler<ChannelNavigationArgs> NavigateToChannelHandler;
-        public static void NavigateToChannel(string guildId, string channelId)
+        public static event EventHandler<GuildChannelNavigationArgs> NavigateToGuildChannelHandler;
+        public static void NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false)
         {
-            NavigateToChannelHandler?.Invoke(typeof(App), new ChannelNavigationArgs() { Guildid = guildId, Channelid = channelId });
+            NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send });
+        }
+
+        public class DMChannelNavigationArgs : EventArgs
+        {
+            public string UserId { get; set; }
+            public string Message { get; set; }
+            public bool Send { get; set; }
+        }
+        public static event EventHandler<DMChannelNavigationArgs> NavigateToDMChannelHandler;
+        public static void NavigateToDMChannel(string userId, string message = null, bool send = false)
+        {
+            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { UserId = userId, Message = message, Send = send });
         }
 
         public class ProfileNavigationArgs : EventArgs

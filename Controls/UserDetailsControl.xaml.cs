@@ -43,6 +43,10 @@ namespace Discord_UWP.Controls
             if (prop == DisplayedMemberProperty)
             {
                 var user = DisplayedMember.Raw.User;
+                if (user.Id == Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    SendDM.Visibility = Visibility.Collapsed;
+                }
                 if (DisplayedMember.Raw.Nick != null)
                 {
                     UserStacker.Opacity = 0.5;
@@ -120,6 +124,12 @@ namespace Discord_UWP.Controls
         public UserDetailsControl()
         {
             this.InitializeComponent();
+            SendDM.Send += SendDirectMessage;
+        }
+
+        private void SendDirectMessage(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToDMChannel(DisplayedMember.Raw.User.Id, SendDM.Text, true);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
@@ -128,6 +138,11 @@ namespace Discord_UWP.Controls
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToProfile(DisplayedMember.Raw.User);
+        }
+
+        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
         {
             App.NavigateToProfile(DisplayedMember.Raw.User);
         }
