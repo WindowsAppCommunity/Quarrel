@@ -24,6 +24,7 @@ namespace Discord_UWP
 {
     static class Session
     {
+        #region ILogin
         public static async Task AutoLogin()
         {
             DiscordApiConfiguration config = new DiscordApiConfiguration
@@ -40,7 +41,6 @@ namespace Discord_UWP
             SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
             Gateway = new Gateway.Gateway(gateconfig, authenticator);
         }
-
         public static async Task Login(string email, string password)
         {
             DiscordApiConfiguration config = new DiscordApiConfiguration
@@ -63,21 +63,26 @@ namespace Discord_UWP
             SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
             Gateway = new Gateway.Gateway(gateconfig, authenticator);
         }
+        #endregion
 
-       /*public static async Task CreateGuildGateway(string guildid)
+        #region IUser
+
+        #region CurrentUser
+
+        #region Get
+        public static async Task<IEnumerable<SharedModels.UserGuild>> GetGuilds()
         {
-            DiscordApiConfiguration config = new DiscordApiConfiguration
+            try
             {
-                BaseUrl = "https://discordapp.com/api/guilds/" + guildid 
-            };
-
-            BasicRestFactory basicRestFactory = new BasicRestFactory(config);
-            IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
-            IAuthenticator authenticator = new DiscordAuthenticator(token);
-
-            SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
-            guildgateway = new Gateway.Gateway(gateconfig, authenticator);
-        }*/
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetCurrentUserGuilds();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
 
         public static async Task<User> GetCurrentUser()
         {
@@ -93,6 +98,91 @@ namespace Discord_UWP
             return Storage.Cache.CurrentUser.Raw;
         }
 
+        public static async Task<IEnumerable<SharedModels.Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
+
+        public static async Task<IEnumerable<DirectMessageChannel>> GetDMs()
+        {
+            try
+            {
+                IUserService userService = AuthenticatedRestFactory.GetUserService();
+                return await userService.GetCurrentUserDirectMessageChannels();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+            return null;
+        }
+        #endregion
+
+        #region Set
+        public static async void ChangeUserSettings(string settings)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    Gateway.UpdateStatus(settings, 0, null);
+                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                    userservice.UpdateSettings("{\"status\":\"" + settings + "\"}").Wait();
+                });
+
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static async void ChangeCurrentGame(string game)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                    userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
+                });
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void ModifyCurrentUser(string newUsername)
+        {
+            try
+            {
+                ModifyUser modifyuser = new ModifyUser();
+                modifyuser.Username = newUsername;
+                IUserService userService = AuthenticatedRestFactory.GetUserService();
+                Task<SharedModels.User> userTask = userService.ModifyCurrentUser(modifyuser);
+                userTask.Wait();
+                Storage.Cache.CurrentUser = new CacheModels.User(userTask.Result);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region Get
         public static async Task<User> GetUser(string userid)
         {
             try
@@ -149,27 +239,75 @@ namespace Discord_UWP
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.UserGuild>> GetGuilds()
+        #endregion
+
+        #region Set
+        public static void SendFriendRequest(string userId)
         {
             try
             {
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                return await userservice.GetCurrentUserGuilds();
+                userservice.SendFriendRequest(userId).Wait();
             }
             catch (Exception e)
             {
                 Showmsg(e);
             }
-            return null;
         }
 
+        public static void RemoveFriend(string userId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.RemoveFriend(userId).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void BlockUser(string userId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                userservice.BlockUser(userId).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void AddNote(string userid, string note)
+        {
+            try
+            {
+                IUserService channelservice = AuthenticatedRestFactory.GetUserService();
+                channelservice.AddNote(userid, new Note() { note = note }).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region IGuild
+
+        #region Get
         public static async Task<SharedModels.Guild> GetGuild(string id)
         {
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuild(id);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Showmsg(e);
             }
@@ -182,14 +320,15 @@ namespace Discord_UWP
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildChannels(id);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Showmsg(e);
             }
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.GuildMember>> GetGuildMembers (string id)
+        public static async Task<IEnumerable<SharedModels.GuildMember>> GetGuildMembers(string id)
         {
             try
             {
@@ -203,20 +342,126 @@ namespace Discord_UWP
             return null;
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetRecentMentions(int limit, bool ShowRoles, bool ShowEveryone)
+        public static GuildMember GetGuildMember(string guildid, string userid)
         {
             try
             {
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                Task<GuildMember> memberTask = guildservice.GetGuildMemeber(guildid, userid);
+                memberTask.Wait();
+                return memberTask.Result;
             }
             catch (Exception e)
             {
                 Showmsg(e);
             }
-            return null;
+            return new SharedModels.GuildMember();
         }
 
+        public static async Task<IEnumerable<Ban>> GetGuildBans(string guildId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            return await guildservice.GetGuildBans(guildId);
+        }
+        #endregion
+
+        #region Set
+        public static async Task AckGuild(string guildId)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                await guildservice.AckGuild(guildId);
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void ModifyGuildChannel(string chnId, ModifyChannel newChn)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                channelservice.ModifyChannel(chnId, newChn).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        public static void CreateGuild(string name)
+        {
+            API.Guild.Models.CreateGuild guild = new API.Guild.Models.CreateGuild();
+            guild.Name = name;
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.CreateGuild(guild);
+        }
+
+        public static void ModifyGuild(string guildid, ModifyGuild modifyguild)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                guildservice.ModifyGuild(guildid, modifyguild).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
+        /*public static void ModifyGuildChannelPositions(string channelid, int Position)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+               // guildservice.ModifyGuildChannelPositions(channelid, Position).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }*/
+
+        public static void ModifyCurrentUserNickname(string guildId, string nickname)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember() { Nick = nickname });
+        }
+
+        public static void ModifyGuildMember(string guildId, string userId, ModifyGuildMember modify)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyGuildMember(guildId, userId, modify);
+        }
+
+        public static void ModifyGuildMemberNickname(string guildId, string userId, string nickname)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.ModifyGuildMember(guildId, userId, new ModifyGuildMember() { Nick = nickname });
+        }
+
+        public static void RemoveGuildMember(string guildId, string userId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.RemoveGuildMember(guildId, userId);
+        }
+
+        public static void RemoveBan(string guildId, string userId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.RemoveGuildBan(guildId, userId);
+        }
+        #endregion
+
+        #endregion
+
+        #region IChannel
+
+        #region Get
         public static SharedModels.GuildChannel GetGuildChannel(string id)
         {
             try
@@ -245,17 +490,6 @@ namespace Discord_UWP
                 Showmsg(e);
             }
             return null;
-            /*try
-            {
-                IChannelService channelservice = authenticatedRestFactory.GetChannelService();
-                Task<IEnumerable<SharedModels.Message>> message_task = channelservice.GetChannelMessages(id);
-                message_task.Wait();
-                messages = message_task.Result;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }*/
         }
 
         public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesBefore(string id, string msgpos)
@@ -269,18 +503,6 @@ namespace Discord_UWP
             {
                 Showmsg(e);
             }
-
-            /*try
-            {
-                IChannelService channelservice = authenticatedRestFactory.GetChannelService();
-                Task<IEnumerable<SharedModels.Message>> message_task = channelservice.GetChannelMessages(id);
-                message_task.Wait();
-                messages = message_task.Result;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }*/
             return null;
         }
 
@@ -298,40 +520,37 @@ namespace Discord_UWP
             return null;
         }
 
-        public static async void ChangeUserSettings(string settings)
+        public static async Task<Message> GetMessage(string chnid, string msgid)
         {
             try
             {
-                await Task.Run(() =>
-                {
-                    Gateway.UpdateStatus(settings, 0, null);
-                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                    userservice.UpdateSettings("{\"status\":\"" + settings + "\"}").Wait();
-                });
-
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                return await channelservice.GetChannelMessage(chnid, msgid);
             }
             catch (Exception e)
             {
                 Showmsg(e);
             }
+            return new SharedModels.Message();
         }
 
-        public static async void ChangeCurrentGame(string game)
+        public static async Task<IEnumerable<Invite>> GetChannelInvites(string channelId)
         {
             try
             {
-                await Task.Run(() =>
-                {
-                    IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                    userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
-                });
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                var ch = await channelservice.GetChannelInvites(channelId);
+                return ch;
             }
             catch (Exception e)
             {
                 Showmsg(e);
             }
+            return null;
         }
+        #endregion
 
+        #region Set
         public static async Task CreateMessage(string id, string text)
         {
             try
@@ -354,7 +573,7 @@ namespace Discord_UWP
                 MessageUpsert message = new MessageUpsert();
                 message.Content = text;
                 message.file = await Windows.Storage.FileIO.ReadTextAsync(file);
-                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.CreateMessage(id, message).Wait();
             }
             catch (Exception e)
@@ -372,19 +591,6 @@ namespace Discord_UWP
                     IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                     await channelservice.AckMessage(chnId, msgId);
                 });
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static async Task AckGuild(string guildId)
-        {
-            try
-            {
-                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                await guildservice.AckGuild(guildId);
             }
             catch (Exception e)
             {
@@ -486,19 +692,6 @@ namespace Discord_UWP
             channelservice.DeletePinnedChannelMessage(chnId, msgId);
         }
 
-        public static async Task<Message> GetMessage(string chnid, string msgid)
-        {
-            try
-            {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                return await channelservice.GetChannelMessage(chnid, msgid);            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return new SharedModels.Message();
-        }
-
         public static void DeleteMessage(string chnid, string msgid)
         {
             try
@@ -510,154 +703,6 @@ namespace Discord_UWP
             {
                 Showmsg(e);
             }
-        }
-
-        public static void SendFriendRequest(string userId)
-        {
-            try
-            {
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.SendFriendRequest(userId).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static void RemoveFriend(string userId)
-        {
-            try
-            {
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.RemoveFriend(userId).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static void BlockUser(string userId)
-        {
-            try
-            {
-                IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                userservice.BlockUser(userId).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static async Task<IEnumerable<DirectMessageChannel>> GetDMs()
-        {
-            try
-            {
-                IUserService userService = AuthenticatedRestFactory.GetUserService();
-                 return await userService.GetCurrentUserDirectMessageChannels();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return null;
-        }
-
-        public static void ModifyCurrentUser(string newUsername)
-        {
-            try
-            {
-                ModifyUser modifyuser = new ModifyUser();
-                modifyuser.Username = newUsername;
-                IUserService userService = AuthenticatedRestFactory.GetUserService();
-                Task<SharedModels.User> userTask = userService.ModifyCurrentUser(modifyuser);
-                userTask.Wait();
-                Storage.Cache.CurrentUser = new CacheModels.User(userTask.Result);
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static void ModifyGuildChannel(string chnId, ModifyChannel newChn)
-        {
-            try
-            {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.ModifyChannel(chnId, newChn).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        /*public static void ModifyGuildChannelPositions(string channelid, int Position)
-        {
-            try
-            {
-                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-               // guildservice.ModifyGuildChannelPositions(channelid, Position).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }*/
-
-        public static void CreateGuild(string name)
-        {
-            API.Guild.Models.CreateGuild guild = new API.Guild.Models.CreateGuild();
-            guild.Name = name;
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.CreateGuild(guild);
-        }
-
-        public static void ModifyGuild(string guildid, ModifyGuild modifyguild)
-        {
-            try
-            {
-                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                guildservice.ModifyGuild(guildid, modifyguild).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
-        public static GuildMember GetGuildMember(string guildid, string userid)
-        {
-            try
-            {
-                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                Task<GuildMember> memberTask = guildservice.GetGuildMemeber(guildid, userid);
-                memberTask.Wait();
-                return memberTask.Result;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return new SharedModels.GuildMember();
-        }
-
-        public static async Task<IEnumerable<Invite>> GetChannelInvites(string channelId)
-        {
-            try
-            {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                var ch = await channelservice.GetChannelInvites(channelId);
-                return ch;
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return null;
         }
 
         public static async Task DeleteInvite(string channelId)
@@ -686,30 +731,24 @@ namespace Discord_UWP
             }
         }
 
-        public static void AddNote(string userid, string note)
-        {
-            try
-            {
-                IUserService channelservice = AuthenticatedRestFactory.GetUserService();
-                channelservice.AddNote(userid, new Note(){note = note}).Wait();
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-        }
-
         public static async Task<Invite> CreateInvite(string chnId, CreateInvite invite)
         {
             IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
             return await channelservice.CreateChannelInvite(chnId, invite);
         }
+        #endregion
 
+        #endregion
+
+        #region IInvite
         public static void AcceptInvite(string code)
         {
             IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
             inviteservice.AcceptInvite(code);
         }
+
+
+        #endregion
 
         public static async void Showmsg(Exception e)
         {
@@ -731,42 +770,6 @@ namespace Discord_UWP
         {
             AuthenticatedRestFactory = null;
             Unlocked = false;
-        }
-
-        public static void ModifyCurrentUserNickname(string guildId, string nickname)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember() { Nick = nickname});
-        }
-
-        public static void ModifyGuildMember(string guildId, string userId, ModifyGuildMember modify)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.ModifyGuildMember(guildId, userId, modify);
-        }
-
-        public static void ModifyGuildMemberNickname(string guildId, string userId, string nickname)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.ModifyGuildMember(guildId, userId, new ModifyGuildMember() { Nick = nickname });
-        }
-
-        public static void RemoveGuildMember(string guildId, string userId)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.RemoveGuildMember(guildId, userId);
-        }
-
-        public static async Task<IEnumerable<Ban>> GetGuildBans(string guildId)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            return await guildservice.GetGuildBans(guildId);
-        }
-
-        public static void RemoveBan(string guildId, string userId)
-        {
-            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.RemoveGuildBan(guildId, userId);
         }
 
         public static string Token;

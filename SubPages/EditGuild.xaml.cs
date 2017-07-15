@@ -52,6 +52,16 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
+            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)
+            {
+                GuildName.IsReadOnly = true;
+                Invites.Visibility = Visibility.Collapsed;
+            }
+            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.BanMembers && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)
+            {
+                Bans.Visibility = Visibility.Collapsed;
+            }
+
             Session.Gateway.GuildUpdated += GuildUpdated;
             Session.Gateway.GuildBanAdded += BanAdded;
             Session.Gateway.GuildBanRemoved += BanRemoved;
@@ -130,7 +140,7 @@ namespace Discord_UWP.SubPages
         }
 
         //Regex regex = new Regex("^[A-Za-z0-9_-]+$");
-        private void ChannelName_TextChanged(object sender, TextChangedEventArgs e)
+        private void ServerName_TextChanged(object sender, TextChangedEventArgs e)
         {
             int charCounter = GuildName.Text.Length;
             NameCharCounter.Text = (100 - charCounter).ToString();
