@@ -401,8 +401,7 @@ namespace Discord_UWP
                         }
                     }
                     else if (TextChannels.SelectedItem != null &&
-                             (TextChannels.SelectedItem as ListViewItem)?.Tag != null &&
-                             ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel)?.Raw.Id ==
+                             (TextChannels.SelectedItem as SimpleChannel).Id ==
                              e.EventData.ChannelId)
                         for (int x = 0; x < Messages.Items.Count; x++)
                         {

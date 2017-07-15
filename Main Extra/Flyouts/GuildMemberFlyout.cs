@@ -64,23 +64,26 @@ namespace Discord_UWP
             menu.Items.Add(message);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
-            MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
+            if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
-                Text = "Invite to Server"
-                //Tag = member.Raw.User.Id,
-                //Icon = new SymbolIcon(Symbol.)
-            };
-            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
-            {
-                if (guild.Value.perms.EffectivePerms.Administrator || guild.Value.perms.EffectivePerms.CreateInstantInvite)
+                MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                 {
-                    MenuFlyoutItem item = new MenuFlyoutItem() { Text = guild.Value.RawGuild.Name, Tag = new Tuple<string, string>(guild.Value.Channels.FirstOrDefault().Value.Raw.Id, member.Raw.User.Id) };
-                    item.Click += inviteToServer;
-                    InviteToServer.Items.Add(item);
-                }
+                    Text = "Invite to Server"
+                    //Tag = member.Raw.User.Id,
+                    //Icon = new SymbolIcon(Symbol.)
+                };
+                foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
+                {
+                    if (guild.Value.perms.EffectivePerms.Administrator || guild.Value.perms.EffectivePerms.CreateInstantInvite)
+                    {
+                        MenuFlyoutItem item = new MenuFlyoutItem() { Text = guild.Value.RawGuild.Name, Tag = new Tuple<string, string>(guild.Value.Channels.FirstOrDefault().Value.Raw.Id, member.Raw.User.Id) };
+                        item.Click += inviteToServer;
+                        InviteToServer.Items.Add(item);
+                    }
 
+                }
+                menu.Items.Add(InviteToServer);
             }
-            menu.Items.Add(InviteToServer);
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
                 Text = "Add Friend",
@@ -137,13 +140,19 @@ namespace Discord_UWP
                         menu.Items.Add(block);
                         break;
                 }
+            } else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+            {
+                //None
             } else
             {
                 menu.Items.Add(addFriend);
                 menu.Items.Add(block);
             }
-            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep2);
+            if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            {
+                MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep2);
+            }
             if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator)
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
@@ -183,7 +192,7 @@ namespace Discord_UWP
                 }
                 menu.Items.Add(roles);
             }
-            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.KickMembers)
+            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.KickMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem kickMember = new MenuFlyoutItem()
                 {
@@ -194,6 +203,17 @@ namespace Discord_UWP
                 };
                 kickMember.Click += KickMember;
                 menu.Items.Add(kickMember);
+            } else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            {
+                MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                {
+                    Text = "Leaver Server",
+                    Tag = member.Raw.User.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.Remove)
+                };
+                leaveServer.Click += LeaveServer;
+                menu.Items.Add(leaveServer);
             }
             /*if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers)
             {
@@ -204,7 +224,6 @@ namespace Discord_UWP
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
                 };
-
                 menu.Items.Add(banMember);
             }*/
             if (false)
@@ -229,6 +248,11 @@ namespace Discord_UWP
                 };
             }
             return menu;
+        }
+
+        private void LeaveServer(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void KickMember(object sender, RoutedEventArgs e)
@@ -294,7 +318,7 @@ namespace Discord_UWP
                     if (dm.Value.Raw.Users.Count() == 1 && dm.Value.Raw.Users.FirstOrDefault().Id == data.Item2)
                     {
                         await Session.CreateMessage(dm.Key, "https://discord.gg/" + invite.String);
-                        App.NavigateToChannel(null, dm.Key);
+                        App.NavigateToGuildChannel(null, dm.Key);
                         return;
                     }
                 }
