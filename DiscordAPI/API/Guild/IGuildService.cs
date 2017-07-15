@@ -54,7 +54,7 @@ namespace Discord_UWP.API.Guild
         Task RemoveGuildMember([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId);
 
         [Get("/guilds/{guildId}/bans")]
-        Task<IEnumerable<SharedModels.User>> GetGuildBans([AliasAs("guildId")] string guildId);
+        Task<IEnumerable<Ban>> GetGuildBans([AliasAs("guildId")] string guildId);
 
         [Put("/guilds/{guildId}/bans/{userId}")]
         Task CreateGuildBan([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] CreateGuildBan createGuildBan);

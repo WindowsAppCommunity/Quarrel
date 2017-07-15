@@ -67,7 +67,7 @@ namespace Discord_UWP.Controls
                 string useField = DisplayedInvite.Uses.ToString();
                 if (DisplayedInvite.MaxUses != 0) useField += "/" + DisplayedInvite.MaxUses;
                 if (DisplayedInvite.Uses == 1)
-                    useField += "use, ";
+                    useField += " use, ";
                 else
                     useField += " uses, ";
 
