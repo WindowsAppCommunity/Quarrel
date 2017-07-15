@@ -135,6 +135,9 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\BanControl.xaml.cs">
+      <DependentUpon>BanControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,7 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Ban.cs" />
     <Compile Include="DiscordAPI\SharedModels\ReadState.cs" />
     <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
@@ -320,6 +324,9 @@
     <Compile Include="SubPages\EditChannel.xaml.cs">
       <DependentUpon>EditChannel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\EditGuild.xaml.cs">
+      <DependentUpon>EditGuild.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\EditNickname.xaml.cs">
       <DependentUpon>EditNickname.xaml</DependentUpon>
     </Compile>
@@ -404,6 +411,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\BanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ChannelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -465,6 +476,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\EditChannel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\EditGuild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

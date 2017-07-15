@@ -616,12 +616,10 @@ namespace Discord_UWP
             guildservice.CreateGuild(guild);
         }
 
-        public static void ModifyGuild(string guildid, string newName)
+        public static void ModifyGuild(string guildid, ModifyGuild modifyguild)
         {
             try
             {
-                ModifyGuild modifyguild = new ModifyGuild();
-                modifyguild.Name = newName;
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.ModifyGuild(guildid, modifyguild).Wait();
             }
@@ -757,6 +755,12 @@ namespace Discord_UWP
         {
             IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
             guildservice.RemoveGuildMember(guildId, userId);
+        }
+
+        public static async Task<IEnumerable<Ban>> GetGuildBans(string guildId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            return await guildservice.GetGuildBans(guildId);
         }
 
         public static string Token;

@@ -248,9 +248,14 @@ namespace Discord_UWP
             App.NavigateToGuildChannelHandler += OnNavigateToGuildChannel;
             App.NavigateToDMChannelHandler += OnNavigateToDMChannel;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
+            App.NavigateToGuildEditHandler += OnNavigateToGuildEdit;
             App.MentionHandler += OnMention;
-
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToGuildEdit(object sender, App.GuildEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditGuild), e.GuildId);
         }
 
         private async void OnNavigateToDMChannel(object sender, App.DMChannelNavigationArgs e)
@@ -1306,163 +1311,6 @@ namespace Discord_UWP
 
         #endregion
 
-        #region GuildSettings
-        private async void OpenGuildSettings(object sender, RoutedEventArgs e)
-        {
-            SharedModels.Guild guild = await Session.GetGuild((sender as ListViewItem).Tag.ToString());
-            ServerNameChange.Text = guild.Name;
-            ServerNameChange.PlaceholderText = guild.Name;
-            _settingsPaneId = (sender as ListViewItem).Tag.ToString();
-            RoleList.Items.Clear();
-            foreach (Role role in guild.Roles)
-            {
-                ListViewItem listviewitem = new ListViewItem();
-                listviewitem.Content = role.Name;
-                if (role.Color != 0)
-                {
-                    listviewitem.Foreground = IntToColor(role.Color);
-                }
-                listviewitem.Tag = role.Id;
-                RoleList.Items.Add(listviewitem);
-            }
-            GuildSettings.IsPaneOpen = true;
-        }
-        private void SaveGuildSettings(object sender, RoutedEventArgs e)
-        {
-            Session.ModifyGuild(_settingsPaneId, ServerNameChange.Text); //TODO: Fix
-            GuildSettings.IsPaneOpen = false;
-        }
-        private void CloseGuildSettings(object sender, RoutedEventArgs e)
-        {
-            GuildSettings.IsPaneOpen = false;
-        }
-        private void SwitchEditRoleView(object sender, SelectionChangedEventArgs e)
-        {
-            if ((sender as ListView).SelectedItem != null) //Called upon cleared
-            {
-                RolePermissionsList.Visibility = Visibility.Visible;
-                Permissions perms = new Permissions();
-                bool manageable = false;
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[_settingsPaneId].RawGuild.Roles)
-                {
-                    if (role.Id == ((sender as ListView).SelectedItem as ListViewItem).Tag.ToString())
-                    {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[_settingsPaneId].RawGuild.Roles);
-                    }
-                }
-
-                RoleAllowAnyoneToMention.Visibility = Visibility.Collapsed;
-                RoleHoist.Visibility = Visibility.Collapsed;
-
-                RoleAddReactions.IsChecked = perms.ServerSidePerms.AddReactions;
-                if (!manageable)
-                {
-                    RoleAddReactions.IsEnabled = false;
-                }
-                RoleAdmininstrator.IsChecked = perms.ServerSidePerms.Administrator;
-                if (!manageable)
-                {
-                    RoleAdmininstrator.IsEnabled = false;
-                }
-                RoleAttachFiles.IsChecked = perms.ServerSidePerms.AttachFiles;
-                if (!manageable)
-                {
-                    RoleAttachFiles.IsEnabled = false;
-                }
-                RoleBanMembers.IsChecked = perms.ServerSidePerms.BanMembers;
-                if (!manageable)
-                {
-                    RoleBanMembers.IsEnabled = false;
-                }
-                RoleChangeNickname.IsChecked = perms.ServerSidePerms.ChangeNickname;
-                if (!manageable)
-                {
-                    RoleChangeNickname.IsEnabled = false;
-                }
-                RoleConnect.IsChecked = perms.ServerSidePerms.Connect;
-                if (!manageable)
-                {
-                    RoleConnect.IsEnabled = false;
-                }
-                RoleCreateInstantInvite.IsChecked = perms.ServerSidePerms.CreateInstantInvite;
-                if (!manageable)
-                {
-                    RoleCreateInstantInvite.IsEnabled = false;
-                }
-                RoleDeafenMembers.IsChecked = perms.ServerSidePerms.DeafenMembers;
-                if (!manageable)
-                {
-                    RoleDeafenMembers.IsEnabled = false;
-                }
-                RoleKickMembers.IsChecked = perms.ServerSidePerms.KickMembers;
-                if (!manageable)
-                {
-                    RoleKickMembers.IsEnabled = false;
-                }
-                RoleManageChannels.IsChecked = perms.ServerSidePerms.ManageChannels;
-                if (!manageable)
-                {
-                    RoleManageChannels.IsEnabled = false;
-                }
-                RoleManageEmojis.IsChecked = perms.ServerSidePerms.ManageEmojis;
-                if (!manageable)
-                {
-                    RoleManageEmojis.IsEnabled = false;
-                }
-                RoleManageGuild.IsChecked = perms.ServerSidePerms.ManangeGuild;
-                if (!manageable)
-                {
-                    RoleManageGuild.IsEnabled = false;
-                }
-                RoleManageNicknames.IsChecked = perms.ServerSidePerms.ManageNicknames;
-                if (!manageable)
-                {
-                    RoleManageNicknames.IsEnabled = false;
-                }
-                RoleManageRoles.IsChecked = perms.ServerSidePerms.ManageRoles;
-                if (!manageable)
-                {
-                    RoleManageRoles.IsEnabled = false;
-                }
-                RoleMentionEveryone.IsChecked = perms.ServerSidePerms.MentionEveryone;
-                if (!manageable)
-                {
-                    RoleMentionEveryone.IsEnabled = false;
-                }
-                RoleMoveMembers.IsChecked = perms.ServerSidePerms.MoveMembers;
-                if (!manageable)
-                {
-                    RoleMoveMembers.IsEnabled = false;
-                }
-                RoleMuteMembers.IsChecked = perms.ServerSidePerms.MuteMembers;
-                if (!manageable)
-                {
-                    RoleMuteMembers.IsEnabled = false;
-                }
-                RoleReadMessageHistory.IsChecked = perms.ServerSidePerms.ReadMessageHistory;
-                if (!manageable)
-                {
-                    RoleReadMessageHistory.IsEnabled = false;
-                }
-                RoleSpeak.IsChecked = perms.ServerSidePerms.Speak;
-                if (!manageable)
-                {
-                    RoleSpeak.IsEnabled = false;
-                }
-                RoleUseExternalEmojis.IsChecked = perms.ServerSidePerms.UseExternalEmojis;
-                if (!manageable)
-                {
-                    RoleUseExternalEmojis.IsEnabled = false;
-                }
-                RoleUseVoiceActivity.IsChecked = perms.ServerSidePerms.UseVad;
-                if (!manageable)
-                {
-                    RoleUseVoiceActivity.IsEnabled = false;
-                }
-            }
-        }
-        #endregion
-        
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
@@ -1653,6 +1501,11 @@ namespace Discord_UWP
         private void Playing_OnLostFocus(object sender, RoutedEventArgs e)
         {
             Session.ChangeCurrentGame(Playing.Text);
+        }
+
+        private void ServerName_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            App.NavigateToGuildEdit(App.CurrentGuildId);
         }
     }
 }

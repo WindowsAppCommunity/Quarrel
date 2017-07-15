@@ -182,6 +182,18 @@ namespace Discord_UWP
             NavigateToChannelEditHandler?.Invoke(typeof(App), new ChannelEditNavigationArgs() { ChannelId = channelId });
         }
 
+
+        public class GuildEditNavigationArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<GuildEditNavigationArgs> NavigateToGuildEditHandler;
+        public static void NavigateToGuildEdit(string guildId)
+        {
+            NavigateToGuildEditHandler?.Invoke(typeof(App), new GuildEditNavigationArgs() { GuildId = guildId });
+        }
+
+
         public class MentionArgs : EventArgs
         {
             public string Username { get; set; }

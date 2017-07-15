@@ -366,7 +366,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name"/>
+                            <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name" Tapped="ServerName_Tapped"/>
                             <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
                                 <StackPanel>
                                     <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True">
@@ -558,65 +558,6 @@
                 </SplitView.Pane>
             </SplitView>
             
-            <SplitView x:Name="GuildSettings" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource SystemAltMediumHighColor}" Grid.Row="1"  PaneClosing="SP_PaneClosing">
-            <SplitView.Pane>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Pivot Grid.ColumnSpan="2" Margin="0,0,0,32">
-                        <PivotItem Header="Overview">
-                            <StackPanel x:Name="GuildOverview_Menu">
-                                <TextBox x:Name="ServerNameChange" Header="Server Name" PlaceholderText="Name"/>
-                            </StackPanel>
-                        </PivotItem>
-                        <PivotItem Header="Roles">
-                            <Grid x:Name="GuildRoles_Menu">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="10"/>
-                                </Grid.ColumnDefinitions>
-
-                                <ListView x:Name="RoleList" SelectionChanged="SwitchEditRoleView"/>
-                                <ScrollViewer x:Name="RolePermissionsList" Grid.Column="2" Visibility="Collapsed">
-                                    <StackPanel>
-                                        <CheckBox x:Name="RoleHoist" Content="Display role members seperatly from other members"/>
-                                        <CheckBox x:Name="RoleAllowAnyoneToMention" Content="Allow anyone to @mention this role"/>
-                                        <CheckBox x:Name="RoleAdmininstrator" Content="Administrator"/>
-                                        <CheckBox x:Name="RoleManageGuild" Content="Manage Server"/>
-                                        <CheckBox x:Name="RoleManageRoles" Content="Manage Roles"/>
-                                        <CheckBox x:Name="RoleManageChannels" Content="Manage Channels"/>
-                                        <CheckBox x:Name="RoleKickMembers" Content="Kick Members"/>
-                                        <CheckBox x:Name="RoleBanMembers" Content="Ban Members"/>
-                                        <CheckBox x:Name="RoleCreateInstantInvite" Content="Create Instant Invite"/>
-                                        <CheckBox x:Name="RoleChangeNickname" Content="Change Nickname"/>
-                                        <CheckBox x:Name="RoleManageNicknames" Content="Manage Nicknames"/>
-                                        <CheckBox x:Name="RoleManageEmojis" Content="Manage Emojis"/>
-                                        <CheckBox x:Name="RoleAttachFiles" Content="Attach Files"/>
-                                        <CheckBox x:Name="RoleReadMessageHistory" Content="Read Message History"/>
-                                        <CheckBox x:Name="RoleMentionEveryone" Content="Mention Everyone"/>
-                                        <CheckBox x:Name="RoleUseExternalEmojis" Content="Use External Emojis"/>
-                                        <CheckBox x:Name="RoleAddReactions" Content="Add Reactions"/>
-                                        <CheckBox x:Name="RoleConnect" Content="Connect"/>
-                                        <CheckBox x:Name="RoleSpeak" Content="Speak"/>
-                                        <CheckBox x:Name="RoleMuteMembers" Content="Mute Members"/>
-                                        <CheckBox x:Name="RoleDeafenMembers" Content="Deafen Members"/>
-                                        <CheckBox x:Name="RoleMoveMembers" Content="Move Members"/>
-                                        <CheckBox x:Name="RoleUseVoiceActivity" Content="Voice Activity"/>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Grid>
-                        </PivotItem>
-                    </Pivot>
-                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Background="{ThemeResource SystemControlBackgroundAccentBrush}"/>
-                    <Button VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloseGuildSettings"/>
-                </Grid>
-            </SplitView.Pane>
-        </SplitView>
-
             <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}" Style="{StaticResource CommandBarStyle1}">
                 <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
                 <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
