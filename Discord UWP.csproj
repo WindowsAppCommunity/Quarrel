@@ -207,6 +207,7 @@
     <Compile Include="DiscordAPI\Authentication\IAuthenticator.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildDelete.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
     <Compile Include="DiscordAPI\SharedModels\Ban.cs" />

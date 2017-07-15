@@ -763,6 +763,12 @@ namespace Discord_UWP
             return await guildservice.GetGuildBans(guildId);
         }
 
+        public static void RemoveBan(string guildId, string userId)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.RemoveGuildBan(guildId, userId);
+        }
+
         public static string Token;
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
