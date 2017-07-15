@@ -215,7 +215,7 @@ namespace Discord_UWP
                 leaveServer.Click += LeaveServer;
                 menu.Items.Add(leaveServer);
             }
-            /*if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers)
+            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers)
             {
                 MenuFlyoutItem banMember = new MenuFlyoutItem()
                 {
@@ -224,8 +224,9 @@ namespace Discord_UWP
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
                 };
+                banMember.Click += BanMember;
                 menu.Items.Add(banMember);
-            }*/
+            }
             if (false)
             {
                 //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
@@ -248,6 +249,12 @@ namespace Discord_UWP
                 };
             }
             return menu;
+        }
+
+        private void BanMember(object sender, RoutedEventArgs e)
+        {
+            Session.CreateBan(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString(), new API.Guild.Models.CreateGuildBan() { DeleteMessageDays = 0});
+            //TODO: Confirm+ban options
         }
 
         private void LeaveServer(object sender, RoutedEventArgs e)

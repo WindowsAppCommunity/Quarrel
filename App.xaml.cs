@@ -69,9 +69,17 @@ namespace Discord_UWP
             catch { }
         }
 
+        #region Events
 
-        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn}
+        #region General
+        public class ProfileNavigationArgs : EventArgs
+        {
+            public SharedModels.User User { get; set; }
+        }
+        #endregion
 
+        #region Flyouts
+        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn }
         public class MenuArgs : EventArgs
         {
             public Type Type { get; set; }
@@ -82,45 +90,30 @@ namespace Discord_UWP
         public static event EventHandler<MenuArgs> MenuHandler;
         public static void ShowMenuFlyout(object sender, Type type, string Id, string parentId, Point point)
         {
-            MenuHandler?.Invoke(sender, new MenuArgs() { Type = type, Id = Id, ParentId = parentId, Point = point});
+            MenuHandler?.Invoke(sender, new MenuArgs() { Type = type, Id = Id, ParentId = parentId, Point = point });
         }
 
-        public class UserDetailsArgs
+        public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
+        public static void ShowMemberFlyout(object sender, SharedModels.User user)
         {
-            public string Id { get; set; }
-            public Point Point { get; set; }
+            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user });
         }
-        public static event EventHandler<UserDetailsArgs> ShowUserFlyoutHandler;
-        public static void ShowUserFlyout(object sender, string userid, Point point)
-        {
-            ShowUserFlyoutHandler?.Invoke(sender, new UserDetailsArgs(){ Point = point, Id = userid});
-        }
+        #endregion
 
-        internal static string CurrentGuildId;
-        internal static string CurrentChannelId;
-        internal static Guild CurrentGuild;
-        internal static bool CurrentGuildIsDM = false;
-        internal static string CurrentUserId = "";
-        internal static bool IsInFocus = true;
-        internal static bool ShowAds = true;
-        internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
-        internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
+        #region Link
         /// <summary>
         /// Fired when a link element in the markdown was tapped.
         /// </summary>
         public static event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
-
         public static void FireLinkClicked(MarkdownTextBlock.LinkClickedEventArgs LinkeventArgs)
         {
             LinkClicked?.Invoke(typeof(App), LinkeventArgs);
         }
+        #endregion
 
-        public static event EventHandler SubpageClosedHandler;
-        public static void SubpageClosed()
-        {
-            SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
-        }
-
+        #region Navigation
+        
+        #region Guild
         public class GuildNavigationArgs : EventArgs
         {
             public string GuildId { get; set; }
@@ -128,9 +121,11 @@ namespace Discord_UWP
         public static event EventHandler<GuildNavigationArgs> NavigateToGuildHandler;
         public static void NavigateToGuild(string guildId)
         {
-            NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs(){GuildId = guildId});
+            NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs() { GuildId = guildId });
         }
+        #endregion
 
+        #region GuildChannel
         public class GuildChannelNavigationArgs : EventArgs
         {
             public string GuildId { get; set; }
@@ -143,7 +138,9 @@ namespace Discord_UWP
         {
             NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send });
         }
+        #endregion
 
+        #region DMChannel
         public class DMChannelNavigationArgs : EventArgs
         {
             public string UserId { get; set; }
@@ -155,23 +152,23 @@ namespace Discord_UWP
         {
             NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { UserId = userId, Message = message, Send = send });
         }
+        #endregion
 
-        public class ProfileNavigationArgs : EventArgs
-        {
-            public SharedModels.User User { get; set; }
-        }
+        #endregion
+
+        #region Subpages
+
+        #region Profile
         public static event EventHandler<ProfileNavigationArgs> NavigateToProfileHandler;
         public static void NavigateToProfile(SharedModels.User user)
         {
             NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { User = user });
         }
-        public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
-        public static void ShowMemberFlyout(object sender, SharedModels.User user)
-        {
-            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user});
-        }
+        #endregion
 
 
+
+        #region ChannelEdit
         public class ChannelEditNavigationArgs : EventArgs
         {
             public string ChannelId { get; set; }
@@ -181,8 +178,9 @@ namespace Discord_UWP
         {
             NavigateToChannelEditHandler?.Invoke(typeof(App), new ChannelEditNavigationArgs() { ChannelId = channelId });
         }
+        #endregion
 
-
+        #region GuildEdit
         public class GuildEditNavigationArgs : EventArgs
         {
             public string GuildId { get; set; }
@@ -192,7 +190,28 @@ namespace Discord_UWP
         {
             NavigateToGuildEditHandler?.Invoke(typeof(App), new GuildEditNavigationArgs() { GuildId = guildId });
         }
+        #endregion
 
+        #region Closed
+        public static event EventHandler SubpageClosedHandler;
+        public static void SubpageClosed()
+        {
+            SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
+        }
+        #endregion
+
+        #endregion
+
+        #region Other
+
+        #region Attachment
+        public enum AttachementType { Image, Video, Webpage }
+        public static event EventHandler<SharedModels.Attachment> OpenAttachementHandler;
+        public static void OpenAttachement(SharedModels.Attachment args)
+        {
+            OpenAttachementHandler?.Invoke(typeof(App), args);
+        }
+        #endregion
 
         public class MentionArgs : EventArgs
         {
@@ -203,13 +222,22 @@ namespace Discord_UWP
         {
             MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username });
         }
+        #endregion
 
-        public enum AttachementType { Image, Video, Webpage }
-        public static event EventHandler<SharedModels.Attachment> OpenAttachementHandler;
-        public static void OpenAttachement(SharedModels.Attachment args)
-        {
-            OpenAttachementHandler?.Invoke(typeof(App), args);
-        }
+        #endregion
+
+        #region Static Object
+        internal static string CurrentGuildId;
+        internal static string CurrentChannelId;
+        internal static Guild CurrentGuild;
+        internal static bool CurrentGuildIsDM = false;
+        internal static string CurrentUserId = "";
+        internal static bool IsInFocus = true;
+        internal static bool ShowAds = true;
+        internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
+        internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
+        #endregion
+
         //internal static string ChannelId;
 
         /// <summary>
@@ -329,6 +357,7 @@ namespace Discord_UWP
         {
             //Set the title bar colors:
 
+            #region Resources
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
@@ -362,7 +391,7 @@ namespace Discord_UWP
             App.Current.Resources["Offline"] = new SolidColorBrush(offlineColor);
             App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
             App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
-
+            #endregion
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 
