@@ -450,6 +450,12 @@ namespace Discord_UWP
             guildservice.RemoveGuildMember(guildId, userId);
         }
 
+        public static void CreateBan(string guildId, string userId, CreateGuildBan guildBan)
+        {
+            IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+            guildservice.CreateGuildBan(guildId, userId, guildBan);
+        }
+
         public static void RemoveBan(string guildId, string userId)
         {
             IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
