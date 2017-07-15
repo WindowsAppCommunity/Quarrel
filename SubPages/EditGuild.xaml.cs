@@ -53,6 +53,47 @@ namespace Discord_UWP.SubPages
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
             Session.Gateway.GuildUpdated += GuildUpdated;
+            Session.Gateway.GuildBanAdded += BanAdded;
+            Session.Gateway.GuildBanRemoved += BanRemoved;
+        }
+
+        private async void BanRemoved(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
+        {
+            if (e.EventData.GuildId == App.CurrentGuildId)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        for (int x = 0; x < BanView.Items.Count; x++)
+                        {
+                            if ((BanView.Items[x] as Ban?).Value.User.Id == e.EventData.User.Id)
+                            {
+                                BanView.Items.RemoveAt(x);
+                            }
+                        }
+
+                        if (BanView.Items.Count == 0)
+                        {
+                            NoBans.Fade(0.2f, 200).Start();
+                        }
+                    });
+            }
+        }
+
+        private async void BanAdded(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
+        {
+            if (e.EventData.GuildId == App.CurrentGuildId)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                       () =>
+                       {
+                           if (BanView.Items.Count == 0)
+                           {
+                               NoBans.Fade(0.0f, 200).Start();
+                           }
+                           BanView.Items.Add(new Ban() { User = e.EventData.User });
+                       });
+            }
         }
 
         private async void GuildUpdated(object sender, GatewayEventArgs<Guild> e)
@@ -80,6 +121,8 @@ namespace Discord_UWP.SubPages
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Session.Gateway.GuildUpdated -= GuildUpdated;
+            Session.Gateway.GuildBanAdded -= BanAdded;
+            Session.Gateway.GuildBanRemoved -= BanRemoved;
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();

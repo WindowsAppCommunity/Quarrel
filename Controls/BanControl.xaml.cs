@@ -62,6 +62,7 @@ namespace Discord_UWP.Controls
         private void RevokeBan(object sender, RoutedEventArgs e)
         {
             //TODO: RevokeBan
+            Session.RemoveBan(App.CurrentGuildId,DisplayedBan.User.Id);
         }
     }
 }

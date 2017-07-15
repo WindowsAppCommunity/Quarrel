@@ -43,6 +43,9 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
         public event EventHandler<GatewayEventArgs<GuildDelete>> GuildDeleted;
 
+        public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanAdded;
+        public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanRemoved;
+
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelCreated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelUpdated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelDeleted;
@@ -104,6 +107,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.MESSAGE_CREATED, OnMessageCreated },
                 { EventNames.MESSAGE_UPDATED, OnMessageUpdated },
                 { EventNames.MESSAGE_DELETED, OnMessageDeleted },
+                { EventNames.GUILD_BAN_ADDED,  OnGuildBanAdded },
+                { EventNames.GUILD_BAN_REMOVED, OnGuildBanRemoved },
                 { EventNames.MESSAGE_REACTION_ADD, OnMessageReactionAdd },
                 { EventNames.MESSAGE_REACTION_REMOVE, OnMessageReactionRemove },
                 { EventNames.MESSAGE_REACTION_REMOVE_ALL, OnMessageReactionRemoveAll },
@@ -341,6 +346,16 @@ namespace Discord_UWP.Gateway
         private void OnGuildDeleted(GatewayEvent gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildDeleted);
+        }
+
+        private void OnGuildBanAdded(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, GuildBanAdded);
+        }
+
+        private void OnGuildBanRemoved(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, GuildBanRemoved);
         }
 
         private void OnGuildMemberAdded(GatewayEvent gatewayEvent)
