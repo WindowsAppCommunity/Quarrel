@@ -438,58 +438,14 @@ namespace Discord_UWP
         private void LoadGuilds()
         {
             ServerList.Items.Clear();
-            ServerList.Items.Add(MakeDmIcon());
+            LoadGuildList();
             ServerList.SelectedIndex = 0;
 
-            List<UIElement> TempGuildList = new List<UIElement>();
-            while (TempGuildList.Count < 100)
-            {
-                TempGuildList.Add(new Grid());
-            }
-
-            foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
-            {
-                if (Storage.Cache.guildOrder.ContainsKey(guild.Key))
-                {
-                    TempGuildList.RemoveAt(Storage.Cache.guildOrder[guild.Key]);
-                    TempGuildList.Insert(Storage.Cache.guildOrder[guild.Key], GuildRender(guild.Value));
-                } else
-                {
-                    TempGuildList.Add(GuildRender(guild.Value));
-                }
-                if (Storage.Cache.Guilds[guild.Key].RawGuild.Roles != null)
-                {
-                    foreach (Role role in Storage.Cache.Guilds[guild.Key].RawGuild.Roles)
-                    {
-                        if (!Storage.Cache.Guilds[guild.Key].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                        {
-                            Storage.Cache.Guilds[guild.Key].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(guild.Key, Storage.Cache.CurrentUser.Raw.Id)));
-                        }
-                        if (role.Name == "@everyone" && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
-                        {
-                            Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
-                        }
-                        if (Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[guild.Key].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                        {
-                            Storage.Cache.Guilds[guild.Key].perms.GetPermissions(role, Storage.Cache.Guilds[guild.Key].RawGuild.Roles);
-                        }
-                    }
-                }
-            }
-
-            foreach (UIElement item in TempGuildList)
-            {
-                if (item is ListViewItem)
-                {
-                    ServerList.Items.Add(item);
-                }
-            }
-            Storage.SaveCache();
             if (SelectChannel)
             {
-                foreach (ListViewItem guild in ServerList.Items)
+                foreach (SimpleGuild guild in ServerList.Items)
                 {
-                    if (guild.Tag.ToString() == SelectGuildId)
+                    if (guild.Id == SelectGuildId)
                     {
                         ServerList.SelectedItem = guild;
                     }
@@ -515,17 +471,17 @@ namespace Discord_UWP
         Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private async void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
+            if (ServerList.SelectedItem != null) /*Called upon clearing*/
             {
                 _onlyAllowOpeningPane = true;
                 ToggleServerListFull(null, null);
-                ServerName.Text = ToolTipService.GetToolTip((sender as ListView).SelectedItem as DependencyObject).ToString();
+                ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
                 TextChannels.Items.Clear();
                 Typers.Clear();
                 MembersCvs.Source = null;
                 App.GuildMembers = null;
                 SendMessage.Visibility = Visibility.Collapsed;
-                if (((sender as ListView).SelectedItem as ListViewItem).Tag.ToString() == "DMs")
+                if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
                 {
                     App.CurrentGuildIsDM = true;
                     Channels.Visibility = Visibility.Collapsed;
@@ -562,10 +518,10 @@ namespace Discord_UWP
                     if (Session.Online)
                     {
                         ChannelsLoading.IsActive = true;
-                        DownloadGuild(((sender as ListView).SelectedItem as ListViewItem).Tag.ToString());
+                        DownloadGuild((ServerList.SelectedItem as SimpleGuild).Id);
                     } else
                     {
-                        LoadGuild(((sender as ListView).SelectedItem as ListViewItem).Tag.ToString());
+                        LoadGuild((ServerList.SelectedItem as SimpleGuild).Id);
                     }
                     if (SelectChannel)
                     {
@@ -882,9 +838,9 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+            if (!App.CurrentGuildIsDM)
             {
-                App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()];
+                App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
             }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
@@ -965,7 +921,6 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
-
                     if (TextChannels.SelectedItem != null)
                     {
                         SendMessage.Visibility = Visibility.Visible;
@@ -974,7 +929,7 @@ namespace Discord_UWP
                         MuteToggle.Visibility = Visibility.Visible;
                         Messages.Items.Clear();
 
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Clear();
+                        Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Clear();
 
                         int adCheck = 5;
 
@@ -990,11 +945,11 @@ namespace Discord_UWP
 
                         foreach (SharedModels.Message message in messages)
                         {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Add(message.Id, new Message(message));
+                            Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Add(message.Id, new Message(message));
                         }
 
                         //Normal messages
-                        foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[App.CurrentChannelId].Messages.Reverse())
+                        foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Messages.Reverse())
                         {
                             adCheck--;
                             Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
