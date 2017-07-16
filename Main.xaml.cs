@@ -250,8 +250,14 @@ namespace Discord_UWP
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
             App.NavigateToGuildEditHandler += OnNavigateToGuildEdit;
             App.NavigateToNicknameEditHandler += OnNavigateToNicknameEdit;
+            App.NavigateToCreateBanHandler += OnNavigateToCreateBan;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToCreateBan(object sender, App.CreateBanNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateBan), e.UserId);
         }
 
         private void OnNavigateToNicknameEdit(object sender, App.NicknameEditNavigationArgs e)

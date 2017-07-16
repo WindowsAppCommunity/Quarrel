@@ -169,13 +169,12 @@ namespace Discord_UWP
         #region CreatBan
         public class CreateBanNavigationArgs : EventArgs
         {
-            public string GuildId { get; set; }
             public string UserId { get; set; }
         }
         public static event EventHandler<CreateBanNavigationArgs> NavigateToCreateBanHandler;
-        public static void NavigateToCreateBan(string guildId, string userId)
+        public static void NavigateToCreateBan( string userId)
         {
-            NavigateToCreateBanHandler?.Invoke(typeof(App), new CreateBanNavigationArgs() { GuildId = guildId, UserId = userId});
+            NavigateToCreateBanHandler?.Invoke(typeof(App), new CreateBanNavigationArgs() {UserId = userId});
         }
         #endregion
 

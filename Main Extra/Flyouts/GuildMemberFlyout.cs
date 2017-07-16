@@ -215,7 +215,7 @@ namespace Discord_UWP
                 leaveServer.Click += LeaveServer;
                 menu.Items.Add(leaveServer);
             }
-            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers)
+            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem banMember = new MenuFlyoutItem()
                 {
@@ -258,8 +258,7 @@ namespace Discord_UWP
 
         private void BanMember(object sender, RoutedEventArgs e)
         {
-            Session.CreateBan(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString(), new API.Guild.Models.CreateGuildBan() { DeleteMessageDays = 0});
-            //TODO: Confirm+ban options
+            App.NavigateToCreateBan((sender as MenuFlyoutItem).Tag.ToString());
         }
 
         private void LeaveServer(object sender, RoutedEventArgs e)
