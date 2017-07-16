@@ -55,6 +55,13 @@ namespace Discord_UWP
                 set { if (_subtitle == value) return; _subtitle = value; OnPropertyChanged("Subtitle"); }
             }
 
+            private Game? _playing;
+            public Game? Playing
+            {
+                get { return _playing; }
+                set { if (_playing.HasValue && value.HasValue && _playing.Value.Name == value.Value.Name && _playing.Value.Type == value.Value.Type) return; _playing = value; OnPropertyChanged("Playing"); }
+            }
+
             private string _imageurl;
             public string ImageURL
             {
@@ -125,6 +132,14 @@ namespace Discord_UWP
                         //DM
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Raw.Users.FirstOrDefault().Id + "/" + channel.Value.Raw.Users.FirstOrDefault().Avatar + ".png?size=64";
                         sc.Name = channel.Value.Raw.Users.FirstOrDefault().Username;
+                        if (Session.PrecenseDict.ContainsKey(channel.Value.Raw.Users.FirstOrDefault().Id))
+                        {
+                            sc.UserStatus = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Status;
+                            sc.Playing = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game;
+                        } else
+                        {
+                            sc.UserStatus = "offline";
+                        }
                         //TODO Check the playing text
                     }
                     else if (type == 3)

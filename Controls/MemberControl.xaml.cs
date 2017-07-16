@@ -60,28 +60,11 @@ namespace Discord_UWP.Controls
             if(DisplayedMember.Raw.User.Avatar != null)
                 Avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DisplayedMember.Raw.User.Id + "/" + DisplayedMember.Raw.User.Avatar + ".png?size=64"));
             if(DisplayedMember.status.Status != null)
-                switch (DisplayedMember.status.Status)
-                {
-                    case "online":
-                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Online"];
-                        break;
-                    case "idle":
-                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Idle"];
-                        break;
-                    case "dnd":
-                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["Dnd"];
-                        break;
-                    case "offline":
-                        if (Session.Online)
-                        {
-                            rectangle.Fill = (SolidColorBrush)App.Current.Resources["Offline"];
-                        }
-                        else
-                        {
-                            rectangle.Visibility = Visibility.Collapsed;
-                        }
-                        break;
-                }
+                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+            if (!Session.Online)
+            {
+                rectangle.Visibility = Visibility.Collapsed;
+            }
             if (DisplayedMember.status.Game != null)
             {
                 playing.Visibility = Visibility.Visible;

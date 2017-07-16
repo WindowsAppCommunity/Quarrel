@@ -249,7 +249,7 @@ namespace Discord_UWP
 
         #endregion
 
-        #region Static Object
+        #region Static Objects
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
         internal static Guild CurrentGuild;
@@ -402,19 +402,20 @@ namespace Discord_UWP
             var idleString = Storage.Settings.IdleBrush;
             var idleColor = idleString.ToColor();
             var dndString = Storage.Settings.DndBrush;
-            var dndColor = onlineString.ToColor();
+            var dndColor = dndString.ToColor();
             var offlineString = Storage.Settings.OfflineBrush;
             var offlineColor = offlineString.ToColor();
             App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
             App.Current.Resources["BlurpleColor"] = accentColor;
-            App.Current.Resources["Online"] = new SolidColorBrush(onlineColor);
-            App.Current.Resources["Idle"] = new SolidColorBrush(idleColor);
+            App.Current.Resources["online"] = new SolidColorBrush(onlineColor);
+            App.Current.Resources["idle"] = new SolidColorBrush(idleColor);
             App.Current.Resources["DndColor"] = dndColor;
-            App.Current.Resources["Dnd"] = new SolidColorBrush(dndColor);
-            App.Current.Resources["Offline"] = new SolidColorBrush(offlineColor);
+            App.Current.Resources["dnd"] = new SolidColorBrush(dndColor);
+            App.Current.Resources["offline"] = new SolidColorBrush(offlineColor);
             App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
             App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
             #endregion
+
             //Set the minimum window size:
             view.SetPreferredMinSize(new Size(128,128));
 

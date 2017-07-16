@@ -278,6 +278,23 @@ namespace Discord_UWP
                             try
                             { Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key); }
                             catch (Exception exception) { }
+                            try
+                            {
+                                var channel =
+                                (DirectMessageChannels.Items.FirstOrDefault(
+                                    x => (x as SimpleChannel).Id == e.EventData.ChannelId) as SimpleChannel);
+                                if (channel != null) channel.IsTyping = false;
+
+                                ReadState rpc = new ReadState();
+                                if (Session.RPC.ContainsKey(e.EventData.ChannelId))
+                                    rpc = Session.RPC[e.EventData.ChannelId];
+                                else
+                                    Session.RPC.Add(e.EventData.ChannelId, rpc);
+                                if (e.EventData.MentionEveryone ||
+                                    e.EventData.Mentions.Any(x => x.Id == App.CurrentUserId))
+                                    rpc.MentionCount = rpc.MentionCount + 1;
+                            }
+                            catch (Exception) { }
                         }
                     }
                 });
@@ -487,12 +504,24 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    foreach (SimpleChannel sc in TextChannels.Items)
-                        if (sc.Id == e.EventData.ChannelId)
-                        {
-                            sc.IsUnread = false;
-                            sc.NotificationCount = 0;
-                        }
+                    if (App.CurrentGuildIsDM)
+                    {
+                        foreach (SimpleChannel sc in DirectMessageChannels.Items)
+                            if (sc.Id == e.EventData.ChannelId)
+                            {
+                                sc.IsUnread = false;
+                                sc.NotificationCount = 0;
+                            }
+                    }
+                    else
+                    {
+                        foreach (SimpleChannel sc in TextChannels.Items)
+                            if (sc.Id == e.EventData.ChannelId)
+                            {
+                                sc.IsUnread = false;
+                                sc.NotificationCount = 0;
+                            }
+                    }
                 });
             if (Session.RPC.ContainsKey(e.EventData.ChannelId))
             {
@@ -771,7 +800,7 @@ namespace Discord_UWP
                 {
                     if (ServerList.SelectedIndex == 0)
                     {
-                        DirectMessageChannels.Items.Add(ChannelRender(new DmCache(e.EventData)));
+                        LoadDMs(); //TODO: Don't reload all for one
                     }
                 });
         }
@@ -784,7 +813,13 @@ namespace Discord_UWP
                 {
                     if (ServerList.SelectedIndex == 0)
                     {
-                        LoadDMs();
+                        foreach (SimpleChannel chn in DirectMessageChannels.Items)
+                        {
+                            if (chn.Id == e.EventData.Id)
+                            {
+                                DirectMessageChannels.Items.Remove(chn);
+                            }
+                        }
                     }
                 });
         }
@@ -828,20 +863,19 @@ namespace Discord_UWP
                 App.Notes.Add(e.EventData.UserId, e.EventData.Note);
         }
 
-        private async void GatewayOnUserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> gatewayEventArgs)
+        private async void GatewayOnUserSettingsUpdated(object sender, GatewayEventArgs<UserSettings> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 //LocalStatusChangeEnabled = false;
-                if (gatewayEventArgs.EventData.Status == "online")
+                if (e.EventData.Status == "online")
                     UserStatusOnline.IsChecked = true;
-                if (gatewayEventArgs.EventData.Status == "idle")
+                if (e.EventData.Status == "idle")
                     UserStatusIdle.IsChecked = true;
-                if (gatewayEventArgs.EventData.Status == "dnd")
+                if (e.EventData.Status == "dnd")
                     UserStatusDND.IsChecked = true;
-                if (gatewayEventArgs.EventData.Status == "offline")
+                if (e.EventData.Status == "offline")
                     UserStatusInvisible.IsChecked = true;
-
             });
         }
 
@@ -855,10 +889,20 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id != null)
+                    if (App.CurrentGuildIsDM)
+                    {
+                        foreach (SimpleChannel chn in DirectMessageChannels.Items)
+                        {
+                            if (chn.Type == 1 && Storage.Cache.DMs[chn.Id].Raw.Users.FirstOrDefault().Id == e.EventData.User.Id)
+                            {
+                                chn.UserStatus = e.EventData.Status;
+                                chn.Playing = e.EventData.Game;
+                            }
+                        }
+                    } else
                     {
                         //TODO REPLACE WITH ADD/REMOVE
-                        // LoadMembers(((TextChannels.SelectedItem as ListViewItem)?.Tag as GuildChannel)?.Raw.Id);
+                        //LoadMembers((TextChannels.SelectedItem as SimpleChannel).Id);
                     }
                 });
         }

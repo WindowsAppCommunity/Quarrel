@@ -71,6 +71,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        public Game? Playing
+        {
+            get { return (Game?)GetValue(PlayingProperty); }
+            set { SetValue(PlayingProperty, value); }
+        }
+        public static readonly DependencyProperty PlayingProperty = DependencyProperty.Register(
+            nameof(Playing),
+            typeof(Game?),
+            typeof(ChannelControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
         public string ImageUrl
         {
             get { return (string)GetValue(ImageUrlProperty); }
@@ -154,19 +165,49 @@ namespace Discord_UWP.Controls
                     this.Visibility = Visibility.Collapsed;
                 }
             }
-
             if (prop == UserStatusProperty)
             {
-                //TODO add userstatus features
+                if (UserStatus != "")
+                {
+                    Status.Fill = (SolidColorBrush)App.Current.Resources[UserStatus];
+                    if (Session.Online)
+                    {
+                        Status.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        Status.Visibility = Visibility.Collapsed;
+                    }
+                }
             }
             if (prop == SubtitleProperty)
             {
                 if (Subtitle != "")
                 {
-                    PlayingBlock.Visibility = Visibility.Visible;
-                    PlayingBlock.Text = Subtitle;
+                    SubTitle.Visibility = Visibility.Visible;
+                    SubTitle.Text = Subtitle;
                 }
                 else
+                {
+                    SubTitle.Visibility = Visibility.Collapsed;
+                }
+            }
+            if (prop == PlayingProperty)
+            {
+                if (Playing.HasValue)
+                {
+                    PlayingBlock.Visibility = Visibility.Visible;
+                    switch (Playing.Value.Type)
+                    {
+                        case 0:
+                            PlayingType.Text = "Playing";
+                            break;
+                        case 1:
+                            PlayingType.Text = "Streaming";
+                            break;
+                    }
+                    PlayingText.Text = Playing.Value.Name;
+                } else
                 {
                     PlayingBlock.Visibility = Visibility.Collapsed;
                 }

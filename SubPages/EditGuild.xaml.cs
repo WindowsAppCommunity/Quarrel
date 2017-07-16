@@ -100,12 +100,12 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
-            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)
+            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
-                GuildName.IsReadOnly = true;
+                GuildName.IsEnabled = false;
                 Invites.Visibility = Visibility.Collapsed;
             }
-            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.BanMembers && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)
+            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.BanMembers && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 Bans.Visibility = Visibility.Collapsed;
             }
@@ -309,6 +309,13 @@ namespace Discord_UWP.SubPages
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
+            if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position || (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            {
+                RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = false;
+            } else
+            {
+                RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = true;
+            }
             Common.Permissions perms = new Common.Permissions();
             perms.GetPermissions(role, Storage.Cache.Guilds[guildId].Roles.Values);
 

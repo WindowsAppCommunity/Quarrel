@@ -244,25 +244,11 @@ namespace Discord_UWP
                 rect.HorizontalAlignment = HorizontalAlignment.Right;
                 rect.VerticalAlignment = VerticalAlignment.Bottom;
 
-                switch (Session.PrecenseDict[channel.Raw.Users.First().Id].Status)
+                rect.Fill = (SolidColorBrush)App.Current.Resources[Session.PrecenseDict[channel.Raw.Users.First().Id].Status];
+                if (!Session.Online)
                 {
-                    case "online":
-                        rect.Fill = (SolidColorBrush)App.Current.Resources["Online"];
-                        break;
-                    case "idle":
-                        rect.Fill = (SolidColorBrush)App.Current.Resources["Idle"];
-                        break;
-                    case "offline":
-                        if (Session.Online)
-                        {
-                            rect.Fill = (SolidColorBrush)App.Current.Resources["Dnd"];
-                        } else
-                        {
-                            rect.Visibility = Visibility.Collapsed;
-                        }
-                        break;
+                    rect.Visibility = Visibility.Collapsed;
                 }
-
                 image.Children.Add(rect);
             }
             else
