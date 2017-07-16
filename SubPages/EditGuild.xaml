@@ -309,6 +309,65 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
+                        <!--<PivotItem Header="Notifications" Margin="12,0,0,0">
+                            <ScrollViewer>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox Grid.ColumnSpan="2" Style="{ThemeResource CheckBoxStyle1}" Margin="0,0,0,5" HorizontalAlignment="Stretch">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Mute" Opacity="0.8"/>
+                                                <TextBlock x:Name="GuildNameCheckbox" Text="Guild" Margin="5,0,0,0" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                            <TextBlock Text="Muting a server prevents unread indicators and notifcations from appearing unless you are mentioned" TextWrapping="WrapWholeWords" FontWeight="ExtraLight" FontSize="11"/>
+                                        </StackPanel>
+                                    </CheckBox>
+
+                                    <StackPanel Grid.Row="1">
+                                        <TextBlock Text="SERVER NOTIFICATION SETTINGS" FontSize="10" FontWeight="Bold"/>
+                                        <RadioButton Content="All Messages" GroupName="SNS"/>
+                                        <RadioButton Content="Only @mentions" GroupName="SNS"/>
+                                        <RadioButton Content="Nothing" GroupName="SNS"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Grid.Column="1">
+                                        <CheckBox Content="Suppress @everyone and @here" Style="{ThemeResource CheckBoxStyle1}"/>
+                                        <CheckBox Content="Push Notifcations" Style="{ThemeResource CheckBoxStyle1}"/>
+                                    </StackPanel>
+
+                                    <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+    ScrollViewer.HorizontalScrollMode="Enabled"                  
+    ScrollViewer.VerticalScrollMode="Disabled" x:Name="ChannelView" Height="50" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged" Grid.Row="2" Grid.ColumnSpan="2">
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Background="Transparent" Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+
+                                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+                                        <TextBlock Text="CHANNEL NOTIFICATION SETTINGS" FontSize="10" FontWeight="Bold"/>
+                                        <RadioButton Content="All Messages" GroupName="SNS"/>
+                                        <RadioButton Content="Only @mentions" GroupName="SNS"/>
+                                        <RadioButton Content="Nothing" GroupName="SNS"/>
+                                    </StackPanel>
+                                </Grid>
+                            </ScrollViewer>
+                        </PivotItem>-->
                         <PivotItem x:Name="Roles" Header="Roles">
                             <Grid>
                                 <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
