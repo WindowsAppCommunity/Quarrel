@@ -59,12 +59,12 @@ namespace Discord_UWP
                 set { if (_isunread == value) return; _isunread = value; OnPropertyChanged("IsUnread"); }
             }
 
-            //private bool _ismuted;
-            //public bool IsMuted
-            //{
-            //    get { return _ismuted; }
-            //    set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
-            //}
+            private bool _ismuted;
+            public bool IsMuted
+            {
+                get { return _ismuted; }
+                set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
+            }
 
             private bool _isdm;
             public bool IsDM
@@ -111,6 +111,7 @@ namespace Discord_UWP
                 }
                 sg.Name = guild.Value.RawGuild.Name;
 
+                sg.IsMuted = Storage.MutedServers.Contains(guild.Key);
                 sg.IsUnread = false; //Will change if true
                 foreach (var chn in guild.Value.Channels.Values)
                     if (Session.RPC.ContainsKey(chn.Raw.Id))
@@ -119,7 +120,7 @@ namespace Discord_UWP
                         sg.NotificationCount += readstate.MentionCount;
                         var StorageChannel = Storage.Cache.Guilds[sg.Id].Channels[chn.Raw.Id];
                         if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                            readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                            readstate.LastMessageId != StorageChannel.Raw.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }
                 ServerList.Items.Add(sg);

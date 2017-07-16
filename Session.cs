@@ -378,12 +378,12 @@ namespace Discord_UWP
         #endregion
 
         #region Set
-        public static async Task AckGuild(string guildId)
+        public static void AckGuild(string guildId)
         {
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                await guildservice.AckGuild(guildId);
+                guildservice.AckGuild(guildId).Wait();
             }
             catch (Exception e)
             {

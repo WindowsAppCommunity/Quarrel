@@ -116,7 +116,7 @@ namespace Discord_UWP.Controls
         {
             if (prop == IsUnreadProperty)
             {
-                if (IsUnread)
+                if (IsUnread && !IsMuted)
                 {
                     UnreadIndicator.Visibility = Visibility.Visible;
                 }

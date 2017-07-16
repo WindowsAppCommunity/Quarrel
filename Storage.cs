@@ -175,12 +175,31 @@ namespace Discord_UWP
 
                 }
             });
+
+            await Task.Run(async () =>
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                StorageFile file =
+                    await SavedData.CreateFileAsync("mutedservers", CreationCollisionOption.ReplaceExisting);
+
+                StringWriter settingsWriter = new StringWriter();
+                serializer.Serialize(settingsWriter, MutedServers);
+                try
+                {
+                    await FileIO.WriteTextAsync(file, settingsWriter.ToString());
+                }
+                catch
+                {
+
+                }
+            });
         }
 
 
         public static Settings Settings = new Settings(); //this just represents the storage
         public static Dictionary<string, string> RecentMessages = new Dictionary<string, string>();
         public static List<string> MutedChannels = new List<string>();
+        public static List<string> MutedServers = new List<string>();
         public static string Token; //this just reperesents the storage
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
         public static StorageFolder SavedData = ApplicationData.Current.LocalFolder;

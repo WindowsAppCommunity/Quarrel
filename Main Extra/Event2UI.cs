@@ -545,70 +545,12 @@ namespace Discord_UWP
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                        if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                         {
-
-                            //if (MemberList != null)
-                            //{
-                            //    MemberList.Children.Clear();
-                            //};
-
                             #region Roles
 
                             MembersCvs.Source = null;
-                            LoadMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-
-                            // List<ListView> listBuffer = new List<ListView>();
-                            // while (listBuffer.Count < 1000)
-                            // {
-                            //     listBuffer.Add(new ListView());
-                            // }
-                            // 
-                            // if (Storage.Cache.Guilds[e.EventData.Id].Roles != null)
-                            // {
-                            //     foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                            //     {
-                            //         if (role.Hoist)
-                            //         {
-                            //             ListView listview = new ListView();
-                            //             listview.Header = role.Name;
-                            //             listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                            //             listview.SelectionMode = ListViewSelectionMode.None;
-                            //
-                            //             foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                            //             {
-                            //                 if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                            //                 {
-                            //                     ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            //                     listview.Items.Add(listviewitem);
-                            //                 }
-                            //             }
-                            //             listBuffer.Insert(1000 - role.Position * 3, listview);
-                            //         }
-                            //     }
-                            // }
-                            //
-                            // foreach (ListView listview in listBuffer)
-                            // {
-                            //     if (listview.Items.Count != 0)
-                            //     {
-                            //         MemberList.Children.Add(listview);
-                            //     }
-                            // }
-                            //
-                            // ListView fulllistview = new ListView();
-                            // fulllistview.Header = "Everyone";
-                            //
-                            // foreach (KeyValuePair<string, Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                            // {
-                            //     if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
-                            //     {
-                            //         Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new Member(member.Value.Raw));
-                            //     }
-                            //     ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            //     fulllistview.Items.Add(listviewitem);
-                            // }
-                            // MemberList.Children.Add(fulllistview);
+                            LoadMembers((ServerList.SelectedItem as SimpleGuild).Id);
 
                             #endregion
                         }
@@ -642,7 +584,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
+                    if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
                         DownloadGuild(e.EventData.GuildId);
                     }
@@ -655,7 +597,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
+                    if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
                         TextChannels.Items.Remove(
                             TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == e.EventData.Id));
@@ -669,7 +611,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == e.EventData.GuildId)
+                    if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
                         DownloadGuild(e.EventData.GuildId);
                     }
@@ -855,7 +797,10 @@ namespace Discord_UWP
                             if (chn.Type == 1 && Storage.Cache.DMs[chn.Id].Raw.Users.FirstOrDefault().Id == e.EventData.User.Id)
                             {
                                 chn.UserStatus = e.EventData.Status;
-                                chn.Playing = e.EventData.Game;
+                                if (e.EventData.Game.HasValue)
+                                {
+                                    chn.Playing = new Game() { Name = e.EventData.Game.Value.Name, Type = e.EventData.Game.Value.Type, Url = e.EventData.Game.Value.Url };
+                                }
                             }
                         }
                     } else

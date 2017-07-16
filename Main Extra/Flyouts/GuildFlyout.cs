@@ -63,20 +63,47 @@ namespace Discord_UWP
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = guild.RawGuild.Id
             };
-            mute.IsChecked = Storage.MutedChannels.Contains(guild.RawGuild.Id);
-            mute.Click += MuteChannel;
+            mute.IsChecked = Storage.MutedServers.Contains(guild.RawGuild.Id);
+            mute.Click += MuteServer;
             menu.Items.Add(mute);
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = "Mark as read",
                 Tag = guild.RawGuild.Id,
                 Icon = new SymbolIcon(Symbol.View),
-                Margin = new Thickness(-26, 0, 0, 0)
-                //IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleChannel).Id == guild.RawGuild.Id) as SimpleChannel).IsUnread
+                Margin = new Thickness(-26, 0, 0, 0),
+                IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread
             };
             menu.Items.Add(markasread);
-            markasread.Click += MarkAsReadOnClick;
+            markasread.Click += MarkGuildasRead;
             return menu;
+        }
+
+        private void MuteServer(object sender, RoutedEventArgs e)
+        {
+            if (Storage.MutedServers.Contains((sender as MenuFlyoutItem).Tag.ToString()))
+            {
+                Storage.MutedServers.Remove((sender as MenuFlyoutItem).Tag.ToString());
+            } else
+            {
+                Storage.MutedServers.Add((sender as MenuFlyoutItem).Tag.ToString());
+            }
+            Storage.SaveMutedChannels();
+
+            foreach (SimpleGuild sg in ServerList.Items)
+            {
+                if (sg.Id == (sender as MenuFlyoutItem).Tag.ToString())
+                {
+                    sg.IsMuted = Storage.MutedServers.Contains((sender as MenuFlyoutItem).Tag.ToString());
+                }
+            }
+
+            UpdateGuildAndChannelUnread();
+        }
+
+        private void MarkGuildasRead(object sender, RoutedEventArgs e)
+        {
+            Session.AckGuild((sender as MenuFlyoutItem).Tag.ToString());
         }
 
         private void EditServer(object sender, RoutedEventArgs e)

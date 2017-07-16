@@ -283,7 +283,6 @@
     <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\UserDetails.cs" />
     <Compile Include="Main Extra\Functions.cs" />
-    <Compile Include="Main Extra\UnreadManager.cs" />
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
