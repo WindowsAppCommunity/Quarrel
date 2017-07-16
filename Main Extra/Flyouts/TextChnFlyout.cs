@@ -51,7 +51,7 @@ namespace Discord_UWP
                 Text = "Edit Channel",
                 Tag = chn.Raw.Id,
                 Icon = new SymbolIcon(Symbol.Edit),
-                Margin=new Thickness(-26,0,0,0)
+                Margin = new Thickness(-26,0,0,0)
             };
             editchannel.Click += Editchannel;
             menu.Items.Add(editchannel);

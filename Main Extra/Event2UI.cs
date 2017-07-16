@@ -147,6 +147,12 @@ namespace Discord_UWP
                 Session.RPC.Add(readstate.Id, readstate);
             }
 
+            foreach (GuildSetting guild in e.EventData.GuildSettings)
+            {
+                Session.GuildRPC.Add(guild.GuildId, guild.MessageNotifications);
+                Session.GuildSettings.Add(guild.GuildId, guild);
+            }
+
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
