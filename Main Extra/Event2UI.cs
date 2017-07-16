@@ -258,7 +258,7 @@ namespace Discord_UWP
                     else
                     {
                         if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId ==
-                            ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id)
+                            (DirectMessageChannels.SelectedItem as SimpleChannel).Id)
                         {
                             await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
@@ -784,7 +784,7 @@ namespace Discord_UWP
                 {
                     if (ServerList.SelectedIndex == 0)
                     {
-                        DownloadDMs();
+                        LoadDMs();
                     }
                 });
         }

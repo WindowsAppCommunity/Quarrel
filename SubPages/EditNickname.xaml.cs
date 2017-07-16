@@ -27,6 +27,15 @@ namespace Discord_UWP.SubPages
             this.InitializeComponent();
         }
 
+        string userId = "";
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            userId = e.Parameter.ToString();
+            var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[userId];
+            if (member.Raw.Nick != null)
+            Nickname.Text = member.Raw.Nick;
+        }
+
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             CloseButton_Click(null, null);
@@ -34,15 +43,27 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            //scale.CenterY = this.ActualHeight / 2;
-            //scale.CenterX = this.ActualWidth / 2;
-            //NavAway.Begin();
+            scale.CenterY = this.ActualHeight / 2;
+            scale.CenterX = this.ActualWidth / 2;
+            NavAway.Begin();
             App.SubpageClosed();
         }
 
         private void NavAway_Completed(object sender, object e)
         {
             Frame.Visibility = Visibility.Collapsed;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (userId == Storage.Cache.CurrentUser.Raw.Id)
+            {
+                Session.ModifyCurrentUserNickname(App.CurrentGuildId, Nickname.Text);
+            } else
+            {
+                Session.ModifyGuildMemberNickname(App.CurrentGuildId, userId, Nickname.Text);
+            }
+            CloseButton_Click(null, null);
         }
     }
 }

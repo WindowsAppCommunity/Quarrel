@@ -6,7 +6,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleX" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleY" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Page.Resources>
+    <Page.RenderTransform>
+        <ScaleTransform x:Name="scale"/>
+    </Page.RenderTransform>
     <Grid x:Name="rootgrid" Background="{ThemeResource Background}" Margin="-100" Padding="100,112">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
@@ -72,7 +93,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
+                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
                         </Grid>
                     </Grid>
                 </Grid>

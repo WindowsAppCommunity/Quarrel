@@ -108,9 +108,52 @@ namespace Discord_UWP
 
         private void LoadChannelList(List<int> ChannelType)
         {
-            if (App.CurrentGuildIsDM) return; //Fuck DMs (for the moment)
+            if (App.CurrentGuildIsDM)
             {
+                var FilteredChannels = Storage.Cache.DMs.Where(x => ChannelType.Contains(x.Value.Raw.Type));
+                foreach (var channel in FilteredChannels)
+                {
+                    var sc = new SimpleChannel();
+                    sc.Id = channel.Value.Raw.Id;
+                    var type = channel.Value.Raw.Type;
+                    sc.Type = type;
+                    if (Storage.MutedChannels.Contains(sc.Id))
+                        sc.IsMuted = true;
+                    else
+                        sc.IsMuted = false;
 
+                    if (type == 1)
+                    {
+                        //DM
+                        sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Raw.Users.FirstOrDefault().Id + "/" + channel.Value.Raw.Users.FirstOrDefault().Avatar + ".png?size=64";
+                        sc.Name = channel.Value.Raw.Users.FirstOrDefault().Username;
+                        //TODO Check the playing text
+                    }
+                    else if (type == 3)
+                    {
+                        //GROUP DM
+                        sc.Subtitle = channel.Value.Raw.Users.Count().ToString() + " members";
+                        List<string> channelMembers = new List<string>();
+                        foreach (var d in channel.Value.Raw.Users)
+                            channelMembers.Add(d.Username);
+                        sc.Name = string.Join(", ", channelMembers);
+                    }
+                    if (Session.RPC.ContainsKey(sc.Id))
+                    {
+                        ReadState readstate = Session.RPC[sc.Id];
+                        sc.NotificationCount = readstate.MentionCount;
+                        var StorageChannel = Storage.Cache.DMs[sc.Id];
+                        if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                            readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                            sc.IsUnread = true;
+                        else
+                            sc.IsUnread = false;
+                    }
+                    DirectMessageChannels.Items.Add(sc);
+                }
+            }
+            else 
+            {
                 var FilteredChannels = Storage.Cache.Guilds[App.CurrentGuildId]
                     .Channels.Where(x => ChannelType.Contains(x.Value.Raw.Type))
                     .OrderBy(x => x.Value.Raw.Position);
@@ -148,22 +191,7 @@ namespace Discord_UWP
                     else
                         sc.IsMuted = false;
 
-                    if (type == 1)
-                    {
-                        //DM
-                        sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Value.Members.FirstOrDefault().Key + "/" + channel.Value.Members.FirstOrDefault().Value.Raw.User.Avatar + ".png?size=64";
-                        sc.Name = channel.Value.Members.FirstOrDefault().Value.Raw.User.Username;
-                        //TODO Check the playing text
-                    }
-                    else if (type == 3)
-                    {
-                        //GROUP DM
-                        sc.Subtitle = channel.Value.Members.Count().ToString() + " members";
-                        List<string> channelMembers = new List<string>();
-                        foreach (var d in channel.Value.Members.Values)
-                            channelMembers.Add(d.Raw.User.Username);
-                        sc.Name = string.Join(", ", channelMembers);
-                    }
+                    
                     if (Session.RPC.ContainsKey(sc.Id))
                     {
                         ReadState readstate = Session.RPC[sc.Id];

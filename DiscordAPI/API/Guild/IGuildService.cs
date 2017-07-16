@@ -50,6 +50,9 @@ namespace Discord_UWP.API.Guild
         [Patch("/guilds/{guildId}/members/{userId}")]
         Task ModifyGuildMember([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] ModifyGuildMember modifyGuildMember);
 
+        [Patch("/guilds/{guildId}/members/{userId}/nick")]
+        Task ModifyGuildMemberNickname([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] ModifyGuildMember modifyGuildMember);
+
         [Delete("/guilds/{guildId}/members/{userId}")]
         Task RemoveGuildMember([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId);
 

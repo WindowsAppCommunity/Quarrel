@@ -60,7 +60,7 @@ namespace Discord_UWP
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.Message)
             };
-            message.Click += mentionUser;
+            message.Click += MessageUser;
             menu.Items.Add(message);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
@@ -251,6 +251,11 @@ namespace Discord_UWP
             return menu;
         }
 
+        private void MessageUser(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToDMChannel((sender as MenuFlyoutItem).Tag.ToString());
+        }
+
         private void BanMember(object sender, RoutedEventArgs e)
         {
             Session.CreateBan(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString(), new API.Guild.Models.CreateGuildBan() { DeleteMessageDays = 0});
@@ -285,7 +290,7 @@ namespace Discord_UWP
 
         private void ChangeNickname(object sender, RoutedEventArgs e)
         {
-            
+            App.NavigateToNicknameEdit((sender as MenuFlyoutItem).Tag.ToString());
         }
 
         private async void Block(object sender, RoutedEventArgs e)
