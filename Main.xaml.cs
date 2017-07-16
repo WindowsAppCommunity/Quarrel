@@ -251,8 +251,14 @@ namespace Discord_UWP
             App.NavigateToGuildEditHandler += OnNavigateToGuildEdit;
             App.NavigateToNicknameEditHandler += OnNavigateToNicknameEdit;
             App.NavigateToCreateBanHandler += OnNavigateToCreateBan;
+            App.NavigateToLeaveServerHandler += OnNavigateToLeaverServer;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToLeaverServer(object sender, App.LeaverServerNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.LeaveServer), e.GuildId);
         }
 
         private void OnNavigateToCreateBan(object sender, App.CreateBanNavigationArgs e)
@@ -507,7 +513,7 @@ namespace Discord_UWP
         #region LoadGuild
 
         Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
-        private void CatchServerSelection(object sender, SelectionChangedEventArgs e)
+        private async void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
             if ((sender as ListView).SelectedItem != null) /*Called upon clearing*/
             {
@@ -534,17 +540,18 @@ namespace Discord_UWP
                     }
                     if (SelectChannel)
                     {
-                        foreach (ListViewItem channel in DirectMessageChannels.Items)
+                        foreach (SimpleChannel channel in DirectMessageChannels.Items)
                         {
-                            if ((channel.Tag as DmCache).Raw.Users.Count() == 1 && (channel.Tag as DmCache).Raw.Users.FirstOrDefault().Id == SelectChannelId)
+                            if (channel.Type == 1 && Storage.Cache.DMs[channel.Id].Raw.Users.FirstOrDefault().Id == SelectChannelId)
                             {
                                 DirectMessageChannels.SelectedItem = channel;
-                            } else
-                            {
-                                //TODO: Create DM
+                                SelectChannel = false;
                             }
                         }
-                        SelectChannel = false;
+                        if (SelectChannel)
+                        {
+                            Session.CreateDM(new CreateDM() { Recipients = new List<string>() { SelectChannelId } });
+                        }
                     }
                 }
                 else
@@ -562,9 +569,9 @@ namespace Discord_UWP
                     }
                     if (SelectChannel)
                     {
-                        foreach (ListViewItem channel in TextChannels.Items)
+                        foreach (SimpleChannel channel in TextChannels.Items)
                         {
-                            if ((channel.Tag as GuildChannel).Raw.Id == SelectChannelId)
+                            if (channel.Id == SelectChannelId)
                             {
                                 TextChannels.SelectedItem = channel;
                             }
@@ -866,6 +873,7 @@ namespace Discord_UWP
             {
                 NoDMSCached.Visibility = Visibility.Visible;
             }
+
             App.CurrentGuildId = null;
         }
         #endregion
@@ -1151,27 +1159,33 @@ namespace Discord_UWP
                 Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Clear();
             }
 
-            foreach (SharedModels.Message message in messages)
+            if (messages != null)
             {
-                Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Add(message.Id, new Message(message));
+                foreach (SharedModels.Message message in messages)
+                {
+                    Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Add(message.Id, new Message(message));
+                }
             }
 
             Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
-            foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
+            if (Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
             {
-                adCheck--;
-                Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                if (adCheck == 0 && App.ShowAds)
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
                 {
-                    Messages.Items.Add(NewMessageContainer(null, null, true, null));
-                    adCheck = 5;
+                    adCheck--;
+                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
+                    if (adCheck == 0 && App.ShowAds)
+                    {
+                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
+                        adCheck = 5;
+                    }
                 }
             }
 
             Messages.Items.RemoveAt(0);
             await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.DMs[App.CurrentChannelId].Raw.LastMessageId));
-            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
+            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null && Messages.Items.Count > 0)
             {
                 if (Storage.RecentMessages.ContainsKey((DirectMessageChannels.SelectedItem as SimpleChannel).Id))
                 {

@@ -200,6 +200,7 @@
     <Compile Include="DiscordAPI\API\Login\Models\LoginResult.cs" />
     <Compile Include="DiscordAPI\API\User\IUserService.cs" />
     <Compile Include="DiscordAPI\API\User\Models\ModifyUser.cs" />
+    <Compile Include="DiscordAPI\API\User\Models\CreateDM.cs" />
     <Compile Include="DiscordAPI\API\User\Models\Note.cs" />
     <Compile Include="DiscordAPI\API\Voice\IVoiceService.cs" />
     <Compile Include="DiscordAPI\Authentication\AuthenticationTicket.cs" />
@@ -336,6 +337,9 @@
     </Compile>
     <Compile Include="SubPages\InAppPurchases.xaml.cs">
       <DependentUpon>InAppPurchases.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\LeaveServer.xaml.cs">
+      <DependentUpon>LeaveServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\PreviewAttachement.xaml.cs">
       <DependentUpon>PreviewAttachement.xaml</DependentUpon>
@@ -496,6 +500,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\InAppPurchases.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\LeaveServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -190,6 +190,18 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region LeaveServer
+        public class LeaverServerNavigationArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<LeaverServerNavigationArgs> NavigateToLeaveServerHandler;
+        public static void NavigateToLeaveServer(string guildId)
+        {
+            NavigateToLeaveServerHandler?.Invoke(typeof(App), new LeaverServerNavigationArgs() { GuildId = guildId });
+        }
+        #endregion
+
         #region ChannelEdit
         public class ChannelEditNavigationArgs : EventArgs
         {

@@ -40,8 +40,9 @@ namespace Discord_UWP.API.User
         [Get("/users/@me/channels")]
         Task<IEnumerable<DirectMessageChannel>> GetCurrentUserDirectMessageChannels();
 
-        [Post("/users/@me/channels")]
-        Task<DirectMessageChannel> CreateDirectMessageChannelForCurrentUser(string recipientId);
+        [Post("/v6/users/@me/channels")]
+        [Headers("Content-Type: application/json;")]
+        Task<DirectMessageChannel> CreateDirectMessageChannelForCurrentUser([Body] CreateDM createDM);
 
         [Get("/users/@me/connections")]
         Task<IEnumerable<Connection>> GetCurrentUserConnections();
