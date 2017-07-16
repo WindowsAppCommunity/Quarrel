@@ -34,6 +34,7 @@ namespace Discord_UWP.SubPages
             var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[userId];
             if (member.Raw.Nick != null)
             Nickname.Text = member.Raw.Nick;
+            Nickname.PlaceholderText = member.Raw.User.Username;
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
