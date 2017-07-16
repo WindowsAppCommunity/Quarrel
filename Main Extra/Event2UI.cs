@@ -149,7 +149,6 @@ namespace Discord_UWP
 
             foreach (GuildSetting guild in e.EventData.GuildSettings)
             {
-                Session.GuildRPC.Add(guild.GuildId, guild.MessageNotifications);
                 Session.GuildSettings.Add(guild.GuildId, guild);
             }
 
