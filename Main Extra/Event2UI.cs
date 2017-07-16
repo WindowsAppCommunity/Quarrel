@@ -104,9 +104,15 @@ namespace Discord_UWP
                 if (guild.Roles != null)
                 {
                     Storage.Cache.Guilds[guild.Id].Roles.Clear();
+                    Storage.Cache.Guilds[guild.Id].perms = new Common.Permissions();
+                    Storage.Cache.Guilds[guild.Id].perms.Perms.Permissions = 0;
                     foreach (Role role in guild.Roles)
                     {
                         Storage.Cache.Guilds[guild.Id].Roles.Add(role.Id, role);
+                        if (Storage.Cache.Guilds[guild.Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(role.Id) || role.Name == "@everyone")
+                        {
+                            Storage.Cache.Guilds[guild.Id].perms.Perms.Permissions = Storage.Cache.Guilds[guild.Id].perms.Perms.Permissions | Convert.ToInt32(role.Permissions);
+                        }
                     }
                 }
 
@@ -129,6 +135,12 @@ namespace Discord_UWP
                         SharedModels.GuildChannel channel = chn;
                         channel.GuildId = guild.Id;
                         Storage.Cache.Guilds[guild.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+
+                        foreach (var Channel in Storage.Cache.Guilds[guild.Id].Channels)
+                        {
+                            Storage.Cache.Guilds[guild.Id].Channels[Channel.Key].chnPerms = new Common.Permissions() { Perms = Storage.Cache.Guilds[guild.Id].perms.Perms};
+                            Storage.Cache.Guilds[guild.Id].Channels[Channel.Key].chnPerms.AddOverwrites(Channel.Value.Raw.PermissionOverwrites, guild.Id);
+                        }
                     }
                 }
             }
@@ -231,8 +243,7 @@ namespace Discord_UWP
                         var guild = Storage.Cache.Guilds.FirstOrDefault(
                             x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
                         if (guild.Value != null)
-                            guild.Value.Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
-                        Storage.Cache.Guilds[guild.Key].Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
+                            Storage.Cache.Guilds[guild.Key].Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
                     }
                     else
                     {
@@ -464,7 +475,7 @@ namespace Discord_UWP
                 });
         }
 
-        private async void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
+        private void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
             if (Session.RPC.ContainsKey(e.EventData.ChannelId))
             {
@@ -473,6 +484,13 @@ namespace Discord_UWP
                 item.LastMessageId = e.EventData.Id;
                 item.MentionCount = 0;
                 Session.RPC[e.EventData.ChannelId] = item;
+            } else
+            {
+                ReadState item = new ReadState();
+                item.Id = e.EventData.ChannelId;
+                item.LastMessageId = e.EventData.Id;
+                item.MentionCount = 0;
+                Session.RPC.Add(e.EventData.ChannelId, item);
             }
 
             UpdateGuildAndChannelUnread();
@@ -505,9 +523,15 @@ namespace Discord_UWP
                 if (e.EventData.Roles != null)
                 {
                     Storage.Cache.Guilds[e.EventData.Id].Roles.Clear();
+                    Storage.Cache.Guilds[e.EventData.Id].perms = new Common.Permissions();
+                    Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions = 0;
                     foreach (Role role in e.EventData.Roles)
                     {
                         Storage.Cache.Guilds[e.EventData.Id].Roles.Add(role.Id, role);
+                        if (Storage.Cache.Guilds[e.EventData.Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(role.Id))
+                        {
+                            Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions = Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions | Convert.ToInt32(role.Permissions);
+                        }
                     }
                 }
 
@@ -530,6 +554,12 @@ namespace Discord_UWP
                         SharedModels.GuildChannel channel = chn;
                         channel.GuildId = e.EventData.Id;
                         Storage.Cache.Guilds[e.EventData.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+
+                        foreach (var Channel in Storage.Cache.Guilds[e.EventData.Id].Channels)
+                        {
+                            Storage.Cache.Guilds[e.EventData.Id].Channels[Channel.Key].chnPerms = new Common.Permissions() { Perms = Storage.Cache.Guilds[e.EventData.Id].perms.Perms };
+                            Storage.Cache.Guilds[e.EventData.Id].Channels[Channel.Key].chnPerms.AddOverwrites(Channel.Value.Raw.PermissionOverwrites, e.EventData.Id);
+                        }
                     }
                 }
             }
@@ -537,6 +567,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    ServerList.Items.Clear();
                     LoadGuildList();
                 });
 
@@ -545,14 +576,17 @@ namespace Discord_UWP
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
+                        if (ServerList.SelectedItem != null)
                         {
-                            #region Roles
+                            if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
+                            {
+                                #region Roles
 
-                            MembersCvs.Source = null;
-                            LoadMembers((ServerList.SelectedItem as SimpleGuild).Id);
+                                MembersCvs.Source = null;
+                                LoadMembers((ServerList.SelectedItem as SimpleGuild).Id);
 
-                            #endregion
+                                #endregion
+                            }
                         }
                     });
             }

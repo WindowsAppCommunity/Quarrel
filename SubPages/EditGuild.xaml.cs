@@ -52,7 +52,7 @@ namespace Discord_UWP.SubPages
         {
             Common.Permissions perm = new Common.Permissions()
             {
-                ServerSidePerms = new Common.PermissionsSave()
+                Perms = new Common.PermissionsSave()
                 {
                     Administrator = Administrator.IsOn,
                     ViewAuditLog = ViewAuditLog.IsOn,
@@ -87,7 +87,7 @@ namespace Discord_UWP.SubPages
                 }
             };
             string roleId = (RolesView.SelectedItem as SimpleRole).Id;
-            Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = perm.GetServerPermissionsAsInt(), Position = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Position};
+            Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = perm.Perms.Permissions, Position = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Position};
             Task.Run(() =>
             {
                 Session.ModifyGuildRole(guildId, roleId, modifyguildrole);
@@ -101,12 +101,12 @@ namespace Discord_UWP.SubPages
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
             header.Text = "EDIT " + guild.RawGuild.Name.ToUpper();
-            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 GuildName.IsEnabled = false;
                 Invites.Visibility = Visibility.Collapsed;
             }
-            if (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.BanMembers && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!Storage.Cache.Guilds[guildId].perms.Perms.BanMembers && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 Bans.Visibility = Visibility.Collapsed;
             }
@@ -310,7 +310,7 @@ namespace Discord_UWP.SubPages
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
-            if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position || (!Storage.Cache.Guilds[guildId].perms.EffectivePerms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.EffectivePerms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = false;
             } else
@@ -318,43 +318,43 @@ namespace Discord_UWP.SubPages
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = true;
             }
             Common.Permissions perms = new Common.Permissions();
-            perms.GetPermissions(role, Storage.Cache.Guilds[guildId].Roles.Values);
+            perms.GetPermissions(guildId, new List<Role>() { role }.AsEnumerable());
 
             RoleName.Text = role.Name;
 
             Hoist.IsOn = role.Hoist;
             AllowMention.IsOn = role.Mentionable;
 
-            Administrator.IsOn = perms.ServerSidePerms.Administrator;
-            ViewAuditLog.IsOn = perms.ServerSidePerms.ViewAuditLog;
-            ManageServer.IsOn = perms.ServerSidePerms.ManangeGuild;
-            ManageRoles.IsOn = perms.ServerSidePerms.ManageRoles;
-            ManageChannels.IsOn = perms.ServerSidePerms.ManageChannels;
-            KickMembers.IsOn = perms.ServerSidePerms.KickMembers;
-            BanMembers.IsOn = perms.ServerSidePerms.BanMembers;
-            CreateInstantInvite.IsOn = perms.ServerSidePerms.CreateInstantInvite;
-            ChangeNickname.IsOn = perms.ServerSidePerms.ChangeNickname;
-            ManageNicknames.IsOn = perms.ServerSidePerms.ManageNicknames;
-            ManageEmojis.IsOn = perms.ServerSidePerms.ManageEmojis;
-            ManageWebhooks.IsOn = perms.ServerSidePerms.ManageWebhooks;
+            Administrator.IsOn = perms.Perms.Administrator;
+            ViewAuditLog.IsOn = perms.Perms.ViewAuditLog;
+            ManageServer.IsOn = perms.Perms.ManangeGuild;
+            ManageRoles.IsOn = perms.Perms.ManageRoles;
+            ManageChannels.IsOn = perms.Perms.ManageChannels;
+            KickMembers.IsOn = perms.Perms.KickMembers;
+            BanMembers.IsOn = perms.Perms.BanMembers;
+            CreateInstantInvite.IsOn = perms.Perms.CreateInstantInvite;
+            ChangeNickname.IsOn = perms.Perms.ChangeNickname;
+            ManageNicknames.IsOn = perms.Perms.ManageNicknames;
+            ManageEmojis.IsOn = perms.Perms.ManageEmojis;
+            ManageWebhooks.IsOn = perms.Perms.ManageWebhooks;
 
-            ReadMessages.IsOn = perms.ServerSidePerms.ReadMessages;
-            SendMessages.IsOn = perms.ServerSidePerms.SendMessages;
-            SendTtsMessages.IsOn = perms.ServerSidePerms.SendTtsMessages;
-            ManageMessages.IsOn = perms.ServerSidePerms.ManageMessages;
-            EmbedLinks.IsOn = perms.ServerSidePerms.EmbedLinks;
-            AttachFiles.IsOn = perms.ServerSidePerms.AttachFiles;
-            ReadMessageHistory.IsOn = perms.ServerSidePerms.ReadMessageHistory;
-            MentionEveryone.IsOn = perms.ServerSidePerms.MentionEveryone;
-            UseExternalEmojis.IsOn = perms.ServerSidePerms.UseExternalEmojis;
-            AddReactions.IsOn = perms.ServerSidePerms.AddReactions;
+            ReadMessages.IsOn = perms.Perms.ReadMessages;
+            SendMessages.IsOn = perms.Perms.SendMessages;
+            SendTtsMessages.IsOn = perms.Perms.SendTtsMessages;
+            ManageMessages.IsOn = perms.Perms.ManageMessages;
+            EmbedLinks.IsOn = perms.Perms.EmbedLinks;
+            AttachFiles.IsOn = perms.Perms.AttachFiles;
+            ReadMessageHistory.IsOn = perms.Perms.ReadMessageHistory;
+            MentionEveryone.IsOn = perms.Perms.MentionEveryone;
+            UseExternalEmojis.IsOn = perms.Perms.UseExternalEmojis;
+            AddReactions.IsOn = perms.Perms.AddReactions;
 
-            ConnectPerm.IsOn = perms.ServerSidePerms.Connect;
-            Speak.IsOn = perms.ServerSidePerms.Speak;
-            MuteMembers.IsOn = perms.ServerSidePerms.MuteMembers;
-            DeafenMembers.IsOn = perms.ServerSidePerms.DeafenMembers;
-            MoveMembers.IsOn = perms.ServerSidePerms.MoveMembers;
-            UseVad.IsOn = perms.ServerSidePerms.UseVad;
+            ConnectPerm.IsOn = perms.Perms.Connect;
+            Speak.IsOn = perms.Perms.Speak;
+            MuteMembers.IsOn = perms.Perms.MuteMembers;
+            DeafenMembers.IsOn = perms.Perms.DeafenMembers;
+            MoveMembers.IsOn = perms.Perms.MoveMembers;
+            UseVad.IsOn = perms.Perms.UseVad;
         }
 
         class SimpleRole : INotifyPropertyChanged 

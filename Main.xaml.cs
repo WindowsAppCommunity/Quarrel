@@ -394,18 +394,6 @@ namespace Discord_UWP
                 }
             }
         }
-        private UIElement MakeDmIcon()
-        {
-            ListViewItem item = new ListViewItem(){ Height = 64,
-                Width =64,
-                MinWidth =64,
-                Tag = "DMs",
-                HorizontalContentAlignment =HorizontalAlignment.Center,
-                FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                Content = "", FontSize = 22 };
-            ToolTipService.SetToolTip(item, "Direct messages");
-            return item;
-        }
         #endregion
 
         #region LoadGuild
@@ -609,33 +597,7 @@ namespace Discord_UWP
 
                 Messages.Items.Clear();
 
-
-                #region Permissions
-                Task.Run(() =>
-                {
-                    foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
-                    {
-                        if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                        {
-                            Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
-                        }
-                        if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                        {
-                            Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                        }
-                        else if (role.Name == "@everyone" && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0)
-                        {
-                            Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                        }
-                        else
-                        {
-                            Storage.Cache.Guilds[id].perms.GetPermissions(0);
-                        }
-                    }
-                });
-                #endregion
-
-                if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+                if (!Storage.Cache.Guilds[id].perms.Perms.ManageChannels && !Storage.Cache.Guilds[id].perms.Perms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
                 {
                     AddChannelButton.Visibility = Visibility.Collapsed;
                 }
@@ -694,28 +656,7 @@ namespace Discord_UWP
             Messages.Items.Clear();
             TextChannels.Items.Clear();
 
-            #region Permissions
-            Task.Run(() =>
-            {
-                foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
-                {
-                    if (!Storage.Cache.Guilds[id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                    {
-                        Storage.Cache.Guilds[id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember(id, Storage.Cache.CurrentUser.Raw.Id)));
-                    }
-                    if (role.Name == "@everyone" && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() == 0)
-                    {
-                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                    }
-                    if (Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                    {
-                        Storage.Cache.Guilds[id].perms.GetPermissions(role, Storage.Cache.Guilds[id].RawGuild.Roles);
-                    }
-                }
-            });
-            #endregion
-
-            if (!Storage.Cache.Guilds[id].perms.EffectivePerms.ManageChannels && !Storage.Cache.Guilds[id].perms.EffectivePerms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if (!Storage.Cache.Guilds[id].perms.Perms.ManageChannels && !Storage.Cache.Guilds[id].perms.Perms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 AddChannelButton.Visibility = Visibility.Collapsed;
             }

@@ -158,13 +158,14 @@ namespace Discord_UWP.Controls
 
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (!App.CurrentGuildIsDM && Id != "")
-            {
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.Administrator && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.ReadMessages)
-                {
-                    this.Visibility = Visibility.Collapsed;
-                }
-            }
+            //if (!App.CurrentGuildIsDM && Id != "")
+            //{
+            //    if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.Administrator && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Id].chnPerms.EffectivePerms.ReadMessages)
+            //    {
+            //        this.Visibility = Visibility.Collapsed;
+            //    }
+            //}
+
             if (prop == UserStatusProperty)
             {
                 if (UserStatus != "")
@@ -214,7 +215,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsUnreadProperty)
             {
-                if (IsUnread)
+                if (IsUnread && !IsMuted)
                 {
                     ChannelName.Fade(1,200).Start();
                     UnreadIndicator.Visibility = Visibility.Visible;
@@ -231,6 +232,8 @@ namespace Discord_UWP.Controls
                 {
                     ChannelName.Opacity = 0.5;
                     MuteIcon.Visibility = Visibility.Visible;
+                    ChannelName.Fade(0.75f, 200).Start();
+                    UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
                 else
                 {

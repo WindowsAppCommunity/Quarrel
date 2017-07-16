@@ -123,215 +123,213 @@ namespace Discord_UWP
 
             }
 
-            public Permissions GetPermissions(SharedModels.Role input, IEnumerable<SharedModels.Role> roles)
+            public Permissions GetPermissions(string guildId, IEnumerable<SharedModels.Role> roles)
             {
-                ServerSidePerms = new PermissionsSave(Convert.ToInt64(input.Permissions));
-
                 foreach (SharedModels.Role role in roles)
                 {
-                    if (role.Position <= input.Position)
-                    {
-                        EffectivePerms.AddMerge(Convert.ToInt64(role.Permissions));
-                    }
+                    Perms.Permissions = Perms.Permissions | Convert.ToInt32(role.Permissions);
                 }
                 return this;
             }
 
             public Permissions GetPermissions(long input)
             {
-                ServerSidePerms = new PermissionsSave(Convert.ToInt64(input));
+                Perms = new PermissionsSave(Convert.ToInt32(input));
                 return this;
-            }
-
-            public int GetServerPermissionsAsInt()
-            {
-                int returnValue = 0;
-                returnValue += ServerSidePerms.CreateInstantInvite ?  0x1 : 0;
-                returnValue += ServerSidePerms.KickMembers ? 0x2 : 0;
-                returnValue += ServerSidePerms.BanMembers ? 0x4 : 0;
-                returnValue += ServerSidePerms.Administrator ? 0x8 : 0;
-                returnValue += ServerSidePerms.ManageChannels ? 0x10 : 0;
-                returnValue += ServerSidePerms.ManangeGuild ? 0x20 : 0;
-                returnValue += ServerSidePerms.AddReactions ? 0x40 : 0;
-                returnValue += ServerSidePerms.ViewAuditLog ? 0x80 : 0;
-                returnValue += ServerSidePerms.ReadMessages ? 0x400 : 0;
-                returnValue += ServerSidePerms.SendMessages ? 0x800 : 0;
-                returnValue += ServerSidePerms.SendTtsMessages ? 0x1000 : 0;
-                returnValue += ServerSidePerms.ManageMessages ? 0x2000 : 0;
-                returnValue += ServerSidePerms.EmbedLinks ? 0x4000 : 0;
-                returnValue += ServerSidePerms.AttachFiles ? 0x8000 : 0;
-                returnValue += ServerSidePerms.ReadMessageHistory ? 0x10000 : 0;
-                returnValue += ServerSidePerms.MentionEveryone ? 0x20000 : 0;
-                returnValue += ServerSidePerms.UseExternalEmojis ? 0x40000 : 0;
-                returnValue += ServerSidePerms.Connect ? 0x100000 : 0;
-                returnValue += ServerSidePerms.Speak ? 0x200000 : 0;
-                returnValue += ServerSidePerms.MuteMembers ? 0x400000 : 0;
-                returnValue += ServerSidePerms.DeafenMembers ? 0x800000 : 0;
-                returnValue += ServerSidePerms.MoveMembers ? 0x1000000 : 0;
-                returnValue += ServerSidePerms.UseVad ? 0x2000000 : 0;
-                returnValue += ServerSidePerms.ChangeNickname ? 0x4000000 : 0;
-                returnValue += ServerSidePerms.ManageNicknames ? 0x8000000 : 0;
-                returnValue += ServerSidePerms.ManageRoles ? 0x10000000 : 0;
-                returnValue += ServerSidePerms.ManageWebhooks ? 0x20000000 : 0;
-                returnValue += ServerSidePerms.ManageEmojis ? 0x40000000 : 0;
-                return returnValue;
             }
 
             public void AddOverwrites(IEnumerable<SharedModels.Overwrite> overwrites, string guild)
             {
-                foreach (SharedModels.Overwrite overwrite in overwrites)
+                foreach (SharedModels.Overwrite overwrite in overwrites.TakeWhile(x => x.Type == "role" && Storage.Cache.Guilds[guild].Roles[x.Id].Name == "@everyone"))
                 {
-                    switch (overwrite.Type)
+                    Perms.Permissions = Perms.Permissions &~ overwrite.Deny;
+                    Perms.Permissions = Perms.Permissions | overwrite.Allow;
+                }
+
+                foreach (SharedModels.Overwrite overwrite in overwrites.TakeWhile(x => x.Type == "role"))
+                {
+                    if (Storage.Cache.Guilds[guild].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(overwrite.Id))
                     {
-                        case "role":
-                            //Find a way to get guild
-                            if (Storage.Cache.Guilds[guild].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles != null && (Storage.Cache.Guilds[guild].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id) && Storage.Cache.Guilds[guild].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(overwrite.Id)) || Storage.Cache.Guilds[guild].Roles.ContainsKey(overwrite.Id) && Storage.Cache.Guilds[(guild)].Roles[overwrite.Id].Name == "@everyone")
-                            {
-                                EffectivePerms.AddMerge(Convert.ToInt64(overwrite.Allow));
-                                EffectivePerms.RemoveMerge(Convert.ToInt64(overwrite.Deny));
-                            }
-                            break;
-                        case "member":
-                            if (Storage.Cache.CurrentUser.Raw.Id == overwrite.Id)
-                            {
-                                EffectivePerms.AddMerge(Convert.ToInt64(overwrite.Allow));
-                                EffectivePerms.RemoveMerge(Convert.ToInt64(overwrite.Deny));
-                            }
-                            break;
+                        Perms.Permissions = Perms.Permissions &~ overwrite.Deny;
+                    }
+                }
+
+                foreach (SharedModels.Overwrite overwrite in overwrites.TakeWhile(x => x.Type == "role"))
+                {
+                    if (Storage.Cache.Guilds[guild].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(overwrite.Id))
+                    {
+                        Perms.Permissions = Perms.Permissions | overwrite.Allow;
+                    }
+                }
+
+                foreach (SharedModels.Overwrite overwrite in overwrites.TakeWhile(x => x.Type == "member"))
+                {
+                    if (Storage.Cache.CurrentUser.Raw.Id == overwrite.Id)
+                    {
+                        Perms.Permissions = Perms.Permissions &~ overwrite.Deny;
+                        Perms.Permissions = Perms.Permissions | overwrite.Allow;
                     }
                 }
             }
 
-            public PermissionsSave EffectivePerms;
-            public PermissionsSave ServerSidePerms;
+            public PermissionsSave Perms;
         }
 
         public struct PermissionsSave
         {
-            public PermissionsSave(long perms)
+            public PermissionsSave(int perms)
             {
-                CreateInstantInvite = Convert.ToBoolean(perms & 0x1);
-                KickMembers = Convert.ToBoolean(perms & 0x2);
-                BanMembers = Convert.ToBoolean(perms & 0x4);
-                Administrator = Convert.ToBoolean(perms & 0x8);
-                ManageChannels = Convert.ToBoolean(perms & 0x10);
-                ManangeGuild = Convert.ToBoolean(perms & 0x20);
-                AddReactions = Convert.ToBoolean(perms & 0x40);
-                ViewAuditLog = Convert.ToBoolean(perms & 0x80);
-                ReadMessages = Convert.ToBoolean(perms & 0x400);
-                SendMessages = Convert.ToBoolean(perms & 0x800);
-                SendTtsMessages = Convert.ToBoolean(perms & 0x1000);
-                ManageMessages = Convert.ToBoolean(perms & 0x2000);
-                EmbedLinks = Convert.ToBoolean(perms & 0x4000);
-                AttachFiles = Convert.ToBoolean(perms & 0x8000);
-                ReadMessageHistory = Convert.ToBoolean(perms & 0x10000);
-                MentionEveryone = Convert.ToBoolean(perms & 0x20000);
-                UseExternalEmojis = Convert.ToBoolean(perms & 0x40000);
-                Connect = Convert.ToBoolean(perms & 0x100000);
-                Speak = Convert.ToBoolean(perms & 0x200000);
-                MuteMembers = Convert.ToBoolean(perms & 0x400000);
-                DeafenMembers = Convert.ToBoolean(perms & 0x800000);
-                MoveMembers = Convert.ToBoolean(perms & 0x1000000);
-                UseVad = Convert.ToBoolean(perms & 0x2000000);
-                ChangeNickname = Convert.ToBoolean(perms & 0x4000000);
-                ManageNicknames = Convert.ToBoolean(perms & 0x8000000);
-                ManageRoles = Convert.ToBoolean(perms & 0x10000000);
-                ManageWebhooks = Convert.ToBoolean(perms & 0x20000000);
-                ManageEmojis = Convert.ToBoolean(perms & 0x40000000);
+                Perms = perms;
             }
 
-            public void AddMerge(long perms)
+            public int Permissions
             {
-                CreateInstantInvite = CreateInstantInvite ? true : Convert.ToBoolean(perms & 0x1);
-                KickMembers = KickMembers ? true : Convert.ToBoolean(perms & 0x2);
-                BanMembers = BanMembers ? true : Convert.ToBoolean(perms & 0x4);
-                Administrator = Administrator ? true : Convert.ToBoolean(perms & 0x8);
-                ManageChannels = ManageChannels ? true : Convert.ToBoolean(perms & 0x10);
-                ManangeGuild = ManangeGuild ? true : Convert.ToBoolean(perms & 0x20);
-                AddReactions = AddReactions ? true : Convert.ToBoolean(perms & 0x40);
-                ViewAuditLog = ViewAuditLog ? true : Convert.ToBoolean(perms & 0x80);
-                ReadMessages = ReadMessages ? true : Convert.ToBoolean(perms & 0x400);
-                SendMessages = SendMessages ? true : Convert.ToBoolean(perms & 0x800);
-                SendTtsMessages = SendTtsMessages ? true : Convert.ToBoolean(perms & 0x1000);
-                ManageMessages = ManageMessages ? true : Convert.ToBoolean(perms & 0x2000);
-                EmbedLinks = EmbedLinks ? true : Convert.ToBoolean(perms & 0x4000);
-                AttachFiles = AttachFiles ? true : Convert.ToBoolean(perms & 0x8000);
-                ReadMessageHistory = ReadMessageHistory ? true : Convert.ToBoolean(perms & 0x10000);
-                MentionEveryone = MentionEveryone ? true : Convert.ToBoolean(perms & 0x20000);
-                UseExternalEmojis = UseExternalEmojis ? true : Convert.ToBoolean(perms & 0x40000);
-                Connect = Connect ? true : Convert.ToBoolean(perms & 0x100000);
-                Speak = Speak ? true : Convert.ToBoolean(perms & 0x200000);
-                MuteMembers = MuteMembers ? true : Convert.ToBoolean(perms & 0x400000);
-                DeafenMembers = DeafenMembers ? true : Convert.ToBoolean(perms & 0x800000);
-                MoveMembers = MoveMembers ? true : Convert.ToBoolean(perms & 0x1000000);
-                UseVad = UseVad ? true : Convert.ToBoolean(perms & 0x2000000);
-                ChangeNickname = ChangeNickname ? true : Convert.ToBoolean(perms & 0x4000000);
-                ManageNicknames = ManageNicknames ? true : Convert.ToBoolean(perms & 0x8000000);
-                ManageRoles = ManageRoles ? true : Convert.ToBoolean(perms & 0x10000000);
-                ManageWebhooks = ManageWebhooks ? true : Convert.ToBoolean(perms & 0x20000000);
-                ManageEmojis = ManageEmojis ? true : Convert.ToBoolean(perms & 0x40000000);
+                get { return Perms; }
+                set { Perms = value; }
             }
 
-            public void RemoveMerge(long perms)
+            public bool CreateInstantInvite
             {
-                CreateInstantInvite = Convert.ToBoolean(perms & 0x1) ? false : CreateInstantInvite;
-                KickMembers = Convert.ToBoolean(perms & 0x2) ? false : KickMembers;
-                BanMembers = Convert.ToBoolean(perms & 0x4) ? false : BanMembers;
-                Administrator = Convert.ToBoolean(perms & 0x8) ? false : Administrator;
-                ManageChannels = Convert.ToBoolean(perms & 0x10) ? false : ManageChannels;
-                ManangeGuild = Convert.ToBoolean(perms & 0x20) ? false : ManangeGuild;
-                AddReactions = Convert.ToBoolean(perms & 0x40) ? false : AddReactions;
-                ViewAuditLog = Convert.ToBoolean(perms & 0x80) ? false : ViewAuditLog;
-                ReadMessages = Convert.ToBoolean(perms & 0x400) ? false : ReadMessages;
-                SendMessages = Convert.ToBoolean(perms & 0x800) ? false : SendMessages;
-                SendTtsMessages = Convert.ToBoolean(perms & 0x1000) ? false : SendTtsMessages;
-                ManageMessages = Convert.ToBoolean(perms & 0x2000) ? false : ManageMessages;
-                EmbedLinks = Convert.ToBoolean(perms & 0x4000) ? false : EmbedLinks;
-                AttachFiles = Convert.ToBoolean(perms & 0x8000) ? false : AttachFiles;
-                ReadMessageHistory = Convert.ToBoolean(perms & 0x10000) ? false : ReadMessageHistory;
-                MentionEveryone = Convert.ToBoolean(perms & 0x20000) ? false : MentionEveryone;
-                UseExternalEmojis = Convert.ToBoolean(perms & 0x40000) ? false : UseExternalEmojis;
-                Connect = Convert.ToBoolean(perms & 0x100000) ? false : Connect;
-                Speak = Convert.ToBoolean(perms & 0x200000) ? false : Speak;
-                MuteMembers = Convert.ToBoolean(perms & 0x400000) ? false : MuteMembers;
-                DeafenMembers = Convert.ToBoolean(perms & 0x800000) ? false : DeafenMembers;
-                MoveMembers = Convert.ToBoolean(perms & 0x1000000) ? false : MoveMembers;
-                UseVad = Convert.ToBoolean(perms & 0x2000000) ? false : UseVad;
-                ChangeNickname = Convert.ToBoolean(perms & 0x4000000) ? false : ChangeNickname;
-                ManageNicknames = Convert.ToBoolean(perms & 0x8000000) ? false : ManageNicknames;
-                ManageRoles = Convert.ToBoolean(perms & 0x10000000) ? false : ManageRoles;
-                ManageWebhooks = Convert.ToBoolean(perms & 0x20000000) ? false : ManageWebhooks;
-                ManageEmojis = Convert.ToBoolean(perms & 0x40000000) ? false : ManageEmojis;
+                get { return Convert.ToBoolean(Perms & 0x1); }
+                set { Perms = Convert.ToInt32(value) | 0x1; }
+            }
+            public bool KickMembers
+            {
+                get { return Convert.ToBoolean(Perms & 0x2); }
+                set { Perms = Convert.ToInt32(value) | 0x2; }
+            }
+            public bool BanMembers
+            {
+                get { return Convert.ToBoolean(Perms & 0x4); }
+                set { Perms = Convert.ToInt32(value) | 0x4; }
+            }
+            public bool Administrator
+            {
+                get { return Convert.ToBoolean(Perms & 0x8); }
+                set { Perms = Convert.ToInt32(value) | 0x8; }
+            }
+            public bool ManageChannels
+            {
+                get { return Convert.ToBoolean(Perms & 0x10); }
+                set { Perms = Convert.ToInt32(value) | 0x10; }
+            }
+            public bool ManangeGuild
+            {
+                get { return Convert.ToBoolean(Perms & 0x20); }
+                set { Perms = Convert.ToInt32(value) | 0x20; }
+            }
+            public bool AddReactions
+            {
+                get { return Convert.ToBoolean(Perms & 0x40); }
+                set { Perms = Convert.ToInt32(value) | 0x40; }
+            }
+            public bool ViewAuditLog
+            {
+                get { return Convert.ToBoolean(Perms & 0x80); }
+                set { Perms = Convert.ToInt32(value) | 0x80; }
+            }
+            public bool ReadMessages
+            {
+                get { return Convert.ToBoolean(Perms & 0x400); }
+                set { Perms = Convert.ToInt32(value) | 0x400; }
+            }
+            public bool SendMessages
+            {
+                get { return Convert.ToBoolean(Perms & 0x800); }
+                set { Perms = Convert.ToInt32(value) | 0x800; }
+            }
+            public bool SendTtsMessages
+            {
+                get { return Convert.ToBoolean(Perms & 0x1000); }
+                set { Perms = Convert.ToInt32(value) | 0x1000; }
+            }
+            public bool ManageMessages
+            {
+                get { return Convert.ToBoolean(Perms & 0x2000); }
+                set { Perms = Convert.ToInt32(value) | 0x2000; }
+            }
+            public bool EmbedLinks
+            {
+                get { return Convert.ToBoolean(Perms & 0x4000); }
+                set { Perms = Convert.ToInt32(value) | 0x4000; }
+            }
+            public bool AttachFiles
+            {
+                get { return Convert.ToBoolean(Perms & 0x8000); }
+                set { Perms = Convert.ToInt32(value) | 0x8000; }
+            }
+            public bool ReadMessageHistory
+            {
+                get { return Convert.ToBoolean(Perms & 0x10000); }
+                set { Perms = Convert.ToInt32(value) | 0x10000; }
+            }
+            public bool MentionEveryone
+            {
+                get { return Convert.ToBoolean(Perms & 0x20000); }
+                set { Perms = Convert.ToInt32(value) | 0x20000; }
+            }
+            public bool UseExternalEmojis
+            {
+                get { return Convert.ToBoolean(Perms & 0x40000); }
+                set { Perms = Convert.ToInt32(value) | 0x40000; }
+            }
+            public bool Connect
+            {
+                get { return Convert.ToBoolean(Perms & 0x100000); }
+                set { Perms = Convert.ToInt32(value) | 0x100000; }
+            }
+            public bool Speak
+            {
+                get { return Convert.ToBoolean(Perms & 0x200000); }
+                set { Perms = Convert.ToInt32(value) | 0x200000; }
+            }
+            public bool MuteMembers
+            {
+                get { return Convert.ToBoolean(Perms & 0x400000); }
+                set { Perms = Convert.ToInt32(value) | 0x400000; }
+            }
+            public bool DeafenMembers
+            {
+                get { return Convert.ToBoolean(Perms & 0x800000); }
+                set { Perms = Convert.ToInt32(value) | 0x800000; }
+            }
+            public bool MoveMembers
+            {
+                get { return Convert.ToBoolean(Perms & 0x1000000); }
+                set { Perms = Convert.ToInt32(value) | 0x1000000; }
+            }
+            public bool UseVad
+            {
+                get { return Convert.ToBoolean(Perms & 0x2000000); }
+                set { Perms = Convert.ToInt32(value) | 0x2000000; }
+            }
+            public bool ChangeNickname
+            {
+                get { return Convert.ToBoolean(Perms & 0x4000000); }
+                set { Perms = Convert.ToInt32(value) | 0x4000000; }
+            }
+            public bool ManageNicknames
+            {
+                get { return Convert.ToBoolean(Perms & 0x8000000); }
+                set { Perms = Convert.ToInt32(value) | 0x8000000; }
+            }
+            public bool ManageRoles
+            {
+                get { return Convert.ToBoolean(Perms & 0x10000000); }
+                set { Perms = Convert.ToInt32(value) | 0x10000000; }
+            }
+            public bool ManageWebhooks
+            {
+                get { return Convert.ToBoolean(Perms & 0x20000000); }
+                set { Perms = Convert.ToInt32(value) | 0x20000000; }
+            }
+            public bool ManageEmojis
+            {
+                get { return Convert.ToBoolean(Perms & 0x40000000); }
+                set { Perms = Convert.ToInt32(value) | 0x40000000; }
             }
 
-            public bool CreateInstantInvite;
-            public bool KickMembers;
-            public bool BanMembers;
-            public bool Administrator;
-            public bool ManageChannels;
-            public bool ManangeGuild;
-            public bool AddReactions;
-            public bool ViewAuditLog;
-            public bool ReadMessages;
-            public bool SendMessages;
-            public bool SendTtsMessages;
-            public bool ManageMessages;
-            public bool EmbedLinks;
-            public bool AttachFiles;
-            public bool ReadMessageHistory;
-            public bool MentionEveryone;
-            public bool UseExternalEmojis;
-            public bool Connect;
-            public bool Speak;
-            public bool MuteMembers;
-            public bool DeafenMembers;
-            public bool MoveMembers;
-            public bool UseVad;
-            public bool ChangeNickname;
-            public bool ManageNicknames;
-            public bool ManageWebhooks;
-            public bool ManageEmojis;
-            public bool ManageRoles;
+            int Perms;
         }
     }
 }
