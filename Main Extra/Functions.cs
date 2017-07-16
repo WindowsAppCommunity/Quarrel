@@ -569,26 +569,26 @@ namespace Discord_UWP
         #region OldCode
         private UIElement MessageRender(SharedModels.Message message, bool isContinuation, int re)
         {
-            Permissions perms = new Permissions();
-            if (App.CurrentGuildId != null)
-            {
-                foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles)
-                {
-                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
-                    }
+            //Permissions perms = new Permissions();
+            //if (App.CurrentGuildId != null)
+            //{
+            //    foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles)
+            //    {
+            //        if (!Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+            //        {
+            //            Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
+            //        }
 
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                    {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles);
-                    }
-                    else
-                    {
-                        perms.GetPermissions(0);
-                    }
-                }
-            }
+            //        if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+            //        {
+            //            perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles);
+            //        }
+            //        else
+            //        {
+            //            perms.GetPermissions(0);
+            //        }
+            //    }
+            //}
 
             ListViewItem listviewitem = new ListViewItem();
             listviewitem.Style = (Style)App.Current.Resources["MessageStyle"];
@@ -981,7 +981,7 @@ namespace Discord_UWP
                 flyoutcontent.Children.Add(delete);
                 if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                 {
-                    if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].perms.Perms.ManageMessages && !Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].perms.Perms.Administrator && message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                     {
                         delete.IsEnabled = false;
                     }

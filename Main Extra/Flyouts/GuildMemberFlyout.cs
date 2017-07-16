@@ -74,7 +74,7 @@ namespace Discord_UWP
                 };
                 foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
                 {
-                    if (guild.Value.perms.EffectivePerms.Administrator || guild.Value.perms.EffectivePerms.CreateInstantInvite)
+                    if (guild.Value.perms.Perms.Administrator || guild.Value.perms.Perms.CreateInstantInvite)
                     {
                         MenuFlyoutItem item = new MenuFlyoutItem() { Text = guild.Value.RawGuild.Name, Tag = new Tuple<string, string>(guild.Value.Channels.FirstOrDefault().Value.Raw.Id, member.Raw.User.Id) };
                         item.Click += inviteToServer;
@@ -153,7 +153,7 @@ namespace Discord_UWP
                 MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
                 menu.Items.Add(sep2);
             }
-            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator && member.MemberDisplayedRole.Position <= Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ChangeNickname) || (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator && member.MemberDisplayedRole.Position <= Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                 {
@@ -164,7 +164,7 @@ namespace Discord_UWP
                 changeNickname.Click += ChangeNickname;
                 menu.Items.Add(changeNickname);
             }
-            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageRoles)
+            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageRoles)
             {
                 MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
                 {
@@ -192,7 +192,7 @@ namespace Discord_UWP
                 }
                 menu.Items.Add(roles);
             }
-            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.KickMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.KickMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem kickMember = new MenuFlyoutItem()
                 {
@@ -215,7 +215,7 @@ namespace Discord_UWP
                 leaveServer.Click += LeaveServer;
                 menu.Items.Add(leaveServer);
             }
-            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.BanMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.BanMembers) && member.MemberDisplayedRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem banMember = new MenuFlyoutItem()
                 {

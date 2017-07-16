@@ -136,6 +136,11 @@ namespace Discord_UWP
                         {
                             sc.UserStatus = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Status;
                             sc.Playing = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game;
+                            if (Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game.HasValue)
+                            {
+                                sc.Playing = new Game() { Name = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game
+                                    .Value.Name, Type = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game.Value.Type, Url = Session.PrecenseDict[channel.Value.Raw.Users.FirstOrDefault().Id].Game.Value.Url };
+                            }
                         } else
                         {
                             sc.UserStatus = "offline";
@@ -172,28 +177,6 @@ namespace Discord_UWP
                     .OrderBy(x => x.Value.Raw.Position);
                 foreach (var channel in FilteredChannels)
                 {
-                    foreach (Role role in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles)
-                    {
-                        if (!Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                        {
-                            Storage.Cache.Guilds[App.CurrentGuildId].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember(App.CurrentGuildId, Storage.Cache.CurrentUser.Raw.Id)));
-                        }
-                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                        {
-                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
-                        }
-                        else if (role.Name == "@everyone" && Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0)
-                        {
-                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(role, Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Roles);
-                        }
-                        else
-                        {
-                            Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.GetPermissions(0);
-                        }
-                    }
-
-                    Storage.Cache.Guilds[App.CurrentGuildId].Channels[channel.Value.Raw.Id].chnPerms.AddOverwrites(channel.Value.Raw.PermissionOverwrites, App.CurrentGuildId);
-
                     var sc = new SimpleChannel();
                     sc.Name = channel.Value.Raw.Name;
                     sc.Id = channel.Value.Raw.Id;
@@ -217,7 +200,10 @@ namespace Discord_UWP
                             sc.IsUnread = false;
                     }
 
-                    TextChannels.Items.Add(sc);
+                    if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.ReadMessages || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.ReadMessages || App.CurrentGuildId == sc.Id)
+                    {
+                        TextChannels.Items.Add(sc);
+                    }
                 }
             }
         }

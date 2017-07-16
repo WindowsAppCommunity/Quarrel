@@ -98,7 +98,7 @@ namespace Discord_UWP
                 //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
             };
 
-            if (!chn.chnPerms.EffectivePerms.ManageChannels && !chn.chnPerms.EffectivePerms.Administrator)
+            if (!chn.chnPerms.Perms.ManageChannels && !chn.chnPerms.Perms.Administrator)
             {
                 deleteChannel.IsEnabled = false;
             }
