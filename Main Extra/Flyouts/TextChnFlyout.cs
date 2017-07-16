@@ -25,6 +25,7 @@ using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -46,6 +47,15 @@ namespace Discord_UWP
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
+            MenuFlyoutItem PinChannel = new MenuFlyoutItem()
+            {
+                Text = SecondaryTile.Exists(chn.Raw.Id) ? "Unpin From Start" : "Pin To Start",
+                Tag = chn.Raw.Id,
+                Icon = SecondaryTile.Exists(chn.Raw.Id) ? new SymbolIcon(Symbol.UnPin) : new SymbolIcon(Symbol.Pin),
+                Margin = new Thickness(-26, 0, 0, 0)
+            };
+            PinChannel.Click += PinChannelToStart;
+            menu.Items.Add(PinChannel);
             MenuFlyoutItem editchannel = new MenuFlyoutItem()
             {
                 Text = "Edit Channel",
@@ -134,6 +144,54 @@ namespace Discord_UWP
         private void Editchannel(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.EditChannel), (sender as MenuFlyoutItem).Tag as string);
+        }
+
+
+        private async void PinChannelToStart(object sender, RoutedEventArgs e)
+        {
+            if (!SecondaryTile.Exists(((sender as Button).Tag as GuildChannel).Raw.Id))
+            {
+                var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
+
+                //var currentTime = new DateTime();
+                //var tileActivationArguments = "timeTileWasPinned=" + currentTime;
+                var tileActivationArguments = ((sender as Button).Tag as GuildChannel).Raw.Id + ":" + ((sender as Button).Tag as GuildChannel).Raw.GuildId;
+
+                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
+                tile.VisualElements.ShowNameOnSquare150x150Logo = true;
+                tile.VisualElements.ShowNameOnWide310x150Logo = true;
+                tile.VisualElements.ShowNameOnWide310x150Logo = true;
+
+                bool isCreated = await tile.RequestCreateAsync();
+                if (isCreated)
+                {
+                    MessageDialog msg = new MessageDialog("Pinned Succesfully");
+                    await msg.ShowAsync();
+                    (sender as Button).Content = "Unpin From Start";
+                }
+                else
+                {
+                    MessageDialog msg = new MessageDialog("Failed to Pin");
+                    await msg.ShowAsync();
+                }
+            }
+            else
+            {
+                var tileToDelete = new SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id);
+
+                bool isDeleted = await tileToDelete.RequestDeleteAsync();
+                if (isDeleted)
+                {
+                    MessageDialog msg = new MessageDialog("Removed Succesfully");
+                    await msg.ShowAsync();
+                    (sender as Button).Content = "Pin From Start";
+                }
+                else
+                {
+                    MessageDialog msg = new MessageDialog("Failed to Remove");
+                    await msg.ShowAsync();
+                }
+            }
         }
     }
 }

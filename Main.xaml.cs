@@ -156,35 +156,6 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
-
-            #region OldCode
-            #region TypingCheckTimer
-            //Timer timer = new Timer( async (object state) =>
-            //{
-            //    if (Session.Typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
-            //    {
-            //        Session.Typers.RemoveAt(Session.Typers.Count);
-            //    }
-
-            //    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //    {
-            //        TypingIndicator.Text = "";
-            //        if (Session.Typers.Count > 0)
-            //        {
-            //            foreach (SharedModels.TypingStart typing in Session.Typers)
-            //            {
-            //                if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
-            //                {
-            //                    TypingIndicator.Text += " " + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[typing.userId] + " ";
-            //                }
-            //            }
-            //        }
-            //    });
-
-            //}, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
-            #endregion
-            #endregion
-
             Login();
 
             SetupUI();
@@ -193,35 +164,6 @@ namespace Discord_UWP
         public Main(string args)
         {
             this.InitializeComponent();
-
-            #region OldCode
-            #region TypingCheckTimer
-            //Timer timer = new Timer( async (object state) =>
-            //{
-            //    if (Session.Typers.Last().Timestamp < (DateTime.Now.Ticks * 10000) - 2)
-            //    {
-            //        Session.Typers.RemoveAt(Session.Typers.Count);
-            //    }
-
-            //    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //    {
-            //        TypingIndicator.Text = "";
-            //        if (Session.Typers.Count > 0)
-            //        {
-            //            foreach (SharedModels.TypingStart typing in Session.Typers)
-            //            {
-            //                if (TextChannels.SelectedItem != null && typing.channelId == ((TextChannels.SelectedItem as ListViewItem).Tag as GuildChannel).Raw.Id)
-            //                {
-            //                    TypingIndicator.Text += " " + Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members
-            //                    [typing.userId] + " ";
-            //                }
-            //            }
-            //        }
-            //    });
-
-            //}, null, (int)TimeSpan.TicksPerSecond, Timeout.Infinite);
-            #endregion
-            #endregion
 
             Login(args);
             SetupUI();
@@ -385,9 +327,9 @@ namespace Discord_UWP
 
         private void OnNavigateToGuildChannel(object sender, App.GuildChannelNavigationArgs e)
         {
-            foreach (ListViewItem guild in ServerList.Items)
+            foreach (SimpleGuild guild in ServerList.Items)
             {
-                if (guild.Tag.ToString() == e.GuildId)
+                if (guild.Id == e.GuildId)
                 {
                     ServerList.SelectedItem = guild;
                 }
@@ -861,18 +803,20 @@ namespace Discord_UWP
                 Messages.Items.Add(new MessageControl()); /*Necessary for no good reason*/
 
                 int adCheck = 5;
-
-                foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[App.CurrentChannelId].Messages.Reverse())
-                {
-                    adCheck--;
-                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && App.ShowAds)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
                     {
-                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
-                        adCheck = 5;
-                        await Task.Delay(100);
-                    }
-                }
+                        foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[App.CurrentChannelId].Messages.Reverse())
+                        {
+                            adCheck--;
+                            Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
+                            if (adCheck == 0 && App.ShowAds)
+                            {
+                                Messages.Items.Add(NewMessageContainer(null, null, true, null));
+                                adCheck = 5;
+                            }
+                        }
+                    });
 
                 Messages.Items.RemoveAt(0);
 
@@ -918,37 +862,35 @@ namespace Discord_UWP
         }
         private async Task DownloadChannelMessages()
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
+            if (TextChannels.SelectedItem != null)
+            {
+                SendMessage.Visibility = Visibility.Visible;
+                MuteToggle.Tag = App.CurrentGuildId;
+                MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentGuildId);
+                MuteToggle.Visibility = Visibility.Visible;
+                Messages.Items.Clear();
+
+                Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Clear();
+
+                int adCheck = 5;
+
+                Messages.Items.Add(new MessageControl()); //Necessary for no good reason
+
+                IEnumerable<SharedModels.Message> messages = null;
+                await Task.Run(async () =>
                 {
-                    if (TextChannels.SelectedItem != null)
+                    messages = await Session.GetChannelMessages(App.CurrentChannelId);
+                });
+
+                foreach (SharedModels.Message message in messages)
+                {
+                    Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Add(message.Id, new Message(message));
+                }
+
+                //Normal messages
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
                     {
-                        SendMessage.Visibility = Visibility.Visible;
-                        MuteToggle.Tag = App.CurrentGuildId;
-                        MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentGuildId);
-                        MuteToggle.Visibility = Visibility.Visible;
-                        Messages.Items.Clear();
-
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Clear();
-
-                        int adCheck = 5;
-
-                        Messages.Items.Add(new MessageControl()); //Necessary for no good reason
-
-
-                        IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(App.CurrentChannelId);
-
-                        while (messages == null)
-                        {
-                            /*Messages may not be downloaded yet*/
-                        }
-
-                        foreach (SharedModels.Message message in messages)
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Add(message.Id, new Message(message));
-                        }
-
-                        //Normal messages
                         foreach (KeyValuePair<string, Message> message in Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Messages.Reverse())
                         {
                             adCheck--;
@@ -959,42 +901,42 @@ namespace Discord_UWP
                                 adCheck = 5;
                             }
                         }
+                    });
 
-                        Messages.Items.RemoveAt(0);
+                Messages.Items.RemoveAt(0);
 
-                        ChannelName.Text = "#" + Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Name;
+                ChannelName.Text = "#" + Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Name;
 
-                        if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic != null)
-                        {
-                            ChannelTopic.Text = Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic;
-                        }
-                        else
-                        {
-                            ChannelTopic.Text = "";
-                        }
+                if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic != null)
+                {
+                    ChannelTopic.Text = Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.Topic;
+                }
+                else
+                {
+                    ChannelTopic.Text = "";
+                }
 
-                        if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Messages != null)
-                        {
-                            if (Storage.RecentMessages.ContainsKey(App.CurrentChannelId))
-                            {
-                                Storage.RecentMessages[App.CurrentChannelId] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
-                            }
-                            else if(Messages.Items.Count > 0)
-                            {
-                                var messageContainer = Messages.Items.Last() as MessageContainer;
-                                if (messageContainer?.Message != null)
-                                {
-                                    Storage.RecentMessages.Add(App.CurrentChannelId, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
-                                }
-                            }
-                            Storage.SaveMessages();
-                        }
-                        Storage.SaveCache();
-                        if(Messages.Items.Count > 0)
-                        await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.LastMessageId));
-                        MessagesLoading.Visibility = Visibility.Collapsed;
+                if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Messages != null)
+                {
+                    if (Storage.RecentMessages.ContainsKey(App.CurrentChannelId))
+                    {
+                        Storage.RecentMessages[App.CurrentChannelId] = (Messages.Items.Last() as MessageContainer)?.Message?.Id;
                     }
-                });
+                    else if (Messages.Items.Count > 0)
+                    {
+                        var messageContainer = Messages.Items.Last() as MessageContainer;
+                        if (messageContainer?.Message != null)
+                        {
+                            Storage.RecentMessages.Add(App.CurrentChannelId, (Messages.Items.Last() as MessageContainer)?.Message?.Id);
+                        }
+                    }
+                    Storage.SaveMessages();
+                }
+                Storage.SaveCache();
+                if (Messages.Items.Count > 0)
+                    await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].Raw.LastMessageId));
+                MessagesLoading.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async Task DownloadChannelPinnedMessages()
@@ -1067,16 +1009,20 @@ namespace Discord_UWP
                 Messages.Items.Clear();
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
                 {
-                    adCheck--;
-                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && App.ShowAds)
+                    foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
                     {
-                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
-                        adCheck = 5;
+                        adCheck--;
+                        Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
+                        if (adCheck == 0 && App.ShowAds)
+                        {
+                            Messages.Items.Add(NewMessageContainer(null, null, true, null));
+                            adCheck = 5;
+                        }
                     }
-                }
+                });
 
                 ChannelName.Text = "@" + Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Raw.Users.FirstOrDefault().Username;
                 ChannelTopic.Text = "";
@@ -1122,23 +1068,28 @@ namespace Discord_UWP
                 }
             }
 
-            Messages.Items.Add(new MessageControl()); //Necessary for no good reason
-
-            if (Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
-            {
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
                 {
-                    adCheck--;
-                    Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
-                    if (adCheck == 0 && App.ShowAds)
+                    Messages.Items.Add(new MessageControl()); //Necessary for no good reason
+
+                if (Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
+                {
+                    foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
                     {
-                        Messages.Items.Add(NewMessageContainer(null, null, true, null));
-                        adCheck = 5;
+                        adCheck--;
+                        Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
+                        if (adCheck == 0 && App.ShowAds)
+                        {
+                            Messages.Items.Add(NewMessageContainer(null, null, true, null));
+                            adCheck = 5;
+                        }
                     }
                 }
-            }
 
-            Messages.Items.RemoveAt(0);
+                Messages.Items.RemoveAt(0);
+            });
+
             await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.DMs[App.CurrentChannelId].Raw.LastMessageId));
             if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null && Messages.Items.Count > 0)
             {
@@ -1255,7 +1206,7 @@ namespace Discord_UWP
         }
         private void SaveCreateChannel(object sender, RoutedEventArgs e)
         {
-            Session.CreateChannel((ServerList.SelectedItem as ListViewItem).Tag.ToString(), CreateChannelName.Text);
+            Session.CreateChannel((ServerList.SelectedItem as SimpleGuild).Id, CreateChannelName.Text);
             CreateChannel.IsPaneOpen = false;
         }
         private void CloseCreateChannel(object sender, RoutedEventArgs e)

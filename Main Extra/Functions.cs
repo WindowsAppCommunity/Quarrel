@@ -217,150 +217,225 @@ namespace Discord_UWP
         //}
         #endregion
 
-        private UIElement ChannelRender(DmCache channel)
-        {
-            ListViewItem listviewitem = new ListViewItem();
-            StackPanel stack = new StackPanel();
-            stack.Orientation = Orientation.Horizontal;
-            Grid image = new Grid();
-            Rectangle avatar = new Rectangle();
-            avatar.RadiusX = 100;
-            avatar.RadiusY = 100;
-            avatar.Height = 36;
-            avatar.Width = 36;
-            avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.Users.First().Id + "/" + channel.Raw.Users.First().Avatar + ".jpg")) };
-            avatar.VerticalAlignment = VerticalAlignment.Center;
-            TextBlock txtblock = new TextBlock();
-            txtblock.Margin = new Thickness(12, 0, 0, 0);
-            txtblock.Text = channel.Raw.Users.First().Username;
+        #region OldCode
+        //private UIElement ChannelRender(DmCache channel)
+        //{
+        //    ListViewItem listviewitem = new ListViewItem();
+        //    StackPanel stack = new StackPanel();
+        //    stack.Orientation = Orientation.Horizontal;
+        //    Grid image = new Grid();
+        //    Rectangle avatar = new Rectangle();
+        //    avatar.RadiusX = 100;
+        //    avatar.RadiusY = 100;
+        //    avatar.Height = 36;
+        //    avatar.Width = 36;
+        //    avatar.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + channel.Raw.Users.First().Id + "/" + channel.Raw.Users.First().Avatar + ".jpg")) };
+        //    avatar.VerticalAlignment = VerticalAlignment.Center;
+        //    TextBlock txtblock = new TextBlock();
+        //    txtblock.Margin = new Thickness(12, 0, 0, 0);
+        //    txtblock.Text = channel.Raw.Users.First().Username;
 
-            txtblock.VerticalAlignment = VerticalAlignment.Center;
-            image.Children.Add(avatar);
-            if (channel.Raw.Users.First().Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.Users.First().Id))
-            {
-                Rectangle rect = new Rectangle();
-                rect.RadiusX = 100;
-                rect.RadiusY = 100;
-                rect.Height = 10;
-                rect.Width = 10;
-                rect.HorizontalAlignment = HorizontalAlignment.Right;
-                rect.VerticalAlignment = VerticalAlignment.Bottom;
+        //    txtblock.VerticalAlignment = VerticalAlignment.Center;
+        //    image.Children.Add(avatar);
+        //    if (channel.Raw.Users.First().Id != null && Session.PrecenseDict.ContainsKey(channel.Raw.Users.First().Id))
+        //    {
+        //        Rectangle rect = new Rectangle();
+        //        rect.RadiusX = 100;
+        //        rect.RadiusY = 100;
+        //        rect.Height = 10;
+        //        rect.Width = 10;
+        //        rect.HorizontalAlignment = HorizontalAlignment.Right;
+        //        rect.VerticalAlignment = VerticalAlignment.Bottom;
 
-                rect.Fill = (SolidColorBrush)App.Current.Resources[Session.PrecenseDict[channel.Raw.Users.First().Id].Status];
-                if (!Session.Online)
-                {
-                    rect.Visibility = Visibility.Collapsed;
-                }
-                image.Children.Add(rect);
-            }
-            else
-            {
-                Rectangle rect = new Rectangle();
-                rect.RadiusX = 100;
-                rect.RadiusY = 100;
-                rect.Height = 10;
-                rect.Width = 10;
-                rect.HorizontalAlignment = HorizontalAlignment.Right;
-                rect.VerticalAlignment = VerticalAlignment.Bottom;
-                rect.Fill = GetSolidColorBrush("#FFAAAAAA");
-                image.Children.Add(rect);
-            }
+        //        rect.Fill = (SolidColorBrush)App.Current.Resources[Session.PrecenseDict[channel.Raw.Users.First().Id].Status];
+        //        if (!Session.Online)
+        //        {
+        //            rect.Visibility = Visibility.Collapsed;
+        //        }
+        //        image.Children.Add(rect);
+        //    }
+        //    else
+        //    {
+        //        Rectangle rect = new Rectangle();
+        //        rect.RadiusX = 100;
+        //        rect.RadiusY = 100;
+        //        rect.Height = 10;
+        //        rect.Width = 10;
+        //        rect.HorizontalAlignment = HorizontalAlignment.Right;
+        //        rect.VerticalAlignment = VerticalAlignment.Bottom;
+        //        rect.Fill = GetSolidColorBrush("#FFAAAAAA");
+        //        image.Children.Add(rect);
+        //    }
 
-            stack.Children.Add(image);
-            stack.Children.Add(txtblock);
-            listviewitem.Content = stack;
-            listviewitem.Tag = channel;
-            listviewitem.Style = (Style)App.Current.Resources["ChannelItemStyle"];
-            listviewitem.Height = 48;
-            return listviewitem;
-        }
-        private UIElement ChannelRender(GuildChannel channel, Permissions perms)
-        {
-            Permissions chnperms = perms;
-            if (channel.Raw.PermissionOverwrites != null)
-            {
-                chnperms.AddOverwrites(channel.Raw.PermissionOverwrites, channel.Raw.GuildId);
-            }
+        //    stack.Children.Add(image);
+        //    stack.Children.Add(txtblock);
+        //    listviewitem.Content = stack;
+        //    listviewitem.Tag = channel;
+        //    listviewitem.Style = (Style)App.Current.Resources["ChannelItemStyle"];
+        //    listviewitem.Height = 48;
+        //    return listviewitem;
+        //}
+        //private UIElement ChannelRender(GuildChannel channel, Permissions perms)
+        //{
+        //    Permissions chnperms = perms;
+        //    if (channel.Raw.PermissionOverwrites != null)
+        //    {
+        //        chnperms.AddOverwrites(channel.Raw.PermissionOverwrites, channel.Raw.GuildId);
+        //    }
 
-            ListViewItem listviewitem = new ListViewItem();
-            
-            StackPanel channelcontainer = new StackPanel();
-            channelcontainer.Orientation = Orientation.Horizontal;
-            TextBlock txtblock = new TextBlock();
-            txtblock.Text = "#" + channel.Raw.Name;
-            channelcontainer.Opacity = 0.8;
-            if (channel.Raw.Type == 0)
-            {
-                listviewitem.Tag = channel;
+        //    ListViewItem listviewitem = new ListViewItem();
 
-                if (Storage.MutedChannels.Contains(channel.Raw.Id))
-                {
-                    channelcontainer.Children.Add(new SymbolIcon{Symbol = Symbol.Mute, Opacity=0.6, Margin=new Thickness(0,0,4,0)});
-                    channelcontainer.Opacity = 0.6;
-                }
-                else if (Session.RPC.ContainsKey(channel.Raw.Id) && Session.RPC[channel.Raw.Id].LastMessageId != channel.Raw.LastMessageId)
-                {
-                    channelcontainer.Opacity = 1;
-                    channelcontainer.Children.Add(new Border{Background=(SolidColorBrush)App.Current.Resources["InvertedBG"], Margin=new Thickness(-14,2,4,0), Height=10, Width=4, CornerRadius = new CornerRadius(0,6,6,0)});
-                    listviewitem.Tapped += ClearColor;
+        //    StackPanel channelcontainer = new StackPanel();
+        //    channelcontainer.Orientation = Orientation.Horizontal;
+        //    TextBlock txtblock = new TextBlock();
+        //    txtblock.Text = "#" + channel.Raw.Name;
+        //    channelcontainer.Opacity = 0.8;
+        //    if (channel.Raw.Type == 0)
+        //    {
+        //        listviewitem.Tag = channel;
 
-                    if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        listviewitem.Visibility = Visibility.Collapsed;
-                    }
-                }
+        //        if (Storage.MutedChannels.Contains(channel.Raw.Id))
+        //        {
+        //            channelcontainer.Children.Add(new SymbolIcon{Symbol = Symbol.Mute, Opacity=0.6, Margin=new Thickness(0,0,4,0)});
+        //            channelcontainer.Opacity = 0.6;
+        //        }
+        //        else if (Session.RPC.ContainsKey(channel.Raw.Id) && Session.RPC[channel.Raw.Id].LastMessageId != channel.Raw.LastMessageId)
+        //        {
+        //            channelcontainer.Opacity = 1;
+        //            channelcontainer.Children.Add(new Border{Background=(SolidColorBrush)App.Current.Resources["InvertedBG"], Margin=new Thickness(-14,2,4,0), Height=10, Width=4, CornerRadius = new CornerRadius(0,6,6,0)});
+        //            listviewitem.Tapped += ClearColor;
 
-                #region Flyout
-                Flyout flyout = new Flyout();
-                StackPanel flyoutcontent = new StackPanel();
-                flyoutcontent.Margin = new Thickness(-10);
+        //            if (!chnperms.EffectivePerms.ReadMessages && !chnperms.EffectivePerms.Administrator && Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+        //            {
+        //                listviewitem.Visibility = Visibility.Collapsed;
+        //            }
+        //        }
 
-                if (perms.EffectivePerms.ManageChannels || perms.EffectivePerms.Administrator || Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
-                {
-                    Button channelSettings = new Button()
-                    {
-                        Content = "Channel Settings",
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                        Tag = channel.Raw.Id
-                    };
-                    channelSettings.Click += OpenChannelSettings;
-                    flyoutcontent.Children.Add(channelSettings);
-                }
+        //        #region Flyout
+        //        Flyout flyout = new Flyout();
+        //        StackPanel flyoutcontent = new StackPanel();
+        //        flyoutcontent.Margin = new Thickness(-10);
 
-                ToggleButton muteChannel = new ToggleButton()
-                {
-                    Content = "Mute Channel",
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Tag = channel.Raw.Id,
-                    IsChecked = Storage.MutedChannels.Contains(channel.Raw.Id)
-                };
+        //        if (perms.EffectivePerms.ManageChannels || perms.EffectivePerms.Administrator || Storage.Cache.Guilds[channel.Raw.GuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+        //        {
+        //            Button channelSettings = new Button()
+        //            {
+        //                Content = "Channel Settings",
+        //                HorizontalAlignment = HorizontalAlignment.Stretch,
+        //                Tag = channel.Raw.Id
+        //            };
+        //            channelSettings.Click += OpenChannelSettings;
+        //            flyoutcontent.Children.Add(channelSettings);
+        //        }
 
-                Button pinToStart = new Button()
-                {
-                    Content = SecondaryTile.Exists(channel.Raw.Id) ? "Unpin From Start" : "Pin To Start",
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Tag = channel
-                };
-                pinToStart.Click += PinChannelToStart;
-                flyoutcontent.Children.Add(pinToStart);
+        //        ToggleButton muteChannel = new ToggleButton()
+        //        {
+        //            Content = "Mute Channel",
+        //            HorizontalAlignment = HorizontalAlignment.Stretch,
+        //            Tag = channel.Raw.Id,
+        //            IsChecked = Storage.MutedChannels.Contains(channel.Raw.Id)
+        //        };
 
-                muteChannel.Click += MuteAChannel;
-                flyoutcontent.Children.Add(muteChannel);
-                flyout.Content = flyoutcontent;
-                listviewitem.ContextFlyout = flyout;
-                #endregion
+        //        Button pinToStart = new Button()
+        //        {
+        //            Content = SecondaryTile.Exists(channel.Raw.Id) ? "Unpin From Start" : "Pin To Start",
+        //            HorizontalAlignment = HorizontalAlignment.Stretch,
+        //            Tag = channel
+        //        };
+        //        pinToStart.Click += PinChannelToStart;
+        //        flyoutcontent.Children.Add(pinToStart);
 
-                //return listviewitem;
-            }
-            else
-            {
-                //TODO: Support voice channels
-            }
-            channelcontainer.Children.Add(txtblock);
+        //        muteChannel.Click += MuteAChannel;
+        //        flyoutcontent.Children.Add(muteChannel);
+        //        flyout.Content = flyoutcontent;
+        //        listviewitem.ContextFlyout = flyout;
+        //        #endregion
 
-            listviewitem.Content = channelcontainer;
-            return listviewitem;
-        }
+        //        //return listviewitem;
+        //    }
+        //    else
+        //    {
+        //        //TODO: Support voice channels
+        //    }
+        //    channelcontainer.Children.Add(txtblock);
+
+        //    listviewitem.Content = channelcontainer;
+        //    return listviewitem;
+        //}
+        //private void MuteAChannel(object sender, RoutedEventArgs e)
+        //{
+        //    if (Storage.MutedChannels.Contains((sender as ToggleButton).Tag.ToString()))
+        //    {
+        //        Storage.MutedChannels.Remove((sender as ToggleButton).Tag.ToString());
+        //        (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == (sender as ToggleButton).Tag.ToString()) as SimpleChannel)
+        //            .IsMuted = false;
+        //    }
+        //    else
+        //    {
+        //        Storage.MutedChannels.Add((sender as ToggleButton).Tag.ToString());
+        //        (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == (sender as ToggleButton).Tag.ToString()) as SimpleChannel)
+        //            .IsMuted = true;
+        //    }
+        //    Storage.SaveMutedChannels();
+        //}
+        //private void ClearColor(object sender, TappedRoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((sender as ListViewItem).Content as StackPanel).Children.Remove(
+        //        ((sender as ListViewItem).Content as StackPanel).Children.First() as Border);
+        //        ((sender as ListViewItem).Content as StackPanel).Opacity = 0.8;
+        //    }
+        //    catch (Exception){}
+        //}
+        //private async void PinChannelToStart(object sender, RoutedEventArgs e)
+        //{
+        //    if (!SecondaryTile.Exists(((sender as Button).Tag as GuildChannel).Raw.Id))
+        //    {
+        //        var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
+
+        //        //var currentTime = new DateTime();
+        //        //var tileActivationArguments = "timeTileWasPinned=" + currentTime;
+        //        var tileActivationArguments = ((sender as Button).Tag as GuildChannel).Raw.Id + ":" + ((sender as Button).Tag as GuildChannel).Raw.GuildId;
+
+        //        var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
+        //        tile.VisualElements.ShowNameOnSquare150x150Logo = true;
+        //        tile.VisualElements.ShowNameOnWide310x150Logo = true;
+        //        tile.VisualElements.ShowNameOnWide310x150Logo = true;
+
+        //        bool isCreated = await tile.RequestCreateAsync();
+        //        if (isCreated)
+        //        {
+        //            MessageDialog msg = new MessageDialog("Pinned Succesfully");
+        //            await msg.ShowAsync();
+        //            (sender as Button).Content = "Unpin From Start";
+        //        }
+        //        else
+        //        {
+        //            MessageDialog msg = new MessageDialog("Failed to Pin");
+        //            await msg.ShowAsync();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var tileToDelete = new SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id);
+
+        //        bool isDeleted = await tileToDelete.RequestDeleteAsync();
+        //        if (isDeleted)
+        //        {
+        //            MessageDialog msg = new MessageDialog("Removed Succesfully");
+        //            await msg.ShowAsync();
+        //            (sender as Button).Content = "Pin From Start";
+        //        }
+        //        else
+        //        {
+        //            MessageDialog msg = new MessageDialog("Failed to Remove");
+        //            await msg.ShowAsync();
+        //        }
+        //    }
+        //}
+        #endregion
+
         private void MuteAChannel(object sender, RoutedEventArgs e)
         {
             if (Storage.MutedChannels.Contains((sender as ToggleButton).Tag.ToString()))
@@ -376,62 +451,6 @@ namespace Discord_UWP
                     .IsMuted = true;
             }
             Storage.SaveMutedChannels();
-        }
-        private void ClearColor(object sender, TappedRoutedEventArgs e)
-        {
-            try
-            {
-                ((sender as ListViewItem).Content as StackPanel).Children.Remove(
-                ((sender as ListViewItem).Content as StackPanel).Children.First() as Border);
-                ((sender as ListViewItem).Content as StackPanel).Opacity = 0.8;
-            }
-            catch (Exception){}
-        }
-        private async void PinChannelToStart(object sender, RoutedEventArgs e)
-        {
-            if (!SecondaryTile.Exists(((sender as Button).Tag as GuildChannel).Raw.Id))
-            {
-                var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
-
-                //var currentTime = new DateTime();
-                //var tileActivationArguments = "timeTileWasPinned=" + currentTime;
-                var tileActivationArguments = ((sender as Button).Tag as GuildChannel).Raw.Id + ":" + ((sender as Button).Tag as GuildChannel).Raw.GuildId;
-
-                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id, ((sender as Button).Tag as GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
-                tile.VisualElements.ShowNameOnSquare150x150Logo = true;
-                tile.VisualElements.ShowNameOnWide310x150Logo = true;
-                tile.VisualElements.ShowNameOnWide310x150Logo = true;
-
-                bool isCreated = await tile.RequestCreateAsync();
-                if (isCreated)
-                {
-                    MessageDialog msg = new MessageDialog("Pinned Succesfully");
-                    await msg.ShowAsync();
-                    (sender as Button).Content = "Unpin From Start";
-                }
-                else
-                {
-                    MessageDialog msg = new MessageDialog("Failed to Pin");
-                    await msg.ShowAsync();
-                }
-            }
-            else
-            {
-                var tileToDelete = new SecondaryTile(((sender as Button).Tag as GuildChannel).Raw.Id);
-
-                bool isDeleted = await tileToDelete.RequestDeleteAsync();
-                if (isDeleted)
-                {
-                    MessageDialog msg = new MessageDialog("Removed Succesfully");
-                    await msg.ShowAsync();
-                    (sender as Button).Content = "Pin From Start";
-                }
-                else
-                {
-                    MessageDialog msg = new MessageDialog("Failed to Remove");
-                    await msg.ShowAsync();
-                }
-            }
         }
 
         public async Task LoadCache()
@@ -514,6 +533,28 @@ namespace Discord_UWP
             {
                 MessageDialog msg = new MessageDialog("You have no muted channels saved");
             }
+
+            try
+            {
+                StorageFile file = await Storage.SavedData.GetFileAsync("mutedservers");
+                try
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                    StringReader messageReader = new StringReader(await FileIO.ReadTextAsync(file));
+                    Storage.MutedServers = (List<string>)serializer.Deserialize(messageReader);
+                }
+                catch
+                {
+                    Storage.MutedServers.Clear();
+                    Storage.SaveMutedChannels();
+                    MessageDialog msg = new MessageDialog("There was an issue loading muted channels. Cleared so it can work in the future");
+                    await msg.ShowAsync();
+                }
+            }
+            catch
+            {
+                MessageDialog msg = new MessageDialog("You have no muted channels saved");
+            }
         }
 
         private void OpenHoldingFlyout(object sender, HoldingRoutedEventArgs e)
@@ -531,16 +572,16 @@ namespace Discord_UWP
             Permissions perms = new Permissions();
             if (App.CurrentGuildId != null)
             {
-                foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles)
                 {
-                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
+                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
                     {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
+                        Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
                     }
 
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
                     {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
+                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles);
                     }
                     else
                     {
@@ -607,12 +648,12 @@ namespace Discord_UWP
                 Bold boldBlock = new Bold();
                 Run run1 = new Run();
 
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                 {
                     GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(message.User.Id))
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(message.User.Id))
                     {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[message.User.Id].Raw;
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[message.User.Id].Raw;
                     }
                     else
                     {
@@ -634,7 +675,7 @@ namespace Discord_UWP
 
                     if (member.Roles != null && member.Roles.Count() > 0)
                     {
-                        foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+                        foreach (Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].RawGuild.Roles)
                         {
                             if (role.Id == member.Roles.First<string>())
                             {
@@ -789,12 +830,12 @@ namespace Discord_UWP
                 //hyp.Tag = mention.Id;
                 //hyp.Click += OpenProfile;
                 string mentionIntent = "<@" + mention.Id + ">";
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                 {
                     GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(mention.Id))
                     {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[mention.Id].Raw;
                     }
                     else
                     {
@@ -815,12 +856,12 @@ namespace Discord_UWP
                     run3Rep.Replace(mentionIntent, "@" + mention.Username);
                 }
                 mentionIntent = "<@!" + mention.Id + ">";
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                 {
                     GuildMember member;
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(mention.Id))
+                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members.ContainsKey(mention.Id))
                     {
-                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[mention.Id].Raw;
+                        member = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Members[mention.Id].Raw;
                     }
                     else
                     {
@@ -938,7 +979,7 @@ namespace Discord_UWP
                 };
                 delete.Click += DeleteThisMessage;
                 flyoutcontent.Children.Add(delete);
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() != "DMs")
+                if ((ServerList.SelectedItem as SimpleGuild).Id != "DMs")
                 {
                     if (!perms.EffectivePerms.ManageMessages && !perms.EffectivePerms.Administrator && message.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                     {

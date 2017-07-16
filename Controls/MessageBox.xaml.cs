@@ -127,7 +127,7 @@ namespace Discord_UWP.Controls
                             {
                                 IEnumerable<string> userlist =
                                     App.GuildMembers.Where(x => x.Value.Raw.User.Username.StartsWith(query))
-                                        .Select(x => "@" + x.Value.Raw.User.Username);
+                                        .Select(x => "@" + x.Value.Raw.User.Username + "#" + x.Value.Raw.User.Discriminator);
                                 IEnumerable<string> rolelist =
                                     App.CurrentGuild.Roles
                                         .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
@@ -184,7 +184,6 @@ namespace Discord_UWP.Controls
         }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            
             if (SuggestionBlock.Items.Count == 0) return;
 
             if (e.Key == VirtualKey.Up)

@@ -70,7 +70,7 @@ namespace Discord_UWP
         private void EditMessage(object sender, RoutedEventArgs e)
         {
             /*
-            if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
+            if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
             {
                 Session.EditMessage(App.CurrentChannelId, ((sender as Button).Tag as Tuple<string, string>).Item1, ((sender as Button).Tag as Tuple<string, string>).Item2);
             }
