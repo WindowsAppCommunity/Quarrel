@@ -806,6 +806,9 @@ namespace Discord_UWP
 
         public static string Token;
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
+        public static Dictionary<string, int> GuildRPC = new Dictionary<string, int>();
+        public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();
+
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
         public static Gateway.Gateway Gateway;
         public static LoginResult Loginresult;

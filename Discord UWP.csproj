@@ -274,6 +274,7 @@
     <Compile Include="Main Extra\Event2UI.cs" />
     <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
+    <Compile Include="Main Extra\Flyouts\GuildFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\GuildMemberFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\UserDetails.cs" />
