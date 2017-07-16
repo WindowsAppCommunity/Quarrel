@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +27,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 namespace Discord_UWP.SubPages
 {
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -46,6 +48,52 @@ namespace Discord_UWP.SubPages
             CloseButton_Click(null, null);
         }
 
+        private void SaveRoleSettings()
+        {
+            Common.Permissions perm = new Common.Permissions()
+            {
+                ServerSidePerms = new Common.PermissionsSave()
+                {
+                    Administrator = Administrator.IsOn,
+                    ViewAuditLog = ViewAuditLog.IsOn,
+                    ManangeGuild = ManageServer.IsOn,
+                    ManageRoles = ManageRoles.IsOn,
+                    ManageChannels = ManageChannels.IsOn,
+                    KickMembers = KickMembers.IsOn,
+                    BanMembers = BanMembers.IsOn,
+                    CreateInstantInvite = CreateInstantInvite.IsOn,
+                    ChangeNickname = ChangeNickname.IsOn,
+                    ManageNicknames = ManageNicknames.IsOn,
+                    ManageEmojis = ManageEmojis.IsOn,
+                    ManageWebhooks = ManageWebhooks.IsOn,
+
+                    ReadMessages = ReadMessages.IsOn,
+                    SendMessages = SendMessages.IsOn,
+                    SendTtsMessages = SendTtsMessages.IsOn,
+                    ManageMessages = ManageMessages.IsOn,
+                    EmbedLinks = EmbedLinks.IsOn,
+                    AttachFiles = AttachFiles.IsOn,
+                    ReadMessageHistory = ReadMessageHistory.IsOn,
+                    MentionEveryone = MentionEveryone.IsOn,
+                    UseExternalEmojis = UseExternalEmojis.IsOn,
+                    AddReactions = AddReactions.IsOn,
+
+                    Connect = ConnectPerm.IsOn,
+                    Speak = Speak.IsOn,
+                    MuteMembers = MuteMembers.IsOn,
+                    DeafenMembers = DeafenMembers.IsOn,
+                    MoveMembers = MoveMembers.IsOn,
+                    UseVad = UseVad.IsOn
+                }
+            };
+            string roleId = (RolesView.SelectedItem as SimpleRole).Id;
+            Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = perm.GetServerPermissionsAsInt(), Position = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Position};
+            Task.Run(() =>
+            {
+                Session.ModifyGuildRole(guildId, roleId, modifyguildrole);
+            });
+        }
+
         private string guildId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -61,7 +109,14 @@ namespace Discord_UWP.SubPages
             {
                 Bans.Visibility = Visibility.Collapsed;
             }
-
+            if (true) //TODO: Set role permissions
+            {
+                foreach (Role role in Storage.Cache.Guilds[guildId].Roles.Values.OrderBy(x => x.Position))
+                {
+                    RolesView.Items.Add(new SimpleRole(role.Id, role.Name, Common.IntToColor(role.Color)));
+                }
+                RolesView.SelectedIndex = 0;
+            }
             Session.Gateway.GuildUpdated += GuildUpdated;
             Session.Gateway.GuildBanAdded += BanAdded;
             Session.Gateway.GuildBanRemoved += BanRemoved;
@@ -193,7 +248,7 @@ namespace Discord_UWP.SubPages
         private bool loadingBans = false;
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (pivot.SelectedIndex == 1 && !LoadingInvites)
+            if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Invites" && !LoadingInvites)
             {
                 InviteView.Items.Clear();
                 NoInvites.Opacity = 0;
@@ -217,7 +272,7 @@ namespace Discord_UWP.SubPages
                     NoInvites.Fade(0.2f, 200).Start();
                     LoadingInvite.Fade(0, 200).Start();
                 }
-            } else if (pivot.SelectedIndex == 2 && !loadingBans)
+            } else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
             {
                 BanView.Items.Clear();
                 NoBans.Opacity = 0;
@@ -249,6 +304,90 @@ namespace Discord_UWP.SubPages
             string code = ((Invite)sender).String;
             await Session.DeleteInvite(code);
             InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite)x).String == code));
+        }
+
+        private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
+            Common.Permissions perms = new Common.Permissions();
+            perms.GetPermissions(role, Storage.Cache.Guilds[guildId].Roles.Values);
+
+            RoleName.Text = role.Name;
+
+            Hoist.IsOn = role.Hoist;
+            AllowMention.IsOn = role.Mentionable;
+
+            Administrator.IsOn = perms.ServerSidePerms.Administrator;
+            ViewAuditLog.IsOn = perms.ServerSidePerms.ViewAuditLog;
+            ManageServer.IsOn = perms.ServerSidePerms.ManangeGuild;
+            ManageRoles.IsOn = perms.ServerSidePerms.ManageRoles;
+            ManageChannels.IsOn = perms.ServerSidePerms.ManageChannels;
+            KickMembers.IsOn = perms.ServerSidePerms.KickMembers;
+            BanMembers.IsOn = perms.ServerSidePerms.BanMembers;
+            CreateInstantInvite.IsOn = perms.ServerSidePerms.CreateInstantInvite;
+            ChangeNickname.IsOn = perms.ServerSidePerms.ChangeNickname;
+            ManageNicknames.IsOn = perms.ServerSidePerms.ManageNicknames;
+            ManageEmojis.IsOn = perms.ServerSidePerms.ManageEmojis;
+            ManageWebhooks.IsOn = perms.ServerSidePerms.ManageWebhooks;
+
+            ReadMessages.IsOn = perms.ServerSidePerms.ReadMessages;
+            SendMessages.IsOn = perms.ServerSidePerms.SendMessages;
+            SendTtsMessages.IsOn = perms.ServerSidePerms.SendTtsMessages;
+            ManageMessages.IsOn = perms.ServerSidePerms.ManageMessages;
+            EmbedLinks.IsOn = perms.ServerSidePerms.EmbedLinks;
+            AttachFiles.IsOn = perms.ServerSidePerms.AttachFiles;
+            ReadMessageHistory.IsOn = perms.ServerSidePerms.ReadMessageHistory;
+            MentionEveryone.IsOn = perms.ServerSidePerms.MentionEveryone;
+            UseExternalEmojis.IsOn = perms.ServerSidePerms.UseExternalEmojis;
+            AddReactions.IsOn = perms.ServerSidePerms.AddReactions;
+
+            ConnectPerm.IsOn = perms.ServerSidePerms.Connect;
+            Speak.IsOn = perms.ServerSidePerms.Speak;
+            MuteMembers.IsOn = perms.ServerSidePerms.MuteMembers;
+            DeafenMembers.IsOn = perms.ServerSidePerms.DeafenMembers;
+            MoveMembers.IsOn = perms.ServerSidePerms.MoveMembers;
+            UseVad.IsOn = perms.ServerSidePerms.UseVad;
+        }
+
+        class SimpleRole : INotifyPropertyChanged 
+        {
+            public SimpleRole(string id, string name, SolidColorBrush color)
+            {
+                Id = id;
+                Name = name;
+                Color = color;
+            }
+
+            private string _id;
+            public string Id
+            {
+                get { return _id; }
+                set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
+            }
+
+            private string _name;
+            public string Name
+            {
+                get { return _name; }
+                set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
+            }
+
+            private SolidColorBrush _color;
+            public SolidColorBrush Color
+            {
+                get { return _color; }
+                set { if (_color == value) return; _color = value; OnPropertyChanged("Color"); }
+            }
+
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged(string propertyName)
+            { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
+        }
+
+        private void UpdateRole(object sender, RoutedEventArgs e)
+        {
+            SaveRoleSettings();
         }
     }
 }

@@ -143,6 +143,40 @@ namespace Discord_UWP
                 return this;
             }
 
+            public int GetServerPermissionsAsInt()
+            {
+                int returnValue = 0;
+                returnValue += ServerSidePerms.CreateInstantInvite ?  0x1 : 0;
+                returnValue += ServerSidePerms.KickMembers ? 0x2 : 0;
+                returnValue += ServerSidePerms.BanMembers ? 0x4 : 0;
+                returnValue += ServerSidePerms.Administrator ? 0x8 : 0;
+                returnValue += ServerSidePerms.ManageChannels ? 0x10 : 0;
+                returnValue += ServerSidePerms.ManangeGuild ? 0x20 : 0;
+                returnValue += ServerSidePerms.AddReactions ? 0x40 : 0;
+                returnValue += ServerSidePerms.ViewAuditLog ? 0x80 : 0;
+                returnValue += ServerSidePerms.ReadMessages ? 0x400 : 0;
+                returnValue += ServerSidePerms.SendMessages ? 0x800 : 0;
+                returnValue += ServerSidePerms.SendTtsMessages ? 0x1000 : 0;
+                returnValue += ServerSidePerms.ManageMessages ? 0x2000 : 0;
+                returnValue += ServerSidePerms.EmbedLinks ? 0x4000 : 0;
+                returnValue += ServerSidePerms.AttachFiles ? 0x8000 : 0;
+                returnValue += ServerSidePerms.ReadMessageHistory ? 0x10000 : 0;
+                returnValue += ServerSidePerms.MentionEveryone ? 0x20000 : 0;
+                returnValue += ServerSidePerms.UseExternalEmojis ? 0x40000 : 0;
+                returnValue += ServerSidePerms.Connect ? 0x100000 : 0;
+                returnValue += ServerSidePerms.Speak ? 0x200000 : 0;
+                returnValue += ServerSidePerms.MuteMembers ? 0x400000 : 0;
+                returnValue += ServerSidePerms.DeafenMembers ? 0x800000 : 0;
+                returnValue += ServerSidePerms.MoveMembers ? 0x1000000 : 0;
+                returnValue += ServerSidePerms.UseVad ? 0x2000000 : 0;
+                returnValue += ServerSidePerms.ChangeNickname ? 0x4000000 : 0;
+                returnValue += ServerSidePerms.ManageNicknames ? 0x8000000 : 0;
+                returnValue += ServerSidePerms.ManageRoles ? 0x10000000 : 0;
+                returnValue += ServerSidePerms.ManageWebhooks ? 0x20000000 : 0;
+                returnValue += ServerSidePerms.ManageEmojis ? 0x40000000 : 0;
+                return returnValue;
+            }
+
             public void AddOverwrites(IEnumerable<SharedModels.Overwrite> overwrites, string guild)
             {
                 foreach (SharedModels.Overwrite overwrite in overwrites)
@@ -183,13 +217,14 @@ namespace Discord_UWP
                 ManageChannels = Convert.ToBoolean(perms & 0x10);
                 ManangeGuild = Convert.ToBoolean(perms & 0x20);
                 AddReactions = Convert.ToBoolean(perms & 0x40);
+                ViewAuditLog = Convert.ToBoolean(perms & 0x80);
                 ReadMessages = Convert.ToBoolean(perms & 0x400);
                 SendMessages = Convert.ToBoolean(perms & 0x800);
                 SendTtsMessages = Convert.ToBoolean(perms & 0x1000);
                 ManageMessages = Convert.ToBoolean(perms & 0x2000);
                 EmbedLinks = Convert.ToBoolean(perms & 0x4000);
                 AttachFiles = Convert.ToBoolean(perms & 0x8000);
-                ReadMessageHistory = Convert.ToBoolean(perms & 0x40000);
+                ReadMessageHistory = Convert.ToBoolean(perms & 0x10000);
                 MentionEveryone = Convert.ToBoolean(perms & 0x20000);
                 UseExternalEmojis = Convert.ToBoolean(perms & 0x40000);
                 Connect = Convert.ToBoolean(perms & 0x100000);
@@ -200,9 +235,9 @@ namespace Discord_UWP
                 UseVad = Convert.ToBoolean(perms & 0x2000000);
                 ChangeNickname = Convert.ToBoolean(perms & 0x4000000);
                 ManageNicknames = Convert.ToBoolean(perms & 0x8000000);
-                ManagerWebhooks = Convert.ToBoolean(perms & 0x20000000);
-                ManageEmojis = Convert.ToBoolean(perms & 0x40000000);
                 ManageRoles = Convert.ToBoolean(perms & 0x10000000);
+                ManageWebhooks = Convert.ToBoolean(perms & 0x20000000);
+                ManageEmojis = Convert.ToBoolean(perms & 0x40000000);
             }
 
             public void AddMerge(long perms)
@@ -214,15 +249,16 @@ namespace Discord_UWP
                 ManageChannels = ManageChannels ? true : Convert.ToBoolean(perms & 0x10);
                 ManangeGuild = ManangeGuild ? true : Convert.ToBoolean(perms & 0x20);
                 AddReactions = AddReactions ? true : Convert.ToBoolean(perms & 0x40);
+                ViewAuditLog = ViewAuditLog ? true : Convert.ToBoolean(perms & 0x80);
                 ReadMessages = ReadMessages ? true : Convert.ToBoolean(perms & 0x400);
                 SendMessages = SendMessages ? true : Convert.ToBoolean(perms & 0x800);
                 SendTtsMessages = SendTtsMessages ? true : Convert.ToBoolean(perms & 0x1000);
                 ManageMessages = ManageMessages ? true : Convert.ToBoolean(perms & 0x2000);
                 EmbedLinks = EmbedLinks ? true : Convert.ToBoolean(perms & 0x4000);
                 AttachFiles = AttachFiles ? true : Convert.ToBoolean(perms & 0x8000);
-                ReadMessageHistory = ReadMessageHistory ? true : Convert.ToBoolean(perms & 0x40000);
+                ReadMessageHistory = ReadMessageHistory ? true : Convert.ToBoolean(perms & 0x10000);
                 MentionEveryone = MentionEveryone ? true : Convert.ToBoolean(perms & 0x20000);
-                UseExternalEmojis = UseExternalEmojis ? true : Convert.ToBoolean(perms & 0x80000);
+                UseExternalEmojis = UseExternalEmojis ? true : Convert.ToBoolean(perms & 0x40000);
                 Connect = Connect ? true : Convert.ToBoolean(perms & 0x100000);
                 Speak = Speak ? true : Convert.ToBoolean(perms & 0x200000);
                 MuteMembers = MuteMembers ? true : Convert.ToBoolean(perms & 0x400000);
@@ -231,9 +267,9 @@ namespace Discord_UWP
                 UseVad = UseVad ? true : Convert.ToBoolean(perms & 0x2000000);
                 ChangeNickname = ChangeNickname ? true : Convert.ToBoolean(perms & 0x4000000);
                 ManageNicknames = ManageNicknames ? true : Convert.ToBoolean(perms & 0x8000000);
-                ManagerWebhooks = ManagerWebhooks ? true : Convert.ToBoolean(perms & 0x20000000);
-                ManageEmojis = ManageEmojis ? true : Convert.ToBoolean(perms & 0x40000000);
                 ManageRoles = ManageRoles ? true : Convert.ToBoolean(perms & 0x10000000);
+                ManageWebhooks = ManageWebhooks ? true : Convert.ToBoolean(perms & 0x20000000);
+                ManageEmojis = ManageEmojis ? true : Convert.ToBoolean(perms & 0x40000000);
             }
 
             public void RemoveMerge(long perms)
@@ -245,15 +281,16 @@ namespace Discord_UWP
                 ManageChannels = Convert.ToBoolean(perms & 0x10) ? false : ManageChannels;
                 ManangeGuild = Convert.ToBoolean(perms & 0x20) ? false : ManangeGuild;
                 AddReactions = Convert.ToBoolean(perms & 0x40) ? false : AddReactions;
+                ViewAuditLog = Convert.ToBoolean(perms & 0x80) ? false : ViewAuditLog;
                 ReadMessages = Convert.ToBoolean(perms & 0x400) ? false : ReadMessages;
                 SendMessages = Convert.ToBoolean(perms & 0x800) ? false : SendMessages;
                 SendTtsMessages = Convert.ToBoolean(perms & 0x1000) ? false : SendTtsMessages;
                 ManageMessages = Convert.ToBoolean(perms & 0x2000) ? false : ManageMessages;
                 EmbedLinks = Convert.ToBoolean(perms & 0x4000) ? false : EmbedLinks;
                 AttachFiles = Convert.ToBoolean(perms & 0x8000) ? false : AttachFiles;
-                ReadMessageHistory = Convert.ToBoolean(perms & 0x40000) ? false : ReadMessageHistory;
+                ReadMessageHistory = Convert.ToBoolean(perms & 0x10000) ? false : ReadMessageHistory;
                 MentionEveryone = Convert.ToBoolean(perms & 0x20000) ? false : MentionEveryone;
-                UseExternalEmojis = Convert.ToBoolean(perms & 0x80000) ? false : UseExternalEmojis;
+                UseExternalEmojis = Convert.ToBoolean(perms & 0x40000) ? false : UseExternalEmojis;
                 Connect = Convert.ToBoolean(perms & 0x100000) ? false : Connect;
                 Speak = Convert.ToBoolean(perms & 0x200000) ? false : Speak;
                 MuteMembers = Convert.ToBoolean(perms & 0x400000) ? false : MuteMembers;
@@ -262,9 +299,9 @@ namespace Discord_UWP
                 UseVad = Convert.ToBoolean(perms & 0x2000000) ? false : UseVad;
                 ChangeNickname = Convert.ToBoolean(perms & 0x4000000) ? false : ChangeNickname;
                 ManageNicknames = Convert.ToBoolean(perms & 0x8000000) ? false : ManageNicknames;
-                ManagerWebhooks = Convert.ToBoolean(perms & 0x20000000) ? false : ManagerWebhooks;
-                ManageEmojis = Convert.ToBoolean(perms & 0x40000000) ? false : ManageEmojis;
                 ManageRoles = Convert.ToBoolean(perms & 0x10000000) ? false : ManageRoles;
+                ManageWebhooks = Convert.ToBoolean(perms & 0x20000000) ? false : ManageWebhooks;
+                ManageEmojis = Convert.ToBoolean(perms & 0x40000000) ? false : ManageEmojis;
             }
 
             public bool CreateInstantInvite;
@@ -274,6 +311,7 @@ namespace Discord_UWP
             public bool ManageChannels;
             public bool ManangeGuild;
             public bool AddReactions;
+            public bool ViewAuditLog;
             public bool ReadMessages;
             public bool SendMessages;
             public bool SendTtsMessages;
@@ -291,7 +329,7 @@ namespace Discord_UWP
             public bool UseVad;
             public bool ChangeNickname;
             public bool ManageNicknames;
-            public bool ManagerWebhooks;
+            public bool ManageWebhooks;
             public bool ManageEmojis;
             public bool ManageRoles;
         }
