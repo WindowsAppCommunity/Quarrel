@@ -359,8 +359,21 @@
                         </Grid.ColumnDefinitions>
 
                         <ListView x:Name="ServerList" SelectionChanged="CatchServerSelection" Grid.Row="0" Background="{ThemeResource DarkBG}" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True" ItemClick="ServerList_ItemClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                            <ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:GuildControl Id="{Binding Id}" 
+                                                           Name="{Binding Name}"
+                                                           ImageUrl="{Binding ImageURL}"
+                                                           NotificationCount="{Binding NotificationCount}"
+                                                           IsUnread="{Binding IsUnread}"
+                                                           IsMuted="{Binding IsMuted}"
+                                                           IsDM="{Binding IsDM}"
+                                                           Margin="10,0,0,0"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         </ListView>
+                    
+                        <!--<ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>-->
                         <Grid x:Name="ChannelListParent" Grid.Column="1" Grid.Row="0" Background="{ThemeResource LightBG}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

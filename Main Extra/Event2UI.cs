@@ -152,6 +152,8 @@ namespace Discord_UWP
                 Session.GuildSettings.Add(guild.GuildId, guild);
             }
 
+            Storage.Cache.CurrentUser = new User(e.EventData.User);
+
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
@@ -173,9 +175,8 @@ namespace Discord_UWP
 
                     LoadingSplash.Hide(true);
                     LoadGuilds();
+                    Storage.SaveCache();
                 });
-
-            Storage.Cache.CurrentUser = new User(e.EventData.User);
         }
         
         private TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
@@ -188,7 +189,7 @@ namespace Discord_UWP
                     {
                         if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == App.CurrentChannelId)
                         {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()]
+                            Storage.Cache.Guilds[App.CurrentGuildId]
                                 .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
                             await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
                             Storage.SaveCache();
@@ -226,39 +227,12 @@ namespace Discord_UWP
                             }
                             catch (Exception exception) {}
                         }
-                        try
-                        {
-                            var channel =
-                            (TextChannels.Items.FirstOrDefault(
-                                x => (x as SimpleChannel).Id == e.EventData.ChannelId) as SimpleChannel);
-                            if(channel != null) channel.IsTyping = false;
 
-                            ReadState rpc = new ReadState();
-                            if (Session.RPC.ContainsKey(e.EventData.ChannelId))
-                                rpc = Session.RPC[e.EventData.ChannelId];
-                            else
-                                Session.RPC.Add(e.EventData.ChannelId, rpc);
-                            if (e.EventData.MentionEveryone ||
-                                e.EventData.Mentions.Any(x => x.Id == App.CurrentUserId))
-                                rpc.MentionCount = rpc.MentionCount+1;
-
-                            Session.RPC[e.EventData.ChannelId] = rpc;
-                            var guild = Storage.Cache.Guilds.FirstOrDefault(
-                                x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
-                            if(guild.Value != null)
-                                guild.Value.Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
-                            Storage.Cache.Guilds[guild.Key] = guild.Value;
-                            foreach (SimpleChannel ch in TextChannels.Items)
-                            {
-                                if (ch.Id == e.EventData.ChannelId)
-                                {
-                                    if (rpc.LastMessageId != e.EventData.Id)
-                                        ch.IsUnread = true;
-                                    ch.NotificationCount = rpc.MentionCount;
-                                }
-                            }
-                        }
-                        catch (Exception) { }
+                        var guild = Storage.Cache.Guilds.FirstOrDefault(
+                            x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
+                        if (guild.Value != null)
+                            guild.Value.Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
+                        Storage.Cache.Guilds[guild.Key].Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
                     }
                     else
                     {
@@ -283,23 +257,7 @@ namespace Discord_UWP
                             try
                             { Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key); }
                             catch (Exception exception) { }
-                            try
-                            {
-                                var channel =
-                                (DirectMessageChannels.Items.FirstOrDefault(
-                                    x => (x as SimpleChannel).Id == e.EventData.ChannelId) as SimpleChannel);
-                                if (channel != null) channel.IsTyping = false;
-
-                                ReadState rpc = new ReadState();
-                                if (Session.RPC.ContainsKey(e.EventData.ChannelId))
-                                    rpc = Session.RPC[e.EventData.ChannelId];
-                                else
-                                    Session.RPC.Add(e.EventData.ChannelId, rpc);
-                                if (e.EventData.MentionEveryone ||
-                                    e.EventData.Mentions.Any(x => x.Id == App.CurrentUserId))
-                                    rpc.MentionCount = rpc.MentionCount + 1;
-                            }
-                            catch (Exception) { }
+                            Storage.Cache.DMs[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
                         }
                     }
                 });
@@ -384,6 +342,8 @@ namespace Discord_UWP
                 ToastNotificationManager.CreateToastNotifier().Show(notification);
 
             }
+
+            UpdateGuildAndChannelUnread();
         }
 
         private async void MessageDeleted(object sender,
@@ -506,37 +466,16 @@ namespace Discord_UWP
 
         private async void OnMessageAck(object sender, GatewayEventArgs<MessageAck> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    if (App.CurrentGuildIsDM)
-                    {
-                        foreach (SimpleChannel sc in DirectMessageChannels.Items)
-                            if (sc.Id == e.EventData.ChannelId)
-                            {
-                                sc.IsUnread = false;
-                                sc.NotificationCount = 0;
-                            }
-                    }
-                    else
-                    {
-                        foreach (SimpleChannel sc in TextChannels.Items)
-                            if (sc.Id == e.EventData.ChannelId)
-                            {
-                                sc.IsUnread = false;
-                                sc.NotificationCount = 0;
-                            }
-                    }
-                });
             if (Session.RPC.ContainsKey(e.EventData.ChannelId))
             {
-                var item = Session.RPC[e.EventData.ChannelId];
-                item.Id = e.EventData.Id;
-                item.LastMessageId = e.EventData.ChannelId;
+                ReadState item = Session.RPC[e.EventData.ChannelId];
+                item.Id = e.EventData.ChannelId;
+                item.LastMessageId = e.EventData.Id;
                 item.MentionCount = 0;
+                Session.RPC[e.EventData.ChannelId] = item;
             }
-                
-            //TODO Remove unread and notification indicators
+
+            UpdateGuildAndChannelUnread();
         }
 
         private async void GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
@@ -598,7 +537,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    ServerList.Items.Add(GuildRender(new Guild(e.EventData)));
+                    LoadGuildList();
                 });
 
             if (e.EventData.Presences != null)
@@ -1047,6 +986,75 @@ namespace Discord_UWP
                         TypingStackPanel.Fade(1, 200).Start();
                     }
                 });
+        }
+
+        private async void UpdateGuildAndChannelUnread()
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () => 
+                {
+                foreach (SimpleGuild guild in ServerList.Items)
+                {
+                    guild.IsUnread = false; //Will change if true
+                    if (guild.Id == "DMs")
+                    {
+                        foreach (var chn in Storage.Cache.DMs.Values)
+                            if (Session.RPC.ContainsKey(chn.Raw.Id))
+                            {
+                                ReadState readstate = Session.RPC[chn.Raw.Id];
+                                guild.NotificationCount += readstate.MentionCount;
+                                var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
+                                if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    guild.IsUnread = true;
+                            }
+                    }
+                    else
+                    {
+                        foreach (var chn in Storage.Cache.Guilds[guild.Id].Channels.Values)
+                            if (Session.RPC.ContainsKey(chn.Raw.Id))
+                            {
+                                ReadState readstate = Session.RPC[chn.Raw.Id];
+                                guild.NotificationCount += readstate.MentionCount;
+                                var StorageChannel = Storage.Cache.Guilds[guild.Id].Channels[chn.Raw.Id];
+                                if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    guild.IsUnread = true;
+                            }
+                    }
+                }
+
+                if (App.CurrentGuildIsDM)
+                {
+                    foreach (SimpleChannel sc in DirectMessageChannels.Items)
+                        if (Session.RPC.ContainsKey(sc.Id))
+                        {
+                            ReadState readstate = Session.RPC[sc.Id];
+                            sc.NotificationCount = readstate.MentionCount;
+                            var StorageChannel = Storage.Cache.DMs[sc.Id];
+                            if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                sc.IsUnread = true;
+                            else
+                                sc.IsUnread = false;
+                        }
+                }
+                else
+                {
+                    foreach (SimpleChannel sc in TextChannels.Items)
+                        if (Session.RPC.ContainsKey(sc.Id))
+                        {
+                            ReadState readstate = Session.RPC[sc.Id];
+                            sc.NotificationCount = readstate.MentionCount;
+                            var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
+                            if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                sc.IsUnread = true;
+                            else
+                                sc.IsUnread = false;
+                        }
+                }
+            });
         }
     }
 }

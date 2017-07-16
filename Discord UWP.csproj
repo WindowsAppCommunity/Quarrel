@@ -138,6 +138,9 @@
     <Compile Include="Controls\BanControl.xaml.cs">
       <DependentUpon>BanControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GuildControl.xaml.cs">
+      <DependentUpon>GuildControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
     </Compile>
@@ -275,6 +278,7 @@
     <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\GuildFlyout.cs" />
+    <Compile Include="Main Extra\GuildManager.cs" />
     <Compile Include="Main Extra\Flyouts\GuildMemberFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\UserDetails.cs" />
@@ -423,6 +427,10 @@
     <Page Include="Controls\BanControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GuildControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChannelControl.xaml">
       <SubType>Designer</SubType>
