@@ -166,7 +166,30 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region CreatBan
+        public class CreateBanNavigationArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+            public string UserId { get; set; }
+        }
+        public static event EventHandler<CreateBanNavigationArgs> NavigateToCreateBanHandler;
+        public static void NavigateToCreateBan(string guildId, string userId)
+        {
+            NavigateToCreateBanHandler?.Invoke(typeof(App), new CreateBanNavigationArgs() { GuildId = guildId, UserId = userId});
+        }
+        #endregion
 
+        #region NicknameEdit
+        public class NicknameEditNavigationArgs : EventArgs
+        {
+            public string UserId { get; set; }
+        }
+        public static event EventHandler<NicknameEditNavigationArgs> NavigateToNicknameEditHandler;
+        public static void NavigateToNicknameEdit(string userId)
+        {
+            NavigateToNicknameEditHandler?.Invoke(typeof(App), new NicknameEditNavigationArgs() { UserId = userId });
+        }
+        #endregion
 
         #region ChannelEdit
         public class ChannelEditNavigationArgs : EventArgs

@@ -369,7 +369,7 @@
                             <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name" Tapped="ServerName_Tapped"/>
                             <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
                                 <StackPanel>
-                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="True" CanReorderItems="True" AllowDrop="True">
+                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False">
                                         <ListView.Header>
                                             <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
@@ -408,7 +408,22 @@
                             </ScrollViewer>
                             <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
                                 <StackPanel>
-                                    <ListView x:Name="DirectMessageChannels" SelectionChanged="LoadDmChannelMessages"/>
+                                    <ListView x:Name="DirectMessageChannels" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionChanged="LoadDmChannelMessages">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <controls:ChannelControl Id="{Binding Id}" 
+                                                                         Name="{Binding Name}" 
+                                                                         UserStatus="{Binding UserStatus}" 
+                                                                         Subtitle="{Binding Subtitle}" 
+                                                                         ImageUrl="{Binding ImageURL}" 
+                                                                         Type="{Binding Type}" 
+                                                                         NotificationCount="{Binding NotificationCount}" 
+                                                                         IsUnread="{Binding IsUnread}" 
+                                                                         IsTyping="{Binding IsTyping}" 
+                                                                         IsMuted="{Binding IsMuted}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
                                     <TextBlock x:Name="NoDMSCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                     <ProgressRing x:Name="DMsLoading"></ProgressRing>
                                 </StackPanel>

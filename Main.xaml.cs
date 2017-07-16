@@ -249,8 +249,14 @@ namespace Discord_UWP
             App.NavigateToDMChannelHandler += OnNavigateToDMChannel;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
             App.NavigateToGuildEditHandler += OnNavigateToGuildEdit;
+            App.NavigateToNicknameEditHandler += OnNavigateToNicknameEdit;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToNicknameEdit(object sender, App.NicknameEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditNickname), e.UserId);
         }
 
         private void OnNavigateToGuildEdit(object sender, App.GuildEditNavigationArgs e)
@@ -515,7 +521,7 @@ namespace Discord_UWP
                     if (Session.Online)
                     {
                         ChannelsLoading.IsActive = true;
-                        DownloadDMs();
+                        LoadDMs();
                     } else
                     {
                         LoadDMs();
@@ -827,11 +833,6 @@ namespace Discord_UWP
             });
 
             #region Channels
-            List<UIElement> channelListBuffer = new List<UIElement>();
-            while (channelListBuffer.Count < 1000)
-            {
-                channelListBuffer.Add(new Grid());
-            }
 
             LoadChannelList(new List<int>(){0});
             #endregion
@@ -849,10 +850,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
-            foreach (KeyValuePair<string, DmCache> channel in Storage.Cache.DMs)
-            {
-                DirectMessageChannels.Items.Add(ChannelRender(channel.Value));
-            }
+            LoadChannelList(new List<int>() { 1, 3 });
             DMsLoading.IsActive = false;
             if (DirectMessageChannels.Items.Count > 0)
             {
@@ -862,16 +860,6 @@ namespace Discord_UWP
             {
                 NoDMSCached.Visibility = Visibility.Visible;
             }
-            App.CurrentGuildId = null;
-        }
-        private void DownloadDMs()
-        {
-            DirectMessageChannels.Items.Clear();
-            foreach (KeyValuePair<string, DmCache> dm in Storage.Cache.DMs)
-             {
-                DirectMessageChannels.Items.Add(ChannelRender(dm.Value));
-            }
-            DMsLoading.IsActive = false;
             App.CurrentGuildId = null;
         }
         #endregion
@@ -1098,7 +1086,7 @@ namespace Discord_UWP
         {
             if (DirectMessageChannels.SelectedItem != null)
             {
-                App.CurrentChannelId = ((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id;
+                App.CurrentChannelId = (DirectMessageChannels.SelectedItem as SimpleChannel).Id;
                 Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
@@ -1110,7 +1098,7 @@ namespace Discord_UWP
                 Messages.Items.Clear();
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
                 {
                     adCheck--;
                     Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -1121,33 +1109,8 @@ namespace Discord_UWP
                     }
                 }
 
-                ChannelName.Text = "@" + Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Raw.Users.FirstOrDefault().Username;
-                UserProfile profile = await Session.GetUserProfile(((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Users.FirstOrDefault().Id);
-                if (profile.MutualGuilds != null)
-                {
-                    ChannelTopic.Text = "A.K.A: ";
-                    bool first = true;
-                    foreach (MutualGuild guild in profile.MutualGuilds)
-                    {
-                        if (!first && guild.Nick != null)
-                        {
-                            ChannelTopic.Text += ", ";
-                        }
-                        if (guild.Nick != null)
-                        {
-                            ChannelTopic.Text += guild.Nick;
-                            first = false;
-                        }
-                    }
-                    if (ChannelTopic.Text == "A.K.A: ")
-                    {
-                        ChannelTopic.Text = "";
-                    }
-                }
-                else
-                {
-                    ChannelTopic.Text = "";
-                }
+                ChannelName.Text = "@" + Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Raw.Users.FirstOrDefault().Username;
+                ChannelTopic.Text = "";
 
                 if (Session.Online)
                 {
@@ -1179,17 +1142,17 @@ namespace Discord_UWP
 
             if (Storage.Cache.DMs != null)
             {
-                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Clear();
+                Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Clear();
             }
 
             foreach (SharedModels.Message message in messages)
             {
-                Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Add(message.Id, new Message(message));
+                Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Add(message.Id, new Message(message));
             }
 
             Messages.Items.Add(new MessageControl()); //Necessary for no good reason
 
-            foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem).Tag as DmCache).Raw.Id].Messages.Reverse())
+            foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Reverse())
             {
                 adCheck--;
                 Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
@@ -1202,16 +1165,15 @@ namespace Discord_UWP
 
             Messages.Items.RemoveAt(0);
 
-            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache).Raw.Id].Messages != null)
+            if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
             {
-                if (Storage.RecentMessages.ContainsKey(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id))
+                if (Storage.RecentMessages.ContainsKey((DirectMessageChannels.SelectedItem as SimpleChannel).Id))
                 {
-                    Storage.RecentMessages[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw
-                        .Id] = (Messages.Items.Last() as SharedModels.Message?)?.Id;
+                    Storage.RecentMessages[(DirectMessageChannels.SelectedItem as SimpleChannel).Id] = (Messages.Items.Last() as SharedModels.Message?)?.Id;
                 }
                 else
                 {
-                    Storage.RecentMessages.Add(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id, (Messages.Items.Last() as SharedModels.Message?)?.Id);
+                    Storage.RecentMessages.Add((DirectMessageChannels.SelectedItem as SimpleChannel).Id, (Messages.Items.Last() as SharedModels.Message?)?.Id);
                 }
                 Storage.SaveMessages();
             }

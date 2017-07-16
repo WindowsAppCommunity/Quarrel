@@ -230,11 +230,13 @@ namespace Discord_UWP.Controls
             }
             if (prop == ImageUrlProperty)
             {
-                ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
+                if (ImageUrl != "")
+                {
+                    ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
+                }
             }
             if (prop == TypeProperty)
             {
-
                 if (Type == 0)
                 {
                     //TEXT
@@ -250,6 +252,7 @@ namespace Discord_UWP.Controls
                 else if (Type == 1)
                 {
                     //DM
+                    HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
@@ -257,13 +260,14 @@ namespace Discord_UWP.Controls
                 else if (Type == 3)
                 {
                     //GROUP DM
+                    HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
 
-                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_white.svg"));
-                    else
-                        ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("Assets/Friends_black.svg"));
+                    //if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                    //    ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/Friends_white.svg"));
+                    //else
+                    //    ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/Friends_black.svg"));
 
                     ChannelImage.Margin = new Thickness(6, 12, 12, 12);
                 }

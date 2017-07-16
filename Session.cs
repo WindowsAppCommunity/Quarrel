@@ -441,7 +441,7 @@ namespace Discord_UWP
         public static void ModifyGuildMemberNickname(string guildId, string userId, string nickname)
         {
             IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-            guildservice.ModifyGuildMember(guildId, userId, new ModifyGuildMember() { Nick = nickname });
+            guildservice.ModifyGuildMemberNickname(guildId, userId, new ModifyGuildMember() { Nick = nickname });
         }
 
         public static void RemoveGuildMember(string guildId, string userId)
