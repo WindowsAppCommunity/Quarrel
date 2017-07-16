@@ -153,7 +153,7 @@ namespace Discord_UWP
                 MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
                 menu.Items.Add(sep2);
             }
-            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator)
+            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ChangeNickname) || (Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.EffectivePerms.Administrator && member.MemberDisplayedRole.Position <= Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                 {
