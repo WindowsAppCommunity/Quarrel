@@ -1164,7 +1164,7 @@ namespace Discord_UWP
             }
 
             Messages.Items.RemoveAt(0);
-
+            await Task.Run(() => Session.AckMessage(App.CurrentChannelId, Storage.Cache.DMs[App.CurrentChannelId].Raw.LastMessageId));
             if (DirectMessageChannels.SelectedItem != null && Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages != null)
             {
                 if (Storage.RecentMessages.ContainsKey((DirectMessageChannels.SelectedItem as SimpleChannel).Id))

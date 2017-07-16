@@ -48,13 +48,13 @@
             <SolidColorBrush x:Key="BlurpleTranslucent" Color="#197289DA"/>
             <Color x:Key="BlurpleTranslucentColor">#197289DA</Color>
 
-            <SolidColorBrush x:Key="Online" Color="#ff43b581"/>
+            <SolidColorBrush x:Key="online" Color="#ff43b581"/>
             <Color x:Key="OnlineColor">#ff43b581</Color>
-            <SolidColorBrush x:Key="Idle" Color="#fffaa61a"/>
+            <SolidColorBrush x:Key="idle" Color="#fffaa61a"/>
             <Color x:Key="IdleColor">#fffaa61a</Color>
-            <SolidColorBrush x:Key="Dnd" Color="#fff04747"/>
+            <SolidColorBrush x:Key="dnd" Color="#fff04747"/>
             <Color x:Key="DndColor">#fff04747</Color>
-            <SolidColorBrush x:Key="Offline" Color="#FFAAAAAA"/>
+            <SolidColorBrush x:Key="offline" Color="#FFAAAAAA"/>
             <Color x:Key="OfflineColor">#FFAAAAAA</Color>
 
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
@@ -702,6 +702,7 @@
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="Margin" Value="12,2,24,2"/>
                 <Setter Property="FontSize" Value="15"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True" />

@@ -76,19 +76,10 @@ namespace Discord_UWP.Controls
                     SharedGuildContainer.Children.Add(b);
                 }
 
-                switch (DisplayedFriend.UserStatus)
+                status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
+                if (!Session.Online)
                 {
-                    case "online":
-                        status.Fill = (SolidColorBrush)App.Current.Resources["Online"];
-                        break;
-                    case "idle":
-                        status.Fill = (SolidColorBrush)App.Current.Resources["Idle"];
-                        break;
-                    case "dnd": status.Fill = (SolidColorBrush)App.Current.Resources["Dnd"];
-                        break;
-                    default:
-                        status.Fill = (SolidColorBrush)App.Current.Resources["Offline"];
-                        break;
+                    status.Visibility = Visibility.Collapsed;
                 }
                 switch (DisplayedFriend.RelationshipStatus)
                 {
