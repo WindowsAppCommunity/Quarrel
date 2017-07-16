@@ -801,6 +801,21 @@ namespace Discord_UWP
                     if (ServerList.SelectedIndex == 0)
                     {
                         LoadDMs(); //TODO: Don't reload all for one
+                        if (SelectChannel)
+                        {
+                            foreach (SimpleChannel channel in DirectMessageChannels.Items)
+                            {
+                                if (channel.Type == 1 && Storage.Cache.DMs[channel.Id].Raw.Users.FirstOrDefault().Id == SelectChannelId)
+                                {
+                                    DirectMessageChannels.SelectedItem = channel;
+                                    SelectChannel = false;
+                                }
+                            }
+                            if (SelectChannel)
+                            {
+                                Session.CreateDM(new CreateDM() { Recipients = new List<string>() { SelectChannelId } });
+                            }
+                        }
                     }
                 });
         }

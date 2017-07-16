@@ -263,7 +263,7 @@ namespace Discord_UWP
 
         private void LeaveServer(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            App.NavigateToLeaveServer(App.CurrentGuildId);
         }
 
         private void KickMember(object sender, RoutedEventArgs e)

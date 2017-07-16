@@ -178,6 +178,12 @@ namespace Discord_UWP
                 Showmsg(e);
             }
         }
+
+        public static void LeaveServer(string guildId)
+        {
+            IUserService userservice = AuthenticatedRestFactory.GetUserService();
+            userservice.LeaveGuild(guildId).Wait();
+        }
         #endregion
 
         #endregion
@@ -292,6 +298,12 @@ namespace Discord_UWP
             {
                 Showmsg(e);
             }
+        }
+
+        public static void CreateDM(CreateDM createDM)
+        {
+            IUserService userservice = AuthenticatedRestFactory.GetUserService();
+            userservice.CreateDirectMessageChannelForCurrentUser(createDM).Wait();
         }
         #endregion
 
