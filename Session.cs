@@ -379,12 +379,12 @@ namespace Discord_UWP
             }
         }
 
-        public static void ModifyGuildChannel(string chnId, ModifyChannel newChn)
+        public static void ModifyGuildRole(string guildId, string roleId, ModifyGuildRole newRole)
         {
             try
             {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.ModifyChannel(chnId, newChn).Wait();
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                guildservice.ModifyGuildRole(guildId, roleId, newRole).Wait();
             }
             catch (Exception e)
             {
@@ -557,6 +557,20 @@ namespace Discord_UWP
         #endregion
 
         #region Set
+
+        public static void ModifyGuildChannel(string chnId, ModifyChannel newChn)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                channelservice.ModifyChannel(chnId, newChn).Wait();
+            }
+            catch (Exception e)
+            {
+                Showmsg(e);
+            }
+        }
+
         public static async Task CreateMessage(string id, string text)
         {
             try

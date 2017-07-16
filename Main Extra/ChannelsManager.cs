@@ -102,8 +102,6 @@ namespace Discord_UWP
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         }
 
-
-
         private IEnumerable<KeyValuePair<string, GuildChannel>> DisplayedChannels = null;
 
         private void LoadChannelList(List<int> ChannelType)
