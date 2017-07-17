@@ -507,31 +507,7 @@ namespace Discord_UWP
 
                     if (loggedIn)
                     {
-                        // await Session.AutoLogin();
-                        // Session.Online = true;
-                        //rootFrame.Navigate(typeof(Main), e.Arguments);
-                        if (IsConsole)
-                        {
-                            if (e.Arguments != "")
-                            {
-                                rootFrame.Navigate(typeof(Main), e.Arguments);
-                            }
-                            else
-                            {
-                                rootFrame.Navigate(typeof(Main));
-                            }
-                        }
-                        else
-                        {
-                            if (e.Arguments != "")
-                            {
-                                rootFrame.Content = new Main(e.Arguments);
-                            }
-                            else
-                            {
-                                rootFrame.Content = new Main();
-                            }
-                        }
+                        rootFrame.Navigate(typeof(Main), e.Arguments);
                     }
                     else
                     {

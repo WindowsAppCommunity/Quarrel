@@ -155,16 +155,17 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
-            Login();
-
-            SetupUI();
         }
-
-        public Main(string args)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.InitializeComponent();
+            if (e.Parameter.ToString() != "")
+            {
+                Login(e.Parameter.ToString());
+            } else
+            {
+                Login();
+            }
 
-            Login(args);
             SetupUI();
         }
 
@@ -393,7 +394,6 @@ namespace Discord_UWP
         {
             ServerList.Items.Clear();
             LoadGuildList();
-            ServerList.SelectedIndex = 0;
 
             if (SelectChannel)
             {
@@ -404,6 +404,9 @@ namespace Discord_UWP
                         ServerList.SelectedItem = guild;
                     }
                 }
+            } else
+            {
+                ServerList.SelectedIndex = 0;
             }
         }
         #endregion
@@ -1168,9 +1171,9 @@ namespace Discord_UWP
         }
         #endregion
 
-        public bool SelectChannel = false;
-        public string SelectChannelId = "";
-        public string SelectGuildId = "";
+        public static bool SelectChannel = false;
+        public static string SelectChannelId = "";
+        public static string SelectGuildId = "";
         string _settingsPaneId;
 
         private void SP_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
