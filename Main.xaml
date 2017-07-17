@@ -425,8 +425,11 @@
                                             <TextBlock Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
                                     </ListView>
-                                    <ListViewItem x:Name="Upvote" Height="50" Tapped="Upvote_Tapped">
-                                        <TextBlock Text="Upvote this for Voice support"/>
+                                    <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
+                                        <StackPanel>
+                                            <TextBlock Text="Upvote this for Voice Channels" FontWeight="Bold"/>
+                                            <TextBlock Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
+                                        </StackPanel>
                                     </ListViewItem>
                                 </StackPanel>
                             </ScrollViewer>
