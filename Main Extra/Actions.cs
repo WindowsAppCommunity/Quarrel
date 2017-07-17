@@ -93,11 +93,6 @@ namespace Discord_UWP
             }
         }
 
-        private void AddServer(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void AddChannel(object sender, TappedRoutedEventArgs e)
         {
             CreateChannel.IsPaneOpen = true;

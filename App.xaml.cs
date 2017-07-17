@@ -178,6 +178,22 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region CreateServer
+        public static event EventHandler NavigateToCreateServerHandler;
+        public static void NavigateToCreateServer()
+        {
+            NavigateToCreateServerHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
+        #region JoinServer
+        public static event EventHandler NavigateToJoinServerHandler;
+        public static void NavigateToJoinServer()
+        {
+            NavigateToJoinServerHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
         #region NicknameEdit
         public class NicknameEditNavigationArgs : EventArgs
         {
@@ -507,31 +523,7 @@ namespace Discord_UWP
 
                     if (loggedIn)
                     {
-                        // await Session.AutoLogin();
-                        // Session.Online = true;
-                        //rootFrame.Navigate(typeof(Main), e.Arguments);
-                        if (IsConsole)
-                        {
-                            if (e.Arguments != "")
-                            {
-                                rootFrame.Navigate(typeof(Main), e.Arguments);
-                            }
-                            else
-                            {
-                                rootFrame.Navigate(typeof(Main));
-                            }
-                        }
-                        else
-                        {
-                            if (e.Arguments != "")
-                            {
-                                rootFrame.Content = new Main(e.Arguments);
-                            }
-                            else
-                            {
-                                rootFrame.Content = new Main();
-                            }
-                        }
+                        rootFrame.Navigate(typeof(Main), e.Arguments);
                     }
                     else
                     {

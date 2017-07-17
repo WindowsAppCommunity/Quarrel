@@ -47,15 +47,15 @@ namespace Discord_UWP
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
-            MenuFlyoutItem PinChannel = new MenuFlyoutItem()
-            {
-                Text = SecondaryTile.Exists(chn.Raw.Id) ? "Unpin From Start" : "Pin To Start",
-                Tag = chn.Raw,
-                Icon = SecondaryTile.Exists(chn.Raw.Id) ? new SymbolIcon(Symbol.UnPin) : new SymbolIcon(Symbol.Pin),
-                Margin = new Thickness(-26, 0, 0, 0)
-            };
-            PinChannel.Click += PinChannelToStart;
-            menu.Items.Add(PinChannel);
+            //MenuFlyoutItem PinChannel = new MenuFlyoutItem()
+            //{
+            //    Text = SecondaryTile.Exists(chn.Raw.Id) ? "Unpin From Start" : "Pin To Start",
+            //    Tag = chn.Raw,
+            //    Icon = SecondaryTile.Exists(chn.Raw.Id) ? new SymbolIcon(Symbol.UnPin) : new SymbolIcon(Symbol.Pin),
+            //    Margin = new Thickness(-26, 0, 0, 0)
+            //};
+            //PinChannel.Click += PinChannelToStart;
+            //menu.Items.Add(PinChannel);
             MenuFlyoutItem editchannel = new MenuFlyoutItem()
             {
                 Text = "Edit Channel",
@@ -148,15 +148,15 @@ namespace Discord_UWP
 
         private async void PinChannelToStart(object sender, RoutedEventArgs e)
         {
-            if (!SecondaryTile.Exists(((sender as MenuFlyoutItem).Tag as GuildChannel).Raw.Id))
+            if (!SecondaryTile.Exists(((sender as MenuFlyoutItem).Tag as SharedModels.GuildChannel?).Value.Id))
             {
                 var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
 
                 //var currentTime = new DateTime();
                 //var tileActivationArguments = "timeTileWasPinned=" + currentTime;
-                var tileActivationArguments = ((sender as MenuFlyoutItem).Tag as GuildChannel).Raw.Id + ":" + ((sender as MenuFlyoutItem).Tag as GuildChannel).Raw.GuildId;
+                var tileActivationArguments = ((sender as MenuFlyoutItem).Tag as SharedModels.GuildChannel?).Value.Id + ":" + ((sender as MenuFlyoutItem).Tag as SharedModels.GuildChannel?).Value.Id;
 
-                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as MenuFlyoutItem).Tag as GuildChannel).Raw.Id, ((sender as MenuFlyoutItem).Tag as GuildChannel).Raw.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
+                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as MenuFlyoutItem).Tag as SharedModels.GuildChannel?).Value.Id, ((sender as MenuFlyoutItem).Tag as SharedModels.GuildChannel?).Value.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
                 tile.VisualElements.ShowNameOnSquare150x150Logo = true;
                 tile.VisualElements.ShowNameOnWide310x150Logo = true;
                 tile.VisualElements.ShowNameOnWide310x150Logo = true;
@@ -166,7 +166,7 @@ namespace Discord_UWP
                 {
                     MessageDialog msg = new MessageDialog("Pinned Succesfully");
                     await msg.ShowAsync();
-                    (sender as Button).Content = "Unpin From Start";
+                    (sender as MenuFlyoutItem).Text = "Unpin From Start";
                 }
                 else
                 {
