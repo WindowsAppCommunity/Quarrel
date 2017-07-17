@@ -44,7 +44,7 @@
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
-    <Grid Margin="0" Padding="0">
+    <Grid Margin="0" Padding="0" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
