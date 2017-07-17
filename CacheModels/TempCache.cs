@@ -33,11 +33,6 @@ namespace Discord_UWP.CacheModels
                 DMs.Add(new TempDmCache(dm.Value));
             }
 
-            foreach (KeyValuePair<string, int> guild in input.guildOrder)
-            {
-                guildOrder.Add(new TempGuildPosition(guild.Value, guild.Key));
-            }
-
             foreach (KeyValuePair<string, Friend> friend in input.Friends)
             {
                 Friends.Add(new TempFriend(friend.Value));
@@ -45,7 +40,6 @@ namespace Discord_UWP.CacheModels
         }
 
         public TempUser CurrentUser;
-        public List<TempGuildPosition> guildOrder = new List<TempGuildPosition>();
         public List<TempFriend> Friends = new List<TempFriend>();
         public List<TempGuild> Guilds = new List<TempGuild>();
         public List<TempDmCache> DMs = new List<TempDmCache>();

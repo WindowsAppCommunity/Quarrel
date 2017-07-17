@@ -21,7 +21,7 @@ namespace Discord_UWP.API.Guild
         Task<SharedModels.Guild> ModifyGuild([AliasAs("guildId")] string guildId, [Body] ModifyGuild modifyGuild);
 
         [Delete("/guilds/{guildId}")]
-        Task<SharedModels.Guild> DeleteGuild([AliasAs("guildId")] string guildId);
+        Task<SharedModels.Guild> DeleteGuild([AliasAs("guildId")] string guildId, [Body] string body = "{}");
 
         [Get("/guilds/{guildId}/channels")]
         Task<IEnumerable<GuildChannel>> GetGuildChannels([AliasAs("guildId")] string guildId);

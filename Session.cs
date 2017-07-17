@@ -425,6 +425,16 @@ namespace Discord_UWP
             }
         }
 
+        public static void DeleteGuild(string guildid)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                guildservice.DeleteGuild(guildid).Wait();
+            }
+            catch { }
+        }
+
         /*public static void ModifyGuildChannelPositions(string channelid, int Position)
         {
             try

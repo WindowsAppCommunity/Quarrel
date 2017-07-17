@@ -120,7 +120,6 @@ namespace Discord_UWP
                 LoadMutedChannels();
 
                 await LoadUser();
-                LoadGuilds();
 
                 LoadingSplash.Status = "OFFLINE";
                 await Task.Delay(3000);
@@ -190,17 +189,30 @@ namespace Discord_UWP
             App.NavigateToGuildChannelHandler += OnNavigateToGuildChannel;
             App.NavigateToDMChannelHandler += OnNavigateToDMChannel;
             App.NavigateToChannelEditHandler += OnNavigateToChannelEdit;
+            App.NavigateToDeleteChannelHandler += OnNavigateToDeleteChannel;
             App.NavigateToGuildEditHandler += OnNavigateToGuildEdit;
             App.NavigateToNicknameEditHandler += OnNavigateToNicknameEdit;
             App.NavigateToCreateBanHandler += OnNavigateToCreateBan;
             App.NavigateToLeaveServerHandler += OnNavigateToLeaverServer;
+            App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToDeleteChannel(object sender, App.DeleteChannelNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DeleteChannel), e.ChannelId);
+        }
+
+        private void OnNavigateToDeleteServer(object sender, App.DeleteServerNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DeleteServer), e.GuildId);
         }
 
         private void OnNavigateToLeaverServer(object sender, App.LeaverServerNavigationArgs e)
         {
             SubFrameNavigator(typeof(SubPages.LeaveServer), e.GuildId);
+
         }
 
         private void OnNavigateToCreateBan(object sender, App.CreateBanNavigationArgs e)

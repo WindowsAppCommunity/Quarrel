@@ -152,7 +152,7 @@
                                                     <TextBlock Text="Remove Friend" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
-                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed">
+                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="Send Message" Margin="28,0,0,0"/>

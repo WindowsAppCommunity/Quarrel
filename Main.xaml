@@ -345,7 +345,7 @@
                 </Grid>
             </Grid>
             <Rectangle x:Name="ContentCache" IsHitTestVisible="False" Opacity="0" Fill="Black" Grid.Column="2" Margin="0"  Grid.Row="1"/>
-            
+
             <SplitView Name="Servers" DisplayMode="Overlay"  Grid.ColumnSpan="3" CompactPaneLength="320" Grid.Row="1" PaneClosing="SP_PaneClosing" Margin="0,0,-50,0" Style="{StaticResource DiscordSplitView}">
                 <SplitView.Pane>
                     <Grid>
@@ -372,7 +372,7 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-                    
+
                         <!--<ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>-->
                         <Grid x:Name="ChannelListParent" Grid.Column="1" Grid.Row="0" Background="{ThemeResource LightBG}">
                             <Grid.RowDefinitions>
@@ -586,7 +586,7 @@
                     </Grid>
                 </SplitView.Pane>
             </SplitView>
-            
+
             <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}" Style="{StaticResource CommandBarStyle1}">
                 <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
                 <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">

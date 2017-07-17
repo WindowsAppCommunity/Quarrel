@@ -202,6 +202,18 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region DeleteServer
+        public class DeleteServerNavigationArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<DeleteServerNavigationArgs> NavigateToDeleteServerHandler;
+        public static void NavigateToDeleteServer(string guildId)
+        {
+            NavigateToDeleteServerHandler?.Invoke(typeof(App), new DeleteServerNavigationArgs() { GuildId = guildId });
+        }
+        #endregion
+
         #region ChannelEdit
         public class ChannelEditNavigationArgs : EventArgs
         {
@@ -211,6 +223,18 @@ namespace Discord_UWP
         public static void NavigateToChannelEdit(string channelId)
         {
             NavigateToChannelEditHandler?.Invoke(typeof(App), new ChannelEditNavigationArgs() { ChannelId = channelId });
+        }
+        #endregion
+
+        #region DeleteChannel
+        public class DeleteChannelNavigationArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+        }
+        public static event EventHandler<DeleteChannelNavigationArgs> NavigateToDeleteChannelHandler;
+        public static void NavigateToDeleteChannel(string channelId)
+        {
+            NavigateToDeleteChannelHandler?.Invoke(typeof(App), new DeleteChannelNavigationArgs() { ChannelId = channelId });
         }
         #endregion
 
