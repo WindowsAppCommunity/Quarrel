@@ -371,6 +371,17 @@
                                                            Margin="10,0,0,0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
+                            <ListView.Footer>
+                                <Button Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer">
+                                    <Button.Content>
+                                        <Grid>
+                                            <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
+                                            <SymbolIcon Symbol="Add"/>
+                                        </Grid>
+                                    </Button.Content>
+                                </Button>
+                            </ListView.Footer>
+                            
                         </ListView>
 
                         <!--<ListViewItem Height="64" Width="64" MinWidth="0" Tag="DMs" HorizontalContentAlignment="Center" FontFamily="Segoe MDL2 Assets" Content="" FontSize="22"/>-->

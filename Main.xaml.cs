@@ -74,11 +74,13 @@ using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
 #endregion
 
+
+
 /* The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238 */
 
 namespace Discord_UWP
 {
-   /*<summary>
+    /*<summary>
      An empty page that can be used on its own or navigated to within a Frame.
      </summary>*/
     
@@ -182,6 +184,8 @@ namespace Discord_UWP
 
             App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
+            App.NavigateToCreateServerHandler += OnNavigateToCreateServer;
+            App.NavigateToJoinServerHandler += OnNavigateToJoinServer;
             App.SubpageClosedHandler += SubpageClosed;
             App.LinkClicked += MessageControl_OnLinkClicked;
             App.OpenAttachementHandler += OpenAttachement;
@@ -198,6 +202,16 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void OnNavigateToJoinServer(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.JoinServer));
+        }
+
+        private void OnNavigateToCreateServer(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateServer));
         }
 
         private void OnNavigateToDeleteChannel(object sender, App.DeleteChannelNavigationArgs e)
@@ -738,7 +752,14 @@ namespace Discord_UWP
         {
             if (!App.CurrentGuildIsDM)
             {
-                App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
+                try
+                {
+                    App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
+                }
+                catch
+                {
+                    ServerList.SelectedIndex = 1;
+                }
             }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
@@ -1350,6 +1371,11 @@ namespace Discord_UWP
         private void ServerName_Tapped(object sender, TappedRoutedEventArgs e)
         {
             App.NavigateToGuildEdit(App.CurrentGuildId);
+        }
+
+        private void AddServer(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.AddServer));
         }
     }
 }
