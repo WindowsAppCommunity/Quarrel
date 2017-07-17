@@ -74,9 +74,45 @@ namespace Discord_UWP
                 Margin = new Thickness(-26, 0, 0, 0),
                 IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread
             };
-            menu.Items.Add(markasread);
             markasread.Click += MarkGuildasRead;
+            menu.Items.Add(markasread);
+            if (guild.RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+            {
+                MenuFlyoutItem deleteServer = new MenuFlyoutItem()
+                {
+                    Text = "Delete Server",
+                    Tag = guild.RawGuild.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.Delete),
+                    Margin = new Thickness(-26, 0, 0, 0)
+                };
+                deleteServer.Click += DeleteServer;
+                menu.Items.Add(deleteServer);
+            }
+            else
+            {
+                MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                {
+                    Text = "Leave Server",
+                    Tag = guild.RawGuild.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.Remove),
+                    Margin = new Thickness(-26, 0, 0, 0)
+                };
+                leaveServer.Click += LeaveServerClick;
+                menu.Items.Add(leaveServer);
+            }
             return menu;
+        }
+
+        private void LeaveServerClick(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToLeaveServer((sender as MenuFlyoutItem).Tag.ToString());
+        }
+
+        private void DeleteServer(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToDeleteServer((sender as MenuFlyoutItem).Tag.ToString());
         }
 
         private void MuteServer(object sender, RoutedEventArgs e)

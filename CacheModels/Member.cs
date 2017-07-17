@@ -38,6 +38,7 @@ namespace Discord_UWP.CacheModels
         public SharedModels.GuildMember Raw;
         //public ImageBrush avatar = new ImageBrush();
 
+        public SharedModels.Role HighRole = new SharedModels.Role();
         public bool IsTyping { get; set; }
         public DisplayedRole MemberDisplayedRole { get; set; }
         public SharedModels.Presence status { get; set; }

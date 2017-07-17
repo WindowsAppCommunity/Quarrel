@@ -253,5 +253,10 @@ namespace Discord_UWP.SubPages
             await Session.DeleteInvite(code);
             InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite)x).String == code));
         }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -98,7 +98,7 @@ namespace Discord_UWP
                 }
             ServerList.Items.Add(DM);
 
-            foreach (var guild in Storage.Cache.Guilds.OrderBy(x => Storage.Cache.guildOrder[x.Key]))
+            foreach (var guild in Storage.Cache.Guilds.OrderBy(x => x.Value.Postition))
             {
                 var sg = new SimpleGuild();
                 sg.Id = guild.Value.RawGuild.Id;

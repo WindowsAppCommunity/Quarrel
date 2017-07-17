@@ -372,6 +372,11 @@ namespace Discord_UWP.SubPages
                 Session.RemoveFriend(profile.User.Id);
             });
         }
+
+        private void SendMessageLink_Click(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToDMChannel(profile.User.Id);
+        }
     }
 
     public class BooleanToVisibilityConverter : IValueConverter

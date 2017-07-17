@@ -53,8 +53,6 @@ namespace Discord_UWP
         {
             if (e.EventData.Notes != null)
                 App.Notes = e.EventData.Notes;
-
-            Storage.Cache.guildOrder.Clear();
             int pos = 0;
 
             Storage.Settings.DevMode = e.EventData.Settings.DevMode;
@@ -66,11 +64,6 @@ namespace Discord_UWP
                 Storage.SaveAppSettings();
             }
 
-            foreach (string guild in e.EventData.Settings.GuildOrder)
-            {
-                pos++;
-                Storage.Cache.guildOrder.Add(guild, pos);
-            }
 
             Storage.Cache.Friends.Clear();
             foreach (SharedModels.Friend friend in e.EventData.Friends)
@@ -111,6 +104,10 @@ namespace Discord_UWP
                         Storage.Cache.Guilds[guild.Id].Roles.Add(role.Id, role);
                         if (Storage.Cache.Guilds[guild.Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(role.Id) || role.Name == "@everyone")
                         {
+                            if (Storage.Cache.Guilds[guild.Id].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position < role.Position)
+                            {
+                                Storage.Cache.Guilds[guild.Id].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole = role;
+                            }
                             Storage.Cache.Guilds[guild.Id].perms.Perms.Permissions = Storage.Cache.Guilds[guild.Id].perms.Perms.Permissions | Convert.ToInt32(role.Permissions);
                         }
                     }
@@ -162,6 +159,15 @@ namespace Discord_UWP
             foreach (GuildSetting guild in e.EventData.GuildSettings)
             {
                 Session.GuildSettings.Add(guild.GuildId, guild);
+            }
+
+            foreach (string guild in e.EventData.Settings.GuildOrder)
+            {
+                if (Storage.Cache.Guilds.ContainsKey(guild))
+                {
+                    Storage.Cache.Guilds[guild].Postition = pos;
+                }
+                pos++;
             }
 
             Storage.Cache.CurrentUser = new User(e.EventData.User);
@@ -501,6 +507,63 @@ namespace Discord_UWP
             if (!Storage.Cache.Guilds.ContainsKey(e.EventData.Id))
             {
                 Storage.Cache.Guilds.Add(e.EventData.Id, new Guild(e.EventData));
+
+                if (!Storage.Cache.Guilds.ContainsKey(e.EventData.Id))
+                {
+                    Storage.Cache.Guilds.Add(e.EventData.Id, new Guild(e.EventData));
+                }
+
+                if (e.EventData.Members != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Members.Clear();
+                    foreach (GuildMember member in e.EventData.Members)
+                    {
+                        Storage.Cache.Guilds[e.EventData.Id].Members.Add(member.User.Id, new Member(member));
+                    }
+                }
+
+                if (e.EventData.Roles != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Roles.Clear();
+                    Storage.Cache.Guilds[e.EventData.Id].perms = new Common.Permissions();
+                    Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions = 0;
+                    foreach (Role role in e.EventData.Roles)
+                    {
+                        Storage.Cache.Guilds[e.EventData.Id].Roles.Add(role.Id, role);
+                        if (Storage.Cache.Guilds[e.EventData.Id].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Contains(role.Id))
+                        {
+                            Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions = Storage.Cache.Guilds[e.EventData.Id].perms.Perms.Permissions | Convert.ToInt32(role.Permissions);
+                        }
+                    }
+                }
+
+                if (e.EventData.Presences != null)
+                {
+                    foreach (Presence status in e.EventData.Presences)
+                    {
+                        if (!Session.PrecenseDict.ContainsKey(status.User.Id))
+                        {
+                            Session.PrecenseDict.Add(status.User.Id, status);
+                        }
+                    }
+                }
+
+                if (e.EventData.Channels != null)
+                {
+                    Storage.Cache.Guilds[e.EventData.Id].Channels.Clear();
+                    foreach (SharedModels.GuildChannel chn in e.EventData.Channels)
+                    {
+                        SharedModels.GuildChannel channel = chn;
+                        channel.GuildId = e.EventData.Id;
+                        Storage.Cache.Guilds[e.EventData.Id].Channels.Add(chn.Id, new GuildChannel(channel));
+
+                        foreach (var Channel in Storage.Cache.Guilds[e.EventData.Id].Channels)
+                        {
+                            Storage.Cache.Guilds[e.EventData.Id].Channels[Channel.Key].chnPerms = new Common.Permissions() { Perms = Storage.Cache.Guilds[e.EventData.Id].perms.Perms };
+                            Storage.Cache.Guilds[e.EventData.Id].Channels[Channel.Key].chnPerms.AddOverwrites(Channel.Value.Raw.PermissionOverwrites, e.EventData.Id);
+                        }
+                    }
+                }
             }
             else
             {

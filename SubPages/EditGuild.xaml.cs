@@ -104,11 +104,11 @@ namespace Discord_UWP.SubPages
             if (!Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 GuildName.IsEnabled = false;
-                Invites.Visibility = Visibility.Collapsed;
+                pivot.Items.Remove(Invites);
             }
             if (!Storage.Cache.Guilds[guildId].perms.Perms.BanMembers && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
-                Bans.Visibility = Visibility.Collapsed;
+                pivot.Items.Remove(Bans);
             }
             if (true) //TODO: Set role permissions
             {
@@ -310,7 +310,7 @@ namespace Discord_UWP.SubPages
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
-            if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].MemberDisplayedRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+            if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = false;
             } else
