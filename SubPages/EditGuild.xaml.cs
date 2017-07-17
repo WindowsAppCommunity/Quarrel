@@ -50,48 +50,45 @@ namespace Discord_UWP.SubPages
 
         private void SaveRoleSettings()
         {
-            Common.Permissions perm = new Common.Permissions()
+            if (!loadingRoles)
             {
-                Perms = new Common.PermissionsSave()
+                Storage.Cache.Guilds[guildId].perms.Perms.Administrator = Administrator.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ViewAuditLog = ViewAuditLog.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild = ManageServer.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles = ManageRoles.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageChannels = ManageChannels.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.KickMembers = KickMembers.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.BanMembers = BanMembers.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.CreateInstantInvite = CreateInstantInvite.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ChangeNickname = ChangeNickname.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageNicknames = ManageNicknames.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageEmojis = ManageEmojis.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageWebhooks = ManageWebhooks.IsOn;
+
+                Storage.Cache.Guilds[guildId].perms.Perms.ReadMessages = ReadMessages.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.SendMessages = SendMessages.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.SendTtsMessages = SendTtsMessages.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ManageMessages = ManageMessages.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.EmbedLinks = EmbedLinks.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.AttachFiles = AttachFiles.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.ReadMessageHistory = ReadMessageHistory.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.MentionEveryone = MentionEveryone.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.UseExternalEmojis = UseExternalEmojis.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.AddReactions = AddReactions.IsOn;
+
+                Storage.Cache.Guilds[guildId].perms.Perms.Connect = ConnectPerm.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.Speak = Speak.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.MuteMembers = MuteMembers.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.DeafenMembers = DeafenMembers.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.MoveMembers = MoveMembers.IsOn;
+                Storage.Cache.Guilds[guildId].perms.Perms.UseVad = UseVad.IsOn;
+                string roleId = (RolesView.SelectedItem as SimpleRole).Id;
+                Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = Storage.Cache.Guilds[guildId].perms.Perms.Permissions, Position = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Position };
+                Task.Run(() =>
                 {
-                    Administrator = Administrator.IsOn,
-                    ViewAuditLog = ViewAuditLog.IsOn,
-                    ManangeGuild = ManageServer.IsOn,
-                    ManageRoles = ManageRoles.IsOn,
-                    ManageChannels = ManageChannels.IsOn,
-                    KickMembers = KickMembers.IsOn,
-                    BanMembers = BanMembers.IsOn,
-                    CreateInstantInvite = CreateInstantInvite.IsOn,
-                    ChangeNickname = ChangeNickname.IsOn,
-                    ManageNicknames = ManageNicknames.IsOn,
-                    ManageEmojis = ManageEmojis.IsOn,
-                    ManageWebhooks = ManageWebhooks.IsOn,
-
-                    ReadMessages = ReadMessages.IsOn,
-                    SendMessages = SendMessages.IsOn,
-                    SendTtsMessages = SendTtsMessages.IsOn,
-                    ManageMessages = ManageMessages.IsOn,
-                    EmbedLinks = EmbedLinks.IsOn,
-                    AttachFiles = AttachFiles.IsOn,
-                    ReadMessageHistory = ReadMessageHistory.IsOn,
-                    MentionEveryone = MentionEveryone.IsOn,
-                    UseExternalEmojis = UseExternalEmojis.IsOn,
-                    AddReactions = AddReactions.IsOn,
-
-                    Connect = ConnectPerm.IsOn,
-                    Speak = Speak.IsOn,
-                    MuteMembers = MuteMembers.IsOn,
-                    DeafenMembers = DeafenMembers.IsOn,
-                    MoveMembers = MoveMembers.IsOn,
-                    UseVad = UseVad.IsOn
-                }
-            };
-            string roleId = (RolesView.SelectedItem as SimpleRole).Id;
-            Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = perm.Perms.Permissions, Position = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id].Position};
-            Task.Run(() =>
-            {
-                Session.ModifyGuildRole(guildId, roleId, modifyguildrole);
-            });
+                    Session.ModifyGuildRole(guildId, roleId, modifyguildrole);
+                });
+            }
         }
 
         private string guildId = "";
@@ -247,6 +244,7 @@ namespace Discord_UWP.SubPages
 
         private bool LoadingInvites = false;
         private bool loadingBans = false;
+        private bool loadingRoles = false;
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Invites" && !LoadingInvites)
@@ -309,6 +307,7 @@ namespace Discord_UWP.SubPages
 
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            loadingRoles = true;
             Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
             if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
@@ -355,6 +354,7 @@ namespace Discord_UWP.SubPages
             DeafenMembers.IsOn = perms.Perms.DeafenMembers;
             MoveMembers.IsOn = perms.Perms.MoveMembers;
             UseVad.IsOn = perms.Perms.UseVad;
+            loadingRoles = false;
         }
 
         class SimpleRole : INotifyPropertyChanged 
