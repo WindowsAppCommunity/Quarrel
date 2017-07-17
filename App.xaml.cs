@@ -178,6 +178,22 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region CreateServer
+        public static event EventHandler NavigateToCreateServerHandler;
+        public static void NavigateToCreateServer()
+        {
+            NavigateToCreateServerHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
+        #region JoinServer
+        public static event EventHandler NavigateToJoinServerHandler;
+        public static void NavigateToJoinServer()
+        {
+            NavigateToJoinServerHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
         #region NicknameEdit
         public class NicknameEditNavigationArgs : EventArgs
         {

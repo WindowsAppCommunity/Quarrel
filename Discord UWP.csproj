@@ -327,8 +327,14 @@
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\AddServer.xaml.cs">
+      <DependentUpon>AddServer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\CreateBan.xaml.cs">
       <DependentUpon>CreateBan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\CreateServer.xaml.cs">
+      <DependentUpon>CreateServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\DeleteChannel.xaml.cs">
       <DependentUpon>DeleteChannel.xaml</DependentUpon>
@@ -347,6 +353,9 @@
     </Compile>
     <Compile Include="SubPages\InAppPurchases.xaml.cs">
       <DependentUpon>InAppPurchases.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\JoinServer.xaml.cs">
+      <DependentUpon>JoinServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\LeaveServer.xaml.cs">
       <DependentUpon>LeaveServer.xaml</DependentUpon>
@@ -497,7 +506,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\AddServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\CreateBan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\CreateServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,6 +539,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\InAppPurchases.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\JoinServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
