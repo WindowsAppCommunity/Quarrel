@@ -21,7 +21,7 @@ namespace Discord_UWP
                 case 7: return "Cutting ribbons";
                 case 8: return "Passing the vacuum cleaner";
                 case 9: return "I'm afraid I can't do that, Dave";
-                case 10: return "I'Il be back";
+                case 10: return "Squashing bugs";
                 case 11: return "It's alive!!";
                 case 12: return "Thanking the producers";
                 case 13: return "Hiding the ugly code";
@@ -40,7 +40,7 @@ namespace Discord_UWP
                 case 26: return "Making covfefe";
                 case 27: return "Hiring lawyers";
                 case 28: return "if(Loading) { EntryMessages.GetMessage(1); }";
-                default: return "Waiting for Ready Packet";
+                default: return "Waiting for the Ready Packet";
             }
         }
     }
