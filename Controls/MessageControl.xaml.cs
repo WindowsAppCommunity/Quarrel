@@ -190,9 +190,9 @@ namespace Discord_UWP
                 GuildMember member;
                 if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
                 else userid = "";
-                if (App.CurrentGuild != null && App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuildId != null && Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Message.Value.User.Id))
                 {
-                    member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
+                    member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Message.Value.User.Id].Raw;
                 }
                 else
                 {
