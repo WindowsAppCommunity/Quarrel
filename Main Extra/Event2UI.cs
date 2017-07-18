@@ -1081,7 +1081,7 @@ namespace Discord_UWP
                                 sc.NotificationCount = readstate.MentionCount;
                                 var StorageChannel = Storage.Cache.DMs[sc.Id];
                                 if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                     sc.IsUnread = true;
                                 else
                                     sc.IsUnread = false;
@@ -1096,7 +1096,7 @@ namespace Discord_UWP
                                 sc.NotificationCount = readstate.MentionCount;
                                 var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
                                 if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                     sc.IsUnread = true;
                                 else
                                     sc.IsUnread = false;

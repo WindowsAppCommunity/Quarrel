@@ -464,7 +464,7 @@
                             <Button x:Name="UserFlyoutBtn" BorderThickness="0" Background="Transparent" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout  FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                        <StackPanel Padding="12">
+                                        <StackPanel Padding="12" Width="280">
                                             <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="AppBarButton_Click_1"/>
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
                                             <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
@@ -473,7 +473,7 @@
                                             <RadioButton x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <Grid Width="256" Margin="0,6,0,0">
+                                            <Grid Visibility="Collapsed" Width="256" Margin="0,6,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition/>

@@ -1254,9 +1254,9 @@ namespace Discord_UWP
             if (e.Link.StartsWith("#"))
             {
                 string val = e.Link.Remove(0, 1);
-                foreach (ListViewItem item in TextChannels.Items)
+                foreach (SimpleChannel item in TextChannels.Items)
                 {
-                    if ((item.Tag as GuildChannel).Raw.Id == val)
+                    if (item.Id == val)
                     {
                         TextChannels.SelectedItem = item;
                     }

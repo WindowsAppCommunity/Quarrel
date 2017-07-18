@@ -100,8 +100,8 @@
                             </Rectangle>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,0,0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock x:Name="username" Text="Username" FontSize="20"/>
-                                    <TextBlock x:Name="discriminator" Text="#xxxx" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
+                                    <TextBlock x:Name="username" Text="" FontSize="20"/>
+                                    <TextBlock x:Name="discriminator" Text="" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
                                 </StackPanel>
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 

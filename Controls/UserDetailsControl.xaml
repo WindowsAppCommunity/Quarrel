@@ -47,12 +47,15 @@
         <StackPanel x:Name="Stacker">
             <Grid Margin="0,24,0,0">
                 <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
-                <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCanceled="Button_PointerCanceled" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" >
-                    <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
-                        <Rectangle.Fill>
-                            <ImageBrush x:Name="Avatar"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
+                    <Border Width="96" Height="96" CornerRadius="48">
+                        <Rectangle x:Name="AvatarRectangle" Height="96" Width="96">
+                            <Rectangle.Fill>
+                                <ImageBrush x:Name="Avatar"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </Border>
+
                 </Button>
                 <!--<Rectangle x:Name="CacheRectangle"  IsHitTestVisible="False" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="Black" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="ShowProfile" IsHitTestVisible="False" TextAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -75,8 +78,8 @@
             <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
             <TextBlock Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0"/>
-            <Rectangle Height="0" Fill="{ThemeResource InvertedBG}" Opacity="0.4" Margin="0,12"/>
-            <local:MessageBox x:Name="SendDM"/>
+
+            <local:MessageBox x:Name="SendDM" Margin="0,24,0,0"/>
         </StackPanel>
     </Grid>
 </UserControl>
