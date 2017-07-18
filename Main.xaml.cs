@@ -430,71 +430,77 @@ namespace Discord_UWP
         Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private async void CatchServerSelection(object sender, SelectionChangedEventArgs e)
         {
-            if (ServerList.SelectedItem != null) /*Called upon clearing*/
-            {
-                _onlyAllowOpeningPane = true;
-                ToggleServerListFull(null, null);
-                ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
-                TextChannels.Items.Clear();
-                Typers.Clear();
-                MembersCvs.Source = null;
-                App.GuildMembers = null;
-                SendMessage.Visibility = Visibility.Collapsed;
-                if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
-                {
-                    App.CurrentGuildIsDM = true;
-                    Channels.Visibility = Visibility.Collapsed;
-                    DMs.Visibility = Visibility.Visible;
-                    if (Session.Online)
-                    {
-                        ChannelsLoading.IsActive = true;
-                        LoadDMs();
-                    } else
-                    {
-                        LoadDMs();
-                    }
-                    if (SelectChannel)
-                    {
-                        foreach (SimpleChannel channel in DirectMessageChannels.Items)
-                        {
-                            if (channel.Type == 1 && Storage.Cache.DMs[channel.Id].Raw.Users.FirstOrDefault().Id == SelectChannelId)
-                            {
-                                DirectMessageChannels.SelectedItem = channel;
-                                SelectChannel = false;
-                            }
-                        }
-                        if (SelectChannel)
-                        {
-                            Session.CreateDM(new CreateDM() { Recipients = new List<string>() { SelectChannelId } });
-                        }
-                    }
-                }
-                else
-                {
-                    App.CurrentGuildIsDM = false;
-                    Channels.Visibility = Visibility.Visible;
-                    DMs.Visibility = Visibility.Collapsed;
-                    if (Session.Online)
-                    {
-                        ChannelsLoading.IsActive = true;
-                        DownloadGuild((ServerList.SelectedItem as SimpleGuild).Id);
-                    } else
-                    {
-                        LoadGuild((ServerList.SelectedItem as SimpleGuild).Id);
-                    }
-                    if (SelectChannel)
-                    {
-                        foreach (SimpleChannel channel in TextChannels.Items)
-                        {
-                            if (channel.Id == SelectChannelId)
-                            {
-                                TextChannels.SelectedItem = channel;
-                            }
-                        }
-                        SelectChannel = false;
-                    }
-                }
-            }
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       if (ServerList.SelectedItem != null) /*Called upon clearing*/
+                       {
+                           _onlyAllowOpeningPane = true;
+                           ToggleServerListFull(null, null);
+                           ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
+                           TextChannels.Items.Clear();
+                           Typers.Clear();
+                           MembersCvs.Source = null;
+                           App.GuildMembers = null;
+                           SendMessage.Visibility = Visibility.Collapsed;
+                           if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
+                           {
+                               App.CurrentGuildIsDM = true;
+                               Channels.Visibility = Visibility.Collapsed;
+                               DMs.Visibility = Visibility.Visible;
+                               if (Session.Online)
+                               {
+                                   ChannelsLoading.IsActive = true;
+                                   LoadDMs();
+                               }
+                               else
+                               {
+                                   LoadDMs();
+                               }
+                               if (SelectChannel)
+                               {
+                                   foreach (SimpleChannel channel in DirectMessageChannels.Items)
+                                   {
+                                       if (channel.Type == 1 && Storage.Cache.DMs[channel.Id].Raw.Users.FirstOrDefault().Id == SelectChannelId)
+                                       {
+                                           DirectMessageChannels.SelectedItem = channel;
+                                           SelectChannel = false;
+                                       }
+                                   }
+                                   if (SelectChannel)
+                                   {
+                                       Session.CreateDM(new CreateDM() { Recipients = new List<string>() { SelectChannelId } });
+                                   }
+                               }
+                           }
+                           else
+                           {
+                               App.CurrentGuildIsDM = false;
+                               Channels.Visibility = Visibility.Visible;
+                               DMs.Visibility = Visibility.Collapsed;
+                               if (Session.Online)
+                               {
+                                   ChannelsLoading.IsActive = true;
+                                   DownloadGuild((ServerList.SelectedItem as SimpleGuild).Id);
+                               }
+                               else
+                               {
+                                   LoadGuild((ServerList.SelectedItem as SimpleGuild).Id);
+                               }
+                               if (SelectChannel)
+                               {
+                                   foreach (SimpleChannel channel in TextChannels.Items)
+                                   {
+                                       if (channel.Id == SelectChannelId)
+                                       {
+                                           TextChannels.SelectedItem = channel;
+                                       }
+                                   }
+                                   SelectChannel = false;
+                               }
+                           }
+                       }
+                   });
         }
 
         #region Members
