@@ -9,6 +9,32 @@
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="248">
+    <UserControl.Resources>
+        <Style x:Key="ButtonStyle2" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Width="248" Padding="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,13 +43,22 @@
         <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{Binding ActualWidth, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="0" Grid.ColumnSpan="4">
             <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
         </Grid>
-        <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
+        
         <StackPanel x:Name="Stacker">
-            <Rectangle Height="96" Width="96" RadiusX="48" RadiusY="48" Margin="0,24,0,0" Stroke="{ThemeResource Blurple}" StrokeThickness="3" Tapped="Rectangle_Tapped">
-                <Rectangle.Fill>
-                    <ImageBrush x:Name="Avatar"/>
-                </Rectangle.Fill>
-            </Rectangle>
+            <Grid Margin="0,24,0,0">
+                <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
+                <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCanceled="Button_PointerCanceled" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" >
+                    <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="Avatar"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Button>
+                <Rectangle x:Name="CacheRectangle"  IsHitTestVisible="False" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="Black" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="ShowProfile" IsHitTestVisible="False" TextAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    SHOW<LineBreak/>PROFILE
+                </TextBlock>
+            </Grid>
             <TextBlock x:Name="Nick" Text="Nick" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Center" Margin="0,12,0,0"/>
             <StackPanel x:Name="UserStacker" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,6,0,24">
                 <TextBlock x:Name="Username" FontSize="16" Text="User"/>
@@ -40,12 +75,6 @@
             <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
             <TextBlock Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0"/>
-            <!--<TextBlock Text="ACTIONS" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
-            <StackPanel Background="Transparent" HorizontalAlignment="Left" Orientation="Horizontal">
-                <AppBarButton Height="48" Width="48" Icon="ContactInfo" Click="AppBarButton_Click"/>
-                <AppBarButton Height="48" Width="48" Icon="Message"/>
-                <AppBarButton Height="48" Width="48"  Icon="AddFriend"/>
-            </StackPanel>-->
             <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Opacity="0.4" Margin="0,12"/>
             <local:MessageBox x:Name="SendDM"/>
         </StackPanel>

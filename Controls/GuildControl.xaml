@@ -44,8 +44,8 @@
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,3">
-        <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="10" Width="4" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,4">
+        <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
         <Rectangle x:Name="GuildImageBackdrop" Width="48" Height="48" RadiusX="24" RadiusY="24" Fill="{ThemeResource Blurple}" Opacity="1"/>
         <Rectangle x:Name="GuildImage" Width="48" Height="48" RadiusX="24" RadiusY="24">
             <Rectangle.Fill>
@@ -57,7 +57,7 @@
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0,-5,0">
+        <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="0,0,-7,-4" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Border.RenderTransform>
                 <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
             </Border.RenderTransform>
