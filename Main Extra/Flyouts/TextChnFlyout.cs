@@ -71,7 +71,8 @@ namespace Discord_UWP
             {
                 Text = "Mute Channel",
                 Icon = new SymbolIcon(Symbol.Mute),
-                Tag = chn.Raw.Id
+                Tag = chn.Raw.Id,
+                Margin = new Thickness(-26, 0, 0, 0)
             };
             mute.IsChecked = Storage.MutedChannels.Contains(chn.Raw.Id);
             mute.Click += MuteChannel;

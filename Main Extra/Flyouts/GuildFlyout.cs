@@ -61,7 +61,8 @@ namespace Discord_UWP
             {
                 Text = "Mute Server",
                 Icon = new SymbolIcon(Symbol.Mute),
-                Tag = guild.RawGuild.Id
+                Tag = guild.RawGuild.Id,
+                Margin = new Thickness(-26, 0, 0, 0)
             };
             mute.IsChecked = Storage.MutedServers.Contains(guild.RawGuild.Id);
             mute.Click += MuteServer;
