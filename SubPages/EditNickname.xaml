@@ -85,7 +85,11 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="Nickname" Header="Nickname" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" VerticalAlignment="Top"/>
+                    <StackPanel Margin="0,0,0,24">
+                        <TextBlock Text="EDIT NICKNAME" FontSize="13.333" FontWeight="Bold" Foreground="{StaticResource Blurple}"/>
+                        <TextBox x:Name="Nickname" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" Margin="0,6,0,0" VerticalAlignment="Top"/>
+                    </StackPanel>
+                    
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                             <Grid.ColumnDefinitions>

@@ -86,7 +86,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="Message" FontWeight="Bold"></TextBlock>
+                    <TextBlock x:Name="Message" FontWeight="Bold" Margin="0,0,0,12"></TextBlock>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                             <Grid.ColumnDefinitions>

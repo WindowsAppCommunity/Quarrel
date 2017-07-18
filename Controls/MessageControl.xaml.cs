@@ -26,8 +26,11 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using static Discord_UWP.Common;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.CacheModels;
 using Discord_UWP.Controls;
+using Discord_UWP.Gateway;
+using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.SharedModels;
 #region CacheModels Overrule
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
@@ -159,15 +162,169 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
+            Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
+            Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+        }
+
+        private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
+        {
+            if (gatewayEventArgs.EventData.MessageId != messageid) return;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                        if (reactionView == null)
+                            reactionView = new GridView
+                            {
+                                SelectionMode = ListViewSelectionMode.None,
+                                Margin = new Thickness(0),
+                                Padding = new Thickness(0)
+                            };
+                    ToggleButton toRemove = null;
+                    foreach (ToggleButton toggle in reactionView.Items)
+                    {
+                        var tuple = toggle.Tag as Tuple<string, string, Reactions>;
+                        if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
+                        {
+                            var text = ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text;
+                            var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
+                            if (text == "1")
+                            {
+                                toRemove = toggle;
+                                break;
+                            }
+                            Storyboard sb = new Storyboard();
+                            DoubleAnimation db = new DoubleAnimation()
+                            {
+                                To = 24,
+                                Duration = TimeSpan.FromMilliseconds(100),
+                            };
+
+                            Storyboard.SetTarget(db, rt);
+                            Storyboard.SetTargetProperty(db, "Y");
+                            sb.Children.Add(db);
+                            sb.Begin();
+                            sb.Completed += (o, o1) =>
+                            {
+                                //set the text
+                                ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text = (Convert.ToInt32(text) - 1).ToString();
+
+                                Storyboard sb1 = new Storyboard();
+                                DoubleAnimation db1 = new DoubleAnimation()
+                                {
+                                    From = -24,
+                                    To = 0,
+                                    Duration = TimeSpan.FromMilliseconds(150),
+                                    EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut },
+                                };
+
+                                Storyboard.SetTarget(db1, rt);
+                                Storyboard.SetTargetProperty(db1, "Y");
+                                sb1.Children.Add(db1);
+                                sb1.Begin();
+                            };
+                            if (tuple.Item3.Me)
+                                toggle.IsChecked = false;
+                        }
+                    }
+                    if (toRemove != null)
+                        reactionView.Items.Remove(toRemove);
+                });
+        }
+
+        private async void GatewayOnMessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
+        {
+            if (gatewayEventArgs.EventData.MessageId != messageid) return;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (reactionView == null)
+                    {
+                        reactionView = new GridView
+                        {
+                            SelectionMode = ListViewSelectionMode.None,
+                            Margin = new Thickness(6, 0, 0, 0),
+                            Padding = new Thickness(0)
+                        };
+                        rootGrid.Children.Add(reactionView);
+                    }
+
+
+                    bool success = false;
+                    foreach (ToggleButton toggle in reactionView.Items)
+                    {
+                        var tuple = toggle.Tag as Tuple<string, string, Reactions>;
+                        if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
+                        {
+                            success = true;
+                            var text = ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text;
+                            //animate from the top
+                            var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
+                            Storyboard sb = new Storyboard();
+                            DoubleAnimation db = new DoubleAnimation()
+                            {
+                                To = -24,
+                                Duration = TimeSpan.FromMilliseconds(100),
+                            };
+                           
+                            Storyboard.SetTarget(db, rt);
+                            Storyboard.SetTargetProperty(db,"Y");
+                            sb.Children.Add(db);
+                            sb.Begin();
+                            sb.Completed += (o, o1) =>
+                            {
+                                //set the text
+                                ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text = (Convert.ToInt32(text) + 1).ToString();
+
+                                Storyboard sb1 = new Storyboard();
+                                DoubleAnimation db1 = new DoubleAnimation()
+                                {
+                                    From = 24,
+                                    To = 0,
+                                    Duration = TimeSpan.FromMilliseconds(150),
+                                    EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut },
+                                };
+
+                                Storyboard.SetTarget(db1, rt);
+                                Storyboard.SetTargetProperty(db1, "Y");
+                                sb1.Children.Add(db1);
+                                sb1.Begin();
+                            };
+
+                            if (tuple.Item3.Me)
+                                toggle.IsChecked = true;
+                        }
+                    }
+                    if (!success)
+                    {
+                        var data = gatewayEventArgs.EventData;
+                        Grid.SetRow(reactionView, 3);
+                        Grid.SetColumn(reactionView, 1);
+
+                        var toggle = GenerateReactionToggle(new Reactions()
+                        {
+                            Count = 1,
+                            Emoji = data.Emoji,
+                            Me = App.CurrentUserId.Equals(data.UserId),
+                        });
+                        reactionView.Items.Add(toggle);
+                    }
+                });
+        }
+
+        private void Sb_Completed(object sender, object e)
+        {
+            throw new NotImplementedException();
         }
 
         private GridView reactionView;
         private Attachment attachement;
         private string userid = "";
+        public string messageid = "";
         public void UpdateMessage()
         {
             if (Message.HasValue)
             {
+                messageid = Message.Value.Id;
                 if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == App.CurrentUserId))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
@@ -257,60 +414,14 @@ namespace Discord_UWP
                     reactionView = new GridView
                     {
                         SelectionMode = ListViewSelectionMode.None,
-                        Margin = new Thickness(0),
+                        Margin = new Thickness(6, 0, 0, 0),
                         Padding = new Thickness(0)
+
                     };
                     foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count > 0))
                     {
-
-                        ToggleButton reactionToggle = new ToggleButton();
-                        reactionToggle.IsChecked = reaction.Me;
-                        reactionToggle.Tag =
-                            new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
-                        reactionToggle.Click += ToggleReaction;
-                        if (reaction.Me)
-                        {
-                            reactionToggle.IsChecked = true;
-                        }
-                        StackPanel stack = new StackPanel(){Orientation=Orientation.Horizontal};
-                        string serversideEmoji = null;
-                        Debug.WriteLine(reaction.Emoji.Name);
-                        if(App.CurrentGuild.RawGuild.Emojis != null)
-                        foreach (Emoji emoji in App.CurrentGuild.RawGuild.Emojis)
-                        {
-                            if (emoji.Name == reaction.Emoji.Name)
-                            {
-                                serversideEmoji = emoji.Id;
-                            }
-                        }
-                        if (serversideEmoji != null)
-                        {
-                            stack.Children.Add(new Image()
-                            {
-                                Width = 20,
-                                Height = 20,
-                                Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png"))
-                            });
-                        }
-                        else
-                        {
-                            stack.Children.Add(new TextBlock()
-                            {
-                               FontSize=20,
-                               Text = reaction.Emoji.Name,
-                               FontFamily = new FontFamily("ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji")
-                        });
-                        }
-                        stack.Children.Add(new TextBlock(){ Text = reaction.Count.ToString(), Margin=new Thickness(4,0,0,0) });
-                        reactionToggle.Content = stack;
-                        reactionToggle.Style = (Style) App.Current.Resources["EmojiButton"];
-                        reactionToggle.MinHeight = 0;
-
-                        GridViewItem gridViewItem = new GridViewItem() {Content = reactionToggle};
-
-                        gridViewItem.MinHeight = 0;
-                        reactionView.Margin = new Thickness(6, 0, 0, 0);
-                        reactionView.Items.Add(gridViewItem);
+                        
+                        reactionView.Items.Add(GenerateReactionToggle(reaction));
                     }
                     Grid.SetRow(reactionView, 3);
                     Grid.SetColumn(reactionView, 1);
@@ -339,6 +450,7 @@ namespace Discord_UWP
             }
             else
             {
+                messageid = "";
                 content.Visibility = Visibility.Visible;
                 Grid.SetRow(moreButton,2);
                 username.Content = "";
@@ -355,6 +467,53 @@ namespace Discord_UWP
             }
         }
 
+        private ToggleButton GenerateReactionToggle(Reactions reaction)
+        {
+            ToggleButton reactionToggle = new ToggleButton();
+            reactionToggle.IsChecked = reaction.Me;
+            reactionToggle.Tag =
+                new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
+            reactionToggle.Click += ToggleReaction;
+            if (reaction.Me)
+            {
+                reactionToggle.IsChecked = true;
+            }
+            StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal };
+            string serversideEmoji = null;
+            Debug.WriteLine(reaction.Emoji.Name);
+            if (App.CurrentGuild.RawGuild.Emojis != null)
+                foreach (Emoji emoji in App.CurrentGuild.RawGuild.Emojis)
+                {
+                    if (emoji.Name == reaction.Emoji.Name)
+                    {
+                        serversideEmoji = emoji.Id;
+                    }
+                }
+            if (serversideEmoji != null)
+            {
+                stack.Children.Add(new Image()
+                {
+                    Width = 20,
+                    Height = 20,
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png"))
+                });
+            }
+            else
+            {
+                stack.Children.Add(new TextBlock()
+                {
+                    FontSize = 20,
+                    Text = reaction.Emoji.Name,
+                    FontFamily = new FontFamily("ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji")
+                });
+            }
+            stack.Children.Add(new TextBlock() { Text = reaction.Count.ToString(), Margin = new Thickness(4, 0, 0, 0) });
+            stack.Clip = new RectangleGeometry(){Rect=new Rect(0,-4,96,28)};
+            reactionToggle.Content = stack;
+            reactionToggle.Style = (Style)App.Current.Resources["EmojiButton"];
+            reactionToggle.MinHeight = 0;
+            return reactionToggle;
+        }
         private void LoadEmbeds()
         {
             EmbedViewer.Visibility = Visibility.Collapsed;
@@ -494,29 +653,30 @@ namespace Discord_UWP
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
             {
                 await Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>)(sender as ToggleButton).Tag).Item3.Emoji);
-                if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
-                {
-                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
-                }
-                else
-                {
-                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
-                }
+               // if (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Me)
+               // {
+               //     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
+               // }
+               // else
+               // {
+               //     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
+               // }
             }
             else
             {
                 await Session.CreateReactionAsync((((ToggleButton)sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item2, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Emoji);
 
-                if (((Tuple<string, string, Reactions>) ((ToggleButton) sender).Tag).Item3.Me)
-                {
-                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
-                }
-                else
-                {
-                    counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count + 1).ToString();
-                }
+              //  if (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Me)
+              //  {
+              //      counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
+              //  }
+              //  else
+              //  {
+              //      counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count + 1).ToString();
+              //  }
             }
         }
+
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {           
             string val = "";

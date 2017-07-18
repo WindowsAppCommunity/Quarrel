@@ -89,7 +89,7 @@
                     <TextBlock x:Name="header" Text="SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <PivotItem Header="UI" Margin="12,0,0,0">
-                            <ScrollViewer>
+                            <ScrollViewer Padding="0,0,24,0">
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                     <TextBlock Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
@@ -164,15 +164,18 @@
                                 <CheckBox x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}"/>
                                 <CheckBox x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
                                 <CheckBox x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>
+                                <!--
                                 <TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Only mentions and direct messages (default)</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>
-                            </StackPanel>
+                            -->
+                                </StackPanel>
                         </PivotItem>
                         <PivotItem Header="Advanced">
+                            <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                             <StackPanel>
                                 <TextBlock Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                 <TextBlock Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
@@ -314,73 +317,73 @@
                                     </ComboBoxItem>
                                 </ComboBox>
                                 <TextBlock Text="Do Not Distrub color" FontSize="13" Margin="0,6,0,0"/>
-                                <ComboBox x:Name="dnd_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#fff04747"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Discord Dnd" FontSize="13" FontWeight="SemiBold" Foreground="#fff04747"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#FF43B581"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Discord Online" FontSize="13" FontWeight="SemiBold" Foreground="#FF43B581"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#fffaa61a"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Discord Idle" FontSize="13" FontWeight="SemiBold" Foreground="#fffaa61a"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#8f72da"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Deep Blurple"  FontSize="13" FontWeight="SemiBold" Foreground="#8f72da"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#8f72da"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Sky Blurple"  FontSize="13" FontWeight="SemiBold" Foreground="#72bdda"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#99AAB5"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Greyple"  FontSize="13" FontWeight="SemiBold" Foreground="#99AAB5"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#da7289"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Rediolet" FontSize="13" FontWeight="SemiBold" Foreground="#da7289"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#89da72"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Limeen"  FontSize="13" FontWeight="SemiBold" Foreground="#89da72"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#FF0079B2"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Seableen"  FontSize="13" FontWeight="SemiBold" Foreground="#FF0079B2"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <ComboBoxItem.Tag>
-                                            <SolidColorBrush Color="#dac372"/>
-                                        </ComboBoxItem.Tag>
-                                        <TextBlock Text="Yellaki" FontSize="13" FontWeight="SemiBold" Foreground="#dac372"/>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem Tag="{ThemeResource SystemControlForegroundAccentBrush}">
-                                        <TextBlock Text="System Accent Color" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
-                                    </ComboBoxItem>
-                                </ComboBox>
-
-                            </StackPanel>
+                                    <ComboBox x:Name="dnd_colorbox" BorderThickness="1" Margin="0,4,0,0" SelectedIndex="0">
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#fff04747"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Discord Dnd" FontSize="13" FontWeight="SemiBold" Foreground="#fff04747"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#FF43B581"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Discord Online" FontSize="13" FontWeight="SemiBold" Foreground="#FF43B581"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#fffaa61a"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Discord Idle" FontSize="13" FontWeight="SemiBold" Foreground="#fffaa61a"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#8f72da"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Deep Blurple"  FontSize="13" FontWeight="SemiBold" Foreground="#8f72da"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#8f72da"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Sky Blurple"  FontSize="13" FontWeight="SemiBold" Foreground="#72bdda"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#99AAB5"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Greyple"  FontSize="13" FontWeight="SemiBold" Foreground="#99AAB5"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#da7289"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Rediolet" FontSize="13" FontWeight="SemiBold" Foreground="#da7289"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#89da72"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Limeen"  FontSize="13" FontWeight="SemiBold" Foreground="#89da72"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#FF0079B2"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Seableen"  FontSize="13" FontWeight="SemiBold" Foreground="#FF0079B2"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem>
+                                            <ComboBoxItem.Tag>
+                                                <SolidColorBrush Color="#dac372"/>
+                                            </ComboBoxItem.Tag>
+                                            <TextBlock Text="Yellaki" FontSize="13" FontWeight="SemiBold" Foreground="#dac372"/>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem Tag="{ThemeResource SystemControlForegroundAccentBrush}">
+                                            <TextBlock Text="System Accent Color" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                            </ScrollViewer>
                         </PivotItem>
                     </Pivot>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">

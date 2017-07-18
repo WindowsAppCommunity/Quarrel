@@ -134,7 +134,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,0,0" Padding="-12,0,0,0">
+                        <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,-24,0" Padding="-12,0,24,0">
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
                                     <TextBlock x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
