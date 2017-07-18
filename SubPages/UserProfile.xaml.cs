@@ -376,6 +376,7 @@ namespace Discord_UWP.SubPages
         private void SendMessageLink_Click(object sender, RoutedEventArgs e)
         {
             App.NavigateToDMChannel(profile.User.Id);
+            CloseButton_Click(null,null);
         }
     }
 
