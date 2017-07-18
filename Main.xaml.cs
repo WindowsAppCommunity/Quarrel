@@ -1148,7 +1148,14 @@ namespace Discord_UWP
         {
             if (Messages.Items.Count > 0)
             {
-                IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentChannelId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
+                IEnumerable<SharedModels.Message> newMessages = null;
+                if (!(Messages.Items[0] as MessageContainer).IsAdvert)
+                {
+                    newMessages = await Session.GetChannelMessagesBefore(App.CurrentChannelId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
+                } else
+                {
+                    newMessages = await Session.GetChannelMessagesBefore(App.CurrentChannelId, (Messages.Items[1] as MessageContainer).Message.Value.Id);
+                }
 
                 int adCheck = 5;
 
