@@ -138,19 +138,25 @@
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
                                     <TextBlock x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                                    <TextBlock FontSize="13" Text="Discord UWP is an unofficial client for Discord. The developers are in no way affiliated with Hammer &amp; Chisel, Inc" TextWrapping="Wrap" Margin="0"/>
+                                    <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
+                                        <Paragraph>
+                                            Discord UWP is an
+                                            <Bold>unofficial</Bold> client for Discord.
+                                            <Bold>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Bold>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
+                                        </Paragraph>
+                                    </RichTextBlock>
                                     <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
                                             <TextBlock Text="Discuss on Twitter" Margin="12,0,0,0"/>
                                         </StackPanel>
                                     </HyperlinkButton>
-                                    <Button Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer">
-                                        <StackPanel Orientation="Horizontal" Margin="-10,0,0,0">
-                                            <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                            <TextBlock Text="Join Discord UWP server" Margin="12,0,0,0"/>
+                                    <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                                            <TextBlock x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
                                         </StackPanel>
-                                    </Button>
+                                    </HyperlinkButton>
                                     <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
@@ -162,9 +168,66 @@
                                     <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
-                            <ListViewHeaderItem Content="VERSION 4.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewHeaderItem Content="VERSION 5.0.0" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added A.K.A to DMs" TextWrapping="Wrap"/>
+                                <TextBlock Text="A.K.A in DM titles" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Friends page" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="User popup and profile page" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Synced unread and mention indicators on channels and servers" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Synced dev mode" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Create and join servers" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Expensive rendering option" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Vibrate on message reception option" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Amazing typing indicators (in the channel list too!)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Lots of right click/hold options everywhere" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Edit channels/servers/nicknames" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Ban people" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Text to speech" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Mention suggestions" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Manage invites" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Vastly improved stability" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed links" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Squashed bugs" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="More loading entrance messages" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Lots of other stuff that we can't remember was added." TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 4.1.5" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">

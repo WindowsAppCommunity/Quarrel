@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -48,15 +49,23 @@ namespace Discord_UWP.SubPages
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveButton.IsEnabled = false;
             try
             {
                 Error.Visibility = Visibility.Collapsed;
+                string InviteCode = Invite.Text;
+                //Filter out the invite code from the link:
+                InviteCode = InviteCode.Replace("https://discord.gg/", "");
+                InviteCode = InviteCode.Replace("http://discord.gg/", "");
+                InviteCode = InviteCode.Replace("https://discordapp.com/invite/", "");
+                InviteCode = InviteCode.Replace("http://discordapp.com/invite/", "");
                 await Session.AcceptInvite(Invite.Text);
                 CloseButton_Click(null, null);
             }
             catch
             {
                 Error.Visibility = Visibility.Visible;
+                SaveButton.IsEnabled = true;
             }
         }
     }

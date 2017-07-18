@@ -113,6 +113,9 @@
     <Content Include="Assets\DiscordBlurpleIcon.png" />
     <Content Include="Assets\DiscordIcon.svg" />
     <Content Include="Assets\emojifont.ttf" />
+    <Content Include="Assets\emojis.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="project.json" />
   </ItemGroup>
@@ -137,6 +140,9 @@
     <Compile Include="Common.cs" />
     <Compile Include="Controls\BanControl.xaml.cs">
       <DependentUpon>BanControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmojiControl.xaml.cs">
+      <DependentUpon>EmojiControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GuildControl.xaml.cs">
       <DependentUpon>GuildControl.xaml</DependentUpon>
@@ -351,6 +357,9 @@
     <Compile Include="SubPages\EditNickname.xaml.cs">
       <DependentUpon>EditNickname.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\ExtendedMessageEditor.xaml.cs">
+      <DependentUpon>ExtendedMessageEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\InAppPurchases.xaml.cs">
       <DependentUpon>InAppPurchases.xaml</DependentUpon>
     </Compile>
@@ -439,6 +448,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\BanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EmojiControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -535,6 +548,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\EditNickname.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\ExtendedMessageEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

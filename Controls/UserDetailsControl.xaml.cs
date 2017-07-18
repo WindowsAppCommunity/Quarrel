@@ -146,5 +146,60 @@ namespace Discord_UWP.Controls
         {
             App.NavigateToProfile(DisplayedMember.Raw.User);
         }
+
+
+        private void AvatarShowMidAnimation()
+        {
+            AvatarRectangle.Blur(2, 200, 0).Start();
+            CacheRectangle.Fade(0.6f, 200).Start();
+            ShowProfile.Fade(0.8f, 200).Start();
+        }
+        private void AvatarShowFullAnimation()
+        {
+            AvatarRectangle.Blur(4, 200, 0).Start();
+            CacheRectangle.Fade(1, 200).Start();
+            ShowProfile.Fade(1, 200).Start();
+        }
+        private void AvatarHideAnimation()
+        {
+            AvatarRectangle.Blur(0, 200, 0).Start();
+            CacheRectangle.Fade(0, 200).Start();
+            ShowProfile.Fade(0, 200).Start();
+        }
+
+        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            AvatarShowMidAnimation();
+        }
+
+        private void Button_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            AvatarHideAnimation();
+        }
+
+        private void Button_PointerCanceled(object sender, PointerRoutedEventArgs e)
+        {
+            AvatarHideAnimation();
+        }
+
+        private void Button_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            AvatarHideAnimation();
+        }
+
+        private void Button_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            AvatarShowFullAnimation();
+        }
+
+        private void Button_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AvatarHideAnimation();
+        }
+
+        private void Button_GotFocus(object sender, RoutedEventArgs e)
+        {
+            AvatarShowMidAnimation();
+        }
     }
 }
