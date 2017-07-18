@@ -168,10 +168,7 @@
                                     <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
-                            <ListViewHeaderItem Content="VERSION 5.0.0" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="A.K.A in DM titles" TextWrapping="Wrap"/>
-                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 5.1.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Friends page" TextWrapping="Wrap"/>
                             </ListViewItem>
