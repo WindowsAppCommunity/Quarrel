@@ -1035,72 +1035,74 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () => 
                 {
-                foreach (SimpleGuild guild in ServerList.Items)
-                {
-                    guild.IsUnread = false; //Will change if true
-                    if (guild.Id == "DMs")
+                    foreach (SimpleGuild guild in ServerList.Items)
                     {
-                        int NotificationCount = 0;
-                        foreach (var chn in Storage.Cache.DMs.Values)
-                            if (Session.RPC.ContainsKey(chn.Raw.Id))
-                            {
-                                ReadState readstate = Session.RPC[chn.Raw.Id];
-                                NotificationCount += readstate.MentionCount;
-                                var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
-                                if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                                    guild.IsUnread = true;
+                        SimpleGuild gclone = guild.Clone();
+                        gclone.NotificationCount = 0; //Will Change if true
+                        gclone.IsUnread = false; //Will change if true
+                        if (gclone.Id == "DMs")
+                        {
+                            foreach (var chn in Storage.Cache.DMs.Values)
+                                if (Session.RPC.ContainsKey(chn.Raw.Id))
+                                {
+                                    ReadState readstate = Session.RPC[chn.Raw.Id];
+                                    gclone.NotificationCount += readstate.MentionCount;
+                                    var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
+                                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                        gclone.IsUnread = true;
                             }
-                        guild.NotificationCount = NotificationCount;
+                        }
+                        else
+                        {
+                            foreach (var chn in Storage.Cache.Guilds[gclone.Id].Channels.Values)
+                                if (Session.RPC.ContainsKey(chn.Raw.Id))
+                                {
+                                    ReadState readstate = Session.RPC[chn.Raw.Id];
+                                    gclone.NotificationCount += readstate.MentionCount;
+                                    var StorageChannel = Storage.Cache.Guilds[gclone.Id].Channels[chn.Raw.Id];
+                                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                        gclone.IsUnread = true;
+                            }
+                        }
+                        guild.Id = gclone.Id;
+                        guild.ImageURL = gclone.ImageURL;
+                        guild.IsDM = gclone.IsDM;
+                        guild.IsMuted = gclone.IsMuted;
+                        guild.IsUnread = gclone.IsUnread;
+                        guild.Name = gclone.Name;
+                        guild.NotificationCount = gclone.NotificationCount;
+                    }
+                    if (App.CurrentGuildIsDM)
+                    {
+                        foreach (SimpleChannel sc in DirectMessageChannels.Items)
+                            if (Session.RPC.ContainsKey(sc.Id))
+                            {
+                                ReadState readstate = Session.RPC[sc.Id];
+                                sc.NotificationCount = readstate.MentionCount;
+                                var StorageChannel = Storage.Cache.DMs[sc.Id];
+                                if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    sc.IsUnread = true;
+                                else
+                                    sc.IsUnread = false;
+                            }
                     }
                     else
                     {
-                        int NotificationCount = 0;
-                        foreach (var chn in Storage.Cache.Guilds[guild.Id].Channels.Values)
-                            if (Session.RPC.ContainsKey(chn.Raw.Id))
+                        foreach (SimpleChannel sc in TextChannels.Items)
+                            if (Session.RPC.ContainsKey(sc.Id))
                             {
-                                ReadState readstate = Session.RPC[chn.Raw.Id];
-                                NotificationCount += readstate.MentionCount;
-                                    var StorageChannel = Storage.Cache.Guilds[guild.Id].Channels[chn.Raw.Id];
+                                ReadState readstate = Session.RPC[sc.Id];
+                                sc.NotificationCount = readstate.MentionCount;
+                                var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
                                 if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                                    guild.IsUnread = true;
+                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    sc.IsUnread = true;
+                                else
+                                    sc.IsUnread = false;
                             }
-                        guild.NotificationCount = NotificationCount;
                     }
-                }
-
-                if (App.CurrentGuildIsDM)
-                {
-                    foreach (SimpleChannel sc in DirectMessageChannels.Items)
-                        if (Session.RPC.ContainsKey(sc.Id))
-                        {
-                            ReadState readstate = Session.RPC[sc.Id];
-                            sc.NotificationCount = readstate.MentionCount;
-                            var StorageChannel = Storage.Cache.DMs[sc.Id];
-                            if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                                sc.IsUnread = true;
-                            else
-                                sc.IsUnread = false;
-                        }
-                }
-                else
-                {
-                    foreach (SimpleChannel sc in TextChannels.Items)
-                        if (Session.RPC.ContainsKey(sc.Id))
-                        {
-                            ReadState readstate = Session.RPC[sc.Id];
-                            sc.NotificationCount = readstate.MentionCount;
-                            var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
-                            if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                                readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                                sc.IsUnread = true;
-                            else
-                                sc.IsUnread = false;
-                        }
-                }
-            });
+                });
         }
     }
 }

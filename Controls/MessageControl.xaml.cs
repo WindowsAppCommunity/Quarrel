@@ -347,9 +347,9 @@ namespace Discord_UWP
                 GuildMember member;
                 if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
                 else userid = "";
-                if (App.CurrentGuild != null && App.CurrentGuild.Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuildId != null && Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Message.Value.User.Id))
                 {
-                    member = App.CurrentGuild.Members[Message.Value.User.Id].Raw;
+                    member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Message.Value.User.Id].Raw;
                 }
                 else
                 {
@@ -600,7 +600,7 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;

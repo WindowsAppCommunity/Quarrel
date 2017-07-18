@@ -73,6 +73,19 @@ namespace Discord_UWP
                 set { if (_isdm == value) return; _isdm = value; OnPropertyChanged("IsDM"); }
             }
 
+            public SimpleGuild Clone()
+            {
+                SimpleGuild sg = new SimpleGuild();
+                sg.Id = Id;
+                sg.ImageURL = ImageURL;
+                sg.IsDM = IsDM;
+                sg.IsMuted = IsMuted;
+                sg.IsUnread = IsUnread;
+                sg.Name = Name;
+                sg.NotificationCount = NotificationCount;
+                return sg;
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             public void OnPropertyChanged(string propertyName)
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }

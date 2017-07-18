@@ -140,21 +140,21 @@ namespace Discord_UWP.Controls
 
         private void AvatarShowMidAnimation()
         {
-            AvatarRectangle.Blur(2, 200, 0).Start();
-            CacheRectangle.Fade(0.6f, 200).Start();
-            ShowProfile.Fade(0.8f, 200).Start();
+            //AvatarRectangle.Blur(2, 200, 0).Start();
+            //CacheRectangle.Fade(0.6f, 200).Start();
+            //ShowProfile.Fade(0.8f, 200).Start();
         }
         private void AvatarShowFullAnimation()
         {
-            AvatarRectangle.Blur(4, 200, 0).Start();
-            CacheRectangle.Fade(1, 200).Start();
-            ShowProfile.Fade(1, 200).Start();
+            //AvatarRectangle.Blur(4, 200, 0).Start();
+            //CacheRectangle.Fade(1, 200).Start();
+            //ShowProfile.Fade(1, 200).Start();
         }
         private void AvatarHideAnimation()
         {
-            AvatarRectangle.Blur(0, 200, 0).Start();
-            CacheRectangle.Fade(0, 200).Start();
-            ShowProfile.Fade(0, 200).Start();
+            //AvatarRectangle.Blur(0, 200, 0).Start();
+            //CacheRectangle.Fade(0, 200).Start();
+            //ShowProfile.Fade(0, 200).Start();
         }
 
         private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)

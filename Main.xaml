@@ -300,6 +300,9 @@
                 </Grid>
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
                 <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested">
+                    <tk:PullToRefreshListView.RefreshIndicatorContent>
+                        <TextBlock Text="Load More Messages" HorizontalAlignment="Center"/>
+                    </tk:PullToRefreshListView.RefreshIndicatorContent>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
