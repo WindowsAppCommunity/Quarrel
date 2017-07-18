@@ -522,16 +522,8 @@ namespace Discord_UWP
 
         public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesBefore(string id, string msgpos)
         {
-            try
-            {
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                return await channelservice.GetChannelMessagesBefore(id, msgpos);
-            }
-            catch (Exception e)
-            {
-                Showmsg(e);
-            }
-            return null;
+            IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+            return await channelservice.GetChannelMessagesBefore(id, msgpos);
         }
 
         public static async Task<IEnumerable<SharedModels.Message>> GetChannelPinnedMessages(string id)
