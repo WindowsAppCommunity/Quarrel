@@ -39,10 +39,34 @@ namespace Discord_UWP.SubPages
             NavAway.Begin();
             App.SubpageClosed();
         }
-
-        private void joinDiscordUWPServer(object sender, RoutedEventArgs e)
+        DispatcherTimer timer = new DispatcherTimer();
+        private async void joinDiscordUWPServer(object sender, RoutedEventArgs e)
         {
-            Session.AcceptInvite("wQmQgtq");
+            JoinServer.IsHitTestVisible = false;
+            JoinServerText.Text = "Joining...";
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += TimerOnTick;
+            try
+            {
+                await Session.AcceptInvite("wQmQgtq");
+            }
+            catch (Exception exception)
+            {
+                JoinServerText.Text = "Failed to join server!";
+                timer.Start();
+                return;
+            }
+            JoinServerText.Text = "Sucess!";
+            timer.Start();
         }
+
+        private void TimerOnTick(object sender, object o)
+        {
+            timer.Tick -= TimerOnTick;
+            timer.Stop();
+            JoinServer.IsHitTestVisible = true;
+            JoinServerText.Text = "Join Discord UWP server";
+        }
+
     }
 }

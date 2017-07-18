@@ -218,5 +218,26 @@ namespace Discord_UWP.Controls
         {
             SuggestionPopup.IsOpen = false;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Flyout emojis = new Flyout();
+            emojis.FlyoutPresenterStyle = (Style) App.Current.Resources["FlyoutPresenterStyle1"];
+            var emojiPicker = new EmojiControl();
+            emojis.Content = emojiPicker;
+            emojis.ShowAt(sender as Button);
+            emojis.Closed += (o, o1) =>
+            {
+                emojis = null;
+            };
+            emojiPicker.PickedEmoji += (o, args) =>
+            {
+                emojis.Hide();
+                int newSelectionStart = MessageEditor.SelectionStart + (o as string).Length;
+                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, (o as string));
+                MessageEditor.SelectionStart = newSelectionStart;
+                MessageEditor.Focus(FocusState.Keyboard);
+            };
+        }
     }
 }

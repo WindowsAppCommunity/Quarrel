@@ -87,17 +87,16 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="JOIN A SERVER" FontWeight="Bold" ></TextBlock>
-                    <StackPanel Grid.Row="1" Margin="10">
-                        <TextBlock Text="Instant Invite"/>
+                    <StackPanel Grid.Row="1" Margin="0,12">
+                        <TextBlock Text="Please enter a discord invite link or code:" FontSize="14" Opacity="0.6" Margin="0,0,0,6"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="https://discord.gg/" Opacity="0.4" VerticalAlignment="Center"/>
                             <TextBox x:Name="Invite" Grid.Column="1" />
                         </Grid>
-                        <TextBlock x:Name="Error" Visibility="Collapsed" Foreground="Red" Text="Invalid or Expired invite, Try Again"></TextBlock>
+                        <TextBlock x:Name="Error" FontSize="12" Visibility="Collapsed" Foreground="Red" Text="Sorry, but the invite code is invalid or Expired" Margin="0,4,0,0"></TextBlock>
                     </StackPanel>
                     <Grid Grid.Row="2" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
