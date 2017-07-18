@@ -441,7 +441,7 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
