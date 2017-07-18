@@ -90,20 +90,15 @@
                     <TextBlock Text="CREATE SERVER" FontWeight="Bold" ></TextBlock>
                     <TextBlock FontSize="13.333" Foreground="{ThemeResource Blurple}" Text="NAME" FontWeight="SemiBold" Margin="0,12,0,0"/>
                     <TextBox x:Name="GuildName" Margin="0,6,0,0"/>
+                        <!--
                     <TextBlock FontSize="13.333" Foreground="{ThemeResource Blurple}" Text="REGION" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                    <ComboBox BorderThickness="1" Margin="0,6,0,0" SelectedIndex="0">
-                        <ComboBoxItem Content="Brazil" Height="38"/>
-                            <ComboBoxItem Content="Central Europe" Height="38"/>
-                            <ComboBoxItem Content="Hong Kong" Height="38"/>
-                            <ComboBoxItem Content="Russia" Height="38"/>
-                            <ComboBoxItem Content="Singapore" Height="38"/>
-                            <ComboBoxItem Content="Sydney" Height="38"/>
-                            <ComboBoxItem Content="US Central" Height="38"/>
-                            <ComboBoxItem Content="US East" Height="38"/>
-                            <ComboBoxItem Content="US South" Height="38"/>
-                            <ComboBoxItem Content="US West" Height="38"/>
-                            <ComboBoxItem Content="Western Europe" Height="38"/>
-                        </ComboBox>
+                        <StackPanel>
+                            <ComboBox BorderThickness="1" Margin="0,6,0,0">
+                            </ComboBox>
+                            <ProgressRing x:Name="ProgRing"/>
+                            
+                        </StackPanel>-->
+                        
                         <RichTextBlock Margin="0,12" Opacity="0.6">
                             <Paragraph FontSize="11">
                                 By creating a server, you agree to

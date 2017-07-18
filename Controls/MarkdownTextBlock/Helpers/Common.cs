@@ -242,13 +242,13 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                                 }
 
                                 break;
-                            case InlineParseMethod.RedditLink:
-                                if (!ignoreLinks)
-                                {
-                                    parseResult = HyperlinkInline.ParseRedditLink(markdown, pos, end);
-                                }
-
-                                break;
+                           // case InlineParseMethod.RedditLink:
+                           //     if (!ignoreLinks)
+                           //     {
+                           //         parseResult = HyperlinkInline.ParseRedditLink(markdown, pos, end);
+                           //     }
+                           //
+                           //     break;
                             case InlineParseMethod.PartialLink:
                                 if (!ignoreLinks)
                                 {

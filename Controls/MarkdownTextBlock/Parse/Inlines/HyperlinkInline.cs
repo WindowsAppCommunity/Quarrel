@@ -40,16 +40,6 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         Email,
 
         /// <summary>
-        /// A subreddit link (e.g. "/r/news").
-        /// </summary>
-        Subreddit,
-
-        /// <summary>
-        /// A user link (e.g. "/u/quinbd").
-        /// </summary>
-        User,
-
-        /// <summary>
         /// A discord user mention link (e.g. "@User").
         /// </summary>
         DiscordUserMention,
@@ -263,16 +253,16 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// <param name="start"> The location to start parsing. </param>
         /// <param name="maxEnd"> The location to stop parsing. </param>
         /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-        internal static Helpers.Common.InlineParseResult ParseRedditLink(string markdown, int start, int maxEnd)
-        {
-            var result = ParseDoubleSlashLink(markdown, start, maxEnd);
-            if (result != null)
-            {
-                return result;
-            }
-
-            return ParseSingleSlashLink(markdown, start, maxEnd);
-        }
+       // internal static Helpers.Common.InlineParseResult ParseRedditLink(string markdown, int start, int maxEnd)
+       // {
+       //     var result = ParseDoubleSlashLink(markdown, start, maxEnd);
+       //     if (result != null)
+       //     {
+       //         return result;
+       //     }
+       //
+       //     return ParseSingleSlashLink(markdown, start, maxEnd);
+       // }
 
         /// <summary>
         /// Parse a link of the form "/r/news" or "/u/quinbd".
@@ -281,49 +271,49 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// <param name="start"> The location to start parsing. </param>
         /// <param name="maxEnd"> The location to stop parsing. </param>
         /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-        private static Helpers.Common.InlineParseResult ParseDoubleSlashLink(string markdown, int start, int maxEnd)
-        {
-            // The minimum length is 4 characters ("/u/u").
-            if (start > maxEnd - 4)
-            {
-                return null;
-            }
-
-            // Determine the type of link (subreddit or user).
-            HyperlinkType linkType;
-            if (markdown[start + 1] == 'r')
-            {
-                linkType = HyperlinkType.Subreddit;
-            }
-            else if (markdown[start + 1] == 'u')
-            {
-                linkType = HyperlinkType.User;
-            }
-            else
-            {
-                return null;
-            }
-
-            // Check that there is another slash.
-            if (markdown[start + 2] != '/')
-            {
-                return null;
-            }
-
-            // Find the end of the link.
-            int end = FindEndOfRedditLink(markdown, start + 3, maxEnd);
-
-            // Subreddit names must be at least two characters long, users at least one.
-            if (end - start < (linkType == HyperlinkType.User ? 4 : 5))
-            {
-                return null;
-            }
-
-            // We found something!
-            var text = markdown.Substring(start, end - start);
-            return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = text, LinkType = linkType }, start, end);
-        }
-
+     //   private static Helpers.Common.InlineParseResult ParseDoubleSlashLink(string markdown, int start, int maxEnd)
+     //   {
+     //       // The minimum length is 4 characters ("/u/u").
+     //       if (start > maxEnd - 4)
+     //       {
+     //           return null;
+     //       }
+     //
+     //       // Determine the type of link (subreddit or user).
+     //       HyperlinkType linkType;
+     //       if (markdown[start + 1] == 'r')
+     //       {
+     //           linkType = HyperlinkType.Subreddit;
+     //       }
+     //       else if (markdown[start + 1] == 'u')
+     //       {
+     //           linkType = HyperlinkType.User;
+     //       }
+     //       else
+     //       {
+     //           return null;
+     //       }
+     //
+     //       // Check that there is another slash.
+     //       if (markdown[start + 2] != '/')
+     //       {
+     //           return null;
+     //       }
+     //
+     //       // Find the end of the link.
+     //       int end = FindEndOfRedditLink(markdown, start + 3, maxEnd);
+     //
+     //       // Subreddit names must be at least two characters long, users at least one.
+     //       if (end - start < (linkType == HyperlinkType.User ? 4 : 5))
+     //       {
+     //           return null;
+     //       }
+     //
+     //       // We found something!
+     //       var text = markdown.Substring(start, end - start);
+     //       return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = text, LinkType = linkType }, start, end);
+     //   }
+     //
         /// <summary>
         /// Parse a link of the form "r/news" or "u/quinbd".
         /// </summary>
@@ -331,51 +321,51 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// <param name="start"> The location to start parsing. </param>
         /// <param name="maxEnd"> The location to stop parsing. </param>
         /// <returns> A parsed subreddit or user link, or <c>null</c> if this is not a subreddit link. </returns>
-        private static Helpers.Common.InlineParseResult ParseSingleSlashLink(string markdown, int start, int maxEnd)
-        {
-            // The minimum length is 3 characters ("u/u").
-            start--;
-            if (start < 0 || start > maxEnd - 3)
-            {
-                return null;
-            }
-
-            // Determine the type of link (subreddit or user).
-            HyperlinkType linkType;
-            if (markdown[start] == 'r')
-            {
-                linkType = HyperlinkType.Subreddit;
-            }
-            else if (markdown[start] == 'u')
-            {
-                linkType = HyperlinkType.User;
-            }
-            else
-            {
-                return null;
-            }
-
-            // If the link doesn't start with '/', then the previous character must be
-            // non-alphanumeric i.e. "bear/trap" is not a valid subreddit link.
-            if (start >= 1 && (char.IsLetterOrDigit(markdown[start - 1]) || markdown[start - 1] == '/'))
-            {
-                return null;
-            }
-
-            // Find the end of the link.
-            int end = FindEndOfRedditLink(markdown, start + 2, maxEnd);
-
-            // Subreddit names must be at least two characters long, users at least one.
-            if (end - start < (linkType == HyperlinkType.User ? 3 : 4))
-            {
-                return null;
-            }
-
-            // We found something!
-            var text = markdown.Substring(start, end - start);
-            return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = "/" + text, LinkType = linkType }, start, end);
-        }
-
+      //  private static Helpers.Common.InlineParseResult ParseSingleSlashLink(string markdown, int start, int maxEnd)
+      //  {
+      //      // The minimum length is 3 characters ("u/u").
+      //      start--;
+      //      if (start < 0 || start > maxEnd - 3)
+      //      {
+      //          return null;
+      //      }
+      //
+      //      // Determine the type of link (subreddit or user).
+      //      HyperlinkType linkType;
+      //      if (markdown[start] == 'r')
+      //      {
+      //          linkType = HyperlinkType.Subreddit;
+      //      }
+      //      else if (markdown[start] == 'u')
+      //      {
+      //          linkType = HyperlinkType.User;
+      //      }
+      //      else
+      //      {
+      //          return null;
+      //      }
+      //
+      //      // If the link doesn't start with '/', then the previous character must be
+      //      // non-alphanumeric i.e. "bear/trap" is not a valid subreddit link.
+      //      if (start >= 1 && (char.IsLetterOrDigit(markdown[start - 1]) || markdown[start - 1] == '/'))
+      //      {
+      //          return null;
+      //      }
+      //
+      //      // Find the end of the link.
+      //      int end = FindEndOfRedditLink(markdown, start + 2, maxEnd);
+      //
+      //      // Subreddit names must be at least two characters long, users at least one.
+      //      if (end - start < (linkType == HyperlinkType.User ? 3 : 4))
+      //      {
+      //          return null;
+      //      }
+      //
+      //      // We found something!
+      //      var text = markdown.Substring(start, end - start);
+      //      return new Helpers.Common.InlineParseResult(new HyperlinkInline { Text = text, Url = "/" + text, LinkType = linkType }, start, end);
+      //  }
+      //
         /// <summary>
         /// Attempts to parse a URL without a scheme e.g. "www.reddit.com".
         /// </summary>

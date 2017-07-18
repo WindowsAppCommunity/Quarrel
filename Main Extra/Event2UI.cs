@@ -1040,29 +1040,33 @@ namespace Discord_UWP
                     guild.IsUnread = false; //Will change if true
                     if (guild.Id == "DMs")
                     {
+                        int NotificationCount = 0;
                         foreach (var chn in Storage.Cache.DMs.Values)
                             if (Session.RPC.ContainsKey(chn.Raw.Id))
                             {
                                 ReadState readstate = Session.RPC[chn.Raw.Id];
-                                guild.NotificationCount += readstate.MentionCount;
+                                NotificationCount += readstate.MentionCount;
                                 var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
                                 if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
                                     readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                     guild.IsUnread = true;
                             }
+                        guild.NotificationCount = NotificationCount;
                     }
                     else
                     {
+                        int NotificationCount = 0;
                         foreach (var chn in Storage.Cache.Guilds[guild.Id].Channels.Values)
                             if (Session.RPC.ContainsKey(chn.Raw.Id))
                             {
                                 ReadState readstate = Session.RPC[chn.Raw.Id];
-                                guild.NotificationCount += readstate.MentionCount;
-                                var StorageChannel = Storage.Cache.Guilds[guild.Id].Channels[chn.Raw.Id];
+                                NotificationCount += readstate.MentionCount;
+                                    var StorageChannel = Storage.Cache.Guilds[guild.Id].Channels[chn.Raw.Id];
                                 if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
                                     readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                     guild.IsUnread = true;
                             }
+                        guild.NotificationCount = NotificationCount;
                     }
                 }
 

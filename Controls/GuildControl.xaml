@@ -57,11 +57,11 @@
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="0,0,-7,-4" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Border.RenderTransform>
                 <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
             </Border.RenderTransform>
-            <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
+            <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
         </Border>
     </Grid>
 </UserControl>

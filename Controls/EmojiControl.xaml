@@ -225,11 +225,11 @@
             <TextBox VerticalAlignment="Center" Margin="0"/>
             <Button Grid.Column="1" HorizontalAlignment="Stretch" Content="👌" FontSize="22" VerticalAlignment="Stretch" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Click="Button_Click"/>
         </Grid>
-        <Grid ManipulationMode="TranslateX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted" Grid.Row="1">
+        <Grid Grid.Row="1">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="dragTransform"/>
             </Grid.RenderTransform>
-            <GridView Height="204" ItemClick="EmojiView_OnItemClick" ItemsSource="{Binding Source={StaticResource EmojiCVS}}" x:Name="EmojiView" IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollMode="Enabled" Padding="0">
+            <GridView Height="204" ManipulationMode="TranslateRailsX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted"  ItemClick="EmojiView_OnItemClick" ItemsSource="{Binding Source={StaticResource EmojiCVS}}" x:Name="EmojiView" IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" Padding="0">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <FontIcon Glyph="{Binding surrogates}" ToolTipService.ToolTip="{Binding names[0]}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>

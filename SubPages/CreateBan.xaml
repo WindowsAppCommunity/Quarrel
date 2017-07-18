@@ -85,7 +85,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="Message" FontWeight="Bold"></TextBlock>
+                    <TextBlock x:Name="Message" FontWeight="Bold" Margin="0,0,0,24"></TextBlock>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                             <Grid.ColumnDefinitions>
@@ -93,7 +93,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Ban" Style="{StaticResource DiscordButton}" Background="Red" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
+                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Ban" Style="{StaticResource DiscordButton}" Background="#fff04747" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
                         </Grid>
                     </Grid>
                 </Grid>

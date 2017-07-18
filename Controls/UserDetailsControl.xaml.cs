@@ -137,16 +137,6 @@ namespace Discord_UWP.Controls
             (sender as Image).Fade(0.2f, 200).Start();
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.NavigateToProfile(DisplayedMember.Raw.User);
-        }
-
-        private void Rectangle_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            App.NavigateToProfile(DisplayedMember.Raw.User);
-        }
-
 
         private void AvatarShowMidAnimation()
         {
@@ -177,11 +167,6 @@ namespace Discord_UWP.Controls
             AvatarHideAnimation();
         }
 
-        private void Button_PointerCanceled(object sender, PointerRoutedEventArgs e)
-        {
-            AvatarHideAnimation();
-        }
-
         private void Button_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
             AvatarHideAnimation();
@@ -200,6 +185,12 @@ namespace Discord_UWP.Controls
         private void Button_GotFocus(object sender, RoutedEventArgs e)
         {
             AvatarShowMidAnimation();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
+            App.NavigateToProfile(DisplayedMember.Raw.User);
         }
     }
 }
