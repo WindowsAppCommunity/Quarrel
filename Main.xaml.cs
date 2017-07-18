@@ -1148,7 +1148,7 @@ namespace Discord_UWP
         {
             if (Messages.Items.Count > 0)
             {
-                IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentGuildId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
+                IEnumerable<SharedModels.Message> newMessages = await Session.GetChannelMessagesBefore(App.CurrentChannelId, (Messages.Items[0] as MessageContainer).Message.Value.Id);
 
                 int adCheck = 5;
 
