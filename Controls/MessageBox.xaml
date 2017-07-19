@@ -39,8 +39,8 @@
                 </ListView>
             </Border>
         </Popup>
-        <!--<Button Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1" Padding="6">
+        <Button Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1" Padding="6">
             <SymbolIcon Symbol="Emoji"/>
-        </Button>-->
+        </Button>
     </Grid>
 </UserControl>
