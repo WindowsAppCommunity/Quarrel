@@ -356,7 +356,7 @@ namespace Discord_UWP.Controls
                         App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                     case 1: /*DM*/
-                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        //App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
 
@@ -364,8 +364,7 @@ namespace Discord_UWP.Controls
                     case 3: /*Group*/
 
                         break;
-                        }
-
+                }
         }
 
         private void HideBadge_Completed(object sender, object e)
