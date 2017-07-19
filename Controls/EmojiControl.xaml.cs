@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,9 +13,11 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Newtonsoft.Json;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -34,29 +37,34 @@ namespace Discord_UWP.Controls
         }
 
         public class Person : ISimpleEmoji
-        { public override string category => "Person"; }
+        { public override string category => "PEOPLE"; }
 
         public class Nature : ISimpleEmoji
-        { public override string category => "Nature"; }
+        { public override string category => "NATURE"; }
 
         public class Food : ISimpleEmoji
-        { public override string category => "Food"; }
+        { public override string category => "FOOD"; }
 
         public class Activity : ISimpleEmoji
-        { public override string category => "Activities"; }
+        { public override string category => "ACTIVITIES"; }
 
         public class Travel : ISimpleEmoji
-        { public override string category => "Travel"; }
+        { public override string category => "TRAVEL"; }
 
         public class Object : ISimpleEmoji
-        { public override string category => "Objects"; }
+        { public override string category => "OBJECTS"; }
 
         public class Symbol : ISimpleEmoji
-        { public override string category => "Symbols"; }
+        { public override string category => "SYMBOLS"; }
 
         public class Flag : ISimpleEmoji
-        { public override string category => "Flags"; }
+        { public override string category => "FLAGS"; }
 
+        public class GuildSide : ISimpleEmoji
+        {
+            public override string category { get; set; }
+            public bool IsEnabled { get; set; }
+        }
         public class RootObject
         {
             public List<Person> people { get; set; }
@@ -81,13 +89,33 @@ namespace Discord_UWP.Controls
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/emojis.json"));
             string json = await FileIO.ReadTextAsync(file);
             RootObject root = JsonConvert.DeserializeObject<RootObject>(json);
-            emojis = root.people.Concat<ISimpleEmoji>(root.nature)
-                                  .Concat(root.food)
-                                  .Concat(root.activity)
-                                  .Concat(root.travel)
-                                  .Concat(root.objects)
-                                  .Concat(root.symbols)
-                                  .Concat(root.flags);
+            var guildEmojis = new List<GuildSide>();
+            try
+            {
+                foreach (var emoji in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Emojis)
+                {
+                    //Does the user have the authorization to use the emoji?
+                    if (emoji.Roles.Count() != 0 && !App.GuildMembers[App.CurrentUserId]
+                            .Raw.Roles.Intersect(emoji.Roles)
+                            .Any()) return;
+                        guildEmojis.Add(new GuildSide()
+                        {
+                            category = Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Name.ToUpper(),
+                            hasDiversity = false,
+                            names = new List<string>() {emoji.Name},
+                            surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png"
+                        });
+                }
+            }
+            catch (Exception) { }
+            emojis = guildEmojis.Concat<ISimpleEmoji> (root.people)
+                                .Concat(root.nature)
+                                .Concat(root.food)
+                                .Concat(root.activity)
+                                .Concat(root.travel)
+                                .Concat(root.objects)
+                                .Concat(root.symbols)
+                                .Concat(root.flags);
             var grouped = emojis.GroupBy(x => x.category);
             EmojiCVS.Source = grouped;
         }
@@ -115,7 +143,7 @@ namespace Discord_UWP.Controls
 
         private void EmojiView_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            PickedEmoji?.Invoke((e.ClickedItem as ISimpleEmoji).surrogates, null);
+            PickedEmoji?.Invoke(":" + (e.ClickedItem as ISimpleEmoji).names[0] + ":", null);
         }
 
         private bool loaded = false;
@@ -146,6 +174,40 @@ namespace Discord_UWP.Controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             loaded = true;
+        }
+
+        private void Emoji_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Searchbox.PlaceholderText = ":" + ToolTipService.GetToolTip(sender as UIElement) + ":";
+        }
+
+        private void SemanticZoom_OnViewChangeStarted(object sender, SemanticZoomViewChangedEventArgs e)
+        {
+            if (e.IsSourceZoomedInView)
+            {
+                EmojiView.Blur(2,100).Start();
+                AltEmojiView.Blur(0, 100).Start();
+            }
+            else
+            {
+                EmojiView.Blur(0, 100).Start();
+                AltEmojiView.Blur(2, 100).Start();
+            }
+        }
+    }
+
+    public class EmojiDataTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate PlainEmojiTemplate { get; set; }
+        public DataTemplate GuildEmojiTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item,
+            DependencyObject container)
+        {
+            if (item is EmojiControl.GuildSide)
+                return GuildEmojiTemplate;
+            else
+                return PlainEmojiTemplate;
         }
     }
 }

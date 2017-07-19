@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    MaxWidth="412"
     d:DesignHeight="300"
-    MaxWidth="424"
-    d:DesignWidth="424" Height="300" Loaded="UserControl_Loaded">
+    d:DesignWidth="412" Height="256" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <CollectionViewSource x:Name="EmojiCVS" IsSourceGrouped="True"/>
         <Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
@@ -210,47 +210,163 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Name="PlainEmoji">
+            <FontIcon Glyph="{Binding surrogates}" ToolTipService.ToolTip="{Binding names[0]}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" PointerEntered="Emoji_PointerEntered"/>
+        </DataTemplate>
+        <DataTemplate x:Name="GuildEmoji">
+            <Image Source="{Binding surrogates}" ToolTipService.ToolTip="{Binding names[0]}" Width="26" Height="26" VerticalAlignment="Center" HorizontalAlignment="Center" PointerEntered="Emoji_PointerEntered"/>
+        </DataTemplate>
+        <local:EmojiDataTemplateSelector x:Name="EmojiTypeSelector"  GuildEmojiTemplate="{StaticResource GuildEmoji}" PlainEmojiTemplate="{StaticResource PlainEmoji}"/>
+        <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Background" Value="{ThemeResource GridViewItemBackground}"/>
+            <Setter Property="Foreground" Value="{ThemeResource GridViewItemForeground}"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="AllowDrop" Value="False"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <ListViewItemPresenter CheckBrush="{ThemeResource GridViewItemCheckBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="{ThemeResource GridViewItemCheckMode}" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource GridViewItemCheckBoxBrush}" DragForeground="{ThemeResource GridViewItemDragForeground}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource GridViewItemDragBackground}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Control.IsTemplateFocusTarget="True" PointerOverForeground="{ThemeResource GridViewItemForegroundPointerOver}" PressedBackground="{ThemeResource GridViewItemBackgroundPressed}" PlaceholderBackground="{ThemeResource GridViewItemPlaceholderBackground}" PointerOverBackground="{ThemeResource GridViewItemBackgroundPointerOver}" ReorderHintOffset="{ThemeResource GridViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource GridViewItemBackgroundSelectedPressed}" SelectionCheckMarkVisualEnabled="{ThemeResource GridViewItemSelectionCheckMarkVisualEnabled}" SelectedForeground="{ThemeResource GridViewItemForegroundSelected}" SelectedPointerOverBackground="{ThemeResource GridViewItemBackgroundSelectedPointerOver}" SelectedBackground="{ThemeResource GridViewItemBackgroundSelected}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Height="32" Width="32"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Name="GroupHeader" TargetType="GridViewHeaderItem">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{ThemeResource ListViewHeaderItemThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Margin" Value="0,0,0,4"/>
+            <Setter Property="Padding" Value="0,8,0,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewHeaderItem">
+                        <StackPanel Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Margin="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <Rectangle Stroke="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                       StrokeThickness="0.5"
+                                       Height="1"
+                                       VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="12,8,12,0"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition/>
-            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
         <Grid Background="{ThemeResource MidBG}" BorderBrush="{ThemeResource Blurple}" Canvas.ZIndex="1" BorderThickness="0,0,0,1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="48"/>
-            </Grid.ColumnDefinitions>
-            <TextBox VerticalAlignment="Center" Margin="0"/>
-            <Button Grid.Column="1" HorizontalAlignment="Stretch" Content="👌" FontSize="22" VerticalAlignment="Stretch" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Click="Button_Click"/>
+            <TextBox x:Name="Searchbox" BorderThickness="0" VerticalAlignment="Center" Padding="6" Margin="0,0,48,0"/>
+            <Button Grid.Column="1" HorizontalAlignment="Right" Content="👌" FontSize="22" VerticalAlignment="Stretch" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Click="Button_Click"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="dragTransform"/>
             </Grid.RenderTransform>
-            <GridView Height="204" ManipulationMode="TranslateRailsX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted"  ItemClick="EmojiView_OnItemClick" ItemsSource="{Binding Source={StaticResource EmojiCVS}}" x:Name="EmojiView" IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" Padding="0">
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <FontIcon Glyph="{Binding surrogates}" ToolTipService.ToolTip="{Binding names[0]}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-                <GridView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
+            <SemanticZoom ViewChangeStarted="SemanticZoom_OnViewChangeStarted" ManipulationMode="TranslateRailsX" ManipulationDelta="Grid_ManipulationDelta" ManipulationCompleted="Grid_ManipulationCompleted">
+                <SemanticZoom.ZoomedInView>
+                    <GridView Height="204"
+                              ItemClick="EmojiView_OnItemClick" 
+                              ItemsSource="{Binding Source={StaticResource EmojiCVS}}" 
+                              ItemTemplateSelector="{StaticResource EmojiTypeSelector}"
+                              x:Name="EmojiView" IsItemClickEnabled="True" SelectionMode="None" VerticalAlignment="Top" Padding="12,0" ItemContainerStyle="{StaticResource GridViewItemStyle1}">
+                        <GridView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderContainerStyle>
+                                    <Style TargetType="GridViewHeaderItem">
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="MinHeight" Value="0"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalAlignment" Value="Stretch" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="GridViewHeaderItem">
+                                                    <StackPanel Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                                        <ContentPresenter x:Name="ContentPresenter"
+                                                                          Margin="0,8,0,0"
+                                                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                          Content="{TemplateBinding Content}"
+                                                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                          ContentTransitions="{TemplateBinding ContentTransitions}" />
+                                                        <Rectangle Stroke="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                                                   StrokeThickness="0"
+                                                                   Height="1"
+                                                                   VerticalAlignment="Bottom"
+                                                                   HorizontalAlignment="Stretch"
+                                                                   Margin="12,8,12,-4"/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.HeaderContainerStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Opacity="0.6" Margin="0"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </GridView.GroupStyle>
+                    </GridView>
+                </SemanticZoom.ZoomedInView>
+                <SemanticZoom.ZoomedOutView>
+                    <ListView x:Name="AltEmojiView" ItemsSource="{Binding Source={StaticResource EmojiCVS}, Path=CollectionGroups}" Margin="0" >
+                        <ListView.Background>
+                            <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
+                        </ListView.Background>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel VerticalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid VerticalAlignment="Top">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Opacity="0.6" Margin="0"/>
-                                </Grid>
+                                <TextBlock Text="{Binding Group.Key}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Opacity="1" Margin="0"/>
                             </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                    </GroupStyle>
-                </GridView.GroupStyle>
-            </GridView>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </SemanticZoom.ZoomedOutView>
+            </SemanticZoom>
+
             <Grid Width="48" Margin="0,0,-48,0" HorizontalAlignment="Right">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -268,42 +384,5 @@
                 <ToggleButton x:Name="SkinTone6" Content="👌🏿" FontSize="22" Grid.Row="5" HorizontalAlignment="Stretch" BorderThickness="0" Background="#7C533E" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Checked="ToggleButton_OnChecked" Padding="0,5" IsChecked="False" Style="{StaticResource ToggleButtonStyle1}"/>
             </Grid>
         </Grid>
-        <ListView Grid.Row="2"  Background="{StaticResource MidBG}" BorderBrush="{StaticResource Blurple}" BorderThickness="0,1,0,0" ItemContainerStyle="{StaticResource ListViewItemStyle2}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE823;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE15F;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xED54;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE8BE;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xED56;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE7FC;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE709;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xED55;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE006;"/>
-            </ListViewItem>
-            <ListViewItem>
-                <FontIcon Glyph="&#xE129;"/>
-            </ListViewItem>
-        </ListView>
     </Grid>
 </UserControl>

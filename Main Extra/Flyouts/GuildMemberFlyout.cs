@@ -294,25 +294,28 @@ namespace Discord_UWP
 
         private async void Block(object sender, RoutedEventArgs e)
         {
+            string id = (sender as MenuFlyoutItem).Tag.ToString();
             await Task.Run(() =>
             {
-                Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString());
+                Session.BlockUser(id);
             }); //TODO: Confirm
         }
 
         private async void RemoveFriendClick(object sender, RoutedEventArgs e)
         {
+            string id = (sender as MenuFlyoutItem).Tag.ToString();
             await Task.Run(() =>
             {
-                Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString());
+                Session.RemoveFriend(id);
             }); //TODO: Confirm
         }
 
         private async void AddFriend(object sender, RoutedEventArgs e)
         {
+            string id = (sender as MenuFlyoutItem).Tag.ToString();
             await Task.Run(() =>
             {
-                Session.SendFriendRequest((sender as MenuFlyoutItem).Tag.ToString());
+                Session.SendFriendRequest(id);
             });
         }
 
