@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static string GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 27))
+            switch (rand.Next(0, 30))
             {
                 case 0: return "HUZZAH";
                 case 1: return "Beam me up Scotty!!!";
@@ -40,6 +40,8 @@ namespace Discord_UWP
                 case 26: return "Making covfefe";
                 case 27: return "Hiring lawyers";
                 case 28: return "if(Loading) { EntryMessages.GetMessage(1); }";
+                case 29: return "Genji on the Payload?! (Submitted by @ModProg|Roland#6987)";
+                case 30: return "Waiting for opus 😪 (Submitted by @hvb#2543)";
                 default: return "Waiting for the Ready Packet";
             }
         }

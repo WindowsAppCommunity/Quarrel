@@ -823,5 +823,7 @@ namespace Discord_UWP
         public static bool Online;
         public static bool SlowSpeeds;
         public static string Editcache;
+
+
     }
 }
