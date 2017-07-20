@@ -309,7 +309,10 @@ namespace Discord_UWP
 
             Session.Gateway.UserNoteUpdated += UserNoteUpdated;
             Session.Gateway.UserSettingsUpdated += GatewayOnUserSettingsUpdated;
-            
+
+            Session.Gateway.VoiceStateUpdated += OnVoiceStateUpdated;
+            Session.Gateway.VoiceServerUpdated += OnVoiceServerUpdated;
+
             try
             {
                 await Session.Gateway.ConnectAsync();
@@ -435,6 +438,7 @@ namespace Discord_UWP
                    {
                        if (ServerList.SelectedItem != null) /*Called upon clearing*/
                        {
+                           PinnedMessageToggle.Visibility = Visibility.Collapsed;
                            _onlyAllowOpeningPane = true;
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
@@ -780,6 +784,7 @@ namespace Discord_UWP
                 MuteToggle.Tag = App.CurrentChannelId;
                 MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentChannelId);
                 MuteToggle.Visibility = Visibility.Visible;
+                PinnedMessageToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
 
@@ -988,6 +993,7 @@ namespace Discord_UWP
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
                 MuteToggle.Visibility = Visibility.Collapsed;
+                PinnedMessageToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
                 int adCheck = 5;

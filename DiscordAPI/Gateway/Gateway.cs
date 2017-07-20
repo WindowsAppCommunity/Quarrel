@@ -1,6 +1,6 @@
 ﻿using Discord_UWP.Authentication;
 using Discord_UWP.Gateway.DownstreamEvents;
-using Discord_UWP.Gateway.Sockets;
+using Discord_UWP.Sockets;
 using Discord_UWP.Gateway.UpstreamEvents;
 using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
@@ -75,6 +75,9 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<UserNote>> UserNoteUpdated;
         public event EventHandler<GatewayEventArgs<UserSettings>> UserSettingsUpdated;
 
+        public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
+        public event EventHandler<GatewayEventArgs<VoiceState>> VoiceServerUpdated;
+
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
             _webMessageSocket = new WebMessageSocket();
@@ -126,7 +129,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.FRIEND_REMOVED, OnRelationShipRemoved },
                 { EventNames.FRIEND_UPDATE, OnRelationShipUpdated },
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
-                { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated }
+                { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
+                { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated }
             };
         }
 
@@ -175,12 +179,30 @@ namespace Discord_UWP.Gateway
                 Limit = 0
             };
 
-            var Request = new GatewayEvent()
+            var request = new GatewayEvent()
             {
                 Operation = 8,
                 Data = payload
             };
-            await _webMessageSocket.SendJsonObjectAsync(Request);
+            await _webMessageSocket.SendJsonObjectAsync(request);
+        }
+
+        public async Task VoiceStatusUpdate(string guildId, string channelId, bool selfMute, bool selfDeaf)
+        {
+            var payload = new VoiceStatusUpdate()
+            {
+                GuildId = guildId,
+                ChannelId = channelId,
+                Deaf = selfDeaf,
+                Mute = selfMute
+            };
+
+            var request = new GatewayEvent()
+            {
+                Operation = 4,
+                Data = payload
+            };
+            await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
         public async void SubscribeToGuild(string[] guildIDs)
@@ -407,6 +429,11 @@ namespace Discord_UWP.Gateway
         private void OnUserNoteUpdated(GatewayEvent gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, UserNoteUpdated);
+        }
+
+        private void OnVoiceStatusUpdated(GatewayEvent gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, VoiceStateUpdated);
         }
 
         private void OnUserSettingsUpdated(GatewayEvent gatewayEvent)

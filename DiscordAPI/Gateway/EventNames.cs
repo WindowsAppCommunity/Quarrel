@@ -48,6 +48,7 @@ namespace Discord_UWP.Gateway
         public const string USER_SETTINGS_UPDATED = "USER_SETTINGS_UPDATE";
         public const string USER_UPDATED = "USER_UPDATE";
         public const string USER_NOTE_UPDATED = "USER_NOTE_UPDATE";
+
         public const string VOICE_STATE_UPDATED = "VOICE_STATE_UPDATE";
         public const string VOICE_SERVER_UPDATED = "VOICE_SERVER_UPDATE";
 
