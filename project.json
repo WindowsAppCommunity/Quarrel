@@ -3,6 +3,7 @@
     "Concentus": "1.1.3",
     "libsodium-uwp": "1.0.12",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
+    "Microsoft.Services.Store.SDK": "10.1705.16001",
     "Microsoft.Toolkit.Uwp.Notifications": "1.4.1",
     "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.1",
     "Newtonsoft.Json": "10.0.2",
