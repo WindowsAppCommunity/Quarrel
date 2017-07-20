@@ -908,6 +908,17 @@ namespace Discord_UWP
                 });
         }
 
+        private void OnVoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
+        {
+
+        }
+
+        private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceState> e)
+        {
+
+        }
+
+
         Dictionary<TypingStart, DispatcherTimer> Typers = new Dictionary<TypingStart, DispatcherTimer>();
         List<DispatcherTimer> TyperTimers = new List<DispatcherTimer>();
 

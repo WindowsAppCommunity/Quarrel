@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
-namespace Discord_UWP.Gateway.Sockets
+namespace Discord_UWP.Sockets
 {
     public class WebMessageSocket : IWebMessageSocket
     {
