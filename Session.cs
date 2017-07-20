@@ -781,7 +781,6 @@ namespace Discord_UWP
             return await inviteservice.AcceptInvite(code);
         }
 
-
         #endregion
 
         public static async void Showmsg(Exception e)
@@ -819,5 +818,7 @@ namespace Discord_UWP
         public static bool Online;
         public static bool SlowSpeeds;
         public static string Editcache;
+
+
     }
 }

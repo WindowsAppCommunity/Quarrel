@@ -79,6 +79,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -220,6 +221,8 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\VoiceServerUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
     <Compile Include="DiscordAPI\SharedModels\Ban.cs" />
     <Compile Include="DiscordAPI\SharedModels\ReadState.cs" />
     <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
@@ -234,9 +237,9 @@
     <Compile Include="DiscordAPI\Gateway\GatewayEvent.cs" />
     <Compile Include="DiscordAPI\Gateway\IGateway.cs" />
     <Compile Include="DiscordAPI\Gateway\OperationCode.cs" />
-    <Compile Include="DiscordAPI\Gateway\Sockets\IWebMessageSocket.cs" />
-    <Compile Include="DiscordAPI\Gateway\Sockets\IWebSocketExtensions.cs" />
-    <Compile Include="DiscordAPI\Gateway\Sockets\WebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Sockets\IWebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Sockets\IWebSocketExtensions.cs" />
+    <Compile Include="DiscordAPI\Sockets\WebMessageSocket.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GatewayResume.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GuildMembersRequest.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\Identify.cs" />
@@ -274,6 +277,17 @@
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusApplication.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusConverter.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusCtl.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusDecoder.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusEncoder.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusError.cs" />
+    <Compile Include="DiscordAPI\Voice\Opus\OpusSignal.cs" />
+    <Compile Include="DiscordAPI\Voice\Voice.cs" />
+    <Compile Include="DiscordAPI\Voice\VoiceEvents.cs" />
     <Compile Include="EntryMessages.cs" />
     <Compile Include="LockScreen.xaml.cs">
       <DependentUpon>LockScreen.xaml</DependentUpon>
@@ -601,7 +615,9 @@
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.15063.0%29</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DiscordAPI\Voice\Sodium\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
