@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Discord_UWP.Gateway
+namespace Discord_UWP
 {
-    public struct GatewayEvent
+    public struct SocketFrame
     {
         [JsonProperty("op")]
         public int? Operation { get; set; }
         [JsonProperty("d")]
-        public object Data { get; set; }
+        public object Payload { get; set; }
         [JsonProperty("s")]
         public int? SequenceNumber { get; set; }
         [JsonProperty("t")]
@@ -21,7 +21,7 @@ namespace Discord_UWP.Gateway
 
         public T GetData<T>()
         {
-            var dataAsJObject = Data as JObject;
+            var dataAsJObject = Payload as JObject;
             return dataAsJObject.ToObject<T>();
         }
     }

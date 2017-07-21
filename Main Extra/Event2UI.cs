@@ -1071,7 +1071,7 @@ namespace Discord_UWP
                                     ReadState readstate = Session.RPC[chn.Raw.Id];
                                     gclone.NotificationCount += readstate.MentionCount;
                                     var StorageChannel = Storage.Cache.Guilds[gclone.Id].Channels[chn.Raw.Id];
-                                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId && !Storage.MutedChannels.Contains(chn.Raw.Id))
                                         gclone.IsUnread = true;
                             }
                         }
