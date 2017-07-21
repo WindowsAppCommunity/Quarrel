@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -182,9 +183,36 @@ namespace Discord_UWP.Controls
             SuggestionPopup.IsOpen = false;
             EnableChanges = true;
         }
+        private void InsertNewLine()
+        {
+            int selectionstart = MessageEditor.SelectionStart;
+            MessageEditor.Text = MessageEditor.Text.Insert(selectionstart, "\n");
+            MessageEditor.SelectionStart = selectionstart + 1;
+        }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (SuggestionBlock.Items.Count == 0) return;
+            bool HandleSuggestions = (SuggestionBlock.Items.Count != 0);
+            if (e.Key == VirtualKey.Enter)
+            {
+                e.Handled = true;
+                
+                Windows.Devices.Input.KeyboardCapabilities keyboardCapabilities = new Windows.Devices.Input.KeyboardCapabilities();
+                if (keyboardCapabilities.KeyboardPresent > 0)
+                {
+                    if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+                    {
+                        InsertNewLine();
+                    }
+                    else if (HandleSuggestions)
+                        SelectSuggestion(SuggestionBlock.SelectedItem as string);
+                    else
+                        Send?.Invoke(sender, e);
+                }
+                else if (HandleSuggestions)
+                    SelectSuggestion(SuggestionBlock.SelectedItem as string);
+                else
+                    InsertNewLine();
+            }
 
             if (e.Key == VirtualKey.Up)
             {
@@ -202,10 +230,6 @@ namespace Discord_UWP.Controls
                     SuggestionBlock.SelectedIndex = 0;
                 else
                     SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
-            }
-            else if (e.Key == VirtualKey.Enter)
-            {
-                SelectSuggestion(SuggestionBlock.SelectedItem as string);
             }
         }
 
