@@ -8,7 +8,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Discord_UWP.Voice.UpstreamEvents
+using Discord_UWP.Voice.UpstreamEvents;
 
 namespace Discord_UWP.Voice
 {

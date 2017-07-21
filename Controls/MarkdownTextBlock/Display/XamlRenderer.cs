@@ -807,7 +807,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             InlineUIContainer imageRun = new InlineUIContainer();
             if (_document.length > 0 && _document.length == (element.Id.Length + element.Name.Length + 2))
             {
-                imageRun.Child = new Image()
+                imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
                     Width = 42,
                     Height = 42,
@@ -816,7 +816,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             }
             else
             {
-                imageRun.Child = new Image()
+                imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
                     Margin=new Thickness(2,0,2,-4),
                     Width = 20,
@@ -953,7 +953,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="context"> Persistent state. </param>
         private void RenderImage(InlineCollection inlineCollection, ImageInline element, RenderContext context)
         {
-            var image = new Image();
+            var image = new Windows.UI.Xaml.Controls.Image();
             var imageContainer = new InlineUIContainer() { Child = image };
 
             // if url is not absolute we have to return as local images are not supported
