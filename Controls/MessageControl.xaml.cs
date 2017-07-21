@@ -118,6 +118,7 @@ namespace Discord_UWP
          * For example, if you change a color depending on a boolean property, make sure to include a `else` that will reset the color */
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            EditBox.Visibility = Visibility.Collapsed;
             if (prop == IsContinuationProperty)
             {
                 if (IsContinuation)
@@ -125,7 +126,8 @@ namespace Discord_UWP
                 else
                     VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
             }
-
+            if(Storage.Settings.CompactMode)
+                VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
 
             if (prop == IsAdvertProperty)
             {
@@ -329,7 +331,7 @@ namespace Discord_UWP
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
-                    content.BorderThickness = new Thickness(2,0,0,0);
+                    content.BorderThickness = new Thickness(2, 0, 0, 0);
                 }
 
                 else
@@ -338,7 +340,7 @@ namespace Discord_UWP
                     content.BorderBrush = null;
                     content.BorderThickness = new Thickness(0);
                 }
-                    
+
 
                 if (Message.Value.User.Username != null)
                     username.Content = Message.Value.User.Username;
@@ -420,7 +422,7 @@ namespace Discord_UWP
                     };
                     foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count > 0))
                     {
-                        
+
                         reactionView.Items.Add(GenerateReactionToggle(reaction));
                     }
                     Grid.SetRow(reactionView, 3);
@@ -447,6 +449,23 @@ namespace Discord_UWP
                     Grid.SetRow(moreButton, 2);
                 }
                 content.Text = Message.Value.Content;
+                string text = Message.Value.Content;
+                string startLink = "";
+                string[] Searcheables = new string[] { "https://discord.gg/", "http://discord.gg/", "https://discordapp.com/invite/", "http://discordapp.com/invite/" };
+                
+                foreach(string link in Searcheables)
+                    foreach(int index in AllIndexesOf(text,link))
+                    {
+                        string text1 = text.Remove(0, index);
+                        int interrupt = text1.IndexOf(' ');
+                        if (interrupt != -1)
+                            text1 = text1.Remove(interrupt);
+                        EmbedViewer.Visibility = Visibility.Visible;
+                        EmbedViewer.Children.Add(new EmbededInviteControl
+                        {
+                            InviteCode = text1
+                        });
+                    }
             }
             else
             {
@@ -466,7 +485,15 @@ namespace Discord_UWP
                 LoadAttachements(false);
             }
         }
-
+        public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
+        {
+            int minIndex = str.IndexOf(searchstring);
+            while (minIndex != -1)
+            {
+                yield return minIndex;
+                minIndex = str.IndexOf(searchstring, minIndex + searchstring.Length);
+            }
+        }
         private ToggleButton GenerateReactionToggle(Reactions reaction)
         {
             ToggleButton reactionToggle = new ToggleButton();

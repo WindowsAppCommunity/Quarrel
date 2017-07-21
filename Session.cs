@@ -780,6 +780,11 @@ namespace Discord_UWP
             IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
             return await inviteservice.AcceptInvite(code);
         }
+        public static async Task<Invite> GetInvite(string code)
+        {
+            IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
+            return await inviteservice.GetInvite(code);
+        }
 
         #endregion
 

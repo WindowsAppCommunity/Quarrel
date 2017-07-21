@@ -53,6 +53,14 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="CompactState">
+                <VisualState x:Name="Compact">
+                    <VisualState.Setters>
+                        <Setter Target="col1.(Width)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Plain"/>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="col1" Width="64"/>

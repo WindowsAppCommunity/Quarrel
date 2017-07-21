@@ -2044,7 +2044,7 @@
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <TextBlock x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="ContentPresenter" TextWrapping="Wrap" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}" TextTrimming="CharacterEllipsis"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
