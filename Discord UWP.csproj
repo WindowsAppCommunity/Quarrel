@@ -221,6 +221,7 @@
     <Compile Include="DiscordAPI\Authentication\AuthenticationTicket.cs" />
     <Compile Include="DiscordAPI\Authentication\DiscordAuthenticator.cs" />
     <Compile Include="DiscordAPI\Authentication\IAuthenticator.cs" />
+    <Compile Include="DiscordAPI\Converters\Converters.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildDelete.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
@@ -239,7 +240,7 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Resumed.cs" />
     <Compile Include="DiscordAPI\Gateway\EventNames.cs" />
     <Compile Include="DiscordAPI\Gateway\Gateway.cs" />
-    <Compile Include="DiscordAPI\Gateway\GatewayEvent.cs" />
+    <Compile Include="DiscordAPI\GatewayEvent.cs" />
     <Compile Include="DiscordAPI\Gateway\IGateway.cs" />
     <Compile Include="DiscordAPI\Gateway\OperationCode.cs" />
     <Compile Include="DiscordAPI\Sockets\IWebMessageSocket.cs" />
@@ -282,8 +283,14 @@
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
+    <Compile Include="DiscordAPI\Voice\DiscordVoiceAPIClient.cs" />
     <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
     <Compile Include="DiscordAPI\Voice\Models\AudioApplication.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\ConnectionState.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\IUdpSocket.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\IWebSocketClient.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\RequestOptions.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\UdpProtocolInfo.cs" />
     <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusApplication.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusConverter.cs" />
@@ -293,6 +300,9 @@
     <Compile Include="DiscordAPI\Voice\Opus\OpusError.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusSignal.cs" />
     <Compile Include="DiscordAPI\Voice\Sodium\SecretBox.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
     <Compile Include="DiscordAPI\Voice\Voice.cs" />
     <Compile Include="DiscordAPI\Voice\VoiceEvents.cs" />
     <Compile Include="EntryMessages.cs" />

@@ -24,13 +24,13 @@ namespace Discord_UWP.Gateway
 
     public class Gateway : IGateway
     {
-        private delegate void GatewayEventHandler(GatewayEvent gatewayEvent);
+        private delegate void GatewayEventHandler(SocketFrame gatewayEvent);
 
         private IDictionary<int, GatewayEventHandler> operationHandlers;
         private IDictionary<string, GatewayEventHandler> eventHandlers;
 
         private Ready? lastReady;
-        private GatewayEvent? lastGatewayEvent;
+        private SocketFrame? lastGatewayEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly IAuthenticator _authenticator;
@@ -179,10 +179,10 @@ namespace Discord_UWP.Gateway
                 Limit = 0
             };
 
-            var request = new GatewayEvent()
+            var request = new SocketFrame()
             {
                 Operation = 8,
-                Data = payload
+                Payload = payload
             };
             await _webMessageSocket.SendJsonObjectAsync(request);
         }
@@ -197,27 +197,27 @@ namespace Discord_UWP.Gateway
                 Mute = selfMute
             };
 
-            var request = new GatewayEvent()
+            var request = new SocketFrame()
             {
                 Operation = 4,
-                Data = payload
+                Payload = payload
             };
             await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
         public async void SubscribeToGuild(string[] guildIDs)
         {
-            var identifyEvent = new GatewayEvent
+            var identifyEvent = new SocketFrame
             {
                 Operation = OperationCode.SubscribeToGuild.ToInt(),
-                Data = guildIDs
+                Payload = guildIDs
             };
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {
-            var gatewayEvent = JsonConvert.DeserializeObject<GatewayEvent>(args.Message);
+            var gatewayEvent = JsonConvert.DeserializeObject<SocketFrame>(args.Message);
             lastGatewayEvent = gatewayEvent;
 
             if (operationHandlers.ContainsKey(gatewayEvent.Operation.GetValueOrDefault()))
@@ -231,7 +231,7 @@ namespace Discord_UWP.Gateway
             }
         }
         
-        private void OnHelloReceived(GatewayEvent gatewayEvent)
+        private void OnHelloReceived(SocketFrame gatewayEvent)
         {
             IdentifySelfToGateway();
             BeginHeartbeatAsync(gatewayEvent.GetData<Hello>().HeartbeatInterval);
@@ -239,11 +239,11 @@ namespace Discord_UWP.Gateway
 
         private async void IdentifySelfToGateway()
         {
-            var identifyEvent = new GatewayEvent
+            var identifyEvent = new SocketFrame
             {
                 Type = EventNames.IDENTIFY,
                 Operation = OperationCode.Identify.ToInt(),
-                Data = await GetIdentityAsync()
+                Payload = await GetIdentityAsync()
             };
 
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
@@ -272,12 +272,12 @@ namespace Discord_UWP.Gateway
             };
         }
 
-        private void OnResumeReceived(GatewayEvent gatewayEvent)
+        private void OnResumeReceived(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, Resumed);
         }
 
-        private void OnReady(GatewayEvent gatewayEvent)
+        private void OnReady(SocketFrame gatewayEvent)
         {
             var ready = gatewayEvent.GetData<Ready>();
             lastReady = ready;
@@ -285,42 +285,42 @@ namespace Discord_UWP.Gateway
             FireEventOnDelegate(gatewayEvent, Ready);
         }
 
-        private void OnMessageCreated(GatewayEvent gatewayEvent)
+        private void OnMessageCreated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageCreated);
         }
 
-        private void OnMessageUpdated(GatewayEvent gatewayEvent)
+        private void OnMessageUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageUpdated);
         }
 
-        private void OnMessageDeleted(GatewayEvent gatewayEvent)
+        private void OnMessageDeleted(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageDeleted);
         }
 
-        private void OnMessageReactionAdd(GatewayEvent gatewayEvent)
+        private void OnMessageReactionAdd(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageReactionAdded);
         }
 
-        private void OnMessageReactionRemove(GatewayEvent gatewayEvent)
+        private void OnMessageReactionRemove(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageReactionRemoved);
         }
 
-        private void OnMessageReactionRemoveAll(GatewayEvent gatewayEvent)
+        private void OnMessageReactionRemoveAll(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageReactionRemovedAll);
         }
 
-        private void OnMessageAck(GatewayEvent gatewayEvent)
+        private void OnMessageAck(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, MessageAck);
         }
 
-        private void OnChannelCreated(GatewayEvent gatewayEvent)
+        private void OnChannelCreated(SocketFrame gatewayEvent)
         {
             if (IsChannelAGuildChannel(gatewayEvent))
             {
@@ -332,12 +332,12 @@ namespace Discord_UWP.Gateway
             }
         }
 
-        private void OnChannelUpdated(GatewayEvent gatewayEvent)
+        private void OnChannelUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildChannelUpdated);
         }
 
-        private void OnChannelDeleted(GatewayEvent gatewayEvent)
+        private void OnChannelDeleted(SocketFrame gatewayEvent)
         {
             if (IsChannelAGuildChannel(gatewayEvent))
             {
@@ -349,99 +349,99 @@ namespace Discord_UWP.Gateway
             }
         }
 
-        private bool IsChannelAGuildChannel(GatewayEvent gatewayEvent)
+        private bool IsChannelAGuildChannel(SocketFrame gatewayEvent)
         {
-            var dataAsJObject = gatewayEvent.Data as JObject;
+            var dataAsJObject = gatewayEvent.Payload as JObject;
             return dataAsJObject["guild_id"] != null;
         }
 
-        private void OnGuildCreated(GatewayEvent gatewayEvent)
+        private void OnGuildCreated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildCreated);
         }
 
-        private void OnGuildUpdated(GatewayEvent gatewayEvent)
+        private void OnGuildUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildUpdated);
         }
 
-        private void OnGuildDeleted(GatewayEvent gatewayEvent)
+        private void OnGuildDeleted(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildDeleted);
         }
 
-        private void OnGuildBanAdded(GatewayEvent gatewayEvent)
+        private void OnGuildBanAdded(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildBanAdded);
         }
 
-        private void OnGuildBanRemoved(GatewayEvent gatewayEvent)
+        private void OnGuildBanRemoved(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildBanRemoved);
         }
 
-        private void OnGuildMemberAdded(GatewayEvent gatewayEvent)
+        private void OnGuildMemberAdded(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberAdded);
         }
 
-        private void OnGuildMemberRemoved(GatewayEvent gatewayEvent)
+        private void OnGuildMemberRemoved(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberRemoved);
         }
 
-        private void OnGuildMemberUpdated(GatewayEvent gatewayEvent)
+        private void OnGuildMemberUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberUpdated);
         }
 
-        private void OnGuildMemberChunk(GatewayEvent gatewayEvent)
+        private void OnGuildMemberChunk(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberChunk);
         }
 
-        private void OnPresenceUpdated(GatewayEvent gatewayEvent)
+        private void OnPresenceUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, PresenceUpdated);
         }
 
-        private void OnTypingStarted(GatewayEvent gatewayEvent)
+        private void OnTypingStarted(SocketFrame gatewayEvent)
         {
             Debug.WriteLine("TYPING");
             FireEventOnDelegate(gatewayEvent, TypingStarted);
         }
 
-        private void OnRelationShipAdded(GatewayEvent gatewayEvent)
+        private void OnRelationShipAdded(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, RelationShipAdded);
         }
 
-        private void OnRelationShipRemoved(GatewayEvent gatewayEvent)
+        private void OnRelationShipRemoved(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, RelationShipRemoved);
         }
 
-        private void OnRelationShipUpdated(GatewayEvent gatewayEvent)
+        private void OnRelationShipUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, RelationShipUpdated);
         }
 
-        private void OnUserNoteUpdated(GatewayEvent gatewayEvent)
+        private void OnUserNoteUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, UserNoteUpdated);
         }
 
-        private void OnVoiceStatusUpdated(GatewayEvent gatewayEvent)
+        private void OnVoiceStatusUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, VoiceStateUpdated);
         }
 
-        private void OnUserSettingsUpdated(GatewayEvent gatewayEvent)
+        private void OnUserSettingsUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, UserSettingsUpdated);
         }
 
-        private void FireEventOnDelegate<TEventData>(GatewayEvent gatewayEvent, EventHandler<GatewayEventArgs<TEventData>> eventHandler)
+        private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<GatewayEventArgs<TEventData>> eventHandler)
         {
             var eventArgs = new GatewayEventArgs<TEventData>(gatewayEvent.GetData<TEventData>());
             eventHandler?.Invoke(this, eventArgs);
@@ -475,10 +475,10 @@ namespace Discord_UWP.Gateway
         {
             try
             {
-                var heartbeatEvent = new GatewayEvent
+                var heartbeatEvent = new SocketFrame
                 {
                     Operation = OperationCode.Heartbeat.ToInt(),
-                    Data = lastGatewayEvent?.SequenceNumber ?? 0
+                    Payload = lastGatewayEvent?.SequenceNumber ?? 0
                 };
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
@@ -491,10 +491,10 @@ namespace Discord_UWP.Gateway
 
         private async Task UpdateStatus(StatusUpdate status)
         {
-            var statusevent = new GatewayEvent()
+            var statusevent = new SocketFrame()
             {
                 Operation = 3,
-                Data = status
+                Payload = status
             };
             await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }

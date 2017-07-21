@@ -8,7 +8,7 @@ namespace Discord_UWP.Voice
 {
     public enum OperationCode : int
     {
-        Dispatch = 0,
+        Identify = 0,
         SelectProtocol = 1,
         Ready = 2,
         Heartbeat = 3,
