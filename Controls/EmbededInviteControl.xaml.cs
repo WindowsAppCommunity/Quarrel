@@ -67,6 +67,7 @@ namespace Discord_UWP.Controls
             {
                 DisplayedInvite = await Session.GetInvite(InviteCode);
                 Loading.Fade(0, 200).Start();
+                GuildName.Visibility = Visibility.Visible;
                 TimeSpan timeDiff = TimeSpan.FromSeconds(1);
                 if (DisplayedInvite.CreatedAt != null && DisplayedInvite.MaxAge != 0)
                 {
@@ -103,10 +104,12 @@ namespace Discord_UWP.Controls
             }
             catch
             {
+                Loading.Fade(0, 200).Start();
                 GuildName.Fade(1, 350).Start();
                 ChannelName.Fade(1, 200).Start();
                 RedIcon.Fade(1, 200).Start();
-                ChannelName.Text = "Error loading invite";
+                ChannelName.Text = "Expired or invalid invite";
+                GuildName.Visibility = Visibility.Collapsed;
             }
     }
             public EmbededInviteControl()
