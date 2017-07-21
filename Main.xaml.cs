@@ -73,6 +73,7 @@ using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Windows.UI.ViewManagement;
 #endregion
 
 
@@ -1408,6 +1409,31 @@ namespace Discord_UWP
         private void AddServer(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.AddServer));
+        }
+
+        bool iscompact = false;
+        private async void CompactOverlayToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (!iscompact)
+            {
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Size(300, 512);
+                await Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+                commandBar.Visibility = Visibility.Collapsed;
+                ChannelInfo.Visibility = Visibility.Collapsed;
+                Servers.Visibility = Visibility.Collapsed;
+                Members.Visibility = Visibility.Collapsed;
+                iscompact = true;
+            }
+            else
+            {
+                await Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+                commandBar.Visibility = Visibility.Visible;
+                ChannelInfo.Visibility = Visibility.Visible;
+                Servers.Visibility = Visibility.Visible;
+                Members.Visibility = Visibility.Visible;
+                iscompact = false;
+            }
         }
     }
 }

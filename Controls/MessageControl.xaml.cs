@@ -126,7 +126,8 @@ namespace Discord_UWP
                 else
                     VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
             }
-
+            if(Storage.Settings.CompactMode)
+                VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
 
             if (prop == IsAdvertProperty)
             {
