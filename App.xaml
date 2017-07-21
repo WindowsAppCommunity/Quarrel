@@ -186,7 +186,6 @@
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource DarkBG}"/>
                                                 </ObjectAnimationUsingKeyFrames>
-
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
