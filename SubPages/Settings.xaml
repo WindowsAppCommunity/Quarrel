@@ -155,6 +155,7 @@
                                             <TextBlock Text="System Accent Color" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
                                         </ComboBoxItem>
                                     </ComboBox>
+                                    <CheckBox x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                     <!-- <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>-->
                                 </StackPanel>
                             </ScrollViewer>

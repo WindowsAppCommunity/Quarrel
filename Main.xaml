@@ -484,7 +484,7 @@
                         <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
                     </Border>
                 </StackPanel>
-                <AppBarButton x:Name="CompactOverlayToggle" HorizontalAlignment="Right" Style="{StaticResource AppBarButtonStyle1}" VerticalAlignment="Stretch">
+                <AppBarButton x:Name="CompactOverlayToggle" HorizontalAlignment="Right" Style="{StaticResource AppBarButtonStyle1}" VerticalAlignment="Stretch" Click="CompactOverlayToggle_Click">
                     <AppBarButton.Icon>
                         <FontIcon Glyph="&#xE191;"/>
                     </AppBarButton.Icon>
@@ -496,7 +496,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid Margin="12,6">
+                <Grid x:Name="ChannelInfo" Margin="12,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
