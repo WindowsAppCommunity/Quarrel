@@ -72,6 +72,8 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Windows.UI.ViewManagement;
 #endregion
 
 
@@ -160,7 +162,7 @@ namespace Discord_UWP
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter.ToString() != "")
+            if (e.Parameter?.ToString() != "")
             {
                 Login(e.Parameter.ToString());
             } else
@@ -174,6 +176,12 @@ namespace Discord_UWP
         private bool VibrationEnabled = true;
         private void SetupUI()
         {
+            var view = CoreApplication.GetCurrentView();
+            view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            view.TitleBar.ExtendViewIntoTitleBar = true;
+            TitleBarContent.Height = view.TitleBar.Height;
+            CompactOverlayToggle.Margin = new Thickness(0, 0, view.TitleBar.SystemOverlayRightInset, 0);
+            Window.Current.SetTitleBar(DraggableTitleBar);
             var info = new DrillInNavigationTransitionInfo();
             TransitionCollection collection = new TransitionCollection();
             NavigationThemeTransition theme = new NavigationThemeTransition();
@@ -202,6 +210,12 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             SettingsChanged(null, null);
+        }
+
+        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            TitleBarContent.Height = sender.Height;
+            CompactOverlayToggle.Margin = new Thickness(0, 0, sender.SystemOverlayRightInset, 0);
         }
 
         private void OnNavigateToJoinServer(object sender, EventArgs e)
@@ -1395,6 +1409,31 @@ namespace Discord_UWP
         private void AddServer(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.AddServer));
+        }
+
+        bool iscompact = false;
+        private async void CompactOverlayToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (!iscompact)
+            {
+                ViewModePreferences compactOptions = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+                compactOptions.CustomSize = new Size(300, 512);
+                await Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, compactOptions);
+                commandBar.Visibility = Visibility.Collapsed;
+                ChannelInfo.Visibility = Visibility.Collapsed;
+                Servers.Visibility = Visibility.Collapsed;
+                Members.Visibility = Visibility.Collapsed;
+                iscompact = true;
+            }
+            else
+            {
+                await Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+                commandBar.Visibility = Visibility.Visible;
+                ChannelInfo.Visibility = Visibility.Visible;
+                Servers.Visibility = Visibility.Visible;
+                Members.Visibility = Visibility.Visible;
+                iscompact = false;
+            }
         }
     }
 }

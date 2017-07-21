@@ -238,6 +238,7 @@ namespace Discord_UWP
         public bool ShowOfflineMembers = false;
         public bool DevMode = false;
         public bool DiscordLightTheme = false;
+        public bool CompactMode = false;
         public Theme Theme = Theme.Dark;
         public string AccentBrush = Color.FromArgb(255, 114,137,218).ToHex();
         public string OnlineBursh = Color.FromArgb(255, 67, 181, 129).ToHex();

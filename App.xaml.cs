@@ -395,6 +395,7 @@ namespace Discord_UWP
                     Storage.Settings.RespUiXl = 1024;
                     Storage.Settings.AppBarAtBottom = false;
                     Storage.Settings.DiscordLightTheme = false;
+                    Storage.Settings.CompactMode = false;
                     Storage.Settings.DevMode = false;
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
@@ -408,6 +409,7 @@ namespace Discord_UWP
                 Storage.Settings.AutoHidePeople = false;
                 Storage.Settings.Toasts = false;
                 Storage.Settings.HighlightEveryone = true;
+                Storage.Settings.CompactMode = false;
                 Storage.Settings.Toasts = false;
                 Storage.Settings.RespUiM = 569;
                 Storage.Settings.RespUiL = 768;
