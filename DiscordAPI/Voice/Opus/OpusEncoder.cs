@@ -18,7 +18,7 @@ namespace Discord_UWP.Voice
 
         public OpusEncoder(int bitrate, AudioApplication application, int packetLoss)
         {
-            //if (bitrate < 1 || bitrate > DiscordVoiceAPIClient.MaxBitrate)
+            if (bitrate < 1 || bitrate > DiscordVoiceAPIClient.MaxBitrate)
                 throw new ArgumentOutOfRangeException(nameof(bitrate));
 
             Application = application;
