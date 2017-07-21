@@ -278,6 +278,7 @@
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
     <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Voice\Models\AudioApplication.cs" />
     <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusApplication.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusConverter.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="DiscordAPI\Voice\Opus\OpusEncoder.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusError.cs" />
     <Compile Include="DiscordAPI\Voice\Opus\OpusSignal.cs" />
+    <Compile Include="DiscordAPI\Voice\Sodium\SecretBox.cs" />
     <Compile Include="DiscordAPI\Voice\Voice.cs" />
     <Compile Include="DiscordAPI\Voice\VoiceEvents.cs" />
     <Compile Include="EntryMessages.cs" />
@@ -615,9 +617,7 @@
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.15063.0%29</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DiscordAPI\Voice\Sodium\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

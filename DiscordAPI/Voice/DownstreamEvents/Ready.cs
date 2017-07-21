@@ -11,12 +11,14 @@ namespace Discord_UWP.Voice.DownstreamEvents
     public struct Ready
     {
         [JsonProperty("ssrc")]
-        public int SSRC { get; set; } //Check type
+        public uint SSRC { get; set; }
+        [JsonProperty("ip")]
+        public string Ip { get; set; }
         [JsonProperty("port")]
-        public int Port { get; set; }
+        public ushort Port { get; set; }
         [JsonProperty("modes")]
-        public IEnumerable<string> Modes { get; set; }
+        public string[] Modes { get; set; }
         [JsonProperty("heartbeat_interval")]
-        public int HeartBeat { get; set; }
+        public int HeartbeatInterval { get; set; }
     }
 }
