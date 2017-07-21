@@ -118,7 +118,6 @@ namespace Discord_UWP
          * For example, if you change a color depending on a boolean property, make sure to include a `else` that will reset the color */
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            EditBox.Visibility = Visibility.Collapsed;
             if (prop == IsContinuationProperty)
             {
                 if (IsContinuation)
@@ -704,24 +703,50 @@ namespace Discord_UWP
             }
         }
 
+        string EditValue = "";
+        MessageBox editBox;
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {           
-            string val = "";
-            MessageBox.Document.GetText(TextGetOptions.None, out val);
-            if (val.Trim() == "")
-                MessageBox.Document.SetText(TextSetOptions.None, content.Text);
-            EditBox.Visibility = Visibility.Visible;
+        {
+            if (EditValue.Trim() == "") EditValue = content.Text;
+            editBox = new MessageBox() { Text = EditValue.Trim(),
+                                         Background =(SolidColorBrush)App.Current.Resources["DeepBG"],
+                                         Padding = new Thickness(6,6,12,6),
+                                         IsEdit = true };
+            editBox.Send += EditBox_Send;
+            editBox.Cancel += EditBox_Cancel;
+            editBox.TextChanged += EditBox_TextChanged;
+            editBox.LostFocus += EditBox_Cancel;
+            Grid.SetRow(editBox, 2);
+            Grid.SetColumn(editBox, 1);
+            rootGrid.Children.Add(editBox);
         }
 
-        private async void CreateMessage(object sender, RoutedEventArgs e)
+        private void EditBox_Cancel(object sender, RoutedEventArgs e)
         {
-            string editedText = "";
-            MessageBox.Document.GetText(TextGetOptions.None, out editedText);
+            editBox.Send += EditBox_Send;
+            editBox.Cancel += EditBox_Cancel;
+            editBox.TextChanged += EditBox_TextChanged;
+            editBox.LostFocus += EditBox_Cancel;
+            rootGrid.Children.Remove(editBox);
+        }
+
+        private void EditBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            EditValue = editBox.Text;
+        }
+
+        private async void EditBox_Send(object sender, RoutedEventArgs e)
+        {
+            editBox.Send -= EditBox_Send;
+            editBox.TextChanged -= EditBox_TextChanged;
             string chnId = Message.Value.ChannelId;
             string msgId = Message.Value.Id;
-            string newMeg = editedText;
+            string newMeg = editBox.Text;
+            editBox.IsEnabled = false;
             await Task.Run(() => Session.EditMessageAsync(chnId, msgId, newMeg));
+            rootGrid.Children.Remove(editBox);
         }
+
 
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
         {
@@ -729,23 +754,6 @@ namespace Discord_UWP
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
-        private async void MessageBox_TextChanged(object sender, RoutedEventArgs e)
-        {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                string text = "";
-                MessageBox.Document.GetText(TextGetOptions.None, out text);
-                if (text != "")
-                    SendBox.IsEnabled = true;
-                else
-                    SendBox.IsEnabled = false;
-            });
-        }
-        
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            EditBox.Visibility = Visibility.Collapsed;
-        }
 
         private void MorePin_Click(object sender, RoutedEventArgs e)
         {

@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using System.Text.RegularExpressions;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -166,7 +167,10 @@ namespace Discord_UWP.Controls
                 {
                     if (Name != "")
                     {
-                        TextIcon.Text = Name[0].ToString();
+                        TextIcon.Text = String.Join("", Regex.Matches(Name, @"(?<=^|[ \-_|+=~])\w")
+                                                            .Cast<Match>()
+                                                            .Select(m => m.Value)
+                                                            .ToArray());
                         TextIcon.Visibility = Visibility.Visible;
                     }
                 }

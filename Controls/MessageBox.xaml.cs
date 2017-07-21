@@ -26,6 +26,7 @@ namespace Discord_UWP.Controls
     {
         public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
+        public event EventHandler<RoutedEventArgs> Cancel;
 
         public string Text
         {
@@ -47,6 +48,18 @@ namespace Discord_UWP.Controls
 
         public new readonly DependencyProperty IsEnabledProperty = DependencyProperty.Register(
             nameof(IsEnabled),
+            typeof(bool),
+            typeof(MessageBox),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public bool IsEdit
+        {
+            get { return (bool)GetValue(IsEditProperty); }
+            set { SetValue(IsEditProperty, value); }
+        }
+
+        public readonly DependencyProperty IsEditProperty = DependencyProperty.Register(
+            nameof(IsEdit),
             typeof(bool),
             typeof(MessageBox),
             new PropertyMetadata("", OnPropertyChangedStatic));
@@ -74,6 +87,14 @@ namespace Discord_UWP.Controls
             {
                 MessageEditor.IsEnabled = IsEnabled;
                 SendBox.IsEnabled = IsEnabled;
+            }
+            if(prop == TextProperty)
+            {
+                MessageEditor.Text = Text;
+            }
+            if(prop == IsEditProperty)
+            {
+                CancelButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -262,6 +283,11 @@ namespace Discord_UWP.Controls
                 MessageEditor.SelectionStart = newSelectionStart;
                 MessageEditor.Focus(FocusState.Keyboard);
             };
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Cancel?.Invoke(this, e);
         }
     }
 }

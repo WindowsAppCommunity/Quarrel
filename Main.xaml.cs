@@ -162,7 +162,7 @@ namespace Discord_UWP
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter?.ToString() != "")
+            if (e.Parameter != null && e.Parameter.ToString() != "")
             {
                 Login(e.Parameter.ToString());
             } else
@@ -176,12 +176,12 @@ namespace Discord_UWP
         private bool VibrationEnabled = true;
         private void SetupUI()
         {
-            var view = CoreApplication.GetCurrentView();
-            view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
-            view.TitleBar.ExtendViewIntoTitleBar = true;
-            TitleBarContent.Height = view.TitleBar.Height;
-            CompactOverlayToggle.Margin = new Thickness(0, 0, view.TitleBar.SystemOverlayRightInset, 0);
-            Window.Current.SetTitleBar(DraggableTitleBar);
+            //var view = CoreApplication.GetCurrentView();
+            //view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            //view.TitleBar.ExtendViewIntoTitleBar = true;
+            //TitleBarContent.Height = view.TitleBar.Height;
+            //CompactOverlayToggle.Margin = new Thickness(0, 0, view.TitleBar.SystemOverlayRightInset, 0);
+            //Window.Current.SetTitleBar(DraggableTitleBar);
             var info = new DrillInNavigationTransitionInfo();
             TransitionCollection collection = new TransitionCollection();
             NavigationThemeTransition theme = new NavigationThemeTransition();
