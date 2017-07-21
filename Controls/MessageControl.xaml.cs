@@ -517,7 +517,7 @@ namespace Discord_UWP
                 }
             if (serversideEmoji != null)
             {
-                stack.Children.Add(new Image()
+                stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
                 {
                     Width = 20,
                     Height = 20,
@@ -805,5 +805,6 @@ namespace Discord_UWP
                     App.ShowMenuFlyout(this, App.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
+
     }
 }

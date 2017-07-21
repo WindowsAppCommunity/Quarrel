@@ -77,7 +77,7 @@ namespace Discord_UWP
                 return UserStatusConverter.Instance;
 
             //Special
-            if (type == typeof(Image))
+            if (type == typeof(ImageAlt))
                 return ImageConverter.Instance;
 
             //Entities
@@ -250,17 +250,17 @@ namespace Discord_UWP
         User
     }
 
-    internal struct Image
+    internal struct ImageAlt
     {
         public Stream Stream { get; }
         public string Hash { get; }
 
-        public Image(Stream stream)
+        public ImageAlt(Stream stream)
         {
             Stream = stream;
             Hash = null;
         }
-        public Image(string hash)
+        public ImageAlt(string hash)
         {
             Stream = null;
             Hash = hash;
@@ -282,7 +282,7 @@ namespace Discord_UWP
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var image = (Image)value;
+            var image = (ImageAlt)value;
 
             if (image.Stream != null)
             {
