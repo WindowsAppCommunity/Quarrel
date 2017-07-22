@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static string GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 40))
+            switch (rand.Next(0, 44))
             {
                 case 0: return "HUZZAH";
                 case 1: return "Beam me up Scotty!!!";
@@ -52,6 +52,10 @@ namespace Discord_UWP
                 case 38: return "Han shot first (Submitted by @DougTheDog6#5067)";
                 case 39: return "Shots fired (Submitted by @Gavirlas#9973)";
                 case 40: return "$100! $200! $300! You're all gonna make me rich (Submitted by @DougTheDog6#5067)";
+                case 41: return "€100! €200! €300! Cause there're also Europeans in here! (Submitted by @ModProg|Roland#6987)";
+                case 42: return "I should charge money for new downloads now... (Submitted by Neel#2970)";
+                case 43: return "Aren't you a little short to be a storm trooper? (Submitted by @DougTheDog6#5067)";
+                case 44: return "Can we stop it with Starwars?";
                 default: return "Waiting for the Ready Packet";
             }
         }
