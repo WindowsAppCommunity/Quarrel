@@ -407,9 +407,24 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="MessageArea.(FrameworkElement.Margin)">
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0</Thickness>
+                                <Thickness>0,0,0,12</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="TypingStackPanel.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,48</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="rectangle.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>24,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="SendMessage.(Grid.Padding)">
+                            <Setter.Value>
+                                <Thickness>12,0</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -550,18 +565,9 @@
                 </tk:PullToRefreshListView>
                 <!-- </ScrollViewer>-->
                 <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage"/>
-                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32">
+                    <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
+                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom"/>
+                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                         <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>

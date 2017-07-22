@@ -238,7 +238,7 @@ namespace Discord_UWP.Controls
         private async void Searchbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             IEnumerable grouped = null;
-            string query = Searchbox.Text;
+            string query = Searchbox.Text.ToLower();
             await Task.Run(() =>
             {
                 var filtered = new List<ISimpleEmoji>();
