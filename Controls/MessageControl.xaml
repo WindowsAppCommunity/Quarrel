@@ -88,7 +88,7 @@
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <MenuFlyoutItem x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
-                    <!--<MenuFlyoutItem Text="Add reaction" HorizontalContentAlignment="Right"/>-->
+                    <MenuFlyoutItem Text="Add reaction" Click="MenuFlyoutItem_Click_2"/>
                     <MenuFlyoutItem x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
                     <MenuFlyoutItem x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
                     <MenuFlyoutItem x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
