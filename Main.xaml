@@ -477,7 +477,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="TitleBarContent" Height="32" Background="{ThemeResource DarkBG}" Grid.ColumnSpan="3">
+            <Grid x:Name="TitleBarContent" Visibility="Collapsed" Height="32" Background="{ThemeResource DarkBG}" Grid.ColumnSpan="3">
                 <StackPanel x:Name="DraggableTitleBar" Orientation="Horizontal" Background="Transparent">
                     <TextBlock Text="Discord UWP" VerticalAlignment="Center" Margin="12,0,0,0"/>
                     <Border Visibility="Visible" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="6,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right">
@@ -588,6 +588,7 @@
                                                            Margin="10,0,0,0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
+                            
                             <ListView.Footer>
                                 <Button Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}">
                                     <Button.Content>
