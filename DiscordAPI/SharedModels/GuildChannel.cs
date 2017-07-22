@@ -31,5 +31,7 @@ namespace Discord_UWP.SharedModels
         public int Bitrate { get; set; }
         [JsonProperty("user_limit")]
         public string UserLimit { get; set; }
+        [JsonProperty("nsfw")]
+        public bool NSFW { get; set; }
     }
 }
