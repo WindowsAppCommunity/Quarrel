@@ -176,9 +176,9 @@ namespace Discord_UWP
         private bool VibrationEnabled = true;
         private void SetupUI()
         {
-            //var view = CoreApplication.GetCurrentView();
+            var view = CoreApplication.GetCurrentView();
             //view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
-            //view.TitleBar.ExtendViewIntoTitleBar = true;
+            view.TitleBar.ExtendViewIntoTitleBar = false;
             //TitleBarContent.Height = view.TitleBar.Height;
             //CompactOverlayToggle.Margin = new Thickness(0, 0, view.TitleBar.SystemOverlayRightInset, 0);
             //Window.Current.SetTitleBar(DraggableTitleBar);

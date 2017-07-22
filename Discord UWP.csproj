@@ -151,6 +151,7 @@
     <Compile Include="Controls\EmojiControl.xaml.cs">
       <DependentUpon>EmojiControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EmojiSkinToneManager.cs" />
     <Compile Include="Controls\GuildControl.xaml.cs">
       <DependentUpon>GuildControl.xaml</DependentUpon>
     </Compile>

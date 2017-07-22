@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,13 +28,36 @@ namespace Discord_UWP.Controls
     public sealed partial class EmojiControl : UserControl
     {
         public event EventHandler<RoutedEventArgs> PickedEmoji; 
-        public class ISimpleEmoji
+        
+        public class ChangedDiversityArgs : EventArgs
+        {
+            public int skintone { get; set; }
+        }
+        public event EventHandler<ChangedDiversityArgs> ChangedDiversity;
+        public class ISimpleEmoji : INotifyPropertyChanged
         {
             public List<string> names { get; set; }
-            public string surrogates { get; set; }
             public bool? hasDiversity { get; set; }
             public virtual string category { get; set; }
             public int position { get; set; }
+
+            private string _surrogates;
+            public string surrogates
+            {
+                get => _surrogates;
+                set { if (_surrogates == value) return; _surrogates = value; OnPropertyChanged("surrogates"); }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            public void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+
+            public void Emoji_ChangedDiversity(object sender, ChangedDiversityArgs e)
+            {
+                surrogates = surrogates.ChangeSkinTone(e.skintone);
+            }
         }
 
         public class Person : ISimpleEmoji
@@ -116,9 +140,17 @@ namespace Discord_UWP.Controls
                                 .Concat(root.objects)
                                 .Concat(root.symbols)
                                 .Concat(root.flags);
+            foreach(var emoji in emojis)
+            {
+                if(emoji.hasDiversity == true)
+                     ChangedDiversity += emoji.Emoji_ChangedDiversity;
+            }
             var grouped = emojis.GroupBy(x => x.category);
             EmojiCVS.Source = grouped;
         }
+
+
+
         private void Grid_ManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
             if (dragTransform.X <= 0 &&  dragTransform.X >= -48)
@@ -143,9 +175,26 @@ namespace Discord_UWP.Controls
 
         private void EmojiView_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            PickedEmoji?.Invoke(":" + (e.ClickedItem as ISimpleEmoji).names[0] + ":", null);
+            PickedEmoji?.Invoke(GetEmojiName(e.ClickedItem as ISimpleEmoji), null);
         }
-
+        private string GetEmojiName(ISimpleEmoji e)
+        {
+            string suffix = "";
+            if (e.hasDiversity == true)
+            {
+                if (SkinTone1.IsChecked == true)
+                    suffix = ":skin-tone-1:";
+                else if (SkinTone2.IsChecked == true)
+                    suffix = ":skin-tone-2:";
+                else if (SkinTone3.IsChecked == true)
+                    suffix = ":skin-tone-3:";
+                else if (SkinTone4.IsChecked == true)
+                    suffix = ":skin-tone-4:";
+                else if (SkinTone5.IsChecked == true)
+                    suffix = ":skin-tone-5:";
+            }
+            return ":" + e.names[0] + ":" + suffix;
+        }
         private bool loaded = false;
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -166,8 +215,9 @@ namespace Discord_UWP.Controls
                 if (sender as ToggleButton != SkinTone5)
                     SkinTone5.IsChecked = false;
 
-                if (sender as ToggleButton != SkinTone6)
-                    SkinTone6.IsChecked = false;
+                if (sender as ToggleButton != SkinTone0)
+                    SkinTone0.IsChecked = false;
+                ChangedDiversity?.Invoke(null, new ChangedDiversityArgs() { skintone = Convert.ToInt16((sender as ToggleButton).Tag as string) });
             }
         }
 
@@ -194,6 +244,7 @@ namespace Discord_UWP.Controls
                 AltEmojiView.Blur(2, 100).Start();
             }
         }
+
     }
 
     public class EmojiDataTemplateSelector : DataTemplateSelector
