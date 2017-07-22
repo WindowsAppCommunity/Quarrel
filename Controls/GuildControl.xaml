@@ -46,14 +46,14 @@
     </UserControl.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,4">
         <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
-        <Rectangle x:Name="GuildImageBackdrop" Width="48" Height="48" RadiusX="24" RadiusY="24" Fill="{ThemeResource Blurple}" Opacity="1"/>
+        <Rectangle x:Name="GuildImageBackdrop" Width="48" Height="48" RadiusX="24" RadiusY="24" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
         <Rectangle x:Name="GuildImage" Width="48" Height="48" RadiusX="24" RadiusY="24">
             <Rectangle.Fill>
                 <ImageBrush x:Name="GuildImageBrush"/>
             </Rectangle.Fill>
         </Rectangle>
 
-        <TextBlock Visibility="Collapsed" x:Name="TextIcon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+        <TextBlock Visibility="Collapsed" x:Name="TextIcon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Light" Margin="0,-2,0,0"/>
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 

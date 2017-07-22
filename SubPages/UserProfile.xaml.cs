@@ -286,7 +286,7 @@ namespace Discord_UWP.SubPages
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
         {
-            (sender as Image).Fade(0.2f).Start();
+            (sender as Windows.UI.Xaml.Controls.Image).Fade(0.2f).Start();
         }
 
         private void AvatarFull_OnImageOpened(object sender, RoutedEventArgs e)

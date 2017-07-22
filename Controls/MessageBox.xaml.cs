@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Discord_UWP.CacheModels;
+using Discord_UWP.SharedModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -26,6 +28,7 @@ namespace Discord_UWP.Controls
     {
         public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
+        public event EventHandler<RoutedEventArgs> Cancel;
 
         public string Text
         {
@@ -47,6 +50,18 @@ namespace Discord_UWP.Controls
 
         public new readonly DependencyProperty IsEnabledProperty = DependencyProperty.Register(
             nameof(IsEnabled),
+            typeof(bool),
+            typeof(MessageBox),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public bool IsEdit
+        {
+            get { return (bool)GetValue(IsEditProperty); }
+            set { SetValue(IsEditProperty, value); }
+        }
+
+        public readonly DependencyProperty IsEditProperty = DependencyProperty.Register(
+            nameof(IsEdit),
             typeof(bool),
             typeof(MessageBox),
             new PropertyMetadata("", OnPropertyChangedStatic));
@@ -75,10 +90,19 @@ namespace Discord_UWP.Controls
                 MessageEditor.IsEnabled = IsEnabled;
                 SendBox.IsEnabled = IsEnabled;
             }
+            if(prop == TextProperty)
+            {
+                MessageEditor.Text = Text;
+            }
+            if(prop == IsEditProperty)
+            {
+                CancelButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void SendBox_OnClick(object sender, RoutedEventArgs e)
         {
+            Text = ProcessString(Text);
             Send?.Invoke(sender, e);
         }
 
@@ -119,13 +143,14 @@ namespace Discord_UWP.Controls
                             word = str.Split('\r').Last();
                         else word = str;
 
-                        if (word.StartsWith("@"))
+                       if (word.StartsWith("@"))
                         {
                             string query = word.Remove(0, 1);
                             selectionstart = selectionstart - word.Length;
                             PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
                             if (query != "")
                             {
+                                //Something in this block is crashing the UI, but I dunno what
                                 IEnumerable<string> userlist =
                                     App.GuildMembers.Where(x => x.Value.Raw.User.Username.StartsWith(query))
                                         .Select(x => "@" + x.Value.Raw.User.Username + "#" + x.Value.Raw.User.Discriminator);
@@ -138,7 +163,7 @@ namespace Discord_UWP.Controls
                                 SuggestionPopup.IsOpen = true;
                             }
                         }
-                        if (word.StartsWith("#"))
+                        else if (word.StartsWith("#"))
                         {
                             string query = word.Remove(0, 1);
                             selectionstart = selectionstart - word.Length;
@@ -149,8 +174,17 @@ namespace Discord_UWP.Controls
                                 .Select(x => "#" + x.Value.Raw.Name);
                             SuggestionPopup.IsOpen = true;
                         }
+                        else
+                        {
+                            SuggestionBlock.ItemsSource = null;
+                            SuggestionPopup.IsOpen = false;
+                        }
                     }
-
+                    else
+                    {
+                        SuggestionBlock.ItemsSource = null;
+                        SuggestionPopup.IsOpen = false;
+                    }
                 }
                 else
                 {
@@ -206,7 +240,7 @@ namespace Discord_UWP.Controls
                     else if (HandleSuggestions)
                         SelectSuggestion(SuggestionBlock.SelectedItem as string);
                     else
-                        Send?.Invoke(sender, e);
+                        SendBox_OnClick(null, null);
                 }
                 else if (HandleSuggestions)
                     SelectSuggestion(SuggestionBlock.SelectedItem as string);
@@ -263,5 +297,100 @@ namespace Discord_UWP.Controls
                 MessageEditor.Focus(FocusState.Keyboard);
             };
         }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            Cancel?.Invoke(this, e);
+        }
+
+
+        #region TextProcessing
+        private string ProcessString(string input)
+        {
+            //Find all @ chars
+            var PossibleUserMentions = AllIndexesOf('@', input);
+            string output = input;
+            int addedLength = 0;
+            foreach (int i in PossibleUserMentions)
+            {
+                //remove @ sign and everything before
+                string CroppedInput = input.Remove(0, i+1);
+
+                bool keepon = false;
+                int whitespaceindex = 0;
+                while (keepon == false && whitespaceindex < 8) //Don't waist ressources with usernames that have more than 8 whitespaces in them
+                {
+                    int nextWhiteSpace = AllIndexesOf(' ', CroppedInput).ElementAt(whitespaceindex);
+                    if (nextWhiteSpace == 0 | nextWhiteSpace == -1)
+                    {
+                        keepon = true;
+                        break;
+                    }
+                    else
+                    {
+                        whitespaceindex++;
+                        string toVerify = CroppedInput.Remove(nextWhiteSpace);
+
+                        //Check for role mention
+                        var roleMention = Storage.Cache.Guilds[App.CurrentGuildId].Roles
+                            .Where(x => x.Value.Name == toVerify)
+                            .Select(e => (KeyValuePair<string, Role>?)e).FirstOrDefault();
+                        if (roleMention != null)
+                        {
+                            //The mention is of a role
+                            output = InsertMarkdown(input, "@&", roleMention.Value.Value.Id, i, toVerify.Length, addedLength);
+                            addedLength = output.Length - input.Length;
+                            keepon = true;
+                            break;
+                        }
+
+                        //Check for nick mention
+                        var nickMention = Storage.Cache.Guilds[App.CurrentGuildId].Members
+                            .Where(x => x.Value.Raw.Nick == toVerify)
+                            .Select(e => (KeyValuePair<string, CacheModels.Member>?)e).FirstOrDefault();
+                        if (nickMention != null)
+                        {
+                            //The mention is of a nick
+                            output = InsertMarkdown(input, "@!", nickMention.Value.Value.Raw.User.Id, i, toVerify.Length, addedLength);
+                            addedLength = output.Length - input.Length;
+                            keepon = true;
+                            break;
+                        }
+
+                        //Check for user mention
+                        var userMention = Storage.Cache.Guilds[App.CurrentGuildId].Members
+                            .Where(x => x.Value.Raw.User.Username == toVerify || x.Value.Raw.User.Username + "#" + x.Value.Raw.User.Discriminator == toVerify)
+                            .Select(e => (KeyValuePair<string, Member>?)e).FirstOrDefault();
+                        if (userMention != null)
+                        {
+                            //The mention is of a user, with or without the discriminator after
+                            output = InsertMarkdown(input, "@", userMention.Value.Value.Raw.User.Id, i, toVerify.Length, addedLength);
+                            addedLength = output.Length - input.Length;
+                            keepon = true;
+                            keepon = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return output;
+        }
+        private string InsertMarkdown(string input, string prefix, string id, int index, int length, int addedlength)
+        {
+            string output = input.Remove(index + addedlength, length+1);
+            output = output.Insert(index + addedlength, "<" + prefix + id + ">");
+            return output;
+        }
+        private List<int> AllIndexesOf(char c, string s)
+        {
+            var indexes = new List<int>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == c)
+                    indexes.Add(i);
+            }
+            return indexes;
+        }
+        #endregion
     }
 }
