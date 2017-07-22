@@ -168,10 +168,38 @@
                                     <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
-                            <ListViewHeaderItem Content="VERSION 5.1.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewHeaderItem Content="VERSION 5.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Friends page" TextWrapping="Wrap"/>
+                                <TextBlock Text="Emoji selection panel and reactions" TextWrapping="Wrap"/>
                             </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Mention processing algorithm" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Emoji selector and reactions" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Compact mode" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Styled MessageBox" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Clicking on a channel's topic now shows it in a new subpage" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Press enter to send, or shift+enter to add a new line (if a physicaly keyboard is attached)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed and improved message editing box" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Small performance improvements and bug fixes" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Typing indicator should no longer be hidden by the touch keyboard" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 5.1.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="User popup and profile page" TextWrapping="Wrap"/>
                             </ListViewItem>
