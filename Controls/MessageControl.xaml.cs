@@ -793,7 +793,7 @@ namespace Discord_UWP
         Flyout PickReaction;
         private void MenuFlyoutItem_Click_2(object sender, RoutedEventArgs e)
         {
-            Flyout PickReaction = new Flyout();
+            PickReaction = new Flyout();
             EmojiControl emojiPicker = new EmojiControl();
             emojiPicker.PickedEmoji += ReactionSelected;
             PickReaction.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];

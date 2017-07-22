@@ -369,6 +369,9 @@
     <Compile Include="SubPages\AddServer.xaml.cs">
       <DependentUpon>AddServer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\ChannelTopic.xaml.cs">
+      <DependentUpon>ChannelTopic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\CreateBan.xaml.cs">
       <DependentUpon>CreateBan.xaml</DependentUpon>
     </Compile>
@@ -557,6 +560,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\AddServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\ChannelTopic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

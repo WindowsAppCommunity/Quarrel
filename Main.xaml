@@ -375,13 +375,24 @@
                             </VisualStateManager.VisualStateGroups>
                             <Grid x:Name="ContentRoot">
 
-                                
+
                                 <ContentPresenter x:Name="Content" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                               
+
                                 <TextBlock x:Name="TextLabel" AutomationProperties.AccessibilityView="Raw" Foreground="{TemplateBinding Foreground}" FontSize="12" FontFamily="{TemplateBinding FontFamily}" Margin="2,0,2,6" Grid.Row="1" TextAlignment="Center" TextWrapping="Wrap" Text="{TemplateBinding Label}"/>
                                 <TextBlock x:Name="OverflowTextLabel" AutomationProperties.AccessibilityView="Raw" Foreground="{TemplateBinding Foreground}" FontSize="15" FontFamily="{TemplateBinding FontFamily}" HorizontalAlignment="Stretch" Margin="12,0,12,0" Padding="0,5,0,7" TextAlignment="Left" TextWrapping="NoWrap" Text="{TemplateBinding Label}" TextTrimming="Clip" Visibility="Collapsed" VerticalAlignment="Center"/>
                             </Grid>
                         </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SimplifiedListView" TargetType="ListView">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ItemsPresenter FooterTransitions="{TemplateBinding FooterTransitions}" FooterTemplate="{TemplateBinding FooterTemplate}" Footer="{TemplateBinding Footer}" HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -496,22 +507,17 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid x:Name="ChannelInfo" Margin="12,6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="ChannelName" Text="blurb" FontWeight="Bold" Margin="0,0,12,0"/>
-                    <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0,7,0,0" Grid.Column="1" TextWrapping="NoWrap"/>
-                    <Rectangle Width="32" Grid.Column="1" HorizontalAlignment="Right">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                <GradientStop/>
-                                <!--<GradientStop Color="{ThemeResource DeepBG}" Offset="1"/>-->
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Grid>
+                <Button Style="{ThemeResource DiscordButton}" Padding="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="Button_Click">
+                    <Grid x:Name="ChannelInfo" Margin="12,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="ChannelName" Text="blurb" FontWeight="SemiBold" Margin="0,0,12,0" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Height="18" VerticalAlignment="Top" FontSize="16" Padding="0"/>
+                        <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" Grid.Column="1" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
+                    </Grid>
+                </Button>
+
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
                 <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested">
                     <tk:PullToRefreshListView.RefreshIndicatorContent>
@@ -588,7 +594,7 @@
                                                            Margin="10,0,0,0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                            
+
                             <ListView.Footer>
                                 <Button Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}">
                                     <Button.Content>
@@ -611,7 +617,7 @@
                             <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name" Tapped="ServerName_Tapped"/>
                             <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
                                 <StackPanel>
-                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False">
+                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
                                         <ListView.Header>
                                             <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
@@ -653,7 +659,7 @@
                             </ScrollViewer>
                             <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
                                 <StackPanel>
-                                    <ListView x:Name="DirectMessageChannels" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionChanged="LoadDmChannelMessages">
+                                    <ListView x:Name="DirectMessageChannels" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionChanged="LoadDmChannelMessages" Style="{StaticResource SimplifiedListView}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChannelControl Id="{Binding Id}" 
