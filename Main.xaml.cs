@@ -1435,5 +1435,10 @@ namespace Discord_UWP
                 iscompact = false;
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
+        }
     }
 }
