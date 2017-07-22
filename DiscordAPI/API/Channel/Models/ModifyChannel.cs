@@ -19,5 +19,7 @@ namespace Discord_UWP.API.Channel.Models
         public int Bitrate { get; set; }
         [JsonProperty("user_limit")]
         public int UserLimit { get; set; }
+        [JsonProperty("nsfw")]
+        public bool NSFW { get; set; }
     }
 }

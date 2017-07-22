@@ -38,7 +38,7 @@ namespace Discord_UWP.SubPages
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
         {
-            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = Storage.Cache.Guilds[App.CurrentGuildId].Channels[channelId].Raw.Position };
+            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = Storage.Cache.Guilds[App.CurrentGuildId].Channels[channelId].Raw.Position, NSFW = NsfwSwitch.IsOn };
             Task.Run(() =>
             {
                 Session.ModifyGuildChannel(channelId, modifychannel);
@@ -99,36 +99,36 @@ namespace Discord_UWP.SubPages
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             //the IsOn appears to fire *after* you change the toggle state, so this needs to be inverted
-            if (NsfwSwitch.IsOn && IgnoreToggle == false)
-            {
-                if (!ChannelName.Text.StartsWith("nsfw-") || ChannelName.Text != "nsfw")
-                    if (ChannelName.Text == "")
-                        ChannelName.Text = "nsfw";
-                    else
-                        ChannelName.Text = "nsfw-" + ChannelName.Text;
-            }
-            else if(IgnoreToggle == false)
-            {
-                if (ChannelName.Text.StartsWith("nsfw-"))
-                    ChannelName.Text = ChannelName.Text.Remove(0,5);
-                else if (ChannelName.Text == "nsfw")
-                    ChannelName.Text = "";
-            }
-            IgnoreToggle = false;
+            //if (NsfwSwitch.IsOn && IgnoreToggle == false)
+            //{
+            //    if (!ChannelName.Text.StartsWith("nsfw-") || ChannelName.Text != "nsfw")
+            //        if (ChannelName.Text == "")
+            //            ChannelName.Text = "nsfw";
+            //        else
+            //            ChannelName.Text = "nsfw-" + ChannelName.Text;
+            //}
+            //else if(IgnoreToggle == false)
+            //{
+            //    if (ChannelName.Text.StartsWith("nsfw-"))
+            //        ChannelName.Text = ChannelName.Text.Remove(0,5);
+            //    else if (ChannelName.Text == "nsfw")
+            //        ChannelName.Text = "";
+            //}
+            //IgnoreToggle = false;
         }
         Regex regex = new Regex("^[A-Za-z0-9_-]+$");
         private bool IgnoreToggle = false;
         private void ChannelName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            {
-                if (ChannelName.Text.StartsWith("nsfw-") || ChannelName.Text == "nsfw")
-                {
-                    if (!NsfwSwitch.IsOn) IgnoreToggle = true;
-                    NsfwSwitch.IsOn = true;
-                }
-                else if (NsfwSwitch.IsOn)
-                    NsfwSwitch.IsOn = false;
-            }
+            //{
+            //    if (ChannelName.Text.StartsWith("nsfw-") || ChannelName.Text == "nsfw")
+            //    {
+            //        if (!NsfwSwitch.IsOn) IgnoreToggle = true;
+            //        NsfwSwitch.IsOn = true;
+            //    }
+            //    else if (NsfwSwitch.IsOn)
+            //        NsfwSwitch.IsOn = false;
+            //}
 
 
             if (!regex.IsMatch(ChannelName.Text))
