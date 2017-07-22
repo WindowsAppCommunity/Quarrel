@@ -20,6 +20,7 @@ using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,7 +28,8 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class EmojiControl : UserControl
     {
-        public event EventHandler<RoutedEventArgs> PickedEmoji; 
+        
+        public event EventHandler<ISimpleEmoji> PickedEmoji; 
         
         public class ChangedDiversityArgs : EventArgs
         {
@@ -88,6 +90,7 @@ namespace Discord_UWP.Controls
         {
             public override string category { get; set; }
             public bool IsEnabled { get; set; }
+            public string id { get; set; }
         }
         public class RootObject
         {
@@ -122,13 +125,14 @@ namespace Discord_UWP.Controls
                     if (emoji.Roles.Count() != 0 && !App.GuildMembers[App.CurrentUserId]
                             .Raw.Roles.Intersect(emoji.Roles)
                             .Any()) return;
-                        guildEmojis.Add(new GuildSide()
-                        {
-                            category = Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Name.ToUpper(),
-                            hasDiversity = false,
-                            names = new List<string>() {emoji.Name},
-                            surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png"
-                        });
+                    guildEmojis.Add(new GuildSide()
+                    {
+                        category = Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Name.ToUpper(),
+                        hasDiversity = false,
+                        names = new List<string>() { emoji.Name },
+                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png",
+                        id = emoji.Id
+                    });
                 }
             }
             catch (Exception) { }
@@ -175,7 +179,7 @@ namespace Discord_UWP.Controls
 
         private void EmojiView_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            PickedEmoji?.Invoke(GetEmojiName(e.ClickedItem as ISimpleEmoji), null);
+            PickedEmoji?.Invoke(null, (e.ClickedItem as ISimpleEmoji));
         }
         private string GetEmojiName(ISimpleEmoji e)
         {
@@ -231,20 +235,25 @@ namespace Discord_UWP.Controls
             Searchbox.PlaceholderText = ":" + ToolTipService.GetToolTip(sender as UIElement) + ":";
         }
 
-        private void SemanticZoom_OnViewChangeStarted(object sender, SemanticZoomViewChangedEventArgs e)
+        private async void Searchbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.IsSourceZoomedInView)
+            IEnumerable grouped = null;
+            string query = Searchbox.Text;
+            await Task.Run(() =>
             {
-                EmojiView.Blur(2,100).Start();
-                AltEmojiView.Blur(0, 100).Start();
-            }
-            else
-            {
-                EmojiView.Blur(0, 100).Start();
-                AltEmojiView.Blur(2, 100).Start();
-            }
+                var filtered = new List<ISimpleEmoji>();
+                foreach (var emoji in emojis)
+                {
+                    if (emoji.names[0].Contains(query))
+                    {
+                        filtered.Add(emoji);
+                    }
+                }
+                grouped = filtered.OrderBy(x => x.names[0].StartsWith(query)).GroupBy(x => x.category);
+            });
+           
+            EmojiCVS.Source = grouped;
         }
-
     }
 
     public class EmojiDataTemplateSelector : DataTemplateSelector

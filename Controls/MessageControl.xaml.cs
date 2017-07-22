@@ -676,32 +676,16 @@ namespace Discord_UWP
         private async void ToggleReaction(object sender, RoutedEventArgs e)
         {
             var counter = ((StackPanel) ((ToggleButton) sender).Content).Children.Last() as TextBlock;
+            var tuple = (sender as ToggleButton).Tag as Tuple<string, string, Reactions>;
+            var reaction = tuple.Item3;
+            string emojiStr = reaction.Emoji.Name;
+            if (reaction.Emoji.Id != null)
+                emojiStr += ":" + reaction.Emoji.Id;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
-            {
-                await Session.DeleteReactionAsync(((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item1, ((sender as ToggleButton).Tag as Tuple<string, string, Reactions>)?.Item2, ((Tuple<string, string, Reactions>)(sender as ToggleButton).Tag).Item3.Emoji);
-               // if (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Me)
-               // {
-               //     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count - 1).ToString();
-               // }
-               // else
-               // {
-               //     counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
-               // }
-            }
+                await Session.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
             else
-            {
-                await Session.CreateReactionAsync((((ToggleButton)sender).Tag as Tuple<string, string, Reactions>)?.Item1, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item2, ((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Emoji);
-
-              //  if (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Me)
-              //  {
-              //      counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count).ToString();
-              //  }
-              //  else
-              //  {
-              //      counter.Text = (((Tuple<string, string, Reactions>)((ToggleButton)sender).Tag).Item3.Count + 1).ToString();
-              //  }
-            }
-        }
+                await Session.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
+    }
 
         string EditValue = "";
         MessageBox editBox;
@@ -806,5 +790,27 @@ namespace Discord_UWP
             }
         }
 
+        Flyout PickReaction;
+        private void MenuFlyoutItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            Flyout PickReaction = new Flyout();
+            EmojiControl emojiPicker = new EmojiControl();
+            emojiPicker.PickedEmoji += ReactionSelected;
+            PickReaction.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
+            PickReaction.Content = emojiPicker;
+            PickReaction.ShowAt(moreButton);
+        }
+
+        private async void ReactionSelected(object sender, EmojiControl.ISimpleEmoji e)
+        {
+            PickReaction.Hide();
+            string emojiStr = e.surrogates;
+            if(e.GetType() == typeof(EmojiControl.GuildSide))
+            {
+                var emoji = (EmojiControl.GuildSide)e;
+                emojiStr = emoji.names[0] + ":" + emoji.id;
+            }
+            await Session.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr);
+        }
     }
 }

@@ -632,14 +632,14 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task CreateReactionAsync(string channelid, string messageid, SharedModels.Emoji emoji)
+        public static async Task CreateReactionAsync(string channelid, string messageid, string emoji)
         {
             try
             {
                 await Task.Run(() =>
                 {
                     IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                    channelservice.CreateReaction(channelid, messageid, emoji.Name).Wait();
+                    channelservice.CreateReaction(channelid, messageid, emoji).Wait();
                 });
             }
             catch (Exception e)
@@ -648,14 +648,14 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task DeleteReactionAsync(string channelid, string messageid, SharedModels.Emoji emoji)
+        public static async Task DeleteReactionAsync(string channelid, string messageid, string emoji)
         {
             try
             {
                 await Task.Run(() =>
                 {
                     IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                    channelservice.DeleteReaction(channelid, messageid, emoji.Name).Wait();
+                    channelservice.DeleteReaction(channelid, messageid, emoji).Wait();
                 });
             }
             catch (Exception e)

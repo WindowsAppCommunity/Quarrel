@@ -502,7 +502,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="ChannelName" Text="blurb" FontWeight="Bold" Margin="0,0,12,0"/>
-                    <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0,7,0,0" Grid.Column="1"/>
+                    <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0,7,0,0" Grid.Column="1" TextWrapping="NoWrap"/>
                     <Rectangle Width="32" Grid.Column="1" HorizontalAlignment="Right">
                         <Rectangle.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">

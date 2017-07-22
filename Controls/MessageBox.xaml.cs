@@ -291,8 +291,8 @@ namespace Discord_UWP.Controls
             emojiPicker.PickedEmoji += (o, args) =>
             {
                 emojis.Hide();
-                int newSelectionStart = MessageEditor.SelectionStart + (o as string).Length;
-                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, (o as string));
+                int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + 2;
+                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + ":");
                 MessageEditor.SelectionStart = newSelectionStart;
                 MessageEditor.Focus(FocusState.Keyboard);
             };
