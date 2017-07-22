@@ -314,7 +314,7 @@ namespace Discord_UWP.Controls
             foreach (int i in PossibleUserMentions)
             {
                 //remove @ sign and everything before
-                string CroppedInput = input.Remove(0, i+1);
+                string CroppedInput = input.Remove(0, i + 1);
 
                 bool keepon = false;
                 int whitespaceindex = 0;
@@ -375,6 +375,17 @@ namespace Discord_UWP.Controls
             }
             return output;
         }
+
+        /// <summary>
+        /// Insert a Discord markdown mention
+        /// </summary>
+        /// <param name="input">The input string</param>
+        /// <param name="prefix">The mention prefix (like @& for roles)</param>
+        /// <param name="id">The id, main body of the mention.</param>
+        /// <param name="index">The index inside the input where the mention starts</param>
+        /// <param name="length">The length of the mention</param>
+        /// <param name="addedlength">The length that has previously been added to the input string</param>
+        /// <returns>The processed string</returns>
         private string InsertMarkdown(string input, string prefix, string id, int index, int length, int addedlength)
         {
             string output = input.Remove(index + addedlength, length+1);
