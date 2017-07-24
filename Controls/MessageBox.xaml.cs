@@ -292,17 +292,20 @@ namespace Discord_UWP.Controls
             emojiPicker.PickedEmoji += (o, args) =>
             {
                 emojis.Hide();
-                if (args.names.Count > 1)
-                {
-                    int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + args.names[1].Length + 4;
-                    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + "::" + args.names[1] + ":");
-                    MessageEditor.SelectionStart = newSelectionStart;
-                } else
-                {
-                    int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + 2;
-                    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + ":");
-                    MessageEditor.SelectionStart = newSelectionStart;
-                }
+                //if (args.names.Count > 1)
+                //{
+                //    int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + args.names[1].Length + 4;
+                //    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + "::" + args.names[1] + ":");
+                //    MessageEditor.SelectionStart = newSelectionStart;
+                //} else
+                //{
+                //    int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + 2;
+                //    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + ":");
+                //    MessageEditor.SelectionStart = newSelectionStart;
+                //}
+                int newSelectionStart = MessageEditor.SelectionStart + args.surrogates.Length;
+                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, args.surrogates);
+                MessageEditor.SelectionStart = newSelectionStart;
                 MessageEditor.Focus(FocusState.Keyboard);
             };
         }
@@ -394,6 +397,8 @@ namespace Discord_UWP.Controls
                     output = builder.ToString();
                 }
             }
+
+
 
             //TODO: Improve channel mention algo
             //var possibleChannelMenetions = AllIndexesOf('#', output);

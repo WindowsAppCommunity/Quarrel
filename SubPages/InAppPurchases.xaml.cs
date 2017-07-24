@@ -137,9 +137,9 @@ namespace Discord_UWP.SubPages
                         {
                             // The customer doesn't own this feature, so
                             // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDontation");
+                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDonation ");
 
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
+                            if (licenseInformation.ProductLicenses["SignificantDonation "].IsActive)
                             {
                                 MessageDialog msg = new MessageDialog("Bought");
                                 await msg.ShowAsync();
@@ -154,7 +154,6 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
                             {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
@@ -194,7 +193,6 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
                             {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
@@ -234,7 +232,6 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
                             {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
