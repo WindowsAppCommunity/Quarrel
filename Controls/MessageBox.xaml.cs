@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -381,6 +382,26 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
+
+            foreach (var chn in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Channels)
+            {
+                if (chn.Type == 0)
+                {
+                    string check = "<#" + chn.Id + ">";
+                    StringBuilder builder = new StringBuilder();
+                    builder.Append(output);
+                    builder.Replace("#" + chn.Name, check);
+                    output = builder.ToString();
+                }
+            }
+
+            //TODO: Improve channel mention algo
+            //var possibleChannelMenetions = AllIndexesOf('#', output);
+            //addedLength = 0;
+            //foreach (int i in possibleChannelMenetions)
+            //{
+
+            //}
             return output;
         }
 
