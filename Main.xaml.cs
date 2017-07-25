@@ -90,23 +90,28 @@ namespace Discord_UWP
     {
         public async void Login(string args = null)
         {
+            UpvoteTitle.Text = App.Translate("VCMessageTitle");
+            UpvoteDesc.Text = App.Translate("VCMessageDesc");
+            AddChannelblock.Text = App.Translate("AddChannel");
+            TextChannelText.Text = App.Translate("TextChannels");
+            VoiceChannelText.Text = App.Translate("VoiceChannels");
             LoadingSplash.Show(false);
             try
             {
                 LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
-                LoadingSplash.Status = "LOGGING IN...";
+                LoadingSplash.Status = App.Translate("LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
                 EstablishGateway();
                 LoadingSplash.Show(false);
-                LoadingSplash.Status = "LOADING...";
+                LoadingSplash.Status = App.Translate("Loading");
 
                 LoadMessages();
                 LoadMutedChannels();
 
                 await LoadUser();
                 LoadGuilds();
-                LoadingSplash.Status = "CONNECTED";
+                LoadingSplash.Status = App.Translate("Connected");
                 await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
@@ -125,7 +130,7 @@ namespace Discord_UWP
 
                 await LoadUser();
 
-                LoadingSplash.Status = "OFFLINE";
+                LoadingSplash.Status = App.Translate("Offline");
                 await Task.Delay(3000);
                 Session.Online = false;
             }

@@ -20,6 +20,8 @@ using System.Xml.Serialization;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Resources.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -429,6 +431,12 @@ namespace Discord_UWP
             }
         }
 
+        public static string Translate(string input)
+        {
+            ResourceLoader rl = new ResourceLoader();
+            return rl.GetString(input);
+        }
+
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             //Set the title bar colors:
@@ -541,7 +549,7 @@ namespace Discord_UWP
         {
             get
             {
-                var qualifiers = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
+                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
                 return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
             }
         }
@@ -550,7 +558,7 @@ namespace Discord_UWP
         {
             get
             {
-                var qualifiers = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
+                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
                 return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
             }
         }

@@ -122,6 +122,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
+    <PRIResource Include="Languages\en-us\Resources.resw" />
+    <PRIResource Include="Languages\es-mx\Resources.resw" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

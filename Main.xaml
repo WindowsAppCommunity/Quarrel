@@ -625,7 +625,7 @@
                                 <StackPanel>
                                     <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
                                         <ListView.Header>
-                                            <TextBlock Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            <TextBlock x:Name="TextChannelText" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
@@ -645,20 +645,20 @@
                                     <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                            <TextBlock Text="Add Channel"/>
+                                            <TextBlock x:Name="AddChannelblock" Text="Add Channel"/>
                                         </StackPanel>
                                     </ListViewItem>
                                     <TextBlock x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                     <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
                                     <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                                         <ListView.Header>
-                                            <TextBlock Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            <TextBlock x:Name="VoiceChannelText" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
                                     </ListView>
                                     <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
                                         <StackPanel>
-                                            <TextBlock Text="Upvote this for Voice Channels" FontWeight="Bold"/>
-                                            <TextBlock Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
+                                            <TextBlock x:Name="UpvoteTitle" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
+                                            <TextBlock x:Name="UpvoteDesc" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
                                         </StackPanel>
                                     </ListViewItem>
                                 </StackPanel>
