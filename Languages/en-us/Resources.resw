@@ -213,6 +213,9 @@
   <data name="CopyLink" xml:space="preserve">
     <value>Copy Link</value>
   </data>
+  <data name="CreateChannel" xml:space="preserve">
+    <value>Create Channel</value>
+  </data>
   <data name="CreateServer" xml:space="preserve">
     <value>Create Server</value>
   </data>
