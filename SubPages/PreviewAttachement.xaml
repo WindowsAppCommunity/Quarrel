@@ -839,14 +839,14 @@
                         </Rectangle>
                         <CommandBar x:Name="commandBar" Background="Transparent" VerticalAlignment="Bottom" Style="{StaticResource CommandBarStyle2}">
                             <CommandBar.PrimaryCommands>
-                                <AppBarButton Icon="Save" Label="Save"/>
-                                <AppBarButton Label="Share" Click="Share_OnClick">
+                                <AppBarButton x:Name="Save" Icon="Save" Label="Save"/>
+                                <AppBarButton x:Name="Share" Label="Share" Click="Share_OnClick">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE72D;"/>
                                     </AppBarButton.Icon>
                                 </AppBarButton>
-                                <AppBarButton Icon="Globe" Label="Open in browser" Click="Open_OnClick"/>
-                                <AppBarButton Icon="Link" Label="Copy link" Click="CopyLink_OnClick"/>
+                                <AppBarButton x:Name="Globe" Icon="Globe" Label="Open in browser" Click="Open_OnClick"/>
+                                <AppBarButton x:Name="Link" Icon="Link" Label="Copy link" Click="CopyLink_OnClick"/>
                             </CommandBar.PrimaryCommands>
                             <CommandBar.SecondaryCommands>
                                 <AppBarButton Label="test"/>

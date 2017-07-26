@@ -25,6 +25,8 @@ namespace Discord_UWP.SubPages
         public CreateBan()
         {
             this.InitializeComponent();
+            button.Content = App.Translate("Cancel");
+            SaveButton.Content = App.Translate("Ban");
         }
 
         string userId = "";

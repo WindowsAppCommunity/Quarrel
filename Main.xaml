@@ -875,9 +875,9 @@
                     </AppBarButton>
                 </CommandBar.Content>
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton Label="About + Changelog" Click="OpenWhatsNew"/>
+                    <AppBarButton x:Name="ChangeLog" Label="About + Changelog" Click="OpenWhatsNew"/>
                     <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
-                    <AppBarButton Label="Settings" Click="OpenUserSettings"/>
+                    <AppBarButton x:Name="SettingsButton" Label="Settings" Click="OpenUserSettings"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </Grid>

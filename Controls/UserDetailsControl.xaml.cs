@@ -124,6 +124,8 @@ namespace Discord_UWP.Controls
         public UserDetailsControl()
         {
             this.InitializeComponent();
+            RoleHeader.Text = App.Translate("Role");
+            NoteHeader.Text = App.Translate("Note");
             SendDM.Send += SendDirectMessage;
         }
 

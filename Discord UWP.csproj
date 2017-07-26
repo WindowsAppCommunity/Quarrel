@@ -161,9 +161,6 @@
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CreateChannel.xaml.cs">
-      <DependentUpon>CreateChannel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
     </Compile>
@@ -503,10 +500,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChannelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CreateChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

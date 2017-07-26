@@ -114,6 +114,7 @@ namespace Discord_UWP.Controls
         public EmojiControl()
         {
             this.InitializeComponent();
+            Searchbox.PlaceholderText = App.Translate("Search");
             LoadEmojis();
         }
 

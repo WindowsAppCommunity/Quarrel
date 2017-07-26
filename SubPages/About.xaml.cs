@@ -15,6 +15,14 @@ namespace Discord_UWP.SubPages
         public About()
         {
             this.InitializeComponent();
+            header.Text = App.Translate("About").ToUpper();
+            AboutDesc.Text = App.Translate("AboutDesc");
+            DiscussOnTwitterText.Text = App.Translate("DisOnTwitter");
+            JoinServerText.Text = App.Translate("JoinDiscordUWPServer");
+            LeaveFeedbackText.Text = App.Translate("LeaveFeedback");
+            DevelopedByText.Text = App.Translate("DevelopedBy");
+            DesignedByText.Text = App.Translate("DesignedBy");
+            ChangeLogheader.Text = App.Translate("ChangeLog").ToUpper() + App.Translate("ChangelogMsg");
         }
 
         private async void OpenFeedbackHub(object sender, RoutedEventArgs e)

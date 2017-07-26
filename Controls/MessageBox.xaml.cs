@@ -76,6 +76,7 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
+            MessageEditor.PlaceholderText = App.Translate("SendMessage");
         }
 
         public void Clear()

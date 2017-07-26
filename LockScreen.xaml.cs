@@ -30,6 +30,8 @@ namespace Discord_UWP
         public LockScreen()
         {
             this.InitializeComponent();
+            Password.PlaceholderText = App.Translate("Password");
+            LoginText.Text = App.Translate("Login");
             TransitionCollection collection = new TransitionCollection();
             NavigationThemeTransition theme = new NavigationThemeTransition();
             var info = new ContinuumNavigationTransitionInfo();

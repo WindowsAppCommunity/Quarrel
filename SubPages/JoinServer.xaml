@@ -86,9 +86,9 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="JOIN A SERVER" FontWeight="Bold" ></TextBlock>
+                    <TextBlock x:Name="header" Text="JOIN A SERVER" FontWeight="Bold" ></TextBlock>
                     <StackPanel Grid.Row="1" Margin="0,12">
-                        <TextBlock Text="Please enter a discord invite link or code:" FontSize="14" Opacity="0.6" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="Instructions" Text="Please enter a discord invite link or code:" FontSize="14" Opacity="0.6" Margin="0,0,0,6"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
