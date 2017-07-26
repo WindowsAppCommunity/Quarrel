@@ -299,7 +299,7 @@
                     <ScrollViewer Margin="0,0,-24,0" Padding="0,0,24,0">
                         <StackPanel>
                             <TextBlock x:Name="header" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                            <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="BodyText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
                             <RichTextBlock FontSize="14" Opacity="0.6">
                                 <Paragraph>
                                     Discord supports a subset of Markdown for
@@ -310,11 +310,11 @@
                                 </Paragraph>
                             </RichTextBlock>
                             <TextBox Margin="0,6,0,0"/>
-                            <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
                             <ListView>
                             </ListView>
-                            <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="EMBEDS" Margin="0,12,0,0"/>
-                            <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="PREVIEW" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="EmbedsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="EMBEDS" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="PreviewText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="PREVIEW" Margin="0,12,0,0"/>
                         </StackPanel>
                     </ScrollViewer>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">

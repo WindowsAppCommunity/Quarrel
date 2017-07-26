@@ -25,6 +25,8 @@ namespace Discord_UWP.SubPages
         public DeleteChannel()
         {
             this.InitializeComponent();
+            button.Content = App.Translate("Cancel");
+            SaveButton.Content = App.Translate("Delete");
         }
 
         string chnId = "";

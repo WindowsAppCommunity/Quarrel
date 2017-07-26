@@ -32,6 +32,14 @@ namespace Discord_UWP.SubPages
         public UserProfile()
         {
             this.InitializeComponent();
+            sendFriendRequest.Content = App.Translate("SendFriendRequest");
+            acceptFriend.Content = App.Translate("AcceptFriendRequest");
+            pendingFriend.Content = App.Translate("PendingFriendRequest");
+            Unblock.Content = App.Translate("Unblock");
+            DetailsItem.Content = App.Translate("Details").ToUpper();
+            CommonSrvItem.Content = App.Translate("CommonServer").ToUpper();
+            CommonFrdItem.Content = App.Translate("CommonFriend").ToUpper();
+            NoteText.Text = App.Translate("Note").ToUpper();
         }
         private void NavAway_Completed(object sender, object e)
         {
@@ -127,7 +135,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/staff.png")),
                         Opacity=0
                     };
-                    ToolTipService.SetToolTip(img,"DISCORD STAFF");
+                    ToolTipService.SetToolTip(img,App.Translate("DiscordStaff").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -140,7 +148,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/partner.png")),
                         Opacity = 0
                     };
-                    ToolTipService.SetToolTip(img, "DISCORD PARTNER");
+                    ToolTipService.SetToolTip(img, App.Translate("DiscordPartner").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -168,7 +176,7 @@ namespace Discord_UWP.SubPages
                     Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/nitro.png")),
                     Opacity = 0
                 };
-                ToolTipService.SetToolTip(img, "Premium member since " + Common.HumanizeDate(profile.PremiumSince.Value,null));
+                ToolTipService.SetToolTip(img, App.Translate("PremiumMemberSince") + " " + Common.HumanizeDate(profile.PremiumSince.Value,null));
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }

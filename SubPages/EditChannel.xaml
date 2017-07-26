@@ -300,7 +300,7 @@
 
                     <TextBlock x:Name="header" Text="EDIT CHANNEL" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot x:Name="pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
-                        <PivotItem Header="Overview" Margin="12,0,0,0">
+                        <PivotItem x:Name="OverviewItem" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
@@ -312,7 +312,7 @@
                                             <Hyperlink Foreground="#fff04747" Click="Hyperlink_Click">Automatically fix?</Hyperlink>
                                         </Paragraph>
                                     </RichTextBlock>
-                                    <TextBox TextChanged="ChannelTopic_OnTextChanged" x:Name="ChannelTopic" PlaceholderText="No defined topic" BorderThickness="1" BorderBrush="{ThemeResource InvertedBG}" Header="Topic (supports markdown)" Margin="0,12,0,0" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="96"/>
+                                    <TextBox x:Name="ChannelTopic" TextChanged="ChannelTopic_OnTextChanged" PlaceholderText="No defined topic" BorderThickness="1" BorderBrush="{ThemeResource InvertedBG}" Header="Topic (supports markdown)" Margin="0,12,0,0" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="96"/>
                                     <TextBlock x:Name="CharCounter" Text="1024" FontSize="11" Opacity="0.5" Foreground="{ThemeResource InvertedBG}" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                     <ToggleSwitch x:Name="NsfwSwitch" Style="{StaticResource DiscordToggleSwitch}" HorizontalAlignment="Stretch" OnContent="NSFW Channel" OffContent="NSFW Channel" Toggled="ToggleSwitch_Toggled" Margin="0,6,0,0"/>
                                     <TextBlock Text="Users will need to confirm they are of over legal age to view content in this channel. It will also be exempt from explitcit content filtering." TextWrapping="Wrap" FontSize="12" Opacity="0.5" Margin="0,-12,64,0"/>
@@ -320,7 +320,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem Header="Invites">
+                        <PivotItem x:Name="InvitesItem" Header="Invites">
                             <Grid>
                                 <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>

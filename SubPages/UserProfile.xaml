@@ -120,9 +120,9 @@
                                 <ItemsStackPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        <ListViewItem Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
-                        <ListViewItem Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
-                        <ListViewItem Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
+                        <ListViewItem x:Name="DetailsItem" Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
+                        <ListViewItem x:Name="CommonSrvItem" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
+                        <ListViewItem x:Name="CommonFrdItem" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
                     <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
@@ -132,7 +132,7 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                <TextBlock x:Name="NoteText" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                 <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
                                 <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                     <GridView.ItemTemplate>

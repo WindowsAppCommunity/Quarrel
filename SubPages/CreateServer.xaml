@@ -87,7 +87,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel>
-                    <TextBlock Text="CREATE SERVER" FontWeight="Bold" ></TextBlock>
+                    <TextBlock x:Name="Header" Text="CREATE SERVER" FontWeight="Bold" ></TextBlock>
                     <TextBlock FontSize="13.333" Foreground="{ThemeResource Blurple}" Text="NAME" FontWeight="SemiBold" Margin="0,12,0,0"/>
                     <TextBox x:Name="GuildName" Margin="0,6,0,0"/>
                         <!--

@@ -30,7 +30,12 @@ namespace Discord_UWP.SubPages
         public PreviewAttachement()
         {
             this.InitializeComponent();
+            Save.Label = App.Translate("Save");
+            Share.Label = App.Translate("Share");
+            Globe.Label = App.Translate("OpenInBrowser");
+            Link.Label = App.Translate("CopyLink");
         }
+
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             CloseButton_Click(null, null);

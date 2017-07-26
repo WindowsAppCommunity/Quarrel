@@ -90,28 +90,23 @@ namespace Discord_UWP
     {
         public async void Login(string args = null)
         {
-            UpvoteTitle.Text = App.Translate("VCMessageTitle");
-            UpvoteDesc.Text = App.Translate("VCMessageDesc");
-            AddChannelblock.Text = App.Translate("AddChannel");
-            TextChannelText.Text = App.Translate("TextChannels");
-            VoiceChannelText.Text = App.Translate("VoiceChannels");
             LoadingSplash.Show(false);
             try
             {
                 LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
-                LoadingSplash.Status = App.Translate("LoggingIn");
+                LoadingSplash.Status = App.Translate("LoggingIn").ToUpper();
                 await Session.AutoLogin();
                 Session.Online = true;
                 EstablishGateway();
                 LoadingSplash.Show(false);
-                LoadingSplash.Status = App.Translate("Loading");
+                LoadingSplash.Status = App.Translate("Loading").ToUpper();
 
                 LoadMessages();
                 LoadMutedChannels();
 
                 await LoadUser();
                 LoadGuilds();
-                LoadingSplash.Status = App.Translate("Connected");
+                LoadingSplash.Status = App.Translate("Connected").ToUpper();
                 await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
@@ -130,7 +125,7 @@ namespace Discord_UWP
 
                 await LoadUser();
 
-                LoadingSplash.Status = App.Translate("Offline");
+                LoadingSplash.Status = App.Translate("Offline").ToUpper();
                 await Task.Delay(3000);
                 Session.Online = false;
             }
@@ -164,6 +159,18 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
+            UpvoteTitle.Text = App.Translate("VCMessageTitle").ToUpper();
+            UpvoteDesc.Text = App.Translate("VCMessageDesc");
+            AddChannelblock.Text = App.Translate("AddChannel");
+            TextChannelText.Text = App.Translate("TextChannels").ToUpper();
+            VoiceChannelText.Text = App.Translate("VoiceChannels").ToUpper();
+            RefreshButton.Label = App.Translate("Refresh");
+            MuteToggle.Label = App.Translate("MuteChannel");
+            MemberListToggle.Label = App.Translate("ToggleMemberList");
+            PinnedMessageToggle.Label = App.Translate("PinnedMessages");
+            ChangeLog.Label = App.Translate("About") + " + " +  App.Translate("ChangeLog");
+            IAPSButton.Label = App.Translate("InAppPurchases");
+            SettingsButton.Label = App.Translate("Settings");
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -461,6 +468,10 @@ namespace Discord_UWP
                            _onlyAllowOpeningPane = true;
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
+                           if ((ServerList.SelectedItem as SimpleGuild).Name == "Direct Messages")
+                           {
+                               ServerName.Text = App.Translate("DirectMessages").ToUpper();
+                           }
                            TextChannels.Items.Clear();
                            Typers.Clear();
                            MembersCvs.Source = null;

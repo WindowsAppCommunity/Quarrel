@@ -25,6 +25,8 @@ namespace Discord_UWP.SubPages
         public CreateServer()
         {
             this.InitializeComponent();
+            GuildName.Header = App.Translate("Name").ToUpper();
+            Header.Text = App.Translate("CreateServer").ToUpper();
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

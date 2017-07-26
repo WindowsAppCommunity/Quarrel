@@ -79,6 +79,7 @@ namespace Discord_UWP.Controls
         public MemberControl()
         {
             this.InitializeComponent();
+            playing.Text = App.Translate("Playing");
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;

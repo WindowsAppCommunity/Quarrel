@@ -48,7 +48,7 @@ namespace Discord_UWP
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
-                Text = "Profile",
+                Text = App.Translate("Profile"),
                 Tag = member.Raw.User,
                 Icon = new SymbolIcon(Symbol.ContactInfo)
             };
@@ -56,7 +56,7 @@ namespace Discord_UWP
             menu.Items.Add(profile);
             MenuFlyoutItem message = new MenuFlyoutItem()
             {
-                Text = "Message",
+                Text = App.Translate("Message"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.Message)
             };
@@ -68,7 +68,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                 {
-                    Text = "Invite to Server"
+                    Text = App.Translate("InviteToServer")
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -86,14 +86,14 @@ namespace Discord_UWP
             }
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
-                Text = "Add Friend",
+                Text = App.Translate("AddFriend"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
             addFriend.Click += AddFriend;
             MenuFlyoutItem removeFriend = new MenuFlyoutItem()
             {
-                Text = "Remove Friend",
+                Text = App.Translate("RemoveFriend"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.ContactPresence)
@@ -101,7 +101,7 @@ namespace Discord_UWP
             removeFriend.Click += RemoveFriendClick;
             MenuFlyoutItem block = new MenuFlyoutItem()
             {
-                Text = "Block",
+                Text = App.Translate("Block"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.BlockContact)
@@ -109,14 +109,14 @@ namespace Discord_UWP
             block.Click += Block;
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
-                Text = "Unblock",
+                Text = App.Translate("Unblock"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.ContactPresence)
             };
             unBlock.Click += RemoveFriendClick;
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
-                Text = "Accept Friend Request",
+                Text = App.Translate("AcceptFriendRequest"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
@@ -157,7 +157,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                 {
-                    Text = "Change Nickname",
+                    Text = App.Translate("ChangeNickname"),
                     Tag = member.Raw.User.Id,
                     Icon = new SymbolIcon(Symbol.Edit)
                 };
@@ -168,7 +168,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
                 {
-                    Text = "Roles"
+                    Text = App.Translate("Roles")
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -196,7 +196,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem kickMember = new MenuFlyoutItem()
                 {
-                    Text = "Kick Member",
+                    Text = App.Translate("KickMember"),
                     Tag = member.Raw.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
@@ -207,7 +207,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                 {
-                    Text = "Leaver Server",
+                    Text = App.Translate("LeaverServer"),
                     Tag = member.Raw.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Remove)
@@ -232,20 +232,20 @@ namespace Discord_UWP
                 //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
                 ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
                 {
-                    Text = "Mute",
+                    Text = App.Translate("Mute"),
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
 
                 ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
                 {
-                    Text = "Deafen",
+                    Text = App.Translate("Deafen"),
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
                 MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
                 {
-                    Text = "Move Channel"
+                    Text = App.Translate("MoveChannel")
                 };
             }
             return menu;

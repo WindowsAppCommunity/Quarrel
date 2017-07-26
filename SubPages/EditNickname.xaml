@@ -86,7 +86,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="0,0,0,24">
-                        <TextBlock Text="EDIT NICKNAME" FontSize="13.333" FontWeight="Bold" Foreground="{StaticResource Blurple}"/>
+                        <TextBlock x:Name="EditNicknameText" Text="EDIT NICKNAME" FontSize="13.333" FontWeight="Bold" Foreground="{StaticResource Blurple}"/>
                         <TextBox x:Name="Nickname" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" Margin="0,6,0,0" VerticalAlignment="Top"/>
                     </StackPanel>
                     
