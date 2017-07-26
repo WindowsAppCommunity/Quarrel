@@ -375,6 +375,9 @@
     <Compile Include="SubPages\CreateBan.xaml.cs">
       <DependentUpon>CreateBan.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\CreateChannel.xaml.cs">
+      <DependentUpon>CreateChannel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\CreateServer.xaml.cs">
       <DependentUpon>CreateServer.xaml</DependentUpon>
     </Compile>
@@ -566,6 +569,10 @@
     <Page Include="SubPages\CreateBan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\CreateChannel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateServer.xaml">
       <SubType>Designer</SubType>

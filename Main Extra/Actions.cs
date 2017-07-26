@@ -95,8 +95,7 @@ namespace Discord_UWP
 
         private void AddChannel(object sender, TappedRoutedEventArgs e)
         {
-            CreateChannel.IsPaneOpen = true;
-            CreateChannelName.Text = "";
+            SubFrameNavigator(typeof(SubPages.CreateChannel));
         }
 
         private async void SaveChannelCreate(object sender, RoutedEventArgs e)

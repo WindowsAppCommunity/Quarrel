@@ -20,13 +20,13 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CreateServer : Page
+    public sealed partial class CreateChannel : Page
     {
-        public CreateServer()
+        public CreateChannel()
         {
             this.InitializeComponent();
             GuildName.Header = App.Translate("Name").ToUpper();
-            Header.Text = App.Translate("CreateServer").ToUpper();
+            Header.Text = App.Translate("CreateChannel").ToUpper();
             button.Content = App.Translate("Cancel");
             SaveButton.Content = App.Translate("Save");
         }
@@ -51,7 +51,7 @@ namespace Discord_UWP.SubPages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.CreateGuild(GuildName.Text);
+            Session.CreateChannel(App.CurrentGuildId, GuildName.Text);
             CloseButton_Click(null, null);
         }
     }
