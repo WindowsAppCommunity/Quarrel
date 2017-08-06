@@ -1021,7 +1021,10 @@ namespace Discord_UWP
             if (DirectMessageChannels.SelectedItem != null)
             {
                 App.CurrentChannelId = (DirectMessageChannels.SelectedItem as SimpleChannel).Id;
-                Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
+                if (Session.Online)
+                {
+                    Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
+                }
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
@@ -1089,6 +1092,7 @@ namespace Discord_UWP
                 foreach (SharedModels.Message message in messages)
                 {
                     Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Add(message.Id, new Message(message));
+                    Storage.SaveCache();
                 }
             }
 
