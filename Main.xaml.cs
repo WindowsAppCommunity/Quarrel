@@ -119,7 +119,9 @@ namespace Discord_UWP
             {
                 LoadingSplash.Hide(false);
                 App.ShowAds = false;
-                IAPSButton.Visibility = Visibility.Collapsed; await LoadCache();
+                IAPSButton.Visibility = Visibility.Collapsed;
+                await LoadCache();
+                LoadGuilds();
                 LoadMessages();
                 LoadMutedChannels();
 
@@ -662,6 +664,7 @@ namespace Discord_UWP
         {
             if (Storage.Cache.Guilds[id] != null)
             {
+                App.CurrentGuildId = id;
                 ChannelsLoading.IsActive = true;
 
                 Messages.Items.Clear();
@@ -718,7 +721,6 @@ namespace Discord_UWP
             {
                 NoGuildChannelsCached.Visibility = Visibility.Visible;
             }
-            App.CurrentGuildId = id;
         }
         private void DownloadGuild(string id)
         {
@@ -805,7 +807,10 @@ namespace Discord_UWP
             {
                 App.CurrentGuildIsDM = false;
                 App.CurrentChannelId = ((SimpleChannel)TextChannels.SelectedItem).Id;
-                Session.Gateway.SubscribeToGuild(new string[]{App.CurrentGuildId});
+                if (Session.Online)
+                {
+                    Session.Gateway.SubscribeToGuild(new string[] { App.CurrentGuildId });
+                }
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
