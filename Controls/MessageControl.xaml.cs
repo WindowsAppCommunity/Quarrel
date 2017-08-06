@@ -167,8 +167,11 @@ namespace Discord_UWP
             MoreEdit.Text = App.Translate("Edit");
             MoreDelete.Text = App.Translate("Delete");
             MoreCopyId.Text = App.Translate("CopyID");
-            Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
-            Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
+                Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            }
         }
 
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
