@@ -35,7 +35,7 @@
             <HyperlinkButton Style="{ThemeResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Opacity="0.75" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" Margin="8,0,0,3" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_2">&#xE72D;</HyperlinkButton>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom" Margin="0,4,0,0" Grid.Row="2">
-            <TextBlock x:Name="TempInvite" Visibility="Collapsed"  Text="TEMPORARY INVITE" FontSize="12" FontWeight="Bold" Opacity="0.4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,48,0"/>
+            <TextBlock x:Uid="TemporaryInviteTB" x:Name="TempInvite" Visibility="Collapsed" Text="TEMPORARY INVITE" FontSize="12" FontWeight="Bold" Opacity="0.4" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,48,0"/>
             <TextBlock x:Name="Description" Text="0 uses, expires in 00:00:00" FontSize="13.333" />
         </StackPanel>
 

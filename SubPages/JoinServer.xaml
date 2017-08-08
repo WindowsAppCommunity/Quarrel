@@ -86,9 +86,9 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="JOIN A SERVER" FontWeight="Bold" ></TextBlock>
+                    <TextBlock x:Uid="JoinAServerTB" Text="JOIN A SERVER" FontWeight="Bold" ></TextBlock>
                     <StackPanel Grid.Row="1" Margin="0,12">
-                        <TextBlock Text="Please enter a discord invite link or code:" FontSize="14" Opacity="0.6" Margin="0,0,0,6"/>
+                        <TextBlock x:Uid="JoinServerDescTB" Text="Please enter a discord invite link or code:" FontSize="14" Opacity="0.6" Margin="0,0,0,6"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -96,7 +96,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="Invite" Grid.Column="1" />
                         </Grid>
-                        <TextBlock x:Name="Error" FontSize="12" Visibility="Collapsed" Foreground="Red" Text="Sorry, but the invite code is invalid or Expired" Margin="0,4,0,0"></TextBlock>
+                        <TextBlock x:Uid="JoinServerErrorTB" x:Name="Error" FontSize="12" Visibility="Collapsed" Foreground="Red" Text="Sorry, but the invite code is invalid or Expired" Margin="0,4,0,0"></TextBlock>
                     </StackPanel>
                     <Grid Grid.Row="2" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
@@ -104,8 +104,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
+                            <Button x:Uid="CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="JoinBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Join" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
                         </Grid>
                     </Grid>
                 </Grid>

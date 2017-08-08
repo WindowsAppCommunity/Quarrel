@@ -73,9 +73,9 @@
                     <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
                 </TransitionCollection>
             </StackPanel.Transitions>
-            <TextBlock x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+            <TextBlock x:Uid="RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
             <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
-            <TextBlock Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+            <TextBlock x:Uid="NoteTB" Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0"/>
 
             <local:MessageBox x:Name="SendDM" Margin="0,24,0,0"/>

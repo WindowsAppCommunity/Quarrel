@@ -137,35 +137,36 @@
                         <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,-24,0" Padding="-12,0,24,0">
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
-                                    <TextBlock x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
+                                    <TextBlock x:Uid="AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                                     <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
                                         <Paragraph>
-                                            Discord UWP is an
-                                            <Bold>unofficial</Bold> client for Discord.
-                                            <Bold>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Bold>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
+                                            <Run x:Uid="AboutDesc1">Discord UWP is an</Run>
+                                            <Bold x:Uid="AboutDesc2">unofficial</Bold>
+                                            <Run x:Uid="AboutDesc3">client for Discord.</Run> 
+                                            <Bold x:Uid="AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Bold>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
                                         </Paragraph>
                                     </RichTextBlock>
                                     <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
-                                            <TextBlock Text="Discuss on Twitter" Margin="12,0,0,0"/>
+                                            <TextBlock x:Uid="DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
                                         </StackPanel>
                                     </HyperlinkButton>
                                     <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                            <TextBlock x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
+                                            <TextBlock x:Uid="JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
                                         </StackPanel>
                                     </HyperlinkButton>
                                     <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
                                         <StackPanel Orientation="Horizontal">
                                             <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                            <TextBlock Text="Leave Feedback" Margin="12,0,0,0"/>
+                                            <TextBlock x:Uid="LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
                                         </StackPanel>
                                     </HyperlinkButton>
-                                    <TextBlock Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                                    <TextBlock Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
-                                    <TextBlock Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
+                                    <TextBlock x:Uid="DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
+                                    <TextBlock x:Uid="DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
+                                    <TextBlock x:Uid="ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
                             <ListViewHeaderItem Content="VERSION 5.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
