@@ -123,6 +123,7 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -158,9 +159,6 @@
     </Compile>
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CreateChannel.xaml.cs">
-      <DependentUpon>CreateChannel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
@@ -501,10 +499,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ChannelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\CreateChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
