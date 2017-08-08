@@ -304,7 +304,7 @@
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBox x:Uid="EditServerNameTB" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
+                                    <TextBox x:Uid="EditServerNameTBox" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
@@ -368,7 +368,7 @@
                                 </Grid>
                             </ScrollViewer>
                         </PivotItem>-->
-                        <PivotItem x:Name="Roles" Header="Roles">
+                        <PivotItem x:Uid="RolesPI" x:Name="Roles" Header="Roles">
                             <Grid>
                                 <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
     ScrollViewer.HorizontalScrollMode="Enabled"                  
@@ -419,7 +419,7 @@
                                             <ToggleSwitch x:Uid="ManageMessagesToggle" x:Name="ManageMessages" Header="Manage Messages" Margin="20, 5" Toggled="UpdateRole"/>
                                             <ToggleSwitch x:Uid="EmbedLinksToggle" x:Name="EmbedLinks" Header="Embed Links" Margin="20, 5" Toggled="UpdateRole"/>
                                             <ToggleSwitch x:Uid="AttachFilesToggle" x:Name="AttachFiles" Header="Attach Files" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Uid="ReadMessageHistory" x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="ReadMessageHistoryToggle" x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
                                             <ToggleSwitch x:Uid="MentionEveryoneToggle" x:Name="MentionEveryone" Header="Mention @everyone" Margin="20, 5" Toggled="UpdateRole"/>
                                             <ToggleSwitch x:Uid="UseExternalEmojisToggle" x:Name="UseExternalEmojis" Header="Use External Emojis" Margin="20, 5" Toggled="UpdateRole"/>
                                             <ToggleSwitch x:Uid="AddReactionsToggle" x:Name="AddReactions" Header="Add Reactions" Margin="20, 5" Toggled="UpdateRole"/>

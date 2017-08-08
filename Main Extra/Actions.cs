@@ -93,19 +93,6 @@ namespace Discord_UWP
             }
         }
 
-        private void AddChannel(object sender, TappedRoutedEventArgs e)
-        {
-            CreateChannel.IsPaneOpen = true;
-            CreateChannelName.Text = "";
-        }
-
-        private async void SaveChannelCreate(object sender, RoutedEventArgs e)
-        {
-            CreateChannel.Visibility = Visibility.Collapsed;
-            TextChannels.SelectedIndex = TextChannels.Items.Count - 2;
-            await Task.Run(() => Session.CreateChannel(App.CurrentGuildId, CreateChannelName.Text));
-        }
-
         private void DeleteChannel(object sender, RoutedEventArgs e)
         {
             Session.DeleteChannel(_settingsPaneId);

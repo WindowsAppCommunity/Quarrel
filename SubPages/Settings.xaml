@@ -314,7 +314,7 @@
                                         <TextBlock Text="Yellaki" FontSize="13" FontWeight="SemiBold" Foreground="#dac372"/>
                                     </ComboBoxItem>
                                     <ComboBoxItem Tag="{ThemeResource SystemControlForegroundAccentBrush}">
-                                        <TextBlock x:Uid="SystemAccentColor" Text="System Accent Color" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                                        <TextBlock x:Uid="SystemAccentColorTB" Text="System Accent Color" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
                                     </ComboBoxItem>
                                 </ComboBox>
                                 <TextBlock x:Uid="DndColorTB" Text="Do Not Distrub color" FontSize="13" Margin="0,6,0,0"/>

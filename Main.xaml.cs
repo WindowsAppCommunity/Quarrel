@@ -1212,19 +1212,10 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
+           
             App.NavigateToChannelEdit((sender as Button).Tag.ToString());
         }
-        private void SaveCreateChannel(object sender, RoutedEventArgs e)
-        {
-            Session.CreateChannel((ServerList.SelectedItem as SimpleGuild).Id, CreateChannelName.Text);
-            CreateChannel.IsPaneOpen = false;
-        }
-        private void CloseCreateChannel(object sender, RoutedEventArgs e)
-        {
-            CreateChannel.IsPaneOpen = false;
-        }
         #endregion
-
         public static bool SelectChannel = false;
         public static string SelectChannelId = "";
         public static string SelectGuildId = "";
@@ -1439,6 +1430,11 @@ namespace Discord_UWP
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
+        }
+
+        private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateServer), null);
         }
     }
 }
