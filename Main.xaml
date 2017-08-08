@@ -566,7 +566,7 @@
                 <!-- </ScrollViewer>-->
                 <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
                     <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom"/>
+                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" OpenAdvanced="MessageBox1_OpenAdvanced"/>
                     <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                         <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>

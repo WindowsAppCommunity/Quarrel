@@ -30,6 +30,7 @@ namespace Discord_UWP.Controls
         public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
         public event EventHandler<RoutedEventArgs> Cancel;
+        public event EventHandler<RoutedEventArgs> OpenAdvanced;
 
         public string Text
         {
@@ -193,7 +194,7 @@ namespace Discord_UWP.Controls
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
                 }
-                Text = str;
+                //Text = str;
             }
             catch
             {
@@ -438,5 +439,10 @@ namespace Discord_UWP.Controls
             return indexes;
         }
         #endregion
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenAdvanced?.Invoke(null, null);
+        }
     }
 }
