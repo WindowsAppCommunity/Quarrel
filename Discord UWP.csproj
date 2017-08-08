@@ -125,7 +125,11 @@
     <PRIResource Include="Languages\en-us\Resources.resw" />
     <PRIResource Include="Languages\es-mx\Resources.resw" />
     <None Include="project.json" />
-    <PRIResource Include="Strings\en-us\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Controls.resw" />
+    <PRIResource Include="Strings\en-US\Settings.resw" />
+    <PRIResource Include="Strings\en-US\Dialogs.resw" />
+    <PRIResource Include="Strings\en-US\About.resw" />
+    <PRIResource Include="Strings\en-US\Main.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
