@@ -2,7 +2,7 @@
     x:Class="Discord_UWP.SubPages.ExtendedMessageEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Discord_UWP.Controls"
+    xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -298,50 +298,13 @@
                     </Grid.RowDefinitions>
                     <ScrollViewer Margin="0,0,-24,0" Padding="0,0,24,0">
                         <StackPanel>
-                            <TextBlock x:Name="header" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                            <TextBlock x:Name="BodyText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
-                            <RichTextBlock FontSize="14" Opacity="0.6" Margin="0,6,0,0">
-                                <Paragraph>
-                                    Discord supports a subset of Markdown for
-                                    <Bold>**bold**</Bold> ,
-                                    <Italic>*italic*</Italic> ,
-                                    <Run FontFamily="Consolas">`code`</Run> (or code blocks, with three backticks before and after on empty lines),
-                                    and ~~strikethrough~~.
-                                </Paragraph>
-                            </RichTextBlock>
-                            <TextBox x:Name="Editor" Margin="0,6,0,0"/>
-                            <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
-                            <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
-                                <StackPanel Grid.Column="1">
-                                    <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}"/>
-                                    <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
-                                </StackPanel>
-                            </Grid>
-                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}" Margin="0,6,0,0" Click="OpenFile">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xE8E5;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock Text="Open File" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xE722;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock Text="Take photo" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xE720;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock Text="Record sound" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                        </StackPanel>
+                            <TextBlock x:Uid="AdvancedMessageEditorTB" x:Name="header" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                            <TextBlock x:Uid="BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
+                            <TextBox Margin="0,6,0,0"/>
+                            <TextBlock x:Uid="AttachementsTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
+                            <ListView>
+                            </ListView>
+                       </StackPanel>
                     </ScrollViewer>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
@@ -350,21 +313,11 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Send" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12" Click="SaveButton_Click"/>
+                            <Button x:Uid="CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="SendBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Send" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
                         </Grid>
                     </Grid>
-                    <Grid x:Name="ProgressViewer" Visibility="Collapsed" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="-24,-24,-24,0">
-                        <Grid.Background>
-                            <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.75"/>
-                        </Grid.Background>
-                        <StackPanel VerticalAlignment="Center" Margin="48,0">
-                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right"/>
-                            <ProgressBar x:Name="progressBar" Value="0" Foreground="{ThemeResource Blurple}"/>
-                        </StackPanel>
-                    </Grid>
-                    </Grid>
-                    
+                </Grid>
                 </Border>
             </Grid>
         </Grid>

@@ -298,29 +298,29 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="header" Text="EDIT CHANNEL" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Uid="EditChannelTB" x:Name="header" Text="EDIT CHANNEL" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot x:Name="pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
-                        <PivotItem x:Name="OverviewItem" Header="Overview" Margin="12,0,0,0">
+                        <PivotItem x:Uid="OverviewPI" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBox x:Name="ChannelName" Header="Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ChannelName_TextChanged"/>
+                                    <TextBox x:Uid="EditChannelNameTB" x:Name="ChannelName" Header="Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ChannelName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                     <RichTextBlock x:Name="CharacterWarning" Visibility="Collapsed"  Margin="0,-15,36,0">
                                         <Paragraph FontSize="11" Foreground="#fff04747">
-                                            <Run xml:space="preserve">Channel names may only contain alphanumeric characters, with the exception of dashes and underscores. </Run>
-                                            <Hyperlink Foreground="#fff04747" Click="Hyperlink_Click">Automatically fix?</Hyperlink>
+                                            <Run xml:space="preserve" x:Uid="BadChannelNameDesc1">Channel names may only contain alphanumeric characters, with the exception of dashes and underscores. </Run>
+                                            <Hyperlink Foreground="#fff04747" Click="Hyperlink_Click" x:Uid="BadChannelNameDesc2">Automatically fix?</Hyperlink>
                                         </Paragraph>
                                     </RichTextBlock>
-                                    <TextBox x:Name="ChannelTopic" TextChanged="ChannelTopic_OnTextChanged" PlaceholderText="No defined topic" BorderThickness="1" BorderBrush="{ThemeResource InvertedBG}" Header="Topic (supports markdown)" Margin="0,12,0,0" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="96"/>
+                                    <TextBox x:Uid="EditChannelTopicTB" TextChanged="ChannelTopic_OnTextChanged" x:Name="ChannelTopic" PlaceholderText="No defined topic" BorderThickness="1" BorderBrush="{ThemeResource InvertedBG}" Header="Topic (supports markdown)" Margin="0,12,0,0" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="96"/>
                                     <TextBlock x:Name="CharCounter" Text="1024" FontSize="11" Opacity="0.5" Foreground="{ThemeResource InvertedBG}" HorizontalAlignment="Right" Margin="0,4,0,0"/>
-                                    <ToggleSwitch x:Name="NsfwSwitch" Style="{StaticResource DiscordToggleSwitch}" HorizontalAlignment="Stretch" OnContent="NSFW Channel" OffContent="NSFW Channel" Toggled="ToggleSwitch_Toggled" Margin="0,6,0,0"/>
-                                    <TextBlock Text="Users will need to confirm they are of over legal age to view content in this channel. It will also be exempt from explitcit content filtering." TextWrapping="Wrap" FontSize="12" Opacity="0.5" Margin="0,-12,64,0"/>
+                                    <ToggleSwitch x:Uid="NsfwSwitch" x:Name="NsfwSwitch" Style="{StaticResource DiscordToggleSwitch}" HorizontalAlignment="Stretch" OnContent="NSFW Channel" OffContent="NSFW Channel" Toggled="ToggleSwitch_Toggled" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="NsfwDescTB" Text="Users will need to confirm they are of over legal age to view content in this channel. It will also be exempt from explitcit content filtering." TextWrapping="Wrap" FontSize="12" Opacity="0.5" Margin="0,-12,64,0"/>
                                     <!-- <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>-->
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Name="InvitesItem" Header="Invites">
+                        <PivotItem x:Uid="InvitesPI" Header="Invites">
                             <Grid>
                                 <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>
@@ -335,7 +335,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingInvite" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="NoInvitesTB" x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                     </Pivot>
@@ -346,8 +346,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
+                            <Button x:Uid="CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
                         </Grid>
                     </Grid>
                 </Grid>
