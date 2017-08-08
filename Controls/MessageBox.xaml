@@ -196,6 +196,6 @@
             <SymbolIcon Symbol="Emoji"/>
         </Button>
 
-        <HyperlinkButton x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
+        <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
     </Grid>
 </UserControl>
