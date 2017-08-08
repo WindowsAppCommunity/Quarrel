@@ -308,8 +308,8 @@
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <TextBox x:Name="Email" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
-            <PasswordBox x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+            <TextBox x:Uid="EmailTBox" x:Name="Email" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
+            <PasswordBox x:Uid="PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
             <Button HorizontalAlignment="Stretch" Click="Login" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
                     <TransitionCollection>
@@ -317,7 +317,7 @@
                     </TransitionCollection>
                 </Button.Transitions>
                 <Grid>
-                    <TextBlock x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock x:Uid="LoginTB" x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>

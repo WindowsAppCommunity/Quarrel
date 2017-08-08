@@ -642,7 +642,7 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
+                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
                                             <TextBlock x:Uid="AddChannelTB" Text="Add Channel"/>
@@ -853,9 +853,9 @@
                     </AppBarButton>
                 </CommandBar.Content>
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton x:Uid="AboutButton" Label="About + Changelog" Click="OpenWhatsNew"/>
-                    <AppBarButton x:Uid="IAPButton" x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
-                    <AppBarButton x:Uid="SettingsButton" Label="Settings" Click="OpenUserSettings"/>
+                    <AppBarButton x:Uid="AboutABB" Label="About + Changelog" Click="OpenWhatsNew"/>
+                    <AppBarButton x:Uid="IapABB" x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
+                    <AppBarButton x:Uid="SettingsABB" Label="Settings" Click="OpenUserSettings"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </Grid>
