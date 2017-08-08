@@ -1456,5 +1456,10 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
         }
+
+        private void MessageBox1_OpenAdvanced(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), MessageBox1.Text);
+        }
     }
 }

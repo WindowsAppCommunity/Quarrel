@@ -47,7 +47,7 @@ namespace Discord_UWP.API
             return RestService.For<IVoiceService>(GetAuthenticatingHttpClient());
         }
 
-        private HttpClient GetAuthenticatingHttpClient()
+        public HttpClient GetAuthenticatingHttpClient()
         {
             return new HttpClient(GetAuthenticationHandler())
             {

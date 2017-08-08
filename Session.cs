@@ -19,15 +19,18 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Discord_UWP.SharedModels;
+using Windows.Web.Http;
+using Newtonsoft.Json;
 
 namespace Discord_UWP
 {
     static class Session
     {
         #region ILogin
+        public static DiscordApiConfiguration config;
         public static async Task AutoLogin()
         {
-            DiscordApiConfiguration config = new DiscordApiConfiguration
+            config = new DiscordApiConfiguration
             {
                 BaseUrl = "https://discordapp.com/api"
             };
@@ -600,15 +603,31 @@ namespace Discord_UWP
             }
         }
 
+        public static HttpClient messageclient = new HttpClient();
+
+
+        public static event Windows.Foundation.AsyncOperationProgressHandler<HttpResponseMessage, HttpProgress> MessageUploadProgress;
         public static async void CreateMessage(string id, string text, Windows.Storage.StorageFile file)
         {
             try
             {
                 MessageUpsert message = new MessageUpsert();
                 message.Content = text;
-                message.file = await Windows.Storage.FileIO.ReadTextAsync(file);
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.CreateMessage(id, message).Wait();
+
+                HttpMultipartFormDataContent content = new HttpMultipartFormDataContent();
+                if(file != null)
+                    content.Add(new HttpStreamContent(await file.OpenAsync(Windows.Storage.FileAccessMode.Read)), "file");
+
+                content.Add(new HttpStringContent(JsonConvert.SerializeObject(message)), "payload_json");
+
+                if (!messageclient.DefaultRequestHeaders.ContainsKey("Authorization")) ;
+                    messageclient.DefaultRequestHeaders.Add(new KeyValuePair<string, string>("Authorization", Token));
+
+
+
+                var send = messageclient.PostAsync(new Uri(config.BaseUrl + "/channels/"+ id +"/messages"), content);
+                send.Progress = MessageUploadProgress;
+                await send;
             }
             catch (Exception e)
             {
