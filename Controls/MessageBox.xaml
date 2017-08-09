@@ -175,7 +175,7 @@
        <!--<Image x:Name="AttachmentImage" Grid.ColumnSpan="3"/>-->
         <!--<Button x:Name="SendAttachmentBox" Content="&#xE723;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="AddAttachment" Grid.Row="1"/>-->
 
-        <TextBox x:Uid="SendMessageTBox"  x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False"/>
+        <TextBox x:Uid="/Controls/SendMessageTBox"  x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False"/>
         <!--<RichEditBox MaxHeight="128" x:Name="MessageEditor" Grid.Column="1" PlaceholderText="Message" Grid.Row="0" TextChanged="MessageEditor_OnTextChanged" Style="{StaticResource RichEditBoxStyle1}" Margin="0"/>-->
         <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Style="{StaticResource ButtonStyle1}"/>
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="0" Grid.ColumnSpan="2">

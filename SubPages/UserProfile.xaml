@@ -106,10 +106,10 @@
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 
                                 </StackPanel>
-                                <Button x:Uid="SendFriendReqBTN"  x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                <Button x:Uid="AcceptFriendReqBTN" x:Name="acceptFriend" Content="Accept Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                <Button x:Uid="FriendReqSentBTN" x:Name="pendingFriend" Content="Friend Request sent" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False"/>
-                                <Button x:Uid="UnblockBTN" x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
+                                <Button x:Uid="/Dialogs/SendFriendReqBTN"  x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
+                                <Button x:Uid="/Dialogs/AcceptFriendReqBTN" x:Name="acceptFriend" Content="Accept Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
+                                <Button x:Uid="/Dialogs/FriendReqSentBTN" x:Name="pendingFriend" Content="Friend Request sent" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False"/>
+                                <Button x:Uid="/Dialogs/UnblockBTN" x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Margin="0,12,0,0" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -120,9 +120,9 @@
                                 <ItemsStackPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        <ListViewItem x:Uid="DetailsLI" Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
-                        <ListViewItem x:Uid="CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
-                        <ListViewItem x:Uid="CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
+                        <ListViewItem x:Uid="/Dialogs/DetailsLI" Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
+                        <ListViewItem x:Uid="/Dialogs/CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
+                        <ListViewItem x:Uid="/Dialogs/CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
                     <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
@@ -132,7 +132,7 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock x:Uid="NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                 <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
                                 <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                     <GridView.ItemTemplate>
@@ -149,19 +149,19 @@
                                             <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
+                                                    <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
                                             <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
+                                                    <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
                                             <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed">
                                                 <Grid>
                                                     <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="BlockTB" Text="Block" Margin="28,0,0,0"/>
+                                                    <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
                                                 </Grid>
                                             </HyperlinkButton>
                                         </StackPanel>
@@ -188,7 +188,7 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                                <TextBlock x:Uid="NoCommonServersTB" x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoCommonServersTB" x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                         <PivotItem  Margin="0,-48,0,0">
@@ -211,7 +211,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingMutualFriends" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Uid="NoCommonFriendsTB" x:Name="NoMutualFriends" Visibility="Visible" Text="NO FRIENDS IN COMMON" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoCommonFriendsTB" x:Name="NoMutualFriends" Visibility="Visible" Text="NO FRIENDS IN COMMON" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                     </Pivot>
