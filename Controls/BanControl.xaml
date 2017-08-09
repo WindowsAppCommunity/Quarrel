@@ -28,7 +28,7 @@
         </StackPanel>
         <Button x:Name="RemoveButton" Style="{StaticResource DiscordButton}" Padding="8" Click="RevokeBan" Margin="2,0" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="RevokeBanTB" Text=" Revoke Ban" Foreground="Red"/>
+                <TextBlock x:Uid="/Controls/RevokeBanTB" Text=" Revoke Ban" Foreground="Red"/>
             </StackPanel>
         </Button>
     </Grid>

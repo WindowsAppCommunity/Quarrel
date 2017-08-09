@@ -252,7 +252,7 @@ namespace Discord_UWP.SubPages
         private bool loadingRoles = false;
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Invites" && !LoadingInvites)
+            if (pivot.SelectedIndex == 1 && !LoadingInvites)
             {
                 InviteView.Items.Clear();
                 NoInvites.Opacity = 0;
@@ -276,7 +276,7 @@ namespace Discord_UWP.SubPages
                     NoInvites.Fade(0.2f, 200).Start();
                     LoadingInvite.Fade(0, 200).Start();
                 }
-            } else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
+            } else if (pivot.SelectedIndex == 2 && !loadingBans)
             {
                 BanView.Items.Clear();
                 NoBans.Opacity = 0;
