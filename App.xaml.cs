@@ -326,7 +326,7 @@ namespace Discord_UWP
             str = str.Remove(0, 1);
             int index = str.IndexOf('/');
             string map = str.Remove(index);
-            str = str.Remove(0, index);
+            str = str.Remove(0, index+1);
             switch (map)
             {
                 case "About": return ResAbout.GetString(str);

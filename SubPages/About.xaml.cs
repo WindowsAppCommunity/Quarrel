@@ -65,7 +65,7 @@ namespace Discord_UWP.SubPages
             timer.Tick -= TimerOnTick;
             timer.Stop();
             JoinServer.IsHitTestVisible = true;
-            JoinServerText.Text = "/About/JoinDiscordUWPServerTB/Text";
+            JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServerTB/Text");
         }
 
     }
