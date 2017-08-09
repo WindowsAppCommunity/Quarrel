@@ -117,97 +117,130 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccentColorTB.Text" xml:space="preserve">
-    <value />
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>Accepter la demande d'ami?</value>
   </data>
-  <data name="AdvancedPI.Header" xml:space="preserve">
-    <value />
+  <data name="ACTIVITIES" xml:space="preserve">
+    <value>ACTIVITÉS</value>
   </data>
-  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
-    <value />
+  <data name="AddReacItem.Text" xml:space="preserve">
+    <value>Réagir</value>
   </data>
-  <data name="CompactModeCB.Content" xml:space="preserve">
-    <value />
+  <data name="AllLI.Content" xml:space="preserve">
+    <value>TOUS</value>
   </data>
-  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value />
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>BLOQUÉES</value>
   </data>
-  <data name="DarkRadio.Content" xml:space="preserve">
-    <value />
+  <data name="BotTB.Text" xml:space="preserve">
+    <value>BOT</value>
   </data>
-  <data name="DiscordRadio.Content" xml:space="preserve">
-    <value />
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Copier l'Id</value>
   </data>
-  <data name="DndColorTB.Text" xml:space="preserve">
-    <value />
+  <data name="DeleteItem.Text" xml:space="preserve">
+    <value>Suprimmer</value>
   </data>
-  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
-    <value />
+  <data name="EditItem.Text" xml:space="preserve">
+    <value>Modifier</value>
   </data>
-  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value />
+  <data name="FLAGS" xml:space="preserve">
+    <value>DRAPEAUX</value>
   </data>
-  <data name="IdleColorTB.Text" xml:space="preserve">
-    <value />
+  <data name="FOOD" xml:space="preserve">
+    <value>NOURITURE</value>
   </data>
-  <data name="LightRadio.Content" xml:space="preserve">
-    <value />
+  <data name="FriendRequestSent" xml:space="preserve">
+    <value>Demande d'ami envoyée</value>
   </data>
-  <data name="LogoutBTN.Content" xml:space="preserve">
-    <value />
+  <data name="InviteExpired" xml:space="preserve">
+    <value>Invitation périmée</value>
   </data>
-  <data name="NotificationsPI.Header" xml:space="preserve">
-    <value />
+  <data name="InviteInvalid" xml:space="preserve">
+    <value>Invitation invalide ou périmée</value>
   </data>
-  <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value />
+  <data name="InviteJoin" xml:space="preserve">
+    <value>Rejoindre</value>
   </data>
-  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value />
+  <data name="InviteJoined" xml:space="preserve">
+    <value>Vous avez rejoint</value>
   </data>
-  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value />
+  <data name="InviteMaxUses" xml:space="preserve">
+    <value>Nombre max. d'utilisations atteint</value>
   </data>
-  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value />
+  <data name="InviteTempDesc" xml:space="preserve">
+    <value>Tous ceux utilisant ce lien n'auront plus accés au serveur lors de leur déconnexion, sauf si un rôle leur à été assigné.</value>
   </data>
-  <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value />
+  <data name="NATURE" xml:space="preserve">
+    <value>NATURE</value>
   </data>
-  <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value />
+  <data name="OBJECTS" xml:space="preserve">
+    <value>OBJETS</value>
   </data>
-  <data name="SettingsTB.Text" xml:space="preserve">
-    <value />
+  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+    <value>Uniquement afficher les amis en ligne</value>
   </data>
-  <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value />
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>EN ATTENTE</value>
   </data>
-  <data name="SliderL.Header" xml:space="preserve">
-    <value />
+  <data name="PEOPLE" xml:space="preserve">
+    <value>PERSONNES</value>
   </data>
-  <data name="SliderM.Header" xml:space="preserve">
-    <value />
+  <data name="PinItem.Text" xml:space="preserve">
+    <value>Épingler</value>
   </data>
-  <data name="SliderXL.Header" xml:space="preserve">
-    <value />
+  <data name="Playing" xml:space="preserve">
+    <value>Joue à</value>
   </data>
-  <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value />
+  <data name="RevokeBanTB.Text" xml:space="preserve">
+    <value>Annuler</value>
   </data>
-  <data name="ThemeTB.Text" xml:space="preserve">
-    <value />
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value>Rôle</value>
   </data>
-  <data name="UiPI.Header" xml:space="preserve">
-    <value />
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Rechercher...</value>
   </data>
-  <data name="VerifyLogout" xml:space="preserve">
-    <value>Are you sure you want to log out?</value>
+  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+    <value>Envoyer un message</value>
   </data>
-  <data name="VibrateCB.Content" xml:space="preserve">
-    <value />
+  <data name="Streaming" xml:space="preserve">
+    <value>Stream</value>
   </data>
-  <data name="WindowsRadio.Content" xml:space="preserve">
-    <value />
+  <data name="SYMBOLS" xml:space="preserve">
+    <value>SYMBOLES</value>
+  </data>
+  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+    <value>Invitation temporaire</value>
+  </data>
+  <data name="TRAVEL" xml:space="preserve">
+    <value>VOYAGE</value>
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>utilisations</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>utilisation</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Modifié</value>
+  </data>
+  <data name="ExpiredLink" xml:space="preserve">
+    <value>Lien périmé</value>
+  </data>
+  <data name="expiresIn" xml:space="preserve">
+    <value>expire dans</value>
+  </data>
+  <data name="expiresNever" xml:space="preserve">
+    <value>n'expire jamais</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Inviter à</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>Épingler</value>
+  </data>
+  <data name="Unpin" xml:space="preserve">
+    <value>Désépingler</value>
   </data>
 </root>

@@ -118,48 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value />
+    <value>Discord UWP is an</value>
+    <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value />
+    <value>unofficial</value>
+    <comment>Disclaimer pt. 2 in bold</comment>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value />
+    <value>client for Discord.</value>
+    <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value />
+    <value>The developpers are in no way affiliated with Hammer &amp; Chisel, Inc</value>
+    <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value />
+    <value>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this app.</value>
+    <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value />
+    <value>ABOUT</value>
+    <comment>ABOUT header</comment>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value />
+    <value>CHANGELOG</value>
+    <comment>CHANGELOG header</comment>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value />
+    <value>Designed by Lightmagic Apps</value>
+    <comment>The designer</comment>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value />
+    <value>Developped by Avid29</value>
+    <comment>The developper</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value />
+    <value>Discuss on Twitter</value>
+    <comment>Button to discuss on twitter</comment>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value />
+    <value>Join Discord UWP Server</value>
+    <comment>Button to join the Discord UWP server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
     <value>Failed to join server!</value>
+    <comment>Message if joining the server fails</comment>
   </data>
   <data name="JoinSucess" xml:space="preserve">
     <value>Sucess!</value>
+    <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
     <value>Joining...</value>
+    <comment>Text while the app is trying to join the server</comment>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value />
+    <value>Leave feedback</value>
+    <comment>Leave feedback button</comment>
   </data>
 </root>
