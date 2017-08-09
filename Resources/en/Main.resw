@@ -117,130 +117,151 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>Accept friend request?</value>
+  <data name="AboutABB.Label" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="ACTIVITIES" xml:space="preserve">
+  <data name="AddChannelTB.Text" xml:space="preserve">
+    <value>Add channel</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>at</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>CONNECTED</value>
+  </data>
+  <data name="DNDRadio.Content" xml:space="preserve">
+    <value>Do not disturb</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Error400" xml:space="preserve">
+    <value>Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
+  </data>
+  <data name="Error401" xml:space="preserve">
+    <value>Error 401: There was an issue with interacting with the server, try again</value>
+  </data>
+  <data name="Error403" xml:space="preserve">
+    <value>Error 403: You are forbidden to perform this action, you likely just haven't signed in from this location, check your email to verify this signin location and try again</value>
+  </data>
+  <data name="Error429" xml:space="preserve">
+    <value>Error 429: You've been rate limited, try again in a few nanoseconds.</value>
+  </data>
+  <data name="Error500" xml:space="preserve">
+    <value>Error 500: There's an issue interacting with the server, and it's the server's fault. Try again later, Discord tends to fix server crashes fast.</value>
+  </data>
+  <data name="ErrorGeneric" xml:space="preserve">
+    <value>Try Again after checking your email to see if you need to verify this sign-in location.</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>EVERYONE</value>
+  </data>
+  <data name="GameTBox.PlaceholderText" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="IapABB.Label" xml:space="preserve">
+    <value>In-App purchases</value>
+  </data>
+  <data name="IdleRadio.Content" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="InvisibleRadio.Content" xml:space="preserve">
+    <value>Invisible</value>
+  </data>
+  <data name="Loaded" xml:space="preserve">
+    <value>LOADED</value>
+  </data>
+  <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
+    <value>Load more messages</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>LOGGING IN...</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MemberListABB.Label" xml:space="preserve">
+    <value>Member list</value>
+  </data>
+  <data name="MuteABB.Label" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="NoChannelsCachedTB.Text" xml:space="preserve">
+    <value>No channels cached</value>
+  </data>
+  <data name="NoMessagesCachedTB.Text" xml:space="preserve">
+    <value>No message cached</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OfflineError" xml:space="preserve">
     <value />
   </data>
-  <data name="AddReacItem.Text" xml:space="preserve">
-    <value />
+  <data name="OnlineRadio.Content" xml:space="preserve">
+    <value>Online</value>
   </data>
-  <data name="AllLI.Content" xml:space="preserve">
-    <value />
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="BlockedLI.Content" xml:space="preserve">
-    <value />
+  <data name="PinnedMessagesABB.Label" xml:space="preserve">
+    <value>Pinned messages</value>
   </data>
-  <data name="BotTB.Text" xml:space="preserve">
-    <value />
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>Playing</value>
   </data>
-  <data name="CopyIdItem.Text" xml:space="preserve">
-    <value />
+  <data name="RefreshABB.Label" xml:space="preserve">
+    <value>Refresh</value>
   </data>
-  <data name="DeleteItem.Text" xml:space="preserve">
-    <value />
+  <data name="SettingsABB.Label" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="EditItem.Text" xml:space="preserve">
-    <value />
+  <data name="TextChannelsTB.Text" xml:space="preserve">
+    <value>TEXT CHANNELS</value>
   </data>
-  <data name="FLAGS" xml:space="preserve">
-    <value />
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
   </data>
-  <data name="FOOD" xml:space="preserve">
-    <value />
+  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
+    <value>Upvote this for Voice Channels</value>
   </data>
-  <data name="FriendRequestSent" xml:space="preserve">
-    <value>Friend request sent</value>
+  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
+    <value>This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them.</value>
   </data>
-  <data name="InviteExpired" xml:space="preserve">
-    <value>Expired invite</value>
+  <data name="VoiceChannelsTB.Text" xml:space="preserve">
+    <value>VOICE CHANNELS</value>
   </data>
-  <data name="InviteInvalid" xml:space="preserve">
-    <value>Expired or invalid invite</value>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
-  <data name="InviteJoin" xml:space="preserve">
-    <value>Join</value>
+  <data name="DirectMessages" xml:space="preserve">
+    <value>Direct Messages</value>
   </data>
-  <data name="InviteJoined" xml:space="preserve">
-    <value>You have joined</value>
+  <data name="members" xml:space="preserve">
+    <value>members</value>
   </data>
-  <data name="InviteMaxUses" xml:space="preserve">
-    <value>Max amount of uses reached</value>
+  <data name="Notifications_sentMessageOn" xml:space="preserve">
+    <value>sent a message on</value>
   </data>
-  <data name="InviteTempDesc" xml:space="preserve">
-    <value>People who use this link will automatically be kicked out when they disconnect, unless they have been assigned a role.</value>
+  <data name="PromptMessageSaveError" xml:space="preserve">
+    <value>There was an issue loading message history saves. History cleared so it can work in the future.</value>
   </data>
-  <data name="NATURE" xml:space="preserve">
-    <value />
+  <data name="PromptMutedCacheError" xml:space="preserve">
+    <value>There was an issue loading muted channels. Cleared so it can work in the future.</value>
   </data>
-  <data name="OBJECTS" xml:space="preserve">
-    <value />
+  <data name="PromptNoCache" xml:space="preserve">
+    <value>You had no cache, the app will now start caching data to improve loading times.</value>
   </data>
-  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value />
+  <data name="TypingAnd" xml:space="preserve">
+    <value>and</value>
   </data>
-  <data name="PendingTB.Text" xml:space="preserve">
-    <value />
+  <data name="TypingPlural" xml:space="preserve">
+    <value>are typing</value>
   </data>
-  <data name="PEOPLE" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PinItem.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Playing" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RoleTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SYMBOLS" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TRAVEL" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UsePlural" xml:space="preserve">
-    <value>uses</value>
-  </data>
-  <data name="UseSingular" xml:space="preserve">
-    <value>use</value>
-  </data>
-  <data name="Edited" xml:space="preserve">
-    <value>Edited</value>
-  </data>
-  <data name="ExpiredLink" xml:space="preserve">
-    <value>Expired link</value>
-  </data>
-  <data name="expiresIn" xml:space="preserve">
-    <value>expires in</value>
-  </data>
-  <data name="expiresNever" xml:space="preserve">
-    <value>never expires</value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>Invite to</value>
-  </data>
-  <data name="Pin" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="Unpin" xml:space="preserve">
-    <value>Unpin</value>
+  <data name="TypingSingular" xml:space="preserve">
+    <value>is typing</value>
   </data>
 </root>
