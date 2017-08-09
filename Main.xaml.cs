@@ -94,19 +94,19 @@ namespace Discord_UWP
             try
             {
                 LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
-                LoadingSplash.Status = "LOGGING IN...";
+                LoadingSplash.Status = App.GetString("/Main/LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
                 EstablishGateway();
                 LoadingSplash.Show(false);
-                LoadingSplash.Status = "LOADING...";
+                LoadingSplash.Status = App.GetString("/Main/Loading");
 
                 LoadMessages();
                 LoadMutedChannels();
 
                 await LoadUser();
                 LoadGuilds();
-                LoadingSplash.Status = "CONNECTED";
+                LoadingSplash.Status = App.GetString("/Main/Connected");
                 await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
@@ -125,7 +125,7 @@ namespace Discord_UWP
 
                 await LoadUser();
 
-                LoadingSplash.Status = "OFFLINE";
+                LoadingSplash.Status = App.GetString("Offline");
                 await Task.Delay(3000);
                 Session.Online = false;
             }
@@ -159,6 +159,7 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
+           
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -626,7 +627,7 @@ namespace Discord_UWP
                 if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
 
-                    role = new DisplayedRole(null, 0, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    role = new DisplayedRole(null, 0, App.GetString("/Main/Everyone"), everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
                 }
                 else

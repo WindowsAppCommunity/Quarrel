@@ -97,7 +97,7 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
-            header.Text = "EDIT " + guild.RawGuild.Name.ToUpper();
+            header.Text = App.GetString("EDIT") + " " + guild.RawGuild.Name.ToUpper();
             if (!Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 GuildName.IsEnabled = false;

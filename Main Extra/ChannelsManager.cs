@@ -150,7 +150,7 @@ namespace Discord_UWP
                     else if (type == 3)
                     {
                         //GROUP DM
-                        sc.Subtitle = channel.Value.Raw.Users.Count().ToString() + " members";
+                        sc.Subtitle = channel.Value.Raw.Users.Count().ToString() + " " + App.GetString("/Main/members");
                         List<string> channelMembers = new List<string>();
                         foreach (var d in channel.Value.Raw.Users)
                             channelMembers.Add(d.Username);

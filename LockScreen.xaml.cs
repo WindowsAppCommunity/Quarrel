@@ -75,25 +75,25 @@ namespace Discord_UWP
                 switch (ex.Message)
                 {
                     case "An error occurred while sending the request":
-                        await new MessageDialog("You're offline, try again when online").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/OfflineError")).ShowAsync();
                         break;
                     case "Response status code does not indicate success: 400 ()":
-                        await new MessageDialog("Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error400")).ShowAsync();
                         break;
                     case "Response status code does not indicate success: 401 ()":
-                        await new MessageDialog("Error 401: There was an issue with interacting with the server, try again").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error401")).ShowAsync();
                         break;
                     case "Response status code does not indicate success: 403 ()":
-                        await new MessageDialog("Error 403: You are forbidden to perform this action, you likely just haven't signed in from this location, check your email to verify this signin location and try again").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error403")).ShowAsync();
                         break;
                     case "Response status code does not indicate success: 429 ()":
-                        await new MessageDialog("Error 429: You've been rate limited, try again in a few nanoseconds.").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error429")).ShowAsync();
                         break;
                     case "Response status code does not indicate success: 500 ()":
-                        await new MessageDialog("Error 500: There's an issue interacting with the server, and it's the server's fault. Try again later, Discord tends to fix server crashes fast.").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error500")).ShowAsync();
                         break;
                     default:
-                        await new MessageDialog("Error: " + ex.Message + "Try Again after checking your email to see if you need to verify this sign-in location").ShowAsync();
+                        await new MessageDialog(App.GetString("/Main/Error") + ": " + ex.Message + App.GetString("/Main/ErrorGeneric")).ShowAsync();
                         break;
                 }
                 (sender as Button).IsEnabled = true;

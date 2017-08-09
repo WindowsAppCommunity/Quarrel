@@ -10,6 +10,7 @@ using Windows.System.UserProfile;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Discord_UWP.SharedModels;
+using Windows.ApplicationModel.Resources;
 
 namespace Discord_UWP
 {
@@ -33,17 +34,17 @@ namespace Discord_UWP
                 if (dtPrevious != null && dtPrevious.Value.DayOfYear == dt.DayOfYear && dtPrevious.Value.Year == dt.Year)
                 { result = ""; }
                 else
-                { result = "Today "; }
+                { result = App.GetString("/Main/Today") + " "; }
             }
             else if (IsYesterday(dt))
-            { result = "Yesterday "; }
+            { result = App.GetString("/Main/Yesterday") + " "; }
             else
             {
                 var localCulture = new CultureInfo(GlobalizationPreferences.Languages.First());
                 result = dt.Date.ToString("d", localCulture) + " ";
             }
 
-            result += "at " + dt.ToString("HH:mm");
+            result += App.GetString("/Main/Today") + " " + dt.ToString("HH:mm");
 
             return result;
         }
@@ -82,6 +83,7 @@ namespace Discord_UWP
             byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
+
         public static string HumanizeFileSize(int i)
         {
             long absolute_i = (i < 0 ? -i : i);
@@ -109,6 +111,7 @@ namespace Discord_UWP
             readable = (readable / 1024);
             return readable.ToString("0.### ") + suffix;
         }
+
 
         public static Uri AvatarUri(string s, string userid="", string suffix="")
         {

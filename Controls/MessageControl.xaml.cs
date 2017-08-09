@@ -380,9 +380,9 @@ namespace Discord_UWP
                 else
                     BotIndicator.Visibility = Visibility.Collapsed;
                 if (Message.Value.Pinned)
-                    MorePin.Text = "Unpin";
+                    MorePin.Text = App.GetString("/Controls/Unpin");
                 else
-                    MorePin.Text = "Pin";
+                    MorePin.Text = App.GetString("/Controls/Pin") + " ";
 
                 if (!Storage.Settings.DevMode)
                     MoreCopyId.Visibility = Visibility.Collapsed;
@@ -406,7 +406,7 @@ namespace Discord_UWP
 
                 timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
                 if (Message.Value.EditedTimestamp.HasValue)
-                    timestamp.Text += " (Edited " +
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " +
                                       Common.HumanizeDate(Message.Value.EditedTimestamp.Value,
                                           Message.Value.Timestamp) + ")";
 

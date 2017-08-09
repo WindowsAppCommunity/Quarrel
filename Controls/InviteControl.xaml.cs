@@ -67,14 +67,14 @@ namespace Discord_UWP.Controls
                 string useField = DisplayedInvite.Uses.ToString();
                 if (DisplayedInvite.MaxUses != 0) useField += "/" + DisplayedInvite.MaxUses;
                 if (DisplayedInvite.Uses == 1)
-                    useField += " use, ";
+                    useField += " "+ App.GetString("/Controls/UseSingular") + ", ";
                 else
-                    useField += " uses, ";
+                    useField += " " + App.GetString("/Controls/UsePlural") + ", ";
 
                 if (DisplayedInvite.Temporary)
                 {
                     TempInvite.Visibility = Visibility.Visible;
-                    ToolTipService.SetToolTip(TempInvite, "People who use this link will automatically be kicked out when they disconnect, unless they have been assigned a role");
+                    ToolTipService.SetToolTip(TempInvite, App.GetString("InviteTempDesc"));
                 }
                 else
                 {
@@ -84,7 +84,7 @@ namespace Discord_UWP.Controls
                 {
                     var timeDiff = TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
                                                         DateTime.Now.Subtract(creationTime).TotalSeconds);
-                    useField += "expires in " + timeDiff.ToString(@"hh\:mm\:ss");
+                    useField += App.GetString("/Controls/expiresIn") + " " + timeDiff.ToString(@"hh\:mm\:ss");
 
                     DispatcherTimer timer = new DispatcherTimer();
                     timer.Interval = TimeSpan.FromSeconds(1);
@@ -95,7 +95,7 @@ namespace Discord_UWP.Controls
                             TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
                                                  DateTime.Now.Subtract(creationTime).TotalSeconds);
                         if (timeDiffLive.TotalSeconds == 0)
-                            Description.Text = "Expired link";
+                            Description.Text = App.GetString("/Controls/ExpiredLink");
                         else
                             Description.Text = useField.Remove(useField.Length - 8) +
                                                timeDiffLive.ToString(@"hh\:mm\:ss");
@@ -103,7 +103,7 @@ namespace Discord_UWP.Controls
                     };
                 }
                 else
-                    useField += " no expiry time";
+                    useField += App.GetString("/Controls/expiresNever");
 
                 Description.Text = useField;
             }
@@ -138,9 +138,9 @@ namespace Discord_UWP.Controls
             {
                 args.Request.Data.SetWebLink(new Uri("http://discord.gg/" + InviteCode.Text));
                 if (DisplayedInvite.Channel.Name != null)
-                    args.Request.Data.Properties.Title = "Invite to #" + DisplayedInvite.Channel.Name;
+                    args.Request.Data.Properties.Title = App.GetString("/Controls/InviteTo") + " #" + DisplayedInvite.Channel.Name;
                 else
-                    args.Request.Data.Properties.Title = "Invite to " + DisplayedInvite.Guild.Name;
+                    args.Request.Data.Properties.Title = App.GetString("/Controls/InviteTo") + " " + DisplayedInvite.Guild.Name;
             };
             DataTransferManager.ShowShareUI();
         }
