@@ -97,7 +97,7 @@ namespace Discord_UWP
         {
             SimpleGuild DM = new SimpleGuild();
             DM.Id = "DMs";
-            DM.Name = "Direct Messages";
+            DM.Name = App.GetString("/Main/DirectMessages");
             DM.IsDM = true;
             foreach (var chn in Storage.Cache.DMs.Values)
                 if (Session.RPC.ContainsKey(chn.Raw.Id))

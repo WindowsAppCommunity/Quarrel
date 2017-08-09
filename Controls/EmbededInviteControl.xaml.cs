@@ -82,24 +82,24 @@ namespace Discord_UWP.Controls
                 if (Storage.Cache.Guilds.ContainsKey(DisplayedInvite.Guild.Id) || ForceJoin)
                 {
                     GreenIcon.Fade(1, 200).Start();
-                    ChannelName.Text = "You have joined " + DisplayedInvite.Channel.Name;
+                    ChannelName.Text = App.GetString("/Controls/InviteJoined") + " " + DisplayedInvite.Channel.Name;
                     return;
                 }
                 if (DisplayedInvite.MaxUses != 0 && DisplayedInvite.MaxUses <= DisplayedInvite.Uses)
                 {
-                    ChannelName.Text = "Max amount of uses reached";
+                    ChannelName.Text = App.GetString("/Controls/InviteMaxUses");
                     RedIcon.Fade(1, 200).Start();
                     return;
                 }
                 if (timeDiff.TotalSeconds > 0)
                 {
                     JoinIcon.Fade(1, 200).Start();
-                    ChannelName.Text = "Join " + DisplayedInvite.Channel.Name;
+                    ChannelName.Text = App.GetString("/Controls/InviteJoin") + " " + DisplayedInvite.Channel.Name;
                 }
                 else
                 {
                     RedIcon.Fade(1, 200).Start();
-                    ChannelName.Text = "Expired invite";
+                    ChannelName.Text = App.GetString("/Controls/InviteExpired");
                 }
             }
             catch
@@ -108,7 +108,7 @@ namespace Discord_UWP.Controls
                 GuildName.Fade(1, 350).Start();
                 ChannelName.Fade(1, 200).Start();
                 RedIcon.Fade(1, 200).Start();
-                ChannelName.Text = "Expired or invalid invite";
+                ChannelName.Text = App.GetString("/Controls/InviteInvalid");
                 GuildName.Visibility = Visibility.Collapsed;
             }
     }

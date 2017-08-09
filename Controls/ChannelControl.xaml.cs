@@ -201,10 +201,10 @@ namespace Discord_UWP.Controls
                     switch (Playing.Value.Type)
                     {
                         case 0:
-                            PlayingType.Text = "Playing";
+                            PlayingType.Text = App.GetString("/Controls/Playing");
                             break;
                         case 1:
-                            PlayingType.Text = "Streaming";
+                            PlayingType.Text = App.GetString("/Controls/Streaming");
                             break;
                     }
                     PlayingText.Text = Playing.Value.Name;

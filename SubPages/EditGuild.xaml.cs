@@ -36,11 +36,6 @@ namespace Discord_UWP.SubPages
         public EditGuild()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("EditServer").ToUpper();
-            GuildName.Header = App.Translate("Name");
-            Roles.Header = App.Translate("Roles");
-            RoleName.Header = App.Translate("Name").ToUpper();
-            Bans.Header = App.Translate("Bans");
         }
 
         private void SaveGuildSettings(object sender, RoutedEventArgs e)
@@ -102,7 +97,7 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
-            header.Text = App.Translate("Edit") .ToUpper() + " " + guild.RawGuild.Name.ToUpper();
+            header.Text = App.GetString("EDIT") + " " + guild.RawGuild.Name.ToUpper();
             if (!Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 GuildName.IsEnabled = false;

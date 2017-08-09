@@ -117,40 +117,130 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDesc1.Text" xml:space="preserve">
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>Accept friend request?</value>
+  </data>
+  <data name="ACTIVITIES" xml:space="preserve">
     <value />
   </data>
-  <data name="AboutDesc2.Text" xml:space="preserve">
+  <data name="AddReacItem.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="AboutDesc3.Text" xml:space="preserve">
+  <data name="AllLI.Content" xml:space="preserve">
     <value />
   </data>
-  <data name="AboutDesc4.Text" xml:space="preserve">
+  <data name="BlockedLI.Content" xml:space="preserve">
     <value />
   </data>
-  <data name="AboutDesc5.Text" xml:space="preserve">
+  <data name="BotTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="AboutTB.Text" xml:space="preserve">
+  <data name="CopyIdItem.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="ChangelogTB.Text" xml:space="preserve">
+  <data name="DeleteItem.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
+  <data name="EditItem.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+  <data name="FLAGS" xml:space="preserve">
     <value />
   </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+  <data name="FOOD" xml:space="preserve">
     <value />
   </data>
-  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
+  <data name="FriendRequestSent" xml:space="preserve">
+    <value>Friend request sent</value>
+  </data>
+  <data name="InviteExpired" xml:space="preserve">
+    <value>Expired invite</value>
+  </data>
+  <data name="InviteInvalid" xml:space="preserve">
+    <value>Expired or invalid invite</value>
+  </data>
+  <data name="InviteJoin" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="InviteJoined" xml:space="preserve">
+    <value>You have joined</value>
+  </data>
+  <data name="InviteMaxUses" xml:space="preserve">
+    <value>Max amount of uses reached</value>
+  </data>
+  <data name="InviteTempDesc" xml:space="preserve">
+    <value>People who use this link will automatically be kicked out when they disconnect, unless they have been assigned a role.</value>
+  </data>
+  <data name="NATURE" xml:space="preserve">
     <value />
   </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+  <data name="OBJECTS" xml:space="preserve">
     <value />
+  </data>
+  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PinItem.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RevokeBanTB.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SYMBOLS" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TRAVEL" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>uses</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>use</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Edited</value>
+  </data>
+  <data name="ExpiredLink" xml:space="preserve">
+    <value>Expired link</value>
+  </data>
+  <data name="expiresIn" xml:space="preserve">
+    <value>expires in</value>
+  </data>
+  <data name="expiresNever" xml:space="preserve">
+    <value>never expires</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Invite to</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="Unpin" xml:space="preserve">
+    <value>Unpin</value>
   </data>
 </root>

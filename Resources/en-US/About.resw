@@ -117,94 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccentColorTB.Text" xml:space="preserve">
+  <data name="AboutDesc1.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="AdvancedPI.Header" xml:space="preserve">
+  <data name="AboutDesc2.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+  <data name="AboutDesc3.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="CompactModeCB.Content" xml:space="preserve">
+  <data name="AboutDesc4.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+  <data name="AboutDesc5.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="DarkRadio.Content" xml:space="preserve">
+  <data name="AboutTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="DiscordRadio.Content" xml:space="preserve">
+  <data name="ChangelogTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="DndColorTB.Text" xml:space="preserve">
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="IdleColorTB.Text" xml:space="preserve">
+  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="LightRadio.Content" xml:space="preserve">
-    <value />
+  <data name="JoinFail" xml:space="preserve">
+    <value>Failed to join server!</value>
   </data>
-  <data name="LogoutBTN.Content" xml:space="preserve">
-    <value />
+  <data name="JoinSucess" xml:space="preserve">
+    <value>Sucess!</value>
   </data>
-  <data name="NotificationsPI.Header" xml:space="preserve">
-    <value />
+  <data name="JoinWait" xml:space="preserve">
+    <value>Joining...</value>
   </data>
-  <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SettingsTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SliderL.Header" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SliderM.Header" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SliderXL.Header" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ThemeTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UiPI.Header" xml:space="preserve">
-    <value />
-  </data>
-  <data name="VibrateCB.Content" xml:space="preserve">
-    <value />
-  </data>
-  <data name="WindowsRadio.Content" xml:space="preserve">
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
     <value />
   </data>
 </root>
