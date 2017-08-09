@@ -37,6 +37,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.CacheModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
+using Windows.ApplicationModel.Resources;
 
 namespace Discord_UWP
 {
@@ -67,6 +68,7 @@ namespace Discord_UWP
                 this.Suspending += OnSuspending;
             }
             catch { }
+            
         }
 
         #region Events
@@ -312,6 +314,33 @@ namespace Discord_UWP
         internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
         #endregion
 
+        #region Static Voids
+        public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
+        public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
+        public static ResourceLoader ResDialogs = ResourceLoader.GetForCurrentView("Dialogs");
+        public static ResourceLoader ResFlyouts = ResourceLoader.GetForCurrentView("Flyouts");
+        public static ResourceLoader ResMain = ResourceLoader.GetForCurrentView("Main");
+        public static ResourceLoader ResSettings = ResourceLoader.GetForCurrentView("Settings");
+        public static string GetString(string str)
+        {
+            str = str.Remove(0, 1);
+            int index = str.IndexOf('/');
+            string map = str.Remove(index);
+            str = str.Remove(0, index);
+            switch (map)
+            {
+                case "About": return ResAbout.GetString(str);
+                case "Controls": return ResControls.GetString(str);
+                case "Dialogs": return ResDialogs.GetString(str);
+                case "Flyouts": return ResFlyouts.GetString(str);
+                case "Main": return ResMain.GetString(str);
+                case "Settings": return ResSettings.GetString(str);
+            }
+            return "String";
+         //   return loader.GetString(str);
+        }
+
+        #endregion
         //internal static string ChannelId;
 
         /// <summary>

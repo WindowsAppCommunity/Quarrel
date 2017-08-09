@@ -14,15 +14,15 @@ namespace Discord_UWP
         private MenuFlyout MakeDMChannelMenu(DmCache dm)
         {
             MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = "Profile", Tag = dm.Raw.Users.FirstOrDefault() };
+            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/Profile"), Tag = dm.Raw.Users.FirstOrDefault() };
             profile.Click += OpenProfile;
             menu.Items.Add(profile);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
-            MenuFlyoutItem removeFriend = new MenuFlyoutItem() { Text = "Remove Friend", Tag = dm.Raw.Users.FirstOrDefault().Id };
+            MenuFlyoutItem removeFriend = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/RemoveFriend"), Tag = dm.Raw.Users.FirstOrDefault().Id };
             removeFriend.Click += RemoveFriend;
             menu.Items.Add(removeFriend);
-            MenuFlyoutItem block = new MenuFlyoutItem() { Text = "Block", Tag = dm.Raw.Users.FirstOrDefault().Id };
+            MenuFlyoutItem block = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/Block"), Tag = dm.Raw.Users.FirstOrDefault().Id };
             block.Click += BlockUser;
             menu.Items.Add(block);
             return menu;

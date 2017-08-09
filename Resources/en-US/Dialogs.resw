@@ -126,7 +126,7 @@
   <data name="AdministratorToggle.Header" xml:space="preserve">
     <value />
   </data>
-  <data name="AdvancedMessageEditorTB.Text" xml:space="preserve">
+  <data name="AdvancedMessageEditorTB" xml:space="preserve">
     <value />
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
@@ -403,6 +403,42 @@
     <value />
   </data>
   <data name="EditChannelTopicTBox.Header" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddOnError" xml:space="preserve">
+    <value>An error occured, try again later.</value>
+  </data>
+  <data name="AddOnNotPurchased" xml:space="preserve">
+    <value>Add-On was not purchased.</value>
+  </data>
+  <data name="AddOnPurchased" xml:space="preserve">
+    <value>Thank you so much for the donation!</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>EDIT</value>
+  </data>
+  <data name="FlagDiscordPartner" xml:space="preserve">
+    <value>DISCORD PARTNER</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>DISCORD STAFF</value>
+  </data>
+  <data name="FlagHypesquad" xml:space="preserve">
+    <value>HYPESQUAD</value>
+  </data>
+  <data name="PremiumSince" xml:space="preserve">
+    <value>Premium meber since</value>
+  </data>
+  <data name="VerifyBan" xml:space="preserve">
+    <value>Are you sure you want to ban @</value>
+  </data>
+  <data name="VerifyDelete" xml:space="preserve">
+    <value>Are you sure you want to delete</value>
+  </data>
+  <data name="VerifyLeave" xml:space="preserve">
+    <value>Are you sure you want to leave</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
     <value />
   </data>
 </root>

@@ -48,7 +48,7 @@ namespace Discord_UWP
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
-                Text = "Profile",
+                Text = App.GetString("/Flyouts/Profile"),
                 Tag = member.Raw.User,
                 Icon = new SymbolIcon(Symbol.ContactInfo)
             };
@@ -56,7 +56,7 @@ namespace Discord_UWP
             menu.Items.Add(profile);
             MenuFlyoutItem message = new MenuFlyoutItem()
             {
-                Text = "Message",
+                Text = App.GetString("/Flyouts/Message"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.Message)
             };
@@ -68,7 +68,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                 {
-                    Text = "Invite to Server"
+                    Text = App.GetString("/Flyouts/InviteToServer")
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -86,14 +86,14 @@ namespace Discord_UWP
             }
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
-                Text = "Add Friend",
+                Text = App.GetString("/Flyouts/AddFriend"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
             addFriend.Click += AddFriend;
             MenuFlyoutItem removeFriend = new MenuFlyoutItem()
             {
-                Text = "Remove Friend",
+                Text = App.GetString("/Flyouts/RemoveFriend"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.ContactPresence)
@@ -101,7 +101,7 @@ namespace Discord_UWP
             removeFriend.Click += RemoveFriendClick;
             MenuFlyoutItem block = new MenuFlyoutItem()
             {
-                Text = "Block",
+                Text = App.GetString("/Flyouts/Block"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.BlockContact)
@@ -109,14 +109,14 @@ namespace Discord_UWP
             block.Click += Block;
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
-                Text = "Unblock",
+                Text = App.GetString("/Flyouts/Unblock"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.ContactPresence)
             };
             unBlock.Click += RemoveFriendClick;
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
-                Text = "Accept Friend Request",
+                Text = App.GetString("/Flyouts/AcceptFriendRequest"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
@@ -157,7 +157,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                 {
-                    Text = "Change Nickname",
+                    Text = App.GetString("/Flyouts/ChangeNickname"),
                     Tag = member.Raw.User.Id,
                     Icon = new SymbolIcon(Symbol.Edit)
                 };
@@ -168,7 +168,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
                 {
-                    Text = "Roles"
+                    Text = App.GetString("/Flyouts/Roles")
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -196,7 +196,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem kickMember = new MenuFlyoutItem()
                 {
-                    Text = "Kick Member",
+                    Text = App.GetString("/Flyouts/KickMember"),
                     Tag = member.Raw.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
@@ -207,7 +207,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                 {
-                    Text = "Leaver Server",
+                    Text = App.GetString("/Flyouts/LeaveServer"),
                     Tag = member.Raw.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Remove)
@@ -219,7 +219,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem banMember = new MenuFlyoutItem()
                 {
-                    Text = "Ban Member",
+                    Text = App.GetString("/Flyouts/BanMember"),
                     Tag = member.Raw.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
@@ -232,20 +232,20 @@ namespace Discord_UWP
                 //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
                 ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
                 {
-                    Text = "Mute",
+                    Text = App.GetString("/Flyouts/Mute"),
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
 
                 ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
                 {
-                    Text = "Deafen",
+                    Text = App.GetString("/Flyouts/Deafen"),
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
                 MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
                 {
-                    Text = "Move Channel"
+                    Text = App.GetString("/Flyouts/MoveChannel")
                 };
             }
             return menu;
