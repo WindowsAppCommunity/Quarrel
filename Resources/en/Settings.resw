@@ -117,151 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutABB.Label" xml:space="preserve">
-    <value />
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Accent color</value>
   </data>
-  <data name="AddChannelTB.Text" xml:space="preserve">
-    <value />
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>Advanced</value>
   </data>
-  <data name="at" xml:space="preserve">
-    <value />
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Align command bar at the bottom</value>
   </data>
-  <data name="Connected" xml:space="preserve">
-    <value />
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Compact mode</value>
   </data>
-  <data name="DNDRadio.Content" xml:space="preserve">
-    <value />
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Custom presence colors</value>
   </data>
-  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value />
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Dark</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value />
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
   </data>
-  <data name="Error400" xml:space="preserve">
-    <value>Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>Do not disturb</value>
   </data>
-  <data name="Error401" xml:space="preserve">
-    <value>Error 401: There was an issue with interacting with the server, try again</value>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Expensive rendering (blur effects etc...)</value>
   </data>
-  <data name="Error403" xml:space="preserve">
-    <value>Error 403: You are forbidden to perform this action, you likely just haven't signed in from this location, check your email to verify this signin location and try again</value>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Highlight @everyone</value>
   </data>
-  <data name="Error429" xml:space="preserve">
-    <value>Error 429: You've been rate limited, try again in a few nanoseconds.</value>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Idle</value>
   </data>
-  <data name="Error500" xml:space="preserve">
-    <value>Error 500: There's an issue interacting with the server, and it's the server's fault. Try again later, Discord tends to fix server crashes fast.</value>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Light</value>
   </data>
-  <data name="ErrorGeneric" xml:space="preserve">
-    <value>Try Again after checking your email to see if you need to verify this sign-in location.</value>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Log out</value>
   </data>
-  <data name="Everyone" xml:space="preserve">
-    <value />
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notifications</value>
   </data>
-  <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value />
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>Online</value>
   </data>
-  <data name="IapABB.Label" xml:space="preserve">
-    <value />
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Reset breakpoints to default</value>
   </data>
-  <data name="IdleRadio.Content" xml:space="preserve">
-    <value />
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width.</value>
   </data>
-  <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value />
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI BREAKPOINTS</value>
   </data>
-  <data name="Loaded" xml:space="preserve">
-    <value />
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI</value>
   </data>
-  <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value />
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(You'll need to restart the app)</value>
   </data>
-  <data name="LoggingIn" xml:space="preserve">
-    <value>LoggingIn</value>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>SETTINGS</value>
   </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value />
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Show in-app toast notifications</value>
   </data>
-  <data name="MemberListABB.Label" xml:space="preserve">
-    <value />
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (Servers and channels are visible)</value>
   </data>
-  <data name="MuteABB.Label" xml:space="preserve">
-    <value />
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (Servers are visible)</value>
   </data>
-  <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value />
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (Servers, channels, and members are visible)</value>
   </data>
-  <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value />
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>System accent color</value>
   </data>
-  <data name="Offline" xml:space="preserve">
-    <value />
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>THEME</value>
   </data>
-  <data name="OfflineError" xml:space="preserve">
-    <value />
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>UI</value>
   </data>
-  <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>OnLiNe</value>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
   </data>
-  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value />
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibration on message reception</value>
   </data>
-  <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PlayingTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RefreshABB.Label" xml:space="preserve">
-    <value />
-  </data>
-  <data name="SettingsABB.Label" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Today" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Yesterday" xml:space="preserve">
-    <value />
-  </data>
-  <data name="DirectMessages" xml:space="preserve">
-    <value>Direct Messages</value>
-  </data>
-  <data name="members" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value />
-  </data>
-  <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>There was an issue loading message history saves. History cleared so it can work in the future.</value>
-  </data>
-  <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>There was an issue loading muted channels. Cleared so it can work in the future.</value>
-  </data>
-  <data name="PromptNoCache" xml:space="preserve">
-    <value>You had no cache, the app will now start caching data to improve loading times.</value>
-  </data>
-  <data name="TypingAnd" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TypingPlural" xml:space="preserve">
-    <value />
-  </data>
-  <data name="TypingSingular" xml:space="preserve">
-    <value />
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
   </data>
 </root>

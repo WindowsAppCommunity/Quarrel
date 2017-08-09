@@ -125,12 +125,18 @@
     <PRIResource Include="Languages\en-us\Resources.resw" />
     <PRIResource Include="Languages\es-mx\Resources.resw" />
     <None Include="project.json" />
-    <PRIResource Include="Resources\en-US\Flyouts.resw" />
-    <PRIResource Include="Resources\en-US\Controls.resw" />
-    <PRIResource Include="Resources\en-US\Settings.resw" />
-    <PRIResource Include="Resources\en-US\Dialogs.resw" />
-    <PRIResource Include="Resources\en-US\About.resw" />
-    <PRIResource Include="Resources\en-US\Main.resw" />
+    <PRIResource Include="Resources\fr\Settings.resw" />
+    <PRIResource Include="Resources\fr\Main.resw" />
+    <PRIResource Include="Resources\fr\Flyouts.resw" />
+    <PRIResource Include="Resources\fr\Dialogs.resw" />
+    <PRIResource Include="Resources\fr\Controls.resw" />
+    <PRIResource Include="Resources\fr\About.resw" />
+    <PRIResource Include="Resources\en\Flyouts.resw" />
+    <PRIResource Include="Resources\en\Controls.resw" />
+    <PRIResource Include="Resources\en\Settings.resw" />
+    <PRIResource Include="Resources\en\Dialogs.resw" />
+    <PRIResource Include="Resources\en\About.resw" />
+    <PRIResource Include="Resources\en\Main.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
