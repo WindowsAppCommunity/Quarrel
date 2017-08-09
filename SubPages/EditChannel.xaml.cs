@@ -61,7 +61,7 @@ namespace Discord_UWP.SubPages
             var channel = Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(channelId))
                 .Value.Channels[channelId];
             ChannelName.Text = channel.Raw.Name;
-            header.Text = "EDIT " + channel.Raw.Name.ToUpper();
+            header.Text = App.GetString("EDIT") + " " + channel.Raw.Name.ToUpper();
             if(channel.Raw.Topic != null)
                 ChannelTopic.Text = channel.Raw.Topic;
             Session.Gateway.GuildChannelUpdated += ChannelUpdated;

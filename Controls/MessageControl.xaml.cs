@@ -163,10 +163,6 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-            MoreAddReaction.Text = App.Translate("AddReaction");
-            MoreEdit.Text = App.Translate("Edit");
-            MoreDelete.Text = App.Translate("Delete");
-            MoreCopyId.Text = App.Translate("CopyID");
             Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
             Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
         }
@@ -383,11 +379,10 @@ namespace Discord_UWP
                     BotIndicator.Visibility = Visibility.Visible;
                 else
                     BotIndicator.Visibility = Visibility.Collapsed;
-
                 if (Message.Value.Pinned)
-                    MorePin.Text = App.Translate("Unpin");
+                    MorePin.Text = App.GetString("/Controls/Unpin");
                 else
-                    MorePin.Text = App.Translate("Pin");
+                    MorePin.Text = App.GetString("/Controls/Pin") + " ";
 
                 if (!Storage.Settings.DevMode)
                     MoreCopyId.Visibility = Visibility.Collapsed;
@@ -411,7 +406,7 @@ namespace Discord_UWP
 
                 timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
                 if (Message.Value.EditedTimestamp.HasValue)
-                    timestamp.Text += " (" + App.Translate("Edited") + " " +
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " +
                                       Common.HumanizeDate(Message.Value.EditedTimestamp.Value,
                                           Message.Value.Timestamp) + ")";
 
@@ -522,7 +517,7 @@ namespace Discord_UWP
                 }
             if (serversideEmoji != null)
             {
-                stack.Children.Add(new Image()
+                stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
                 {
                     Width = 20,
                     Height = 20,

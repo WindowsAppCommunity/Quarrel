@@ -117,49 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddReacItem.Text" xml:space="preserve">
+  <data name="AcceptFriendRequest" xml:space="preserve">
     <value />
   </data>
-  <data name="AllLI.Content" xml:space="preserve">
+  <data name="AddFriend" xml:space="preserve">
     <value />
   </data>
-  <data name="BlockedLI.Content" xml:space="preserve">
+  <data name="BanMember" xml:space="preserve">
     <value />
   </data>
-  <data name="BotTB.Text" xml:space="preserve">
+  <data name="Block" xml:space="preserve">
     <value />
   </data>
-  <data name="CopyIdItem.Text" xml:space="preserve">
+  <data name="ChangeNickname" xml:space="preserve">
     <value />
   </data>
-  <data name="DeleteItem.Text" xml:space="preserve">
+  <data name="Deafen" xml:space="preserve">
     <value />
   </data>
-  <data name="EditItem.Text" xml:space="preserve">
+  <data name="DeleteChannel" xml:space="preserve">
     <value />
   </data>
-  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+  <data name="DeleteServer" xml:space="preserve">
     <value />
   </data>
-  <data name="PendingTB.Text" xml:space="preserve">
+  <data name="EditChannel" xml:space="preserve">
     <value />
   </data>
-  <data name="PinItem.Text" xml:space="preserve">
+  <data name="EditServer" xml:space="preserve">
     <value />
   </data>
-  <data name="RevokeBanTB.Text" xml:space="preserve">
+  <data name="InviteToServer" xml:space="preserve">
     <value />
   </data>
-  <data name="RoleTB.Text" xml:space="preserve">
+  <data name="KickMember" xml:space="preserve">
     <value />
   </data>
-  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+  <data name="LeaveServer" xml:space="preserve">
     <value />
   </data>
-  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+  <data name="MarkAsRead" xml:space="preserve">
     <value />
   </data>
-  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+  <data name="Message" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MoveChannel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MuteChannel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MuteServer" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PinFailed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PinSucess" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UnpinSucess" xml:space="preserve">
     <value />
   </data>
 </root>
