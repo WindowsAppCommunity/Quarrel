@@ -120,6 +120,9 @@
   <data name="AccentColorTB.Text" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value />
+  </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
     <value />
   </data>
@@ -138,7 +141,7 @@
   <data name="DndColorTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="ExpensiveRenderSB.Content" xml:space="preserve">
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value />
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
