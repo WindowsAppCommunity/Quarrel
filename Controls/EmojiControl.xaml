@@ -462,7 +462,7 @@
         <!-- Dummy rectangle to auto stretch to max width -->
         <Rectangle Width="348"/>
         <Grid Background="{ThemeResource MidBG}" BorderBrush="{ThemeResource Blurple}" Canvas.ZIndex="1" BorderThickness="0,0,0,1">
-            <TextBox x:Uid="SearchTBox"  x:Name="Searchbox" PlaceholderText="Search" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Padding="14" Margin="0,0,48,0" Style="{StaticResource TextBoxStyle1}" Height="48" InputScope="SearchIncremental" TextChanged="Searchbox_TextChanged"/>
+            <TextBox x:Uid="/Controls/SearchTBox"  x:Name="Searchbox" PlaceholderText="Search" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Padding="14" Margin="0,0,48,0" Style="{StaticResource TextBoxStyle1}" Height="48" InputScope="SearchIncremental" TextChanged="Searchbox_TextChanged"/>
             <Button Grid.Column="1" BorderThickness="0" HorizontalAlignment="Right" Content="👌" FontSize="22" VerticalAlignment="Stretch" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Click="Button_Click" Width="48" Height="48"/>
         </Grid>
         <Grid Grid.Row="1">

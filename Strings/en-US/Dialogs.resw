@@ -156,7 +156,7 @@
   <data name="BodyTB.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="CancelBTN.Text" xml:space="preserve">
+  <data name="CancelBTN.Content" xml:space="preserve">
     <value />
   </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">
@@ -189,7 +189,7 @@
   <data name="DetailsLI.Content" xml:space="preserve">
     <value />
   </data>
-  <data name="EditChannelNameTB.Text" xml:space="preserve">
+  <data name="EditChannelNameTBox.Header" xml:space="preserve">
     <value />
   </data>
   <data name="EditChannelTB.Text" xml:space="preserve">
@@ -400,6 +400,9 @@
     <value />
   </data>
   <data name="WidthTB.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditChannelTopicTBox.Header" xml:space="preserve">
     <value />
   </data>
 </root>
