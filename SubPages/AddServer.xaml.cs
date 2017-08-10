@@ -25,8 +25,6 @@ namespace Discord_UWP.SubPages
         public AddServer()
         {
             this.InitializeComponent();
-            CreateServerText.Text = App.Translate("CreateServer");
-            JoinServerText.Text = App.Translate("JoinServer");
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

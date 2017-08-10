@@ -460,11 +460,6 @@ namespace Discord_UWP
             }
         }
 
-        public static string Translate(string input)
-        {
-            ResourceLoader rl = new ResourceLoader();
-            return rl.GetString(input);
-        }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
