@@ -58,7 +58,7 @@ namespace Discord_UWP
             //menu.Items.Add(PinChannel);
             MenuFlyoutItem editchannel = new MenuFlyoutItem()
             {
-                Text = App.Translate("EditChannel"),
+                Text = App.GetString("/Flyouts/EditChannel"),
                 Tag = chn.Raw.Id,
                 Icon = new SymbolIcon(Symbol.Edit),
                 Margin = new Thickness(-26,0,0,0)
@@ -69,7 +69,7 @@ namespace Discord_UWP
             menu.Items.Add(sep1);
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
-                Text = App.Translate("MuteChannel"),
+                Text = App.GetString("/Flyouts/MuteChannel"),
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = chn.Raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -79,7 +79,7 @@ namespace Discord_UWP
             menu.Items.Add(mute);
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
-                Text = App.Translate("MarkAsRead"),
+                Text = App.GetString("/Flyouts/MarkAsRead"),
                 Tag = chn.Raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
                 Margin = new Thickness(-26, 0, 0, 0),
@@ -91,7 +91,7 @@ namespace Discord_UWP
             menu.Items.Add(sep2);
             MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
             {
-                Text = App.Translate("DeleteChannel"),
+                Text = App.GetString("/Flyouts/DeleteChannel"),
                 Tag = chn.Raw.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.Delete),
@@ -165,13 +165,13 @@ namespace Discord_UWP
                 bool isCreated = await tile.RequestCreateAsync();
                 if (isCreated)
                 {
-                    MessageDialog msg = new MessageDialog("Pinned Succesfully");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinSucess"));
                     await msg.ShowAsync();
-                    (sender as MenuFlyoutItem).Text = "Unpin From Start";
+                    (sender as MenuFlyoutItem).Text = App.GetString("/Flyouts/UnpinFromStart");
                 }
                 else
                 {
-                    MessageDialog msg = new MessageDialog("Failed to Pin");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinFailed"));
                     await msg.ShowAsync();
                 }
             }
@@ -182,13 +182,13 @@ namespace Discord_UWP
                 bool isDeleted = await tileToDelete.RequestDeleteAsync();
                 if (isDeleted)
                 {
-                    MessageDialog msg = new MessageDialog("Removed Succesfully");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/UnpinSucess"));
                     await msg.ShowAsync();
-                    (sender as Button).Content = "Pin From Start";
+                    (sender as Button).Content = App.GetString("/Flyouts/PinToStart");
                 }
                 else
                 {
-                    MessageDialog msg = new MessageDialog("Failed to Remove");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinFailed"));
                     await msg.ShowAsync();
                 }
             }

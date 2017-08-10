@@ -79,7 +79,7 @@
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
             <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
-                <TextBlock Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
@@ -87,11 +87,11 @@
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                    <MenuFlyoutItem x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
-                    <MenuFlyoutItem x:Name="MoreAddReaction" Text="Add Reaction" Click="MenuFlyoutItem_Click_2"/>
-                    <MenuFlyoutItem x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
-                    <MenuFlyoutItem x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
-                    <MenuFlyoutItem x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
+                    <MenuFlyoutItem x:Uid="PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
+                    <MenuFlyoutItem x:Uid="AddReacItem" Text="Add reaction" Click="MenuFlyoutItem_Click_2"/>
+                    <MenuFlyoutItem x:Uid="EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
+                    <MenuFlyoutItem x:Uid="DeleteItem" x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
+                    <MenuFlyoutItem x:Uid="CopyIdItem" x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>

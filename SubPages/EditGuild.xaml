@@ -298,13 +298,13 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="header" Text="EDIT SERVER" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Uid="/Dialogs/EditServerTB" x:Name="header" Text="EDIT SERVER" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot x:Name="pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
-                        <PivotItem Header="Overview" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Dialogs/OverviewPI" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBox x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
+                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
@@ -368,7 +368,7 @@
                                 </Grid>
                             </ScrollViewer>
                         </PivotItem>-->
-                        <PivotItem x:Name="Roles" Header="Roles">
+                        <PivotItem x:Uid="/Dialogs/RolesPI" x:Name="Roles" Header="Roles">
                             <Grid>
                                 <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
     ScrollViewer.HorizontalScrollMode="Enabled"                  
@@ -388,56 +388,56 @@
                                     <StackPanel>
                                         <TextBox x:Name="RoleName" Margin="10" LostFocus="UpdateRole">
                                             <TextBox.Header>
-                                                <TextBlock Text="ROLE NAME" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                                <TextBlock x:Uid="/Dialogs/RoleNameTB" Text="ROLE NAME" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
                                             </TextBox.Header>
                                         </TextBox>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="ROLE SETTINGS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="Hoist" Header="Display role seperatly (Hoist)" Margin="20, 5"/>
-                                            <ToggleSwitch x:Name="AllowMention" Header="Allow anyone to mention this role" Margin="20, 5"/>
+                                            <TextBlock x:Uid="/Dialogs/RoleSettingsTB" Text="ROLE SETTINGS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/RoleHoistToggle" x:Name="Hoist" Header="Display role seperatly (Hoist)" Margin="20, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/RoleAllowMentionToggle" x:Name="AllowMention" Header="Allow anyone to mention this role" Margin="20, 5"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="GENERAL PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="Administrator" Header="Administrator" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ViewAuditLog" Header="View Audit Log" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageServer" Header="Manage Server" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageRoles" Header="Manage Roles" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageChannels" Header="Manage Channels" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="KickMembers" Header="Kick Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="BanMembers" Header="Ban Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="CreateInstantInvite" Header="Create Instant Invite" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ChangeNickname" Header="Change Nickname" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageNicknames" Header="Manage Nicknames" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageEmojis" Header="Manage Emoji" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageWebhooks" Header="Manage Webhooks" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/GeneralPermissionsTB" Text="GENERAL PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AdministratorToggle" x:Name="Administrator" Header="Administrator" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ViewAuditLogToggle" x:Name="ViewAuditLog" Header="View Audit Log" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageServerToggle" x:Name="ManageServer" Header="Manage Server" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageRolesToggle" x:Name="ManageRoles" Header="Manage Roles" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageChannelsToggle" x:Name="ManageChannels" Header="Manage Channels" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/KickMembersToggle" x:Name="KickMembers" Header="Kick Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/BanMembersToggle" x:Name="BanMembers" Header="Ban Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/CreateInstantInviteToggle" x:Name="CreateInstantInvite" Header="Create Instant Invite" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ChangeNicknameToggle" x:Name="ChangeNickname" Header="Change Nickname" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageNicknamesToggle" x:Name="ManageNicknames" Header="Manage Nicknames" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageEmojisToggle" x:Name="ManageEmojis" Header="Manage Emoji" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageWebhooksToggle" x:Name="ManageWebhooks" Header="Manage Webhooks" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="TEXT PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="ReadMessages" Header="Read Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="SendMessages" Header="Send Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="SendTtsMessages" Header="Send TTS Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageMessages" Header="Manage Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="EmbedLinks" Header="Embed Links" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="AttachFiles" Header="Attach Files" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MentionEveryone" Header="Mention @everyone" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="UseExternalEmojis" Header="Use External Emojis" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="AddReactions" Header="Add Reactions" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/TextPermissionsTB" Text="TEXT PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ReadMessagesToggle" x:Name="ReadMessages" Header="Read Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SendMessagesToggle" x:Name="SendMessages" Header="Send Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SendTTSMessagesToggle" x:Name="SendTtsMessages" Header="Send TTS Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageMessagesToggle" x:Name="ManageMessages" Header="Manage Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/EmbedLinksToggle" x:Name="EmbedLinks" Header="Embed Links" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AttachFilesToggle" x:Name="AttachFiles" Header="Attach Files" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ReadMessageHistoryToggle" x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MentionEveryoneToggle" x:Name="MentionEveryone" Header="Mention @everyone" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/UseExternalEmojisToggle" x:Name="UseExternalEmojis" Header="Use External Emojis" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AddReactionsToggle" x:Name="AddReactions" Header="Add Reactions" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="VOICE PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="ConnectPerm" Header="Connect" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="Speak" Header="Speak" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MuteMembers" Header="Mute Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="DeafenMembers" Header="Deafen Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MoveMembers" Header="Move Members " Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="UseVad" Header="Use Voice Activity" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/VoicePermissionsTB" Text="VOICE PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ConnectToggle" x:Name="ConnectPerm" Header="Connect" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SpeakToggle" x:Name="Speak" Header="Speak" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MuteMembersToggle" x:Name="MuteMembers" Header="Mute Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/DeafenMembersToggle" x:Name="DeafenMembers" Header="Deafen Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MoveMembersToggle" x:Name="MoveMembers" Header="Move Members " Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/UseVoiceActivityToggle" x:Name="UseVad" Header="Use Voice Activity" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid>
                         </PivotItem>
-                        <PivotItem x:Name="Invites" Header="Invites">
+                        <PivotItem x:Uid="/Dialogs/InvitesPI" x:Name="Invites" Header="Invites">
                             <Grid>
                                 <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>
@@ -452,10 +452,10 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingInvite" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoInvitesTB" x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
-                        <PivotItem x:Name="Bans" Header="Bans">
+                        <PivotItem x:Uid="/Dialogs/BansPI" x:Name="Bans" Header="Bans">
                             <Grid>
                                 <ListView x:Name="BanView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>
@@ -470,7 +470,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingBans" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Name="NoBans" Visibility="Visible" Text="NO BANS FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoBansTB" x:Name="NoBans" Visibility="Visible" Text="NO BANS FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                     </Pivot>
@@ -480,8 +480,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
+                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
                         </Grid>
                     </Grid>
                 </Grid>

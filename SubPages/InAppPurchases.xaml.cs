@@ -67,12 +67,12 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
                             {
-                                MessageDialog msg = new MessageDialog("Bought");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
                             }
                             else
                             {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
                                 await msg.ShowAsync();
                             }
 
@@ -87,7 +87,7 @@ namespace Discord_UWP.SubPages
                         }
                         catch (Exception)
                         {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
+                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
                             await msg.ShowAsync();
                         }
                     }
@@ -107,12 +107,12 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
                             {
-                                MessageDialog msg = new MessageDialog("Bought");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
                             }
                             else
                             {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
                                 await msg.ShowAsync();
                             }
 
@@ -127,7 +127,7 @@ namespace Discord_UWP.SubPages
                         }
                         catch (Exception)
                         {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
+                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
                             await msg.ShowAsync();
                         }
                     }
@@ -147,12 +147,12 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["SignificantDonation "].IsActive)
                             {
-                                MessageDialog msg = new MessageDialog("Bought");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
                             }
                             else
                             {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
                                 await msg.ShowAsync();
                             }
 
@@ -166,7 +166,7 @@ namespace Discord_UWP.SubPages
                         }
                         catch (Exception)
                         {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
+                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
                             await msg.ShowAsync();
                         }
                     }
@@ -186,12 +186,12 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
                             {
-                                MessageDialog msg = new MessageDialog("Bought");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
                             }
                             else
                             {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
                                 await msg.ShowAsync();
                             }
 
@@ -205,7 +205,7 @@ namespace Discord_UWP.SubPages
                         }
                         catch (Exception)
                         {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
+                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
                             await msg.ShowAsync();
                         }
                     }
@@ -225,12 +225,12 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
                             {
-                                MessageDialog msg = new MessageDialog("Bought");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
                             }
                             else
                             {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
+                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
                                 await msg.ShowAsync();
                             }
 
@@ -244,7 +244,7 @@ namespace Discord_UWP.SubPages
                         }
                         catch (Exception)
                         {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
+                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
                             await msg.ShowAsync();
                         }
                     }
