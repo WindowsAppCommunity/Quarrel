@@ -776,10 +776,10 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="12,0,0,0">
-                                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="File name:"/>
-                                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="File size:"/>
-                                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="Width:"/>
-                                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="Height:"/>
+                                                <TextBlock x:Uid="/Dialogs/FileNameTB" FontSize="14" FontWeight="SemiBold" Text="File name:"/>
+                                                <TextBlock x:Uid="/Dialogs/FileSizeTB" FontSize="14" FontWeight="SemiBold" Text="File size:"/>
+                                                <TextBlock x:Uid="/Dialogs/WidthTB" FontSize="14" FontWeight="SemiBold" Text="Width:"/>
+                                                <TextBlock x:Uid="/Dialogs/HeightTB" FontSize="14" FontWeight="SemiBold" Text="Height:"/>
                                             </StackPanel>
                                             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="48,0,12,0">
                                                 <TextBlock FontSize="14" Text="IMG_1456.jpeg" Loaded="Filename_OnLoaded"/>
@@ -839,14 +839,14 @@
                         </Rectangle>
                         <CommandBar x:Name="commandBar" Background="Transparent" VerticalAlignment="Bottom" Style="{StaticResource CommandBarStyle2}">
                             <CommandBar.PrimaryCommands>
-                                <AppBarButton x:Name="Save" Icon="Save" Label="Save"/>
-                                <AppBarButton x:Name="Share" Label="Share" Click="Share_OnClick">
+                                <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save"/>
+                                <AppBarButton x:Uid="/Dialogs/ShareABB" Label="Share" Click="Share_OnClick">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE72D;"/>
                                     </AppBarButton.Icon>
                                 </AppBarButton>
-                                <AppBarButton x:Name="Globe" Icon="Globe" Label="Open in browser" Click="Open_OnClick"/>
-                                <AppBarButton x:Name="Link" Icon="Link" Label="Copy link" Click="CopyLink_OnClick"/>
+                                <AppBarButton x:Uid="/Dialogs/OpenInBrowserABB" Icon="Globe" Label="Open in browser" Click="Open_OnClick"/>
+                                <AppBarButton x:Uid="/Dialogs/CopyLinkABB" Icon="Link" Label="Copy link" Click="CopyLink_OnClick"/>
                             </CommandBar.PrimaryCommands>
                             <CommandBar.SecondaryCommands>
                                 <AppBarButton Label="test"/>

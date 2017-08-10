@@ -94,19 +94,19 @@ namespace Discord_UWP
             try
             {
                 LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
-                LoadingSplash.Status = App.Translate("LoggingIn").ToUpper();
+                LoadingSplash.Status = App.GetString("/Main/LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
                 EstablishGateway();
                 LoadingSplash.Show(false);
-                LoadingSplash.Status = App.Translate("Loading").ToUpper();
+                LoadingSplash.Status = App.GetString("/Main/Loading");
 
                 LoadMessages();
                 LoadMutedChannels();
 
                 await LoadUser();
                 LoadGuilds();
-                LoadingSplash.Status = App.Translate("Connected").ToUpper();
+                LoadingSplash.Status = App.GetString("/Main/Connected");
                 await Task.Delay(1000);
 
                 var licenseInformation = CurrentApp.LicenseInformation;
@@ -125,7 +125,7 @@ namespace Discord_UWP
 
                 await LoadUser();
 
-                LoadingSplash.Status = App.Translate("Offline").ToUpper();
+                LoadingSplash.Status = App.GetString("Offline");
                 await Task.Delay(3000);
                 Session.Online = false;
             }
@@ -159,18 +159,7 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
-            UpvoteTitle.Text = App.Translate("VCMessageTitle").ToUpper();
-            UpvoteDesc.Text = App.Translate("VCMessageDesc");
-            AddChannelblock.Text = App.Translate("AddChannel");
-            TextChannelText.Text = App.Translate("TextChannels").ToUpper();
-            VoiceChannelText.Text = App.Translate("VoiceChannels").ToUpper();
-            RefreshButton.Label = App.Translate("Refresh");
-            MuteToggle.Label = App.Translate("MuteChannel");
-            MemberListToggle.Label = App.Translate("ToggleMemberList");
-            PinnedMessageToggle.Label = App.Translate("PinnedMessages");
-            ChangeLog.Label = App.Translate("About") + " + " +  App.Translate("ChangeLog");
-            IAPSButton.Label = App.Translate("InAppPurchases");
-            SettingsButton.Label = App.Translate("Settings");
+           
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -468,10 +457,6 @@ namespace Discord_UWP
                            _onlyAllowOpeningPane = true;
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
-                           if ((ServerList.SelectedItem as SimpleGuild).Name == "Direct Messages")
-                           {
-                               ServerName.Text = App.Translate("DirectMessages").ToUpper();
-                           }
                            TextChannels.Items.Clear();
                            Typers.Clear();
                            MembersCvs.Source = null;
@@ -642,7 +627,7 @@ namespace Discord_UWP
                 if (roleid == null || !Storage.Cache.Guilds[guildid].Roles[roleid].Hoist)
                 {
 
-                    role = new DisplayedRole(null, 0, "EVERYONE", everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
+                    role = new DisplayedRole(null, 0, App.GetString("/Main/Everyone"), everyonecounter, (SolidColorBrush)App.Current.Resources["Foreground"]);
                     TempRoleCache.Add(role);
                 }
                 else
@@ -1228,19 +1213,10 @@ namespace Discord_UWP
         #region ChannelSettings
         private void OpenChannelSettings(object sender, RoutedEventArgs e)
         {
+           
             App.NavigateToChannelEdit((sender as Button).Tag.ToString());
         }
-        private void SaveCreateChannel(object sender, RoutedEventArgs e)
-        {
-            Session.CreateChannel((ServerList.SelectedItem as SimpleGuild).Id, CreateChannelName.Text);
-            CreateChannel.IsPaneOpen = false;
-        }
-        private void CloseCreateChannel(object sender, RoutedEventArgs e)
-        {
-            CreateChannel.IsPaneOpen = false;
-        }
         #endregion
-
         public static bool SelectChannel = false;
         public static string SelectChannelId = "";
         public static string SelectGuildId = "";
@@ -1455,6 +1431,11 @@ namespace Discord_UWP
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
+        }
+
+        private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateChannel), null);
         }
 
         private void MessageBox1_OpenAdvanced(object sender, RoutedEventArgs e)

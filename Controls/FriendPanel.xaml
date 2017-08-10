@@ -21,23 +21,23 @@
                     <ItemsStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <ListViewItem x:Name="AllItem" Content="ALL" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
+            <ListViewItem x:Uid="/Controls/AllLI" Content="ALL" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="PendingText" Text="PENDING"/>
+                    <TextBlock x:Uid="/Controls/PendingTB" Text="PENDING"/>
                     <Border x:Name="PendingCounterContainer" Margin="6,0,0,-2" Background="{ThemeResource InvertedBG}" CornerRadius="2" Padding="0,-2,0,0">
                         <TextBlock x:Name="PendingCounter" Text="0" Margin="4,0,4,2" Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
                     </Border>
                 </StackPanel>
             </ListViewItem>
-            <ListViewItem x:Name="BlockedItem" Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
+            <ListViewItem x:Uid="/Controls/BlockedLI" Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
         </ListView>
         <Pivot x:Name="pivot" Grid.Row="1">
             <PivotItem Margin="0,-48,0,0">
                 <ListView Padding="12,12,12,0" Margin="0" ItemContainerStyle="{StaticResource ChannelItemStyle}">
 
                     <ListView.Header>
-                        <CheckBox x:Name="OnlyShowOnlineFriends" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12"/>
+                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12"/>
                     </ListView.Header>
                 </ListView>
 
