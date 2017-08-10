@@ -26,12 +26,6 @@ namespace Discord_UWP.SubPages
     {
         public InAppPurchases()
         {
-            header.Text = App.Translate("InAppPurchases");
-            BuyAdRemovalButton.Content = App.Translate("RemoveAds") + " $1.29";
-            PoliteDonatation.Content = App.Translate("PoliteDonation") + " $0.99";
-            SignificantDonatation.Content = App.Translate("SignificantDonatation") + " $1.99";
-            OMGTHXDonatation.Content = App.Translate("OMGTHXDonatation") + " $2.99";
-            RidiculousDonatation.Content = App.Translate("RidiculousDonatation") + " $4.99";
             this.InitializeComponent();
         }
         private void NavAway_Completed(object sender, object e)

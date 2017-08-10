@@ -27,12 +27,6 @@ namespace Discord_UWP.SubPages
         public ExtendedMessageEditor()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("AdvancedMessageEditor").ToUpper();
-            BodyText.Text = App.Translate("Body").ToUpper();
-            AttachmentsText.Text = App.Translate("Attachments").ToUpper();
-
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Send");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

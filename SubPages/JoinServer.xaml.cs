@@ -27,10 +27,6 @@ namespace Discord_UWP.SubPages
         public JoinServer()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("JoinAServer").ToUpper();
-            Instructions.Text = App.Translate("JoinServerInstructions");
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Join");
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

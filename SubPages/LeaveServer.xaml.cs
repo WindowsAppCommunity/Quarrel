@@ -25,8 +25,6 @@ namespace Discord_UWP.SubPages
         public LeaveServer()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("LeaveServer");
         }
 
         string guildId = "";

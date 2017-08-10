@@ -25,8 +25,6 @@ namespace Discord_UWP.SubPages
         public DeleteServer()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Delete");
         }
 
         string guildId = "";
