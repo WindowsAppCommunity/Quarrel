@@ -603,10 +603,10 @@ namespace Discord_UWP
             }
         }
 
+
         public static HttpClient messageclient = new HttpClient();
-
-
         public static event Windows.Foundation.AsyncOperationProgressHandler<HttpResponseMessage, HttpProgress> MessageUploadProgress;
+
         public static async void CreateMessage(string id, string text, Windows.Storage.StorageFile file)
         {
             try
@@ -615,17 +615,17 @@ namespace Discord_UWP
                 message.Content = text;
 
                 HttpMultipartFormDataContent content = new HttpMultipartFormDataContent();
-                if(file != null)
+                if (file != null)
                     content.Add(new HttpStreamContent(await file.OpenAsync(Windows.Storage.FileAccessMode.Read)), "file");
 
                 content.Add(new HttpStringContent(JsonConvert.SerializeObject(message)), "payload_json");
 
                 if (!messageclient.DefaultRequestHeaders.ContainsKey("Authorization")) ;
-                    messageclient.DefaultRequestHeaders.Add(new KeyValuePair<string, string>("Authorization", Token));
+                messageclient.DefaultRequestHeaders.Add(new KeyValuePair<string, string>("Authorization", Token));
 
 
 
-                var send = messageclient.PostAsync(new Uri(config.BaseUrl + "/channels/"+ id +"/messages"), content);
+                var send = messageclient.PostAsync(new Uri(config.BaseUrl + "/channels/" + id + "/messages"), content);
                 send.Progress = MessageUploadProgress;
                 await send;
             }

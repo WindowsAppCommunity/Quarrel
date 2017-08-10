@@ -77,7 +77,6 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            MessageEditor.PlaceholderText = App.Translate("SendMessage");
         }
 
         public void Clear()
@@ -194,7 +193,7 @@ namespace Discord_UWP.Controls
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
                 }
-                //Text = str;
+              //  Text = str;
             }
             catch
             {
@@ -316,7 +315,10 @@ namespace Discord_UWP.Controls
         {
             Cancel?.Invoke(this, e);
         }
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenAdvanced?.Invoke(null, null);
+        }
 
         #region TextProcessing
         private string ProcessString(string input)
@@ -439,10 +441,5 @@ namespace Discord_UWP.Controls
             return indexes;
         }
         #endregion
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            OpenAdvanced?.Invoke(null, null);
-        }
     }
 }

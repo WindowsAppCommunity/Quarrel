@@ -127,7 +127,7 @@
     <value>Administrator</value>
   </data>
   <data name="AdvancedMessageEditorTB" xml:space="preserve">
-    <value>Advanced message editor</value>
+    <value>ADVANCED MESSAGE EDITOR</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
     <value>Attachements</value>
@@ -443,5 +443,14 @@
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
     <value>CREATE CHANNEL</value>
+  </data>
+  <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
+    <value>Open file</value>
+  </data>
+  <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
+    <value>Record sound</value>
+  </data>
+  <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
+    <value>Take photo</value>
   </data>
 </root>

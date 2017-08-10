@@ -127,7 +127,7 @@
     <value>Administrateur</value>
   </data>
   <data name="AdvancedMessageEditorTB" xml:space="preserve">
-    <value>EDITEUR AVANCÉ</value>
+    <value>EDITEUR DE MESSAGE AVANCÉ</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
     <value>Pièces jointes</value>
@@ -443,5 +443,14 @@
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
     <value>NOUVEAU SALON</value>
+  </data>
+  <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
+    <value>Ouvrir un fichier</value>
+  </data>
+  <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
+    <value>Enregistrer un son</value>
+  </data>
+  <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
+    <value>Prendre une photo</value>
   </data>
 </root>

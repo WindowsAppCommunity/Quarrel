@@ -1435,7 +1435,12 @@ namespace Discord_UWP
 
         private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.CreateServer), null);
+            SubFrameNavigator(typeof(SubPages.CreateChannel), null);
+        }
+
+        private void MessageBox1_OpenAdvanced(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), MessageBox1.Text);
         }
     }
 }
