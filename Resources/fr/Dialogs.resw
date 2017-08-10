@@ -441,4 +441,7 @@
   <data name="VerifyLogout" xml:space="preserve">
     <value>Êtes vous sûr de vouloir vous déconnecter?</value>
   </data>
+  <data name="CreateChannelTB.Text" xml:space="preserve">
+    <value>NOUVEAU SALON</value>
+  </data>
 </root>

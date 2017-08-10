@@ -122,8 +122,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
-    <PRIResource Include="Languages\en-us\Resources.resw" />
-    <PRIResource Include="Languages\es-mx\Resources.resw" />
     <None Include="project.json" />
     <PRIResource Include="Resources\fr\Settings.resw" />
     <PRIResource Include="Resources\fr\Main.resw" />
@@ -583,8 +581,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\CreateChannel.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\CreateServer.xaml">
       <SubType>Designer</SubType>
@@ -660,9 +658,7 @@
       <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.15063.0%29</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Languages\fr-fr\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

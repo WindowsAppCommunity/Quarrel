@@ -25,12 +25,7 @@ namespace Discord_UWP.SubPages
         public CreateChannel()
         {
             this.InitializeComponent();
-            GuildName.Header = App.Translate("Name").ToUpper();
-            Header.Text = App.Translate("CreateChannel").ToUpper();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Save");
         }
-
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             CloseButton_Click(null, null);
