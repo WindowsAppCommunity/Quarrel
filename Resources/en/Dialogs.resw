@@ -441,4 +441,7 @@
   <data name="VerifyLogout" xml:space="preserve">
     <value>Are you sure you want to log out?</value>
   </data>
+  <data name="CreateChannelTB.Text" xml:space="preserve">
+    <value>CREATE CHANNEL</value>
+  </data>
 </root>
