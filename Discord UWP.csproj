@@ -111,6 +111,9 @@
     <Content Include="Assets\ConnectionLogos\twitter.png" />
     <Content Include="Assets\ConnectionLogos\youtube.png" />
     <Content Include="Assets\DiscordAssets\default_avatar.jpg" />
+    <Content Include="Assets\DiscordAssets\Friends_dark.png" />
+    <Content Include="Assets\DiscordAssets\Friends_light.png" />
+    <Content Include="Assets\DiscordAssets\groupchat.svg" />
     <Content Include="Assets\DiscordBadges\hypesquad.png" />
     <Content Include="Assets\DiscordBadges\nitro.png" />
     <Content Include="Assets\DiscordBadges\partner.png" />
@@ -439,8 +442,6 @@
     <Content Include="Assets\DiscordIcon.png" />
     <Content Include="Assets\DiscordLogo.jpg" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Assets\Friends_black.svg" />
-    <Content Include="Assets\Friends_white.svg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
