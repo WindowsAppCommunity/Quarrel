@@ -323,6 +323,7 @@
     </Compile>
     <Compile Include="Main Extra\Actions.cs" />
     <Compile Include="Main Extra\ChannelsManager.cs" />
+    <Compile Include="Main Extra\ClipboardManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />
     <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />

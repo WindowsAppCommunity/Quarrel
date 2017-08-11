@@ -40,6 +40,7 @@ using Discord_UWP.CacheModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Core;
 
 namespace Discord_UWP
 {
@@ -343,67 +344,27 @@ namespace Discord_UWP
         }
 
         #endregion
-        //internal static string ChannelId;
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-
-        /*protected override async void OnActivated(IActivatedEventArgs e)
+        protected override async void OnActivated(IActivatedEventArgs args)
         {
-            await InitializeApp();
-
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame == null)
+            if (args.Kind == ActivationKind.Protocol)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                if(eventArgs.Uri.Segments.Count() > 1 && eventArgs.Uri.Segments[1] == "invite-proxy/")
                 {
-                    // TODO: Load state from previously suspended application
+                    NavigateToGuild(eventArgs.Uri.Segments[2]);
                 }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
-
-            if (e is ToastNotificationActivatedEventArgs)
+            } 
+            else if(args.Kind == ActivationKind.ToastNotification)
             {
-                var toastActivationArgs = e as ToastNotificationActivatedEventArgs;
-                // If empty args, no specific action (just launch the app)
-                if (toastActivationArgs.Argument.Length == 0)
+                var eventArgs = args as IToastNotificationActivatedEventArgs;
+                if (eventArgs.Argument.StartsWith("invite/"))
                 {
-                    if (rootFrame.Content == null)
-                        rootFrame.Navigate(typeof(MainPage));
-                }
-                // Otherwise an action is provided
-                else
-                {
-                    // Parse the query string
-                    QueryString args = QueryString.Parse(toastActivationArgs.Argument);
-                    // See what action is being requested 
-                    switch (args["action"])
-                    {
-                        // Open the image
-                        case "reply":
-                            await HandleReply(args);
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
-                    // If we're loading the app for the first time, place the main page on the back stack
-                    // so that user can go back after they've been navigated to the specific page
-                    if (rootFrame.BackStack.Count == 0)
-                        rootFrame.BackStack.Add(new PageStackEntry(typeof(MainPage), null, null));
+                    string code = eventArgs.Argument.Remove(0, 7);
+                    await Session.AcceptInvite(code);
                 }
             }
-        }*/
+        }
 
         private void LoadSettings()
         {
@@ -460,9 +421,12 @@ namespace Discord_UWP
             }
         }
 
-
+        public static SplashScreen Splash;
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            //Get splash screen info
+            Splash = e.SplashScreen;
+
             //Set the title bar colors:
 
             #region Resources
@@ -479,6 +443,7 @@ namespace Discord_UWP
             view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
             view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
+            
 
             var accentString = Storage.Settings.AccentBrush;
             var accentColor = accentString.ToColor();
