@@ -192,6 +192,7 @@ namespace Discord_UWP
                     }
 
                     LoadingSplash.Hide(true);
+                    //CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
                     LoadGuilds();
                     Storage.SaveCache();
                 });

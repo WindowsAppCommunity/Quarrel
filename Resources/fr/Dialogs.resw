@@ -453,4 +453,7 @@
   <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
     <value>Prendre une photo</value>
   </data>
+  <data name="on" xml:space="preserve">
+    <value>sur</value>
+  </data>
 </root>

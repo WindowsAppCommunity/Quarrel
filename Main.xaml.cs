@@ -74,6 +74,7 @@ using Guild = Discord_UWP.CacheModels.Guild;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Windows.UI.ViewManagement;
+using Windows.ApplicationModel.DataTransfer;
 #endregion
 
 
@@ -118,6 +119,7 @@ namespace Discord_UWP
             catch
             {
                 LoadingSplash.Hide(false);
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
                 App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed; await LoadCache();
                 LoadMessages();
@@ -161,6 +163,7 @@ namespace Discord_UWP
             this.InitializeComponent();
            
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null && e.Parameter.ToString() != "")

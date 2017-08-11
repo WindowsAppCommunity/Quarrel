@@ -16,6 +16,11 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discord">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.BackgroundActivity">
           <BackgroundTasks>
             <Task Type="timer" />
@@ -30,7 +35,7 @@
             <uap:ShowOn Tile="wide310x150Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#23272A" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#1e2124" />
       </uap:VisualElements>
     </Application>
   </Applications>
