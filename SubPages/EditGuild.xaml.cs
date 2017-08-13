@@ -111,7 +111,7 @@ namespace Discord_UWP.SubPages
             {
                 foreach (Role role in Storage.Cache.Guilds[guildId].Roles.Values.OrderBy(x => x.Position))
                 {
-                    RolesView.Items.Add(new SimpleRole(role.Id, role.Name, Common.IntToColor(role.Color)));
+                    RolesView.Items.Add(new ListViewItem() { Foreground = Common.IntToColor(role.Color), Content = role.Name, Tag = role.Id });
                 }
                 RolesView.SelectedIndex = 0;
             }
@@ -308,7 +308,7 @@ namespace Discord_UWP.SubPages
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             loadingRoles = true;
-            Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
+            Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as ListViewItem).Tag as string];
             if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = false;

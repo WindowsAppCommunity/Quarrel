@@ -409,12 +409,12 @@
                     <VisualState.Setters>
                         <Setter Target="MessageBox1.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,0,0,12</Thickness>
+                                <Thickness>0,6,0,12</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="TypingStackPanel.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,0,0,48</Thickness>
+                                <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="rectangle.(FrameworkElement.Margin)">
@@ -427,6 +427,8 @@
                                 <Thickness>12,0</Thickness>
                             </Setter.Value>
                         </Setter>
+                        <Setter Target="MessageBox1.(Grid.Row)" Value="1"/>
+                        <Setter Target="TypingStackPanel.(Grid.Row)" Value="0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Mid">
@@ -440,6 +442,11 @@
                         <Setter Target="MessageArea.(FrameworkElement.Margin)">
                             <Setter.Value>
                                 <Thickness>64,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -457,6 +464,11 @@
                             </Setter.Value>
                         </Setter>
                         <Setter Target="Servers.(SplitView.CompactPaneLength)" Value="64"/>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VeryLarge">
@@ -475,6 +487,11 @@
                         <Setter Target="Members.(SplitView.IsPaneOpen)" Value="True"/>
                         <Setter Target="Servers.(FrameworkElement.VerticalAlignment)" Value="Stretch"/>
                         <Setter Target="Servers.(SplitView.CompactPaneLength)" Value="64"/>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -564,7 +581,11 @@
                     </ListView.Footer>
                 </tk:PullToRefreshListView>
                 <!-- </ScrollViewer>-->
-                <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
+                <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0" VerticalAlignment="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                     <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" OpenAdvanced="MessageBox1_OpenAdvanced" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom"/>
                     <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
