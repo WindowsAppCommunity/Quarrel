@@ -514,7 +514,7 @@ namespace Discord_UWP
         {
             try
             {
-                StorageFile file = await Storage.SavedData.GetFileAsync("mutedchannels");
+                 StorageFile file = await Storage.SavedData.GetFileAsync("mutedchannels");
                 try
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
