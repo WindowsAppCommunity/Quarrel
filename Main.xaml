@@ -397,6 +397,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="ChangeStatusColor">
+            <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
 
     </Page.Resources>
     <Grid Background="{ThemeResource DeepBG}">
@@ -738,7 +745,7 @@
                                             <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
                                         </Rectangle.Fill>
                                     </Rectangle>
-                                    <Ellipse x:Name="UserStatusIndicator" Fill="{ThemeResource online}"  Width="12" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
+                                    <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="16" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="16" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
                                     <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>

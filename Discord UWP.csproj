@@ -158,6 +158,9 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\AttachementControl.xaml.cs">
+      <DependentUpon>AttachementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BanControl.xaml.cs">
       <DependentUpon>BanControl.xaml</DependentUpon>
     </Compile>
@@ -495,6 +498,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ClickyButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AttachementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

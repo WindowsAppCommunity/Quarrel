@@ -883,7 +883,7 @@ namespace Discord_UWP
                     UserStatusDND.IsChecked = true;
                     AnimateStatusColor((SolidColorBrush)App.Current.Resources["dnd"]);
                 }
-                if (e.EventData.Status == "offline")
+                if (e.EventData.Status == "invisible")
                 {
                     UserStatusInvisible.IsChecked = true;
                     AnimateStatusColor((SolidColorBrush)App.Current.Resources["offline"]);
@@ -895,11 +895,8 @@ namespace Discord_UWP
         ColorAnimation ca = new ColorAnimation();
         private void AnimateStatusColor(SolidColorBrush brush)
         {
-            ca.To = brush.Color;
-            Storyboard.SetTargetName(ca, "UserStatusIndicator");
-            Storyboard.SetTargetProperty(ca, "Fill");
-            ca.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
-            sb.Begin();
+            StatusColorAnimation.To = brush.Color;
+            ChangeStatusColor.Begin();
         }
         private async void PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
