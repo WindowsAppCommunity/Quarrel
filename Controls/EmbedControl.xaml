@@ -15,7 +15,7 @@
     <Border CornerRadius="4" Background="{ThemeResource MidBG}">
         <Grid>
             <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="Red" CornerRadius="4,0,0,4"/>
-            <StackPanel Margin="16,12,12,12">
+            <StackPanel x:Name="stacker" Margin="16,12,12,12">
                 
                 <Grid x:Name="HeaderGrid">
                     <Grid.ColumnDefinitions>
@@ -41,9 +41,10 @@
                     </StackPanel>
                     <Image x:Name="ThumbnailImage" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
                 </Grid>
-                <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="0,6">
-                    <Image x:Name="ImageViewer"/>
+                <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
+                    <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped"/>
                 </Viewbox>
+                <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
                 <StackPanel x:Name="FooterSP" Orientation="Horizontal">
                     <Image x:Name="FooterImage"  Width="18" Height="18" Margin="0,0,8,0"/>
                     <TextBlock x:Name="FooterText"  Text="FooterText" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
