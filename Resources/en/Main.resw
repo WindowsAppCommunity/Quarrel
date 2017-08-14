@@ -259,9 +259,12 @@
     <value>and</value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
-    <value>are typing</value>
+    <value>are typing...</value>
   </data>
   <data name="TypingSingular" xml:space="preserve">
-    <value>is typing</value>
+    <value>is typing...</value>
+  </data>
+  <data name="SubmittedBy" xml:space="preserve">
+    <value>Submitted by</value>
   </data>
 </root>

@@ -43,6 +43,7 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Friend = Discord_UWP.CacheModels.Friend;
+using Windows.UI.Xaml.Media.Animation;
 #endregion
 
 namespace Discord_UWP
@@ -868,16 +869,38 @@ namespace Discord_UWP
             {
                 //LocalStatusChangeEnabled = false;
                 if (e.EventData.Status == "online")
+                {
                     UserStatusOnline.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["online"]);
+                }
                 if (e.EventData.Status == "idle")
+                {
                     UserStatusIdle.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["idle"]);
+                }
                 if (e.EventData.Status == "dnd")
+                {
                     UserStatusDND.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["dnd"]);
+                }
                 if (e.EventData.Status == "offline")
+                {
                     UserStatusInvisible.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["offline"]);
+                }
             });
         }
 
+        Storyboard sb = new Storyboard() { Duration = TimeSpan.FromMilliseconds(300) };
+        ColorAnimation ca = new ColorAnimation();
+        private void AnimateStatusColor(SolidColorBrush brush)
+        {
+            ca.To = brush.Color;
+            Storyboard.SetTargetName(ca, "UserStatusIndicator");
+            Storyboard.SetTargetProperty(ca, "Fill");
+            ca.EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseInOut };
+            sb.Begin();
+        }
         private async void PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))
