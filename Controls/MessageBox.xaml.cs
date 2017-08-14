@@ -76,7 +76,14 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            MessageEditor.PlaceholderText = App.Translate("SendMessage");
+            if (Session.Online)
+            {
+                MessageEditor.PlaceholderText = App.Translate("SendMessage");
+            } else
+            {
+                MessageEditor.PlaceholderText = App.Translate("CantSendMessagesOffline");
+                IsEnabled = false;
+            }
         }
 
         public void Clear()
@@ -91,6 +98,7 @@ namespace Discord_UWP.Controls
             {
                 MessageEditor.IsEnabled = IsEnabled;
                 SendBox.IsEnabled = IsEnabled;
+                EmojiButton.IsEnabled = IsEnabled;
             }
             if(prop == TextProperty)
             {

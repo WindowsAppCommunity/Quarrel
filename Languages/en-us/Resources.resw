@@ -239,7 +239,6 @@
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
-    <comment> </comment>
   </data>
   <data name="DevelopedBy" xml:space="preserve">
     <value>Developed by Avid29</value>
@@ -528,5 +527,8 @@
   </data>
   <data name="VoiceChannels" xml:space="preserve">
     <value>Voice Channels</value>
+  </data>
+  <data name="CantSendMessagesOffline" xml:space="preserve">
+    <value>Cant Send Messages Offline</value>
   </data>
 </root>
