@@ -735,9 +735,10 @@
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="8">
                                     <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
                                         <Rectangle.Fill>
-                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
+                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
                                         </Rectangle.Fill>
                                     </Rectangle>
+                                    <Ellipse x:Name="UserStatusIndicator" Fill="{ThemeResource online}"  Width="12" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
                                     <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>

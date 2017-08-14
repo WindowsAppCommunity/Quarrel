@@ -264,4 +264,7 @@
   <data name="TypingSingular" xml:space="preserve">
     <value>est en train d'écrire...</value>
   </data>
+  <data name="SubmittedBy" xml:space="preserve">
+    <value>Soumis par</value>
+  </data>
 </root>

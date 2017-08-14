@@ -94,7 +94,6 @@ namespace Discord_UWP
             LoadingSplash.Show(false);
             try
             {
-                LoadingSplash.Message = EntryMessages.GetMessage().ToUpper();
                 LoadingSplash.Status = App.GetString("/Main/LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
