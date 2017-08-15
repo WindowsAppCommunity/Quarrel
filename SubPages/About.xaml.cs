@@ -15,14 +15,6 @@ namespace Discord_UWP.SubPages
         public About()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("About").ToUpper();
-            AboutDesc.Text = App.Translate("AboutDesc");
-            DiscussOnTwitterText.Text = App.Translate("DisOnTwitter");
-            JoinServerText.Text = App.Translate("JoinDiscordUWPServer");
-            LeaveFeedbackText.Text = App.Translate("LeaveFeedback");
-            DevelopedByText.Text = App.Translate("DevelopedBy");
-            DesignedByText.Text = App.Translate("DesignedBy");
-            ChangeLogheader.Text = App.Translate("ChangeLog").ToUpper() + App.Translate("ChangelogMsg");
         }
 
         private async void OpenFeedbackHub(object sender, RoutedEventArgs e)
@@ -51,7 +43,7 @@ namespace Discord_UWP.SubPages
         private async void joinDiscordUWPServer(object sender, RoutedEventArgs e)
         {
             JoinServer.IsHitTestVisible = false;
-            JoinServerText.Text = "Joining...";
+            JoinServerText.Text = App.GetString("/About/JoinWait");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += TimerOnTick;
             try
@@ -60,11 +52,11 @@ namespace Discord_UWP.SubPages
             }
             catch (Exception exception)
             {
-                JoinServerText.Text = "Failed to join server!";
+                JoinServerText.Text = App.GetString("/About/JoinFail");
                 timer.Start();
                 return;
             }
-            JoinServerText.Text = "Sucess!";
+            JoinServerText.Text = App.GetString("/About/JoinSucess");
             timer.Start();
         }
 
@@ -73,7 +65,7 @@ namespace Discord_UWP.SubPages
             timer.Tick -= TimerOnTick;
             timer.Stop();
             JoinServer.IsHitTestVisible = true;
-            JoinServerText.Text = "Join Discord UWP server";
+            JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServerTB/Text");
         }
 
     }

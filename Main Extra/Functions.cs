@@ -476,7 +476,7 @@ namespace Discord_UWP
             }
             catch
             {
-                MessageDialog msg = new MessageDialog("You had no cache, the app will now start caching data to improve loading times");
+                MessageDialog msg = new MessageDialog(App.GetString("/Main/PromptNoCache"));
                 await msg.ShowAsync();
             }
         }
@@ -500,13 +500,13 @@ namespace Discord_UWP
                 {
                     Storage.RecentMessages.Clear();
                     Storage.SaveMessages();
-                    MessageDialog msg = new MessageDialog("There was an issue loading message history saves. History cleared so it can work in the future");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Main/PromptMessageSaveError"));
                     await msg.ShowAsync();
                 }
             }
             catch
             {
-                MessageDialog msg = new MessageDialog("You have no history message history saved");
+               
             }
         }
 
@@ -514,7 +514,7 @@ namespace Discord_UWP
         {
             try
             {
-                StorageFile file = await Storage.SavedData.GetFileAsync("mutedchannels");
+                 StorageFile file = await Storage.SavedData.GetFileAsync("mutedchannels");
                 try
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
@@ -525,13 +525,13 @@ namespace Discord_UWP
                 {
                     Storage.MutedChannels.Clear();
                     Storage.SaveMutedChannels();
-                    MessageDialog msg = new MessageDialog("There was an issue loading muted channels. Cleared so it can work in the future");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Main/PromptMutedCacheError"));
                     await msg.ShowAsync();
                 }
             }
             catch
             {
-                MessageDialog msg = new MessageDialog("You have no muted channels saved");
+
             }
 
             try
@@ -547,13 +547,13 @@ namespace Discord_UWP
                 {
                     Storage.MutedServers.Clear();
                     Storage.SaveMutedChannels();
-                    MessageDialog msg = new MessageDialog("There was an issue loading muted channels. Cleared so it can work in the future");
+                    MessageDialog msg = new MessageDialog(App.GetString("/Main/PromptMutedCacheError"));
                     await msg.ShowAsync();
                 }
             }
             catch
             {
-                MessageDialog msg = new MessageDialog("You have no muted channels saved");
+
             }
         }
 

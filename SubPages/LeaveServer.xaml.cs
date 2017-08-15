@@ -25,15 +25,13 @@ namespace Discord_UWP.SubPages
         public LeaveServer()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("LeaveServer");
         }
 
         string guildId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
-            Message.Text = "Are you sure you want to leave " + Storage.Cache.Guilds[guildId].RawGuild.Name+ "?";
+            Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + Storage.Cache.Guilds[guildId].RawGuild.Name+ "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

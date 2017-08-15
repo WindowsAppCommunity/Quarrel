@@ -27,37 +27,6 @@ namespace Discord_UWP.SubPages
         public Settings()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("Settings");
-            UIItem.Header = App.Translate("UI");
-            ResponsiveUIText.Text = App.Translate("ResponsiveUI").ToUpper();
-            AppBarAtBottom_checkbox.Content = App.Translate("AllignAppbarToBottom");
-            ExpensiveUI.Content = App.Translate("ExpensiveRender");
-            ThemeText.Text = App.Translate("Theme").ToUpper();
-            RestartRequiredText.Text = App.Translate("RestartRequired");
-            radio_Dark.Content = App.Translate("Dark");
-            radio_Light.Content = App.Translate("Light");
-            AccentColorText.Text = App.Translate("AccentColor");
-            CompactMode.Content = App.Translate("CompactMode");
-            NotificationsItem.Header = App.Translate("Notifications");
-            HighlightEveryone.Content = App.Translate("Highlight") + " @everyone";
-            Vibrate.Content = App.Translate("VibrateOnMessage");
-            Toasts.Content = App.Translate("ShowToastsInApp");
-            AdvancedItem.Header = App.Translate("Advanced");
-            ResponsiveUIBreakpointText.Text = App.Translate("ResponsiveUIBreakpoint").ToUpper();
-            ResponsiveUIBreakpointDesc.Text = App.Translate("ResponsiveUIBreakpointDesc");
-            RespUI_M.Header = "M(" + App.Translate("Servers") + ")";
-            RespUI_L.Header = "L(" + App.Translate("Servers") + " + " + App.Translate("Channels") + ")";
-            RespUI_L.Header = "L(" + App.Translate("Servers") + " + " + App.Translate("Channels") + ")";
-            RespUI_L.Header = "XL(" + App.Translate("Servers") + " + " + App.Translate("Channels") + " + "  + App.Translate("Members") + ")";
-            ResetDefaultBreakpoints.Content = App.Translate("ResetDefaultBreakpoints");
-            OnlineColor.Text = App.Translate("Online") + " " + App
-                .Translate("Color");
-            IdleColor.Text = App.Translate("Idle") + " " + App.Translate("Color");
-            DndColor.Text = App.Translate("Dnd") + " " + App.Translate("Color");
-
-            logout.Content = App.Translate("Logout");
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Save");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -159,12 +128,10 @@ namespace Discord_UWP.SubPages
 
         private async void CheckLogout(object sender, RoutedEventArgs e)
         {
-            MessageDialog winnerAnounce = new MessageDialog("Are you sure? logging back in can be a hassel");
-            winnerAnounce.Commands.Add(new UICommand(
-        "Logout",
+            MessageDialog winnerAnounce = new MessageDialog(App.GetString("/Settings/VerifyLogout"));
+            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Settings/LogoutBTN.Content"),
         new UICommandInvokedHandler(ConfirmLogout)));
-            winnerAnounce.Commands.Add(new UICommand(
-                "No",
+            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Dialogs/CancelBTN.Content"),
                 new UICommandInvokedHandler(CancelLogout)));
             await winnerAnounce.ShowAsync();
         }

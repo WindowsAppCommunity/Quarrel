@@ -57,7 +57,6 @@ namespace Discord_UWP.Controls
         public BanControl()
         {
             this.InitializeComponent();
-            RevokeBanText.Text = App.Translate("RevokeBan");
         }
 
         private void RevokeBan(object sender, RoutedEventArgs e)

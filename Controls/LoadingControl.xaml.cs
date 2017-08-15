@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -28,7 +29,18 @@ namespace Discord_UWP.Controls
         public LoadingControl()
         {
             this.InitializeComponent();
+            var message = EntryMessages.GetMessage();
+            MessageBlock.Text = message.Key.ToUpper();
+            if(message.Value != "")
+               CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
             Animation.Begin();
+        }
+        public void AdjustSize()
+        {
+            var location = App.Splash.ImageLocation;
+            viewbox.Width = location.Width;
+            this.Focus(FocusState.Pointer);
+            viewbox.Margin = new Thickness(0, location.Top - 32, 0, 0);
         }
         public void Show(bool animate)
         {
@@ -37,7 +49,10 @@ namespace Discord_UWP.Controls
         }
         public void Hide(bool animate)
         {
-            if (animate) LoadOut.Begin();
+            if (animate)
+            {
+                LoadOut.Begin();
+            }
             else this.Visibility = Visibility.Collapsed;
         }
         private void LoadIn_Completed(object sender, object e)
@@ -49,6 +64,11 @@ namespace Discord_UWP.Controls
         {
             this.Visibility = Visibility.Collapsed;
             Animation.Stop();
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AdjustSize();
         }
     }
 }

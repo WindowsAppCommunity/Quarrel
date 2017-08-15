@@ -25,9 +25,6 @@ namespace Discord_UWP.SubPages
         public EditNickname()
         {
             this.InitializeComponent();
-            EditNicknameText.Text = App.Translate("EditNickname").ToUpper();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Save");
         }
 
         string userId = "";

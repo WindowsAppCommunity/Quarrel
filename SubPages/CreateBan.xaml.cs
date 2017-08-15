@@ -25,15 +25,13 @@ namespace Discord_UWP.SubPages
         public CreateBan()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Ban");
         }
 
         string userId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             userId = e.Parameter.ToString();
-            Message.Text = "Are you sure you want to ban @" + Storage.Cache.Guilds[App.CurrentGuildId].Members[userId].Raw.User.Username + "?"; 
+            Message.Text = App.GetString("/Dialogs/VerifyBan") + Storage.Cache.Guilds[App.CurrentGuildId].Members[userId].Raw.User.Username + "?"; 
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

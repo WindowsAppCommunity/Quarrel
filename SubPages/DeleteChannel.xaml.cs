@@ -25,15 +25,13 @@ namespace Discord_UWP.SubPages
         public DeleteChannel()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Delete");
         }
 
         string chnId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             chnId = e.Parameter.ToString();
-            Message.Text = "Are you sure you want to delete " + Storage.Cache.Guilds[App.CurrentGuildId].Channels[chnId].Raw.Name + "?";
+            Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + Storage.Cache.Guilds[App.CurrentGuildId].Channels[chnId].Raw.Name + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

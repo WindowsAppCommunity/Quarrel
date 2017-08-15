@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="800"
-    d:DesignWidth="600">
+    d:DesignWidth="600" SizeChanged="UserControl_SizeChanged">
     <UserControl.Resources>
         <Storyboard x:Name="Animation" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="SidesLayer">
@@ -82,42 +82,45 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="LoadOut" Completed="LoadOut_Completed">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="grid">
+            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="viewbox" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="viewbox" d:IsOptimized="True"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="canvas">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.88">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <CubicEase EasingMode="EaseIn"/>
+                        <BackEase EasingMode="EaseIn"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="grid">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="canvas">
                 <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.88">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
                     <EasingDoubleKeyFrame.EasingFunction>
-                        <CubicEase EasingMode="EaseIn"/>
+                        <BackEase EasingMode="EaseIn"/>
                     </EasingDoubleKeyFrame.EasingFunction>
                 </EasingDoubleKeyFrame>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0">
-                    <EasingDoubleKeyFrame.EasingFunction>
-                        <CubicEase EasingMode="EaseIn"/>
-                    </EasingDoubleKeyFrame.EasingFunction>
-                </EasingDoubleKeyFrame>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MessageBlock" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.4" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StatusBlock" d:IsOptimized="True"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid x:Name="grid" Background="{ThemeResource DeepBG}" Margin="-48" Padding="48" RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="grid" Margin="0" Padding="0" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <CompositeTransform/>
         </Grid.RenderTransform>
-        <Viewbox x:Name="viewbox" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+        <Rectangle x:Name="rectangle" Fill="{ThemeResource DarkBG}"/>
+        <Button Opacity="0"/>
+        <Viewbox x:Name="viewbox" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
             <Viewbox.RenderTransform>
                 <CompositeTransform/>
             </Viewbox.RenderTransform>
-            <Canvas x:Name="canvas" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+            <Canvas x:Name="canvas" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" Margin="132,52,132,49">
                 <Canvas.RenderTransform>
                     <CompositeTransform/>
                 </Canvas.RenderTransform>
@@ -139,14 +142,15 @@
                     <Canvas.RenderTransform>
                         <CompositeTransform/>
                     </Canvas.RenderTransform>
-                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.5" Height="9" Canvas.Left="14" Canvas.Top="21"/>
-                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.5" Height="9" Canvas.Left="27" Canvas.Top="21"/>
+                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="14.1" Canvas.Top="20.8"/>
+                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="27.1" Canvas.Top="20.8"/>
                 </Canvas>
             </Canvas>
         </Viewbox>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,164,0,0">
-            <TextBlock x:Name="MessageBlock" FontStyle="Italic" FontSize="16" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,12,0,0"/>
-            <TextBlock x:Name="StatusBlock" Opacity="0.6" FontWeight="SemiBold" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,6,0,0" FontSize="13"/>
+            <TextBlock Text="Message" x:Name="MessageBlock" FontStyle="Italic" FontSize="16" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,12,0,0"/>
+            <TextBlock Text="LOADING" x:Name="StatusBlock" Opacity="0.6" FontWeight="SemiBold" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,6,0,0" FontSize="13"/>
         </StackPanel>
+        <TextBlock Text="" x:Name="CreditBlock" Opacity="0.4" FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" Margin="12,12,12,24" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>

@@ -111,6 +111,9 @@
     <Content Include="Assets\ConnectionLogos\twitter.png" />
     <Content Include="Assets\ConnectionLogos\youtube.png" />
     <Content Include="Assets\DiscordAssets\default_avatar.jpg" />
+    <Content Include="Assets\DiscordAssets\Friends_dark.png" />
+    <Content Include="Assets\DiscordAssets\Friends_light.png" />
+    <Content Include="Assets\DiscordAssets\groupchat.svg" />
     <Content Include="Assets\DiscordBadges\hypesquad.png" />
     <Content Include="Assets\DiscordBadges\nitro.png" />
     <Content Include="Assets\DiscordBadges\partner.png" />
@@ -122,9 +125,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
-    <PRIResource Include="Languages\en-us\Resources.resw" />
-    <PRIResource Include="Languages\es-mx\Resources.resw" />
     <None Include="project.json" />
+    <PRIResource Include="Resources\fr\Settings.resw" />
+    <PRIResource Include="Resources\fr\Main.resw" />
+    <PRIResource Include="Resources\fr\Flyouts.resw" />
+    <PRIResource Include="Resources\fr\Dialogs.resw" />
+    <PRIResource Include="Resources\fr\Controls.resw" />
+    <PRIResource Include="Resources\fr\About.resw" />
+    <PRIResource Include="Resources\en\Flyouts.resw" />
+    <PRIResource Include="Resources\en\Controls.resw" />
+    <PRIResource Include="Resources\en\Settings.resw" />
+    <PRIResource Include="Resources\en\Dialogs.resw" />
+    <PRIResource Include="Resources\en\About.resw" />
+    <PRIResource Include="Resources\en\Main.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -145,6 +158,9 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\AttachementControl.xaml.cs">
+      <DependentUpon>AttachementControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BanControl.xaml.cs">
       <DependentUpon>BanControl.xaml</DependentUpon>
     </Compile>
@@ -313,6 +329,7 @@
     </Compile>
     <Compile Include="Main Extra\Actions.cs" />
     <Compile Include="Main Extra\ChannelsManager.cs" />
+    <Compile Include="Main Extra\ClipboardManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />
     <Compile Include="Main Extra\FlyoutManager.cs" />
     <Compile Include="Main Extra\Flyouts\GroupChnFlyout.cs" />
@@ -429,8 +446,6 @@
     <Content Include="Assets\DiscordIcon.png" />
     <Content Include="Assets\DiscordLogo.jpg" />
     <None Include="Package.StoreAssociation.xml" />
-    <Content Include="Assets\Friends_black.svg" />
-    <Content Include="Assets\Friends_white.svg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -484,6 +499,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="ClickyButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AttachementControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -572,8 +591,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\CreateChannel.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\CreateServer.xaml">
       <SubType>Designer</SubType>

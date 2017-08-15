@@ -201,10 +201,10 @@ namespace Discord_UWP.Controls
                     switch (Playing.Value.Type)
                     {
                         case 0:
-                            PlayingType.Text = "Playing";
+                            PlayingType.Text = App.GetString("/Controls/Playing");
                             break;
                         case 1:
-                            PlayingType.Text = "Streaming";
+                            PlayingType.Text = App.GetString("/Controls/Streaming");
                             break;
                     }
                     PlayingText.Text = Playing.Value.Name;
@@ -278,6 +278,7 @@ namespace Discord_UWP.Controls
                 {
                     ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
                 }
+               
             }
             if (prop == TypeProperty)
             {
@@ -307,13 +308,14 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
+                    //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
-                    //if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                    //    ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/Friends_white.svg"));
-                    //else
-                    //    ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/Friends_black.svg"));
+                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                        ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_dark.png"));
+                    else
+                        ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
 
-                    ChannelImage.Margin = new Thickness(6, 12, 12, 12);
+                    ChannelImage.Margin = new Thickness(0,6,6,6);
                 }
             }
         }
