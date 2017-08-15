@@ -315,6 +315,7 @@
     <Compile Include="Main Extra\ChannelsManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />
     <Compile Include="Main Extra\FlyoutManager.cs" />
+    <Compile Include="Main Extra\Flyouts\GroupChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
     <Compile Include="Main Extra\Flyouts\GuildFlyout.cs" />
     <Compile Include="Main Extra\GuildManager.cs" />

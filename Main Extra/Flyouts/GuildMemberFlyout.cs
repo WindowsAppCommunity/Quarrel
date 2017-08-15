@@ -54,35 +54,38 @@ namespace Discord_UWP
             };
             profile.Click += gotoProfile;
             menu.Items.Add(profile);
-            MenuFlyoutItem message = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.Translate("Message"),
-                Tag = member.Raw.User.Id,
-                Icon = new SymbolIcon(Symbol.Message)
-            };
-            message.Click += MessageUser;
-            menu.Items.Add(message);
-            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep1);
-            if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
+                MenuFlyoutItem message = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("InviteToServer")
-                    //Tag = member.Raw.User.Id,
-                    //Icon = new SymbolIcon(Symbol.)
+                    Text = App.Translate("Message"),
+                    Tag = member.Raw.User.Id,
+                    Icon = new SymbolIcon(Symbol.Message)
                 };
-                foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
+                message.Click += MessageUser;
+                menu.Items.Add(message);
+                MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep1);
+                if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    if (guild.Value.perms.Perms.Administrator || guild.Value.perms.Perms.CreateInstantInvite)
+                    MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                     {
-                        MenuFlyoutItem item = new MenuFlyoutItem() { Text = guild.Value.RawGuild.Name, Tag = new Tuple<string, string>(guild.Value.Channels.FirstOrDefault().Value.Raw.Id, member.Raw.User.Id) };
-                        item.Click += inviteToServer;
-                        InviteToServer.Items.Add(item);
-                    }
+                        Text = App.Translate("InviteToServer")
+                        //Tag = member.Raw.User.Id,
+                        //Icon = new SymbolIcon(Symbol.)
+                    };
+                    foreach (KeyValuePair<string, Guild> guild in Storage.Cache.Guilds)
+                    {
+                        if (guild.Value.perms.Perms.Administrator || guild.Value.perms.Perms.CreateInstantInvite)
+                        {
+                            MenuFlyoutItem item = new MenuFlyoutItem() { Text = guild.Value.RawGuild.Name, Tag = new Tuple<string, string>(guild.Value.Channels.FirstOrDefault().Value.Raw.Id, member.Raw.User.Id) };
+                            item.Click += inviteToServer;
+                            InviteToServer.Items.Add(item);
+                        }
 
+                    }
+                    menu.Items.Add(InviteToServer);
                 }
-                menu.Items.Add(InviteToServer);
             }
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {

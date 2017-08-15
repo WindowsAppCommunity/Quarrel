@@ -53,6 +53,9 @@ namespace Discord_UWP
                 case App.Type.DMChn:
                     flyout = MakeDMChannelMenu(Storage.Cache.DMs[e.Id]);
                     break;
+                case App.Type.GroupChn:
+                    flyout = MakeGroupChannelMenu(Storage.Cache.DMs[e.Id]);
+                    break;
                 case App.Type.TextChn:
                     flyout = MakeTextChnMenu(Storage.Cache.Guilds[e.ParentId].Channels[e.Id]);
                     break;

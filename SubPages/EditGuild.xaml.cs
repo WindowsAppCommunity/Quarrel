@@ -41,6 +41,8 @@ namespace Discord_UWP.SubPages
             Roles.Header = App.Translate("Roles");
             RoleName.Header = App.Translate("Name").ToUpper();
             Bans.Header = App.Translate("Bans");
+            Invites.Visibility = Visibility.Collapsed;
+            Bans.Visibility = Visibility.Collapsed;
         }
 
         private void SaveGuildSettings(object sender, RoutedEventArgs e)

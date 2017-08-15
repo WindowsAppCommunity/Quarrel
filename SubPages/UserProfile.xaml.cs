@@ -76,16 +76,35 @@ namespace Discord_UWP.SubPages
                 }
             } else
             {
-                if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(e.Parameter as string))
+                if (App.CurrentGuildIsDM)
                 {
-                    profile = new SharedModels.UserProfile()
+                    foreach (CacheModels.DmCache chn in Storage.Cache.DMs.Values)
                     {
-                        ConnectedAccount = null,
-                        Friend = null,
-                        MutualGuilds = null,
-                        PremiumSince = null,
-                        User = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Parameter as string].Raw.User
-                    };
+                        if (chn.Raw.Type == 1 && chn.Raw.Users.FirstOrDefault().Id == e.Parameter as string)
+                        {
+                            profile = new SharedModels.UserProfile()
+                            {
+                                ConnectedAccount = null,
+                                Friend = null,
+                                MutualGuilds = null,
+                                PremiumSince = null,
+                                User = chn.Raw.Users.FirstOrDefault()
+                            };
+                        }
+                    }
+                } else
+                {
+                    if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(e.Parameter as string))
+                    {
+                        profile = new SharedModels.UserProfile()
+                        {
+                            ConnectedAccount = null,
+                            Friend = null,
+                            MutualGuilds = null,
+                            PremiumSince = null,
+                            User = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Parameter as string].Raw.User
+                        };
+                    }
                 }
 
                 if (Storage.Cache.Friends.ContainsKey(e.Parameter as string))
