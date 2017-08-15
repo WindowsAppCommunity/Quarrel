@@ -46,17 +46,20 @@ namespace Discord_UWP
         {
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
-            MenuFlyoutItem editServer = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.Translate("EditServer"),
-                Tag = guild.RawGuild.Id,
-                Icon = new SymbolIcon(Symbol.Edit),
-                Margin = new Thickness(-26, 0, 0, 0)
-            };
-            editServer.Click += EditServer;
-            menu.Items.Add(editServer);
-            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep1);
+                MenuFlyoutItem editServer = new MenuFlyoutItem()
+                {
+                    Text = App.Translate("EditServer"),
+                    Tag = guild.RawGuild.Id,
+                    Icon = new SymbolIcon(Symbol.Edit),
+                    Margin = new Thickness(-26, 0, 0, 0)
+                };
+                editServer.Click += EditServer;
+                menu.Items.Add(editServer);
+                MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep1);
+            }
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = App.Translate("MuteServer"),
@@ -67,41 +70,44 @@ namespace Discord_UWP
             mute.IsChecked = Storage.MutedServers.Contains(guild.RawGuild.Id);
             mute.Click += MuteServer;
             menu.Items.Add(mute);
-            MenuFlyoutItem markasread = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.Translate("MarkAsRead"),
-                Tag = guild.RawGuild.Id,
-                Icon = new SymbolIcon(Symbol.View),
-                Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread
-            };
-            markasread.Click += MarkGuildasRead;
-            menu.Items.Add(markasread);
-            if (guild.RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutItem deleteServer = new MenuFlyoutItem()
+                MenuFlyoutItem markasread = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("DeleteServer"),
+                    Text = App.Translate("MarkAsRead"),
                     Tag = guild.RawGuild.Id,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Icon = new SymbolIcon(Symbol.Delete),
-                    Margin = new Thickness(-26, 0, 0, 0)
+                    Icon = new SymbolIcon(Symbol.View),
+                    Margin = new Thickness(-26, 0, 0, 0),
+                    IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread
                 };
-                deleteServer.Click += DeleteServer;
-                menu.Items.Add(deleteServer);
-            }
-            else
-            {
-                MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                markasread.Click += MarkGuildasRead;
+                menu.Items.Add(markasread);
+                if (guild.RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    Text = App.Translate("LeaveServer"),
-                    Tag = guild.RawGuild.Id,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Icon = new SymbolIcon(Symbol.Remove),
-                    Margin = new Thickness(-26, 0, 0, 0)
-                };
-                leaveServer.Click += LeaveServerClick;
-                menu.Items.Add(leaveServer);
+                    MenuFlyoutItem deleteServer = new MenuFlyoutItem()
+                    {
+                        Text = App.Translate("DeleteServer"),
+                        Tag = guild.RawGuild.Id,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new SymbolIcon(Symbol.Delete),
+                        Margin = new Thickness(-26, 0, 0, 0)
+                    };
+                    deleteServer.Click += DeleteServer;
+                    menu.Items.Add(deleteServer);
+                }
+                else
+                {
+                    MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                    {
+                        Text = App.Translate("LeaveServer"),
+                        Tag = guild.RawGuild.Id,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new SymbolIcon(Symbol.Remove),
+                        Margin = new Thickness(-26, 0, 0, 0)
+                    };
+                    leaveServer.Click += LeaveServerClick;
+                    menu.Items.Add(leaveServer);
+                }
             }
             return menu;
         }

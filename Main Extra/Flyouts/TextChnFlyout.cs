@@ -56,17 +56,20 @@ namespace Discord_UWP
             //};
             //PinChannel.Click += PinChannelToStart;
             //menu.Items.Add(PinChannel);
-            MenuFlyoutItem editchannel = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.Translate("EditChannel"),
-                Tag = chn.Raw.Id,
-                Icon = new SymbolIcon(Symbol.Edit),
-                Margin = new Thickness(-26,0,0,0)
-            };
-            editchannel.Click += Editchannel;
-            menu.Items.Add(editchannel);
-            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep1);
+                MenuFlyoutItem editchannel = new MenuFlyoutItem()
+                {
+                    Text = App.Translate("EditChannel"),
+                    Tag = chn.Raw.Id,
+                    Icon = new SymbolIcon(Symbol.Edit),
+                    Margin = new Thickness(-26, 0, 0, 0)
+                };
+                editchannel.Click += Editchannel;
+                menu.Items.Add(editchannel);
+                MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep1);
+            }
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = App.Translate("MuteChannel"),
@@ -77,35 +80,38 @@ namespace Discord_UWP
             mute.IsChecked = Storage.MutedChannels.Contains(chn.Raw.Id);
             mute.Click += MuteChannel;
             menu.Items.Add(mute);
-            MenuFlyoutItem markasread = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.Translate("MarkAsRead"),
-                Tag = chn.Raw.Id,
-                Icon = new SymbolIcon(Symbol.View),
-                Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
-            };
-            menu.Items.Add(markasread);
-            markasread.Click += MarkAsReadOnClick;
-            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep2);
-            MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
-            {
-                Text = App.Translate("DeleteChannel"),
-                Tag = chn.Raw.Id,
-                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                Icon = new SymbolIcon(Symbol.Delete),
-                Margin = new Thickness(-26, 0, 0, 0),
-                //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
-            };
+                MenuFlyoutItem markasread = new MenuFlyoutItem()
+                {
+                    Text = App.Translate("MarkAsRead"),
+                    Tag = chn.Raw.Id,
+                    Icon = new SymbolIcon(Symbol.View),
+                    Margin = new Thickness(-26, 0, 0, 0),
+                    IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                };
+                menu.Items.Add(markasread);
+                markasread.Click += MarkAsReadOnClick;
+                MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep2);
+                MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
+                {
+                    Text = App.Translate("DeleteChannel"),
+                    Tag = chn.Raw.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.Delete),
+                    Margin = new Thickness(-26, 0, 0, 0),
+                    //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                };
 
-            if (!chn.chnPerms.Perms.ManageChannels && !chn.chnPerms.Perms.Administrator)
-            {
-                deleteChannel.IsEnabled = false;
+                if (!chn.chnPerms.Perms.ManageChannels && !chn.chnPerms.Perms.Administrator)
+                {
+                    deleteChannel.IsEnabled = false;
+                }
+
+                menu.Items.Add(deleteChannel);
+                deleteChannel.Click += DeleteChannelOnClick;
             }
-
-            menu.Items.Add(deleteChannel);
-            deleteChannel.Click += DeleteChannelOnClick;
             return menu;
         }
 

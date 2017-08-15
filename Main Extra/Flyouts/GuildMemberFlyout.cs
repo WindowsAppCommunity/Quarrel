@@ -121,132 +121,138 @@ namespace Discord_UWP
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
             acceptFriendRequest.Click += AddFriend;
-            if (Storage.Cache.Friends.ContainsKey(member.Raw.User.Id))
+            if (Session.Online)
             {
-                switch (Storage.Cache.Friends[member.Raw.User.Id].Raw.Type)
+                if (Storage.Cache.Friends.ContainsKey(member.Raw.User.Id))
                 {
-                    case 1:
-                        menu.Items.Add(removeFriend);
-                        menu.Items.Add(block);
-                        break;
-                    case 2:
-                        menu.Items.Add(unBlock);
-                        break;
-                    case 3:
-                        menu.Items.Add(acceptFriendRequest);
-                        menu.Items.Add(block);
-                        break;
-                    case 4:
-                        menu.Items.Add(block);
-                        break;
-                }
-            } else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
-            {
-                //None
-            } else
-            {
-                menu.Items.Add(addFriend);
-                menu.Items.Add(block);
-            }
-            if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
-                menu.Items.Add(sep2);
-            }
-            if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ChangeNickname) || (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator && member.HighRole.Position <= Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutItem changeNickname = new MenuFlyoutItem()
-                {
-                    Text = App.Translate("ChangeNickname"),
-                    Tag = member.Raw.User.Id,
-                    Icon = new SymbolIcon(Symbol.Edit)
-                };
-                changeNickname.Click += ChangeNickname;
-                menu.Items.Add(changeNickname);
-            }
-            if (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageRoles)
-            {
-                MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
-                {
-                    Text = App.Translate("Roles")
-                    //Tag = member.Raw.User.Id,
-                    //Icon = new SymbolIcon(Symbol.)
-                };
-
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentGuildId].Roles.Values.OrderByDescending(x => x.Position))
-                {
-                    ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
+                    switch (Storage.Cache.Friends[member.Raw.User.Id].Raw.Type)
                     {
-                        Text = role.Name,
-                        Tag = new Tuple<string, string>(role.Id, member.Raw.User.Id),
-                        Foreground = Common.IntToColor(role.Color),
-                        IsChecked = Storage.Cache.Guilds[App.CurrentGuildId].Members[member.Raw.User.Id].Raw.Roles.Contains(role.Id),
-                        //Style = (Style)App.Current.Resources["ToggleOnlyCheckbox"],
-                        IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)  //TODO: Double check role system
-                    };
-                    roleItem.Click += AddRole;
-                    if (role.Name != "@everyone")
-                    {
-                        roles.Items.Add(roleItem);
+                        case 1:
+                            menu.Items.Add(removeFriend);
+                            menu.Items.Add(block);
+                            break;
+                        case 2:
+                            menu.Items.Add(unBlock);
+                            break;
+                        case 3:
+                            menu.Items.Add(acceptFriendRequest);
+                            menu.Items.Add(block);
+                            break;
+                        case 4:
+                            menu.Items.Add(block);
+                            break;
                     }
                 }
-                menu.Items.Add(roles);
-            }
-            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.KickMembers) && member.HighRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutItem kickMember = new MenuFlyoutItem()
+                else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    Text = App.Translate("KickMember"),
-                    Tag = member.Raw.User.Id,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Icon = new SymbolIcon(Symbol.BlockContact)
-                };
-                kickMember.Click += KickMember;
-                menu.Items.Add(kickMember);
-            } else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                    //None
+                }
+                else
                 {
-                    Text = App.Translate("LeaverServer"),
-                    Tag = member.Raw.User.Id,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Icon = new SymbolIcon(Symbol.Remove)
-                };
-                leaveServer.Click += LeaveServer;
-                menu.Items.Add(leaveServer);
-            }
-            if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.BanMembers) && member.HighRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-            {
-                MenuFlyoutItem banMember = new MenuFlyoutItem()
+                    menu.Items.Add(addFriend);
+                    menu.Items.Add(block);
+                }
+                if (member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    Text = "Ban Member",
-                    Tag = member.Raw.User.Id,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Icon = new SymbolIcon(Symbol.BlockContact)
-                };
-                banMember.Click += BanMember;
-                menu.Items.Add(banMember);
-            }
-            if (false)
-            {
-                //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
-                ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
+                    MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+                    menu.Items.Add(sep2);
+                }
+                if ((member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ChangeNickname) || (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageNicknames || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator && member.HighRole.Position <= Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
                 {
-                    Text = App.Translate("Mute"),
-                    Icon = new SymbolIcon(Symbol.Mute)
-                };
+                    MenuFlyoutItem changeNickname = new MenuFlyoutItem()
+                    {
+                        Text = App.Translate("ChangeNickname"),
+                        Tag = member.Raw.User.Id,
+                        Icon = new SymbolIcon(Symbol.Edit)
+                    };
+                    changeNickname.Click += ChangeNickname;
+                    menu.Items.Add(changeNickname);
+                }
+                if (Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.ManageRoles)
+                {
+                    MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
+                    {
+                        Text = App.Translate("Roles")
+                        //Tag = member.Raw.User.Id,
+                        //Icon = new SymbolIcon(Symbol.)
+                    };
+
+                    foreach (SharedModels.Role role in Storage.Cache.Guilds[App.CurrentGuildId].Roles.Values.OrderByDescending(x => x.Position))
+                    {
+                        ToggleMenuFlyoutItem roleItem = new ToggleMenuFlyoutItem()
+                        {
+                            Text = role.Name,
+                            Tag = new Tuple<string, string>(role.Id, member.Raw.User.Id),
+                            Foreground = Common.IntToColor(role.Color),
+                            IsChecked = Storage.Cache.Guilds[App.CurrentGuildId].Members[member.Raw.User.Id].Raw.Roles.Contains(role.Id),
+                            //Style = (Style)App.Current.Resources["ToggleOnlyCheckbox"],
+                            IsEnabled = (role.Position < Storage.Cache.Guilds[App.CurrentGuildId].Roles[Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First()].Position || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id)  //TODO: Double check role system
+                        };
+                        roleItem.Click += AddRole;
+                        if (role.Name != "@everyone")
+                        {
+                            roles.Items.Add(roleItem);
+                        }
+                    }
+                    menu.Items.Add(roles);
+                }
+                if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.KickMembers) && member.HighRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MenuFlyoutItem kickMember = new MenuFlyoutItem()
+                    {
+                        Text = App.Translate("KickMember"),
+                        Tag = member.Raw.User.Id,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new SymbolIcon(Symbol.BlockContact)
+                    };
+                    kickMember.Click += KickMember;
+                    menu.Items.Add(kickMember);
+                }
+                else if (member.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MenuFlyoutItem leaveServer = new MenuFlyoutItem()
+                    {
+                        Text = App.Translate("LeaverServer"),
+                        Tag = member.Raw.User.Id,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new SymbolIcon(Symbol.Remove)
+                    };
+                    leaveServer.Click += LeaveServer;
+                    menu.Items.Add(leaveServer);
+                }
+                if (((Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].perms.Perms.BanMembers) && member.HighRole.Position < Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position) || Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId == Storage.Cache.CurrentUser.Raw.Id && member.Raw.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    MenuFlyoutItem banMember = new MenuFlyoutItem()
+                    {
+                        Text = "Ban Member",
+                        Tag = member.Raw.User.Id,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new SymbolIcon(Symbol.BlockContact)
+                    };
+                    banMember.Click += BanMember;
+                    menu.Items.Add(banMember);
+                }
+                if (false)
+                {
+                    //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
+                    ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
+                    {
+                        Text = App.Translate("Mute"),
+                        Icon = new SymbolIcon(Symbol.Mute)
+                    };
 
 
-                ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
-                {
-                    Text = App.Translate("Deafen"),
-                    Icon = new SymbolIcon(Symbol.Mute)
-                };
+                    ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
+                    {
+                        Text = App.Translate("Deafen"),
+                        Icon = new SymbolIcon(Symbol.Mute)
+                    };
 
-                MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
-                {
-                    Text = App.Translate("MoveChannel")
-                };
+                    MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
+                    {
+                        Text = App.Translate("MoveChannel")
+                    };
+                }
             }
             return menu;
         }
