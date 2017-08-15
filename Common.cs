@@ -84,8 +84,9 @@ namespace Discord_UWP
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
-        public static string HumanizeFileSize(int i)
+        public static string HumanizeFileSize(ulong l)
         {
+            long i = Convert.ToInt64(l);
             long absolute_i = (i < 0 ? -i : i);
             string suffix;
             double readable;

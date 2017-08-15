@@ -235,6 +235,60 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="DragOver">
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DragGrid" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1.03" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1.12" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.88" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="textBlock" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.88" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="textBlock" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="DragLeave">
+            <DoubleAnimation Duration="0:0:0.3" To="0.6" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DragGrid" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="rectangle" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="textBlock" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="textBlock" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -290,46 +344,67 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid">
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ScrollViewer Margin="0,0,-24,0" Padding="0,0,24,0">
-                        <StackPanel>
+                    <ScrollViewer Margin="0,0,0,0" Padding="0">
+                        <StackPanel Margin="24,24,24,0">
+                            <StackPanel.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <RepositionThemeTransition/>
+                                </TransitionCollection>
+                            </StackPanel.ChildrenTransitions>
                             <TextBlock x:Name="header" x:Uid="/Dialogs/AdvancedMessageEditorTB" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                             <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
                             <TextBox x:Name="Editor" Margin="0,6,0,0"/>
                             <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
-                            <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon FontSize="32" Glyph="" Foreground="{ThemeResource LinkColor}" HorizontalAlignment="Left" Margin="0,0,6,0"/>
-                                <StackPanel Grid.Column="1">
-                                    <HyperlinkButton x:Name="FileName" Content="File.txt" FontSize="18" Foreground="{ThemeResource LinkColor}" Padding="0" Style="{StaticResource PlainHyperlinkStyle}"/>
-                                    <TextBlock x:Name="FileSize" FontSize="11" Opacity="0.5" Text="0 B" Margin="0,4,0,0"/>
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ChildrenTransitions>
+                                    <TransitionCollection>
+                                        <RepositionThemeTransition/>
+                                    </TransitionCollection>
+                                </Grid.ChildrenTransitions>
+                                <StackPanel x:Name="stacker" Margin="0,0,0,64">
+                                    <StackPanel.ChildrenTransitions>
+                                        <TransitionCollection>
+                                            <EntranceThemeTransition/>
+                                            <RepositionThemeTransition/>
+                                        </TransitionCollection>
+                                    </StackPanel.ChildrenTransitions>
                                 </StackPanel>
+                                <Grid x:Name="DragGrid" Opacity="0.6" VerticalAlignment="Bottom">
+                                    <TextBlock x:Name="textBlock" Foreground="{ThemeResource Greyple}" FontWeight="SemiLight" FontSize="12" Text="Drop files here" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,24" RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <CompositeTransform/>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                    <Rectangle x:Name="rectangle" Fill="Transparent" AllowDrop="True" DragOver="Grid_DragOver" Drop="Grid_Drop" RadiusX="6" RadiusY="6" StrokeDashArray="4 4" StrokeThickness="1" Stroke="{ThemeResource Greyple}" RenderTransformOrigin="0.5,0.5" DragEnter="rectangle_DragEnter" DragLeave="rectangle_DragLeave">
+                                        <Rectangle.RenderTransform>
+                                            <CompositeTransform/>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                </Grid>
                             </Grid>
+
                             <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}" Margin="0,6,0,0" Click="OpenFile">
                                 <StackPanel Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE8E5;" Width="20" Height="20" Margin="0,0,0,-2"/>
                                     <TextBlock x:Uid="/Dialogs/AdvancedOpenFileTB" Text="Open File" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
-                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}">
+                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}" Click="HyperlinkButton_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE722;" Width="20" Height="20" Margin="0,0,0,-2"/>
                                     <TextBlock x:Uid="/Dialogs/AdvancedTakePhotoTB" Text="Take photo" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
-                            <HyperlinkButton Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}">
+                            <HyperlinkButton x:Name="RecordHyperlink" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Style="{StaticResource HyperlinkButtonStyle1}" Click="HyperlinkButton_Click_1">
                                 <StackPanel Orientation="Horizontal">
                                     <FontIcon Glyph="&#xE720;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock x:Uid="/Dialogs/AdvancedRecordSoundTB" Text="Record sound" Margin="12,0,0,0"/>
+                                    <TextBlock x:Name="RecordButton" x:Uid="/Dialogs/AdvancedRecordSoundTB" Text="Record sound" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
                         </StackPanel>
@@ -350,8 +425,9 @@
                             <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.75"/>
                         </Grid.Background>
                         <StackPanel VerticalAlignment="Center" Margin="48,0">
-                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right"/>
-                            <ProgressBar x:Name="progressBar" Value="0" Foreground="{ThemeResource Blurple}"/>
+                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0,0,0,-6"/>
+                            <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="12" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0"/>
+                            <ProgressBar x:Name="progressBar" Value="0" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

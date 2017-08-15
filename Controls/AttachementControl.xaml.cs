@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -32,6 +33,19 @@ namespace Discord_UWP.Controls
             typeof(AttachementControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public bool IsFake
+        {
+            get { return (bool)GetValue(IsFakeProperty); }
+            set { SetValue(IsFakeProperty, value); }
+        }
+        public static readonly DependencyProperty IsFakeProperty = DependencyProperty.Register(
+            nameof(IsFake),
+            typeof(bool),
+            typeof(AttachementControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
+        public event EventHandler<EventArgs> Delete;
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as AttachementControl;
@@ -43,7 +57,7 @@ namespace Discord_UWP.Controls
         {
             if (property == AttachementProperty)
             {
-                LoadAttachement(true);
+                LoadAttachement(!IsFake);
             }
         }
 
@@ -52,7 +66,7 @@ namespace Discord_UWP.Controls
             App.OpenAttachement(DisplayedAttachement.Value);
         }
 
-        private void LoadAttachement(bool EnableImages)
+        private void LoadAttachement(bool images)
         {
             AttachedImageViewer.Source = null;
             AttachedImageViewbox.Visibility = Visibility.Collapsed;
@@ -61,10 +75,13 @@ namespace Discord_UWP.Controls
             LoadingImage.IsActive = false;
             LoadingImage.Visibility = Visibility.Collapsed;
             AttachedFileViewer.Visibility = Visibility.Collapsed;
+            ClearButton.Visibility = Visibility.Collapsed;
+            if (IsFake) ClearButton.Visibility = Visibility.Visible;
+
             if (!DisplayedAttachement.HasValue) return;
 
             bool IsImage = false;
-            if (EnableImages)
+            if (images)
             {
                 foreach (string ext in ImageFiletypes)
                     if (DisplayedAttachement.Value.Filename.ToLower().EndsWith(ext))
@@ -92,7 +109,8 @@ namespace Discord_UWP.Controls
             }
             else
             {
-                FileName.NavigateUri = new Uri(DisplayedAttachement.Value.Url);
+                if(!IsFake)
+                    FileName.NavigateUri = new Uri(DisplayedAttachement.Value.Url);
                 FileName.Content = DisplayedAttachement.Value.Filename;
                 FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Value.Size);
                 AttachedFileViewer.Visibility = Visibility.Visible;
@@ -120,6 +138,19 @@ namespace Discord_UWP.Controls
         public AttachementControl()
         {
             this.InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Delete?.Invoke(this, null);
+        }
+
+        private async void FileName_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsFake)
+            {
+                await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Value.Url.Replace('\\','/'))));
+            }
         }
     }
 }

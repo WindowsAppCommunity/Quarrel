@@ -456,4 +456,13 @@
   <data name="on" xml:space="preserve">
     <value>sur</value>
   </data>
+  <data name="SavingAudio" xml:space="preserve">
+    <value>Création du fichier...</value>
+  </data>
+  <data name="RecordingAudio" xml:space="preserve">
+    <value>Enregistrement...</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
 </root>
