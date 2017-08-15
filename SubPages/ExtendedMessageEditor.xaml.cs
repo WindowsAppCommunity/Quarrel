@@ -70,12 +70,13 @@ namespace Discord_UWP.SubPages
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
             ProgressViewer.Visibility = Visibility.Visible;
             Session.MessageUploadProgress += Session_MessageUploadProgress;
-            Session.CreateMessage(App.CurrentChannelId, Editor.Text, file);
+            await Session.CreateMessage(App.CurrentChannelId, Editor.Text, file);
+            CloseButton_Click(null, null);
         }
 
         private async void Session_MessageUploadProgress(IAsyncOperationWithProgress<Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress> asyncInfo, Windows.Web.Http.HttpProgress progressInfo)
@@ -85,8 +86,6 @@ namespace Discord_UWP.SubPages
             {
                 progressVal.Text = Convert.ToInt16(percentage).ToString() + "%";
                 progressBar.Value = Convert.ToDouble(percentage);
-                if (asyncInfo.Status == AsyncStatus.Completed)
-                    CloseButton_Click(null, null);
             });
         }
     }

@@ -876,9 +876,54 @@
                 <AppBarButton x:Uid="/Main/RefreshABB" x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
                 <CommandBar.Content>
                     <AppBarButton Click="ToggleServerListFull" Width="64" Label="">
-                        <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xE700;"/>
-                        </AppBarButton.Icon>
+                        <AppBarButton.Content>
+                            <Grid>
+                                <FontIcon Glyph="&#xE700;"/>
+                                <Border Visibility="Visible" Opacity="0" x:Name="BurgerNotificationBorder" Background="#f04747" CornerRadius="2" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                    <Border.Resources>
+                                        <Storyboard x:Name="ShowBadge">
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                        <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </Border.Resources>
+                                    <Border.RenderTransform>
+                                        <CompositeTransform CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5" TranslateX="6" TranslateY="6"/>
+                                    </Border.RenderTransform>
+                                    <TextBlock x:Name="BurgerNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,1" FontSize="9"/>
+                                </Border>
+                            </Grid>
+                           
+                        </AppBarButton.Content>
                     </AppBarButton>
                 </CommandBar.Content>
                 <CommandBar.SecondaryCommands>
