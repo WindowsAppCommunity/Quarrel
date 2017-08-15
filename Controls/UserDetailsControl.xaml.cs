@@ -125,6 +125,10 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             SendDM.Send += SendDirectMessage;
+            if (!Session.Online)
+            {
+                Note.IsReadOnly = true;
+            }
         }
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)

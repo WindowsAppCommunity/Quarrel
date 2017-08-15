@@ -121,8 +121,8 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListViewItem x:Uid="/Dialogs/DetailsLI" Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
-                        <ListViewItem x:Uid="/Dialogs/CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
-                        <ListViewItem x:Uid="/Dialogs/CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
+                        <ListViewItem x:Name="CommonSrvItem" x:Uid="/Dialogs/CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
+                        <ListViewItem x:Name="CommonFrdItem" x:Uid="/Dialogs/CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
                     <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
@@ -169,7 +169,7 @@
                                 </tk:AdaptiveGridView>
                             </Grid>
                         </PivotItem>
-                        <PivotItem  Margin="0,-48,0,0">
+                        <PivotItem x:Name="CommonSrvspivot"  Margin="0,-48,0,0">
                             <Grid>
                                 <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="24,0" Padding="0,12,0,0">
                                     <ListView.ItemTemplate>
@@ -191,7 +191,7 @@
                                 <TextBlock x:Uid="/Dialogs/NoCommonServersTB" x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
-                        <PivotItem  Margin="0,-48,0,0">
+                        <PivotItem x:Name="CommonFrdspivot" Margin="0,-48,0,0">
                             <Grid>
                                 <ListView x:Name="MutualFriends" SelectionMode="None" Margin="24,0" Padding="0,12,0,0">
                                     <ListView.ItemTemplate>

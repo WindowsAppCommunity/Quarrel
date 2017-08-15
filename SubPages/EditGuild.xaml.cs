@@ -36,6 +36,13 @@ namespace Discord_UWP.SubPages
         public EditGuild()
         {
             this.InitializeComponent();
+            header.Text = App.GetString("/Flyouts/EditServer").ToUpper();
+            GuildName.Header = App.GetString("/Flyouts/Name");
+            Roles.Header = App.GetString("/Flyouts/Roles");
+            RoleName.Header = App.GetString("/Flyouts/Name").ToUpper();
+            Bans.Header = App.GetString("/Flyouts/Bans");
+            Invites.Visibility = Visibility.Collapsed;
+            Bans.Visibility = Visibility.Collapsed;
         }
 
         private void SaveGuildSettings(object sender, RoutedEventArgs e)
@@ -97,7 +104,7 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = Storage.Cache.Guilds[guildId];
             GuildName.Text = guild.RawGuild.Name;
-            header.Text = App.GetString("/Dialogs/EDIT") + " " + guild.RawGuild.Name.ToUpper();
+            header.Text = App.GetString("/Flyouts/Edit") .ToUpper() + " " + guild.RawGuild.Name.ToUpper();
             if (!Storage.Cache.Guilds[guildId].perms.Perms.ManangeGuild && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 GuildName.IsEnabled = false;
@@ -111,13 +118,16 @@ namespace Discord_UWP.SubPages
             {
                 foreach (Role role in Storage.Cache.Guilds[guildId].Roles.Values.OrderBy(x => x.Position))
                 {
-                    RolesView.Items.Add(new ListViewItem() { Foreground = Common.IntToColor(role.Color), Content = role.Name, Tag = role.Id });
+                    RolesView.Items.Add(new SimpleRole(role.Id, role.Name, Common.IntToColor(role.Color)));
                 }
                 RolesView.SelectedIndex = 0;
             }
-            Session.Gateway.GuildUpdated += GuildUpdated;
-            Session.Gateway.GuildBanAdded += BanAdded;
-            Session.Gateway.GuildBanRemoved += BanRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.GuildUpdated += GuildUpdated;
+                Session.Gateway.GuildBanAdded += BanAdded;
+                Session.Gateway.GuildBanRemoved += BanRemoved;
+            }
         }
 
         private async void BanRemoved(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
@@ -183,9 +193,12 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.Gateway.GuildUpdated -= GuildUpdated;
-            Session.Gateway.GuildBanAdded -= BanAdded;
-            Session.Gateway.GuildBanRemoved -= BanRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.GuildUpdated -= GuildUpdated;
+                Session.Gateway.GuildBanAdded -= BanAdded;
+                Session.Gateway.GuildBanRemoved -= BanRemoved;
+            }
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
@@ -247,7 +260,7 @@ namespace Discord_UWP.SubPages
         private bool loadingRoles = false;
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (pivot.SelectedIndex == 1 && !LoadingInvites)
+            if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Invites" && !LoadingInvites)
             {
                 InviteView.Items.Clear();
                 NoInvites.Opacity = 0;
@@ -271,7 +284,7 @@ namespace Discord_UWP.SubPages
                     NoInvites.Fade(0.2f, 200).Start();
                     LoadingInvite.Fade(0, 200).Start();
                 }
-            } else if (pivot.SelectedIndex == 2 && !loadingBans)
+            } else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
             {
                 BanView.Items.Clear();
                 NoBans.Opacity = 0;
@@ -280,7 +293,10 @@ namespace Discord_UWP.SubPages
                 IEnumerable<Ban> bans = null;
                 await Task.Run(async () =>
                 {
-                    bans = await Session.GetGuildBans(guildId);
+                    if (Session.Online)
+                    {
+                        bans = await Session.GetGuildBans(guildId);
+                    }
                 });
                 if (bans != null)
                 {
@@ -308,7 +324,7 @@ namespace Discord_UWP.SubPages
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             loadingRoles = true;
-            Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as ListViewItem).Tag as string];
+            Role role = Storage.Cache.Guilds[guildId].Roles[(RolesView.SelectedItem as SimpleRole).Id];
             if ((role.Position >= Storage.Cache.Guilds[guildId].Members[Storage.Cache.CurrentUser.Raw.Id].HighRole.Position || (!Storage.Cache.Guilds[guildId].perms.Perms.ManageRoles && !Storage.Cache.Guilds[guildId].perms.Perms.Administrator)) && Storage.Cache.Guilds[guildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = UseVad.IsEnabled = false;

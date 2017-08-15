@@ -22,23 +22,63 @@ namespace Discord_UWP
             MenuFlyoutItem removeFriend = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/RemoveFriend"), Tag = dm.Raw.Users.FirstOrDefault().Id };
             removeFriend.Click += RemoveFriend;
             menu.Items.Add(removeFriend);
+            MenuFlyoutItem addFriend = new MenuFlyoutItem()
+            {
+                Text = App.GetString("/Flyouts/AddFriend"),
+                Icon = new SymbolIcon(Symbol.AddFriend),
+                Tag = dm.Raw.Users.FirstOrDefault().Id
+            };
+            addFriend.Click += AddFriend;
+            MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
+            {
+                Text = App.GetString("/Flyouts/AcceptFriendRequest"),
+                Tag = dm.Raw.Users.FirstOrDefault().Id,
+                Icon = new SymbolIcon(Symbol.AddFriend)
+            };
+            acceptFriendRequest.Click += AddFriend;
             MenuFlyoutItem block = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/Block"), Tag = dm.Raw.Users.FirstOrDefault().Id };
             block.Click += BlockUser;
             menu.Items.Add(block);
-            return menu;
-        }
 
-        private void BlockUser(object sender, RoutedEventArgs e)
-        {
-            Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
-        }
-
-        private async void RemoveFriend(object sender, RoutedEventArgs e)
-        {
-            await Task.Run(() =>
+            MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
-                Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString());
-            }); //TODO: Confirm
+                Text = App.GetString("/Flyouts/Unblock"),
+                Tag = dm.Raw.Users.FirstOrDefault().Id,
+                Icon = new SymbolIcon(Symbol.ContactPresence)
+            };
+            unBlock.Click += RemoveFriendClick;
+
+            if (Storage.Cache.Friends.ContainsKey(dm.Raw.Users.FirstOrDefault().Id))
+            {
+                switch (Storage.Cache.Friends[dm.Raw.Users.FirstOrDefault().Id].Raw.Type)
+                {
+                    case 0:
+                        menu.Items.Add(addFriend);
+                        menu.Items.Add(block);
+                        break;
+                    case 1:
+                        menu.Items.Add(removeFriend);
+                        menu.Items.Add(block);
+                        break;
+                    case 2:
+                        menu.Items.Add(unBlock);
+                        break;
+                    case 3:
+                        menu.Items.Add(acceptFriendRequest);
+                        menu.Items.Add(block);
+                        break;
+                    case 4:
+                        menu.Items.Add(block);
+                        break;
+                }
+            }
+            else
+            {
+                menu.Items.Add(addFriend);
+                menu.Items.Add(block);
+            }
+
+            return menu;
         }
 
         private void OpenProfile(object sender, RoutedEventArgs e)
