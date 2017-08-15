@@ -1404,7 +1404,10 @@ namespace Discord_UWP
 
         private void ServerName_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            App.NavigateToGuildEdit(App.CurrentGuildId);
+            if (!App.CurrentGuildIsDM)
+            {
+                App.NavigateToGuildEdit(App.CurrentGuildId);
+            }
         }
 
         private void AddServer(object sender, RoutedEventArgs e)

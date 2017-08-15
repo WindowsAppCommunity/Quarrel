@@ -111,6 +111,8 @@ namespace Discord_UWP.CacheModels
             Id = input.Raw.Id;
             Private = input.Raw.Private;
             Type = input.Raw.Type;
+            OwnerId = input.Raw.OwnerId;
+            Name = input.Raw.Name;
             //User = input.Raw.User;
             Users = input.Raw.Users.ToList();
             LastMessageId = input.Raw.LastMessageId;
@@ -130,6 +132,8 @@ namespace Discord_UWP.CacheModels
         public string Id;
         public bool Private;
         public int Type;
+        public string OwnerId;
+        public string Name;
         //public SharedModels.User User;
         public List<SharedModels.User> Users;
         public string LastMessageId;
