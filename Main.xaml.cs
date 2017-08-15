@@ -1444,5 +1444,10 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), MessageBox1.Text);
         }
+
+        private void HideBadge_Completed(object sender, object e)
+        {
+
+        }
     }
 }
