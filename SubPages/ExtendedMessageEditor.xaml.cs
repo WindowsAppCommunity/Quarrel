@@ -81,11 +81,11 @@ namespace Discord_UWP.SubPages
 
         private async void Session_MessageUploadProgress(IAsyncOperationWithProgress<Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress> asyncInfo, Windows.Web.Http.HttpProgress progressInfo)
         {
-            var percentage = (progressInfo.BytesSent / progressInfo.TotalBytesToSend) * 100;
+            double percentage = Convert.ToDouble((100 * progressInfo.BytesSent) / progressInfo.TotalBytesToSend);
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                progressVal.Text = Convert.ToInt16(percentage).ToString() + "%";
-                progressBar.Value = Convert.ToDouble(percentage);
+                progressVal.Text = percentage.ToString() + "%";
+                progressBar.Value = percentage;
             });
         }
     }
