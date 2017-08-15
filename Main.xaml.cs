@@ -86,7 +86,6 @@ namespace Discord_UWP
     /*<summary>
      An empty page that can be used on its own or navigated to within a Frame.
      </summary>*/
-    
     public sealed partial class Main : Page
     {
         public async void Login(string args = null)
@@ -118,17 +117,19 @@ namespace Discord_UWP
             catch
             {
                 LoadingSplash.Hide(false);
-                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
                 App.ShowAds = false;
-                IAPSButton.Visibility = Visibility.Collapsed; await LoadCache();
+                IAPSButton.Visibility = Visibility.Collapsed;
+                await LoadCache();
+                LoadGuilds();
                 LoadMessages();
                 LoadMutedChannels();
 
                 await LoadUser();
 
-                LoadingSplash.Status = App.GetString("Offline");
+                LoadingSplash.Status = App.GetString("Main/Offline").ToUpper();
                 await Task.Delay(3000);
                 Session.Online = false;
+                LoadingSplash.Hide(false);
             }
             if(args != null)
             {
@@ -160,7 +161,6 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
-           
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -649,6 +649,7 @@ namespace Discord_UWP
         {
             if (Storage.Cache.Guilds[id] != null)
             {
+                App.CurrentGuildId = id;
                 ChannelsLoading.IsActive = true;
 
                 Messages.Items.Clear();
@@ -705,7 +706,6 @@ namespace Discord_UWP
             {
                 NoGuildChannelsCached.Visibility = Visibility.Visible;
             }
-            App.CurrentGuildId = id;
         }
         private void DownloadGuild(string id)
         {
@@ -792,7 +792,10 @@ namespace Discord_UWP
             {
                 App.CurrentGuildIsDM = false;
                 App.CurrentChannelId = ((SimpleChannel)TextChannels.SelectedItem).Id;
-                Session.Gateway.SubscribeToGuild(new string[]{App.CurrentGuildId});
+                if (Session.Online)
+                {
+                    Session.Gateway.SubscribeToGuild(new string[] { App.CurrentGuildId });
+                }
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
@@ -1003,7 +1006,10 @@ namespace Discord_UWP
             if (DirectMessageChannels.SelectedItem != null)
             {
                 App.CurrentChannelId = (DirectMessageChannels.SelectedItem as SimpleChannel).Id;
-                Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
+                if (Session.Online)
+                {
+                    Session.Gateway.SubscribeToGuild(new string[] { App.CurrentChannelId });
+                }
                 UpdateTypingUI();
                 if (Servers.DisplayMode == SplitViewDisplayMode.CompactOverlay || Servers.DisplayMode == SplitViewDisplayMode.Overlay)
                     Servers.IsPaneOpen = false;
@@ -1071,6 +1077,7 @@ namespace Discord_UWP
                 foreach (SharedModels.Message message in messages)
                 {
                     Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].Messages.Add(message.Id, new Message(message));
+                    Storage.SaveCache();
                 }
             }
 

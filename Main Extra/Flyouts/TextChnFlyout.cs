@@ -56,17 +56,20 @@ namespace Discord_UWP
             //};
             //PinChannel.Click += PinChannelToStart;
             //menu.Items.Add(PinChannel);
-            MenuFlyoutItem editchannel = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.GetString("/Flyouts/EditChannel"),
-                Tag = chn.Raw.Id,
-                Icon = new SymbolIcon(Symbol.Edit),
-                Margin = new Thickness(-26,0,0,0)
-            };
-            editchannel.Click += Editchannel;
-            menu.Items.Add(editchannel);
-            MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep1);
+                MenuFlyoutItem editchannel = new MenuFlyoutItem()
+                {
+                    Text = App.GetString("/Flyouts/EditChannel"),
+                    Tag = chn.Raw.Id,
+                    Icon = new SymbolIcon(Symbol.Edit),
+                    Margin = new Thickness(-26, 0, 0, 0)
+                };
+                editchannel.Click += Editchannel;
+                menu.Items.Add(editchannel);
+                MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep1);
+            }
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MuteChannel"),
@@ -77,35 +80,38 @@ namespace Discord_UWP
             mute.IsChecked = Storage.MutedChannels.Contains(chn.Raw.Id);
             mute.Click += MuteChannel;
             menu.Items.Add(mute);
-            MenuFlyoutItem markasread = new MenuFlyoutItem()
+            if (Session.Online)
             {
-                Text = App.GetString("/Flyouts/MarkAsRead"),
-                Tag = chn.Raw.Id,
-                Icon = new SymbolIcon(Symbol.View),
-                Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
-            };
-            menu.Items.Add(markasread);
-            markasread.Click += MarkAsReadOnClick;
-            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
-            menu.Items.Add(sep2);
-            MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
-            {
-                Text = App.GetString("/Flyouts/DeleteChannel"),
-                Tag = chn.Raw.Id,
-                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                Icon = new SymbolIcon(Symbol.Delete),
-                Margin = new Thickness(-26, 0, 0, 0),
-                //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
-            };
+                MenuFlyoutItem markasread = new MenuFlyoutItem()
+                {
+                    Text = App.GetString("/Flyouts/MarkAsRead"),
+                    Tag = chn.Raw.Id,
+                    Icon = new SymbolIcon(Symbol.View),
+                    Margin = new Thickness(-26, 0, 0, 0),
+                    IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                };
+                menu.Items.Add(markasread);
+                markasread.Click += MarkAsReadOnClick;
+                MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+                menu.Items.Add(sep2);
+                MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
+                {
+                    Text = App.GetString("/Flyouts/DeleteChannel"),
+                    Tag = chn.Raw.Id,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                    Icon = new SymbolIcon(Symbol.Delete),
+                    Margin = new Thickness(-26, 0, 0, 0),
+                    //IsEnabled = !(TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
+                };
 
-            if (!chn.chnPerms.Perms.ManageChannels && !chn.chnPerms.Perms.Administrator)
-            {
-                deleteChannel.IsEnabled = false;
+                if (!chn.chnPerms.Perms.ManageChannels && !chn.chnPerms.Perms.Administrator)
+                {
+                    deleteChannel.IsEnabled = false;
+                }
+
+                menu.Items.Add(deleteChannel);
+                deleteChannel.Click += DeleteChannelOnClick;
             }
-
-            menu.Items.Add(deleteChannel);
-            deleteChannel.Click += DeleteChannelOnClick;
             return menu;
         }
 
@@ -165,13 +171,13 @@ namespace Discord_UWP
                 bool isCreated = await tile.RequestCreateAsync();
                 if (isCreated)
                 {
-                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinSucess"));
+                    MessageDialog msg = new MessageDialog("Pinned Succesfully");
                     await msg.ShowAsync();
-                    (sender as MenuFlyoutItem).Text = App.GetString("/Flyouts/UnpinFromStart");
+                    (sender as MenuFlyoutItem).Text = "Unpin From Start";
                 }
                 else
                 {
-                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinFailed"));
+                    MessageDialog msg = new MessageDialog("Failed to Pin");
                     await msg.ShowAsync();
                 }
             }
@@ -182,13 +188,13 @@ namespace Discord_UWP
                 bool isDeleted = await tileToDelete.RequestDeleteAsync();
                 if (isDeleted)
                 {
-                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/UnpinSucess"));
+                    MessageDialog msg = new MessageDialog("Removed Succesfully");
                     await msg.ShowAsync();
-                    (sender as Button).Content = App.GetString("/Flyouts/PinToStart");
+                    (sender as Button).Content = "Pin From Start";
                 }
                 else
                 {
-                    MessageDialog msg = new MessageDialog(App.GetString("/Flyouts/PinFailed"));
+                    MessageDialog msg = new MessageDialog("Failed to Remove");
                     await msg.ShowAsync();
                 }
             }

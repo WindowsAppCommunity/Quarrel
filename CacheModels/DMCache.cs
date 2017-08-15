@@ -13,6 +13,7 @@ namespace Discord_UWP.CacheModels
             Raw.Id = input.Id;
             Raw.LastMessageId = input.LastMessageId;
             Raw.Private = input.Private;
+            Raw.Type = input.Type;
             //Raw.User = input.User;
             Raw.Users = input.Users.AsEnumerable();
             foreach (TempMessage message in input.Messages)

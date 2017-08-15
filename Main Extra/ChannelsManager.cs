@@ -59,7 +59,7 @@ namespace Discord_UWP
             public Game? Playing
             {
                 get { return _playing; }
-                set { if (_playing.HasValue && value.HasValue && _playing.Value.Name == value.Value.Name && _playing.Value.Type == value.Value.Type) return; _playing = value; OnPropertyChanged("Playing"); }
+                set { if (_playing.HasValue && value.HasValue && _playing.Value.Name == value.Value.Name) return; _playing = value; OnPropertyChanged("Playing"); }
             }
 
             private string _imageurl;

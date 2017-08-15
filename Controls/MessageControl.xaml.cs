@@ -140,7 +140,7 @@ namespace Discord_UWP
                     advert.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
                     advert.AdUnitId = "336795";
                     advert.Margin = new Thickness(6);
-                    advert.Background = new SolidColorBrush(Colors.Red);
+                    advert.Background = new SolidColorBrush(Colors.Transparent);
                     Grid.SetColumnSpan(advert, 10);
                     Grid.SetRowSpan(advert, 10);
                     rootGrid.Children.Add(advert);
@@ -163,8 +163,11 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-            Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
-            Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
+                Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            }
         }
 
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
