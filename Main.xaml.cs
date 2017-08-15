@@ -86,7 +86,6 @@ namespace Discord_UWP
     /*<summary>
      An empty page that can be used on its own or navigated to within a Frame.
      </summary>*/
-    
     public sealed partial class Main : Page
     {
         public async void Login(string args = null)
@@ -127,7 +126,7 @@ namespace Discord_UWP
 
                 await LoadUser();
 
-                LoadingSplash.Status = App.Translate("Offline").ToUpper();
+                LoadingSplash.Status = App.GetString("Main/Offline").ToUpper();
                 await Task.Delay(3000);
                 Session.Online = false;
                 LoadingSplash.Hide(false);
@@ -162,7 +161,6 @@ namespace Discord_UWP
         public Main()
         {
             this.InitializeComponent();
-           
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

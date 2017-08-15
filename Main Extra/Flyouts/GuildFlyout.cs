@@ -50,7 +50,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem editServer = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("EditServer"),
+                    Text = App.GetString("/Flyouts/EditServer"),
                     Tag = guild.RawGuild.Id,
                     Icon = new SymbolIcon(Symbol.Edit),
                     Margin = new Thickness(-26, 0, 0, 0)
@@ -62,7 +62,7 @@ namespace Discord_UWP
             }
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
-                Text = App.Translate("MuteServer"),
+                Text = App.GetString("/Flyouts/MuteServer"),
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = guild.RawGuild.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -74,7 +74,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem markasread = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("MarkAsRead"),
+                    Text = App.GetString("/Flyouts/MarkAsRead"),
                     Tag = guild.RawGuild.Id,
                     Icon = new SymbolIcon(Symbol.View),
                     Margin = new Thickness(-26, 0, 0, 0),
@@ -86,7 +86,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem deleteServer = new MenuFlyoutItem()
                     {
-                        Text = App.Translate("DeleteServer"),
+                        Text = App.GetString("/Flyouts/DeleteServer"),
                         Tag = guild.RawGuild.Id,
                         Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Icon = new SymbolIcon(Symbol.Delete),
@@ -99,7 +99,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                     {
-                        Text = App.Translate("LeaveServer"),
+                        Text = App.GetString("/Flyouts/LeaveServer"),
                         Tag = guild.RawGuild.Id,
                         Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Icon = new SymbolIcon(Symbol.Remove),

@@ -73,7 +73,7 @@ namespace Discord_UWP.Controls
 
         public Game? Playing
         {
-            get { return (Game?)GetValue(PlayingProperty); }
+            get { try { return (Game?)GetValue(PlayingProperty); } catch { return null; } }
             set { SetValue(PlayingProperty, value); }
         }
         public static readonly DependencyProperty PlayingProperty = DependencyProperty.Register(
@@ -358,7 +358,7 @@ namespace Discord_UWP.Controls
                         App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                     case 1: /*DM*/
-                        //App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
 
