@@ -117,7 +117,6 @@ namespace Discord_UWP
             }
             catch
             {
-                LoadingSplash.Hide(false);
                 App.ShowAds = false;
                 IAPSButton.Visibility = Visibility.Collapsed;
                 await LoadCache();
@@ -127,9 +126,12 @@ namespace Discord_UWP
 
                 await LoadUser();
 
+                AddServerButton.Visibility = Visibility.Collapsed;
+
                 LoadingSplash.Status = App.Translate("Offline").ToUpper();
                 await Task.Delay(3000);
                 Session.Online = false;
+                LoadingSplash.Hide(false);
             }
             if(args != null)
             {

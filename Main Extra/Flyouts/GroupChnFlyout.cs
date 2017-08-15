@@ -11,16 +11,26 @@ namespace Discord_UWP
 {
     public sealed partial class Main : Page
     {
-        private MenuFlyout MakeDMChannelMenu(DmCache dm)
+        private MenuFlyout MakeGroupChannelMenu(DmCache dm)
         {
             MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutItem profile = new MenuFlyoutItem() {
-                Text = App.Translate("Profile"),
-                Icon = new SymbolIcon(Symbol.ContactInfo),
-                Tag = dm.Raw.Users.FirstOrDefault()
+            MenuFlyoutSubItem Profile = new MenuFlyoutSubItem()
+            {
+                Text = App.Translate("Profile")
+                //Tag = member.Raw.User.Id,
+                //Icon = new SymbolIcon(Symbol.)
             };
-            profile.Click += OpenProfile;
-            menu.Items.Add(profile);
+            foreach (SharedModels.User user in Storage.Cache.DMs[dm.Raw.Id].Raw.Users)
+            {
+                MenuFlyoutItem item = new MenuFlyoutItem()
+                {
+                    Text = user.Username,
+                    Tag = user
+                };
+                item.Click += OpenProfile;
+                Profile.Items.Add(item);
+            }
+            menu.Items.Add(Profile);
 
             if (Session.Online)
             {
@@ -96,10 +106,17 @@ namespace Discord_UWP
             return menu;
         }
 
-        private void OpenProfile(object sender, RoutedEventArgs e)
+        private void BlockUser(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as Nullable<SharedModels.User>).Value);
-            //ShowUserDetails((sender as MenuFlyoutItem).Tag.ToString());
+            Session.BlockUser((sender as MenuFlyoutItem).Tag.ToString()); //TODO: Confirm
+        }
+
+        private async void RemoveFriend(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                Session.RemoveFriend((sender as MenuFlyoutItem).Tag.ToString());
+            }); //TODO: Confirm
         }
     }
 }

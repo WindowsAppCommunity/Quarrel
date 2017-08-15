@@ -341,7 +341,7 @@ namespace Discord_UWP.Controls
 
                         break;
                     case 3: /*Group*/
-
+                        App.ShowMenuFlyout(this, App.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                 }
         }
@@ -362,7 +362,7 @@ namespace Discord_UWP.Controls
 
                         break;
                     case 3: /*Group*/
-
+                        App.ShowMenuFlyout(this, App.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                 }
         }

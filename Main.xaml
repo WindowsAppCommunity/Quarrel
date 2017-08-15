@@ -602,7 +602,7 @@
                             </ListView.ItemTemplate>
 
                             <ListView.Footer>
-                                <Button Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}">
+                                <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}">
                                     <Button.Content>
                                         <Grid>
                                             <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
