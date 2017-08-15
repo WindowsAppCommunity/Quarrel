@@ -120,9 +120,12 @@ namespace Discord_UWP.SubPages
                 }
                 RolesView.SelectedIndex = 0;
             }
-            Session.Gateway.GuildUpdated += GuildUpdated;
-            Session.Gateway.GuildBanAdded += BanAdded;
-            Session.Gateway.GuildBanRemoved += BanRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.GuildUpdated += GuildUpdated;
+                Session.Gateway.GuildBanAdded += BanAdded;
+                Session.Gateway.GuildBanRemoved += BanRemoved;
+            }
         }
 
         private async void BanRemoved(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
@@ -188,9 +191,12 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.Gateway.GuildUpdated -= GuildUpdated;
-            Session.Gateway.GuildBanAdded -= BanAdded;
-            Session.Gateway.GuildBanRemoved -= BanRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.GuildUpdated -= GuildUpdated;
+                Session.Gateway.GuildBanAdded -= BanAdded;
+                Session.Gateway.GuildBanRemoved -= BanRemoved;
+            }
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
@@ -285,7 +291,10 @@ namespace Discord_UWP.SubPages
                 IEnumerable<Ban> bans = null;
                 await Task.Run(async () =>
                 {
-                    bans = await Session.GetGuildBans(guildId);
+                    if (Session.Online)
+                    {
+                        bans = await Session.GetGuildBans(guildId);
+                    }
                 });
                 if (bans != null)
                 {

@@ -127,6 +127,10 @@ namespace Discord_UWP.Controls
             RoleHeader.Text = App.Translate("Role");
             NoteHeader.Text = App.Translate("Note");
             SendDM.Send += SendDirectMessage;
+            if (!Session.Online)
+            {
+                Note.IsReadOnly = true;
+            }
         }
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)

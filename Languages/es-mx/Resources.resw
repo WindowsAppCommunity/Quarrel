@@ -531,4 +531,7 @@
   <data name="CantSendMessagesOffline" xml:space="preserve">
     <value>Not translated</value>
   </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Not translated</value>
+  </data>
 </root>

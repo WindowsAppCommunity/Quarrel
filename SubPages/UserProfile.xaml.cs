@@ -40,6 +40,13 @@ namespace Discord_UWP.SubPages
             CommonSrvItem.Content = App.Translate("CommonServer").ToUpper();
             CommonFrdItem.Content = App.Translate("CommonFriend").ToUpper();
             NoteText.Text = App.Translate("Note").ToUpper();
+            if (!Session.Online)
+            {
+                CommonSrvItem.Visibility = Visibility.Collapsed;
+                CommonFrdItem.Visibility = Visibility.Collapsed;
+                CommonSrvspivot.Visibility = Visibility.Collapsed;
+                CommonFrdspivot.Visibility = Visibility.Collapsed;
+            }
         }
         private void NavAway_Completed(object sender, object e)
         {
@@ -56,14 +63,35 @@ namespace Discord_UWP.SubPages
                 CloseButton_Click(null, null);
                 return;
             }
-
-            profile = await Session.GetUserProfile(e.Parameter as string);
-            if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
+            if (Session.Online)
             {
-                profile.Friend = Storage.Cache.Friends[profile.User.Id].Raw;
+                profile = await Session.GetUserProfile(e.Parameter as string);
+                if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
+                {
+                    profile.Friend = Storage.Cache.Friends[profile.User.Id].Raw;
+                }
+                else
+                {
+                    profile.Friend = null;
+                }
             } else
             {
-                profile.Friend = null;
+                if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(e.Parameter as string))
+                {
+                    profile = new SharedModels.UserProfile()
+                    {
+                        ConnectedAccount = null,
+                        Friend = null,
+                        MutualGuilds = null,
+                        PremiumSince = null,
+                        User = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Parameter as string].Raw.User
+                    };
+                }
+
+                if (Storage.Cache.Friends.ContainsKey(e.Parameter as string))
+                {
+                    profile.Friend = Storage.Cache.Friends[e.Parameter as string].Raw;
+                }
             }
 
             username.Text = profile.User.Username;
@@ -85,45 +113,65 @@ namespace Discord_UWP.SubPages
                 Block.Visibility = Visibility.Visible;
             }
 
+            if (!Session.Online)
+            {
+                acceptFriend.Visibility = Visibility.Collapsed;
+                Unblock.Visibility = Visibility.Collapsed;
+                sendFriendRequest.Visibility = Visibility.Collapsed;
+                SendMessageLink.Visibility = Visibility.Collapsed;
+                Block.Visibility = Visibility.Collapsed;
+                NoteBox.IsReadOnly = true;
+            }
+
 
             if (App.Notes.ContainsKey(profile.User.Id))
                 NoteBox.Text = App.Notes[profile.User.Id];
 
-            Session.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
-            Session.Gateway.RelationShipAdded += Gateway_RelationshipAdded;
-            Session.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
-            Session.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+                Session.Gateway.RelationShipAdded += Gateway_RelationshipAdded;
+                Session.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
+                Session.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
+            }
 
 
             BackgroundGrid.Blur(8,0).Start();
 
-            for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
+            if (profile.ConnectedAccount != null)
             {
-                var element = profile.ConnectedAccount.ElementAt(i);
-                string themeExt = "";
-                if (element.Type.ToLower() == "steam")
+                for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
                 {
-                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                        themeExt = "_light";
-                    else
-                        themeExt = "_dark";
+                    var element = profile.ConnectedAccount.ElementAt(i);
+                    string themeExt = "";
+                    if (element.Type.ToLower() == "steam")
+                    {
+                        if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                            themeExt = "_light";
+                        else
+                            themeExt = "_dark";
+                    }
+                    element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
+                    Connections.Items.Add(element);
                 }
-                element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
-                Connections.Items.Add(element);   
             }
-
-            for (int i = 0; i < profile.MutualGuilds.Count(); i++)
+            
+            if (profile.MutualGuilds != null)
             {
-                var element = profile.MutualGuilds.ElementAt(i);
-                element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
-                element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
+                for (int i = 0; i < profile.MutualGuilds.Count(); i++)
+                {
+                    var element = profile.MutualGuilds.ElementAt(i);
+                    element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
+                    element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
 
-                if (element.Nick != null) element.NickVisibility = Visibility.Visible;
-                else element.NickVisibility = Visibility.Collapsed;
+                    if (element.Nick != null) element.NickVisibility = Visibility.Visible;
+                    else element.NickVisibility = Visibility.Collapsed;
 
-                MutualGuilds.Items.Add(element);
-                NoCommonServers.Visibility = Visibility.Collapsed;
+                    MutualGuilds.Items.Add(element);
+                    NoCommonServers.Visibility = Visibility.Collapsed;
+                }
             }
+            
 
             switch (profile.User.Flags)
             {
@@ -279,10 +327,13 @@ namespace Discord_UWP.SubPages
         {
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
-            Session.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
-            Session.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
-            Session.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
-            Session.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
+            if (Session.Online)
+            {
+                Session.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+                Session.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
+                Session.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
+                Session.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
+            }
             NavAway.Begin();
             App.SubpageClosed();
         }
