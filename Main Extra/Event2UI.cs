@@ -43,6 +43,7 @@ using Message = Discord_UWP.CacheModels.Message;
 using User = Discord_UWP.CacheModels.User;
 using Guild = Discord_UWP.CacheModels.Guild;
 using Friend = Discord_UWP.CacheModels.Friend;
+using Windows.UI.Xaml.Media.Animation;
 #endregion
 
 namespace Discord_UWP
@@ -192,6 +193,7 @@ namespace Discord_UWP
                     }
 
                     LoadingSplash.Hide(true);
+                    //CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
                     LoadGuilds();
                     Storage.SaveCache();
                 });
@@ -283,7 +285,7 @@ namespace Discord_UWP
                 e.EventData.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 //In a real app, these would be initialized with actual data
-                string toastTitle = e.EventData.User.Username + " sent a message on " + "(#" +
+                string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " " + " " + "(#" +
                                     Session.GetGuildChannel(e.EventData.ChannelId).Name + ")";
                 string content = e.EventData.Content;
                 //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
@@ -867,16 +869,35 @@ namespace Discord_UWP
             {
                 //LocalStatusChangeEnabled = false;
                 if (e.EventData.Status == "online")
+                {
                     UserStatusOnline.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["online"]);
+                }
                 if (e.EventData.Status == "idle")
+                {
                     UserStatusIdle.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["idle"]);
+                }
                 if (e.EventData.Status == "dnd")
+                {
                     UserStatusDND.IsChecked = true;
-                if (e.EventData.Status == "offline")
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["dnd"]);
+                }
+                if (e.EventData.Status == "invisible")
+                {
                     UserStatusInvisible.IsChecked = true;
+                    AnimateStatusColor((SolidColorBrush)App.Current.Resources["offline"]);
+                }
             });
         }
 
+        Storyboard sb = new Storyboard() { Duration = TimeSpan.FromMilliseconds(300) };
+        ColorAnimation ca = new ColorAnimation();
+        private void AnimateStatusColor(SolidColorBrush brush)
+        {
+            StatusColorAnimation.To = brush.Color;
+            ChangeStatusColor.Begin();
+        }
         private async void PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
             if (Session.PrecenseDict.ContainsKey(e.EventData.User.Id))
@@ -1016,18 +1037,18 @@ namespace Discord_UWP
                         if (i == 0)
                             typingString += NamesTyping.ElementAt(i); //first element, no prefix
                         else if (i == 2 && i == DisplayedTyperCounter)
-                            typingString += " and " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
+                            typingString += " "+ App.GetString("/Main/TypingAnd") + " " + " " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
                         else if (i == DisplayedTyperCounter)
                             typingString +=
-                                ", and " +
+                                ", " + App.GetString("/Main/TypingAnd") + " " +
                                 NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
                         else
                             typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
                     }
                     if (DisplayedTyperCounter > 1)
-                        typingString += " are typing...";
+                        typingString += " " + App.GetString("/Main/TypingPlural");
                     else
-                        typingString += " is typing...";
+                        typingString += " "+ App.GetString("/Main/TypingSingular");
 
                     if (DisplayedTyperCounter == 0)
                     {

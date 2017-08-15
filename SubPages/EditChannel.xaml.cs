@@ -34,14 +34,6 @@ namespace Discord_UWP.SubPages
         public EditChannel()
         {
             this.InitializeComponent();
-            header.Text = App.Translate("EditChannel").ToUpper();
-            OverviewItem.Header = App.Translate("Overview");
-            ChannelName.Header = App.Translate("Name");
-            ChannelTopic.Header = App.Translate("Topic");
-            NsfwSwitch.OnContent = App.Translate("NSFW " + App.Translate("Channel"));
-            InvitesItem.Header = App.Translate("Invites");
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Save");
         }
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
@@ -61,7 +53,7 @@ namespace Discord_UWP.SubPages
             var channel = Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(channelId))
                 .Value.Channels[channelId];
             ChannelName.Text = channel.Raw.Name;
-            header.Text = "EDIT " + channel.Raw.Name.ToUpper();
+            header.Text = App.GetString("/Dialogs/EDIT") + " " + channel.Raw.Name.ToUpper();
             if(channel.Raw.Topic != null)
                 ChannelTopic.Text = channel.Raw.Topic;
             Session.Gateway.GuildChannelUpdated += ChannelUpdated;

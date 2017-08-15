@@ -25,15 +25,13 @@ namespace Discord_UWP.SubPages
         public DeleteServer()
         {
             this.InitializeComponent();
-            button.Content = App.Translate("Cancel");
-            SaveButton.Content = App.Translate("Delete");
         }
 
         string guildId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
-            Message.Text = "Are you sure you want to delete " + Storage.Cache.Guilds[guildId].RawGuild.Name + "?";
+            Message.Text = App.GetString("/Dialogs/VerifyDelete") + Storage.Cache.Guilds[guildId].RawGuild.Name + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

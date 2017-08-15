@@ -236,6 +236,373 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="ListViewItem" x:Name="ListViewStyle1">
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Grid x:Name="ContentBorder"
+                              
+              Background="{TemplateBinding Background}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Center">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.2" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.4" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.4" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PressedSelected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0"
+                                 To="1"/>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.4" Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.2" Storyboard.TargetName="ContentPresenterWhite" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerDownThemeAnimation TargetName="ContentPresenter" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DisabledStates">
+                                    <VisualState x:Name="Enabled"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ContentBorder"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0"
+                                 To="{ThemeResource ListViewItemDisabledThemeOpacity}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="MultiSelectStates">
+                                    <VisualState x:Name="MultiSelectDisabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectCheckBoxTransform"
+                                                Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="-32" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectClipTransform"
+                                               Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="32" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenterTranslateTransform"
+                                               Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="32"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="0" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectSquare" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.333" Value="Collapsed" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MultiSelectEnabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectCheckBoxTransform"
+                                                Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="-32"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="0" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectClipTransform"
+                                               Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="32"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="0" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenterTranslateTransform"
+                                               Storyboard.TargetProperty="X">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="-32"/>
+                                                <SplineDoubleKeyFrame KeyTime="0:0:0.333" Value="0" KeySpline="0.1,0.9,0.2,1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectSquare" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectCheck" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenterGrid" Storyboard.TargetProperty="Margin">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="32,0,0,0" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextBlock" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderRect" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Bottom" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="TopReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Top" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="RightReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Right" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="LeftReorderHint">
+                                        <Storyboard>
+                                            <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Left" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ContentBorder"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0"
+                                 To="{ThemeResource ListViewItemDragThemeOpacity}" />
+                                            <DragItemThemeAnimation TargetName="ContentBorder" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="DraggingTarget">
+                                        <Storyboard>
+                                            <DropTargetItemThemeAnimation TargetName="ContentBorder" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MultipleDraggingPrimary">
+                                        <Storyboard>
+                                            <!-- These two Opacity animations are required - the FadeInThemeAnimations
+                                         on the same elements animate an internal Opacity. -->
+                                            <DoubleAnimation Storyboard.TargetName="MultiArrangeOverlayBackground"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0"
+                                 To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="MultiArrangeOverlayText"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0"
+                                 To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="ContentBorder"
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0"
+                                 To="{ThemeResource ListViewItemDragThemeOpacity}" />
+                                            <FadeInThemeAnimation TargetName="MultiArrangeOverlayBackground" />
+                                            <FadeInThemeAnimation TargetName="MultiArrangeOverlayText" />
+                                            <DragItemThemeAnimation TargetName="ContentBorder" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MultipleDraggingSecondary">
+                                        <Storyboard>
+                                            <FadeOutThemeAnimation TargetName="ContentBorder" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="DraggedPlaceholder">
+                                        <Storyboard>
+                                            <FadeOutThemeAnimation TargetName="ContentBorder" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition To="NotDragging" GeneratedDuration="0:0:0.2"/>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="BorderBackground" Opacity="0" Background="{TemplateBinding Foreground}" CornerRadius="4" IsHitTestVisible="False" Margin="4,0"/>
+                            <Border x:Name="BorderB"
+                                       CornerRadius="4"
+                                    BorderThickness="1"
+                                    BorderBrush="{TemplateBinding Foreground}"
+                    IsHitTestVisible="False"
+                    Background="Transparent"
+                    Opacity="0.5"
+                    Control.IsTemplateFocusTarget="True" Margin="4,0">
+                                <Grid x:Name="ContentPresenterGrid"
+              Background="Transparent"
+              Margin="{TemplateBinding Padding}">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                    </Grid.RenderTransform>
+                                    <ContentPresenter x:Name="ContentPresenter"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="Center"
+                            />
+                                    <ContentPresenter x:Name="ContentPresenterWhite" Opacity="0"
+                            Foreground="White"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="Center"
+                            />
+                                </Grid>
+                            </Border>
+                            <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
+                          In the DataPlaceholder state, the Content is not loaded yet so we
+                          approximate the size of the item using placeholder text. -->
+                            <TextBlock x:Name="PlaceholderTextBlock"
+                    Opacity="0"
+                    Text="Xg"
+                    Foreground="{x:Null}"
+                    IsHitTestVisible="False"
+                    AutomationProperties.AccessibilityView="Raw"/>
+                            <Rectangle x:Name="PlaceholderRect"
+                    Visibility="Collapsed"
+                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>
+                            <Rectangle x:Name="MultiArrangeOverlayBackground"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    Fill="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                    Grid.ColumnSpan="2"/>
+                            <Border x:Name="MultiSelectSquare"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                BorderThickness="2"
+                Width="20"
+                Height="20"
+                Margin="12,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed" >
+                                <Border.Clip>
+                                    <RectangleGeometry Rect="0,0,20,20">
+                                        <RectangleGeometry.Transform>
+                                            <TranslateTransform x:Name="MultiSelectClipTransform"/>
+                                        </RectangleGeometry.Transform>
+                                    </RectangleGeometry>
+                                </Border.Clip>
+                                <Border.RenderTransform>
+                                    <TranslateTransform x:Name="MultiSelectCheckBoxTransform"/>
+                                </Border.RenderTransform>
+                                <FontIcon x:Name="MultiSelectCheck"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    Glyph="&#xE73E;"
+                    FontSize="16"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                    Visibility="Collapsed"
+                    Opacity="0"/>
+                            </Border>
+                            <TextBlock x:Name="MultiArrangeOverlayText"
+                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.DragItemsCount}"
+                    Foreground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                    FontSize="26.667"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    TextWrapping="Wrap"
+                    TextTrimming="WordEllipsis"
+                    Margin="18,9,0,0"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -281,6 +648,9 @@
                                 <Thickness>112</Thickness>
                             </Setter.Value>
                         </Setter>
+                        <Setter Target="scrollViewer.(Grid.Row)" Value="0"/>
+                        <Setter Target="scrollViewer.(Grid.Column)" Value="1"/>
+                        <Setter Target="RoleStacker.(StackPanel.Orientation)" Value="Vertical"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="600"/>
@@ -298,13 +668,13 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="header" Text="EDIT SERVER" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Uid="/Dialogs/EditServerTB" x:Name="header" Text="EDIT SERVER" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot x:Name="pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
-                        <PivotItem Header="Overview" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Dialogs/OverviewPI" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBox x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
+                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
@@ -368,76 +738,79 @@
                                 </Grid>
                             </ScrollViewer>
                         </PivotItem>-->
-                        <PivotItem x:Name="Roles" Header="Roles">
+                        <PivotItem x:Uid="/Dialogs/RolesPI" x:Name="Roles" Header="Roles">
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
     ScrollViewer.HorizontalScrollMode="Enabled"                  
-    ScrollViewer.VerticalScrollMode="Disabled" x:Name="RolesView" Height="50" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged">
+    ScrollViewer.VerticalScrollMode="Disabled" x:Name="RolesView" Padding="0,0,0,24" MinHeight="0" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged" ItemContainerStyle="{StaticResource ListViewStyle1}">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel Background="Transparent" Orientation="Horizontal" />
+                                            <StackPanel x:Name="RoleStacker" Background="Transparent" Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" Foreground="{Binding Color}"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
                                 </ListView>
-                                <ScrollViewer Margin="0, 50, 0, 0">
+                                <ScrollViewer x:Name="scrollViewer" Margin="0" Grid.Row="1">
                                     <StackPanel>
                                         <TextBox x:Name="RoleName" Margin="10" LostFocus="UpdateRole">
                                             <TextBox.Header>
-                                                <TextBlock Text="ROLE NAME" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                                <TextBlock x:Uid="/Dialogs/RoleNameTB" Text="ROLE NAME" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
                                             </TextBox.Header>
                                         </TextBox>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="ROLE SETTINGS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="Hoist" Header="Display role seperatly (Hoist)" Margin="20, 5"/>
-                                            <ToggleSwitch x:Name="AllowMention" Header="Allow anyone to mention this role" Margin="20, 5"/>
+                                            <TextBlock x:Uid="/Dialogs/RoleSettingsTB" Text="ROLE SETTINGS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/RoleHoistToggle" x:Name="Hoist" Header="Display role seperatly (Hoist)" Margin="20, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/RoleAllowMentionToggle" x:Name="AllowMention" Header="Allow anyone to mention this role" Margin="20, 5"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="GENERAL PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="Administrator" Header="Administrator" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ViewAuditLog" Header="View Audit Log" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageServer" Header="Manage Server" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageRoles" Header="Manage Roles" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageChannels" Header="Manage Channels" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="KickMembers" Header="Kick Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="BanMembers" Header="Ban Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="CreateInstantInvite" Header="Create Instant Invite" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ChangeNickname" Header="Change Nickname" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageNicknames" Header="Manage Nicknames" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageEmojis" Header="Manage Emoji" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageWebhooks" Header="Manage Webhooks" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/GeneralPermissionsTB" Text="GENERAL PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AdministratorToggle" x:Name="Administrator" Header="Administrator" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ViewAuditLogToggle" x:Name="ViewAuditLog" Header="View Audit Log" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageServerToggle" x:Name="ManageServer" Header="Manage Server" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageRolesToggle" x:Name="ManageRoles" Header="Manage Roles" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageChannelsToggle" x:Name="ManageChannels" Header="Manage Channels" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/KickMembersToggle" x:Name="KickMembers" Header="Kick Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/BanMembersToggle" x:Name="BanMembers" Header="Ban Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/CreateInstantInviteToggle" x:Name="CreateInstantInvite" Header="Create Instant Invite" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ChangeNicknameToggle" x:Name="ChangeNickname" Header="Change Nickname" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageNicknamesToggle" x:Name="ManageNicknames" Header="Manage Nicknames" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageEmojisToggle" x:Name="ManageEmojis" Header="Manage Emoji" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageWebhooksToggle" x:Name="ManageWebhooks" Header="Manage Webhooks" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="TEXT PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="ReadMessages" Header="Read Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="SendMessages" Header="Send Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="SendTtsMessages" Header="Send TTS Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ManageMessages" Header="Manage Messages" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="EmbedLinks" Header="Embed Links" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="AttachFiles" Header="Attach Files" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MentionEveryone" Header="Mention @everyone" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="UseExternalEmojis" Header="Use External Emojis" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="AddReactions" Header="Add Reactions" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/TextPermissionsTB" Text="TEXT PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ReadMessagesToggle" x:Name="ReadMessages" Header="Read Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SendMessagesToggle" x:Name="SendMessages" Header="Send Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SendTTSMessagesToggle" x:Name="SendTtsMessages" Header="Send TTS Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ManageMessagesToggle" x:Name="ManageMessages" Header="Manage Messages" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/EmbedLinksToggle" x:Name="EmbedLinks" Header="Embed Links" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AttachFilesToggle" x:Name="AttachFiles" Header="Attach Files" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ReadMessageHistoryToggle" x:Name="ReadMessageHistory" Header="Read Message History" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MentionEveryoneToggle" x:Name="MentionEveryone" Header="Mention @everyone" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/UseExternalEmojisToggle" x:Name="UseExternalEmojis" Header="Use External Emojis" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/AddReactionsToggle" x:Name="AddReactions" Header="Add Reactions" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                         <StackPanel Margin="10">
-                                            <TextBlock Text="VOICE PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            <ToggleSwitch x:Name="ConnectPerm" Header="Connect" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="Speak" Header="Speak" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MuteMembers" Header="Mute Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="DeafenMembers" Header="Deafen Members" Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="MoveMembers" Header="Move Members " Margin="20, 5" Toggled="UpdateRole"/>
-                                            <ToggleSwitch x:Name="UseVad" Header="Use Voice Activity" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <TextBlock x:Uid="/Dialogs/VoicePermissionsTB" Text="VOICE PERMISSIONS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/ConnectToggle" x:Name="ConnectPerm" Header="Connect" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/SpeakToggle" x:Name="Speak" Header="Speak" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MuteMembersToggle" x:Name="MuteMembers" Header="Mute Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/DeafenMembersToggle" x:Name="DeafenMembers" Header="Deafen Members" Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/MoveMembersToggle" x:Name="MoveMembers" Header="Move Members " Margin="20, 5" Toggled="UpdateRole"/>
+                                            <ToggleSwitch x:Uid="/Dialogs/UseVoiceActivityToggle" x:Name="UseVad" Header="Use Voice Activity" Margin="20, 5" Toggled="UpdateRole"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid>
                         </PivotItem>
-                        <PivotItem x:Name="Invites" Header="Invites">
+                        <PivotItem x:Uid="/Dialogs/InvitesPI" x:Name="Invites" Header="Invites">
                             <Grid>
                                 <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>
@@ -452,10 +825,10 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingInvite" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoInvitesTB" x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
-                        <PivotItem x:Name="Bans" Header="Bans">
+                        <PivotItem x:Uid="/Dialogs/BansPI" x:Name="Bans" Header="Bans">
                             <Grid>
                                 <ListView x:Name="BanView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemContainerStyle>
@@ -470,7 +843,7 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
                                 <ProgressRing x:Name="LoadingBans" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                <TextBlock x:Name="NoBans" Visibility="Visible" Text="NO BANS FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
+                                <TextBlock x:Uid="/Dialogs/NoBansTB" x:Name="NoBans" Visibility="Visible" Text="NO BANS FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
                     </Pivot>
@@ -480,8 +853,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
+                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
                         </Grid>
                     </Grid>
                 </Grid>

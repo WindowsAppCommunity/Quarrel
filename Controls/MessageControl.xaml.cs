@@ -163,10 +163,6 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-            MoreAddReaction.Text = App.Translate("AddReaction");
-            MoreEdit.Text = App.Translate("Edit");
-            MoreDelete.Text = App.Translate("Delete");
-            MoreCopyId.Text = App.Translate("CopyID");
             if (Session.Online)
             {
                 Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
@@ -386,11 +382,10 @@ namespace Discord_UWP
                     BotIndicator.Visibility = Visibility.Visible;
                 else
                     BotIndicator.Visibility = Visibility.Collapsed;
-
                 if (Message.Value.Pinned)
-                    MorePin.Text = App.Translate("Unpin");
+                    MorePin.Text = App.GetString("/Controls/Unpin");
                 else
-                    MorePin.Text = App.Translate("Pin");
+                    MorePin.Text = App.GetString("/Controls/Pin") + " ";
 
                 if (!Storage.Settings.DevMode)
                     MoreCopyId.Visibility = Visibility.Collapsed;
@@ -414,7 +409,7 @@ namespace Discord_UWP
 
                 timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
                 if (Message.Value.EditedTimestamp.HasValue)
-                    timestamp.Text += " (" + App.Translate("Edited") + " " +
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " +
                                       Common.HumanizeDate(Message.Value.EditedTimestamp.Value,
                                           Message.Value.Timestamp) + ")";
 
@@ -442,8 +437,7 @@ namespace Discord_UWP
                         rootGrid.Children.Remove(reactionView);
                     reactionView = null;
                 }
-                LoadAttachements(true);
-                LoadEmbeds();
+                LoadEmbedsAndAttachements();
                 content.Users = Message.Value.Mentions;
                 if (Message?.Content == "")
                 {
@@ -487,9 +481,8 @@ namespace Discord_UWP
                     rootGrid.Children.Remove(reactionView);
                 reactionView = null;
 
-                /* The resetting of the embed and attachement related stuff is handled by these functions: */
-                LoadEmbeds();
-                LoadAttachements(false);
+                /* The resetting of the embed and attachement related stuff is handled by this function: */
+                LoadEmbedsAndAttachements();
             }
         }
         public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
@@ -525,7 +518,7 @@ namespace Discord_UWP
                 }
             if (serversideEmoji != null)
             {
-                stack.Children.Add(new Image()
+                stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
                 {
                     Width = 20,
                     Height = 20,
@@ -548,87 +541,24 @@ namespace Discord_UWP
             reactionToggle.MinHeight = 0;
             return reactionToggle;
         }
-        private void LoadEmbeds()
+        private void LoadEmbedsAndAttachements()
         {
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
 
             if (!Message.HasValue || (Message.HasValue && Message.Value.Embeds == null)) return;
-            if (Message.Value.Embeds.Any())
+            if (Message.Value.Embeds.Any() || Message.Value.Attachments.Any())
                 EmbedViewer.Visibility = Visibility.Visible;
             foreach (Embed embed in Message.Value.Embeds)
             {
                 EmbedViewer.Children.Add(new EmbedControl(){Content = embed});
             }
-        }
-
-        readonly string[] ImageFiletypes = { ".jpg", ".jpeg", ".gif", ".tif", ".tiff", ".png", ".bmp", ".gif", ".ico" };
-        private void LoadAttachements(bool EnableImages)
-        {
-            AttachedImageViewer.Source = null;
-            AttachedImageViewbox.Visibility = Visibility.Collapsed;
-            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
-            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
-            LoadingImage.IsActive = false;
-            LoadingImage.Visibility = Visibility.Collapsed;
-            AttachedFileViewer.Visibility = Visibility.Collapsed;
-            if (!Message.HasValue || (Message.HasValue && Message.Value.Attachments == null)) return;
-            if (Message.Value.Attachments.Any())
+            foreach(Attachment attach in Message.Value.Attachments)
             {
-                attachement = Message.Value.Attachments.First();
-                bool IsImage = false;
-                if (EnableImages)
-                {
-                    foreach (string ext in ImageFiletypes)
-                        if (attachement.Filename.ToLower().EndsWith(ext))
-                        {
-                            IsImage = true;
-                            if (attachement.Filename.EndsWith(".svg"))
-                            {
-                                AttachedImageViewer.Source = new SvgImageSource(new Uri(attachement.Url));
-                            }
-                               
-                            else
-                            {
-                                AttachedImageViewer.Source = new BitmapImage(new Uri(attachement.Url));
-                            }
-                            break;
-                        }
-                }
-                if (IsImage)
-                {
-                    AttachedImageViewbox.Visibility = Visibility.Visible;
-                    LoadingImage.Visibility = Visibility.Visible;
-                    LoadingImage.IsActive = true;
-                    AttachedImageViewer.ImageOpened += AttachedImageViewer_ImageLoaded;
-                    AttachedImageViewer.ImageFailed += AttachementImageViewer_ImageFailed;
-                }
-                else
-                {
-                    FileName.NavigateUri = new Uri(attachement.Url);
-                    FileName.Content = attachement.Filename;
-                    FileSize.Text = HumanizeFileSize(attachement.Size);
-                    AttachedFileViewer.Visibility = Visibility.Visible;
-                }
+                EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
             }
         }
-        private void AttachedImageViewer_ImageLoaded(object sender, RoutedEventArgs e)
-        {
-            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
-            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
-            LoadingImage.IsActive = false;
-            LoadingImage.Visibility=Visibility.Collapsed;
-        }
 
-        private void AttachementImageViewer_ImageFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
-            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
-            LoadingImage.IsActive = false;
-            LoadingImage.Visibility = Visibility.Collapsed;
-            //Reload attachements but with images disabled
-            LoadAttachements(false);
-        }
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -770,10 +700,7 @@ namespace Discord_UWP
             Clipboard.SetContent(dataPackage);
         }
 
-        private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            App.OpenAttachement(attachement);
-        }
+
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {

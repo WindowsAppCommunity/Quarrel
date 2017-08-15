@@ -397,6 +397,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="ChangeStatusColor">
+            <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>
+        </Storyboard>
 
     </Page.Resources>
     <Grid Background="{ThemeResource DeepBG}">
@@ -409,12 +416,12 @@
                     <VisualState.Setters>
                         <Setter Target="MessageBox1.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,0,0,12</Thickness>
+                                <Thickness>0,6,0,12</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="TypingStackPanel.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,0,0,48</Thickness>
+                                <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="rectangle.(FrameworkElement.Margin)">
@@ -427,6 +434,8 @@
                                 <Thickness>12,0</Thickness>
                             </Setter.Value>
                         </Setter>
+                        <Setter Target="MessageBox1.(Grid.Row)" Value="1"/>
+                        <Setter Target="TypingStackPanel.(Grid.Row)" Value="0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Mid">
@@ -440,6 +449,11 @@
                         <Setter Target="MessageArea.(FrameworkElement.Margin)">
                             <Setter.Value>
                                 <Thickness>64,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -457,6 +471,11 @@
                             </Setter.Value>
                         </Setter>
                         <Setter Target="Servers.(SplitView.CompactPaneLength)" Value="64"/>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="VeryLarge">
@@ -475,6 +494,11 @@
                         <Setter Target="Members.(SplitView.IsPaneOpen)" Value="True"/>
                         <Setter Target="Servers.(FrameworkElement.VerticalAlignment)" Value="Stretch"/>
                         <Setter Target="Servers.(SplitView.CompactPaneLength)" Value="64"/>
+                        <Setter Target="MessageBox1.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,0,0,6</Thickness>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -528,7 +552,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="ChannelName" Text="blurb" FontWeight="SemiBold" Margin="0,0,12,0" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Height="18" VerticalAlignment="Top" FontSize="16" Padding="0"/>
+                        <TextBlock x:Name="ChannelName" FontWeight="SemiBold" Margin="0,0,12,0" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Height="18" VerticalAlignment="Top" FontSize="16" Padding="0"/>
                         <md:MarkdownTextBlock x:Name="ChannelTopic" FontSize="13" Foreground="{ThemeResource ButtonBackgroundPressed}" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" Grid.Column="1" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
                     </Grid>
                 </Button>
@@ -536,7 +560,7 @@
                 <!-- <ScrollViewer x:Name="message_scroller" Grid.Row="1" ViewChanged="ScrollViewer_ViewChanged">-->
                 <tk:PullToRefreshListView x:Name="Messages" SelectionMode="None" Grid.Row="1" RefreshRequested="Messages_RefreshRequested">
                     <tk:PullToRefreshListView.RefreshIndicatorContent>
-                        <TextBlock Text="Load More Messages" HorizontalAlignment="Center"/>
+                        <TextBlock x:Uid="/Main/LoadMoreMesagesTB" Text="Load More Messages" HorizontalAlignment="Center"/>
                     </tk:PullToRefreshListView.RefreshIndicatorContent>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -558,15 +582,19 @@
                     </ListView.ItemTemplate>
                     <ListView.Footer>
                         <Grid Height="22" Margin="0,0,0,0">
-                            <TextBlock Margin="12,-12.1,12,0" x:Name="NoMessageChached" Text="No messages cached" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                            <TextBlock x:Uid="/Main/NoMessagesCachedTB" Margin="12,-12.1,12,0" x:Name="NoMessageChached" Text="No messages cached" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                             <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                         </Grid>
                     </ListView.Footer>
                 </tk:PullToRefreshListView>
                 <!-- </ScrollViewer>-->
-                <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
+                <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0" VerticalAlignment="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom"/>
+                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" TextChanged="TypingStarted" Send="CreateMessage" OpenAdvanced="MessageBox1_OpenAdvanced" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom"/>
                     <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                         <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
@@ -625,7 +653,7 @@
                                 <StackPanel>
                                     <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
                                         <ListView.Header>
-                                            <TextBlock x:Name="TextChannelText" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            <TextBlock x:Uid="/Main/TextChannelsTB" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
@@ -642,23 +670,23 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannel">
+                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                            <TextBlock x:Name="AddChannelblock" Text="Add Channel"/>
+                                            <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
                                         </StackPanel>
                                     </ListViewItem>
-                                    <TextBlock x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                    <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                     <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
                                     <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                                         <ListView.Header>
-                                            <TextBlock x:Name="VoiceChannelText" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
                                         </ListView.Header>
                                     </ListView>
                                     <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
                                         <StackPanel>
-                                            <TextBlock x:Name="UpvoteTitle" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
-                                            <TextBlock x:Name="UpvoteDesc" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
+                                            <TextBlock x:Uid="/Main/UpvoteForVoiceTB" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
+                                            <TextBlock x:Uid="/Main/UpvoteForVoiceDescTB" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
                                         </StackPanel>
                                     </ListViewItem>
                                 </StackPanel>
@@ -682,7 +710,7 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
-                                    <TextBlock x:Name="NoDMSCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                    <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoDMSCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                     <ProgressRing x:Name="DMsLoading"></ProgressRing>
                                 </StackPanel>
                             </ScrollViewer>
@@ -696,17 +724,17 @@
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
                                             <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
                                             <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
-                                            <RadioButton x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/OnlineRadio" x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <Grid Visibility="Collapsed" Width="256" Margin="0,6,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
                                                     <ColumnDefinition/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
-                                                <TextBox x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
+                                                <TextBlock x:Uid="/Main/PlayingTB" Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
+                                                <TextBox x:Uid="/Main/GameTBox" x:Name="Playing" PlaceholderText="Game" Margin="4,0,0,0"  Style="{StaticResource TextBoxStyle1}" Padding="6,6,6,0" HorizontalContentAlignment="Stretch" Grid.Column="1" BorderThickness="0,0,0,2" LostFocus="Playing_OnLostFocus"/>
                                             </Grid>
                                         </StackPanel>
                                     </Flyout>
@@ -714,9 +742,10 @@
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="8">
                                     <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="0">
                                         <Rectangle.Fill>
-                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/Square44x44Logo.png"/>
+                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
                                         </Rectangle.Fill>
                                     </Rectangle>
+                                    <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="16" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="16" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
                                     <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
@@ -809,31 +838,9 @@
                 </SplitView.Pane>
             </SplitView>
 
-            <SplitView x:Name="CreateChannel" PanePlacement="Right" Grid.ColumnSpan="3" PaneBackground="{ThemeResource DeepBG}" Grid.Row="2"  PaneClosing="SP_PaneClosing">
-                <SplitView.Pane>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Pivot Grid.ColumnSpan="2" Margin="0,0,0,32">
-                            <PivotItem Header="Overview">
-                                <TextBox x:Name="CreateChannelName" Header="Channel Name" VerticalAlignment="Top" BorderThickness="1"/>
-                            </PivotItem>
-                        </Pivot>
-                        <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveCreateChannel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="12,0,4,12"/>
-                        <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Grid.Column="1" Click="CloseCreateChannel" Style="{StaticResource DiscordButton}" Margin="6,0,12,12"/>
-                    </Grid>
-                </SplitView.Pane>
-            </SplitView>
-
             <CommandBar x:Name="commandBar" Grid.ColumnSpan="3" Background="{ThemeResource DarkBG}" Style="{StaticResource CommandBarStyle1}" Grid.Row="1">
-                <AppBarButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
-                <AppBarButton x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
+                <AppBarButton x:Uid="/Main/MemberListABB" x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
+                <AppBarButton x:Uid="/Main/PinnedMessagesABB" x:Name="PinnedMessageToggle" Icon="Pin" Label="Pinned Messages" Click="TogglePinnedShow">
                     <AppBarButton.Flyout>
                         <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                             <ListView x:Name="PinnedMessages" SelectionMode="None">
@@ -865,19 +872,64 @@
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarToggleButton x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
-                <AppBarButton x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
+                <AppBarToggleButton x:Uid="/Main/MuteABB" x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
+                <AppBarButton x:Uid="/Main/RefreshABB" x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
                 <CommandBar.Content>
                     <AppBarButton Click="ToggleServerListFull" Width="64" Label="">
-                        <AppBarButton.Icon>
-                            <FontIcon Glyph="&#xE700;"/>
-                        </AppBarButton.Icon>
+                        <AppBarButton.Content>
+                            <Grid>
+                                <FontIcon Glyph="&#xE700;"/>
+                                <Border Visibility="Visible" Opacity="0" x:Name="BurgerNotificationBorder" Background="#f04747" CornerRadius="2" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                    <Border.Resources>
+                                        <Storyboard x:Name="ShowBadge">
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                        <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseIn"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </Border.Resources>
+                                    <Border.RenderTransform>
+                                        <CompositeTransform CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5" TranslateX="6" TranslateY="6"/>
+                                    </Border.RenderTransform>
+                                    <TextBlock x:Name="BurgerNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,1" FontSize="9"/>
+                                </Border>
+                            </Grid>
+                           
+                        </AppBarButton.Content>
                     </AppBarButton>
                 </CommandBar.Content>
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton x:Name="ChangeLog" Label="About + Changelog" Click="OpenWhatsNew"/>
-                    <AppBarButton x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
-                    <AppBarButton x:Name="SettingsButton" Label="Settings" Click="OpenUserSettings"/>
+                    <AppBarButton x:Uid="/Main/AboutABB" Label="About + Changelog" Click="OpenWhatsNew"/>
+                    <AppBarButton x:Uid="/Main/IapABB" x:Name="IAPSButton" Label="In-App Purchases" Click="OpenIaPs"/>
+                    <AppBarButton x:Uid="/Main/SettingsABB" Label="Settings" Click="OpenUserSettings"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </Grid>

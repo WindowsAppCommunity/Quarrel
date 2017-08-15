@@ -142,6 +142,14 @@ namespace Discord_UWP.Controls
                 everythingisnull = false;
                 ImageViewbox.Visibility = Visibility.Visible;
                 ImageViewer.Source = new BitmapImage(new Uri(Content.Image.Url));
+                if(Content.Author.Name == null && Content.Author.IconUrl == null
+                    && Content.Description == null && Content.Fields.Count() == 0 
+                    && Content.Footer.Text == null && Content.Footer.IconUrl == null
+                    && Content.title == null)
+                {
+                    stacker.Margin = new Thickness(0);
+                    SideBorder.Width = 0;
+                }
             }
             else
             {
@@ -202,8 +210,8 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    //If the aspect ratio of the thumbnail is higher than 1.5 and there is no image, display the thumbnail at the place of the large image
-                    if (Content.Thumbnail.Width / Content.Thumbnail.Height > 1.4 && ImageViewbox.Visibility == Visibility.Collapsed)
+                    //If the aspect ratio of the thumbnail is higher than 1.2 and there is no image, display the thumbnail at the place of the large image
+                    if (Content.Thumbnail.Width / Content.Thumbnail.Height > 1.2 && ImageViewbox.Visibility == Visibility.Collapsed && Content.Thumbnail.Width+Content.Thumbnail.Height > 256)
                     {
                         ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                         ThumbnailImage.Visibility = Visibility.Collapsed;
@@ -248,6 +256,35 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             RegisterPropertyChangedCallback(ContentProperty, OnPropertyChanged);
+        }
+
+        private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (Content.Image.Url != null)
+            {
+                App.OpenAttachement(new Attachment()
+                {
+                    Filename = new Uri(Content.Image.Url).Segments.Last(),
+                    Height = Content.Image.Height,
+                    Width = Content.Image.Width,
+                    Url = Content.Image.Url,
+                    ProxyUrl = Content.Image.ProxyUrl,
+                    Size = 0
+                });
+            }
+            else if(Content.Thumbnail.Url != null)
+            {
+                App.OpenAttachement(new Attachment()
+                {
+                    Filename = new Uri(Content.Thumbnail.Url).Segments.Last(),
+                    Height = Content.Thumbnail.Height,
+                    Width = Content.Thumbnail.Width,
+                    Url = Content.Thumbnail.Url,
+                    ProxyUrl = Content.Thumbnail.ProxyUrl,
+                    Size = 0
+                });
+            }
+            
         }
     }
 }

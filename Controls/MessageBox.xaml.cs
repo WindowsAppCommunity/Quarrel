@@ -30,6 +30,7 @@ namespace Discord_UWP.Controls
         public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
         public event EventHandler<RoutedEventArgs> Cancel;
+        public event EventHandler<RoutedEventArgs> OpenAdvanced;
 
         public string Text
         {
@@ -76,14 +77,11 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            if (Session.Online)
+            if (!Session.Online)
             {
-                MessageEditor.PlaceholderText = App.Translate("SendMessage");
-            } else
-            {
-                MessageEditor.PlaceholderText = App.Translate("CantSendMessagesOffline");
                 IsEnabled = false;
             }
+            MessageEditor.PlaceholderText = App.Translate("SendMessage");
         }
 
         public void Clear()
@@ -201,7 +199,7 @@ namespace Discord_UWP.Controls
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
                 }
-                Text = str;
+              //  Text = str;
             }
             catch
             {
@@ -323,7 +321,10 @@ namespace Discord_UWP.Controls
         {
             Cancel?.Invoke(this, e);
         }
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenAdvanced?.Invoke(null, null);
+        }
 
         #region TextProcessing
         private string ProcessString(string input)

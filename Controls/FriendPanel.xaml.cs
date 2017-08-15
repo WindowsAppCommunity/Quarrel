@@ -66,10 +66,6 @@ namespace Discord_UWP.Controls
         public FriendPanel()
         {
             this.InitializeComponent();
-            AllItem.Content = App.Translate("All").ToUpper();
-            PendingText.Text = App.Translate("Pending").ToUpper();
-            BlockedItem.Content = App.Translate("Blocked").ToUpper();
-            OnlyShowOnlineFriends.Content = App.Translate("OnlyShowOnlineFriends");
         }
 
         private async void Load()

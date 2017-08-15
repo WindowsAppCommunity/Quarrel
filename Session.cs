@@ -19,15 +19,18 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Discord_UWP.SharedModels;
+using Windows.Web.Http;
+using Newtonsoft.Json;
 
 namespace Discord_UWP
 {
     static class Session
     {
         #region ILogin
+        public static DiscordApiConfiguration config;
         public static async Task AutoLogin()
         {
-            DiscordApiConfiguration config = new DiscordApiConfiguration
+            config = new DiscordApiConfiguration
             {
                 BaseUrl = "https://discordapp.com/api"
             };
@@ -600,15 +603,38 @@ namespace Discord_UWP
             }
         }
 
-        public static async void CreateMessage(string id, string text, Windows.Storage.StorageFile file)
+
+        public static HttpClient messageclient = new HttpClient();
+        public static event Windows.Foundation.AsyncOperationProgressHandler<HttpResponseMessage, HttpProgress> MessageUploadProgress;
+        
+        public static async Task CreateMessage(string id, string text, Windows.Storage.StorageFile file)
         {
             try
             {
                 MessageUpsert message = new MessageUpsert();
                 message.Content = text;
-                message.file = await Windows.Storage.FileIO.ReadTextAsync(file);
-                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                channelservice.CreateMessage(id, message).Wait();
+
+                HttpMultipartFormDataContent content = new HttpMultipartFormDataContent("---------------------------7e11a60110a78");
+
+                //content.Add(new HttpStringContent(message.Content), "content");
+                content.Add(new HttpStringContent(Uri.EscapeUriString(JsonConvert.SerializeObject(message))), "payload_json");
+                //content.Add(new HttpStringContent(message.TTS.ToString()), "tts");
+
+                if (file != null)
+                    content.Add(new HttpStreamContent(await file.OpenAsync(Windows.Storage.FileAccessMode.Read)), "file", file.Name);
+
+                
+
+                content.Headers.ContentType = new Windows.Web.Http.Headers.HttpMediaTypeHeaderValue("multipart/form-data; boundary=---------------------------7e11a60110a78");
+
+                if (messageclient.DefaultRequestHeaders.Authorization == null)
+                messageclient.DefaultRequestHeaders.Authorization = new Windows.Web.Http.Headers.HttpCredentialsHeaderValue(Token);
+
+                var send = messageclient.PostAsync(new Uri(config.BaseUrl + "/v6/channels/" + id + "/messages"), content);
+                send.Progress = MessageUploadProgress;
+                var resp = await send;
+                if (resp.IsSuccessStatusCode)
+                    id = "";
             }
             catch (Exception e)
             {
