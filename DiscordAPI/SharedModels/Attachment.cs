@@ -14,7 +14,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("filename")]
         public string Filename { get; set; }
         [JsonProperty("size")]
-        public int Size { get; set; }
+        public ulong Size { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("proxy_url")]
