@@ -178,7 +178,7 @@
     <value>Cancel</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">
-    <value>CHANGELOG</value>
+    <value>ChangeLog</value>
   </data>
   <data name="ChangelogMsg" xml:space="preserve">
     <value> </value>
@@ -530,5 +530,8 @@
   </data>
   <data name="CantSendMessagesOffline" xml:space="preserve">
     <value>Cant Send Messages Offline</value>
+  </data>
+  <data name="Unavailable" xml:space="preserve">
+    <value>Unavailable</value>
   </data>
 </root>
