@@ -60,7 +60,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem editchannel = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("EditChannel"),
+                    Text = App.GetString("/Flyouts/EditChannel"),
                     Tag = chn.Raw.Id,
                     Icon = new SymbolIcon(Symbol.Edit),
                     Margin = new Thickness(-26, 0, 0, 0)
@@ -72,7 +72,7 @@ namespace Discord_UWP
             }
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
-                Text = App.Translate("MuteChannel"),
+                Text = App.GetString("/Flyouts/MuteChannel"),
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = chn.Raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -84,7 +84,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem markasread = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("MarkAsRead"),
+                    Text = App.GetString("/Flyouts/MarkAsRead"),
                     Tag = chn.Raw.Id,
                     Icon = new SymbolIcon(Symbol.View),
                     Margin = new Thickness(-26, 0, 0, 0),
@@ -96,7 +96,7 @@ namespace Discord_UWP
                 menu.Items.Add(sep2);
                 MenuFlyoutItem deleteChannel = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("DeleteChannel"),
+                    Text = App.GetString("/Flyouts/DeleteChannel"),
                     Tag = chn.Raw.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Delete),

@@ -81,7 +81,7 @@ namespace Discord_UWP.Controls
             {
                 IsEnabled = false;
             }
-            MessageEditor.PlaceholderText = App.Translate("SendMessage");
+            MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessage");
         }
 
         public void Clear()

@@ -48,7 +48,7 @@ namespace Discord_UWP
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
-                Text = App.Translate("Profile"),
+                Text = App.GetString("/Flyouts/Profile"),
                 Tag = member.Raw.User,
                 Icon = new SymbolIcon(Symbol.ContactInfo)
             };
@@ -58,7 +58,7 @@ namespace Discord_UWP
             {
                 MenuFlyoutItem message = new MenuFlyoutItem()
                 {
-                    Text = App.Translate("Message"),
+                    Text = App.GetString("/Flyouts/Message"),
                     Tag = member.Raw.User.Id,
                     Icon = new SymbolIcon(Symbol.Message)
                 };
@@ -70,7 +70,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                     {
-                        Text = App.Translate("InviteToServer")
+                        Text = App.GetString("/Flyouts/InviteToServer")
                         //Tag = member.Raw.User.Id,
                         //Icon = new SymbolIcon(Symbol.)
                     };
@@ -89,14 +89,14 @@ namespace Discord_UWP
             }
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
-                Text = App.Translate("AddFriend"),
+                Text = App.GetString("/Flyouts/AddFriend"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
             addFriend.Click += AddFriend;
             MenuFlyoutItem removeFriend = new MenuFlyoutItem()
             {
-                Text = App.Translate("RemoveFriend"),
+                Text = App.GetString("/Flyouts/RemoveFriend"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.ContactPresence)
@@ -104,7 +104,7 @@ namespace Discord_UWP
             removeFriend.Click += RemoveFriendClick;
             MenuFlyoutItem block = new MenuFlyoutItem()
             {
-                Text = App.Translate("Block"),
+                Text = App.GetString("/Flyouts/Block"),
                 Tag = member.Raw.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.BlockContact)
@@ -112,14 +112,14 @@ namespace Discord_UWP
             block.Click += Block;
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
-                Text = App.Translate("Unblock"),
+                Text = App.GetString("/Flyouts/Unblock"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.ContactPresence)
             };
             unBlock.Click += RemoveFriendClick;
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
-                Text = App.Translate("AcceptFriendRequest"),
+                Text = App.GetString("/Flyouts/AcceptFriendRequest"),
                 Tag = member.Raw.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
@@ -164,7 +164,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                     {
-                        Text = App.Translate("ChangeNickname"),
+                        Text = App.GetString("/Flyouts/ChangeNickname"),
                         Tag = member.Raw.User.Id,
                         Icon = new SymbolIcon(Symbol.Edit)
                     };
@@ -175,7 +175,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
                     {
-                        Text = App.Translate("Roles")
+                        Text = App.GetString("/Flyouts/Roles")
                         //Tag = member.Raw.User.Id,
                         //Icon = new SymbolIcon(Symbol.)
                     };
@@ -203,7 +203,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem kickMember = new MenuFlyoutItem()
                     {
-                        Text = App.Translate("KickMember"),
+                        Text = App.GetString("/Flyouts/KickMember"),
                         Tag = member.Raw.User.Id,
                         Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Icon = new SymbolIcon(Symbol.BlockContact)
@@ -215,7 +215,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                     {
-                        Text = App.Translate("LeaverServer"),
+                        Text = App.GetString("/Flyouts/LeaverServer"),
                         Tag = member.Raw.User.Id,
                         Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Icon = new SymbolIcon(Symbol.Remove)
@@ -240,20 +240,20 @@ namespace Discord_UWP
                     //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
                     ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
                     {
-                        Text = App.Translate("Mute"),
+                        Text = App.GetString("/Flyouts/Mute"),
                         Icon = new SymbolIcon(Symbol.Mute)
                     };
 
 
                     ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
                     {
-                        Text = App.Translate("Deafen"),
+                        Text = App.GetString("/Flyouts/Deafen"),
                         Icon = new SymbolIcon(Symbol.Mute)
                     };
 
                     MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
                     {
-                        Text = App.Translate("MoveChannel")
+                        Text = App.GetString("/Flyouts/MoveChannel")
                     };
                 }
             }

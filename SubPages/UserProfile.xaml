@@ -121,8 +121,8 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListViewItem x:Uid="/Dialogs/DetailsLI" Content="DETAILS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="12,0"/>
-                        <ListViewItem x:Uid="/Dialogs/CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
-                        <ListViewItem x:Uid="/Dialogs/CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
+                        <ListViewItem x:Name="CommonSrvItem" x:Uid="/Dialogs/CommonServersLI" Content="COMMON SERVERS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0"/>
+                        <ListViewItem x:Name="CommonFrdItem" x:Uid="/Dialogs/CommonFriendsLI" Content="COMMON FRIENDS" FontSize="13.333" FontWeight="SemiBold" Padding="12,0" MinWidth="0"/>
                     </ListView>
                     <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
