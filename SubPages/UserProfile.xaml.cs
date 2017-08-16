@@ -194,7 +194,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/staff.png")),
                         Opacity=0
                     };
-                    ToolTipService.SetToolTip(img,App.GetString("DiscordStaff").ToUpper());
+                    ToolTipService.SetToolTip(img,App.GetString("/Main/DiscordStaff").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -207,7 +207,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/partner.png")),
                         Opacity = 0
                     };
-                    ToolTipService.SetToolTip(img, App.GetString("DiscordPartner").ToUpper());
+                    ToolTipService.SetToolTip(img, App.GetString("/Main/DiscordPartner").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -235,7 +235,7 @@ namespace Discord_UWP.SubPages
                     Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/nitro.png")),
                     Opacity = 0
                 };
-                ToolTipService.SetToolTip(img, App.GetString("PremiumMemberSince") + " " + Common.HumanizeDate(profile.PremiumSince.Value,null));
+                ToolTipService.SetToolTip(img, App.GetString("/Main/PremiumMemberSince") + " " + Common.HumanizeDate(profile.PremiumSince.Value,null));
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }

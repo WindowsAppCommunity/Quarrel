@@ -34,8 +34,8 @@ namespace Discord_UWP.Controls
 
         public string Text
         {
-            get { return (string) GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return MessageEditor.Text; }
+            set { MessageEditor.Text = value; }
         }
 
         public readonly DependencyProperty TextProperty = DependencyProperty.Register(
@@ -77,10 +77,6 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            if (!Session.Online)
-            {
-                IsEnabled = false;
-            }
             MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessage");
         }
 
