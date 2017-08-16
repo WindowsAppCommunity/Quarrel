@@ -156,6 +156,7 @@ namespace Discord_UWP
                 Servers.IsPaneOpen = true;
                 ContentCache.Opacity = 0.5;
             }
+            friendPanel.Load();
         }
 
         public Main()

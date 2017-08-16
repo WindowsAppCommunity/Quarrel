@@ -194,6 +194,7 @@ namespace Discord_UWP
 
                     LoadingSplash.Hide(true);
                     //CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
+                    friendPanel.Load();
                     LoadGuilds();
                     Storage.SaveCache();
                 });
@@ -1067,6 +1068,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () => 
                 {
+                    int Fullcount = 0;
                     foreach (SimpleGuild guild in ServerList.Items)
                     {
                         SimpleGuild gclone = guild.Clone();
@@ -1079,6 +1081,7 @@ namespace Discord_UWP
                                 {
                                     ReadState readstate = Session.RPC[chn.Raw.Id];
                                     gclone.NotificationCount += readstate.MentionCount;
+                                    Fullcount += readstate.MentionCount;
                                     var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
                                     if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                         gclone.IsUnread = true;
@@ -1091,6 +1094,7 @@ namespace Discord_UWP
                                 {
                                     ReadState readstate = Session.RPC[chn.Raw.Id];
                                     gclone.NotificationCount += readstate.MentionCount;
+                                    Fullcount += readstate.MentionCount;
                                     var StorageChannel = Storage.Cache.Guilds[gclone.Id].Channels[chn.Raw.Id];
                                     if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId && !Storage.MutedChannels.Contains(chn.Raw.Id))
                                         gclone.IsUnread = true;
@@ -1134,6 +1138,13 @@ namespace Discord_UWP
                                     sc.IsUnread = false;
                             }
                     }
+
+                    if (Fullcount > 0)
+                    {
+                        ShowBadge.Begin();
+                        BurgerNotificationCounter.Text = Fullcount.ToString();
+                    }
+                        
                 });
         }
     }

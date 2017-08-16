@@ -516,6 +516,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="content">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0"/>
                 <ColumnDefinition Width="auto"/>
@@ -600,6 +601,11 @@
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
+                <controls:FriendPanel x:Name="friendPanel"/>
+            </Grid>
+                
+            <Grid Grid.Row="2" Grid.Column="1">
+                
             </Grid>
             <Rectangle x:Name="ContentCache" IsHitTestVisible="False" Opacity="0" Fill="Black" Grid.Column="2" Margin="0"  Grid.Row="2"/>
 
@@ -648,16 +654,20 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name" Tapped="ServerName_Tapped"/>
-                            <ScrollViewer x:Name="Channels" Padding="0" Grid.Row="1">
-                                <StackPanel>
-                                    <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
-                                        <ListView.Header>
-                                            <TextBlock x:Uid="/Main/TextChannelsTB" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
-                                        </ListView.Header>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:ChannelControl Id="{Binding Id}" 
+                            <Grid x:Name="Channels" Visibility="Visible" Padding="0" Grid.Row="1">
+                                <Grid VerticalAlignment="Top">
+                                    <TextBlock x:Name="ServerName" TextWrapping="Wrap" Padding="16,12,12,12" FontSize="17" Margin="0,0,0,1" Text="Name" Tapped="ServerName_Tapped"/>
+                                    <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom"/>
+                                </Grid>
+                                <ScrollViewer Margin="0,48,0,0">
+                                    <StackPanel>
+                                        <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
+                                            <ListView.Header>
+                                                <TextBlock x:Uid="/Main/TextChannelsTB" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            </ListView.Header>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:ChannelControl Id="{Binding Id}" 
                                                                          Name="{Binding Name}" 
                                                                          UserStatus="{Binding UserStatus}" 
                                                                          Subtitle="{Binding Subtitle}" 
@@ -667,33 +677,36 @@
                                                                          IsUnread="{Binding IsUnread}" 
                                                                          IsTyping="{Binding IsTyping}" 
                                                                          IsMuted="{Binding IsMuted}"/>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                    <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                            <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
-                                        </StackPanel>
-                                    </ListViewItem>
-                                    <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                    <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
-                                    <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
-                                        <ListView.Header>
-                                            <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
-                                        </ListView.Header>
-                                    </ListView>
-                                    <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
-                                        <StackPanel>
-                                            <TextBlock x:Uid="/Main/UpvoteForVoiceTB" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
-                                            <TextBlock x:Uid="/Main/UpvoteForVoiceDescTB" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
-                                        </StackPanel>
-                                    </ListViewItem>
-                                </StackPanel>
-                            </ScrollViewer>
-                            <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Collapsed" Grid.Row="1">
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                        <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
+                                                <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
+                                        <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                                            <ListView.Header>
+                                                <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                            </ListView.Header>
+                                        </ListView>
+                                        <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
+                                            <StackPanel>
+                                                <TextBlock x:Uid="/Main/UpvoteForVoiceTB" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
+                                                <TextBlock x:Uid="/Main/UpvoteForVoiceDescTB" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                    </StackPanel>
+                                </ScrollViewer>
+                               
+                            </Grid>
+                            <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Visible" Grid.Row="1">
                                 <StackPanel>
                                     <ListView x:Name="DirectMessageChannels" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionChanged="LoadDmChannelMessages" Style="{StaticResource SimplifiedListView}">
+                                        
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChannelControl Id="{Binding Id}" 
@@ -882,34 +895,34 @@
                                 <Border Visibility="Visible" Opacity="0" x:Name="BurgerNotificationBorder" Background="#f04747" CornerRadius="2" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                                     <Border.Resources>
                                         <Storyboard x:Name="ShowBadge">
-                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="BurgerNotificationBorder" Storyboard.TargetProperty="Opacity">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="BurgerNotificationScale" Storyboard.TargetProperty="ScaleX">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="BurgerNotificationScale" Storyboard.TargetProperty="ScaleY">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                         </Storyboard>
                                         <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
-                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="BurgerNotificationBorder" Storyboard.TargetProperty="Opacity">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseIn"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="BurgerNotificationScale" Storyboard.TargetProperty="ScaleX">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseIn"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="BurgerNotificationScale" Storyboard.TargetProperty="ScaleY">
                                                 <DoubleAnimation.EasingFunction>
                                                     <BackEase EasingMode="EaseIn"/>
                                                 </DoubleAnimation.EasingFunction>
@@ -917,7 +930,7 @@
                                         </Storyboard>
                                     </Border.Resources>
                                     <Border.RenderTransform>
-                                        <CompositeTransform CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5" TranslateX="6" TranslateY="6"/>
+                                        <CompositeTransform x:Name="BurgerNotificationScale" CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5" TranslateX="6" TranslateY="6"/>
                                     </Border.RenderTransform>
                                     <TextBlock x:Name="BurgerNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,1" FontSize="9"/>
                                 </Border>
