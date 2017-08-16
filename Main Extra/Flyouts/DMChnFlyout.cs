@@ -14,14 +14,17 @@ namespace Discord_UWP
         private MenuFlyout MakeDMChannelMenu(DmCache dm)
         {
             MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutItem profile = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/Profile"), Tag = dm.Raw.Users.FirstOrDefault() };
+            MenuFlyoutItem profile = new MenuFlyoutItem() {
+                Text = App.GetString("/Flyouts/Profile"),
+                Icon = new SymbolIcon(Symbol.ContactInfo),
+                Tag = dm.Raw.Users.FirstOrDefault()
+            };
             profile.Click += OpenProfile;
             menu.Items.Add(profile);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
             MenuFlyoutItem removeFriend = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/RemoveFriend"), Tag = dm.Raw.Users.FirstOrDefault().Id };
             removeFriend.Click += RemoveFriend;
-            menu.Items.Add(removeFriend);
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AddFriend"),
@@ -32,13 +35,16 @@ namespace Discord_UWP
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AcceptFriendRequest"),
-                Tag = dm.Raw.Users.FirstOrDefault().Id,
-                Icon = new SymbolIcon(Symbol.AddFriend)
+                Icon = new SymbolIcon(Symbol.AddFriend),
+                Tag = dm.Raw.Users.FirstOrDefault().Id
             };
             acceptFriendRequest.Click += AddFriend;
-            MenuFlyoutItem block = new MenuFlyoutItem() { Text = App.GetString("/Flyouts/Block"), Tag = dm.Raw.Users.FirstOrDefault().Id };
+            MenuFlyoutItem block = new MenuFlyoutItem() {
+                Text = App.GetString("/Flyouts/Block"),
+                Icon = new SymbolIcon(Symbol.BlockContact),
+                Tag = dm.Raw.Users.FirstOrDefault().Id
+            };
             block.Click += BlockUser;
-            menu.Items.Add(block);
 
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
