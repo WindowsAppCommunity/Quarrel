@@ -59,12 +59,11 @@ namespace Discord_UWP
 
         private async void CreateMessage(object sender, RoutedEventArgs e)
         {
-            string txt = MessageBox1.Text;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                MessageBox1.Clear();
+                await Session.CreateMessage(App.CurrentChannelId, MessageBox1.Text);
+                MessageBox1.Text = "";
             });
-            await Task.Run(() => Session.CreateMessage(App.CurrentChannelId, txt));
         }
         
         private void EditMessage(object sender, RoutedEventArgs e)
