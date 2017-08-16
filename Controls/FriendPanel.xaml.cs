@@ -68,15 +68,33 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
-        private async void Load()
+        public async void Load()
         {
+            int pending = 0;
             foreach (var f in Storage.Cache.Friends)
             {
                 var friend = new SimpleFriend();
-                friend.User = friend.User;
+                friend.User = f.Value.Raw.user;
                 friend.RelationshipStatus = f.Value.Raw.Type;
-
+                friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
+                foreach(var guild in Storage.Cache.Guilds)
+                {
+                    if (guild.Value.Members.ContainsKey(friend.User.Id))
+                        friend.SharedGuilds.Add(new SimpleFriend.SharedGuild() { Id = guild.Value.RawGuild.Id,
+                            ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
+                            Name = guild.Value.RawGuild.Name });
+                }
+                if (f.Value.Raw.Type == 3 || f.Value.Raw.Type == 4)
+                {
+                    pending++;
+                    PendingView.Items.Add(friend);
+                }
+                else if (f.Value.Raw.Type == 1)
+                    AllView.Items.Add(friend);
+                else if (f.Value.Raw.Type == 2)
+                    BlockedView.Items.Add(friend);
             }
+            PendingCounter.Text = pending.ToString();
         }
     }
 }
