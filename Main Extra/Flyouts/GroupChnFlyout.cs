@@ -14,94 +14,110 @@ namespace Discord_UWP
         private MenuFlyout MakeGroupChannelMenu(DmCache dm)
         {
             MenuFlyout menu = new MenuFlyout();
-            MenuFlyoutSubItem Profile = new MenuFlyoutSubItem()
-            {
-                Text = App.GetString("/Flyouts/Profile")
-                //Tag = member.Raw.User.Id,
-                //Icon = new SymbolIcon(Symbol.)
-            };
+            int x = 0;
             foreach (SharedModels.User user in Storage.Cache.DMs[dm.Raw.Id].Raw.Users)
             {
-                MenuFlyoutItem item = new MenuFlyoutItem()
+                MenuFlyoutSubItem item = new MenuFlyoutSubItem()
                 {
-                    Text = user.Username,
+                    Text = user.Username
+                };
+
+                MenuFlyoutItem profile = new MenuFlyoutItem()
+                {
+                    Text = App.GetString("/Flyouts/Profile"),
+                    Icon = new SymbolIcon(Symbol.ContactInfo),
                     Tag = user
                 };
-                item.Click += OpenProfile;
-                Profile.Items.Add(item);
-            }
-            menu.Items.Add(Profile);
+                profile.Click += OpenProfile;
 
-            if (Session.Online)
-            {
-                MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
-
-                MenuFlyoutItem addFriend = new MenuFlyoutItem()
+                item.Items.Add(profile);
+                if (Session.Online)
                 {
-                    Text = App.GetString("/Flyouts/AddFriend"),
-                    Icon = new SymbolIcon(Symbol.AddFriend),
-                    Tag = dm.Raw.Users.FirstOrDefault().Id
-                };
-                addFriend.Click += AddFriend;
+                    MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
+                    item.Items.Add(sep1);
 
-                MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
-                {
-                    Text = App.GetString("/Flyouts/AcceptFriendRequest"),
-                    Tag = dm.Raw.Users.FirstOrDefault().Id,
-                    Icon = new SymbolIcon(Symbol.AddFriend)
-                };
-                acceptFriendRequest.Click += AddFriend;
+                    //if (dm.Raw.OwnerId == Storage.Cache.CurrentUser.Raw.Id)
+                    //{
+                    //    //Remove from group
 
-                MenuFlyoutItem removeFriend = new MenuFlyoutItem() {
-                    Text = App.GetString("/Flyouts/RemoveFriend"),
-                    Icon = new SymbolIcon(Symbol.ContactPresence),
-                    Tag = dm.Raw.Users.FirstOrDefault().Id
-                };
-                removeFriend.Click += RemoveFriend;
+                    //    MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+                    //    item.Items.Add(sep2);
+                    //}
 
-                MenuFlyoutItem block = new MenuFlyoutItem() {
-                    Text = App.GetString("/Flyouts/Block"),
-                    Icon = new SymbolIcon(Symbol.BlockContact),
-                    Tag = dm.Raw.Users.FirstOrDefault().Id
-                };
-                block.Click += BlockUser;
-
-                MenuFlyoutItem unBlock = new MenuFlyoutItem()
-                {
-                    Text = App.GetString("/Flyouts/Unblock"),
-                    Tag = dm.Raw.Users.FirstOrDefault().Id,
-                    Icon = new SymbolIcon(Symbol.ContactPresence)
-                };
-                unBlock.Click += RemoveFriendClick;
-
-                if (Storage.Cache.Friends.ContainsKey(dm.Raw.Users.FirstOrDefault().Id))
-                {
-                    switch (Storage.Cache.Friends[dm.Raw.Users.FirstOrDefault().Id].Raw.Type)
+                    MenuFlyoutItem addFriend = new MenuFlyoutItem()
                     {
-                        case 0:
-                            menu.Items.Add(addFriend);
-                            menu.Items.Add(block);
-                            break;
-                        case 1:
-                            menu.Items.Add(removeFriend);
-                            menu.Items.Add(block);
-                            break;
-                        case 2:
-                            menu.Items.Add(unBlock);
-                            break;
-                        case 3:
-                            menu.Items.Add(acceptFriendRequest);
-                            menu.Items.Add(block);
-                            break;
-                        case 4:
-                            menu.Items.Add(block);
-                            break;
+                        Text = App.GetString("/Flyouts/AddFriend"),
+                        Icon = new SymbolIcon(Symbol.AddFriend),
+                        Tag = dm.Raw.Users.ToList()[x].Id
+                    };
+                    addFriend.Click += AddFriend;
+
+                    MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
+                    {
+                        Text = App.GetString("/Flyouts/AcceptFriendRequest"),
+                        Icon = new SymbolIcon(Symbol.AddFriend),
+                        Tag = dm.Raw.Users.ToList()[x].Id
+                    };
+                    acceptFriendRequest.Click += AddFriend;
+
+                    MenuFlyoutItem removeFriend = new MenuFlyoutItem()
+                    {
+                        Text = App.GetString("/Flyouts/RemoveFriend"),
+                        Icon = new SymbolIcon(Symbol.ContactPresence),
+                        Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Red),
+                        Tag = dm.Raw.Users.ToList()[x].Id
+                    };
+                    removeFriend.Click += RemoveFriend;
+
+                    MenuFlyoutItem block = new MenuFlyoutItem()
+                    {
+                        Text = App.GetString("/Flyouts/Block"),
+                        Icon = new SymbolIcon(Symbol.BlockContact),
+                        Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Red),
+                        Tag = dm.Raw.Users.ToList()[x].Id
+                    };
+                    block.Click += BlockUser;
+
+                    MenuFlyoutItem unBlock = new MenuFlyoutItem()
+                    {
+                        Text = App.GetString("/Flyouts/Unblock"),
+                        Icon = new SymbolIcon(Symbol.ContactPresence),
+                        Tag = dm.Raw.Users.ToList()[x].Id
+                    };
+                    unBlock.Click += RemoveFriendClick;
+
+                    if (Storage.Cache.Friends.ContainsKey(dm.Raw.Users.FirstOrDefault().Id))
+                    {
+                        switch (Storage.Cache.Friends[dm.Raw.Users.FirstOrDefault().Id].Raw.Type)
+                        {
+                            case 0:
+                                item.Items.Add(addFriend);
+                                item.Items.Add(block);
+                                break;
+                            case 1:
+                                item.Items.Add(removeFriend);
+                                item.Items.Add(block);
+                                break;
+                            case 2:
+                                item.Items.Add(unBlock);
+                                break;
+                            case 3:
+                                item.Items.Add(acceptFriendRequest);
+                                item.Items.Add(block);
+                                break;
+                            case 4:
+                                menu.Items.Add(block);
+                                break;
+                        }
                     }
-                } else
-                {
-                    menu.Items.Add(addFriend);
-                    menu.Items.Add(block);
+                    else
+                    {
+                        item.Items.Add(addFriend);
+                        item.Items.Add(block);
+                    }
                 }
+                menu.Items.Add(item);
+                x++;
             }
             return menu;
         }

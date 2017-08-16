@@ -15,8 +15,11 @@ namespace Discord_UWP.SharedModels
         public bool Private { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
-        /*[JsonProperty("recipient")]
-        public User User { get; set; }*/
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("owner_id")]
+        public string OwnerId { get; set; }
+        //[JsonProperty("Icon")]
         [JsonProperty("recipients")]
         public IEnumerable<User> Users { get; set; }
         [JsonProperty("last_message_id")]

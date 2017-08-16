@@ -14,6 +14,8 @@ namespace Discord_UWP.CacheModels
             Raw.LastMessageId = input.LastMessageId;
             Raw.Private = input.Private;
             Raw.Type = input.Type;
+            Raw.OwnerId = input.OwnerId;
+            Raw.Name = input.Name;
             //Raw.User = input.User;
             Raw.Users = input.Users.AsEnumerable();
             foreach (TempMessage message in input.Messages)
@@ -31,7 +33,6 @@ namespace Discord_UWP.CacheModels
         {
             Raw = input;
         }
-
 
         public SharedModels.DirectMessageChannel Raw = new SharedModels.DirectMessageChannel();
         public Dictionary<string, Message> Messages = new Dictionary<string, Message>();
