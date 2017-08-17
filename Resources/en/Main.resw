@@ -267,4 +267,10 @@
   <data name="SubmittedBy" xml:space="preserve">
     <value>Submitted by</value>
   </data>
+  <data name="DirectMessagesTB.Text" xml:space="preserve">
+    <value>DIRECT MESSAGES</value>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>FRIENDS</value>
+  </data>
 </root>

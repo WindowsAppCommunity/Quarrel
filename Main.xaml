@@ -547,7 +547,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Button Style="{ThemeResource DiscordButton}" Padding="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="Button_Click">
+                <Button x:Name="headerButton" Style="{ThemeResource DiscordButton}" Padding="0" Background="Transparent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Click="Button_Click">
                     <Grid x:Name="ChannelInfo" Margin="12,6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -601,7 +601,7 @@
                         <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
-                <controls:FriendPanel x:Name="friendPanel"/>
+                <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="5"/>
             </Grid>
                 
             <Grid Grid.Row="2" Grid.Column="1">
@@ -663,7 +663,7 @@
                                     <StackPanel>
                                         <ListView x:Name="TextChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
                                             <ListView.Header>
-                                                <TextBlock x:Uid="/Main/TextChannelsTB" Text="TEXT CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                                <TextBlock x:Uid="/Main/TextChannelsTB" Text="TEXT CHANNELS" FontWeight="SemiBold" Margin="16,12,0,12"/>
                                             </ListView.Header>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -690,7 +690,7 @@
                                         <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
                                         <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                                             <ListView.Header>
-                                                <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="Bold" Margin="16,12,0,12"/>
+                                                <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="SemiBold" Margin="16,12,0,12"/>
                                             </ListView.Header>
                                         </ListView>
                                         <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
@@ -705,8 +705,17 @@
                             </Grid>
                             <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Visible" Grid.Row="1">
                                 <StackPanel>
+                                    <ListViewItem IsSelected="True" x:Name="FriendsLVitem" Style="{StaticResource ChannelItemStyle}" Margin="12,12,24,2" Tapped="FriendsLVitem_Tapped">
+                                        <Grid>
+                                            <SymbolIcon Symbol="People" HorizontalAlignment="Left"/>
+                                            <TextBlock x:Uid="/Main/FriendsTB" Text="FRIENDS" FontWeight="SemiBold" Margin="32,12,0,12"/>
+                                        </Grid>
+                                    </ListViewItem>
+                                    
                                     <ListView x:Name="DirectMessageChannels" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionChanged="LoadDmChannelMessages" Style="{StaticResource SimplifiedListView}">
-                                        
+                                        <ListView.Header>
+                                            <TextBlock x:Uid="/Main/DirectMessagesTB" Text="DIRECT MESSAGES" FontWeight="SemiBold" Margin="16,12,0,12"/>
+                                        </ListView.Header>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChannelControl Id="{Binding Id}" 

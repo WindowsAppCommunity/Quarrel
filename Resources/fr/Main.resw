@@ -267,4 +267,10 @@
   <data name="SubmittedBy" xml:space="preserve">
     <value>Soumis par</value>
   </data>
+  <data name="DirectMessagesTB.Text" xml:space="preserve">
+    <value>MESSAGES PRIVÉS</value>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>AMIS</value>
+  </data>
 </root>

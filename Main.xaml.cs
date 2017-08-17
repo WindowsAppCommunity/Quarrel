@@ -156,7 +156,6 @@ namespace Discord_UWP
                 Servers.IsPaneOpen = true;
                 ContentCache.Opacity = 0.5;
             }
-            friendPanel.Load();
         }
 
         public Main()
@@ -778,6 +777,10 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
+            friendPanel.Visibility = Visibility.Collapsed;
+            SendMessage.Visibility = Visibility.Visible;
+            Messages.Visibility = Visibility.Visible;
+            headerButton.Visibility = Visibility.Visible;
             if (!App.CurrentGuildIsDM)
             {
                 try
@@ -1004,6 +1007,23 @@ namespace Discord_UWP
         #region LoadDMChannel
         private async void LoadDmChannelMessages(object sender, SelectionChangedEventArgs e)
         {
+            if(DirectMessageChannels.SelectedIndex == -1)
+            {
+                FriendsLVitem.IsSelected = true;
+                friendPanel.Visibility = Visibility.Visible;
+                SendMessage.Visibility = Visibility.Collapsed;
+                Messages.Visibility = Visibility.Collapsed;
+                headerButton.Visibility = Visibility.Collapsed;
+                return;
+            }
+            else
+            {
+                FriendsLVitem.IsSelected = false;
+                friendPanel.Visibility = Visibility.Collapsed;
+                SendMessage.Visibility = Visibility.Visible;
+                headerButton.Visibility = Visibility.Visible;
+                Messages.Visibility = Visibility.Visible;
+            }
             if (DirectMessageChannels.SelectedItem != null)
             {
                 App.CurrentChannelId = (DirectMessageChannels.SelectedItem as SimpleChannel).Id;
@@ -1459,6 +1479,11 @@ namespace Discord_UWP
         private void HideBadge_Completed(object sender, object e)
         {
 
+        }
+
+        private void FriendsLVitem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            DirectMessageChannels.SelectedIndex = -1;
         }
     }
 }
