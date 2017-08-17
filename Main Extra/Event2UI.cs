@@ -176,6 +176,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    Session.PrecenseDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status});
                     switch (e.EventData.Settings.Status)
                     {
                         case "online":
@@ -869,6 +870,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 //LocalStatusChangeEnabled = false;
+                Session.PrecenseDict[Storage.Cache.CurrentUser.Raw.Id] = new Presence() { User = Storage.Cache.CurrentUser.Raw, Status = e.EventData.Status };
                 if (e.EventData.Status == "online")
                 {
                     UserStatusOnline.IsChecked = true;
