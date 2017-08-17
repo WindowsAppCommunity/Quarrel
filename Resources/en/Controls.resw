@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendRequest?" xml:space="preserve">
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
     <value>Accept friend request?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
@@ -125,9 +125,6 @@
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
     <value>Add Reaction</value>
-  </data>
-  <data name="AllLI.Content" xml:space="preserve">
-    <value>ALL</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
     <value>BLOCKED</value>
@@ -242,5 +239,17 @@
   </data>
   <data name="Unpin" xml:space="preserve">
     <value>Unpin</value>
+  </data>
+  <data name="RemoveFromFriends.Text" xml:space="preserve">
+    <value>Remove from friends</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="Call.Text" xml:space="preserve">
+    <value>Call</value>
+  </data>
+  <data name="FriendsLI.Content" xml:space="preserve">
+    <value>FRIENDS</value>
   </data>
 </root>
