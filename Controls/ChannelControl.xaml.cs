@@ -168,17 +168,9 @@ namespace Discord_UWP.Controls
 
             if (prop == UserStatusProperty)
             {
-                if (UserStatus != "")
+                if (UserStatus != "" && UserStatus != null)
                 {
                     Status.Fill = (SolidColorBrush)App.Current.Resources[UserStatus];
-                    if (Session.Online)
-                    {
-                        Status.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        Status.Visibility = Visibility.Collapsed;
-                    }
                 }
             }
             if (prop == SubtitleProperty)
@@ -300,6 +292,7 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
+                    Status.Visibility = Visibility.Visible;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
                 }
                 else if (Type == 3)
@@ -308,6 +301,7 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
+                    Status.Visibility = Visibility.Collapsed;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
                     if (App.Current.RequestedTheme == ApplicationTheme.Dark)
