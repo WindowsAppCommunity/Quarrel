@@ -461,11 +461,12 @@ namespace Discord_UWP
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
                            TextChannels.Items.Clear();
+                           Messages.Items.Clear();
                            Typers.Clear();
                            MembersCvs.Source = null;
                            App.GuildMembers = null;
                            SendMessage.Visibility = Visibility.Collapsed;
-                           if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
+                           if ((ServerList.SelectedItem as SimpleGuild).IsDM)
                            {
                                App.CurrentGuildIsDM = true;
                                Channels.Visibility = Visibility.Collapsed;
@@ -760,6 +761,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
+            TextChannels.Items.Clear();
             LoadChannelList(new List<int>() { 1, 3 });
             DMsLoading.IsActive = false;
             if (DirectMessageChannels.Items.Count > 0)
@@ -779,19 +781,19 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            if (!App.CurrentGuildIsDM)
-            {
-                try
-                {
-                    App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
-                }
-                catch
-                {
-                    ServerList.SelectedIndex = 1;
-                }
-            }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
+                if (!App.CurrentGuildIsDM)
+                {
+                    try
+                    {
+                        App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
+                    }
+                    catch
+                    {
+                        ServerList.SelectedIndex = 1;
+                    }
+                }
                 App.CurrentGuildIsDM = false;
                 App.CurrentChannelId = ((SimpleChannel)TextChannels.SelectedItem).Id;
                 if (Session.Online)
@@ -1236,24 +1238,6 @@ namespace Discord_UWP
         private void SP_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
         {
             LightenMessageArea.Begin();
-        }
-
-        private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                /*This fires when the selected item is DMs*/
-                if(e.ClickedItem.ToString() == "" && ServerList.SelectedIndex == 0)
-                {
-                    ToggleServerListFull(null, null);
-                }
-                /*And this fires when it's a normal item*/
-                else if (ServerList.SelectedItem == (e.ClickedItem as StackPanel)?.Parent)
-                {
-                    ToggleServerListFull(null, null);
-                }
-            }
-            catch (Exception) { }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

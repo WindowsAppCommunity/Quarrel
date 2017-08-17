@@ -600,7 +600,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <ListView x:Name="ServerList" SelectionChanged="CatchServerSelection" Grid.Row="0" Background="{ThemeResource DarkBG}" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True" ItemClick="ServerList_ItemClick" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView x:Name="ServerList" SelectionChanged="CatchServerSelection" Grid.Row="0" Background="{ThemeResource DarkBG}" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <controls:GuildControl Id="{Binding Id}" 
