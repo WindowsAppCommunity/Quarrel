@@ -164,6 +164,7 @@
       <DependentUpon>ClickyButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\AlternatingListView\AlternatingListView.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
       <DependentUpon>AttachementControl.xaml</DependentUpon>
     </Compile>

@@ -34,9 +34,9 @@ namespace Discord_UWP.Controls
             new PropertyMetadata("", OnPropertyChangedStatic));
 
         public event EventHandler AcceptFriend;
-        public event EventHandler RemoveFriend;
+        public event EventHandler RemovedFriend;
         public event EventHandler StartVoiceCall;
-        public event EventHandler SendMessage;
+        public event EventHandler SentMessage;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -48,10 +48,11 @@ namespace Discord_UWP.Controls
             if (prop == DisplayedFriendProperty)
             {
                 username.Text = DisplayedFriend.User.Username;
-                discriminator.Text = DisplayedFriend.User.Discriminator;
-                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedFriend.User.Avatar));
+                discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
+                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedFriend.User.Avatar, DisplayedFriend.User.Id));
                 
                 SharedGuildContainer.Children.Clear();
+                if(DisplayedFriend.SharedGuilds != null)
                 foreach (var guild in DisplayedFriend.SharedGuilds)
                 {
                     Button b = new Button()
@@ -67,15 +68,16 @@ namespace Discord_UWP.Controls
                             RadiusY=36,
                             Fill=new ImageBrush()
                             {
-                                ImageSource = new BitmapImage(Common.AvatarUri(guild.ImageUrl))
+                                ImageSource = new BitmapImage(new Uri(guild.ImageUrl))
                             }
                         },
                         Tag = guild.Id
                     };
+                        ToolTipService.SetToolTip(b, guild.Name);
                     b.Click += ClickedGuild;
                     SharedGuildContainer.Children.Add(b);
                 }
-
+                if(DisplayedFriend.UserStatus != null)
                 status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 if (!Session.Online)
                 {
@@ -84,25 +86,29 @@ namespace Discord_UWP.Controls
                 switch (DisplayedFriend.RelationshipStatus)
                 {
                     case 1: //Friend
-                        RemoveButton.Visibility = Visibility.Visible;
+                        RemoveButton.Visibility = Visibility.Collapsed;
                         AcceptButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Visibility = Visibility.Collapsed;
+                        moreButton.Visibility = Visibility.Visible;
                         break;
                     case 2: //Blocked
                         RemoveButton.Visibility = Visibility.Visible;
                         AcceptButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Visibility = Visibility.Collapsed;
+                        moreButton.Visibility = Visibility.Collapsed;
                         break;
                     case 3: //Incoming request
                         AcceptButton.Visibility = Visibility.Visible;
                         RemoveButton.Visibility = Visibility.Visible;
                         RelationshipStatus.Visibility = Visibility.Visible;
-                        RelationshipStatus.Text = App.GetString("/Controls/AcceptFriendRequest?");
+                        moreButton.Visibility = Visibility.Collapsed;
+                        RelationshipStatus.Text = App.GetString("/Controls/AcceptFriendRequestQ");
                         break;
                     case 4: //Outgoing request
                         AcceptButton.Visibility = Visibility.Collapsed;
                         RemoveButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Visibility = Visibility.Visible;
+                        moreButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Text = App.GetString("/Controls/FriendRequestSent");
                         break;
                 }
@@ -111,7 +117,7 @@ namespace Discord_UWP.Controls
 
         private void ClickedGuild(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            App.NavigateToGuild((sender as Button).Tag as string);
         }
 
         public FriendControl()
@@ -126,7 +132,7 @@ namespace Discord_UWP.Controls
 
         private void RemoveRelationship(object sender, RoutedEventArgs e)
         {
-            RemoveFriend?.Invoke(null,null);
+            RemovedFriend?.Invoke(null,null);
         }
     }
 }

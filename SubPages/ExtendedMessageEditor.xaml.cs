@@ -185,6 +185,7 @@ namespace Discord_UWP.SubPages
             captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
             captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
             StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            
             AddAttachement(photo);
         }
 
