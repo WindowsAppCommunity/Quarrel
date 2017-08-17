@@ -142,11 +142,13 @@
                                         <Paragraph>
                                             <Run x:Uid="/About/AboutDesc1">Discord UWP is an</Run>
                                             <Bold>
-                                                <Run x:Uid="/About/AboutDesc2">unofficial</Run></Bold>
+                                                <Run x:Uid="/About/AboutDesc2">unofficial</Run>
+                                            </Bold>
                                             <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
                                             <Bold>
-                                                <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run></Bold>
-                                            <Run x:Uid="/About/AboutDesc4"> 
+                                                <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
+                                            </Bold>
+                                            <Run x:Uid="/About/AboutDesc4">
                                                 ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
                                             </Run>
                                         </Paragraph>
@@ -174,6 +176,17 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 5.2.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed error editing messages" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 5.2.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Spanish and French translation" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Attachments" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Emoji selection panel and reactions" TextWrapping="Wrap"/>

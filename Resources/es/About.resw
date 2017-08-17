@@ -118,63 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Discord UWP is an</value>
+    <value>La discordia UWP es un</value>
     <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
+    <value>no oficial</value>
     <comment>Disclaimer pt. 2 in bold</comment>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
+    <value>cliente para la discordia.</value>
     <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</value>
+    <value>Los desarrolladores no están de ninguna manera afiliados con Hammer &amp; cincel, Inc</value>
     <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developers of this app.</value>
+    <value>, la compañía que construyó discordia. Si algo sale mal mientras estás usando esta aplicación (no lo hará), los únicos responsables son los desarrolladores de esta aplicación.</value>
     <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
+    <value>SOBRE</value>
     <comment>ABOUT header</comment>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
+    <value>CAMBIOS</value>
     <comment>CHANGELOG header</comment>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
+    <value>Diseñado por Lightmagic apps</value>
     <comment>The designer</comment>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29</value>
-    <comment>The developer</comment>
+    <value>Desarrollado por Avid29</value>
+    <comment>The developper</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
+    <value>Discutir en Twitter</value>
     <comment>Button to discuss on twitter</comment>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join Discord UWP Server</value>
+    <value>Unirse a discordia UWP servidor</value>
     <comment>Button to join the Discord UWP server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
+    <value>¡Error al unirse al servidor!</value>
     <comment>Message if joining the server fails</comment>
   </data>
   <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
+    <value>Éxito!</value>
     <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
+    <value>Uniendo...</value>
     <comment>Text while the app is trying to join the server</comment>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
+    <value>Dejar comentarios</value>
     <comment>Leave feedback button</comment>
   </data>
 </root>

@@ -215,7 +215,7 @@ namespace Discord_UWP
                 {
                     MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                     {
-                        Text = App.GetString("/Flyouts/LeaverServer"),
+                        Text = App.GetString("/Flyouts/LeaveServer"),
                         Tag = member.Raw.User.Id,
                         Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Icon = new SymbolIcon(Symbol.Remove)
