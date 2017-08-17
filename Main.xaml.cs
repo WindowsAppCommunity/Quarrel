@@ -93,6 +93,12 @@ namespace Discord_UWP
             LoadingSplash.Show(false);
             try
             {
+                var licenseInformation = CurrentApp.LicenseInformation;
+                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                {
+                    App.ShowAds = false;
+                }
+
                 LoadingSplash.Status = App.GetString("/Main/LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
@@ -107,12 +113,6 @@ namespace Discord_UWP
                 LoadGuilds();
                 LoadingSplash.Status = App.GetString("/Main/Connected");
                 await Task.Delay(1000);
-
-                var licenseInformation = CurrentApp.LicenseInformation;
-                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                {
-                    App.ShowAds = false;
-                }
             }
             catch
             {

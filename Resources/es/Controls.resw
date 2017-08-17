@@ -117,64 +117,130 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Discord UWP is an</value>
-    <comment>Disclaimer</comment>
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>¿Aceptar solicitud de amistad?</value>
   </data>
-  <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
+  <data name="ACTIVITIES" xml:space="preserve">
+    <value>ACTIVIDADES</value>
   </data>
-  <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
-    <comment>Discaimer pt. 3</comment>
+  <data name="AddReacItem.Text" xml:space="preserve">
+    <value>Agregar Reacción</value>
   </data>
-  <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
+  <data name="AllLI.Content" xml:space="preserve">
+    <value>TODOS</value>
   </data>
-  <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developers of this app.</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>BLOQUEADO</value>
   </data>
-  <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
-    <comment>ABOUT header</comment>
+  <data name="BotTB.Text" xml:space="preserve">
+    <value>BOT</value>
   </data>
-  <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
-    <comment>CHANGELOG header</comment>
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Copia ID</value>
   </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
-    <comment>The designer</comment>
+  <data name="DeleteItem.Text" xml:space="preserve">
+    <value>Eliminar</value>
   </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29</value>
-    <comment>The developer</comment>
+  <data name="EditItem.Text" xml:space="preserve">
+    <value>Editar</value>
   </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+  <data name="FLAGS" xml:space="preserve">
+    <value>BANDERAS</value>
   </data>
-  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join Discord UWP Server</value>
-    <comment>Button to join the Discord UWP server</comment>
+  <data name="FOOD" xml:space="preserve">
+    <value>COMIDA</value>
   </data>
-  <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
-    <comment>Message if joining the server fails</comment>
+  <data name="FriendRequestSent" xml:space="preserve">
+    <value>Solicitud de amigo enviada</value>
   </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
-    <comment>Message when joining the server works</comment>
+  <data name="InviteExpired" xml:space="preserve">
+    <value>Invitación caducada</value>
   </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
-    <comment>Text while the app is trying to join the server</comment>
+  <data name="InviteInvalid" xml:space="preserve">
+    <value>Invitación caducada o inválida</value>
   </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
-    <comment>Leave feedback button</comment>
+  <data name="InviteJoin" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="InviteJoined" xml:space="preserve">
+    <value>Te has unido a</value>
+  </data>
+  <data name="InviteMaxUses" xml:space="preserve">
+    <value>Cantidad máxima de usos alcanzados</value>
+  </data>
+  <data name="InviteTempDesc" xml:space="preserve">
+    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecte, a menos que se les asigne un rol.</value>
+  </data>
+  <data name="NATURE" xml:space="preserve">
+    <value>NATURALEZA</value>
+  </data>
+  <data name="OBJECTS" xml:space="preserve">
+    <value>OBJETOS</value>
+  </data>
+  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+    <value>Sólo mostrar amigos en línea</value>
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>PENDIENTE</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>GENTE</value>
+  </data>
+  <data name="PinItem.Text" xml:space="preserve">
+    <value>Alfiler</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Jugando</value>
+  </data>
+  <data name="RevokeBanTB.Text" xml:space="preserve">
+    <value>Revocar la prohibición</value>
+  </data>
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value>Papel</value>
+  </data>
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Transmisión</value>
+  </data>
+  <data name="SYMBOLS" xml:space="preserve">
+    <value>SÍMBOLOS</value>
+  </data>
+  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+    <value>Invitación temporal</value>
+  </data>
+  <data name="TRAVEL" xml:space="preserve">
+    <value>VIAJE</value>
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>usos</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>uso</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Editado</value>
+  </data>
+  <data name="ExpiredLink" xml:space="preserve">
+    <value>Vínculo vencido</value>
+  </data>
+  <data name="expiresIn" xml:space="preserve">
+    <value>caduca en</value>
+  </data>
+  <data name="expiresNever" xml:space="preserve">
+    <value>nunca caduca</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Invitar a</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>Alfiler</value>
+  </data>
+  <data name="Unpin" xml:space="preserve">
+    <value>Liberar</value>
   </data>
 </root>

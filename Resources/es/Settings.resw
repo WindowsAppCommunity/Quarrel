@@ -117,64 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Discord UWP is an</value>
-    <comment>Disclaimer</comment>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Color del acento</value>
   </data>
-  <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>Avanzada</value>
   </data>
-  <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
-    <comment>Discaimer pt. 3</comment>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Alinee la barra de comandos en la parte inferior</value>
   </data>
-  <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Modo compacto</value>
   </data>
-  <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developers of this app.</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Colores de presencia personalizados</value>
   </data>
-  <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
-    <comment>ABOUT header</comment>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Oscuro</value>
   </data>
-  <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
-    <comment>CHANGELOG header</comment>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
   </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
-    <comment>The designer</comment>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>No molestar</value>
   </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29</value>
-    <comment>The developer</comment>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Renderizado costoso (efectos borrosos, etc. ..)</value>
   </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Resalte @everyone</value>
   </data>
-  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join Discord UWP Server</value>
-    <comment>Button to join the Discord UWP server</comment>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Ralentí</value>
   </data>
-  <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
-    <comment>Message if joining the server fails</comment>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Luz</value>
   </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
-    <comment>Message when joining the server works</comment>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Cerrar sesión</value>
   </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
-    <comment>Text while the app is trying to join the server</comment>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notificaciones</value>
   </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
-    <comment>Leave feedback button</comment>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>En línea</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Restablecer puntos de interrupción por defecto</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>Estos son los anchos de disparador en los que la IU muestra más o menos información en la pantalla, dependiendo del ancho de la pantalla.</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>Puntos de interrupción de la IU responsivos</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>INTERFAZ DE USUARIO SENSIBLE</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(necesitará reiniciar la aplicación)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>CONFIGURACIÓN</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Mostrar notificaciones de Toast En-Aplicación</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (los servidores y los canales son visibles)</value>
+  </data>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (los servidores son visibles)</value>
+  </data>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (los servidores, los canales y los miembros son visibles)</value>
+  </data>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>Color del acento del sistema</value>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>¿está seguro de que desea cerrar la sesión?</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibración en recepción de mensajes</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
   </data>
 </root>

@@ -117,64 +117,88 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Discord UWP is an</value>
-    <comment>Disclaimer</comment>
+  <data name="AcceptFriendRequest" xml:space="preserve">
+    <value>Aceptar solicitud de amigo</value>
   </data>
-  <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Agregar amigo</value>
   </data>
-  <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
-    <comment>Discaimer pt. 3</comment>
+  <data name="BanMember" xml:space="preserve">
+    <value>Ban miembro</value>
   </data>
-  <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Hammer &amp; Chisel, Inc</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
+  <data name="Block" xml:space="preserve">
+    <value>Bloque</value>
   </data>
-  <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developers of this app.</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
+  <data name="ChangeNickname" xml:space="preserve">
+    <value>Cambiar apodo</value>
   </data>
-  <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
-    <comment>ABOUT header</comment>
+  <data name="Deafen" xml:space="preserve">
+    <value>Ensordecer</value>
   </data>
-  <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
-    <comment>CHANGELOG header</comment>
+  <data name="DeleteChannel" xml:space="preserve">
+    <value>Eliminar canal</value>
   </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
-    <comment>The designer</comment>
+  <data name="DeleteServer" xml:space="preserve">
+    <value>Eliminar servidor</value>
   </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29</value>
-    <comment>The developer</comment>
+  <data name="EditChannel" xml:space="preserve">
+    <value>Editar canal</value>
   </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+  <data name="EditServer" xml:space="preserve">
+    <value>Editar servidor</value>
   </data>
-  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join Discord UWP Server</value>
-    <comment>Button to join the Discord UWP server</comment>
+  <data name="InviteToServer" xml:space="preserve">
+    <value>Invitar al servidor</value>
   </data>
-  <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
-    <comment>Message if joining the server fails</comment>
+  <data name="KickMember" xml:space="preserve">
+    <value>Kick miembro</value>
   </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
-    <comment>Message when joining the server works</comment>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Salir del servidor</value>
   </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
-    <comment>Text while the app is trying to join the server</comment>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Marcar como leído</value>
   </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
-    <comment>Leave feedback button</comment>
+  <data name="Message" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="MoveChannel" xml:space="preserve">
+    <value>Mover canal</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Silenciar</value>
+  </data>
+  <data name="MuteChannel" xml:space="preserve">
+    <value>Silenciar canal</value>
+  </data>
+  <data name="MuteServer" xml:space="preserve">
+    <value>Silenciar el servidor</value>
+  </data>
+  <data name="PinFailed" xml:space="preserve">
+    <value>Error al anclar :' (</value>
+  </data>
+  <data name="PinSucess" xml:space="preserve">
+    <value>¡Sucessfuly atrapado!</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Desde para iniciar</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Quitar amigo</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Papeles</value>
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value>Desbloquear</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Liberar desde el principio</value>
+  </data>
+  <data name="UnpinSucess" xml:space="preserve">
+    <value>¡Sucessfuly desanclado!</value>
   </data>
 </root>
