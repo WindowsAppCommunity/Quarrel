@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Discord_UWP.CacheModels;
 
 namespace Discord_UWP
@@ -64,7 +66,7 @@ namespace Discord_UWP
                     {
                         Text = App.GetString("/Flyouts/RemoveFriend"),
                         Icon = new SymbolIcon(Symbol.ContactPresence),
-                        Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Red),
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Tag = dm.Raw.Users.ToList()[x].Id
                     };
                     removeFriend.Click += RemoveFriend;
@@ -73,7 +75,7 @@ namespace Discord_UWP
                     {
                         Text = App.GetString("/Flyouts/Block"),
                         Icon = new SymbolIcon(Symbol.BlockContact),
-                        Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Red),
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                         Tag = dm.Raw.Users.ToList()[x].Id
                     };
                     block.Click += BlockUser;

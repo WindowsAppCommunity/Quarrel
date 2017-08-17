@@ -720,7 +720,7 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task EditMessageAsync(string chnid, string msgid, string content)
+        public static async void EditMessageAsync(string chnid, string msgid, string content)
         {
             try
             {
@@ -729,10 +729,9 @@ namespace Discord_UWP
                     EditMessage editmessage = new EditMessage();
                     editmessage.Content = content;
                     IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                    channelservice.EditMessage(chnid, msgid, editmessage).Wait();
+                    channelservice.EditMessage(chnid, msgid, editmessage);
                 });
             }
-
             catch (Exception e)
             {
                 Showmsg(e);

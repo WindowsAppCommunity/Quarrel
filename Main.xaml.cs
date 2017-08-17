@@ -93,6 +93,12 @@ namespace Discord_UWP
             LoadingSplash.Show(false);
             try
             {
+                var licenseInformation = CurrentApp.LicenseInformation;
+                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                {
+                    App.ShowAds = false;
+                }
+
                 LoadingSplash.Status = App.GetString("/Main/LoggingIn");
                 await Session.AutoLogin();
                 Session.Online = true;
@@ -107,12 +113,6 @@ namespace Discord_UWP
                 LoadGuilds();
                 LoadingSplash.Status = App.GetString("/Main/Connected");
                 await Task.Delay(1000);
-
-                var licenseInformation = CurrentApp.LicenseInformation;
-                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                {
-                    App.ShowAds = false;
-                }
             }
             catch
             {
@@ -460,15 +460,17 @@ namespace Discord_UWP
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
                            TextChannels.Items.Clear();
+                           Messages.Items.Clear();
                            Typers.Clear();
                            MembersCvs.Source = null;
                            App.GuildMembers = null;
                            SendMessage.Visibility = Visibility.Collapsed;
-                           if ((ServerList.SelectedItem as SimpleGuild).Id == "DMs")
+                           if ((ServerList.SelectedItem as SimpleGuild).IsDM)
                            {
                                App.CurrentGuildIsDM = true;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
+
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -758,6 +760,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Collapsed;
             MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
+            TextChannels.Items.Clear();
             LoadChannelList(new List<int>() { 1, 3 });
             DMsLoading.IsActive = false;
             if (DirectMessageChannels.Items.Count > 0)
@@ -777,23 +780,19 @@ namespace Discord_UWP
         #region LoadChannel
         private async void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
         {
-            friendPanel.Visibility = Visibility.Collapsed;
-            SendMessage.Visibility = Visibility.Visible;
-            Messages.Visibility = Visibility.Visible;
-            headerButton.Visibility = Visibility.Visible;
-            if (!App.CurrentGuildIsDM)
-            {
-                try
-                {
-                    App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
-                }
-                catch
-                {
-                    ServerList.SelectedIndex = 1;
-                }
-            }
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
+                if (!App.CurrentGuildIsDM)
+                {
+                    try
+                    {
+                        App.CurrentGuild = Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id];
+                    }
+                    catch
+                    {
+                        ServerList.SelectedIndex = 1;
+                    }
+                }
                 App.CurrentGuildIsDM = false;
                 App.CurrentChannelId = ((SimpleChannel)TextChannels.SelectedItem).Id;
                 if (Session.Online)
@@ -1255,24 +1254,6 @@ namespace Discord_UWP
         private void SP_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
         {
             LightenMessageArea.Begin();
-        }
-
-        private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                /*This fires when the selected item is DMs*/
-                if(e.ClickedItem.ToString() == "" && ServerList.SelectedIndex == 0)
-                {
-                    ToggleServerListFull(null, null);
-                }
-                /*And this fires when it's a normal item*/
-                else if (ServerList.SelectedItem == (e.ClickedItem as StackPanel)?.Parent)
-                {
-                    ToggleServerListFull(null, null);
-                }
-            }
-            catch (Exception) { }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

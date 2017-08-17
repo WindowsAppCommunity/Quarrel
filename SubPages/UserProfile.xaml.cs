@@ -194,7 +194,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/staff.png")),
                         Opacity=0
                     };
-                    ToolTipService.SetToolTip(img,App.GetString("/Main/DiscordStaff").ToUpper());
+                    ToolTipService.SetToolTip(img,App.GetString("/Dialogs/FlagDiscordStaff").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -207,7 +207,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/partner.png")),
                         Opacity = 0
                     };
-                    ToolTipService.SetToolTip(img, App.GetString("/Main/DiscordPartner").ToUpper());
+                    ToolTipService.SetToolTip(img, App.GetString("/Dialogs/FlagDiscordPartner").ToUpper());
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -220,7 +220,7 @@ namespace Discord_UWP.SubPages
                         Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/hypesquad.png")),
                         Opacity = 0
                     };
-                    ToolTipService.SetToolTip(img, "HYPESQUAD");
+                    ToolTipService.SetToolTip(img, App.GetString("/Dialogs/FlagHypesquad"));
                     BadgePanel.Children.Add(img);
                     img.Fade(1).Start();
                     break;
@@ -317,7 +317,7 @@ namespace Discord_UWP.SubPages
                 }
             });
         }
-        private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
             if (e.EventData.UserId == profile.User.Id)
             {
