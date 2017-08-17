@@ -637,7 +637,7 @@ namespace Discord_UWP
             editBox.Send += EditBox_Send;
             editBox.Cancel += EditBox_Cancel;
             editBox.TextChanged += EditBox_TextChanged;
-            editBox.LostFocus += EditBox_Cancel;
+            //editBox.LostFocus += EditBox_Cancel;
             Grid.SetRow(editBox, 2);
             Grid.SetColumn(editBox, 1);
             rootGrid.Children.Add(editBox);
@@ -645,10 +645,10 @@ namespace Discord_UWP
 
         private void EditBox_Cancel(object sender, RoutedEventArgs e)
         {
-            editBox.Send += EditBox_Send;
-            editBox.Cancel += EditBox_Cancel;
-            editBox.TextChanged += EditBox_TextChanged;
-            editBox.LostFocus += EditBox_Cancel;
+            editBox.Send -= EditBox_Send;
+            editBox.Cancel -= EditBox_Cancel;
+            editBox.TextChanged -= EditBox_TextChanged;
+            editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
         }
 
@@ -659,13 +659,12 @@ namespace Discord_UWP
 
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
-            editBox.Send -= EditBox_Send;
-            editBox.TextChanged -= EditBox_TextChanged;
-            string chnId = Message.Value.ChannelId;
-            string msgId = Message.Value.Id;
-            string newMeg = editBox.Text;
             editBox.IsEnabled = false;
-            await Task.Run(() => Session.EditMessageAsync(chnId, msgId, newMeg));
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Session.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
+            editBox.Send -= EditBox_Send;
+            editBox.Cancel -= EditBox_Cancel;
+            editBox.TextChanged -= EditBox_TextChanged;
+            editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
         }
 
