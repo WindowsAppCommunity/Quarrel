@@ -56,6 +56,6 @@
                 <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
             </Button>
         </StackPanel>
-        <Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-8"/>
+        <Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>
     </Grid>
 </UserControl>
