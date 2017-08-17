@@ -470,6 +470,7 @@ namespace Discord_UWP
                                App.CurrentGuildIsDM = true;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
+
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;

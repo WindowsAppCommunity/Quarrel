@@ -317,7 +317,7 @@ namespace Discord_UWP.SubPages
                 }
             });
         }
-        private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
             if (e.EventData.UserId == profile.User.Id)
             {

@@ -254,7 +254,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
                         <Grid x:Name="ContentBorder"
-                              
               Background="{TemplateBinding Background}"
               BorderBrush="{TemplateBinding BorderBrush}"
               BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Center">
@@ -648,9 +647,9 @@
                                 <Thickness>112</Thickness>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="scrollViewer.(Grid.Row)" Value="0"/>
+                        <!--<Setter Target="scrollViewer.(Grid.Row)" Value="0"/>
                         <Setter Target="scrollViewer.(Grid.Column)" Value="1"/>
-                        <Setter Target="RoleStacker.(StackPanel.Orientation)" Value="Vertical"/>
+                        <Setter Target="RoleStacker.(StackPanel.Orientation)" Value="Vertical"/>-->
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="600"/>
@@ -748,12 +747,12 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                <ListView x:Name="RolesView" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Visible"
     ScrollViewer.HorizontalScrollMode="Enabled"                  
-    ScrollViewer.VerticalScrollMode="Disabled" x:Name="RolesView" Padding="0,0,0,24" MinHeight="0" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged" ItemContainerStyle="{StaticResource ListViewStyle1}">
+    ScrollViewer.VerticalScrollMode="Disabled" Padding="0,0,0,24" MinHeight="0" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel x:Name="RoleStacker" Background="Transparent" Orientation="Horizontal" />
+                                            <StackPanel x:Name="RoleStacker" Background="Transparent" Orientation="Horizontal"/>
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                 </ListView>
