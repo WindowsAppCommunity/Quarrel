@@ -24,7 +24,7 @@ namespace Discord_UWP.Controls
     {
         public FriendPanel.SimpleFriend DisplayedFriend
         {
-            get { return (FriendPanel.SimpleFriend)GetValue(DisplayedFriendProperty); }
+            get { try { return (FriendPanel.SimpleFriend)GetValue(DisplayedFriendProperty); } catch { return null;  } }
             set { SetValue(DisplayedFriendProperty, value); }
         }
         public static readonly DependencyProperty DisplayedFriendProperty = DependencyProperty.Register(
