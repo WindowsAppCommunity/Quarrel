@@ -229,7 +229,7 @@
     <value>Upvote this for Voice Channels</value>
   </data>
   <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them.</value>
+    <value>This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not enabling them.</value>
   </data>
   <data name="VoiceChannelsTB.Text" xml:space="preserve">
     <value>VOICE CHANNELS</value>
