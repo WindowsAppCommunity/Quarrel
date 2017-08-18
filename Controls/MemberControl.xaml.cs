@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -79,10 +81,56 @@ namespace Discord_UWP.Controls
         public MemberControl()
         {
             this.InitializeComponent();
+            if (Session.Online)
+            {
+                Session.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+                Session.Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
+            }
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
+        }
+
+        private async void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<UserSettings> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (DisplayedMember != null)
+                    {
+                        if (DisplayedMember.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+                        {
+                            DisplayedMember.status = new Presence() { Status = e.EventData.Status };
+                            rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                        }
+                    } else
+                    {
+                        Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                        Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                    }
+                });
+        }
+
+        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (DisplayedMember != null)
+                    {
+                        if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
+                        {
+                            DisplayedMember.status = e.EventData;
+                            rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                        }
+                    }
+                    else
+                    {
+                        Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                        Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                    } 
+                });
         }
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
