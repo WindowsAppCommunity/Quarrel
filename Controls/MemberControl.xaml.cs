@@ -85,11 +85,34 @@ namespace Discord_UWP.Controls
             {
                 Session.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
                 Session.Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
+                App.TypingHandler += App_TypingHandler;
             }
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
+        }
+
+        private void App_TypingHandler(object sender, App.TypingArgs e)
+        {
+            if (DisplayedMember != null)
+            {
+                if (e.UserId == DisplayedMember.Raw.User.Id)
+                {
+                    DisplayedMember.IsTyping = e.Typing;
+                    if (e.Typing)
+                    {
+                        ShowTyping.Begin();
+                    }
+                    else
+                    {
+                        HideTyping.Begin();
+                    }
+                }
+            } else
+            {
+                App.TypingHandler -= App_TypingHandler;
+            }
         }
 
         private async void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<UserSettings> e)
