@@ -997,6 +997,7 @@ namespace Discord_UWP
                         try
                         {
                             Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                            App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false);
                         }
                         catch
                         {
@@ -1005,6 +1006,7 @@ namespace Discord_UWP
                     };
                     timer.Start();
                     Typers.Add(e.EventData, timer);
+                    App.UpdateTyping(e.EventData.userId, true);
                     UpdateTypingUI();
                 }
             });
