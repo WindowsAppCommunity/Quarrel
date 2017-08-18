@@ -468,6 +468,7 @@ namespace Discord_UWP
                            if ((ServerList.SelectedItem as SimpleGuild).IsDM)
                            {
                                App.CurrentGuildIsDM = true;
+                               friendPanel.Visibility = Visibility.Visible;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
 
@@ -501,6 +502,7 @@ namespace Discord_UWP
                                App.CurrentGuildIsDM = false;
                                Channels.Visibility = Visibility.Visible;
                                DMs.Visibility = Visibility.Collapsed;
+                               friendPanel.Visibility = Visibility.Collapsed;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
