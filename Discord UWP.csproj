@@ -99,6 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="Assets\Audio\Heartbeat.wav" />
     <Content Include="Assets\ConnectionLogos\battlenet.png" />
     <Content Include="Assets\ConnectionLogos\facebook.png" />
     <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />

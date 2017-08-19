@@ -138,6 +138,9 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
+  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>No molestar</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="IdleColorTB.Text" xml:space="preserve">
     <value>Ralentí</value>
   </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>Solicitudes de Amigos Entrantes</value>
+  </data>
   <data name="LightRadio.Content" xml:space="preserve">
     <value>Luz</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="OnlineColorTB.Text" xml:space="preserve">
     <value>En línea</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>Solicitudes de Amigos Salientes</value>
   </data>
   <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
     <value>Restablecer puntos de interrupción por defecto</value>
@@ -209,5 +218,11 @@
   </data>
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
+  </data>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>¿Qué añade a las notificaciones de lista de amigos?</value>
+  </data>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>Solicitudes de amigos</value>
   </data>
 </root>
