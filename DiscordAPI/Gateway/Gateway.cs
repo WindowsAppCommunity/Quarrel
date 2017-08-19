@@ -481,6 +481,11 @@ namespace Discord_UWP.Gateway
                     Payload = lastGatewayEvent?.SequenceNumber ?? 0
                 };
 
+                if (DateTime.Now.Day == 1 && DateTime.Now.Month == 4) //April 1st
+                {
+                    App.PlayHeartBeat();
+                }
+
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
             catch

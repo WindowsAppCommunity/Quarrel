@@ -156,6 +156,7 @@ namespace Discord_UWP
                 Servers.IsPaneOpen = true;
                 ContentCache.Opacity = 0.5;
             }
+            //App.PlayHeartBeat(); //Test
         }
 
         public Main()
@@ -213,7 +214,17 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
+            App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
             SettingsChanged(null, null);
+        }
+
+        private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       Heartbeat.Play();
+                   });
         }
 
         private void OnUpdateUnreadIndicators(object sender, EventArgs e)
@@ -466,6 +477,7 @@ namespace Discord_UWP
                            ToggleServerListFull(null, null);
                            ServerName.Text = (ServerList.SelectedItem as SimpleGuild).Name;
                            TextChannels.Items.Clear();
+                           VoiceChannels.Items.Clear();
                            Messages.Items.Clear();
                            Typers.Clear();
                            MembersCvs.Source = null;
@@ -477,8 +489,9 @@ namespace Discord_UWP
                                friendPanel.Visibility = Visibility.Visible;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
-                               friendPanel.Visibility = Visibility.Visible;
                                headerButton.Visibility = Visibility.Collapsed;
+                               MemberListToggle.Visibility = Visibility.Collapsed;
+                               Members.IsPaneOpen = false;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -725,7 +738,7 @@ namespace Discord_UWP
                     channelListBuffer.Add(new Grid());
                 }
 
-                LoadChannelList(new List<int>() { 0 });
+                LoadChannelList(new List<int>() { 0, 2 });
             }
             else
             {
@@ -747,6 +760,7 @@ namespace Discord_UWP
         {
             Messages.Items.Clear();
             TextChannels.Items.Clear();
+            VoiceChannels.Items.Clear();
 
             if (!Storage.Cache.Guilds[id].perms.Perms.ManageChannels && !Storage.Cache.Guilds[id].perms.Perms.Administrator && Storage.Cache.Guilds[id].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
             {
@@ -778,7 +792,7 @@ namespace Discord_UWP
 
             #region Channels
 
-            LoadChannelList(new List<int>(){0});
+            LoadChannelList(new List<int>(){ 0, 2 });
             #endregion
 
             ChannelsLoading.IsActive = false;
@@ -795,6 +809,7 @@ namespace Discord_UWP
             MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
             TextChannels.Items.Clear();
+            VoiceChannels.Items.Clear();
             LoadChannelList(new List<int>() { 1, 3 });
             DMsLoading.IsActive = false;
             if (DirectMessageChannels.Items.Count > 0)
