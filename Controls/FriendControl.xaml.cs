@@ -48,6 +48,7 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedFriendProperty)
             {
+                if (DisplayedFriend == null) return;
                 username.Text = DisplayedFriend.User.Username;
                 discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedFriend.User.Avatar, DisplayedFriend.User.Id));
