@@ -1028,13 +1028,9 @@ namespace Discord_UWP
                         {
                             if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
                             {
-                                try
+                                if (App.CurrentChannelId == typer.Key.channelId)
                                 {
-                                    NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.First().Username);
-                                }
-                                catch
-                                {
-
+                                    NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.FirstOrDefault(m => m.Id == typer.Key.userId).Username);
                                 }
                             }
                             else
