@@ -498,6 +498,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <MediaElement x:Name="Heartbeat" Source="Assets/Audio/Heartbeat.wav" AudioCategory="SoundEffects" AutoPlay="False" Volume="100"/>
         <Grid x:Name="content">
 
             <Grid.ColumnDefinitions>
