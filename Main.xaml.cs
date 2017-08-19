@@ -16,7 +16,7 @@
  * App.CurrentGuild and then App.CurrentGuildId should be used instead of ServerList.SelectedItem in everycase where it is not necessary
  * SharedModels and CacheModels should be included in all files that use them
  * CacheModels overrule SharedModels
- * Use lambdas meaningly, nothing is dumber than excessive lambda use
+ * Use lambdas meaningfully, nothing is dumber than excessive lambda use
 */
 using Discord_UWP.API;
 using Discord_UWP.API.User;
