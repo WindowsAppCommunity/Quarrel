@@ -489,8 +489,9 @@ namespace Discord_UWP
                                friendPanel.Visibility = Visibility.Visible;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
-                               friendPanel.Visibility = Visibility.Visible;
                                headerButton.Visibility = Visibility.Collapsed;
+                               MemberListToggle.Visibility = Visibility.Collapsed;
+                               Members.IsPaneOpen = false;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
