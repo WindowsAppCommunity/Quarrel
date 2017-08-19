@@ -37,6 +37,10 @@ namespace Discord_UWP.SubPages
             Toasts.IsChecked = Storage.Settings.Toasts;
             Vibrate.IsChecked = Storage.Settings.Vibrate;
             CompactMode.IsChecked = Storage.Settings.CompactMode;
+            FriendsNotifyDMs.IsChecked = Storage.Settings.FriendsNotifyDMs;
+            FriendsNotifyFriendRequests.IsChecked = Storage.Settings.FriendsNotifyFriendRequest;
+            //Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
+            //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
             RespUI_XL.Value = Storage.Settings.RespUiXl;
@@ -64,12 +68,15 @@ namespace Discord_UWP.SubPages
             Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
             Storage.Settings.Toasts = (bool)Toasts.IsChecked;
             Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
-
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;
             Storage.Settings.RespUiXl = RespUI_XL.Value;
             Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
             Storage.Settings.CompactMode = (bool)CompactMode.IsChecked;
+            Storage.Settings.FriendsNotifyDMs = (bool)FriendsNotifyDMs.IsChecked;
+            Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
+            //Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
+            //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
             Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
             Storage.Settings.OnlineBursh = ((SolidColorBrush)(online_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
             Storage.Settings.IdleBrush = ((SolidColorBrush)(idle_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();

@@ -306,11 +306,12 @@ namespace Discord_UWP
         {
             public string UserId;
             public bool Typing;
+            public string ChnId;
         }
         public static event EventHandler<TypingArgs> TypingHandler;
-        public static void UpdateTyping(string userId, bool typing)
+        public static void UpdateTyping(string userId, bool typing, string chnId)
         {
-            TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing});
+            TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing, ChnId = chnId});
         }
 
         public static event EventHandler UpdateUnreadIndicatorsHandler;

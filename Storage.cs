@@ -229,6 +229,10 @@ namespace Discord_UWP
         public bool AutoHideChannels = true;
         public bool AutoHidePeople = false;
         public bool HighlightEveryone = true;
+        public bool FriendsNotifyDMs = true;
+        public bool FriendsNotifyFriendRequest = false;
+        //public bool FriendsNotifyIncoming = true;
+        //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;
         public double RespUiM = 569;
         public double RespUiL = 768;

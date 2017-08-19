@@ -997,7 +997,7 @@ namespace Discord_UWP
                         try
                         {
                             Typers.Remove(Typers.First(t => t.Value == timer).Key);
-                            App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false);
+                            App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
                         }
                         catch
                         {
@@ -1006,7 +1006,7 @@ namespace Discord_UWP
                     };
                     timer.Start();
                     Typers.Add(e.EventData, timer);
-                    App.UpdateTyping(e.EventData.userId, true);
+                    App.UpdateTyping(e.EventData.userId, true, e.EventData.channelId);
                     UpdateTypingUI();
                 }
             });
@@ -1107,7 +1107,7 @@ namespace Discord_UWP
                         gclone.IsUnread = false; //Will change if true
                         if (gclone.Id == "DMs")
                         {
-                            if (App.FriendNotifications > 0)
+                            if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest)
                             {
                                 gclone.NotificationCount += App.FriendNotifications;
                             }
@@ -1116,8 +1116,11 @@ namespace Discord_UWP
                                 if (Session.RPC.ContainsKey(chn.Raw.Id))
                                 {
                                     ReadState readstate = Session.RPC[chn.Raw.Id];
-                                    gclone.NotificationCount += readstate.MentionCount;
-                                    Fullcount += readstate.MentionCount;
+                                    if (Storage.Settings.FriendsNotifyDMs)
+                                    {
+                                        gclone.NotificationCount += readstate.MentionCount;
+                                        Fullcount += readstate.MentionCount;
+                                    }
                                     var StorageChannel = Storage.Cache.DMs[chn.Raw.Id];
                                     if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
                                         gclone.IsUnread = true;
@@ -1176,8 +1179,12 @@ namespace Discord_UWP
                             }
                     }
 
-                    Fullcount += App.FriendNotifications;
-                    if(App.FriendNotifications > 0)
+                    if (Storage.Settings.FriendsNotifyFriendRequest)
+                    {
+                        Fullcount += App.FriendNotifications;
+                    }
+
+                    if (App.FriendNotifications > 0)
                     {
                         FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
                         ShowFriendsBadge.Begin();
