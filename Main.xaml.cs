@@ -474,6 +474,7 @@ namespace Discord_UWP
                            if ((ServerList.SelectedItem as SimpleGuild).IsDM)
                            {
                                App.CurrentGuildIsDM = true;
+                               friendPanel.Visibility = Visibility.Visible;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
                                friendPanel.Visibility = Visibility.Visible;
@@ -561,7 +562,6 @@ namespace Discord_UWP
 
             if (Storage.Cache.Guilds[id].RawGuild.Roles != null)
             {
-
                 foreach (Role role in Storage.Cache.Guilds[id].RawGuild.Roles)
                 {
                     Role roleAlt = role;
@@ -593,7 +593,6 @@ namespace Discord_UWP
                     }
                     else
                     {
-
                         m.MemberDisplayedRole = GetRole(null, id, everyonecounter);
                     }
                     if (Session.PrecenseDict.ContainsKey(m.Raw.User.Id))
@@ -627,10 +626,37 @@ namespace Discord_UWP
             }
         }
 
+        public async void UpdateMember(string memberId)
+        {
+            memberscvs[memberId].Raw = Storage.Cache.Guilds[App.CurrentGuildId].Members[memberId].Raw;
+            if (Session.PrecenseDict.ContainsKey(memberscvs[memberId].Raw.User.Id))
+            {
+                memberscvs[memberId].status = Session.PrecenseDict[memberscvs[memberId].Raw.User.Id];
+            }
+            else
+            {
+                memberscvs[memberId].status = new Presence() { Status = "offline", Game = null };
+            }
+            try
+            {
+                var sortedMembers =
+                    memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                            // MembersCVS = new CollectionViewSource();
+                            MembersCvs.Source = sortedMembers;
+                    });
+            }
+            catch
+            {
+            }
+        }
+
         private List<DisplayedRole> TempRoleCache = new List<DisplayedRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
         private DisplayedRole GetRole(string roleid, string guildid, int everyonecounter)
         {
-
             var cachedRole = TempRoleCache.FirstOrDefault(x => x.Id == roleid);
             if (cachedRole != null) return cachedRole;
             else

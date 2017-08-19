@@ -151,10 +151,16 @@ namespace Discord_UWP
                     {
                         //GROUP DM
                         sc.Subtitle = channel.Value.Raw.Users.Count().ToString() + " " + App.GetString("/Main/members");
-                        List<string> channelMembers = new List<string>();
-                        foreach (var d in channel.Value.Raw.Users)
-                            channelMembers.Add(d.Username);
-                        sc.Name = string.Join(", ", channelMembers);
+                        if (channel.Value.Raw.Name != null && channel.Value.Raw.Name != "")
+                        {
+                            sc.Name = channel.Value.Raw.Name;
+                        } else
+                        {
+                            List<string> channelMembers = new List<string>();
+                            foreach (var d in channel.Value.Raw.Users)
+                                channelMembers.Add(d.Username);
+                            sc.Name = string.Join(", ", channelMembers);
+                        }
                     }
                     if (Session.RPC.ContainsKey(sc.Id))
                     {

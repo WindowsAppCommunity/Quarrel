@@ -719,7 +719,7 @@ namespace Discord_UWP
                 });
         }
 
-        private void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
+        private async void GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId]
                     .Members.ContainsKey(e.EventData.User.Id))
@@ -736,18 +736,36 @@ namespace Discord_UWP
                             User = e.EventData.User
                         }));
             }
+            //TODO: Update list more efficiently
+            if (!App.CurrentGuildIsDM)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadMembers(App.CurrentGuildId);
+                    });
+            }
         }
 
-        private void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
+        private async void GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId]
                     .Members.ContainsKey(e.EventData.User.Id))
             {
                 Storage.Cache.Guilds[e.EventData.guildId].Members.Remove(e.EventData.User.Id);
             }
+            //TODO: Update list more efficiently
+            if (!App.CurrentGuildIsDM)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadMembers(App.CurrentGuildId);
+                    });
+            }
         }
 
-        private void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
+        private async void GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
         {
             if (Storage.Cache.Guilds.ContainsKey(e.EventData.guildId) && Storage.Cache.Guilds[e.EventData.guildId]
                     .Members.ContainsKey(e.EventData.User.Id))
@@ -755,6 +773,15 @@ namespace Discord_UWP
                 Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.Nick = e.EventData.Nick;
                 Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.Roles = e.EventData.Roles;
                 Storage.Cache.Guilds[e.EventData.guildId].Members[e.EventData.User.Id].Raw.User = e.EventData.User;
+            }
+            //TODO: Update list more efficiently
+            if (!App.CurrentGuildIsDM)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadMembers(App.CurrentGuildId);
+                    });
             }
         }
 
@@ -970,6 +997,7 @@ namespace Discord_UWP
                         try
                         {
                             Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                            App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false);
                         }
                         catch
                         {
@@ -978,6 +1006,7 @@ namespace Discord_UWP
                     };
                     timer.Start();
                     Typers.Add(e.EventData, timer);
+                    App.UpdateTyping(e.EventData.userId, true);
                     UpdateTypingUI();
                 }
             });
