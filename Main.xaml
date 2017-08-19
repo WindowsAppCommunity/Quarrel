@@ -688,6 +688,48 @@
                                         <Grid>
                                             <SymbolIcon Symbol="People" HorizontalAlignment="Left"/>
                                             <TextBlock x:Uid="/Main/FriendsTB" Text="FRIENDS" FontWeight="SemiBold" Margin="32,12,0,12"/>
+                                            <Border Visibility="Visible" Opacity="0" x:Name="FriendsNotificationBorder" Background="#f04747" CornerRadius="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <Border.Resources>
+                                                    <Storyboard x:Name="ShowFriendsBadge">
+                                                        <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                    <Storyboard x:Name="HideFriendsBadge" Completed="HideBadge_Completed">
+                                                        <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="FriendsNotificationBorder" Storyboard.TargetProperty="Opacity">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleX">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleY">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <BackEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </Border.Resources>
+                                                <Border.RenderTransform>
+                                                    <CompositeTransform x:Name="FriendsNotificationScale" CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5"/>
+                                                </Border.RenderTransform>
+                                                <TextBlock x:Name="FriendsNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
+                                            </Border>
                                         </Grid>
                                     </ListViewItem>
                                     

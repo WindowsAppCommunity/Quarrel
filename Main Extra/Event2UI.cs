@@ -1078,6 +1078,11 @@ namespace Discord_UWP
                         gclone.IsUnread = false; //Will change if true
                         if (gclone.Id == "DMs")
                         {
+                            if (App.FriendNotifications > 0)
+                            {
+                                gclone.NotificationCount += App.FriendNotifications;
+                            }
+                                
                             foreach (var chn in Storage.Cache.DMs.Values)
                                 if (Session.RPC.ContainsKey(chn.Raw.Id))
                                 {
@@ -1138,7 +1143,19 @@ namespace Discord_UWP
                                     sc.IsUnread = true;
                                 else
                                     sc.IsUnread = false;
+                                
                             }
+                    }
+
+                    Fullcount += App.FriendNotifications;
+                    if(App.FriendNotifications > 0)
+                    {
+                        FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
+                        ShowFriendsBadge.Begin();
+                    }
+                    else
+                    {
+                        HideFriendsBadge.Begin();
                     }
 
                     if (Fullcount > 0)

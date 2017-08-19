@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -125,14 +126,24 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+                Session.SendFriendRequest(DisplayedFriend.User.Id);
+
             AcceptFriend?.Invoke(null,null);
         }
 
-        private void RemoveRelationship(object sender, RoutedEventArgs e)
+        private async void RemoveRelationship(object sender, RoutedEventArgs e)
         {
+
+                Session.RemoveFriend(DisplayedFriend.User.Id);
+      
             RemovedFriend?.Invoke(null,null);
+        }
+
+        private void moreButton_Click(object sender, RoutedEventArgs e)
+        {
+            moreButton.Flyout.ShowAt(moreButton);
         }
     }
 }
