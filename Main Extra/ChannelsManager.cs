@@ -188,27 +188,38 @@ namespace Discord_UWP
                     sc.Id = channel.Value.Raw.Id;
                     var type = channel.Value.Raw.Type;
                     sc.Type = type;
-                    if (Storage.MutedChannels.Contains(sc.Id))
-                        sc.IsMuted = true;
-                    else
-                        sc.IsMuted = false;
-
-                    
-                    if (Session.RPC.ContainsKey(sc.Id))
+                    switch (type)
                     {
-                        ReadState readstate = Session.RPC[sc.Id];
-                        sc.NotificationCount = readstate.MentionCount;
-                        var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
-                        if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
-                            readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
-                            sc.IsUnread = true;
-                        else
-                            sc.IsUnread = false;
-                    }
+                        case 0:
 
-                    if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.ReadMessages || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.ReadMessages || App.CurrentGuildId == sc.Id)
-                    {
-                        TextChannels.Items.Add(sc);
+                            if (Storage.MutedChannels.Contains(sc.Id))
+                                sc.IsMuted = true;
+                            else
+                                sc.IsMuted = false;
+
+
+                            if (Session.RPC.ContainsKey(sc.Id))
+                            {
+                                ReadState readstate = Session.RPC[sc.Id];
+                                sc.NotificationCount = readstate.MentionCount;
+                                var StorageChannel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id];
+                                if (StorageChannel != null && StorageChannel.Raw.LastMessageId != null &&
+                                    readstate.LastMessageId != StorageChannel.Raw.LastMessageId)
+                                    sc.IsUnread = true;
+                                else
+                                    sc.IsUnread = false;
+                            }
+                            if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.ReadMessages || App.CurrentGuildId == sc.Id || Storage.Cache.CurrentUser.Raw.Id == Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId)
+                            {
+                                TextChannels.Items.Add(sc);
+                            }
+                            break;
+                        case 2:
+                            if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Speak || App.CurrentGuildId == sc.Id || Storage.Cache.CurrentUser.Raw.Id == Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId)
+                            {
+                                VoiceChannels.Items.Add(sc);
+                            }
+                            break;
                     }
                 }
             }

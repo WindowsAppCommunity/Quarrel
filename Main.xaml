@@ -667,17 +667,32 @@
                                         </ListViewItem>
                                         <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                         <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
-                                        <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                                        <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionMode="None" IsEnabled="False">
                                             <ListView.Header>
                                                 <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="SemiBold" Margin="16,12,0,12"/>
                                             </ListView.Header>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:ChannelControl Id="{Binding Id}" 
+                                                                         Name="{Binding Name}" 
+                                                                         UserStatus="{Binding UserStatus}" 
+                                                                         Subtitle="{Binding Subtitle}" 
+                                                                         ImageUrl="{Binding ImageURL}" 
+                                                                         Type="{Binding Type}" 
+                                                                         NotificationCount="{Binding NotificationCount}" 
+                                                                         IsUnread="{Binding IsUnread}" 
+                                                                         IsTyping="{Binding IsTyping}" 
+                                                                         IsMuted="{Binding IsMuted}"
+                                                                         IsEnabled="False"/>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
                                         </ListView>
-                                        <ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
+                                        <!--<ListViewItem x:Name="Upvote" Tapped="Upvote_Tapped">
                                             <StackPanel>
                                                 <TextBlock x:Uid="/Main/UpvoteForVoiceTB" Text="Upvote this for Voice Channels" FontWeight="Bold"/>
                                                 <TextBlock x:Uid="/Main/UpvoteForVoiceDescTB" Text="This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not merely enabling them" TextWrapping="WrapWholeWords" FontWeight="Light"/>
                                             </StackPanel>
-                                        </ListViewItem>
+                                        </ListViewItem>-->
                                     </StackPanel>
                                 </ScrollViewer>
                                
