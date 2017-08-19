@@ -302,6 +302,17 @@ namespace Discord_UWP
             MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username });
         }
 
+        public class TypingArgs
+        {
+            public string UserId;
+            public bool Typing;
+        }
+        public static event EventHandler<TypingArgs> TypingHandler;
+        public static void UpdateTyping(string userId, bool typing)
+        {
+            TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing});
+        }
+
         public static event EventHandler UpdateUnreadIndicatorsHandler;
         public static void UpdateUnreadIndicators()
         {
