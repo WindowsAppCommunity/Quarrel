@@ -445,7 +445,6 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-
                     if (App.CurrentGuildId == null && App.CurrentChannelId != null &&
                         App.CurrentChannelId ==
                         e.EventData.ChannelId)

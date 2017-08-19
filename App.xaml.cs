@@ -317,7 +317,13 @@ namespace Discord_UWP
         public static event EventHandler UpdateUnreadIndicatorsHandler;
         public static void UpdateUnreadIndicators()
         {
-            UpdateUnreadIndicatorsHandler?.Invoke(null,null);
+            UpdateUnreadIndicatorsHandler?.Invoke(null, null);
+        }
+
+        public static event EventHandler PlayHeartBeatHandler;
+        public static void PlayHeartBeat()
+        {
+            PlayHeartBeatHandler?.Invoke(null, null);
         }
         #endregion
 

@@ -156,6 +156,7 @@ namespace Discord_UWP
                 Servers.IsPaneOpen = true;
                 ContentCache.Opacity = 0.5;
             }
+            App.PlayHeartBeat(); //Test
         }
 
         public Main()
@@ -213,7 +214,17 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
+            App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
             SettingsChanged(null, null);
+        }
+
+        private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       Heartbeat.Play();
+                   });
         }
 
         private void OnUpdateUnreadIndicators(object sender, EventArgs e)
