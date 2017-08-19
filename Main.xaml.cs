@@ -491,7 +491,7 @@ namespace Discord_UWP
                                DMs.Visibility = Visibility.Visible;
                                headerButton.Visibility = Visibility.Collapsed;
                                MemberListToggle.Visibility = Visibility.Collapsed;
-                               Members.IsPaneOpen = false;
+                               Members.Visibility = Visibility.Collapsed;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -523,6 +523,8 @@ namespace Discord_UWP
                                Channels.Visibility = Visibility.Visible;
                                DMs.Visibility = Visibility.Collapsed;
                                friendPanel.Visibility = Visibility.Collapsed;
+                               MemberListToggle.Visibility = Visibility.Visible;
+                               Members.Visibility = Visibility.Visible;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
