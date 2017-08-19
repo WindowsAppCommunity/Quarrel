@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static KeyValuePair<string,string> GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 45))
+            switch (rand.Next(0, 52))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -46,7 +46,7 @@ namespace Discord_UWP
                 case 32: return kvp("Does it even load", "@Gavirlas#9973");
                 case 33: return kvp("Gotta go fast!", "@YoshiAsk#4385");
                 case 34: return kvp("It's a Trap!", "@ModProg|Roland#6987");
-                case 35: return kvp("It's a Trap!", "@ModProg|Roland#6987"); //DUPLICATE
+                case 35: return kvp("the cake is a lie", "@Aslan#9846");
                 case 36: return kvp("The sun is a deadly laser", "@ToonWK#5841");
                 case 37: return kvp("I need healing", "@Neel#2970");
                 case 38: return kvp("Han shot first", "@DougTheDog6#5067");
@@ -57,12 +57,18 @@ namespace Discord_UWP
                 case 43: return kvp("Aren't you a little short to be a storm trooper?", "@DougTheDog6#5067");
                 case 44: return kvp("Can we stop it with Starwars?");
                 case 45: return kvp("No, I am your father", "@ModProg|Roland#6987");
+                case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
+                case 47: return kvp("System.println.out(\"Hello World\");", "@ModProg|Roland#6987");
+                case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
+                case 49: return kvp("Ready player one?", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
+                case 50: return kvp("Watch the icon rollin' rollin'", "@Gavirlas#9973");
+                case 51: return kvp("You spin me right round, baby right round", "omgPANTO#6232");
+                case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
         private static KeyValuePair<string, string> kvp(string key, string val = "")
         {
-
             return new KeyValuePair<string, string>(key, val);
         }
     }
