@@ -45,14 +45,14 @@
             <Button x:Name="RemoveButton" Style="{StaticResource DiscordButton}" Padding="8" Click="RemoveRelationship" Margin="2,0">
                 <FontIcon Glyph=""/>
             </Button>
-            <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <FlyoutBase.AttachedFlyout>
+            <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" Click="moreButton_Click">
+                <Button.Flyout>
                     <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                         <MenuFlyoutItem x:Uid="/Controls/RemoveFromFriends" Click="RemoveRelationship" Padding="12,4" Text="Remove from friends"/>
                         <MenuFlyoutItem x:Uid="/Controls/SendMessage" x:Name="SendMessage" Padding="12,4" Text="Send message"/>
                         <MenuFlyoutItem x:Uid="/Controls/Call" Text="Call" Padding="12,4"/>
                     </MenuFlyout>
-                </FlyoutBase.AttachedFlyout>
+                </Button.Flyout>
                 <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
             </Button>
         </StackPanel>

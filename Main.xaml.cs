@@ -212,7 +212,13 @@ namespace Discord_UWP
             App.NavigateToLeaveServerHandler += OnNavigateToLeaverServer;
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
+            App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
             SettingsChanged(null, null);
+        }
+
+        private void OnUpdateUnreadIndicators(object sender, EventArgs e)
+        {
+            UpdateGuildAndChannelUnread();
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
@@ -470,7 +476,8 @@ namespace Discord_UWP
                                App.CurrentGuildIsDM = true;
                                Channels.Visibility = Visibility.Collapsed;
                                DMs.Visibility = Visibility.Visible;
-
+                               friendPanel.Visibility = Visibility.Visible;
+                               headerButton.Visibility = Visibility.Collapsed;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -501,6 +508,7 @@ namespace Discord_UWP
                                App.CurrentGuildIsDM = false;
                                Channels.Visibility = Visibility.Visible;
                                DMs.Visibility = Visibility.Collapsed;
+                               friendPanel.Visibility = Visibility.Collapsed;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -782,6 +790,10 @@ namespace Discord_UWP
         {
             if (TextChannels.SelectedItem != null) /*Called upon clear*/
             {
+                friendPanel.Visibility = Visibility.Collapsed;
+                SendMessage.Visibility = Visibility.Visible;
+                Messages.Visibility = Visibility.Visible;
+                headerButton.Visibility = Visibility.Visible;
                 if (!App.CurrentGuildIsDM)
                 {
                     try

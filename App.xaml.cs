@@ -301,6 +301,12 @@ namespace Discord_UWP
         {
             MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username });
         }
+
+        public static event EventHandler UpdateUnreadIndicatorsHandler;
+        public static void UpdateUnreadIndicators()
+        {
+            UpdateUnreadIndicatorsHandler?.Invoke(null,null);
+        }
         #endregion
 
         #endregion
@@ -315,6 +321,8 @@ namespace Discord_UWP
         internal static bool ShowAds = true;
         internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
         internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
+
+        internal static int FriendNotifications;
         #endregion
 
         #region Static Voids

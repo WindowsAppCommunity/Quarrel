@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.SharedModels;
+using Windows.UI.Core;
+using Windows.ApplicationModel.Core;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -68,33 +70,113 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
+        private void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
+        {
+            //TODO Check what the relationshipstatus transition is, remove from the correct AllView, BlockedView, or PendingView, and modify in All
+            Gateway_RelationShipRemoved(null, e);
+            Gateway_RelationShipAdded(null, e);
+        }
+
+        private async void Gateway_RelationShipRemoved(object sender, Gateway.GatewayEventArgs<Friend> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+              () =>
+              {
+                  var insideAllView = AllView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
+                  if (insideAllView != null)
+                      AllView.Items.Remove(insideAllView);
+
+                  var insidePendingView = PendingView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
+                  if (insidePendingView != null)
+                  {
+                      PendingView.Items.Remove(insidePendingView);
+                      App.FriendNotifications -= 1;
+                      PendingCounter.Text = App.FriendNotifications.ToString();
+                  }
+
+                  var insideBlockedView = BlockedView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
+                  if (insideBlockedView != null)
+                      BlockedView.Items.Remove(insideBlockedView);
+              });
+
+        }
+
+        private async void Gateway_RelationShipAdded(object sender, Gateway.GatewayEventArgs<Friend> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    var friend = NewSF(e.EventData);
+                    if (friend.RelationshipStatus == 1)
+                        AllView.Items.Add(NewSF(e.EventData));
+                    else if (friend.RelationshipStatus == 2)
+                        BlockedView.Items.Add(NewSF(e.EventData));
+                    else if (friend.RelationshipStatus == 3 || friend.RelationshipStatus == 4)
+                    {
+                        App.FriendNotifications += 1;
+                        App.UpdateUnreadIndicators();
+                        PendingCounter.Text = App.FriendNotifications.ToString();
+                        PendingView.Items.Add(NewSF(e.EventData));
+                    }
+                });
+        }
+        private SimpleFriend NewSF(KeyValuePair<string, CacheModels.Friend> f)
+        {
+            var friend = new SimpleFriend();
+            friend.User = f.Value.Raw.user;
+            friend.RelationshipStatus = f.Value.Raw.Type;
+            friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
+            foreach (var guild in Storage.Cache.Guilds)
+            {
+                if (guild.Value.Members.ContainsKey(friend.User.Id))
+                    friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
+                    {
+                        Id = guild.Value.RawGuild.Id,
+                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
+                        Name = guild.Value.RawGuild.Name
+                    });
+            }
+            return friend;
+        }
+        private SimpleFriend NewSF(Friend f)
+        {
+            var friend = new SimpleFriend();
+            friend.User = f.user;
+            friend.RelationshipStatus = f.Type;
+            friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
+            foreach (var guild in Storage.Cache.Guilds)
+            {
+                if (guild.Value.Members.ContainsKey(friend.User.Id))
+                    friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
+                    {
+                        Id = guild.Value.RawGuild.Id,
+                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
+                        Name = guild.Value.RawGuild.Name
+                    });
+            }
+            return friend;
+        }
         public async void Load()
         {
             int pending = 0;
             foreach (var f in Storage.Cache.Friends)
             {
-                var friend = new SimpleFriend();
-                friend.User = f.Value.Raw.user;
-                friend.RelationshipStatus = f.Value.Raw.Type;
-                friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
-                foreach(var guild in Storage.Cache.Guilds)
-                {
-                    if (guild.Value.Members.ContainsKey(friend.User.Id))
-                        friend.SharedGuilds.Add(new SimpleFriend.SharedGuild() { Id = guild.Value.RawGuild.Id,
-                            ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
-                            Name = guild.Value.RawGuild.Name });
-                }
+                var friend = NewSF(f);
                 if (f.Value.Raw.Type == 3 || f.Value.Raw.Type == 4)
                 {
                     pending++;
                     PendingView.Items.Add(friend);
                 }
-                else if (f.Value.Raw.Type == 1)
+                else if (friend.RelationshipStatus == 1)
                     AllView.Items.Add(friend);
-                else if (f.Value.Raw.Type == 2)
+                else if (friend.RelationshipStatus == 2)
                     BlockedView.Items.Add(friend);
             }
             PendingCounter.Text = pending.ToString();
+            App.FriendNotifications = pending;
+            Session.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
+            Session.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
+            Session.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
     }
 }
