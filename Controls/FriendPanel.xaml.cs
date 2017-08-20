@@ -138,21 +138,7 @@ namespace Discord_UWP.Controls
         }
         private SimpleFriend NewSF(KeyValuePair<string, CacheModels.Friend> f)
         {
-            var friend = new SimpleFriend();
-            friend.User = f.Value.Raw.user;
-            friend.RelationshipStatus = f.Value.Raw.Type;
-            friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
-            foreach (var guild in Storage.Cache.Guilds)
-            {
-                if (guild.Value.Members.ContainsKey(friend.User.Id))
-                    friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
-                    {
-                        Id = guild.Value.RawGuild.Id,
-                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
-                        Name = guild.Value.RawGuild.Name
-                    });
-            }
-            return friend;
+            return NewSF(f.Value.Raw);
         }
         private SimpleFriend NewSF(Friend f)
         {
@@ -170,6 +156,10 @@ namespace Discord_UWP.Controls
                         Name = guild.Value.RawGuild.Name
                     });
             }
+            if (Session.PrecenseDict.ContainsKey(f.user.Id))
+                friend.UserStatus = Session.PrecenseDict[f.user.Id].Status;
+            else
+                friend.UserStatus = "offline";
             return friend;
         }
         public async void Load()
