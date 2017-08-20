@@ -18,7 +18,7 @@ namespace Discord_UWP.SharedModels
 
         public string GetConnectionUrl()
         {
-            return "wss://" + ServerId;
+            return "wss://" + ServerId.Replace(":80", "");
         }
     }
 }
