@@ -212,7 +212,7 @@ namespace Discord_UWP.Voice
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
         {
-            
+            //WTF DO I DO FROM HERE!?!?!?!?!?!?!
         }
 
         #endregion
