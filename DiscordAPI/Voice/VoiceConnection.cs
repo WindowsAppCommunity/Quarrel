@@ -86,7 +86,11 @@ namespace Discord_UWP.Voice
         {
             _udpSocket.MessageReceived += IpDiscover;
             await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
-            _udpSocket.MessageReceived += processVoicePacket;
+        }
+
+        public async void SendSpeaking(bool speaking)
+        {
+            
         }
 
         async void IpDiscover(object sender, PacketReceivedEventArgs args)
@@ -101,22 +105,30 @@ namespace Discord_UWP.Voice
             }
             catch { }
 
-            var payload = new UdpProtocolInfo()
+            var info = new UdpProtocolInfo()
             {
                 Address = ip,
                 Port = port,
                 Mode = "xsalsa20_poly1305"
             };
 
-            var protocol = new SelectProtocol()
+            var payload = new SelectProtocol()
             {
                 Protocol = "udp",
-                Data = payload
+                Data = info
             };
 
-            await _webMessageSocket.SendJsonObjectAsync(protocol);
+            SocketFrame package = new SocketFrame()
+            {
+                Operation = 1,
+                Payload = payload,
+                Type = EventNames.SELECT_PROTOCOL
+            };
+
+            await _webMessageSocket.SendJsonObjectAsync(package);
 
             _udpSocket.MessageReceived -= IpDiscover;
+            _udpSocket.MessageReceived += processVoicePacket;
         }
 
         private IDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()

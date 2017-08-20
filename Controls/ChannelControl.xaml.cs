@@ -334,7 +334,10 @@ namespace Discord_UWP.Controls
                 {
                     foreach (string member in Members)
                     {
-                        MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
+                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(member))
+                        {
+                            MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
+                        }
                     }
                     //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                 }
