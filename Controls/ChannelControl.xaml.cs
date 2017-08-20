@@ -291,12 +291,14 @@ namespace Discord_UWP.Controls
                     //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
+                    //Tapped -= JoinVoiceChannel;
                 }
                 else if(Type == 2)
                 {
                     //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
+                    Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
                 {
@@ -306,6 +308,7 @@ namespace Discord_UWP.Controls
                     ChannelImage.Visibility = Visibility.Visible;
                     Status.Visibility = Visibility.Visible;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
+                    //Tapped -= JoinVoiceChannel;
                 }
                 else if (Type == 3)
                 {
@@ -322,6 +325,7 @@ namespace Discord_UWP.Controls
                         ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
+                    //Tapped -= JoinVoiceChannel;
                 }
             }
             if (prop == MembersProperty)
@@ -331,6 +335,11 @@ namespace Discord_UWP.Controls
                     MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = member});
                 }
             }
+        }
+
+        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
+        {
+            //TODO: Connect to voice channel
         }
 
         public ChannelControl()

@@ -840,7 +840,6 @@ namespace Discord_UWP
         public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();
 
         public static AuthenticatedRestFactory AuthenticatedRestFactory;
-        public static Gateway.Gateway Gateway;
         public static LoginResult Loginresult;
         public static LoginRequest LoginRequest = new LoginRequest();
         public static Dictionary<string, Presence> PrecenseDict = new Dictionary<string, Presence>();
@@ -849,6 +848,7 @@ namespace Discord_UWP
         public static bool SlowSpeeds;
         public static string Editcache;
 
-
+        public static Gateway.Gateway Gateway;
+        public static Voice.VoiceConnection VoiceConnection;
     }
 }

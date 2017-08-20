@@ -1,0 +1,21 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Discord_UWP.Voice.UpstreamEvents
+{
+    public struct Identify
+    {
+        [JsonProperty("server_id")]
+        public string ServerId { get; set; }
+        [JsonProperty("user_id")]
+        public string UserId { get; set; }
+        [JsonProperty("session_id")]
+        public string SessionId { get; set; }
+        [JsonProperty("token")]
+        public string Token { get; set; }
+    }
+}

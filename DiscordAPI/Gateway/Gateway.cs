@@ -76,7 +76,7 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<UserSettings>> UserSettingsUpdated;
 
         public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
-        public event EventHandler<GatewayEventArgs<VoiceState>> VoiceServerUpdated;
+        public event EventHandler<GatewayEventArgs<VoiceServerUpdate>> VoiceServerUpdated;
 
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {

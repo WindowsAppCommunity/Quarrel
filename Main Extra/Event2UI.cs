@@ -383,7 +383,7 @@ namespace Discord_UWP
         }
 
         private async void MessageDeleted(object sender,
-            GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
+            GatewayEventArgs<MessageDelete> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -985,7 +985,7 @@ namespace Discord_UWP
             }
         }
 
-        private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceState> e)
+        private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
 
         }

@@ -10,10 +10,15 @@ namespace Discord_UWP.SharedModels
     public struct VoiceServerUpdate
     {
         [JsonProperty("token")]
-        public string GuildId { get; set; }
+        public string Token { get; set; }
         [JsonProperty("guild_id")]
-        public string ChannelId { get; set; }
+        public string GuildId { get; set; }
         [JsonProperty("endpoint")]
-        public string SessionId { get; set; }
+        public string ServerId { get; set; }
+
+        public string GetConnectionUrl()
+        {
+            return "wss://" + ServerId;
+        }
     }
 }
