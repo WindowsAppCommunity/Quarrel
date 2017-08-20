@@ -141,6 +141,21 @@ namespace Discord_UWP
                         }
                     }
                 }
+
+                if (guild.VoiceStates != null)
+                {
+                    foreach (VoiceState state in guild.VoiceStates)
+                    {
+                        try
+                        {
+                            Storage.Cache.Guilds[guild.Id].Members[state.UserId].voicestate = state;
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
             }
 
             foreach (Presence presence in e.EventData.Presences)
@@ -960,7 +975,14 @@ namespace Discord_UWP
 
         private void OnVoiceStateUpdated(object sender, GatewayEventArgs<VoiceState> e)
         {
-
+            try
+            {
+                Storage.Cache.Guilds[e.EventData.GuildId].Members[e.EventData.UserId].voicestate = e.EventData;
+            }
+            catch
+            {
+                //Huh, Weird
+            }
         }
 
         private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceState> e)

@@ -178,6 +178,9 @@
       <DependentUpon>EmojiControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmojiSkinToneManager.cs" />
+    <Compile Include="Controls\VoiceMemberControl.xaml.cs">
+      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GuildControl.xaml.cs">
       <DependentUpon>GuildControl.xaml</DependentUpon>
     </Compile>
@@ -524,6 +527,10 @@
     <Page Include="Controls\EmojiControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VoiceMemberControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\GuildControl.xaml">
       <Generator>MSBuild:Compile</Generator>

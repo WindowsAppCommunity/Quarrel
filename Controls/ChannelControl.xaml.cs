@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Member = Discord_UWP.CacheModels.Member;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -145,6 +146,17 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty IsMutedProperty = DependencyProperty.Register(
             nameof(IsMuted),
             typeof(bool),
+            typeof(ChannelControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
+        public List<Member> Members
+        {
+            get { return (List<Member>)GetValue(MembersProperty); }
+            set { SetValue(MembersProperty, value); }
+        }
+        public static readonly DependencyProperty MembersProperty = DependencyProperty.Register(
+            nameof(Members),
+            typeof(List<Member>),
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
@@ -310,6 +322,13 @@ namespace Discord_UWP.Controls
                         ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
+                }
+            }
+            if (prop == MembersProperty)
+            {
+                foreach (Member member in Members)
+                {
+                    MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = member});
                 }
             }
         }
