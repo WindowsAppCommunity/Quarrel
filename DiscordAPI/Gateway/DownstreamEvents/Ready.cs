@@ -41,7 +41,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         public IEnumerable<ReadState> ReadStates { get; set; }
 
         [JsonProperty("notes")]
-        public Dictionary<string,string> Notes { get; set; }
+        public Dictionary<string, string> Notes { get; set; }
 
         [JsonProperty("friend_suggestion_count")]
         public int FriendSuggestionCount { get; set; }
