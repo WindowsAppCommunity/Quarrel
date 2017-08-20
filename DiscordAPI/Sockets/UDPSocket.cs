@@ -10,7 +10,7 @@ namespace Discord_UWP.Sockets
 {
     public class PacketReceivedEventArgs : EventArgs
     {
-        public string Message { get; set; }
+        public object Message { get; set; }
     }
 
     public class UDPSocket
@@ -49,16 +49,29 @@ namespace Discord_UWP.Sockets
             await _dataWriter.StoreAsync();
         }
 
+        public async Task SendDiscovery(int ssrc)
+        {
+            var packet = new byte[70];
+            packet[0] = (byte)(ssrc >> 24);
+            packet[1] = (byte)(ssrc >> 16);
+            packet[2] = (byte)(ssrc >> 8);
+            packet[3] = (byte)(ssrc >> 0);
+            _dataWriter.WriteBytes(packet);
+            await _dataWriter.StoreAsync();
+        }
+
         private void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
         {
             using (var dataReader = e.GetDataReader())
             {
-                string messageString = dataReader.ReadString(dataReader.UnconsumedBufferLength); //TODO: Don't recieve sound as a string!!!
-                OnMessageReceived(messageString);
+                dataReader.ByteOrder = ByteOrder.LittleEndian;
+                byte[] fileContent = new byte[dataReader.UnconsumedBufferLength];
+                dataReader.ReadBytes(fileContent); //TODO: Don't recieve sound as a string!!!
+                OnMessageReceived(fileContent);
             }
         }
 
-        private void OnMessageReceived(string message)
+        private void OnMessageReceived(object message)
         {
             var messageReceivedEvent = new PacketReceivedEventArgs
             {
