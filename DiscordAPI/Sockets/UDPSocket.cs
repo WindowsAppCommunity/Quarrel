@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 
-namespace Discord_UWP.DiscordAPI.Sockets
+namespace Discord_UWP.Sockets
 {
     public class PacketReceivedEventArgs : EventArgs
     {

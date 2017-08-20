@@ -33,6 +33,7 @@ namespace Discord_UWP.Voice
         private SocketFrame? lastEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
+        private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
@@ -41,6 +42,7 @@ namespace Discord_UWP.Voice
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
             _webMessageSocket = new WebMessageSocket();
+            _udpSocket = new UDPSocket();
             _state = state;
             _voiceServerConfig = config;
 
@@ -61,6 +63,11 @@ namespace Discord_UWP.Voice
             IdentifySelfToGateway();
         }
 
+        private async Task ConnectUDPAsync()
+        {
+            await _udpSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl(), lastReady.Value.Port.ToString());
+        }
+
         private async void IdentifySelfToGateway()
         {
             var identifyEvent = new SocketFrame
@@ -77,8 +84,8 @@ namespace Discord_UWP.Voice
         {
             return new Dictionary<int, VoiceConnectionEventHandler>
             {
-                //{ OperationCode.Identify.ToInt(), OnHelloReceived },
-                //{ OperationCode.Ready.ToInt(), OnResumeReceived }
+                { OperationCode.Ready.ToInt(), OnReadyReceived },
+                //{ OperationCode.SessionDescription.ToInt(), TODO }
             };
         }
 
@@ -121,7 +128,7 @@ namespace Discord_UWP.Voice
         {
             return new Identify
             {
-                ServerId = _voiceServerConfig.ServerId,
+                ServerId = _voiceServerConfig.GetConnectionUrl(),
                 SessionId = _state.SessionId,
                 Token = _voiceServerConfig.Token,
                 UserId = _state.UserId
@@ -145,13 +152,20 @@ namespace Discord_UWP.Voice
         }
 
         #region Event
-        private void OnReady(SocketFrame gatewayEvent)
+        private void OnReadyReceived(SocketFrame gatewayEvent)
+        {
+            //IdentifySelfToGateway();
+            BeginHeartbeatAsync(gatewayEvent.GetData<Ready>().Heartbeatinterval);
+        }
+
+        private async void OnReady(SocketFrame gatewayEvent)
         {
             var ready = gatewayEvent.GetData<Ready>();
             lastReady = ready;
 
             FireEventOnDelegate(gatewayEvent, Ready);
             BeginHeartbeatAsync(ready.Heartbeatinterval);
+            await ConnectUDPAsync();
         }
         #endregion
 
@@ -160,7 +174,6 @@ namespace Discord_UWP.Voice
             var eventArgs = new VoiceConnectionEventArgs<TEventData>(gatewayEvent.GetData<TEventData>());
             eventHandler?.Invoke(this, eventArgs);
         }
-
 
         private async void BeginHeartbeatAsync(int interval)
         {
