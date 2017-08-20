@@ -37,6 +37,8 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
+        private byte[] secretkey;
+
         event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
@@ -82,36 +84,39 @@ namespace Discord_UWP.Voice
 
         private async void SendSelectProtocol()
         {
-            _udpSocket.MessageReceived += async (object sender, PacketReceivedEventArgs args) =>
+            _udpSocket.MessageReceived += IpDiscover;
+            await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
+            _udpSocket.MessageReceived += processVoicePacket;
+        }
+
+        async void IpDiscover(object sender, PacketReceivedEventArgs args)
+        {
+            var packet = (byte[])args.Message;
+            string ip = "";
+            int port = 0;
+            try
             {
-                var packet = (byte[])args.Message;
-                string ip = "";
-                int port = 0;
-                try
-                {
-                    ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
-                    port = (packet[69] << 8) | packet[68];
-                }
-                catch { }
+                ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
+                port = (packet[69] << 8) | packet[68];
+            }
+            catch { }
 
-                var payload = new UdpProtocolInfo()
-                {
-                    Address = ip,
-                    Port = port,
-                    Mode = "xsalsa20_poly1305"
-                };
-
-                var protocol = new SelectProtocol()
-                {
-                    Protocol = "udp",
-                    Data = payload
-                };
-
-                await _webMessageSocket.SendJsonObjectAsync(protocol);
+            var payload = new UdpProtocolInfo()
+            {
+                Address = ip,
+                Port = port,
+                Mode = "xsalsa20_poly1305"
             };
 
-            await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
+            var protocol = new SelectProtocol()
+            {
+                Protocol = "udp",
+                Data = payload
+            };
 
+            await _webMessageSocket.SendJsonObjectAsync(protocol);
+
+            _udpSocket.MessageReceived -= IpDiscover;
         }
 
         private IDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
@@ -119,7 +124,7 @@ namespace Discord_UWP.Voice
             return new Dictionary<int, VoiceConnectionEventHandler>
             {
                 { OperationCode.Ready.ToInt(), OnReady },
-                //{ OperationCode.SessionDescription.ToInt(), TODO }
+                { OperationCode.SessionDescription.ToInt(), OnSessionDesc }
             };
         }
 
@@ -187,15 +192,27 @@ namespace Discord_UWP.Voice
 
         #region Event
 
-        private async void OnReady(SocketFrame gatewayEvent)
+        private async void OnReady(SocketFrame Event)
         {
-            var ready = gatewayEvent.GetData<Ready>();
+            var ready = Event.GetData<Ready>();
             lastReady = ready;
 
-            FireEventOnDelegate(gatewayEvent, Ready);
+            FireEventOnDelegate(Event, Ready);
+
             BeginHeartbeatAsync(ready.Heartbeatinterval);
             await ConnectUDPAsync(ready.Ip, ready.Port.ToString());
             SendSelectProtocol();
+        }
+
+        private void OnSessionDesc(SocketFrame Event)
+        {
+            var Desc = Event.GetData<SessionDescription>();
+            secretkey = Desc.SecretKey;
+        }
+
+        private void processVoicePacket(object sender, PacketReceivedEventArgs e)
+        {
+            
         }
 
         #endregion

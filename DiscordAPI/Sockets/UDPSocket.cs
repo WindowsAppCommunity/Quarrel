@@ -43,9 +43,9 @@ namespace Discord_UWP.Sockets
             await _socket.ConnectAsync(new Windows.Networking.HostName(connectionUrl), port);
         }
 
-        public async Task SendMessageAsync(string message)
+        public async Task SendBytesAsync(byte[] bytes)
         {
-            _dataWriter.WriteString(message);
+            _dataWriter.WriteBytes(bytes);
             await _dataWriter.StoreAsync();
         }
 
