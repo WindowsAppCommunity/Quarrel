@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Discord_UWP.SharedModels;
 using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
+using Member = Discord_UWP.CacheModels.Member;
 
 namespace Discord_UWP
 {
@@ -104,6 +105,13 @@ namespace Discord_UWP
                 set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
             }
 
+            private List<Member> _members;
+            public List<Member> Members
+            {
+                get { return _members; }
+                set { if (_members == value) return; _members = value; OnPropertyChanged("Members"); }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             public void OnPropertyChanged(string propertyName)
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
@@ -191,12 +199,10 @@ namespace Discord_UWP
                     switch (type)
                     {
                         case 0:
-
                             if (Storage.MutedChannels.Contains(sc.Id))
                                 sc.IsMuted = true;
                             else
                                 sc.IsMuted = false;
-
 
                             if (Session.RPC.ContainsKey(sc.Id))
                             {
@@ -215,6 +221,9 @@ namespace Discord_UWP
                             }
                             break;
                         case 2:
+
+                            sc.Members = Storage.Cache.Guilds[channel.Value.Raw.GuildId].Members.Values.TakeWhile(m => m.voicestate.ChannelId == channel.Key).ToList();
+
                             if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Speak || App.CurrentGuildId == sc.Id || Storage.Cache.CurrentUser.Raw.Id == Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId)
                             {
                                 VoiceChannels.Items.Add(sc);

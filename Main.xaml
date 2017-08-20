@@ -675,16 +675,17 @@
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <controls:ChannelControl Id="{Binding Id}" 
-                                                                         Name="{Binding Name}" 
-                                                                         UserStatus="{Binding UserStatus}" 
-                                                                         Subtitle="{Binding Subtitle}" 
-                                                                         ImageUrl="{Binding ImageURL}" 
-                                                                         Type="{Binding Type}" 
-                                                                         NotificationCount="{Binding NotificationCount}" 
-                                                                         IsUnread="{Binding IsUnread}" 
-                                                                         IsTyping="{Binding IsTyping}" 
-                                                                         IsMuted="{Binding IsMuted}"
-                                                                         IsEnabled="False"/>
+                                                                             Name="{Binding Name}" 
+                                                                             UserStatus="{Binding UserStatus}" 
+                                                                             Subtitle="{Binding Subtitle}" 
+                                                                             ImageUrl="{Binding ImageURL}" 
+                                                                             Type="{Binding Type}" 
+                                                                             NotificationCount="{Binding NotificationCount}" 
+                                                                             IsUnread="{Binding IsUnread}" 
+                                                                             IsTyping="{Binding IsTyping}" 
+                                                                             IsMuted="{Binding IsMuted}"
+                                                                             Members="{Binding Member}"
+                                                                             IsEnabled="False"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
