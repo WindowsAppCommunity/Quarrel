@@ -30,7 +30,7 @@ namespace Discord_UWP.Voice
         private IDictionary<string, VoiceConnectionEventHandler> eventHandlers;
 
         private Ready? lastReady;
-        private SocketFrame? lastGatewayEvent;
+        private SocketFrame? lastEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly VoiceState _state;
@@ -131,7 +131,7 @@ namespace Discord_UWP.Voice
         private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
         {
             var gatewayEvent = JsonConvert.DeserializeObject<SocketFrame>(args.Message);
-            lastGatewayEvent = gatewayEvent;
+            lastEvent = gatewayEvent;
 
             if (operationHandlers.ContainsKey(gatewayEvent.Operation.GetValueOrDefault()))
             {
@@ -192,7 +192,7 @@ namespace Discord_UWP.Voice
                 var heartbeatEvent = new SocketFrame
                 {
                     Operation = OperationCode.Heartbeat.ToInt(),
-                    Payload = lastGatewayEvent?.SequenceNumber ?? 0
+                    Payload = lastEvent?.SequenceNumber ?? 0
                 };
 
                 if (DateTime.Now.Day == 1 && DateTime.Now.Month == 4) //April 1st

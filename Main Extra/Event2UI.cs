@@ -977,7 +977,7 @@ namespace Discord_UWP
         {
             try
             {
-                if (e.EventData.UserId == Storage.Cache.CurrentUser.Raw.Id)
+                if (e.EventData.UserId == null)
                 {
                     Session.state = e.EventData;
                 }
