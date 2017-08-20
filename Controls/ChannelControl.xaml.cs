@@ -151,7 +151,7 @@ namespace Discord_UWP.Controls
 
         public List<string> Members
         {
-            get { return (List<string>)GetValue(MembersProperty); }
+            get { try { return (List<string>)GetValue(MembersProperty); } catch { return null; } }
             set { SetValue(MembersProperty, value); }
         }
         public static readonly DependencyProperty MembersProperty = DependencyProperty.Register(
@@ -330,9 +330,22 @@ namespace Discord_UWP.Controls
             }
             if (prop == MembersProperty)
             {
-                foreach (string member in Members)
+                if (Members != null)
                 {
-                    MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member]});
+                    foreach (string member in Members)
+                    {
+                        MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
+                    }
+                    //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
+                }
+
+                if (MemberList.Items.Count > 0)
+                {
+                    MemberListEnd.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MemberListEnd.Visibility = Visibility.Collapsed;
                 }
             }
         }
