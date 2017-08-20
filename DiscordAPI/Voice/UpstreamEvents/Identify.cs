@@ -10,7 +10,7 @@ namespace Discord_UWP.Voice.UpstreamEvents
     public struct Identify
     {
         [JsonProperty("server_id")]
-        public string ServerId { get; set; }
+        public string GuildId { get; set; }
         [JsonProperty("user_id")]
         public string UserId { get; set; }
         [JsonProperty("session_id")]

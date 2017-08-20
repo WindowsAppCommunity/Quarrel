@@ -14,11 +14,11 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
         [JsonProperty("endpoint")]
-        public string ServerId { get; set; }
+        public string Endpoint { get; set; }
 
         public string GetConnectionUrl()
         {
-            return "wss://" + ServerId.Replace(":80", ""); //TODO: Remove after : not specifically ":80"
+            return "wss://" + Endpoint.Replace(":80", ""); //TODO: Remove after : not specifically ":80"
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Discord_UWP.Voice.DownstreamEvents
     {
         [JsonProperty("ssrc")]
         public int SSRC { get; set; }
+        [JsonProperty("ip")]
+        public string Ip { get; set; }
         [JsonProperty("port")]
         public int Port { get; set; }
         [JsonProperty("modes")]
