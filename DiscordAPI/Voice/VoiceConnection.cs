@@ -57,6 +57,7 @@ namespace Discord_UWP.Voice
         public async Task ConnectAsync()
         {
             await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl());
+            IdentifySelfToGateway();
         }
 
         private async void IdentifySelfToGateway()
@@ -149,6 +150,7 @@ namespace Discord_UWP.Voice
             lastReady = ready;
 
             FireEventOnDelegate(gatewayEvent, Ready);
+            BeginHeartbeatAsync(ready.Heartbeatinterval);
         }
         #endregion
 
@@ -156,6 +158,53 @@ namespace Discord_UWP.Voice
         {
             var eventArgs = new VoiceConnectionEventArgs<TEventData>(gatewayEvent.GetData<TEventData>());
             eventHandler?.Invoke(this, eventArgs);
+        }
+
+
+        private async void BeginHeartbeatAsync(int interval)
+        {
+            while (true)
+            {
+                await Task.Delay(interval);
+                bool worked = false;
+                int tried = 3;
+                while (!worked && tried > 0)
+                {
+                    try
+                    {
+                        await SendHeartbeatAsync();
+                        //await UpdateStatus();
+                        worked = true;
+                    }
+                    catch
+                    {
+                        tried--;
+                    }
+                }
+            }
+        }
+
+        private async Task SendHeartbeatAsync()
+        {
+            try
+            {
+                var heartbeatEvent = new SocketFrame
+                {
+                    Operation = OperationCode.Heartbeat.ToInt(),
+                    Payload = lastGatewayEvent?.SequenceNumber ?? 0
+                };
+
+                if (DateTime.Now.Day == 1 && DateTime.Now.Month == 4) //April 1st
+                {
+                    App.PlayHeartBeat();
+                }
+
+                await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
