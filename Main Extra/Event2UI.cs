@@ -977,10 +977,9 @@ namespace Discord_UWP
         {
             try
             {
-                if (e.EventData.UserId == null)
+                if (e.EventData.UserId == Storage.Cache.CurrentUser.Raw.Id)
                 {
                     Session.state = e.EventData;
-                    Session.state.UserId = Storage.Cache.CurrentUser.Raw.Id;
                 }
                 Storage.Cache.Guilds[e.EventData.GuildId].Members[e.EventData.UserId].voicestate = e.EventData;
             }
