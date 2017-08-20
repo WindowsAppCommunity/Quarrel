@@ -266,6 +266,7 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
     <Compile Include="DiscordAPI\Sockets\UDPSocket.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\EncryptedAudioHeader.cs" />
     <Compile Include="DiscordAPI\Voice\DownstreamEvents\SessionDescription.cs" />
     <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Resumed.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
     <Compile Include="DiscordAPI\Voice\EventNames.cs" />
     <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
     <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
     <Compile Include="DiscordAPI\Voice\VoiceConnection.cs" />
