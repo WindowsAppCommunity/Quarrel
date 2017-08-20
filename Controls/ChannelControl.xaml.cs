@@ -339,7 +339,7 @@ namespace Discord_UWP.Controls
 
         private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
-            //TODO: Connect to voice channel
+            App.ConnectToVoice(Id, App.CurrentGuildId);
         }
 
         public ChannelControl()
