@@ -89,7 +89,7 @@
                 <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
         </StackPanel>
-        <ListView x:Name="MemberList" SelectionMode="None">
+        <ListView x:Name="MemberList" SelectionMode="None" Grid.Row="1" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:VoiceMemberControl DisplayedMember="{Binding Member}"/>
