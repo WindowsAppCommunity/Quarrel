@@ -273,4 +273,13 @@
   <data name="FriendsTB.Text" xml:space="preserve">
     <value>AMIS</value>
   </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>vous a envoyé une demande d'ami</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Refuser</value>
+  </data>
 </root>

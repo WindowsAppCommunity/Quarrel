@@ -252,6 +252,12 @@ namespace Discord_UWP
         {
             public string ChannelId { get; set; }
         }
+
+        internal static string GetString(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
+
         public static event EventHandler<DeleteChannelNavigationArgs> NavigateToDeleteChannelHandler;
         public static void NavigateToDeleteChannel(string channelId)
         {
@@ -389,7 +395,18 @@ namespace Discord_UWP
                     string code = eventArgs.Argument.Remove(0, 7);
                     await Session.AcceptInvite(code);
                 }
+                if (eventArgs.Argument.StartsWith("AddRelationship/"))
+                {
+                    string id = eventArgs.Argument.Remove(0, 16);
+                    Session.SendFriendRequest(id);
+                }
+                if (eventArgs.Argument.StartsWith("DeleteRelationship/"))
+                {
+                    string id = eventArgs.Argument.Remove(0, 19);
+                    Session.RemoveFriend(id);
+                }
             }
+            
         }
 
         private void LoadSettings()

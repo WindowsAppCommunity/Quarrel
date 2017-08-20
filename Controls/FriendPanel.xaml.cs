@@ -19,6 +19,8 @@ using Windows.UI.Core;
 using Windows.ApplicationModel.Core;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.Toolkit.Uwp.Notifications;
+using Windows.UI.Notifications;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -118,7 +120,7 @@ namespace Discord_UWP.Controls
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                async () =>
                 {
                     SimpleFriend sfriend = NewSF(e.EventData);
                     if (sfriend.RelationshipStatus == 1)
@@ -127,6 +129,8 @@ namespace Discord_UWP.Controls
                         BlockedView.Items.Add(sfriend);
                     else if (sfriend.RelationshipStatus == 3 || sfriend.RelationshipStatus == 4)
                     {
+                        if (sfriend.RelationshipStatus == 3)
+                            await FriendNotification(sfriend.User);
                         App.FriendNotifications += 1;
                         App.UpdateUnreadIndicators();
                         PendingCounter.Text = App.FriendNotifications.ToString();
@@ -183,6 +187,69 @@ namespace Discord_UWP.Controls
             Session.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
             Session.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             Session.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+        }
+
+        public async Task FriendNotification(User user)
+        {
+            string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
+            //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
+            string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
+                               user.Avatar + ".jpg";
+            // Construct the visuals of the toast
+            ToastVisual visual = new ToastVisual()
+            {
+                BindingGeneric = new ToastBindingGeneric()
+                {
+                    Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = toastTitle,
+                                HintMaxLines = 6
+                            }
+                            /*new AdaptiveImage()
+                            {
+                                Source = imageurl
+                            }*/
+                        },
+                    AppLogoOverride = new ToastGenericAppLogo()
+                    {
+                        Source = userPhoto,
+                        HintCrop = ToastGenericAppLogoCrop.Circle
+                    }
+                }
+            };
+            // Construct the actions for the toast (inputs and buttons)
+
+
+            ToastActionsCustom actions = new ToastActionsCustom()
+            {
+                Buttons =
+                {
+                    new ToastButton(App.GetString("/Main/Notifications_Accept"), "AddRelationship/" + user.Id)
+                    {
+                        ActivationType = ToastActivationType.Foreground,
+                    },
+                    new ToastButton(App.GetString("/Main/Notifications_Refuse"), "DeleteRelationship/" + user.Id)
+                    {
+                        ActivationType = ToastActivationType.Foreground,
+                    },
+                }
+            };
+            
+            // Now we can construct the final toast content
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = visual,
+                Actions = actions,
+                // Arguments when the user taps body of toast
+                Launch = "NavigateTo/PendingFriends"
+            };
+            // And create the toast notification
+            ToastNotification notification = new ToastNotification(toastContent.GetXml());
+            // And then send the toast
+            ToastNotificationManager.CreateToastNotifier().Show(notification);
+
         }
     }
 }
