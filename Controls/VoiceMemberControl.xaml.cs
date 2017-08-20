@@ -31,7 +31,7 @@ namespace Discord_UWP.Controls
             public Member Member
             {
                 get { return _member; }
-                set { if (_member.Equals(value)) return; _member = value; OnPropertyChanged("Member"); }
+                set { _member = value; OnPropertyChanged("Member"); }
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -39,14 +39,14 @@ namespace Discord_UWP.Controls
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         }
 
-        public SimpleMember DisplayedMember
+        public Member DisplayedMember
         {
-            get { try { return (SimpleMember)GetValue(DisplayedMemberProperty); } catch { return null;  } }
+            get { return (Member)GetValue(DisplayedMemberProperty); }
             set { SetValue(DisplayedMemberProperty, value); }
         }
         public static readonly DependencyProperty DisplayedMemberProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
-            typeof(SimpleMember),
+            typeof(Member),
             typeof(VoiceMemberControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
@@ -60,9 +60,9 @@ namespace Discord_UWP.Controls
             if (prop == DisplayedMemberProperty)
             {
                 if (DisplayedMember == null) return;
-                username.Text = DisplayedMember.Member.Raw.User.Username;
+                username.Text = DisplayedMember.Raw.User.Username;
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
-                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Member.Raw.User.Avatar, DisplayedMember.Member.Raw.User.Id));
+                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
                 //if(DisplayedFriend.UserStatus != null)
                 //status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 //if (!Session.Online)
@@ -81,7 +81,7 @@ namespace Discord_UWP.Controls
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
         {
-            App.ShowMemberFlyout(this, DisplayedMember.Member.Raw.User);
+            App.ShowMemberFlyout(this, DisplayedMember.Raw.User);
         }
     }
 }

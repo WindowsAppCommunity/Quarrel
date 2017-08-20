@@ -684,7 +684,7 @@
                                                                              IsUnread="{Binding IsUnread}" 
                                                                              IsTyping="{Binding IsTyping}" 
                                                                              IsMuted="{Binding IsMuted}"
-                                                                             Members="{Binding Member}"/>
+                                                                             Members="{Binding Members}"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>

@@ -146,13 +146,12 @@ namespace Discord_UWP
                 {
                     foreach (VoiceState state in guild.VoiceStates)
                     {
-                        try
+                        if (Session.voiceDict.ContainsKey(state.UserId))
                         {
-                            Storage.Cache.Guilds[guild.Id].Members[state.UserId].voicestate = state;
-                        }
-                        catch
+                            Session.voiceDict[state.UserId] = state;
+                        } else
                         {
-
+                            Session.voiceDict.Add(state.UserId, state);
                         }
                     }
                 }
@@ -981,7 +980,14 @@ namespace Discord_UWP
                 {
                     Session.state = e.EventData;
                 }
-                Storage.Cache.Guilds[e.EventData.GuildId].Members[e.EventData.UserId].voicestate = e.EventData;
+                if (Session.voiceDict.ContainsKey(e.EventData.UserId))
+                {
+                    Session.voiceDict[e.EventData.UserId] = e.EventData;
+                }
+                else
+                {
+                    Session.voiceDict.Add(e.EventData.UserId, e.EventData);
+                }
             }
             catch
             {

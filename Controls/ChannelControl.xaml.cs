@@ -149,14 +149,14 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        public List<Member> Members
+        public List<string> Members
         {
-            get { return (List<Member>)GetValue(MembersProperty); }
+            get { return (List<string>)GetValue(MembersProperty); }
             set { SetValue(MembersProperty, value); }
         }
         public static readonly DependencyProperty MembersProperty = DependencyProperty.Register(
             nameof(Members),
-            typeof(List<Member>),
+            typeof(List<string>),
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
@@ -330,9 +330,9 @@ namespace Discord_UWP.Controls
             }
             if (prop == MembersProperty)
             {
-                foreach (Member member in Members)
+                foreach (string member in Members)
                 {
-                    MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = member});
+                    MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member]});
                 }
             }
         }
