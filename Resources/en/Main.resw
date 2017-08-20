@@ -273,4 +273,13 @@
   <data name="FriendsTB.Text" xml:space="preserve">
     <value>FRIENDS</value>
   </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>sent you a friend request</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Refuse</value>
+  </data>
 </root>
