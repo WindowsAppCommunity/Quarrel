@@ -53,6 +53,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto" MaxHeight="300"/>
+            <RowDefinition Height="Auto" MaxHeight="10"/>
         </Grid.RowDefinitions>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="10" Width="4" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
         <Rectangle Visibility="Collapsed" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Fill="{ThemeResource Blurple}" Opacity="0.0"/>
@@ -96,5 +97,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Rectangle x:Name="MemberListEnd" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,10"/>
     </Grid>
 </UserControl>
