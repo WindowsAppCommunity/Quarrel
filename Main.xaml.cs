@@ -16,7 +16,7 @@
  * App.CurrentGuild and then App.CurrentGuildId should be used instead of ServerList.SelectedItem in everycase where it is not necessary
  * SharedModels and CacheModels should be included in all files that use them
  * CacheModels overrule SharedModels
- * Use lambdas meaningly, nothing is dumber than excessive lambda use
+ * Use lambdas meaningfully, nothing is dumber than excessive lambda use
 */
 using Discord_UWP.API;
 using Discord_UWP.API.User;
@@ -491,7 +491,7 @@ namespace Discord_UWP
                                DMs.Visibility = Visibility.Visible;
                                headerButton.Visibility = Visibility.Collapsed;
                                MemberListToggle.Visibility = Visibility.Collapsed;
-                               Members.IsPaneOpen = false;
+                               Members.Visibility = Visibility.Collapsed;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;
@@ -523,6 +523,8 @@ namespace Discord_UWP
                                Channels.Visibility = Visibility.Visible;
                                DMs.Visibility = Visibility.Collapsed;
                                friendPanel.Visibility = Visibility.Collapsed;
+                               MemberListToggle.Visibility = Visibility.Visible;
+                               Members.Visibility = Visibility.Visible;
                                if (Session.Online)
                                {
                                    ChannelsLoading.IsActive = true;

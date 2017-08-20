@@ -993,8 +993,15 @@ namespace Discord_UWP
                     timer.Tick += (sender2, o1) =>
                     {
                         timer.Stop();
-                        App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
-                        Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                        try
+                        {
+                            App.UpdateTyping(Typers.First(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
+                            Typers.Remove(Typers.First(t => t.Value == timer).Key);
+                        }
+                        catch
+                        {
+
+                        }
                         UpdateTypingUI();
                     };
                     timer.Start();
