@@ -78,6 +78,7 @@ namespace Discord_UWP.Controls
                 game.Visibility=Visibility.Collapsed;
             }
         }
+
         public MemberControl()
         {
             this.InitializeComponent();
