@@ -4,9 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -125,6 +127,19 @@ namespace Discord_UWP.Controls
         public FriendControl()
         {
             this.InitializeComponent();
+            Session.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+        }
+
+        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (DisplayedFriend == null) return;
+                    DisplayedFriend.UserStatus = e.EventData.Status;
+                    if (e.EventData.User.Id == DisplayedFriend.User.Id)
+                        status.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
+                });
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
