@@ -50,6 +50,10 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto" MaxHeight="300"/>
+        </Grid.RowDefinitions>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="10" Width="4" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
         <Rectangle Visibility="Collapsed" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Fill="{ThemeResource Blurple}" Opacity="0.0"/>
         <Rectangle Visibility="Collapsed" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
@@ -85,5 +89,12 @@
                 <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
         </StackPanel>
+        <ListView x:Name="MemberList" SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:VoiceMemberControl DisplayedMember="{Binding Member}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

@@ -178,6 +178,9 @@
       <DependentUpon>EmojiControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmojiSkinToneManager.cs" />
+    <Compile Include="Controls\VoiceMemberControl.xaml.cs">
+      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GuildControl.xaml.cs">
       <DependentUpon>GuildControl.xaml</DependentUpon>
     </Compile>
@@ -308,28 +311,6 @@
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
-    <Compile Include="DiscordAPI\Voice\DiscordVoiceAPIClient.cs" />
-    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\AudioApplication.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\ConnectionState.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\IUdpSocket.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\IWebSocketClient.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\RequestOptions.cs" />
-    <Compile Include="DiscordAPI\Voice\Models\UdpProtocolInfo.cs" />
-    <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusApplication.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusConverter.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusCtl.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusDecoder.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusEncoder.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusError.cs" />
-    <Compile Include="DiscordAPI\Voice\Opus\OpusSignal.cs" />
-    <Compile Include="DiscordAPI\Voice\Sodium\SecretBox.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
-    <Compile Include="DiscordAPI\Voice\Voice.cs" />
-    <Compile Include="DiscordAPI\Voice\VoiceEvents.cs" />
     <Compile Include="EntryMessages.cs" />
     <Compile Include="LockScreen.xaml.cs">
       <DependentUpon>LockScreen.xaml</DependentUpon>
@@ -524,6 +505,10 @@
     <Page Include="Controls\EmojiControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VoiceMemberControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\GuildControl.xaml">
       <Generator>MSBuild:Compile</Generator>

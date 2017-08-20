@@ -13,9 +13,9 @@ namespace Discord_UWP.SharedModels
         public string GuildId { get; set; }
         [JsonProperty("channel_id")]
         public string ChannelId { get; set; }
-        [JsonProperty("userId")]
+        [JsonProperty("user_id")]
         public string UserId { get; set; }
-        [JsonProperty("sessionId")]
+        [JsonProperty("session_id")]
         public string SessionId { get; set; }
         [JsonProperty("deaf")]
         public bool ServerDeaf { get; set; }
