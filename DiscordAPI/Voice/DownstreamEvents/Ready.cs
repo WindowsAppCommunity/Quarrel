@@ -17,6 +17,6 @@ namespace Discord_UWP.Voice.DownstreamEvents
         [JsonProperty("modes")]
         public IEnumerable<string> Modes { get; set; }
         [JsonProperty("heartbeat_interval")]
-        public int HeartBeatinterval { get; set; }
+        public int Heartbeatinterval { get; set; }
     }
 }
