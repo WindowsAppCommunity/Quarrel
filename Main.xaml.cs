@@ -214,6 +214,7 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
+            App.ConnectoToVoiceHandler += App_ConnectoToVoiceHandler;
             App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
             SettingsChanged(null, null);
         }
@@ -225,6 +226,11 @@ namespace Discord_UWP
                    {
                        Heartbeat.Play();
                    });
+        }
+
+        private async void App_ConnectoToVoiceHandler(object sender, App.ConnectToVoiceArgs e)
+        {
+            await Session.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
         }
 
         private void OnUpdateUnreadIndicators(object sender, EventArgs e)

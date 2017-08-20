@@ -977,6 +977,10 @@ namespace Discord_UWP
         {
             try
             {
+                if (e.EventData.UserId == Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    Session.state = e.EventData;
+                }
                 Storage.Cache.Guilds[e.EventData.GuildId].Members[e.EventData.UserId].voicestate = e.EventData;
             }
             catch
@@ -985,9 +989,10 @@ namespace Discord_UWP
             }
         }
 
-        private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
+        private async void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
-
+            Session.VoiceConnection = new Voice.VoiceConnection(e.EventData, Session.state);
+            await Session.VoiceConnection.ConnectAsync();
         }
 
 

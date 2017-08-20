@@ -668,7 +668,7 @@
                                         </ListViewItem>
                                         <TextBlock x:Uid="/Main/NoChannelsCachedTB" x:Name="NoGuildChannelsCached" Text="No channels cached" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                         <ProgressRing x:Name="ChannelsLoading" Foreground="{StaticResource Blurple}"></ProgressRing>
-                                        <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionMode="None" IsEnabled="False">
+                                        <ListView x:Name="VoiceChannels" SelectionChanged="LoadChannelMessages" ItemContainerStyle="{StaticResource ChannelItemStyle}" SelectionMode="None">
                                             <ListView.Header>
                                                 <TextBlock x:Uid="/Main/VoiceChannelsTB" Text="VOICE CHANNELS" FontWeight="SemiBold" Margin="16,12,0,12"/>
                                             </ListView.Header>
@@ -684,8 +684,7 @@
                                                                              IsUnread="{Binding IsUnread}" 
                                                                              IsTyping="{Binding IsTyping}" 
                                                                              IsMuted="{Binding IsMuted}"
-                                                                             Members="{Binding Member}"
-                                                                             IsEnabled="False"/>
+                                                                             Members="{Binding Member}"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>

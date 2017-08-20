@@ -33,14 +33,15 @@ namespace Discord_UWP.Voice
         private SocketFrame? lastGatewayEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
-        private readonly VoiceState State;
+        private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
 
         event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
 
-        public VoiceConnection(VoiceServerUpdate config)
+        public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
             _webMessageSocket = new WebMessageSocket();
+            _state = state;
             _voiceServerConfig = config;
 
             eventHandlers = GetEventHandlers();
@@ -121,9 +122,9 @@ namespace Discord_UWP.Voice
             return new Identify
             {
                 ServerId = _voiceServerConfig.ServerId,
-                SessionId = State.SessionId,
+                SessionId = _state.SessionId,
                 Token = _voiceServerConfig.Token,
-                UserId = State.UserId
+                UserId = _state.UserId
             };
         }
 
