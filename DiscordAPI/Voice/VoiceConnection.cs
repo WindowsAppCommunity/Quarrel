@@ -60,7 +60,7 @@ namespace Discord_UWP.Voice
         public async Task ConnectAsync()
         {
             await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl());
-            IdentifySelfToGateway();
+            IdentifySelfToVoiceConnection();
         }
 
         private async Task ConnectUDPAsync(string Ip, string Port)
@@ -68,7 +68,7 @@ namespace Discord_UWP.Voice
             await _udpSocket.ConnectAsync(Ip, Port);
         }
 
-        private async void IdentifySelfToGateway()
+        private async void IdentifySelfToVoiceConnection()
         {
             var identifyEvent = new SocketFrame
             {
@@ -78,6 +78,40 @@ namespace Discord_UWP.Voice
             };
 
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
+        }
+
+        private async void SendSelectProtocol()
+        {
+            _udpSocket.MessageReceived += async (object sender, PacketReceivedEventArgs args) =>
+            {
+                var packet = (byte[])args.Message;
+                string ip = "";
+                int port = 0;
+                try
+                {
+                    ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
+                    port = (packet[69] << 8) | packet[68];
+                }
+                catch { }
+
+                var payload = new UdpProtocolInfo()
+                {
+                    Address = ip,
+                    Port = port,
+                    Mode = "xsalsa20_poly1305"
+                };
+
+                var protocol = new SelectProtocol()
+                {
+                    Protocol = "udp",
+                    Data = payload
+                };
+
+                await _webMessageSocket.SendJsonObjectAsync(protocol);
+            };
+
+            await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
+
         }
 
         private IDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
@@ -161,7 +195,9 @@ namespace Discord_UWP.Voice
             FireEventOnDelegate(gatewayEvent, Ready);
             BeginHeartbeatAsync(ready.Heartbeatinterval);
             await ConnectUDPAsync(ready.Ip, ready.Port.ToString());
+            SendSelectProtocol();
         }
+
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)

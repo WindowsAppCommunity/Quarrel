@@ -11,5 +11,6 @@ namespace Discord_UWP.Voice
         public const string READY = "READY";
         public const string IDENTIFY = "IDENTIFY";
         public const string HEARTBEAT = "HEARTBEAT";
+        public const string SELECT_PROTOCOL = "SELECT_PROTOCOL";
     }
 }

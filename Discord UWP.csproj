@@ -315,6 +315,7 @@
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
     <Compile Include="DiscordAPI\Voice\EventNames.cs" />
     <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
     <Compile Include="DiscordAPI\Voice\VoiceConnection.cs" />
     <Compile Include="EntryMessages.cs" />
