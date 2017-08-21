@@ -338,9 +338,9 @@ namespace Discord_UWP
                 };
                 // Construct the actions for the toast (inputs and buttons)
 
-                /*ToastTextBox replyContent = new ToastTextBox("Reply")
+                ToastTextBox replyContent = new ToastTextBox("Reply")
                 {
-                    PlaceholderContent = "Type a response"
+                    PlaceholderContent = App.GetString("/Main/Notifications_Reply"),
                 };
 
                 ToastActionsCustom actions = new ToastActionsCustom()
@@ -351,26 +351,32 @@ namespace Discord_UWP
                     },
                     Buttons =
                     {
-                        new ToastButton("Reply", "reply")
+                        new ToastButton("Send",  new QueryString()
+                    {
+                        { "action", "SendMessage" },
+                        { "channelid", conversationId },
+                        { "content", replyContent.Id }
+                    }.ToString())
                         {
-                            ActivationType = ToastActivationType.Background,
-                            TextBoxId = replyContent.Id
+                            ActivationType = ToastActivationType.Foreground,
+                            TextBoxId = replyContent.Id,
+                            ImageUri = "Assets/sendicon.png"
                         }
                     }
                 };
-                */
+
                 // Now we can construct the final toast content
                 ToastContent toastContent = new ToastContent()
                 {
                     Visual = visual,
-                    //Actions = actions,
+                    Actions = actions,
                     // Arguments when the user taps body of toast
-                    /*Launch = new QueryString()
+                    Launch = new QueryString()
                     {
-                        { "action", "reply" },
-                        { "conversationId", conversationId },
-                        {"message", replyContent.Id }
-                    }.ToString()*/
+                        { "action", "Navigate" },
+                        { "page", "Channel" },
+                        { "channelid", replyContent.Id }
+                    }.ToString()
                 };
                 // And create the toast notification
                 ToastNotification notification = new ToastNotification(toastContent.GetXml());
