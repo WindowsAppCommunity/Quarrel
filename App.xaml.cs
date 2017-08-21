@@ -395,15 +395,41 @@ namespace Discord_UWP
                     string code = eventArgs.Argument.Remove(0, 7);
                     await Session.AcceptInvite(code);
                 }
-                if (eventArgs.Argument.StartsWith("AddRelationship/"))
+                else
                 {
-                    string id = eventArgs.Argument.Remove(0, 16);
-                    Session.SendFriendRequest(id);
-                }
-                if (eventArgs.Argument.StartsWith("DeleteRelationship/"))
-                {
-                    string id = eventArgs.Argument.Remove(0, 19);
-                    Session.RemoveFriend(id);
+                    try
+                    {
+                        var dec = new WwwFormUrlDecoder(eventArgs.Argument);
+                        var action = dec.GetFirstValueByName("action");
+                        if (action == "AddRelationship")
+                            Session.SendFriendRequest(dec.GetFirstValueByName("id"));
+                        else if (action == "RemoveRelationship")
+                            Session.RemoveFriend(dec.GetFirstValueByName("id"));
+                        else if (action == "SendMessage")
+                            await Session.CreateMessage(dec.GetFirstValueByName("channelid"), eventArgs.UserInput["Reply"].ToString());
+                        else if(action == "Navigate")
+                        {
+                            var page = dec.GetFirstValueByName("page");
+                            if (page == "Friends")
+                            {
+                                //TODO Navigate to the friends list
+                            }
+                            else if(page == "Channel")
+                            {
+                                var channelid = dec.GetFirstValueByName("channelid");
+                                string guildid = "";
+                                foreach (var guild in Storage.Cache.Guilds)
+                                    if (guild.Value.Channels.ContainsKey(channelid))
+                                    {
+                                        guildid = guild.Key;
+                                        break;
+                                    }
+
+                                App.NavigateToGuildChannel(guildid, channelid, eventArgs.UserInput["Reply"].ToString());
+                            }
+                        }
+                    }
+                    catch { }
                 }
             }
             

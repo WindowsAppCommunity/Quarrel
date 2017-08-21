@@ -282,4 +282,7 @@
   <data name="Notifications_Refuse" xml:space="preserve">
     <value>Refuser</value>
   </data>
+  <data name="Notifications_Reply" xml:space="preserve">
+    <value>Réponse</value>
+  </data>
 </root>

@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
+using Microsoft.QueryStringDotNET;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -226,11 +227,19 @@ namespace Discord_UWP.Controls
             {
                 Buttons =
                 {
-                    new ToastButton(App.GetString("/Main/Notifications_Accept"), "AddRelationship/" + user.Id)
+                    new ToastButton(App.GetString("/Main/Notifications_Accept"), new QueryString()
+                    {
+                        { "action", "AddRelationship" },
+                        { "id", user.Id }
+                    }.ToString())
                     {
                         ActivationType = ToastActivationType.Foreground,
                     },
-                    new ToastButton(App.GetString("/Main/Notifications_Refuse"), "DeleteRelationship/" + user.Id)
+                    new ToastButton(App.GetString("/Main/Notifications_Refuse"), new QueryString()
+                    {
+                        { "action", "RemoveRelationship" },
+                        { "id", user.Id }
+                    }.ToString())
                     {
                         ActivationType = ToastActivationType.Foreground,
                     },
@@ -243,7 +252,11 @@ namespace Discord_UWP.Controls
                 Visual = visual,
                 Actions = actions,
                 // Arguments when the user taps body of toast
-                Launch = "NavigateTo/PendingFriends"
+                Launch = new QueryString()
+                    {
+                        { "action", "Navigate" },
+                        { "page", "Friends" }
+                    }.ToString()
             };
             // And create the toast notification
             ToastNotification notification = new ToastNotification(toastContent.GetXml());
