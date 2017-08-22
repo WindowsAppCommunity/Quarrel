@@ -69,9 +69,24 @@ namespace Discord_UWP
                     else
                         this.RequestedTheme = ApplicationTheme.Dark;
                 this.Suspending += OnSuspending;
+                
             }
             catch { }
             
+        }
+        public static bool HasFocus = true;
+
+        private void WindowFocusChanged(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
+        {
+            
+            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
+                HasFocus = false;
+            else
+            {
+                AckLastMessage?.Invoke(null, null);
+                HasFocus = true;
+            }
+            e.Handled = true;
         }
 
         #region Events
@@ -331,6 +346,8 @@ namespace Discord_UWP
         {
             PlayHeartBeatHandler?.Invoke(null, null);
         }
+
+        public static event EventHandler AckLastMessage;
         #endregion
 
         #endregion
@@ -600,6 +617,7 @@ namespace Discord_UWP
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+                Window.Current.CoreWindow.Activated += WindowFocusChanged;
             }
         }
 
