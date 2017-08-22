@@ -16,9 +16,9 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("endpoint")]
         public string Endpoint { get; set; }
 
-        public string GetConnectionUrl()
+        public string GetConnectionUrl(string version)
         {
-            return "wss://" + Endpoint.Substring(0, Endpoint.LastIndexOf(':'));
+            return "wss://" + Endpoint.Substring(0, Endpoint.LastIndexOf(':')) + "?v=" + version;
         }
     }
 }

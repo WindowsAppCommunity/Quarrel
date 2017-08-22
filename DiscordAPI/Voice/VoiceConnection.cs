@@ -1,9 +1,12 @@
-﻿using Discord_UWP.Authentication;
+﻿using Concentus;
+using Concentus.Structs;
+using Discord_UWP.Authentication;
 using Discord_UWP.SharedModels;
 using Discord_UWP.Sockets;
 using Discord_UWP.Voice.DownstreamEvents;
 using Discord_UWP.Voice.UpstreamEvents;
 using Newtonsoft.Json;
+using Sodium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +64,7 @@ namespace Discord_UWP.Voice
 
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl());
+            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("3"));
             IdentifySelfToVoiceConnection();
         }
 
@@ -91,6 +94,11 @@ namespace Discord_UWP.Voice
         public async void SendSpeaking(bool speaking)
         {
             
+        }
+
+        public async void SendVoiceHeader()
+        {
+
         }
 
         async void IpDiscover(object sender, PacketReceivedEventArgs args)
@@ -136,6 +144,7 @@ namespace Discord_UWP.Voice
             return new Dictionary<int, VoiceConnectionEventHandler>
             {
                 { OperationCode.Ready.ToInt(), OnReady },
+                { OperationCode.Hello.ToInt(), OnHello },
                 { OperationCode.SessionDescription.ToInt(), OnSessionDesc }
             };
         }
@@ -204,6 +213,12 @@ namespace Discord_UWP.Voice
 
         #region Event
 
+        private void OnHello(SocketFrame Event)
+        {
+            var hello = Event.GetData<Hello>();
+            BeginHeartbeatAsync(hello.Heartbeatinterval * .75); //The *.75 is due to a serverside bug
+        }
+
         private async void OnReady(SocketFrame Event)
         {
             var ready = Event.GetData<Ready>();
@@ -211,7 +226,6 @@ namespace Discord_UWP.Voice
 
             FireEventOnDelegate(Event, Ready);
 
-            BeginHeartbeatAsync(ready.Heartbeatinterval);
             await ConnectUDPAsync(ready.Ip, ready.Port.ToString());
             SendSelectProtocol();
         }
@@ -224,6 +238,10 @@ namespace Discord_UWP.Voice
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
         {
+            var unencrypted = StreamEncryption.DecryptXSalsa20((byte[])e.Message, new byte[12], secretkey);
+            OpusDecoder decoder = new OpusDecoder(48000, 2);
+            float[] output = new float[20]; 
+            decoder.Decode(unencrypted, 0, unencrypted.Length, output, 20, 48000);
             //WTF DO I DO FROM HERE!?!?!?!?!?!?!
         }
 
@@ -235,11 +253,11 @@ namespace Discord_UWP.Voice
             eventHandler?.Invoke(this, eventArgs);
         }
 
-        private async void BeginHeartbeatAsync(int interval)
+        private async void BeginHeartbeatAsync(double interval)
         {
             while (true)
             {
-                await Task.Delay(interval);
+                await Task.Delay(Convert.ToInt32(interval));
                 bool worked = false;
                 int tried = 3;
                 while (!worked && tried > 0)
