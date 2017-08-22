@@ -317,7 +317,7 @@ namespace Discord_UWP
 
         private void Sb_Completed(object sender, object e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private GridView reactionView;

@@ -215,7 +215,25 @@ namespace Discord_UWP
             App.MentionHandler += OnMention;
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
             App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
+            App.AckLastMessage += App_AckLastMessage;
             SettingsChanged(null, null);
+        }
+
+        private async void App_AckLastMessage(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Messages.Items.Any())
+                {
+                    var lastmessage = (MessageContainer)Messages.Items.Last();
+                    await Task.Run(async () =>
+                    {
+                        await Session.AckMessage(lastmessage.Message.Value.ChannelId, lastmessage.Message.Value.Id);
+                    });
+                }
+            }
+            catch { }
+            
         }
 
         private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
@@ -875,7 +893,10 @@ namespace Discord_UWP
                         foreach (KeyValuePair<string, Message> message in App.CurrentGuild.Channels[App.CurrentChannelId].Messages.Reverse())
                         {
                             adCheck--;
-                            Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, null));
+                            string header = null;
+                            if (message.Value.Raw.Id == Session.RPC[App.CurrentChannelId].LastMessageId)
+                                header = "NEW MESSAGES";
+                            Messages.Items.Add(NewMessageContainer(message.Value.Raw, null, false, header));
                             if (adCheck == 0 && App.ShowAds)
                             {
                                 Messages.Items.Add(NewMessageContainer(null, null, true, null));

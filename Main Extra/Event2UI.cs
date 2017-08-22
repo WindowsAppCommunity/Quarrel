@@ -228,7 +228,10 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[App.CurrentGuildId]
                                 .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+                            if (App.HasFocus)
+                                await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+                            
+                            
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                             if (e.EventData.TTS)
