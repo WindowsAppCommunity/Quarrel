@@ -620,7 +620,7 @@
                                     <Button.Content>
                                         <Grid>
                                             <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
-                                            <SymbolIcon Symbol="Add"/>
+                                            <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
                                         </Grid>
                                     </Button.Content>
                                 </Button>
@@ -701,6 +701,7 @@
                             </Grid>
                             <ScrollViewer x:Name="DMs" Grid.Column="1" Visibility="Visible" Grid.Row="1">
                                 <StackPanel>
+                                    <TextBox Text="test" Style="{StaticResource TextBoxStyle1}"/>
                                     <ListViewItem IsSelected="True" x:Name="FriendsLVitem" Style="{StaticResource ChannelItemStyle}" Margin="12,12,24,2" Tapped="FriendsLVitem_Tapped">
                                         <Grid>
                                             <SymbolIcon Symbol="People" HorizontalAlignment="Left"/>
@@ -745,7 +746,7 @@
                                                 <Border.RenderTransform>
                                                     <CompositeTransform x:Name="FriendsNotificationScale" CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5"/>
                                                 </Border.RenderTransform>
-                                                <TextBlock x:Name="FriendsNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
+                                                <TextBlock x:Name="FriendsNotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
                                             </Border>
                                         </Grid>
                                     </ListViewItem>
@@ -932,7 +933,57 @@
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarToggleButton x:Uid="/Main/MuteABB" x:Name="MuteToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel"/>
+                <AppBarToggleButton x:Name="MuteToggle"/>
+                <AppBarButton x:Uid="/Main/RecentMentionsABB" Label="Recent Mentions">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="@" FontFamily="Segoe UI" Margin="0,-2,0,0"/>
+                    </AppBarButton.Icon>
+                    <AppBarButton.Flyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <ListView ItemContainerStyle="{StaticResource ListViewItemExpanded}" HorizontalAlignment="Left">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ItemsStackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListViewItem Content="All servers"/>
+                                    <ListViewItem Content="This server"/>
+                                </ListView>
+                                <Button Grid.Column="1" Style="{StaticResource EllipsisButton}" Content="Filter" VerticalContentAlignment="Center" Margin="0" Padding="12,0,24,0"/>
+                                <ListView x:Name="RecentMentions" SelectionMode="None">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsStackPanel ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="MinHeight" Value="0"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:MessageControl Message="{Binding Message}" MoreButtonVisibility="Collapsed" IsAdvert="{Binding IsAdvert}" Header="{Binding Header}" IsContinuation="{Binding IsContinuation}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            </Grid>
+                            
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
                 <AppBarButton x:Uid="/Main/RefreshABB" x:Name="RefreshButton" Icon="Refresh" Label="Refresh" Click="Refresh"/>
                 <CommandBar.Content>
                     <AppBarButton Click="ToggleServerListFull" Width="64" Label="">
@@ -979,7 +1030,7 @@
                                     <Border.RenderTransform>
                                         <CompositeTransform x:Name="BurgerNotificationScale" CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5" TranslateX="6" TranslateY="6"/>
                                     </Border.RenderTransform>
-                                    <TextBlock x:Name="BurgerNotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,1" FontSize="9"/>
+                                    <TextBlock x:Name="BurgerNotificationCounter" Text="1" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,1" FontSize="9"/>
                                 </Border>
                             </Grid>
                            

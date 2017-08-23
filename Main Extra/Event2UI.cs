@@ -305,8 +305,8 @@ namespace Discord_UWP
                 e.EventData.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 //In a real app, these would be initialized with actual data
-                string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " " + " " + "(#" +
-                                    Session.GetGuildChannel(e.EventData.ChannelId).Name + ")";
+                string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + 
+                    Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(e.EventData.ChannelId)).Value.Channels[e.EventData.ChannelId].Raw.Name;
                 string content = e.EventData.Content;
                 //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
                 string userPhoto = "https://cdn.discordapp.com/avatars/" + e.EventData.User.Id + "/" +

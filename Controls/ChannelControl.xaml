@@ -86,7 +86,7 @@
                 <Border.RenderTransform>
                     <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
                 </Border.RenderTransform>
-                <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
+                <TextBlock x:Name="NotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
         </StackPanel>
         <ListView x:Name="MemberList" SelectionMode="None">
