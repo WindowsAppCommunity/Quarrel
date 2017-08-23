@@ -53,7 +53,7 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <TextBlock Visibility="Collapsed" x:Name="TextIcon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Light" Margin="0,-2,0,0"/>
+        <TextBlock Visibility="Visible" Foreground="White" x:Name="TextIcon" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Light" Margin="0,-2,0,0"/>
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
@@ -61,7 +61,7 @@
             <Border.RenderTransform>
                 <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
             </Border.RenderTransform>
-            <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
+            <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="White"  VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
         </Border>
     </Grid>
 </UserControl>

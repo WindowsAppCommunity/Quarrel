@@ -44,7 +44,7 @@ namespace Discord_UWP
                 result = dt.Date.ToString("d", localCulture) + " ";
             }
 
-            result += App.GetString("/Main/Today") + " " + dt.ToString("HH:mm");
+            result += " " + dt.ToString("HH:mm");
 
             return result;
         }

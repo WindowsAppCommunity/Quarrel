@@ -273,4 +273,19 @@
   <data name="FriendsTB.Text" xml:space="preserve">
     <value>AMIS</value>
   </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>vous a envoyé une demande d'ami</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Accepter</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Refuser</value>
+  </data>
+  <data name="Notifications_Reply" xml:space="preserve">
+    <value>Réponse</value>
+  </data>
+  <data name="RecentMentionsABB.Label" xml:space="preserve">
+    <value>Mentions récentes</value>
+  </data>
 </root>

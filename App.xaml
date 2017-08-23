@@ -54,8 +54,8 @@
             <Color x:Key="IdleColor">#fffaa61a</Color>
             <SolidColorBrush x:Key="dnd" Color="#fff04747"/>
             <Color x:Key="DndColor">#fff04747</Color>
-            <SolidColorBrush x:Key="offline" Color="#FFAAAAAA"/>
-            <Color x:Key="OfflineColor">#FFAAAAAA</Color>
+            <SolidColorBrush x:Key="offline" Color="#747f8d"/>
+            <Color x:Key="OfflineColor">#747f8d</Color>
 
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
