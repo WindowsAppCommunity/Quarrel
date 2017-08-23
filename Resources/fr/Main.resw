@@ -285,4 +285,7 @@
   <data name="Notifications_Reply" xml:space="preserve">
     <value>Réponse</value>
   </data>
+  <data name="RecentMentionsABB.Label" xml:space="preserve">
+    <value>Mentions récentes</value>
+  </data>
 </root>

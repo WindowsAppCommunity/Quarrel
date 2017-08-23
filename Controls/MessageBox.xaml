@@ -188,12 +188,12 @@
                 </ListView>
             </Border>
         </Popup>
-        <Button x:Name="EmojiButton" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1" Padding="8">
+        <Button x:Name="EmojiButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1" Padding="8">
             <SymbolIcon Symbol="Emoji"/>
         </Button>
 
         <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
-        <Button Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
+        <Button x:Name="attachButton" Style="{StaticResource DiscordButton}" Foreground="{ThemeResource InvertedBG}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
 
 
 

@@ -100,7 +100,17 @@ namespace Discord_UWP.Controls
             }
             if(prop == IsEditProperty)
             {
-                CancelButton.Visibility = Visibility.Visible;
+                if(IsEdit == true)
+                {
+                    CancelButton.Visibility = Visibility.Visible;
+                    attachButton.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    CancelButton.Visibility = Visibility.Collapsed;
+                    attachButton.Visibility = Visibility.Visible;
+                }
+                
             }
         }
 
