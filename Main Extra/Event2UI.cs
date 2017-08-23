@@ -962,6 +962,9 @@ namespace Discord_UWP
                                 if (e.EventData.Game.HasValue)
                                 {
                                     chn.Playing = new Game() { Name = e.EventData.Game.Value.Name, Type = e.EventData.Game.Value.Type, Url = e.EventData.Game.Value.Url };
+                                } else
+                                {
+                                    chn.Playing = null;
                                 }
                             }
                         }
