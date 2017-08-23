@@ -69,9 +69,24 @@ namespace Discord_UWP
                     else
                         this.RequestedTheme = ApplicationTheme.Dark;
                 this.Suspending += OnSuspending;
+                
             }
             catch { }
             
+        }
+        public static bool HasFocus = true;
+
+        private void WindowFocusChanged(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
+        {
+            
+            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
+                HasFocus = false;
+            else
+            {
+                AckLastMessage?.Invoke(null, null);
+                HasFocus = true;
+            }
+            e.Handled = true;
         }
 
         #region Events
@@ -252,6 +267,12 @@ namespace Discord_UWP
         {
             public string ChannelId { get; set; }
         }
+
+        internal static string GetString(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
+
         public static event EventHandler<DeleteChannelNavigationArgs> NavigateToDeleteChannelHandler;
         public static void NavigateToDeleteChannel(string channelId)
         {
@@ -325,6 +346,8 @@ namespace Discord_UWP
         {
             PlayHeartBeatHandler?.Invoke(null, null);
         }
+
+        public static event EventHandler AckLastMessage;
         #endregion
 
         #endregion
@@ -389,7 +412,44 @@ namespace Discord_UWP
                     string code = eventArgs.Argument.Remove(0, 7);
                     await Session.AcceptInvite(code);
                 }
+                else
+                {
+                    try
+                    {
+                        var dec = new WwwFormUrlDecoder(eventArgs.Argument);
+                        var action = dec.GetFirstValueByName("action");
+                        if (action == "AddRelationship")
+                            Session.SendFriendRequest(dec.GetFirstValueByName("id"));
+                        else if (action == "RemoveRelationship")
+                            Session.RemoveFriend(dec.GetFirstValueByName("id"));
+                        else if (action == "SendMessage")
+                            await Session.CreateMessage(dec.GetFirstValueByName("channelid"), eventArgs.UserInput["Reply"].ToString());
+                        else if(action == "Navigate")
+                        {
+                            var page = dec.GetFirstValueByName("page");
+                            if (page == "Friends")
+                            {
+                                //TODO Navigate to the friends list
+                            }
+                            else if(page == "Channel")
+                            {
+                                var channelid = dec.GetFirstValueByName("channelid");
+                                string guildid = "";
+                                foreach (var guild in Storage.Cache.Guilds)
+                                    if (guild.Value.Channels.ContainsKey(channelid))
+                                    {
+                                        guildid = guild.Key;
+                                        break;
+                                    }
+
+                                App.NavigateToGuildChannel(guildid, channelid, eventArgs.UserInput["Reply"].ToString());
+                            }
+                        }
+                    }
+                    catch { }
+                }
             }
+            
         }
 
         private void LoadSettings()
@@ -557,6 +617,7 @@ namespace Discord_UWP
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+                Window.Current.CoreWindow.Activated += WindowFocusChanged;
             }
         }
 

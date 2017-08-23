@@ -228,7 +228,10 @@ namespace Discord_UWP
                         {
                             Storage.Cache.Guilds[App.CurrentGuildId]
                                 .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+                            if (App.HasFocus)
+                                await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+                            
+                            
                             Storage.SaveCache();
                             Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
                             if (e.EventData.TTS)
@@ -302,8 +305,8 @@ namespace Discord_UWP
                 e.EventData.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
                 //In a real app, these would be initialized with actual data
-                string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " " + " " + "(#" +
-                                    Session.GetGuildChannel(e.EventData.ChannelId).Name + ")";
+                string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + 
+                    Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(e.EventData.ChannelId)).Value.Channels[e.EventData.ChannelId].Raw.Name;
                 string content = e.EventData.Content;
                 //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
                 string userPhoto = "https://cdn.discordapp.com/avatars/" + e.EventData.User.Id + "/" +
@@ -338,9 +341,9 @@ namespace Discord_UWP
                 };
                 // Construct the actions for the toast (inputs and buttons)
 
-                /*ToastTextBox replyContent = new ToastTextBox("Reply")
+                ToastTextBox replyContent = new ToastTextBox("Reply")
                 {
-                    PlaceholderContent = "Type a response"
+                    PlaceholderContent = App.GetString("/Main/Notifications_Reply"),
                 };
 
                 ToastActionsCustom actions = new ToastActionsCustom()
@@ -351,26 +354,32 @@ namespace Discord_UWP
                     },
                     Buttons =
                     {
-                        new ToastButton("Reply", "reply")
+                        new ToastButton("Send",  new QueryString()
+                    {
+                        { "action", "SendMessage" },
+                        { "channelid", conversationId },
+                        { "content", replyContent.Id }
+                    }.ToString())
                         {
-                            ActivationType = ToastActivationType.Background,
-                            TextBoxId = replyContent.Id
+                            ActivationType = ToastActivationType.Foreground,
+                            TextBoxId = replyContent.Id,
+                            ImageUri = "Assets/sendicon.png"
                         }
                     }
                 };
-                */
+
                 // Now we can construct the final toast content
                 ToastContent toastContent = new ToastContent()
                 {
                     Visual = visual,
-                    //Actions = actions,
+                    Actions = actions,
                     // Arguments when the user taps body of toast
-                    /*Launch = new QueryString()
+                    Launch = new QueryString()
                     {
-                        { "action", "reply" },
-                        { "conversationId", conversationId },
-                        {"message", replyContent.Id }
-                    }.ToString()*/
+                        { "action", "Navigate" },
+                        { "page", "Channel" },
+                        { "channelid", replyContent.Id }
+                    }.ToString()
                 };
                 // And create the toast notification
                 ToastNotification notification = new ToastNotification(toastContent.GetXml());
