@@ -64,6 +64,7 @@ namespace Discord_UWP
                 case 50: return kvp("Watch the icon rollin' rollin'", "@Gavirlas#9973");
                 case 51: return kvp("You spin me right round, baby right round", "omgPANTO#6232");
                 case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
+                case 53: return kvp("YOU'RE A WIZARD LARRY!", "@SamCraftRecon#9075");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
