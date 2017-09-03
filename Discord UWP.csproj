@@ -327,6 +327,7 @@
       <DependentUpon>LockScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main Extra\Actions.cs" />
+    <Compile Include="Main Extra\AudioGraph.cs" />
     <Compile Include="Main Extra\ChannelsManager.cs" />
     <Compile Include="Main Extra\ClipboardManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />

@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static KeyValuePair<string,string> GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 52))
+            switch (rand.Next(0, 59))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -65,6 +65,12 @@ namespace Discord_UWP
                 case 51: return kvp("You spin me right round, baby right round", "omgPANTO#6232");
                 case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 53: return kvp("YOU'RE A WIZARD LARRY!", "@SamCraftRecon#9075");
+                case 54: return kvp("Updating memes.", "@SamCraftRecon#9075");
+                case 55: return kvp("L.O.L. ing at cats", "@SamCraftRecon#9075");
+                case 56: return kvp("shaken not shtirred", "@Aslan#9846");
+                case 57: return kvp("All natural!", "@SamCraftRecon#9075"); 
+                case 58: return kvp("100 % sugar free", "@Aslan#9846");
+                case 59: return kvp("F*ck me gently with a chainsaw");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
