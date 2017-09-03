@@ -178,7 +178,7 @@ namespace Discord_UWP
         }
 
         private bool VibrationEnabled = true;
-        private void SetupUI()
+        private async void SetupUI()
         {
             var view = CoreApplication.GetCurrentView();
             //view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
@@ -193,6 +193,8 @@ namespace Discord_UWP
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
+
+            await CreateAudioGraph();
 
             App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
@@ -216,7 +218,13 @@ namespace Discord_UWP
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
             App.ConnectoToVoiceHandler += App_ConnectoToVoiceHandler;
             App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
+            Session.VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             SettingsChanged(null, null);
+        }
+
+        private async void VoiceConnection_VoiceDataRecieved(object sender, float[] e)
+        {
+
         }
 
         private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
