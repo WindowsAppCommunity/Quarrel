@@ -43,7 +43,12 @@ namespace Discord_UWP.Voice
         private byte[] secretkey;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
-        public event EventHandler<float[]> VoiceDataRecieved;
+        public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
+
+        public VoiceConnection()
+        {
+
+        }
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
@@ -246,11 +251,11 @@ namespace Discord_UWP.Voice
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
         {
-            var unencrypted = StreamEncryption.DecryptXSalsa20((byte[])e.Message, new byte[12], secretkey);
+            var unencrypted = StreamEncryption.DecryptXSalsa20((byte[])e.Message, new byte[24], secretkey);
             OpusDecoder decoder = new OpusDecoder(48000, 2);
-            float[] output = new float[20]; 
-            decoder.Decode(unencrypted, 0, unencrypted.Length, output, 20, 48000);
-            VoiceDataRecieved?.Invoke(null, output);
+            float[] output = new float[48000*2];
+            decoder.Decode(unencrypted, 0, unencrypted.Length, output, 0, 48000);
+            VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = 48000 }));
         }
 
         #endregion

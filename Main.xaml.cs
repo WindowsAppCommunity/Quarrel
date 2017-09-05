@@ -222,7 +222,7 @@ namespace Discord_UWP
             SettingsChanged(null, null);
         }
 
-        private async void VoiceConnection_VoiceDataRecieved(object sender, float[] e)
+        private async void VoiceConnection_VoiceDataRecieved(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
         {
 
         }

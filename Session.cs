@@ -851,6 +851,6 @@ namespace Discord_UWP
         public static VoiceState state;
 
         public static Gateway.Gateway Gateway;
-        public static Voice.VoiceConnection VoiceConnection;
+        public static Voice.VoiceConnection VoiceConnection = new Voice.VoiceConnection();
     }
 }

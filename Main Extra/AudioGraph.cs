@@ -94,9 +94,9 @@ namespace Discord_UWP
 
             deviceOutputNode = deviceOutputNodeResult.DeviceOutputNode;
 
-            // Create the FrameInputNode at the same format as the graph, except explicitly set mono.
+            // Create the FrameInputNode at the same format as the graph, except explicitly set stereo.
             AudioEncodingProperties nodeEncodingProperties = graph.EncodingProperties;
-            nodeEncodingProperties.ChannelCount = 1;
+            nodeEncodingProperties.ChannelCount = 2;
             frameInputNode = graph.CreateFrameInputNode(nodeEncodingProperties);
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
 
@@ -134,6 +134,8 @@ namespace Discord_UWP
                 float amplitude = 0.3f;
                 int sampleRate = (int)graph.EncodingProperties.SampleRate;
                 double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
+
+
 
                 // Generate a 1kHz sine wave and populate the values in the memory buffer
                 for (int i = 0; i < samples; i++)
