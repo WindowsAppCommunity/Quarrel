@@ -87,6 +87,7 @@
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
+                    <MenuFlyoutItem x:Uid="ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
                     <MenuFlyoutItem x:Uid="PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
                     <MenuFlyoutItem x:Uid="AddReacItem" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
                     <MenuFlyoutItem x:Uid="EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>

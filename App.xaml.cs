@@ -327,11 +327,12 @@ namespace Discord_UWP
         public class MentionArgs : EventArgs
         {
             public string Username { get; set; }
+            public string Discriminator { get; set; }
         }
         public static event EventHandler<MentionArgs> MentionHandler;
-        public static void MentionUser(string username)
+        public static void MentionUser(string username, string disc)
         {
-            MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username });
+            MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username, Discriminator = disc });
         }
 
         public class TypingArgs

@@ -35,19 +35,19 @@
         </ListView>
         <Pivot x:Name="pivot" Grid.Row="1">
             <PivotItem Margin="0,-48,0,0">
-                <ListView x:Name="AllView" Padding="12,12,12,0" Margin="0" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                <ListView x:Name="AllView" Padding="12,12,12,0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <local:FriendControl DisplayedFriend="{Binding}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.Header>
-                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12"/>
+                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
                     </ListView.Header>
                 </ListView>
             </PivotItem>
             <PivotItem Margin="0,-48,0,0">
-                <ListView x:Name="PendingView" Padding="12,12,12,0" Margin="0" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                <ListView x:Name="PendingView" Padding="12,12,12,0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <local:FriendControl DisplayedFriend="{Binding}"/>
@@ -56,7 +56,7 @@
                 </ListView>
             </PivotItem>
             <PivotItem Margin="0,-48,0,0">
-                <ListView x:Name="BlockedView" Padding="12,12,12,0" Margin="0" ItemContainerStyle="{StaticResource ChannelItemStyle}">
+                <ListView x:Name="BlockedView" Padding="12,12,12,0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <local:FriendControl DisplayedFriend="{Binding}"/>

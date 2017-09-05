@@ -180,6 +180,36 @@
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed error editing messages" TextWrapping="Wrap"/>
                             </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed a bug in editing roles" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added a work in progress friends list" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Now shows typing indicator in the member list" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added an April 1st joke that I'll probably forget about by then" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Now shows named Group DMs by name" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Removed Member List from DMs" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Reply option" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="No longer marks messages as read if the windows isn't in the foreground" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Hidden voice channel list (as a prep for fully introducing it)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Event more that has simply been forgotten" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.2.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Spanish and French translation" TextWrapping="Wrap"/>

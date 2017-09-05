@@ -348,10 +348,10 @@ namespace Discord_UWP
             });
         }
 
-        private void mentionUser(object sender, RoutedEventArgs e)
-        {
-            App.MentionUser((sender as MenuFlyoutItem).Tag.ToString());
-        }
+        //private void mentionUser(object sender, RoutedEventArgs e)
+        //{
+        //    App.MentionUser((sender as MenuFlyoutItem).Tag.ToString());
+        //}
 
         private void gotoProfile(object sender, RoutedEventArgs e)
         {
