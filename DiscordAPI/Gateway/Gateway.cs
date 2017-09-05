@@ -76,7 +76,7 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<UserSettings>> UserSettingsUpdated;
 
         public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
-        public event EventHandler<GatewayEventArgs<VoiceState>> VoiceServerUpdated;
+        public event EventHandler<GatewayEventArgs<VoiceServerUpdate>> VoiceServerUpdated;
 
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
@@ -130,7 +130,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.FRIEND_UPDATE, OnRelationShipUpdated },
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
                 { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
-                { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated }
+                { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated },
+                { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated }
             };
         }
 
@@ -434,6 +435,11 @@ namespace Discord_UWP.Gateway
         private void OnVoiceStatusUpdated(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, VoiceStateUpdated);
+        }
+
+        private void OnVoiceServerUpdated(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, VoiceServerUpdated);
         }
 
         private void OnUserSettingsUpdated(SocketFrame gatewayEvent)

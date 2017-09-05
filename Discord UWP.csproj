@@ -83,6 +83,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -255,7 +256,8 @@
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\VoiceServerUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\SharedModels\VoiceServerUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
     <Compile Include="DiscordAPI\SharedModels\Ban.cs" />
     <Compile Include="DiscordAPI\SharedModels\ReadState.cs" />
@@ -264,11 +266,16 @@
     <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Sockets\UDPSocket.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\VoiceData.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Hello.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\UnencryptedAudioHeader.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\SessionDescription.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Resumed.cs" />
     <Compile Include="DiscordAPI\Gateway\EventNames.cs" />
     <Compile Include="DiscordAPI\Gateway\Gateway.cs" />
-    <Compile Include="DiscordAPI\GatewayEvent.cs" />
+    <Compile Include="DiscordAPI\Gateway\GatewayEvent.cs" />
     <Compile Include="DiscordAPI\Gateway\IGateway.cs" />
     <Compile Include="DiscordAPI\Gateway\OperationCode.cs" />
     <Compile Include="DiscordAPI\Sockets\IWebMessageSocket.cs" />
@@ -311,11 +318,18 @@
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
+    <Compile Include="DiscordAPI\Voice\EventNames.cs" />
+    <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
+    <Compile Include="DiscordAPI\Voice\VoiceConnection.cs" />
     <Compile Include="EntryMessages.cs" />
     <Compile Include="LockScreen.xaml.cs">
       <DependentUpon>LockScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main Extra\Actions.cs" />
+    <Compile Include="Main Extra\AudioGraph.cs" />
     <Compile Include="Main Extra\ChannelsManager.cs" />
     <Compile Include="Main Extra\ClipboardManager.cs" />
     <Compile Include="Main Extra\Event2UI.cs" />

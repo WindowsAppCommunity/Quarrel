@@ -105,8 +105,8 @@ namespace Discord_UWP
                 set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
             }
 
-            private List<Member> _members;
-            public List<Member> Members
+            private List<string> _members;
+            public List<string> Members
             {
                 get { return _members; }
                 set { if (_members == value) return; _members = value; OnPropertyChanged("Members"); }
@@ -221,8 +221,11 @@ namespace Discord_UWP
                             }
                             break;
                         case 2:
-
-                            sc.Members = Storage.Cache.Guilds[channel.Value.Raw.GuildId].Members.Values.TakeWhile(m => m.voicestate.ChannelId == channel.Key).ToList();
+                            sc.Members = new List<string>();
+                            foreach (VoiceState state in Session.voiceDict.Values.TakeWhile(s => s.ChannelId == sc.Id).ToList())
+                            {
+                                sc.Members.Add(state.UserId);
+                            }
 
                             if (Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Administrator || Storage.Cache.Guilds[App.CurrentGuildId].Channels[sc.Id].chnPerms.Perms.Speak || App.CurrentGuildId == sc.Id || Storage.Cache.CurrentUser.Raw.Id == Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId)
                             {

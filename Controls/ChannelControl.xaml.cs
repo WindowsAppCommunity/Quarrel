@@ -149,14 +149,14 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        public List<Member> Members
+        public List<string> Members
         {
-            get { return (List<Member>)GetValue(MembersProperty); }
+            get { try { return (List<string>)GetValue(MembersProperty); } catch { return null; } }
             set { SetValue(MembersProperty, value); }
         }
         public static readonly DependencyProperty MembersProperty = DependencyProperty.Register(
             nameof(Members),
-            typeof(List<Member>),
+            typeof(List<string>),
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
@@ -291,12 +291,14 @@ namespace Discord_UWP.Controls
                     //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
+                    //Tapped -= JoinVoiceChannel;
                 }
                 else if(Type == 2)
                 {
                     //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
+                    Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
                 {
@@ -306,6 +308,7 @@ namespace Discord_UWP.Controls
                     ChannelImage.Visibility = Visibility.Visible;
                     Status.Visibility = Visibility.Visible;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
+                    //Tapped -= JoinVoiceChannel;
                 }
                 else if (Type == 3)
                 {
@@ -322,15 +325,37 @@ namespace Discord_UWP.Controls
                         ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
+                    //Tapped -= JoinVoiceChannel;
                 }
             }
             if (prop == MembersProperty)
             {
-                foreach (Member member in Members)
+                if (Members != null)
                 {
-                    MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = member});
+                    foreach (string member in Members)
+                    {
+                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(member))
+                        {
+                            MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
+                        }
+                    }
+                    //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
+                }
+
+                if (MemberList.Items.Count > 0)
+                {
+                    MemberListEnd.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MemberListEnd.Visibility = Visibility.Collapsed;
                 }
             }
+        }
+
+        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
+        {
+            App.ConnectToVoice(Id, App.CurrentGuildId);
         }
 
         public ChannelControl()

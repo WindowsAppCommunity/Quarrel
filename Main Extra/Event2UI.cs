@@ -146,13 +146,12 @@ namespace Discord_UWP
                 {
                     foreach (VoiceState state in guild.VoiceStates)
                     {
-                        try
+                        if (Session.voiceDict.ContainsKey(state.UserId))
                         {
-                            Storage.Cache.Guilds[guild.Id].Members[state.UserId].voicestate = state;
-                        }
-                        catch
+                            Session.voiceDict[state.UserId] = state;
+                        } else
                         {
-
+                            Session.voiceDict.Add(state.UserId, state);
                         }
                     }
                 }
@@ -239,7 +238,6 @@ namespace Discord_UWP
                                 MediaElement mediaplayer = new MediaElement();
                                 using (var speech = new SpeechSynthesizer())
                                 {
-                                    speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Female);
                                     string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
                                     SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
                                     mediaplayer.SetSource(stream, stream.ContentType);
@@ -392,7 +390,7 @@ namespace Discord_UWP
         }
 
         private async void MessageDeleted(object sender,
-            GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
+            GatewayEventArgs<MessageDelete> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -989,7 +987,18 @@ namespace Discord_UWP
         {
             try
             {
-                Storage.Cache.Guilds[e.EventData.GuildId].Members[e.EventData.UserId].voicestate = e.EventData;
+                if (e.EventData.UserId == Storage.Cache.CurrentUser.Raw.Id)
+                {
+                    Session.state = e.EventData;
+                }
+                if (Session.voiceDict.ContainsKey(e.EventData.UserId))
+                {
+                    Session.voiceDict[e.EventData.UserId] = e.EventData;
+                }
+                else
+                {
+                    Session.voiceDict.Add(e.EventData.UserId, e.EventData);
+                }
             }
             catch
             {
@@ -997,9 +1006,10 @@ namespace Discord_UWP
             }
         }
 
-        private void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceState> e)
+        private async void OnVoiceServerUpdated(object sender, GatewayEventArgs<VoiceServerUpdate> e)
         {
-
+            Session.VoiceConnection = new Voice.VoiceConnection(e.EventData, Session.state);
+            await Session.VoiceConnection.ConnectAsync();
         }
 
 
