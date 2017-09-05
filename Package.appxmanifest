@@ -16,16 +16,40 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discord">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.BackgroundActivity">
           <BackgroundTasks>
             <Task Type="timer" />
             <Task Type="pushNotification" />
           </BackgroundTasks>
+        </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discord">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <Extension Category="windows.activatableClass.inProcessServer">
+          <InProcessServer>
+            <Path>libsodium-uwp.dll</Path>
+            <ActivatableClass ActivatableClassId="Sodium.Core" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.CryptoHash" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.GenericHash" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.GenericHashAlgorithmProvider" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.GenericHashAlgorithmNames" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.KDF" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.KeyPair" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.OneTimeAuth" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.PasswordHash" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.PublicKeyAuth" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.PublicKeyBox" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.ScalarMult" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.SealedPublicKeyBox" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.SecretBox" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.SecretKeyAuth" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.SecretAead" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.ShortHash" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.StreamEncryption" ThreadingModel="both" />
+            <ActivatableClass ActivatableClassId="Sodium.Utilities" ThreadingModel="both" />
+          </InProcessServer>
         </Extension>
       </Extensions>
       <uap:VisualElements DisplayName="Discord UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Discord UWP" BackgroundColor="transparent">
