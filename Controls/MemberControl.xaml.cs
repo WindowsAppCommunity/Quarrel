@@ -61,8 +61,10 @@ namespace Discord_UWP.Controls
 
             if(DisplayedMember.Raw.User.Avatar != null)
                 Avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DisplayedMember.Raw.User.Id + "/" + DisplayedMember.Raw.User.Avatar + ".png?size=64"));
-            if(DisplayedMember.status.Status != null)
+            if(DisplayedMember.status.Status != null && DisplayedMember.status.Status != "invisible")
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+            else if (DisplayedMember.status.Status == "invisible")
+                rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
             if (!Session.Online)
             {
                 rectangle.Visibility = Visibility.Collapsed;

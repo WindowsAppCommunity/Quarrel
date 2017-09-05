@@ -178,7 +178,7 @@ namespace Discord_UWP
         }
 
         private bool VibrationEnabled = true;
-        private void SetupUI()
+        private async void SetupUI()
         {
             var view = CoreApplication.GetCurrentView();
             //view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
@@ -193,6 +193,8 @@ namespace Discord_UWP
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
+
+            await CreateAudioGraph();
 
             App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
@@ -214,8 +216,10 @@ namespace Discord_UWP
             App.NavigateToDeleteServerHandler += OnNavigateToDeleteServer;
             App.MentionHandler += OnMention;
             App.UpdateUnreadIndicatorsHandler += OnUpdateUnreadIndicators;
+            App.ConnectoToVoiceHandler += App_ConnectoToVoiceHandler;
             App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
             App.AckLastMessage += App_AckLastMessage;
+            Session.VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             SettingsChanged(null, null);
         }
 
@@ -243,6 +247,11 @@ namespace Discord_UWP
                    {
                        Heartbeat.Play();
                    });
+        }
+
+        private async void App_ConnectoToVoiceHandler(object sender, App.ConnectToVoiceArgs e)
+        {
+            await Session.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
         }
 
         private void OnUpdateUnreadIndicators(object sender, EventArgs e)

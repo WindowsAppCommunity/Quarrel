@@ -15,13 +15,13 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-        <Rectangle Height="32" Width="32" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top">
+        <Rectangle Height="24" Width="24" RadiusX="12" RadiusY="12" Margin="0,0,12,0" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Avatar"/>
             </Rectangle.Fill>
         </Rectangle>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,12,0,0">
-            <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="15" FontWeight="Normal"/>
             <!--<StackPanel Orientation="Horizontal">
                 <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
                 <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
