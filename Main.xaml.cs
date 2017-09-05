@@ -223,6 +223,11 @@ namespace Discord_UWP
             SettingsChanged(null, null);
         }
 
+        private async void VoiceConnection_VoiceDataRecieved(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
+        {
+
+        }
+
         private async void App_AckLastMessage(object sender, EventArgs e)
         {
             try
@@ -413,7 +418,7 @@ namespace Discord_UWP
             {
                 MessageBox1.Text += " ";
             }
-            MessageBox1.Text += "@" + e.Username;
+            MessageBox1.Text += "@" + e.Username + e.Discriminator;
         }
 
         private void OnNavigateToGuildChannel(object sender, App.GuildChannelNavigationArgs e)
@@ -835,7 +840,7 @@ namespace Discord_UWP
             MembersCvs.Source = null;
             PinnedMessageToggle.Visibility = Visibility.Collapsed;
             SendMessage.Visibility = Visibility.Collapsed;
-            MuteToggle.Visibility = Visibility.Collapsed;
+            //MuteToggle.Visibility = Visibility.Collapsed;
             DirectMessageChannels.Items.Clear();
             TextChannels.Items.Clear();
             VoiceChannels.Items.Clear();
@@ -886,9 +891,9 @@ namespace Discord_UWP
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = App.CurrentChannelId;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentChannelId);
-                MuteToggle.Visibility = Visibility.Visible;
+                //MuteToggle.Tag = App.CurrentChannelId;
+                //MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentChannelId);
+                //MuteToggle.Visibility = Visibility.Visible;
                 PinnedMessageToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
@@ -961,9 +966,9 @@ namespace Discord_UWP
             if (TextChannels.SelectedItem != null)
             {
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Tag = App.CurrentGuildId;
-                MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentGuildId);
-                MuteToggle.Visibility = Visibility.Visible;
+                //MuteToggle.Tag = App.CurrentGuildId;
+                //MuteToggle.IsChecked = Storage.MutedChannels.Contains(App.CurrentGuildId);
+                //MuteToggle.Visibility = Visibility.Visible;
                 Messages.Items.Clear();
 
                 Storage.Cache.Guilds[(ServerList.SelectedItem as SimpleGuild).Id].Channels[App.CurrentChannelId].Messages.Clear();
@@ -1120,7 +1125,7 @@ namespace Discord_UWP
                     Servers.IsPaneOpen = false;
                 MessagesLoading.Visibility = Visibility.Visible;
                 SendMessage.Visibility = Visibility.Visible;
-                MuteToggle.Visibility = Visibility.Collapsed;
+                //MuteToggle.Visibility = Visibility.Collapsed;
                 PinnedMessageToggle.Visibility = Visibility.Visible;
 
                 Messages.Items.Clear();
@@ -1163,7 +1168,7 @@ namespace Discord_UWP
         private async Task DownloadDmChannelMessages()
         {
             SendMessage.Visibility = Visibility.Visible;
-            MuteToggle.Visibility = Visibility.Collapsed;
+            //MuteToggle.Visibility = Visibility.Collapsed;
 
             Messages.Items.Clear();
             int adCheck = 5;

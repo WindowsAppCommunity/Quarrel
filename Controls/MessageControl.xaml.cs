@@ -598,15 +598,19 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
+                if (Message?.User.Id == Message.Value.User.Id || !Storage.Cache.Guilds[App.CurrentChannelId].Channels[Message.Value.ChannelId].chnPerms.Perms.SendMessages)
+                {
+                    MoreReply.Visibility = Visibility.Collapsed;
+                }
                 if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
-                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
-                {
-                    MoreEdit.Visibility = Visibility.Collapsed;
-                }
+            }
+            if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            {
+                MoreEdit.Visibility = Visibility.Collapsed;
             }
             FlyoutBase.ShowAttachedFlyout(moreButton);
         }
@@ -745,6 +749,11 @@ namespace Discord_UWP
                 emojiStr = emoji.names[0] + ":" + emoji.id;
             }
             await Session.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr);
+        }
+
+        private void MoreReply_Click(object sender, RoutedEventArgs e)
+        {
+            App.MentionUser(Message.Value.User.Username, Message.Value.User.Discriminator);
         }
     }
 }
