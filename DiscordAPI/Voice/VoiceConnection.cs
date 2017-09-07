@@ -253,7 +253,7 @@ namespace Discord_UWP.Voice
         {
             var unencrypted = StreamEncryption.DecryptXSalsa20((byte[])e.Message, new byte[24], secretkey);
             OpusDecoder decoder = new OpusDecoder(48000, 2);
-            float[] output = new float[48000*2];
+            float[] output = new float[48000*2]; //48000 per channel
             decoder.Decode(unencrypted, 0, unencrypted.Length, output, 0, 48000);
             VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = 48000 }));
         }

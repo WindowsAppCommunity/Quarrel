@@ -64,17 +64,20 @@ namespace Discord_UWP
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public sealed partial class Main : Page
+    public static class AudioTrig
     {
-        AudioGraph graph;
-        private AudioDeviceOutputNode deviceOutputNode;
-        private AudioFrameInputNode frameInputNode;
-        public double theta = 0;
+        static AudioGraph graph;
+        private static AudioDeviceOutputNode deviceOutputNode;
+        private static AudioFrameInputNode frameInputNode;
+        private static double theta = 0;
+        //public static float[] cache;
 
-        private async Task CreateAudioGraph()
+        public static async Task CreateAudioGraph()
         {
             // Create an AudioGraph with default settings
-            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Media);
+            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
+            //settings.EncodingProperties.SampleRate = 48000;
+            //settings.EncodingProperties.ChannelCount = 2;
             CreateAudioGraphResult result = await AudioGraph.CreateAsync(settings);
 
             if (result.Status != AudioGraphCreationStatus.Success)
@@ -101,7 +104,7 @@ namespace Discord_UWP
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
 
             // Initialize the Frame Input Node in the stopped state
-            frameInputNode.Stop();
+            frameInputNode.Start();
 
             // Hook up an event handler so we can start generating samples when needed
             // This event is triggered when the node is required to provide data
@@ -111,10 +114,10 @@ namespace Discord_UWP
             graph.Start();
         }
 
-        unsafe private AudioFrame GenerateAudioData(uint samples)
+        unsafe static public AudioFrame GenerateAudioData(uint samples)
         {
-            // Buffer size is (number of samples) * (size of each sample) * (number of channels)
-            uint bufferSize = samples * sizeof(float) * 2;
+            // Buffer size is (number of samples) * (size of each sample)// * (number of channels)
+            uint bufferSize = samples * sizeof(float);// * 2;
             AudioFrame frame = new Windows.Media.AudioFrame(bufferSize);
 
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
@@ -130,7 +133,7 @@ namespace Discord_UWP
                 // Cast to float since the data we are generating is float
                 dataInFloat = (float*)dataInBytes;
 
-                float freq = 1000; // choosing to generate frequency of 1kHz
+                float freq = 13000; // choosing to generate frequency of 13kHz
                 float amplitude = 0.3f;
                 int sampleRate = (int)graph.EncodingProperties.SampleRate;
                 double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
@@ -146,10 +149,40 @@ namespace Discord_UWP
                 }
             }
 
+            #region Empty Generation
+            //using (IMemoryBufferReference reference = buffer.CreateReference())
+            //{
+            //    byte* dataInBytes;
+            //    uint capacityInBytes;
+            //    float* dataInFloat;
+
+            //    Get the buffer from the AudioFrame
+            //   ((IMemoryBufferByteAccess) reference).GetBuffer(out dataInBytes, out capacityInBytes);
+
+            //    Cast to float since the data we are generating is float
+            //   dataInFloat = (float*)dataInBytes;
+
+            //    float freq = 13000; // choosing to generate frequency of 13kHz
+            //    float amplitude = 0.3f;
+            //    int sampleRate = (int)graph.EncodingProperties.SampleRate;
+            //    double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
+
+
+
+            //    Generate a 1kHz sine wave and populate the values in the memory buffer
+            //        for (int i = 0; i < samples; i++)
+            //    {
+            //        double sinValue = amplitude * Math.Sin(theta);
+            //        dataInFloat[i] = (float)sinValue;
+            //        theta += sampleIncrement;
+            //    }
+            //}
+            #endregion
+
             return frame;
         }
 
-        private void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)
+        private static void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)
         {
             // GenerateAudioData can provide PCM audio data by directly synthesizing it or reading from a file.
             // Need to know how many samples are required. In this case, the node is running at the same rate as the rest of the graph

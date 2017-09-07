@@ -152,5 +152,11 @@ namespace Discord_UWP.SubPages
             Session.Logout();
             (Window.Current.Content as Frame).Navigate(typeof(LockScreen), null);
         }
+
+        private async void DebugAudioGraph(object sender, RoutedEventArgs e)
+        {
+            await AudioTrig.CreateAudioGraph();
+            AudioTrig.GenerateAudioData(48000);
+        }
     }
 }

@@ -194,7 +194,7 @@ namespace Discord_UWP
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
 
-            await CreateAudioGraph();
+            //await AudioTrig.CreateAudioGraph();
 
             App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
@@ -225,7 +225,7 @@ namespace Discord_UWP
 
         private async void VoiceConnection_VoiceDataRecieved(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
         {
-
+            
         }
 
         private async void App_AckLastMessage(object sender, EventArgs e)
