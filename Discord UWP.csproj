@@ -438,6 +438,9 @@
     <Compile Include="SubPages\PreviewAttachement.xaml.cs">
       <DependentUpon>PreviewAttachement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\BugReport.xaml.cs">
+      <DependentUpon>BugReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -651,6 +654,10 @@
     <Page Include="SubPages\PreviewAttachement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\BugReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\Settings.xaml">
       <SubType>Designer</SubType>

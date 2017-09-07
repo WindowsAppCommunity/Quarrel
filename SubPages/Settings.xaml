@@ -390,6 +390,9 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
+                        <PivotItem Header="Debug">
+                            <Button Content="Debug AudioGraph" HorizontalAlignment="Center" Click="DebugAudioGraph"/>
+                        </PivotItem>
                     </Pivot>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
