@@ -80,9 +80,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetCurrentUserGuilds();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -94,9 +94,9 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUser();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return Storage.Cache.CurrentUser.Raw;
         }
@@ -108,9 +108,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -122,9 +122,9 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUserDirectMessageChannels();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -143,9 +143,9 @@ namespace Discord_UWP
                 });
 
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -159,9 +159,9 @@ namespace Discord_UWP
                     userservice.UpdateGame("{\"name\":\"" + game + "\"}").Wait();
                 });
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -176,9 +176,9 @@ namespace Discord_UWP
                 userTask.Wait();
                 Storage.Cache.CurrentUser = new CacheModels.User(userTask.Result);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -199,9 +199,9 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetUser(userid);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new User();
         }
@@ -213,9 +213,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetUserProfile(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new SharedModels.UserProfile();
         }
@@ -227,9 +227,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetUserReleations(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -241,9 +241,9 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUserConnections();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -258,9 +258,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 userservice.SendFriendRequest(userId).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -271,9 +271,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 userservice.RemoveFriend(userId).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -284,9 +284,9 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 userservice.BlockUser(userId).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -297,9 +297,9 @@ namespace Discord_UWP
                 IUserService channelservice = AuthenticatedRestFactory.GetUserService();
                 channelservice.AddNote(userid, new Note() { note = note }).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -322,9 +322,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuild(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
         }
@@ -336,9 +336,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildChannels(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -350,9 +350,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ListGuildMemebers(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -366,9 +366,9 @@ namespace Discord_UWP
                 memberTask.Wait();
                 return memberTask.Result;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new SharedModels.GuildMember();
         }
@@ -388,9 +388,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.AckGuild(guildId).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -401,9 +401,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.ModifyGuildRole(guildId, roleId, newRole).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -422,9 +422,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.ModifyGuild(guildid, modifyguild).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -435,7 +435,10 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.DeleteGuild(guildid).Wait();
             }
-            catch { }
+            catch (Exception exception)
+            {
+                App.NavigateToBugReport(exception);
+            }
         }
 
         /*public static void ModifyGuildChannelPositions(string channelid, int Position)
@@ -502,9 +505,9 @@ namespace Discord_UWP
                 channelTask.Wait();
                 return channelTask.Result;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new SharedModels.GuildChannel();
         }
@@ -516,9 +519,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessages(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -536,9 +539,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetPinnedMessages(id);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -550,9 +553,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessage(chnid, msgid);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return new SharedModels.Message();
         }
@@ -565,9 +568,9 @@ namespace Discord_UWP
                 var ch = await channelservice.GetChannelInvites(channelId);
                 return ch;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
             return null;
         }
@@ -582,9 +585,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.ModifyChannel(chnId, newChn).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -597,9 +600,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.CreateMessage(id, message);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -636,9 +639,9 @@ namespace Discord_UWP
                 if (resp.IsSuccessStatusCode)
                     id = "";
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -652,9 +655,9 @@ namespace Discord_UWP
                     await channelservice.AckMessage(chnId, msgId);
                 });
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -668,9 +671,9 @@ namespace Discord_UWP
                     channelservice.CreateReaction(channelid, messageid, emoji).Wait();
                 });
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -684,9 +687,9 @@ namespace Discord_UWP
                     channelservice.DeleteReaction(channelid, messageid, emoji).Wait();
                 });
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -701,9 +704,9 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 guildservice.CreateGuildChannel(guildid, cgc).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -714,9 +717,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.DeleteChannel(chnid).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -732,9 +735,9 @@ namespace Discord_UWP
                     channelservice.EditMessage(chnid, msgid, editmessage);
                 });
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -758,9 +761,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 channelservice.DeleteMessage(chnid, msgid).Wait();
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -771,9 +774,9 @@ namespace Discord_UWP
                 IInviteService channelservice = AuthenticatedRestFactory.GetInviteService();
                 var ch = await channelservice.DeleteInvite(channelId);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -784,9 +787,9 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.TriggerTypingIndicator(channelId);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Showmsg(e);
+                App.NavigateToBugReport(exception);
             }
         }
 

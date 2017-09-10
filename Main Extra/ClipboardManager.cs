@@ -53,9 +53,9 @@ namespace Discord_UWP
                         var toast = CreateToast(invite);
                         ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toast.GetXml()));
                     }
-                    catch (Exception)
+                    catch (Exception exception)
                     {
-
+                        App.NavigateToBugReport(exception);
                     }
                 }
                 LastText = text;

@@ -72,14 +72,14 @@ namespace Discord_UWP
                         serializer.Serialize(settingsWriter, new TempCache(Cache));
                         await FileIO.WriteTextAsync(file, settingsWriter.ToString());
                     }
-                    catch
+                    catch (Exception exception)
                     {
-
+                        App.NavigateToBugReport(exception);
                     }
                 }
-                catch
+                catch (Exception exception)
                 {
-
+                    App.NavigateToBugReport(exception);
                 }
             });
 
@@ -149,9 +149,9 @@ namespace Discord_UWP
                 {
                     await FileIO.WriteTextAsync(file, settingsWriter.ToString());
                 }
-                catch
+                catch (Exception exception)
                 {
-
+                    App.NavigateToBugReport(exception);
                 }
             });
 
@@ -170,9 +170,9 @@ namespace Discord_UWP
                 {
                     await FileIO.WriteTextAsync(file, settingsWriter.ToString());
                 }
-                catch
+                catch (Exception exception)
                 {
-
+                    App.NavigateToBugReport(exception);
                 }
             });
 
@@ -188,9 +188,9 @@ namespace Discord_UWP
                 {
                     await FileIO.WriteTextAsync(file, settingsWriter.ToString());
                 }
-                catch
+                catch (Exception exception)
                 {
-
+                    App.NavigateToBugReport(exception);
                 }
             });
         }

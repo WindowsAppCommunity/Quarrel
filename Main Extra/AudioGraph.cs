@@ -70,7 +70,9 @@ namespace Discord_UWP
         private static AudioDeviceOutputNode deviceOutputNode;
         private static AudioFrameInputNode frameInputNode;
         private static double theta = 0;
-        //public static float[] cache;
+        private static bool ready = false;
+        //private static bool started = false;
+        //public static 
 
         public static async Task CreateAudioGraph()
         {
@@ -108,16 +110,49 @@ namespace Discord_UWP
 
             // Hook up an event handler so we can start generating samples when needed
             // This event is triggered when the node is required to provide data
-            frameInputNode.QuantumStarted += node_QuantumStarted;
+            // frameInputNode.QuantumStarted += node_QuantumStarted;
 
             // Start the graph since we will only start/stop the frame input node
             graph.Start();
+            ready = true;
+            
+        }
+
+        unsafe public static void AddFrame(float[] framedata, uint samples)
+        {
+            if (!ready)
+                return;
+            //if (!started)
+            //{
+            //    //graph.Start();
+            //    //started = true;
+            //}
+            AudioFrame frame = new Windows.Media.AudioFrame(samples * 2);
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                byte* dataInBytes;
+                uint capacityInBytes;
+
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+                // Cast to float since the data we are generating is float
+                float* dataInFloat = (float *)dataInBytes;
+                fixed (float* frames = framedata)
+                {
+                    for (int i = 0; i< samples*2; i++)
+                    {
+                        dataInFloat[i] = frames[i];
+                    }
+                }
+            }
+            frameInputNode.AddFrame(frame);
         }
 
         unsafe static public AudioFrame GenerateAudioData(uint samples)
         {
-            // Buffer size is (number of samples) * (size of each sample)// * (number of channels)
-            uint bufferSize = samples * sizeof(float);// * 2;
+            // Buffer size is (number of samples) * (size of each sample) * (number of channels)
+            uint bufferSize = samples * sizeof(float) * 2;
             AudioFrame frame = new Windows.Media.AudioFrame(bufferSize);
 
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
@@ -133,14 +168,14 @@ namespace Discord_UWP
                 // Cast to float since the data we are generating is float
                 dataInFloat = (float*)dataInBytes;
 
-                float freq = 13000; // choosing to generate frequency of 13kHz
+                float freq = 17000; // choosing to generate frequency of 17kHz
                 float amplitude = 0.3f;
                 int sampleRate = (int)graph.EncodingProperties.SampleRate;
                 double sampleIncrement = (freq * (Math.PI * 2)) / sampleRate;
 
 
 
-                // Generate a 1kHz sine wave and populate the values in the memory buffer
+                // Generate a 17kHz sine wave and populate the values in the memory buffer
                 for (int i = 0; i < samples; i++)
                 {
                     double sinValue = amplitude * Math.Sin(theta);
@@ -188,7 +223,6 @@ namespace Discord_UWP
             // Need to know how many samples are required. In this case, the node is running at the same rate as the rest of the graph
             // For minimum latency, only provide the required amount of samples. Extra samples will introduce additional latency.
             uint numSamplesNeeded = (uint)args.RequiredSamples;
-
             if (numSamplesNeeded != 0)
             {
                 AudioFrame audioData = GenerateAudioData(numSamplesNeeded);

@@ -46,7 +46,7 @@ namespace Discord_UWP.SubPages
         private async void Report(object sender, RoutedEventArgs e)
         {
             var emailMessage = new Windows.ApplicationModel.Email.EmailMessage();
-            emailMessage.Body = BugDetails.Text;
+            emailMessage.Body = "Comment:" + Comment.Text + "\n\nDetails:\n" + BugDetails.Text;
 
             var emailRecipient = new Windows.ApplicationModel.Email.EmailRecipient("avid29@live.com");
             emailMessage.To.Add(emailRecipient);
