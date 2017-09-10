@@ -178,7 +178,7 @@ namespace Discord_UWP
         }
 
         private bool VibrationEnabled = true;
-        private async void SetupUI()
+        private void SetupUI()
         {
             var view = CoreApplication.GetCurrentView();
             //view.TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
@@ -193,8 +193,6 @@ namespace Discord_UWP
             theme.DefaultNavigationTransitionInfo = info;
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
-
-            //await AudioTrig.CreateAudioGraph();
 
             App.MenuHandler += ShowMenu;
             Storage.SettingsChangedHandler += SettingsChanged;
@@ -219,13 +217,19 @@ namespace Discord_UWP
             App.ConnectoToVoiceHandler += App_ConnectoToVoiceHandler;
             App.PlayHeartBeatHandler += App_PlayHeartBeatHandler;
             App.AckLastMessage += App_AckLastMessage;
+            App.NavigateToBugReportHandler += App_NavigateToBugReportHandler;
             Session.VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             SettingsChanged(null, null);
         }
 
-        private async void VoiceConnection_VoiceDataRecieved(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
+        private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
         {
-            
+            SubFrameNavigator(typeof(SubPages.BugReport), e.Exception);
+        }
+
+        private void VoiceConnection_VoiceDataRecieved(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
+        {
+
         }
 
         private async void App_AckLastMessage(object sender, EventArgs e)
@@ -241,8 +245,11 @@ namespace Discord_UWP
                     });
                 }
             }
-            catch { }
-            
+            catch (Exception exception)
+            {
+                SubFrameNavigator(typeof(SubPages.BugReport), exception);
+            }
+
         }
 
         private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
@@ -663,8 +670,9 @@ namespace Discord_UWP
                             MembersCvs.Source = sortedMembers;
                         });
                 }
-                catch
+                catch (Exception exception)
                 {
+                    SubFrameNavigator(typeof(SubPages.BugReport), exception);
                 }
 
                 //else
@@ -696,8 +704,9 @@ namespace Discord_UWP
                             MembersCvs.Source = sortedMembers;
                     });
             }
-            catch
+            catch (Exception exception)
             {
+                SubFrameNavigator(typeof(SubPages.BugReport), exception);
             }
         }
 

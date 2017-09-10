@@ -114,8 +114,11 @@ namespace Discord_UWP.Controls
             {
                 await RemoveRelationshipFromUI(e);
             }
-            catch (Exception){}
-           
+            catch (Exception exception)
+            {
+                App.NavigateToBugReport(exception);
+            }
+
             await AddRelationshipToUI(e);
         }
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)

@@ -261,9 +261,12 @@ namespace Discord_UWP
                                 foreach (var key in ToRemove)
                                     Typers.Remove(key);
                                 UpdateTypingUI();
-                                
+
                             }
-                            catch (Exception exception) {}
+                            catch (Exception exception)
+                            {
+                                App.NavigateToBugReport(exception);
+                            }
                         }
 
                         var guild = Storage.Cache.Guilds.FirstOrDefault(
@@ -293,7 +296,10 @@ namespace Discord_UWP
                             }
                             try
                             { Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key); }
-                            catch (Exception exception) { }
+                            catch (Exception exception)
+                            {
+                                App.NavigateToBugReport(exception);
+                            }
                             Storage.Cache.DMs[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
                         }
                     }
@@ -1010,6 +1016,7 @@ namespace Discord_UWP
         {
             Session.VoiceConnection = new Voice.VoiceConnection(e.EventData, Session.state);
             await Session.VoiceConnection.ConnectAsync();
+            await AudioTrig.CreateAudioGraph();
         }
 
 
@@ -1094,8 +1101,9 @@ namespace Discord_UWP
                                             x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
                                         .IsTyping = true;
                                 }
-                                catch (Exception)
+                                catch (Exception exception)
                                 {
+                                    App.NavigateToBugReport(exception);
                                 }
 
                                 //TODO Display typing indicator on member list

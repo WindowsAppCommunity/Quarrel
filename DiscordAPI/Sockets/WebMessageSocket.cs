@@ -29,7 +29,6 @@ namespace Discord_UWP.Sockets
             socket.Control.MessageType = SocketMessageType.Utf8;
             socket.MessageReceived += HandleMessage;
             socket.Closed += HandleClosed;
-
             return socket;
         }
 

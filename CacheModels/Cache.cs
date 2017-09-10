@@ -24,7 +24,10 @@ namespace Discord_UWP
                 {
                     Guilds.Add(guild.Id, new Guild(guild));
                 }
-                catch (Exception) { }
+                catch (Exception exception)
+                {
+                    App.NavigateToBugReport(exception);
+                }
             }
 
             foreach(TempDmCache dm in input.DMs)

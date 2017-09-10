@@ -69,10 +69,13 @@ namespace Discord_UWP
                     else
                         this.RequestedTheme = ApplicationTheme.Dark;
                 this.Suspending += OnSuspending;
-                
+
             }
-            catch { }
-            
+            catch (Exception exception)
+            {
+                App.NavigateToBugReport(exception);
+            }
+
         }
         public static bool HasFocus = true;
 
@@ -183,6 +186,18 @@ namespace Discord_UWP
         public static void NavigateToProfile(SharedModels.User user)
         {
             NavigateToProfileHandler?.Invoke(typeof(App), new ProfileNavigationArgs() { User = user });
+        }
+        #endregion
+
+        #region BugReport
+        public class BugReportNavigationArgs : EventArgs
+        {
+            public Exception Exception { get; set; }
+        }
+        public static event EventHandler<BugReportNavigationArgs> NavigateToBugReportHandler;
+        public static void NavigateToBugReport(Exception exception)
+        {
+            NavigateToBugReportHandler?.Invoke(typeof(App), new BugReportNavigationArgs() { Exception = exception });
         }
         #endregion
 
@@ -458,7 +473,10 @@ namespace Discord_UWP
                             }
                         }
                     }
-                    catch { }
+                    catch (Exception exception)
+                    {
+                        App.NavigateToBugReport(exception);
+                    }
                 }
             }
             

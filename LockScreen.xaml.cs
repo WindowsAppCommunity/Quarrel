@@ -60,7 +60,10 @@ namespace Discord_UWP
                         App.GuildMembers.Clear();
                         App.Notes.Clear();
                     }
-                    catch (Exception) { }
+                    catch (Exception exception)
+                    {
+                        App.NavigateToBugReport(exception);
+                    }
 
                     //Login
                     await Session.Login(email, password);

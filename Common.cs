@@ -14,8 +14,14 @@ using Windows.ApplicationModel.Resources;
 
 namespace Discord_UWP
 {
-    public class Common
+    public static class Common
     {
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
+        }
 
         public static bool IsYesterday(DateTime dt)
         {

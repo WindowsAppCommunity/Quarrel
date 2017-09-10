@@ -494,9 +494,9 @@ namespace Discord_UWP.Gateway
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
-            catch
+            catch (Exception exception)
             {
-
+                App.NavigateToBugReport(exception);
             }
         }
 

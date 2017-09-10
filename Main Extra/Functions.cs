@@ -504,9 +504,9 @@ namespace Discord_UWP
                     await msg.ShowAsync();
                 }
             }
-            catch
+            catch (Exception exception)
             {
-               
+                App.NavigateToBugReport(exception);
             }
         }
 
@@ -529,9 +529,9 @@ namespace Discord_UWP
                     await msg.ShowAsync();
                 }
             }
-            catch
+            catch (Exception exception)
             {
-
+                App.NavigateToBugReport(exception);
             }
 
             try
@@ -551,9 +551,9 @@ namespace Discord_UWP
                     await msg.ShowAsync();
                 }
             }
-            catch
+            catch (Exception exception)
             {
-
+                App.NavigateToBugReport(exception);
             }
         }
 

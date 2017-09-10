@@ -1,5 +1,6 @@
 ﻿using Concentus;
 using Concentus.Structs;
+using Discord.Audio;
 using Discord_UWP.Authentication;
 using Discord_UWP.SharedModels;
 using Discord_UWP.Sockets;
@@ -10,11 +11,14 @@ using Sodium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using SecretBox = Discord.Audio.SecretBox;
 
 namespace Discord_UWP.Voice
 {
+
     public class VoiceConnectionEventArgs<T> : EventArgs
     {
         public T EventData { get; }
@@ -39,6 +43,9 @@ namespace Discord_UWP.Voice
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
+        private readonly byte[] _nonce = new byte[24];
+        private byte[] _encrypted = new byte[15000];
+        private byte[] _unencrypted = new byte[15000];
 
         private byte[] secretkey;
 
@@ -98,18 +105,18 @@ namespace Discord_UWP.Voice
             await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
         }
 
-        public async void SendSpeaking(bool speaking)
+        public void SendSpeaking(bool speaking)
         {
             
         }
 
-        public async void SendVoiceHeader()
+        public void SendVoiceHeader()
         {
 
-            StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
+            //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
 
-        public async void SendVoiceData()
+        public void SendVoiceData()
         {
 
         }
@@ -124,7 +131,10 @@ namespace Discord_UWP.Voice
                 ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
                 port = (packet[69] << 8) | packet[68];
             }
-            catch { }
+            catch (Exception exception)
+            {
+                App.NavigateToBugReport(exception);
+            }
 
             var info = new UdpProtocolInfo()
             {
@@ -251,13 +261,25 @@ namespace Discord_UWP.Voice
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
         {
-            var unencrypted = StreamEncryption.DecryptXSalsa20((byte[])e.Message, new byte[24], secretkey);
-            OpusDecoder decoder = new OpusDecoder(48000, 2);
-            float[] output = new float[48000*2]; //48000 per channel
-            decoder.Decode(unencrypted, 0, unencrypted.Length, output, 0, 48000);
-            VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = 48000 }));
+            try
+            {
+                Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
+                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
+                //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
+                _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+                OpusDecoder decoder = new OpusDecoder(48000, 2);
+                int framesize = 120 * 48; //120 ms * 48 samples per ms
+                float[] output = new float[framesize * 2]; // framesize * 2 channel
+                int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
+                AudioTrig.AddFrame(output, (uint)samples);
+                //VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+            }
+            catch (Exception exception)
+            {
+                App.NavigateToBugReport(exception);
+            }
         }
-
+         
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)
@@ -301,10 +323,18 @@ namespace Discord_UWP.Voice
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
-            catch
+            catch (Exception exception)
             {
-
+                App.NavigateToBugReport(exception);
             }
         }
+    }
+
+    unsafe public class Libsodium
+    {
+        [DllImport("libsodium", EntryPoint = "crypto_secretbox_easy", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int SecretBoxEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+        [DllImport("libsodium", EntryPoint = "crypto_secretbox_open_easy", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int SecretBoxOpenEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
     }
 }
