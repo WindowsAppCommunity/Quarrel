@@ -61,7 +61,10 @@ namespace Discord_UWP
                         Session.PrecenseDict.Clear();
                         App.CurrentChannelId = null;
                         App.CurrentGuild = null;
-                        App.GuildMembers.Clear();
+                        if (App.GuildMembers != null)
+                        {
+                            App.GuildMembers.Clear();
+                        }
                         App.Notes.Clear();
                     }
                     catch (Exception exception)

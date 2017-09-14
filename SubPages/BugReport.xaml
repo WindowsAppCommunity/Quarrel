@@ -92,7 +92,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBox x:Name="Comment" Header="Commment (What were you doing)" AcceptsReturn="True"/>
-                        <TextBox x:Name="BugDetails" Header="Details" Grid.Row="1" IsReadOnly="True"/>
+                        <TextBox x:Name="BugDetails" Header="Details" Grid.Row="1" AcceptsReturn="True" IsReadOnly="True"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
