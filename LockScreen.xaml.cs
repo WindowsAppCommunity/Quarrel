@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Authentication.Web;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -30,6 +31,9 @@ namespace Discord_UWP
         public LockScreen()
         {
             this.InitializeComponent();
+
+            //var webAuthenticationResult = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, new Uri(""));
+
             TransitionCollection collection = new TransitionCollection();
             NavigationThemeTransition theme = new NavigationThemeTransition();
             var info = new ContinuumNavigationTransitionInfo();

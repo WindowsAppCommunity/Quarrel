@@ -34,13 +34,13 @@ namespace Discord_UWP.SubPages
             base.OnNavigatedTo(e);
 
             Exception except = (Exception)e.Parameter;
-            BugDetails.Text += "Data: " + except.Data + "\n";
-            BugDetails.Text += "HelpLink: " + except.HelpLink + "\n";
-            BugDetails.Text += "HResult (as int): " + except.HResult + "\n";
-            //TODO: Innerexception BugDetails.Text += "InnerException: " + except.InnerException + "\n";
-            BugDetails.Text += "Message: " + except.Message + "\n";
-            BugDetails.Text += "Source: " + except.Source + "\n";
-            BugDetails.Text += "StackTrace: " + except.StackTrace + "\n";
+            BugDetails.Text += "Data: " + except.Data + Environment.NewLine;
+            BugDetails.Text += "HelpLink: " + except.HelpLink + Environment.NewLine;
+            BugDetails.Text += "HResult (as int): " + except.HResult + Environment.NewLine;
+            //TODO: Innerexception BugDetails.Text += "InnerException: " + except.InnerException + Environment.NewLine;
+            BugDetails.Text += "Message: " + except.Message + Environment.NewLine;
+            BugDetails.Text += "Source: " + except.Source + Environment.NewLine;
+            BugDetails.Text += "StackTrace: " + except.StackTrace + Environment.NewLine;
         }
 
         private async void Report(object sender, RoutedEventArgs e)
@@ -68,9 +68,10 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click()
         {
-            //TODO: Restart gracefully
-            //For now, CRASH
-            throw new Exception();
+            scale.CenterY = this.ActualHeight / 2;
+            scale.CenterX = this.ActualWidth / 2;
+            NavAway.Begin();
+            App.SubpageClosed();
         }
 
         private void DontReport(object sender, RoutedEventArgs e)

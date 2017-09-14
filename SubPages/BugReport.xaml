@@ -85,13 +85,13 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="An exception was hit (the App Crashed) :(" FontWeight="SemiBold" Margin="0" FontSize="20" TextWrapping="WrapWholeWords"/>
+                    <TextBlock x:Name="header" Text="An exception was hit (the app may crash) :(" FontWeight="SemiBold" Margin="0" FontSize="20" TextWrapping="WrapWholeWords"/>
                     <Grid Margin="0,55,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="Comment" Header="Commment" AcceptsReturn="True"/>
+                        <TextBox x:Name="Comment" Header="Commment (What were you doing)" AcceptsReturn="True"/>
                         <TextBox x:Name="BugDetails" Header="Details" Grid.Row="1" IsReadOnly="True"/>
                     </Grid>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
