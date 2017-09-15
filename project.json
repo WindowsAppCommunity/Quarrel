@@ -1,8 +1,6 @@
 ﻿{
   "dependencies": {
     "Concentus": "1.1.7",
-    "Discord.Net": "1.0.1",
-    "libsodium-uwp": "1.0.123",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.4.0",
     "Microsoft.Services.Store.SDK": "10.1705.16001",
     "Microsoft.Toolkit.Uwp.Notifications": "1.5.1",

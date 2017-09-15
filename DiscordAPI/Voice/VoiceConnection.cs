@@ -1,20 +1,20 @@
 ﻿using Concentus;
 using Concentus.Structs;
-using Discord.Audio;
+//using Discord.Audio;
 using Discord_UWP.Authentication;
 using Discord_UWP.SharedModels;
 using Discord_UWP.Sockets;
 using Discord_UWP.Voice.DownstreamEvents;
 using Discord_UWP.Voice.UpstreamEvents;
 using Newtonsoft.Json;
-using Sodium;
+//using Sodium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using SecretBox = Discord.Audio.SecretBox;
+//using SecretBox = Discord.Audio.SecretBox;
 
 namespace Discord_UWP.Voice
 {
@@ -266,7 +266,7 @@ namespace Discord_UWP.Voice
                 Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
                 Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
                 //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
-                _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+                //_unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 120 * 48; //120 ms * 48 samples per ms
                 float[] output = new float[framesize * 2]; // framesize * 2 channel
@@ -330,11 +330,11 @@ namespace Discord_UWP.Voice
         }
     }
 
-    unsafe public class Libsodium
-    {
-        [DllImport("libsodium", EntryPoint = "crypto_secretbox_easy", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SecretBoxEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("libsodium", EntryPoint = "crypto_secretbox_open_easy", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int SecretBoxOpenEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-    }
+    //unsafe public class Libsodium
+    //{
+    //    [DllImport("libsodium", EntryPoint = "crypto_secretbox_easy", CallingConvention = CallingConvention.Cdecl)]
+    //    public static extern int SecretBoxEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+    //    [DllImport("libsodium", EntryPoint = "crypto_secretbox_open_easy", CallingConvention = CallingConvention.Cdecl)]
+    //    public static extern int SecretBoxOpenEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+    //}
 }
