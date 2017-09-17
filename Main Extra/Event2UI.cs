@@ -1097,9 +1097,18 @@ namespace Discord_UWP
                                 }
                                 try
                                 {
-                                    (TextChannels.Items.FirstOrDefault(
-                                            x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
-                                        .IsTyping = true;
+                                    if (App.CurrentGuildIsDM)
+                                    {
+                                        (DirectMessageChannels.Items.FirstOrDefault(
+                                                x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
+                                            .IsTyping = true;
+                                    }
+                                    else
+                                    {
+                                        (TextChannels.Items.FirstOrDefault(
+                                                x => (x as SimpleChannel).Id == typer.Key.channelId) as SimpleChannel)
+                                            .IsTyping = true;
+                                    }
                                 }
                                 catch (Exception exception)
                                 {
