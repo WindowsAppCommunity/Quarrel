@@ -1542,7 +1542,10 @@ namespace Discord_UWP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
+            if (!App.CurrentGuildIsDM)
+            {
+                SubFrameNavigator(typeof(SubPages.ChannelTopic), TextChannels.SelectedItem as SimpleChannel);
+            }
         }
 
         private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
