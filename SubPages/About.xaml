@@ -181,7 +181,10 @@
                                 <TextBlock Text="Fixed typing indicator in DMs (was causing crashes)" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed mark as read (was causing crashes)" TextWrapping="Wrap"/>
+                                <TextBlock Text="Fixed occasional mark as read issue (was causing crashes)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed mentioning/replying" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.2.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
