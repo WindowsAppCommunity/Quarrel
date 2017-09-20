@@ -247,7 +247,7 @@ namespace Discord_UWP
             }
             catch (Exception exception)
             {
-                SubFrameNavigator(typeof(SubPages.BugReport), exception);
+                //SubFrameNavigator(typeof(SubPages.BugReport), exception);
             }
         }
 
@@ -1052,7 +1052,7 @@ namespace Discord_UWP
         {
             //Pinned messages
             PinnedMessages.Items.Clear();
-            if (App.CurrentGuildId != null)
+            if (!App.CurrentGuildIsDM)
             {
                 IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(App.CurrentChannelId);
                 Storage.Cache.Guilds[App.CurrentGuildId].Channels[App.CurrentChannelId].PinnedMessages.Clear();
@@ -1077,17 +1077,17 @@ namespace Discord_UWP
             }
             else
             {
-                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id);
+                IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages((DirectMessageChannels.SelectedItem as SimpleChannel).Id);
                 Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Clear();
 
                 foreach (SharedModels.Message message in pinnedmessages)
                 {
-                    Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Add(message.Id, new Message(message));
+                    Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].PinnedMessages.Add(message.Id, new Message(message));
                 }
 
                 int adCheck = 5;
 
-                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[((DirectMessageChannels.SelectedItem as ListViewItem)?.Tag as DmCache)?.Raw.Id].PinnedMessages.Reverse())
+                foreach (KeyValuePair<string, Message> message in Storage.Cache.DMs[(DirectMessageChannels.SelectedItem as SimpleChannel).Id].PinnedMessages.Reverse())
                 {
                     adCheck--;
                     PinnedMessages.Items.Add(NewMessageContainer(message.Value.Raw, false, false, null));
