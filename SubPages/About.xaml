@@ -180,6 +180,9 @@
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed typing indicator in DMs (was causing crashes)" TextWrapping="Wrap"/>
                             </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed mark as read (was causing crashes)" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.2.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Added an in app UI for when a bug is hit (that gives you the option to report it to me)" TextWrapping="Wrap"/>

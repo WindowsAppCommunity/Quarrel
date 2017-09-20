@@ -249,7 +249,6 @@ namespace Discord_UWP
             {
                 SubFrameNavigator(typeof(SubPages.BugReport), exception);
             }
-
         }
 
         private async void App_PlayHeartBeatHandler(object sender, EventArgs e)
@@ -425,7 +424,7 @@ namespace Discord_UWP
             {
                 MessageBox1.Text += " ";
             }
-            MessageBox1.Text += "@" + e.Username + e.Discriminator;
+            MessageBox1.Text += "@" + e.Username + "#" + e.Discriminator;
         }
 
         private void OnNavigateToGuildChannel(object sender, App.GuildChannelNavigationArgs e)
