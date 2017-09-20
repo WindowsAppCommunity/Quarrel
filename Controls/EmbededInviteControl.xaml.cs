@@ -151,7 +151,10 @@ namespace Discord_UWP.Controls
                 GuildName.Opacity = 0;
                 Loading.Opacity = 1;
 
-                DisplayedInvite = await Session.AcceptInvite(InviteCode);
+                //DisplayedInvite = await Session.AcceptInvite(InviteCode);
+                await Session.AcceptInvite(InviteCode);
+                DisplayedInvite = await Session.GetInvite(InviteCode);
+                DisplayedInvite.Uses++;
                 LoadInvite(true);
             }
         }
