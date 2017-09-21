@@ -68,7 +68,7 @@ namespace Discord_UWP
 
         private void ShowUserDetails(object sender, SharedModels.User e)
         {
-            if (!App.CurrentGuildIsDM)
+            if (!App.CurrentGuildIsDM && Storage.Cache.Guilds.ContainsKey(App.CurrentGuildId) && Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(e.Id))
             {
                 var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Id];
                 MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);

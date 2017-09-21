@@ -666,12 +666,19 @@ namespace Discord_UWP
                         () =>
                         {
                            // MembersCVS = new CollectionViewSource();
-                            MembersCvs.Source = sortedMembers;
+                           try
+                            {
+                                MembersCvs.Source = sortedMembers;
+                            }
+                            catch (Exception exception)
+                            {
+                                //SubFrameNavigator(typeof(SubPages.BugReport), exception);
+                            }
                         });
                 }
                 catch (Exception exception)
                 {
-                    SubFrameNavigator(typeof(SubPages.BugReport), exception);
+                    //SubFrameNavigator(typeof(SubPages.BugReport), exception);
                 }
 
                 //else
@@ -1566,6 +1573,39 @@ namespace Discord_UWP
         private void FriendsLVitem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             DirectMessageChannels.SelectedIndex = -1;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //IEnumerable<SharedModels.Message> messages = new List<SharedModels.Message>().AsEnumerable();
+            //switch (RecentMentionType.SelectedIndex)
+            //{
+            //    case 0:
+            //        messages = await Session.GetRecentMentions(50, false, false);
+            //        break;
+            //    case 1:
+            //        messages = await Session.GetRecentMentions(50, false, false);
+            //        break;
+            //}
+
+            //int adCheck = 5;
+            //await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            //        () =>
+            //        {
+            //            foreach (SharedModels.Message message in messages)
+            //            {
+            //                adCheck--;
+            //                string header = null;
+            //                if (message.Id == Session.RPC[App.CurrentChannelId].LastMessageId)
+            //                    header = "NEW MESSAGES";
+            //                Messages.Items.Add(NewMessageContainer(message, null, false, header));
+            //                if (adCheck == 0 && App.ShowAds)
+            //                {
+            //                    Messages.Items.Add(NewMessageContainer(null, null, true, null));
+            //                    adCheck = 5;
+            //                }
+            //            }
+            //        });
         }
     }
 }

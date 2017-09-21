@@ -44,8 +44,15 @@ namespace Discord_UWP.Sockets
 
         public async Task SendMessageAsync(string message)
         {
-            _dataWriter.WriteString(message);
-            await _dataWriter.StoreAsync();
+            try
+            {
+                _dataWriter.WriteString(message);
+                await _dataWriter.StoreAsync();
+            }
+            catch (Exception exception)
+            {
+                //App.NavigateToBugReport(exception);
+            }
         }
 
         private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)

@@ -123,17 +123,25 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (DisplayedMember != null)
+                    try
                     {
-                        if (DisplayedMember.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+                        if (DisplayedMember != null)
                         {
-                            DisplayedMember.status = new Presence() { Status = e.EventData.Status };
-                            rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                            if (DisplayedMember.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+                            {
+                                DisplayedMember.status = new Presence() { Status = e.EventData.Status };
+                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                            }
                         }
-                    } else
+                        else
+                        {
+                            Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                        }
+                    }
+                    catch
                     {
-                        Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                        Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+
                     }
                 });
         }
@@ -143,19 +151,26 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (DisplayedMember != null)
+                    try
                     {
-                        if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
+                        if (DisplayedMember != null)
                         {
-                            DisplayedMember.status = e.EventData;
-                            rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                            if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
+                            {
+                                DisplayedMember.status = e.EventData;
+                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
+                            }
+                        }
+                        else
+                        {
+                            Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
                         }
                     }
-                    else
+                    catch
                     {
-                        Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                        Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
-                    } 
+
+                    }
                 });
         }
 

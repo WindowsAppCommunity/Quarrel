@@ -947,16 +947,16 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <ListView ItemContainerStyle="{StaticResource ListViewItemExpanded}" HorizontalAlignment="Left">
+                                <ListView x:Name="RecentMentionType" ItemContainerStyle="{StaticResource ListViewItemExpanded}" HorizontalAlignment="Left" SelectionChanged="ListView_SelectionChanged" SelectedIndex="0">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <ItemsStackPanel Orientation="Horizontal"/>
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                     <ListViewItem Content="All servers"/>
-                                    <ListViewItem Content="This server"/>
+                                    <!--<ListViewItem Content="This server"/>-->
                                 </ListView>
-                                <Button Grid.Column="1" Style="{StaticResource EllipsisButton}" Content="Filter" VerticalContentAlignment="Center" Margin="0" Padding="12,0,24,0"/>
+                                <!--<Button Grid.Column="1" Style="{StaticResource EllipsisButton}" Content="Filter" VerticalContentAlignment="Center" Margin="0" Padding="12,0,24,0"/>-->
                                 <ListView x:Name="RecentMentions" SelectionMode="None">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
