@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="5.2.5.0" />
+  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="5.3.1.0" />
   <mp:PhoneIdentity PhoneProductId="2d9dab6c-5d48-4d38-8c26-ec097ba95ceb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Discord UWP</DisplayName>
@@ -16,17 +16,17 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discord">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="Discord_UWP.BackgroundActivity">
           <BackgroundTasks>
             <Task Type="timer" />
             <Task Type="pushNotification" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discord">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
       <uap:VisualElements DisplayName="Discord UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Discord UWP" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Discord UWP" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
