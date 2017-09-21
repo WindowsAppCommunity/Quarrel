@@ -149,38 +149,46 @@ namespace Discord_UWP.SubPages
 
             BackgroundGrid.Blur(8,0).Start();
 
-            if (profile.ConnectedAccount != null)
+            try
             {
-                for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
+
+                if (profile.ConnectedAccount != null)
                 {
-                    var element = profile.ConnectedAccount.ElementAt(i);
-                    string themeExt = "";
-                    if (element.Type.ToLower() == "steam")
+                    for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
                     {
-                        if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                            themeExt = "_light";
-                        else
-                            themeExt = "_dark";
+                        var element = profile.ConnectedAccount.ElementAt(i);
+                        string themeExt = "";
+                        if (element.Type.ToLower() == "steam")
+                        {
+                            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                                themeExt = "_light";
+                            else
+                                themeExt = "_dark";
+                        }
+                        element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
+                        Connections.Items.Add(element);
                     }
-                    element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
-                    Connections.Items.Add(element);
+                }
+
+                if (profile.MutualGuilds != null)
+                {
+                    for (int i = 0; i < profile.MutualGuilds.Count(); i++)
+                    {
+                        var element = profile.MutualGuilds.ElementAt(i);
+                        element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
+                        element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
+
+                        if (element.Nick != null) element.NickVisibility = Visibility.Visible;
+                        else element.NickVisibility = Visibility.Collapsed;
+
+                        MutualGuilds.Items.Add(element);
+                        NoCommonServers.Visibility = Visibility.Collapsed;
+                    }
                 }
             }
-            
-            if (profile.MutualGuilds != null)
+            catch
             {
-                for (int i = 0; i < profile.MutualGuilds.Count(); i++)
-                {
-                    var element = profile.MutualGuilds.ElementAt(i);
-                    element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
-                    element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
 
-                    if (element.Nick != null) element.NickVisibility = Visibility.Visible;
-                    else element.NickVisibility = Visibility.Collapsed;
-
-                    MutualGuilds.Items.Add(element);
-                    NoCommonServers.Visibility = Visibility.Collapsed;
-                }
             }
             
 

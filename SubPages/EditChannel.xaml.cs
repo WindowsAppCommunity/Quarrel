@@ -56,6 +56,7 @@ namespace Discord_UWP.SubPages
             header.Text = App.GetString("/Dialogs/EDIT") + " " + channel.Raw.Name.ToUpper();
             if(channel.Raw.Topic != null)
                 ChannelTopic.Text = channel.Raw.Topic;
+            NsfwSwitch.IsOn = channel.Raw.NSFW;
             Session.Gateway.GuildChannelUpdated += ChannelUpdated;
             ChannelName_TextChanged(null, null);
             ChannelTopic_OnTextChanged(null,null);
@@ -73,6 +74,7 @@ namespace Discord_UWP.SubPages
                             ChannelTopic.Text = "";
                         else
                             ChannelTopic.Text = e.EventData.Topic;
+                        NsfwSwitch.IsOn = e.EventData.NSFW;
                     }
                 });
         }

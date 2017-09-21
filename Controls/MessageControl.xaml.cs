@@ -158,6 +158,17 @@ namespace Discord_UWP
             {
                 UpdateMessage();
             }
+            //if (prop == HeaderProperty)
+            //{
+            //    if (Header != null && Header != "null")
+            //    {
+            //        HeaderUI.Visibility = Visibility.Visible;
+            //        HeaderText.Text = Header;
+            //    } else
+            //    {
+            //        HeaderUI.Visibility = Visibility.Collapsed;
+            //    }
+            //}
         }
 
         public MessageControl()

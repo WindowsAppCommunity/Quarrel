@@ -221,87 +221,96 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
-                    if (ServerList.SelectedIndex != 0)
+                    try
                     {
-                        if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == App.CurrentChannelId)
+                        if (ServerList.SelectedIndex != 0)
                         {
-                            Storage.Cache.Guilds[App.CurrentGuildId]
-                                .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
-                            if (App.HasFocus)
-                                await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
-                            
-                            
-                            Storage.SaveCache();
-                            Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
-                            if (e.EventData.TTS)
+                            if (TextChannels.SelectedIndex != -1 && e.EventData.ChannelId == App.CurrentChannelId)
                             {
-                                MediaElement mediaplayer = new MediaElement();
-                                using (var speech = new SpeechSynthesizer())
+                                Storage.Cache.Guilds[App.CurrentGuildId]
+                                    .Channels[App.CurrentChannelId].Messages.Add(e.EventData.Id, new Message(e.EventData));
+                                if (App.HasFocus)
+                                    await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+
+
+                                Storage.SaveCache();
+                                Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
+                                if (e.EventData.TTS)
                                 {
-                                    string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
-                                    SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
-                                    mediaplayer.SetSource(stream, stream.ContentType);
-                                    mediaplayer.Play();
-                                }
-                            }
-                            if (VibrationEnabled)
-                                Windows.Phone.Devices.Notification.VibrationDevice.GetDefault().Vibrate(VibrationDuration);
-                            try
-                            {
-                                var ToRemove = new List<TypingStart>();
-                                for (int i = 0; i < Typers.Count; i++)
-                                {
-                                    var typer = Typers.ElementAt(i);
-                                    if (typer.Key.userId == e.EventData.User.Id && typer.Key.channelId == e.EventData.ChannelId)
+                                    MediaElement mediaplayer = new MediaElement();
+                                    using (var speech = new SpeechSynthesizer())
                                     {
-                                        typer.Value.Stop();
-                                        ToRemove.Add(Typers.ElementAt(i).Key);
+                                        string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
+                                        SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                                        mediaplayer.SetSource(stream, stream.ContentType);
+                                        mediaplayer.Play();
                                     }
                                 }
-                                foreach (var key in ToRemove)
-                                    Typers.Remove(key);
-                                UpdateTypingUI();
-
-                            }
-                            catch (Exception exception)
-                            {
-                                App.NavigateToBugReport(exception);
-                            }
-                        }
-
-                        var guild = Storage.Cache.Guilds.FirstOrDefault(
-                            x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
-                        if (guild.Value != null)
-                            Storage.Cache.Guilds[guild.Key].Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
-                    }
-                    else
-                    {
-                        if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId ==
-                            (DirectMessageChannels.SelectedItem as SimpleChannel).Id)
-                        {
-                            await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
-                            Storage.SaveCache();
-                            Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
-                            if (e.EventData.TTS)
-                            {
-                                MediaElement mediaplayer = new MediaElement();
-                                using (var speech = new SpeechSynthesizer())
+                                if (VibrationEnabled)
+                                    Windows.Phone.Devices.Notification.VibrationDevice.GetDefault().Vibrate(VibrationDuration);
+                                try
                                 {
-                                    speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Male);
-                                    string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
-                                    SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
-                                    mediaplayer.SetSource(stream, stream.ContentType);
-                                    mediaplayer.Play();
+                                    var ToRemove = new List<TypingStart>();
+                                    for (int i = 0; i < Typers.Count; i++)
+                                    {
+                                        var typer = Typers.ElementAt(i);
+                                        if (typer.Key.userId == e.EventData.User.Id && typer.Key.channelId == e.EventData.ChannelId)
+                                        {
+                                            typer.Value.Stop();
+                                            ToRemove.Add(Typers.ElementAt(i).Key);
+                                        }
+                                    }
+                                    foreach (var key in ToRemove)
+                                        Typers.Remove(key);
+                                    UpdateTypingUI();
+
+                                }
+                                catch (Exception exception)
+                                {
+                                    App.NavigateToBugReport(exception);
                                 }
                             }
-                            try
-                            { Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key); }
-                            catch (Exception exception)
-                            {
-                                App.NavigateToBugReport(exception);
-                            }
-                            Storage.Cache.DMs[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
+
+                            var guild = Storage.Cache.Guilds.FirstOrDefault(
+                                x => x.Value.Channels.ContainsKey(e.EventData.ChannelId));
+                            if (guild.Value != null)
+                                Storage.Cache.Guilds[guild.Key].Channels[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
                         }
+                        else
+                        {
+                            if (DirectMessageChannels.SelectedItem != null && e.EventData.ChannelId ==
+                                (DirectMessageChannels.SelectedItem as SimpleChannel).Id)
+                            {
+                                await Task.Run(() => Session.AckMessage(e.EventData.ChannelId, e.EventData.Id));
+                                Storage.SaveCache();
+                                Messages.Items.Add(NewMessageContainer(e.EventData, null, false, null));
+                                if (e.EventData.TTS)
+                                {
+                                    MediaElement mediaplayer = new MediaElement();
+                                    using (var speech = new SpeechSynthesizer())
+                                    {
+                                        speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Male);
+                                        string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.EventData.User.Username + "said" + e.EventData.Content + "</speak>";
+                                        SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                                        mediaplayer.SetSource(stream, stream.ContentType);
+                                        mediaplayer.Play();
+                                    }
+                                }
+                                try
+                                {
+                                    Typers.Remove(Typers.FirstOrDefault(x => x.Key.userId == e.EventData.User.Id && x.Key.channelId == e.EventData.ChannelId).Key);
+                                }
+                                catch (Exception exception)
+                                {
+                                    //App.NavigateToBugReport(exception);
+                                }
+                                Storage.Cache.DMs[e.EventData.ChannelId].Raw.LastMessageId = e.EventData.Id;
+                            }
+                        }
+                    }
+                    catch
+                    {
+
                     }
                 });
 
@@ -712,9 +721,10 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    //
                     if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
-                        DownloadGuild(e.EventData.GuildId);
+                        LoadChannelList(new List<int>(){ 1, 2 });
                     }
                 });
         }
@@ -741,7 +751,7 @@ namespace Discord_UWP
                 {
                     if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
-                        DownloadGuild(e.EventData.GuildId);
+                        LoadChannelList(new List<int>() { 1, 2 });
                     }
                 });
         }
@@ -1080,7 +1090,7 @@ namespace Discord_UWP
                         {
                             if (App.CurrentGuildIsDM && App.CurrentChannelId != null)
                             {
-                                if (App.CurrentChannelId == typer.Key.channelId)
+                                if (App.CurrentChannelId == typer.Key.channelId && Storage.Cache.DMs.ContainsKey(App.CurrentChannelId))
                                 {
                                     NamesTyping.Add(Storage.Cache.DMs[App.CurrentChannelId].Raw.Users.FirstOrDefault(m => m.Id == typer.Key.userId).Username);
                                 }
@@ -1112,10 +1122,8 @@ namespace Discord_UWP
                                 }
                                 catch (Exception exception)
                                 {
-                                    App.NavigateToBugReport(exception);
+                                    //App.NavigateToBugReport(exception);
                                 }
-
-                                //TODO Display typing indicator on member list
                             }
                         }
                     }
