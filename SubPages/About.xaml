@@ -176,6 +176,19 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 5.3.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed channel topic in DMs " TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed Accepting invites" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed Acknowledging the last message upon loading a channel" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed PinnedMessages" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.2.5" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed typing indicator in DMs (was causing crashes)" TextWrapping="Wrap"/>
