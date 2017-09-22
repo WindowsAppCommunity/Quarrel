@@ -65,6 +65,7 @@ namespace Discord_UWP
                 Storage.SaveAppSettings();
             }
 
+            Storage.Cache.CurrentUser = new User(e.EventData.User);
 
             Storage.Cache.Friends.Clear();
             foreach (SharedModels.Friend friend in e.EventData.Friends)
@@ -724,7 +725,7 @@ namespace Discord_UWP
                     //
                     if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
-                        LoadChannelList(new List<int>(){ 1, 2 });
+                        LoadChannelList(new List<int>(){ 0, 2, 4 });
                     }
                 });
         }
@@ -751,7 +752,7 @@ namespace Discord_UWP
                 {
                     if ((ServerList.SelectedItem as SimpleGuild).Id == e.EventData.GuildId)
                     {
-                        LoadChannelList(new List<int>() { 1, 2 });
+                        LoadChannelList(new List<int>() { 0, 2, 4 });
                     }
                 });
         }

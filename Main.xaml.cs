@@ -787,7 +787,7 @@ namespace Discord_UWP
                     channelListBuffer.Add(new Grid());
                 }
 
-                LoadChannelList(new List<int>() { 0, 2 });
+                LoadChannelList(new List<int>() { 0, 2, 4 });
             }
             else
             {
@@ -841,7 +841,7 @@ namespace Discord_UWP
 
             #region Channels
 
-            LoadChannelList(new List<int>(){ 0, 2 });
+            LoadChannelList(new List<int>(){ 0, 2, 4 });
             #endregion
 
             ChannelsLoading.IsActive = false;
