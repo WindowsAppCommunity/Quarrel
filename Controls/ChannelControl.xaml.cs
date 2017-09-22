@@ -327,6 +327,14 @@ namespace Discord_UWP.Controls
                     ChannelImage.Margin = new Thickness(0,6,6,6);
                     //Tapped -= JoinVoiceChannel;
                 }
+                else if (Type == 4)
+                {
+                    //CHANNEL CATEGORY
+                    HashtagIcon.Visibility = Visibility.Collapsed;
+                    ChannelImageBackdrop.Visibility = Visibility.Collapsed;
+                    ChannelImage.Visibility = Visibility.Collapsed;
+                    Status.Visibility = Visibility.Collapsed;
+                }
             }
             if (prop == MembersProperty)
             {

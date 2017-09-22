@@ -13,6 +13,8 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
+        [JsonProperty("parent_id")]
+        public string ParentId { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("type")]
