@@ -489,14 +489,14 @@ namespace Discord_UWP.Gateway
 
                 if (DateTime.Now.Day == 1 && DateTime.Now.Month == 4) //April 1st
                 {
-                    App.PlayHeartBeat();
+                    //App.PlayHeartBeat();
                 }
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
             catch (Exception exception)
             {
-                App.NavigateToBugReport(exception);
+                //App.NavigateToBugReport(exception);
             }
         }
 

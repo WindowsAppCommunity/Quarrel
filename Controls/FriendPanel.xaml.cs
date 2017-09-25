@@ -23,6 +23,9 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.UI.Notifications;
 using Microsoft.QueryStringDotNET;
 
+using Discord_UWP.Managers;
+using Discord_UWP.LocalModels;
+
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Discord_UWP.Controls
@@ -81,7 +84,6 @@ namespace Discord_UWP.Controls
             await RemoveRelationshipFromUI(e);
             await AddRelationshipToUI(e);
         }
-
         private async void Gateway_RelationShipRemoved(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
             await RemoveRelationshipFromUI(e);
@@ -142,11 +144,10 @@ namespace Discord_UWP.Controls
                     }
                     Debug.WriteLine(sfriend);
                 });
-            
         }
-        private SimpleFriend NewSF(KeyValuePair<string, CacheModels.Friend> f)
+        private SimpleFriend NewSF(KeyValuePair<string, Friend> f)
         {
-            return NewSF(f.Value.Raw);
+            return NewSF(f.Value);
         }
         private SimpleFriend NewSF(Friend f)
         {
@@ -154,29 +155,29 @@ namespace Discord_UWP.Controls
             friend.User = f.user;
             friend.RelationshipStatus = f.Type;
             friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
-            foreach (var guild in Storage.Cache.Guilds)
+            foreach (var guild in LocalState.Guilds)
             {
-                if (guild.Value.Members.ContainsKey(friend.User.Id))
+                if (guild.Value.members.ContainsKey(friend.User.Id))
                     friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
                     {
-                        Id = guild.Value.RawGuild.Id,
-                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.RawGuild.Id + "/icons/" + guild.Value.RawGuild.Icon + ".jpg",
-                        Name = guild.Value.RawGuild.Name
+                        Id = guild.Value.Raw.Id,
+                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg",
+                        Name = guild.Value.Raw.Name
                     });
             }
-            if (Session.PrecenseDict.ContainsKey(f.user.Id))
-                friend.UserStatus = Session.PrecenseDict[f.user.Id].Status;
+            if (LocalState.PresenceDict.ContainsKey(f.user.Id))
+                friend.UserStatus = LocalState.PresenceDict[f.user.Id].Status;
             else
                 friend.UserStatus = "offline";
             return friend;
         }
-        public async void Load()
+        public void Load()
         {
             int pending = 0;
-            foreach (var f in Storage.Cache.Friends)
+            foreach (var f in LocalState.Friends)
             {
                 var friend = NewSF(f);
-                if (f.Value.Raw.Type == 3 || f.Value.Raw.Type == 4)
+                if (f.Value.Type == 3 || f.Value.Type == 4)
                 {
                     pending++;
                     PendingView.Items.Add(friend);
@@ -188,14 +189,14 @@ namespace Discord_UWP.Controls
             }
             PendingCounter.Text = pending.ToString();
             App.FriendNotifications = pending;
-            Session.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
-            Session.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
-            Session.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+            GatewayManager.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
+            GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
+            GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
 
         public async Task FriendNotification(User user)
         {
-            string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
+            string toastTitle = user.Username + " " + "Sent a Friend Request"; //App.GetString("/Main/Notifications_SentAfriendRequest");
             //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
             string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
                                user.Avatar + ".jpg";
@@ -230,7 +231,8 @@ namespace Discord_UWP.Controls
             {
                 Buttons =
                 {
-                    new ToastButton(App.GetString("/Main/Notifications_Accept"), new QueryString()
+                    //new ToastButton(App.GetString("/Main/Notifications_Accept"), new QueryString()
+                    new ToastButton("Accept", new QueryString()
                     {
                         { "action", "AddRelationship" },
                         { "id", user.Id }
@@ -238,7 +240,8 @@ namespace Discord_UWP.Controls
                     {
                         ActivationType = ToastActivationType.Foreground,
                     },
-                    new ToastButton(App.GetString("/Main/Notifications_Refuse"), new QueryString()
+                    //new ToastButton(App.GetString("/Main/Notifications_Refuse"), new QueryString()
+                    new ToastButton("Refuse", new QueryString()
                     {
                         { "action", "RemoveRelationship" },
                         { "id", user.Id }

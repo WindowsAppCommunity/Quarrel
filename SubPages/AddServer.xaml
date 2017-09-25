@@ -29,7 +29,7 @@
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
     </Page.RenderTransform>
-    <Grid x:Name="rootgrid" Background="{ThemeResource Background}" Margin="-100" Padding="100,112">
+    <Grid x:Name="rootgrid" Background="Transparent" Margin="-100" Padding="100,112">
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" VerticalAlignment="Center" HorizontalAlignment="Center">
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>

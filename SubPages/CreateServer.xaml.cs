@@ -45,9 +45,9 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.CreateGuild(GuildName.Text);
+            await RESTCalls.CreateGuild(GuildName.Text); //TODO: Rig to App.Events
             CloseButton_Click(null, null);
         }
     }

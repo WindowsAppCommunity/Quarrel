@@ -133,7 +133,7 @@ namespace Discord_UWP.Voice
             }
             catch (Exception exception)
             {
-                App.NavigateToBugReport(exception);
+                //App.NavigateToBugReport(exception);
             }
 
             var info = new UdpProtocolInfo()
@@ -271,12 +271,12 @@ namespace Discord_UWP.Voice
                 int framesize = 120 * 48; //120 ms * 48 samples per ms
                 float[] output = new float[framesize * 2]; // framesize * 2 channel
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-                AudioTrig.AddFrame(output, (uint)samples);
+                //AudioTrig.AddFrame(output, (uint)samples);
                 //VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {
-                App.NavigateToBugReport(exception);
+                //App.NavigateToBugReport(exception);
             }
         }
          
@@ -325,7 +325,7 @@ namespace Discord_UWP.Voice
             }
             catch (Exception exception)
             {
-                App.NavigateToBugReport(exception);
+                //App.NavigateToBugReport(exception);
             }
         }
     }

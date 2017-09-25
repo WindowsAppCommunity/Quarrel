@@ -10,7 +10,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
     public struct GuildDelete
     {
         [JsonProperty("id")]
-        public string MessageId { get; set; }
+        public string GuildId { get; set; }
         [JsonProperty("unavailable")]
         public bool Unavailable { get; set; }
     }

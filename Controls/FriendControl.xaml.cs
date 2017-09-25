@@ -21,6 +21,9 @@ using Windows.UI.Xaml.Shapes;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 namespace Discord_UWP.Controls
 {
     public sealed partial class FriendControl : UserControl
@@ -83,10 +86,6 @@ namespace Discord_UWP.Controls
                 }
                 if(DisplayedFriend.UserStatus != null)
                 status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
-                if (!Session.Online)
-                {
-                    status.Visibility = Visibility.Collapsed;
-                }
                 switch (DisplayedFriend.RelationshipStatus)
                 {
                     case 1: //Friend
@@ -106,14 +105,14 @@ namespace Discord_UWP.Controls
                         RemoveButton.Visibility = Visibility.Visible;
                         RelationshipStatus.Visibility = Visibility.Visible;
                         moreButton.Visibility = Visibility.Collapsed;
-                        RelationshipStatus.Text = App.GetString("/Controls/AcceptFriendRequestQ");
+                        RelationshipStatus.Text = "Accept Friend Request"; //App.GetString("/Controls/AcceptFriendRequestQ");
                         break;
                     case 4: //Outgoing request
                         AcceptButton.Visibility = Visibility.Collapsed;
                         RemoveButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Visibility = Visibility.Visible;
                         moreButton.Visibility = Visibility.Collapsed;
-                        RelationshipStatus.Text = App.GetString("/Controls/FriendRequestSent");
+                        RelationshipStatus.Text = "Friend Request Sent"; //App.GetString("/Controls/FriendRequestSent");
                         break;
                 }
             }
@@ -127,7 +126,7 @@ namespace Discord_UWP.Controls
         public FriendControl()
         {
             this.InitializeComponent();
-            Session.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
         }
 
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
@@ -144,16 +143,13 @@ namespace Discord_UWP.Controls
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-                Session.SendFriendRequest(DisplayedFriend.User.Id);
-
+            await RESTCalls.SendFriendRequest(DisplayedFriend.User.Id); //TOOD: Rig to App.Events
             AcceptFriend?.Invoke(null,null);
         }
 
         private async void RemoveRelationship(object sender, RoutedEventArgs e)
         {
-
-                Session.RemoveFriend(DisplayedFriend.User.Id);
-      
+            await RESTCalls.RemoveFriend(DisplayedFriend.User.Id); //TODO: Rig to App.Events
             RemovedFriend?.Invoke(null,null);
         }
 

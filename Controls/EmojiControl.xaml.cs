@@ -22,6 +22,8 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
+using Discord_UWP.LocalModels;
+
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Discord_UWP.Controls
@@ -70,28 +72,28 @@ namespace Discord_UWP.Controls
         }
 
         public class Person : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/PEOPLE"); }
+        { public override string category => "PEOPLE"; } //App.GetString("/Controls/PEOPLE"); }
 
         public class Nature : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/NATURE"); }
+        { public override string category => "NATURE"; } //App.GetString("/Controls/NATURE"); }
 
         public class Food : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/FOOD"); }
+        { public override string category => "FOOD"; } //App.GetString("/Controls/FOOD"); }
 
         public class Activity : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/ACTIVITIES"); }
+        { public override string category => "ACTIVITY"; } //App.GetString("/Controls/ACTIVITIES"); }
 
         public class Travel : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/TRAVEL"); }
+        { public override string category => "TRAVEL"; } //App.GetString("/Controls/TRAVEL"); }
 
         public class Object : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/OBJECTS"); }
+        { public override string category => "OBJECT"; } //App.GetString("/Controls/OBJECTS"); }
 
         public class Symbol : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/SYMBOLS"); }
+        { public override string category => "SYMBOL"; } //App.GetString("/Controls/SYMBOLS"); }
 
         public class Flag : ISimpleEmoji
-        { public override string category => App.GetString("/Controls/FLAGS"); }
+        { public override string category => "FLAG"; } //App.GetString("/Controls/FLAGS"); }
 
         public class GuildSide : ISimpleEmoji
         {
@@ -126,15 +128,15 @@ namespace Discord_UWP.Controls
             var guildEmojis = new List<GuildSide>();
             try
             {
-                foreach (var emoji in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Emojis)
+                foreach (var emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
                 {
                     //Does the user have the authorization to use the emoji?
-                    if (emoji.Roles.Count() != 0 && !App.GuildMembers[App.CurrentUserId]
-                            .Raw.Roles.Intersect(emoji.Roles)
+                    if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
+                            .Roles.Intersect(emoji.Roles)
                             .Any()) return;
                     guildEmojis.Add(new GuildSide()
                     {
-                        category = Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Name.ToUpper(),
+                        category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
                         hasDiversity = false,
                         names = new List<string>() { emoji.Name },
                         surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png",
@@ -260,6 +262,31 @@ namespace Discord_UWP.Controls
             });
            
             EmojiCVS.Source = grouped;
+        }
+    }
+
+    static class EmojiSkinToneManager
+    {
+        public static string ChangeSkinTone(this string emoji,
+        int skinTone)
+        {
+            emoji = emoji.Replace("🏻", "").Replace("🏼", "").Replace("🏽", "").Replace("🏾", "").Replace("🏿", "");
+            if (skinTone == 0) return emoji;
+            else
+                emoji += GetSkinTone(skinTone);
+            return emoji;
+        }
+        private static string GetSkinTone(int skintone)
+        {
+            switch (skintone)
+            {
+                case 1: return "🏻";
+                case 2: return "🏼";
+                case 3: return "🏽";
+                case 4: return "🏾";
+                case 5: return "🏿";
+            }
+            return "";
         }
     }
 

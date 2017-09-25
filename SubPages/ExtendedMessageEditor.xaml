@@ -293,7 +293,7 @@
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
     </Page.RenderTransform>
-    <Grid x:Name="rootgrid" Background="{ThemeResource Background}" Margin="-100" Padding="100,112">
+    <Grid x:Name="rootgrid" Background="Transparent" Margin="-50" Padding="100,112">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Small">
@@ -409,7 +409,7 @@
                             </HyperlinkButton>
                         </StackPanel>
                     </ScrollViewer>
-                    <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
+                    <Grid Grid.Row="1" Margin="0,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -431,7 +431,6 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-
             </Border>
         </Grid>
     </Grid>

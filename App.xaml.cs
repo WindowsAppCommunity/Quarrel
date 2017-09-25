@@ -1,14 +1,4 @@
-﻿using Discord_UWP.API;
-using Discord_UWP.API.Channel;
-using Discord_UWP.API.Channel.Models;
-using Discord_UWP.API.Gateway;
-using Discord_UWP.API.Guild;
-using Discord_UWP.API.Login;
-using Discord_UWP.API.Login.Models;
-using Discord_UWP.API.User;
-using Discord_UWP.API.User.Models;
-using Discord_UWP.Authentication;
-using Microsoft.Toolkit.Uwp.Notifications;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.QueryStringDotNET;
 using System;
 using System.Collections.Generic;
@@ -24,6 +14,8 @@ using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.Connectivity;
+using Windows.Security.Credentials;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
@@ -36,11 +28,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media.Animation;
-using Discord_UWP.CacheModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
-using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Core;
+
+using Discord_UWP.Managers;
 
 namespace Discord_UWP
 {
@@ -56,43 +48,33 @@ namespace Discord_UWP
         public App()
         {
             this.InitializeComponent();
-            try
-            {
-                LoadSettings();
-                if (Storage.Settings.Theme == Theme.Dark)
-                    this.RequestedTheme = ApplicationTheme.Dark;
-                else if (Storage.Settings.Theme == Theme.Light)
-                    this.RequestedTheme = ApplicationTheme.Light;
-                else if (Storage.Settings.Theme == Theme.Discord)
-                    if (Storage.Settings.DiscordLightTheme)
-                        this.RequestedTheme = ApplicationTheme.Light;
-                    else
-                        this.RequestedTheme = ApplicationTheme.Dark;
-                this.Suspending += OnSuspending;
-
-            }
-            catch (Exception exception)
-            {
-                App.NavigateToBugReport(exception);
-            }
-
-        }
-        public static bool HasFocus = true;
-
-        private void WindowFocusChanged(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
-        {
-            
-            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
-                HasFocus = false;
-            else
-            {
-                AckLastMessage?.Invoke(null, null);
-                HasFocus = true;
-            }
-            e.Handled = true;
+            this.Suspending += OnSuspending;
         }
 
+        #region Publics
         #region Events
+
+        #region Startup
+        public static event EventHandler LoggingInHandler;
+        public static void LoggingIn()
+        {
+            LoggingInHandler?.Invoke(typeof(App), new EventArgs());
+        }
+
+        public static event EventHandler ReadyRecievedHandler;
+        public static void ReadyRecieved()
+        {
+            ReadyRecievedHandler?.Invoke(typeof(App), new EventArgs());
+        }
+        #endregion
+
+        #region Logout
+        public static event EventHandler LogOutHandler;
+        public static void LogOut()
+        {
+            LogOutHandler?.Invoke(typeof(App), new EventArgs());
+        }
+        #endregion
 
         #region General
         public class ProfileNavigationArgs : EventArgs
@@ -102,18 +84,18 @@ namespace Discord_UWP
         #endregion
 
         #region Flyouts
-        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn }
         public class MenuArgs : EventArgs
         {
-            public Type Type { get; set; }
-            public string Id { get; set; }
-            public string ParentId { get; set; }
+            //public Type Type { get; set; }
+            //public string Id { get; set; }
+            //public string ParentId { get; set; }
+            public MenuFlyout Flyout { get; set; }
             public Point Point { get; set; }
         }
         public static event EventHandler<MenuArgs> MenuHandler;
-        public static void ShowMenuFlyout(object sender, Type type, string Id, string parentId, Point point)
+        public static void ShowMenuFlyout(object sender, FlyoutManager.Type type, string Id, string parentId, Point point)
         {
-            MenuHandler?.Invoke(sender, new MenuArgs() { Type = type, Id = Id, ParentId = parentId, Point = point });
+            MenuHandler?.Invoke(sender, new MenuArgs() {Flyout = FlyoutManager.ShowMenu(type, Id, parentId), Point = point});
         }
 
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
@@ -135,7 +117,7 @@ namespace Discord_UWP
         #endregion
 
         #region Navigation
-        
+
         #region Guild
         public class GuildNavigationArgs : EventArgs
         {
@@ -166,14 +148,15 @@ namespace Discord_UWP
         #region DMChannel
         public class DMChannelNavigationArgs : EventArgs
         {
+            public string ChannelId { get; set; }
             public string UserId { get; set; }
             public string Message { get; set; }
             public bool Send { get; set; }
         }
         public static event EventHandler<DMChannelNavigationArgs> NavigateToDMChannelHandler;
-        public static void NavigateToDMChannel(string userId, string message = null, bool send = false)
+        public static void NavigateToDMChannel(string channelId, string userId, string message = null, bool send = false)
         {
-            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { UserId = userId, Message = message, Send = send });
+            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, UserId = userId, Message = message, Send = send });
         }
         #endregion
 
@@ -207,9 +190,17 @@ namespace Discord_UWP
             public string UserId { get; set; }
         }
         public static event EventHandler<CreateBanNavigationArgs> NavigateToCreateBanHandler;
-        public static void NavigateToCreateBan( string userId)
+        public static void NavigateToCreateBan(string userId)
         {
-            NavigateToCreateBanHandler?.Invoke(typeof(App), new CreateBanNavigationArgs() {UserId = userId});
+            NavigateToCreateBanHandler?.Invoke(typeof(App), new CreateBanNavigationArgs() { UserId = userId });
+        }
+        #endregion
+
+        #region AddServer
+        public static event EventHandler NavigateToAddServerHandler;
+        public static void NavigateToAddServer()
+        {
+            NavigateToAddServerHandler?.Invoke(typeof(App), null);
         }
         #endregion
 
@@ -265,6 +256,14 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region CreateChannel
+        public static event EventHandler NavigateToCreateChannelHandler;
+        public static void NavigateToCreateChannel()
+        {
+            NavigateToCreateChannelHandler?.Invoke(typeof(App), new EventArgs());
+        }
+        #endregion
+
         #region ChannelEdit
         public class ChannelEditNavigationArgs : EventArgs
         {
@@ -307,12 +306,261 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region ChannelTopic
+        public class ChannelTopicNavigationArgs : EventArgs
+        {
+            public SharedModels.GuildChannel Channel { get; set; }
+        }
+        public static event EventHandler<ChannelTopicNavigationArgs> NavigateToChannelTopicHandler;
+        public static void NavigateToChannelEdit(SharedModels.GuildChannel channel)
+        {
+            NavigateToChannelTopicHandler?.Invoke(typeof(App), new ChannelTopicNavigationArgs() { Channel = channel });
+        }
+        #endregion
+
+        #region MessageEditor
+        public class MessageEditorNavigationArgs : EventArgs
+        {
+            public string Content { get; set; }
+        }
+        public static event EventHandler<MessageEditorNavigationArgs> NavigateToMessageEditorHandler;
+        public static void NavigateToMessageEditor(string content)
+        {
+            NavigateToMessageEditorHandler?.Invoke(typeof(App), new MessageEditorNavigationArgs() { Content = content });
+        }
+        #endregion
+
+        #region IAPs
+        public static event EventHandler NavigateToIAPSHandler;
+        public static void NavigateToIAP()
+        {
+            NavigateToIAPSHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
+        #region Settings
+        public static event EventHandler NavigateToSettingsHandler;
+        public static void NavigateToSettings()
+        {
+            NavigateToSettingsHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
+        #region About
+        public static event EventHandler NavigateToAboutHandler;
+        public static void NavigateToAbout()
+        {
+            NavigateToAboutHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
         #region Closed
         public static event EventHandler SubpageClosedHandler;
         public static void SubpageClosed()
         {
             SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
         }
+        #endregion
+
+        #endregion
+
+        #region UIUpdates
+        public static event EventHandler UpdateUnreadIndicatorsHandler;
+        public static void UpdateUnreadIndicators()
+        {
+            UpdateUnreadIndicatorsHandler?.Invoke(null, null);
+        }
+
+        public class TypingArgs
+        {
+            public string UserId;
+            public bool Typing;
+            public string ChnId;
+        }
+        public static event EventHandler<TypingArgs> TypingHandler;
+        public static void UpdateTyping(string userId, bool typing, string chnId)
+        {
+            TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing, ChnId = chnId });
+        }
+
+        #region Messages
+        public class MessageCreatedArgs
+        {
+            public SharedModels.Message Message;
+        }
+        public static event EventHandler<MessageCreatedArgs> MessageCreatedHandler;
+        public static void MessageCreated(SharedModels.Message message)
+        {
+            MessageCreatedHandler?.Invoke(typeof(App), new MessageCreatedArgs() { Message = message});
+        }
+
+        public class MessageDeletedArgs
+        {
+            public string MessageId;
+        }
+        public static event EventHandler<MessageDeletedArgs> MessageDeletedHandler;
+        public static void MessageDeleted(string messageId)
+        {
+            MessageDeletedHandler?.Invoke(typeof(App), new MessageDeletedArgs() { MessageId = messageId });
+        }
+
+        public class MessageEditedArgs
+        {
+            public SharedModels.Message Message;
+        }
+        public static event EventHandler<MessageEditedArgs> MessageEditedHandler;
+        public static void MessageEdited(SharedModels.Message message)
+        {
+            MessageEditedHandler?.Invoke(typeof(App), new MessageEditedArgs() { Message = message });
+        }
+        #endregion
+
+        #region Channels
+        public class GuildChannelCreatedArgs
+        {
+            public SharedModels.GuildChannel Channel;
+        }
+        public static event EventHandler<GuildChannelCreatedArgs> GuildChannelCreatedHandler;
+        public static void GuildChannelCreated(SharedModels.GuildChannel channel)
+        {
+            GuildChannelCreatedHandler?.Invoke(typeof(App), new GuildChannelCreatedArgs() { Channel = channel });
+        }
+
+        public class GuildChannelDeletedArgs
+        {
+            public string GuildId;
+            public string ChannelId;
+        }
+        public static event EventHandler<GuildChannelDeletedArgs> GuildChannelDeletedHandler;
+        public static void GuildChannelDeleted(string guildId, string channelId)
+        {
+            GuildChannelDeletedHandler?.Invoke(typeof(App), new GuildChannelDeletedArgs() { GuildId = guildId, ChannelId = channelId });
+        }
+        #endregion
+
+        #region Guilds
+        public class GuildCreatedArgs
+        {
+            public SharedModels.Guild Guild;
+        }
+        public static event EventHandler<GuildCreatedArgs> GuildCreatedHandler;
+        public static void GuildCreated(SharedModels.Guild guild)
+        {
+            GuildCreatedHandler?.Invoke(typeof(App), new GuildCreatedArgs() { Guild = guild });
+        }
+
+        public class GuildDeletedArgs
+        {
+            public string GuildId;
+        }
+        public static event EventHandler<GuildDeletedArgs> GuildDeletedHandler;
+        public static void GuildDeleted(string guildId)
+        {
+            GuildDeletedHandler?.Invoke(typeof(App), new GuildDeletedArgs() { GuildId = guildId });
+        }
+        #endregion
+        #endregion
+
+        #region API
+
+        #region Messages
+        public class CreateMessageArgs
+        {
+            public string ChannelId;
+            public API.Channel.Models.MessageUpsert Message;
+        }
+        public static event EventHandler<CreateMessageArgs> CreateMessageHandler;
+        public static void CreateMessage(string channelId, string message)
+        {
+            CreateMessageHandler?.Invoke(typeof(App), new CreateMessageArgs() { ChannelId = channelId, Message = new API.Channel.Models.MessageUpsert() { Content = message } });
+        }
+
+
+        #endregion
+        public class StartTypingArgs
+        {
+            public string ChannelId;
+        }
+        public static event EventHandler<StartTypingArgs> StartTypingHandler;
+        public static void StartTyping(string channelId)
+        {
+            StartTypingHandler?.Invoke(typeof(App), new StartTypingArgs() { ChannelId = channelId});
+        }
+
+        #region Relations
+        public class AddFriendArgs : EventArgs
+        {
+            public string UserId { get; set; }
+        }
+        public static event EventHandler<AddFriendArgs> AddFriendHandler;
+        public static void AddFriend(string userId)
+        {
+            AddFriendHandler?.Invoke(typeof(App), new AddFriendArgs() { UserId = userId });
+        }
+
+        public class RemoveFriendArgs : EventArgs
+        {
+            public string UserId { get; set; }
+        }
+        public static event EventHandler<RemoveFriendArgs> RemoveFriendHandler;
+        public static void RemoveFriend(string userId)
+        {
+            RemoveFriendHandler?.Invoke(typeof(App), new RemoveFriendArgs() { UserId = userId });
+        }
+
+        public class BlockUserArgs : EventArgs
+        {
+            public string UserId { get; set; }
+        }
+        public static event EventHandler<BlockUserArgs> BlockUserHandler;
+        public static void BlockUser(string userId)
+        {
+            BlockUserHandler?.Invoke(typeof(App), new BlockUserArgs() { UserId = userId });
+        }
+        #endregion
+
+        #region RPC
+        public class MuteChannelArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+        }
+        public static event EventHandler<MuteChannelArgs> MuteChannelHandler;
+        public static void MuteChannel(string channelId)
+        {
+            MuteChannelHandler?.Invoke(typeof(App), new MuteChannelArgs() { ChannelId = channelId });
+        }
+
+        public class MuteGuildArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<MuteGuildArgs> MuteGuildHandler;
+        public static void MuteGuild(string guildId)
+        {
+            MuteGuildHandler?.Invoke(typeof(App), new MuteGuildArgs() { GuildId = guildId });
+        }
+
+        public class MarkChannelAsReadArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+        }
+        public static event EventHandler<MarkChannelAsReadArgs> MarkChannelAsReadHandler;
+        public static void MarkChannelAsRead(string channelId)
+        {
+            MarkChannelAsReadHandler?.Invoke(typeof(App), new MarkChannelAsReadArgs() { ChannelId = channelId });
+        }
+
+        public class MarkGuildAsReadArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<MarkGuildAsReadArgs> MarkGuildAsReadHandler;
+        public static void MarkGuildAsRead(string guildId)
+        {
+            MarkGuildAsReadHandler?.Invoke(typeof(App), new MarkGuildAsReadArgs() { GuildId = guildId });
+        }
+
+        public static event EventHandler AckLastMessage;
         #endregion
 
         #endregion
@@ -350,50 +598,25 @@ namespace Discord_UWP
             MentionHandler?.Invoke(typeof(App), new MentionArgs() { Username = username, Discriminator = disc });
         }
 
-        public class TypingArgs
-        {
-            public string UserId;
-            public bool Typing;
-            public string ChnId;
-        }
-        public static event EventHandler<TypingArgs> TypingHandler;
-        public static void UpdateTyping(string userId, bool typing, string chnId)
-        {
-            TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing, ChnId = chnId});
-        }
-
-        public static event EventHandler UpdateUnreadIndicatorsHandler;
-        public static void UpdateUnreadIndicators()
-        {
-            UpdateUnreadIndicatorsHandler?.Invoke(null, null);
-        }
-
         public static event EventHandler PlayHeartBeatHandler;
         public static void PlayHeartBeat()
         {
             PlayHeartBeatHandler?.Invoke(null, null);
         }
-
-        public static event EventHandler AckLastMessage;
         #endregion
 
         #endregion
 
-        #region Static Objects
+        #region Statics
+        public static SplashScreen Splash;
+
+        internal static bool CurrentGuildIsDM;
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
-        internal static Guild CurrentGuild;
-        internal static bool CurrentGuildIsDM = false;
-        internal static string CurrentUserId = "";
-        internal static bool IsInFocus = true;
-        internal static bool ShowAds = true;
-        internal static Dictionary<string, string> Notes = new Dictionary<string, string>();
-        internal static Dictionary<string, Member> GuildMembers = new Dictionary<string, Member>();
-
         internal static int FriendNotifications;
-        #endregion
+        internal static bool HasFocus = true;
+        internal static bool ShowAds = true;
 
-        #region Static Voids
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
         public static ResourceLoader ResDialogs = ResourceLoader.GetForCurrentView("Dialogs");
@@ -405,7 +628,7 @@ namespace Discord_UWP
             str = str.Remove(0, 1);
             int index = str.IndexOf('/');
             string map = str.Remove(index);
-            str = str.Remove(0, index+1);
+            str = str.Remove(0, index + 1);
             switch (map)
             {
                 case "About": return ResAbout.GetString(str);
@@ -416,178 +639,57 @@ namespace Discord_UWP
                 case "Settings": return ResSettings.GetString(str);
             }
             return "String";
-         //   return loader.GetString(str);
+            //   return loader.GetString(str);
         }
 
+        public static bool IsOnline()
+        {
+            ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
+            bool internet = connections != null && connections.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            return internet;
+        }
+
+        public static bool LoggedIn()
+        {
+            try //if Contains("LogIn)
+            {
+                Storage.PasswordVault.FindAllByResource("LogIn");
+                return true;
+            }
+            catch // else
+            {
+                return false;
+            }
+        }
+        #endregion
         #endregion
 
-        protected override async void OnActivated(IActivatedEventArgs args)
+        private void WindowFocusChanged(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
         {
-            if (args.Kind == ActivationKind.Protocol)
-            {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                if(eventArgs.Uri.Segments.Count() > 1 && eventArgs.Uri.Segments[1] == "invite-proxy/")
-                {
-                    NavigateToGuild(eventArgs.Uri.Segments[2]);
-                }
-            } 
-            else if(args.Kind == ActivationKind.ToastNotification)
-            {
-                var eventArgs = args as IToastNotificationActivatedEventArgs;
-                if (eventArgs.Argument.StartsWith("invite/"))
-                {
-                    string code = eventArgs.Argument.Remove(0, 7);
-                    await Session.AcceptInvite(code);
-                }
-                else
-                {
-                    try
-                    {
-                        var dec = new WwwFormUrlDecoder(eventArgs.Argument);
-                        var action = dec.GetFirstValueByName("action");
-                        if (action == "AddRelationship")
-                            Session.SendFriendRequest(dec.GetFirstValueByName("id"));
-                        else if (action == "RemoveRelationship")
-                            Session.RemoveFriend(dec.GetFirstValueByName("id"));
-                        else if (action == "SendMessage")
-                            await Session.CreateMessage(dec.GetFirstValueByName("channelid"), eventArgs.UserInput["Reply"].ToString());
-                        else if(action == "Navigate")
-                        {
-                            var page = dec.GetFirstValueByName("page");
-                            if (page == "Friends")
-                            {
-                                //TODO Navigate to the friends list
-                            }
-                            else if(page == "Channel")
-                            {
-                                var channelid = dec.GetFirstValueByName("channelid");
-                                string guildid = "";
-                                foreach (var guild in Storage.Cache.Guilds)
-                                    if (guild.Value.Channels.ContainsKey(channelid))
-                                    {
-                                        guildid = guild.Key;
-                                        break;
-                                    }
+            //TODO: https://www.eternalcoding.com/?p=1952
 
-                                App.NavigateToGuildChannel(guildid, channelid, eventArgs.UserInput["Reply"].ToString());
-                            }
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        App.NavigateToBugReport(exception);
-                    }
-                }
-            }
-            
-        }
-
-        private void LoadSettings()
-        {
-            if (Storage.SavedSettings.Containers.ContainsKey("settings"))
-            {
-                try
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(Settings));
-                    StringReader userNameReader = new StringReader((string)Storage.SavedSettings.Values["settings"]);
-                    Storage.Settings = (Settings)serializer.Deserialize(userNameReader);
-                }
-                catch
-                {
-                    Storage.Settings.AutoHideChannels = true;
-                    Storage.Settings.AutoHidePeople = false;
-                    Storage.Settings.Toasts = false;
-                    Storage.Settings.HighlightEveryone = true;
-                    Storage.Settings.RespUiM = 569;
-                    Storage.Settings.RespUiL = 768;
-                    Storage.Settings.RespUiXl = 1024;
-                    Storage.Settings.AppBarAtBottom = false;
-                    Storage.Settings.DiscordLightTheme = false;
-                    Storage.Settings.CompactMode = false;
-                    Storage.Settings.DevMode = false;
-                    Storage.Settings.ExpensiveRender = false;
-                    Storage.Settings.Theme = Theme.Dark;
-                    Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
-                    Storage.SaveAppSettings();
-                }
-            }
+            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
+                HasFocus = false;
             else
             {
-                Storage.Settings.AutoHideChannels = true;
-                Storage.Settings.AutoHidePeople = false;
-                Storage.Settings.Toasts = false;
-                Storage.Settings.HighlightEveryone = true;
-                Storage.Settings.CompactMode = false;
-                Storage.Settings.Toasts = false;
-                Storage.Settings.RespUiM = 569;
-                Storage.Settings.RespUiL = 768;
-                Storage.Settings.RespUiXl = 1024;
-                Storage.Settings.AppBarAtBottom = false;
-                Storage.Settings.DiscordLightTheme = false;
-                Storage.Settings.ExpensiveRender = false;
-                Storage.Settings.DevMode = false;
-                Storage.Settings.Theme = Theme.Dark;
-                Storage.Settings.AccentBrush = Color.FromArgb(255, 114, 137, 218).ToHex();
-                Storage.Settings.OnlineBursh = Color.FromArgb(255, 67, 181, 129).ToHex();
-                Storage.Settings.IdleBrush = Color.FromArgb(255, 250, 166, 26).ToHex();
-                Storage.Settings.DndBrush = Color.FromArgb(255, 240, 71, 71).ToHex();
-                Storage.SaveAppSettings();
-
-                MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
+                AckLastMessage?.Invoke(null, null);
+                HasFocus = true;
             }
+            e.Handled = true;
         }
 
-        public static SplashScreen Splash;
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        /// <summary>
+        /// Invoked when the application is launched normally by the end user.  Other entry points
+        /// will be used such as when the application is launched to open a specific file.
+        /// </summary>
+        /// <param name="e">Details about the launch request and process.</param>
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            //Get splash screen info
+            Frame rootFrame = Window.Current.Content as Frame;
+
             Splash = e.SplashScreen;
 
-            //Set the title bar colors:
-
-            #region Resources
-            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
-            view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
-            view.TitleBar.ButtonBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
-            view.TitleBar.ButtonHoverBackgroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG"]).Color;
-            view.TitleBar.ButtonHoverForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
-            view.TitleBar.ButtonPressedBackgroundColor = ((SolidColorBrush)Application.Current.Resources["LightBG"]).Color;
-            view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
-            view.TitleBar.ButtonInactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
-            view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
-            view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
-            
-
-            var accentString = Storage.Settings.AccentBrush;
-            var accentColor = accentString.ToColor();
-            var onlineString = Storage.Settings.OnlineBursh;
-            var onlineColor = onlineString.ToColor();
-            var idleString = Storage.Settings.IdleBrush;
-            var idleColor = idleString.ToColor();
-            var dndString = Storage.Settings.DndBrush;
-            var dndColor = dndString.ToColor();
-            var offlineString = Storage.Settings.OfflineBrush;
-            var offlineColor = offlineString.ToColor();
-            App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
-            App.Current.Resources["BlurpleColor"] = accentColor;
-            App.Current.Resources["online"] = new SolidColorBrush(onlineColor);
-            App.Current.Resources["idle"] = new SolidColorBrush(idleColor);
-            App.Current.Resources["DndColor"] = dndColor;
-            App.Current.Resources["dnd"] = new SolidColorBrush(dndColor);
-            App.Current.Resources["offline"] = new SolidColorBrush(offlineColor);
-            App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
-            App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
-            #endregion
-
-            //Set the minimum window size:
-            view.SetPreferredMinSize(new Size(128,128));
-
-            //RegisterBackgroundTask();
-
-            Frame rootFrame = Window.Current.Content as Frame;
+            InitializeResources();
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -607,8 +709,6 @@ namespace Discord_UWP
                 Window.Current.Content = rootFrame;
             }
 
-            rootFrame.Background = (SolidColorBrush)Application.Current.Resources["DeepBG"];
-
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -616,56 +716,25 @@ namespace Discord_UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    bool loggedIn;
-                    if (Storage.SavedSettings.Containers.ContainsKey("user"))
+                    if (IsOnline())
                     {
-                        try
+                        if (LoggedIn())
                         {
-                            XmlSerializer serializer = new XmlSerializer(typeof(string));
-                            StringReader userNameReader = new StringReader((string)Storage.SavedSettings.Values["user"]);
-                            Storage.Token = (string)serializer.Deserialize(userNameReader);
-                            loggedIn = true;
+                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
                         }
-                        catch
+                        else
                         {
-                            loggedIn = false;
+                            rootFrame.Navigate(typeof(LogScreen), e.Arguments);
                         }
                     }
                     else
                     {
-                        loggedIn = false;
-                    }
-
-                    if (loggedIn)
-                    {
-                        rootFrame.Navigate(typeof(Main), e.Arguments);
-                    }
-                    else
-                    {
-                        rootFrame.Navigate(typeof(LockScreen), e.Arguments);
+                        rootFrame.Navigate(typeof(Offline), e.Arguments);
                     }
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
                 Window.Current.CoreWindow.Activated += WindowFocusChanged;
-            }
-        }
-
-        public static bool IsConsole
-        {
-            get
-            {
-                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
-            }
-        }
-
-        public static bool IsMobile
-        {
-            get
-            {
-                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
             }
         }
 
@@ -693,45 +762,54 @@ namespace Discord_UWP
             deferral.Complete();
         }
 
-        private async void RegisterBackgroundTask()
+        public void InitializeResources()
         {
-            //
-            // A friendly task name.
-            //
-            String name = "BackgroundActivity";
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-            //
-            // Must be the same entry point that is specified in the manifest.
-            //
-            String taskEntryPoint = "Discord_UWP.BackgroundActivity";
+            //var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            //view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
+            //view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
+            //view.TitleBar.ButtonBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
+            //view.TitleBar.ButtonForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
+            //view.TitleBar.ButtonHoverBackgroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG"]).Color;
+            //view.TitleBar.ButtonHoverForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
+            //view.TitleBar.ButtonPressedBackgroundColor = ((SolidColorBrush)Application.Current.Resources["LightBG"]).Color;
+            //view.TitleBar.ButtonPressedForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
+            //view.TitleBar.ButtonInactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
+            //view.TitleBar.ButtonInactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
+            //view.TitleBar.InactiveBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
+            //view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
 
-            //
-            // A time trigger that repeats at 15-minute intervals.
-            //
-            IBackgroundTrigger trigger = new TimeTrigger(15, false);
-            SystemCondition internetCondition = new SystemCondition(SystemConditionType.InternetAvailable);
 
-            //
-            // Builds the background task.
-            //
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-
-            builder.Name = name;
-            builder.TaskEntryPoint = taskEntryPoint;
-            builder.SetTrigger(trigger);
-            builder.AddCondition(internetCondition);
-
-            //
-            // Registers the background task, and get back a BackgroundTaskRegistration object representing the registered task.
-            //
-            BackgroundTaskRegistration task = builder.Register();
-            BackgroundExecutionManager.RemoveAccess();
+            //var accentString = Storage.Settings.AccentBrush;
+            //var accentColor = accentString.ToColor();
+            //var onlineString = Storage.Settings.OnlineBursh;
+            //var onlineColor = onlineString.ToColor();
+            //var idleString = Storage.Settings.IdleBrush;
+            //var idleColor = idleString.ToColor();
+            //var dndString = Storage.Settings.DndBrush;
+            //var dndColor = dndString.ToColor();
+            //var offlineString = Storage.Settings.OfflineBrush;
+            //var offlineColor = offlineString.ToColor();
+            //App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
+            //App.Current.Resources["BlurpleColor"] = accentColor;
+            //App.Current.Resources["online"] = new SolidColorBrush(onlineColor);
+            //App.Current.Resources["idle"] = new SolidColorBrush(idleColor);
+            //App.Current.Resources["DndColor"] = dndColor;
+            //App.Current.Resources["dnd"] = new SolidColorBrush(dndColor);
+            //App.Current.Resources["offline"] = new SolidColorBrush(offlineColor);
+            //App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
+            //App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
         }
 
-        private void OnCompleted(IBackgroundTaskRegistration task, BackgroundTaskCompletedEventArgs args)
+        public async Task<bool> LogIn()
         {
-            
+            var credentials = Storage.PasswordVault.FindAllByResource("LogIn");
+            var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
+            return await RESTCalls.Login(creds.UserName, creds.Password);
         }
-
     }
 }

@@ -13,9 +13,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using static Discord_UWP.Main;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 
 namespace Discord_UWP.SubPages
 {
@@ -32,9 +34,12 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var channel = Storage.Cache.Guilds[App.CurrentGuildId].Channels[((SimpleChannel)e.Parameter).Id].Raw;
-                TopicBlock.Text = channel.Topic;
-                header.Text = channel.Name;
+            if (!(e.Parameter is SharedModels.GuildChannel))
+            {
+                CloseButton_Click(null, null);
+            }
+                TopicBlock.Text = (e.Parameter as SharedModels.GuildChannel?).Value.Topic;
+                header.Text = (e.Parameter as SharedModels.GuildChannel?).Value.Name;
         }
         private void NavAway_Completed(object sender, object e)
         {

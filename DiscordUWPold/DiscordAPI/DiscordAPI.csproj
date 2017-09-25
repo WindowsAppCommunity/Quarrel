@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{216F9448-7C44-4E55-9F15-21F4C93AB126}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Discord_API</RootNamespace>
+    <AssemblyName>Discord API</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\AuthenticatedRestFactory.cs" />
+    <Compile Include="API\AuthenticatingHttpClientHandler.cs" />
+    <Compile Include="API\BasicRestFactory.cs" />
+    <Compile Include="API\Channel\IChannelService.cs" />
+    <Compile Include="API\Channel\Models\BulkDelete.cs" />
+    <Compile Include="API\Channel\Models\ChannelInvite.cs" />
+    <Compile Include="API\Channel\Models\EditChannel.cs" />
+    <Compile Include="API\Channel\Models\EditMessage.cs" />
+    <Compile Include="API\Channel\Models\MessageUpsert.cs" />
+    <Compile Include="API\Channel\Models\ModifyChannel.cs" />
+    <Compile Include="API\DiscordAPIConfiguration.cs" />
+    <Compile Include="API\Gateway\IGatewayService.cs" />
+    <Compile Include="API\Guild\IGuildService.cs" />
+    <Compile Include="API\Guild\Models\CreateGuild.cs" />
+    <Compile Include="API\Guild\Models\CreateGuildBan.cs" />
+    <Compile Include="API\Guild\Models\CreateGuildChannel.cs" />
+    <Compile Include="API\Guild\Models\CreateIntegration.cs" />
+    <Compile Include="API\Guild\Models\ModifyGuild.cs" />
+    <Compile Include="API\Guild\Models\ModifyGuildChannel.cs" />
+    <Compile Include="API\Guild\Models\ModifyGuildMember.cs" />
+    <Compile Include="API\Guild\Models\ModifyGuildRole.cs" />
+    <Compile Include="API\Guild\Models\ModifyIntegration.cs" />
+    <Compile Include="API\Invite\IInviteService.cs" />
+    <Compile Include="API\Login\ILoginService.cs" />
+    <Compile Include="API\Login\Models\LoginRequest.cs" />
+    <Compile Include="API\Login\Models\LoginResult.cs" />
+    <Compile Include="API\User\IUserService.cs" />
+    <Compile Include="API\User\Models\ModifyUser.cs" />
+    <Compile Include="API\Voice\IVoiceService.cs" />
+    <Compile Include="Authentication\AuthenticationTicket.cs" />
+    <Compile Include="Authentication\DiscordAuthenticator.cs" />
+    <Compile Include="Authentication\IAuthenticator.cs" />
+    <Compile Include="Gateway\DownstreamEvents\GuildDelete.cs" />
+    <Compile Include="Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
+    <Compile Include="Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
+    <Compile Include="Gateway\DownstreamEvents\Hello.cs" />
+    <Compile Include="Gateway\DownstreamEvents\MessageDelete.cs" />
+    <Compile Include="Gateway\DownstreamEvents\Ready.cs" />
+    <Compile Include="Gateway\DownstreamEvents\Resumed.cs" />
+    <Compile Include="Gateway\EventNames.cs" />
+    <Compile Include="Gateway\Gateway.cs" />
+    <Compile Include="Gateway\GatewayEvent.cs" />
+    <Compile Include="Gateway\IGateway.cs" />
+    <Compile Include="Gateway\OperationCode.cs" />
+    <Compile Include="Gateway\Sockets\IWebMessageSocket.cs" />
+    <Compile Include="Gateway\Sockets\IWebSocketExtensions.cs" />
+    <Compile Include="Gateway\Sockets\WebMessageSocket.cs" />
+    <Compile Include="Gateway\UpstreamEvents\GatewayResume.cs" />
+    <Compile Include="Gateway\UpstreamEvents\GuildMembersRequest.cs" />
+    <Compile Include="Gateway\UpstreamEvents\Identify.cs" />
+    <Compile Include="Gateway\UpstreamEvents\StatusUpdate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedModels\Attachment.cs" />
+    <Compile Include="SharedModels\Connection.cs" />
+    <Compile Include="SharedModels\DirectMessageChannel.cs" />
+    <Compile Include="SharedModels\Embed.cs" />
+    <Compile Include="SharedModels\Emoji.cs" />
+    <Compile Include="SharedModels\Friend.cs" />
+    <Compile Include="SharedModels\Game.cs" />
+    <Compile Include="SharedModels\GatewayConfig.cs" />
+    <Compile Include="SharedModels\Guild.cs" />
+    <Compile Include="SharedModels\GuildChannel.cs" />
+    <Compile Include="SharedModels\GuildEmbed.cs" />
+    <Compile Include="SharedModels\GuildMember.cs" />
+    <Compile Include="SharedModels\GuildMemberAdd.cs" />
+    <Compile Include="SharedModels\GuildMemberRemove.cs" />
+    <Compile Include="SharedModels\GuildMemberUpdate.cs" />
+    <Compile Include="SharedModels\Integration.cs" />
+    <Compile Include="SharedModels\Invite.cs" />
+    <Compile Include="SharedModels\InviteMetadata.cs" />
+    <Compile Include="SharedModels\Message.cs" />
+    <Compile Include="SharedModels\Overwrite.cs" />
+    <Compile Include="SharedModels\Presence.cs" />
+    <Compile Include="SharedModels\PruneStatus.cs" />
+    <Compile Include="SharedModels\Reactions.cs" />
+    <Compile Include="SharedModels\Role.cs" />
+    <Compile Include="SharedModels\TypingStart.cs" />
+    <Compile Include="SharedModels\User.cs" />
+    <Compile Include="SharedModels\UserGuild.cs" />
+    <Compile Include="SharedModels\VoiceRegion.cs" />
+    <Compile Include="SharedModels\VoiceState.cs" />
+    <EmbeddedResource Include="Properties\Discord_API.rd.xml" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

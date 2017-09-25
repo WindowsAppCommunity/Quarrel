@@ -19,8 +19,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
 using System.Text.RegularExpressions;
+
+using Discord_UWP.Managers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -197,14 +198,14 @@ namespace Discord_UWP.Controls
         {
             e.Handled = true;
             if (e.PointerDeviceType != PointerDeviceType.Touch)
-                App.ShowMenuFlyout(this, App.Type.Guild, Id, null, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.Guild, Id, null, e.GetPosition(this));
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
             if (e.HoldingState == HoldingState.Started)
-                App.ShowMenuFlyout(this, App.Type.Guild, Id, null, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.Guild, Id, null, e.GetPosition(this));
         }
 
         private void HideBadge_Completed(object sender, object e)

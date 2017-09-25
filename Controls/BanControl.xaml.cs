@@ -59,10 +59,9 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
-        private void RevokeBan(object sender, RoutedEventArgs e)
+        private async void RevokeBan(object sender, RoutedEventArgs e)
         {
-            //TODO: RevokeBan
-            Session.RemoveBan(App.CurrentGuildId,DisplayedBan.User.Id);
+            await RESTCalls.RemoveBan(App.CurrentGuildId,DisplayedBan.User.Id); //TODO: Rig to App.Events
         }
     }
 }

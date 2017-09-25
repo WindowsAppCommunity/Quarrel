@@ -14,9 +14,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.CacheModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 
 namespace Discord_UWP.Controls
 {
@@ -43,7 +45,7 @@ namespace Discord_UWP.Controls
             if (prop == DisplayedMemberProperty)
             {
                 var user = DisplayedMember.Raw.User;
-                if (user.Id == Storage.Cache.CurrentUser.Raw.Id)
+                if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
                 }
@@ -85,7 +87,7 @@ namespace Discord_UWP.Controls
                     }
                     else
                     {
-                        var roles = Storage.Cache.Guilds[App.CurrentGuildId].Roles;
+                        var roles = LocalState.Guilds[App.CurrentGuildId].roles;
                         foreach (var roleStr in DisplayedMember.Raw.Roles)
                         {
                             var role = roles[roleStr];
@@ -125,15 +127,11 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             SendDM.Send += SendDirectMessage;
-            if (!Session.Online)
-            {
-                Note.IsReadOnly = true;
-            }
         }
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(DisplayedMember.Raw.User.Id, SendDM.Text, true);
+            App.NavigateToDMChannel(null, DisplayedMember.Raw.User.Id, SendDM.Text, true);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
