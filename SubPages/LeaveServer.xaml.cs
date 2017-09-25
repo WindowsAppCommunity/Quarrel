@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -31,7 +34,8 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
-            Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + Storage.Cache.Guilds[guildId].RawGuild.Name+ "?";
+            //Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[guildId].Raw.Name+ "?";
+            Message.Text = "Are you sure you want to leave" + " " + LocalState.Guilds[guildId].Raw.Name+ "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -52,9 +56,9 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.LeaveServer(guildId);
+            await RESTCalls.LeaveServer(guildId); //TODO: Rig to App.Events
             CloseButton_Click(null, null);
         }
     }

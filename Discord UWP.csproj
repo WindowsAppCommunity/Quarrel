@@ -4,42 +4,36 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}</ProjectGuid>
+    <ProjectGuid>{BA48EDC4-2A93-4CA0-99B5-DFA8AED075A4}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Discord_UWP</RootNamespace>
     <AssemblyName>Discord UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Discord UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>AF93D71846446707C69CF2BBACF986262B8D825A</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>D31079384BB8D4370EDCA954A214D93E28DD2C62</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -48,25 +42,21 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -75,26 +65,21 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <WarningLevel>3</WarningLevel>
-    <Optimize>true</Optimize>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -103,75 +88,15 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="Assets\Audio\Heartbeat.wav" />
-    <Content Include="Assets\ConnectionLogos\battlenet.png" />
-    <Content Include="Assets\ConnectionLogos\facebook.png" />
-    <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />
-    <Content Include="Assets\ConnectionLogos\patreon.png" />
-    <Content Include="Assets\ConnectionLogos\reddit.png" />
-    <Content Include="Assets\ConnectionLogos\skype.png" />
-    <Content Include="Assets\ConnectionLogos\steam_dark.png" />
-    <Content Include="Assets\ConnectionLogos\steam_light.png" />
-    <Content Include="Assets\ConnectionLogos\twitch.png" />
-    <Content Include="Assets\ConnectionLogos\twitter.png" />
-    <Content Include="Assets\ConnectionLogos\youtube.png" />
-    <Content Include="Assets\DiscordAssets\default_avatar.jpg" />
-    <Content Include="Assets\DiscordAssets\Friends_dark.png" />
-    <Content Include="Assets\DiscordAssets\Friends_light.png" />
-    <Content Include="Assets\DiscordAssets\groupchat.svg" />
-    <Content Include="Assets\DiscordBadges\hypesquad.png" />
-    <Content Include="Assets\DiscordBadges\nitro.png" />
-    <Content Include="Assets\DiscordBadges\partner.png" />
-    <Content Include="Assets\DiscordBadges\staff.png" />
-    <Content Include="Assets\DiscordBlurpleIcon.png" />
-    <Content Include="Assets\DiscordIcon.svg" />
-    <Content Include="Assets\emojifont.ttf" />
-    <Content Include="Assets\emojis.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Discord UWP_StoreKey.pfx" />
-    <None Include="project.json" />
-    <PRIResource Include="Resources\es\Settings.resw" />
-    <PRIResource Include="Resources\es\Main.resw" />
-    <PRIResource Include="Resources\es\Flyouts.resw" />
-    <PRIResource Include="Resources\es\Dialogs.resw" />
-    <PRIResource Include="Resources\es\Controls.resw" />
-    <PRIResource Include="Resources\es\About.resw" />
-    <PRIResource Include="Resources\fr\Settings.resw" />
-    <PRIResource Include="Resources\fr\Main.resw" />
-    <PRIResource Include="Resources\fr\Flyouts.resw" />
-    <PRIResource Include="Resources\fr\Dialogs.resw" />
-    <PRIResource Include="Resources\fr\Controls.resw" />
-    <PRIResource Include="Resources\fr\About.resw" />
-    <PRIResource Include="Resources\en\Flyouts.resw" />
-    <PRIResource Include="Resources\en\Controls.resw" />
-    <PRIResource Include="Resources\en\Settings.resw" />
-    <PRIResource Include="Resources\en\Dialogs.resw" />
-    <PRIResource Include="Resources\en\About.resw" />
-    <PRIResource Include="Resources\en\Main.resw" />
-  </ItemGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundActivity.cs" />
-    <Compile Include="CacheModels\Cache.cs" />
-    <Compile Include="CacheModels\CurrentUser.cs" />
-    <Compile Include="CacheModels\DMCache.cs" />
-    <Compile Include="CacheModels\Friend.cs" />
-    <Compile Include="CacheModels\Guild.cs" />
-    <Compile Include="CacheModels\GuildChannel.cs" />
-    <Compile Include="CacheModels\Member.cs" />
-    <Compile Include="CacheModels\Message.cs" />
-    <Compile Include="CacheModels\TempCache.cs" />
-    <Compile Include="CacheModels\User.cs" />
-    <Compile Include="ClickyButton.xaml.cs">
-      <DependentUpon>ClickyButton.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="AudioGraph.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
       <DependentUpon>AttachementControl.xaml</DependentUpon>
@@ -179,24 +104,17 @@
     <Compile Include="Controls\BanControl.xaml.cs">
       <DependentUpon>BanControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmbededInviteControl.xaml.cs">
-      <DependentUpon>EmbededInviteControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EmojiControl.xaml.cs">
-      <DependentUpon>EmojiControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EmojiSkinToneManager.cs" />
-    <Compile Include="Controls\VoiceMemberControl.xaml.cs">
-      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\GuildControl.xaml.cs">
-      <DependentUpon>GuildControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ChannelControl.xaml.cs">
       <DependentUpon>ChannelControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EmbedControl.xaml.cs">
       <DependentUpon>EmbedControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmbededInviteControl.xaml.cs">
+      <DependentUpon>EmbededInviteControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmojiControl.xaml.cs">
+      <DependentUpon>EmojiControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FriendControl.xaml.cs">
       <DependentUpon>FriendControl.xaml</DependentUpon>
@@ -204,24 +122,65 @@
     <Compile Include="Controls\FriendPanel.xaml.cs">
       <DependentUpon>FriendPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GuildControl.xaml.cs">
+      <DependentUpon>GuildControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InviteControl.xaml.cs">
       <DependentUpon>InviteControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LoadingControl.xaml.cs">
       <DependentUpon>LoadingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkdownTextBlock\Display\ILinkRegister.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Display\MarkdownTable.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Display\XamlRenderer.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Helpers\Common.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Helpers\DebuggingReporter.cs" />
     <Compile Include="Controls\MarkdownTextBlock\LinkClickedEventArgs.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\MarkdownRenderedEventArgs.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\MarkdownTextBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\CodeBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HeaderBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HorizontalRuleBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\LinkReferenceBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ListBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ParagraphBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\QuoteBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\TableBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\CodeInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\EmojiInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\HyperlinkInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineContainer.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineLeaf.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ILinkElement.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ImageInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ItalicTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\MarkdownLinkInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\StrikethroughTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\SuperscriptTextInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\TextRunInline.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownBlock.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownDocument.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownElement.cs" />
+    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownInline.cs" />
     <Compile Include="Controls\MemberControl.xaml.cs">
       <DependentUpon>MemberControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageControl.xaml.cs">
+      <DependentUpon>MessageControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TypingIndicator.xaml.cs">
       <DependentUpon>TypingIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\UserDetailsControl.xaml.cs">
       <DependentUpon>UserDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VoiceMemberControl.xaml.cs">
+      <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DiscordAPI\API\AuthenticatedRestFactory.cs" />
     <Compile Include="DiscordAPI\API\AuthenticatingHttpClientHandler.cs" />
@@ -250,49 +209,36 @@
     <Compile Include="DiscordAPI\API\Login\Models\LoginRequest.cs" />
     <Compile Include="DiscordAPI\API\Login\Models\LoginResult.cs" />
     <Compile Include="DiscordAPI\API\User\IUserService.cs" />
-    <Compile Include="DiscordAPI\API\User\Models\ModifyUser.cs" />
     <Compile Include="DiscordAPI\API\User\Models\CreateDM.cs" />
+    <Compile Include="DiscordAPI\API\User\Models\ModifyUser.cs" />
     <Compile Include="DiscordAPI\API\User\Models\Note.cs" />
     <Compile Include="DiscordAPI\API\Voice\IVoiceService.cs" />
     <Compile Include="DiscordAPI\Authentication\AuthenticationTicket.cs" />
     <Compile Include="DiscordAPI\Authentication\DiscordAuthenticator.cs" />
     <Compile Include="DiscordAPI\Authentication\IAuthenticator.cs" />
-    <Compile Include="DiscordAPI\Converters\Converters.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildDelete.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildEmojiUpdate.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildBanUpdate.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\GuildIntegrationUpdate.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Ready.cs" />
-    <Compile Include="DiscordAPI\SharedModels\VoiceServerUpdate.cs" />
-    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
-    <Compile Include="DiscordAPI\SharedModels\Ban.cs" />
-    <Compile Include="DiscordAPI\SharedModels\ReadState.cs" />
-    <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
-    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
-    <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Hello.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageDelete.cs" />
-    <Compile Include="DiscordAPI\Sockets\UDPSocket.cs" />
-    <Compile Include="DiscordAPI\Voice\DownstreamEvents\VoiceData.cs" />
-    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Hello.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\UnencryptedAudioHeader.cs" />
-    <Compile Include="DiscordAPI\Voice\DownstreamEvents\SessionDescription.cs" />
-    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\MessageReactions.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Ready.cs" />
     <Compile Include="DiscordAPI\Gateway\DownstreamEvents\Resumed.cs" />
+    <Compile Include="DiscordAPI\Gateway\DownstreamEvents\UserNote.cs" />
     <Compile Include="DiscordAPI\Gateway\EventNames.cs" />
     <Compile Include="DiscordAPI\Gateway\Gateway.cs" />
     <Compile Include="DiscordAPI\Gateway\GatewayEvent.cs" />
     <Compile Include="DiscordAPI\Gateway\IGateway.cs" />
     <Compile Include="DiscordAPI\Gateway\OperationCode.cs" />
-    <Compile Include="DiscordAPI\Sockets\IWebMessageSocket.cs" />
-    <Compile Include="DiscordAPI\Sockets\IWebSocketExtensions.cs" />
-    <Compile Include="DiscordAPI\Sockets\WebMessageSocket.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GatewayResume.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\GuildMembersRequest.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\Identify.cs" />
     <Compile Include="DiscordAPI\Gateway\UpstreamEvents\StatusUpdate.cs" />
+    <Compile Include="DiscordAPI\Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
     <Compile Include="DiscordAPI\SharedModels\Attachment.cs" />
+    <Compile Include="DiscordAPI\SharedModels\Ban.cs" />
+    <Compile Include="DiscordAPI\SharedModels\ConnectedAccount.cs" />
     <Compile Include="DiscordAPI\SharedModels\Connection.cs" />
     <Compile Include="DiscordAPI\SharedModels\DirectMessageChannel.cs" />
     <Compile Include="DiscordAPI\SharedModels\Embed.cs" />
@@ -305,6 +251,7 @@
     <Compile Include="DiscordAPI\SharedModels\GuildEmbed.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMember.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberAdd.cs" />
+    <Compile Include="DiscordAPI\SharedModels\GuildMemberChunk.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberRemove.cs" />
     <Compile Include="DiscordAPI\SharedModels\GuildMemberUpdate.cs" />
     <Compile Include="DiscordAPI\SharedModels\Integration.cs" />
@@ -316,85 +263,70 @@
     <Compile Include="DiscordAPI\SharedModels\Presence.cs" />
     <Compile Include="DiscordAPI\SharedModels\PruneStatus.cs" />
     <Compile Include="DiscordAPI\SharedModels\Reactions.cs" />
+    <Compile Include="DiscordAPI\SharedModels\ReadState.cs" />
     <Compile Include="DiscordAPI\SharedModels\Role.cs" />
-    <Compile Include="DiscordAPI\SharedModels\TypingStart.cs" />
     <Compile Include="DiscordAPI\SharedModels\SharedFriend.cs" />
+    <Compile Include="DiscordAPI\SharedModels\TypingStart.cs" />
     <Compile Include="DiscordAPI\SharedModels\User.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserGuild.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserProfile.cs" />
     <Compile Include="DiscordAPI\SharedModels\UserSettings.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceRegion.cs" />
+    <Compile Include="DiscordAPI\SharedModels\VoiceServerUpdate.cs" />
     <Compile Include="DiscordAPI\SharedModels\VoiceState.cs" />
+    <Compile Include="DiscordAPI\Sockets\IWebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Sockets\IWebSocketExtensions.cs" />
+    <Compile Include="DiscordAPI\Sockets\UDPSocket.cs" />
+    <Compile Include="DiscordAPI\Sockets\WebMessageSocket.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Hello.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\Ready.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\SessionDescription.cs" />
+    <Compile Include="DiscordAPI\Voice\DownstreamEvents\VoiceData.cs" />
     <Compile Include="DiscordAPI\Voice\EventNames.cs" />
     <Compile Include="DiscordAPI\Voice\OperationCode.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
-    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="DiscordAPI\Voice\UpstreamEvents\Identify.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\SelectProtocol.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\Speak.cs" />
+    <Compile Include="DiscordAPI\Voice\UpstreamEvents\UnencryptedAudioHeader.cs" />
     <Compile Include="DiscordAPI\Voice\VoiceConnection.cs" />
     <Compile Include="EntryMessages.cs" />
-    <Compile Include="LockScreen.xaml.cs">
-      <DependentUpon>LockScreen.xaml</DependentUpon>
+    <Compile Include="Flyouts\DMChnFlyout.cs" />
+    <Compile Include="Flyouts\GroupChnFlyout.cs" />
+    <Compile Include="Flyouts\GuildFlyout.cs" />
+    <Compile Include="Flyouts\GuildMemberFlyout.cs" />
+    <Compile Include="Flyouts\TextChnFlyout.cs" />
+    <Compile Include="LocalModels\Guild.cs" />
+    <Compile Include="LocalModels\GuildChannel.cs" />
+    <Compile Include="LocalModels\GuildSetting.cs" />
+    <Compile Include="LocalModels\LocalState.cs" />
+    <Compile Include="LocalModels\Permissions.cs" />
+    <Compile Include="LogScreen.xaml.cs">
+      <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Main Extra\Actions.cs" />
-    <Compile Include="Main Extra\AudioGraph.cs" />
-    <Compile Include="Main Extra\ChannelsManager.cs" />
-    <Compile Include="Main Extra\ClipboardManager.cs" />
-    <Compile Include="Main Extra\Event2UI.cs" />
-    <Compile Include="Main Extra\FlyoutManager.cs" />
-    <Compile Include="Main Extra\Flyouts\GroupChnFlyout.cs" />
-    <Compile Include="Main Extra\Flyouts\DMChnFlyout.cs" />
-    <Compile Include="Main Extra\Flyouts\GuildFlyout.cs" />
-    <Compile Include="Main Extra\GuildManager.cs" />
-    <Compile Include="Main Extra\Flyouts\GuildMemberFlyout.cs" />
-    <Compile Include="Main Extra\Flyouts\TextChnFlyout.cs" />
-    <Compile Include="Main Extra\Flyouts\UserDetails.cs" />
-    <Compile Include="Main Extra\Functions.cs" />
-    <Compile Include="Main.xaml.cs">
-      <DependentUpon>Main.xaml</DependentUpon>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MarkdownTextBlock\Display\ILinkRegister.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Display\MarkdownTable.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Display\XamlRenderer.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Helpers\Common.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Helpers\DebuggingReporter.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\MarkdownRenderedEventArgs.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\MarkdownTextBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\CodeBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HeaderBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\HorizontalRuleBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\LinkReferenceBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ListBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\ParagraphBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\QuoteBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Blocks\TableBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldTextInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\CodeInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\HyperlinkInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineContainer.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\IInlineLeaf.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ILinkElement.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ImageInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\EmojiInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\ItalicTextInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\MarkdownLinkInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\StrikethroughTextInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\SuperscriptTextInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\TextRunInline.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownBlock.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownDocument.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownElement.cs" />
-    <Compile Include="Controls\MarkdownTextBlock\Parse\MarkdownInline.cs" />
-    <Compile Include="Controls\MessageControl.xaml.cs">
-      <DependentUpon>MessageControl.xaml</DependentUpon>
+    <Compile Include="Managers\ChannelManager.cs" />
+    <Compile Include="Managers\FlyoutManager.cs" />
+    <Compile Include="Managers\GatewayManager.cs" />
+    <Compile Include="Managers\GuildManager.cs" />
+    <Compile Include="Managers\MemberManager.cs" />
+    <Compile Include="Managers\MessageManager.cs" />
+    <Compile Include="Managers\VoiceManager.cs" />
+    <Compile Include="Offline.xaml.cs">
+      <DependentUpon>Offline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Storage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="RESTCalls.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\AddServer.xaml.cs">
       <DependentUpon>AddServer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\BugReport.xaml.cs">
+      <DependentUpon>BugReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\ChannelTopic.xaml.cs">
       <DependentUpon>ChannelTopic.xaml</DependentUpon>
@@ -438,9 +370,6 @@
     <Compile Include="SubPages\PreviewAttachement.xaml.cs">
       <DependentUpon>PreviewAttachement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\BugReport.xaml.cs">
-      <DependentUpon>BugReport.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -452,12 +381,56 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\emojifont.ttf" />
+    <Content Include="Assets\emojis.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="Discord UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Resources\fr\Settings.resw" />
+    <PRIResource Include="Resources\fr\Main.resw" />
+    <PRIResource Include="Resources\fr\Flyouts.resw" />
+    <PRIResource Include="Resources\fr\Dialogs.resw" />
+    <PRIResource Include="Resources\fr\Controls.resw" />
+    <PRIResource Include="Resources\fr\About.resw" />
+    <PRIResource Include="Resources\es\Settings.resw" />
+    <PRIResource Include="Resources\es\Main.resw" />
+    <PRIResource Include="Resources\es\Flyouts.resw" />
+    <PRIResource Include="Resources\es\Dialogs.resw" />
+    <PRIResource Include="Resources\es\Controls.resw" />
+    <PRIResource Include="Resources\es\About.resw" />
+    <PRIResource Include="Resources\en\Settings.resw" />
+    <PRIResource Include="Resources\en\Main.resw" />
+    <PRIResource Include="Resources\en\Flyouts.resw" />
+    <PRIResource Include="Resources\en\Dialogs.resw" />
+    <PRIResource Include="Resources\en\Controls.resw" />
+    <PRIResource Include="Resources\en\About.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Audio\Heartbeat.wav" />
+    <Content Include="Assets\ConnectionLogos\battlenet.png" />
+    <Content Include="Assets\ConnectionLogos\facebook.png" />
+    <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />
+    <Content Include="Assets\ConnectionLogos\patreon.png" />
+    <Content Include="Assets\ConnectionLogos\reddit.png" />
+    <Content Include="Assets\ConnectionLogos\skype.png" />
+    <Content Include="Assets\ConnectionLogos\steam_dark.png" />
+    <Content Include="Assets\ConnectionLogos\steam_light.png" />
+    <Content Include="Assets\ConnectionLogos\twitch.png" />
+    <Content Include="Assets\ConnectionLogos\twitter.png" />
+    <Content Include="Assets\ConnectionLogos\youtube.png" />
+    <Content Include="Assets\DiscordAssets\default_avatar.jpg" />
+    <Content Include="Assets\DiscordAssets\Friends_dark.png" />
+    <Content Include="Assets\DiscordAssets\Friends_light.png" />
+    <Content Include="Assets\DiscordAssets\groupchat.svg" />
+    <Content Include="Assets\DiscordBadges\hypesquad.png" />
+    <Content Include="Assets\DiscordBadges\nitro.png" />
+    <Content Include="Assets\DiscordBadges\partner.png" />
+    <Content Include="Assets\DiscordBadges\staff.png" />
+    <Content Include="Assets\DiscordBlurpleIcon.png" />
     <Content Include="Assets\DiscordIcon.png" />
+    <Content Include="Assets\DiscordIcon.svg" />
     <Content Include="Assets\DiscordLogo.jpg" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -497,6 +470,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Controls\MarkdownTextBlock\About.txt" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -511,27 +485,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ClickyButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\AttachementControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\BanControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ChannelControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EmbedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\EmbededInviteControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\EmojiControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\VoiceMemberControl.xaml">
+    <Page Include="Controls\FriendControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FriendPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -539,138 +521,170 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ChannelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\EmbedControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FriendControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\FriendPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\InviteControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\LoadingControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MemberControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\TypingIndicator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\UserDetailsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LockScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Main.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\TypingIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\UserDetailsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VoiceMemberControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LogScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Offline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\About.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\AddServer.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\BugReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\ChannelTopic.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateBan.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateChannel.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateServer.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\DeleteChannel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\DeleteServer.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\EditChannel.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\EditGuild.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\EditNickname.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\ExtendedMessageEditor.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\InAppPurchases.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\JoinServer.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\LeaveServer.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\PreviewAttachement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SubPages\BugReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\Settings.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\UserProfile.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Concentus">
+      <Version>1.1.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.Engagement">
+      <Version>10.1706.16001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.SDK">
+      <Version>10.1705.16001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="QueryString.NET">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Refit">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Unicode.net">
+      <Version>0.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="UniversalWrapPanel">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
@@ -682,14 +696,16 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.14393.0">
-      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.14393.0%29</Name>
+    <SDKReference Include="WindowsDesktop, Version=10.0.15063.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
-      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.15063.0%29</Name>
+    <SDKReference Include="WindowsIoT, Version=10.0.14393.0">
+      <Name>Windows IoT Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsTeam, Version=10.0.15063.0">
+      <Name>Windows Team Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

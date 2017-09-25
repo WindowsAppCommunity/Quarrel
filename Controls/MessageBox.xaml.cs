@@ -1,5 +1,4 @@
-﻿using Discord_UWP.CacheModels;
-using Discord_UWP.SharedModels;
+﻿using Discord_UWP.SharedModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +19,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+using Discord_UWP.LocalModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -77,7 +78,7 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessage");
+            //MessageEditor.PlaceholderText = "Send Message"; //App.GetString("/Controls/SendMessage");
         }
 
         public void Clear()
@@ -166,10 +167,10 @@ namespace Discord_UWP.Controls
                             {
                                 //Something in this block is crashing the UI, but I dunno what
                                 IEnumerable<string> userlist =
-                                    App.GuildMembers.Where(x => x.Value.Raw.User.Username.StartsWith(query))
-                                        .Select(x => "@" + x.Value.Raw.User.Username + "#" + x.Value.Raw.User.Discriminator);
+                                    LocalState.Guilds[App.CurrentGuildId].members.Where(x => x.Value.User.Username.StartsWith(query))
+                                        .Select(x => "@" + x.Value.User.Username + "#" + x.Value.User.Discriminator);
                                 IEnumerable<string> rolelist =
-                                    App.CurrentGuild.Roles
+                                    LocalState.Guilds[App.CurrentGuildId].roles
                                         .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
                                         .Select(x => "@" + x.Value.Name);
                                 rolelist.Concat(new List<string> {"@here", "@everyone"});
@@ -183,9 +184,9 @@ namespace Discord_UWP.Controls
                             selectionstart = selectionstart - word.Length;
                             PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
                             
-                            SuggestionBlock.ItemsSource = App.CurrentGuild.Channels
-                                .Where(x => x.Value.Raw.Type == 0 && x.Value.Raw.Name.StartsWith(query))
-                                .Select(x => "#" + x.Value.Raw.Name);
+                            SuggestionBlock.ItemsSource = LocalState.Guilds[App.CurrentGuildId].channels
+                                .Where(x => x.Value.raw.Type == 0 && x.Value.raw.Name.StartsWith(query))
+                                .Select(x => "#" + x.Value.raw.Name);
                             SuggestionPopup.IsOpen = true;
                         }
                         else
@@ -360,7 +361,7 @@ namespace Discord_UWP.Controls
                         string toVerify = CroppedInput.Remove(nextWhiteSpace);
 
                         //Check for role mention
-                        var roleMention = Storage.Cache.Guilds[App.CurrentGuildId].Roles
+                        var roleMention = LocalState.Guilds[App.CurrentGuildId].roles
                             .Where(x => x.Value.Name == toVerify)
                             .Select(e => (KeyValuePair<string, Role>?)e).FirstOrDefault();
                         if (roleMention != null)
@@ -373,26 +374,26 @@ namespace Discord_UWP.Controls
                         }
 
                         //Check for nick mention
-                        var nickMention = Storage.Cache.Guilds[App.CurrentGuildId].Members
-                            .Where(x => x.Value.Raw.Nick == toVerify)
-                            .Select(e => (KeyValuePair<string, CacheModels.Member>?)e).FirstOrDefault();
+                        var nickMention = LocalState.Guilds[App.CurrentGuildId].members
+                            .Where(x => x.Value.Nick == toVerify)
+                            .Select(e => (KeyValuePair<string, GuildMember>?)e).FirstOrDefault();
                         if (nickMention != null)
                         {
                             //The mention is of a nick
-                            output = InsertMarkdown(input, "@!", nickMention.Value.Value.Raw.User.Id, i, toVerify.Length, addedLength);
+                            output = InsertMarkdown(input, "@!", nickMention.Value.Value.User.Id, i, toVerify.Length, addedLength);
                             addedLength = output.Length - input.Length;
                             keepon = true;
                             break;
                         }
 
                         //Check for user mention
-                        var userMention = Storage.Cache.Guilds[App.CurrentGuildId].Members
-                            .Where(x => x.Value.Raw.User.Username == toVerify || x.Value.Raw.User.Username + "#" + x.Value.Raw.User.Discriminator == toVerify)
-                            .Select(e => (KeyValuePair<string, Member>?)e).FirstOrDefault();
+                        var userMention = LocalState.Guilds[App.CurrentGuildId].members
+                            .Where(x => x.Value.User.Username == toVerify || x.Value.User.Username + "#" + x.Value.User.Discriminator == toVerify)
+                            .Select(e => (KeyValuePair<string, GuildMember>?)e).FirstOrDefault();
                         if (userMention != null)
                         {
                             //The mention is of a user, with or without the discriminator after
-                            output = InsertMarkdown(input, "@", userMention.Value.Value.Raw.User.Id, i, toVerify.Length, addedLength);
+                            output = InsertMarkdown(input, "@", userMention.Value.Value.User.Id, i, toVerify.Length, addedLength);
                             addedLength = output.Length - input.Length;
                             keepon = true;
                             keepon = true;
@@ -404,7 +405,7 @@ namespace Discord_UWP.Controls
 
             if (!App.CurrentGuildIsDM)
             {
-                foreach (var chn in Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.Channels)
+                foreach (var chn in LocalState.Guilds[App.CurrentGuildId].Raw.Channels)
                 {
                     if (chn.Type == 0)
                     {

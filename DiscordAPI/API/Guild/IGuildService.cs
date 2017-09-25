@@ -35,8 +35,8 @@ namespace Discord_UWP.API.Guild
         [Patch("/guilds/{guildId}/channels")]
         Task<IEnumerable<GuildChannel>> ModifyGuildChannel([AliasAs("guildId")] string guildId, [Body] ModifyGuildChannel modifyGuildChannel);
 
-        //[Patch("/guilds/{guildId}/channels")]
-        //Task<IEnumerable<GuildChannel>> ModifyGuildChannelPositions([AliasAs("id")] string Id, [AliasAs("position")] int Position);
+        [Patch("/guilds/{guildId}/channels")]
+        Task<IEnumerable<GuildChannel>> ModifyGuildChannelPositions([AliasAs("guildId")] string guildId, [AliasAs("position")] int Position);
 
         [Patch("/guilds/{guildId}/members/@me/nick")]
         Task<GuildMember> ModifyCurrentUserNickname([AliasAs("guildId")] string guildId, [Body] ModifyGuildMember member);

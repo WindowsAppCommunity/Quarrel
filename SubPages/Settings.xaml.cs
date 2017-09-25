@@ -33,29 +33,30 @@ namespace Discord_UWP.SubPages
         {
             base.OnNavigatedTo(e);
 
-            HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
-            Toasts.IsChecked = Storage.Settings.Toasts;
-            Vibrate.IsChecked = Storage.Settings.Vibrate;
-            CompactMode.IsChecked = Storage.Settings.CompactMode;
-            FriendsNotifyDMs.IsChecked = Storage.Settings.FriendsNotifyDMs;
-            FriendsNotifyFriendRequests.IsChecked = Storage.Settings.FriendsNotifyFriendRequest;
-            //Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
-            //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
-            RespUI_M.Value = Storage.Settings.RespUiM;
-            RespUI_L.Value = Storage.Settings.RespUiL;
-            RespUI_XL.Value = Storage.Settings.RespUiXl;
-            AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
-            accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
-            ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
+            //TODO: Settings
+            //HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
+            //Toasts.IsChecked = Storage.Settings.Toasts;
+            //Vibrate.IsChecked = Storage.Settings.Vibrate;
+            //CompactMode.IsChecked = Storage.Settings.CompactMode;
+            //FriendsNotifyDMs.IsChecked = Storage.Settings.FriendsNotifyDMs;
+            //FriendsNotifyFriendRequests.IsChecked = Storage.Settings.FriendsNotifyFriendRequest;
+            ////Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
+            ////Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
+            //RespUI_M.Value = Storage.Settings.RespUiM;
+            //RespUI_L.Value = Storage.Settings.RespUiL;
+            //RespUI_XL.Value = Storage.Settings.RespUiXl;
+            //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
+            //accent_combobox.SelectedItem = accent_combobox.Items.FirstOrDefault(x => (((ComboBoxItem)x).Tag as SolidColorBrush).Color.ToHex() == Storage.Settings.AccentBrush);
+            //ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
 
-            if (Storage.Settings.Theme == Theme.Dark)
-                radio_Dark.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Light)
-                radio_Light.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Windows)
-                radio_Windows.IsChecked = true;
-            else if (Storage.Settings.Theme == Theme.Discord)
-                radio_Discord.IsChecked = true;
+            //if (Storage.Settings.Theme == Theme.Dark)
+            //    radio_Dark.IsChecked = true;
+            //else if (Storage.Settings.Theme == Theme.Light)
+            //    radio_Light.IsChecked = true;
+            //else if (Storage.Settings.Theme == Theme.Windows)
+            //    radio_Windows.IsChecked = true;
+            //else if (Storage.Settings.Theme == Theme.Discord)
+            //    radio_Discord.IsChecked = true;
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -65,35 +66,36 @@ namespace Discord_UWP.SubPages
 
         private void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-            Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
-            Storage.Settings.Toasts = (bool)Toasts.IsChecked;
-            Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
-            Storage.Settings.RespUiM = RespUI_M.Value;
-            Storage.Settings.RespUiL = RespUI_L.Value;
-            Storage.Settings.RespUiXl = RespUI_XL.Value;
-            Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
-            Storage.Settings.CompactMode = (bool)CompactMode.IsChecked;
-            Storage.Settings.FriendsNotifyDMs = (bool)FriendsNotifyDMs.IsChecked;
-            Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
-            //Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
-            //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
-            Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
-            Storage.Settings.OnlineBursh = ((SolidColorBrush)(online_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
-            Storage.Settings.IdleBrush = ((SolidColorBrush)(idle_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
-            Storage.Settings.DndBrush = ((SolidColorBrush)(dnd_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
-            Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
+            //TODO: Settings
+            //Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
+            //Storage.Settings.Toasts = (bool)Toasts.IsChecked;
+            //Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
+            //Storage.Settings.RespUiM = RespUI_M.Value;
+            //Storage.Settings.RespUiL = RespUI_L.Value;
+            //Storage.Settings.RespUiXl = RespUI_XL.Value;
+            //Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
+            //Storage.Settings.CompactMode = (bool)CompactMode.IsChecked;
+            //Storage.Settings.FriendsNotifyDMs = (bool)FriendsNotifyDMs.IsChecked;
+            //Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
+            ////Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
+            ////Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
+            //Storage.Settings.AccentBrush = ((SolidColorBrush)(accent_combobox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            //Storage.Settings.OnlineBursh = ((SolidColorBrush)(online_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            //Storage.Settings.IdleBrush = ((SolidColorBrush)(idle_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            //Storage.Settings.DndBrush = ((SolidColorBrush)(dnd_colorbox.SelectedItem as ComboBoxItem)?.Tag)?.Color.ToHex();
+            //Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
 
-            if ((bool)radio_Dark.IsChecked)
-                Storage.Settings.Theme = Theme.Dark;
-            else if ((bool)radio_Light.IsChecked)
-                Storage.Settings.Theme = Theme.Light;
-            else if ((bool)radio_Windows.IsChecked)
-                Storage.Settings.Theme = Theme.Windows;
-            else if ((bool)radio_Discord.IsChecked)
-                Storage.Settings.Theme = Theme.Discord;
+            //if ((bool)radio_Dark.IsChecked)
+            //    Storage.Settings.Theme = Theme.Dark;
+            //else if ((bool)radio_Light.IsChecked)
+            //    Storage.Settings.Theme = Theme.Light;
+            //else if ((bool)radio_Windows.IsChecked)
+            //    Storage.Settings.Theme = Theme.Windows;
+            //else if ((bool)radio_Discord.IsChecked)
+            //    Storage.Settings.Theme = Theme.Discord;
 
-            Storage.SaveAppSettings();
-            Storage.SettingsChanged();
+            //Storage.SaveAppSettings();
+            //Storage.SettingsChanged();
             CloseButton_Click(null, null);
         }
 
@@ -135,11 +137,14 @@ namespace Discord_UWP.SubPages
 
         private async void CheckLogout(object sender, RoutedEventArgs e)
         {
-            MessageDialog winnerAnounce = new MessageDialog(App.GetString("/Settings/VerifyLogout"));
-            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Settings/LogoutBTN.Content"),
-        new UICommandInvokedHandler(ConfirmLogout)));
-            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Dialogs/CancelBTN.Content"),
-                new UICommandInvokedHandler(CancelLogout)));
+            //MessageDialog winnerAnounce = new MessageDialog(App.GetString("/Settings/VerifyLogout"));
+            MessageDialog winnerAnounce = new MessageDialog("Are you sure you want to log out?");
+            //winnerAnounce.Commands.Add(new UICommand(App.GetString("/Settings/LogoutBTN.Content"),
+            winnerAnounce.Commands.Add(new UICommand("Log out",
+            new UICommandInvokedHandler(ConfirmLogout)));
+            //winnerAnounce.Commands.Add(new UICommand(App.GetString("/Dialogs/CancelBTN.Content"),
+            winnerAnounce.Commands.Add(new UICommand("Cancel",
+            new UICommandInvokedHandler(CancelLogout)));
             await winnerAnounce.ShowAsync();
         }
         private void CancelLogout(IUICommand command)
@@ -148,15 +153,14 @@ namespace Discord_UWP.SubPages
         }
         private void ConfirmLogout(IUICommand command)
         {
-            Storage.Clear();
-            Session.Logout();
-            (Window.Current.Content as Frame).Navigate(typeof(LockScreen), null);
+            App.LogOut();
         }
 
-        private async void DebugAudioGraph(object sender, RoutedEventArgs e)
-        {
-            await AudioTrig.CreateAudioGraph();
-            AudioTrig.GenerateAudioData(48000);
-        }
+        //TODO: Voice channels
+        //private async void DebugAudioGraph(object sender, RoutedEventArgs e)
+        //{
+        //    await AudioTrig.CreateAudioGraph();
+        //    AudioTrig.GenerateAudioData(48000);
+        //}
     }
 }

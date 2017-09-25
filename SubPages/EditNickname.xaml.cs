@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -31,10 +34,10 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             userId = e.Parameter.ToString();
-            var member = Storage.Cache.Guilds[App.CurrentGuildId].Members[userId];
-            if (member.Raw.Nick != null)
-            Nickname.Text = member.Raw.Nick;
-            Nickname.PlaceholderText = member.Raw.User.Username;
+            var member = LocalState.Guilds[App.CurrentGuildId].members[userId];
+            if (member.Nick != null)
+            Nickname.Text = member.Nick;
+            Nickname.PlaceholderText = member.User.Username;
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -55,14 +58,14 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (userId == Storage.Cache.CurrentUser.Raw.Id)
+            if (userId == LocalState.CurrentUser.Id)
             {
-                Session.ModifyCurrentUserNickname(App.CurrentGuildId, Nickname.Text);
+                await RESTCalls.ModifyCurrentUserNickname(App.CurrentGuildId, Nickname.Text); //TODO: Rig to App.Events
             } else
             {
-                Session.ModifyGuildMemberNickname(App.CurrentGuildId, userId, Nickname.Text);
+                await RESTCalls.ModifyGuildMemberNickname(App.CurrentGuildId, userId, Nickname.Text); //TODO: Rig to App.Events
             }
             CloseButton_Click(null, null);
         }

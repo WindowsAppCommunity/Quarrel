@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -31,7 +34,8 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             chnId = e.Parameter.ToString();
-            Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + Storage.Cache.Guilds[App.CurrentGuildId].Channels[chnId].Raw.Name + "?";
+            //Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
+            Message.Text = "Are you sure you want to delete" + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -52,9 +56,9 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.DeleteChannel(chnId);
+            await RESTCalls.DeleteChannel(chnId); //TODO: Rig to App.Events
             CloseButton_Click(null, null);
         }
     }

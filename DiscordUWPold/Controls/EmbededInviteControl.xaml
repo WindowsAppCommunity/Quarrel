@@ -1,0 +1,40 @@
+﻿<UserControl
+    x:Class="Discord_UWP.Controls.EmbededInviteControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Discord_UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    MaxWidth="324"
+    
+    d:DesignHeight="300"
+    d:DesignWidth="400" Margin="0,4,24,4" HorizontalAlignment="Left">
+
+    <Button Padding="0" Style="{StaticResource DiscordButton}" Click="Button_Click">
+        <Button.Background>
+            <SolidColorBrush Color="{ThemeResource SystemBaseHighColor}" Opacity="0.1"/>
+        </Button.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="JoinIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="{StaticResource Blurple}" >
+                <SymbolIcon Symbol="Add"/>
+            </Border>
+            <Border x:Name="GreenIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="#ff43b581" >
+                <SymbolIcon Symbol="Accept"/>
+            </Border>
+            <Border x:Name="RedIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="#fff04747" >
+                <SymbolIcon Symbol="Clear"/>
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,12,24,12">
+                <TextBlock x:Name="ChannelName" Opacity="0" Text="Expired invite link" FontSize="13.333" FontWeight="Bold" TextWrapping="Wrap"/>
+                <TextBlock x:Name="GuildName" Opacity="0" Text="Discord UWP" FontWeight="Light"/>
+            </StackPanel>
+            <ProgressRing x:Name="Loading" Foreground="{StaticResource Blurple}" IsActive="True" Grid.ColumnSpan="2"/>
+        </Grid>
+    </Button>
+
+</UserControl>

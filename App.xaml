@@ -7,7 +7,37 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="Background" Color="#96FFFFFF"/>
+                    <SolidColorBrush x:Key="Background" Color="#FFFFFFFF"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FFFFFFFF"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FFFFFFFF"
+                    TintOpacity="0.9"
+                    FallbackColor="#FFFFFFFF"/>-->
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFDCDCDC"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FFDCDCDC"
+                    TintOpacity="0.7"
+                    FallbackColor="#FFDCDCDC"/>-->
+                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FFFDFDFD"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FFFDFDFD"
+                    TintOpacity="0.6"
+                    FallbackColor="#FFFDFDFD"/>-->
+                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FFCCCCCC"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FFCCCCCC"
+                    TintOpacity="0.6"
+                    FallbackColor="#FFCCCCCC"/>-->
+                    <SolidColorBrush x:Key="AcrylicFlyoutBackground" Color="#DDFFFFFF"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#AAFFFFFF"
+                    TintOpacity="0.8"
+                    FallbackColor="#AAFFFFFF"/>-->
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -26,12 +56,43 @@
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="Background" Color="#96000000"/>
+                    <SolidColorBrush x:Key="Background" Color="#FF000000"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF222529"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FF222529"
+                    TintOpacity="0.9"
+                    FallbackColor="#FF222529"/>-->
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF222024"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FF232323"
+                    TintOpacity="0.7"
+                    FallbackColor="#FF232323"/>-->
+                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FF131319"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FF121212"
+                    TintOpacity="0.6"
+                    FallbackColor="#FF121212"/>-->
+                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FF323539"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#FF333333"
+                    TintOpacity="0.6"
+                    FallbackColor="#FF333333"/>-->
+                    <SolidColorBrush x:Key="AcrylicFlyoutBackground" Color="#DD000000"/>
+                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    BackgroundSource="HostBackdrop"
+                    TintColor="#AA000000"
+                    TintOpacity="0.8"
+                    FallbackColor="#AA000000"/>-->
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
+                    
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
                     <SolidColorBrush x:Key="LiteBG" Color="#2a2c31"/>
-
                     <SolidColorBrush x:Key="DeepBG" Color="#222529"/>
+                    
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                     <Color x:Key="DarkBGColor">#1e2124</Color>
                     <SolidColorBrush x:Key="MidBG" Color="#2a2c31"/>
@@ -45,8 +106,6 @@
             </ResourceDictionary.ThemeDictionaries>
             <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
             <Color x:Key="BlurpleColor">#7289DA</Color>
-            <SolidColorBrush x:Key="BlurpleTranslucent" Color="#197289DA"/>
-            <Color x:Key="BlurpleTranslucentColor">#197289DA</Color>
 
             <SolidColorBrush x:Key="online" Color="#ff43b581"/>
             <Color x:Key="OnlineColor">#ff43b581</Color>
@@ -4336,7 +4395,7 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 <Setter Property="IsTabStop" Value="False"/>
-                <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}"/>
+                <Setter Property="Background" Value="{ThemeResource AcrylicFlyoutBackground}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeHighBrush}"/>
                 <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
                 <Setter Property="Padding" Value="0"/>
@@ -4352,7 +4411,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="FlyoutPresenter">
-                            <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource DeepBG}" CornerRadius="4">
+                            <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource AcrylicFlyoutBackground}" CornerRadius="4">
                                 <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
                                     <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                 </ScrollViewer>

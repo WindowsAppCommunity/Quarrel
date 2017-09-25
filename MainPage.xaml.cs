@@ -1,1717 +1,951 @@
-﻿using Discord_UWP.API;
-using Discord_UWP.API.User;
-using Discord_UWP.API.User.Models;
-using Discord_UWP.Authentication;
-using Microsoft.Advertising.WinRT.UI;
-using Microsoft.QueryStringDotNET;
-using Microsoft.Toolkit.Uwp.Notifications;
-using Newtonsoft.Json;
+﻿using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+using Discord_UWP.SharedModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.Store;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Services.Store;
 using Windows.UI.Core;
-using Windows.UI.Notifications;
-using Windows.UI.Popups;
-using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Discord_UWP
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    
     public sealed partial class MainPage : Page
     {
         public MainPage()
         {
             this.InitializeComponent();
+            Setup();
+        }
 
-            //BackgroundGateway
-
-            var licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+        public async void Setup()
+        {
+            Loading.Show(false);
+            if (await LogIn())
             {
-                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                ShowAds = false;
+                SetupEvents();
+                GatewayManager.StartGateway();
             }
-
-            //LoadCache();
-            LoadMessages();
-            LoadSettings();
-
-            if (Storage.Cache.Guilds != null)
+            else
             {
-                foreach (KeyValuePair<string, CacheModels.Guild> guild in Storage.Cache.Guilds)
-                {
-                    ServerList.Items.Add(GuildRender(guild.Value));
-                }
-            }
-
-            /*foreach (KeyValuePair<string, CacheModels.User> user in Storage.cache.) 
-            {
-                //TODO: Friends
-            }*/
-
-            if (Storage.Settings.LockChannels)
-            {
-                DetailToggler.Visibility = Visibility.Collapsed;
-            }
-
-            if (Session.Online)
-            {
-                DownloadGuilds();
-                EstablishGateway();
+                Frame.Navigate(typeof(LogScreen));
             }
         }
 
-
-        async void EstablishGateway()
+        public async Task<bool> LogIn()
         {
-            Session.Gateway.Ready += OnReady;
-            Session.Gateway.MessageCreated += MessageCreated;
-            Session.Gateway.MessageDeleted += MessageDeleted;
-            Session.Gateway.MessageUpdated += MessageUpdated;
-            Session.Gateway.GuildCreated += GuildCreated;
-            Session.Gateway.GuildDeleted += GuildDeleted;
-            Session.Gateway.GuildUpdated += GuildUpdated;
-            Session.Gateway.GuildChannelCreated += GuildChannelCreated;
-            Session.Gateway.GuildChannelDeleted += GuildChannelDeleted;
-            Session.Gateway.GuildChannelUpdated += GuildChannelUpdated;
-            Session.Gateway.DirectMessageChannelCreated += DirectMessageChannelCreated;
-            Session.Gateway.DirectMessageChannelDeleted += DirectMessageChannelDeleted;
-            Session.Gateway.PresenceUpdated += PresenceUpdated;
-            //Session.gateway.TypingStarted += TypingStarted;
-            await Session.Gateway.ConnectAsync();
-        }
-        
-
-        private void LoadGuilds()
-        {
-            //Loading_Backdrop.Visibility = Visibility.Visible;
-            LoadingRing.IsActive = true;
-
-            ServerList.Items.Clear();
-            foreach (KeyValuePair<string, CacheModels.Guild> guild in Storage.Cache.Guilds)
+            var credntials = Storage.PasswordVault.FindAllByResource("LogIn"); //TODO: Multi-Account
+            var creds = credntials.FirstOrDefault();
+            creds.RetrievePassword();
+            if (await RESTCalls.Login(creds.UserName, creds.Password))
             {
-                ServerList.Items.Add(GuildRender(guild.Value));
-            }
-
-            DownloadGuilds();
-            //Loading_Backdrop.Visibility = Visibility.Collapsed;
-            LoadingRing.IsActive = false;
-        }
-
-        private async void DownloadGuilds()
-        {
-            LoadingRing.IsActive = true;
-            Storage.Cache.CurrentUser = new CacheModels.User(await Session.GetCurrentUser());
-
-            IEnumerable<SharedModels.UserGuild> guilds = await Session.GetGuilds();
-
-            Storage.Cache.Guilds.Clear();
-
-            foreach (SharedModels.UserGuild guild in guilds)
-            {
-                Storage.Cache.Guilds.Add(guild.Id, new CacheModels.Guild(guild));
-            }
-
-            Username.Text = Storage.Cache.CurrentUser.Raw.Username;
-            Discriminator.Text = "#" + Storage.Cache.CurrentUser.Raw.Discriminator;
-
-            ImageBrush image = new ImageBrush();
-            image.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + Storage.Cache.CurrentUser.Raw.Id + "/" + Storage.Cache.CurrentUser.Raw.Avatar + ".jpg"));
-
-            Avatar.Fill = image;
-
-            foreach (KeyValuePair<string, CacheModels.Guild> guild in Storage.Cache.Guilds)
-            {
-                ServerList.Items.Add(GuildRender(guild.Value));
-            }
-
-            Storage.SaveCache();
-            LoadingRing.IsActive = false;
-        }
-
-
-        private void OpenServerSplit(object sender, RoutedEventArgs e)
-        {
-            Servers.IsPaneOpen = !Servers.IsPaneOpen;
-        }
-
-        private void TogglePeopleShow(object sender, RoutedEventArgs e)
-        {
-            Members.IsPaneOpen = !Members.IsPaneOpen;
-        }
-
-        /*private void ToggleDetails(object sender, RoutedEventArgs e)
-        {
-            if (Details_Width.Width == new GridLength(Storage.Settings.DetailsViewSize))
-            {
-                Details_Width.Width = new GridLength(0);
-            } else {
-                Details_Width.Width = new GridLength(Storage.Settings.DetailsViewSize);
-            }
-
-            if (Storage.Settings.AutoHidePeople)
-            {
-                MemberListToggle.IsChecked = false;
-                Members.IsPaneOpen = false;
-            }
-        }*/
-
-
-        private void LoadGuild(object sender, SelectionChangedEventArgs e)
-        {
-            if (ServerList.SelectedItem != null)
-            {
-                MessageBox.Document.SetText(Windows.UI.Text.TextSetOptions.None, "");
-
-                if (LoadingRing != null)
-                {
-                    LoadingRing.IsActive = true;
-                }
-
-                if (Storage.Settings.AutoHideChannels && Details_Width.Width == new GridLength(0))
-                {
-                    Details_Width.Width = new GridLength(Storage.Settings.DetailsViewSize);
-                    DetailToggler.IsChecked = true;
-                }
-
-                Messages.Children.Clear();
-
-                if (MemberList != null)
-                {
-                    MemberList.Children.Clear();
-                }
-
-                if (ServerList.SelectedIndex == 0)
-                {
-                    PinnedAppButton.Visibility = Visibility.Collapsed;
-                    SendMessage.Visibility = Visibility.Collapsed;
-                    Tip.Visibility = Visibility.Visible;
-                    MuteChannelToggle.Visibility = Visibility.Collapsed;
-                    /*if (Members != null)
-                    {
-                        Members.IsPaneOpen = false;
-                    }*/
-                    //MemberListToggle.IsChecked = false;
-                    //MemberListToggle.Visibility = Visibility.Collapsed;
-                    DMs.Visibility = Visibility.Visible;
-                    //FriendButton.Visibility = Visibility.Visible;
-                    if (Storage.Settings.AutoHideChannels)
-                    {
-                        DetailToggler.IsChecked = true;
-                        Details_Width.Width = new GridLength(Storage.Settings.DetailsViewSize);
-                    }
-                    TextChnContainer.Visibility = Visibility.Collapsed;
-
-                    foreach (KeyValuePair<string, CacheModels.DmCache> channel in Storage.Cache.DMs)
-                    {
-                        DMs.Items.Add(ChannelRender(channel.Value));
-                    }
-
-                    if (Session.Friends != null)
-                    {
-                        ListView fulllistview = new ListView();
-                        foreach (SharedModels.Friend friend in Session.Friends)
-                        {
-                            fulllistview.Items.Add(FriendRender(friend));
-                        }
-                        MemberList.Children.Add(fulllistview);
-                    }
-                }
-                else
-                {
-                    Permissions perms = new Permissions();
-
-                    foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                    {
-                        if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
-                        }
-                        if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                        {
-                            perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
-                        }
-                        else
-                        {
-                            perms.GetPermissions(0);
-                        }
-                    }
-
-                    #region Roles
-
-                    List<ListView> listBuffer = new List<ListView>();
-                    while (listBuffer.Count < 1000)
-                    {
-                        listBuffer.Add(new ListView());
-                    }
-
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles != null)
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Clear();
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                        {
-                            if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.ContainsKey(role.Id))
-                            {
-                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles[role.Id] = role;
-                            } else
-                            {
-                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Add(role.Id, role);
-                            }
-
-                            if (role.Hoist)
-                            {
-                                ListView listview = new ListView();
-                                listview.Header = role.Name;
-                                listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                                listview.SelectionMode = ListViewSelectionMode.None;
-
-                                foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                                {
-                                    if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                                    {
-                                        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                        listview.Items.Add(listviewitem);
-                                    }
-                                }
-                                listBuffer.Insert(1000 - role.Position * 3, listview);
-                            }
-                        }
-                    }
-
-                    foreach (ListView listview in listBuffer)
-                    {
-                        if (listview.Items.Count != 0)
-                        {
-                            MemberList.Children.Add(listview);
-                        }
-                    }
-
-                    ListView fulllistview = new ListView();
-                    fulllistview.Header = "Everyone";
-
-                    foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                    {
-                        if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new CacheModels.Member(member.Value.Raw));
-                            ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            fulllistview.Items.Add(listviewitem);
-                        }
-                    }
-                    MemberList.Children.Add(fulllistview);
-
-                    #endregion
-
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Presences != null)
-                    {
-                        foreach (SharedModels.Presence presence in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Presences)
-                        {
-                            if (Session.PrecenseDict.ContainsKey(presence.User.Id))
-                            {
-                                Session.PrecenseDict.Remove(presence.User.Id);
-                            }
-                            Session.PrecenseDict.Add(presence.User.Id, presence);
-                        }
-                    }
-
-                    PinnedAppButton.Visibility = Visibility.Collapsed;
-                    MemberListToggle.Visibility = Visibility.Visible;
-                    DMs.Visibility = Visibility.Collapsed;
-                    FriendButton.Visibility = Visibility.Collapsed;
-                    if (Storage.Settings.AutoHideChannels)
-                    {
-                        DetailToggler.IsChecked = true;
-                        Details_Width.Width = new GridLength(Storage.Settings.DetailsViewSize);
-                    }
-                    TextChnContainer.Visibility = Visibility.Visible;
-
-                    //VoiceChannels.Visibility = Visibility.Visible;
-
-                    MuteChannelToggle.Visibility = Visibility.Collapsed;
-
-                    TextChannels.Items.Clear();
-                    foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels)
-                    {
-                        if (channel.Value.Raw.Type == "text")
-                        {
-                            TextChannels.Items.Add(ChannelRender(channel.Value, perms));
-                        }
-                    }
-
-                    if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
-                    {
-                        AddChannelButton.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        AddChannelButton.Visibility = Visibility.Visible;
-                    }
-
-                }
-
-                if (TextChannels.SelectedIndex == -1)
-                {
-                    SendMessage.Visibility = Visibility.Collapsed;
-                    Tip.Visibility = Visibility.Visible;
-                }
-                //if (Loading_Backdrop != null)
-                //{
-                //    Loading_Backdrop.Visibility = Visibility.Collapsed;
-                //}
-                if (LoadingRing != null)
-                {
-                    LoadingRing.IsActive = false;
-                }
-
-                if (Session.Online)
-                {
-                    DownloadGuild();
-                }
-            }
-        }
-
-        private async void DownloadGuild()
-        {
-            if (MemberList != null)
-            {
-                MemberList.Children.Clear();
-            }
-
-            if (ServerList.SelectedIndex == 0)
-            {
-                Storage.Cache.DMs.Clear();
-                foreach (SharedModels.DirectMessageChannel dm in await Session.GetDMs())
-                {
-                    Storage.Cache.DMs.Add(dm.Id, new CacheModels.DmCache(dm));
-                }
-
-                DMs.Items.Clear();
-                foreach (KeyValuePair<string, CacheModels.DmCache> dm in Storage.Cache.DMs)
-                {
-                    DMs.Items.Add(ChannelRender(dm.Value));
-                }
-
+                return true;
             } else
             {
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild = await Session.GetGuild((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-
-                IEnumerable<SharedModels.GuildMember> members = await Session.GetGuildMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-
-                foreach (SharedModels.GuildMember member in members)
-                {
-                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.User.Id))
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.User.Id, new CacheModels.Member(member));
-                    }
-                }
-
-                #region Perms
-                Permissions perms = new Permissions();
-                foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                {
-                    if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(Storage.Cache.CurrentUser.Raw.Id))
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(Storage.Cache.CurrentUser.Raw.Id, new CacheModels.Member(Session.GetGuildMember((ServerList.SelectedItem as ListViewItem).Tag.ToString(), Storage.Cache.CurrentUser.Raw.Id)));
-                    }
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.Count() != 0 && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[Storage.Cache.CurrentUser.Raw.Id].Raw.Roles.First().ToString() == role.Id)
-                    {
-                        perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
-                    }
-                    else
-                    {
-                        perms.GetPermissions(0);
-                    }
-                }
-                #endregion
-
-                #region MemberList
-
-                List<ListView> listBuffer = new List<ListView>();
-                while (listBuffer.Count < 1000)
-                {
-                    listBuffer.Add(new ListView());
-                }
-
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles != null)
-                {
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Clear();
-                    foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                    {
-                        if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.ContainsKey(role.Id))
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles[role.Id] = role;
-                        }
-                        else
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Add(role.Id, role);
-                        }
-
-                        if (role.Hoist)
-                        {
-                            ListView listview = new ListView();
-                            listview.Header = role.Name;
-                            listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                            listview.SelectionMode = ListViewSelectionMode.None;
-
-                            foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                            {
-                                if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                                {
-                                    ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                    listview.Items.Add(listviewitem);
-                                }
-                            }
-                            listBuffer.Insert(1000 - role.Position * 3, listview);
-                        }
-                    }
-                }
-
-                foreach (ListView listview in listBuffer)
-                {
-                    if (listview.Items.Count != 0)
-                    {
-                        MemberList.Children.Add(listview);
-                    }
-                }
-
-                ListView fulllistview = new ListView();
-                fulllistview.Header = "Everyone";
-
-
-                foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                {
-                    fulllistview.Items.Add((GuildMemberRender(member.Value.Raw) as ListViewItem));
-                }
-                MemberList.Children.Add(fulllistview);
-
-                #endregion
-
-                #region Presences
-                if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Presences != null)
-                {
-                    foreach (SharedModels.Presence presence in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Presences)
-                    {
-                        if (Session.PrecenseDict.ContainsKey(presence.User.Id))
-                        {
-                            Session.PrecenseDict.Remove(presence.User.Id);
-                        }
-                        Session.PrecenseDict.Add(presence.User.Id, presence);
-                    }
-                }
-                #endregion
-
-                #region Channels
-
-                if ((ServerList.SelectedItem as ListViewItem).Tag != null)
-                {
-                    IEnumerable<SharedModels.GuildChannel> channels = await Session.GetGuildData((ServerList.SelectedItem as ListViewItem).Tag.ToString());
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels.Clear();
-                    foreach (SharedModels.GuildChannel channel in channels)
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels.Add(channel.Id, new CacheModels.GuildChannel(channel));
-                    }
-                }
-
-                TextChannels.Items.Clear();
-                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels)
-                {
-                    if (channel.Value.Raw.Type == "text")
-                    {
-                        TextChannels.Items.Add(ChannelRender(channel.Value, perms));
-                    }
-                }
-
-
-                if (!perms.EffectivePerms.ManageChannels && !perms.EffectivePerms.Administrator && Session.Guild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
-                {
-                    AddChannelButton.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    AddChannelButton.Visibility = Visibility.Visible;
-                }
-                #endregion
-
-                if ((ServerList.SelectedItem as ListViewItem).Tag.ToString() == "DMs")
-                {
-                    #region Members
-                    Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Clear();
-                    foreach (SharedModels.GuildMember member in await Session.GetGuildMembers((ServerList.SelectedItem as ListViewItem).Tag.ToString()))
-                    {
-                        if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.User.Id))
-                        {
-
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members[member.User.Id] = new CacheModels.Member(member);
-                        }
-                        else
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.User.Id, new CacheModels.Member(member));
-                        }
-                    }
-
-                    List<ListView> dmListBuffer = new List<ListView>();
-                    while (dmListBuffer.Count < 1000)
-                    {
-                        dmListBuffer.Add(new ListView());
-                    }
-
-                    if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles != null)
-                    {
-                        Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Clear();
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                        {
-                            if (Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.ContainsKey(role.Id))
-                            {
-                                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Roles.Add(role.Id, role);
-                            }
-
-                            if (role.Hoist)
-                            {
-                                ListView listview = new ListView();
-                                listview.Header = role.Name;
-                                listview.Foreground = GetSolidColorBrush("#FFFFFFFF");
-                                listview.SelectionMode = ListViewSelectionMode.None;
-
-                                foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                                {
-                                    if (member.Value.Raw.Roles.Contains<string>(role.Id))
-                                    {
-                                        ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                                        listview.Items.Add(listviewitem);
-                                    }
-                                }
-                                dmListBuffer.Insert(1000 - role.Position * 3, listview);
-                            }
-                        }
-
-
-                        foreach (ListView listview in dmListBuffer)
-                        {
-                            if (listview.Items.Count != 0)
-                            {
-                                MemberList.Children.Add(listview);
-                            }
-                        }
-                    }
-
-                    ListView dMfulllistview = new ListView();
-                    dMfulllistview.Header = "Everyone";
-
-                    foreach (KeyValuePair<string, CacheModels.Member> member in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members)
-                    {
-                        if (!Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.ContainsKey(member.Value.Raw.User.Id))
-                        {
-                            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Members.Add(member.Value.Raw.User.Id, new CacheModels.Member(member.Value.Raw));
-                            ListViewItem listviewitem = (GuildMemberRender(member.Value.Raw) as ListViewItem);
-                            dMfulllistview.Items.Add(listviewitem);
-                        }
-                    }
-                    MemberList.Children.Add(dMfulllistview);
-                    #endregion
-                }
+                return false;
             }
         }
 
-
-        private async void PinChannelToStart(object sender, RoutedEventArgs e)
+        public void SetupEvents()
         {
-            if (!SecondaryTile.Exists(((sender as Button).Tag as Nullable<SharedModels.GuildChannel>).Value.Id))
+            //Navigation
+            App.NavigateToGuildHandler += App_NavigateToGuildHandler;
+            App.NavigateToGuildChannelHandler += App_NavigateToGuildChannelHandler;
+            App.NavigateToDMChannelHandler += App_NavigateToDMChannelHandler;
+            //SubPages
+            App.SubpageClosedHandler += App_SubpageClosedHandler; ;
+            App.NavigateToBugReportHandler += App_NavigateToBugReportHandler;
+            App.NavigateToChannelEditHandler += App_NavigateToChannelEditHandler;
+            App.NavigateToCreateBanHandler += App_NavigateToCreateBanHandler;
+            App.NavigateToCreateServerHandler += App_NavigateToCreateServerHandler;
+            App.NavigateToDeleteChannelHandler += App_NavigateToDeleteChannelHandler;
+            App.NavigateToDeleteServerHandler += App_NavigateToDeleteServerHandler;
+            App.NavigateToGuildEditHandler += App_NavigateToGuildEditHandler;
+            App.NavigateToJoinServerHandler += App_NavigateToJoinServerHandler;
+            App.NavigateToLeaveServerHandler += App_NavigateToLeaveServerHandler;
+            App.NavigateToNicknameEditHandler += App_NavigateToNicknameEditHandler;
+            App.NavigateToProfileHandler += App_NavigateToProfileHandler;
+            App.OpenAttachementHandler += App_OpenAttachementHandler;
+            App.NavigateToChannelTopicHandler += App_NavigateToChannelTopicHandler;
+            App.NavigateToCreateChannelHandler += App_NavigateToCreateChannelHandler;
+            App.NavigateToSettingsHandler += App_NavigateToSettingsHandler;
+            App.NavigateToAboutHandler += App_NavigateToAboutHandler;
+            App.NavigateToAddServerHandler += App_NavigateToAddServerHandler;
+            App.NavigateToMessageEditorHandler += App_NavigateToMessageEditorHandler;
+            //Flyouts
+            App.MenuHandler += App_MenuHandler;
+            //API
+            App.CreateMessageHandler += App_CreateMessageHandler;
+            App.StartTypingHandler += App_StartTypingHandler;
+            App.AddFriendHandler += App_AddFriendHandler;
+            App.BlockUserHandler += App_BlockUserHandler;
+            App.MarkChannelAsReadHandler += App_MarkChannelAsReadHandler;
+            App.MarkGuildAsReadHandler += App_MarkGuildAsReadHandler;
+            App.MuteChannelHandler += App_MuteChannelHandler;
+            App.MuteGuildHandler += App_MuteGuildHandler;
+            App.RemoveFriendHandler += App_RemoveFriendHandler;
+            //UpdateUI
+            App.ReadyRecievedHandler += App_ReadyRecievedHandler;
+            App.TypingHandler += App_TypingHandler;
+            App.UpdateUnreadIndicatorsHandler += App_UpdateUnreadIndicatorsHandler;
+            //UpdateUI-Messages
+            App.MessageCreatedHandler += App_MessageCreatedHandler;
+            App.MessageDeletedHandler += App_MessageDeletedHandler;
+            App.MessageEditedHandler += App_MessageEditedHandler;
+            //UpdateUI-Channels
+            App.GuildChannelCreatedHandler += App_GuildChannelCreatedHandler;
+            //UpdateUI-Guilds
+            App.GuildCreatedHandler += App_GuildCreatedHandler;
+            App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
+
+        }
+
+        #region AppEvents
+
+        #region Navigation
+        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        {
+            App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
+            if (e.GuildId != "DMs")
             {
-                var uriLogo = new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png");
-
-                var currentTime = new DateTime();
-                var tileActivationArguments = "timeTileWasPinned=" + currentTime;
-
-                var tile = new Windows.UI.StartScreen.SecondaryTile(((sender as Button).Tag as Nullable<SharedModels.GuildChannel>).Value.Id, ((sender as Button).Tag as Nullable<SharedModels.GuildChannel>).Value.Name, tileActivationArguments, uriLogo, Windows.UI.StartScreen.TileSize.Default);
-                tile.VisualElements.ShowNameOnSquare150x150Logo = true;
-                tile.VisualElements.ShowNameOnWide310x150Logo = true;
-                tile.VisualElements.ShowNameOnWide310x150Logo = true;
-
-                bool isCreated = await tile.RequestCreateAsync();
-                if (isCreated)
+                MemberToggle.Visibility = Visibility.Visible;
+                if (Page.ActualWidth > 1500)
                 {
-                    MessageDialog msg = new MessageDialog("Pinned Succesfully");
-                    await msg.ShowAsync();
-                    (sender as Button).Content = "Unpin From Start";
+                    MembersPane.IsPaneOpen = true;
                 }
-                else
+
+                foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                 {
-                    MessageDialog msg = new MessageDialog("Failed to Pin");
-                    await msg.ShowAsync();
+                    if (guild.Id == e.GuildId)
+                    {
+                        ServerList.SelectedItem = guild;
+                    }
                 }
+
+                App.CurrentGuildId = e.GuildId;
+                RenderGuildChannels();
             } else
             {
-                var tileToDelete = new SecondaryTile(((sender as Button).Tag as Nullable<SharedModels.GuildChannel>).Value.Id);
+                App.CurrentGuildId = null;
+                MemberToggle.Visibility = Visibility.Collapsed;
+                MembersPane.IsPaneOpen = false;
+                RenderDMChannels();
+            }
 
-                bool isDeleted = await tileToDelete.RequestDeleteAsync();
-                if (isDeleted)
-                {
-                    MessageDialog msg = new MessageDialog("Removed Succesfully");
-                    await msg.ShowAsync();
-                    (sender as Button).Content = "Pin From Start";
-                }
-                else
-                {
-                    MessageDialog msg = new MessageDialog("Failed to Remove");
-                    await msg.ShowAsync();
-                }
-            }   
-        }
-
-        private void ClearColor(object sender, TappedRoutedEventArgs e)
-        {
-            (sender as ListViewItem).Background = GetSolidColorBrush("#00000000");
-        }
-
-        private void MuteAChannel(object sender, RoutedEventArgs e)
-        {
-            if ((sender as ToggleButton).Tag != null)
+            if (App.CurrentGuildId == null)
             {
-                if (Storage.MutedChannels.Contains((sender as ToggleButton).Tag.ToString()))
+                string[] channels = new string[LocalState.DMs.Count];
+                for (int x = 0; x < LocalState.DMs.Count; x++)
                 {
-                    Storage.MutedChannels.Remove((sender as ToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if (item.Tag.ToString() == (sender as ToggleButton).Tag.ToString())
-                        {
-                            /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] != User.messages.First().Id)
-                            {
-                                var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                                Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                                SolidColorBrush accent = new SolidColorBrush(c);
-                                accent.Opacity = Storage.settings.NMIOpacity / 100;
-                                item.Background = accent;
-                            }
-                            else
-                            {
-                                item.Background = GetSolidColorBrush("#00000000");
-                            }*/
-                            item.Background = GetSolidColorBrush("#00000000");
-                        }
-                    }
+                    channels[x] = LocalState.DMs.Values.ToList()[x].Id;
+                }
+                GatewayManager.Gateway.SubscribeToGuild(channels);
+            } else
+            {
+                string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
+                for (int x = 0; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
+                {
+                    channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
+                }
+                GatewayManager.Gateway.SubscribeToGuild(channels);
+            }
+        }
+        private void App_NavigateToGuildChannelHandler(object sender, App.GuildChannelNavigationArgs e)
+        {
+            if (App.CurrentGuildId == e.GuildId)
+            {
+                App.CurrentChannelId = e.ChannelId;
+                RenderMessages();
+            }
+            else //Out of guild navigation
+            {
+                //TODO: Out of guild navigation
+            }
+        }
+        private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
+        {
+            if (e.ChannelId != null) //Nav by ChannelId
+            {
+                if (App.CurrentGuildIsDM)
+                {
+                    App.CurrentChannelId = e.ChannelId;
+                    RenderMessages();
                 } else
                 {
-                    Storage.MutedChannels.Add((sender as ToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if (item.Tag.ToString() == (sender as ToggleButton).Tag.ToString())
-                        {
-                            SolidColorBrush brush = GetSolidColorBrush("#FFFF0000");
-                            brush.Opacity = Storage.Settings.NmiOpacity / 100;
-                            item.Background = brush;
-                        }
-                    }
+                    ServerList.SelectedIndex = 0;
+                    App.CurrentChannelId = e.ChannelId;
+                    RenderMessages();
                 }
-                Storage.SaveMessages();
-            } else if ((sender as AppBarToggleButton).Tag != null)
+            } else //Nav by UserId
             {
-                if (Storage.MutedChannels.Contains((sender as AppBarToggleButton).Tag.ToString()))
+                //TODO: Nav by UserId
+            }
+        }
+        #endregion
+
+        #region SubPages
+        private void SubFrameNavigator(Type page, object args = null)
+        {
+            //TOOD: Settings
+            //if (Storage.Settings.ExpensiveRender)
+            //{
+            //    content.Blur(2, 600).Start();
+            //}
+            content.Blur(2, 600).Start();
+            SubFrame.Visibility = Visibility.Visible;
+            SubFrame.Navigate(page, args);
+        }
+        private void App_SubpageClosedHandler(object sender, EventArgs e)
+        {
+            //TOOD: Settings
+            //if (Storage.Settings.ExpensiveRender)
+            //{
+            //    content.Blur(0, 600).Start();
+            //}
+            //else
+            //{
+            //    content.Blur(0, 0).Start();
+            //}
+            content.Blur(0, 600).Start();
+        }
+
+        private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.BugReport), e.Exception);
+        }
+        private void App_NavigateToChannelEditHandler(object sender, App.ChannelEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditChannel), e.ChannelId);
+        }
+        private void App_NavigateToCreateBanHandler(object sender, App.CreateBanNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateBan), e.UserId);
+        }
+        private void App_NavigateToCreateServerHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateServer));
+        }
+        private void App_NavigateToDeleteChannelHandler(object sender, App.DeleteChannelNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DeleteChannel), e.ChannelId);
+        }
+        private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DeleteServer), e.GuildId);
+        }
+        private void App_NavigateToGuildEditHandler(object sender, App.GuildEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditGuild), e.GuildId);
+        }
+        private void App_NavigateToJoinServerHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.JoinServer));
+        }
+        private void App_NavigateToLeaveServerHandler(object sender, App.LeaverServerNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.LeaveServer), e.GuildId);
+        }
+        private void App_NavigateToNicknameEditHandler(object sender, App.NicknameEditNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.EditNickname), e.UserId);
+        }
+        private void App_NavigateToProfileHandler(object sender, App.ProfileNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
+        }
+        private void App_OpenAttachementHandler(object sender, SharedModels.Attachment e)
+        {
+            SubFrameNavigator(typeof(SubPages.PreviewAttachement), e);
+        }
+        private void App_NavigateToChannelTopicHandler(object sender, App.ChannelTopicNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.ChannelTopic), e.Channel);
+        }
+        private void App_NavigateToCreateChannelHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateChannel));
+        }
+        private void App_NavigateToSettingsHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.Settings));
+        }
+        private void App_NavigateToAboutHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.About));
+        }
+        private void App_NavigateToAddServerHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.AddServer));
+        }
+        private void App_NavigateToMessageEditorHandler(object sender, App.MessageEditorNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e.Content);
+        }
+        #endregion
+
+        #region Flyouts
+        private void App_MenuHandler(object sender, App.MenuArgs e)
+        {
+            e.Flyout.ShowAt((sender as UIElement), e.Point);
+        }
+        #endregion
+
+        #region API
+        private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
+        {
+            await RESTCalls.CreateMessage(e.ChannelId, e.Message);
+        }
+
+        private async void App_StartTypingHandler(object sender, App.StartTypingArgs e)
+        {
+            await RESTCalls.TriggerTypingIndicator(e.ChannelId);
+        }
+
+        private void App_AddFriendHandler(object sender, App.AddFriendArgs e)
+        {
+
+        }
+
+        private void App_BlockUserHandler(object sender, App.BlockUserArgs e)
+        {
+
+        }
+
+        private void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
+        {
+
+        }
+
+        private void App_MarkGuildAsReadHandler(object sender, App.MarkGuildAsReadArgs e)
+        {
+
+        }
+
+        private void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
+        {
+
+        }
+
+        private void App_MuteGuildHandler(object sender, App.MuteGuildArgs e)
+        {
+
+        }
+
+        private void App_RemoveFriendHandler(object sender, App.RemoveFriendArgs e)
+        {
+
+        }
+        #endregion
+
+        #region UpdateUI
+
+        #region RenderElement
+        public void PopulateMessageArea()
+        {
+            MessageList.Items.Clear();
+            SendMessage.Visibility = Visibility.Visible;
+            if (Page.ActualWidth <= 500)
+            {
+                CompressedChannelHeader.Visibility = Visibility.Visible;
+            }
+        }
+        public void ClearMessageArea()
+        {
+            friendPanel.Visibility = Visibility.Collapsed;
+            MessageList.Items.Clear();
+            SendMessage.Visibility = Visibility.Collapsed;
+            CompressedChannelHeader.Visibility = Visibility.Collapsed;
+        }
+
+        public void RenderCurrentUser()
+        {
+            ImageBrush image = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + LocalState.CurrentUser.Id + "/" + LocalState.CurrentUser.Avatar + ".jpg")) };
+            Avatar.Fill = image;
+            LargeAvatar.Fill = image;
+            Username.Text = LocalState.CurrentUser.Username;
+            Discriminator.Text = "#" + LocalState.CurrentUser.Discriminator;
+            LargeUsername.Text = Username.Text;
+            LargeDiscriminator.Text = Discriminator.Text;
+        }
+
+        public void RenderGuilds()
+        {
+            GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
+            DM.Id = "DMs";
+            //DM.Name = App.GetString("/Main/DirectMessages");
+            DM.Name = "Direct Messages";
+            DM.IsDM = true;
+            foreach (var chn in LocalState.DMs.Values)
+                if (LocalState.RPC.ContainsKey(chn.Id))
                 {
-                    Storage.MutedChannels.Remove((sender as AppBarToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if (item.Tag.ToString() == (sender as AppBarToggleButton).Tag.ToString())
-                        {
-                            /*if (Storage.RecentMessages.ContainsKey(item.Tag.ToString()) && Storage.RecentMessages[item.Tag.ToString()] < User.messages.First().Timestamp.Ticks)
-                            {
-                                var uiSettings = new Windows.UI.ViewManagement.UISettings();
-                                Windows.UI.Color c = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-                                SolidColorBrush accent = new SolidColorBrush(c);
-                                accent.Opacity = Storage.settings.NMIOpacity / 100;
-                                item.Background = accent;
-                            } else
-                            {
-                                item.Background = GetSolidColorBrush("#00000000");
-                            }*/
-                            item.Background = GetSolidColorBrush("#00000000");
-                        }
-                    }
+                    ReadState readstate = LocalState.RPC[chn.Id];
+                    DM.NotificationCount += readstate.MentionCount;
+                    var StorageChannel = LocalState.DMs[chn.Id];
+                    if (StorageChannel.LastMessageId != null &&
+                        readstate.LastMessageId != StorageChannel.LastMessageId)
+                        DM.IsUnread = true;
+                }
+            ServerList.Items.Add(DM);
+
+            foreach (var guild in LocalState.Guilds.OrderBy(x => x.Value.Position))
+            {
+                var sg = new GuildManager.SimpleGuild();
+                sg.Id = guild.Value.Raw.Id;
+                if (guild.Value.Raw.Icon != null && guild.Value.Raw.Icon != "")
+                {
+                    sg.ImageURL = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg";
                 }
                 else
                 {
-                    Storage.MutedChannels.Add((sender as AppBarToggleButton).Tag.ToString());
-                    foreach (ListViewItem item in TextChannels.Items)
-                    {
-                        if (item.Tag.ToString() == (sender as AppBarToggleButton).Tag.ToString())
-                        {
-                            item.Background = GetSolidColorBrush("#11FF0000");
-                        }
-                    }
+                    sg.ImageURL = "empty";
                 }
-                Storage.SaveMessages();
+                sg.Name = guild.Value.Raw.Name;
+
+                sg.IsMuted = LocalState.GuildSettings.ContainsKey(guild.Key) ? LocalState.GuildSettings[guild.Key].raw.Muted : false;
+                sg.IsUnread = false; //Will change if true
+                foreach (var chn in guild.Value.channels.Values)
+                    if (LocalState.RPC.ContainsKey(chn.raw.Id))
+                    {
+                        ReadState readstate = LocalState.RPC[chn.raw.Id];
+                        sg.NotificationCount += readstate.MentionCount;
+                        var StorageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
+                        if (readstate.LastMessageId != StorageChannel.LastMessageId && !sg.IsMuted)
+                            sg.IsUnread = true;
+                    }
+                ServerList.Items.Add(sg);
             }
         }
 
-
-        private void LoadChannelMessages(object sender, SelectionChangedEventArgs e)
+        public void RenderDMChannels()
         {
-            if (TextChannels.SelectedIndex != -1)
+            ClearMessageArea();
+            ServerNameButton.Visibility = Visibility.Collapsed;
+            FriendsButton.Visibility = Visibility.Visible;
+
+            //Select FriendPanel
+            FriendsButton.IsChecked = true;
+            friendPanel.Visibility = Visibility.Visible;
+
+            AddChannelButton.Visibility = Visibility.Collapsed;
+            ChannelName.Text = "";
+            CompChannelName.Text = "";
+
+            ChannelList.Items.Clear();
+
+            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
-                DMs.Visibility = Visibility.Collapsed;
-                if (Storage.Settings.AutoHideChannels)
+                ChannelList.Items.Add(channel);
+            }
+        }
+
+        public void RenderGuildChannels() //App.CurrentGuildId is set
+        {
+            ClearMessageArea();
+            ServerNameButton.Visibility = Visibility.Visible;
+            FriendsButton.Visibility = Visibility.Collapsed;
+            AddChannelButton.Visibility = Visibility.Visible;
+            ChannelName.Text = "";
+            CompChannelName.Text = "";
+            ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
+
+            ChannelList.Items.Clear();
+
+            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()))
+            {
+                ChannelList.Items.Add(channel);
+            }
+        }
+
+        public async void RenderMessages() //App.CurrentChannelId is set
+        {
+            FriendsButton.IsChecked = false;
+            friendPanel.Visibility = Visibility.Collapsed;
+            PopulateMessageArea();
+
+            ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
+            CompChannelName.Text = ChannelName.Text;
+
+            MessageList.Items.Clear();
+            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());
+            if (messages != null)
+            {
+                foreach (var message in messages)
                 {
-                    Details_Width.Width = new GridLength(0);
-                    DetailToggler.IsChecked = false;
+                    MessageList.Items.Add(message);
                 }
-                //Loading_Backdrop.Visibility = Visibility.Visible;
-                LoadingRing.IsActive = true;
-                PinnedAppButton.Visibility = Visibility.Visible;
-                SendMessage.Visibility = Visibility.Visible;
-                MuteChannelToggle.Tag = ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id;
-                MuteChannelToggle.IsChecked = Storage.MutedChannels.Contains(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-                MuteChannelToggle.Visibility = Visibility.Visible;
-                Tip.Visibility = Visibility.Collapsed;
+            }
+        }
 
+        public void UpdateTyping()
+        {
+            string typingString = "";
+            int DisplayedTyperCounter = 0;
+            List<string> NamesTyping = new List<string>();
+            foreach (var channel in ChannelList.Items)
+                (channel as ChannelManager.SimpleChannel).IsTyping = false;
+            for (int i = 0; i < LocalState.Typers.Count; i++)
+            {
+                var typer = LocalState.Typers.ElementAt(i);
 
-                Messages.Children.Clear();
-                ListViewItem loadmsgs = new ListViewItem();
-                loadmsgs.Content = "Load more messages";
-                loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-                loadmsgs.Tapped += LoadMoreMessages;
-                loadmsgs.Visibility = Visibility.Collapsed;
-                Messages.Children.Add(loadmsgs);
-
-                int adCheck = 5;
-
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
+                try
                 {
-                    adCheck--;
-                    Messages.Children.Insert(1, MessageRender(message.Value.Raw));
-                    if (adCheck == 0 && ShowAds)
-                    {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        Messages.Children.Insert(1, adstack);
-                        adCheck = 5;
-                    }
+                    (ChannelList.Items.FirstOrDefault(
+                            x => (x as ChannelManager.SimpleChannel).Id == typer.Key.channelId) as ChannelManager.SimpleChannel)
+                        .IsTyping = true;
                 }
-
-                PinnedMessages.Items.Clear();
-
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
+                catch (Exception exception)
                 {
-                    adCheck--;
-                    PinnedMessages.Items.Insert(0, MessageRender(message.Value.Raw));
-                    if (adCheck == 0 && ShowAds)
-                    {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        PinnedMessages.Items.Insert(1, adstack);
-                        adCheck = 5;
-                    }
+                    App.NavigateToBugReport(exception);
                 }
-
-                foreach (KeyValuePair<string, CacheModels.GuildChannel> channel in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels)
+                if (App.CurrentChannelId != null)
                 {
-                    if (channel.Value.Raw.Id == ((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id)
+                    if (App.CurrentGuildIsDM)
                     {
-                        ChannelName.Text = "#" + channel.Value.Raw.Name;
-
-                        if (channel.Value.Raw.Topic != null)
+                        if (App.CurrentChannelId == typer.Key.channelId)
                         {
-                            ChannelTopic.Text = channel.Value.Raw.Topic;
+                            NamesTyping.Add(LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(m => m.Id == typer.Key.userId).Username);
+                        }
+                    }
+                    else
+                    {
+                        if (App.CurrentChannelId == typer.Key.channelId &&
+                            LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(typer.Key.userId))
+                        {
+                            var member = LocalState.Guilds[App.CurrentGuildId].members[typer.Key.userId];
+                            string DisplayedName = member.User.Username;
+                            if (member.Nick != null) DisplayedName = member.Nick;
+                            NamesTyping.Add(DisplayedName);
+                        }
+
+                        //TODO: Member list
+                        //TODO: Display typing indicator on member list
+                    }
+                }
+            }
+
+            DisplayedTyperCounter = NamesTyping.Count();
+            for (int i = 0; i < DisplayedTyperCounter; i++)
+            {
+                if (i == 0)
+                    typingString += NamesTyping.ElementAt(i); //first element, no prefix
+                else if (i == 2 && i == DisplayedTyperCounter)
+                    typingString += " " + App.GetString("/Main/TypingAnd") + " " + " " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
+                else if (i == DisplayedTyperCounter)
+                    typingString +=
+                        ", " + App.GetString("/Main/TypingAnd") + " " +
+                        NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
+                else
+                    typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
+            }
+            if (DisplayedTyperCounter > 1)
+                typingString += " " + App.GetString("/Main/TypingPlural");
+            else
+                typingString += " " + App.GetString("/Main/TypingSingular");
+
+            if (DisplayedTyperCounter == 0)
+            {
+                TypingStackPanel.Fade(0, 200).Start();
+            }
+            else
+            {
+                TypingIndicator.Text = typingString;
+                TypingStackPanel.Fade(1, 200).Start();
+            }
+        }
+
+        private async void UpdateGuildAndChannelUnread()
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
+                    if (FriendsNotificationCounter.Text != "0")
+                    {
+                        ShowFriendsBadge.Begin();
+                    } else
+                    {
+                        HideFriendsBadge.Begin();
+                    }
+                    int Fullcount = 0;
+                    foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                    {
+                        GuildManager.SimpleGuild gclone = guild.Clone();
+                        gclone.NotificationCount = 0; //Will Change if true
+                        gclone.IsUnread = false; //Will change if true
+                        if (gclone.Id == "DMs")
+                        {
+                            //if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest) //TODO:
+                            //{
+                            //    gclone.NotificationCount += App.FriendNotifications;
+                            //}
+
+                            foreach (var chn in LocalState.DMs.Values)
+                                if (LocalState.RPC.ContainsKey(chn.Id))
+                                {
+                                    ReadState readstate = LocalState.RPC[chn.Id];
+                                    //if (Storage.Settings.FriendsNotifyDMs) //TODO
+                                    if (true)
+                                    {
+                                        gclone.NotificationCount += readstate.MentionCount;
+                                        Fullcount += readstate.MentionCount;
+                                    }
+                                    var StorageChannel = LocalState.DMs[chn.Id];
+                                    if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
+                                        gclone.IsUnread = true;
+                                }
                         }
                         else
                         {
-                            ChannelTopic.Text = "";
+                            foreach (var chn in LocalState.Guilds[gclone.Id].channels.Values)
+                                if (LocalState.RPC.ContainsKey(chn.raw.Id))
+                                {
+                                    ReadState readstate = LocalState.RPC[chn.raw.Id];
+                                    gclone.NotificationCount += readstate.MentionCount;
+                                    Fullcount += readstate.MentionCount;
+                                    var StorageChannel = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
+                                    if (StorageChannel.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId && !LocalState.GuildSettings.ContainsKey(chn.raw.GuildId) ? (LocalState.GuildSettings[chn.raw.GuildId].channelOverrides.ContainsKey(chn.raw.Id) ? LocalState.GuildSettings[chn.raw.GuildId].channelOverrides[chn.raw.Id].Muted : false) : false)
+                                        gclone.IsUnread = true;
+                                }
+                        }
+                        guild.Id = gclone.Id;
+                        guild.ImageURL = gclone.ImageURL;
+                        guild.IsDM = gclone.IsDM;
+                        guild.IsMuted = gclone.IsMuted;
+                        guild.IsUnread = gclone.IsUnread;
+                        guild.Name = gclone.Name;
+                        guild.NotificationCount = gclone.NotificationCount;
+                    }
+                    if (App.CurrentGuildIsDM)
+                    {
+                        foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                            if (LocalState.RPC.ContainsKey(sc.Id))
+                            {
+                                ReadState readstate = LocalState.RPC[sc.Id];
+                                sc.NotificationCount = readstate.MentionCount;
+                                var StorageChannel = LocalState.DMs[sc.Id];
+                                if (StorageChannel.LastMessageId != null &&
+                                    readstate.LastMessageId != StorageChannel.LastMessageId)
+                                    sc.IsUnread = true;
+                                else
+                                    sc.IsUnread = false;
+                            }
+                    }
+                    else
+                    {
+                        if (App.CurrentGuildId != null) //Incase called before intiialization
+                        {
+                            foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                                if (LocalState.RPC.ContainsKey(sc.Id))
+                                {
+                                    ReadState readstate = LocalState.RPC[sc.Id];
+                                    sc.NotificationCount = readstate.MentionCount;
+                                    var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
+                                    if (StorageChannel != null && StorageChannel.raw.LastMessageId != null &&
+                                        readstate.LastMessageId != StorageChannel.raw.LastMessageId)
+                                        sc.IsUnread = true;
+                                    else
+                                        sc.IsUnread = false;
+                                }
                         }
                     }
-                }
 
-                //Loading_Backdrop.Visibility = Visibility.Collapsed;
-                LoadingRing.IsActive = false;
-                DownloadChannelMessages();
+                    //if (Storage.Settings.FriendsNotifyFriendRequest) //TODO
+                    //{
+                    //    Fullcount += App.FriendNotifications;
+                    //}
+
+                    //if (App.FriendNotifications > 0) //TODO
+                    //{
+                    //    FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
+                    //    ShowFriendsBadge.Begin();
+                    //}
+                    //else
+                    //{
+                    //    HideFriendsBadge.Begin();
+                    //}
+
+                    //if (Fullcount > 0) //TODO
+                    //{
+                    //    ShowBadge.Begin();
+                    //    BurgerNotificationCounter.Text = Fullcount.ToString();
+                    //}
+
+                });
+        }
+        #endregion
+
+        private async void App_ReadyRecievedHandler(object sender, EventArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     RenderCurrentUser();
+                     RenderGuilds();
+                     ServerList.SelectedIndex = 0;
+                     friendPanel.Load();
+                     App.UpdateUnreadIndicators();
+                     Loading.Hide(true);
+                 });
+        }
+
+        private async void App_TypingHandler(object sender, App.TypingArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    UpdateTyping();
+                });
+        }
+
+        private async void App_UpdateUnreadIndicatorsHandler(object sender, EventArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     UpdateGuildAndChannelUnread();
+                 });
+        }
+
+        #region Messages
+        private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (MessageList.Items.Count > 0)
+                     {
+                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     }
+                 });
+        }
+
+        private async void App_MessageDeletedHandler(object sender, App.MessageDeletedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (MessageList.Items.Count > 0)
+                     {
+                         foreach (MessageManager.MessageContainer message in MessageList.Items)
+                         {
+                             if (message.Message.HasValue && message.Message.Value.Id == e.MessageId)
+                             {
+                                 MessageList.Items.Remove(message);
+                             }
+                         }
+                     }
+                 });
+        }
+
+        private async void App_MessageEditedHandler(object sender, App.MessageEditedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (MessageList.Items.Count > 0)
+                     {
+                         foreach (MessageManager.MessageContainer message in MessageList.Items)
+                         {
+                             if (message.Message.HasValue && message.Message.Value.Id == e.Message.Id)
+                             {
+                                 message.Message = e.Message;
+                             }
+                         }
+                     }
+                 });
+        }
+
+        #endregion
+
+        #region Channel
+        private async void App_GuildChannelCreatedHandler(object sender, App.GuildChannelCreatedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (ChannelList.Items.Count > 0)
+                     {
+                         ChannelList.Items.Add(ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]));
+                     }
+                 });
+        }
+
+        private async void App_GuildChannelDeletedHandler(object sender, App.GuildChannelDeletedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+
+                     if (ChannelList.Items.Count > 0)
+                     {
+                         foreach (ChannelManager.SimpleChannel channel in ChannelList.Items)
+                         {
+                             if (channel.Id == e.ChannelId)
+                             {
+                                 ChannelList.Items.Remove(channel);
+                             }
+                         }
+                     }
+                 });
+        }
+        #endregion
+
+        #region Guilds
+        private async void App_GuildCreatedHandler(object sender, App.GuildCreatedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     ServerList.Items.Insert(1, GuildManager.CreateGuild(e.Guild));
+                 });
+        }
+        #endregion
+        #endregion
+
+        #endregion
+
+        #region UIEvents
+        private void ToggleSplitView(object sender, RoutedEventArgs e)
+        {
+            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
+            {
+                DarkenMessageArea.Begin();
+            }
+            ServersnChannelsPane.IsPaneOpen = !ServersnChannelsPane.IsPaneOpen;
+        }
+
+        private void ServersnChannelsPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
+        {
+            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
+            {
+                LightenMessageArea.Begin();
             }
         }
 
-        private async void DownloadChannelMessages()
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Messages.Children.Clear();
-            ListViewItem loadmsgs = new ListViewItem();
-            loadmsgs.Content = "Load more messages";
-            loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-            loadmsgs.Tapped += LoadMoreMessages;
-            loadmsgs.Visibility = Visibility.Collapsed;
-            Messages.Children.Add(loadmsgs);
-
-            IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-
-            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Clear();
-
-            foreach (SharedModels.Message message in messages)
+            if ((sender as Page).ActualWidth > 1500)
             {
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
+                VisualStateManager.GoToState(this, "ExtraLarge", true);
+            } else if ((sender as Page).ActualWidth > 1000)
+            {
+                VisualStateManager.GoToState(this, "Large", true);
+            } else if ((sender as Page).ActualWidth > 500)
+            {
+                VisualStateManager.GoToState(this, "Medium", true);
+            } else
+            {
+                VisualStateManager.GoToState(this, "Small", true);
             }
+        }
 
-            int adCheck = 5;
+        private void UserStatus_Checked(object sender, RoutedEventArgs e)
+        {
+            //TODO: Update status
+        }
 
-            foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages)
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToSettings();
+        }
+
+        private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+        }
+
+        private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ChannelList.SelectedItem != null) //Called on clear
             {
-                adCheck--;
-                Messages.Children.Insert(1, MessageRender(message.Value.Raw));
-                if (adCheck == 0 && ShowAds)
+                if (App.CurrentGuildIsDM)
                 {
-                    StackPanel adstack = new StackPanel();
-                    adstack.Orientation = Orientation.Horizontal;
-
-                    TextBlock txt = new TextBlock();
-                    txt.Text = "Ad:";
-                    adstack.Children.Add(txt);
-                    AdControl ad = new AdControl();
-                    ad.HorizontalAlignment = HorizontalAlignment.Left;
-                    ad.Width = 300;
-                    ad.Height = 50;
-                    ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                    ad.AdUnitId = "336795";
-                    ad.Tag = "Ad";
-                    adstack.Children.Add(ad);
-                    Messages.Children.Insert(1, adstack);
-                    adCheck = 5;
-                }
-            }
-
-
-            PinnedMessages.Items.Clear();
-            await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-
-
-            IEnumerable<SharedModels.Message> pinnedmessages = await Session.GetChannelPinnedMessages(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id);
-
-            Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Clear();
-
-            foreach (SharedModels.Message message in pinnedmessages)
-            {
-                Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages.Add(message.Id, new CacheModels.Message(message));
-            }
-
-            adCheck = 5;
-
-            foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].PinnedMessages)
-            {
-                adCheck--;
-                PinnedMessages.Items.Insert(0, MessageRender(message.Value.Raw));
-                if (adCheck == 0 && ShowAds)
-                {
-                    StackPanel adstack = new StackPanel();
-                    adstack.Orientation = Orientation.Horizontal;
-
-                    TextBlock txt = new TextBlock();
-                    txt.Text = "Ad:";
-                    adstack.Children.Add(txt);
-                    AdControl ad = new AdControl();
-                    ad.HorizontalAlignment = HorizontalAlignment.Left;
-                    ad.Width = 300;
-                    ad.Height = 50;
-                    ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                    ad.AdUnitId = "336795";
-                    ad.Tag = "Ad";
-                    adstack.Children.Add(ad);
-                    PinnedMessages.Items.Insert(1, adstack);
-                    adCheck = 5;
-                }
-            }
-
-            if (TextChannels.SelectedItem != null && Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].Channels[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id].Messages != null)
-            {
-                if (Storage.RecentMessages.ContainsKey(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id))
-                {
-                    Storage.RecentMessages[((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id] = ((Messages.Children.Last() as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id;
+                    App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
                 }
                 else
                 {
-                    Storage.RecentMessages.Add(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, ((Messages.Children.Last() as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id);
-                }
-            }
-            Storage.SaveMessages();
-            Storage.SaveCache();
-        }
-
-
-        private async void LoadMoreMessages(object sender, TappedRoutedEventArgs e)
-        {
-            IEnumerable<SharedModels.Message> msgs;
-            if (ServerList.SelectedIndex == 0)
-            {
-                msgs = await Session.GetChannelMessagesBefore((DMs.SelectedItem as ListViewItem).Tag.ToString(), (Messages.Children[1] as ListViewItem).Tag.ToString());
-            }
-            else
-            {
-                msgs = await Session.GetChannelMessagesBefore(((TextChannels.SelectedItem as ListViewItem).Tag as CacheModels.GuildChannel).Raw.Id, (Messages.Children[1] as ListViewItem).Tag.ToString());
-            }
-
-            if (msgs != null)
-            {
-                int adCheck = 1;
-                foreach (SharedModels.Message msg in msgs)
-                {
-                    adCheck--;
-                    Messages.Children.Insert(1, MessageRender(msg));
-                    if (adCheck == 0 && ShowAds)
-                    {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        Messages.Children.Insert(1, adstack);
-                    }
-                }
-            }
-            else
-            {
-                MessageDialog msg = new MessageDialog("Task failed, please try again");
-                await msg.ShowAsync();
-            }
-        }
-
-
-        private void ShowPinnedFlyout(object sender, RoutedEventArgs e)
-        {
-            if (PinnedPopup.Visibility == Visibility.Visible)
-            {
-                PinnedPopup.Visibility = Visibility.Collapsed;
-            } else
-            {
-                PinnedPopup.Visibility = Visibility.Visible;
-            }
-        }
-
-        private async void GetDmData(object sender, SelectionChangedEventArgs e)
-        {
-            //Loading_Backdrop.Visibility = Visibility.Visible;
-            LoadingRing.IsActive = true;
-
-            //await User.gateway.ConnectAsync();
-
-            if (DMs.SelectedIndex != -1)
-            {
-                SendMessage.Visibility = Visibility.Visible;
-                Tip.Visibility = Visibility.Collapsed;
-                MuteChannelToggle.Visibility = Visibility.Collapsed;
-                if (Storage.Settings.AutoHideChannels)
-                {
-                    DetailToggler.IsChecked = false;
-                    Details_Width.Width = new GridLength(0);
-                }
-                Messages.Children.Clear();
-                int adCheck = 5;
-                ListViewItem loadmsgs = new ListViewItem();
-                loadmsgs.Content = "Load more messages";
-                loadmsgs.HorizontalAlignment = HorizontalAlignment.Stretch;
-                //loadmsgs.Visibility = Visibility.Collapsed;
-                loadmsgs.Tapped += LoadMoreMessages;
-                Messages.Children.Add(loadmsgs);
-
-                IEnumerable<SharedModels.Message> messages = await Session.GetChannelMessages(((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id);
-
-                foreach (SharedModels.Message message in messages)
-                {
-                    Storage.Cache.DMs[((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages.Add(message.Id, new CacheModels.Message(message));
-                }
-
-                foreach (KeyValuePair<string, CacheModels.Message> message in Storage.Cache.DMs[((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages)
-                {
-                    adCheck--;
-                    Messages.Children.Insert(1, MessageRender(message.Value.Raw));
-                    if (adCheck == 0 && ShowAds)
-                    {
-                        StackPanel adstack = new StackPanel();
-                        adstack.Orientation = Orientation.Horizontal;
-
-                        TextBlock txt = new TextBlock();
-                        txt.Text = "Ad:";
-                        adstack.Children.Add(txt);
-                        AdControl ad = new AdControl();
-                        ad.HorizontalAlignment = HorizontalAlignment.Left;
-                        ad.Width = 300;
-                        ad.Height = 50;
-                        ad.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
-                        ad.AdUnitId = "336795";
-                        ad.Tag = "Ad";
-                        adstack.Children.Add(ad);
-                        Messages.Children.Insert(1, adstack);
-                        adCheck = 5;
-                    }
-                }
-
-                ChannelName.Text = "@" + Storage.Cache.DMs[((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Raw.User.Username;
-
-                /*foreach (KeyValuePair<string, CacheModels.DMCache> channel in Storage.cache.DMs)
-                {
-                    if (channel.Key== (((DMs.SelectedItem as ListViewItem).Tag as Nullable<SharedModels.DirectMessageChannel>).Value.Id)
-                    {
-                        ChannelName.Text = "@" + channel.Value.raw.User.Username;
-                        ChannelTopic.Text = "";
-                    }
-                }*/
-            }
-
-            if (DMs.SelectedItem != null && Storage.Cache.DMs[((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id].Messages != null)
-            {
-                if (Storage.RecentMessages.ContainsKey(((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id))
-                {
-                    Storage.RecentMessages[((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw
-                        .Id] = ((Messages.Children.Last() as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id;
-                }
-                else
-                {
-                    Storage.RecentMessages.Add(((DMs.SelectedItem as ListViewItem).Tag as CacheModels.DmCache).Raw.Id, ((Messages.Children.Last() as ListViewItem).Tag as Nullable<SharedModels.Message>).Value.Id);
-                }
-            }
-            //Loading_Backdrop.Visibility = Visibility.Collapsed;
-            LoadingRing.IsActive = false;
-        }
-
-        private void OpenUserSettings(object sender, RoutedEventArgs e)
-        {
-            /*EmailChange.PlaceholderText = User.CurrentUser.Email;
-            UsernameChange.PlaceholderText = User.CurrentUser.Username;*/
-            LockChannelList.IsOn = Storage.Settings.LockChannels;
-            if (Storage.Settings.LockChannels)
-            {
-                AutoHideChannels.IsEnabled = false;
-            }
-            AutoHideChannels.IsOn = Storage.Settings.AutoHideChannels;
-            AutoHidePeople.IsOn = Storage.Settings.AutoHidePeople;
-            HighlightEveryone.IsOn = Storage.Settings.HighlightEveryone;
-            Toasts.IsOn = Storage.Settings.Toasts;
-            UserSettings.Visibility = Visibility.Visible;
-        }
-
-        private void OpenChannelSettings(object sender, RoutedEventArgs e)
-        {
-            SharedModels.GuildChannel channel = Session.GetGuildChannel((sender as Button).Tag.ToString());
-            ChannelNameChange.Text = channel.Name;
-            ChannelNameChange.PlaceholderText = channel.Name;
-            if (channel.Topic != null)
-            {
-                ChannelTopicChnage.Text = channel.Topic;
-                ChannelTopicChnage.PlaceholderText = channel.Topic;
-            }
-            _settingsChannel = (sender as Button).Tag.ToString();
-            ChannelSettings.Visibility = Visibility.Visible;
-        }
-
-        private async void OpenGuildSettings(object sender, RoutedEventArgs e)
-        {
-            //Loading_Backdrop.Visibility = Visibility.Visible;
-            LoadingRing.IsActive = true;
-            await Session.GetGuild((sender as Button).Tag.ToString());
-            SharedModels.Guild guild = Session.Guild;
-            ServerNameChange.Text = guild.Name;
-            ServerNameChange.PlaceholderText = guild.Name;
-            _settingsChannel = (sender as Button).Tag.ToString();
-            GuildSettings.Visibility = Visibility.Visible;
-            //Loading_Backdrop.Visibility = Visibility.Collapsed;
-            LoadingRing.IsActive = false;
-        }
-
-        private void CloseUserSettings(object sender, RoutedEventArgs e)
-        {
-            UserSettings.Visibility = Visibility.Collapsed;
-        }
-
-        private void CloseChannelSettings(object sender, RoutedEventArgs e)
-        {
-            ChannelSettings.Visibility = Visibility.Collapsed;
-        }
-
-        private void CloseGuildSettings(object sender, RoutedEventArgs e)
-        {
-            GuildSettings.Visibility = Visibility.Collapsed;
-        }
-
-        private void SaveUserSettings(object sender, RoutedEventArgs e)
-        {
-            UserSettings.Visibility = Visibility.Collapsed;
-
-            Storage.Settings.AutoHideChannels = AutoHideChannels.IsOn;
-            Storage.Settings.AutoHidePeople = AutoHidePeople.IsOn;
-            Storage.Settings.HighlightEveryone = HighlightEveryone.IsOn;
-            Storage.Settings.Toasts = Toasts.IsOn;
-            Storage.Settings.DetailsViewSize = DetailsSize.Value;
-            Storage.Settings.NmiOpacity = NMIOp.Value;
-            Storage.Settings.LockChannels = LockChannelList.IsOn;
-            if (LockChannelList.IsOn)
-            {
-                DetailToggler.Visibility = Visibility.Collapsed;
-                Details_Width.Width = new GridLength(Storage.Settings.DetailsViewSize);
-            } else
-            {
-                DetailToggler.Visibility = Visibility.Visible;
-            }
-            Storage.SaveAppSettings();
-        }
-
-        private void SaveChannelSettings(object sender, RoutedEventArgs e)
-        {
-            ChannelSettings.Visibility = Visibility.Collapsed;
-            Session.ModifyGuildChannel(_settingsChannel, ChannelNameChange.Text, ChannelTopicChnage.Text);
-        }
-
-        private void SaveGuildSettings(object sender, RoutedEventArgs e)
-        {
-            GuildSettings.Visibility = Visibility.Collapsed;
-            Session.ModifyGuild(_settingsChannel, ServerNameChange.Text);
-        }
-
-
-        private void Logout(object sender, RoutedEventArgs e)
-        {
-            Storage.Clear();
-            Session.Logout();
-            this.Frame.Navigate(typeof(LockScreen));
-        }
-
-
-        string _settingsChannel;
-
-        private void ChangeUserSettingsMenu(object sender, SelectionChangedEventArgs e)
-        {
-            if (UserAccount_Menu != null)
-            {
-                switch ((sender as ListView).SelectedIndex)
-                {
-                    case 0:
-                        UserAccount_Menu.Visibility = Visibility.Visible;
-                        UI_Menu.Visibility = Visibility.Collapsed;
-                        UserNotifications_Menu.Visibility = Visibility.Collapsed;
-                        break;
-                    case 1:
-                        UserAccount_Menu.Visibility = Visibility.Collapsed;
-                        UI_Menu.Visibility = Visibility.Visible;
-                        UserNotifications_Menu.Visibility = Visibility.Collapsed;
-                        break;
-                    case 2:
-                        UserAccount_Menu.Visibility = Visibility.Collapsed;
-                        UI_Menu.Visibility = Visibility.Collapsed;
-                        UserNotifications_Menu.Visibility = Visibility.Visible;
-                        break;
+                    App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
                 }
             }
         }
 
-        private void ChangeGuildSettingsMenu(object sender, SelectionChangedEventArgs e)
-        { 
-            if (GuildOverview_Menu != null)
-            {
-                switch ((sender as ListView).SelectedIndex)
-                {
-                    case 0:
-                        GuildOverview_Menu.Visibility = Visibility.Visible;
-                        GuildRoles_Menu.Visibility = Visibility.Collapsed;
-                        break;
-                    case 1:
-                        GuildOverview_Menu.Visibility = Visibility.Collapsed;
-                        RoleList.Items.Clear();
-                        foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
-                        {
-                            ListViewItem listviewitem = new ListViewItem();
-                            listviewitem.Content = role.Name;
-                            if (role.Color != 0)
-                            {
-                                listviewitem.Foreground = IntToColor(role.Color);
-                            }
-                            listviewitem.Tag = role.Id;
-                            RoleList.Items.Add(listviewitem);
-                        }
-                        GuildRoles_Menu.Visibility = Visibility.Visible;
-                        break;
-                }
-            }
-        }
-
-        private void ChangeChannelSettingsMenu(object sender, SelectionChangedEventArgs e)
+        private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (ChannelOverview_Menu != null)
-            {
-                switch ((sender as ListView).SelectedIndex)
-                {
-                    case 0:
-                        ChannelOverview_Menu.Visibility = Visibility.Visible;
-                        ChannelFriends_Menu.Visibility = Visibility.Collapsed;
-                        ChannelNotifications_Menu.Visibility = Visibility.Collapsed;
-                        break;
-                }
-            }
+            App.NavigateToCreateChannel();
         }
 
-        private void CloseProfPop(object sender, RoutedEventArgs e)
+        private void AddServer(object sender, RoutedEventArgs e)
         {
-            ProfilePopup.Visibility = Visibility.Collapsed;
+            App.NavigateToAddServer();
         }
 
-        private void OpenWhatNew(object sender, RoutedEventArgs e)
+        private void OpenFriendPanel(object sender, RoutedEventArgs e)
         {
-            if (WhatNew.Visibility == Visibility.Visible)
-            {
-                WhatNew.Visibility = Visibility.Collapsed;
-            } else
-            {
-                WhatNew.Visibility = Visibility.Visible;
-            }
+            ClearMessageArea();
+            FriendsButton.IsChecked = true;
+            ChannelList.SelectedIndex = -1;
+            friendPanel.Visibility = Visibility.Visible;
         }
 
-        private void CloseWhatNew(object sender, RoutedEventArgs e)
+        private void ServerNameButton_Click(object sender, RoutedEventArgs e)
         {
-            WhatNew.Visibility = Visibility.Collapsed;
-            WhatNewButton.IsChecked = false;
+            App.NavigateToGuildEdit(App.CurrentGuildId);
         }
 
-        private void CloseChannelCreate(object sender, RoutedEventArgs e)
+        private void CreateMessage(object sender, RoutedEventArgs e)
         {
-            CreateChannel.Visibility = Visibility.Collapsed;
+            App.CreateMessage(App.CurrentChannelId, MessageBox1.Text);
+            MessageBox1.Text = "";
         }
 
-        private async void OpenTwitter(object sender, RoutedEventArgs e)
+        private void TypingStarted(object sender, TextChangedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://twitter.com/AvishaiDernis"));
+            App.StartTyping(App.CurrentChannelId);
         }
 
-        private async void OpenDiscordWeb(object sender, RoutedEventArgs e)
+        private void MessageBox1_OpenAdvanced(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discord.gg/HWTEfjW"));
+            App.NavigateToMessageEditor(MessageBox1.Text);
+            MessageBox1.Text = "";
         }
 
-        private void SwitchEditRoleView(object sender, SelectionChangedEventArgs e)
+        private void ToggleMemberPane(object sender, RoutedEventArgs e)
         {
-            RolePermissionsList.Visibility = Visibility.Visible;
-            Permissions perms = new Permissions();
-            bool manageable = false;
-            foreach (SharedModels.Role role in Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles)
+            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
             {
-                if (role.Id == ((sender as ListView).SelectedItem as ListViewItem).Tag.ToString())
-                {
-                    perms.GetPermissions(role, Storage.Cache.Guilds[(ServerList.SelectedItem as ListViewItem).Tag.ToString()].RawGuild.Roles);
-                    /*foreach (SharedModels.Role userrole in User.guild.Roles)
-                    {
-                        if (User.memberdict[User.CurrentUser.Id].Roles.First() == userrole.Id)
-                        {
-                            if (role.Position >= userrole.Position)
-                            {
-                                Manageable = false;
-                            } else
-                            {
-                                Manageable = true;
-                            }
-                        }
-                    }*/
-                }
+                DarkenMessageArea.Begin();
             }
-
-            RoleAllowAnyoneToMention.Visibility = Visibility.Collapsed;
-            RoleHoist.Visibility = Visibility.Collapsed;
-
-            RoleAddReactions.IsChecked = perms.ServerSidePerms.AddReactions;
-            if (!manageable)
-            {
-                RoleAddReactions.IsEnabled = false;
-            }
-            RoleAdmininstrator.IsChecked = perms.ServerSidePerms.Administrator;
-            if (!manageable)
-            {
-                RoleAdmininstrator.IsEnabled = false;
-            }
-            RoleAttachFiles.IsChecked = perms.ServerSidePerms.AttachFiles;
-            if (!manageable)
-            {
-                RoleAttachFiles.IsEnabled = false;
-            }
-            RoleBanMembers.IsChecked = perms.ServerSidePerms.BanMembers;
-            if (!manageable)
-            {
-                RoleBanMembers.IsEnabled = false;
-            }
-            RoleChangeNickname.IsChecked = perms.ServerSidePerms.ChangeNickname;
-            if (!manageable)
-            {
-                RoleChangeNickname.IsEnabled = false;
-            }
-            RoleConnect.IsChecked = perms.ServerSidePerms.Connect;
-            if (!manageable)
-            {
-                RoleConnect.IsEnabled = false;
-            }
-            RoleCreateInstantInvite.IsChecked = perms.ServerSidePerms.CreateInstantInvite;
-            if (!manageable)
-            {
-                RoleCreateInstantInvite.IsEnabled = false;
-            }
-            RoleDeafenMembers.IsChecked = perms.ServerSidePerms.DeafenMembers;
-            if (!manageable)
-            {
-                RoleDeafenMembers.IsEnabled = false;
-            }
-            RoleKickMembers.IsChecked = perms.ServerSidePerms.KickMembers;
-            if (!manageable)
-            {
-                RoleKickMembers.IsEnabled = false;
-            }
-            RoleManageChannels.IsChecked = perms.ServerSidePerms.ManageChannels;
-            if (!manageable)
-            {
-                RoleManageChannels.IsEnabled = false;
-            }
-            RoleManageEmojis.IsChecked = perms.ServerSidePerms.ManageEmojis;
-            if (!manageable)
-            {
-                RoleManageEmojis.IsEnabled = false;
-            }
-            RoleManageGuild.IsChecked = perms.ServerSidePerms.ManangeGuild;
-            if (!manageable)
-            {
-                RoleManageGuild.IsEnabled = false;
-            }
-            RoleManageNicknames.IsChecked = perms.ServerSidePerms.ManageNicknames;
-            if (!manageable)
-            {
-                RoleManageNicknames.IsEnabled = false;
-            }
-            RoleManageRoles.IsChecked = perms.ServerSidePerms.ManageRoles;
-            if (!manageable)
-            {
-                RoleManageRoles.IsEnabled = false;
-            }
-            RoleMentionEveryone.IsChecked = perms.ServerSidePerms.MentionEveryone;
-            if (!manageable)
-            {
-                RoleMentionEveryone.IsEnabled = false;
-            }
-            RoleMoveMembers.IsChecked = perms.ServerSidePerms.MoveMembers;
-            if (!manageable)
-            {
-                RoleMoveMembers.IsEnabled = false;
-            }
-            RoleMuteMembers.IsChecked = perms.ServerSidePerms.MuteMembers;
-            if (!manageable)
-            {
-                RoleMuteMembers.IsEnabled = false;
-            }
-            RoleReadMessageHistory.IsChecked = perms.ServerSidePerms.ReadMessageHistory;
-            if (!manageable)
-            {
-                RoleReadMessageHistory.IsEnabled = false;
-            }
-            RoleSpeak.IsChecked = perms.ServerSidePerms.Speak;
-            if (!manageable)
-            {
-                RoleSpeak.IsEnabled = false;
-            }
-            RoleUseExternalEmojis.IsChecked = perms.ServerSidePerms.UseExternalEmojis;
-            if (!manageable)
-            {
-                RoleUseExternalEmojis.IsEnabled = false;
-            }
-            RoleUseVoiceActivity.IsChecked = perms.ServerSidePerms.UseVad;
-            if (!manageable)
-            {
-                RoleUseVoiceActivity.IsEnabled = false;
-            }
+            MembersPane.IsPaneOpen = !MembersPane.IsPaneOpen;
         }
 
-        public static bool ShowAds = true;
-
-        private async void MakePurchase(object sender, RoutedEventArgs e)
+        private void MembersPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
         {
-            LicenseInformation licenseInformation = CurrentApp.LicenseInformation;
-            switch ((sender as Button).Tag.ToString())
+            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
             {
-                case "RemoveAds":
-                    
-                    if (!licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RemoveAds");
-
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Polite":
-                    if (!licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("Polite Dontation");
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Significant":
-                    if (!licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDontation");
-
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "OMGTHX":
-                    if (!licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("OMGTHXDonation");
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Ridiculous":
-                    if (!licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RidiculousDonation");
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog("Bought");
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog("Add-On was not purchased.");
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog("An error occured, try again later");
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
+                LightenMessageArea.Begin();
             }
         }
 
-        private async void OpenFeedback(object sender, RoutedEventArgs e)
+        private void NavToAbout(object sender, RoutedEventArgs e)
         {
-            var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
-            await launcher.LaunchAsync();
+            App.NavigateToAbout();
         }
 
-        private void Scrolldown(object sender, SizeChangedEventArgs e)
+        private void NavToIAPs(object sender, RoutedEventArgs e)
         {
-            MessageScroller.ChangeView(0.0f, MessageScroller.ScrollableHeight, 1f);
+            App.NavigateToAbout();
         }
-
-        private void ShowPurchesesPopup(object sender, RoutedEventArgs e)
-        {
-            PurchasesPopup.Visibility = Visibility.Visible;
-        }
-
-        private void ClosePurchasesPopup(object sender, RoutedEventArgs e)
-        {
-            PurchasesPopup.Visibility = Visibility.Collapsed;
-        }
-
-        private void LockChannelsToggled(object sender, RoutedEventArgs e)
-        {
-            if ((sender as ToggleSwitch).IsOn)
-            {
-                AutoHideChannels.IsEnabled = false;
-                AutoHideChannels.IsOn = false;
-            } else
-            {
-                AutoHideChannels.IsEnabled = true;
-                AutoHideChannels.IsOn = Storage.Settings.AutoHideChannels;
-            }
-            
-        }
+        #endregion
     }
 }

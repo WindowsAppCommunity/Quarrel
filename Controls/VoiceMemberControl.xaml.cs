@@ -17,9 +17,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using Discord_UWP.CacheModels;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 
 namespace Discord_UWP.Controls
 {

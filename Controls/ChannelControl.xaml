@@ -90,13 +90,13 @@
                 <TextBlock x:Name="NotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
             </Border>
         </StackPanel>
-        <ListView x:Name="MemberList" SelectionMode="None" Grid.Row="1" Grid.ColumnSpan="2">
+        <!--<ListView x:Name="MemberList" SelectionMode="None" Grid.Row="1" Grid.ColumnSpan="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <local:VoiceMemberControl DisplayedMember="{Binding Member}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
         <Rectangle x:Name="MemberListEnd" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,10"/>
     </Grid>
 </UserControl>

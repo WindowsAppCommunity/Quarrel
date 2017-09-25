@@ -21,6 +21,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -58,7 +61,7 @@ namespace Discord_UWP.SubPages
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
             App.SubpageClosed();
-            Session.MessageUploadProgress -= Session_MessageUploadProgress;
+            RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
         }
         private async void OpenFile(object sender, RoutedEventArgs e)
         {
@@ -77,7 +80,7 @@ namespace Discord_UWP.SubPages
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             ProgressViewer.Visibility = Visibility.Visible;
-            Session.MessageUploadProgress += Session_MessageUploadProgress;
+            RESTCalls.MessageUploadProgress += Session_MessageUploadProgress; //TODO: Rig to App.Events
             
             FullUploadSize = 0;
             foreach(var file in attachements)
@@ -90,19 +93,20 @@ namespace Discord_UWP.SubPages
             int attachCount = attachements.Count();
             if (attachCount > 1)
                 FileNB.Visibility = Visibility.Visible;
-            string FileStr = App.GetString("/Dialogs/File");
+            //string FileStr = App.GetString("/Dialogs/File");
+            string FileStr = "File";
             for (int i = 0; i < attachCount; i++)
             {
                 FileNB.Text = FileStr + " " + (i+1).ToString() + "/" + attachCount;
                 var file = attachements.ElementAt(i).Value;
                 if (first)
                 {
-                    await Session.CreateMessage(App.CurrentChannelId, Editor.Text, file);
+                    await RESTCalls.CreateMessage(App.CurrentChannelId, Editor.Text, file); //TODO: Rig to App.Events
                     first = false;
                 }
                 else
                 {
-                    await Session.CreateMessage(App.CurrentChannelId, Editor.Text, file);
+                    await RESTCalls.CreateMessage(App.CurrentChannelId, Editor.Text, file); //TODO: Rig to App.Events
                 }
                 var props = await file.GetBasicPropertiesAsync();
                 //444 is an approximation of the http request overhead
@@ -111,7 +115,7 @@ namespace Discord_UWP.SubPages
                     overheadsize += Convert.ToUInt64(System.Text.Encoding.Unicode.GetByteCount(Editor.Text));
                 FullBytesSentBuffer = FullBytesSentBuffer + props.Size + overheadsize;
             }
-            Session.MessageUploadProgress -= Session_MessageUploadProgress;
+            RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
             CloseButton_Click(null, null);
         }
 
@@ -219,7 +223,7 @@ namespace Discord_UWP.SubPages
             else
             {
                 await CaptureMedia.StopRecordAsync();
-                RecordButton.Text = App.GetString("/Dialogs/SavingAudio");
+                RecordButton.Text = "Creating file.."; //App.GetString("/Dialogs/SavingAudio");
                 recording = false;
                 RecordHyperlink.IsEnabled = false;
                 DishTImer.Stop();
@@ -230,13 +234,13 @@ namespace Discord_UWP.SubPages
                     byte[] buffer = new byte[(int)AudioStream.Size];
                     dataReader.ReadBytes(buffer);
                     await FileIO.WriteBytesAsync(mediaFile, buffer);
-                    RecordButton.Text = App.GetString("/Dialogs/AdvancedRecordSoundTB.Text");
+                    RecordButton.Text = "Record sound"; //App.GetString("/Dialogs/AdvancedRecordSoundTB.Text");
                     RecordHyperlink.IsEnabled = true;
                 }
                 AddAttachement(mediaFile);
             }
         }
-        string recordingstr = App.GetString("/Dialogs/RecordingAudio");
+        string recordingstr = "Recording..."; //App.GetString("/Dialogs/RecordingAudio");
         private void DishTImer_Tick(object sender, object e)
         {
             SpanTime = SpanTime.Add(DishTImer.Interval);

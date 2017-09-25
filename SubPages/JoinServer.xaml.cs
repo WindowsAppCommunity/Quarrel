@@ -59,7 +59,7 @@ namespace Discord_UWP.SubPages
                 InviteCode = InviteCode.Replace("http://discord.gg/", "");
                 InviteCode = InviteCode.Replace("https://discordapp.com/invite/", "");
                 InviteCode = InviteCode.Replace("http://discordapp.com/invite/", "");
-                await Session.AcceptInvite(Invite.Text);
+                await RESTCalls.AcceptInvite(Invite.Text); //TODO: Rig to App.Events
                 CloseButton_Click(null, null);
             }
             catch

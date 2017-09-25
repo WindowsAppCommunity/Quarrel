@@ -44,10 +44,10 @@
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,4">
-        <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
-        <Rectangle x:Name="GuildImageBackdrop" Width="48" Height="48" RadiusX="24" RadiusY="24" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
-        <Rectangle x:Name="GuildImage" Width="48" Height="48" RadiusX="24" RadiusY="24">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,4" Margin="5,0,0,0">
+        <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-6,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
+        <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
+        <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
             <Rectangle.Fill>
                 <ImageBrush x:Name="GuildImageBrush"/>
             </Rectangle.Fill>
@@ -59,7 +59,7 @@
 
         <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Border.RenderTransform>
-                <ScaleTransform x:Name="NotificationScale" ScaleX="0.5" ScaleY="0.5" CenterY="10"/>
+                <ScaleTransform x:Name="NotificationScale" ScaleX="1" ScaleY="1" CenterY="10"/>
             </Border.RenderTransform>
             <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="White"  VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
         </Border>

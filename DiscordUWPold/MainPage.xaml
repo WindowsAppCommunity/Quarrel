@@ -1,0 +1,500 @@
+﻿<Page x:Name="page"
+    x:Class="Discord_UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Discord_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.TopAppBar>
+        <CommandBar>
+            <AppBarToggleButton x:Name="DetailToggler" Icon="List" Label="Channel Details" Click="ToggleDetails" IsChecked="True"/>
+            <AppBarToggleButton x:Name="MemberListToggle" Icon="People" Label="Member List" Click="TogglePeopleShow"/>
+            <AppBarToggleButton x:Name="PinnedAppButton" Icon="Pin" Label="Pinned Messages" Click="ShowPinnedFlyout" Visibility="Collapsed"/>
+            <AppBarToggleButton x:Name="MuteChannelToggle" Icon="Mute" Label="Mute Channel" Click="MuteAChannel" Visibility="Collapsed"/>
+            <CommandBar.Content>
+                <StackPanel  MaxWidth="150" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock x:Name="ChannelName" Text="Channel Name" FontSize="20"></TextBlock>
+                        <TextBlock x:Name="ChannelTopic" Text="Channel Topic" FontSize="10"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </CommandBar.Content>
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Name="WhatNewButton" Label="What's New" Click="OpenWhatNew"/>
+                <AppBarButton Label="Feedback Hub" Click="OpenFeedback"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
+    
+    <Grid Background="#55111111">
+         
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition x:Name="Details_Width" Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto" MinHeight="40"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <TextBlock x:Name="Tip" Text="Select a Server and a Channel" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </Grid>
+            <ScrollViewer x:Name="MessageScroller">
+                <StackPanel x:Name="Messages" SizeChanged="Scrolldown"/>
+            </ScrollViewer>
+            <Grid x:Name="SendMessage" Grid.Row="2" Grid.Column="1" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <!--<ColumnDefinition Width="48"/>-->
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="48"/>
+                </Grid.ColumnDefinitions>
+                <RichEditBox x:Name="MessageBox" HorizontalContentAlignment="Left" VerticalAlignment="Stretch" PlaceholderText="Message" TextChanging="TypingStarted"/>
+                <Button x:Name="SendBox" Content="&#xE122;" Grid.Column="1" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="False" Click="CreateMessage"></Button>
+                <TextBlock x:Name="TypingList" Visibility="Collapsed" VerticalAlignment="Bottom" Margin="0,0,0,-20" Text="is typing..."></TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer BorderBrush="Black" BorderThickness="0,0,0,3">
+                <StackPanel Background="#66000000">
+                    <Button x:Name="FriendButton" Height="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Background="Transparent" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE136;" FontSize="22" Padding="0,0,15,0"/>
+                            <TextBlock Text="Friends"/>
+                        </StackPanel>
+                    </Button>
+                    <ListView x:Name="DMs" Header="Direct Messages" SelectionChanged="GetDmData"/>
+                    <StackPanel x:Name="TextChnContainer" Visibility="Collapsed">
+                        <ListView x:Name="TextChannels" Header="Text Channels" SelectionChanged="LoadChannelMessages"/>
+                        <Button x:Name="AddChannelButton" Height="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="14,4" Click="AddChannel" Background="Transparent">
+                            <StackPanel Orientation="Horizontal" Padding="-3,0,0,0">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;"/>
+                                <TextBlock Text="Add Channel" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel x:Name="VocieChnContainer" Visibility="Collapsed">
+                        <ListView x:Name="VoiceChannels" Header="Voice Channels"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Row="1" Visibility="Collapsed">
+                
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Background="#99010000" BorderBrush="Black" BorderThickness="0">
+                <Rectangle x:Name="Avatar" Width="80" RadiusX="100" RadiusY="100">
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordIcon.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <!--<Image x:Name="Avatar" Source="Assets/StoreLogo.png"/>-->
+                <StackPanel VerticalAlignment="Bottom">
+                    <TextBlock x:Name="Username" Text="Username"></TextBlock>
+                    <TextBlock x:Name="Discriminator" Text="Discriminator"></TextBlock>
+                    <StackPanel Orientation="Horizontal" BorderThickness="0,14,0,0">
+                        <!--<ToggleButton Content="&#xEC54;" FontFamily="Segoe MDL2 Assets"/>
+                        <ToggleButton Content="&#xE74F;" FontFamily="Segoe MDL2 Assets"/>-->
+                        <Button Content="&#xE115;" FontFamily="Segoe MDL2 Assets" Click="OpenUserSettings"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        
+        <SplitView x:Name="Servers" DisplayMode="CompactOverlay" Grid.ColumnSpan="3">
+            <SplitView.Pane>
+                <ScrollViewer>
+                    <StackPanel>
+                        <Button Height="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="14,4" Click="OpenServerSplit">
+                            <StackPanel Orientation="Horizontal" Padding="-3,0,0,0">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE700;" FontSize="22"/>
+                            </StackPanel>
+                        </Button>
+                        <ListView x:Name="ServerList" SelectedIndex="0" SelectionChanged="LoadGuild">
+                            <ListViewItem Height="50" Tag="DMs">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE125;" FontSize="22" Padding="0,0,15,0"/>
+                                    <TextBlock Text="Direct Messages"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                        <!--<Button Height="50" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Padding="14,4" Click="AddServer">
+                            <StackPanel Orientation="Horizontal" Padding="-3,0,0,0">
+                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22"/>
+                                <TextBlock Text="Add Server" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>-->
+                    </StackPanel>
+                </ScrollViewer>
+            </SplitView.Pane>
+        </SplitView>
+        <SplitView x:Name="Members" DisplayMode="Inline" PanePlacement="Right" Grid.ColumnSpan="3">
+            <SplitView.Pane>
+                <ScrollViewer>
+                    <StackPanel x:Name="MemberList"/>
+                </ScrollViewer>
+            </SplitView.Pane>
+        </SplitView>
+        
+        <Grid x:Name="UserSettings" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <ListView HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ChangeUserSettingsMenu">
+                    <ListViewItem Content="Account" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                    <ListViewItem Content="UI" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                    <ListViewItem Content="Notifications" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                    <!--<ListViewItem Content="Security" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>-->
+                </ListView>
+                <ScrollViewer x:Name="UserMenus" Grid.Column="2">
+                    <StackPanel>
+                        <StackPanel x:Name="UserAccount_Menu">
+                            <TextBox x:Name="UsernameChange" Header="Username"/>
+                            <TextBox x:Name="Email" Header="Email (Set in Stone)"/>
+                            <PasswordBox x:Name="EnterPassword" Header="Current Password"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="UI_Menu" Visibility="Collapsed">
+                            <ToggleSwitch x:Name="LockChannelList" Toggled="LockChannelsToggled" Header="Lock Channel List"/>
+                            <ToggleSwitch x:Name="AutoHideChannels" Header="Auto Hide Channels"/>
+                            <ToggleSwitch x:Name="AutoHidePeople" Header="Auto Hide People"/>
+                            <Slider x:Name="DetailsSize" Header="Channel List Size" Minimum="150" Maximum="300"/>
+                            <Slider x:Name="NMIOp" Header="New Message/Mute Indicator Opacity %" Minimum="20" Maximum="100"/>
+                        </StackPanel>
+
+                        <StackPanel x:Name="UserNotifications_Menu" Visibility="Collapsed">
+                            <ToggleSwitch x:Name="HighlightEveryone" Header="Highlight @everyone"/>
+                            <ToggleSwitch x:Name="Toasts" Header="Toast Notification (While in app)"/>
+                        </StackPanel>
+
+                        <!--<StackPanel x:Name="Security_Menu" Visibility="Collapsed">
+                            <ToggleSwitch x:Name="LoginType" OnContent="Save log in as Token" OffContent="Save log in as User+Pass"/>
+                        </StackPanel>-->
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Logout" Click="Logout"></Button>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button HorizontalAlignment="Stretch" Click="ShowPurchesesPopup" Content="Add-ons and Donations"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Cancel" Click="CloseUserSettings"></Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Save" Click="SaveUserSettings"></Button>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Button x:Name="BuyAdRemovalButton" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Remove Ads $1.29" Margin="0,0,0,5" Tag="RemoveAds"/>
+            <Button x:Name="PoliteDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Polite Donatation $0.99" Margin="0,0,0,5" Tag="Polite"/>
+            <Button x:Name="SignificantDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Significant Donation $1.99" Margin="0,0,0,5" Tag="Significant"/>
+            <Button x:Name="OMGTHXDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="OMG thank you Donation $2.99" Margin="0,0,0,5" Tag="OMGTHX"/>
+            <Button x:Name="RidiculousDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Ridiculous Donation $4.99" Margin="0,0,0,5" Tag="Ridiculous"/>
+            <Button x:Name="ClosePurchases" HorizontalAlignment="Stretch" MaxWidth="500" Click="ClosePurchasesPopup" Content="Close"></Button>
+        </StackPanel>
+        
+        <Grid x:Name="ChannelSettings" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <ListView HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ChangeChannelSettingsMenu">
+                    <ListViewItem Content="Overview" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                    <!--<ListViewItem Content="Friends" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>-->
+                    <!--<ListViewItem Content="Notifications" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>-->
+                    <!--<ListViewItem Content="Security" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>-->
+                </ListView>
+
+                <ScrollViewer x:Name="ChannelMenus" Grid.Column="2">
+                    <StackPanel>
+                        <StackPanel x:Name="ChannelOverview_Menu">
+                            <TextBox x:Name="ChannelNameChange" Header="Channel Name"/>
+                            <TextBox x:Name="ChannelTopicChnage" Header="Channel Topic"/>
+                        </StackPanel>
+                        <StackPanel x:Name="ChannelFriends_Menu">
+
+                        </StackPanel>
+                        <StackPanel x:Name="ChannelNotifications_Menu">
+
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Delete" Click="DeleteChannel"></Button>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button Content="Cancel" Click="CloseChannelSettings"></Button>
+                <Button Content="Save" Click="SaveChannelSettings"></Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="CreateChannel" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <TextBox x:Name="CreateChannelName" Header="Channel Name" VerticalAlignment="Top"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Cancel" Click="CloseChannelCreate"></Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Save" Click="SaveChannelCreate"></Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid x:Name="GuildSettings" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <ListView HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ChangeGuildSettingsMenu">
+                    <ListViewItem Content="Overview" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                    <ListViewItem Content="Roles" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
+                </ListView>
+
+                <ScrollViewer x:Name="GuildMenus" Grid.Column="2">
+                    <StackPanel>
+                        <StackPanel x:Name="GuildOverview_Menu">
+                            <TextBox x:Name="ServerNameChange" Header="ServerName"></TextBox>
+                        </StackPanel>
+                        
+                        <Grid x:Name="GuildRoles_Menu">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListView x:Name="RoleList" SelectionChanged="SwitchEditRoleView"/>
+
+                            <StackPanel x:Name="RolePermissionsList" Grid.Column="2" Visibility="Collapsed">
+                                <CheckBox x:Name="RoleHoist" Content="Display role members seperatly from other members"/>
+                                <CheckBox x:Name="RoleAllowAnyoneToMention" Content="Allow anyone to @mention this role"/>
+                                <CheckBox x:Name="RoleAdmininstrator" Content="Administrator"/>
+                                <CheckBox x:Name="RoleManageGuild" Content="Manage Server"/>
+                                <CheckBox x:Name="RoleManageRoles" Content="Manage Roles"/>
+                                <CheckBox x:Name="RoleManageChannels" Content="Manage Channels"/>
+                                <CheckBox x:Name="RoleKickMembers" Content="Kick Members"/>
+                                <CheckBox x:Name="RoleBanMembers" Content="Ban Members"/>
+                                <CheckBox x:Name="RoleCreateInstantInvite" Content="Create Instant Invite"/>
+                                <CheckBox x:Name="RoleChangeNickname" Content="Change Nickname"/>
+                                <CheckBox x:Name="RoleManageNicknames" Content="Manage Nicknames"/>
+                                <CheckBox x:Name="RoleManageEmojis" Content="Manage Emojis"/>
+                                <CheckBox x:Name="RoleAttachFiles" Content="Attach Files"/>
+                                <CheckBox x:Name="RoleReadMessageHistory" Content="Read Message History"/>
+                                <CheckBox x:Name="RoleMentionEveryone" Content="Mention Everyone"/>
+                                <CheckBox x:Name="RoleUseExternalEmojis" Content="Use External Emojis"/>
+                                <CheckBox x:Name="RoleAddReactions" Content="Add Reactions"/>
+                                <CheckBox x:Name="RoleConnect" Content="Connect"/>
+                                <CheckBox x:Name="RoleSpeak" Content="Speak"/>
+                                <CheckBox x:Name="RoleMuteMembers" Content="Mute Members"/>
+                                <CheckBox x:Name="RoleDeafenMembers" Content="Deafen Members"/>
+                                <CheckBox x:Name="RoleMoveMembers" Content="Move Members"/>
+                                <CheckBox x:Name="RoleUseVoiceActivity" Content="Voice Activity"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Cancel" Click="CloseGuildSettings"></Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="Save" Click="SaveGuildSettings"></Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid x:Name="ProfilePopup" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="15" Visibility="Collapsed" Background="#FF050505">
+            <Image x:Name="PPAvatar" HorizontalAlignment="Left" Height="100" Width="100" VerticalAlignment="Top"></Image>
+            <StackPanel Orientation="Horizontal" Margin="100,0,0,0" VerticalAlignment="Top" >
+                <TextBlock x:Name="PPUsername" VerticalAlignment="Top" Text="Username" HorizontalAlignment="Left"></TextBlock>
+                <TextBlock x:Name="PPDescriminator" VerticalAlignment="Top" Text="#0000" HorizontalAlignment="Left" ></TextBlock>
+            </StackPanel>
+            <Button Content="X" VerticalAlignment="Top" HorizontalAlignment="Right" Click="CloseProfPop" Margin="0,-15,-15,0"></Button>
+        </Grid>
+        <Grid x:Name="PinnedPopup" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed" >
+            <ScrollViewer x:Name="PinnedMessagesScroller" HorizontalScrollMode="Disabled">
+                <ListView x:Name="PinnedMessages" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" SelectionMode="None"/>
+            </ScrollViewer>
+        </Grid>
+
+        <!--<Grid x:Name="Loading_Backdrop" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed">
+            <ProgressRing HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="300" IsActive="True"/>
+            --><!--<TextBlock Text="Loading"/>--><!--
+        </Grid>-->
+
+        <ProgressRing x:Name="LoadingRing" Grid.ColumnSpan="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0" MinHeight="50" MinWidth="50" IsActive="True"/>
+
+        <Grid x:Name="WhatNew" Grid.ColumnSpan="3" Background="#CC000000" Visibility="Collapsed" >
+            <ListView SelectionMode="None" Margin="0,20,0,0">
+                <ListViewHeaderItem Content="Version 2.1.4"/>
+                <ListViewItem Content="Removed the load more messages button because that never worked in the first place"/>
+                <ListViewItem Content="Added the offline clicky button"/>
+                <ListViewHeaderItem Content="Version 2.1.3"/>
+                <ListViewItem Content="Attachment reformating"/>
+                <ListViewItem Content="New Flyout system"/>
+                <ListViewItem Content="Fixed pinned messages"/>
+                <ListViewItem Content="Fixed members list"/>
+                <ListViewHeaderItem Content="Version 2.1.2"/>
+                <ListViewItem Content="All around bug fixes"/>
+                <ListViewHeaderItem Content="Version 2.1.1"/>
+                <ListViewItem Content="Now disables unaccessable channels instead of hiding them"/>
+                <ListViewItem Content="Now caches data for faster reloading"/>
+                <ListViewHeaderItem Content="Version 1.6.2"/>
+                <ListViewItem Content="New message indicator on DMs"/>
+                <ListViewHeaderItem Content="Version 1.6.1"/>
+                <ListViewItem Content="You can now interact while loading"/>
+                <ListViewItem Content="Overwrites"/>
+                <ListViewHeaderItem Content="Version 1.5.5"/>
+                <ListViewItem Content="Message images are now circles"/>
+                <ListViewItem Content="Removed caching message for unimplimented feature"/>
+                <ListViewHeaderItem Content="Version 1.5.4"/>
+                <ListViewItem Content="Shrunk the medium tile icon"/>
+                <ListViewItem Content="Fixed deleting messages"/>
+                <ListViewItem Content="You can now add reactions"/>
+                <ListViewHeaderItem Content="Version 1.5.3"/>
+                <ListViewItem Content="Fixed circle cut off on servers (they're also smaller)"/>
+                <ListViewItem Content="More efficient guild loading"/>
+                <ListViewHeaderItem Content="Version 1.5.2"/>
+                <ListViewItem Content="Friends list"/>
+                <ListViewHeaderItem Content="Version 1.5.1"/>
+                <ListViewItem Content="Circles"/>
+                <ListViewHeaderItem Content="Version 1.4.8"/>
+                <ListViewItem Content="Tells if a user is a bot"/>
+                <ListViewHeaderItem Content="Version 1.4.7"/>
+                <ListViewItem Content="Fixed deleting messages"/>
+                <ListViewItem Content="Muliline message creating"/>
+                <ListViewItem Content="Anchoring channels list"/>
+                <ListViewHeaderItem Content="Version 1.4.6"/>
+                <ListViewItem Content="Added donation options"/>
+                <ListViewHeaderItem Content="Version 1.4.5"/>
+                <ListViewItem Content="Editing messages"/>
+                <ListViewHeaderItem Content="Version 1.4.4"/>
+                <ListViewItem Content="Tile icons are now white and medium and wide tiles say Discord UWP"/>
+                <ListViewItem Content="New message indicator opacity options in User UI options"/>
+                <ListViewItem Content="Clears new message/mute indicator color upon entering the channel"/>
+                <ListViewItem Content="Fixed notifications"/>
+                <ListViewItem Content="Notification now say what channel they're on"/>
+                <ListViewHeaderItem Content="Version 1.4.3"/>
+                <ListViewItem Content="Fixed new message indicator (it didn't work between sessions)"/>
+                <ListViewItem Content="Notifications don't show if you're already on that channel"/>
+                <ListViewHeaderItem Content="Version 1.4.2"/>
+                <ListViewItem Content="New message indicator"/>
+                <ListViewHeaderItem Content="Version 1.4.1"/>
+                <ListViewItem Content="Fixed deleting messages"/>
+                <ListViewItem Content="You can now view reactions"/>
+                <ListViewItem Content="Auto-scrolling"/>
+                <ListViewHeaderItem Content="Version 1.3.3"/>
+                <ListViewItem Content="Online status is slightly more accurate"/>
+                <ListViewItem Content="Online status errors are now only false negatives (no false positives)"/>
+                <ListViewItem Content="Slight redesign to members list"/>
+                <ListViewItem Content="Edited timestamp on edited messages"/>
+                <ListViewHeaderItem Content="Version 1.3.2"/>
+                <ListViewItem Content="Added online status to DMs"/>
+                <ListViewItem Content="Online status shows as offline by default instead of ?"/>
+                <ListViewHeaderItem Content="Version 1.3.2"/>
+                <ListViewItem Content="Began implimenting online status"/>
+                <ListViewItem Content="Fixed pointless highlighing of members"/>
+                <ListViewItem Content="Options for UI interactions (in user settings)"/>
+                <ListViewItem Content="Loading icon for loading"/>
+                <ListViewHeaderItem Content="Version 1.3.1"/>
+                <ListViewItem Content="Fixed roles on larger servers"/>
+                <ListViewItem Content="Muted channels are now tinted red"/>
+                <ListViewItem Content="No longer shows notifications when you create a message"/>
+                <ListViewHeaderItem Content="Version 1.2.14"/>
+                <ListViewItem Content="Small UI Changes to feel better"/>
+                <ListViewHeaderItem Content="Version 1.2.13"/>
+                <ListViewItem Content="Fixed some more obscure crash causes"/>
+                <ListViewItem Content="Attachments are downloadable"/>
+                <ListViewItem Content="Fixed some member list role ordering issues"/>
+                <ListViewItem Content="Fixed add channel button from disappearing"/>
+                <ListViewItem Content="Link to Feedback Hub on AppBar"/>
+                <ListViewHeaderItem Content="Version 1.2.12"/>
+                <ListViewItem Content="Mentions now show as nicknames"/>
+                <ListViewItem Content="Fixed permissions issues on channels where you're an administator"/>
+                <ListViewItem Content="You can now mute channels"/>
+                <ListViewHeaderItem Content="Version 1.2.11"/>
+                <ListViewItem Content="You can turn on/off toast notifcations in user notifications settings"/>
+                <ListViewItem Content="If the app is open a notification will show when a message is created (No channel filetering for now)"/>
+                <ListViewItem Content="Fixed many random crashes, how they occured isn't important"/>
+                <ListViewItem Content="If you can't add or edit a channel it doesn't suggest it as an opiton"/>
+                <ListViewItem Content="The flyout on the member list now contains a mention button that allows you to add the @username#userdesc automatically"/>
+                <ListViewItem Content="You can now mention members by entering @username#userdesc in the message at mention location"/>
+                <ListViewHeaderItem Content="Version 1.2.10"/>
+                <ListViewItem Content="You can no longer (try to) delete messages that you don't have permission to delete"/>
+                <ListViewItem Content="Apps list icon is now white. Thank you @hvb#2543 (Discord)"/>
+                <ListViewHeaderItem Content="Version 1.2.9"/>
+                <ListViewItem Content="You can now purchase an Add-On to remove ads"/>
+                <ListViewHeaderItem Content="Version 1.2.8"/>
+                <ListViewItem Content="Fixed role list"/>
+                <ListViewHeaderItem Content="Version 1.2.7"/>
+                <ListViewItem Content="Mentioning channels works"/>
+                <ListViewItem Content="Fixed DMs"/>
+                <ListViewHeaderItem Content="Version 1.2.6"/>
+                <ListViewItem Content="Changed error message to be more helpful"/>
+                <ListViewItem Content="Added ability to view role permissions"/>
+                <ListViewHeaderItem Content="Version 1.2.5"/>
+                <ListViewItem Content="Began implimenting permissions, special thanks to @d2_ricci (twitter) for the help"/>
+                <ListViewItem Content="Fixed errors with async tasks for modifying guilds and creating or modifying channels"/>
+                <ListViewHeaderItem Content="Version 1.2.4"/>
+                <ListViewItem Content="Fixed guild channels now show nicknames, again"/>
+                <ListViewItem Content="You can now disable highlighing @everyone mentions"/>
+                <ListViewItem Content="No longer allows you to send an emtpy mention, nice catch anonymous windows insider entered this in the Feedback Hub"/>
+                <ListViewHeaderItem Content="Version 1.2.3"/>
+                <ListViewItem Content="Highlights messages where someone mentions you or @everyone"/>
+                <ListViewItem Content="Informs you it's loading rather than hanging"/>
+                <ListViewItem Content="Channels panel now hides upon entering a channel"/>
+                <ListViewItem Content="Fixed add channel button"/>
+                <ListViewItem Content="Added ability to modify guilds"/>
+                <ListViewHeaderItem Content="Version 1.2.2"/>
+                <ListViewItem Content="Fixed error when editing channel with no topic"/>
+                <ListViewItem Content="Added ability to create and delete channels"/>
+                <ListViewItem Content="Added color to member list"/>
+                <ListViewHeaderItem Content="Version 1.2.1"/>
+                <ListViewItem Content="Fixed crash caused by roleless members"/>
+                <ListViewHeaderItem Content="Version 1.1.4"/>
+                <ListViewItem Content="Unknown fixes from mispackage"/>
+                <ListViewHeaderItem Content="Version 1.1.3"/>
+                <ListViewItem Content="General UI rework"/>
+                <ListViewItem Content="Role colors show in messages"/>
+                <ListViewItem Content="Roles show in member list"/>
+                <ListViewItem Content="Members using offical app can now see if you're typing"/>
+                <ListViewItem Content="Profile popup is now based on margin, not width and height because of issues on phones"/>
+                <ListViewItem Content="Ads are spaced better"/>
+                <ListViewHeaderItem Content="Version 1.1.2"/>
+                <ListViewItem Content="Hyperlinks show over links"/>
+                <ListViewItem Content="Names show as nicknames on messages"/>
+                <ListViewItem Content="Basic Channel modifications are now available"/>
+                <ListViewItem Content="Names show as nicknames in messages"/>
+                <ListViewItem Content="Names show as nicknames in member list"/>
+                <ListViewItem Content="Profile popup is availalbe by holding or right clicking member in member list"/>
+                <ListViewItem Content="User icon is now round"/>
+                <ListViewHeaderItem Content="Version 1.1.1"/>
+                <ListViewItem Content="App Exists!"/>
+            </ListView>
+            <Grid VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Button HorizontalAlignment="Stretch" Content="Discus on Twitter" Click="OpenTwitter"/>
+                <Button Grid.Column="1" HorizontalAlignment="Stretch"  Content="Join Discord UWP Server" Click="OpenDiscordWeb"/>
+                <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="X" Click="CloseWhatNew"/>
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</Page>
