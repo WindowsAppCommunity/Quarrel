@@ -133,7 +133,6 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="project.json" />
     <PRIResource Include="Resources\es\Settings.resw" />
     <PRIResource Include="Resources\es\Main.resw" />
@@ -452,12 +451,10 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Discord UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\DiscordIcon.png" />
     <Content Include="Assets\DiscordLogo.jpg" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
