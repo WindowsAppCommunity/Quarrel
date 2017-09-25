@@ -57,25 +57,25 @@
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Background" Color="#FF000000"/>
-                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF222529"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF42464D"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF222529"
                     TintOpacity="0.9"
                     FallbackColor="#FF222529"/>-->
-                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF222024"/>
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF2F3136"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF232323"
                     TintOpacity="0.7"
                     FallbackColor="#FF232323"/>-->
-                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FF131319"/>
+                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FF1E2124"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF121212"
                     TintOpacity="0.6"
                     FallbackColor="#FF121212"/>-->
-                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FF323539"/>
+                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FF1E2124"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF333333"
