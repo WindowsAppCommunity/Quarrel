@@ -75,7 +75,8 @@ namespace Discord_UWP.Managers
                 LocalState.Notes = e.EventData.Notes;
             }
 
-            //Storage.Settings.DevMode = e.EventData.Settings.DevMode;
+            Storage.Settings.DiscordLightTheme = e.EventData.Settings.Theme == "Light" ? true : false;
+            Storage.Settings.DevMode = e.EventData.Settings.DevMode;
             
             #region Friends
             foreach (var friend in e.EventData.Friends)
