@@ -44,7 +44,7 @@
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Padding="0,4" Margin="5,0,0,0">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
         <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-6,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
         <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
         <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">

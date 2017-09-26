@@ -262,14 +262,11 @@ namespace Discord_UWP.Controls
             {
                 if (NotificationCount > 0)
                 {
-                    NotificationBorder.Visibility = Visibility.Visible;
                     NotificationCounter.Text = NotificationCount.ToString();
-                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
                     ShowBadge.Begin();
                 }
                 else
                 {
-                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
                     HideBadge.Begin();
                 }
             }
@@ -419,7 +416,7 @@ namespace Discord_UWP.Controls
 
         private void HideBadge_Completed(object sender, object e)
         {
-            NotificationBorder.Visibility = Visibility.Collapsed;
+            //NotificationBorder.Visibility = Visibility.Collapsed;
         }
     }
 }
