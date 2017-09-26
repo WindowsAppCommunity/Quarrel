@@ -9,35 +9,35 @@
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Background" Color="#FFFFFFFF"/>
                     <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FFFFFFFF"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FFFFFFFF"
-                    TintOpacity="0.9"
+                    TintOpacity="1"
                     FallbackColor="#FFFFFFFF"/>-->
                     <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFF2F2F3"/>
                     <!--<AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FFDCDCDC"
-                    TintOpacity="0.7"
+                    TintColor="#FFF2F2F3"
+                    TintOpacity="0.8"
                     FallbackColor="#FFF2F2F3"/>-->
                     <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FFE0E0E5"/>
                     <!--<AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FFFDFDFD"
+                    TintColor="#FFE0E0E5"
                     TintOpacity="0.6"
                     FallbackColor="#FFE0E0E5"/>-->
                     <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FFE0E0E5"/>
-                    <!--<AcrylicBrush x:Key="AcrylicCommandPaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicCommandBarBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FFCCCCCC"
-                    TintOpacity="0.6"
+                    TintColor="#FFE0E0E5"
+                    TintOpacity="0.7"
                     FallbackColor="#FFE0E0E5"/>-->
                     <SolidColorBrush x:Key="AcrylicFlyoutBackground" Color="#DDFFFFFF"/>
-                    <!--<AcrylicBrush x:Key="AcrylicFlyoutPaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicFlyoutBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#AAFFFFFF"
+                    TintColor="#DDFFFFFF"
                     TintOpacity="0.8"
-                    FallbackColor="#AAFFFFFF"/>-->
+                    FallbackColor="#DDFFFFFF"/>-->
                     <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FFE8E8ED"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
@@ -59,33 +59,33 @@
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Background" Color="#FF000000"/>
                     <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF36393E"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF222529"
-                    TintOpacity="0.9"
+                    TintColor="#FF36393E"
+                    TintOpacity="1"
                     FallbackColor="#FF222529"/>-->
                     <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF2F3136"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF232323"
-                    TintOpacity="0.7"
-                    FallbackColor="#FF232323"/>-->
+                    TintColor="#FF2F3136"
+                    TintOpacity="0.8"
+                    FallbackColor="#FF2F3136"/>-->
                     <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FF1E2124"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF121212"
+                    TintColor="#FF1E2124"
                     TintOpacity="0.6"
-                    FallbackColor="#FF121212"/>-->
+                    FallbackColor="#FF1E2124"/>-->
                     <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FF1E2124"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicCommandBarBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF333333"
-                    TintOpacity="0.6"
-                    FallbackColor="#FF333333"/>-->
+                    TintColor="#FF1E2124"
+                    TintOpacity="0.7"
+                    FallbackColor="#FF1E2124"/>-->
                     <SolidColorBrush x:Key="AcrylicFlyoutBackground" Color="#DD000000"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicFlyoutBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#AA000000"
+                    TintColor="#DD000000"
                     TintOpacity="0.8"
                     FallbackColor="#AA000000"/>-->
                     <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FF2A2C31"/>
@@ -758,9 +758,9 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="TabNavigation" Value="Local"/>
                 <Setter Property="IsHoldingEnabled" Value="True"/>
-                <Setter Property="Padding" Value="12,0"/>
+                <Setter Property="Padding" Value="26,4,24,4"/>
                 <Setter Property="MinHeight" Value="0"/>
-                <Setter Property="Margin" Value="12,2,24,2"/>
+                <Setter Property="Margin" Value="0"/>
                 <Setter Property="FontSize" Value="15"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -777,9 +777,9 @@
                                         <VisualState x:Name="Normal">
                                             <Storyboard>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0">
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                                     <DoubleAnimation.EasingFunction>
-                                                        <CircleEase EasingMode="EaseIn"/>
+                                                        <ExponentialEase EasingMode="EaseInOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
                                             </Storyboard>
@@ -1020,7 +1020,7 @@
                     IsHitTestVisible="False"
                     Opacity="0"
                     Control.IsTemplateFocusTarget="True"/>
-                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBG}" Opacity="0" CornerRadius="4">
+                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBG}" Opacity="0" CornerRadius="0">
                                 </Border>
                                 <Grid x:Name="ContentPresenterGrid"
               Background="Transparent"
