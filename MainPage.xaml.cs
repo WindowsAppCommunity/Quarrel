@@ -383,8 +383,7 @@ namespace Discord_UWP
         {
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
             DM.Id = "DMs";
-            //DM.Name = App.GetString("/Main/DirectMessages");
-            DM.Name = "Direct Messages";
+            DM.Name = App.GetString("/Main/DirectMessages");
             DM.IsDM = true;
             foreach (var chn in LocalState.DMs.Values)
                 if (LocalState.RPC.ContainsKey(chn.Id))

@@ -34,8 +34,7 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
-            //Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[guildId].Raw.Name+ "?";
-            Message.Text = "Are you sure you want to leave" + " " + LocalState.Guilds[guildId].Raw.Name+ "?";
+            Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[guildId].Raw.Name + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

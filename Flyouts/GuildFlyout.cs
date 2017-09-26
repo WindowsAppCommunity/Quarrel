@@ -23,7 +23,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem editServer = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/EditServer"),
-                //Text = "Edit Server",
                 Tag = guild.Raw.Id,
                 Icon = new SymbolIcon(Symbol.Edit),
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -46,11 +45,10 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MarkAsRead"),
-                //Text = "Mark as Read",
                 Tag = guild.Raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
                 Margin = new Thickness(-26, 0, 0, 0),
-                //IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread
+                //IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread //TODO: Disable Make as read if not unread
             };
             markasread.Click += FlyoutManager.MarkGuildasRead;
             menu.Items.Add(markasread);
@@ -59,7 +57,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem deleteServer = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/DeleteServer"),
-                    //Text = "Delete Server",
                     Tag = guild.Raw.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Delete),
@@ -73,7 +70,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/LeaveServer"),
-                    //Text = "Leave Server",
                     Tag = guild.Raw.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Remove),
