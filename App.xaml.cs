@@ -837,8 +837,18 @@ namespace Discord_UWP
             //view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
 
 
-            //var accentString = Storage.Settings.AccentBrush;
-            //var accentColor = accentString.ToColor();
+            if (Storage.Settings.AccentBrush)
+            {
+                var accentColor = (Color)this.Resources["SystemAccentColor"];
+                App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
+                App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
+                App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor); //Set to system accent color
+            }
+            else
+            {
+                App.Current.Resources["Blurple"] = new SolidColorBrush(Color.FromArgb(255, 114, 137, 218)); //Set to Blurple default
+            }
+
             //var onlineString = Storage.Settings.OnlineBursh;
             //var onlineColor = onlineString.ToColor();
             //var idleString = Storage.Settings.IdleBrush;
@@ -847,15 +857,12 @@ namespace Discord_UWP
             //var dndColor = dndString.ToColor();
             //var offlineString = Storage.Settings.OfflineBrush;
             //var offlineColor = offlineString.ToColor();
-            //App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor);
             //App.Current.Resources["BlurpleColor"] = accentColor;
             //App.Current.Resources["online"] = new SolidColorBrush(onlineColor);
             //App.Current.Resources["idle"] = new SolidColorBrush(idleColor);
             //App.Current.Resources["DndColor"] = dndColor;
             //App.Current.Resources["dnd"] = new SolidColorBrush(dndColor);
             //App.Current.Resources["offline"] = new SolidColorBrush(offlineColor);
-            //App.Current.Resources["BlurpleTranslucentColor"] = Color.FromArgb(25, accentColor.R, accentColor.G, accentColor.B);
-            //App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
         }
 
         public async Task<bool> LogIn()
