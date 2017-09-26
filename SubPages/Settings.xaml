@@ -132,7 +132,6 @@
                                 <StackPanel>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
-                                    <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_S" Header="S (Hidden)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>

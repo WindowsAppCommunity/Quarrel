@@ -835,13 +835,13 @@ namespace Discord_UWP
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((sender as Page).ActualWidth > 1500)
+            if ((sender as Page).ActualWidth > Storage.Settings.RespUiXl)
             {
                 VisualStateManager.GoToState(this, "ExtraLarge", true);
-            } else if ((sender as Page).ActualWidth > 1000)
+            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiL)
             {
                 VisualStateManager.GoToState(this, "Large", true);
-            } else if ((sender as Page).ActualWidth > 500)
+            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiM)
             {
                 VisualStateManager.GoToState(this, "Medium", true);
             } else
