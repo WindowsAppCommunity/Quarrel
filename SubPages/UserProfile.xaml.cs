@@ -20,6 +20,9 @@ using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -32,13 +35,10 @@ namespace Discord_UWP.SubPages
         public UserProfile()
         {
             this.InitializeComponent();
-            if (!Session.Online)
-            {
-                CommonSrvItem.Visibility = Visibility.Collapsed;
-                CommonFrdItem.Visibility = Visibility.Collapsed;
-                CommonSrvspivot.Visibility = Visibility.Collapsed;
-                CommonFrdspivot.Visibility = Visibility.Collapsed;
-            }
+            CommonSrvItem.Visibility = Visibility.Collapsed;
+            CommonFrdItem.Visibility = Visibility.Collapsed;
+            CommonSrvspivot.Visibility = Visibility.Collapsed;
+            CommonFrdspivot.Visibility = Visibility.Collapsed;
         }
         private void NavAway_Completed(object sender, object e)
         {
@@ -55,54 +55,14 @@ namespace Discord_UWP.SubPages
                 CloseButton_Click(null, null);
                 return;
             }
-            if (Session.Online)
+            profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+            if (LocalState.Friends.ContainsKey(profile.User.Id))
             {
-                profile = await Session.GetUserProfile(e.Parameter as string);
-                if (Storage.Cache.Friends.ContainsKey(profile.User.Id))
-                {
-                    profile.Friend = Storage.Cache.Friends[profile.User.Id].Raw;
-                }
-                else
-                {
-                    profile.Friend = null;
-                }
-            } else
+                profile.Friend = LocalState.Friends[profile.User.Id];
+            }
+            else
             {
-                if (App.CurrentGuildIsDM)
-                {
-                    foreach (CacheModels.DmCache chn in Storage.Cache.DMs.Values)
-                    {
-                        if (chn.Raw.Type == 1 && chn.Raw.Users.FirstOrDefault().Id == e.Parameter as string)
-                        {
-                            profile = new SharedModels.UserProfile()
-                            {
-                                ConnectedAccount = null,
-                                Friend = null,
-                                MutualGuilds = null,
-                                PremiumSince = null,
-                                User = chn.Raw.Users.FirstOrDefault()
-                            };
-                        }
-                    }
-                } else
-                {
-                    if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(e.Parameter as string))
-                    {
-                        profile = new SharedModels.UserProfile()
-                        {
-                            ConnectedAccount = null,
-                            Friend = null,
-                            MutualGuilds = null,
-                            PremiumSince = null,
-                            User = Storage.Cache.Guilds[App.CurrentGuildId].Members[e.Parameter as string].Raw.User
-                        };
-                    }
-                }
-
-                if (Storage.Cache.Friends.ContainsKey(e.Parameter as string))
-                {
-                    profile.Friend = Storage.Cache.Friends[e.Parameter as string].Raw;
-                }
+                profile.Friend = null;
             }
 
             username.Text = profile.User.Username;
@@ -113,7 +73,7 @@ namespace Discord_UWP.SubPages
             if (profile.Friend.HasValue)
             {
                 SwitchFriendValues(profile.Friend.Value.Type);
-            } else if (profile.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+            } else if (profile.User.Id == LocalState.CurrentUser.Id)
             {
 
             } else
@@ -124,28 +84,14 @@ namespace Discord_UWP.SubPages
                 Block.Visibility = Visibility.Visible;
             }
 
-            if (!Session.Online)
-            {
-                acceptFriend.Visibility = Visibility.Collapsed;
-                Unblock.Visibility = Visibility.Collapsed;
-                sendFriendRequest.Visibility = Visibility.Collapsed;
-                SendMessageLink.Visibility = Visibility.Collapsed;
-                Block.Visibility = Visibility.Collapsed;
-                NoteBox.IsReadOnly = true;
-            }
 
+            if (LocalState.Notes.ContainsKey(profile.User.Id))
+                NoteBox.Text = LocalState.Notes[profile.User.Id];
 
-            if (App.Notes.ContainsKey(profile.User.Id))
-                NoteBox.Text = App.Notes[profile.User.Id];
-
-            if (Session.Online)
-            {
-                Session.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
-                Session.Gateway.RelationShipAdded += Gateway_RelationshipAdded;
-                Session.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
-                Session.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
-            }
-
+            GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.RelationShipAdded += Gateway_RelationshipAdded;
+            GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
+            GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
 
             BackgroundGrid.Blur(8,0).Start();
 
@@ -175,8 +121,8 @@ namespace Discord_UWP.SubPages
                     for (int i = 0; i < profile.MutualGuilds.Count(); i++)
                     {
                         var element = profile.MutualGuilds.ElementAt(i);
-                        element.Name = Storage.Cache.Guilds[element.Id].RawGuild.Name;
-                        element.ImagePath = "https://discordapp.com/api/guilds/" + Storage.Cache.Guilds[element.Id].RawGuild.Id + "/icons/" + Storage.Cache.Guilds[element.Id].RawGuild.Icon + ".jpg";
+                        element.Name = LocalState.Guilds[element.Id].Raw.Name;
+                        element.ImagePath = "https://discordapp.com/api/guilds/" + LocalState.Guilds[element.Id].Raw.Id + "/icons/" + LocalState.Guilds[element.Id].Raw.Icon + ".jpg";
 
                         if (element.Nick != null) element.NickVisibility = Visibility.Visible;
                         else element.NickVisibility = Visibility.Collapsed;
@@ -346,20 +292,17 @@ namespace Discord_UWP.SubPages
         {
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
-            if (Session.Online)
-            {
-                Session.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
-                Session.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
-                Session.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
-                Session.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
-            }
+            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
+            GatewayManager.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
+            GatewayManager.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
             NavAway.Begin();
             App.SubpageClosed();
         }
 
-        private void NoteBox_LostFocus(object sender, RoutedEventArgs e)
+        private async void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            Session.AddNote(profile.User.Id, NoteBox.Text);
+            await RESTCalls.AddNote(profile.User.Id, NoteBox.Text); //TODO: Rig to App.Events
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
@@ -416,7 +359,7 @@ namespace Discord_UWP.SubPages
             if (pivot.SelectedIndex == 2 && !LoadedRelationships)
             {
                 LoadedRelationships = true;
-                var relationships = await Session.GetUserRelationShips(profile.User.Id);
+                var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
                 int relationshipcount = relationships.Count();
                 LoadingMutualFriends.Fade(0, 200).Start();
                 if (relationshipcount == 0)
@@ -436,24 +379,24 @@ namespace Discord_UWP.SubPages
 
         private async void SendFriendRequest(object sender, RoutedEventArgs e)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                Session.SendFriendRequest(profile.User.Id);
+                await RESTCalls.SendFriendRequest(profile.User.Id); //TODO: Rig to App.Events
             });
 
         }
 
         private async void RemoveFriend(object sender, RoutedEventArgs e)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                Session.RemoveFriend(profile.User.Id);
+                await RESTCalls.RemoveFriend(profile.User.Id); //TODO: Rig to App.Events
             });
         }
 
         private void SendMessageLink_Click(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(profile.User.Id);
+            App.NavigateToDMChannel(null, profile.User.Id); //TODO: Allow userId DM navigation
             CloseButton_Click(null,null);
         }
     }

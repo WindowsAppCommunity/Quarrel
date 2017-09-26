@@ -17,9 +17,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Discord_UWP.CacheModels;
+using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
 using System.Threading.Tasks;
+
+using Discord_UWP.Managers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -65,10 +67,6 @@ namespace Discord_UWP.Controls
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
             else if (DisplayedMember.status.Status == "invisible")
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-            if (!Session.Online)
-            {
-                rectangle.Visibility = Visibility.Collapsed;
-            }
             if (DisplayedMember.status.Game != null)
             {
                 playing.Visibility = Visibility.Visible;
@@ -84,12 +82,9 @@ namespace Discord_UWP.Controls
         public MemberControl()
         {
             this.InitializeComponent();
-            if (Session.Online)
-            {
-                Session.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
-                Session.Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
-                App.TypingHandler += App_TypingHandler;
-            }
+            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+            GatewayManager.Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
+            App.TypingHandler += App_TypingHandler;
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;
@@ -127,7 +122,7 @@ namespace Discord_UWP.Controls
                     {
                         if (DisplayedMember != null)
                         {
-                            if (DisplayedMember.Raw.User.Id == Storage.Cache.CurrentUser.Raw.Id)
+                            if (DisplayedMember.Raw.User.Id == LocalState.CurrentUser.Id)
                             {
                                 DisplayedMember.status = new Presence() { Status = e.EventData.Status };
                                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
@@ -135,8 +130,8 @@ namespace Discord_UWP.Controls
                         }
                         else
                         {
-                            Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                            Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            GatewayManager.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
                         }
                     }
                     catch
@@ -163,8 +158,8 @@ namespace Discord_UWP.Controls
                         }
                         else
                         {
-                            Session.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                            Session.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            GatewayManager.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
                         }
                     }
                     catch
@@ -182,14 +177,14 @@ namespace Discord_UWP.Controls
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             if (e.HoldingState == HoldingState.Started)
-                App.ShowMenuFlyout(this, App.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
 
         }
 
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             if (e.PointerDeviceType != PointerDeviceType.Touch)
-                App.ShowMenuFlyout(this, App.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
     }
 }

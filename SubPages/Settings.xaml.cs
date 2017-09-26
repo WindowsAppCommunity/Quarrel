@@ -104,7 +104,6 @@ namespace Discord_UWP.SubPages
         {
             if (!_ignoreRespUiChanges)
             {
-                if (RespUI_M.Value < RespUI_S.Value) RespUI_M.Value = RespUI_S.Value;
                 if (RespUI_L.Value < RespUI_M.Value) RespUI_L.Value = RespUI_M.Value;
                 if (RespUI_XL.Value < RespUI_L.Value) RespUI_XL.Value = RespUI_L.Value;
             }
@@ -112,7 +111,7 @@ namespace Discord_UWP.SubPages
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             _ignoreRespUiChanges = true;
-            RespUI_S.Value = 500;
+            
             RespUI_M.Value = 569;
             RespUI_L.Value = 768;
             RespUI_XL.Value = 1024;

@@ -60,7 +60,6 @@ namespace Discord_UWP
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;
-        public double RespUiS = 500;
         public double RespUiM = 569;
         public double RespUiL = 768;
         public double RespUiXl = 1024;

@@ -19,8 +19,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
-using Member = Discord_UWP.CacheModels.Member;
+
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -336,29 +337,30 @@ namespace Discord_UWP.Controls
                     Status.Visibility = Visibility.Collapsed;
                 }
             }
-            if (prop == MembersProperty)
-            {
-                if (Members != null)
-                {
-                    foreach (string member in Members)
-                    {
-                        if (Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(member))
-                        {
-                            MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
-                        }
-                    }
-                    //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
-                }
+            //TODO: Vocie channels
+            //if (prop == MembersProperty)
+            //{
+            //    if (Members != null)
+            //    {
+            //        foreach (string member in Members)
+            //        {
+            //            if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member))
+            //            {
+            //                MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
+            //            }
+            //        }
+            //        //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
+            //    }
 
-                if (MemberList.Items.Count > 0)
-                {
-                    MemberListEnd.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    MemberListEnd.Visibility = Visibility.Collapsed;
-                }
-            }
+            //    if (MemberList.Items.Count > 0)
+            //    {
+            //        MemberListEnd.Visibility = Visibility.Visible;
+            //    }
+            //    else
+            //    {
+            //        MemberListEnd.Visibility = Visibility.Collapsed;
+            //    }
+            //}
         }
 
         private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
@@ -380,16 +382,16 @@ namespace Discord_UWP.Controls
                 switch (Type)
                 {
                     case 0: /*Text*/
-                        App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition((this)));
                         break;
                     case 1: /*DM*/
-                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
 
                         break;
                     case 3: /*Group*/
-                        App.ShowMenuFlyout(this, App.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                 }
         }
@@ -401,16 +403,16 @@ namespace Discord_UWP.Controls
                 switch (Type)
                 {
                     case 0: /*Text*/
-                        App.ShowMenuFlyout(this, App.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                     case 1: /*DM*/
-                        App.ShowMenuFlyout(this, App.Type.DMChn, Id, null, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
 
                         break;
                     case 3: /*Group*/
-                        App.ShowMenuFlyout(this, App.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                        App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
                         break;
                 }
         }
