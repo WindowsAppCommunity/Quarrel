@@ -34,8 +34,7 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             userId = e.Parameter.ToString();
-            //Message.Text = App.GetString("/Dialogs/VerifyBan") + LocalState.Guilds[App.CurrentGuildId].members[userId].User.Username + "?"; 
-            Message.Text = "Are you sure you want to ban @" + LocalState.Guilds[App.CurrentGuildId].members[userId].User.Username + "?"; 
+            Message.Text = App.GetString("/Dialogs/VerifyBan") + LocalState.Guilds[App.CurrentGuildId].members[userId].User.Username + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)

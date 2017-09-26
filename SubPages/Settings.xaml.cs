@@ -138,13 +138,10 @@ namespace Discord_UWP.SubPages
 
         private async void CheckLogout(object sender, RoutedEventArgs e)
         {
-            //MessageDialog winnerAnounce = new MessageDialog(App.GetString("/Settings/VerifyLogout"));
-            MessageDialog winnerAnounce = new MessageDialog("Are you sure you want to log out?");
-            //winnerAnounce.Commands.Add(new UICommand(App.GetString("/Settings/LogoutBTN.Content"),
-            winnerAnounce.Commands.Add(new UICommand("Log out",
+            MessageDialog winnerAnounce = new MessageDialog(App.GetString("/Settings/VerifyLogout"));
+            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Settings/LogoutBTN.Content"),
             new UICommandInvokedHandler(ConfirmLogout)));
-            //winnerAnounce.Commands.Add(new UICommand(App.GetString("/Dialogs/CancelBTN.Content"),
-            winnerAnounce.Commands.Add(new UICommand("Cancel",
+            winnerAnounce.Commands.Add(new UICommand(App.GetString("/Dialogs/CancelBTN.Content"),
             new UICommandInvokedHandler(CancelLogout)));
             await winnerAnounce.ShowAsync();
         }

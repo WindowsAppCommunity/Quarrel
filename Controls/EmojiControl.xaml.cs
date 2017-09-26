@@ -72,28 +72,28 @@ namespace Discord_UWP.Controls
         }
 
         public class Person : ISimpleEmoji
-        { public override string category => "PEOPLE"; } //App.GetString("/Controls/PEOPLE"); }
+        { public override string category => App.GetString("/Controls/PEOPLE"); }
 
         public class Nature : ISimpleEmoji
-        { public override string category => "NATURE"; } //App.GetString("/Controls/NATURE"); }
+        { public override string category => App.GetString("/Controls/NATURE"); }
 
         public class Food : ISimpleEmoji
-        { public override string category => "FOOD"; } //App.GetString("/Controls/FOOD"); }
+        { public override string category => App.GetString("/Controls/FOOD"); }
 
         public class Activity : ISimpleEmoji
-        { public override string category => "ACTIVITY"; } //App.GetString("/Controls/ACTIVITIES"); }
+        { public override string category => App.GetString("/Controls/ACTIVITIES"); }
 
         public class Travel : ISimpleEmoji
-        { public override string category => "TRAVEL"; } //App.GetString("/Controls/TRAVEL"); }
+        { public override string category => App.GetString("/Controls/TRAVEL"); }
 
         public class Object : ISimpleEmoji
-        { public override string category => "OBJECT"; } //App.GetString("/Controls/OBJECTS"); }
+        { public override string category => App.GetString("/Controls/OBJECTS"); }
 
         public class Symbol : ISimpleEmoji
-        { public override string category => "SYMBOL"; } //App.GetString("/Controls/SYMBOLS"); }
+        { public override string category => App.GetString("/Controls/SYMBOLS"); }
 
         public class Flag : ISimpleEmoji
-        { public override string category => "FLAG"; } //App.GetString("/Controls/FLAGS"); }
+        { public override string category => App.GetString("/Controls/FLAGS"); }
 
         public class GuildSide : ISimpleEmoji
         {
