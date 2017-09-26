@@ -105,14 +105,14 @@ namespace Discord_UWP.Controls
                         RemoveButton.Visibility = Visibility.Visible;
                         RelationshipStatus.Visibility = Visibility.Visible;
                         moreButton.Visibility = Visibility.Collapsed;
-                        RelationshipStatus.Text = "Accept Friend Request"; //App.GetString("/Controls/AcceptFriendRequestQ");
+                        RelationshipStatus.Text = App.GetString("/Controls/AcceptFriendRequestQ");
                         break;
                     case 4: //Outgoing request
                         AcceptButton.Visibility = Visibility.Collapsed;
                         RemoveButton.Visibility = Visibility.Collapsed;
                         RelationshipStatus.Visibility = Visibility.Visible;
                         moreButton.Visibility = Visibility.Collapsed;
-                        RelationshipStatus.Text = "Friend Request Sent"; //App.GetString("/Controls/FriendRequestSent");
+                        RelationshipStatus.Text = App.GetString("/Controls/FriendRequestSent");
                         break;
                 }
             }

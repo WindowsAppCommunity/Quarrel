@@ -32,9 +32,8 @@ namespace Discord_UWP.Controls
             var message = EntryMessages.GetMessage();
             MessageBlock.Text = message.Key.ToUpper();
             if(message.Value != "")
-                //CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
-                CreditBlock.Text = "Submitted by" + " " + message.Value;
-                Animation.Begin();
+                CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
+            Animation.Begin();
         }
         public void AdjustSize()
         {

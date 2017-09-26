@@ -30,7 +30,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem profile = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/Profile"),
-                    //Text = "Profile",
                     Icon = new SymbolIcon(Symbol.ContactInfo),
                     Tag = user
                 };
@@ -51,7 +50,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem addFriend = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/AddFriend"),
-                    //Text = "Add Friend",
                     Icon = new SymbolIcon(Symbol.AddFriend),
                     Tag = dm.Users.ToList()[x].Id
                 };
@@ -60,7 +58,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/AcceptFriendRequest"),
-                    //Text = "Accept Friend Request",
                     Icon = new SymbolIcon(Symbol.AddFriend),
                     Tag = dm.Users.ToList()[x].Id
                 };
@@ -69,7 +66,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem removeFriend = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/RemoveFriend"),
-                    //Text = "Remove Friend",
                     Icon = new SymbolIcon(Symbol.ContactPresence),
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Tag = dm.Users.ToList()[x].Id
@@ -79,7 +75,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem block = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/Block"),
-                    //Text = "Block",
                     Icon = new SymbolIcon(Symbol.BlockContact),
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Tag = dm.Users.ToList()[x].Id
@@ -88,8 +83,7 @@ namespace Discord_UWP.Flyouts
 
                 MenuFlyoutItem unBlock = new MenuFlyoutItem()
                 {
-                    //Text = App.GetString("/Flyouts/Unblock"),
-                    Text = "Unblock",
+                    Text = App.GetString("/Flyouts/Unblock"),
                     Icon = new SymbolIcon(Symbol.ContactPresence),
                     Tag = dm.Users.ToList()[x].Id
                 };

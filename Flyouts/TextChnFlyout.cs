@@ -32,7 +32,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem editchannel = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/EditChannel"),
-                //Text = "Edit Channel",
                 Tag = chn.raw.Id,
                 Icon = new SymbolIcon(Symbol.Edit),
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -44,7 +43,6 @@ namespace Discord_UWP.Flyouts
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MuteChannel"),
-                //Text = "Mute",
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = chn.raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
@@ -55,7 +53,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem markasread = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/MarkAsRead"),
-                //Text = "Mark as Read",
                 Tag = chn.raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
                 Margin = new Thickness(-26, 0, 0, 0),

@@ -34,8 +34,7 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             chnId = e.Parameter.ToString();
-            //Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
-            Message.Text = "Are you sure you want to delete" + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
+            Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
