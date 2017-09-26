@@ -245,7 +245,7 @@ namespace Discord_UWP.Managers
                     case 3: //Group
                         sc.Name = channel.Name;
 
-                        sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + "Members"; //App.GetString("/Main/members");
+                        sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
                         if (channel.Name != null && channel.Name != "")
                         {
                             sc.Name = channel.Name;
