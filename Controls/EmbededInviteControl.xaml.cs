@@ -18,6 +18,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace Discord_UWP.Controls
@@ -65,7 +68,7 @@ namespace Discord_UWP.Controls
 
             try
             {
-                DisplayedInvite = await Session.GetInvite(InviteCode);
+                DisplayedInvite = await RESTCalls.GetInvite(InviteCode); //TODO: Rig to App.Events (maybe, probably not actually)
                 Loading.Fade(0, 200).Start();
                 GuildName.Visibility = Visibility.Visible;
                 TimeSpan timeDiff = TimeSpan.FromSeconds(1);
@@ -79,7 +82,7 @@ namespace Discord_UWP.Controls
                 GuildName.Text = DisplayedInvite.Guild.Name;
                 GuildName.Fade(1, 350).Start();
                 ChannelName.Fade(1, 200).Start();
-                if (Storage.Cache.Guilds.ContainsKey(DisplayedInvite.Guild.Id) || ForceJoin)
+                if (LocalState.Guilds.ContainsKey(DisplayedInvite.Guild.Id) || ForceJoin)
                 {
                     GreenIcon.Fade(1, 200).Start();
                     ChannelName.Text = App.GetString("/Controls/InviteJoined") + " " + DisplayedInvite.Channel.Name;
@@ -111,15 +114,16 @@ namespace Discord_UWP.Controls
                 ChannelName.Text = App.GetString("/Controls/InviteInvalid");
                 GuildName.Visibility = Visibility.Collapsed;
             }
-    }
-            public EmbededInviteControl()
-        {
-            this.InitializeComponent();
-            Session.Gateway.GuildDeleted += Gateway_GuildDeleted;
-            Session.Gateway.GuildCreated += Gateway_GuildCreated;
         }
 
-        private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<Guild> e)
+        public EmbededInviteControl()
+        {
+            this.InitializeComponent();
+            GatewayManager.Gateway.GuildDeleted += Gateway_GuildDeleted;
+            GatewayManager.Gateway.GuildCreated += Gateway_GuildCreated;
+        }
+
+        private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
@@ -132,7 +136,7 @@ namespace Discord_UWP.Controls
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if (e.EventData.MessageId == DisplayedInvite.Guild.Id)
+                if (e.EventData.GuildId == DisplayedInvite.Guild.Id)
                     LoadInvite(false);
             });
         }
@@ -151,9 +155,9 @@ namespace Discord_UWP.Controls
                 GuildName.Opacity = 0;
                 Loading.Opacity = 1;
 
-                //DisplayedInvite = await Session.AcceptInvite(InviteCode);
-                await Session.AcceptInvite(InviteCode);
-                DisplayedInvite = await Session.GetInvite(InviteCode);
+                //DisplayedInvite = await RESTCalls.AcceptInvite(InviteCode); I guess this doesn't work or something...
+                await RESTCalls.AcceptInvite(InviteCode); //TODO: Rig to App.Events
+                DisplayedInvite = await RESTCalls.GetInvite(InviteCode); //TODO: Rig to App.Events (maybe, probably not actually)
                 DisplayedInvite.Uses++;
                 LoadInvite(true);
             }

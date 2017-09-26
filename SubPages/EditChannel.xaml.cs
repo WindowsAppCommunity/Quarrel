@@ -22,6 +22,9 @@ using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
+
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP.SubPages
@@ -38,10 +41,10 @@ namespace Discord_UWP.SubPages
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
         {
-            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = Storage.Cache.Guilds[App.CurrentGuildId].Channels[channelId].Raw.Position, NSFW = NsfwSwitch.IsOn };
-            Task.Run(() =>
+            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = LocalState.Guilds[App.CurrentGuildId].channels[channelId].raw.Position, NSFW = NsfwSwitch.IsOn };
+            Task.Run(async () =>
             {
-                Session.ModifyGuildChannel(channelId, modifychannel);
+                await RESTCalls.ModifyGuildChannel(channelId, modifychannel);
             });
             CloseButton_Click(null,null);
         }
@@ -50,19 +53,19 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             channelId = e.Parameter.ToString();
-            var channel = Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(channelId))
-                .Value.Channels[channelId];
-            ChannelName.Text = channel.Raw.Name;
-            header.Text = App.GetString("/Dialogs/EDIT") + " " + channel.Raw.Name.ToUpper();
-            if(channel.Raw.Topic != null)
-                ChannelTopic.Text = channel.Raw.Topic;
-            NsfwSwitch.IsOn = channel.Raw.NSFW;
-            Session.Gateway.GuildChannelUpdated += ChannelUpdated;
+            var channel = LocalState.Guilds.FirstOrDefault(x => x.Value.channels.ContainsKey(channelId))
+                .Value.channels[channelId];
+            ChannelName.Text = channel.raw.Name;
+            header.Text = App.GetString("/Dialogs/EDIT") + " " + channel.raw.Name.ToUpper();
+            if(channel.raw.Topic != null)
+                ChannelTopic.Text = channel.raw.Topic;
+            NsfwSwitch.IsOn = channel.raw.NSFW;
+            GatewayManager.Gateway.GuildChannelUpdated += ChannelUpdated;
             ChannelName_TextChanged(null, null);
             ChannelTopic_OnTextChanged(null,null);
         }
 
-        private async void ChannelUpdated(object sender, GatewayEventArgs<GuildChannel> e)
+        private async void ChannelUpdated(object sender, GatewayEventArgs<SharedModels.GuildChannel> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -91,7 +94,7 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Session.Gateway.GuildChannelUpdated -= ChannelUpdated;
+            GatewayManager.Gateway.GuildChannelUpdated -= ChannelUpdated;
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
@@ -231,7 +234,7 @@ namespace Discord_UWP.SubPages
                 IEnumerable<Invite> invites = null;
                 await Task.Run(async () =>
                  {
-                     invites = await Session.GetChannelInvites(channelId);
+                     invites = await RESTCalls.GetChannelInvites(channelId);
                  });
                 if (invites != null)
                 {
@@ -252,7 +255,7 @@ namespace Discord_UWP.SubPages
         private async void InviteControl_OnDeleteInvite(object sender, EventArgs e)
         {
             string code = ((Invite)sender).String;
-            await Session.DeleteInvite(code);
+            await RESTCalls.DeleteInvite(code); //TODO: Rig to App.Events
             InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite)x).String == code));
         }
 

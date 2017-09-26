@@ -27,18 +27,13 @@ using static Discord_UWP.Common;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Media.Animation;
-using Discord_UWP.CacheModels;
 using Discord_UWP.Controls;
 using Discord_UWP.Gateway;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.SharedModels;
-#region CacheModels Overrule
-using GuildChannel = Discord_UWP.CacheModels.GuildChannel;
-using Message = Discord_UWP.CacheModels.Message;
-using User = Discord_UWP.CacheModels.User;
-using Guild = Discord_UWP.CacheModels.Guild;
-#endregion
 
+using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 
 namespace Discord_UWP
 {
@@ -174,11 +169,8 @@ namespace Discord_UWP
         public MessageControl()
         {
             this.InitializeComponent();
-            if (Session.Online)
-            {
-                Session.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
-                Session.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
-            }
+            GatewayManager.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
+            GatewayManager.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
         }
 
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
@@ -319,7 +311,7 @@ namespace Discord_UWP
                         {
                             Count = 1,
                             Emoji = data.Emoji,
-                            Me = App.CurrentUserId.Equals(data.UserId),
+                            Me = LocalState.CurrentUser.Id.Equals(data.UserId),
                         });
                         reactionView.Items.Add(toggle);
                     }
@@ -340,7 +332,7 @@ namespace Discord_UWP
             if (Message.HasValue)
             {
                 messageid = Message.Value.Id;
-                if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == App.CurrentUserId))
+                if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
@@ -362,9 +354,9 @@ namespace Discord_UWP
                 GuildMember member;
                 if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
                 else userid = "";
-                if (App.CurrentGuildId != null && Storage.Cache.Guilds[App.CurrentGuildId].Members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuildId != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.Value.User.Id))
                 {
-                    member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Message.Value.User.Id].Raw;
+                    member = LocalState.Guilds[App.CurrentGuildId].members[Message.Value.User.Id];
                 }
                 else
                 {
@@ -377,7 +369,7 @@ namespace Discord_UWP
 
                 if (member.Roles != null && member.Roles.Any())
                 {
-                    foreach (Role role in App.CurrentGuild.RawGuild.Roles)
+                    foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                     {
                         if (role.Id == member.Roles.First<string>())
                         {
@@ -519,8 +511,8 @@ namespace Discord_UWP
             StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal };
             string serversideEmoji = null;
             Debug.WriteLine(reaction.Emoji.Name);
-            if (App.CurrentGuild.RawGuild.Emojis != null)
-                foreach (Emoji emoji in App.CurrentGuild.RawGuild.Emojis)
+            if (LocalState.Guilds[App.CurrentGuildId].Raw.Emojis != null)
+                foreach (Emoji emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
                 {
                     if (emoji.Name == reaction.Emoji.Name)
                     {
@@ -575,12 +567,12 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id && Storage.Cache.Guilds[App.CurrentGuildId].RawGuild.OwnerId != Storage.Cache.CurrentUser.Raw.Id)
+                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
-                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                else if (Message?.User.Id != LocalState.CurrentUser.Id)
                 {
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
@@ -592,12 +584,12 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
-                else if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                else if (Message?.User.Id != LocalState.CurrentUser.Id)
                 {
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
@@ -609,17 +601,17 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId != null)
             {
-                if (Message?.User.Id == Message.Value.User.Id || !Storage.Cache.Guilds[App.CurrentChannelId].Channels[Message.Value.ChannelId].chnPerms.Perms.SendMessages)
+                if (Message?.User.Id == Message.Value.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.Value.ChannelId].permissions.SendMessages)
                 {
                     MoreReply.Visibility = Visibility.Collapsed;
                 }
-                if (!Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.ManageMessages && !Storage.Cache.Guilds[App.CurrentGuildId].Channels[Message.Value.ChannelId].chnPerms.Perms.Administrator && Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
             }
-            if (Message?.User.Id != Storage.Cache.CurrentUser.Raw.Id)
+            if (Message?.User.Id != LocalState.CurrentUser.Id)
             {
                 MoreEdit.Visibility = Visibility.Collapsed;
             }
@@ -635,9 +627,9 @@ namespace Discord_UWP
             if (reaction.Emoji.Id != null)
                 emojiStr += ":" + reaction.Emoji.Id;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
-                await Session.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
+                await RESTCalls.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr); //TODO: Rig to App.Events
             else
-                await Session.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
+                await RESTCalls.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr); //TODO: Rig to App.Events
     }
 
         string EditValue = "";
@@ -675,7 +667,7 @@ namespace Discord_UWP
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
             editBox.IsEnabled = false;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => Session.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text)); //TODO: Rig to App.Events
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
@@ -691,20 +683,20 @@ namespace Discord_UWP
         }
 
 
-        private void MorePin_Click(object sender, RoutedEventArgs e)
+        private async void MorePin_Click(object sender, RoutedEventArgs e)
         {
             if (Message.Value.Pinned)
             {
-                Session.UnpinMessage(Message.Value.ChannelId, Message.Value.Id);
+                await RESTCalls.UnpinMessage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
             } else
             {
-                Session.PinMesage(Message.Value.ChannelId, Message.Value.Id);
+                await RESTCalls.PinMesage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
             }
         }
 
-        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        private async void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
-            Session.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
+            await RESTCalls.DeleteMessage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
         }
 
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
@@ -726,7 +718,7 @@ namespace Discord_UWP
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 if (!App.CurrentGuildIsDM)
-                    App.ShowMenuFlyout(this, App.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
@@ -735,7 +727,7 @@ namespace Discord_UWP
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {
                 if (!App.CurrentGuildIsDM)
-                    App.ShowMenuFlyout(this, App.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
@@ -759,7 +751,7 @@ namespace Discord_UWP
                 var emoji = (EmojiControl.GuildSide)e;
                 emojiStr = emoji.names[0] + ":" + emoji.id;
             }
-            await Session.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr);
+            await RESTCalls.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr); //TODO: Rig to App.Events
         }
 
         private void MoreReply_Click(object sender, RoutedEventArgs e)
