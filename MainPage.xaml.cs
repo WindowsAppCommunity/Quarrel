@@ -613,8 +613,12 @@ namespace Discord_UWP
                                     gclone.NotificationCount += readstate.MentionCount;
                                     Fullcount += readstate.MentionCount;
                                     var StorageChannel = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
-                                    if (StorageChannel.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId && !LocalState.GuildSettings.ContainsKey(chn.raw.GuildId) ? (LocalState.GuildSettings[chn.raw.GuildId].channelOverrides.ContainsKey(chn.raw.Id) ? LocalState.GuildSettings[chn.raw.GuildId].channelOverrides[chn.raw.Id].Muted : false) : false)
-                                        gclone.IsUnread = true;
+                                    try
+                                    {
+                                        if (StorageChannel.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId && !LocalState.GuildSettings.ContainsKey(chn.raw.GuildId) ? (LocalState.GuildSettings[chn.raw.GuildId].channelOverrides.ContainsKey(chn.raw.Id) ? LocalState.GuildSettings[chn.raw.GuildId].channelOverrides[chn.raw.Id].Muted : false) : false)
+                                            gclone.IsUnread = true;
+                                    }
+                                    catch (Exception) { }
                                 }
                         }
                         guild.Id = gclone.Id;

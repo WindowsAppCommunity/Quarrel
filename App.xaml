@@ -14,30 +14,31 @@
                     TintColor="#FFFFFFFF"
                     TintOpacity="0.9"
                     FallbackColor="#FFFFFFFF"/>-->
-                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFDCDCDC"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFF2F2F3"/>
+                    <!--<AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FFDCDCDC"
                     TintOpacity="0.7"
-                    FallbackColor="#FFDCDCDC"/>-->
-                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FFFDFDFD"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    FallbackColor="#FFF2F2F3"/>-->
+                    <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FFE0E0E5"/>
+                    <!--<AcrylicBrush x:Key="AcrylicGuildPaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FFFDFDFD"
                     TintOpacity="0.6"
-                    FallbackColor="#FFFDFDFD"/>-->
-                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FFCCCCCC"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    FallbackColor="#FFE0E0E5"/>-->
+                    <SolidColorBrush x:Key="AcrylicCommandBarBackground" Color="#FFE0E0E5"/>
+                    <!--<AcrylicBrush x:Key="AcrylicCommandPaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FFCCCCCC"
                     TintOpacity="0.6"
-                    FallbackColor="#FFCCCCCC"/>-->
+                    FallbackColor="#FFE0E0E5"/>-->
                     <SolidColorBrush x:Key="AcrylicFlyoutBackground" Color="#DDFFFFFF"/>
-                    <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
+                    <!--<AcrylicBrush x:Key="AcrylicFlyoutPaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#AAFFFFFF"
                     TintOpacity="0.8"
                     FallbackColor="#AAFFFFFF"/>-->
+                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FFE8E8ED"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -57,7 +58,7 @@
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Background" Color="#FF000000"/>
-                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF42464D"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF36393E"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessagePaneBackground"
                     BackgroundSource="HostBackdrop"
                     TintColor="#FF222529"
@@ -87,6 +88,7 @@
                     TintColor="#AA000000"
                     TintOpacity="0.8"
                     FallbackColor="#AA000000"/>-->
+                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FF2A2C31"/>
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
