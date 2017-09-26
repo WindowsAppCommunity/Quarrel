@@ -47,6 +47,7 @@ namespace Discord_UWP
         /// </summary>
         public App()
         {
+            LoadSettings();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -663,6 +664,58 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
+
+        private void LoadSettings()
+        {
+            if (Storage.SavedSettings.Containers.ContainsKey("settings"))
+            {
+                try
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Settings));
+                    StringReader userNameReader = new StringReader((string)Storage.SavedSettings.Values["settings"]);
+                    Storage.Settings = (Settings)serializer.Deserialize(userNameReader);
+                }
+                catch
+                {
+                    Storage.Settings.AutoHideChannels = true;
+                    Storage.Settings.AutoHidePeople = false;
+                    Storage.Settings.Toasts = false;
+                    Storage.Settings.HighlightEveryone = true;
+                    Storage.Settings.RespUiM = 569;
+                    Storage.Settings.RespUiL = 768;
+                    Storage.Settings.RespUiXl = 1024;
+                    Storage.Settings.AppBarAtBottom = false;
+                    Storage.Settings.DiscordLightTheme = false;
+                    Storage.Settings.CompactMode = false;
+                    Storage.Settings.DevMode = false;
+                    Storage.Settings.ExpensiveRender = false;
+                    Storage.Settings.Theme = Theme.Dark;
+                    Storage.Settings.AccentBrush = false;
+                    Storage.SaveAppSettings();
+                }
+            }
+            else
+            {
+                Storage.Settings.AutoHideChannels = true;
+                Storage.Settings.AutoHidePeople = false;
+                Storage.Settings.Toasts = false;
+                Storage.Settings.HighlightEveryone = true;
+                Storage.Settings.CompactMode = false;
+                Storage.Settings.Toasts = false;
+                Storage.Settings.RespUiM = 569;
+                Storage.Settings.RespUiL = 768;
+                Storage.Settings.RespUiXl = 1024;
+                Storage.Settings.AppBarAtBottom = false;
+                Storage.Settings.DiscordLightTheme = false;
+                Storage.Settings.ExpensiveRender = false;
+                Storage.Settings.DevMode = false;
+                Storage.Settings.Theme = Theme.Dark;
+                Storage.Settings.AccentBrush = false;
+                Storage.SaveAppSettings();
+
+                //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
+            }
+        }
 
         private void WindowFocusChanged(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
         {

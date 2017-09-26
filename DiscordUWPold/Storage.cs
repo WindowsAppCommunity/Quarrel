@@ -54,8 +54,8 @@ namespace Discord_UWP
                 serializer.Serialize(settingsWriter, Settings);
                 SavedSettings.Values["settings"] = settingsWriter.ToString();
             });
-
         }
+
         public static async void SaveCache()
         {
             await Task.Run(async () =>
