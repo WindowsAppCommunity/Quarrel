@@ -1174,7 +1174,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
-                <SplitView x:Name="ServersnChannelsPane" DisplayMode="CompactOverlay" PaneClosing="ServersnChannelsPane_PaneClosing" OpenPaneLength="314" CompactPaneLength="64" Grid.Row="1" PaneBackground="Transparent" Style="{StaticResource DiscordSplitView}">
+                <SplitView x:Name="ServersnChannelsPane" DisplayMode="CompactOverlay" PaneClosing="ServersnChannelsPane_PaneClosing" OpenPaneLength="322" CompactPaneLength="72" Grid.Row="1" PaneBackground="Transparent" Style="{StaticResource DiscordSplitView}">
                     <SplitView x:Name="MembersPane" PaneBackground="{ThemeResource AcrylicChannelPaneBackground}" PanePlacement="Right" PaneClosing="MembersPane_PaneClosing">
                         <Grid x:Name="MessageArea" Background="{ThemeResource AcrylicMessageBackground}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <Grid.RowDefinitions>
@@ -1310,14 +1310,14 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="64"/>
+                                <ColumnDefinition Width="72"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             
                             <Grid Background="{ThemeResource AcrylicGuildPaneBackground}">
                                 
                                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                                    <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="64" HorizontalAlignment="Left" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
+                                    <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:GuildControl Id="{Binding Id}" 
@@ -1330,7 +1330,7 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Footer>
-                                            <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}">
+                                            <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}" HorizontalAlignment="Center">
                                                 <Button.Content>
                                                     <Grid>
                                                         <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
@@ -1452,7 +1452,7 @@
                 <CommandBar Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0">
                     <CommandBar.Content>
                         <StackPanel Orientation="Horizontal">
-                            <AppBarButton Click="ToggleSplitView" Width="64" Label="" LabelPosition="Collapsed">
+                            <AppBarButton Click="ToggleSplitView" Width="72" Label="" LabelPosition="Collapsed">
                                 <AppBarButton.Content>
                                     <Grid>
                                         <FontIcon Glyph="&#xE700;"/>
