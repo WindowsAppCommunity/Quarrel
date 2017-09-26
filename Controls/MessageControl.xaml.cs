@@ -35,7 +35,7 @@ using Discord_UWP.SharedModels;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 
-namespace Discord_UWP
+namespace Discord_UWP.Controls
 {
     public sealed partial class MessageControl : UserControl
     {
