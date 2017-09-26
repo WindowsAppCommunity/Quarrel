@@ -43,7 +43,7 @@ namespace Discord_UWP.SubPages
         private async void joinDiscordUWPServer(object sender, RoutedEventArgs e)
         {
             JoinServer.IsHitTestVisible = false;
-            JoinServerText.Text = "Joining"; //App.GetString("/About/JoinWait");
+            JoinServerText.Text = App.GetString("/About/JoinWait");
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += TimerOnTick;
             try
@@ -52,11 +52,11 @@ namespace Discord_UWP.SubPages
             }
             catch (Exception exception)
             {
-                JoinServerText.Text = "Failed to Join Server"; //App.GetString("/About/JoinFail");
+                JoinServerText.Text = App.GetString("/About/JoinFail");
                 timer.Start();
                 return;
             }
-            JoinServerText.Text = "Success!"; //App.GetString("/About/JoinSucess");
+            JoinServerText.Text = App.GetString("/About/JoinSucess");
             timer.Start();
         }
 
@@ -65,7 +65,7 @@ namespace Discord_UWP.SubPages
             timer.Tick -= TimerOnTick;
             timer.Stop();
             JoinServer.IsHitTestVisible = true;
-            JoinServerText.Text = "Join Discord UWP Server"; //App.GetString("/About/JoinDiscordUWPServerTB.Text");
+            JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServerTB.Text");
         }
 
     }

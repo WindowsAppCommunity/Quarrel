@@ -196,7 +196,7 @@ namespace Discord_UWP.Controls
 
         public async Task FriendNotification(User user)
         {
-            string toastTitle = user.Username + " " + "Sent a Friend Request"; //App.GetString("/Main/Notifications_SentAfriendRequest");
+            string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
             //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
             string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
                                user.Avatar + ".jpg";
@@ -231,8 +231,7 @@ namespace Discord_UWP.Controls
             {
                 Buttons =
                 {
-                    //new ToastButton(App.GetString("/Main/Notifications_Accept"), new QueryString()
-                    new ToastButton("Accept", new QueryString()
+                    new ToastButton(App.GetString("/Main/Notifications_Accept"), new QueryString()
                     {
                         { "action", "AddRelationship" },
                         { "id", user.Id }
@@ -240,8 +239,7 @@ namespace Discord_UWP.Controls
                     {
                         ActivationType = ToastActivationType.Foreground,
                     },
-                    //new ToastButton(App.GetString("/Main/Notifications_Refuse"), new QueryString()
-                    new ToastButton("Refuse", new QueryString()
+                    new ToastButton(App.GetString("/Main/Notifications_Refuse"), new QueryString()
                     {
                         { "action", "RemoveRelationship" },
                         { "id", user.Id }

@@ -93,8 +93,7 @@ namespace Discord_UWP.SubPages
             int attachCount = attachements.Count();
             if (attachCount > 1)
                 FileNB.Visibility = Visibility.Visible;
-            //string FileStr = App.GetString("/Dialogs/File");
-            string FileStr = "File";
+            string FileStr = App.GetString("/Dialogs/File");
             for (int i = 0; i < attachCount; i++)
             {
                 FileNB.Text = FileStr + " " + (i+1).ToString() + "/" + attachCount;
@@ -223,7 +222,7 @@ namespace Discord_UWP.SubPages
             else
             {
                 await CaptureMedia.StopRecordAsync();
-                RecordButton.Text = "Creating file.."; //App.GetString("/Dialogs/SavingAudio");
+                RecordButton.Text = App.GetString("/Dialogs/SavingAudio");
                 recording = false;
                 RecordHyperlink.IsEnabled = false;
                 DishTImer.Stop();
@@ -234,13 +233,13 @@ namespace Discord_UWP.SubPages
                     byte[] buffer = new byte[(int)AudioStream.Size];
                     dataReader.ReadBytes(buffer);
                     await FileIO.WriteBytesAsync(mediaFile, buffer);
-                    RecordButton.Text = "Record sound"; //App.GetString("/Dialogs/AdvancedRecordSoundTB.Text");
+                    RecordButton.Text = App.GetString("/Dialogs/AdvancedRecordSoundTB.Text");
                     RecordHyperlink.IsEnabled = true;
                 }
                 AddAttachement(mediaFile);
             }
         }
-        string recordingstr = "Recording..."; //App.GetString("/Dialogs/RecordingAudio");
+        string recordingstr = App.GetString("/Dialogs/RecordingAudio");
         private void DishTImer_Tick(object sender, object e)
         {
             SpanTime = SpanTime.Add(DishTImer.Interval);

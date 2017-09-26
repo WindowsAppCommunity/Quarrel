@@ -72,7 +72,7 @@
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
     </Page.RenderTransform>
-    <Grid x:Name="rootgrid" Background="{ThemeResource Background}" Margin="-100" Padding="100,112" >
+    <Grid x:Name="rootgrid" Background="Transparent" Margin="-100" Padding="100,112" >
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Small">

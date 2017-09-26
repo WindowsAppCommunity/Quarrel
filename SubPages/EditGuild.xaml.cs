@@ -39,11 +39,11 @@ namespace Discord_UWP.SubPages
         public EditGuild()
         {
             this.InitializeComponent();
-            //header.Text = App.GetString("/Flyouts/EditServer").ToUpper();
-            //GuildName.Header = App.GetString("/Flyouts/Name");
-            //Roles.Header = App.GetString("/Flyouts/Roles");
-            //RoleName.Header = App.GetString("/Flyouts/Name").ToUpper();
-            //Bans.Header = App.GetString("/Flyouts/Bans");
+            header.Text = App.GetString("/Flyouts/EditServer").ToUpper();
+            GuildName.Header = App.GetString("/Flyouts/Name");
+            Roles.Header = App.GetString("/Flyouts/Roles");
+            RoleName.Header = App.GetString("/Flyouts/Name").ToUpper();
+            Bans.Header = App.GetString("/Flyouts/Bans");
             Invites.Visibility = Visibility.Collapsed;
             Bans.Visibility = Visibility.Collapsed;
         }
@@ -107,8 +107,7 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = LocalState.Guilds[guildId];
             GuildName.Text = guild.Raw.Name;
-            //header.Text = App.GetString("/Flyouts/Edit") .ToUpper() + " " + guild.Raw.Name.ToUpper();
-            header.Text = "Edit".ToUpper() + " " + guild.Raw.Name.ToUpper();
+            header.Text = App.GetString("/Flyouts/Edit").ToUpper() + " " + guild.Raw.Name.ToUpper();
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
                 GuildName.IsEnabled = false;

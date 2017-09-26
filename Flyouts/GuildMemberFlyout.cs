@@ -24,7 +24,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Profile"),
-                //Text = "Profile",
                 Tag = member.User,
                 Icon = new SymbolIcon(Symbol.ContactInfo)
             };
@@ -33,7 +32,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem message = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Message"),
-                //Text = "Message",
                 Tag = member.User.Id,
                 Icon = new SymbolIcon(Symbol.Message)
             };
@@ -46,7 +44,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutSubItem InviteToServer = new MenuFlyoutSubItem()
                 {
                     Text = App.GetString("/Flyouts/InviteToServer")
-                    //Text = "Invite To Server"
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -65,7 +62,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem addFriend = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AddFriend"),
-                //Text = "Add Friend",
                 Tag = member.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
@@ -73,7 +69,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem removeFriend = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/RemoveFriend"),
-                //Text = "Remove Friend",
                 Tag = member.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.ContactPresence)
@@ -82,7 +77,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem block = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Block"),
-                //Text = "Block",
                 Tag = member.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.BlockContact)
@@ -91,7 +85,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem unBlock = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Unblock"),
-                //Text = "Unblock",
                 Tag = member.User.Id,
                 Icon = new SymbolIcon(Symbol.ContactPresence)
             };
@@ -99,7 +92,6 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem acceptFriendRequest = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/AcceptFriendRequest"),
-                //Text = "Accept Friend Request",
                 Tag = member.User.Id,
                 Icon = new SymbolIcon(Symbol.AddFriend)
             };
@@ -143,7 +135,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem changeNickname = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/ChangeNickname"),
-                    //Text = "Change Nickname",
                     Tag = member.User.Id,
                     Icon = new SymbolIcon(Symbol.Edit)
                 };
@@ -155,7 +146,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutSubItem roles = new MenuFlyoutSubItem()
                 {
                     Text = App.GetString("/Flyouts/Roles")
-                    //Text = "Roles"
                     //Tag = member.Raw.User.Id,
                     //Icon = new SymbolIcon(Symbol.)
                 };
@@ -184,7 +174,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem kickMember = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/KickMember"),
-                    //Text = "Kick Member",
                     Tag = member.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)
@@ -197,7 +186,6 @@ namespace Discord_UWP.Flyouts
                 MenuFlyoutItem leaveServer = new MenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/LeaveServer"),
-                    //Text = "Leave Server",
                     Tag = member.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Remove)
@@ -223,7 +211,6 @@ namespace Discord_UWP.Flyouts
                 ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/Mute"),
-                    //Text = "Mute",
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
@@ -231,14 +218,12 @@ namespace Discord_UWP.Flyouts
                 ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
                 {
                     Text = App.GetString("/Flyouts/Deafen"),
-                    //Text = "Deafen",
                     Icon = new SymbolIcon(Symbol.Mute)
                 };
 
                 MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
                 {
                     Text = App.GetString("/Flyouts/MoveChannel")
-                    //Text = "Move Channel"
                 };
             }
             return menu;
