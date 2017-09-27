@@ -221,7 +221,22 @@ namespace Discord_UWP.Managers
                 App.MessageCreated(e.EventData);
             } else
             {
-                //TODO: Notifications and ReadState
+                foreach (var guild in LocalState.Guilds) //TODO: Check efficiency
+                {
+                    if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                    {
+                        var editableRawChn = guild.Value.channels[e.EventData.ChannelId].raw;
+                        editableRawChn.LastMessageId = e.EventData.Id;
+                        guild.Value.channels[e.EventData.ChannelId].raw = editableRawChn;
+                        if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        {
+                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = editableRawChn.LastMessageId, MentionCount = 0, LastPinTimestamp = null });
+                        } 
+                    }
+                }
+                App.UpdateUnreadIndicators();
+
+                //TODO: Notifications
             }
         }
 
@@ -243,7 +258,7 @@ namespace Discord_UWP.Managers
                 App.MessageEdited(e.EventData);
             } else
             {
-                //TODO: Notifications (I'm actually really happy with this idea
+                //TODO: Notifications (I'm actually really happy with this idea)
             }
         }
 
