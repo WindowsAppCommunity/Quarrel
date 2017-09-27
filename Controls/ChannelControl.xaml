@@ -24,12 +24,12 @@
         <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
             <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
+                    <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
             <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
+                    <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>

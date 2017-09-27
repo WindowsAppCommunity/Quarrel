@@ -406,7 +406,6 @@ namespace Discord_UWP.Controls
                         App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
-
                         break;
                     case 3: /*Group*/
                         App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));

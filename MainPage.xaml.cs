@@ -487,6 +487,7 @@ namespace Discord_UWP
                     MessageList.Items.Add(message);
                 }
             }
+            await RESTCalls.AckMessage(App.CurrentChannelId, messages.LastOrDefault()?.Message.Value.Id);
         }
 
         public void UpdateTyping()
