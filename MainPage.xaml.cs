@@ -875,18 +875,51 @@ namespace Discord_UWP
             App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
         }
 
+        bool IgnoreChange = false;
         private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ChannelList.SelectedItem != null) //Called on clear
+            //When selecting a category, we want to simulate ListView's Mode = Click, 
+            //so we use IgnoreChange to immediately re-select the unselected item 
+            //after having clicked on a category (without reloading anything)
+             
+            if (!IgnoreChange) //True if the last selection was a category
             {
-                if (App.CurrentGuildIsDM)
+                if (ChannelList.SelectedItem != null) //Called on clear
                 {
-                    App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
+                    var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
+                    if(channel.Type == 4)
+                    {
+                        foreach(ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
+                        {
+                            if (item.Hidden)
+                                item.Hidden = false;
+                            else
+                                item.Hidden = true;
+                        }
+                        channel.Hidden = !channel.Hidden;
+                        IgnoreChange = true;
+                        var previousSelection = e.RemovedItems.FirstOrDefault();
+                        if (previousSelection == null)
+                            ChannelList.SelectedIndex = -1;
+                        else
+                            ChannelList.SelectedItem = previousSelection;
+                    }
+                    else
+                    {
+                        if (App.CurrentGuildIsDM)
+                        {
+                            App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
+                        }
+                        else
+                        {
+                            App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                        }
+                    }
                 }
-                else
-                {
-                    App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
-                }
+            }
+            else
+            {
+                IgnoreChange = false;
             }
         }
 

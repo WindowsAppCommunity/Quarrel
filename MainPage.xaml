@@ -1355,6 +1355,11 @@
                                 <ScrollViewer Background="{ThemeResource AcrylicChannelPaneBackground}">
                                     <StackPanel >
                                         <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}">
+                                            <ListView.ItemContainerTransitions>
+                                                <TransitionCollection>
+                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                                </TransitionCollection>
+                                            </ListView.ItemContainerTransitions>
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <controls:ChannelControl Id="{Binding Id}" 
@@ -1366,11 +1371,12 @@
                                                                          NotificationCount="{Binding NotificationCount}" 
                                                                          IsUnread="{Binding IsUnread}" 
                                                                          IsTyping="{Binding IsTyping}" 
-                                                                         IsMuted="{Binding IsMuted}"/>
+                                                                         IsMuted="{Binding IsMuted}"
+                                                                         IsHidden="{Binding Hidden}"/>
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
-                                        <ListViewItem x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
+                                        <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
                                                 <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>

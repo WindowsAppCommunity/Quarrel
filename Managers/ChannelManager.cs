@@ -162,6 +162,13 @@ namespace Discord_UWP.Managers
                 set { if (_nsfw == value) return; _nsfw = value; OnPropertyChanged("Nsfw"); }
             }
 
+            private bool _hidden;
+            public bool Hidden
+            {
+                get { return _hidden; }
+                set { if (_hidden == value) return; _hidden = value; OnPropertyChanged("Hidden"); }
+            }
+
             private List<string> _members;
             public List<string> Members
             {
