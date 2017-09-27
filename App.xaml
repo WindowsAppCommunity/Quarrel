@@ -14,10 +14,10 @@
                     TintColor="#FFFFFFFF"
                     TintOpacity="1"
                     FallbackColor="#FFFFFFFF"/>-->
-                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFF2F2F3"/>
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FFE8E8ED"/>
                     <!--<AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FFF2F2F3"
+                    TintColor="#FFE8E8ED"
                     TintOpacity="0.8"
                     FallbackColor="#FFF2F2F3"/>-->
                     <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FFE0E0E5"/>
@@ -38,7 +38,7 @@
                     TintColor="#DDFFFFFF"
                     TintOpacity="0.8"
                     FallbackColor="#DDFFFFFF"/>-->
-                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FFE8E8ED"/>
+                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FFF2F2F3"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -57,17 +57,18 @@
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
+                    
                     <SolidColorBrush x:Key="Background" Color="#FF000000"/>
-                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF36393E"/>
+                    <SolidColorBrush x:Key="AcrylicMessageBackground" Color="#FF33353b"/>
                     <!--<AcrylicBrush x:Key="AcrylicMessageBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF36393E"
+                    TintColor="#FF33353b"
                     TintOpacity="1"
                     FallbackColor="#FF222529"/>-->
-                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF2F3136"/>
+                    <SolidColorBrush x:Key="AcrylicChannelPaneBackground" Color="#FF2a2c31"/>
                     <!--<AcrylicBrush x:Key="AcrylicChannelPaneBackground"
                     BackgroundSource="HostBackdrop"
-                    TintColor="#FF2F3136"
+                    TintColor="#FF2a2c31"
                     TintOpacity="0.8"
                     FallbackColor="#FF2F3136"/>-->
                     <SolidColorBrush x:Key="AcrylicGuildPaneBackground" Color="#FF1E2124"/>
@@ -88,7 +89,7 @@
                     TintColor="#DD000000"
                     TintOpacity="0.8"
                     FallbackColor="#AA000000"/>-->
-                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FF2A2C31"/>
+                    <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FF303238"/>
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
                     
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -117,7 +118,7 @@
             <Color x:Key="DndColor">#fff04747</Color>
             <SolidColorBrush x:Key="offline" Color="#747f8d"/>
             <Color x:Key="OfflineColor">#747f8d</Color>
-
+            <x:Double x:Key="ShadowOpacity">0.1</x:Double>
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
@@ -1446,6 +1447,10 @@
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Visibility">
                                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                                                     </ObjectAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="322"/>
+                                                    </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualTransition>
                                             <VisualTransition From="Closed" To="OpenOverlayRight">
@@ -1499,6 +1504,10 @@
                                                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Visibility">
                                                         <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                                                     </ObjectAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="250"/>
+                                                    </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualTransition>
                                             <VisualTransition From="ClosedCompactRight" To="OpenCompactOverlayRight">
@@ -1547,6 +1556,10 @@
                                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PaneClipRectangleTransform" Storyboard.TargetProperty="TranslateX">
                                                         <SplineDoubleKeyFrame KeyTime="0:0:0.12" KeySpline="0.1,0.9 0.2,1.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.OpenPaneLength}"/>
                                                     </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="320"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
+                                                    </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualTransition>
                                             <VisualTransition From="OpenOverlayRight" To="Closed">
@@ -1592,6 +1605,10 @@
                                                         <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
                                                         <SplineDoubleKeyFrame KeyTime="0:0:0.12" KeySpline="0.1,0.9 0.2,1.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.NegativeOpenPaneLengthMinusCompactLength}"/>
                                                     </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="322"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
+                                                    </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualTransition>
                                             <VisualTransition From="OpenCompactOverlayRight" To="ClosedCompactRight">
@@ -1633,7 +1650,11 @@
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PaneClipRectangleTransform" Storyboard.TargetProperty="TranslateX">
                                                         <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="-256"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="-250"/>
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="322"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="72"/>
                                                     </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
                                             </VisualTransition>
@@ -1647,6 +1668,22 @@
                                                     </ObjectAnimationUsingKeyFrames>
                                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PaneClipRectangleTransform" Storyboard.TargetProperty="TranslateX">
                                                         <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="-256"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="72"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="322"/>
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="ClosedCompactLeft" To="Closed">
+                                                <Storyboard>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PaneClipRectangleTransform" Storyboard.TargetProperty="TranslateX">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="72"/>
+                                                        <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
+                                                    </DoubleAnimationUsingKeyFrames>
+                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                        <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="72"/>
                                                         <SplineDoubleKeyFrame KeyTime="0:0:0.35" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
                                                     </DoubleAnimationUsingKeyFrames>
                                                 </Storyboard>
@@ -1771,6 +1808,9 @@
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Visibility">
                                                     <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                                                 </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="322"/>
+                                                </DoubleAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="OpenOverlayRight">
@@ -1860,6 +1900,9 @@
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Visibility">
                                                     <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
                                                 </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentMove" Storyboard.TargetProperty="X">
+                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="250"/>
+                                                </DoubleAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="OpenCompactOverlayRight">
@@ -1900,6 +1943,9 @@
 
                                 <!-- Content Area -->
                                 <Grid x:Name="ContentRoot" Grid.ColumnSpan="2">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentMove"/>
+                                    </Grid.RenderTransform>
                                     <Border Child="{TemplateBinding Content}"/>
                                     <Rectangle x:Name="LightDismissLayer" Fill="Transparent" Visibility="Collapsed"/>
                                 </Grid>
