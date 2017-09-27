@@ -142,15 +142,14 @@ namespace Discord_UWP.Controls
             {
                 if (NotificationCount > 0)
                 {
-                    NotificationBorder.Visibility = Visibility.Visible;
                     NotificationCounter.Text = NotificationCount.ToString();
-                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
                     ShowBadge.Begin();
+                    UnreadIndicator.Background = (SolidColorBrush)App.Current.Resources["Blurple"];
                 }
                 else
                 {
-                    NotificationScale.CenterX = NotificationBorder.ActualWidth / 2;
                     HideBadge.Begin();
+                    UnreadIndicator.Background = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                 }
             }
             if (prop == NameProperty)
@@ -209,7 +208,7 @@ namespace Discord_UWP.Controls
 
         private void HideBadge_Completed(object sender, object e)
         {
-            NotificationBorder.Visibility = Visibility.Collapsed;
+
         }
     }
 }

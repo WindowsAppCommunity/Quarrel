@@ -22,6 +22,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Windows.UI.Text;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -128,6 +129,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsHidden
+        {
+            get { return (bool)GetValue(IsHiddenProperty); }
+            set { SetValue(IsHiddenProperty, value); }
+        }
+        public static readonly DependencyProperty IsHiddenProperty = DependencyProperty.Register(
+            nameof(IsHidden),
+            typeof(bool),
+            typeof(ChannelControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public bool IsTyping
         {
             get { return (bool)GetValue(IsTypingProperty); }
@@ -227,7 +239,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    ChannelName.Fade(0.75f, 200).Start();
+                    ChannelName.Fade(0.6f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
             }
@@ -272,7 +284,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == NameProperty)
             {
-                ChannelName.Text = Name;
+                    ChannelName.Text = Name;
             }
             if (prop == ImageUrlProperty)
             {
@@ -284,6 +296,14 @@ namespace Discord_UWP.Controls
             }
             if (prop == TypeProperty)
             {
+                ChannelName.FontWeight = FontWeights.Normal;
+                ChannelName.Opacity = 0.75;
+                ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
+                Chevron.Visibility = Visibility.Collapsed;
+                HoverCache.Visibility = Visibility.Collapsed;
+
+                this.Margin = new Thickness(0);
+
                 if (Type == 0)
                 {
                     //TEXT
@@ -332,8 +352,41 @@ namespace Discord_UWP.Controls
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
                     Status.Visibility = Visibility.Collapsed;
+                    ChannelName.FontWeight = FontWeights.Light;
+                    ChannelName.Opacity = 1;
+                    ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
+                    Chevron.Visibility = Visibility.Visible;
+                    HoverCache.Visibility = Visibility.Visible;
+                    this.Margin = new Thickness(0, 24, 0, 0);
                 }
             }
+            
+            if(prop == IsHiddenProperty)
+            {
+
+                if (IsHidden)
+                {
+                    if (Type == 4)
+                        Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                    else
+                    {
+                        await this.Fade(0, 200, 0).StartAsync();
+                        this.Visibility = Visibility.Collapsed;
+                    }
+
+                }
+                else
+                {
+                    if (Type == 4)
+                        Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                    else
+                    {
+                        this.Visibility = Visibility.Visible;
+                        this.Fade(1, 200, 0).Start();
+                    }
+                }
+            }
+            
             //TODO: Vocie channels
             //if (prop == MembersProperty)
             //{
@@ -406,7 +459,6 @@ namespace Discord_UWP.Controls
                         App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
                         break;
                     case 2: /*Voice*/
-
                         break;
                     case 3: /*Group*/
                         App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));

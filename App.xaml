@@ -744,7 +744,7 @@
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
                     Grid.ColumnSpan="2"/>
-                                <Border x:Name="Indic" Background="{ThemeResource InvertedBG}" Height="32" Width="6" Opacity="0" HorizontalAlignment="Left" CornerRadius="0,6,6,0">
+                                <Border x:Name="Indic" Background="{ThemeResource InvertedBG}" Height="32" Width="4" Opacity="0" HorizontalAlignment="Left" >
                                     <Border.RenderTransform>
                                         <ScaleTransform x:Name="IndicScale" ScaleY="0" CenterY="18"/>
                                     </Border.RenderTransform>
@@ -758,7 +758,7 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="TabNavigation" Value="Local"/>
                 <Setter Property="IsHoldingEnabled" Value="True"/>
-                <Setter Property="Padding" Value="22,2,24,2"/>
+                <Setter Property="Padding" Value="22,0,24,0"/>
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="FontSize" Value="15"/>
@@ -1947,11 +1947,13 @@
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True"/>
-
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="HyperlinkButton">
-                            <Grid x:Name="RootGrid" Background="{ThemeResource BlurpleTranslucent}">
+                            <Grid x:Name="RootGrid">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                </Grid.Background>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">

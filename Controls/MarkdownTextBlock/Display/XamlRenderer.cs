@@ -41,14 +41,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// </summary>
         private readonly ILinkRegister _linkRegister;
 
-        private readonly IEnumerable<SharedModels.User> _users;
         private string _messageid;
 
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId)
         {
             _document = document;
             _linkRegister = linkRegister;
-            _users = users;
             _messageid = MessageId;
         }
 
@@ -998,7 +996,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 try
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention)
-                        content = "@" + _users.First(x => x.Id == element.Text.Remove(0, 1)).Username;
+                        content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username;
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
                         content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 2)].Nick;
