@@ -130,6 +130,20 @@ namespace Discord_UWP
         #endregion
 
         #region Set
+        public static async Task<SharedModels.GuildSetting> ModifyGuildSettings(string guildId, SharedModels.GuildSetting guildSettings)
+        {
+            try
+            {
+                IUserService userService = AuthenticatedRestFactory.GetUserService();
+                return await userService.ModifyGuildSettings(guildId, guildSettings);
+            }
+            catch (Exception exception)
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return guildSettings;
+        }
+
         public static async Task ChangeUserSettings(string settings)
         {
             try
