@@ -341,7 +341,13 @@ namespace Discord_UWP
 
         private async void App_MuteGuildHandler(object sender, App.MuteGuildArgs e)
         {
-            LocalState.GuildSettings[e.GuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSetting() { Muted = !(LocalState.GuildSettings[e.GuildId].raw.Muted) }));
+            if (LocalState.GuildSettings.ContainsKey(e.GuildId))
+            {
+                LocalState.GuildSettings[e.GuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSetting() { Muted = !(LocalState.GuildSettings[e.GuildId].raw.Muted) }));
+            } else
+            {
+                LocalState.GuildSettings.Add(e.GuildId, new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSetting() { Muted = true })));
+            }
             App.UpdateUnreadIndicators();
         }
 
@@ -625,7 +631,7 @@ namespace Discord_UWP
                                         if (StorageChannel.raw.LastMessageId != null && 
                                         readstate.LastMessageId != StorageChannel.raw.LastMessageId && 
                                         LocalState.GuildSettings.ContainsKey(chn.raw.GuildId) ? (LocalState.GuildSettings[chn.raw.GuildId].channelOverrides.ContainsKey(chn.raw.Id) 
-                                        ? LocalState.GuildSettings[chn.raw.GuildId].channelOverrides[chn.raw.Id].Muted : false) : false)
+                                        ? !(LocalState.GuildSettings[chn.raw.GuildId].channelOverrides[chn.raw.Id].Muted) : false) : false)
                                             gclone.IsUnread = true;
                                 }
                         }
