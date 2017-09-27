@@ -10,42 +10,33 @@
     d:DesignWidth="400" HorizontalContentAlignment="Stretch">
     <UserControl.Resources>
         <Storyboard x:Name="ShowBadge">
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation Duration="0:0:0.6" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut"/>
+                    <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+            <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
-                <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut"/>
+                    <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="HideBadge" Completed="HideBadge_Completed">
-            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="NotificationBorder" Storyboard.TargetProperty="Opacity">
+            <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseIn"/>
+                    <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleX">
+            <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="NotificationCounter" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseIn"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="NotificationScale" Storyboard.TargetProperty="ScaleY">
-                <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseIn"/>
+                    <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
     </UserControl.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
-        <Border x:Name="UnreadIndicator" Visibility="Collapsed"  Height="12" Width="6" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left" CornerRadius="0,6,6,0"/>
+        <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
+
         <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
         <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
             <Rectangle.Fill>
@@ -57,11 +48,19 @@
 
         <TextBlock Visibility="Collapsed" x:Name="DMView" FontFamily="Segoe MDL2 Assets" Text="" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Border Visibility="Visible" Opacity="0" x:Name="NotificationBorder" Background="#f04747" CornerRadius="4" Grid.Column="1" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Border.RenderTransform>
-                <ScaleTransform x:Name="NotificationScale" ScaleX="1" ScaleY="1" CenterY="10"/>
-            </Border.RenderTransform>
-            <TextBlock x:Name="NotificationCounter" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="White"  VerticalAlignment="Center" Margin="6,0,6,1" FontSize="12"/>
+        <Border x:Name="border" Visibility="Visible" Opacity="0" Margin="0,0,-12,0" VerticalAlignment="Bottom">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,0" StartPoint="1,0" ColorInterpolationMode="ScRgbLinearInterpolation">
+                    <GradientStop Offset="0.9"/>
+                    <GradientStop Color="{ThemeResource BlurpleColor}" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource InvertedBG}" Text="1" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <CompositeTransform TranslateX="24"/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
         </Border>
+
     </Grid>
 </UserControl>
