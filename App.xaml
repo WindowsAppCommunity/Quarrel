@@ -1947,11 +1947,13 @@
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True"/>
-
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="HyperlinkButton">
-                            <Grid x:Name="RootGrid" Background="{ThemeResource BlurpleTranslucent}">
+                            <Grid x:Name="RootGrid">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                </Grid.Background>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
