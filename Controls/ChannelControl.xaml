@@ -45,7 +45,7 @@
             <RowDefinition Height="Auto" MaxHeight="300"/>
             <RowDefinition Height="Auto" MaxHeight="10"/>
         </Grid.RowDefinitions>
-
+        <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-26,-24,-2"/>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
         <Grid x:Name="grid" Grid.RowSpan="4" Grid.ColumnSpan="4" Opacity="0" Margin="0,-2,-24,-2">
             <Grid.Background>
@@ -79,7 +79,7 @@
                 <SymbolIcon x:Name="MuteIcon" Visibility="Collapsed" Symbol="Mute" Margin="0,0,4,0" Opacity="0.6"/>
                 <SymbolIcon x:Name="VoiceIcon" Visibility="Collapsed" Symbol="Volume" Margin="0,0,4,0" Opacity="0.6"/>
                 <TextBlock x:Name="HashtagIcon" Text="#" Opacity="0.6" FontSize="20" FontWeight="Light" Margin="0,-2,4,0"/>
-                <TextBlock x:Name="ChannelName" Text="general" Opacity="0.75"/>
+                <TextBlock x:Name="ChannelName" Text="general" Opacity="0.6"/>
             </StackPanel>
             <TextBlock x:Name="SubTitle" Visibility="Collapsed" Text="" FontSize="11" FontWeight="SemiBold" Opacity="0.4"/>
             <StackPanel x:Name="PlayingBlock" Orientation="Horizontal" Visibility="Collapsed">
@@ -87,6 +87,7 @@
                 <TextBlock x:Name="PlayingText" FontSize="11" FontWeight="SemiBold" Opacity="0.5" Margin="1,0,0,0"/>
             </StackPanel>
         </StackPanel>
+        <FontIcon x:Name="Chevron" Visibility="Collapsed" Glyph="" HorizontalAlignment="Right" Grid.ColumnSpan="4"/>
         <StackPanel Grid.Column="2" Orientation="Horizontal">
             <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
         </StackPanel>

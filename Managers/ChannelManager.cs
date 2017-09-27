@@ -71,6 +71,13 @@ namespace Discord_UWP.Managers
                 set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
             }
 
+            private string _parentid;
+            public string ParentId
+            {
+                get { return _parentid; }
+                set { if (_parentid == value) return; _parentid = value; OnPropertyChanged("ParentId"); }
+            }
+
             private string _name;
             public string Name
             {
@@ -113,6 +120,13 @@ namespace Discord_UWP.Managers
                 set { if (_type == value) return; _type = value; OnPropertyChanged("Type"); }
             }
 
+            private int _position;
+            public int Position
+            {
+                get { return _position; }
+                set { if (_position == value) return; _position = value; OnPropertyChanged("Position"); }
+            }
+
             private int _notificationcount;
             public int NotificationCount
             {
@@ -141,6 +155,13 @@ namespace Discord_UWP.Managers
                 set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
             }
 
+            private bool _nsfw;
+            public bool Nsfw
+            {
+                get { return _nsfw; }
+                set { if (_nsfw == value) return; _nsfw = value; OnPropertyChanged("Nsfw"); }
+            }
+
             private List<string> _members;
             public List<string> Members
             {
@@ -162,6 +183,8 @@ namespace Discord_UWP.Managers
                 sc.Id = channel.raw.Id;
                 sc.Name = channel.raw.Name;
                 sc.Type = channel.raw.Type;
+                sc.Position = channel.raw.Position;
+                sc.ParentId = channel.raw.ParentId;
                 switch (channel.raw.Type)
                 {
                     case 0:
@@ -186,14 +209,26 @@ namespace Discord_UWP.Managers
                         //TODO: Voice Channels
                         break;
                     case 4:
-                        //TODO: Categories
+                        sc.Name = sc.Name.ToUpper();
+                        returnChannels.Add(sc);
                         break;
                 }
             }
 
             //TODO: OrderBy, no parentId on top, ThenBy Category and children
+            var Categorized = returnChannels.Where(x => x.ParentId != null && x.Type != 4).OrderBy(x => x.Position);
+            var Categories = returnChannels.Where(x => x.Type == 4).OrderBy(x => x.Position).ToList();
+            List<SimpleChannel> Sorted = new List<SimpleChannel>();
+            foreach (var noId in returnChannels.Where(x => x.ParentId == null && x.Type != 4).OrderBy(x => x.Position))
+                Sorted.Add(noId);
+            foreach(var categ in Categories)
+            {
+                Sorted.Add(categ);
+                foreach (var item in Categorized.Where(x => x.ParentId == categ.Id))
+                    Sorted.Add(item);
+            }
 
-            return returnChannels;
+            return Sorted;
         }
 
         public static List<SimpleChannel> OrderChannels(List<DirectMessageChannel> channels)

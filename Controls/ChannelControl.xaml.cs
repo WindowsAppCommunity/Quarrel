@@ -22,6 +22,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Windows.UI.Text;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -227,7 +228,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    ChannelName.Fade(0.75f, 200).Start();
+                    ChannelName.Fade(0.6f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
             }
@@ -272,7 +273,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == NameProperty)
             {
-                ChannelName.Text = Name;
+                    ChannelName.Text = Name;
             }
             if (prop == ImageUrlProperty)
             {
@@ -284,6 +285,13 @@ namespace Discord_UWP.Controls
             }
             if (prop == TypeProperty)
             {
+                ChannelName.FontWeight = FontWeights.Normal;
+                ChannelName.Opacity = 0.75;
+                Chevron.Visibility = Visibility.Collapsed;
+                HoverCache.Visibility = Visibility.Collapsed;
+
+                this.Margin = new Thickness(0);
+
                 if (Type == 0)
                 {
                     //TEXT
@@ -332,6 +340,11 @@ namespace Discord_UWP.Controls
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
                     Status.Visibility = Visibility.Collapsed;
+                    ChannelName.FontWeight = FontWeights.Light;
+                    ChannelName.Opacity = 1;
+                    Chevron.Visibility = Visibility.Visible;
+                    HoverCache.Visibility = Visibility.Visible;
+                    this.Margin = new Thickness(0, 24, 0, 0);
                 }
             }
             //TODO: Vocie channels
