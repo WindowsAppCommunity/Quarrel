@@ -357,7 +357,7 @@ namespace Discord_UWP.Controls
                     ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                     Chevron.Visibility = Visibility.Visible;
                     HoverCache.Visibility = Visibility.Visible;
-                    this.Margin = new Thickness(0, 24, 0, 0);
+                    this.Margin = new Thickness(0, 18, 0, 0);
                 }
             }
             
@@ -370,7 +370,7 @@ namespace Discord_UWP.Controls
                         Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
                     else
                     {
-                        await this.Fade(0, 200, 0).StartAsync();
+                        //await this.Fade(0, 200, 0).StartAsync();
                         this.Visibility = Visibility.Collapsed;
                     }
 
