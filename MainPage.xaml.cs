@@ -456,7 +456,7 @@ namespace Discord_UWP
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsButton.Visibility = Visibility.Collapsed;
-            AddChannelButton.Visibility = Visibility.Visible;
+            AddChannelButton.Visibility = Visibility.Collapsed;
             ChannelName.Text = "";
             CompChannelName.Text = "";
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
@@ -830,7 +830,7 @@ namespace Discord_UWP
         {
             if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
             {
-                DarkenMessageArea.Begin();
+                DarkenMessageArea();
             }
             ServersnChannelsPane.IsPaneOpen = !ServersnChannelsPane.IsPaneOpen;
         }
@@ -839,7 +839,7 @@ namespace Discord_UWP
         {
             if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
             {
-                LightenMessageArea.Begin();
+                LightenMessageArea();
             }
         }
 
@@ -967,7 +967,7 @@ namespace Discord_UWP
         {
             if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
             {
-                DarkenMessageArea.Begin();
+                DarkenMessageArea();
             }
             MembersPane.IsPaneOpen = !MembersPane.IsPaneOpen;
         }
@@ -976,7 +976,7 @@ namespace Discord_UWP
         {
             if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
             {
-                LightenMessageArea.Begin();
+                LightenMessageArea();
             }
         }
 
@@ -988,6 +988,16 @@ namespace Discord_UWP
         private void NavToIAPs(object sender, RoutedEventArgs e)
         {
             App.NavigateToAbout();
+        }
+
+        private void DarkenMessageArea()
+        {
+           // MessageArea.Blur(2f, 350, 0).Start();
+           
+        }
+        private void LightenMessageArea()
+        {
+            //MessageArea.Blur(0f, 350, 0).Start();
         }
         #endregion
     }
