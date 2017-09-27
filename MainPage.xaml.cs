@@ -324,7 +324,7 @@ namespace Discord_UWP
 
         private void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
-
+            
         }
 
         private void App_MarkGuildAsReadHandler(object sender, App.MarkGuildAsReadArgs e)
@@ -332,14 +332,17 @@ namespace Discord_UWP
 
         }
 
-        private void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
+        private async void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
         {
-
+            //Assumes you muted it from active guild
+            LocalState.GuildSettings[App.CurrentGuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(App.CurrentGuildId, new SharedModels.GuildSetting() { ChannelOverrides = new List<SharedModels.ChannelOverride> { new ChannelOverride() { Channel_Id = e.ChannelId, Muted = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId) ? !(LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId].Muted) : true } } }));
+            App.UpdateUnreadIndicators();
         }
 
-        private void App_MuteGuildHandler(object sender, App.MuteGuildArgs e)
+        private async void App_MuteGuildHandler(object sender, App.MuteGuildArgs e)
         {
-
+            LocalState.GuildSettings[e.GuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSetting() { Muted = !(LocalState.GuildSettings[e.GuildId].raw.Muted) }));
+            App.UpdateUnreadIndicators();
         }
 
         private void App_RemoveFriendHandler(object sender, App.RemoveFriendArgs e)
@@ -584,17 +587,16 @@ namespace Discord_UWP
                         gclone.IsUnread = false; //Will change if true
                         if (gclone.Id == "DMs")
                         {
-                            //if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest) //TODO:
-                            //{
-                            //    gclone.NotificationCount += App.FriendNotifications;
-                            //}
+                            if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest)
+                            {
+                                gclone.NotificationCount += App.FriendNotifications;
+                            }
 
                             foreach (var chn in LocalState.DMs.Values)
                                 if (LocalState.RPC.ContainsKey(chn.Id))
                                 {
                                     ReadState readstate = LocalState.RPC[chn.Id];
-                                    //if (Storage.Settings.FriendsNotifyDMs) //TODO
-                                    if (true)
+                                    if (Storage.Settings.FriendsNotifyDMs)
                                     {
                                         gclone.NotificationCount += readstate.MentionCount;
                                         Fullcount += readstate.MentionCount;
@@ -606,6 +608,13 @@ namespace Discord_UWP
                         }
                         else
                         {
+                            if (LocalState.GuildSettings.ContainsKey(gclone.Id))
+                            {
+                                gclone.IsMuted = LocalState.GuildSettings[gclone.Id].raw.Muted;
+                            } else
+                            {
+                                gclone.IsMuted = false;
+                            }
                             foreach (var chn in LocalState.Guilds[gclone.Id].channels.Values)
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
@@ -620,6 +629,7 @@ namespace Discord_UWP
                                             gclone.IsUnread = true;
                                 }
                         }
+
                         guild.Id = gclone.Id;
                         guild.ImageURL = gclone.ImageURL;
                         guild.IsDM = gclone.IsDM;
@@ -662,25 +672,25 @@ namespace Discord_UWP
                         }
                     }
 
-                    //if (Storage.Settings.FriendsNotifyFriendRequest) //TODO
-                    //{
-                    //    Fullcount += App.FriendNotifications;
-                    //}
+                    if (Storage.Settings.FriendsNotifyFriendRequest)
+                    {
+                        Fullcount += App.FriendNotifications;
+                    }
 
-                    //if (App.FriendNotifications > 0) //TODO
-                    //{
-                    //    FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
-                    //    ShowFriendsBadge.Begin();
-                    //}
-                    //else
-                    //{
-                    //    HideFriendsBadge.Begin();
-                    //}
+                    if (App.FriendNotifications > 0)
+                    {
+                        FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
+                        ShowFriendsBadge.Begin();
+                    }
+                    else
+                    {
+                        HideFriendsBadge.Begin();
+                    }
 
                     //if (Fullcount > 0) //TODO
                     //{
-                    //    ShowBadge.Begin();
-                    //    BurgerNotificationCounter.Text = Fullcount.ToString();
+                    //ShowBadge.Begin();
+                    //BurgerNotificationCounter.Text = Fullcount.ToString();
                     //}
 
                 });

@@ -478,6 +478,7 @@ namespace Discord_UWP
 
 
         #endregion
+
         public class StartTypingArgs
         {
             public string ChannelId;

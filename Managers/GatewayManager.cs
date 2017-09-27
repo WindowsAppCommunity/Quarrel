@@ -221,7 +221,7 @@ namespace Discord_UWP.Managers
                 App.MessageCreated(e.EventData);
             } else
             {
-                //Notifications
+                //TODO: Notifications and ReadState
             }
         }
 
@@ -230,6 +230,9 @@ namespace Discord_UWP.Managers
             if (App.CurrentChannelId == e.EventData.ChannelId)
             {
                 App.MessageDeleted(e.EventData.MessageId);
+            } else
+            {
+                //TODO: Notifications (maybe)
             }
         }
 
@@ -238,12 +241,17 @@ namespace Discord_UWP.Managers
             if (App.CurrentChannelId == e.EventData.ChannelId)
             {
                 App.MessageEdited(e.EventData);
+            } else
+            {
+                //TODO: Notifications (I'm actually really happy with this idea
             }
         }
 
         private static void Gateway_MessageAck(object sender, Gateway.GatewayEventArgs<SharedModels.MessageAck> e)
         {
-            //TODO: ACK Message
+            ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
+            LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
+            App.UpdateUnreadIndicators();
         }
         #endregion
 

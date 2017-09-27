@@ -127,18 +127,17 @@ namespace Discord_UWP.Controls
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
             }
-            //if (prop == IsMutedProperty)
-            //{
-            //    if (IsMuted)
-            //    {
-            //        ChannelName.Opacity = 0.5;
-            //        MuteIcon.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        MuteIcon.Visibility = Visibility.Collapsed;
-            //    }
-            //}
+            if (prop == IsMutedProperty)
+            {
+                if (IsMuted)
+                {
+                    UnreadIndicator.Visibility = Visibility.Collapsed;
+                }
+                else if (IsUnread)
+                {
+                    UnreadIndicator.Visibility = Visibility.Visible;
+                }
+            }
             if (prop == NotificationCountProperty)
             {
                 if (NotificationCount > 0)
