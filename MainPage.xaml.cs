@@ -624,9 +624,7 @@ namespace Discord_UWP
                                     Fullcount += readstate.MentionCount;
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
                                     if (chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId)
-                                    {
                                         gclone.IsUnread = true;
-                                    }
                                 }
                         }
 
