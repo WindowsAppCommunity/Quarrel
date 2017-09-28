@@ -35,10 +35,6 @@ namespace Discord_UWP.SubPages
         public UserProfile()
         {
             this.InitializeComponent();
-            CommonSrvItem.Visibility = Visibility.Collapsed;
-            CommonFrdItem.Visibility = Visibility.Collapsed;
-            CommonSrvspivot.Visibility = Visibility.Collapsed;
-            CommonFrdspivot.Visibility = Visibility.Collapsed;
         }
         private void NavAway_Completed(object sender, object e)
         {
