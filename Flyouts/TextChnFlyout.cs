@@ -56,7 +56,7 @@ namespace Discord_UWP.Flyouts
                 Tag = chn.raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
                 Margin = new Thickness(-26, 0, 0, 0),
-                IsEnabled = false
+                //IsEnabled = false
                 //IsEnabled = (TextChannels.Items.FirstOrDefault(x => (x as SimpleChannel).Id == chn.Raw.Id) as SimpleChannel).IsUnread
             };
             menu.Items.Add(markasread);
