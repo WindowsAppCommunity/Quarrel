@@ -48,6 +48,21 @@ namespace Discord_UWP
         public App()
         {
             LoadSettings();
+            switch (Storage.Settings.Theme)
+            {
+                case Theme.Dark:
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+                case Theme.Light:
+                    this.RequestedTheme = ApplicationTheme.Light;
+                    break;
+                case Theme.Discord:
+                    this.RequestedTheme = Storage.Settings.DiscordLightTheme ? ApplicationTheme.Light : ApplicationTheme.Dark;
+                    break;
+                default:
+                    //Windows, already uses system default
+                    break;
+            }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

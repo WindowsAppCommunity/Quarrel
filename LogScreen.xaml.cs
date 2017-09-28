@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Credentials;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,7 +42,8 @@ namespace Discord_UWP
                 Frame.Navigate(typeof(MainPage));
             } else
             {
-                //TODO: Some kind of message
+                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password");
+                await msg.ShowAsync();
 
                 (sender as Button).IsEnabled = true;
                 ProgressRing.Visibility = Visibility.Collapsed;
