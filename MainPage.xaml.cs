@@ -83,6 +83,7 @@ namespace Discord_UWP
             App.NavigateToAboutHandler += App_NavigateToAboutHandler;
             App.NavigateToAddServerHandler += App_NavigateToAddServerHandler;
             App.NavigateToMessageEditorHandler += App_NavigateToMessageEditorHandler;
+            App.NavigateToIAPSHandler += App_NavigateToIAPSHandler;
             //Flyouts
             App.MenuHandler += App_MenuHandler;
             //API
@@ -291,6 +292,10 @@ namespace Discord_UWP
         private void App_NavigateToMessageEditorHandler(object sender, App.MessageEditorNavigationArgs e)
         {
             SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e.Content);
+        }
+        private void App_NavigateToIAPSHandler(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.InAppPurchases));
         }
         #endregion
 
@@ -993,7 +998,7 @@ namespace Discord_UWP
 
         private void NavToIAPs(object sender, RoutedEventArgs e)
         {
-            App.NavigateToAbout();
+            App.NavigateToIAP();
         }
 
         private void DarkenMessageArea()
