@@ -1171,7 +1171,7 @@
 
                             <StackPanel x:Name="CompressedChannelHeader">
                                 <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
-                                <!--<md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>-->
+                                <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
                             </StackPanel>
                             <tkc:PullToRefreshListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
                                 <ListView.ItemsPanel>
@@ -1557,7 +1557,7 @@
                             </ToggleButton>
                             <StackPanel x:Name="ChannelHeader" Orientation="Vertical" VerticalAlignment="Center" Width="400">
                                 <TextBlock x:Name="ChannelName" Text="Channel Name" FontWeight="Bold"/>
-                                <!--<md:MarkdownTextBlock x:Name="ChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>-->
+                                <md:MarkdownTextBlock x:Name="ChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
                             </StackPanel>
                         </StackPanel>
                     </CommandBar.Content>
