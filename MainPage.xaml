@@ -1420,7 +1420,7 @@
                                         </Rectangle.Fill>
                                     </Rectangle>
                                     <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="16" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="16" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
-                                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
                                             <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
@@ -1562,14 +1562,29 @@
                         </StackPanel>
                     </CommandBar.Content>
                     <CommandBar.PrimaryCommands>
-                        <AppBarButton x:Name="MemberToggle" Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
-                        <!--<AppBarButton x:Name="PinnedMessags" Icon="Pin" Label="Show Pinned Messages">
+                        <AppBarButton x:Name="PinnedMessags" Icon="Pin" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
-                                <Flyout>
-                                    
+                                <Flyout Placement="Left">
+                                    <tkc:PullToRefreshListView x:Name="PinnedMessageList" SelectionMode="None" Width="550">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <controls:MessageControl Message="{Binding Message}"
+                                                 IsContinuation="{Binding IsContinuation}"
+                                                 IsAdvert="{Binding IsAdvert}"
+                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                        <ListView.Footer>
+                                            <Grid Height="22" Margin="0,0,0,0">
+                                                <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoPinnedMessages" Text="No Pinned Messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                                <ProgressBar x:Name="PinnedMessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                                            </Grid>
+                                        </ListView.Footer>
+                                    </tkc:PullToRefreshListView>
                                 </Flyout>
                             </AppBarButton.Flyout>
-                        </AppBarButton>-->
+                        </AppBarButton>
+                        <AppBarButton x:Name="MemberToggle" Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Label="About" Click="NavToAbout"/>
