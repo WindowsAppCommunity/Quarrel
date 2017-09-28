@@ -374,6 +374,7 @@ namespace Discord_UWP
             {
                 CompressedChannelHeader.Visibility = Visibility.Visible;
             }
+            PinnedMessags.Visibility = Visibility.Visible;
         }
         public void ClearMessageArea()
         {
@@ -381,6 +382,7 @@ namespace Discord_UWP
             MessageList.Items.Clear();
             SendMessage.Visibility = Visibility.Collapsed;
             CompressedChannelHeader.Visibility = Visibility.Collapsed;
+            PinnedMessags.Visibility = Visibility.Collapsed;
         }
 
         public void RenderCurrentUser()
@@ -498,6 +500,15 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Add(message);
+                }
+            }
+
+            var pinnedmessages = MessageManager.ConvertMessage((await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId)).ToList());
+            if (pinnedmessages != null)
+            {
+                foreach (var message in pinnedmessages)
+                {
+                    PinnedMessageList.Items.Add(message);
                 }
             }
         }
