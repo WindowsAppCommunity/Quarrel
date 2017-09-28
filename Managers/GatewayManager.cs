@@ -238,7 +238,10 @@ namespace Discord_UWP.Managers
                 }
                 App.UpdateUnreadIndicators();
 
-                //TODO: Notifications
+                if (Storage.Settings.Toasts)
+                {
+                    //TODO: Notifications
+                }
             }
         }
 

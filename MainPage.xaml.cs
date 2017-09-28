@@ -452,8 +452,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
 
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = "";
-            CompChannelName.Text = "";
+            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
 
             ChannelList.Items.Clear();
 
@@ -469,8 +468,8 @@ namespace Discord_UWP
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsButton.Visibility = Visibility.Collapsed;
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = "";
-            CompChannelName.Text = "";
+            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
+
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
 
             ChannelList.Items.Clear();
@@ -489,6 +488,8 @@ namespace Discord_UWP
 
             ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
             CompChannelName.Text = ChannelName.Text;
+            ChannelTopic.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id].raw.Topic : "";
+            CompChannelTopic.Text = ChannelTopic.Text;
 
             MessageList.Items.Clear();
             var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());
