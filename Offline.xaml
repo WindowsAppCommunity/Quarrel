@@ -5,9 +5,47 @@
     xmlns:local="using:Discord_UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Discord_UWP.Controls"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="TODO: Cute little offline menu" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+    <!--<Page.Resources>
+        <Storyboard x:Name="Frown">
+            
+        </Storyboard>
+    </Page.Resources>-->
+
+    <Grid Background="{ThemeResource AcrylicMessageBackground}">
+        <Viewbox x:Name="viewbox" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
+            <Viewbox.RenderTransform>
+                <CompositeTransform/>
+            </Viewbox.RenderTransform>
+            <Canvas x:Name="canvas" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" Margin="132,52,132,49">
+                <Canvas.RenderTransform>
+                    <CompositeTransform/>
+                </Canvas.RenderTransform>
+                <Canvas x:Name="SidesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M32.4,36.1l2.8,3.9c1.9-0.1,9.3-1.5,11.8-6c0-9.6-4.2-20.8-6-22.5C37.2,8.5,31,8,31,8s-0.5,1.1-0.6,2.5"/>
+                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M19.6,10.5C19,8,19,8,19,8s-6.2,0.5-10,3.5C7.2,13.2,3,24.4,3,34c2.6,4.5,9.9,5.9,11.8,6l2.8-3.9"/>
+                </Canvas>
+                <Canvas x:Name="PolesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M10.5,32.8c0,0,4.8,4.2,14.5,4.2s14.5-4.2,14.5-4.2"/>
+                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M38.1,13.4c-5-3-11-3.4-13.1-3.4s-8.1,0.4-13.1,3.4"/>
+                </Canvas>
+                <Canvas x:Name="EyesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="14.1" Canvas.Top="20.8"/>
+                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="27.1" Canvas.Top="20.8"/>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+        <TextBlock Text="TODO: Cute little offline menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" FontSize="20"/>
     </Grid>
 </Page>
