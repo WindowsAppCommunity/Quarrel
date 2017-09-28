@@ -30,6 +30,10 @@ namespace Discord_UWP
 
         private async void LogIn(object sender, RoutedEventArgs e)
         {
+            (sender as Button).IsEnabled = false;
+            ProgressRing.Visibility = Visibility.Visible;
+            ProgressRing.IsActive = true;
+            LoginText.Visibility = Visibility.Collapsed;
             if (await RESTCalls.Login(Username.Text, Password.Password))
             {
                 PasswordCredential credentials = new PasswordCredential("LogIn", Username.Text, Password.Password);
@@ -38,6 +42,11 @@ namespace Discord_UWP
             } else
             {
                 //TODO: Some kind of message
+
+                (sender as Button).IsEnabled = true;
+                ProgressRing.Visibility = Visibility.Collapsed;
+                ProgressRing.IsActive = false;
+                LoginText.Visibility = Visibility.Visible;
             }
         }
     }
