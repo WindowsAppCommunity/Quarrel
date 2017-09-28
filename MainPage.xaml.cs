@@ -635,7 +635,7 @@ namespace Discord_UWP
                                     gclone.NotificationCount += readstate.MentionCount;
                                     Fullcount += readstate.MentionCount;
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
-                                    if (chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId && LocalState.GuildSettings.ContainsKey(gclone.Id) ? LocalState.GuildSettings[gclone.Id].channelOverrides.ContainsKey(chan.raw.Id) ? LocalState.GuildSettings[gclone.Id].channelOverrides[chan.raw.Id].Muted : false : false) //if channel is unread and not muted
+                                    if (chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId && LocalState.GuildSettings.ContainsKey(gclone.Id) ? LocalState.GuildSettings[gclone.Id].channelOverrides.ContainsKey(chan.raw.Id) ? !LocalState.GuildSettings[gclone.Id].channelOverrides[chan.raw.Id].Muted : false : false) //if channel is unread and not muted
                                         gclone.IsUnread = true;
                                 }
                         }
