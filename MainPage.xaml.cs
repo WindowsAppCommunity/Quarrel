@@ -322,14 +322,20 @@ namespace Discord_UWP
 
         }
 
-        private void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
+        private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
-            
+            //Assumes you marked it from active guild
+            if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+            {
+                await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
+                //Update Unread called on Gateway Event
+            }
         }
 
-        private void App_MarkGuildAsReadHandler(object sender, App.MarkGuildAsReadArgs e)
+        private async void App_MarkGuildAsReadHandler(object sender, App.MarkGuildAsReadArgs e)
         {
-
+            await RESTCalls.AckGuild(e.GuildId);
+            //Update Unread called on Gateway Event
         }
 
         private async void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
@@ -623,7 +629,7 @@ namespace Discord_UWP
                                     gclone.NotificationCount += readstate.MentionCount;
                                     Fullcount += readstate.MentionCount;
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
-                                    if (chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId)
+                                    if (chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId && LocalState.GuildSettings.ContainsKey(gclone.Id) ? LocalState.GuildSettings[gclone.Id].channelOverrides.ContainsKey(chan.raw.Id) ? LocalState.GuildSettings[gclone.Id].channelOverrides[chan.raw.Id].Muted : false : false) //if channel is unread and not muted
                                         gclone.IsUnread = true;
                                 }
                         }
