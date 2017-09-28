@@ -168,6 +168,7 @@ namespace Discord_UWP
             {
                 App.CurrentChannelId = e.ChannelId;
                 RenderMessages();
+                App.MarkChannelAsRead(e.ChannelId);
             }
             else //Out of guild navigation
             {
@@ -498,7 +499,6 @@ namespace Discord_UWP
                     MessageList.Items.Add(message);
                 }
             }
-            await RESTCalls.AckMessage(App.CurrentChannelId, messages.LastOrDefault()?.Message.Value.Id);
         }
 
         public void UpdateTyping()
@@ -677,6 +677,8 @@ namespace Discord_UWP
                                         sc.IsUnread = true;
                                     else
                                         sc.IsUnread = false;
+
+                                    sc.IsMuted = LocalState.GuildSettings.ContainsKey(App.CurrentGuildId) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(sc.Id) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[sc.Id].Muted;
                                 }
                         }
                     }
