@@ -87,6 +87,7 @@ namespace Discord_UWP
             App.NavigateToIAPSHandler += App_NavigateToIAPSHandler;
             //Flyouts
             App.MenuHandler += App_MenuHandler;
+            App.ShowMemberFlyoutHandler += App_ShowMemberFlyoutHandler;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
             App.StartTypingHandler += App_StartTypingHandler;
@@ -116,7 +117,7 @@ namespace Discord_UWP
         #region AppEvents
 
         #region Navigation
-        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
             if (e.GuildId != "DMs")
@@ -136,6 +137,15 @@ namespace Discord_UWP
                 }
 
                 App.CurrentGuildId = e.GuildId;
+
+                var fullMembers = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
+                foreach (var member in fullMembers)
+                {
+                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
+                    }
+                }
                 RenderGuildChannels();
             } else
             {
@@ -306,6 +316,19 @@ namespace Discord_UWP
         {
             e.Flyout.ShowAt((sender as UIElement), e.Point);
         }
+
+        private void App_ShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs e)
+        {
+            if (!App.CurrentGuildIsDM)
+            {
+                var member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
+                FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
+            }
+            else
+            {
+                FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+            }
+        }
         #endregion
 
         #region API
@@ -465,7 +488,7 @@ namespace Discord_UWP
             }
         }
 
-        public void RenderGuildChannels() //App.CurrentGuildId is set
+        public async void RenderGuildChannels() //App.CurrentGuildId is set
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Visible;
@@ -680,7 +703,7 @@ namespace Discord_UWP
                         if (App.CurrentGuildId != null) //Incase called before intiialization
                         {
                             foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
-                                if (LocalState.RPC.ContainsKey(sc.Id))
+                                if (LocalState.RPC.ContainsKey(sc.Id) && LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(sc.Id))
                                 {
                                     ReadState readstate = LocalState.RPC[sc.Id];
                                     sc.NotificationCount = readstate.MentionCount;

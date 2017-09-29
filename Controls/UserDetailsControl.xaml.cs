@@ -19,19 +19,20 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Controls
 {
     public sealed partial class UserDetailsControl : UserControl
     {
-        public Member DisplayedMember
+        public GuildMember DisplayedMember
         {
-            get { return (Member)GetValue(DisplayedMemberProperty); }
+            get { return (GuildMember)GetValue(DisplayedMemberProperty); }
             set { SetValue(DisplayedMemberProperty, value); }
         }
         public static readonly DependencyProperty DisplayedMemberProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
-            typeof(Member),
+            typeof(GuildMember),
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -44,15 +45,15 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedMemberProperty)
             {
-                var user = DisplayedMember.Raw.User;
+                var user = DisplayedMember.User;
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
                 }
-                if (DisplayedMember.Raw.Nick != null)
+                if (DisplayedMember.Nick != null)
                 {
                     UserStacker.Opacity = 0.5;
-                    Nick.Text = DisplayedMember.Raw.Nick;
+                    Nick.Text = DisplayedMember.Nick;
                 } 
                 else
                 {
@@ -81,14 +82,14 @@ namespace Discord_UWP.Controls
                 }
                 if (!App.CurrentGuildIsDM)
                 {
-                    if (DisplayedMember.Raw.Roles.Count() == 0)
+                    if (DisplayedMember.Roles.Count() == 0)
                     {
                         RoleHeader.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
                         var roles = LocalState.Guilds[App.CurrentGuildId].roles;
-                        foreach (var roleStr in DisplayedMember.Raw.Roles)
+                        foreach (var roleStr in DisplayedMember.Roles)
                         {
                             var role = roles[roleStr];
                             var c = Common.IntToColor(role.Color);
@@ -131,7 +132,7 @@ namespace Discord_UWP.Controls
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(null, DisplayedMember.Raw.User.Id, SendDM.Text, true);
+            App.NavigateToDMChannel(null, DisplayedMember.User.Id, SendDM.Text, true);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
@@ -192,7 +193,7 @@ namespace Discord_UWP.Controls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
-            App.NavigateToProfile(DisplayedMember.Raw.User);
+            App.NavigateToProfile(DisplayedMember.User);
         }
     }
 }

@@ -221,8 +221,7 @@ namespace Discord_UWP.Managers
                         break;
                 }
             }
-
-            //TODO: OrderBy, no parentId on top, ThenBy Category and children
+            
             var Categorized = returnChannels.Where(x => x.ParentId != null && x.Type != 4).OrderBy(x => x.Position);
             var Categories = returnChannels.Where(x => x.Type == 4).OrderBy(x => x.Position).ToList();
             List<SimpleChannel> Sorted = new List<SimpleChannel>();
