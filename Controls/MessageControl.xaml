@@ -65,7 +65,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="col1" Width="64"/>
             <ColumnDefinition x:Name="col2" Width="*"/>
-            <ColumnDefinition x:Name="col3" Width="Auto"/>
+            <ColumnDefinition x:Name="col3" Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="row1" Height="Auto"/>

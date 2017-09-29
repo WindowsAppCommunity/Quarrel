@@ -308,7 +308,6 @@ namespace Discord_UWP
             if (Storage.Settings.Toasts && !Storage.MutedChannels.Contains(e.EventData.ChannelId) &&
                 e.EventData.User.Id != Storage.Cache.CurrentUser.Raw.Id)
             {
-                //In a real app, these would be initialized with actual data
                 string toastTitle = e.EventData.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + 
                     Storage.Cache.Guilds.FirstOrDefault(x => x.Value.Channels.ContainsKey(e.EventData.ChannelId)).Value.Channels[e.EventData.ChannelId].Raw.Name;
                 string content = e.EventData.Content;
@@ -376,7 +375,7 @@ namespace Discord_UWP
                 ToastContent toastContent = new ToastContent()
                 {
                     Visual = visual,
-                    Actions = actions,
+                    //Actions = actions, //TODO: Reply
                     // Arguments when the user taps body of toast
                     Launch = new QueryString()
                     {
