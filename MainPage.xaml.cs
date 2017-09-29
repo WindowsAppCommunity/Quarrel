@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -756,11 +757,23 @@ namespace Discord_UWP
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 () =>
+                 async () =>
                  {
                      if (MessageList.Items.Count > 0)
                      {
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                         if (e.Message.TTS)
+                         {
+                             MediaElement mediaplayer = new MediaElement();
+                             using (var speech = new SpeechSynthesizer())
+                             {
+                                 speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Male);
+                                 string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.Message.User.Username + "said" + e.Message.Content + "</speak>";
+                                 SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                                 mediaplayer.SetSource(stream, stream.ContentType);
+                                 mediaplayer.Play();
+                             }
+                         }
                      }
                  });
         }
