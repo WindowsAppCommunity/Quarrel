@@ -1555,7 +1555,7 @@
                                     </Border>
                                 </StackPanel>
                             </ToggleButton>
-                            <StackPanel x:Name="ChannelHeader" Orientation="Vertical" VerticalAlignment="Center" Width="400">
+                            <StackPanel x:Name="ChannelHeader" Orientation="Vertical" VerticalAlignment="Center" Width="400" Tapped="ChannelHeader_Tapped">
                                 <TextBlock x:Name="ChannelName" Text="Channel Name" FontWeight="Bold"/>
                                 <md:MarkdownTextBlock x:Name="ChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
                             </StackPanel>

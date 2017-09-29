@@ -1037,6 +1037,11 @@ namespace Discord_UWP
         {
             //MessageArea.Blur(0f, 350, 0).Start();
         }
+
+        private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+        }
         #endregion
     }
 }
