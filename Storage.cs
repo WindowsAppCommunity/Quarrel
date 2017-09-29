@@ -63,7 +63,6 @@ namespace Discord_UWP
         public double RespUiM = 569;
         public double RespUiL = 768;
         public double RespUiXl = 1024;
-        public bool AppBarAtBottom = false;
         public bool ExpensiveRender = false;
         public bool ShowOfflineMembers = false;
         public bool DevMode = false;

@@ -328,7 +328,7 @@ namespace Discord_UWP
             public SharedModels.GuildChannel Channel { get; set; }
         }
         public static event EventHandler<ChannelTopicNavigationArgs> NavigateToChannelTopicHandler;
-        public static void NavigateToChannelEdit(SharedModels.GuildChannel channel)
+        public static void NavigateToChannelTopic(SharedModels.GuildChannel channel)
         {
             NavigateToChannelTopicHandler?.Invoke(typeof(App), new ChannelTopicNavigationArgs() { Channel = channel });
         }
@@ -700,7 +700,7 @@ namespace Discord_UWP
                     Storage.Settings.RespUiM = 569;
                     Storage.Settings.RespUiL = 768;
                     Storage.Settings.RespUiXl = 1024;
-                    Storage.Settings.AppBarAtBottom = false;
+                    //Storage.Settings.AppBarAtBottom = false;
                     Storage.Settings.DiscordLightTheme = false;
                     Storage.Settings.CompactMode = false;
                     Storage.Settings.DevMode = false;
@@ -721,7 +721,7 @@ namespace Discord_UWP
                 Storage.Settings.RespUiM = 569;
                 Storage.Settings.RespUiL = 768;
                 Storage.Settings.RespUiXl = 1024;
-                Storage.Settings.AppBarAtBottom = false;
+                //Storage.Settings.AppBarAtBottom = false;
                 Storage.Settings.DiscordLightTheme = false;
                 Storage.Settings.ExpensiveRender = false;
                 Storage.Settings.DevMode = false;

@@ -45,7 +45,7 @@ namespace Discord_UWP.SubPages
             RespUI_M.Value = Storage.Settings.RespUiM;
             RespUI_L.Value = Storage.Settings.RespUiL;
             RespUI_XL.Value = Storage.Settings.RespUiXl;
-            AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
+            //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
 
@@ -75,7 +75,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;
             Storage.Settings.RespUiXl = RespUI_XL.Value;
-            Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
+            //Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
             Storage.Settings.CompactMode = (bool)CompactMode.IsChecked;
             Storage.Settings.FriendsNotifyDMs = (bool)FriendsNotifyDMs.IsChecked;
             Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
