@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
+using Discord_UWP.Controls;
 using Discord_UWP.Flyouts;
 using Discord_UWP.LocalModels;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Managers
 {
@@ -42,6 +44,28 @@ namespace Discord_UWP.Managers
                     break;
                     //TODO: User Flyout
             }
+            return flyout;
+        }
+
+        public static Flyout MakeUserDetailsFlyout(GuildMember member)
+        {
+            Flyout flyout = new Flyout();
+            flyout.Content = new UserDetailsControl()
+            {
+                DisplayedMember = member
+            };
+            flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
+            return flyout;
+        }
+
+        public static Flyout MakeUserDetailsFlyout(User user)
+        {
+            Flyout flyout = new Flyout();
+            flyout.Content = new UserDetailsControl()
+            {
+                DisplayedMember = new GuildMember() { User = user }
+            };
+            flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
             return flyout;
         }
 

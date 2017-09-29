@@ -13,7 +13,7 @@ namespace Discord_UWP
 {
     public sealed partial class Main : Page
     {
-        private Flyout MakeUserDetailsFlyout(Member member)
+        public Flyout MakeUserDetailsFlyout(Member member)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
@@ -24,7 +24,7 @@ namespace Discord_UWP
             return flyout;
         }
 
-        private Flyout MakeUserDetailsFlyout(SharedModels.User user)
+        public Flyout MakeUserDetailsFlyout(SharedModels.User user)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
