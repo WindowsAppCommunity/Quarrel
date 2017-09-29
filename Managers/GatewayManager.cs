@@ -240,7 +240,7 @@ namespace Discord_UWP.Managers
 
                 if (Storage.Settings.Toasts)
                 {
-                    //TODO: Notifications
+                    NotifcationManager.CreateMessageCreatedNotifcation(e.EventData);
                 }
             }
         }

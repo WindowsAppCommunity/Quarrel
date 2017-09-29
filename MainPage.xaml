@@ -1565,13 +1565,13 @@
                         <AppBarButton x:Name="PinnedMessags" Icon="Pin" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout Placement="Left">
-                                    <tkc:PullToRefreshListView x:Name="PinnedMessageList" SelectionMode="None" Width="550">
+                                    <tkc:PullToRefreshListView x:Name="PinnedMessageList" SelectionMode="None" Width="450">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
                                                  IsAdvert="{Binding IsAdvert}"
-                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed"/>
+                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed" Width="430"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Footer>
