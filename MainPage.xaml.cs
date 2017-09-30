@@ -202,27 +202,23 @@ namespace Discord_UWP
         #region SubPages
         private void SubFrameNavigator(Type page, object args = null)
         {
-            //TOOD: Settings
-            //if (Storage.Settings.ExpensiveRender)
-            //{
-            //    content.Blur(2, 600).Start();
-            //}
-            content.Blur(2, 600).Start();
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(2, 600).Start();
+            }
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
         private void App_SubpageClosedHandler(object sender, EventArgs e)
         {
-            //TOOD: Settings
-            //if (Storage.Settings.ExpensiveRender)
-            //{
-            //    content.Blur(0, 600).Start();
-            //}
-            //else
-            //{
-            //    content.Blur(0, 0).Start();
-            //}
-            content.Blur(0, 600).Start();
+            if (Storage.Settings.ExpensiveRender)
+            {
+                content.Blur(0, 600).Start();
+            }
+            else
+            {
+                content.Blur(0, 0).Start();
+            }
         }
 
         private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
