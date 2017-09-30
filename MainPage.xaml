@@ -1566,7 +1566,7 @@
                     <CommandBar.PrimaryCommands>
                         <AppBarButton x:Name="PinnedMessags" Icon="Pin" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
-                                <Flyout Placement="Left">
+                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                     <tkc:PullToRefreshListView x:Name="PinnedMessageList" SelectionMode="None" Width="450">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
