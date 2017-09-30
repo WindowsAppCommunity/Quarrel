@@ -82,7 +82,8 @@ namespace Discord_UWP.Controls
         public MemberControl()
         {
             this.InitializeComponent();
-            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+
+            App.PresenceUpdatedHandler += App_PresenceUpdatedHandler; ;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             App.TypingHandler += App_TypingHandler;
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
@@ -131,7 +132,7 @@ namespace Discord_UWP.Controls
                         }
                         else
                         {
-                            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
                             GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
                         }
                     }
@@ -142,7 +143,7 @@ namespace Discord_UWP.Controls
                 });
         }
 
-        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
+        private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -151,15 +152,15 @@ namespace Discord_UWP.Controls
                     {
                         if (DisplayedMember != null)
                         {
-                            if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
+                            if (e.UserId == DisplayedMember.Raw.User.Id)
                             {
-                                DisplayedMember.status = e.EventData;
+                                DisplayedMember.status = e.Presence;
                                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
                             }
                         }
                         else
                         {
-                            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
                             GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
                         }
                     }

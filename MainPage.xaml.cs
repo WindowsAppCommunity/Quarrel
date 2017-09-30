@@ -98,6 +98,7 @@ namespace Discord_UWP
             App.MuteChannelHandler += App_MuteChannelHandler;
             App.MuteGuildHandler += App_MuteGuildHandler;
             App.RemoveFriendHandler += App_RemoveFriendHandler;
+            App.UpdatePresenceHandler += App_UpdatePresenceHandler;
             //UpdateUI
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
@@ -372,6 +373,15 @@ namespace Discord_UWP
         private void App_RemoveFriendHandler(object sender, App.RemoveFriendArgs e)
         {
 
+        }
+
+        private async void App_UpdatePresenceHandler(object sender, App.UpdatePresenceArgs e)
+        {
+            if (LocalStatusChangeEnabled)
+            {
+                await RESTCalls.ChangeUserSettings(e.Status);
+            }
+            LocalStatusChangeEnabled = true;
         }
         #endregion
 
@@ -653,8 +663,8 @@ namespace Discord_UWP
                             if (member.Nick != null) DisplayedName = member.Nick;
                             NamesTyping.Add(DisplayedName);
                         }
+                        
 
-                        //TODO: Member list
                         //TODO: Display typing indicator on member list
                     }
                 }
@@ -852,6 +862,8 @@ namespace Discord_UWP
                  });
         }
 
+
+
         #region Messages
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
         {
@@ -1000,6 +1012,19 @@ namespace Discord_UWP
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
         {
             //TODO: Update status
+            if (UserStatusOnline.IsChecked == true)
+            {
+                App.UpdatePresence("online");
+            } else if (UserStatusIdle.IsChecked == true)
+            {
+                App.UpdatePresence("idle");
+            } else if (UserStatusDND.IsChecked == true)
+            {
+                App.UpdatePresence("dnd");
+            } else
+            {
+                App.UpdatePresence("invisible");
+            }
         }
 
         private void OpenSettings(object sender, RoutedEventArgs e)
@@ -1144,5 +1169,6 @@ namespace Discord_UWP
         #endregion
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
+        private bool LocalStatusChangeEnabled = false;
     }
 }
