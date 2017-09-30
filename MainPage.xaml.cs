@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Media.SpeechSynthesis;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -88,6 +89,8 @@ namespace Discord_UWP
             //Flyouts
             App.MenuHandler += App_MenuHandler;
             App.ShowMemberFlyoutHandler += App_ShowMemberFlyoutHandler;
+            //Link
+            App.LinkClicked += App_LinkClicked;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
             App.StartTypingHandler += App_StartTypingHandler;
@@ -316,6 +319,47 @@ namespace Discord_UWP
             else
             {
                 FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+            }
+        }
+        #endregion
+
+        #region Link
+        private async void App_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        {
+            if (e.Link.StartsWith("#"))
+            {
+                string val = e.Link.Remove(0, 1);
+                foreach (ChannelManager.SimpleChannel item in ChannelList.Items)
+                {
+                    if (item.Id == val)
+                    {
+                        ChannelList.SelectedItem = item;
+                    }
+                }
+            }
+            else if (e.Link.StartsWith("@!"))
+            {
+                string val = e.Link.Remove(0, 2);
+                App.NavigateToProfile(memberscvs[val].Raw.User);
+            }
+            else if (e.Link.StartsWith("@&"))
+            {
+                string val = e.Link.Remove(0, 2);
+                //TODO Fix this shit
+                MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberDisplayedRole.Id == val));
+                if (!MembersPane.IsPaneOpen)
+                {
+                    MembersPane.IsPaneOpen = true;
+                }
+            }
+            else if (e.Link.StartsWith("@"))
+            {
+                string val = e.Link.Remove(0, 1);
+                App.NavigateToProfile(memberscvs[val].Raw.User);
+            }
+            else
+            {
+                await Launcher.LaunchUriAsync(new Uri(e.Link));
             }
         }
         #endregion
