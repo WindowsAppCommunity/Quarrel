@@ -1586,6 +1586,32 @@
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>
+                        <!--<AppBarButton x:Name="RecentMentions" Icon="Pin" Label="Show Pinned Messages">
+                            <AppBarButton.Flyout>
+                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                    <Pivot Title="Recent Mentions">
+                                        <PivotItem Header="All Servers">
+                                            <tkc:PullToRefreshListView x:Name="RecentMentionList" SelectionMode="None" Width="450">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <controls:MessageControl Message="{Binding Message}"
+                                                 IsContinuation="{Binding IsContinuation}"
+                                                 IsAdvert="{Binding IsAdvert}"
+                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed" Width="430"/>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                                <ListView.Footer>
+                                                    <Grid Height="22" Margin="0,0,0,0">
+                                                        <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="RecentMentions" Text="No Recent Mentions" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                                        <ProgressBar x:Name="RecentMentionsLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                                                    </Grid>
+                                                </ListView.Footer>
+                                            </tkc:PullToRefreshListView>
+                                        </PivotItem>
+                                    </Pivot>
+                                </Flyout>
+                            </AppBarButton.Flyout>
+                        </AppBarButton>-->
                         <AppBarButton x:Name="MemberToggle" Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
