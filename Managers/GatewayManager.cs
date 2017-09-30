@@ -484,6 +484,7 @@ namespace Discord_UWP.Managers
             {
                 LocalState.PresenceDict.Add(e.EventData.User.Id, e.EventData);
             }
+            App.PresenceUpdated(e.EventData.User.Id, e.EventData);
         }
         #endregion
 

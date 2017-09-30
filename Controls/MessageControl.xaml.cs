@@ -169,8 +169,11 @@ namespace Discord_UWP.Controls
         public MessageControl()
         {
             this.InitializeComponent();
-            GatewayManager.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
-            GatewayManager.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            if (GatewayManager.Gateway != null) //idrk
+            {
+                GatewayManager.Gateway.MessageReactionAdded += GatewayOnMessageReactionAdded;
+                GatewayManager.Gateway.MessageReactionRemoved += GatewayOnMessageReactionRemoved;
+            }
         }
 
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)

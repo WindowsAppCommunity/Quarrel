@@ -399,6 +399,17 @@ namespace Discord_UWP
             TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing, ChnId = chnId });
         }
 
+        public class PresenceUpdatedArgs
+        {
+            public string UserId;
+            public SharedModels.Presence Presence;
+        }
+        public static event EventHandler<PresenceUpdatedArgs> PresenceUpdatedHandler;
+        public static void PresenceUpdated(string userId, SharedModels.Presence presence)
+        {
+            PresenceUpdatedHandler?.Invoke(typeof(App), new PresenceUpdatedArgs() { UserId = userId, Presence = presence });
+        }
+
         #region Messages
         public class MessageCreatedArgs
         {
