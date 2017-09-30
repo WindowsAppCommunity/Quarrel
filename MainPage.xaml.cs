@@ -531,6 +531,8 @@ namespace Discord_UWP
 
         public async void RenderMembers()
         {
+            memberscvs.Clear();
+
             var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
             foreach (var member in members)
             {

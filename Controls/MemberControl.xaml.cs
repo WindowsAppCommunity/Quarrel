@@ -83,7 +83,7 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
-            GatewayManager.Gateway.UserSettingsUpdated += Gateway_UserSettingsUpdated;
+            GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             App.TypingHandler += App_TypingHandler;
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             Tapped += OpenMemberFlyout;
@@ -113,7 +113,7 @@ namespace Discord_UWP.Controls
             }
         }
 
-        private async void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<UserSettings> e)
+        private async void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -122,16 +122,17 @@ namespace Discord_UWP.Controls
                     {
                         if (DisplayedMember != null)
                         {
-                            if (DisplayedMember.Raw.User.Id == LocalState.CurrentUser.Id)
+                            if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
                             {
-                                DisplayedMember.status = new Presence() { Status = e.EventData.Status };
+                                DisplayedMember.Raw.Roles = e.EventData.Roles;
+                                DisplayedMember.Raw.Nick = e.EventData.Nick;
                                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
                             }
                         }
                         else
                         {
                             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                            GatewayManager.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
                         }
                     }
                     catch
@@ -159,7 +160,7 @@ namespace Discord_UWP.Controls
                         else
                         {
                             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-                            GatewayManager.Gateway.UserSettingsUpdated -= Gateway_UserSettingsUpdated;
+                            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
                         }
                     }
                     catch
