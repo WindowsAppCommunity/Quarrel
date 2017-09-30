@@ -1169,11 +1169,13 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel x:Name="CompressedChannelHeader">
-                                <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
-                                <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
-                            </StackPanel>
                             <tkc:PullToRefreshListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
+                                <tkc:ScrollHeader Mode="QuickReturn">
+                                    <StackPanel x:Name="CompressedChannelHeader">
+                                        <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
+                                        <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
+                                    </StackPanel>
+                                </tkc:ScrollHeader>
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
