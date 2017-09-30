@@ -137,15 +137,7 @@ namespace Discord_UWP
                 }
 
                 App.CurrentGuildId = e.GuildId;
-
-                var fullMembers = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
-                foreach (var member in fullMembers)
-                {
-                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
-                    }
-                }
+                RenderMembers();
                 RenderGuildChannels();
             } else
             {
@@ -534,6 +526,88 @@ namespace Discord_UWP
                 {
                     PinnedMessageList.Items.Add(message);
                 }
+            }
+        }
+
+        public async void RenderMembers()
+        {
+            var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
+            foreach (var member in members)
+            {
+                if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
+                {
+                    LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
+                } else
+                {
+                    LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
+                }
+            }
+            int totalrolecounter = 0;
+
+            if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
+            {
+                foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
+                {
+                    Role roleAlt = role;
+                    if (role.Hoist)
+                    {
+                        int rolecounter = 0;
+                        foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
+                            if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                        totalrolecounter += rolecounter;
+                        roleAlt.MemberCount = rolecounter;
+                    }
+                    if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
+                    }
+                    else
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
+                    }
+                }
+                int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
+                foreach (GuildMember member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+                {
+                    var m = new Member(member);
+                    if (m.Raw.Roles.FirstOrDefault() != null &&
+                        LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                    {
+                        m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
+                    }
+                    else
+                    {
+                        m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
+                    }
+                    if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                    {
+                        m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                    }
+                    else
+                    {
+                        m.status = new Presence() { Status = "offline", Game = null };
+                    }
+                    memberscvs.Add(m.Raw.User.Id, m);
+                }
+                try
+                {
+                    var sortedMembers =
+                        memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            // MembersCVS = new CollectionViewSource();
+                            MembersCvs.Source = sortedMembers;
+                        });
+                }
+                catch (Exception exception)
+                {
+                    App.NavigateToBugReport(exception);
+                }
+
+                //else
+                //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
             }
         }
 
@@ -1066,5 +1140,7 @@ namespace Discord_UWP
             App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
         }
         #endregion
+
+        public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
     }
 }
