@@ -515,6 +515,16 @@ namespace Discord_UWP
             StartTypingHandler?.Invoke(typeof(App), new StartTypingArgs() { ChannelId = channelId});
         }
 
+        public class UpdatePresenceArgs
+        {
+            public string Status;
+        }
+        public static event EventHandler<UpdatePresenceArgs> UpdatePresenceHandler;
+        public static void UpdatePresence(string status)
+        {
+            UpdatePresenceHandler?.Invoke(typeof(App), new UpdatePresenceArgs() { Status = status });
+        }
+
         #region Relations
         public class AddFriendArgs : EventArgs
         {
