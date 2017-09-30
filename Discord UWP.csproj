@@ -660,9 +660,6 @@
     <SDKReference Include="WindowsDesktop, Version=10.0.15063.0">
       <Name>Windows Desktop Extensions for the UWP</Name>
     </SDKReference>
-    <SDKReference Include="WindowsIoT, Version=10.0.14393.0">
-      <Name>Windows IoT Extensions for the UWP</Name>
-    </SDKReference>
     <SDKReference Include="WindowsTeam, Version=10.0.15063.0">
       <Name>Windows Team Extensions for the UWP</Name>
     </SDKReference>
