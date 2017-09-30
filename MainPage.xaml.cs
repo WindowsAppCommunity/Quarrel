@@ -585,6 +585,10 @@ namespace Discord_UWP
                     {
                         m.status = new Presence() { Status = "offline", Game = null };
                     }
+                    if (memberscvs.ContainsKey(m.Raw.User.Id))
+                    {
+                        memberscvs.Remove(m.Raw.User.Id);
+                    }
                     memberscvs.Add(m.Raw.User.Id, m);
                 }
                 try

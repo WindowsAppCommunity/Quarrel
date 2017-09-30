@@ -370,9 +370,7 @@
                         </PivotItem>-->
                         <PivotItem x:Uid="/Dialogs/RolesPI" x:Name="Roles" Header="Roles">
                             <Grid>
-                                <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto"
-    ScrollViewer.HorizontalScrollMode="Enabled"                  
-    ScrollViewer.VerticalScrollMode="Disabled" x:Name="RolesView" Height="50" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged">
+                                <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" x:Name="RolesView" Height="50" VerticalAlignment="Top" SelectionChanged="RolesView_SelectionChanged">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Background="Transparent" Orientation="Horizontal" />
