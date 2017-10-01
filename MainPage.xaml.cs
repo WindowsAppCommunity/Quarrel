@@ -121,7 +121,7 @@ namespace Discord_UWP
         #region AppEvents
 
         #region Navigation
-        private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
             if (e.GuildId != "DMs")
@@ -530,7 +530,7 @@ namespace Discord_UWP
             }
         }
 
-        public async void RenderGuildChannels() //App.CurrentGuildId is set
+        public void RenderGuildChannels() //App.CurrentGuildId is set
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Visible;
