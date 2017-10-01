@@ -550,6 +550,7 @@ namespace Discord_UWP
 
         public async void RenderMessages() //App.CurrentChannelId is set
         {
+            MessagesLoading.Visibility = Visibility.Visible;
             FriendsButton.IsChecked = false;
             friendPanel.Visibility = Visibility.Collapsed;
             PopulateMessageArea();
@@ -577,6 +578,7 @@ namespace Discord_UWP
                     PinnedMessageList.Items.Add(message);
                 }
             }
+            MessagesLoading.Visibility = Visibility.Collapsed;
         }
 
         public async void RenderMembers()
