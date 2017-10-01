@@ -232,7 +232,7 @@ namespace Discord_UWP.Managers
                         guild.Value.channels[e.EventData.ChannelId].raw = editableRawChn;
                         if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                         {
-                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = editableRawChn.LastMessageId, MentionCount = e.EventData.Mentions.First( x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0 , LastPinTimestamp = null });
+                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = editableRawChn.LastMessageId, MentionCount = e.EventData.Mentions.FirstOrDefault( x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0 , LastPinTimestamp = null });
                         } 
                     }
                 }
