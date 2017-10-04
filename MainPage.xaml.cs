@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Store;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
@@ -61,6 +62,8 @@ namespace Discord_UWP
 
         public void SetupEvents()
         {
+            //LogOut
+            App.LogOutHandler += App_LogOutHandler;
             //Navigation
             App.NavigateToGuildHandler += App_NavigateToGuildHandler;
             App.NavigateToGuildChannelHandler += App_NavigateToGuildChannelHandler;
@@ -119,6 +122,15 @@ namespace Discord_UWP
         }
 
         #region AppEvents
+
+        #region LogOut
+        private void App_LogOutHandler(object sender, EventArgs e)
+        {
+            var creds = Storage.PasswordVault.Retrieve("LogIn", LocalState.CurrentUser.Email);
+            Storage.PasswordVault.Remove(creds);
+            this.Frame.Navigate(typeof(LogScreen));
+        }
+        #endregion
 
         #region Navigation
         private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
@@ -438,7 +450,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Visible;
             if (Page.ActualWidth <= 500)
             {
-                CompressedChannelHeader.Visibility = Visibility.Visible;
+                //CompressedChannelHeader.Visibility = Visibility.Visible;
             }
             PinnedMessags.Visibility = Visibility.Visible;
         }
@@ -447,7 +459,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Collapsed;
             MessageList.Items.Clear();
             SendMessage.Visibility = Visibility.Collapsed;
-            CompressedChannelHeader.Visibility = Visibility.Collapsed;
+            //CompressedChannelHeader.Visibility = Visibility.Collapsed;
             PinnedMessags.Visibility = Visibility.Collapsed;
         }
 
@@ -520,7 +532,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
 
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
+            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ChannelList.Items.Clear();
 
@@ -536,7 +548,7 @@ namespace Discord_UWP
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsButton.Visibility = Visibility.Collapsed;
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
+            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
 
@@ -555,10 +567,15 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Collapsed;
             PopulateMessageArea();
 
+            if (UISize.CurrentState == Small)
+            {
+                ServersnChannelsPane.IsPaneOpen = false;
+            }
+
             ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
-            CompChannelName.Text = ChannelName.Text;
+            //CompChannelName.Text = ChannelName.Text;
             ChannelTopic.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id].raw.Topic : "";
-            CompChannelTopic.Text = ChannelTopic.Text;
+            //CompChannelTopic.Text = ChannelTopic.Text;
 
             MessageList.Items.Clear();
             var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());

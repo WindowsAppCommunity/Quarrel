@@ -21,7 +21,7 @@ namespace Discord_UWP.Managers
                 {
                     returnMessages.Add(new MessageContainer(message, false, false, null)); //TODO: isConinuation
                     adCheck--;
-                    if (adCheck == 0)
+                    if (adCheck == 0 && App.ShowAds)
                     {
                         returnMessages.Add(new MessageContainer(null, true, false, null));
                         adCheck = 5;
