@@ -926,24 +926,28 @@ namespace Discord_UWP
                  });
         }
 
-        private void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
+        private async void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
         {
-            UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
-            switch (e.Status)
-            {
-                case "online":
-                    UserStatusOnline.IsChecked = true;
-                    break;
-                case "idle":
-                    UserStatusIdle.IsChecked = true;
-                    break;
-                case "dnd":
-                    UserStatusDND.IsChecked = true;
-                    break;
-                case "offline":
-                    UserStatusInvisible.IsChecked = true;
-                    break;
-            }
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
+                    switch (e.Status)
+                    {
+                        case "online":
+                            UserStatusOnline.IsChecked = true;
+                            break;
+                        case "idle":
+                            UserStatusIdle.IsChecked = true;
+                            break;
+                        case "dnd":
+                            UserStatusDND.IsChecked = true;
+                            break;
+                        case "offline":
+                            UserStatusInvisible.IsChecked = true;
+                            break;
+                    }
+                });
         }
 
         #region Messages
