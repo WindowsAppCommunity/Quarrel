@@ -208,6 +208,11 @@ namespace Discord_UWP.Managers
             }
             #endregion
 
+            #region CurrentUserPresence
+            LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
+            App.UserStatusChanged(e.EventData.Settings.Status);
+            #endregion
+
             App.ReadyRecieved();
         }
 
@@ -564,7 +569,7 @@ namespace Discord_UWP.Managers
         #region User
         private static void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.UserSettings> e)
         {
-
+            App.UserStatusChanged(e.EventData.Status);
         }
         #endregion
 

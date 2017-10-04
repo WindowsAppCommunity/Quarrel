@@ -647,6 +647,16 @@ namespace Discord_UWP
         {
             PlayHeartBeatHandler?.Invoke(null, null);
         }
+
+        public class UserStatusChangedArgs : EventArgs
+        {
+            public string Status { get; set; }
+        }
+        public static event EventHandler<UserStatusChangedArgs> UserStatusChangedHandler;
+        public static void UserStatusChanged(string status)
+        {
+            UserStatusChangedHandler?.Invoke(typeof(App), new UserStatusChangedArgs() { Status = status });
+        }
         #endregion
 
         #endregion

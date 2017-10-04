@@ -109,6 +109,7 @@ namespace Discord_UWP
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
             App.UpdateUnreadIndicatorsHandler += App_UpdateUnreadIndicatorsHandler;
+            App.UserStatusChangedHandler += App_UserStatusChangedHandler; ;
             //UpdateUI-Messages
             App.MessageCreatedHandler += App_MessageCreatedHandler;
             App.MessageDeletedHandler += App_MessageDeletedHandler;
@@ -925,7 +926,25 @@ namespace Discord_UWP
                  });
         }
 
-
+        private void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
+        {
+            UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
+            switch (e.Status)
+            {
+                case "online":
+                    UserStatusOnline.IsChecked = true;
+                    break;
+                case "idle":
+                    UserStatusIdle.IsChecked = true;
+                    break;
+                case "dnd":
+                    UserStatusDND.IsChecked = true;
+                    break;
+                case "offline":
+                    UserStatusInvisible.IsChecked = true;
+                    break;
+            }
+        }
 
         #region Messages
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
