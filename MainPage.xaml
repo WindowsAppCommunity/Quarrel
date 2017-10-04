@@ -1395,7 +1395,7 @@
 
                             <Button Grid.ColumnSpan="2" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Button.Flyout>
-                                    <Flyout  FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                         <StackPanel Padding="12" Width="280">
                                             <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
