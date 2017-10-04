@@ -931,7 +931,13 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
+                    if (e.Status != "invisible")
+                    {
+                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
+                    } else
+                    {
+                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                    }
                     switch (e.Status)
                     {
                         case "online":
@@ -943,7 +949,7 @@ namespace Discord_UWP
                         case "dnd":
                             UserStatusDND.IsChecked = true;
                             break;
-                        case "offline":
+                        case "invisible":
                             UserStatusInvisible.IsChecked = true;
                             break;
                     }
