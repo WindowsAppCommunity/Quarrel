@@ -40,6 +40,7 @@ using Discord_UWP.CacheModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Store;
 
 namespace Discord_UWP
 {
@@ -75,6 +76,11 @@ namespace Discord_UWP
                 App.NavigateToBugReport(exception);
             }
 
+            var licenseInformation = CurrentApp.LicenseInformation;
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+            {
+                App.ShowAds = false;
+            }
         }
         public static bool HasFocus = true;
 

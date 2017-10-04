@@ -31,6 +31,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Store;
 
 using Discord_UWP.Managers;
 
@@ -65,6 +66,11 @@ namespace Discord_UWP
             }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            var licenseInformation = CurrentApp.LicenseInformation;
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+            {
+                App.ShowAds = false;
+            }
         }
 
         #region Publics

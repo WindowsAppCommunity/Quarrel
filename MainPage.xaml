@@ -1013,11 +1013,11 @@
                                 <x:Int32>0</x:Int32>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="CompressedChannelHeader.(Visibility)">
+                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
                             <Setter.Value>
                                 <Visibility>Visible</Visibility>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="MembersPane.(DisplayMode)">
                             <Setter.Value>
                                 <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
@@ -1055,11 +1055,11 @@
                                 <x:Int32>200</x:Int32>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="CompressedChannelHeader.(Visibility)">
+                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
                             <Setter.Value>
                                 <Visibility>Collapsed</Visibility>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="MembersPane.(DisplayMode)">
                             <Setter.Value>
                                 <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
@@ -1097,11 +1097,11 @@
                                 <x:Int32>400</x:Int32>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="CompressedChannelHeader.(Visibility)">
+                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
                             <Setter.Value>
                                 <Visibility>Collapsed</Visibility>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="MembersPane.(DisplayMode)">
                             <Setter.Value>
                                 <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
@@ -1139,11 +1139,11 @@
                                 <x:Int32>400</x:Int32>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="CompressedChannelHeader.(Visibility)">
+                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
                             <Setter.Value>
                                 <Visibility>Collapsed</Visibility>
                             </Setter.Value>
-                        </Setter>
+                        </Setter>-->
                         <Setter Target="MembersPane.(DisplayMode)">
                             <Setter.Value>
                                 <SplitViewDisplayMode>Inline</SplitViewDisplayMode>
@@ -1171,10 +1171,10 @@
 
                             <tkc:PullToRefreshListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
                                 <tkc:ScrollHeader Mode="QuickReturn">
-                                    <StackPanel x:Name="CompressedChannelHeader">
+                                    <!--<StackPanel x:Name="CompressedChannelHeader">
                                         <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
                                         <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </tkc:ScrollHeader>
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
