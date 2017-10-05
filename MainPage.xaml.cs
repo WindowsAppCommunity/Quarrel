@@ -35,6 +35,10 @@ namespace Discord_UWP
         public async void Setup()
         {
             Loading.Show(false);
+            if (App.IsMobile)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
             if (await LogIn())
             {
                 SetupEvents();

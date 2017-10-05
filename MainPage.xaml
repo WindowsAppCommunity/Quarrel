@@ -1443,7 +1443,7 @@
                 </SplitView>
             </Grid>
             <StackPanel>
-                <Rectangle Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
+                <Rectangle x:Name="TitleBarHolder" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
                 <CommandBar Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0">
                     <CommandBar.Content>
                         <StackPanel Orientation="Horizontal">
