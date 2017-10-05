@@ -569,6 +569,9 @@ namespace Discord_UWP.Managers
         #region User
         private static void Gateway_UserSettingsUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.UserSettings> e)
         {
+            var temp = LocalState.PresenceDict[LocalState.CurrentUser.Id];
+            temp.Status = e.EventData.Status;
+            LocalState.PresenceDict[LocalState.CurrentUser.Id] = temp;
             App.UserStatusChanged(e.EventData.Status);
         }
         #endregion

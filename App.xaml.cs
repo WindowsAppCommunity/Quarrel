@@ -715,6 +715,15 @@ namespace Discord_UWP
                 return false;
             }
         }
+
+        public static bool IsMobile
+        {
+            get
+            {
+                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+            }
+        }
         #endregion
         #endregion
 
