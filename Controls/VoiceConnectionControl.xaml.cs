@@ -23,5 +23,10 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
         }
+
+        private void MiniView_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
