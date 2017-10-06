@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Managers
 {
-    class VoiceManager
+    public class VoiceManager
     {
+
     }
 }

@@ -215,7 +215,6 @@ namespace Discord_UWP.Managers
 
             App.ReadyRecieved();
         }
-
         #endregion
 
         #region Message
@@ -298,12 +297,12 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region DMs
-        private static void Gateway_DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private static void Gateway_DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
         {
 
         }
 
-        private static void Gateway_DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
+        private static void Gateway_DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
         {
 
         }
