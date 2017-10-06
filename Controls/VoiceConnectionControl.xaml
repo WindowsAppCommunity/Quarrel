@@ -23,9 +23,9 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="Status" Text="Status" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="Disconnect" Content="" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
-        <ToggleButton x:Name="Mute" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
-        <ToggleButton x:Name="Deafen" Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
+        <Button x:Name="Disconnect" Content="" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Disconnect_Click"/>
+        <ToggleButton x:Name="Mute" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Mute_Click"/>
+        <ToggleButton x:Name="Deafen" Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Deafen_Click"/>
         <ToggleButton x:Name="MiniView" Content="" Grid.Column="4" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="MiniView_Click"/>
     </Grid>
 </UserControl>
