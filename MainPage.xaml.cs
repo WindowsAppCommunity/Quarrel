@@ -710,7 +710,7 @@ namespace Discord_UWP
                 }
                 catch (Exception exception)
                 {
-                    App.NavigateToBugReport(exception);
+                    //App.NavigateToBugReport(exception);
                 }
                 if (App.CurrentChannelId != null)
                 {
