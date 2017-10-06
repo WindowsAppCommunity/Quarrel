@@ -1262,6 +1262,19 @@ namespace Discord_UWP
         {
             App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
         }
+
+        private async void MessageList_RefreshRequested(object sender, EventArgs e)
+        {
+            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            if (messages != null)
+            {
+                messages.Reverse();
+                foreach (var message in messages)
+                {
+                    MessageList.Items.Insert(0, message);
+                }
+            }
+        }
         #endregion
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
