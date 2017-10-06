@@ -16,14 +16,15 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
+            <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="ChannelName" Text="Channel Name"/>
-        <TextBlock x:Name="Status" Text="Status" Grid.Row="1"/>
-        <Button Content="" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
-        <Button Content="" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
-        <Button Content="" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
-        <Button Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
+        <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="Status" Text="Status" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Content="" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
+        <Button Content="" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
+        <Button Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
+        <Button Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent"/>
     </Grid>
 </UserControl>
