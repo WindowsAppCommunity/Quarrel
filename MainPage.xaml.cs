@@ -405,7 +405,7 @@ namespace Discord_UWP
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
             //Assumes you marked it from active guild
-            if (App.CurrentGuildIsDM)
+            if (!App.CurrentGuildIsDM)
             {
                 if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
                 {
@@ -1266,7 +1266,10 @@ namespace Discord_UWP
 
         private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            if (!App.CurrentGuildIsDM)
+            {
+                App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            }
         }
 
         private async void MessageList_RefreshRequested(object sender, EventArgs e)
