@@ -24,9 +24,24 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
+        private void Disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Disconnect
+        }
+
         private void MiniView_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: Enter miniview
+        }
 
+        private void Deafen_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Toggle local deafen
+        }
+
+        private void Mute_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Toggle local mute
         }
     }
 }
