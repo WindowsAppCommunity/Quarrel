@@ -182,6 +182,9 @@
     <Compile Include="Controls\UserDetailsControl.xaml.cs">
       <DependentUpon>UserDetailsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\VoiceConnectionControl.xaml.cs">
+      <DependentUpon>VoiceConnectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
     </Compile>
@@ -553,6 +556,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\VoiceConnectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\VoiceMemberControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -710,12 +717,6 @@
     <PackageReference Include="UniversalWrapPanel">
       <Version>1.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DiscordBackgroundTask1\DiscordBackgroundTask1.csproj">
-      <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
-      <Name>DiscordBackgroundTask1</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
