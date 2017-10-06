@@ -405,10 +405,16 @@ namespace Discord_UWP
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
             //Assumes you marked it from active guild
-            if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+            if (!App.CurrentGuildIsDM)
             {
-                await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
-                //Update Unread called on Gateway Event
+                if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+                {
+                    await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
+                    //Update Unread called on Gateway Event
+                }
+            } else
+            {
+                await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
             }
         }
 
@@ -1260,7 +1266,10 @@ namespace Discord_UWP
 
         private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            if (!App.CurrentGuildIsDM)
+            {
+                App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            }
         }
 
         private async void MessageList_RefreshRequested(object sender, EventArgs e)

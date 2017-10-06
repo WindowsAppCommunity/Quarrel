@@ -12,8 +12,6 @@ namespace Discord_UWP.Managers
 {
     class MemberManager
     {
-
-
         private static List<DisplayedRole> TempRoleCache = new List<DisplayedRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
         public static DisplayedRole GetRole(string roleid, string guildid, int everyonecounter)
         {
