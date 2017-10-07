@@ -34,19 +34,22 @@ namespace Discord_UWP
 
         public async void Setup()
         {
+            //LogIn Event
+            App.LoggingInHandler += App_LoggingInHandler;
+
             Loading.Show(false);
             if (App.IsMobile)
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
-            if (await LogIn())
+            if (App.LoggedIn() && (App.GatewayCreated || await LogIn()))
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
             }
             else
             {
-                Frame.Navigate(typeof(LogScreen));
+                SubFrameNavigator(typeof(LogScreen));
             }
         }
 
@@ -126,14 +129,100 @@ namespace Discord_UWP
 
         }
 
+        public void ClearData()
+        {
+            LocalState.CurrentUser = new SharedModels.User();
+            LocalState.DMs.Clear();
+            LocalState.Friends.Clear();
+            LocalState.Guilds.Clear();
+            LocalState.GuildSettings.Clear();
+            LocalState.Notes.Clear();
+            LocalState.PresenceDict.Clear();
+            LocalState.RPC.Clear();
+            LocalState.Typers.Clear();
+            LocalState.TyperTimers.Clear();
+            LocalState.VoiceDict.Clear();
+
+            //LogOut
+            App.LogOutHandler -= App_LogOutHandler;
+            //Navigation
+            App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
+            App.NavigateToGuildChannelHandler -= App_NavigateToGuildChannelHandler;
+            App.NavigateToDMChannelHandler -= App_NavigateToDMChannelHandler;
+            //SubPages
+            App.SubpageClosedHandler -= App_SubpageClosedHandler; ;
+            App.NavigateToBugReportHandler -= App_NavigateToBugReportHandler;
+            App.NavigateToChannelEditHandler -= App_NavigateToChannelEditHandler;
+            App.NavigateToCreateBanHandler -= App_NavigateToCreateBanHandler;
+            App.NavigateToCreateServerHandler -= App_NavigateToCreateServerHandler;
+            App.NavigateToDeleteChannelHandler -= App_NavigateToDeleteChannelHandler;
+            App.NavigateToDeleteServerHandler -= App_NavigateToDeleteServerHandler;
+            App.NavigateToGuildEditHandler -= App_NavigateToGuildEditHandler;
+            App.NavigateToJoinServerHandler -= App_NavigateToJoinServerHandler;
+            App.NavigateToLeaveServerHandler -= App_NavigateToLeaveServerHandler;
+            App.NavigateToNicknameEditHandler -= App_NavigateToNicknameEditHandler;
+            App.NavigateToProfileHandler -= App_NavigateToProfileHandler;
+            App.OpenAttachementHandler -= App_OpenAttachementHandler;
+            App.NavigateToChannelTopicHandler -= App_NavigateToChannelTopicHandler;
+            App.NavigateToCreateChannelHandler -= App_NavigateToCreateChannelHandler;
+            App.NavigateToSettingsHandler -= App_NavigateToSettingsHandler;
+            App.NavigateToAboutHandler -= App_NavigateToAboutHandler;
+            App.NavigateToAddServerHandler -= App_NavigateToAddServerHandler;
+            App.NavigateToMessageEditorHandler -= App_NavigateToMessageEditorHandler;
+            App.NavigateToIAPSHandler -= App_NavigateToIAPSHandler;
+            //Flyouts
+            App.MenuHandler -= App_MenuHandler;
+            App.ShowMemberFlyoutHandler -= App_ShowMemberFlyoutHandler;
+            //Link
+            App.LinkClicked -= App_LinkClicked;
+            //API
+            App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.StartTypingHandler -= App_StartTypingHandler;
+            App.AddFriendHandler -= App_AddFriendHandler;
+            App.BlockUserHandler -= App_BlockUserHandler;
+            App.MarkChannelAsReadHandler -= App_MarkChannelAsReadHandler;
+            App.MarkGuildAsReadHandler -= App_MarkGuildAsReadHandler;
+            App.MuteChannelHandler -= App_MuteChannelHandler;
+            App.MuteGuildHandler -= App_MuteGuildHandler;
+            App.RemoveFriendHandler -= App_RemoveFriendHandler;
+            App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
+            //UpdateUI
+            App.ReadyRecievedHandler -= App_ReadyRecievedHandler;
+            App.TypingHandler -= App_TypingHandler;
+            App.UpdateUnreadIndicatorsHandler -= App_UpdateUnreadIndicatorsHandler;
+            App.UserStatusChangedHandler -= App_UserStatusChangedHandler; ;
+            //UpdateUI-Messages
+            App.MessageCreatedHandler -= App_MessageCreatedHandler;
+            App.MessageDeletedHandler -= App_MessageDeletedHandler;
+            App.MessageEditedHandler -= App_MessageEditedHandler;
+            //UpdateUI-Channels
+            App.GuildChannelCreatedHandler -= App_GuildChannelCreatedHandler;
+            //UpdateUI-Guilds
+            App.GuildCreatedHandler -= App_GuildCreatedHandler;
+            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
+
+        }
+
         #region AppEvents
+
+        #region LogIn
+        private void App_LoggingInHandler(object sender, EventArgs e)
+        {
+            SubFrame.Visibility = Visibility.Collapsed;
+            SetupEvents();
+            GatewayManager.StartGateway();
+        }
+        #endregion
 
         #region LogOut
         private void App_LogOutHandler(object sender, EventArgs e)
         {
             var creds = Storage.PasswordVault.Retrieve("LogIn", LocalState.CurrentUser.Email);
             Storage.PasswordVault.Remove(creds);
-            this.Frame.Navigate(typeof(LogScreen));
+
+            ClearData();
+
+            SubFrameNavigator(typeof(LogScreen));
         }
         #endregion
 
@@ -148,7 +237,7 @@ namespace Discord_UWP
                 {
                     MembersPane.IsPaneOpen = true;
                 }
-
+                
                 foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                 {
                     if (guild.Id == e.GuildId)
@@ -487,6 +576,7 @@ namespace Discord_UWP
 
         public void RenderGuilds()
         {
+            ServerList.Items.Clear();
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
             DM.Id = "DMs";
             DM.Name = App.GetString("/Main/DirectMessages");
@@ -1139,7 +1229,10 @@ namespace Discord_UWP
 
         private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+            if (ServerList.SelectedItem != null)
+            {
+                App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+            }
         }
 
         bool IgnoreChange = false;

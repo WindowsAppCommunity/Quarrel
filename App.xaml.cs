@@ -61,6 +61,7 @@ namespace Discord_UWP
         public static void LoggingIn()
         {
             LoggingInHandler?.Invoke(typeof(App), new EventArgs());
+            App.GatewayCreated = true;
         }
 
         public static event EventHandler ReadyRecievedHandler;
@@ -650,6 +651,7 @@ namespace Discord_UWP
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
+        internal static bool GatewayCreated = false;
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
@@ -834,14 +836,7 @@ namespace Discord_UWP
                     // parameter
                     if (IsOnline())
                     {
-                        if (LoggedIn())
-                        {
-                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                        }
-                        else
-                        {
-                            rootFrame.Navigate(typeof(LogScreen), e.Arguments);
-                        }
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
                     else
                     {

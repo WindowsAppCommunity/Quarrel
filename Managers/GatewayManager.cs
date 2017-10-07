@@ -70,10 +70,7 @@ namespace Discord_UWP.Managers
         {
             LocalState.CurrentUser = e.EventData.User;
 
-            if (e.EventData.Notes != null)
-            {
-                LocalState.Notes = e.EventData.Notes;
-            }
+            LocalState.Notes = e.EventData.Notes;
 
             Storage.Settings.DiscordLightTheme = e.EventData.Settings.Theme == "Light" ? true : false;
             Storage.Settings.DevMode = e.EventData.Settings.DevMode;
@@ -81,14 +78,26 @@ namespace Discord_UWP.Managers
             #region Friends
             foreach (var friend in e.EventData.Friends)
             {
-                LocalState.Friends.Add(friend.Id, friend);
+                if (LocalState.Friends.ContainsKey(friend.Id))
+                {
+                    LocalState.Friends[friend.Id] = friend;
+                } else
+                {
+                    LocalState.Friends.Add(friend.Id, friend);
+                }
             }
             #endregion
             
             #region DMs
             foreach (var dm in e.EventData.PrivateChannels)
             {
-                LocalState.DMs.Add(dm.Id, dm);
+                if (LocalState.DMs.ContainsKey(dm.Id))
+                {
+                    LocalState.DMs[dm.Id] = dm;
+                } else
+                {
+                    LocalState.DMs.Add(dm.Id, dm);
+                }
             }
             #endregion
 
@@ -117,7 +126,14 @@ namespace Discord_UWP.Managers
 
                 foreach (var role in guild.Roles)
                 {
-                    LocalState.Guilds[guild.Id].roles.Add(role.Id, role);
+                    if (LocalState.Guilds[guild.Id].roles.ContainsKey(role.Id))
+                    {
+                        LocalState.Guilds[guild.Id].roles[role.Id] = role;
+                    }
+                    else
+                    {
+                        LocalState.Guilds[guild.Id].roles.Add(role.Id, role);
+                    }
                 }
 
                 LocalState.Guilds[guild.Id].GetPermissions();
@@ -163,9 +179,11 @@ namespace Discord_UWP.Managers
             {
                 if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
                 {
-                    LocalState.PresenceDict.Remove(presence.User.Id);
+                    LocalState.PresenceDict[presence.User.Id] = presence;
+                } else
+                {
+                    LocalState.PresenceDict.Add(presence.User.Id, presence);
                 }
-                LocalState.PresenceDict.Add(presence.User.Id, presence);
             }
             #endregion
 
@@ -209,7 +227,14 @@ namespace Discord_UWP.Managers
             #endregion
 
             #region CurrentUserPresence
-            LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
+            if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
+            {
+                LocalState.PresenceDict[e.EventData.User.Id] = new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status };
+            }
+            else
+            {
+                LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
+            }
             App.UserStatusChanged(e.EventData.Settings.Status);
             #endregion
 
@@ -422,12 +447,12 @@ namespace Discord_UWP.Managers
         #region GuildMember
         private static void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
         {
-            if (!LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
-            {
-                LocalState.Guilds[e.EventData.guildId].members.Add(e.EventData.User.Id, new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User });
-            } else
+            if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
             {
                 LocalState.Guilds[e.EventData.guildId].members[e.EventData.User.Id] = new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User };
+            } else
+            {
+                LocalState.Guilds[e.EventData.guildId].members.Add(e.EventData.User.Id, new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User });
             }
         }
 
