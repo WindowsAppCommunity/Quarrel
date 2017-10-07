@@ -392,6 +392,7 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="VoiceCommands.xml" />
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <PRIResource Include="Resources\fr\Settings.resw" />

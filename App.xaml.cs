@@ -792,7 +792,7 @@ namespace Discord_UWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             var licenseInformation = CurrentApp.LicenseInformation;
             if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
@@ -848,6 +848,10 @@ namespace Discord_UWP
                         rootFrame.Navigate(typeof(Offline), e.Arguments);
                     }
                 }
+
+                //Cortana crap
+                //var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///VoiceCommands.xml"));
+                //await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
                 // Ensure the current window is active
                 Window.Current.Activate();
                 Window.Current.CoreWindow.Activated += WindowFocusChanged;
