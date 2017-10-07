@@ -176,6 +176,10 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 6.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="(Likely) Fixed splash screen crashes" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.1.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed Current User Presence" TextWrapping="Wrap"/>
