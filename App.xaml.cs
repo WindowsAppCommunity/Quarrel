@@ -49,28 +49,8 @@ namespace Discord_UWP
         public App()
         {
             LoadSettings();
-            switch (Storage.Settings.Theme)
-            {
-                case Theme.Dark:
-                    this.RequestedTheme = ApplicationTheme.Dark;
-                    break;
-                case Theme.Light:
-                    this.RequestedTheme = ApplicationTheme.Light;
-                    break;
-                case Theme.Discord:
-                    this.RequestedTheme = Storage.Settings.DiscordLightTheme ? ApplicationTheme.Light : ApplicationTheme.Dark;
-                    break;
-                default:
-                    //Windows, already uses system default
-                    break;
-            }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            var licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-            {
-                App.ShowAds = false;
-            }
         }
 
         #region Publics
@@ -707,8 +687,8 @@ namespace Discord_UWP
         {
             try //if Contains("LogIn)
             {
-                Storage.PasswordVault.FindAllByResource("LogIn");
-                return true;
+                var nullCheck = Storage.PasswordVault.FindAllByResource("LogIn");
+                return nullCheck != null;
             }
             catch // else
             {
@@ -753,7 +733,6 @@ namespace Discord_UWP
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = false;
-                    Storage.SaveAppSettings();
                 }
             }
             else
@@ -773,9 +752,24 @@ namespace Discord_UWP
                 Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = false;
-                Storage.SaveAppSettings();
 
                 //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
+            }
+
+            switch (Storage.Settings.Theme)
+            {
+                case Theme.Dark:
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+                case Theme.Light:
+                    this.RequestedTheme = ApplicationTheme.Light;
+                    break;
+                case Theme.Discord:
+                    this.RequestedTheme = Storage.Settings.DiscordLightTheme ? ApplicationTheme.Light : ApplicationTheme.Dark;
+                    break;
+                default:
+                    //Windows, already uses system default
+                    break;
             }
         }
 
@@ -800,6 +794,12 @@ namespace Discord_UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var licenseInformation = CurrentApp.LicenseInformation;
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+            {
+                App.ShowAds = false;
+            }
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             SetupTitleBar();
