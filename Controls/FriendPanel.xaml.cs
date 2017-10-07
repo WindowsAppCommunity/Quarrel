@@ -173,6 +173,9 @@ namespace Discord_UWP.Controls
         }
         public void Load()
         {
+            AllView.Items.Clear();
+            PendingView.Items.Clear();
+            BlockedView.Items.Clear();
             int pending = 0;
             foreach (var f in LocalState.Friends)
             {

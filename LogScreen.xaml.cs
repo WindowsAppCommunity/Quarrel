@@ -39,7 +39,8 @@ namespace Discord_UWP
             {
                 PasswordCredential credentials = new PasswordCredential("LogIn", Username.Text, Password.Password);
                 Storage.PasswordVault.Add(credentials);
-                Frame.Navigate(typeof(MainPage));
+                App.LoggingIn();
+                App.SubpageClosed();
             } else
             {
                 MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password");

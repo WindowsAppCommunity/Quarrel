@@ -1301,9 +1301,9 @@
                                 <ColumnDefinition Width="72"/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <Grid Background="{ThemeResource AcrylicGuildPaneBackground}">
-                                
+
                                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                                     <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
                                         <ListView.ItemTemplate>
@@ -1373,9 +1373,9 @@
                                         <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                     </StackPanel>
                                 </ScrollViewer>
-                                
+
                             </Grid>
-                            
+
                             <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -1623,7 +1623,7 @@
             </StackPanel>
         </Grid>
 
-        <Frame x:Name="SubFrame" Grid.RowSpan="3"  Visibility="Collapsed" Canvas.ZIndex="9999">
+        <Frame x:Name="SubFrame"  Visibility="Collapsed" Canvas.ZIndex="9999">
             <Frame.RenderTransform>
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
