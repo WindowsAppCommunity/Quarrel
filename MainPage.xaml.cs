@@ -43,6 +43,9 @@ namespace Discord_UWP
             {
                 Frame.Navigate(typeof(LogScreen));
             }
+            MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+            LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+            ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
         }
 
         public async Task<bool> LogIn()
@@ -1021,11 +1024,7 @@ namespace Discord_UWP
         #region UIEvents
         private void ToggleSplitView(object sender, RoutedEventArgs e)
         {
-            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
-            {
-                DarkenMessageArea();
-            }
-            ServersnChannelsPane.IsPaneOpen = !ServersnChannelsPane.IsPaneOpen;
+            sideDrawer.ToggleLeft();
         }
 
         private void ServersnChannelsPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
@@ -1038,19 +1037,7 @@ namespace Discord_UWP
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((sender as Page).ActualWidth > Storage.Settings.RespUiXl)
-            {
-                VisualStateManager.GoToState(this, "ExtraLarge", true);
-            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiL)
-            {
-                VisualStateManager.GoToState(this, "Large", true);
-            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiM)
-            {
-                VisualStateManager.GoToState(this, "Medium", true);
-            } else
-            {
-                VisualStateManager.GoToState(this, "Small", true);
-            }
+
         }
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
@@ -1171,11 +1158,7 @@ namespace Discord_UWP
 
         private void ToggleMemberPane(object sender, RoutedEventArgs e)
         {
-            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
-            {
-                DarkenMessageArea();
-            }
-            MembersPane.IsPaneOpen = !MembersPane.IsPaneOpen;
+            sideDrawer.ToggleRight();
         }
 
         private void MembersPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
@@ -1214,5 +1197,10 @@ namespace Discord_UWP
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private bool LocalStatusChangeEnabled = false;
+
+        private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
+        }
     }
 }

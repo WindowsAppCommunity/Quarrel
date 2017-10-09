@@ -33,6 +33,7 @@ using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Core;
 
 using Discord_UWP.Managers;
+using Windows.Foundation.Metadata;
 
 namespace Discord_UWP
 {
@@ -641,6 +642,12 @@ namespace Discord_UWP
         {
             PlayHeartBeatHandler?.Invoke(null, null);
         }
+
+        public static event PointerEventHandler UniversalPointerDownHandler;
+        public static void UniversalPointerDown(PointerRoutedEventArgs args)
+        {
+            UniversalPointerDownHandler?.Invoke(null, args);
+        }
         #endregion
 
         #endregion
@@ -855,6 +862,51 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
+            {
+                var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.8,
+                    TintColor = ChannelColor,
+                    FallbackColor = ChannelColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
+                App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.6,
+                    TintColor = GuildColor,
+                    FallbackColor = GuildColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.7,
+                    TintColor = CommandBarColor,
+                    FallbackColor = CommandBarColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
+                App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.5,
+                    TintColor = UserBackground,
+                    FallbackColor = UserBackground,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+                var MessageColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
+                App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.9,
+                    TintColor = UserBackground,
+                    FallbackColor = UserBackground,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+            }
+
+
             if (Storage.Settings.AccentBrush)
             {
                 var accentColor = (Color)this.Resources["SystemAccentColor"];

@@ -210,5 +210,10 @@ namespace Discord_UWP.Controls
         {
 
         }
+
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
+        }
     }
 }
