@@ -31,6 +31,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Store;
 
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
@@ -49,21 +50,6 @@ namespace Discord_UWP
         public App()
         {
             LoadSettings();
-            switch (Storage.Settings.Theme)
-            {
-                case Theme.Dark:
-                    this.RequestedTheme = ApplicationTheme.Dark;
-                    break;
-                case Theme.Light:
-                    this.RequestedTheme = ApplicationTheme.Light;
-                    break;
-                case Theme.Discord:
-                    this.RequestedTheme = Storage.Settings.DiscordLightTheme ? ApplicationTheme.Light : ApplicationTheme.Dark;
-                    break;
-                default:
-                    //Windows, already uses system default
-                    break;
-            }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -76,6 +62,7 @@ namespace Discord_UWP
         public static void LoggingIn()
         {
             LoggingInHandler?.Invoke(typeof(App), new EventArgs());
+            App.GatewayCreated = true;
         }
 
         public static event EventHandler ReadyRecievedHandler;
@@ -643,6 +630,16 @@ namespace Discord_UWP
             PlayHeartBeatHandler?.Invoke(null, null);
         }
 
+        public class UserStatusChangedArgs : EventArgs
+        {
+            public string Status { get; set; }
+        }
+        public static event EventHandler<UserStatusChangedArgs> UserStatusChangedHandler;
+        public static void UserStatusChanged(string status)
+        {
+            UserStatusChangedHandler?.Invoke(typeof(App), new UserStatusChangedArgs() { Status = status });
+        }
+
         public static event PointerEventHandler UniversalPointerDownHandler;
         public static void UniversalPointerDown(PointerRoutedEventArgs args)
         {
@@ -661,6 +658,7 @@ namespace Discord_UWP
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
+        internal static bool GatewayCreated = false;
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
@@ -698,12 +696,21 @@ namespace Discord_UWP
         {
             try //if Contains("LogIn)
             {
-                Storage.PasswordVault.FindAllByResource("LogIn");
-                return true;
+                var nullCheck = Storage.PasswordVault.FindAllByResource("LogIn");
+                return nullCheck != null;
             }
             catch // else
             {
                 return false;
+            }
+        }
+
+        public static bool IsMobile
+        {
+            get
+            {
+                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
             }
         }
         #endregion
@@ -735,7 +742,6 @@ namespace Discord_UWP
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = false;
-                    Storage.SaveAppSettings();
                 }
             }
             else
@@ -755,9 +761,24 @@ namespace Discord_UWP
                 Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = false;
-                Storage.SaveAppSettings();
 
                 //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
+            }
+
+            switch (Storage.Settings.Theme)
+            {
+                case Theme.Dark:
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                    break;
+                case Theme.Light:
+                    this.RequestedTheme = ApplicationTheme.Light;
+                    break;
+                case Theme.Discord:
+                    this.RequestedTheme = Storage.Settings.DiscordLightTheme ? ApplicationTheme.Light : ApplicationTheme.Dark;
+                    break;
+                default:
+                    //Windows, already uses system default
+                    break;
             }
         }
 
@@ -780,8 +801,14 @@ namespace Discord_UWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            var licenseInformation = CurrentApp.LicenseInformation;
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+            {
+                App.ShowAds = false;
+            }
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             SetupTitleBar();
@@ -816,20 +843,17 @@ namespace Discord_UWP
                     // parameter
                     if (IsOnline())
                     {
-                        if (LoggedIn())
-                        {
-                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                        }
-                        else
-                        {
-                            rootFrame.Navigate(typeof(LogScreen), e.Arguments);
-                        }
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
                     else
                     {
                         rootFrame.Navigate(typeof(Offline), e.Arguments);
                     }
                 }
+
+                //Cortana crap
+                //var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///VoiceCommands.xml"));
+                //await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
                 // Ensure the current window is active
                 Window.Current.Activate();
                 Window.Current.CoreWindow.Activated += WindowFocusChanged;

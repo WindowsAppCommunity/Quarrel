@@ -16,6 +16,9 @@ using System.Text;
 using System.Threading.Tasks;
 //using SecretBox = Discord.Audio.SecretBox;
 
+//Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
+
+
 namespace Discord_UWP.Voice
 {
 

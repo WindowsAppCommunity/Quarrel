@@ -148,7 +148,7 @@
                                             <Bold>
                                                 <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
                                             </Bold>
-                                            <Run x:Uid="/About/AboutDesc4">
+                                            <Run x:Uid="/About/AboutDesc5">
                                                 ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
                                             </Run>
                                         </Paragraph>
@@ -176,9 +176,43 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 6.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="(Likely) Fixed splash screen crashes" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.1.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed Current User Presence" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed extra grey space on mobile" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Darken background when attachements are opened" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed load more message" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="If DM was broken, it's fixed" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.1.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed Remove ads" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Closes channel list on channel selection" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed LogOut" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.1.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Full rework" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 5.3.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed channel topic in DMs " TextWrapping="Wrap"/>
+                                <TextBlock Text="Fixed channel topic in DMs" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed Accepting invites" TextWrapping="Wrap"/>
