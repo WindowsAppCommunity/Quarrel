@@ -296,6 +296,7 @@ namespace Discord_UWP
                 {
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
+                    App.MarkChannelAsRead(e.ChannelId);
                 } else
                 {
                     ServerList.SelectedIndex = 0;
@@ -702,7 +703,7 @@ namespace Discord_UWP
         public async void RenderMembers()
         {
             memberscvs.Clear();
-            if (!App.CurrentGuildIsDM)
+            if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
                 foreach (var member in members)
