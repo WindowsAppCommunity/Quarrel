@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Store;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
@@ -33,15 +34,22 @@ namespace Discord_UWP
 
         public async void Setup()
         {
+            //LogIn Event
+            App.LoggingInHandler += App_LoggingInHandler;
+
             Loading.Show(false);
-            if (await LogIn())
+            if (App.IsMobile)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
+            if (App.LoggedIn() && (App.GatewayCreated || await LogIn()))
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
             }
             else
             {
-                Frame.Navigate(typeof(LogScreen));
+                SubFrameNavigator(typeof(LogScreen));
             }
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
@@ -64,6 +72,8 @@ namespace Discord_UWP
 
         public void SetupEvents()
         {
+            //LogOut
+            App.LogOutHandler += App_LogOutHandler;
             //Navigation
             App.NavigateToGuildHandler += App_NavigateToGuildHandler;
             App.NavigateToGuildChannelHandler += App_NavigateToGuildChannelHandler;
@@ -109,6 +119,7 @@ namespace Discord_UWP
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
             App.UpdateUnreadIndicatorsHandler += App_UpdateUnreadIndicatorsHandler;
+            App.UserStatusChangedHandler += App_UserStatusChangedHandler; ;
             //UpdateUI-Messages
             App.MessageCreatedHandler += App_MessageCreatedHandler;
             App.MessageDeletedHandler += App_MessageDeletedHandler;
@@ -121,10 +132,105 @@ namespace Discord_UWP
 
         }
 
+        public void ClearData()
+        {
+            LocalState.CurrentUser = new SharedModels.User();
+            LocalState.DMs.Clear();
+            LocalState.Friends.Clear();
+            LocalState.Guilds.Clear();
+            LocalState.GuildSettings.Clear();
+            LocalState.Notes.Clear();
+            LocalState.PresenceDict.Clear();
+            LocalState.RPC.Clear();
+            LocalState.Typers.Clear();
+            LocalState.TyperTimers.Clear();
+            LocalState.VoiceDict.Clear();
+
+            //LogOut
+            App.LogOutHandler -= App_LogOutHandler;
+            //Navigation
+            App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
+            App.NavigateToGuildChannelHandler -= App_NavigateToGuildChannelHandler;
+            App.NavigateToDMChannelHandler -= App_NavigateToDMChannelHandler;
+            //SubPages
+            App.SubpageClosedHandler -= App_SubpageClosedHandler; ;
+            App.NavigateToBugReportHandler -= App_NavigateToBugReportHandler;
+            App.NavigateToChannelEditHandler -= App_NavigateToChannelEditHandler;
+            App.NavigateToCreateBanHandler -= App_NavigateToCreateBanHandler;
+            App.NavigateToCreateServerHandler -= App_NavigateToCreateServerHandler;
+            App.NavigateToDeleteChannelHandler -= App_NavigateToDeleteChannelHandler;
+            App.NavigateToDeleteServerHandler -= App_NavigateToDeleteServerHandler;
+            App.NavigateToGuildEditHandler -= App_NavigateToGuildEditHandler;
+            App.NavigateToJoinServerHandler -= App_NavigateToJoinServerHandler;
+            App.NavigateToLeaveServerHandler -= App_NavigateToLeaveServerHandler;
+            App.NavigateToNicknameEditHandler -= App_NavigateToNicknameEditHandler;
+            App.NavigateToProfileHandler -= App_NavigateToProfileHandler;
+            App.OpenAttachementHandler -= App_OpenAttachementHandler;
+            App.NavigateToChannelTopicHandler -= App_NavigateToChannelTopicHandler;
+            App.NavigateToCreateChannelHandler -= App_NavigateToCreateChannelHandler;
+            App.NavigateToSettingsHandler -= App_NavigateToSettingsHandler;
+            App.NavigateToAboutHandler -= App_NavigateToAboutHandler;
+            App.NavigateToAddServerHandler -= App_NavigateToAddServerHandler;
+            App.NavigateToMessageEditorHandler -= App_NavigateToMessageEditorHandler;
+            App.NavigateToIAPSHandler -= App_NavigateToIAPSHandler;
+            //Flyouts
+            App.MenuHandler -= App_MenuHandler;
+            App.ShowMemberFlyoutHandler -= App_ShowMemberFlyoutHandler;
+            //Link
+            App.LinkClicked -= App_LinkClicked;
+            //API
+            App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.StartTypingHandler -= App_StartTypingHandler;
+            App.AddFriendHandler -= App_AddFriendHandler;
+            App.BlockUserHandler -= App_BlockUserHandler;
+            App.MarkChannelAsReadHandler -= App_MarkChannelAsReadHandler;
+            App.MarkGuildAsReadHandler -= App_MarkGuildAsReadHandler;
+            App.MuteChannelHandler -= App_MuteChannelHandler;
+            App.MuteGuildHandler -= App_MuteGuildHandler;
+            App.RemoveFriendHandler -= App_RemoveFriendHandler;
+            App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
+            //UpdateUI
+            App.ReadyRecievedHandler -= App_ReadyRecievedHandler;
+            App.TypingHandler -= App_TypingHandler;
+            App.UpdateUnreadIndicatorsHandler -= App_UpdateUnreadIndicatorsHandler;
+            App.UserStatusChangedHandler -= App_UserStatusChangedHandler; ;
+            //UpdateUI-Messages
+            App.MessageCreatedHandler -= App_MessageCreatedHandler;
+            App.MessageDeletedHandler -= App_MessageDeletedHandler;
+            App.MessageEditedHandler -= App_MessageEditedHandler;
+            //UpdateUI-Channels
+            App.GuildChannelCreatedHandler -= App_GuildChannelCreatedHandler;
+            //UpdateUI-Guilds
+            App.GuildCreatedHandler -= App_GuildCreatedHandler;
+            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
+
+        }
+
         #region AppEvents
 
+        #region LogIn
+        private void App_LoggingInHandler(object sender, EventArgs e)
+        {
+            SubFrame.Visibility = Visibility.Collapsed;
+            SetupEvents();
+            GatewayManager.StartGateway();
+        }
+        #endregion
+
+        #region LogOut
+        private void App_LogOutHandler(object sender, EventArgs e)
+        {
+            var creds = Storage.PasswordVault.Retrieve("LogIn", LocalState.CurrentUser.Email);
+            Storage.PasswordVault.Remove(creds);
+
+            ClearData();
+
+            SubFrameNavigator(typeof(LogScreen));
+        }
+        #endregion
+
         #region Navigation
-        private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
             if (e.GuildId != "DMs")
@@ -134,7 +240,7 @@ namespace Discord_UWP
                 {
                     MembersPane.IsPaneOpen = true;
                 }
-
+                
                 foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                 {
                     if (guild.Id == e.GuildId)
@@ -193,6 +299,7 @@ namespace Discord_UWP
                 {
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
+                    App.MarkChannelAsRead(e.ChannelId);
                 } else
                 {
                     ServerList.SelectedIndex = 0;
@@ -391,10 +498,16 @@ namespace Discord_UWP
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
             //Assumes you marked it from active guild
-            if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+            if (!App.CurrentGuildIsDM)
             {
-                await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
-                //Update Unread called on Gateway Event
+                if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+                {
+                    await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
+                    //Update Unread called on Gateway Event
+                }
+            } else
+            {
+                await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
             }
         }
 
@@ -441,7 +554,7 @@ namespace Discord_UWP
             SendMessage.Visibility = Visibility.Visible;
             if (Page.ActualWidth <= 500)
             {
-                CompressedChannelHeader.Visibility = Visibility.Visible;
+                //CompressedChannelHeader.Visibility = Visibility.Visible;
             }
             PinnedMessags.Visibility = Visibility.Visible;
         }
@@ -450,7 +563,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Collapsed;
             MessageList.Items.Clear();
             SendMessage.Visibility = Visibility.Collapsed;
-            CompressedChannelHeader.Visibility = Visibility.Collapsed;
+            //CompressedChannelHeader.Visibility = Visibility.Collapsed;
             PinnedMessags.Visibility = Visibility.Collapsed;
         }
 
@@ -467,6 +580,7 @@ namespace Discord_UWP
 
         public void RenderGuilds()
         {
+            ServerList.Items.Clear();
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
             DM.Id = "DMs";
             DM.Name = App.GetString("/Main/DirectMessages");
@@ -523,7 +637,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
 
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
+            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ChannelList.Items.Clear();
 
@@ -533,13 +647,13 @@ namespace Discord_UWP
             }
         }
 
-        public async void RenderGuildChannels() //App.CurrentGuildId is set
+        public void RenderGuildChannels() //App.CurrentGuildId is set
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsButton.Visibility = Visibility.Collapsed;
             AddChannelButton.Visibility = Visibility.Collapsed;
-            ChannelName.Text = CompChannelName.Text = ChannelTopic.Text = CompChannelTopic.Text = "";
+            ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
 
@@ -553,14 +667,20 @@ namespace Discord_UWP
 
         public async void RenderMessages() //App.CurrentChannelId is set
         {
+            MessagesLoading.Visibility = Visibility.Visible;
             FriendsButton.IsChecked = false;
             friendPanel.Visibility = Visibility.Collapsed;
             PopulateMessageArea();
 
+            if (UISize.CurrentState == Small)
+            {
+                ServersnChannelsPane.IsPaneOpen = false;
+            }
+
             ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
-            CompChannelName.Text = ChannelName.Text;
+            //CompChannelName.Text = ChannelName.Text;
             ChannelTopic.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id].raw.Topic : "";
-            CompChannelTopic.Text = ChannelTopic.Text;
+            //CompChannelTopic.Text = ChannelTopic.Text;
 
             MessageList.Items.Clear();
             var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());
@@ -580,93 +700,97 @@ namespace Discord_UWP
                     PinnedMessageList.Items.Add(message);
                 }
             }
+            MessagesLoading.Visibility = Visibility.Collapsed;
         }
 
         public async void RenderMembers()
         {
             memberscvs.Clear();
-
-            var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
-            foreach (var member in members)
+            if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
-                if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
+                var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
+                foreach (var member in members)
                 {
-                    LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
-                } else
-                {
-                    LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
+                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
+                    }
+                    else
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
+                    }
                 }
-            }
-            int totalrolecounter = 0;
+                int totalrolecounter = 0;
 
-            if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
-            {
-                foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
+                if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
                 {
-                    Role roleAlt = role;
-                    if (role.Hoist)
+                    foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                     {
-                        int rolecounter = 0;
-                        foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                            if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                        totalrolecounter += rolecounter;
-                        roleAlt.MemberCount = rolecounter;
-                    }
-                    if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
-                    }
-                    else
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
-                    }
-                }
-                int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
-                foreach (GuildMember member in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                {
-                    var m = new Member(member);
-                    if (m.Raw.Roles.FirstOrDefault() != null &&
-                        LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
-                    {
-                        m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
-                    }
-                    else
-                    {
-                        m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
-                    }
-                    if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
-                    {
-                        m.status = LocalState.PresenceDict[m.Raw.User.Id];
-                    }
-                    else
-                    {
-                        m.status = new Presence() { Status = "offline", Game = null };
-                    }
-                    if (memberscvs.ContainsKey(m.Raw.User.Id))
-                    {
-                        memberscvs.Remove(m.Raw.User.Id);
-                    }
-                    memberscvs.Add(m.Raw.User.Id, m);
-                }
-                try
-                {
-                    var sortedMembers =
-                        memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
-
-                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                        () =>
+                        Role roleAlt = role;
+                        if (role.Hoist)
                         {
+                            int rolecounter = 0;
+                            foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
+                                if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                            totalrolecounter += rolecounter;
+                            roleAlt.MemberCount = rolecounter;
+                        }
+                        if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
+                        {
+                            LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
+                        }
+                        else
+                        {
+                            LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
+                        }
+                    }
+                    int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
+                    foreach (GuildMember member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+                    {
+                        var m = new Member(member);
+                        if (m.Raw.Roles.FirstOrDefault() != null &&
+                            LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                        {
+                            m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
+                        }
+                        else
+                        {
+                            m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
+                        }
+                        if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                        {
+                            m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                        }
+                        else
+                        {
+                            m.status = new Presence() { Status = "offline", Game = null };
+                        }
+                        if (memberscvs.ContainsKey(m.Raw.User.Id))
+                        {
+                            memberscvs.Remove(m.Raw.User.Id);
+                        }
+                        memberscvs.Add(m.Raw.User.Id, m);
+                    }
+                    try
+                    {
+                        var sortedMembers =
+                            memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+
+                        await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                            () =>
+                            {
                             // MembersCVS = new CollectionViewSource();
                             MembersCvs.Source = sortedMembers;
-                        });
-                }
-                catch (Exception exception)
-                {
-                    App.NavigateToBugReport(exception);
-                }
+                            });
+                    }
+                    catch (Exception exception)
+                    {
+                        App.NavigateToBugReport(exception);
+                    }
 
-                //else
-                //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                    //else
+                    //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
+                }
             }
         }
 
@@ -689,7 +813,7 @@ namespace Discord_UWP
                 }
                 catch (Exception exception)
                 {
-                    App.NavigateToBugReport(exception);
+                    //App.NavigateToBugReport(exception);
                 }
                 if (App.CurrentChannelId != null)
                 {
@@ -909,7 +1033,35 @@ namespace Discord_UWP
                  });
         }
 
-
+        private async void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (e.Status != "invisible")
+                    {
+                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
+                    } else
+                    {
+                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                    }
+                    switch (e.Status)
+                    {
+                        case "online":
+                            UserStatusOnline.IsChecked = true;
+                            break;
+                        case "idle":
+                            UserStatusIdle.IsChecked = true;
+                            break;
+                        case "dnd":
+                            UserStatusDND.IsChecked = true;
+                            break;
+                        case "invisible":
+                            UserStatusInvisible.IsChecked = true;
+                            break;
+                    }
+                });
+        }
 
         #region Messages
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
@@ -1065,7 +1217,10 @@ namespace Discord_UWP
 
         private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+            if (ServerList.SelectedItem != null)
+            {
+                App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+            }
         }
 
         bool IgnoreChange = false;
@@ -1191,7 +1346,23 @@ namespace Discord_UWP
 
         private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            if (!App.CurrentGuildIsDM)
+            {
+                App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
+            }
+        }
+
+        private async void MessageList_RefreshRequested(object sender, EventArgs e)
+        {
+            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            if (messages != null)
+            {
+                messages.Reverse();
+                foreach (var message in messages)
+                {
+                    MessageList.Items.Insert(0, message);
+                }
+            }
         }
         #endregion
 

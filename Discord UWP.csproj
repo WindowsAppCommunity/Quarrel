@@ -19,8 +19,9 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Discord UWP_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>D31079384BB8D4370EDCA954A214D93E28DD2C62</PackageCertificateThumbprint>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Never</AppxBundle>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -183,6 +184,9 @@
     </Compile>
     <Compile Include="Controls\UserDetailsControl.xaml.cs">
       <DependentUpon>UserDetailsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VoiceConnectionControl.xaml.cs">
+      <DependentUpon>VoiceConnectionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VoiceMemberControl.xaml.cs">
       <DependentUpon>VoiceMemberControl.xaml</DependentUpon>
@@ -391,6 +395,7 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="VoiceCommands.xml" />
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <PRIResource Include="Resources\fr\Settings.resw" />
@@ -558,6 +563,10 @@
     <Page Include="Controls\UserDetailsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VoiceConnectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\VoiceMemberControl.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,7 +10,7 @@ namespace Discord_UWP.SharedModels
     public struct Embed
     {
         [JsonProperty("title")]
-        public string title { get; set; }
+        public string Title { get; set; }
         [JsonProperty("type")]
         public string Type { get; set; }
         [JsonProperty("description")]

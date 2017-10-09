@@ -544,14 +544,17 @@ namespace Discord_UWP.Controls
             StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal };
             string serversideEmoji = null;
             Debug.WriteLine(reaction.Emoji.Name);
-            if (LocalState.Guilds[App.CurrentGuildId].Raw.Emojis != null)
-                foreach (Emoji emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
-                {
-                    if (emoji.Name == reaction.Emoji.Name)
+            if (!App.CurrentGuildIsDM)
+            {
+                if (LocalState.Guilds[App.CurrentGuildId].Raw.Emojis != null)
+                    foreach (Emoji emoji in LocalState.Guilds[App.CurrentGuildId].Raw.Emojis)
                     {
-                        serversideEmoji = emoji.Id;
+                        if (emoji.Name == reaction.Emoji.Name)
+                        {
+                            serversideEmoji = emoji.Id;
+                        }
                     }
-                }
+            }
             if (serversideEmoji != null)
             {
                 stack.Children.Add(new Windows.UI.Xaml.Controls.Image()

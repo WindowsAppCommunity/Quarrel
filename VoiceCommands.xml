@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet>
+    <AppName>Discord</AppName>
+    <Example>Discord open Discord UWP server</Example>
+
+    <Command Name="Open">
+      <Example>Discord Open Discord UWP server</Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> Open {name} {section} </ListenFor>
+      <Feedback> Opening {name} {section} </Feedback>
+      <Navigate/>
+
+      <PhraseList Label="section">
+        <Item>server</Item>
+        <Item>channel</Item>
+        <Item>dm</Item>
+      </PhraseList>
+    </Command>
+  </CommandSet>
+</VoiceCommands>

@@ -67,20 +67,20 @@ namespace Discord_UWP.Controls
                 AuthorSP.Visibility=Visibility.Collapsed;
             }
             //Title
-            if (Content.title != null)
+            if (Content.Title != null)
             {
                 everythingisnull = false;
                 if (Content.Url == null)
                 {
                     UrlTitleBlock.Visibility = Visibility.Collapsed;
                     PlainTitleBlock.Visibility = Visibility.Visible;
-                    PlainTitleBlock.Text = Content.title;
+                    PlainTitleBlock.Text = Content.Title;
                 }
                 else
                 {
                     PlainTitleBlock.Visibility = Visibility.Collapsed;
                     UrlTitleBlock.Visibility = Visibility.Visible;
-                    UrlTitleBlock.Content = Content.title;
+                    UrlTitleBlock.Content = Content.Title;
                     UrlTitleBlock.NavigateUri = new Uri(Content.Url);
                 }
             }
@@ -145,7 +145,7 @@ namespace Discord_UWP.Controls
                 if(Content.Author.Name == null && Content.Author.IconUrl == null
                     && Content.Description == null && Content.Fields.Count() == 0 
                     && Content.Footer.Text == null && Content.Footer.IconUrl == null
-                    && Content.title == null)
+                    && Content.Title == null)
                 {
                     stacker.Margin = new Thickness(0);
                     SideBorder.Width = 0;
