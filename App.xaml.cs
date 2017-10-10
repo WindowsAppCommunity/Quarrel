@@ -891,7 +891,8 @@ namespace Discord_UWP
                 var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
                 App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
                 {
-                    TintOpacity = 0.8,
+                    TintOpacity = 0.6,
+                    Opacity = 0.6,
                     TintColor = ChannelColor,
                     FallbackColor = ChannelColor,
                     BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -899,7 +900,8 @@ namespace Discord_UWP
                 var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
                 App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
                 {
-                    TintOpacity = 0.6,
+                    TintOpacity = 0.4,
+                    Opacity = 0.4,
                     TintColor = GuildColor,
                     FallbackColor = GuildColor,
                     BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -908,6 +910,7 @@ namespace Discord_UWP
                 App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.7,
+                    Opacity = 0.7,
                     TintColor = CommandBarColor,
                     FallbackColor = CommandBarColor,
                     BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -916,6 +919,7 @@ namespace Discord_UWP
                 App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.3,
+                    Opacity = 1,
                     TintColor = UserBackground,
                     FallbackColor = UserBackground,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
@@ -924,6 +928,7 @@ namespace Discord_UWP
                 App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.9,
+                    Opacity = 1,
                     TintColor = UserBackground,
                     FallbackColor = UserBackground,
                     BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -932,6 +937,7 @@ namespace Discord_UWP
                 App.Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.7,
+                    Opacity = 0.7,
                     TintColor = FlyoutColor,
                     FallbackColor = FlyoutColor,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
