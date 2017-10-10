@@ -339,6 +339,38 @@ namespace Discord_UWP.Controls
         private ExpressionAnimation rightPanelTranslateAnimation;
 
         private Vector3 Vector3Zero = new Vector3(0);
+        public void OpenLeft()
+        {
+            CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
+            Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
+            kfa.Duration = TimeSpan.FromSeconds(0.5);
+            kfa.InsertKeyFrame(1.0f, tracker.MinPosition, cubicBezier);
+            tracker.TryUpdatePositionWithAnimation(kfa);
+        }
+        public void CloseLeft()
+        {
+            CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
+            Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
+            kfa.Duration = TimeSpan.FromSeconds(0.5);
+            kfa.InsertKeyFrame(1.0f, Vector3Zero, cubicBezier);
+            tracker.TryUpdatePositionWithAnimation(kfa);
+        }
+        public void OpenRight()
+        {
+            CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
+            Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
+            kfa.Duration = TimeSpan.FromSeconds(0.5);
+            kfa.InsertKeyFrame(1.0f, tracker.MaxPosition, cubicBezier);
+            tracker.TryUpdatePositionWithAnimation(kfa);
+        }
+        public void CloseRight()
+        {
+            CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
+            Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
+            kfa.Duration = TimeSpan.FromSeconds(0.5);
+            kfa.InsertKeyFrame(1.0f, Vector3Zero, cubicBezier);
+            tracker.TryUpdatePositionWithAnimation(kfa);
+        }
         public void ToggleLeft()
         {
             CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));

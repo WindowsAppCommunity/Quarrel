@@ -915,7 +915,7 @@ namespace Discord_UWP
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
                 App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
                 {
-                    TintOpacity = 0.5,
+                    TintOpacity = 0.3,
                     TintColor = UserBackground,
                     FallbackColor = UserBackground,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
@@ -927,6 +927,14 @@ namespace Discord_UWP
                     TintColor = UserBackground,
                     FallbackColor = UserBackground,
                     BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var FlyoutColor = ((SolidColorBrush)App.Current.Resources["AcrylicFlyoutBackground"]).Color;
+                App.Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.7,
+                    TintColor = FlyoutColor,
+                    FallbackColor = FlyoutColor,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
                 };
             }
 
