@@ -985,7 +985,7 @@
             <VisualStateGroup x:Name="UISize">
                 <VisualState x:Name="Small">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
+                        <AdaptiveTrigger x:Name="SmallTrigger" MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ServersnChannelsPane.(DisplayMode)">
@@ -1027,7 +1027,7 @@
                 </VisualState>
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="500"/>
+                        <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="500"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ServersnChannelsPane.(DisplayMode)">
@@ -1069,7 +1069,7 @@
                 </VisualState>
                 <VisualState x:Name="Large">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="700"/>
+                        <AdaptiveTrigger x:Name="LargeTrigger" MinWindowWidth="700"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ServersnChannelsPane.(DisplayMode)">
@@ -1111,7 +1111,7 @@
                 </VisualState>
                 <VisualState x:Name="ExtraLarge">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="700"/>
+                        <AdaptiveTrigger x:Name="ExtraLargeTrigger" MinWindowWidth="1000"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ServersnChannelsPane.(DisplayMode)">
@@ -1160,9 +1160,126 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1" Background="{ThemeResource AcrylicChannelPaneBackground}">
-                <SplitView x:Name="ServersnChannelsPane" DisplayMode="CompactOverlay" PaneClosing="ServersnChannelsPane_PaneClosing" OpenPaneLength="322" CompactPaneLength="72" Grid.Row="1" PaneBackground="Transparent" Style="{StaticResource DiscordSplitView}">
-                    <SplitView x:Name="MembersPane" PaneBackground="{ThemeResource AcrylicChannelPaneBackground}" PanePlacement="Right" PaneClosing="MembersPane_PaneClosing">
-                        <Grid x:Name="MessageArea" Background="{ThemeResource AcrylicMessageBackground}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <controls:SideDrawer x:Name="sideDrawer">
+                    <controls:SideDrawer.ContentLeft>
+                        <Grid>
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:GuildControl Id="{Binding Id}" 
+                                                           Name="{Binding Name}"
+                                                           ImageUrl="{Binding ImageURL}"
+                                                           NotificationCount="{Binding NotificationCount}"
+                                                           IsUnread="{Binding IsUnread}"
+                                                           IsMuted="{Binding IsMuted}"
+                                                           IsDM="{Binding IsDM}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.Footer>
+                                        <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}" HorizontalAlignment="Center">
+                                            <Button.Content>
+                                                <Grid>
+                                                    <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
+                                                    <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
+                                                </Grid>
+                                            </Button.Content>
+                                        </Button>
+                                    </ListView.Footer>
+                                </ListView>
+                            </ScrollViewer>
+                            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                                        <GradientStop Offset="1"/>
+                                        <GradientStop Color="Black" Offset="0"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </controls:SideDrawer.ContentLeft>
+                    <controls:SideDrawer.ContentLeftSecondary>
+                        <Grid Grid.Column="1" BorderBrush="#00000000">
+                            <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False" Style="{StaticResource OffsetScrollbarSV}">
+                                <StackPanel Margin="0,0,0,82">
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}" Margin="0,12,0,0">
+                                        <ListView.ItemContainerTransitions>
+                                            <TransitionCollection>
+                                                <RepositionThemeTransition IsStaggeringEnabled="False"/>
+                                            </TransitionCollection>
+                                        </ListView.ItemContainerTransitions>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <controls:ChannelControl Id="{Binding Id}" 
+                                                                         Name="{Binding Name}" 
+                                                                         UserStatus="{Binding UserStatus}" 
+                                                                         Subtitle="{Binding Subtitle}" 
+                                                                         ImageUrl="{Binding ImageURL}" 
+                                                                         Type="{Binding Type}" 
+                                                                         NotificationCount="{Binding NotificationCount}" 
+                                                                         IsUnread="{Binding IsUnread}" 
+                                                                         IsTyping="{Binding IsTyping}" 
+                                                                         IsMuted="{Binding IsMuted}"
+                                                                         IsHidden="{Binding Hidden}"/>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
+                                            <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                                        <GradientStop Offset="1"/>
+                                        <GradientStop Color="Black" Offset="0"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Button Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                                <Button.Flyout>
+                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                        <StackPanel Padding="12" Width="280">
+                                            <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
+                                            <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
+                                            <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                                            <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
+                                            <RadioButton x:Uid="/Main/OnlineRadio" x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
+                                            <Grid Visibility="Collapsed" Width="256" Margin="0,6,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock x:Uid="/Main/PlayingTB" Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Flyout>
+                                </Button.Flyout>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="12" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
+                                    <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                        <TextBlock x:Name="Username" Text="Username" FontWeight="SemiBold"/>
+                                        <TextBlock x:Name="Discriminator" FontSize="12" Text="Discriminator" Opacity="0.5"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </controls:SideDrawer.ContentLeftSecondary>
+                    <controls:SideDrawer.ContentMain>
+                        <Grid x:Name="MessageArea" Margin="12,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition/>
@@ -1193,7 +1310,7 @@
                                     <DataTemplate>
                                         <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
-                                                 IsAdvert="{Binding IsAdvert}"
+                                                 MessageType="{Binding MessageType}"
                                                  Header="{Binding Header}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -1214,233 +1331,84 @@
                             </Grid>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
                         </Grid>
-                        <SplitView.Pane>
-                            <SemanticZoom>
-                                <SemanticZoom.ZoomedInView>
-                                    <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True">
-                                        <ListView.ItemContainerStyle>
-                                            <Style TargetType="ListViewItem">
-                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                <Setter Property="Margin" Value="0"/>
-                                                <Setter Property="Padding" Value="0"/>
-                                                <Setter Property="MinHeight" Value="0"/>
-                                            </Style>
-                                        </ListView.ItemContainerStyle>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                        <ListView.GroupStyle>
-                                            <GroupStyle HidesIfEmpty="True">
-                                                <GroupStyle.HeaderContainerStyle>
-                                                    <Style TargetType="ListViewBaseHeaderItem">
-                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                    </Style>
-                                                </GroupStyle.HeaderContainerStyle>
-                                                <GroupStyle.HeaderTemplate>
-                                                    <DataTemplate>
-                                                        <Grid VerticalAlignment="Top">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Margin="0"/>
-                                                            <TextBlock Grid.Column="1" Text="{Binding Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
-                                                        </Grid>
-                                                    </DataTemplate>
-                                                </GroupStyle.HeaderTemplate>
-                                            </GroupStyle>
-                                        </ListView.GroupStyle>
-                                    </ListView>
-                                </SemanticZoom.ZoomedInView>
-                                <SemanticZoom.ZoomedOutView>
-                                    <ListView ItemsSource="{Binding Source={StaticResource MembersCvs}, Path=CollectionGroups}" Margin="0" >
-                                        <ListView.Background>
-                                            <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
-                                        </ListView.Background>
-                                        <ListView.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <ItemsStackPanel VerticalAlignment="Center"/>
-                                            </ItemsPanelTemplate>
-                                        </ListView.ItemsPanel>
-                                        <ListView.ItemContainerStyle>
-                                            <Style TargetType="ListViewItem">
-                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                            </Style>
-                                        </ListView.ItemContainerStyle>
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
-                                                    <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                        <ListView.Footer>
-                                            <Rectangle Height="48"/>
-                                        </ListView.Footer>
-                                    </ListView>
-                                </SemanticZoom.ZoomedOutView>
-                            </SemanticZoom>
-                        </SplitView.Pane>
-                    </SplitView>
-                    <SplitView.Pane>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="72"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid Background="{ThemeResource AcrylicGuildPaneBackground}">
-
-                                <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                                    <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:GuildControl Id="{Binding Id}" 
-                                                           Name="{Binding Name}"
-                                                           ImageUrl="{Binding ImageURL}"
-                                                           NotificationCount="{Binding NotificationCount}"
-                                                           IsUnread="{Binding IsUnread}"
-                                                           IsMuted="{Binding IsMuted}"
-                                                           IsDM="{Binding IsDM}"/>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                        <ListView.Footer>
-                                            <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}" HorizontalAlignment="Center">
-                                                <Button.Content>
-                                                    <Grid>
-                                                        <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
-                                                        <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
-                                                    </Grid>
-                                                </Button.Content>
-                                            </Button>
-                                        </ListView.Footer>
-                                    </ListView>
-                                </ScrollViewer>
-                                <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
-                                            <GradientStop Offset="1"/>
-                                            <GradientStop Color="Black" Offset="0"/>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
-
-                            <Grid Grid.Column="1" BorderBrush="#00000000">
-                                <ScrollViewer Background="{ThemeResource AcrylicChannelPaneBackground}">
-                                    <StackPanel>
-                                        <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}" Margin="0,12,0,0">
-                                            <ListView.ItemContainerTransitions>
-                                                <TransitionCollection>
-                                                    <RepositionThemeTransition IsStaggeringEnabled="False"/>
-                                                </TransitionCollection>
-                                            </ListView.ItemContainerTransitions>
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <controls:ChannelControl Id="{Binding Id}" 
-                                                                         Name="{Binding Name}" 
-                                                                         UserStatus="{Binding UserStatus}" 
-                                                                         Subtitle="{Binding Subtitle}" 
-                                                                         ImageUrl="{Binding ImageURL}" 
-                                                                         Type="{Binding Type}" 
-                                                                         NotificationCount="{Binding NotificationCount}" 
-                                                                         IsUnread="{Binding IsUnread}" 
-                                                                         IsTyping="{Binding IsTyping}" 
-                                                                         IsMuted="{Binding IsMuted}"
-                                                                         IsHidden="{Binding Hidden}"/>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                        <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                                <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
-                                            </StackPanel>
-                                        </ListViewItem>
-                                        <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                    </StackPanel>
-                                </ScrollViewer>
-
-                            </Grid>
-
-                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="2" Grid.ColumnSpan="2" VerticalAlignment="Top">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                        <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-                                        <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-
-                            <Button Grid.ColumnSpan="2" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <Button.Flyout>
-                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                        <StackPanel Padding="12" Width="280">
-                                            <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
-                                            <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
-                                            <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
-                                            <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
-                                            <RadioButton x:Uid="/Main/OnlineRadio" x:Name="UserStatusOnline" IsChecked="True" Foreground="#43b581" GroupName="status" Content="Online" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <Grid Visibility="Collapsed" Width="256" Margin="0,6,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock x:Uid="/Main/PlayingTB" Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
+                    </controls:SideDrawer.ContentMain>
+                    <controls:SideDrawer.ContentRight>
+                        <SemanticZoom>
+                            <SemanticZoom.ZoomedInView>
+                                <ListView x:Name="MembersListView" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="Margin" Value="0"/>
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="MinHeight" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
                                             </Grid>
-                                        </StackPanel>
-                                    </Flyout>
-                                </Button.Flyout>
-                                <StackPanel Orientation="Horizontal">
-                                    <Rectangle x:Name="Avatar" Width="48" Height="48" RadiusX="48" RadiusY="48" Margin="6,0,0,0">
-                                        <Rectangle.Fill>
-                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="16" Stroke="{ThemeResource MidBG}" StrokeThickness="2" Height="16" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
-                                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock x:Name="Username" Text="Username" FontWeight="Bold"/>
-                                            <TextBlock x:Name="Discriminator" Text="Discriminator" Opacity="0.5" Margin="6,0,0,0"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Button>
-                            <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="3" Grid.ColumnSpan="4">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
-                                        <GradientStop Offset="1"/>
-                                        <GradientStop Color="Black" Offset="0"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Grid>
-                    </SplitView.Pane>
-                </SplitView>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.GroupStyle>
+                                        <GroupStyle HidesIfEmpty="True">
+                                            <GroupStyle.HeaderContainerStyle>
+                                                <Style TargetType="ListViewBaseHeaderItem">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                </Style>
+                                            </GroupStyle.HeaderContainerStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <Grid VerticalAlignment="Top">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Margin="0"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                </ListView>
+                            </SemanticZoom.ZoomedInView>
+                            <SemanticZoom.ZoomedOutView>
+                                <ListView ItemsSource="{Binding Source={StaticResource MembersCvs}, Path=CollectionGroups}" Margin="0" >
+                                    <ListView.Background>
+                                        <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
+                                    </ListView.Background>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ItemsStackPanel VerticalAlignment="Center"/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
+                                                <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.Footer>
+                                        <Rectangle Height="48"/>
+                                    </ListView.Footer>
+                                </ListView>
+                            </SemanticZoom.ZoomedOutView>
+                        </SemanticZoom>
+                    </controls:SideDrawer.ContentRight>
+                </controls:SideDrawer>
             </Grid>
             <StackPanel>
                 <Rectangle x:Name="TitleBarHolder" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
@@ -1572,7 +1540,7 @@
                                             <DataTemplate>
                                                 <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
-                                                 IsAdvert="{Binding IsAdvert}"
+                                                 MessageType="{Binding MessageType}"
                                                  Header="{Binding Header}" MoreButtonVisibility="Collapsed" Width="430"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>

@@ -470,5 +470,10 @@ namespace Discord_UWP.Controls
         {
             //NotificationBorder.Visibility = Visibility.Collapsed;
         }
+
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
+        }
     }
 }

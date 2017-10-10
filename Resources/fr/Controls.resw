@@ -252,4 +252,28 @@
   <data name="FriendsLI.Content" xml:space="preserve">
     <value>AMIS</value>
   </data>
+  <data name="AllLI.Content" xml:space="preserve">
+    <value>TOUS</value>
+  </data>
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>Accepter la demande d'ami?</value>
+  </data>
+  <data name="AddedUser" xml:space="preserve">
+    <value>à ajouté</value>
+  </data>
+  <data name="RemovedUser" xml:space="preserve">
+    <value>à enlevé</value>
+  </data>
+  <data name="ToTheConversation" xml:space="preserve">
+    <value>de la conversation</value>
+  </data>
+  <data name="FromTheConversation" xml:space="preserve">
+    <value>de la conversation</value>
+  </data>
+  <data name="YouMissedACall" xml:space="preserve">
+    <value>Vous avez manqué un appel de</value>
+  </data>
+  <data name="PinnedAMessageInThisChannel" xml:space="preserve">
+    <value>a épinglé un message dans ce salon.</value>
+  </data>
 </root>

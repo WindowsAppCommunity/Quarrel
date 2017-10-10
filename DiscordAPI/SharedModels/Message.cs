@@ -39,6 +39,8 @@ namespace Discord_UWP.SharedModels
         public long? Nonce { get; set; }
         [JsonProperty("pinned")]
         public bool Pinned { get; set; }
+        [JsonProperty("type")]
+        public int Type { get; set; }
     }
     public struct MessageAck
     {
