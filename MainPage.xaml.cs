@@ -129,7 +129,7 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
-
+            
         }
 
         public void ClearData()
@@ -236,10 +236,6 @@ namespace Discord_UWP
             if (e.GuildId != "DMs")
             {
                 MemberToggle.Visibility = Visibility.Visible;
-                if (Page.ActualWidth > 1500)
-                {
-                    MembersPane.IsPaneOpen = true;
-                }
                 
                 foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                 {
@@ -256,7 +252,6 @@ namespace Discord_UWP
             {
                 App.CurrentGuildId = null;
                 MemberToggle.Visibility = Visibility.Collapsed;
-                MembersPane.IsPaneOpen = false;
                 RenderDMChannels();
             }
 
@@ -457,10 +452,7 @@ namespace Discord_UWP
                 string val = e.Link.Remove(0, 2);
                 //TODO Fix this shit
                 MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberDisplayedRole.Id == val));
-                if (!MembersPane.IsPaneOpen)
-                {
-                    MembersPane.IsPaneOpen = true;
-                }
+                sideDrawer.OpenRight();
             }
             else if (e.Link.StartsWith("@"))
             {
@@ -674,7 +666,7 @@ namespace Discord_UWP
 
             if (UISize.CurrentState == Small)
             {
-                ServersnChannelsPane.IsPaneOpen = false;
+                sideDrawer.CloseLeft();
             }
 
             ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
@@ -1179,14 +1171,6 @@ namespace Discord_UWP
             sideDrawer.ToggleLeft();
         }
 
-        private void ServersnChannelsPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
-        {
-            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
-            {
-                LightenMessageArea();
-            }
-        }
-
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 
@@ -1316,13 +1300,6 @@ namespace Discord_UWP
             sideDrawer.ToggleRight();
         }
 
-        private void MembersPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
-        {
-            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
-            {
-                LightenMessageArea();
-            }
-        }
 
         private void NavToAbout(object sender, RoutedEventArgs e)
         {
@@ -1332,16 +1309,6 @@ namespace Discord_UWP
         private void NavToIAPs(object sender, RoutedEventArgs e)
         {
             App.NavigateToIAP();
-        }
-
-        private void DarkenMessageArea()
-        {
-           // MessageArea.Blur(2f, 350, 0).Start();
-           
-        }
-        private void LightenMessageArea()
-        {
-            //MessageArea.Blur(0f, 350, 0).Start();
         }
 
         private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
