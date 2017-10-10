@@ -937,9 +937,19 @@ namespace Discord_UWP
                 App.Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.7,
-                    Opacity = 0.7,
+                    Opacity = 0.9,
                     TintColor = FlyoutColor,
                     FallbackColor = FlyoutColor,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+
+                var DeepBGColor = ((SolidColorBrush)App.Current.Resources["DeepBG"]).Color;
+                App.Current.Resources["DeepBG"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.9,
+                    Opacity = 1,
+                    TintColor = DeepBGColor,
+                    FallbackColor = DeepBGColor,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
                 };
             }

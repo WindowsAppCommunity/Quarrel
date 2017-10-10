@@ -741,6 +741,7 @@ namespace Discord_UWP
                     {
                         var m = new Member(member);
                         if (m.Raw.Roles.FirstOrDefault() != null &&
+                            LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
                             LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
                         {
                             m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);

@@ -674,7 +674,7 @@ namespace Discord_UWP.Controls
         {
             if (EditValue.Trim() == "") EditValue = content.Text;
             editBox = new MessageBox() { Text = EditValue.Trim(),
-                                         Background =(SolidColorBrush)App.Current.Resources["DeepBG"],
+                                         Background = new SolidColorBrush(Colors.Transparent),
                                          Padding = new Thickness(6,6,12,6),
                                          IsEdit = true };
             editBox.Send += EditBox_Send;
@@ -684,6 +684,7 @@ namespace Discord_UWP.Controls
             Grid.SetRow(editBox, 2);
             Grid.SetColumn(editBox, 1);
             rootGrid.Children.Add(editBox);
+            content.Visibility = Visibility.Collapsed;
         }
 
         private void EditBox_Cancel(object sender, RoutedEventArgs e)
@@ -693,6 +694,7 @@ namespace Discord_UWP.Controls
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
+            content.Visibility = Visibility.Visible;
         }
 
         private void EditBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -709,6 +711,7 @@ namespace Discord_UWP.Controls
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
+            content.Visibility = Visibility.Visible;
         }
 
 
