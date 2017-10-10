@@ -1464,7 +1464,7 @@
                                     </Grid>
                                 </AppBarButton.Content>
                             </AppBarButton>
-                            <Button x:Name="ServerNameButton" Click="ServerNameButton_Click" Width="250" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0">
+                            <Button x:Name="ServerNameButton" Click="ServerNameButton_Click" Width="230" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0">
                                 <!--<Button.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                     <StackPanel>
@@ -1477,7 +1477,7 @@
                                     <!--<SymbolIcon Margin="10,0,0,0" Symbol="More"/>-->
                                 </StackPanel>
                             </Button>
-                            <ToggleButton x:Name="FriendsButton" Click="OpenFriendPanel" Width="250" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Style="{StaticResource FriendsButton}">
+                            <ToggleButton x:Name="FriendsButton" Click="OpenFriendPanel" Width="230" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Style="{StaticResource FriendsButton}">
                                 <StackPanel Orientation="Horizontal">
                                     <SymbolIcon Symbol="People" HorizontalAlignment="Left"/>
                                     <TextBlock x:Uid="/Main/FriendsTB" Text="FRIENDS" FontWeight="SemiBold" Margin="10,0"/>
