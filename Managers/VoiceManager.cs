@@ -5,11 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Discord_UWP.Voice;
+using Discord_UWP.LocalModels;
 
 namespace Discord_UWP.Managers
 {
-    public class VoiceManager
+    public static class VoiceManager
     {
+        public class ConnectToVoiceArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string GuildId { get; set; }
+        }
+        public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
+
+        public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
+        {
+            VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
+            await VoiceConnection.ConnectAsync();
+
+            ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
+        }
+        
         public static VoiceConnection VoiceConnection;
     }
 }

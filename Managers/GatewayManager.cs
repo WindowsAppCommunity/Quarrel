@@ -601,9 +601,10 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region Voice
-        private static void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
+        private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
-
+            await AudioTrig.CreateAudioGraph();
+            VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 
         private static void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceState> e)

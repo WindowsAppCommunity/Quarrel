@@ -1215,7 +1215,7 @@ namespace Discord_UWP
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
              
-            if (!IgnoreChange) //True if the last selection was a category
+            if (!IgnoreChange) //True if the last selection was a category or Voice channel
             {
                 if (ChannelList.SelectedItem != null) //Called on clear
                 {
@@ -1230,6 +1230,15 @@ namespace Discord_UWP
                                 item.Hidden = true;
                         }
                         channel.Hidden = !channel.Hidden;
+                        IgnoreChange = true;
+                        var previousSelection = e.RemovedItems.FirstOrDefault();
+                        if (previousSelection == null)
+                            ChannelList.SelectedIndex = -1;
+                        else
+                            ChannelList.SelectedItem = previousSelection;
+                    }
+                    else if (channel.Type == 2)
+                    {
                         IgnoreChange = true;
                         var previousSelection = e.RemovedItems.FirstOrDefault();
                         if (previousSelection == null)
@@ -1301,7 +1310,6 @@ namespace Discord_UWP
             sideDrawer.ToggleRight();
         }
 
-
         private void NavToAbout(object sender, RoutedEventArgs e)
         {
             App.NavigateToAbout();
@@ -1332,14 +1340,14 @@ namespace Discord_UWP
                 }
             }
         }
-        #endregion
-
-        public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
-        private bool LocalStatusChangeEnabled = false;
 
         private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             App.UniversalPointerDown(e);
         }
+        #endregion
+
+        public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
+        private bool LocalStatusChangeEnabled = false;
     }
 }

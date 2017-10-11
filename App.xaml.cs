@@ -602,17 +602,6 @@ namespace Discord_UWP
         }
         #endregion
 
-        public class ConnectToVoiceArgs : EventArgs
-        {
-            public string ChannelId { get; set; }
-            public string GuildId { get; set; }
-        }
-        public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
-        public static void ConnectToVoice(string channelId, string guildId)
-        {
-            ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = channelId, GuildId = guildId });
-        }
-
         public class MentionArgs : EventArgs
         {
             public string Username { get; set; }
