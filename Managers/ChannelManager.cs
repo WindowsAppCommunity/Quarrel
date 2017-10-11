@@ -213,7 +213,10 @@ namespace Discord_UWP.Managers
                         }
                         break;
                     case 2:
-                        //TODO: Voice Channels
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        {
+                            returnChannels.Add(sc);
+                        }
                         break;
                     case 4:
                         sc.Name = sc.Name.ToUpper();
@@ -222,10 +225,10 @@ namespace Discord_UWP.Managers
                 }
             }
             
-            var Categorized = returnChannels.Where(x => x.ParentId != null && x.Type != 4).OrderBy(x => x.Position);
+            var Categorized = returnChannels.Where(x => x.ParentId != null && x.Type != 4).OrderBy(x => x.Type).ThenBy(x => x.Position);
             var Categories = returnChannels.Where(x => x.Type == 4).OrderBy(x => x.Position).ToList();
             List<SimpleChannel> Sorted = new List<SimpleChannel>();
-            foreach (var noId in returnChannels.Where(x => x.ParentId == null && x.Type != 4).OrderBy(x => x.Position))
+            foreach (var noId in returnChannels.Where(x => x.ParentId == null && x.Type != 4).OrderBy(x => x.Type).ThenBy(x => x.Position))
                 Sorted.Add(noId);
             foreach(var categ in Categories)
             {
