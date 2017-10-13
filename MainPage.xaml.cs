@@ -4,6 +4,7 @@ using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
@@ -31,7 +32,7 @@ namespace Discord_UWP
             this.InitializeComponent();
             Setup();
         }
-
+        ScrollViewer MessageScrollviewer;
         public async void Setup()
         {
             //LogIn Event
@@ -54,6 +55,17 @@ namespace Discord_UWP
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+            MessageScrollviewer = Common.GetScrollViewer(MessageList);
+            MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+        }
+
+        bool DisableLoadingOldMessages;
+        private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            double fromTop = MessageScrollviewer.VerticalOffset;
+            double fromBottom = MessageScrollviewer.ScrollableHeight - MessageScrollviewer.VerticalOffset;
+            if (fromTop < 100 && !DisableLoadingOldMessages)
+                LoadOlderMessages();
         }
 
         public async Task<bool> LogIn()
@@ -657,6 +669,7 @@ namespace Discord_UWP
             }
         }
 
+        bool MessageRange_LastMessage = false;
         public async void RenderMessages() //App.CurrentChannelId is set
         {
             MessagesLoading.Visibility = Visibility.Visible;
@@ -683,7 +696,6 @@ namespace Discord_UWP
                     MessageList.Items.Add(message);
                 }
             }
-
             var pinnedmessages = MessageManager.ConvertMessage((await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId)).ToList());
             if (pinnedmessages != null)
             {
@@ -992,6 +1004,21 @@ namespace Discord_UWP
                     //}
 
                 });
+        }
+
+        private async void LoadOlderMessages()
+        {
+            DisableLoadingOldMessages = true;
+            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            if (messages != null)
+            {
+                messages.Reverse();
+                foreach (var message in messages)
+                {
+                    MessageList.Items.Insert(0, message);
+                }
+            }
+            DisableLoadingOldMessages = false;
         }
         #endregion
 
@@ -1329,18 +1356,8 @@ namespace Discord_UWP
             }
         }
 
-        private async void MessageList_RefreshRequested(object sender, EventArgs e)
-        {
-            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
-            if (messages != null)
-            {
-                messages.Reverse();
-                foreach (var message in messages)
-                {
-                    MessageList.Items.Insert(0, message);
-                }
-            }
-        }
+
+
 
         private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
         {

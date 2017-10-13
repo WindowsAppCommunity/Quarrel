@@ -1286,7 +1286,7 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <tkc:PullToRefreshListView x:Name="MessageList" IsPullToRefreshWithMouseEnabled="True" RefreshRequested="MessageList_RefreshRequested" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" PullToRefreshContent="Pull to Load More" ReleaseToRefreshContent="Release to Load More">
+                            <tkc:PullToRefreshListView x:Name="MessageList" IsPullToRefreshWithMouseEnabled="True" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" PullToRefreshContent="Pull to Load More" ReleaseToRefreshContent="Release to Load More">
                                 <tkc:ScrollHeader Mode="Fade">
                                     <!--<StackPanel x:Name="CompressedChannelHeader">
                                         <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
