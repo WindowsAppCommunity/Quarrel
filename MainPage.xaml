@@ -1286,16 +1286,10 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <tkc:PullToRefreshListView x:Name="MessageList" IsPullToRefreshWithMouseEnabled="True" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" PullToRefreshContent="Pull to Load More" ReleaseToRefreshContent="Release to Load More">
-                                <tkc:ScrollHeader Mode="Fade">
-                                    <!--<StackPanel x:Name="CompressedChannelHeader">
-                                        <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
-                                        <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
-                                    </StackPanel>-->
-                                </tkc:ScrollHeader>
+                            <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                        <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemContainerStyle>
@@ -1320,7 +1314,7 @@
                                         <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                                     </Grid>
                                 </ListView.Footer>
-                            </tkc:PullToRefreshListView>
+                            </ListView>
                             <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
