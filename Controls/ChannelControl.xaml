@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400" HorizontalContentAlignment="Stretch" Padding="0,2">
+    d:DesignWidth="400" HorizontalContentAlignment="Stretch" Padding="0,2" PointerPressed="UserControl_PointerPressed">
     <UserControl.Resources>
         <Storyboard x:Name="ShowBadge">
             <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid" d:IsOptimized="True">

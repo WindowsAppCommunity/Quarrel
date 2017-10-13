@@ -34,6 +34,7 @@ using Discord_UWP.SharedModels;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using static Discord_UWP.Managers.MessageManager;
 
 namespace Discord_UWP.Controls
 {
@@ -53,16 +54,17 @@ namespace Discord_UWP.Controls
         }
 
         //Is the message an advert?
-        public bool IsAdvert
+        
+        public MessageManager.MessageTypes MessageType
         {
-            get { return (bool)GetValue(IsAdvertProperty); }
-            set { SetValue(IsAdvertProperty, value); }
+            get { return (MessageManager.MessageTypes)GetValue(MessageTypeProperty); }
+            set { SetValue(MessageTypeProperty, value); }
         }
-        public static readonly DependencyProperty IsAdvertProperty = DependencyProperty.Register(
-            nameof(IsAdvert),
-            typeof(bool),
+        public static readonly DependencyProperty MessageTypeProperty = DependencyProperty.Register(
+            nameof(MessageType),
+            typeof(MessageTypes),
             typeof(MessageControl),
-            new PropertyMetadata(false, OnPropertyChangedStatic));
+            new PropertyMetadata(MessageTypes.Default, OnPropertyChangedStatic));
 
         //Is the message the continuation of another one?
         public bool IsContinuation
@@ -123,9 +125,9 @@ namespace Discord_UWP.Controls
             if(Storage.Settings.CompactMode)
                 VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
 
-            if (prop == IsAdvertProperty)
+            if (prop == MessageTypeProperty)
             {
-                if (IsAdvert)
+                if (MessageType == MessageTypes.Advert)
                 {
                     VisualStateManager.GoToState(this, "Advert", false);
                     advert = new AdControl();
@@ -140,6 +142,34 @@ namespace Discord_UWP.Controls
                     Grid.SetRowSpan(advert, 10);
                     rootGrid.Children.Add(advert);
                     return;
+                }
+                else if(MessageType == MessageTypes.RecipientAdded)
+                {
+                    VisualStateManager.GoToState(this, "Alternative", false);
+                    AlternativeIcon.Glyph = "";
+                    AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
+                    content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/AddedUser") + " **" + Message.Value.Mentions.First().Username + "** "+App.GetString("/Controls/ToTheConversation");
+                }
+                else if(MessageType == MessageTypes.RecipientRemoved)
+                {
+                    VisualStateManager.GoToState(this, "Alternative", false);
+                    AlternativeIcon.Glyph = "";
+                    AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
+                    content.Text = "**" + Message.Value.User.Username + "** "+ App.GetString("/Controls/RemovedUser") +" **" + Message.Value.Mentions.First().Username + "** "+ App.GetString("/Controls/FromTheConversation");
+                }
+                else if(MessageType == MessageTypes.Call)
+                {
+                    VisualStateManager.GoToState(this, "Alternative", false);
+                    AlternativeIcon.Glyph = "";
+                    AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                    content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
+                }
+                else if (MessageType == MessageTypes.PinnedMessage)
+                {
+                    VisualStateManager.GoToState(this, "Alternative", false);
+                    AlternativeIcon.Glyph = "";
+                    AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                    content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                 }
                 else
                 {
@@ -644,7 +674,7 @@ namespace Discord_UWP.Controls
         {
             if (EditValue.Trim() == "") EditValue = content.Text;
             editBox = new MessageBox() { Text = EditValue.Trim(),
-                                         Background =(SolidColorBrush)App.Current.Resources["DeepBG"],
+                                         Background = new SolidColorBrush(Colors.Transparent),
                                          Padding = new Thickness(6,6,12,6),
                                          IsEdit = true };
             editBox.Send += EditBox_Send;
@@ -654,6 +684,7 @@ namespace Discord_UWP.Controls
             Grid.SetRow(editBox, 2);
             Grid.SetColumn(editBox, 1);
             rootGrid.Children.Add(editBox);
+            content.Visibility = Visibility.Collapsed;
         }
 
         private void EditBox_Cancel(object sender, RoutedEventArgs e)
@@ -663,6 +694,7 @@ namespace Discord_UWP.Controls
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
+            content.Visibility = Visibility.Visible;
         }
 
         private void EditBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -679,6 +711,7 @@ namespace Discord_UWP.Controls
             editBox.TextChanged -= EditBox_TextChanged;
             editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
+            content.Visibility = Visibility.Visible;
         }
 
 
@@ -763,6 +796,11 @@ namespace Discord_UWP.Controls
         private void MoreReply_Click(object sender, RoutedEventArgs e)
         {
             App.MentionUser(Message.Value.User.Username, Message.Value.User.Discriminator);
+        }
+
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
         }
     }
 }

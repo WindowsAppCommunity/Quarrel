@@ -79,6 +79,9 @@ namespace Discord_UWP
             {
                 SubFrameNavigator(typeof(LogScreen));
             }
+            MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+            LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+            ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
         }
 
         public async Task<bool> LogIn()
@@ -154,7 +157,7 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
-
+            
         }
 
         public void ClearData()
@@ -284,10 +287,6 @@ namespace Discord_UWP
             if (e.GuildId != "DMs")
             {
                 MemberToggle.Visibility = Visibility.Visible;
-                if (Page.ActualWidth > 1500)
-                {
-                    MembersPane.IsPaneOpen = true;
-                }
                 
                 foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                 {
@@ -304,7 +303,6 @@ namespace Discord_UWP
             {
                 App.CurrentGuildId = null;
                 MemberToggle.Visibility = Visibility.Collapsed;
-                MembersPane.IsPaneOpen = false;
                 RenderDMChannels();
             }
 
@@ -347,6 +345,7 @@ namespace Discord_UWP
                 {
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
+                    App.MarkChannelAsRead(e.ChannelId);
                 } else
                 {
                     ServerList.SelectedIndex = 0;
@@ -504,10 +503,7 @@ namespace Discord_UWP
                 string val = e.Link.Remove(0, 2);
                 //TODO Fix this shit
                 MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberDisplayedRole.Id == val));
-                if (!MembersPane.IsPaneOpen)
-                {
-                    MembersPane.IsPaneOpen = true;
-                }
+                sideDrawer.OpenRight();
             }
             else if (e.Link.StartsWith("@"))
             {
@@ -721,7 +717,7 @@ namespace Discord_UWP
 
             if (UISize.CurrentState == Small)
             {
-                ServersnChannelsPane.IsPaneOpen = false;
+                sideDrawer.CloseLeft();
             }
 
             ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
@@ -748,12 +744,13 @@ namespace Discord_UWP
                 }
             }
             MessagesLoading.Visibility = Visibility.Collapsed;
+            sideDrawer.CloseLeft();
         }
 
         public async void RenderMembers()
         {
             memberscvs.Clear();
-            if (!App.CurrentGuildIsDM)
+            if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
                 foreach (var member in members)
@@ -796,6 +793,7 @@ namespace Discord_UWP
                     {
                         var m = new Member(member);
                         if (m.Raw.Roles.FirstOrDefault() != null &&
+                            LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
                             LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
                         {
                             m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
@@ -1223,36 +1221,12 @@ namespace Discord_UWP
         #region UIEvents
         private void ToggleSplitView(object sender, RoutedEventArgs e)
         {
-            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
-            {
-                DarkenMessageArea();
-            }
-            ServersnChannelsPane.IsPaneOpen = !ServersnChannelsPane.IsPaneOpen;
-        }
-
-        private void ServersnChannelsPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
-        {
-            if (ServersnChannelsPane.DisplayMode != SplitViewDisplayMode.CompactInline)
-            {
-                LightenMessageArea();
-            }
+            sideDrawer.ToggleLeft();
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if ((sender as Page).ActualWidth > Storage.Settings.RespUiXl)
-            {
-                VisualStateManager.GoToState(this, "ExtraLarge", true);
-            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiL)
-            {
-                VisualStateManager.GoToState(this, "Large", true);
-            } else if ((sender as Page).ActualWidth > Storage.Settings.RespUiM)
-            {
-                VisualStateManager.GoToState(this, "Medium", true);
-            } else
-            {
-                VisualStateManager.GoToState(this, "Small", true);
-            }
+
         }
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
@@ -1293,7 +1267,7 @@ namespace Discord_UWP
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
              
-            if (!IgnoreChange) //True if the last selection was a category
+            if (!IgnoreChange) //True if the last selection was a category or Voice channel
             {
                 if (ChannelList.SelectedItem != null) //Called on clear
                 {
@@ -1308,6 +1282,15 @@ namespace Discord_UWP
                                 item.Hidden = true;
                         }
                         channel.Hidden = !channel.Hidden;
+                        IgnoreChange = true;
+                        var previousSelection = e.RemovedItems.FirstOrDefault();
+                        if (previousSelection == null)
+                            ChannelList.SelectedIndex = -1;
+                        else
+                            ChannelList.SelectedItem = previousSelection;
+                    }
+                    else if (channel.Type == 2)
+                    {
                         IgnoreChange = true;
                         var previousSelection = e.RemovedItems.FirstOrDefault();
                         if (previousSelection == null)
@@ -1376,19 +1359,7 @@ namespace Discord_UWP
 
         private void ToggleMemberPane(object sender, RoutedEventArgs e)
         {
-            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
-            {
-                DarkenMessageArea();
-            }
-            MembersPane.IsPaneOpen = !MembersPane.IsPaneOpen;
-        }
-
-        private void MembersPane_PaneClosing(SplitView sender, SplitViewPaneClosingEventArgs args)
-        {
-            if (MembersPane.DisplayMode != SplitViewDisplayMode.Inline)
-            {
-                LightenMessageArea();
-            }
+            sideDrawer.ToggleRight();
         }
 
         private void NavToAbout(object sender, RoutedEventArgs e)
@@ -1399,16 +1370,6 @@ namespace Discord_UWP
         private void NavToIAPs(object sender, RoutedEventArgs e)
         {
             App.NavigateToIAP();
-        }
-
-        private void DarkenMessageArea()
-        {
-           // MessageArea.Blur(2f, 350, 0).Start();
-           
-        }
-        private void LightenMessageArea()
-        {
-            //MessageArea.Blur(0f, 350, 0).Start();
         }
 
         private void ChannelHeader_Tapped(object sender, TappedRoutedEventArgs e)
@@ -1430,6 +1391,11 @@ namespace Discord_UWP
                     MessageList.Items.Insert(0, message);
                 }
             }
+        }
+
+        private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
         }
         #endregion
 
