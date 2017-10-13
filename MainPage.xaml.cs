@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
+using Windows.ApplicationModel.Background;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
@@ -48,6 +49,33 @@ namespace Discord_UWP
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
+
+                try
+                {
+                    var access = await BackgroundExecutionManager.RequestAccessAsync();
+                    switch (access)
+                    {
+                        case BackgroundAccessStatus.Unspecified:
+                            Console.WriteLine("Unspecified result");
+                            break;
+                        case BackgroundAccessStatus.AlwaysAllowed:
+                            RegisterBacgkround();
+                            break;
+                        case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                            RegisterBacgkround();
+                            break;
+                        case BackgroundAccessStatus.DeniedBySystemPolicy:
+                            Console.WriteLine("Denied by system policy");
+                            break;
+                        case BackgroundAccessStatus.DeniedByUser:
+                            Console.WriteLine("Denied by user");
+                            break;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
             }
             else
             {
@@ -221,6 +249,29 @@ namespace Discord_UWP
             App.GuildCreatedHandler -= App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
 
+        }
+
+        public static bool RegisterBacgkround()
+        {
+            try
+            {
+                var task = new BackgroundTaskBuilder
+                {
+                    Name = "DIscord UWP Notifier",
+                    TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
+                };
+
+                var trigger = new ApplicationTrigger();
+                task.SetTrigger(trigger);
+
+                task.Register();
+                Console.WriteLine("Task registered");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         #region AppEvents
