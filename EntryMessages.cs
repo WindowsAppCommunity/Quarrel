@@ -74,6 +74,8 @@ namespace Discord_UWP
                 case 60: return kvp("You got a license for that?", "@Aslan#9846");
                 case 61: return kvp("Did you bring snacks?", "Chestbeard#9806");
                 case 62: return kvp("Suitable for Vegans", "@SamCraftRecon#9075");
+                case 63: return kvp("I can't believe you've done this");
+                case 64: return kvp("Better than iOS 11!", "Abaan404");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
