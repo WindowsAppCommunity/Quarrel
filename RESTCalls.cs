@@ -641,6 +641,20 @@ namespace Discord_UWP
             return null;
         }
 
+        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessagesAfter(string id, string msgpos)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                return await channelservice.GetChannelMessagesAfter(id, msgpos);
+            }
+            catch (Exception exception)
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+
         public static async Task<IEnumerable<SharedModels.Message>> GetChannelPinnedMessages(string id)
         {
             try

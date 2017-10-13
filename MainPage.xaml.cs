@@ -33,6 +33,7 @@ namespace Discord_UWP
             Setup();
         }
         ScrollViewer MessageScrollviewer;
+        ItemsStackPanel messageStacker;
         public async void Setup()
         {
             //LogIn Event
@@ -55,17 +56,21 @@ namespace Discord_UWP
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+
+            //Set up MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
             MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
         }
 
-        bool DisableLoadingOldMessages;
+        bool DisableLoadingMessages;
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             double fromTop = MessageScrollviewer.VerticalOffset;
-            double fromBottom = MessageScrollviewer.ScrollableHeight - MessageScrollviewer.VerticalOffset;
-            if (fromTop < 100 && !DisableLoadingOldMessages)
+            double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
+            if (fromTop < 100 && !DisableLoadingMessages)
                 LoadOlderMessages();
+            if (fromBottom < 100 && !DisableLoadingMessages)
+                LoadNewerMessages();
         }
 
         public async Task<bool> LogIn()
@@ -1008,7 +1013,7 @@ namespace Discord_UWP
 
         private async void LoadOlderMessages()
         {
-            DisableLoadingOldMessages = true;
+            DisableLoadingMessages = true;
             var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
             if (messages != null)
             {
@@ -1018,7 +1023,30 @@ namespace Discord_UWP
                     MessageList.Items.Insert(0, message);
                 }
             }
-            DisableLoadingOldMessages = false;
+            while (MessageList.Items.Count > 150)
+            {
+                MessageList.Items.RemoveAt(MessageList.Items.Count-1);
+            }
+            DisableLoadingMessages = false;
+        }
+        private async void LoadNewerMessages()
+        {
+            var offset = MessageScrollviewer.VerticalOffset;
+            DisableLoadingMessages = true;
+            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            if (messages != null)
+            {
+                foreach (var message in messages)
+                {
+                    MessageList.Items.Add(message);
+                }
+            }
+            while (MessageList.Items.Count > 150)
+            {
+                MessageList.Items.RemoveAt(0);
+            }
+            DisableLoadingMessages = false;
+            MessageScrollviewer.ChangeView(0, offset, 1);
         }
         #endregion
 
@@ -1367,5 +1395,10 @@ namespace Discord_UWP
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
         private bool LocalStatusChangeEnabled = false;
+
+        private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            messageStacker = sender as ItemsStackPanel;
+        }
     }
 }
