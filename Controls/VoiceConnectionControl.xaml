@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="50"
-    d:DesignWidth="200">
+    d:DesignWidth="300" RequestedTheme="Dark">
 
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
@@ -17,15 +17,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="Status" Text="Status" Grid.Row="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="Disconnect" Content="" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Disconnect_Click"/>
-        <ToggleButton x:Name="Mute" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Mute_Click"/>
-        <ToggleButton x:Name="Deafen" Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="Deafen_Click"/>
-        <ToggleButton x:Name="MiniView" Content="" Grid.Column="4" Grid.Row="1"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="0" Background="Transparent" Click="MiniView_Click"/>
+        <TextBlock x:Name="ChannelName" Text="Channel Name"/>
+        <TextBlock x:Name="Status" Text="Status" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel>
+                <ToggleButton x:Name="Mute" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="4" Background="Transparent" Click="Mute_Click"/>
+                <ToggleButton x:Name="Deafen" Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="4" Background="Transparent" Click="Deafen_Click"/>
+            </StackPanel>
+            <Button FontWeight="SemiBold" Content="" FontSize="18" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="6,0,0,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+            <Button FontWeight="SemiBold" Content="PUSH TO TALK" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="6,0,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

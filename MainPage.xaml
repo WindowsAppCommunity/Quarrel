@@ -1243,7 +1243,7 @@
                             </Rectangle>
                             <Button Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
-                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
                                             <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
@@ -1322,12 +1322,17 @@
                                 </ListView.Footer>
                             </tkc:PullToRefreshListView>
                             <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                                 <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
                                 <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                                     <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>
                             </Grid>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
                         </Grid>
