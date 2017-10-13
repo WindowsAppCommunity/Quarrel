@@ -693,6 +693,7 @@ namespace Discord_UWP
                 }
             }
             MessagesLoading.Visibility = Visibility.Collapsed;
+            sideDrawer.CloseLeft();
         }
 
         public async void RenderMembers()
