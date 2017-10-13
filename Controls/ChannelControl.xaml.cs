@@ -413,9 +413,10 @@ namespace Discord_UWP.Controls
             //}
         }
 
-        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
+        private async void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
-            App.ConnectToVoice(Id, App.CurrentGuildId);
+            await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
+            //App.ConnectToVoice(Id, App.CurrentGuildId);
         }
 
         public ChannelControl()
@@ -469,6 +470,11 @@ namespace Discord_UWP.Controls
         private void HideBadge_Completed(object sender, object e)
         {
             //NotificationBorder.Visibility = Visibility.Collapsed;
+        }
+
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
         }
     }
 }

@@ -34,6 +34,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 
 using Discord_UWP.Managers;
+using Windows.Foundation.Metadata;
 
 namespace Discord_UWP
 {
@@ -601,17 +602,6 @@ namespace Discord_UWP
         }
         #endregion
 
-        public class ConnectToVoiceArgs : EventArgs
-        {
-            public string ChannelId { get; set; }
-            public string GuildId { get; set; }
-        }
-        public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
-        public static void ConnectToVoice(string channelId, string guildId)
-        {
-            ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = channelId, GuildId = guildId });
-        }
-
         public class MentionArgs : EventArgs
         {
             public string Username { get; set; }
@@ -637,6 +627,12 @@ namespace Discord_UWP
         public static void UserStatusChanged(string status)
         {
             UserStatusChangedHandler?.Invoke(typeof(App), new UserStatusChangedArgs() { Status = status });
+        }
+
+        public static event PointerEventHandler UniversalPointerDownHandler;
+        public static void UniversalPointerDown(PointerRoutedEventArgs args)
+        {
+            UniversalPointerDownHandler?.Invoke(null, args);
         }
         #endregion
 
@@ -879,6 +875,75 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
+            {
+                var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.6,
+                    //Opacity = 0.6,
+                    TintColor = ChannelColor,
+                    FallbackColor = ChannelColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
+                App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.4,
+                    //Opacity = 0.4,
+                    TintColor = GuildColor,
+                    FallbackColor = GuildColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.7,
+                    //Opacity = 0.7,
+                    TintColor = CommandBarColor,
+                    FallbackColor = CommandBarColor,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
+                App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.3,
+                    //Opacity = 1,
+                    TintColor = UserBackground,
+                    FallbackColor = UserBackground,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+                var MessageColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
+                App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.9,
+                    //Opacity = 1,
+                    TintColor = UserBackground,
+                    FallbackColor = UserBackground,
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                };
+                var FlyoutColor = ((SolidColorBrush)App.Current.Resources["AcrylicFlyoutBackground"]).Color;
+                App.Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.7,
+                    //Opacity = 0.9,
+                    TintColor = FlyoutColor,
+                    FallbackColor = FlyoutColor,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+
+                var DeepBGColor = ((SolidColorBrush)App.Current.Resources["DeepBG"]).Color;
+                App.Current.Resources["DeepBG"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.9,
+                    //Opacity = 1,
+                    TintColor = DeepBGColor,
+                    FallbackColor = DeepBGColor,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+            }
+
+
             if (Storage.Settings.AccentBrush)
             {
                 var accentColor = (Color)this.Resources["SystemAccentColor"];

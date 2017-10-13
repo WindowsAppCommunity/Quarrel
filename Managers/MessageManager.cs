@@ -9,7 +9,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Managers
 {
-    class MessageManager
+    public class MessageManager
     {
         public static List<MessageContainer> ConvertMessage(List<Message> messages)
         {
@@ -19,11 +19,11 @@ namespace Discord_UWP.Managers
                 List<MessageContainer> returnMessages = new List<MessageContainer>();
                 foreach (var message in messages)
                 {
-                    returnMessages.Add(new MessageContainer(message, false, false, null)); //TODO: isConinuation
+                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), false, null)); //TODO: isConinuation
                     adCheck--;
                     if (adCheck == 0 && App.ShowAds)
                     {
-                        returnMessages.Add(new MessageContainer(null, true, false, null));
+                        returnMessages.Add(new MessageContainer(null, MessageTypes.Advert, false, null));
                         adCheck = 5;
                     }
                 }
@@ -32,19 +32,34 @@ namespace Discord_UWP.Managers
             }
             return null; //else
         }
-
+        public static MessageTypes GetMessageType(int type)
+        {
+            switch (type)
+            {
+                case 0: return MessageTypes.Default;
+                case 1: return MessageTypes.RecipientAdded;
+                case 2: return MessageTypes.RecipientRemoved;
+                case 3: return MessageTypes.Call;
+                case 4: return MessageTypes.ChannelNameChanged; 
+                case 5: return MessageTypes.ChannelIconChanged;
+                case 6: return MessageTypes.PinnedMessage; 
+                case 7: return MessageTypes.GuildMemberJoined;
+                default: return MessageTypes.Default;
+            }
+        }
         public static MessageContainer MakeMessage(Message message) //TODO: IsContinuous
         {
-            MessageContainer msg = new MessageContainer(message, false, false, null);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null);
             return msg;
         }
 
+        public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert}
         public class MessageContainer : INotifyPropertyChanged
         {
-            public MessageContainer(Message? message, bool isAd, bool isContinuation, string header)
+            public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header)
             {
                 Message = message;
-                IsAdvert = isAd;
+                MessageType = messageType;
                 IsContinuation = isContinuation;
                 Header = header;
             }
@@ -62,12 +77,12 @@ namespace Discord_UWP.Managers
                 get => _iscontinuation;
                 set { if (_iscontinuation == value) return; _iscontinuation = value; OnPropertyChanged("IsContinuation"); }
             }
-
-            private bool _isadvert;
-            public bool IsAdvert
+          
+            private MessageTypes _msgtype;
+            public MessageTypes MessageType
             {
-                get => _isadvert;
-                set { if (_isadvert == value) return; _isadvert = value; OnPropertyChanged("IsAdvert"); }
+                get => _msgtype;
+                set { if (_msgtype == value) return; _msgtype = value; OnPropertyChanged("MessageType"); }
             }
 
 
