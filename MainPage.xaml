@@ -1243,7 +1243,7 @@
                             </Rectangle>
                             <Button Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
-                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
                                             <AppBarButton Width="48" Height="48" HorizontalAlignment="Right" Icon="Setting" Margin="0,-12,-12,0" Click="OpenSettings"/>
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
@@ -1286,16 +1286,10 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <tkc:PullToRefreshListView x:Name="MessageList" IsPullToRefreshWithMouseEnabled="True" RefreshRequested="MessageList_RefreshRequested" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" PullToRefreshContent="Pull to Load More" ReleaseToRefreshContent="Release to Load More">
-                                <tkc:ScrollHeader Mode="Fade">
-                                    <!--<StackPanel x:Name="CompressedChannelHeader">
-                                        <TextBlock x:Name="CompChannelName" FontWeight="Bold"/>
-                                        <md:MarkdownTextBlock x:Name="CompChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>
-                                    </StackPanel>-->
-                                </tkc:ScrollHeader>
+                            <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <ItemsStackPanel VerticalAlignment="Bottom" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                        <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemContainerStyle>
@@ -1320,14 +1314,19 @@
                                         <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                                     </Grid>
                                 </ListView.Footer>
-                            </tkc:PullToRefreshListView>
+                            </ListView>
                             <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                                 <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
                                 <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                                     <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>
                             </Grid>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
                         </Grid>
