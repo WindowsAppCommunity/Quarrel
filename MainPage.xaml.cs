@@ -93,12 +93,15 @@ namespace Discord_UWP
         bool DisableLoadingMessages;
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            double fromTop = MessageScrollviewer.VerticalOffset;
-            double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
-            if (fromTop < 100 && !DisableLoadingMessages)
-                LoadOlderMessages();
-            if (fromBottom < 100 && !DisableLoadingMessages)
-                LoadNewerMessages();
+            if (MessageList.Items.Count > 0)
+            {
+                double fromTop = MessageScrollviewer.VerticalOffset;
+                double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
+                if (fromTop < 100 && !DisableLoadingMessages)
+                    LoadOlderMessages();
+                if (fromBottom < 100 && !DisableLoadingMessages)
+                    LoadNewerMessages();
+            }
         }
 
         public async Task<bool> LogIn()
