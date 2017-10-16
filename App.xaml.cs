@@ -513,6 +513,16 @@ namespace Discord_UWP
             UpdatePresenceHandler?.Invoke(typeof(App), new UpdatePresenceArgs() { Status = status });
         }
 
+        public class VoiceConnectArgs
+        {
+            public string ChannelId;
+            public string GuildId;
+        }
+        public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
+        public static void ConnectToVoice(string channelId, string guildId)
+        {
+            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId });
+        }
         #region Relations
         public class AddFriendArgs : EventArgs
         {

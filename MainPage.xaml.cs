@@ -163,6 +163,7 @@ namespace Discord_UWP
             App.MuteGuildHandler += App_MuteGuildHandler;
             App.RemoveFriendHandler += App_RemoveFriendHandler;
             App.UpdatePresenceHandler += App_UpdatePresenceHandler;
+            App.VoiceConnectHandler += App_VoiceConnectHandler;
             //UpdateUI
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
@@ -605,6 +606,11 @@ namespace Discord_UWP
                 await RESTCalls.ChangeUserSettings(e.Status);
             }
             LocalStatusChangeEnabled = true;
+        }
+
+        private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
+        {
+            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
         }
         #endregion
 
