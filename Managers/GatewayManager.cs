@@ -604,12 +604,32 @@ namespace Discord_UWP.Managers
         private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
             await AudioTrig.CreateAudioGraph();
-            VoiceManager.ConnectToVoiceChannel(e.EventData);
+            VoiceManager.VoiceConnection = new Voice.VoiceConnection(e.EventData, LocalState.VoiceState);
+            await VoiceManager.VoiceConnection.ConnectAsync();
         }
 
         private static void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceState> e)
         {
-
+            try
+            {
+                if (e.EventData.UserId == LocalState.CurrentUser.Id)
+                {
+                    LocalState.VoiceState = e.EventData;
+                    
+                }
+                if (LocalState.VoiceDict.ContainsKey(e.EventData.UserId))
+                {
+                    LocalState.VoiceDict[e.EventData.UserId] = e.EventData;
+                }
+                else
+                {
+                    LocalState.VoiceDict.Add(e.EventData.UserId, e.EventData);
+                }
+            }
+            catch
+            {
+                //Huh, Weird
+            }
         }
         #endregion
 
