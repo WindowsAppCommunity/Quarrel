@@ -1011,7 +1011,6 @@ namespace Discord_UWP
 
         #endregion
 
-
         static AuthenticatedRestFactory AuthenticatedRestFactory;
         static DiscordApiConfiguration config;
         static string Token;

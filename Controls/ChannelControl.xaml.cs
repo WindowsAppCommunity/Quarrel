@@ -413,10 +413,10 @@ namespace Discord_UWP.Controls
             //}
         }
 
-        private async void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
+        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
-            await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
-            //App.ConnectToVoice(Id, App.CurrentGuildId);
+            //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
+            App.ConnectToVoice(Id, App.CurrentGuildId);
         }
 
         public ChannelControl()
