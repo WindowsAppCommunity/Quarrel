@@ -21,11 +21,17 @@ namespace Discord_UWP.Managers
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
             VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
+            VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             await VoiceConnection.ConnectAsync();
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
         }
-        
+
+        private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
+        {
+            AudioTrig.AddFrame(e.EventData.data, e.EventData.samples);
+        }
+
         public static VoiceConnection VoiceConnection;
     }
 }
