@@ -2,7 +2,8 @@
     x:Class="Discord_UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Discord_UWP">
+    xmlns:local="using:Discord_UWP"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -4019,11 +4020,15 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="FlyoutPresenter">
+                            <controls:DropShadowPanel BlurRadius="50.0"
+                          ShadowOpacity="0.6">
                             <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource AcrylicFlyoutBackground}" CornerRadius="4">
                                 <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
                                     <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                                 </ScrollViewer>
-                            </Border>
+                                    
+                                </Border>
+                            </controls:DropShadowPanel>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -4048,11 +4053,15 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="FlyoutPresenter">
-                            <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource AcrylicFlyoutBackground}" CornerRadius="4">
-                                <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                </ScrollViewer>
-                            </Border>
+                            <controls:DropShadowPanel BlurRadius="50.0"
+                          ShadowOpacity="0.6">
+                                <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource AcrylicFlyoutBackground}" CornerRadius="4">
+                                    <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </controls:DropShadowPanel>
+                            
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
