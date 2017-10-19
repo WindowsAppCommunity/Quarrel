@@ -87,7 +87,10 @@ namespace Discord_UWP
 
             //Set up MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
-            MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            if (MessageScrollviewer != null)
+            {
+                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
         }
 
         bool DisableLoadingMessages;
