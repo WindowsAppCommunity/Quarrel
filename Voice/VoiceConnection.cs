@@ -116,6 +116,7 @@ namespace Discord_UWP.Voice
         {
             //_rtpHeader[0] = 0x80;
             //_rtpHeader[1] = 0x78;
+
             //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
 
