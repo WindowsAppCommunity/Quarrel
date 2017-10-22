@@ -45,6 +45,7 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
         private readonly byte[] _nonce = new byte[24];
+        private byte[] _rtpHeader = new byte[24];
         private byte[] _encrypted = new byte[15000];
         private byte[] _unencrypted = new byte[15000];
 
@@ -113,7 +114,8 @@ namespace Discord_UWP.Voice
 
         public void SendVoiceHeader()
         {
-
+            //_rtpHeader[0] = 0x80;
+            //_rtpHeader[1] = 0x78;
             //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
 
@@ -280,7 +282,7 @@ namespace Discord_UWP.Voice
                 //App.NavigateToBugReport(exception);
             }
         }
-         
+
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)
