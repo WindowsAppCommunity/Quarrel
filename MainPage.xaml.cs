@@ -1085,11 +1085,9 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Insert(0, message);
+                    if(MessageList.Items.Count > 150)
+                        MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
-            }
-            while (MessageList.Items.Count > 150)
-            {
-                MessageList.Items.RemoveAt(MessageList.Items.Count-1);
             }
             DisableLoadingMessages = false;
         }
@@ -1103,14 +1101,12 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Add(message);
+                    if(MessageList.Items.Count > 150)
+                        MessageList.Items.RemoveAt(0);
                 }
-            }
-            while (MessageList.Items.Count > 150)
-            {
-                MessageList.Items.RemoveAt(0);
+                MessageScrollviewer.ChangeView(0, offset, 1);
             }
             DisableLoadingMessages = false;
-            MessageScrollviewer.ChangeView(0, offset, 1);
         }
         #endregion
 
@@ -1365,9 +1361,11 @@ namespace Discord_UWP
                             ChannelList.SelectedIndex = -1;
                         else
                             ChannelList.SelectedItem = previousSelection;
+                        
                     }
                     else
                     {
+                        sideDrawer.CloseLeft();
                         if (App.CurrentGuildIsDM)
                         {
                             App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
