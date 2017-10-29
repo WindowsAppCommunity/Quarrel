@@ -298,9 +298,13 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_MessageAck(object sender, Gateway.GatewayEventArgs<SharedModels.MessageAck> e)
         {
-            ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
-            LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
-            App.UpdateUnreadIndicators();
+            try
+            {
+                ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
+                LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
+            }
+            catch (Exception) { }
+             App.UpdateUnreadIndicators();
         }
         #endregion
 

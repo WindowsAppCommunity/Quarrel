@@ -207,7 +207,7 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId || 1 == 1)
                         {
                             returnChannels.Add(sc);
                         }
