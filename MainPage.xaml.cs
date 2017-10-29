@@ -86,12 +86,11 @@ namespace Discord_UWP
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
 
             //Set up MessageList infinite scroll
-            try
+            MessageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (MessageScrollviewer != null)
             {
-                MessageScrollviewer = Common.GetScrollViewer(MessageList);
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             }
-            catch (Exception) { }
         }
 
         bool DisableLoadingMessages;

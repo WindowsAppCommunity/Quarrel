@@ -45,6 +45,7 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
         private readonly byte[] _nonce = new byte[24];
+        private byte[] _rtpHeader = new byte[24];
         private byte[] _encrypted = new byte[15000];
         private byte[] _unencrypted = new byte[15000];
 
@@ -113,6 +114,8 @@ namespace Discord_UWP.Voice
 
         public void SendVoiceHeader()
         {
+            //_rtpHeader[0] = 0x80;
+            //_rtpHeader[1] = 0x78;
 
             //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
@@ -272,7 +275,7 @@ namespace Discord_UWP.Voice
                 int framesize = 120 * 48; //120 ms * 48 samples per ms
                 float[] output = new float[framesize * 2]; // framesize * 2 channel
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-                AudioTrig.AddFrame(output, (uint)samples);
+                //AudioTrig.AddFrame(output, (uint)samples);
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
@@ -280,7 +283,7 @@ namespace Discord_UWP.Voice
                 //App.NavigateToBugReport(exception);
             }
         }
-         
+
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)
