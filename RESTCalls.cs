@@ -60,7 +60,7 @@ namespace Discord_UWP
 
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }
