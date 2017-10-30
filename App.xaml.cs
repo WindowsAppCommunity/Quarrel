@@ -658,6 +658,8 @@ namespace Discord_UWP
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
         internal static bool GatewayCreated = false;
+        internal const string ClientId = "357923233636286475";
+
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
