@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord UWPold", "DiscordUWPold\Discord UWPold.csproj", "{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}"
 EndProject
@@ -33,8 +33,6 @@ Global
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|ARM.Build.0 = Debug|ARM
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|ARM.Deploy.0 = Debug|ARM
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x64.ActiveCfg = Debug|x64
-		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x64.Build.0 = Debug|x64
-		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x64.Deploy.0 = Debug|x64
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x86.ActiveCfg = Debug|x86
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x86.Build.0 = Debug|x86
 		{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}.Debug|x86.Deploy.0 = Debug|x86
