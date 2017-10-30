@@ -65,6 +65,19 @@ namespace Discord_UWP
                 return false;
             }
         }
+
+        public static async Task<bool> LoginOauth2()
+        {
+            string url = "https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=" + App.ClientId;
+            try
+            {
+                throw new Exception();
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region IUser

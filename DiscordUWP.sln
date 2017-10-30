@@ -16,10 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBackgroundTask1", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordAPI", "DiscordAPI.csproj", "{03C1FC3A-410F-46D9-802B-316C7280E180}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibsodiumRuntimeComponent", "LibsodiumRuntimeComponent\LibsodiumRuntimeComponent.vcxproj", "{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpusRuntimeComponent", "OpusRuntimeComponent\OpusRuntimeComponent.vcxproj", "{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,40 +100,12 @@ Global
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x64.Build.0 = Release|x64
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x86.ActiveCfg = Release|x86
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x86.Build.0 = Release|x86
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|ARM.ActiveCfg = Debug|ARM
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|ARM.Build.0 = Debug|ARM
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|x64.ActiveCfg = Debug|x64
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|x64.Build.0 = Debug|x64
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|x86.ActiveCfg = Debug|Win32
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Debug|x86.Build.0 = Debug|Win32
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|Any CPU.ActiveCfg = Release|Win32
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|ARM.ActiveCfg = Release|ARM
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|ARM.Build.0 = Release|ARM
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|x64.ActiveCfg = Release|x64
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|x64.Build.0 = Release|x64
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|x86.ActiveCfg = Release|Win32
-		{E6BCEE14-F2BD-43ED-A325-14E835CE7FA4}.Release|x86.Build.0 = Release|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|ARM.ActiveCfg = Debug|ARM
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|ARM.Build.0 = Debug|ARM
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|x64.ActiveCfg = Debug|x64
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|x64.Build.0 = Debug|x64
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|x86.ActiveCfg = Debug|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Debug|x86.Build.0 = Debug|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|Any CPU.ActiveCfg = Release|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|ARM.ActiveCfg = Release|ARM
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|ARM.Build.0 = Release|ARM
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|x64.ActiveCfg = Release|x64
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|x64.Build.0 = Release|x64
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|x86.ActiveCfg = Release|Win32
-		{4FCB2D97-D2EA-49BC-9CB8-BE8FB2C90E0E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
+		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 	EndGlobalSection
 EndGlobal
