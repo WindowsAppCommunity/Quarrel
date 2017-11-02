@@ -1177,7 +1177,9 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     if (MessageList.Items.Count > 0)
+                     if (MessageList.Items.Count > 0 && MessageList.Items.FirstOrDefault(x => (x as 
+                     MessageManager.MessageContainer).Message.HasValue &&
+                     (x as MessageManager.MessageContainer).Message.Value.Id == e.Message.Id) != null)
                      {
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
                          if (e.Message.TTS)
