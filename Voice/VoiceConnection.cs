@@ -44,10 +44,11 @@ namespace Discord_UWP.Voice
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
-        private readonly byte[] _nonce = new byte[24];
-        private byte[] _rtpHeader = new byte[24];
+        private byte[] _nonce = null;
         private byte[] _encrypted = new byte[15000];
         private byte[] _unencrypted = new byte[15000];
+        private uint ssrc;
+        private int sequence = 0;
 
         private byte[] secretkey;
 
@@ -112,17 +113,56 @@ namespace Discord_UWP.Voice
             
         }
 
-        public void SendVoiceHeader()
+        public void CreateVoiceHeader()
         {
-            //_rtpHeader[0] = 0x80;
-            //_rtpHeader[1] = 0x78;
+            sequence++;
+
+            uint timeStamp = (uint)DateTime.Now.Ticks;
+
+            _nonce[0] = 0x80;
+            _nonce[1] = 0x78;
+
+            _nonce[2] = (byte)(sequence >> 8);
+            _nonce[3] = (byte)(sequence >> 0);
+
+            _nonce[4] = (byte)(timeStamp >> 24);
+            _nonce[5] = (byte)(timeStamp >> 16);
+            _nonce[6] = (byte)(timeStamp >> 8);
+            _nonce[7] = (byte)(timeStamp >> 0);
+
+            _nonce[8] = (byte)(ssrc >> 24);
+            _nonce[9] = (byte)(ssrc >> 16);
+            _nonce[10] = (byte)(ssrc >> 8);
+            _nonce[11] = (byte)(ssrc >> 0);
 
             //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
 
+        public bool TryReadSsrc(byte[] buffer, int offset, out uint ssrc)
+        {
+            ssrc = 0;
+            if (buffer.Length - offset < 12)
+                return false;
+            int version = (buffer[offset + 0] & 0b1100_0000) >> 6;
+            if (version != 2)
+                return false;
+            int type = (buffer[offset + 1] & 0b01111_1111);
+            if (type != 120) //Dynamic Discord type
+                return false;
+
+            ssrc = (uint)((buffer[offset + 8] << 24) |
+                (buffer[offset + 9] << 16) |
+                (buffer[offset + 10] << 8) |
+                (buffer[offset + 11] << 0));
+            return true;
+        }
+
         public void SendVoiceData()
         {
+            if (_nonce == null)
+            {
 
+            }
         }
 
         async void IpDiscover(object sender, PacketReceivedEventArgs args)
@@ -267,16 +307,19 @@ namespace Discord_UWP.Voice
         {
             try
             {
-                Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
-                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
-                //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
-                _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
-                OpusDecoder decoder = new OpusDecoder(48000, 2);
-                int framesize = 120 * 48; //120 ms * 48 samples per ms
-                float[] output = new float[framesize * 2]; // framesize * 2 channel
-                int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-                //AudioTrig.AddFrame(output, (uint)samples);
-                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                //if (_rtpHeader != null)
+                //{
+                    Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
+                    //Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
+                    //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
+                    _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+                    OpusDecoder decoder = new OpusDecoder(48000, 2);
+                    int framesize = 120 * 48; //120 ms * 48 samples per ms
+                    float[] output = new float[framesize * 2]; // framesize * 2 channel
+                    int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
+                    //AudioTrig.AddFrame(output, (uint)samples);
+                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                //}
             }
             catch (Exception exception)
             {
