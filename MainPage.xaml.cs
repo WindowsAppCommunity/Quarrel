@@ -1296,7 +1296,6 @@ namespace Discord_UWP
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
         {
-            //TODO: Update status
             if (UserStatusOnline.IsChecked == true)
             {
                 App.UpdatePresence("online");
