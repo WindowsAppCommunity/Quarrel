@@ -80,7 +80,6 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
-            //TODO Check what the relationshipstatus transition is, remove from the correct AllView, BlockedView, or PendingView, and modify in All
             await RemoveRelationshipFromUI(e);
             await AddRelationshipToUI(e);
         }
