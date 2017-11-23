@@ -586,7 +586,7 @@
       <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
-      <Version>10.1706.16001</Version>
+      <Version>10.1710.25002</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.SDK">
       <Version>10.1705.16001</Version>
