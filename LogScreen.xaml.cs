@@ -43,7 +43,7 @@ namespace Discord_UWP
                 App.SubpageClosed();
             } else
             {
-                MessageDialog msg = new MessageDialog("Failed to log in, check your Email for a message from Discord to confirm your ip address");
+                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password");
                 await msg.ShowAsync();
 
                 (sender as Button).IsEnabled = true;
