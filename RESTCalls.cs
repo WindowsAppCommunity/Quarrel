@@ -30,7 +30,7 @@ namespace Discord_UWP
     public class RESTCalls
     {
         #region ILogin
-        public static async Task<bool> Login(string email, string password)
+        public static async Task<Exception> Login(string email, string password)
         {
             try
             {
@@ -58,11 +58,11 @@ namespace Discord_UWP
                 SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
                 GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
 
-                return true;
+                return null;
             }
             catch (Exception e)
             {
-                return false;
+                return e;
             }
         }
 
