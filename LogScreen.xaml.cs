@@ -35,7 +35,9 @@ namespace Discord_UWP
             ProgressRing.Visibility = Visibility.Visible;
             ProgressRing.IsActive = true;
             LoginText.Visibility = Visibility.Collapsed;
-            if (await RESTCalls.Login(Username.Text, Password.Password))
+
+            var result = await RESTCalls.Login(Username.Text, Password.Password);
+            if (result == null)
             {
                 PasswordCredential credentials = new PasswordCredential("LogIn", Username.Text, Password.Password);
                 Storage.PasswordVault.Add(credentials);
@@ -43,7 +45,11 @@ namespace Discord_UWP
                 App.SubpageClosed();
             } else
             {
-                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password");
+                //switch (result.HResult)
+                //{
+                //TODO: Handle different errors
+                //}
+                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password, then check your email for an email from Discord to verify your IP");
                 await msg.ShowAsync();
 
                 (sender as Button).IsEnabled = true;

@@ -33,8 +33,10 @@ namespace Discord_UWP
             this.InitializeComponent();
             Setup();
         }
+
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
+
         public async void Setup()
         {
             //LogIn Event
@@ -756,20 +758,28 @@ namespace Discord_UWP
             //CompChannelTopic.Text = ChannelTopic.Text;
 
             MessageList.Items.Clear();
-            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());
-            if (messages != null)
+            var emessages = await RESTCalls.GetChannelMessages(App.CurrentChannelId);
+            if (emessages != null)
             {
-                foreach (var message in messages)
+                var messages = MessageManager.ConvertMessage(emessages.ToList());
+                if (messages != null)
                 {
-                    MessageList.Items.Add(message);
+                    foreach (var message in messages)
+                    {
+                        MessageList.Items.Add(message);
+                    }
                 }
             }
-            var pinnedmessages = MessageManager.ConvertMessage((await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId)).ToList());
-            if (pinnedmessages != null)
+            var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
+            if (epinnedmessages != null)
             {
-                foreach (var message in pinnedmessages)
+                var pinnedmessages = MessageManager.ConvertMessage(epinnedmessages.ToList());
+                if (pinnedmessages != null)
                 {
-                    PinnedMessageList.Items.Add(message);
+                    foreach (var message in pinnedmessages)
+                    {
+                        PinnedMessageList.Items.Add(message);
+                    }
                 }
             }
             MessagesLoading.Visibility = Visibility.Collapsed;
@@ -1445,9 +1455,6 @@ namespace Discord_UWP
                 App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
             }
         }
-
-
-
 
         private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
         {

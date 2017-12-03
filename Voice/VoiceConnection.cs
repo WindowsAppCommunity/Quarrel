@@ -268,8 +268,8 @@ namespace Discord_UWP.Voice
             try
             {
                 Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
-                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
                 //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
+                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length-12);
                 _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 120 * 48; //120 ms * 48 samples per ms
