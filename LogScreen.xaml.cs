@@ -58,5 +58,15 @@ namespace Discord_UWP
                 LoginText.Visibility = Visibility.Visible;
             }
         }
+
+        private async void Register(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
+        }
+
+        private async void ChangePassword(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/"));
+        }
     }
 }
