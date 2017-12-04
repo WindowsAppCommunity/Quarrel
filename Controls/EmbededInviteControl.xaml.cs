@@ -45,7 +45,7 @@ namespace Discord_UWP.Controls
             var instance = d as EmbededInviteControl;
             instance?.OnPropertyChanged(d, e.Property);
         }
-        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == InviteCodeProperty)
             {

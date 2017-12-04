@@ -135,7 +135,7 @@ namespace Discord_UWP.Voice
                 ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
                 port = (packet[69] << 8) | packet[68];
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -280,6 +280,7 @@ namespace Discord_UWP.Voice
             }
             catch (Exception exception)
             {
+                System.Diagnostics.Debug.WriteLine(exception.Message);
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -327,7 +328,7 @@ namespace Discord_UWP.Voice
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }

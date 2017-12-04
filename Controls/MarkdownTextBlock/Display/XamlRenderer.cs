@@ -464,7 +464,6 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     break;
              /*   case MarkdownBlockType.Quote:
                     RenderQuote((QuoteBlock)element, blockUIElementCollection, context);*/
-                    break;
                 case MarkdownBlockType.Code:
                     RenderCode((CodeBlock)element, blockUIElementCollection, context);
                     break;

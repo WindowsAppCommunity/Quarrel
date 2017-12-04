@@ -49,7 +49,7 @@ namespace Discord_UWP.Sockets
                 _dataWriter.WriteString(message);
                 await _dataWriter.StoreAsync();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }

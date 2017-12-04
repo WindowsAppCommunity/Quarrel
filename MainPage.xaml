@@ -1168,7 +1168,7 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 
-                                                           Name="{Binding Name}"
+                                                           GuildName="{Binding Name}"
                                                            ImageUrl="{Binding ImageURL}"
                                                            NotificationCount="{Binding NotificationCount}"
                                                            IsUnread="{Binding IsUnread}"
@@ -1211,7 +1211,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:ChannelControl Id="{Binding Id}" 
-                                                                         Name="{Binding Name}" 
+                                                                         CName="{Binding Name}" 
                                                                          UserStatus="{Binding UserStatus}" 
                                                                          Subtitle="{Binding Subtitle}" 
                                                                          ImageUrl="{Binding ImageURL}" 

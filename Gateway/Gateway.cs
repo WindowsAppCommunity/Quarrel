@@ -148,7 +148,7 @@ namespace Discord_UWP.Gateway
         // TODO: good chance the socket will be disposed when attempting to resume so yah
         public async Task ResumeAsync()
         {
-            var token = await _authenticator.GetToken();
+            var token = _authenticator.GetToken();
 
             var resume = new GatewayResume
             {
@@ -244,17 +244,17 @@ namespace Discord_UWP.Gateway
             {
                 Type = EventNames.IDENTIFY,
                 Operation = OperationCode.Identify.ToInt(),
-                Payload = await GetIdentityAsync()
+                Payload = GetIdentityAsync()
             };
 
             await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
-        private async Task<Identify> GetIdentityAsync()
+        private Identify GetIdentityAsync()
         {
             return new Identify
             {
-                Token = await _authenticator.GetToken(),
+                Token = _authenticator.GetToken(),
                 Properties = GetClientProperties(),
                 LargeThreshold = 250
             };
@@ -494,7 +494,7 @@ namespace Discord_UWP.Gateway
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
