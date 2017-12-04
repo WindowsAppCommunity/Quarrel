@@ -1010,7 +1010,7 @@ namespace Discord_UWP
             //view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
         }
 
-        public async Task<bool> LogIn()
+        public async Task<Exception> LogIn()
         {
             var credentials = Storage.PasswordVault.FindAllByResource("LogIn");
             var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
