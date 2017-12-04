@@ -114,7 +114,7 @@ namespace Discord_UWP
             var credntials = Storage.PasswordVault.FindAllByResource("LogIn"); //TODO: Multi-Account
             var creds = credntials.FirstOrDefault();
             creds.RetrievePassword();
-            return await RESTCalls.Login(creds.UserName, creds.Password)
+            return await RESTCalls.Login(creds.UserName, creds.Password);
         }
 
         public void SetupEvents()
