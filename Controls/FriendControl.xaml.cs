@@ -41,15 +41,15 @@ namespace Discord_UWP.Controls
 
         public event EventHandler AcceptFriend;
         public event EventHandler RemovedFriend;
-        public event EventHandler StartVoiceCall;
-        public event EventHandler SentMessage;
+        //public event EventHandler StartVoiceCall;
+        //public event EventHandler SentMessage;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as FriendControl;
             instance?.OnPropertyChanged(d, e.Property);
         }
-        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == DisplayedFriendProperty)
             {

@@ -122,7 +122,7 @@ namespace Discord_UWP.SubPages
             //IgnoreToggle = false;
         }
         Regex regex = new Regex("^[A-Za-z0-9_-]+$");
-        private bool IgnoreToggle = false;
+        //private bool IgnoreToggle = false;
         private void ChannelName_TextChanged(object sender, TextChangedEventArgs e)
         {
             //{

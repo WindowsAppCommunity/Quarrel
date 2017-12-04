@@ -271,7 +271,7 @@ namespace Discord_UWP
                 Console.WriteLine("Task registered");
                 return true;
             }
-            catch (Exception ex)
+            catch /*(Exception ex)*/
             {
                 return false;
             }
@@ -733,7 +733,7 @@ namespace Discord_UWP
             }
         }
 
-        bool MessageRange_LastMessage = false;
+        //bool MessageRange_LastMessage = false;
         public async void RenderMessages() //App.CurrentChannelId is set
         {
             MessagesLoading.Visibility = Visibility.Visible;
@@ -889,7 +889,7 @@ namespace Discord_UWP
                             x => (x as ChannelManager.SimpleChannel).Id == typer.Key.channelId) as ChannelManager.SimpleChannel)
                         .IsTyping = true;
                 }
-                catch (Exception exception)
+                catch /*(Exception exception)*/
                 {
                     //App.NavigateToBugReport(exception);
                 }

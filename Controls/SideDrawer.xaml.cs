@@ -67,7 +67,7 @@ namespace Discord_UWP.Controls
             VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = Small });
         }
 
-        private InteractionTrackerInertiaModifier[] inertiaModifiers;
+        //private InteractionTrackerInertiaModifier[] inertiaModifiers;
 
         private async void SmallInteractable(VisualState previous)
         {
@@ -325,7 +325,7 @@ namespace Discord_UWP.Controls
             compositor = rootVisual.Compositor;
         }
 
-        bool animout = false;
+        //bool animout = false;
         int width = 300;
         private Visual contentVis;
         private Visual leftcache1;

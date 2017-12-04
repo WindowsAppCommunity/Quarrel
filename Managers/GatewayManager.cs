@@ -66,6 +66,7 @@ namespace Discord_UWP.Managers
         }
 
         #region Ready
+        //Aparently can contain nullref, (~2% of crashes)
         private static void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             LocalState.CurrentUser = e.EventData.User;

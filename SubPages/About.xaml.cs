@@ -50,7 +50,7 @@ namespace Discord_UWP.SubPages
             {
                 await RESTCalls.AcceptInvite("wQmQgtq"); //TODO: Rig to App.Events
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 JoinServerText.Text = App.GetString("/About/JoinFail");
                 timer.Start();
