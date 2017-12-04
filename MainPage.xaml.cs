@@ -47,7 +47,7 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
-            if (App.LoggedIn() && (App.GatewayCreated || await LogIn()))
+            if (App.LoggedIn() && (App.GatewayCreated || await LogIn() == null))
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
@@ -109,18 +109,12 @@ namespace Discord_UWP
             }
         }
 
-        public async Task<bool> LogIn()
+        public async Task<Exception> LogIn()
         {
             var credntials = Storage.PasswordVault.FindAllByResource("LogIn"); //TODO: Multi-Account
             var creds = credntials.FirstOrDefault();
             creds.RetrievePassword();
-            if (await RESTCalls.Login(creds.UserName, creds.Password))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return await RESTCalls.Login(creds.UserName, creds.Password)
         }
 
         public void SetupEvents()
