@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static KeyValuePair<string,string> GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 66))
+            switch (rand.Next(0, 69))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -78,9 +78,13 @@ namespace Discord_UWP
                 case 64: return kvp("Better than iOS 11!", "@Abaan404#9892");
                 case 65: return kvp("Watching Netflix", "@Aslan#9846");
                 case 66: return kvp("Checking for Bugs", "@Aslan#9846");
+                case 67: return kvp("FRE SHAVAC ADO");
+                case 68: return kvp("I have the power of God and Anime");
+                case 69: return kvp("I ain't got no sleep");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
+
         private static KeyValuePair<string, string> kvp(string key, string val = "")
         {
             return new KeyValuePair<string, string>(key, val);
