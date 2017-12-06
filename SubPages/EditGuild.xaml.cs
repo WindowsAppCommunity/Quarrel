@@ -101,7 +101,6 @@ namespace Discord_UWP.SubPages
             }
         }
 
-        private string guildId = "";
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
@@ -326,46 +325,44 @@ namespace Discord_UWP.SubPages
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = DeafenMembers.IsEnabled = MoveMembers.IsEnabled = UseVad.IsEnabled = true;
             }
-
-            //TODO: Permission Editor
-            //Permissions perms = new Permissions();
-            //perms(guildId, new List<Role>() { role }.AsEnumerable());
+            
+            //Permissions perms = LocalState.Guilds[guildId].permissions;
 
             //RoleName.Text = role.Name;
 
             //Hoist.IsOn = role.Hoist;
             //AllowMention.IsOn = role.Mentionable;
 
-            //Administrator.IsOn = perms.Perms.Administrator;
-            //ViewAuditLog.IsOn = perms.Perms.ViewAuditLog;
-            //ManageServer.IsOn = perms.Perms.ManangeGuild;
-            //ManageRoles.IsOn = perms.Perms.ManageRoles;
-            //ManageChannels.IsOn = perms.Perms.ManageChannels;
-            //KickMembers.IsOn = perms.Perms.KickMembers;
-            //BanMembers.IsOn = perms.Perms.BanMembers;
-            //CreateInstantInvite.IsOn = perms.Perms.CreateInstantInvite;
-            //ChangeNickname.IsOn = perms.Perms.ChangeNickname;
-            //ManageNicknames.IsOn = perms.Perms.ManageNicknames;
-            //ManageEmojis.IsOn = perms.Perms.ManageEmojis;
-            //ManageWebhooks.IsOn = perms.Perms.ManageWebhooks;
+            //Administrator.IsOn = perms.Administrator;
+            //ViewAuditLog.IsOn = perms.ViewAuditLog;
+            //ManageServer.IsOn = perms.ManangeGuild;
+            //ManageRoles.IsOn = perms.ManageRoles;
+            //ManageChannels.IsOn = perms.ManageChannels;
+            //KickMembers.IsOn = perms.KickMembers;
+            //BanMembers.IsOn = perms.BanMembers;
+            //CreateInstantInvite.IsOn = perms.CreateInstantInvite;
+            //ChangeNickname.IsOn = perms.ChangeNickname;
+            //ManageNicknames.IsOn = perms.ManageNicknames;
+            //ManageEmojis.IsOn = perms.ManageEmojis;
+            //ManageWebhooks.IsOn = perms.ManageWebhooks;
 
-            //ReadMessages.IsOn = perms.Perms.ReadMessages;
-            //SendMessages.IsOn = perms.Perms.SendMessages;
-            //SendTtsMessages.IsOn = perms.Perms.SendTtsMessages;
-            //ManageMessages.IsOn = perms.Perms.ManageMessages;
-            //EmbedLinks.IsOn = perms.Perms.EmbedLinks;
-            //AttachFiles.IsOn = perms.Perms.AttachFiles;
-            //ReadMessageHistory.IsOn = perms.Perms.ReadMessageHistory;
-            //MentionEveryone.IsOn = perms.Perms.MentionEveryone;
-            //UseExternalEmojis.IsOn = perms.Perms.UseExternalEmojis;
-            //AddReactions.IsOn = perms.Perms.AddReactions;
+            //ReadMessages.IsOn = perms.ReadMessages;
+            //SendMessages.IsOn = perms.SendMessages;
+            //SendTtsMessages.IsOn = perms.SendTtsMessages;
+            //ManageMessages.IsOn = perms.ManageMessages;
+            //EmbedLinks.IsOn = perms.EmbedLinks;
+            //AttachFiles.IsOn = perms.AttachFiles;
+            //ReadMessageHistory.IsOn = perms.ReadMessageHistory;
+            //MentionEveryone.IsOn = perms.MentionEveryone;
+            //UseExternalEmojis.IsOn = perms.UseExternalEmojis;
+            //AddReactions.IsOn = perms.AddReactions;
 
-            //ConnectPerm.IsOn = perms.Perms.Connect;
-            //Speak.IsOn = perms.Perms.Speak;
-            //MuteMembers.IsOn = perms.Perms.MuteMembers;
-            //DeafenMembers.IsOn = perms.Perms.DeafenMembers;
-            //MoveMembers.IsOn = perms.Perms.MoveMembers;
-            //UseVad.IsOn = perms.Perms.UseVad;
+            //ConnectPerm.IsOn = perms.Connect;
+            //Speak.IsOn = perms.Speak;
+            //MuteMembers.IsOn = perms.MuteMembers;
+            //DeafenMembers.IsOn = perms.DeafenMembers;
+            //MoveMembers.IsOn = perms.MoveMembers;
+            //UseVad.IsOn = perms.UseVad;
             //loadingRoles = false;
         }
 
@@ -409,5 +406,7 @@ namespace Discord_UWP.SubPages
         {
             SaveRoleSettings();
         }
+        
+        private string guildId = "";
     }
 }
