@@ -690,6 +690,7 @@ namespace Discord_UWP
                         if (readstate.LastMessageId != StorageChannel.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }
+                sg.IsValid = guild.Value.valid;
                 ServerList.Items.Add(sg);
             }
         }
