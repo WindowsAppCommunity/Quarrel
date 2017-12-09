@@ -256,31 +256,31 @@ namespace Discord_UWP
 
         public static bool RegisterBacgkround()
         {
-            try
-            {
-                var task = new BackgroundTaskBuilder
-                {
-                    Name = "DIscord UWP Notifier",
-                    TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
-                };
+            //    try
+            //    {
+            //        var task = new BackgroundTaskBuilder
+            //        {
+            //            Name = "DIscord UWP Notifier",
+            //            TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
+            //        };
 
-                var trigger = new ApplicationTrigger();
-                task.SetTrigger(trigger);
+            //        var trigger = new ApplicationTrigger();
+            //        task.SetTrigger(trigger);
 
-                task.Register();
-                Console.WriteLine("Task registered");
-                return true;
-            }
-            catch /*(Exception ex)*/
-            {
-                return false;
-            }
+            //        task.Register();
+            //        Console.WriteLine("Task registered");
+            //        return true;
+            //    }
+            //    catch /*(Exception ex)*/
+            //    {
+            return false;
+        //    }
         }
 
-        #region AppEvents
+    #region AppEvents
 
-        #region LogIn
-        private void App_LoggingInHandler(object sender, EventArgs e)
+    #region LogIn
+    private void App_LoggingInHandler(object sender, EventArgs e)
         {
             SubFrame.Visibility = Visibility.Collapsed;
             SetupEvents();

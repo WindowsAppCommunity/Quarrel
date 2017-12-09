@@ -45,11 +45,20 @@ namespace Discord_UWP
                 App.SubpageClosed();
             } else
             {
-                //switch (result.HResult)
-                //{
-                //TODO: Handle different errors
-                //}
-                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password, then check your email for an email from Discord to verify your IP");
+                string ermsg = "";
+                switch (result.Message)
+                {
+                    case "Response status code does not indicate success: 400().":
+                        ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
+                        break;
+                    case "TBD":
+                        ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
+                        break;
+                    default:
+                        ermsg = "Unknown error, maybe try later";
+                        break;
+                }
+                MessageDialog msg = new MessageDialog(ermsg);
                 await msg.ShowAsync();
 
                 (sender as Button).IsEnabled = true;
