@@ -1173,7 +1173,8 @@
                                                            NotificationCount="{Binding NotificationCount}"
                                                            IsUnread="{Binding IsUnread}"
                                                            IsMuted="{Binding IsMuted}"
-                                                           IsDM="{Binding IsDM}"/>
+                                                           IsDM="{Binding IsDM}"
+                                                           IsValid="{Binding IsValid}"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>

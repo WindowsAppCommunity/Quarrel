@@ -91,6 +91,7 @@ namespace Discord_UWP.Managers
                 sg.IsUnread = IsUnread;
                 sg.Name = Name;
                 sg.NotificationCount = NotificationCount;
+                sg.IsValid = IsValid;
                 return sg;
             }
 
