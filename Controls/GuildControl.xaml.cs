@@ -106,6 +106,17 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsValid
+        {
+            get { return (bool)GetValue(IsValidProperty); }
+            set { SetValue(IsValidProperty, value); }
+        }
+        public static readonly DependencyProperty IsValidProperty = DependencyProperty.Register(
+            nameof(IsValid),
+            typeof(bool),
+            typeof(GuildControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as GuildControl;
@@ -180,7 +191,15 @@ namespace Discord_UWP.Controls
                 {
                     DMView.Visibility = Visibility.Visible;
                     GuildImageBackdrop.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    DMView.Visibility = Visibility.Collapsed;
+                    GuildImageBackdrop.Visibility = Visibility.Visible;
                 }
+            }
+            if (prop == IsValidProperty)
+            {
+                InvalidOverlay.Visibility = IsValid ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 

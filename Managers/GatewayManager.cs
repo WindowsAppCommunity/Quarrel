@@ -113,64 +113,96 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds.Add(guild.Id, new LocalModels.Guild(guild));
                 }
 
-                foreach (var member in guild.Members)
+                if (guild.Members != null)
                 {
-                    if (LocalState.Guilds[guild.Id].members.ContainsKey(member.User.Id))
+                    foreach (var member in guild.Members)
                     {
-                        LocalState.Guilds[guild.Id].members[member.User.Id] = member;
+                        if (LocalState.Guilds[guild.Id].members.ContainsKey(member.User.Id))
+                        {
+                            LocalState.Guilds[guild.Id].members[member.User.Id] = member;
+                        }
+                        else
+                        {
+                            LocalState.Guilds[guild.Id].members.Add(member.User.Id, member);
+                        }
                     }
-                    else
-                    {
-                        LocalState.Guilds[guild.Id].members.Add(member.User.Id, member);
-                    }
+                } else
+                {
+                    LocalState.Guilds[guild.Id].valid = false;
                 }
 
-                foreach (var role in guild.Roles)
+                if (guild.Roles != null)
                 {
-                    if (LocalState.Guilds[guild.Id].roles.ContainsKey(role.Id))
+                    foreach (var role in guild.Roles)
                     {
-                        LocalState.Guilds[guild.Id].roles[role.Id] = role;
+                        if (LocalState.Guilds[guild.Id].roles.ContainsKey(role.Id))
+                        {
+                            LocalState.Guilds[guild.Id].roles[role.Id] = role;
+                        }
+                        else
+                        {
+                            LocalState.Guilds[guild.Id].roles.Add(role.Id, role);
+                        }
                     }
-                    else
-                    {
-                        LocalState.Guilds[guild.Id].roles.Add(role.Id, role);
-                    }
+                } else
+                {
+                    LocalState.Guilds[guild.Id].valid = false;
                 }
 
                 LocalState.Guilds[guild.Id].GetPermissions();
 
-                foreach (var channel in guild.Channels)
+                if (guild.Channels != null)
                 {
-                    if (LocalState.Guilds[guild.Id].channels.ContainsKey(channel.Id))
+                    foreach (var channel in guild.Channels)
                     {
-                        LocalState.Guilds[guild.Id].channels[channel.Id] = new LocalModels.GuildChannel(channel, guild.Id);
+                        if (LocalState.Guilds[guild.Id].channels.ContainsKey(channel.Id))
+                        {
+                            LocalState.Guilds[guild.Id].channels[channel.Id] = new LocalModels.GuildChannel(channel, guild.Id);
+                        }
+                        else
+                        {
+                            LocalState.Guilds[guild.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
+                        }
                     }
-                    else
-                    {
-                        LocalState.Guilds[guild.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
-                    }
+                } else
+                {
+                    LocalState.Guilds[guild.Id].valid = false;
                 }
-                foreach (var presence in guild.Presences)
+
+                if (guild.Presences != null)
                 {
-                    if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                    foreach (var presence in guild.Presences)
                     {
-                        LocalState.PresenceDict[presence.User.Id] = presence;
+                        if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
+                        {
+                            LocalState.PresenceDict[presence.User.Id] = presence;
+                        }
+                        else
+                        {
+                            LocalState.PresenceDict.Add(presence.User.Id, presence);
+                        }
                     }
-                    else
-                    {
-                        LocalState.PresenceDict.Add(presence.User.Id, presence);
-                    }
+                } else
+                {
+                    LocalState.Guilds[guild.Id].valid = false;
                 }
-                foreach (var voiceState in guild.VoiceStates)
+
+                if (guild.VoiceStates != null)
                 {
-                    if (LocalState.VoiceDict.ContainsKey(voiceState.UserId))
+                    foreach (var voiceState in guild.VoiceStates)
                     {
-                        LocalState.VoiceDict[voiceState.UserId] = voiceState;
+                        if (LocalState.VoiceDict.ContainsKey(voiceState.UserId))
+                        {
+                            LocalState.VoiceDict[voiceState.UserId] = voiceState;
+                        }
+                        else
+                        {
+                            LocalState.VoiceDict.Add(voiceState.UserId, voiceState);
+                        }
                     }
-                    else
-                    {
-                        LocalState.VoiceDict.Add(voiceState.UserId, voiceState);
-                    }
+                } else
+                {
+                    LocalState.Guilds[guild.Id].valid = false;
                 }
             }
             #endregion

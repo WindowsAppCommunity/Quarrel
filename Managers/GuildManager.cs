@@ -74,6 +74,13 @@ namespace Discord_UWP.Managers
                 set { if (_isdm == value) return; _isdm = value; OnPropertyChanged("IsDM"); }
             }
 
+            private bool _isvalid;
+            public bool IsValid
+            {
+                get { return _isvalid; }
+                set { if (_isvalid == value) return; _isvalid = value; OnPropertyChanged("IsValid"); }
+            }
+
             public SimpleGuild Clone()
             {
                 SimpleGuild sg = new SimpleGuild();
@@ -101,7 +108,8 @@ namespace Discord_UWP.Managers
                 ImageURL = "https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg",
                 IsDM = false,
                 IsMuted = LocalState.GuildSettings.ContainsKey(guild.Id) ? LocalState.GuildSettings[guild.Id].raw.Muted : false,
-                IsUnread = false //Will Change if true
+                IsUnread = false, //Will Change if true
+                IsValid = true //Will change if false
             };
 
             foreach (var chn in LocalState.Guilds[guild.Id].channels.Values)
