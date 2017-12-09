@@ -40,13 +40,13 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public string Name
+        public string GuildName
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return (string)GetValue(GuildNameProperty); }
+            set { SetValue(GuildNameProperty, value); }
         }
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register(
-            nameof(Name),
+        public static readonly DependencyProperty GuildNameProperty = DependencyProperty.Register(
+            nameof(GuildName),
             typeof(string),
             typeof(GuildControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
@@ -106,6 +106,17 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsValid
+        {
+            get { return (bool)GetValue(IsValidProperty); }
+            set { SetValue(IsValidProperty, value); }
+        }
+        public static readonly DependencyProperty IsValidProperty = DependencyProperty.Register(
+            nameof(IsValid),
+            typeof(bool),
+            typeof(GuildControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as GuildControl;
@@ -114,7 +125,7 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == IsUnreadProperty)
             {
@@ -152,9 +163,9 @@ namespace Discord_UWP.Controls
                     UnreadIndicator.Background = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                 }
             }
-            if (prop == NameProperty)
+            if (prop == GuildNameProperty)
             {
-                ToolTipService.SetToolTip(this, Name);
+                ToolTipService.SetToolTip(this, GuildName);
             }
             if (prop == ImageUrlProperty)
             {
@@ -164,9 +175,9 @@ namespace Discord_UWP.Controls
                 }
                 else if (ImageUrl == "empty")
                 {
-                    if (Name != "")
+                    if (GuildName != "")
                     {
-                        TextIcon.Text = String.Join("", Regex.Matches(Name, @"(?<=^|[ \-_|+=~])\w")
+                        TextIcon.Text = String.Join("", Regex.Matches(GuildName, @"(?<=^|[ \-_|+=~])\w")
                                                             .Cast<Match>()
                                                             .Select(m => m.Value)
                                                             .ToArray());
@@ -180,14 +191,22 @@ namespace Discord_UWP.Controls
                 {
                     DMView.Visibility = Visibility.Visible;
                     GuildImageBackdrop.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    DMView.Visibility = Visibility.Collapsed;
+                    GuildImageBackdrop.Visibility = Visibility.Visible;
                 }
+            }
+            if (prop == IsValidProperty)
+            {
+                InvalidOverlay.Visibility = IsValid ? Visibility.Collapsed : Visibility.Visible;
             }
         }
 
         public GuildControl()
         {
             this.InitializeComponent();
-            ToolTipService.SetToolTip(this, Name);
+            ToolTipService.SetToolTip(this, GuildName);
             this.Holding += OpenMenuFlyout;
             this.RightTapped += OpenMenuFlyout;
         }

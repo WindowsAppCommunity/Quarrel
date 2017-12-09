@@ -21,7 +21,7 @@ namespace Discord_UWP.API
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var token = await _authenticator.GetToken();
+            var token = _authenticator.GetToken();
             request.Headers.Add("Authorization", token);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);

@@ -80,7 +80,6 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
         {
-            //TODO Check what the relationshipstatus transition is, remove from the correct AllView, BlockedView, or PendingView, and modify in All
             await RemoveRelationshipFromUI(e);
             await AddRelationshipToUI(e);
         }
@@ -126,7 +125,7 @@ namespace Discord_UWP.Controls
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                async () =>
+                () =>
                 {
                     SimpleFriend sfriend = NewSF(e.EventData);
                     if (sfriend.RelationshipStatus == 1)
@@ -136,7 +135,7 @@ namespace Discord_UWP.Controls
                     else if (sfriend.RelationshipStatus == 3 || sfriend.RelationshipStatus == 4)
                     {
                         if (sfriend.RelationshipStatus == 3)
-                            await FriendNotification(sfriend.User);
+                            FriendNotification(sfriend.User);
                         App.FriendNotifications += 1;
                         App.UpdateUnreadIndicators();
                         PendingCounter.Text = App.FriendNotifications.ToString();
@@ -197,7 +196,7 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
 
-        public async Task FriendNotification(User user)
+        public void FriendNotification(User user)
         {
             string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
             //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";

@@ -513,6 +513,16 @@ namespace Discord_UWP
             UpdatePresenceHandler?.Invoke(typeof(App), new UpdatePresenceArgs() { Status = status });
         }
 
+        public class VoiceConnectArgs
+        {
+            public string ChannelId;
+            public string GuildId;
+        }
+        public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
+        public static void ConnectToVoice(string channelId, string guildId)
+        {
+            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId });
+        }
         #region Relations
         public class AddFriendArgs : EventArgs
         {
@@ -648,6 +658,9 @@ namespace Discord_UWP
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
         internal static bool GatewayCreated = false;
+        internal const string ClientId = "357923233636286475";
+        internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
+
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
@@ -790,7 +803,7 @@ namespace Discord_UWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var licenseInformation = CurrentApp.LicenseInformation;
             if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
@@ -997,7 +1010,7 @@ namespace Discord_UWP
             //view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
         }
 
-        public async Task<bool> LogIn()
+        public async Task<Exception> LogIn()
         {
             var credentials = Storage.PasswordVault.FindAllByResource("LogIn");
             var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage

@@ -45,6 +45,7 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
         private readonly byte[] _nonce = new byte[24];
+        private byte[] _rtpHeader = new byte[24];
         private byte[] _encrypted = new byte[15000];
         private byte[] _unencrypted = new byte[15000];
 
@@ -113,6 +114,8 @@ namespace Discord_UWP.Voice
 
         public void SendVoiceHeader()
         {
+            //_rtpHeader[0] = 0x80;
+            //_rtpHeader[1] = 0x78;
 
             //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
         }
@@ -132,7 +135,7 @@ namespace Discord_UWP.Voice
                 ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
                 port = (packet[69] << 8) | packet[68];
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -265,22 +268,23 @@ namespace Discord_UWP.Voice
             try
             {
                 Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
-                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length - 12);
                 //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
+                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length-12);
                 _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 120 * 48; //120 ms * 48 samples per ms
                 float[] output = new float[framesize * 2]; // framesize * 2 channel
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-                AudioTrig.AddFrame(output, (uint)samples);
+                //AudioTrig.AddFrame(output, (uint)samples);
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {
+                System.Diagnostics.Debug.WriteLine(exception.Message);
                 //App.NavigateToBugReport(exception);
             }
         }
-         
+
         #endregion
 
         private void FireEventOnDelegate<TEventData>(SocketFrame gatewayEvent, EventHandler<VoiceConnectionEventArgs<TEventData>> eventHandler)
@@ -324,7 +328,7 @@ namespace Discord_UWP.Voice
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }

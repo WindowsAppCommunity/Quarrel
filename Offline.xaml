@@ -46,6 +46,6 @@
                 </Canvas>
             </Canvas>
         </Viewbox>
-        <TextBlock Text="TODO: Cute little offline menu" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0" FontSize="20"/>
+        <TextBlock Text="You're offline :(" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,0" FontSize="20"/>
     </Grid>
 </Page>

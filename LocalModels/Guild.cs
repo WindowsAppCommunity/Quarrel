@@ -25,9 +25,12 @@ namespace Discord_UWP.LocalModels
         public void GetPermissions()
         {
             permissions = new Permissions(0);
-            foreach (Role role in Raw.Roles.TakeWhile(x => members[LocalState.CurrentUser.Id].Roles.Contains(x.Id) || x.Name == "@everyone").OrderBy(x => x.Name == "@everyone"))
+            if (Raw.Roles != null)
             {
-                permissions.AddAllows(Convert.ToInt32(role.Permissions));
+                foreach (Role role in Raw.Roles.TakeWhile(x => members[LocalState.CurrentUser.Id].Roles.Contains(x.Id) || x.Name == "@everyone").OrderBy(x => x.Name == "@everyone"))
+                {
+                    permissions.AddAllows(Convert.ToInt32(role.Permissions));
+                }
             }
         }
 
@@ -48,6 +51,7 @@ namespace Discord_UWP.LocalModels
         public Dictionary<string, GuildMember> members = new Dictionary<string, GuildMember>();
         public Dictionary<string, GuildChannel> channels = new Dictionary<string, GuildChannel>();
         public Dictionary<string, Role> roles = new Dictionary<string, Role>();
+        public bool valid = true;
 
         public Permissions permissions;
 

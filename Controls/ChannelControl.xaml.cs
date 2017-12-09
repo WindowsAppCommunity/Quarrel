@@ -41,13 +41,13 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public string Name
+        public string CName
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return (string)GetValue(ChnNameProperty); }
+            set { SetValue(ChnNameProperty, value); }
         }
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register(
-            nameof(Name),
+        public static readonly DependencyProperty ChnNameProperty = DependencyProperty.Register(
+            nameof(CName),
             typeof(string),
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
@@ -282,9 +282,9 @@ namespace Discord_UWP.Controls
                     HideBadge.Begin();
                 }
             }
-            if (prop == NameProperty)
+            if (prop == ChnNameProperty)
             {
-                    ChannelName.Text = Name;
+                    ChannelName.Text = CName;
             }
             if (prop == ImageUrlProperty)
             {
@@ -413,10 +413,10 @@ namespace Discord_UWP.Controls
             //}
         }
 
-        private async void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
+        private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
-            await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
-            //App.ConnectToVoice(Id, App.CurrentGuildId);
+            //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
+            App.ConnectToVoice(Id, App.CurrentGuildId);
         }
 
         public ChannelControl()

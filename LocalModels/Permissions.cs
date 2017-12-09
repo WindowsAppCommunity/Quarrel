@@ -169,6 +169,6 @@ namespace Discord_UWP.LocalModels
             set { Perms = value ? Perms | 0x40000000 : Perms & ~0x40000000; }
         }
 
-        int Perms;
+        int Perms = 0;
     }
 }

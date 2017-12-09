@@ -51,7 +51,8 @@ namespace Discord_UWP
     public enum Theme { Dark, Light, Windows, Discord }
     public class Settings
     {
-        Tuple<string, User> ActiveUser; public bool LockChannels = false;
+        //Tuple<string, User> ActiveUser;
+        public bool LockChannels = false;
         public bool AutoHideChannels = true;
         public bool AutoHidePeople = false;
         public bool HighlightEveryone = true;

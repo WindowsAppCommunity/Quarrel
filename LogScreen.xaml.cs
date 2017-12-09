@@ -35,7 +35,9 @@ namespace Discord_UWP
             ProgressRing.Visibility = Visibility.Visible;
             ProgressRing.IsActive = true;
             LoginText.Visibility = Visibility.Collapsed;
-            if (await RESTCalls.Login(Username.Text, Password.Password))
+
+            var result = await RESTCalls.Login(Username.Text, Password.Password);
+            if (result == null)
             {
                 PasswordCredential credentials = new PasswordCredential("LogIn", Username.Text, Password.Password);
                 Storage.PasswordVault.Add(credentials);
@@ -43,7 +45,20 @@ namespace Discord_UWP
                 App.SubpageClosed();
             } else
             {
-                MessageDialog msg = new MessageDialog("Failed to log in, check your Email and Password");
+                string ermsg = "";
+                switch (result.Message)
+                {
+                    case "Response status code does not indicate success: 400().":
+                        ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
+                        break;
+                    case "TBD":
+                        ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
+                        break;
+                    default:
+                        ermsg = "Unknown error, maybe try later";
+                        break;
+                }
+                MessageDialog msg = new MessageDialog(ermsg);
                 await msg.ShowAsync();
 
                 (sender as Button).IsEnabled = true;
@@ -51,6 +66,16 @@ namespace Discord_UWP
                 ProgressRing.IsActive = false;
                 LoginText.Visibility = Visibility.Visible;
             }
+        }
+
+        private async void Register(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
+        }
+
+        private async void ChangePassword(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/"));
         }
     }
 }

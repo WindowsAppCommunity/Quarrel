@@ -186,6 +186,7 @@ namespace Discord_UWP.Managers
             List<SimpleChannel> returnChannels = new List<SimpleChannel>();
             foreach (var channel in channels)
             {
+                channel.GetPermissions();
                 SimpleChannel sc = new SimpleChannel();
                 sc.Id = channel.raw.Id;
                 sc.Name = channel.raw.Name;
@@ -207,7 +208,7 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId || 1 == 1)
                         {
                             returnChannels.Add(sc);
                         }

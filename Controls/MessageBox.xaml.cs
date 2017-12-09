@@ -45,7 +45,7 @@ namespace Discord_UWP.Controls
             typeof(MessageBox),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public bool IsEnabled
+        public new bool IsEnabled
         {
             get { return (bool)GetValue(IsEnabledProperty); }
             set { SetValue(IsEnabledProperty, value); }
@@ -87,7 +87,7 @@ namespace Discord_UWP.Controls
             SendBox.IsEnabled = false;
         }
 
-        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == IsEnabledProperty)
             {

@@ -8,6 +8,6 @@ namespace Discord_UWP.Authentication
 {
     public interface IAuthenticator
     {
-        Task<string> GetToken();
+        string GetToken();
     }
 }
