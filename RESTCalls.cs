@@ -30,7 +30,7 @@ namespace Discord_UWP
     public class RESTCalls
     {
         #region ILogin
-        public static async Task<bool> Login(string email, string password)
+        public static async Task<Exception> Login(string email, string password)
         {
             try
             {
@@ -41,6 +41,7 @@ namespace Discord_UWP
                     BaseUrl = "https://discordapp.com/api"
                 };
                 BasicRestFactory basicRestFactory = new BasicRestFactory(config);
+
 
                 ILoginService loginService = basicRestFactory.GetLoginService();
 
@@ -58,13 +59,26 @@ namespace Discord_UWP
                 SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
                 GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
 
-                return true;
+                return null;
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                return e;
             }
         }
+
+        //public static async Task<bool> LoginOauth2()
+        //{
+        //    string url = "https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=" + App.ClientId;
+        //    try
+        //    {
+        //        throw new Exception();
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         #endregion
 
         #region IUser
@@ -79,7 +93,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetCurrentUserGuilds();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -93,7 +107,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUser();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -107,7 +121,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetRecentMentions(limit, ShowRoles, ShowEveryone);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -121,7 +135,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUserDirectMessageChannels();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -137,7 +151,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.ModifyGuildSettings(guildId, guildSettings);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -156,14 +170,14 @@ namespace Discord_UWP
                         IUserService userservice = AuthenticatedRestFactory.GetUserService();
                         await userservice.UpdateSettings("{\"status\":\"" + settings + "\"}");
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                 });
 
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -180,13 +194,13 @@ namespace Discord_UWP
                         IUserService userservice = AuthenticatedRestFactory.GetUserService();
                         await userservice.UpdateGame("{\"name\":\"" + game + "\"}");
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -201,7 +215,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.ModifyCurrentUser(modifyuser);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -215,7 +229,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 await userservice.LeaveGuild(guildId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -232,7 +246,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetUser(userid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -246,7 +260,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetUserProfile(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -260,7 +274,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetUserReleations(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -274,7 +288,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.GetCurrentUserConnections();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -291,7 +305,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 await userservice.SendFriendRequest(userId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -304,7 +318,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 await userservice.RemoveFriend(userId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -317,7 +331,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 await userservice.BlockUser(userId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -330,7 +344,7 @@ namespace Discord_UWP
                 IUserService channelservice = AuthenticatedRestFactory.GetUserService();
                 await channelservice.AddNote(userid, new Note() { note = note });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -343,7 +357,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.CreateDirectMessageChannelForCurrentUser(createDM);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -363,7 +377,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuild(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -377,7 +391,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildChannels(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -391,7 +405,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ListGuildMemebers(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -405,7 +419,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildMemeber(guildid, userid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -419,7 +433,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildBans(guildId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -435,7 +449,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.AckGuild(guildId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -449,7 +463,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ModifyGuildRole(guildId, roleId, newRole);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -465,7 +479,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.CreateGuild(guild);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -479,7 +493,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ModifyGuild(guildid, modifyguild);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -493,7 +507,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.DeleteGuild(guildid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -507,7 +521,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ModifyGuildChannelPositions(channelid, Position);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -521,7 +535,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember() { Nick = nickname });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -535,7 +549,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.ModifyGuildMember(guildId, userId, modify);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -548,7 +562,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.ModifyGuildMemberNickname(guildId, userId, new ModifyGuildMember() { Nick = nickname });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -561,7 +575,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.RemoveGuildMember(guildId, userId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -574,7 +588,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.CreateGuildBan(guildId, userId, guildBan);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -587,7 +601,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.RemoveGuildBan(guildId, userId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -606,7 +620,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetGuildChannel(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -620,7 +634,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessages(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -634,7 +648,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessagesBefore(id, msgpos);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -648,7 +662,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessagesAfter(id, msgpos);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -662,7 +676,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetPinnedMessages(id);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -676,7 +690,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessage(chnid, msgid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -690,7 +704,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelInvites(channelId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -707,7 +721,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.ModifyChannel(chnId, newChn);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -720,7 +734,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.CreateMessage(channelId, message);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -759,7 +773,7 @@ namespace Discord_UWP
                 if (resp.IsSuccessStatusCode)
                     id = "";
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -776,13 +790,13 @@ namespace Discord_UWP
                         IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                         await channelservice.AckMessage(chnId, msgId);
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -799,13 +813,13 @@ namespace Discord_UWP
                         IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                         await channelservice.CreateReaction(channelid, messageid, emoji);
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -822,13 +836,13 @@ namespace Discord_UWP
                         IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                         await channelservice.DeleteReaction(channelid, messageid, emoji);
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -845,7 +859,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.CreateGuildChannel(guildid, cgc);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -859,7 +873,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.DeleteChannel(chnid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -878,14 +892,14 @@ namespace Discord_UWP
                         IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                         return await channelservice.EditMessage(chnid, msgid, editmessage);
                     }
-                    catch (Exception exception)
+                    catch /*(Exception exception)*/
                     {
                         //App.NavigateToBugReport(exception);
                     }
                     return new Message();
                 });
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -899,7 +913,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.AddPinnedChannelMessage(chnId, msgId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -912,7 +926,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.DeletePinnedChannelMessage(chnId, msgId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -925,7 +939,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.DeleteMessage(chnid, msgid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -938,7 +952,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.TriggerTypingIndicator(channelId);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -957,7 +971,7 @@ namespace Discord_UWP
                 IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
                 return await inviteservice.GetInvite(code);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -973,7 +987,7 @@ namespace Discord_UWP
                 IInviteService inviteservice = AuthenticatedRestFactory.GetInviteService();
                 return await inviteservice.AcceptInvite(code);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -987,7 +1001,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.CreateChannelInvite(chnId, invite);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -1001,7 +1015,7 @@ namespace Discord_UWP
                 IInviteService channelservice = AuthenticatedRestFactory.GetInviteService();
                 return await channelservice.DeleteInvite(inviteCode);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -1010,7 +1024,6 @@ namespace Discord_UWP
         #endregion
 
         #endregion
-
 
         static AuthenticatedRestFactory AuthenticatedRestFactory;
         static DiscordApiConfiguration config;

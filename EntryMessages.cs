@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static KeyValuePair<string,string> GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 67))
+            switch (rand.Next(0, 69))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -58,11 +58,11 @@ namespace Discord_UWP
                 case 44: return kvp("Can we stop it with Starwars?");
                 case 45: return kvp("No, I am your father", "@ModProg|Roland#6987");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
-                case 47: return kvp("System.println.out(\"Hello World\");", "@ModProg|Roland#6987");
+                case 47: return kvp("System.out.println(\"Hello World\");", "@ModProg|Roland#6987");
                 case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
                 case 49: return kvp("Ready player one?", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 50: return kvp("Watch the icon rollin' rollin'", "@Gavirlas#9973");
-                case 51: return kvp("You spin me right round, baby right round", "@omgPANTO#6232");
+                case 51: return kvp("You spin me right round, baby right round", "omgPANTO#6232");
                 case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 53: return kvp("YOU'RE A WIZARD LARRY!", "@SamCraftRecon#9075");
                 case 54: return kvp("Updating memes.", "@SamCraftRecon#9075");
@@ -70,18 +70,21 @@ namespace Discord_UWP
                 case 56: return kvp("shaken not shtirred", "@Aslan#9846");
                 case 57: return kvp("All natural!", "@SamCraftRecon#9075"); 
                 case 58: return kvp("100 % sugar free", "@Aslan#9846");
-                case 59: return kvp("F*ck me gently with a chainsaw");
+                case 59: return kvp("Its Wednesday             My dudes, @Abaan404#9892");
                 case 60: return kvp("You got a license for that?", "@Aslan#9846");
-                case 61: return kvp("Did you bring snacks?", "@Chestbeard#9806");
+                case 61: return kvp("Did you bring snacks?", "Chestbeard#9806");
                 case 62: return kvp("Suitable for Vegans", "@SamCraftRecon#9075");
                 case 63: return kvp("I can't believe you've done this");
-                case 64: return kvp("Better than iOS 11!", "Abaan404");
-                case 65: return kvp("Roman numeral X = 10", "@YoshiAsk4385");
+                case 64: return kvp("Better than iOS 11!", "@Abaan404#9892");
+                case 65: return kvp("Watching Netflix", "@Aslan#9846");
                 case 66: return kvp("Checking for Bugs", "@Aslan#9846");
-                case 67: return kvp("Watching Netflix", "@Aslan#9846");
+                case 67: return kvp("FRE SHAVAC ADO");
+                case 68: return kvp("I have the power of God and Anime");
+                case 69: return kvp("I ain't got no sleep");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
+
         private static KeyValuePair<string, string> kvp(string key, string val = "")
         {
             return new KeyValuePair<string, string>(key, val);

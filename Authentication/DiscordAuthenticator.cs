@@ -15,7 +15,7 @@ namespace Discord_UWP.Authentication
             Token = token;
         }
 
-        public async Task<string> GetToken()
+        public string GetToken()
         {
             return Token; 
         }

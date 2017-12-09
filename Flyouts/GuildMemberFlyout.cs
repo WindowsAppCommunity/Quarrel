@@ -205,27 +205,27 @@ namespace Discord_UWP.Flyouts
                 banMember.Click += FlyoutManager.BanMember;
                 menu.Items.Add(banMember);
             }
-            if (false)
-            {
-                //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
-                ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
-                {
-                    Text = App.GetString("/Flyouts/Mute"),
-                    Icon = new SymbolIcon(Symbol.Mute)
-                };
+            //if (false)
+            //{
+            //    //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side
+            //    ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
+            //    {
+            //        Text = App.GetString("/Flyouts/Mute"),
+            //        Icon = new SymbolIcon(Symbol.Mute)
+            //    };
 
 
-                ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
-                {
-                    Text = App.GetString("/Flyouts/Deafen"),
-                    Icon = new SymbolIcon(Symbol.Mute)
-                };
+            //    ToggleMenuFlyoutItem deafen = new ToggleMenuFlyoutItem()
+            //    {
+            //        Text = App.GetString("/Flyouts/Deafen"),
+            //        Icon = new SymbolIcon(Symbol.Mute)
+            //    };
 
-                MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
-                {
-                    Text = App.GetString("/Flyouts/MoveChannel")
-                };
-            }
+            //    MenuFlyoutSubItem moveChannel = new MenuFlyoutSubItem()
+            //    {
+            //        Text = App.GetString("/Flyouts/MoveChannel")
+            //    };
+            //}
             return menu;
         }
     }

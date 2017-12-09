@@ -33,8 +33,10 @@ namespace Discord_UWP
             this.InitializeComponent();
             Setup();
         }
+
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
+
         public async void Setup()
         {
             //LogIn Event
@@ -45,7 +47,7 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
-            if (App.LoggedIn() && (App.GatewayCreated || await LogIn()))
+            if (App.LoggedIn() && (App.GatewayCreated || await LogIn() == null))
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
@@ -87,32 +89,32 @@ namespace Discord_UWP
 
             //Set up MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
-            MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            if (MessageScrollviewer != null)
+            {
+                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
         }
 
         bool DisableLoadingMessages;
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            double fromTop = MessageScrollviewer.VerticalOffset;
-            double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
-            if (fromTop < 100 && !DisableLoadingMessages)
-                LoadOlderMessages();
-            if (fromBottom < 100 && !DisableLoadingMessages)
-                LoadNewerMessages();
+            if (MessageList.Items.Count > 0)
+            {
+                double fromTop = MessageScrollviewer.VerticalOffset;
+                double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
+                if (fromTop < 100 && !DisableLoadingMessages)
+                    LoadOlderMessages();
+                if (fromBottom < 100 && !DisableLoadingMessages)
+                    LoadNewerMessages();
+            }
         }
 
-        public async Task<bool> LogIn()
+        public async Task<Exception> LogIn()
         {
             var credntials = Storage.PasswordVault.FindAllByResource("LogIn"); //TODO: Multi-Account
             var creds = credntials.FirstOrDefault();
             creds.RetrievePassword();
-            if (await RESTCalls.Login(creds.UserName, creds.Password))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return await RESTCalls.Login(creds.UserName, creds.Password);
         }
 
         public void SetupEvents()
@@ -160,6 +162,7 @@ namespace Discord_UWP
             App.MuteGuildHandler += App_MuteGuildHandler;
             App.RemoveFriendHandler += App_RemoveFriendHandler;
             App.UpdatePresenceHandler += App_UpdatePresenceHandler;
+            App.VoiceConnectHandler += App_VoiceConnectHandler;
             //UpdateUI
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
@@ -253,31 +256,31 @@ namespace Discord_UWP
 
         public static bool RegisterBacgkround()
         {
-            try
-            {
-                var task = new BackgroundTaskBuilder
-                {
-                    Name = "DIscord UWP Notifier",
-                    TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
-                };
+            //    try
+            //    {
+            //        var task = new BackgroundTaskBuilder
+            //        {
+            //            Name = "DIscord UWP Notifier",
+            //            TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
+            //        };
 
-                var trigger = new ApplicationTrigger();
-                task.SetTrigger(trigger);
+            //        var trigger = new ApplicationTrigger();
+            //        task.SetTrigger(trigger);
 
-                task.Register();
-                Console.WriteLine("Task registered");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            //        task.Register();
+            //        Console.WriteLine("Task registered");
+            //        return true;
+            //    }
+            //    catch /*(Exception ex)*/
+            //    {
+            return false;
+        //    }
         }
 
-        #region AppEvents
+    #region AppEvents
 
-        #region LogIn
-        private void App_LoggingInHandler(object sender, EventArgs e)
+    #region LogIn
+    private void App_LoggingInHandler(object sender, EventArgs e)
         {
             SubFrame.Visibility = Visibility.Collapsed;
             SetupEvents();
@@ -603,6 +606,11 @@ namespace Discord_UWP
             }
             LocalStatusChangeEnabled = true;
         }
+
+        private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
+        {
+            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
+        }
         #endregion
 
         #region UpdateUI
@@ -682,6 +690,7 @@ namespace Discord_UWP
                         if (readstate.LastMessageId != StorageChannel.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }
+                sg.IsValid = guild.Value.valid;
                 ServerList.Items.Add(sg);
             }
         }
@@ -725,7 +734,7 @@ namespace Discord_UWP
             }
         }
 
-        bool MessageRange_LastMessage = false;
+        //bool MessageRange_LastMessage = false;
         public async void RenderMessages() //App.CurrentChannelId is set
         {
             MessagesLoading.Visibility = Visibility.Visible;
@@ -744,20 +753,28 @@ namespace Discord_UWP
             //CompChannelTopic.Text = ChannelTopic.Text;
 
             MessageList.Items.Clear();
-            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessages(App.CurrentChannelId)).ToList());
-            if (messages != null)
+            var emessages = await RESTCalls.GetChannelMessages(App.CurrentChannelId);
+            if (emessages != null)
             {
-                foreach (var message in messages)
+                var messages = MessageManager.ConvertMessage(emessages.ToList());
+                if (messages != null)
                 {
-                    MessageList.Items.Add(message);
+                    foreach (var message in messages)
+                    {
+                        MessageList.Items.Add(message);
+                    }
                 }
             }
-            var pinnedmessages = MessageManager.ConvertMessage((await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId)).ToList());
-            if (pinnedmessages != null)
+            var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
+            if (epinnedmessages != null)
             {
-                foreach (var message in pinnedmessages)
+                var pinnedmessages = MessageManager.ConvertMessage(epinnedmessages.ToList());
+                if (pinnedmessages != null)
                 {
-                    PinnedMessageList.Items.Add(message);
+                    foreach (var message in pinnedmessages)
+                    {
+                        PinnedMessageList.Items.Add(message);
+                    }
                 }
             }
             MessagesLoading.Visibility = Visibility.Collapsed;
@@ -873,7 +890,7 @@ namespace Discord_UWP
                             x => (x as ChannelManager.SimpleChannel).Id == typer.Key.channelId) as ChannelManager.SimpleChannel)
                         .IsTyping = true;
                 }
-                catch (Exception exception)
+                catch /*(Exception exception)*/
                 {
                     //App.NavigateToBugReport(exception);
                 }
@@ -1072,11 +1089,9 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Insert(0, message);
+                    if(MessageList.Items.Count > 150)
+                        MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
-            }
-            while (MessageList.Items.Count > 150)
-            {
-                MessageList.Items.RemoveAt(MessageList.Items.Count-1);
             }
             DisableLoadingMessages = false;
         }
@@ -1090,14 +1105,12 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Add(message);
+                    if(MessageList.Items.Count > 150)
+                        MessageList.Items.RemoveAt(0);
                 }
-            }
-            while (MessageList.Items.Count > 150)
-            {
-                MessageList.Items.RemoveAt(0);
+                MessageScrollviewer.ChangeView(0, offset, 1);
             }
             DisableLoadingMessages = false;
-            MessageScrollviewer.ChangeView(0, offset, 1);
         }
         #endregion
 
@@ -1169,7 +1182,9 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     if (MessageList.Items.Count > 0)
+                     if (MessageList.Items.Count > 0 && MessageList.Items.FirstOrDefault(x => (x as 
+                     MessageManager.MessageContainer).Message.HasValue &&
+                     (x as MessageManager.MessageContainer).Message.Value.Id == e.Message.Id) != null)
                      {
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
                          if (e.Message.TTS)
@@ -1286,7 +1301,6 @@ namespace Discord_UWP
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
         {
-            //TODO: Update status
             if (UserStatusOnline.IsChecked == true)
             {
                 App.UpdatePresence("online");
@@ -1352,9 +1366,11 @@ namespace Discord_UWP
                             ChannelList.SelectedIndex = -1;
                         else
                             ChannelList.SelectedItem = previousSelection;
+                        
                     }
                     else
                     {
+                        sideDrawer.CloseLeft();
                         if (App.CurrentGuildIsDM)
                         {
                             App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
@@ -1434,9 +1450,6 @@ namespace Discord_UWP
                 App.NavigateToChannelTopic(LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw);
             }
         }
-
-
-
 
         private void ScrollViewer_PointerPressed(object sender, PointerRoutedEventArgs e)
         {

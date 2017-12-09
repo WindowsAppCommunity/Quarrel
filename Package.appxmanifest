@@ -43,7 +43,7 @@
     <Capability Name="internetClient" />
     <DeviceCapability Name="microphone" />
   </Capabilities>
-  <!--<Extensions>
+  <Extensions>
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>
         <Path>libsodium-uwp.dll</Path>
@@ -68,5 +68,5 @@
         <ActivatableClass ActivatableClassId="Sodium.Utilities" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
-  </Extensions>-->
+  </Extensions>
 </Package>

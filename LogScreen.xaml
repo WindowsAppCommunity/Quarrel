@@ -322,6 +322,8 @@
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>
+            <HyperlinkButton Content="Forget your password?" HorizontalAlignment="Center" Foreground="Gray" Click="ChangePassword"/>
+            <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Center" Foreground="Gray" Click="Register"/>
         </StackPanel>
     </Grid>
 </Page>

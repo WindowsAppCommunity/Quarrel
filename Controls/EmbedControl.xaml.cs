@@ -23,13 +23,13 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class EmbedControl : UserControl
     {
-        public Embed Content
+        public Embed EmbedContent
         {
-            get { return (Embed)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return (Embed)GetValue(EmbedContentProperty); }
+            set { SetValue(EmbedContentProperty, value); }
         }
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register(
-            nameof(Content),
+        public static readonly DependencyProperty EmbedContentProperty = DependencyProperty.Register(
+            nameof(EmbedContent),
             typeof(Embed),
             typeof(EmbedControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
@@ -45,43 +45,43 @@ namespace Discord_UWP.Controls
         {
             bool everythingisnull = true;
             //Accent color
-            if (Content.Color != 0)
-                SideBorder.Background = Common.IntToColor(Content.Color);
+            if (EmbedContent.Color != 0)
+                SideBorder.Background = Common.IntToColor(EmbedContent.Color);
             else
                 SideBorder.Background = (SolidColorBrush)App.Current.Resources["LightBG"];
 
             //Author
-            if (Content.Author.Name != null)
+            if (EmbedContent.Author.Name != null)
             {
                 everythingisnull = false;
                 AuthorSP.Visibility=Visibility.Visible;
-                AuthorText.Content = Content.Author.Name;
-                if(Content.Author.Url != null)
-                    AuthorText.NavigateUri = new Uri(Content.Author.Url);
-                if(Content.Author.IconUrl == null) AuthorImage.Visibility = Visibility.Collapsed;
+                AuthorText.Content = EmbedContent.Author.Name;
+                if(EmbedContent.Author.Url != null)
+                    AuthorText.NavigateUri = new Uri(EmbedContent.Author.Url);
+                if(EmbedContent.Author.IconUrl == null) AuthorImage.Visibility = Visibility.Collapsed;
                 else
-                { AuthorImage.Visibility = Visibility.Visible; AuthorImageBrush.ImageSource = new BitmapImage(new Uri(Content.Author.IconUrl)); }
+                { AuthorImage.Visibility = Visibility.Visible; AuthorImageBrush.ImageSource = new BitmapImage(new Uri(EmbedContent.Author.IconUrl)); }
             }
             else
             {
                 AuthorSP.Visibility=Visibility.Collapsed;
             }
             //Title
-            if (Content.Title != null)
+            if (EmbedContent.Title != null)
             {
                 everythingisnull = false;
-                if (Content.Url == null)
+                if (EmbedContent.Url == null)
                 {
                     UrlTitleBlock.Visibility = Visibility.Collapsed;
                     PlainTitleBlock.Visibility = Visibility.Visible;
-                    PlainTitleBlock.Text = Content.Title;
+                    PlainTitleBlock.Text = EmbedContent.Title;
                 }
                 else
                 {
                     PlainTitleBlock.Visibility = Visibility.Collapsed;
                     UrlTitleBlock.Visibility = Visibility.Visible;
-                    UrlTitleBlock.Content = Content.Title;
-                    UrlTitleBlock.NavigateUri = new Uri(Content.Url);
+                    UrlTitleBlock.Content = EmbedContent.Title;
+                    UrlTitleBlock.NavigateUri = new Uri(EmbedContent.Url);
                 }
             }
             else
@@ -90,11 +90,11 @@ namespace Discord_UWP.Controls
                 UrlTitleBlock.Visibility = Visibility.Collapsed;
             }
             //Description
-            if (Content.Description != null)
+            if (EmbedContent.Description != null)
             {
                 everythingisnull = false;
                 DescriptionBlock.Visibility = Visibility.Visible;
-                DescriptionBlock.Text = Content.Description;
+                DescriptionBlock.Text = EmbedContent.Description;
             }
             else
             {
@@ -104,11 +104,11 @@ namespace Discord_UWP.Controls
             //Fields
             UniversalWrapPanel previousWrapPanel= null;
             FieldsStacker.Children.Clear();
-            if (Content.Fields != null)
+            if (EmbedContent.Fields != null)
             {
                 everythingisnull = false;
                 FieldsStacker.Visibility = Visibility.Visible;
-                foreach (var field in Content.Fields)
+                foreach (var field in EmbedContent.Fields)
                 {
                     if (field.Inline)
                     {
@@ -137,15 +137,15 @@ namespace Discord_UWP.Controls
             }
 
             //Image
-            if (Content.Image.Url != null)
+            if (EmbedContent.Image.Url != null)
             {
                 everythingisnull = false;
                 ImageViewbox.Visibility = Visibility.Visible;
-                ImageViewer.Source = new BitmapImage(new Uri(Content.Image.Url));
-                if(Content.Author.Name == null && Content.Author.IconUrl == null
-                    && Content.Description == null && Content.Fields.Count() == 0 
-                    && Content.Footer.Text == null && Content.Footer.IconUrl == null
-                    && Content.Title == null)
+                ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
+                if(EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null
+                    && EmbedContent.Description == null && EmbedContent.Fields.Count() == 0 
+                    && EmbedContent.Footer.Text == null && EmbedContent.Footer.IconUrl == null
+                    && EmbedContent.Title == null)
                 {
                     stacker.Margin = new Thickness(0);
                     SideBorder.Width = 0;
@@ -157,28 +157,28 @@ namespace Discord_UWP.Controls
             }
 
             //Footer
-            if (Content.Footer.Text == null && Content.Timestamp == null)
+            if (EmbedContent.Footer.Text == null && EmbedContent.Timestamp == null)
                 FooterSP.Visibility = Visibility.Collapsed;
             else
             {
                 FooterSP.Visibility = Visibility.Visible;
                 string footertext = "";
-                if (Content.Footer.Text != null)
-                    footertext = Content.Footer.Text;
-                if (Content.Timestamp != null)
+                if (EmbedContent.Footer.Text != null)
+                    footertext = EmbedContent.Footer.Text;
+                if (EmbedContent.Timestamp != null)
                 {
                     if (footertext != "") footertext += " | ";
-                    footertext += Common.HumanizeDate(DateTime.Parse(Content.Timestamp), null);
+                    footertext += Common.HumanizeDate(DateTime.Parse(EmbedContent.Timestamp), null);
                     FooterText.Text = footertext;
                 }
                 else
                 {
                     FooterText.Text = footertext;
                 }
-                if (Content.Footer.IconUrl != null)
+                if (EmbedContent.Footer.IconUrl != null)
                 {
                     FooterImage.Visibility = Visibility.Visible;
-                    FooterImage.Source = new BitmapImage(new Uri(Content.Footer.IconUrl));
+                    FooterImage.Source = new BitmapImage(new Uri(EmbedContent.Footer.IconUrl));
                 }
                 else
                 {
@@ -187,42 +187,42 @@ namespace Discord_UWP.Controls
             }
 
             //Provider
-            if (Content.Provider.Name != null)
+            if (EmbedContent.Provider.Name != null)
             {
                 everythingisnull = false;
                 ProviderHyperlink.Visibility = Visibility.Visible;
-                ProviderHyperlink.Content = Content.Provider.Name;
-                if (Content.Provider.Url != null)
-                    ProviderHyperlink.NavigateUri = new Uri(Content.Provider.Url);
+                ProviderHyperlink.Content = EmbedContent.Provider.Name;
+                if (EmbedContent.Provider.Url != null)
+                    ProviderHyperlink.NavigateUri = new Uri(EmbedContent.Provider.Url);
             }
             else
             {
                 ProviderHyperlink.Visibility = Visibility.Collapsed;
             }
             //Thumbnail
-            if (Content.Thumbnail.Url != null)
+            if (EmbedContent.Thumbnail.Url != null)
             {
                 if (everythingisnull)
                 {
                     HeaderGrid.Visibility = Visibility.Collapsed;
                     ImageViewbox.Visibility = Visibility.Visible;
-                    ImageViewer.Source  = new BitmapImage(new Uri(Content.Thumbnail.Url));
+                    ImageViewer.Source  = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
                 else
                 {
                     //If the aspect ratio of the thumbnail is higher than 1.2 and there is no image, display the thumbnail at the place of the large image
-                    if (Content.Thumbnail.Width / Content.Thumbnail.Height > 1.2 && ImageViewbox.Visibility == Visibility.Collapsed && Content.Thumbnail.Width+Content.Thumbnail.Height > 256)
+                    if (EmbedContent.Thumbnail.Width / EmbedContent.Thumbnail.Height > 1.2 && ImageViewbox.Visibility == Visibility.Collapsed && EmbedContent.Thumbnail.Width+EmbedContent.Thumbnail.Height > 256)
                     {
                         ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                         ThumbnailImage.Visibility = Visibility.Collapsed;
                         ImageViewbox.Visibility = Visibility.Visible;
-                        ImageViewer.Source = new BitmapImage(new Uri(Content.Thumbnail.Url));
+                        ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                     }
                     else
                     {
                         ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
                         ThumbnailImage.Visibility = Visibility.Visible;
-                        ThumbnailImage.Source = new BitmapImage(new Uri(Content.Thumbnail.Url));
+                        ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                     }
 
                 }
@@ -237,8 +237,8 @@ namespace Discord_UWP.Controls
         private StackPanel GenerateField(EmbedField field)
         {
             StackPanel sp = new StackPanel();
-            double minwidth = 0;
-            double maxwidth = Double.NaN;
+            //double minwidth = 0;
+            //double maxwidth = Double.NaN;
             
             if(field.Name != null)
                 sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock(){ Text=field.Name, FontSize=13, EnableHiddenLinks=true, FontWeight=FontWeights.SemiBold });
@@ -255,32 +255,32 @@ namespace Discord_UWP.Controls
         public EmbedControl()
         {
             this.InitializeComponent();
-            RegisterPropertyChangedCallback(ContentProperty, OnPropertyChanged);
+            RegisterPropertyChangedCallback(EmbedContentProperty, OnPropertyChanged);
         }
 
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (Content.Image.Url != null)
+            if (EmbedContent.Image.Url != null)
             {
                 App.OpenAttachement(new Attachment()
                 {
-                    Filename = new Uri(Content.Image.Url).Segments.Last(),
-                    Height = Content.Image.Height,
-                    Width = Content.Image.Width,
-                    Url = Content.Image.Url,
-                    ProxyUrl = Content.Image.ProxyUrl,
+                    Filename = new Uri(EmbedContent.Image.Url).Segments.Last(),
+                    Height = EmbedContent.Image.Height,
+                    Width = EmbedContent.Image.Width,
+                    Url = EmbedContent.Image.Url,
+                    ProxyUrl = EmbedContent.Image.ProxyUrl,
                     Size = 0
                 });
             }
-            else if(Content.Thumbnail.Url != null)
+            else if(EmbedContent.Thumbnail.Url != null)
             {
                 App.OpenAttachement(new Attachment()
                 {
-                    Filename = new Uri(Content.Thumbnail.Url).Segments.Last(),
-                    Height = Content.Thumbnail.Height,
-                    Width = Content.Thumbnail.Width,
-                    Url = Content.Thumbnail.Url,
-                    ProxyUrl = Content.Thumbnail.ProxyUrl,
+                    Filename = new Uri(EmbedContent.Thumbnail.Url).Segments.Last(),
+                    Height = EmbedContent.Thumbnail.Height,
+                    Width = EmbedContent.Thumbnail.Width,
+                    Url = EmbedContent.Thumbnail.Url,
+                    ProxyUrl = EmbedContent.Thumbnail.ProxyUrl,
                     Size = 0
                 });
             }

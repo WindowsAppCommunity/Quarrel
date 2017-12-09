@@ -357,7 +357,7 @@ namespace Discord_UWP.Controls
         }
 
         private GridView reactionView;
-        private Attachment attachement;
+        //private Attachment attachement;
         private string userid = "";
         public string messageid = "";
         public void UpdateMessage()
@@ -487,7 +487,7 @@ namespace Discord_UWP.Controls
                 }
                 content.Text = Message.Value.Content;
                 string text = Message.Value.Content;
-                string startLink = "";
+                //string startLink = "";
                 string[] Searcheables = new string[] { "https://discord.gg/", "http://discord.gg/", "https://discordapp.com/invite/", "http://discordapp.com/invite/" };
                 
                 foreach(string link in Searcheables)
@@ -590,7 +590,7 @@ namespace Discord_UWP.Controls
                 EmbedViewer.Visibility = Visibility.Visible;
             foreach (Embed embed in Message.Value.Embeds)
             {
-                EmbedViewer.Children.Add(new EmbedControl(){Content = embed});
+                EmbedViewer.Children.Add(new EmbedControl(){EmbedContent = embed});
             }
             foreach(Attachment attach in Message.Value.Attachments)
             {
