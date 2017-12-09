@@ -325,7 +325,7 @@ namespace Discord_UWP.SubPages
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = DeafenMembers.IsEnabled = MoveMembers.IsEnabled = UseVad.IsEnabled = true;
             }
-            
+
             //Permissions perms = LocalState.Guilds[guildId].permissions;
 
             //RoleName.Text = role.Name;

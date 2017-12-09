@@ -42,6 +42,7 @@ namespace Discord_UWP
                 };
                 BasicRestFactory basicRestFactory = new BasicRestFactory(config);
 
+
                 ILoginService loginService = basicRestFactory.GetLoginService();
 
                 loginRequest.Email = email;
