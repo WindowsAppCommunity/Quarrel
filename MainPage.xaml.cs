@@ -36,6 +36,8 @@ namespace Discord_UWP
 
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
+        BackgroundAccessStatus bgAccess;
+        static ApplicationTrigger bgTrigger = null;
 
         public async void Setup()
         {
@@ -54,8 +56,8 @@ namespace Discord_UWP
 
                 try
                 {
-                    var access = await BackgroundExecutionManager.RequestAccessAsync();
-                    switch (access)
+                    bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
+                    switch (bgAccess)
                     {
                         case BackgroundAccessStatus.Unspecified:
                             Console.WriteLine("Unspecified result");
@@ -64,7 +66,11 @@ namespace Discord_UWP
                             RegisterBacgkround();
                             break;
                         case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                            RegisterBacgkround();
+                            if (RegisterBacgkround() == true)
+                            {
+                                var result = await bgTrigger.RequestAsync();
+                                Console.WriteLine(result.ToString());
+                            }
                             break;
                         case BackgroundAccessStatus.DeniedBySystemPolicy:
                             Console.WriteLine("Denied by system policy");
@@ -291,25 +297,25 @@ namespace Discord_UWP
 
         public static bool RegisterBacgkround()
         {
-            //    try
-            //    {
-            //        var task = new BackgroundTaskBuilder
-            //        {
-            //            Name = "DIscord UWP Notifier",
-            //            TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
-            //        };
+            try
+            {
+                var task = new BackgroundTaskBuilder
+                {
+                    Name = "DIscord UWP Notifier",
+                    TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
+                };
 
-            //        var trigger = new ApplicationTrigger();
-            //        task.SetTrigger(trigger);
+                bgTrigger = new ApplicationTrigger();
+                task.SetTrigger(bgTrigger);
 
-            //        task.Register();
-            //        Console.WriteLine("Task registered");
-            //        return true;
-            //    }
-            //    catch /*(Exception ex)*/
-            //    {
-            return false;
-        //    }
+                task.Register();
+                Console.WriteLine("Task registered");
+                return true;
+            }
+            catch /*(Exception ex)*/
+            {
+                return false;
+            }
         }
 
         #region AppEvents
