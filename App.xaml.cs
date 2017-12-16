@@ -141,11 +141,13 @@ namespace Discord_UWP
             public string ChannelId { get; set; }
             public string Message { get; set; }
             public bool Send { get; set; }
+            public bool OnBack { get; set; }
         }
+
         public static event EventHandler<GuildChannelNavigationArgs> NavigateToGuildChannelHandler;
-        public static void NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false)
+        public static void NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false, bool onBack = false)
         {
-            NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send });
+            NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send, OnBack = onBack });
         }
         #endregion
 
@@ -156,11 +158,16 @@ namespace Discord_UWP
             public string UserId { get; set; }
             public string Message { get; set; }
             public bool Send { get; set; }
+            public bool OnBack { get; set; }
         }
         public static event EventHandler<DMChannelNavigationArgs> NavigateToDMChannelHandler;
-        public static void NavigateToDMChannel(string channelId, string userId, string message = null, bool send = false)
+        public static void NavigateToDMChannel(string channelId, string message = null, bool send = false, bool onBack = false)
         {
-            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, UserId = userId, Message = message, Send = send });
+            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, Message = message, Send = send, OnBack = onBack });
+        }
+        public static void NavigateToDMChannel(string channelId, string userId, string message = null, bool send = false, bool onBack = false)
+        {
+            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, UserId = userId, Message = message, Send = send, OnBack = onBack });
         }
         #endregion
 
