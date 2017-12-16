@@ -106,7 +106,7 @@ namespace Discord_UWP
         {
             if (SubFrame.Visibility == Visibility.Visible)
             {
-                App.SubpageClosed();
+                App.SubpageClose();
             } else
             {
                 if (navigationHistory.Count > 0)

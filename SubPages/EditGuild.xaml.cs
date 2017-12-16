@@ -46,6 +46,13 @@ namespace Discord_UWP.SubPages
             Bans.Header = App.GetString("/Flyouts/Bans");
             Invites.Visibility = Visibility.Collapsed;
             Bans.Visibility = Visibility.Collapsed;
+            App.SubpageCloseHandler += App_SubpageCloseHandler;
+        }
+
+        private void App_SubpageCloseHandler(object sender, EventArgs e)
+        {
+            CloseButton_Click(null, null);
+            App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
         private void SaveGuildSettings(object sender, RoutedEventArgs e)

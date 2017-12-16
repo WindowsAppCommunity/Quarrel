@@ -29,6 +29,13 @@ namespace Discord_UWP.SubPages
         public ChannelTopic()
         {
             this.InitializeComponent();
+            App.SubpageCloseHandler += App_SubpageCloseHandler;
+        }
+
+        private void App_SubpageCloseHandler(object sender, EventArgs e)
+        {
+            CloseButton_Click(null, null);
+            App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
