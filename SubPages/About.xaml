@@ -184,6 +184,12 @@
                                 <TextBlock Text="Login patches" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed mark as read in DMs" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added backbutton functionality" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Guild role permissions editing" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
