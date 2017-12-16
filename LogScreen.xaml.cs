@@ -54,8 +54,11 @@ namespace Discord_UWP
                     case "TBD":
                         ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
                         break;
+                    case "ILoginService doesn't look like a Refit interface. Make sure it has at least one method with a Refit HTTP method attribute and Refit is installed in the project.":
+                        ermsg = "A bug in the code is preventing log in. Some imported code (Refit) isn't working as expected";
+                        break;
                     default:
-                        ermsg = "Unknown error, maybe try later";
+                        ermsg = "Unknown error, maybe try again later";
                         break;
                 }
                 MessageDialog msg = new MessageDialog(ermsg);
