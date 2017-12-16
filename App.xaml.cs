@@ -366,6 +366,12 @@ namespace Discord_UWP
         #endregion
 
         #region Closed
+        public static event EventHandler SubpageCloseHandler;
+        public static void SubpageClose()
+        {
+            SubpageCloseHandler?.Invoke(typeof(App), EventArgs.Empty);
+        }
+
         public static event EventHandler SubpageClosedHandler;
         public static void SubpageClosed()
         {

@@ -27,7 +27,15 @@ namespace Discord_UWP.SubPages
         public InAppPurchases()
         {
             this.InitializeComponent();
+            App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
+
+        private void App_SubpageCloseHandler(object sender, EventArgs e)
+        {
+            CloseButton_Click(null, null);
+            App.SubpageCloseHandler -= App_SubpageCloseHandler;
+        }
+
         private void NavAway_Completed(object sender, object e)
         {
             Frame.Visibility = Visibility.Collapsed;
