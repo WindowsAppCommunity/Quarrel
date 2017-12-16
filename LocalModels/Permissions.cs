@@ -15,12 +15,12 @@ namespace Discord_UWP.LocalModels
         
         public void AddAllows(int set)
         {
-            Perms = Perms | set;
+            Perms |= set;
         }
 
         public void AddDenies(int set)
         {
-            Perms = Perms & ~set;
+            Perms &= ~set;
         }
 
         public int GetPermInt()
