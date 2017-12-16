@@ -392,6 +392,18 @@ namespace Discord_UWP
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+
+                if (e.OnBack)
+                {
+                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == e.ChannelId)
+                        {
+                            lastChangeProgrammatic = true;
+                            ChannelList.SelectedItem = chn;
+                        }
+                    }
+                }
             }
             else //Out of guild navigation
             {
@@ -399,11 +411,14 @@ namespace Discord_UWP
                 {
                     navigationHistory.Push(currentPage);
                 }
-                //TODO: Out of guild navigation
-            }
 
-            if (e.OnBack)
-            {
+                foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                {
+                    if (guild.Id == e.GuildId)
+                    {
+                        ServerList.SelectedItem = guild;
+                    }
+                }
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
                     if (chn.Id == e.ChannelId)
@@ -412,6 +427,11 @@ namespace Discord_UWP
                         ChannelList.SelectedItem = chn;
                     }
                 }
+
+                App.CurrentChannelId = e.ChannelId;
+                RenderMessages();
+                App.MarkChannelAsRead(e.ChannelId);
+                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
         }
         private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
