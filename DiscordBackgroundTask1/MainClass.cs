@@ -7,15 +7,17 @@ using Windows.ApplicationModel.Background;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.QueryStringDotNET;
 using Windows.UI.Notifications;
+using System.Diagnostics;
 
 namespace DiscordBackgroundTask1
 {
     public sealed class MainClass : IBackgroundTask
     {
-        void IBackgroundTask.Run(IBackgroundTaskInstance taskInstance)
+        public void Run(IBackgroundTaskInstance taskInstance)
         {
             //throw new NotImplementedException();
             SendToast("Hello from the background");
+            Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
         }
 
         
