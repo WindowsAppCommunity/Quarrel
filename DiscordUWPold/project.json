@@ -1,10 +1,10 @@
 ﻿{
   "dependencies": {
     "Concentus": "1.1.7",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.4.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "6.0.5",
     "Microsoft.Services.Store.SDK": "10.1705.16001",
-    "Microsoft.Toolkit.Uwp.Notifications": "2.0.0",
-    "Microsoft.Toolkit.Uwp.UI.Controls": "2.0.0",
+    "Microsoft.Toolkit.Uwp.Notifications": "2.1.1",
+    "Microsoft.Toolkit.Uwp.UI.Controls": "2.1.1",
     "Newtonsoft.Json": "10.0.3",
     "QueryString.NET": "1.0.0",
     "Refit": "4.0.1",
