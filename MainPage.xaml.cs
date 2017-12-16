@@ -301,7 +301,7 @@ namespace Discord_UWP
             {
                 var task = new BackgroundTaskBuilder
                 {
-                    Name = "DIscord UWP Notifier",
+                    Name = "Discord UWP Notifier",
                     TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
                 };
 
