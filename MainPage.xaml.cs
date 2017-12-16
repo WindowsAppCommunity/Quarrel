@@ -87,11 +87,46 @@ namespace Discord_UWP
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
 
+            //BackButton initialization
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+
             //Set up MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
             if (MessageScrollviewer != null)
             {
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
+        }
+
+        Stack<Tuple<string, string>> navigationHistory = new Stack<Tuple<string, string>>();
+        Tuple<string, string> currentPage = new Tuple<string, string>(null, null);
+
+        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (SubFrame.Visibility == Visibility.Visible)
+            {
+                App.SubpageClosed();
+            } else
+            {
+                if (navigationHistory.Count > 0)
+                {
+                    var page = navigationHistory.Pop();
+                    if (page.Item1 != null)
+                    {
+                        App.NavigateToGuildChannel(page.Item1, page.Item2, null, false, true);
+                    }
+                    else
+                    {
+                        if (page.Item2 != null)
+                        {
+                            App.NavigateToDMChannel(page.Item2, null, false, true);
+                        } else
+                        {
+                            App.NavigateToDMChannel(null, null, false, true);
+                        }
+                    }
+                }
             }
         }
 
@@ -277,9 +312,9 @@ namespace Discord_UWP
         //    }
         }
 
-    #region AppEvents
+        #region AppEvents
 
-    #region LogIn
+        #region LogIn
     private void App_LoggingInHandler(object sender, EventArgs e)
         {
             SubFrame.Visibility = Visibility.Collapsed;
@@ -348,33 +383,88 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId == e.GuildId)
             {
+                if (!e.OnBack)
+                {
+                    navigationHistory.Push(currentPage);
+                }
+
                 App.CurrentChannelId = e.ChannelId;
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
+                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
             else //Out of guild navigation
             {
+                if (!e.OnBack)
+                {
+                    navigationHistory.Push(currentPage);
+                }
                 //TODO: Out of guild navigation
+            }
+
+            if (e.OnBack)
+            {
+                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                {
+                    if (chn.Id == e.ChannelId)
+                    {
+                        lastChangeProgrammatic = true;
+                        ChannelList.SelectedItem = chn;
+                    }
+                }
             }
         }
         private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
             if (e.ChannelId != null) //Nav by ChannelId
             {
+                if (!e.OnBack)
+                {
+                    navigationHistory.Push(currentPage);
+                }
+
                 if (App.CurrentGuildIsDM)
                 {
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
-                    App.MarkChannelAsRead(e.ChannelId);
                 } else
                 {
                     ServerList.SelectedIndex = 0;
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
                 }
-            } else //Nav by UserId
+
+                App.MarkChannelAsRead(e.ChannelId);
+                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+
+                if (e.OnBack)
+                {
+                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == e.ChannelId)
+                        {
+                            lastChangeProgrammatic = true;
+                            ChannelList.SelectedItem = chn;
+                        }
+                    }
+                }
+
+            } else if (e.UserId != null) //Nav by UserId
             {
+                if (!e.OnBack)
+                {
+                    navigationHistory.Push(currentPage);
+                }
                 //TODO: Nav by UserId
+            } else //Nav to Friends
+            {
+                if (App.CurrentGuildIsDM)
+                {
+                    OpenFriendPanel(null, null);
+                } else
+                {
+                    ServerList.SelectedIndex = 0;
+                }
             }
         }
         #endregion
@@ -1330,61 +1420,67 @@ namespace Discord_UWP
         }
 
         bool IgnoreChange = false;
+        bool lastChangeProgrammatic = false;
         private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //When selecting a category, we want to simulate ListView's Mode = Click, 
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
              
-            if (!IgnoreChange) //True if the last selection was a category or Voice channel
+            if (!lastChangeProgrammatic)
             {
-                if (ChannelList.SelectedItem != null) //Called on clear
+                if (!IgnoreChange) //True if the last selection was a category, Voice channel
                 {
-                    var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
-                    if(channel.Type == 4)
+                    if (ChannelList.SelectedItem != null) //Called on clear
                     {
-                        foreach(ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
+                        var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
+                        if (channel.Type == 4)
                         {
-                            if (item.Hidden)
-                                item.Hidden = false;
+                            foreach (ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
+                            {
+                                if (item.Hidden)
+                                    item.Hidden = false;
+                                else
+                                    item.Hidden = true;
+                            }
+                            channel.Hidden = !channel.Hidden;
+                            IgnoreChange = true;
+                            var previousSelection = e.RemovedItems.FirstOrDefault();
+                            if (previousSelection == null)
+                                ChannelList.SelectedIndex = -1;
                             else
-                                item.Hidden = true;
+                                ChannelList.SelectedItem = previousSelection;
                         }
-                        channel.Hidden = !channel.Hidden;
-                        IgnoreChange = true;
-                        var previousSelection = e.RemovedItems.FirstOrDefault();
-                        if (previousSelection == null)
-                            ChannelList.SelectedIndex = -1;
-                        else
-                            ChannelList.SelectedItem = previousSelection;
-                    }
-                    else if (channel.Type == 2)
-                    {
-                        IgnoreChange = true;
-                        var previousSelection = e.RemovedItems.FirstOrDefault();
-                        if (previousSelection == null)
-                            ChannelList.SelectedIndex = -1;
-                        else
-                            ChannelList.SelectedItem = previousSelection;
-                        
-                    }
-                    else
-                    {
-                        sideDrawer.CloseLeft();
-                        if (App.CurrentGuildIsDM)
+                        else if (channel.Type == 2)
                         {
-                            App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id, null);
+                            IgnoreChange = true;
+                            var previousSelection = e.RemovedItems.FirstOrDefault();
+                            if (previousSelection == null)
+                                ChannelList.SelectedIndex = -1;
+                            else
+                                ChannelList.SelectedItem = previousSelection;
                         }
                         else
                         {
-                            App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                            sideDrawer.CloseLeft();
+                            if (App.CurrentGuildIsDM)
+                            {
+                                App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                            }
+                            else
+                            {
+                                App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                            }
                         }
                     }
                 }
-            }
-            else
+                else
+                {
+                    IgnoreChange = false;
+                }
+            } else
             {
-                IgnoreChange = false;
+                lastChangeProgrammatic = false;
             }
         }
 
