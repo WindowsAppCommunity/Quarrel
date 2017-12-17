@@ -232,9 +232,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
     </PackageReference>
-    <PackageReference Include="refit">
-      <Version>4.0.1</Version>
-    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Refit\Refit.csproj">
+      <Project>{6a7ff2ac-68d2-4a21-a429-b89f19ec6c01}</Project>
+      <Name>Refit</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
