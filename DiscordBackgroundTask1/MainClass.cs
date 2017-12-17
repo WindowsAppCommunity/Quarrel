@@ -8,6 +8,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.QueryStringDotNET;
 using Windows.UI.Notifications;
 using System.Diagnostics;
+using Discord_UWP;
 
 namespace DiscordBackgroundTask1
 {
@@ -16,7 +17,6 @@ namespace DiscordBackgroundTask1
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             //throw new NotImplementedException();
-            SendToast("Hello from the background");
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
         }
 
