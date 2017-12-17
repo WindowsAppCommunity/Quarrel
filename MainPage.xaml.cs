@@ -63,7 +63,11 @@ namespace Discord_UWP
                             Console.WriteLine("Unspecified result");
                             break;
                         case BackgroundAccessStatus.AlwaysAllowed:
-                            RegisterBacgkround();
+                            if (RegisterBacgkround() == true)
+                            {
+                                var result = await bgTrigger.RequestAsync();
+                                Console.WriteLine(result.ToString());
+                            }
                             break;
                         case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                             if (RegisterBacgkround() == true)
