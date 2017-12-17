@@ -628,8 +628,8 @@
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
     </ProjectReference>
-    <ProjectReference Include="Refit\Refit.csproj">
-      <Project>{6a7ff2ac-68d2-4a21-a429-b89f19ec6c01}</Project>
+    <ProjectReference Include="refit-master\refit-master\Refit\Refit.csproj">
+      <Project>{6d7fdf21-781e-4593-9b2b-03be986a8003}</Project>
       <Name>Refit</Name>
     </ProjectReference>
   </ItemGroup>

@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Text;
 using System.Threading;
-using static System.Reflection.TypeExtensions;
 
 using HttpUtility = System.Web.HttpUtility;
 
