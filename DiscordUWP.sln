@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord UWPold", "DiscordUWPold\Discord UWPold.csproj", "{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}"
 EndProject
@@ -16,7 +16,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBackgroundTask1", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordAPI", "DiscordAPI.csproj", "{03C1FC3A-410F-46D9-802B-316C7280E180}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refit", "Refit\Refit.csproj", "{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refit", "refit-master\refit-master\Refit\Refit.csproj", "{6D7FDF21-781E-4593-9B2B-03BE986A8003}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,28 +100,28 @@ Global
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x64.Build.0 = Release|x64
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x86.ActiveCfg = Release|x86
 		{03C1FC3A-410F-46D9-802B-316C7280E180}.Release|x86.Build.0 = Release|x86
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|ARM.Build.0 = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|x64.Build.0 = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Debug|x86.Build.0 = Debug|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|ARM.ActiveCfg = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|ARM.Build.0 = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|x64.ActiveCfg = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|x64.Build.0 = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|x86.ActiveCfg = Release|Any CPU
-		{6A7FF2AC-68D2-4A21-A429-B89F19EC6C01}.Release|x86.Build.0 = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|ARM.Build.0 = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|ARM.Build.0 = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|x64.Build.0 = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D7FDF21-781E-4593-9B2B-03BE986A8003}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
+		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 	EndGlobalSection
 EndGlobal

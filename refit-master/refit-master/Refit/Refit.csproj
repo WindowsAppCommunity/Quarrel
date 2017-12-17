@@ -2,18 +2,15 @@
 
   <PropertyGroup>
     <Product>Refit ($(TargetFramework))</Product>
-    <TargetFrameworks>netstandard1.4</TargetFrameworks>
+    <TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
     <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
     <DebugType>embedded</DebugType>
-    <ApplicationIcon />
-    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>
 
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Condition="'$(TargetFramework)' != 'net45' " Include="System.Net.Http" Version="4.3.2" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
     <Compile Remove="Features\**\*.*" />
     <None Include="Features\**\*.*" />
   </ItemGroup>
@@ -39,7 +36,6 @@
     <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="15.3.83" />
   </ItemGroup>
 
-  <!--
   <Target Name="BuildAndPublishStubGenerator" BeforeTargets="CoreBuild" Condition="'$(TargetFramework)' == 'netstandard1.4'">
     <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
       <RefitExecCmd46>dotnet publish "$(MSBuildThisFileDirectory)..\InterfaceStubGenerator.BuildTasks\InterfaceStubGenerator.BuildTasks.csproj" -c $(Configuration) -f net46</RefitExecCmd46>
@@ -52,5 +48,5 @@
     <Exec Command="$(RefitExecCmd46)" />
     <Exec Command="$(RefitExecCmd20)" />
   </Target>
--->
+
 </Project>
