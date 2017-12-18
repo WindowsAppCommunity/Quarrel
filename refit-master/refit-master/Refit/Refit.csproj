@@ -33,11 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InterfaceStubGenerator.App\InterfaceStubGenerator.App.csproj" />
-    <ProjectReference Include="..\InterfaceStubGenerator.Core\InterfaceStubGenerator.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="15.3.83" />
   </ItemGroup>
 
