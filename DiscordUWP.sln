@@ -1,9 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord UWPold", "DiscordUWPold\Discord UWPold.csproj", "{18CAB07F-9C5D-41D3-A60A-5F194EF068D3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discord UWP", "Discord UWP.csproj", "{BA48EDC4-2A93-4CA0-99B5-DFA8AED075A4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{03C1FC3A-410F-46D9-802B-316C7280E180} = {03C1FC3A-410F-46D9-802B-316C7280E180}
