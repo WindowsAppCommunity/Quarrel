@@ -226,6 +226,7 @@
       <DependentUpon>Offline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefitStubs.g.cs" />
     <Compile Include="RESTCalls.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="SubPages\About.xaml.cs">
@@ -294,7 +295,9 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="VoiceCommands.xml" />
+    <Content Include="VoiceCommands.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <PRIResource Include="Resources\fr\Settings.resw" />
@@ -628,10 +631,6 @@
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
     </ProjectReference>
-    <ProjectReference Include="refit-master\refit-master\Refit\Refit.csproj">
-      <Project>{6d7fdf21-781e-4593-9b2b-03be986a8003}</Project>
-      <Name>Refit</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
@@ -641,7 +640,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-
   <Target Name="AfterBuild">
   </Target>
 </Project>
