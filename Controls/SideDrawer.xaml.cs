@@ -347,6 +347,7 @@ namespace Discord_UWP.Controls
             kfa.InsertKeyFrame(1.0f, tracker.MinPosition, cubicBezier);
             tracker.TryUpdatePositionWithAnimation(kfa);
         }
+
         public void CloseLeft()
         {
             CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));

@@ -1580,6 +1580,7 @@
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
                         <AppBarButton Label="About" Click="NavToAbout"/>
+                        <AppBarButton Label="What's New?" Click="WhatsNewClick"/>
                         <AppBarButton Label="In-App Purchases" Click="NavToIAPs"/>
                         <AppBarButton Label="Settings" Click="OpenSettings"/>
                     </CommandBar.SecondaryCommands>
@@ -1587,7 +1588,8 @@
             </StackPanel>
         </Grid>
 
-        <Frame x:Name="SubFrame"  Visibility="Collapsed" Canvas.ZIndex="9999">
+        <Rectangle x:Name="SubFrameMask" IsHitTestVisible="False" Grid.ColumnSpan="12" Grid.RowSpan="12" Opacity="0" Fill="Black"/>
+        <Frame x:Name="SubFrame" Visibility="Collapsed" Canvas.ZIndex="9999">
             <Frame.RenderTransform>
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
