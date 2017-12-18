@@ -267,4 +267,7 @@
   <data name="SubmittedBy" xml:space="preserve">
     <value>Presentado por</value>
   </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Código de autenticación</value>
+  </data>
 </root>

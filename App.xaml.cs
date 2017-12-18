@@ -171,6 +171,12 @@ namespace Discord_UWP
         }
         #endregion
 
+        public static event EventHandler NavigateToLoginHandler;
+        public static void NavigateToLogin()
+        {
+            NavigateToLoginHandler?.Invoke(null, null);
+        }
+
         #endregion
 
         #region Subpages
@@ -711,8 +717,11 @@ namespace Discord_UWP
         {
             try //if Contains("LogIn)
             {
-                var nullCheck = Storage.PasswordVault.FindAllByResource("LogIn");
-                return nullCheck != null;
+                var nullCheck = Storage.PasswordVault.FindAllByResource("Token");
+                if (nullCheck.FirstOrDefault() != null && nullCheck.FirstOrDefault().Password != null)
+                    return true;
+                else
+                    return false;
             }
             catch // else
             {
@@ -858,7 +867,7 @@ namespace Discord_UWP
                     // parameter
                     if (IsOnline())
                     {
-                        rootFrame.Navigate(typeof(LogScreen), e.Arguments);
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
                     else
                     {
@@ -1023,11 +1032,5 @@ namespace Discord_UWP
             //view.TitleBar.InactiveForegroundColor = ((SolidColorBrush)Application.Current.Resources["MidBG_hover"]).Color;
         }
 
-        public async Task<Exception> LogIn()
-        {
-            var credentials = Storage.PasswordVault.FindAllByResource("LogIn");
-            var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
-            return await RESTCalls.Login(creds.UserName, creds.Password);
-        }
     }
 }

@@ -28,7 +28,7 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
         }
-
+        string mfaTicket;
         private async void LogIn(object sender, RoutedEventArgs e)
         {
             (sender as Button).IsEnabled = false;
@@ -36,39 +36,84 @@ namespace Discord_UWP
             ProgressRing.IsActive = true;
             LoginText.Visibility = Visibility.Collapsed;
 
-            var result = await RESTCalls.Login(Username.Text, Password.Password);
-            if (result == null)
+            if(NormalAuth.Visibility == Visibility.Visible)
             {
-                PasswordCredential credentials = new PasswordCredential("LogIn", Username.Text, Password.Password);
-                Storage.PasswordVault.Add(credentials);
-                App.LoggingIn();
-                App.SubpageClosed();
-            } else
-            {
-                string ermsg = "";
-                switch (result.Message)
+                //NORMAL AUTHENTICATION
+                var result = await RESTCalls.Login(Username.Text, Password.Password);
+                if (result.exception != null)
                 {
-                    case "Response status code does not indicate success: 400().":
-                        ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
-                        break;
-                    case "TBD":
-                        ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
-                        break;
-                    case "ILoginService doesn't look like a Refit interface. Make sure it has at least one method with a Refit HTTP method attribute and Refit is installed in the project.":
-                        ermsg = "A bug in the code is preventing log in. Some imported code (Refit) isn't working as expected";
-                        break;
-                    default:
-                        ermsg = "Unknown error, maybe try again later";
-                        break;
+                    string ermsg = "";
+                    switch (result.exception.Message)
+                    {
+                        case "Response status code does not indicate success: 400().":
+                            ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
+                            break;
+                        case "TBD":
+                            ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
+                            break;
+                        case "ILoginService doesn't look like a Refit interface. Make sure it has at least one method with a Refit HTTP method attribute and Refit is installed in the project.":
+                            ermsg = "A bug in the code is preventing log in. Some imported code (Refit) isn't working as expected";
+                            break;
+                        default:
+                            ermsg = "Unknown error, maybe try again later";
+                            break;
+                    }
+                    MessageDialog msg = new MessageDialog(ermsg);
+                    await msg.ShowAsync();
                 }
-                MessageDialog msg = new MessageDialog(ermsg);
-                await msg.ShowAsync();
 
-                (sender as Button).IsEnabled = true;
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
-                LoginText.Visibility = Visibility.Visible;
+                else if (result.MFA == true)
+                {
+                    mfaTicket = result.Ticket;
+                    NormalAuth.Visibility = Visibility.Collapsed;
+                    MFAuth.Visibility = Visibility.Visible;
+                    (sender as Button).IsEnabled = true;
+                    ProgressRing.Visibility = Visibility.Collapsed;
+                    ProgressRing.IsActive = false;
+                    LoginText.Visibility = Visibility.Visible;
+                }
+                else if (result.Token != null)
+                {
+                    
+                    App.LoggingIn();
+                    App.SubpageClosed();
+                }
             }
+            else if(MFAuth.Visibility == Visibility.Visible)
+            {
+                //2FA AUTHENTICATION
+                var result = await RESTCalls.LoginMFA(MFAPassword.Password, mfaTicket);
+                if (result.exception != null)
+                {
+                    string ermsg = "";
+                    switch (result.exception.Message)
+                    {
+                        case "Response status code does not indicate success: 400().":
+                            ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
+                            break;
+                        case "TBD":
+                            ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
+                            break;
+                        case "ILoginService doesn't look like a Refit interface. Make sure it has at least one method with a Refit HTTP method attribute and Refit is installed in the project.":
+                            ermsg = "A bug in the code is preventing log in. Some imported code (Refit) isn't working as expected";
+                            break;
+                        default:
+                            ermsg = "Unknown error, maybe try again later";
+                            break;
+                    }
+                    MessageDialog msg = new MessageDialog(ermsg);
+                    await msg.ShowAsync();
+                }
+                else if (result.Token != null)
+                {
+                    App.LoggingIn();
+                    App.SubpageClosed();
+                }
+            }
+            (sender as Button).IsEnabled = true;
+            ProgressRing.Visibility = Visibility.Collapsed;
+            ProgressRing.IsActive = false;
+            LoginText.Visibility = Visibility.Visible;
         }
 
         private async void Register(object sender, RoutedEventArgs e)
@@ -79,6 +124,11 @@ namespace Discord_UWP
         private async void ChangePassword(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/"));
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as HyperlinkButton).ContextFlyout.ShowAt(sender as HyperlinkButton);
         }
     }
 }
