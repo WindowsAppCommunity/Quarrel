@@ -10,7 +10,7 @@ namespace Discord_UWP.API.Login
 {
     public interface ILoginService
     {
-        [Refit.Post("/auth/login")]
+        [Post("/auth/login")]
         Task<LoginResult> Login([Body] LoginRequest loginRequest);
     }
 }

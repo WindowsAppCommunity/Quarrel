@@ -31,7 +31,7 @@ namespace Refit.Generator.App
             }
             else
             {
-                return -1;
+                return -2;
             }
            
             var template = generator.GenerateInterfaceStubs(files.Select(x => x.FullName).ToArray()).Trim();
@@ -56,7 +56,7 @@ namespace Refit.Generator.App
                 if (!string.Equals(contents, template, StringComparison.Ordinal))
                 {
                     Console.Error.WriteLine(new ReadOnlyFileError(target));
-                    return -1; // error....
+                    return -2; // error....
                 }
             }
             else
