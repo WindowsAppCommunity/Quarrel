@@ -24,16 +24,19 @@ using Discord_UWP.SharedModels;
 using Discord_UWP.LocalModels;
 
 using Discord_UWP.Managers;
+using Windows.Security.Credentials;
 
 namespace Discord_UWP
 {
     public class RESTCalls
     {
         #region ILogin
-        public static async Task<Exception> Login(string email, string password)
+        static string EmailInUse;
+        public static async Task<LoginResult> Login(string email, string password)
         {
             try
             {
+                EmailInUse = email;
                 LoginResult LoginResult;
                 LoginRequest loginRequest = new LoginRequest();
                 config = new DiscordApiConfiguration
@@ -49,8 +52,34 @@ namespace Discord_UWP
                 loginRequest.Password = password;
 
                 LoginResult = await loginService.Login(loginRequest);
-                Token = LoginResult.Token;
-                IAuthenticator authenticator = new DiscordAuthenticator(Token);
+
+                if(LoginResult.MFA == false)
+                {
+                    PasswordCredential credentials = new PasswordCredential("Token", email, LoginResult.Token);
+                    Storage.PasswordVault.Add(credentials);
+                }
+
+                return LoginResult;
+            }
+            catch (Exception e)
+            {
+                return new LoginResult() { exception=e };
+            }
+        }
+        public static async Task SetupToken()
+        {
+            var credentials = Storage.PasswordVault.FindAllByResource("Token");
+
+            var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
+            creds.RetrievePassword();
+
+                config = new DiscordApiConfiguration
+                {
+                    BaseUrl = "https://discordapp.com/api"
+                };
+                BasicRestFactory basicRestFactory = new BasicRestFactory(config);
+
+                IAuthenticator authenticator = new DiscordAuthenticator(creds.Password);
                 AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
 
                 //TODO: Maybe restructure gateway setup
@@ -59,14 +88,44 @@ namespace Discord_UWP
                 SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
                 GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
 
-                return null;
+        }
+        public static async Task<LoginResult> LoginMFA(string code, string ticket)
+        {
+            try
+            {
+                LoginResult LoginResult;
+                LoginMFARequest loginRequest = new LoginMFARequest();
+                config = new DiscordApiConfiguration
+                {
+                    BaseUrl = "https://discordapp.com/api"
+                };
+                BasicRestFactory basicRestFactory = new BasicRestFactory(config);
+
+
+                ILoginService loginService = basicRestFactory.GetLoginService();
+
+                loginRequest.Code = code;
+                loginRequest.Ticket = ticket;
+
+                LoginResult = await loginService.LoginMFA(loginRequest);
+
+                if (LoginResult.Token != null)
+                {
+                    Token = LoginResult.Token;
+                    PasswordCredential credentials = new PasswordCredential("Token", EmailInUse, LoginResult.Token);
+                    Storage.PasswordVault.Add(credentials);
+                }
+                else
+                {
+                    return new LoginResult() { exception = new Exception("There was a problem authenticating you!") };
+                }
+                return LoginResult;
             }
             catch (Exception e)
             {
-                return e;
+                return new LoginResult() { exception = e };
             }
         }
-
         //public static async Task<bool> LoginOauth2()
         //{
         //    string url = "https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=" + App.ClientId;

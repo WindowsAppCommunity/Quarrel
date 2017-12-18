@@ -14,4 +14,11 @@ namespace Discord_UWP.API.Login.Models
         [JsonProperty("password")]
         public string Password { get; set; }
     }
+    public struct LoginMFARequest
+    {
+        [JsonProperty("code")]
+        public string Code { get; set; }
+        [JsonProperty("ticket")]
+        public string Ticket { get; set; }
+    }
 }

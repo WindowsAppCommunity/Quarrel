@@ -302,6 +302,11 @@
 
     <Grid Background="{ThemeResource AcrylicMessageBackground}">
         <StackPanel VerticalAlignment="Center" Margin="16,0" MaxWidth="400">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
             <Image Source="Assets/LogoWordmark_Blurple.png" MaxWidth="200" HorizontalAlignment="Center">
                 <Image.Transitions>
                     <TransitionCollection>
@@ -309,8 +314,17 @@
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <TextBox x:Uid="EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
-            <PasswordBox x:Uid="PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+            <TextBlock Text="Unofficial client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <Grid>
+                <StackPanel x:Name="NormalAuth" Visibility="Visible">
+                    <TextBox x:Uid="EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
+                    <PasswordBox x:Uid="PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+                </StackPanel>
+                <StackPanel x:Name="MFAuth" Visibility="Collapsed">
+                    <TextBlock x:Uid="EmailTBox" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="0,6,0,0"/>
+                    <PasswordBox x:Uid="MFAPasswordTBox" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+                </StackPanel>
+            </Grid>
             <Button HorizontalAlignment="Stretch" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
                     <TransitionCollection>
@@ -322,8 +336,20 @@
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>
-            <HyperlinkButton Content="Forget your password?" HorizontalAlignment="Center" Foreground="Gray" Click="ChangePassword"/>
-            <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Center" Foreground="Gray" Click="Register"/>
+            <HyperlinkButton Content="Forgot your password?" HorizontalAlignment="Center" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" Margin="0,12,0,0"/>
+            <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Center" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register"/>
         </StackPanel>
+        <HyperlinkButton Content="Privacy policy" Opacity="0.6" HorizontalAlignment="Left" Foreground="Gray" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
+            <HyperlinkButton.ContextFlyout>
+                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                    <Grid MaxWidth="256">
+                        <TextBlock Margin="12" TextWrapping="Wrap" FontSize="12" Text="Discord UWP is in absolutely no way endorsed by Discord, Inc.
+                                   Even so, The developpers of this app guarantee that none of your personal data exists elsewhere than on your device.
+                                   
+                                   The only data we keep once you've logged in is a Token which allows you to automatically be connected when you open the app, without even needing to store your password. It is stored securely using UWPs encrypted PasswordVault."/>
+                    </Grid>
+                </Flyout>
+            </HyperlinkButton.ContextFlyout>
+        </HyperlinkButton>
     </Grid>
 </Page>

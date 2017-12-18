@@ -12,5 +12,8 @@ namespace Discord_UWP.API.Login
     {
         [Post("/auth/login")]
         Task<LoginResult> Login([Body] LoginRequest loginRequest);
+
+        [Post("/auth/mfa/totp")]
+        Task<LoginResult> LoginMFA([Body] LoginMFARequest loginRequest);
     }
 }

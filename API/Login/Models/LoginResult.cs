@@ -11,5 +11,13 @@ namespace Discord_UWP.API.Login.Models
     {
         [JsonProperty("token")]
         public string Token { get; set; }
+
+        [JsonProperty("mfa")]
+        public bool MFA { get; set; }
+
+        [JsonProperty("ticket")]
+        public string Ticket { get; set; }
+
+        public Exception exception { get; set; }
     }
 }

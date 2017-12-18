@@ -41,71 +41,33 @@ namespace Discord_UWP
 
         public async void Setup()
         {
-            //LogIn Event
-            App.LoggingInHandler += App_LoggingInHandler;
-
-            Loading.Show(false);
-            if (App.IsMobile)
-            {
-                TitleBarHolder.Visibility = Visibility.Collapsed;
-            }
-            if (App.LoggedIn() && (App.GatewayCreated || await LogIn() == null))
-            {
-                SetupEvents();
-                GatewayManager.StartGateway();
-
-                try
-                {
-                    bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
-                    switch (bgAccess)
-                    {
-                        case BackgroundAccessStatus.Unspecified:
-                            Console.WriteLine("Unspecified result");
-                            break;
-                        case BackgroundAccessStatus.AlwaysAllowed:
-                            if (RegisterBacgkround() == true)
-                            {
-                                var result = await bgTrigger.RequestAsync();
-                                Console.WriteLine(result.ToString());
-                            }
-                            break;
-                        case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                            if (RegisterBacgkround() == true)
-                            {
-                                var result = await bgTrigger.RequestAsync();
-                                Console.WriteLine(result.ToString());
-                            }
-                            break;
-                        case BackgroundAccessStatus.DeniedBySystemPolicy:
-                            Console.WriteLine("Denied by system policy");
-                            break;
-                        case BackgroundAccessStatus.DeniedByUser:
-                            Console.WriteLine("Denied by user");
-                            break;
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception.Message);
-                }
-            }
-            else
-            {
-                SubFrameNavigator(typeof(LogScreen));
-            }
+            //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
-
             //BackButton initialization
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-
             //Set up MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
             if (MessageScrollviewer != null)
             {
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
+
+
+
+            //Hook up the login Event
+            App.LoggingInHandler += App_LoggingInHandlerAsync;
+            //Verify if a token exists, if not navigate to login page
+            if(App.LoggedIn() == false)
+            {
+                SubFrameNavigator(typeof(LogScreen));
+                return;
+            }
+            else
+            {
+                App_LoggingInHandlerAsync(null,null);
             }
         }
 
@@ -152,14 +114,6 @@ namespace Discord_UWP
                 if (fromBottom < 100 && !DisableLoadingMessages)
                     LoadNewerMessages();
             }
-        }
-
-        public async Task<Exception> LogIn()
-        {
-            var credntials = Storage.PasswordVault.FindAllByResource("LogIn"); //TODO: Multi-Account
-            var creds = credntials.FirstOrDefault();
-            creds.RetrievePassword();
-            return await RESTCalls.Login(creds.UserName, creds.Password);
         }
 
         public void SetupEvents()
@@ -325,8 +279,55 @@ namespace Discord_UWP
         #region AppEvents
 
         #region LogIn
-    private void App_LoggingInHandler(object sender, EventArgs e)
+    private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
         {
+            Loading.Show(false);
+            await RESTCalls.SetupToken();
+            if (App.IsMobile)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
+            if (App.LoggedIn() && (App.GatewayCreated))
+            {
+                SetupEvents();
+                GatewayManager.StartGateway();
+
+                try
+                {
+                    bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
+                    switch (bgAccess)
+                    {
+                        case BackgroundAccessStatus.Unspecified:
+                            Console.WriteLine("Unspecified result");
+                            break;
+                        case BackgroundAccessStatus.AlwaysAllowed:
+                            if (RegisterBacgkround() == true)
+                            {
+                                var result = await bgTrigger.RequestAsync();
+                                Console.WriteLine(result.ToString());
+                            }
+                            break;
+                        case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                            if (RegisterBacgkround() == true)
+                            {
+                                var result = await bgTrigger.RequestAsync();
+                                Console.WriteLine(result.ToString());
+                            }
+                            break;
+                        case BackgroundAccessStatus.DeniedBySystemPolicy:
+                            Console.WriteLine("Denied by system policy");
+                            break;
+                        case BackgroundAccessStatus.DeniedByUser:
+                            Console.WriteLine("Denied by user");
+                            break;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+            }
+
             SubFrame.Visibility = Visibility.Collapsed;
             SetupEvents();
             GatewayManager.StartGateway();
@@ -336,7 +337,7 @@ namespace Discord_UWP
         #region LogOut
         private void App_LogOutHandler(object sender, EventArgs e)
         {
-            var creds = Storage.PasswordVault.Retrieve("LogIn", LocalState.CurrentUser.Email);
+            var creds = Storage.PasswordVault.Retrieve("Token", LocalState.CurrentUser.Email);
             Storage.PasswordVault.Remove(creds);
 
             ClearData();

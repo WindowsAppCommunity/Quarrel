@@ -288,4 +288,7 @@
   <data name="RecentMentionsABB.Label" xml:space="preserve">
     <value>Mentions récentes</value>
   </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Code d'authentification</value>
+  </data>
 </root>
