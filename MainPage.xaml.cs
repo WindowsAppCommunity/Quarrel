@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,10 +46,19 @@ namespace Discord_UWP
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
-            //BackButton initialization
+            TransitionCollection collection = new TransitionCollection();
+            NavigationThemeTransition theme = new NavigationThemeTransition();
+            var info = new DrillInNavigationTransitionInfo();
+            theme.DefaultNavigationTransitionInfo = info;
+            collection.Add(theme);
+            SubFrame.ContentTransitions = collection;
+
+            //Setup BackButton
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-            //Set up MessageList infinite scroll
+            //Setup Controller input
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+            //Setup MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
             if (MessageScrollviewer != null)
             {
@@ -505,8 +515,9 @@ namespace Discord_UWP
         {
             if (Storage.Settings.ExpensiveRender)
             {
-                content.Blur(2, 600).Start();
+                content.Blur(2, 300).Start();
             }
+            SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
             SubFrame.Visibility = Visibility.Visible;
             SubFrame.Navigate(page, args);
         }
@@ -520,6 +531,7 @@ namespace Discord_UWP
             {
                 content.Blur(0, 0).Start();
             }
+            SubFrameMask.Fade(0f, 300, 0, 0).Start();
         }
 
         private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
@@ -1214,6 +1226,7 @@ namespace Discord_UWP
                         MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
             }
+         //   await Task.Delay(1500);
             DisableLoadingMessages = false;
         }
         private async void LoadNewerMessages()
@@ -1231,6 +1244,7 @@ namespace Discord_UWP
                 }
                 MessageScrollviewer.ChangeView(0, offset, 1);
             }
+         //   await Task.Delay(1500);
             DisableLoadingMessages = false;
         }
         #endregion
@@ -1590,6 +1604,11 @@ namespace Discord_UWP
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
             messageStacker = sender as ItemsStackPanel;
+        }
+
+        private void WhatsNewClick(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.WhatsNew));
         }
     }
 }

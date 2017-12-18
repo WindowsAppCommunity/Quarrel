@@ -465,4 +465,7 @@
   <data name="File" xml:space="preserve">
     <value>Archivo</value>
   </data>
+  <data name="GotIt.Content" xml:space="preserve">
+    <value>¡Entendido!</value>
+  </data>
 </root>
