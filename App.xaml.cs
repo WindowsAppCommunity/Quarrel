@@ -858,7 +858,7 @@ namespace Discord_UWP
                     // parameter
                     if (IsOnline())
                     {
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        rootFrame.Navigate(typeof(LogScreen), e.Arguments);
                     }
                     else
                     {
