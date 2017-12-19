@@ -769,6 +769,7 @@ namespace Discord_UWP
         public void PopulateMessageArea()
         {
             MessageList.Items.Clear();
+            PinnedMessageList.Items.Clear();
             SendMessage.Visibility = Visibility.Visible;
             if (Page.ActualWidth <= 500)
             {
@@ -915,6 +916,7 @@ namespace Discord_UWP
                     }
                 }
             }
+
             var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
             if (epinnedmessages != null)
             {
