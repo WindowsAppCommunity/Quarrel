@@ -52,10 +52,10 @@ namespace Discord_UWP
                 case 38: return kvp("Han shot first", "@DougTheDog6#5067");
                 case 39: return kvp("Shots fired", "@Gavirlas#9973");
                 case 40: return kvp("$100! $200! $300!", "@DougTheDog6#5067");
-                case 41: return kvp("€100! €200! €300! Cause there're also Europeans in here!", "@ModProg|Roland#6987");
+                case 41: return kvp("€100! €200! €300! Go Yurop!", "@ModProg|Roland#6987");
                 case 42: return kvp("I should charge money for new downloads now...", "@Neel#2970");
                 case 43: return kvp("Aren't you a little short to be a storm trooper?", "@DougTheDog6#5067");
-                case 44: return kvp("Can we stop it with Starwars?");
+                case 44: return kvp("Can we stop it with Star Wars?");
                 case 45: return kvp("No, I am your father", "@ModProg|Roland#6987");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
                 case 47: return kvp("System.out.println(\"Hello World\");", "@ModProg|Roland#6987");
@@ -81,6 +81,9 @@ namespace Discord_UWP
                 case 67: return kvp("FRE SHAVAC ADO");
                 case 68: return kvp("I have the power of God and Anime");
                 case 69: return kvp("I ain't got no sleep");
+                case 80: return kvp("No ketchup, just sauce, raw sauce");
+                case 81: return kvp("Babes, Man's not hot");
+                case 82: return kvp("The ting goes skrrraah");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }

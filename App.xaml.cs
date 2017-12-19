@@ -676,6 +676,7 @@ namespace Discord_UWP
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
+        internal static bool CinematicMode = true;
         internal static bool GatewayCreated = false;
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
@@ -910,35 +911,39 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
-                var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
-                App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
+                if (!App.CinematicMode)
                 {
-                    TintOpacity = 0.6,
-                    //Opacity = 0.6,
-                    TintColor = ChannelColor,
-                    FallbackColor = ChannelColor,
-                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                };
-                var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
-                App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
-                {
-                    TintOpacity = 0.4,
-                    //Opacity = 0.4,
-                    TintColor = GuildColor,
-                    FallbackColor = GuildColor,
-                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                };
-                var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
-                App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
-                {
-                    TintOpacity = 0.7,
-                    //Opacity = 0.7,
-                    TintColor = CommandBarColor,
-                    FallbackColor = CommandBarColor,
-                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                };
+                    var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                    App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
+                    {
+                        TintOpacity = 0.6,
+                        //Opacity = 0.6,
+                        TintColor = ChannelColor,
+                        FallbackColor = ChannelColor,
+                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                    };
+                    var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
+                    App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
+                    {
+                        TintOpacity = 0.4,
+                        //Opacity = 0.4,
+                        TintColor = GuildColor,
+                        FallbackColor = GuildColor,
+                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                    };
+                    var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                    App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
+                    {
+                        TintOpacity = 0.7,
+                        //Opacity = 0.7,
+                        TintColor = CommandBarColor,
+                        FallbackColor = CommandBarColor,
+                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                    };
+                }
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
                 App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
                 {

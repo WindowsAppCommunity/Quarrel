@@ -1187,6 +1187,7 @@
                                             </Button.Content>
                                         </Button>
                                     </ListView.Footer>
+                                    
                                 </ListView>
                             </ScrollViewer>
                             <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}">
@@ -1224,6 +1225,9 @@
                                                                          IsHidden="{Binding Hidden}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
+                                        <ListView.Header>
+                                            <Rectangle x:Name="ChannelListHeader"/>
+                                        </ListView.Header>
                                     </ListView>
                                     <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
                                         <StackPanel Orientation="Horizontal">
@@ -1242,7 +1246,8 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Button Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                            <TextBlock x:Name="CinematicGuildName" Text="Discord UWP" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
+                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
@@ -1326,6 +1331,7 @@
                                 <!--<controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>-->
                             </Grid>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
+                            <TextBlock x:Name="CinematicChannelName" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
                         </Grid>
                     </controls:SideDrawer.ContentMain>
                     <controls:SideDrawer.ContentRight>
@@ -1408,7 +1414,7 @@
             </Grid>
             <StackPanel>
                 <Rectangle x:Name="TitleBarHolder" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
-                <CommandBar Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0">
+                <CommandBar x:Name="cmdBar" Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0">
                     <CommandBar.Content>
                         <StackPanel Orientation="Horizontal">
                             <AppBarButton Click="ToggleSplitView" Width="72" Label="" LabelPosition="Collapsed">
