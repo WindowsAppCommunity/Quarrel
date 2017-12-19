@@ -18,9 +18,28 @@ namespace Discord_UWP
             {
                 sideDrawer.ToggleLeft();
             }
-            if(args.VirtualKey == Windows.System.VirtualKey.GamepadRightTrigger)
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadRightTrigger)
             {
                 sideDrawer.ToggleRight();
+            }
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
+            {
+                MenuHint.Press();
+            }
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadView)
+            {
+                ViewHint.Press();
+            }
+        }
+        private async void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
+        {
+            if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
+            {
+                MenuHint.Release();
+            }
+            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
+            {
+                ViewHint.Release();
             }
         }
     }

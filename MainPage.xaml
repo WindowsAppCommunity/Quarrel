@@ -1300,6 +1300,7 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition/>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None">
@@ -1350,6 +1351,12 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                             <TextBlock x:Name="CinematicChannelName" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
+                            <Grid x:Name="ControllerHints" Visibility="Collapsed"  Grid.Row="3">
+                                <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
+                                    <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu"/>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </controls:SideDrawer.ContentMain>
                     <controls:SideDrawer.ContentRight>
