@@ -914,6 +914,7 @@ namespace Discord_UWP
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
+                var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
                 if (!App.CinematicMode)
                 {
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
@@ -943,8 +944,17 @@ namespace Discord_UWP
                         FallbackColor = CommandBarColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
                     };
+                    var MessageColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
+                    App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
+                    {
+                        TintOpacity = 0.9,
+                        //Opacity = 1,
+                        TintColor = UserBackground,
+                        FallbackColor = UserBackground,
+                        BackgroundSource = AcrylicBackgroundSource.HostBackdrop
+                    };
                 }
-                var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
+                
                 App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.3,
@@ -953,15 +963,7 @@ namespace Discord_UWP
                     FallbackColor = UserBackground,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
                 };
-                var MessageColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
-                App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
-                {
-                    TintOpacity = 0.9,
-                    //Opacity = 1,
-                    TintColor = UserBackground,
-                    FallbackColor = UserBackground,
-                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop
-                };
+
                 var FlyoutColor = ((SolidColorBrush)App.Current.Resources["AcrylicFlyoutBackground"]).Color;
                 App.Current.Resources["AcrylicFlyoutBackground"] = new AcrylicBrush()
                 {
