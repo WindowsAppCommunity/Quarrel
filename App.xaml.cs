@@ -753,6 +753,7 @@ namespace Discord_UWP
                 }
                 catch
                 {
+                    Storage.Settings.lastVerison = 0;
                     Storage.Settings.AutoHideChannels = true;
                     Storage.Settings.AutoHidePeople = false;
                     Storage.Settings.Toasts = false;
@@ -771,6 +772,7 @@ namespace Discord_UWP
             }
             else
             {
+                Storage.Settings.lastVerison = 0;
                 Storage.Settings.AutoHideChannels = true;
                 Storage.Settings.AutoHidePeople = false;
                 Storage.Settings.Toasts = false;

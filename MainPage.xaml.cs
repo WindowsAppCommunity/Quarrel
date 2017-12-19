@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 using Windows.ApplicationModel.Background;
@@ -36,6 +37,20 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
             Setup();
+
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+            
+            if (Storage.Settings.lastVerison == 0)
+            {
+                //OOBE
+            } else if (Storage.Settings.lastVerison != version.Build)
+            {
+                App.NavigateToAbout();
+                Storage.Settings.lastVerison = version.Build;
+                Storage.SaveAppSettings();
+            }
         }
 
         ScrollViewer MessageScrollviewer;
