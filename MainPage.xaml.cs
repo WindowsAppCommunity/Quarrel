@@ -53,6 +53,22 @@ namespace Discord_UWP
             collection.Add(theme);
             SubFrame.ContentTransitions = collection;
 
+            //Setup cinematic mode
+            if (App.CinematicMode)
+            {
+                cmdBar.Visibility = Visibility.Collapsed;
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+                userButton.Padding = new Thickness(0, 0, 0, 48);
+                userButton.Height = 112;
+                ServerList.Padding = new Thickness(0, 84, 0, 48);
+                ChannelList.Padding = new Thickness(0, 84, 0, 48);
+                CinematicChannelName.Visibility = Visibility.Visible;
+                CinematicGuildName.Visibility = Visibility.Visible;
+                friendPanel.Margin = new Thickness(0, 84, 0, 0);
+                MessageList.Padding = new Thickness(0, 84, 0, 0);
+                MessageArea.Margin = new Thickness(0);
+            }
+
             //Setup BackButton
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
@@ -135,7 +151,7 @@ namespace Discord_UWP
             App.NavigateToGuildChannelHandler += App_NavigateToGuildChannelHandler;
             App.NavigateToDMChannelHandler += App_NavigateToDMChannelHandler;
             //SubPages
-            App.SubpageClosedHandler += App_SubpageClosedHandler; ;
+            App.SubpageClosedHandler += App_SubpageClosedHandler;
             App.NavigateToBugReportHandler += App_NavigateToBugReportHandler;
             App.NavigateToChannelEditHandler += App_NavigateToChannelEditHandler;
             App.NavigateToCreateBanHandler += App_NavigateToCreateBanHandler;
@@ -292,6 +308,7 @@ namespace Discord_UWP
     private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
         {
             Loading.Show(false);
+            SubFrameMask.Opacity = 0;
             await RESTCalls.SetupToken();
             if (App.IsMobile)
             {

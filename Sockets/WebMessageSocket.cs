@@ -39,7 +39,11 @@ namespace Discord_UWP.Sockets
 
         public async Task ConnectAsync(string connectionUrl)
         {
-            await _socket.ConnectAsync(new Uri(connectionUrl));
+            try
+            {
+                await _socket.ConnectAsync(new Uri(connectionUrl));
+            }
+            catch { }
         }
 
         public async Task SendMessageAsync(string message)

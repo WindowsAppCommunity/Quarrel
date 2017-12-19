@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Credentials;
@@ -39,7 +40,13 @@ namespace Discord_UWP
             if(NormalAuth.Visibility == Visibility.Visible)
             {
                 //NORMAL AUTHENTICATION
-                var result = await RESTCalls.Login(Username.Text, Password.Password);
+                API.Login.Models.LoginResult result = new API.Login.Models.LoginResult();
+                var username = Username.Text;
+                var password = Password.Password;
+                await Task.Run(async () =>
+                {
+                    result = await RESTCalls.Login(username, password);
+                });
                 if (result.exception != null)
                 {
                     string ermsg = "";
@@ -82,7 +89,12 @@ namespace Discord_UWP
             else if(MFAuth.Visibility == Visibility.Visible)
             {
                 //2FA AUTHENTICATION
-                var result = await RESTCalls.LoginMFA(MFAPassword.Password, mfaTicket);
+                API.Login.Models.LoginResult result = new API.Login.Models.LoginResult();
+                var mfapass = MFAPassword.Password;
+                await Task.Run(async () =>
+                {
+                    result = await RESTCalls.LoginMFA(mfapass, mfaTicket);
+                });
                 if (result.exception != null)
                 {
                     string ermsg = "";
@@ -114,6 +126,7 @@ namespace Discord_UWP
             ProgressRing.Visibility = Visibility.Collapsed;
             ProgressRing.IsActive = false;
             LoginText.Visibility = Visibility.Visible;
+            
         }
 
         private async void Register(object sender, RoutedEventArgs e)

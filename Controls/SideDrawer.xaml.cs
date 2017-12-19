@@ -65,6 +65,19 @@ namespace Discord_UWP.Controls
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
             var state = VisualStateGroup.CurrentState;
             VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = Small });
+
+            if (App.CinematicMode)
+            {
+                SmallTrigger.MinWindowWidth = 0;
+                MediumTrigger.MinWindowWidth = 0;
+                LargeTrigger.MinWindowWidth = 0;
+                ExtraLargeTrigger.MinWindowWidth = 1;
+                maingrid.Margin = new Thickness(54, 0, 54, 0);
+                leftPanel.Margin = new Thickness(-54, 0, 0, 0);
+                leftPanel.Padding = new Thickness(54, 0, 0, 0);
+                rightSide.Margin = new Thickness(0, 0, 54, 0);
+                rightSide.Padding = new Thickness(0, 0, -54, 0);
+            }
         }
 
         //private InteractionTrackerInertiaModifier[] inertiaModifiers;
@@ -323,6 +336,7 @@ namespace Discord_UWP.Controls
         {
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
             compositor = rootVisual.Compositor;
+
         }
 
         //bool animout = false;

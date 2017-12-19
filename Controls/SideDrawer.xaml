@@ -35,7 +35,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="leftSide" HorizontalAlignment="Left">
-            <Grid x:Name="leftPanel"  Background="{ThemeResource AcrylicGuildPaneBackground}">
+            <Grid x:Name="leftPanel" Background="{ThemeResource AcrylicGuildPaneBackground}">
                 <ContentControl x:Name="contentLeft1" Width="72" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftPanelCache" Fill="Black"/>
             </Grid>

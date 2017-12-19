@@ -321,7 +321,7 @@
                     <PasswordBox x:Uid="PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
-                    <TextBlock x:Uid="EmailTBox" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="0,6,0,0"/>
+                    <TextBlock x:Uid="EmailTBox" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="12,6,0,0"/>
                     <PasswordBox x:Uid="MFAPasswordTBox" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
                 </StackPanel>
             </Grid>
