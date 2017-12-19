@@ -19,6 +19,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Composition;
+using Windows.UI;
+using Windows.UI.Xaml.Hosting;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -67,6 +70,8 @@ namespace Discord_UWP
                 friendPanel.Margin = new Thickness(0, 84, 0, 0);
                 MessageList.Padding = new Thickness(0, 84, 0, 0);
                 MessageArea.Margin = new Thickness(0);
+                CinematicMask1.Visibility = Visibility.Visible;
+                CinematicMask2.Visibility = Visibility.Visible;
             }
 
             //Setup BackButton
