@@ -72,6 +72,7 @@ namespace Discord_UWP
                 MessageArea.Margin = new Thickness(0);
                 CinematicMask1.Visibility = Visibility.Visible;
                 CinematicMask2.Visibility = Visibility.Visible;
+                ControllerHints.Visibility = Visibility.Visible;
             }
 
             //Setup BackButton
@@ -79,6 +80,7 @@ namespace Discord_UWP
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
             //Setup Controller input
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+            Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             //Setup MessageList infinite scroll
             MessageScrollviewer = Common.GetScrollViewer(MessageList);
             if (MessageScrollviewer != null)
