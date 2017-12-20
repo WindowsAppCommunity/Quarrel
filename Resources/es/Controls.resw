@@ -243,4 +243,10 @@
   <data name="Unpin" xml:space="preserve">
     <value>Liberar</value>
   </data>
+  <data name="CallStartedBy" xml:space="preserve">
+    <value>TBD</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>TBD</value>
+  </data>
 </root>
