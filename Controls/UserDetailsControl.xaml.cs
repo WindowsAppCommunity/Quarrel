@@ -20,6 +20,9 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using System.Threading.Tasks;
 
 namespace Discord_UWP.Controls
 {
@@ -117,7 +120,6 @@ namespace Discord_UWP.Controls
                     RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
-                //TODO: Note functionality and hook it up to the NoteChanged events
                 //TODO: DM Functionality
                 //TODO: Live status+playing indicator
                 //TODO: 
@@ -128,6 +130,16 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             SendDM.Send += SendDirectMessage;
+            GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+        }
+
+        private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        Note.Text = e.EventData.Note;
+                    });
         }
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)
@@ -194,6 +206,14 @@ namespace Discord_UWP.Controls
         {
             ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             App.NavigateToProfile(DisplayedMember.User);
+        }
+
+        private async void Note_LostFocus(object sender, RoutedEventArgs e)
+        {
+            await Task.Run(async () =>
+            {
+                await RESTCalls.AddNote(DisplayedMember.User.Id, Note.Text);
+            });
         }
     }
 }

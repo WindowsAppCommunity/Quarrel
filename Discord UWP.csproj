@@ -225,6 +225,7 @@
     <Compile Include="Managers\MemberManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
     <Compile Include="Managers\NotifcationManager.cs" />
+    <Compile Include="Managers\UserActivityManager.cs" />
     <Compile Include="Managers\VoiceManager.cs" />
     <Compile Include="Offline.xaml.cs">
       <DependentUpon>Offline.xaml</DependentUpon>
