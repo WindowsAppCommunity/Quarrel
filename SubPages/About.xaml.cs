@@ -2,6 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,6 +17,16 @@ namespace Discord_UWP.SubPages
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if ((bool)e.Parameter)
+            {
+                Grid.SetRow(Header, 2);
+            }
         }
 
         private void App_SubpageCloseHandler(object sender, EventArgs e)

@@ -364,10 +364,10 @@ namespace Discord_UWP
         #endregion
 
         #region About
-        public static event EventHandler NavigateToAboutHandler;
-        public static void NavigateToAbout()
+        public static event EventHandler<bool> NavigateToAboutHandler;
+        public static void NavigateToAbout(bool changelist = false)
         {
-            NavigateToAboutHandler?.Invoke(typeof(App), null);
+            NavigateToAboutHandler?.Invoke(typeof(App), changelist);
         }
         #endregion
 
@@ -676,7 +676,7 @@ namespace Discord_UWP
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal static bool CinematicMode = true;
+        internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
