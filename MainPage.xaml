@@ -1164,7 +1164,7 @@
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" IsItemClickEnabled="True">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 
