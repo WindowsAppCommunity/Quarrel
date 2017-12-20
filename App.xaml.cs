@@ -676,7 +676,7 @@ namespace Discord_UWP
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal static bool CinematicMode = true;
+        internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
@@ -743,6 +743,7 @@ namespace Discord_UWP
 
         private void LoadSettings()
         {
+
             if (Storage.SavedSettings.Containers.ContainsKey("settings"))
             {
                 try
@@ -911,6 +912,7 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1280, 720));
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
@@ -985,6 +987,8 @@ namespace Discord_UWP
                 };
             }
 
+            //Remove the TV-Safe area on xbox:
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
 
             if (Storage.Settings.AccentBrush)
             {
