@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 using Windows.ApplicationModel.Background;
@@ -36,6 +37,22 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
             Setup();
+
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+            
+            if (Storage.Settings.lastVerison == 0)
+            {
+                Storage.Settings.lastVerison = version.Build;
+                Storage.SaveAppSettings();
+                App.NavigateToAbout();
+            } else if (Storage.Settings.lastVerison != version.Build)
+            {
+                Storage.Settings.lastVerison = version.Build;
+                Storage.SaveAppSettings();
+                App.NavigateToAbout(true);
+            }
         }
 
         ScrollViewer MessageScrollviewer;
@@ -622,9 +639,15 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.Settings));
         }
-        private void App_NavigateToAboutHandler(object sender, EventArgs e)
+        private void App_NavigateToAboutHandler(object sender, bool e)
         {
-            SubFrameNavigator(typeof(SubPages.About));
+            if (!e)
+            {
+                SubFrameNavigator(typeof(SubPages.About));
+            } else
+            {
+                SubFrameNavigator(typeof(SubPages.WhatsNew));
+            }
         }
         private void App_NavigateToAddServerHandler(object sender, EventArgs e)
         {
@@ -1638,7 +1661,7 @@ namespace Discord_UWP
 
         private void WhatsNewClick(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.WhatsNew));
+            App.NavigateToAbout(true);
         }
     }
 }
