@@ -364,10 +364,10 @@ namespace Discord_UWP
         #endregion
 
         #region About
-        public static event EventHandler NavigateToAboutHandler;
-        public static void NavigateToAbout()
+        public static event EventHandler<bool> NavigateToAboutHandler;
+        public static void NavigateToAbout(bool changelist = false)
         {
-            NavigateToAboutHandler?.Invoke(typeof(App), null);
+            NavigateToAboutHandler?.Invoke(typeof(App), changelist);
         }
         #endregion
 
@@ -754,6 +754,7 @@ namespace Discord_UWP
                 }
                 catch
                 {
+                    Storage.Settings.lastVerison = 0;
                     Storage.Settings.AutoHideChannels = true;
                     Storage.Settings.AutoHidePeople = false;
                     Storage.Settings.Toasts = false;
@@ -772,6 +773,7 @@ namespace Discord_UWP
             }
             else
             {
+                Storage.Settings.lastVerison = 0;
                 Storage.Settings.AutoHideChannels = true;
                 Storage.Settings.AutoHidePeople = false;
                 Storage.Settings.Toasts = false;
