@@ -276,4 +276,10 @@
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>a épinglé un message dans ce salon.</value>
   </data>
+  <data name="CallStartedBy" xml:space="preserve">
+    <value>TBD</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>TBD</value>
+  </data>
 </root>

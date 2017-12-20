@@ -162,7 +162,11 @@ namespace Discord_UWP.Controls
                     VisualStateManager.GoToState(this, "Alternative", false);
                     AlternativeIcon.Glyph = "";
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
-                    content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
+                    //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
+                    if (Message.Value.User.Id == LocalState.CurrentUser.Id)
+                        content.Text = "**You** " + App.GetString("/Controls/StartedACall");
+                    else
+                        content.Text = App.GetString("/Controls/CallStartedBy") + " **" + Message.Value.User.Username + "**";
                 }
                 else if (MessageType == MessageTypes.PinnedMessage)
                 {

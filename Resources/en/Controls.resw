@@ -276,4 +276,10 @@
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>pinned a message in this channel.</value>
   </data>
+  <data name="CallStartedBy" xml:space="preserve">
+    <value>Call started by</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>started a call</value>
+  </data>
 </root>
