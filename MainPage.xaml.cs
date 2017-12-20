@@ -633,9 +633,9 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.Settings));
         }
-        private void App_NavigateToAboutHandler(object sender, EventArgs e)
+        private void App_NavigateToAboutHandler(object sender, bool e)
         {
-            SubFrameNavigator(typeof(SubPages.About));
+            SubFrameNavigator(typeof(SubPages.About), e);
         }
         private void App_NavigateToAddServerHandler(object sender, EventArgs e)
         {
