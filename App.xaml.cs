@@ -743,6 +743,7 @@ namespace Discord_UWP
 
         private void LoadSettings()
         {
+
             if (Storage.SavedSettings.Containers.ContainsKey("settings"))
             {
                 try
@@ -913,6 +914,7 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(1280, 720));
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
@@ -987,6 +989,8 @@ namespace Discord_UWP
                 };
             }
 
+            //Remove the TV-Safe area on xbox:
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
 
             if (Storage.Settings.AccentBrush)
             {

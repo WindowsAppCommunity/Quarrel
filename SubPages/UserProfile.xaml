@@ -88,7 +88,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="0,-24,0,0" Padding="24,0" Background="{ThemeResource DarkBG}">
+                    <Grid Margin="0,-24,0,0" Padding="24,0" MaxHeight="240" Background="{ThemeResource DarkBG}">
                         <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
                             <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
                         </Grid>
@@ -102,6 +102,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock x:Name="username" Text="" FontSize="20"/>
                                     <TextBlock x:Name="discriminator" Text="" FontSize="20" Opacity="0.4" VerticalAlignment="Bottom" Margin="4,0,0,0"/>
+                                    <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="0" Padding="12,6" CornerRadius="2" Visibility="Collapsed">
+                                        <TextBlock x:Uid="BotTB" Text="BOT" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    </Border>
                                 </StackPanel>
                                 <StackPanel x:Name="BadgePanel" HorizontalAlignment="Left">
 
@@ -114,7 +117,7 @@
                         </StackPanel>
                     </Grid>
                     
-                    <ListView Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="-24,24,-24,0" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
+                    <ListView x:Name="pivotHeaders" Grid.ColumnSpan="2" SelectedIndex="{Binding SelectedIndex, ElementName=pivot, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Margin="-24,24,-24,0" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsStackPanel Orientation="Horizontal"/>
