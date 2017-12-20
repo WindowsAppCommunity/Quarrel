@@ -19,15 +19,15 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedTo(e);
 
-            if ((bool)e.Parameter)
-            {
-                Grid.SetRow(Header, 2);
-            }
-        }
+        //    if ((bool)e.Parameter)
+        //    {
+        //        Grid.SetRow(Header, 2);
+        //    }
+        //}
 
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {

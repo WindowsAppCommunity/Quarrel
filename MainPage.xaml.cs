@@ -44,12 +44,14 @@ namespace Discord_UWP
             
             if (Storage.Settings.lastVerison == 0)
             {
-                //OOBE
-            } else if (Storage.Settings.lastVerison != version.Build)
-            {
-                App.NavigateToAbout();
                 Storage.Settings.lastVerison = version.Build;
                 Storage.SaveAppSettings();
+                App.NavigateToAbout();
+            } else if (Storage.Settings.lastVerison != version.Build)
+            {
+                Storage.Settings.lastVerison = version.Build;
+                Storage.SaveAppSettings();
+                App.NavigateToAbout(true);
             }
         }
 
@@ -635,7 +637,13 @@ namespace Discord_UWP
         }
         private void App_NavigateToAboutHandler(object sender, bool e)
         {
-            SubFrameNavigator(typeof(SubPages.About), e);
+            if (!e)
+            {
+                SubFrameNavigator(typeof(SubPages.About));
+            } else
+            {
+                SubFrameNavigator(typeof(SubPages.WhatsNew));
+            }
         }
         private void App_NavigateToAddServerHandler(object sender, EventArgs e)
         {
@@ -1649,7 +1657,7 @@ namespace Discord_UWP
 
         private void WhatsNewClick(object sender, RoutedEventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.WhatsNew));
+            App.NavigateToAbout(true);
         }
     }
 }

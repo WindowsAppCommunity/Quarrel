@@ -136,7 +136,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         
-                        <StackPanel x:Name="Header" Padding="0" Margin="12,0,0,0">
+                        <!--<StackPanel x:Name="Header" Padding="0" Margin="12,0,0,0">
                             <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                             <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
                                 <Paragraph>
@@ -174,10 +174,10 @@
                             <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
                             <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                             <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
-                        </StackPanel>
+                        </StackPanel>-->
                         
                         <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,-24,0" Padding="-12,0,24,0">
-                            <!--<ListView.Header>
+                            <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
                                     <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                                     <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
@@ -217,7 +217,7 @@
                                     <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
                                 </StackPanel>
-                            </ListView.Header>-->
+                            </ListView.Header>
                             <ListViewHeaderItem Content="VERSION 6.3.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fluent Design UI Rework" TextWrapping="Wrap"/>
