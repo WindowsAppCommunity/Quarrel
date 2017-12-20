@@ -227,7 +227,29 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
+
+            //Auto selects
+            App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
+        }
+
+        private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
+        {
+            string guild = e.GuildId;
+            string channel = e.ChannelId;
+            foreach(GuildManager.SimpleGuild g in ServerList.Items)
+            {
+                if (g.Id == guild)
+                    ServerList.SelectedItem = g;
+            }
+            if(channel != null)
+            {
+                foreach(ChannelManager.SimpleChannel c in ChannelList.Items)
+                {
+                    if (c.Id == e.ChannelId)
+                        ChannelList.SelectedItem = c;
+                }
+            }
         }
 
         public void ClearData()
@@ -550,6 +572,7 @@ namespace Discord_UWP
                 }
             }
         }
+
         #endregion
 
         #region SubPages
@@ -1305,13 +1328,23 @@ namespace Discord_UWP
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 () =>
+                 async () =>
                  {
                      RenderCurrentUser();
                      RenderGuilds();
                      ServerList.SelectedIndex = 0;
                      friendPanel.Load();
                      App.UpdateUnreadIndicators();
+                     App.FullyLoaded = true;
+                     if (App.PostLoadTask != null)
+                     {
+                         switch (App.PostLoadTask)
+                         {
+                             case "SelectGuildChannelTask":
+                                 App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
+                                 break;
+                         }
+                     }
                      Loading.Hide(true);
                  });
         }

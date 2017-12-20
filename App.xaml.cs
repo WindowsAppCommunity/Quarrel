@@ -53,7 +53,12 @@ namespace Discord_UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
-
+        
+        /// <summary>
+        /// This is a task that is executed after the gateway is loaded, and so the app fully loaded and ready to go
+        /// </summary>
+        public static EventArgs PostLoadTaskArgs;
+        public static string PostLoadTask;
         #region Publics
         #region Events
 
@@ -132,6 +137,7 @@ namespace Discord_UWP
         {
             NavigateToGuildHandler?.Invoke(typeof(App), new GuildNavigationArgs() { GuildId = guildId });
         }
+
         #endregion
 
         #region GuildChannel
@@ -145,9 +151,10 @@ namespace Discord_UWP
         }
 
         public static event EventHandler<GuildChannelNavigationArgs> NavigateToGuildChannelHandler;
-        public static void NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false, bool onBack = false)
+        public static Task NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false, bool onBack = false)
         {
             NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send, OnBack = onBack });
+            return null;
         }
         #endregion
 
@@ -620,6 +627,30 @@ namespace Discord_UWP
 
         #endregion
 
+        #region AutoSelects
+        public class GuildChannelSelectArgs : EventArgs
+        {
+            public string GuildId { get; set; }
+            public string ChannelId { get; set; }
+        }
+        public static event EventHandler<GuildChannelSelectArgs> SelectGuildChannelHandler;
+        public static void SelectGuildChannel(string guildId, string channelId)
+        {
+            if (!App.FullyLoaded)
+            {
+                PostLoadTask = "SelectGuildChannelTask";
+                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId };
+            }
+
+            SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId });
+        }
+        public static Task SelectGuildChannelTask(string guildId, string channelId)
+        {
+            SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId });
+            return null;
+        }
+        #endregion
+        
         #region Other
 
         #region Attachment
@@ -678,6 +709,7 @@ namespace Discord_UWP
         internal static bool ShowAds = true;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
+        internal static bool FullyLoaded = false;
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
 
@@ -831,6 +863,11 @@ namespace Discord_UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            LaunchProcedure(e.SplashScreen, e.PreviousExecutionState, e.PrelaunchActivated, e.Arguments);
+            
+        }
+        private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
+        {
             var licenseInformation = CurrentApp.LicenseInformation;
             if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
             {
@@ -842,7 +879,7 @@ namespace Discord_UWP
             SetupTitleBar();
             InitializeResources();
 
-            Splash = e.SplashScreen;
+            Splash = splash;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -853,7 +890,7 @@ namespace Discord_UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
@@ -862,7 +899,7 @@ namespace Discord_UWP
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
@@ -871,11 +908,11 @@ namespace Discord_UWP
                     // parameter
                     if (IsOnline())
                     {
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        rootFrame.Navigate(typeof(MainPage), Arguments);
                     }
                     else
                     {
-                        rootFrame.Navigate(typeof(Offline), e.Arguments);
+                        rootFrame.Navigate(typeof(Offline), Arguments);
                     }
                 }
 
@@ -887,7 +924,33 @@ namespace Discord_UWP
                 Window.Current.CoreWindow.Activated += WindowFocusChanged;
             }
         }
+        /// <summary>
+        /// Invoked when the application is not launche normally by the end user
+        /// </summary>
+        /// <param name="args">Detais about the activation event</param>
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                //If the app isn't already open, do so
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
 
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
+                var count = segments.Count();
+                if (count > 0)
+                {
+                    if(segments[0] == "guild")
+                    {
+                        if (count == 3)
+                            App.SelectGuildChannel(segments[1], segments[2]);
+                        else if(count == 2)
+                            App.SelectGuildChannel(segments[1], null);
+                    }
+                };
+            }
+        }
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>
