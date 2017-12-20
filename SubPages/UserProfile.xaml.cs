@@ -50,16 +50,25 @@ namespace Discord_UWP.SubPages
         }
 
         private SharedModels.UserProfile profile;
+        bool IsBot = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            if (!(e.Parameter is string))
+            if (e.Parameter is User)
+            {
+                profile = new SharedModels.UserProfile();
+                profile.User = (User)e.Parameter;
+            }
+            else if(e.Parameter is string)
+            {
+                profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+            }
+            else
             {
                 CloseButton_Click(null, null);
                 return;
             }
-            profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
             if (LocalState.Friends.ContainsKey(profile.User.Id))
             {
                 profile.Friend = LocalState.Friends[profile.User.Id];
@@ -77,12 +86,15 @@ namespace Discord_UWP.SubPages
             if (profile.Friend.HasValue)
             {
                 SwitchFriendValues(profile.Friend.Value.Type);
-            } else if (profile.User.Id == LocalState.CurrentUser.Id)
+            }
+            else if (profile.User.Id == LocalState.CurrentUser.Id) { }
+            else if (profile.User.Bot)
             {
-
-            } else
+                SendMessageLink.Visibility = Visibility.Visible;
+                Block.Visibility = Visibility.Visible;
+            }
+            else
             {
-                //None
                 sendFriendRequest.Visibility = Visibility.Visible;
                 SendMessageLink.Visibility = Visibility.Visible;
                 Block.Visibility = Visibility.Visible;
@@ -209,6 +221,14 @@ namespace Discord_UWP.SubPages
                 var image = new BitmapImage(new Uri("ms-appx:///Assets/DiscordIcon.png"));
                 AvatarFull.ImageSource = image;
                 AvatarBlurred.Source = image;
+            }
+
+            if (profile.User.Bot)
+            {
+                CommonSrvspivot.Visibility = Visibility.Collapsed;
+                CommonFrdspivot.Visibility = Visibility.Collapsed;
+                pivotHeaders.Visibility = Visibility.Collapsed;
+                BotIndicator.Visibility = Visibility.Visible;
             }
         }
 
