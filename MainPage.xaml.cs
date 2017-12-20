@@ -767,7 +767,15 @@ namespace Discord_UWP
         private async void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
         {
             //Assumes you muted it from active guild
-            LocalState.GuildSettings[App.CurrentGuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(App.CurrentGuildId, new SharedModels.GuildSetting() { ChannelOverrides = new List<SharedModels.ChannelOverride> { new ChannelOverride() { Channel_Id = e.ChannelId, Muted = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId) ? !(LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId].Muted) : true } } }));
+            var returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId, new SharedModels.GuildSetting() { ChannelOverrides = new List<SharedModels.ChannelOverride> { new ChannelOverride() { Channel_Id = e.ChannelId, Muted = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId) ? !(LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId].Muted) : true } } });
+
+            foreach (var chn in returned.ChannelOverrides)
+            {
+                if (chn.Channel_Id == e.ChannelId)
+                {
+                    LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId] = chn;
+                }
+            }
             App.UpdateUnreadIndicators();
         }
 
