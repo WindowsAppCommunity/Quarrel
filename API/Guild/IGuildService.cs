@@ -30,7 +30,7 @@ namespace Discord_UWP.API.Guild
         Task<GuildChannel> CreateGuildChannel([AliasAs("guildId")] string guildId, [Body] CreateGuildChannel createGuildChannel);
 
         [Post("/guilds/{guildId}/ack")]
-        Task<GuildChannel> AckGuild([AliasAs("guildId")] string guildId);
+        Task AckGuild([AliasAs("guildId")] string guildId);
 
         [Patch("/guilds/{guildId}/channels")]
         Task<IEnumerable<GuildChannel>> ModifyGuildChannel([AliasAs("guildId")] string guildId, [Body] ModifyGuildChannel modifyGuildChannel);

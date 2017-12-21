@@ -501,18 +501,17 @@ namespace Discord_UWP
         #endregion
 
         #region Set
-        public static async Task<SharedModels.GuildChannel> AckGuild(string guildId)
+        public static async Task AckGuild(string guildId)
         {
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                return await guildservice.AckGuild(guildId);
+                await guildservice.AckGuild(guildId);
             }
             catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
-            return new SharedModels.GuildChannel();
         }
 
         public static async Task<Role> ModifyGuildRole(string guildId, string roleId, ModifyGuildRole newRole)
