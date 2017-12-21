@@ -277,9 +277,12 @@
     <value>a épinglé un message dans ce salon.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>TBD</value>
+    <value>Appel commencé par</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>TBD</value>
+    <value>commencé un appel</value>
+  </data>
+  <data name="You" xml:space="preserve">
+    <value>Vous avez</value>
   </data>
 </root>

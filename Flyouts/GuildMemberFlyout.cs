@@ -197,7 +197,7 @@ namespace Discord_UWP.Flyouts
             {
                 MenuFlyoutItem banMember = new MenuFlyoutItem()
                 {
-                    Text = "Ban Member", //TODO: Translate
+                    Text = App.GetString("/Flyouts/BanMember"), //TODO: Translate
                     Tag = member.User.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.BlockContact)

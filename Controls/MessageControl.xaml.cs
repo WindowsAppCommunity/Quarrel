@@ -164,7 +164,7 @@ namespace Discord_UWP.Controls
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                     //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
                     if (Message.Value.User.Id == LocalState.CurrentUser.Id)
-                        content.Text = "**You** " + App.GetString("/Controls/StartedACall");
+                        content.Text = App.GetString("/Controls/You") + " " + App.GetString("/Controls/StartedACall");
                     else
                         content.Text = App.GetString("/Controls/CallStartedBy") + " **" + Message.Value.User.Username + "**";
                 }
