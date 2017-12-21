@@ -1554,7 +1554,12 @@ namespace Discord_UWP
         {
             if (ServerList.SelectedItem != null)
             {
-                App.NavigateToGuild((ServerList.SelectedItem as GuildManager.SimpleGuild).Id);
+                var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
+                App.NavigateToGuild(guildid);
+                Task.Run(async () =>
+                {
+                    await UserActivityManager.SwitchSession(guildid);
+                }); 
             }
         }
 
@@ -1604,7 +1609,12 @@ namespace Discord_UWP
                             sideDrawer.CloseLeft();
                             if (App.CurrentGuildIsDM)
                             {
-                                App.NavigateToDMChannel((ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                                var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
+                                App.NavigateToDMChannel(cid);
+                                Task.Run(async () =>
+                                {
+                                    await UserActivityManager.SwitchSession(cid);
+                                });
                             }
                             else
                             {
@@ -1649,7 +1659,24 @@ namespace Discord_UWP
         private void CreateMessage(object sender, RoutedEventArgs e)
         {
             App.CreateMessage(App.CurrentChannelId, MessageBox1.Text);
+            
             MessageBox1.Text = "";
+
+
+            //Add a user activity for this channel:
+            var guild = ServerList.SelectedItem as GuildManager.SimpleGuild;
+            var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;      
+            Task.Run(async ()=>{
+                if (App.CurrentGuildIsDM)
+                {
+                    await UserActivityManager.GenerateActivityAsync("DMs", channel.Name, channel.ImageURL, channel.Id,"");
+                }
+                else
+                {
+                    await UserActivityManager.GenerateActivityAsync(guild.Id, guild.Name, guild.ImageURL, channel.Id, "#"+channel.Name);
+                }
+            });
+            
         }
 
         private void TypingStarted(object sender, TextChangedEventArgs e)
