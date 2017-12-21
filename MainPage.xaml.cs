@@ -203,6 +203,7 @@ namespace Discord_UWP
             App.LinkClicked += App_LinkClicked;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
+            typingCooldown.Tick += TypingCooldown_Tick;
             App.StartTypingHandler += App_StartTypingHandler;
             App.AddFriendHandler += App_AddFriendHandler;
             App.BlockUserHandler += App_BlockUserHandler;
@@ -232,6 +233,8 @@ namespace Discord_UWP
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
         }
+
+
 
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
@@ -751,9 +754,22 @@ namespace Discord_UWP
             await RESTCalls.CreateMessage(e.ChannelId, e.Message);
         }
 
+        //The typing cooldown disables the trigger typing event from being fired if it was already triggered less than 5 seconds ago
+        //This is to avoid 429 errors (too many requests) because otherwise it would fire on every letter
+        //This also improves performance
+        DispatcherTimer typingCooldown = new DispatcherTimer() { Interval=TimeSpan.FromSeconds(5) };
+        private void TypingCooldown_Tick(object sender, object e)
+        {
+            typingCooldown.Stop();
+        }
         private async void App_StartTypingHandler(object sender, App.StartTypingArgs e)
         {
-            await RESTCalls.TriggerTypingIndicator(e.ChannelId);
+            if (!typingCooldown.IsEnabled)
+            {
+                await RESTCalls.TriggerTypingIndicator(e.ChannelId);
+                typingCooldown.Start();
+            }
+            
         }
 
         private void App_AddFriendHandler(object sender, App.AddFriendArgs e)
@@ -1423,6 +1439,7 @@ namespace Discord_UWP
                      (x as MessageManager.MessageContainer).Message.Value.Id == e.Message.Id) != null)
                      {
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+
                          if (e.Message.TTS)
                          {
                              MediaElement mediaplayer = new MediaElement();
