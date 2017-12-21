@@ -243,10 +243,19 @@
   <data name="Unpin" xml:space="preserve">
     <value>Liberar</value>
   </data>
-  <data name="CallStartedBy" xml:space="preserve">
-    <value>TBD</value>
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
+    <value>¿Aceptar solicitud de amistad?</value>
   </data>
-  <data name="StartedACall" xml:space="preserve">
-    <value>TBD</value>
+  <data name="RemoveFromFriends.Text" xml:space="preserve">
+    <value>Quitar de los amigos</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
+  <data name="Call.Text" xml:space="preserve">
+    <value>Llamada</value>
+  </data>
+  <data name="FriendsLI.Content" xml:space="preserve">
+    <value>AMIGOS</value>
   </data>
 </root>

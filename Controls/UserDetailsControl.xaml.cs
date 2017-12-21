@@ -138,6 +138,7 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
+                        if(e.EventData.UserId == DisplayedMember.User.Id)
                         Note.Text = e.EventData.Note;
                     });
         }
@@ -210,9 +211,11 @@ namespace Discord_UWP.Controls
 
         private async void Note_LostFocus(object sender, RoutedEventArgs e)
         {
+            var userid = DisplayedMember.User.Id;
+            var note = Note.Text;
             await Task.Run(async () =>
             {
-                await RESTCalls.AddNote(DisplayedMember.User.Id, Note.Text);
+                await RESTCalls.AddNote(userid, note);
             });
         }
     }

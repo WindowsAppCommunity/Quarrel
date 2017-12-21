@@ -282,4 +282,7 @@
   <data name="StartedACall" xml:space="preserve">
     <value>started a call</value>
   </data>
+  <data name="You" xml:space="preserve">
+    <value>You</value>
+  </data>
 </root>
