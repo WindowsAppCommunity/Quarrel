@@ -1581,6 +1581,8 @@ namespace Discord_UWP
             {
                 var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
                 App.NavigateToGuild(guildid);
+               
+                sideDrawer.OpenLeft();
                 Task.Run(async () =>
                 {
                     await UserActivityManager.SwitchSession(guildid);
