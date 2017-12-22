@@ -11,7 +11,7 @@ namespace Discord_UWP
         public static KeyValuePair<string,string> GetMessage()
         {
             Random rand = new Random();
-            switch (rand.Next(0, 69))
+            switch (rand.Next(0, 82))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
