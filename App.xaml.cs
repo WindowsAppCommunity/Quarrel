@@ -59,6 +59,7 @@ namespace Discord_UWP
         /// </summary>
         public static EventArgs PostLoadTaskArgs;
         public static string PostLoadTask;
+
         #region Publics
         #region Events
 
@@ -413,17 +414,6 @@ namespace Discord_UWP
             TypingHandler?.Invoke(typeof(App), new TypingArgs() { UserId = userId, Typing = typing, ChnId = chnId });
         }
 
-        public class PresenceUpdatedArgs
-        {
-            public string UserId;
-            public SharedModels.Presence Presence;
-        }
-        public static event EventHandler<PresenceUpdatedArgs> PresenceUpdatedHandler;
-        public static void PresenceUpdated(string userId, SharedModels.Presence presence)
-        {
-            PresenceUpdatedHandler?.Invoke(typeof(App), new PresenceUpdatedArgs() { UserId = userId, Presence = presence });
-        }
-
         #region Messages
         public class MessageCreatedArgs
         {
@@ -500,6 +490,26 @@ namespace Discord_UWP
             GuildDeletedHandler?.Invoke(typeof(App), new GuildDeletedArgs() { GuildId = guildId });
         }
         #endregion
+
+        #region Members
+        public class PresenceUpdatedArgs
+        {
+            public string UserId;
+            public SharedModels.Presence Presence;
+        }
+        public static event EventHandler<PresenceUpdatedArgs> PresenceUpdatedHandler;
+        public static void PresenceUpdated(string userId, SharedModels.Presence presence)
+        {
+            PresenceUpdatedHandler?.Invoke(typeof(App), new PresenceUpdatedArgs() { UserId = userId, Presence = presence });
+        }
+
+        public static event EventHandler MembersUpdatedHandler;
+        public static void MembersUpdated()
+        {
+            MembersUpdatedHandler?.Invoke(typeof(App), null);
+        }
+        #endregion
+
         #endregion
 
         #region API

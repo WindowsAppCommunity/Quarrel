@@ -123,7 +123,7 @@ namespace Discord_UWP.Controls
 
         string PureText = "";
         int selectionstart = 0;
-        bool EnableChanges = true;
+        //bool EnableChanges = true;
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -223,14 +223,14 @@ namespace Discord_UWP.Controls
 
         private void SelectSuggestion(string suggestion)
         {
-            EnableChanges = false;
+            //EnableChanges = false;
             var str = MessageEditor.Text;
             MessageEditor.Text = PureText.Insert(selectionstart, suggestion);
             MessageEditor.Focus(FocusState.Pointer);
             MessageEditor.SelectionStart = selectionstart + suggestion.Length;
             SuggestionBlock.ItemsSource = null;
             SuggestionPopup.IsOpen = false;
-            EnableChanges = true;
+            //EnableChanges = true;
         }
         private void InsertNewLine()
         {

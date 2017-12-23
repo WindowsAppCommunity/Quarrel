@@ -15,19 +15,21 @@ namespace Discord_UWP.Managers
         {
             if (messages != null)
             {
+                Message? prev = null;
                 int adCheck = 5;
                 List<MessageContainer> returnMessages = new List<MessageContainer>();
+                messages.Reverse();
                 foreach (var message in messages)
                 {
-                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), false, null)); //TODO: isConinuation
+                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), prev.HasValue ? prev.Value.User.Id == message.User.Id : false, null));
                     adCheck--;
                     if (adCheck == 0 && App.ShowAds)
                     {
                         returnMessages.Add(new MessageContainer(null, MessageTypes.Advert, false, null));
                         adCheck = 5;
                     }
+                    prev = message;
                 }
-                returnMessages.Reverse();
                 return returnMessages;
             }
             return null; //else
