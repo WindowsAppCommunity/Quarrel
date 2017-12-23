@@ -525,6 +525,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[e.EventData.GuildId].members[member.User.Id] = new GuildMember() { Deaf = member.Deaf, JoinedAt = member.JoinedAt, Mute = member.Mute, Nick = member.Nick, Roles = member.Roles, User = member.User };
                 }
             }
+            App.MembersUpdated();
         }
         #endregion
 
