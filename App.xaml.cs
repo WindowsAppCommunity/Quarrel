@@ -801,6 +801,7 @@ namespace Discord_UWP
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = false;
+                    Storage.Settings.mutedChnEffectServer = false;
                 }
             }
             else
@@ -821,6 +822,7 @@ namespace Discord_UWP
                 Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = false;
+                Storage.Settings.mutedChnEffectServer = false;
 
                 //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
             }
