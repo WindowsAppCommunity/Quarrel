@@ -839,7 +839,7 @@
                         </Rectangle>
                         <CommandBar x:Name="commandBar" Background="Transparent" VerticalAlignment="Bottom" Style="{StaticResource CommandBarStyle2}">
                             <CommandBar.PrimaryCommands>
-                                <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save"/>
+                                <AppBarButton x:Uid="/Dialogs/SaveABB" Icon="Save" Label="Save" Click="Save_OnClick"/>
                                 <AppBarButton x:Uid="/Dialogs/ShareABB" Label="Share" Click="Share_OnClick">
                                     <AppBarButton.Icon>
                                         <FontIcon Glyph="&#xE72D;"/>
