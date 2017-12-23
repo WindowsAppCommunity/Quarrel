@@ -268,7 +268,7 @@ namespace Discord_UWP.Managers
             {
                 LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
             }
-            App.UserStatusChanged(e.EventData.Settings.Status);
+            App.UserStatusChanged(e.EventData.Settings);
             #endregion
 
             App.ReadyRecieved();
@@ -633,7 +633,7 @@ namespace Discord_UWP.Managers
             var temp = LocalState.PresenceDict[LocalState.CurrentUser.Id];
             temp.Status = e.EventData.Status;
             LocalState.PresenceDict[LocalState.CurrentUser.Id] = temp;
-            App.UserStatusChanged(e.EventData.Status);
+            App.UserStatusChanged(e.EventData);
         }
         #endregion
 

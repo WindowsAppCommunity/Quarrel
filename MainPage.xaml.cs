@@ -1414,28 +1414,48 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (e.Status != "invisible")
+                    if(e.Settings.GuildOrder != null)
                     {
-                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Status];
-                    } else
-                    {
-                        UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                        int position = 1;
+                        foreach (var guild in e.Settings.GuildOrder)
+                        {
+                            var item = ServerList.Items.FirstOrDefault(x => (x as GuildManager.SimpleGuild).Id == guild);
+                            if (item == null) return;
+                            if (ServerList.Items.IndexOf(item) != position)
+                            {
+                                ServerList.Items.Remove(item);
+                                ServerList.Items.Insert(position, item);
+                            }
+                            position++;
+                        }
+                        position = 0;
                     }
-                    switch (e.Status)
-                    {
-                        case "online":
-                            UserStatusOnline.IsChecked = true;
-                            break;
-                        case "idle":
-                            UserStatusIdle.IsChecked = true;
-                            break;
-                        case "dnd":
-                            UserStatusDND.IsChecked = true;
-                            break;
-                        case "invisible":
-                            UserStatusInvisible.IsChecked = true;
-                            break;
-                    }
+
+                        if (e.Settings.Status != null)
+                        {
+                            if (e.Settings.Status != "invisible")
+                            {
+                                UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Settings.Status];
+                            } else
+                            {
+                                UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                            }
+                            switch (e.Settings.Status)
+                            {
+                                case "online":
+                                    UserStatusOnline.IsChecked = true;
+                                    break;
+                                case "idle":
+                                    UserStatusIdle.IsChecked = true;
+                                    break;
+                                case "dnd":
+                                    UserStatusDND.IsChecked = true;
+                                    break;
+                                case "invisible":
+                                    UserStatusInvisible.IsChecked = true;
+                                    break;
+                            }
+                        }
                 });
         }
 
