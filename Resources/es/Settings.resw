@@ -225,4 +225,7 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Solicitudes de amigos</value>
   </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Sourdine canaux effet serveur non lu État?</value>
+  </data>
 </root>
