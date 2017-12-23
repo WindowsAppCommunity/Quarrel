@@ -7,6 +7,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -161,6 +164,19 @@ namespace Discord_UWP.SubPages
                 request.Data.Properties.Thumbnail = rasr;
             };
             DataTransferManager.ShowShareUI();
+        }
+
+        private async void Save_OnClick(object sender, RoutedEventArgs e)
+        {
+            var image = new BitmapImage(new Uri(attachement.Url));
+            var fileSave = new FileSavePicker();
+            fileSave.FileTypeChoices.Add("Image", new string[] { ".jpg" });
+            var storageFile = await fileSave.PickSaveFileAsync();
+            var uri = image.UriSource;
+
+            var downloader = new BackgroundDownloader();
+            var download = downloader.CreateDownload(uri, storageFile);
+            await download.StartAsync();
         }
     }
 }
