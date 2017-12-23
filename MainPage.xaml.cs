@@ -60,7 +60,7 @@ namespace Discord_UWP
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
 
-        public async void Setup()
+        public void Setup()
         {
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -1370,7 +1370,7 @@ namespace Discord_UWP
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 async () =>
+                 () =>
                  {
                      RenderCurrentUser();
                      RenderGuilds();
@@ -1589,9 +1589,9 @@ namespace Discord_UWP
                 App.NavigateToGuild(guildid);
                
                 sideDrawer.OpenLeft();
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    await UserActivityManager.SwitchSession(guildid);
+                    UserActivityManager.SwitchSession(guildid);
                 }); 
             }
         }
@@ -1650,9 +1650,9 @@ namespace Discord_UWP
                                 {
                                     var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
                                     App.NavigateToDMChannel(cid);
-                                    Task.Run(async () =>
+                                    Task.Run(() =>
                                     {
-                                        await UserActivityManager.SwitchSession(cid);
+                                        UserActivityManager.SwitchSession(cid);
                                     });
                                 }
                                 else
