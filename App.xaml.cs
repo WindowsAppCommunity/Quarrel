@@ -602,6 +602,17 @@ namespace Discord_UWP
             MuteGuildHandler?.Invoke(typeof(App), new MuteGuildArgs() { GuildId = guildId });
         }
 
+        public class MarkMessageAsReadArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string MessageId { get; set; }
+        }
+        public static event EventHandler<MarkMessageAsReadArgs> MarkMessageAsReadHandler;
+        public static void MarkMessageAsRead(string messageId, string channelId)
+        {
+            MarkMessageAsReadHandler?.Invoke(typeof(App), new MarkMessageAsReadArgs() { MessageId = messageId, ChannelId = channelId });
+        }
+
         public class MarkChannelAsReadArgs : EventArgs
         {
             public string ChannelId { get; set; }
