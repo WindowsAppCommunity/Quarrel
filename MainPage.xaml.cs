@@ -207,6 +207,7 @@ namespace Discord_UWP
             App.StartTypingHandler += App_StartTypingHandler;
             App.AddFriendHandler += App_AddFriendHandler;
             App.BlockUserHandler += App_BlockUserHandler;
+            App.MarkMessageAsReadHandler += App_MarkMessageAsReadHandler;
             App.MarkChannelAsReadHandler += App_MarkChannelAsReadHandler;
             App.MarkGuildAsReadHandler += App_MarkGuildAsReadHandler;
             App.MuteChannelHandler += App_MuteChannelHandler;
@@ -233,8 +234,6 @@ namespace Discord_UWP
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
         }
-
-
 
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
@@ -780,6 +779,11 @@ namespace Discord_UWP
         private void App_BlockUserHandler(object sender, App.BlockUserArgs e)
         {
 
+        }
+
+        private async void App_MarkMessageAsReadHandler(object sender, App.MarkMessageAsReadArgs e)
+        {
+            await RESTCalls.AckMessage(e.ChannelId, e.MessageId);
         }
 
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
@@ -1442,7 +1446,7 @@ namespace Discord_UWP
                  async () =>
                  {
                      MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
-                     App.MarkChannelAsRead(App.CurrentChannelId);
+                     App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
 
                      if (e.Message.TTS)
                      {
