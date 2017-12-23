@@ -768,6 +768,8 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="FocusVisualPrimaryBrush" Value="Red" />
+                <Setter Property="FocusVisualSecondaryBrush" Value="Blue" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
@@ -816,6 +818,7 @@
                                                 <PointerDownThemeAnimation TargetName="ContentPresenter" />
                                             </Storyboard>
                                         </VisualState>
+
                                         <VisualState x:Name="Selected">
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
