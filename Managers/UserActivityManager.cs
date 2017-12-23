@@ -18,7 +18,7 @@ namespace Discord_UWP.Managers
         static UserActivityChannel channel;
 
         //Every time the user switches to another DM or to another guild, the current activity is disposed and a new one is created
-        public static async Task SwitchSession(string NewGuildId)
+        public static void SwitchSession(string NewGuildId)
         {
             if (_currentActivity != null)
             {

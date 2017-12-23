@@ -44,7 +44,7 @@ namespace Discord_UWP.Controls
         Fired when a link element in the markdown was tapped.
         </summary>*/
 
-        public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
+        //public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
 
         //Is the more button visible?
         public Visibility MoreButtonVisibility
@@ -622,19 +622,22 @@ namespace Discord_UWP.Controls
 
         private void UserControl_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if (App.CurrentGuildId != null)
+            if (MessageType != MessageTypes.Advert)
             {
-                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                if (App.CurrentGuildId != null)
                 {
-                    MoreDelete.Visibility = Visibility.Collapsed;
-                    MoreEdit.Visibility = Visibility.Collapsed;
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    {
+                        MoreDelete.Visibility = Visibility.Collapsed;
+                        MoreEdit.Visibility = Visibility.Collapsed;
+                    }
+                    else if (Message?.User.Id != LocalState.CurrentUser.Id)
+                    {
+                        MoreEdit.Visibility = Visibility.Collapsed;
+                    }
                 }
-                else if (Message?.User.Id != LocalState.CurrentUser.Id)
-                {
-                    MoreEdit.Visibility = Visibility.Collapsed;
-                }
+                FlyoutBase.ShowAttachedFlyout(moreButton);
             }
-            FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
         private void UserControl_Holding(object sender, HoldingRoutedEventArgs e)
@@ -748,8 +751,6 @@ namespace Discord_UWP.Controls
             dataPackage.SetText(Message.Value.Id);
             Clipboard.SetContent(dataPackage);
         }
-
-
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {

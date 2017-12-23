@@ -50,7 +50,6 @@ namespace Discord_UWP.SubPages
         }
 
         private SharedModels.UserProfile profile;
-        bool IsBot = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

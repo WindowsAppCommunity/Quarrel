@@ -12,7 +12,7 @@ namespace Discord_UWP
 {
     public sealed partial class MainPage : Page
     {
-        private async void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
+        private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
             if(args.VirtualKey == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
@@ -31,7 +31,7 @@ namespace Discord_UWP
                 ViewHint.Press();
             }
         }
-        private async void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
+        private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
             if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
             {

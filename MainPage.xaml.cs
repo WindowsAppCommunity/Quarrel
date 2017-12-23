@@ -60,7 +60,7 @@ namespace Discord_UWP
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
 
-        public async void Setup()
+        public void Setup()
         {
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -229,6 +229,8 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
+            //UpdateUI-Members
+            App.MembersUpdatedHandler += App_MembersUpdatedHandler;
 
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
@@ -1023,6 +1025,7 @@ namespace Discord_UWP
             memberscvs.Clear();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
+                await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
                 if (members == null)
                 {
@@ -1103,9 +1106,9 @@ namespace Discord_UWP
                             MembersCvs.Source = sortedMembers;
                             });
                     }
-                    catch (Exception exception)
+                    catch
                     {
-                        App.NavigateToBugReport(exception);
+
                     }
 
                     //else
@@ -1370,7 +1373,7 @@ namespace Discord_UWP
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 async () =>
+                 () =>
                  {
                      RenderCurrentUser();
                      RenderGuilds();
@@ -1564,6 +1567,83 @@ namespace Discord_UWP
                  });
         }
         #endregion
+
+        #region Members
+        private async void App_MembersUpdatedHandler(object sender, EventArgs e)
+        {
+            int totalrolecounter = 0;
+            int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
+
+            if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
+            {
+                foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
+                {
+                    Role roleAlt = role;
+                    if (role.Hoist)
+                    {
+                        int rolecounter = 0;
+                        foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
+                            if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                        totalrolecounter += rolecounter;
+                        roleAlt.MemberCount = rolecounter;
+                    }
+                    if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
+                    }
+                    else
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
+                    }
+                }
+            }
+
+            foreach (var member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+            {
+                var m = new Member(member);
+                if (m.Raw.Roles.FirstOrDefault() != null &&
+                    LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
+                    LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                {
+                    m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
+                }
+                else
+                {
+                    m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
+                }
+                if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                {
+                    m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                }
+                else
+                {
+                    m.status = new Presence() { Status = "offline", Game = null };
+                }
+                if (memberscvs.ContainsKey(m.Raw.User.Id))
+                {
+                    memberscvs.Remove(m.Raw.User.Id);
+                }
+                memberscvs.Add(m.Raw.User.Id, m);
+            }
+            try
+            {
+                var sortedMembers =
+                    memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                                // MembersCVS = new CollectionViewSource();
+                                MembersCvs.Source = sortedMembers;
+                    });
+            }
+            catch
+            {
+
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion
@@ -1609,9 +1689,9 @@ namespace Discord_UWP
                 App.NavigateToGuild(guildid);
                
                 sideDrawer.OpenLeft();
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    await UserActivityManager.SwitchSession(guildid);
+                    UserActivityManager.SwitchSession(guildid);
                 }); 
             }
         }
@@ -1670,9 +1750,9 @@ namespace Discord_UWP
                                 {
                                     var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
                                     App.NavigateToDMChannel(cid);
-                                    Task.Run(async () =>
+                                    Task.Run(() =>
                                     {
-                                        await UserActivityManager.SwitchSession(cid);
+                                        UserActivityManager.SwitchSession(cid);
                                     });
                                 }
                                 else
