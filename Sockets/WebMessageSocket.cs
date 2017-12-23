@@ -61,11 +61,15 @@ namespace Discord_UWP.Sockets
 
         private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
-            using (var dataReader = e.GetDataReader())
+            try
             {
-                string messageString = dataReader.ReadString(dataReader.UnconsumedBufferLength);
-                OnMessageReceived(messageString);
+                using (var dataReader = e.GetDataReader())
+                {
+                    string messageString = dataReader.ReadString(dataReader.UnconsumedBufferLength);
+                    OnMessageReceived(messageString);
+                }
             }
+            catch { }
         }
 
         private void OnMessageReceived(string message)
