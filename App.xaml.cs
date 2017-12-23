@@ -692,12 +692,12 @@ namespace Discord_UWP
 
         public class UserStatusChangedArgs : EventArgs
         {
-            public string Status { get; set; }
+            public SharedModels.UserSettings Settings { get; set; }
         }
         public static event EventHandler<UserStatusChangedArgs> UserStatusChangedHandler;
-        public static void UserStatusChanged(string status)
+        public static void UserStatusChanged(SharedModels.UserSettings status)
         {
-            UserStatusChangedHandler?.Invoke(typeof(App), new UserStatusChangedArgs() { Status = status });
+            UserStatusChangedHandler?.Invoke(typeof(App), new UserStatusChangedArgs() { Settings = status });
         }
 
         public static event PointerEventHandler UniversalPointerDownHandler;

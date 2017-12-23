@@ -55,6 +55,7 @@ namespace Discord_UWP
 
                 if(LoginResult.MFA == false)
                 {
+                    
                     PasswordCredential credentials = new PasswordCredential("Token", email, LoginResult.Token);
                     Storage.PasswordVault.Add(credentials);
                 }
@@ -72,6 +73,8 @@ namespace Discord_UWP
 
             var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
             creds.RetrievePassword();
+            Token = creds.Password;
+           
 
                 config = new DiscordApiConfiguration
                 {
@@ -79,7 +82,7 @@ namespace Discord_UWP
                 };
                 BasicRestFactory basicRestFactory = new BasicRestFactory(config);
 
-                IAuthenticator authenticator = new DiscordAuthenticator(creds.Password);
+                IAuthenticator authenticator = new DiscordAuthenticator(Token);
                 AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
 
                 //TODO: Maybe restructure gateway setup
