@@ -1207,6 +1207,7 @@ namespace Discord_UWP.MarkdownTextBlock
                     ImageStretch = ImageStretch
                 };
                 _rootElement.Child = renderer.Render();
+                _rootElement.Child.PointerPressed += Child_PointerPressed;
             }
             catch (Exception ex)
             {
@@ -1216,6 +1217,11 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Indicate that the parse is done.
             MarkdownRendered?.Invoke(this, markdownRenderedArgs);
+        }
+
+        private void Child_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            App.UniversalPointerDown(e);
         }
 
         private void UnhookListeners()

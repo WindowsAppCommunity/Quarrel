@@ -19,6 +19,7 @@ namespace Discord_UWP.Flyouts
         public static MenuFlyout MakeGroupChannelMenu(DirectMessageChannel dm)
         {
             MenuFlyout menu = new MenuFlyout();
+            menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             int x = 0;
             foreach (User user in LocalState.DMs[dm.Id].Users)
             {
