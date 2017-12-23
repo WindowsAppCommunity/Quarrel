@@ -154,6 +154,7 @@ namespace Discord_UWP.SubPages
         private Dictionary<Guid, StorageFile> attachements = new Dictionary<Guid, StorageFile>();
         private async void AddAttachement(StorageFile file)
         {
+            if (file == null) return;
             var props = await file.GetBasicPropertiesAsync();
             var guid = Guid.NewGuid();
             var attachement = new Controls.AttachementControl()
