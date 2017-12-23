@@ -114,6 +114,14 @@ namespace Discord_UWP.Managers
             }
 
             private int _type;
+
+            /// <summary>
+            /// 0: Text channel
+            /// 1: Direct Message
+            /// 2: Voice channel
+            /// 3: Group DM
+            /// 4: Guild category
+            /// </summary>
             public int Type
             {
                 get { return _type; }
