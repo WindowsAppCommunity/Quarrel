@@ -207,6 +207,7 @@ namespace Discord_UWP
             App.StartTypingHandler += App_StartTypingHandler;
             App.AddFriendHandler += App_AddFriendHandler;
             App.BlockUserHandler += App_BlockUserHandler;
+            App.MarkMessageAsReadHandler += App_MarkMessageAsReadHandler;
             App.MarkChannelAsReadHandler += App_MarkChannelAsReadHandler;
             App.MarkGuildAsReadHandler += App_MarkGuildAsReadHandler;
             App.MuteChannelHandler += App_MuteChannelHandler;
@@ -233,8 +234,6 @@ namespace Discord_UWP
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
         }
-
-
 
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
@@ -782,6 +781,11 @@ namespace Discord_UWP
 
         }
 
+        private async void App_MarkMessageAsReadHandler(object sender, App.MarkMessageAsReadArgs e)
+        {
+            await RESTCalls.AckMessage(e.ChannelId, e.MessageId);
+        }
+
         private async void App_MarkChannelAsReadHandler(object sender, App.MarkChannelAsReadArgs e)
         {
             //Assumes you marked it from active guild
@@ -832,11 +836,7 @@ namespace Discord_UWP
 
         private async void App_UpdatePresenceHandler(object sender, App.UpdatePresenceArgs e)
         {
-            if (LocalStatusChangeEnabled)
-            {
-                await RESTCalls.ChangeUserSettings(e.Status);
-            }
-            LocalStatusChangeEnabled = true;
+            await RESTCalls.ChangeUserSettings(e.Status);
         }
 
         private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
@@ -997,6 +997,9 @@ namespace Discord_UWP
                         MessageList.Items.Add(message);
                     }
                 }
+            } else
+            {
+                //TODO: Check offline status and potentially set to offline mode
             }
 
             var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
@@ -1021,6 +1024,10 @@ namespace Discord_UWP
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
+                if (members == null)
+                {
+                    //TODO: Check offline status and potentially set to offline mode
+                }
                 foreach (var member in members)
                 {
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
@@ -1236,17 +1243,20 @@ namespace Discord_UWP
                             foreach (var chn in LocalState.Guilds[gclone.Id].channels.Values)
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
+                                    var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
                                     ReadState readstate = LocalState.RPC[chn.raw.Id];
+
+                                    bool Muted = LocalState.GuildSettings.ContainsKey(gclone.Id) ? (LocalState.GuildSettings[gclone.Id].channelOverrides.ContainsKey(chan.raw.Id) ?
+                                    LocalState.GuildSettings[gclone.Id].channelOverrides[chan.raw.Id].Muted
+                                    : false) :
+                                    false;
+
                                     gclone.NotificationCount += readstate.MentionCount;
                                     Fullcount += readstate.MentionCount;
-                                    var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
+
                                     if (chan.raw.LastMessageId != null
-                                    && chan.raw.LastMessageId != readstate.LastMessageId &&
-                                    LocalState.GuildSettings.ContainsKey(gclone.Id) ?
-                                    (LocalState.GuildSettings[gclone.Id].channelOverrides.ContainsKey(chan.raw.Id) ?
-                                    !LocalState.GuildSettings[gclone.Id].channelOverrides[chan.raw.Id].Muted
-                                    : false) :
-                                    false) //if channel is unread and not muted
+                                    && chan.raw.LastMessageId != readstate.LastMessageId && (Storage.Settings.mutedChnEffectServer || !Muted)
+                                    ) //if channel is unread and not muted
                                            //if(chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId)
                                         gclone.IsUnread = true;
                                 }
@@ -1436,7 +1446,7 @@ namespace Discord_UWP
                  async () =>
                  {
                      MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
-                     App.MarkChannelAsRead(App.CurrentChannelId);
+                     App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
 
                      if (e.Message.TTS)
                      {
@@ -1760,7 +1770,6 @@ namespace Discord_UWP
         #endregion
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
-        private bool LocalStatusChangeEnabled = false;
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {

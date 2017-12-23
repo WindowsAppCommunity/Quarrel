@@ -602,6 +602,17 @@ namespace Discord_UWP
             MuteGuildHandler?.Invoke(typeof(App), new MuteGuildArgs() { GuildId = guildId });
         }
 
+        public class MarkMessageAsReadArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string MessageId { get; set; }
+        }
+        public static event EventHandler<MarkMessageAsReadArgs> MarkMessageAsReadHandler;
+        public static void MarkMessageAsRead(string messageId, string channelId)
+        {
+            MarkMessageAsReadHandler?.Invoke(typeof(App), new MarkMessageAsReadArgs() { MessageId = messageId, ChannelId = channelId });
+        }
+
         public class MarkChannelAsReadArgs : EventArgs
         {
             public string ChannelId { get; set; }
@@ -801,6 +812,7 @@ namespace Discord_UWP
                     Storage.Settings.ExpensiveRender = false;
                     Storage.Settings.Theme = Theme.Dark;
                     Storage.Settings.AccentBrush = false;
+                    Storage.Settings.mutedChnEffectServer = false;
                 }
             }
             else
@@ -821,6 +833,7 @@ namespace Discord_UWP
                 Storage.Settings.DevMode = false;
                 Storage.Settings.Theme = Theme.Dark;
                 Storage.Settings.AccentBrush = false;
+                Storage.Settings.mutedChnEffectServer = false;
 
                 //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
             }
