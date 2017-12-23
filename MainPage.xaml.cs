@@ -1591,72 +1591,89 @@ namespace Discord_UWP
 
         bool IgnoreChange = false;
         bool lastChangeProgrammatic = false;
+        bool SelectionWasClicked = true;
+        object previousSelection;
         private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //Verify if the last selection was navigated to (with a keyboard/controller) or actually clicked on
+
             //When selecting a category, we want to simulate ListView's Mode = Click, 
             //so we use IgnoreChange to immediately re-select the unselected item 
             //after having clicked on a category (without reloading anything)
-             
+
             if (!lastChangeProgrammatic)
             {
                 if (!IgnoreChange) //True if the last selection was a category, Voice channel
                 {
-                    if (ChannelList.SelectedItem != null) //Called on clear
+                    if (SelectionWasClicked)
                     {
-                        var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
-                        if (channel.Type == 4)
+                        SelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
+
+                        if (ChannelList.SelectedItem != null) //Called on clear
                         {
-                            foreach (ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
+                            var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
+                            if (channel.Type == 4) //CATEGORY
                             {
-                                if (item.Hidden)
-                                    item.Hidden = false;
-                                else
-                                    item.Hidden = true;
-                            }
-                            channel.Hidden = !channel.Hidden;
-                            IgnoreChange = true;
-                            var previousSelection = e.RemovedItems.FirstOrDefault();
-                            if (previousSelection == null)
-                                ChannelList.SelectedIndex = -1;
-                            else
-                                ChannelList.SelectedItem = previousSelection;
-                        }
-                        else if (channel.Type == 2)
-                        {
-                            IgnoreChange = true;
-                            var previousSelection = e.RemovedItems.FirstOrDefault();
-                            if (previousSelection == null)
-                                ChannelList.SelectedIndex = -1;
-                            else
-                                ChannelList.SelectedItem = previousSelection;
-                        }
-                        else
-                        {
-                            sideDrawer.CloseLeft();
-                            if (App.CurrentGuildIsDM)
-                            {
-                                var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
-                                App.NavigateToDMChannel(cid);
-                                Task.Run(async () =>
+                                foreach (ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
                                 {
-                                    await UserActivityManager.SwitchSession(cid);
-                                });
+                                    if (item.Hidden)
+                                        item.Hidden = false;
+                                    else
+                                        item.Hidden = true;
+                                }
+                                channel.Hidden = !channel.Hidden;
+                                if (previousSelection == null)
+                                    ChannelList.SelectedIndex = -1;
+                                else
+                                    ChannelList.SelectedItem = previousSelection;
+                            }
+                            else if (channel.Type == 2) //VOICE
+                            {
+                                IgnoreChange = true;
+                                if (previousSelection == null)
+                                    ChannelList.SelectedIndex = -1;
+                                else
+                                    ChannelList.SelectedItem = previousSelection;
                             }
                             else
                             {
-                                App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                                sideDrawer.CloseLeft();
+                                previousSelection = ChannelList.SelectedItem;
+                                if (App.CurrentGuildIsDM)
+                                {
+                                    var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
+                                    App.NavigateToDMChannel(cid);
+                                    Task.Run(async () =>
+                                    {
+                                        await UserActivityManager.SwitchSession(cid);
+                                    });
+                                }
+                                else
+                                {
+                                    App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                                }
                             }
                         }
                     }
+
                 }
                 else
                 {
                     IgnoreChange = false;
                 }
-            } else
+
+            }
+            else
             {
                 lastChangeProgrammatic = false;
             }
+        }
+        private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SelectionWasClicked = true;
+            if (e.ClickedItem == ChannelList.SelectedItem)
+                //This is for xbox one, because when "clicking" on a channel, it is already selected
+                ChannelList_SelectionChanged(null, null);
         }
 
         private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -1756,5 +1773,7 @@ namespace Discord_UWP
         {
             App.NavigateToAbout(true);
         }
+
+
     }
 }
