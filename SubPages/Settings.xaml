@@ -657,6 +657,7 @@
                                 <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
                                 <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
                                 <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
+                                <CheckBox x:Uid="/Settings/mutedChannelsEffectServerCB" x:Name="mutedChannelsEffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
                                 <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
                                 <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
