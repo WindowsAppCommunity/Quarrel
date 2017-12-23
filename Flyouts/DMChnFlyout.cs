@@ -19,6 +19,7 @@ namespace Discord_UWP.Flyouts
         public static MenuFlyout MakeDMChannelMenu(DirectMessageChannel dm)
         {
             MenuFlyout menu = new MenuFlyout();
+            menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             MenuFlyoutItem profile = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Flyouts/Profile"),

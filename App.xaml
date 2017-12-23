@@ -1105,6 +1105,102 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="MessageItemStyle" TargetType="ListViewItem" >
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Grid x:Name="ContentBorder"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}">
+                                <Rectangle x:Name="BorderBackground"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    Control.IsTemplateFocusTarget="True"/>
+                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBG}" Opacity="0" CornerRadius="0">
+                                </Border>
+                                <Grid x:Name="ContentPresenterGrid"
+              Background="Transparent"
+              Margin="0,0,0,0">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                    </Grid.RenderTransform>
+                                    <ContentPresenter x:Name="ContentPresenter"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                                <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
+                          In the DataPlaceholder state, the Content is not loaded yet so we
+                          approximate the size of the item using placeholder text. -->
+                                <TextBlock x:Name="PlaceholderTextBlock"
+                    Opacity="0"
+                    Text="Xg"
+                    Foreground="{x:Null}"
+                    Margin="{TemplateBinding Padding}"
+                                           Visibility="Collapsed"
+                    IsHitTestVisible="False"
+                    AutomationProperties.AccessibilityView="Raw"/>
+                                <Rectangle x:Name="PlaceholderRect"
+                    Visibility="Collapsed"
+                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>
+                                <Rectangle x:Name="MultiArrangeOverlayBackground"
+                                           Visibility="Collapsed"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    Grid.ColumnSpan="2"/>
+                                <Border x:Name="MultiSelectSquare"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                BorderThickness="2"
+                Width="20"
+                Height="20"
+                Margin="12,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed" >
+                                    <Border.Clip>
+                                        <RectangleGeometry Rect="0,0,20,20">
+                                            <RectangleGeometry.Transform>
+                                                <TranslateTransform x:Name="MultiSelectClipTransform"/>
+                                            </RectangleGeometry.Transform>
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Border.RenderTransform>
+                                        <TranslateTransform x:Name="MultiSelectCheckBoxTransform"/>
+                                    </Border.RenderTransform>
+                                    <FontIcon x:Name="MultiSelectCheck"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    Glyph="&#xE73E;"
+                    FontSize="16"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                    Visibility="Collapsed"
+                    Opacity="0"/>
+                                </Border>
+                                <TextBlock x:Name="MultiArrangeOverlayText" Visibility="Collapsed"
+                    Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.DragItemsCount}"
+                    Foreground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                    FontSize="26.667"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    TextWrapping="Wrap"
+                    TextTrimming="WordEllipsis"
+                    Margin="18,9,0,0"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Grid.ColumnSpan="2"/>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="DiscordButton" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderThickness" Value="0"/>

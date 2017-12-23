@@ -450,21 +450,25 @@ namespace Discord_UWP.Controls
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             e.Handled = true;
-            if (e.HoldingState == HoldingState.Started)
-                switch (Type)
-                {
-                    case 0: /*Text*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                        break;
-                    case 1: /*DM*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
-                        break;
-                    case 2: /*Voice*/
-                        break;
-                    case 3: /*Group*/
-                        App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
-                        break;
-                }
+            try
+            {
+                if (e.HoldingState == HoldingState.Started)
+                    switch (Type)
+                    {
+                        case 0: /*Text*/
+                            App.ShowMenuFlyout(this, FlyoutManager.Type.TextChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                            break;
+                        case 1: /*DM*/
+                            App.ShowMenuFlyout(this, FlyoutManager.Type.DMChn, Id, null, e.GetPosition(this));
+                            break;
+                        case 2: /*Voice*/
+                            break;
+                        case 3: /*Group*/
+                            App.ShowMenuFlyout(this, FlyoutManager.Type.GroupChn, Id, App.CurrentGuildId, e.GetPosition(this));
+                            break;
+                    }
+            }
+            catch { }
         }
 
         private void HideBadge_Completed(object sender, object e)

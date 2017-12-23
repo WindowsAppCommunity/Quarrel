@@ -807,5 +807,10 @@ namespace Discord_UWP.Controls
         {
             App.UniversalPointerDown(e);
         }
+
+        private void contentStacker_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+
+        }
     }
 }

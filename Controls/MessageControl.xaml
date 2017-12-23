@@ -13,7 +13,7 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="rootGrid" Margin="0,24,0,6" HorizontalAlignment="Stretch">
+    <Grid x:Name="rootGrid" Margin="0,24,0,6" HorizontalAlignment="Stretch" Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Advert">
@@ -111,16 +111,16 @@
             <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="5,0,0,0" Grid.Column="2"/>
         </Grid>
         <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
-        <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" >
-            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding"/>
+        <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
+            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0"/>
-        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click">
+        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed"/>
+        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <MenuFlyoutItem x:Uid="ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
