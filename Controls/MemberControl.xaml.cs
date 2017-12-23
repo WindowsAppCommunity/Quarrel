@@ -77,6 +77,10 @@ namespace Discord_UWP.Controls
             {
                 game.Visibility=Visibility.Collapsed;
             }
+            if (DisplayedMember.Raw.User.Bot)
+                BotIndicator.Visibility = Visibility.Visible;
+            else
+                BotIndicator.Visibility = Visibility.Collapsed;
         }
 
         public MemberControl()
