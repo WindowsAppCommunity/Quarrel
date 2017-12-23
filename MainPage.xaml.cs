@@ -832,11 +832,7 @@ namespace Discord_UWP
 
         private async void App_UpdatePresenceHandler(object sender, App.UpdatePresenceArgs e)
         {
-            if (LocalStatusChangeEnabled)
-            {
-                await RESTCalls.ChangeUserSettings(e.Status);
-            }
-            LocalStatusChangeEnabled = true;
+            await RESTCalls.ChangeUserSettings(e.Status);
         }
 
         private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
@@ -997,6 +993,9 @@ namespace Discord_UWP
                         MessageList.Items.Add(message);
                     }
                 }
+            } else
+            {
+                //TODO: Check offline status and potentially set to offline mode
             }
 
             var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
@@ -1021,6 +1020,10 @@ namespace Discord_UWP
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
+                if (members == null)
+                {
+                    //TODO: Check offline status and potentially set to offline mode
+                }
                 foreach (var member in members)
                 {
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
@@ -1743,7 +1746,6 @@ namespace Discord_UWP
         #endregion
 
         public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
-        private bool LocalStatusChangeEnabled = false;
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
