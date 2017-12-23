@@ -1435,23 +1435,19 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     if (MessageList.Items.Count > 0 && MessageList.Items.FirstOrDefault(x => (x as 
-                     MessageManager.MessageContainer).Message.HasValue &&
-                     (x as MessageManager.MessageContainer).Message.Value.Id == e.Message.Id) != null)
-                     {
-                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     App.MarkChannelAsRead(App.CurrentChannelId);
 
-                         if (e.Message.TTS)
+                     if (e.Message.TTS)
+                     {
+                         MediaElement mediaplayer = new MediaElement();
+                         using (var speech = new SpeechSynthesizer())
                          {
-                             MediaElement mediaplayer = new MediaElement();
-                             using (var speech = new SpeechSynthesizer())
-                             {
-                                 speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Male);
-                                 string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.Message.User.Username + "said" + e.Message.Content + "</speak>";
-                                 SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
-                                 mediaplayer.SetSource(stream, stream.ContentType);
-                                 mediaplayer.Play();
-                             }
+                             speech.Voice = SpeechSynthesizer.AllVoices.First(gender => gender.Gender == VoiceGender.Male);
+                             string ssml = @"<speak version='1.0' " + "xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>" + e.Message.User.Username + "said" + e.Message.Content + "</speak>";
+                             SpeechSynthesisStream stream = await speech.SynthesizeSsmlToStreamAsync(ssml);
+                             mediaplayer.SetSource(stream, stream.ContentType);
+                             mediaplayer.Play();
                          }
                      }
                  });
