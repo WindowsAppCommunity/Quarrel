@@ -1164,7 +1164,8 @@
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True"
+                                          XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 
@@ -1332,7 +1333,7 @@
                                     </Grid>
                                 </ListView.Footer>
                             </ListView>
-                            <Grid x:Name="SendMessage" Grid.Row="2" Padding="12,16,12,0">
+                            <Grid x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                                 <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
                                 <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
