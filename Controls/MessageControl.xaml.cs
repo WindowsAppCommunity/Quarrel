@@ -44,7 +44,7 @@ namespace Discord_UWP.Controls
         Fired when a link element in the markdown was tapped.
         </summary>*/
 
-        public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
+        //public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
 
         //Is the more button visible?
         public Visibility MoreButtonVisibility
