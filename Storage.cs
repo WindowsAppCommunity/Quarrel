@@ -74,5 +74,6 @@ namespace Discord_UWP
         public bool AccentBrush = false; //If false use Blurple if true use System.AccentColor
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
+        public bool ShowWelcomeMessage = true;
     }
 }

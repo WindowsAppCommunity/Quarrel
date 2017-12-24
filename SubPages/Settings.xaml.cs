@@ -53,11 +53,15 @@ namespace Discord_UWP.SubPages
             RespUI_L.Value = Storage.Settings.RespUiL;
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
+            ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
             
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
-
-            AccentColorSwitch.IsOn = Storage.Settings.AccentBrush;
-
+            
+            if (Storage.Settings.AccentBrush)
+                radioAccent_Windows.IsChecked = true;
+            else
+                radioAccent_Discord.IsChecked = true;
+                
             if (Storage.Settings.Theme == Theme.Dark)
                 radio_Dark.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Light)
@@ -88,9 +92,10 @@ namespace Discord_UWP.SubPages
             Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
             //Storage.Settings.FriendsNotifyIncoming = (bool)FriendsNotifyIncomingFriendRequests.IsChecked;
             //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
-
-            Storage.Settings.AccentBrush = AccentColorSwitch.IsOn;
+            
+            Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
+            Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
 
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;
