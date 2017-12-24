@@ -90,7 +90,7 @@
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• You can now open the sidebars by swiping your fingers across the screen, across your trackpad, or with the xbox controller triggers"/>
+                                <Run Text="• You can now open the Side Menus by swiping your fingers across the screen, across your trackpad, or with the gamepad bumpers"/>
                             </Paragraph>
                             <Paragraph>
                                 <Run Text="• The login experience is now compatible with two-factor authentication!"/>
@@ -100,6 +100,15 @@
                             </Paragraph>
                             <Paragraph>
                                 <Run Text="• All non-user messages are now supported! (Missed call, somebody pinned something, etc...)" FontFamily="Segoe UI"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• If you're a windows insider, Discord UWP will show up in the new timeline!" FontFamily="Segoe UI"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• We fixed dozens and dozens of bugs" FontFamily="Segoe UI"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• There are also a ton of small new features and UI/UX adjustements" FontFamily="Segoe UI"/>
                             </Paragraph>
                         </RichTextBlock>
                         
