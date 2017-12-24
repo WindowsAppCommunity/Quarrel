@@ -1561,8 +1561,8 @@
                     <CommandBar.PrimaryCommands>
                         <AppBarButton x:Name="PinnedMessags" Icon="Pin" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
-                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                    <tkc:PullToRefreshListView x:Name="PinnedMessageList" SelectionMode="None" Width="450">
+                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
+                                    <ListView x:Name="PinnedMessageList" SelectionMode="None" Width="450" MaxHeight="500">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:MessageControl Message="{Binding Message}"
@@ -1577,7 +1577,7 @@
                                                 <ProgressBar x:Name="PinnedMessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                                             </Grid>
                                         </ListView.Footer>
-                                    </tkc:PullToRefreshListView>
+                                    </ListView>
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>
