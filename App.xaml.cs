@@ -793,7 +793,26 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
-
+private void ResetSettings()
+        {
+            Storage.Settings.lastVerison = "0";
+            Storage.Settings.AutoHideChannels = true;
+            Storage.Settings.AutoHidePeople = false;
+            Storage.Settings.Toasts = false;
+            Storage.Settings.HighlightEveryone = true;
+            Storage.Settings.CompactMode = false;
+            Storage.Settings.Toasts = false;
+            Storage.Settings.RespUiM = 569;
+            Storage.Settings.RespUiL = 768;
+            Storage.Settings.RespUiXl = 1024;
+            //Storage.Settings.AppBarAtBottom = false;
+            Storage.Settings.DiscordLightTheme = false;
+            Storage.Settings.ExpensiveRender = false;
+            Storage.Settings.DevMode = false;
+            Storage.Settings.Theme = Theme.Dark;
+            Storage.Settings.AccentBrush = false;
+            Storage.Settings.mutedChnEffectServer = false;
+        }
         private void LoadSettings()
         {
 
@@ -807,44 +826,12 @@ namespace Discord_UWP
                 }
                 catch
                 {
-                    Storage.Settings.lastVerison = 0;
-                    Storage.Settings.AutoHideChannels = true;
-                    Storage.Settings.AutoHidePeople = false;
-                    Storage.Settings.Toasts = false;
-                    Storage.Settings.HighlightEveryone = true;
-                    Storage.Settings.RespUiM = 569;
-                    Storage.Settings.RespUiL = 768;
-                    Storage.Settings.RespUiXl = 1024;
-                    //Storage.Settings.AppBarAtBottom = false;
-                    Storage.Settings.DiscordLightTheme = false;
-                    Storage.Settings.CompactMode = false;
-                    Storage.Settings.DevMode = false;
-                    Storage.Settings.ExpensiveRender = false;
-                    Storage.Settings.Theme = Theme.Dark;
-                    Storage.Settings.AccentBrush = false;
-                    Storage.Settings.mutedChnEffectServer = false;
+                    ResetSettings();
                 }
             }
             else
             {
-                Storage.Settings.lastVerison = 0;
-                Storage.Settings.AutoHideChannels = true;
-                Storage.Settings.AutoHidePeople = false;
-                Storage.Settings.Toasts = false;
-                Storage.Settings.HighlightEveryone = true;
-                Storage.Settings.CompactMode = false;
-                Storage.Settings.Toasts = false;
-                Storage.Settings.RespUiM = 569;
-                Storage.Settings.RespUiL = 768;
-                Storage.Settings.RespUiXl = 1024;
-                //Storage.Settings.AppBarAtBottom = false;
-                Storage.Settings.DiscordLightTheme = false;
-                Storage.Settings.ExpensiveRender = false;
-                Storage.Settings.DevMode = false;
-                Storage.Settings.Theme = Theme.Dark;
-                Storage.Settings.AccentBrush = false;
-                Storage.Settings.mutedChnEffectServer = false;
-
+                ResetSettings();
                 //MessageDialog msg = new MessageDialog("You had no settings saved. Defaults set.");
             }
 
@@ -970,6 +957,25 @@ namespace Discord_UWP
                             App.SelectGuildChannel(segments[1], segments[2]);
                         else if(count == 2)
                             App.SelectGuildChannel(segments[1], null);
+                    }
+                    else if(segments[0] == "reset")
+                    {
+                        ContentDialog AreYouSure = new ContentDialog
+                        {
+                            Title = "ARE YOU SURE?",
+                            Content = "This will fully reset Discord UWP, meaning that you will be logged out of your account and all of your settings will be reset. This will NOT affect your Discord account.",
+                            CloseButtonText = "Cancel",
+                            PrimaryButtonText="Reset Discord UWP"
+                        };
+                        AreYouSure.PrimaryButtonClick += (a, e) =>
+                         {
+                             ResetSettings();
+                             var token = Storage.PasswordVault.FindAllByResource("Token");
+                             foreach (var t in token)
+                                 Storage.PasswordVault.Remove(t);
+                             Application.Current.Exit();
+                         };
+                        AreYouSure.ShowAsync();
                     }
                 };
             }

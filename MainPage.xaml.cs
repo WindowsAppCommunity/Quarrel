@@ -1383,16 +1383,16 @@ namespace Discord_UWP
                      //Check version number, and if it's different from before, open the what's new page
                      Package package = Package.Current;
                      PackageId packageId = package.Id;
-                     PackageVersion version = packageId.Version;
-                     if (Storage.Settings.lastVerison == 0)
+                     string version = packageId.Version.Build.ToString()+packageId.Version.Major.ToString()+packageId.Version.Minor.ToString();
+                     if (Storage.Settings.lastVerison == "0")
                      {
-                         Storage.Settings.lastVerison = version.Build;
+                         Storage.Settings.lastVerison = version;
                          Storage.SaveAppSettings();
                          App.NavigateToAbout(true);
                      }
-                     else if (Storage.Settings.lastVerison != version.Build)
+                     else if (Storage.Settings.lastVerison != version)
                      {
-                         Storage.Settings.lastVerison = version.Build;
+                         Storage.Settings.lastVerison = version;
                          Storage.SaveAppSettings();
                          App.NavigateToAbout(true);
                      }
