@@ -169,7 +169,7 @@
     <value>En ligne</value>
   </data>
   <data name="OutgoingFriendsCB" xml:space="preserve">
-    <value>Demandes d'amis Sortantes</value>
+    <value>Demandes d'amis sortantes</value>
   </data>
   <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
     <value>Réinitialiser les points d'arrêts aux valeurs par défault</value>
@@ -226,6 +226,6 @@
     <value>Demandes d'amis</value>
   </data>
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Silenciado canales efecto servidor no leído estado?</value>
+    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
   </data>
 </root>
