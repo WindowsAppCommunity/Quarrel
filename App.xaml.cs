@@ -793,7 +793,7 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
-private void ResetSettings()
+        private void ResetSettings()
         {
             Storage.Settings.lastVerison = "0";
             Storage.Settings.AutoHideChannels = true;
@@ -802,9 +802,9 @@ private void ResetSettings()
             Storage.Settings.HighlightEveryone = true;
             Storage.Settings.CompactMode = false;
             Storage.Settings.Toasts = false;
-            Storage.Settings.RespUiM = 569;
-            Storage.Settings.RespUiL = 768;
-            Storage.Settings.RespUiXl = 1024;
+            Storage.Settings.RespUiM = 500;
+            Storage.Settings.RespUiL = 1000;
+            Storage.Settings.RespUiXl = 1500;
             //Storage.Settings.AppBarAtBottom = false;
             Storage.Settings.DiscordLightTheme = false;
             Storage.Settings.ExpensiveRender = false;

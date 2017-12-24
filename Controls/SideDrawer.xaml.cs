@@ -54,6 +54,8 @@ namespace Discord_UWP.Controls
         public SideDrawer()
         {
             this.InitializeComponent();
+            Storage.SettingsChangedHandler += App_LocalSettingsUpdatedHandler;
+
 
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
             compositor = rootVisual.Compositor;
@@ -78,6 +80,14 @@ namespace Discord_UWP.Controls
                 rightSide.Margin = new Thickness(0, 0, 54, 0);
                 rightSide.Padding = new Thickness(0, 0, -54, 0);
             }
+        }
+
+        private void App_LocalSettingsUpdatedHandler(object sender, EventArgs e)
+        {
+            MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+            LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+            ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+            VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = VisualStateGroup.CurrentState });
         }
 
         //private InteractionTrackerInertiaModifier[] inertiaModifiers;
