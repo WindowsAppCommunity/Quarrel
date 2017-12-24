@@ -309,6 +309,7 @@ namespace Discord_UWP.Controls
                     //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
+                    
                     //Tapped -= JoinVoiceChannel;
                 }
                 else if(Type == 2)
@@ -325,6 +326,7 @@ namespace Discord_UWP.Controls
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
                     Status.Visibility = Visibility.Visible;
+                    grid.Height = 48;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
                     //Tapped -= JoinVoiceChannel;
                 }
@@ -335,6 +337,7 @@ namespace Discord_UWP.Controls
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
                     Status.Visibility = Visibility.Collapsed;
+                    grid.Height = 48;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
                     if (App.Current.RequestedTheme == ApplicationTheme.Dark)
@@ -357,7 +360,7 @@ namespace Discord_UWP.Controls
                     ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                     Chevron.Visibility = Visibility.Visible;
                     HoverCache.Visibility = Visibility.Visible;
-                    this.Margin = new Thickness(0, 18, 0, 0);
+                    this.Margin = new Thickness(0, 14, 0, 0);
                 }
             }
             

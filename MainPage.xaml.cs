@@ -934,10 +934,11 @@ namespace Discord_UWP
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Collapsed;
-            FriendsButton.Visibility = Visibility.Visible;
+            FriendsItem.Visibility = Visibility.Visible;
+            DirectMessageBlock.Visibility = Visibility.Visible;
 
             //Select FriendPanel
-            FriendsButton.IsChecked = true;
+            FriendsItem.IsSelected = true;
             friendPanel.Visibility = Visibility.Visible;
 
             AddChannelButton.Visibility = Visibility.Collapsed;
@@ -955,8 +956,10 @@ namespace Discord_UWP
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Visible;
-            FriendsButton.Visibility = Visibility.Collapsed;
+            FriendsItem.Visibility = Visibility.Collapsed;
+            DirectMessageBlock.Visibility = Visibility.Collapsed;
             AddChannelButton.Visibility = Visibility.Collapsed;
+
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
             ServerName.Text = LocalState.Guilds[App.CurrentGuildId].Raw.Name;
@@ -973,7 +976,7 @@ namespace Discord_UWP
         public async void RenderMessages() //App.CurrentChannelId is set
         {
             MessagesLoading.Visibility = Visibility.Visible;
-            FriendsButton.IsChecked = false;
+            FriendsItem.IsSelected = false;
             friendPanel.Visibility = Visibility.Collapsed;
             PopulateMessageArea();
 
@@ -1199,8 +1202,8 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
-                    if (FriendsNotificationCounter.Text != "0")
+                    FriendNotificationCounter.Text = App.FriendNotifications.ToString();
+                    if (FriendNotificationCounter.Text != "0")
                     {
                         ShowFriendsBadge.Begin();
                     } else
@@ -1316,7 +1319,7 @@ namespace Discord_UWP
 
                     if (App.FriendNotifications > 0)
                     {
-                        FriendsNotificationCounter.Text = App.FriendNotifications.ToString();
+                        FriendNotificationCounter.Text = App.FriendNotifications.ToString();
                         ShowFriendsBadge.Begin();
                     }
                     else
@@ -1793,14 +1796,6 @@ namespace Discord_UWP
             App.NavigateToAddServer();
         }
 
-        private void OpenFriendPanel(object sender, RoutedEventArgs e)
-        {
-            ClearMessageArea();
-            FriendsButton.IsChecked = true;
-            ChannelList.SelectedIndex = -1;
-            friendPanel.Visibility = Visibility.Visible;
-        }
-
         private void ServerNameButton_Click(object sender, RoutedEventArgs e)
         {
             App.NavigateToGuildEdit(App.CurrentGuildId);
@@ -1881,6 +1876,17 @@ namespace Discord_UWP
             App.NavigateToAbout(true);
         }
 
+        private void OpenFriendPanel(object sender, TappedRoutedEventArgs e)
+        {
+            ClearMessageArea();
+            FriendsItem.IsSelected = true;
+            ChannelList.SelectedIndex = -1;
+            friendPanel.Visibility = Visibility.Visible;
+        }
 
+        private void HideBadge_Completed(object sender, object e)
+        {
+
+        }
     }
 }
