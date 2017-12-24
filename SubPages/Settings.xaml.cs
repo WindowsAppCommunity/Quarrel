@@ -54,7 +54,7 @@ namespace Discord_UWP.SubPages
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
-            
+            EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;//TODO Translate and add "Questions? Join our server!"
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             
             if (Storage.Settings.AccentBrush)
@@ -94,6 +94,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
             
             Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
+            Storage.Settings.EnableAcrylic = (bool)EnableAcrylic.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
 
@@ -164,6 +165,11 @@ namespace Discord_UWP.SubPages
         private void ConfirmLogout(IUICommand command)
         {
             App.LogOut();
+        }
+
+        private async void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            await App.RequestReset();
         }
 
         //TODO: Voice channels

@@ -1866,9 +1866,10 @@ namespace Discord_UWP
             App.CreateMessage(App.CurrentChannelId, MessageBox1.Text);
             
             MessageBox1.Text = "";
-
+            MessageBox1.FocusTextBox();
 
             //Add a user activity for this channel:
+            
             var guild = ServerList.SelectedItem as GuildManager.SimpleGuild;
             var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;      
             Task.Run(async ()=>{

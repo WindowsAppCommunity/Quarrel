@@ -114,7 +114,10 @@ namespace Discord_UWP.Controls
                 
             }
         }
-
+        public void FocusTextBox()
+        {
+            MessageEditor.Focus(FocusState.Keyboard);
+        }
         private void SendBox_OnClick(object sender, RoutedEventArgs e)
         {
             Text = ProcessString(Text);

@@ -157,6 +157,12 @@
     <value>En parler sur Twitter</value>
     <comment>Button to discuss on twitter</comment>
   </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Rejoindre le serveur de l'application</value>
+  </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value>Rejoindre le serveur de l'application</value>
     <comment>Button to join the Discord UWP server</comment>
@@ -176,5 +182,14 @@
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
     <value>Laisser votre avis</value>
     <comment>Leave feedback button</comment>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Code d'authentification</value>
+  </data>
+  <data name="MFATB.Text" xml:space="preserve">
+    <value>Authentification à deux étapes:</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Mot de passe</value>
   </data>
 </root>

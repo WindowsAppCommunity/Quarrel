@@ -240,4 +240,7 @@
   <data name="ShowWelcomeCB.Content" xml:space="preserve">
     <value>Show loading messages</value>
   </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Enable Acrylic effects (blurred background)</value>
+  </data>
 </root>
