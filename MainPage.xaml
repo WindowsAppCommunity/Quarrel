@@ -1022,24 +1022,9 @@
                         <AdaptiveTrigger x:Name="SmallTrigger" MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ServersnChannelsPane.(DisplayMode)">
+                        <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
-                                <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="ServersnChannelsPane.(IsPaneOpen)">
-                            <Setter.Value>
-                                <x:Boolean>False</x:Boolean>
-                            </Setter.Value>
-                        </Setter>
-                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Visible</Visibility>
-                            </Setter.Value>
-                        </Setter>-->
-                        <Setter Target="MembersPane.(DisplayMode)">
-                            <Setter.Value>
-                                <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
+                                <Thickness>12,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -1049,24 +1034,9 @@
                         <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="500"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ServersnChannelsPane.(DisplayMode)">
+                        <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
-                                <SplitViewDisplayMode>CompactOverlay</SplitViewDisplayMode>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="ServersnChannelsPane.(IsPaneOpen)">
-                            <Setter.Value>
-                                <x:Boolean>False</x:Boolean>
-                            </Setter.Value>
-                        </Setter>
-                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>-->
-                        <Setter Target="MembersPane.(DisplayMode)">
-                            <Setter.Value>
-                                <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
+                                <Thickness>12,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -1076,24 +1046,9 @@
                         <AdaptiveTrigger x:Name="LargeTrigger" MinWindowWidth="700"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ServersnChannelsPane.(DisplayMode)">
+                        <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
-                                <SplitViewDisplayMode>CompactInline</SplitViewDisplayMode>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="ServersnChannelsPane.(IsPaneOpen)">
-                            <Setter.Value>
-                                <x:Boolean>true</x:Boolean>
-                            </Setter.Value>
-                        </Setter>
-                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>-->
-                        <Setter Target="MembersPane.(DisplayMode)">
-                            <Setter.Value>
-                                <SplitViewDisplayMode>Overlay</SplitViewDisplayMode>
+                                <Thickness>240,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -1103,24 +1058,9 @@
                         <AdaptiveTrigger x:Name="ExtraLargeTrigger" MinWindowWidth="1000"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ServersnChannelsPane.(DisplayMode)">
+                        <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
-                                <SplitViewDisplayMode>CompactInline</SplitViewDisplayMode>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="ServersnChannelsPane.(IsPaneOpen)">
-                            <Setter.Value>
-                                <x:Boolean>true</x:Boolean>
-                            </Setter.Value>
-                        </Setter>
-                        <!--<Setter Target="CompressedChannelHeader.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>-->
-                        <Setter Target="MembersPane.(DisplayMode)">
-                            <Setter.Value>
-                                <SplitViewDisplayMode>Inline</SplitViewDisplayMode>
+                                <Thickness>240,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>

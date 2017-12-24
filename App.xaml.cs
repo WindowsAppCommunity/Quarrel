@@ -814,6 +814,7 @@ namespace Discord_UWP
             Storage.Settings.mutedChnEffectServer = false;
             Storage.Settings.Vibrate = true;
             Storage.Settings.EnableAcrylic = true;
+            Storage.SaveAppSettings();
         }
         private void LoadSettings()
         {
@@ -945,7 +946,8 @@ namespace Discord_UWP
             if (args.Kind == ActivationKind.Protocol)
             {
 
-
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
                 var count = segments.Count();
@@ -954,8 +956,7 @@ namespace Discord_UWP
                     if(segments[0] == "guild")
                     {
                         //If the app isn't already open, do so
-                        if (args.PreviousExecutionState != ApplicationExecutionState.Running)
-                            LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+                        
                         if (count == 3)
                             App.SelectGuildChannel(segments[1], segments[2]);
                         else if(count == 2)

@@ -1718,7 +1718,10 @@ namespace Discord_UWP
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            ChannelHeader.MaxWidth = e.NewSize.Width - (72*3)+1;
+            int extrawidth = 0;
+            if (UISize.CurrentState == Large | UISize.CurrentState == ExtraLarge)
+                extrawidth = 240;
+            ChannelHeader.MaxWidth = e.NewSize.Width - (72*3)+1+extrawidth;
         }
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
