@@ -1204,8 +1204,65 @@
                     <controls:SideDrawer.ContentLeftSecondary>
                         <Grid Grid.Column="1" BorderBrush="#00000000">
                             <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False" Style="{StaticResource OffsetScrollbarSV}">
-                                <StackPanel Margin="0,0,0,82">
-                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}" Margin="0,12,0,0" Width="228">
+                                <StackPanel Margin="0,0,0,82" Padding="0,12,0,0">
+                                    <ListViewItem x:Name="FriendsItem" Tapped="OpenFriendPanel" Height="48"  Style="{StaticResource ChannelItemStyle}">
+                                        <ListViewItem.Resources>
+                                            <Storyboard x:Name="ShowFriendsBadge">
+                                                <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="friendItemgrid" d:IsOptimized="True">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Duration="0:0:0.6" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="FriendNotificationCounter" d:IsOptimized="True">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                            <Storyboard x:Name="HideFriendsBadge" Completed="HideBadge_Completed">
+                                                <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="friendItemgrid" d:IsOptimized="True">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseIn"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Duration="0:0:0.6" To="24" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="FriendNotificationCounter" d:IsOptimized="True">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseIn"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </ListViewItem.Resources>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-24,-24,0"/>
+                                            <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
+                                            <Grid x:Name="friendItemgrid" Grid.RowSpan="4" Grid.ColumnSpan="4" Opacity="0" Height="48"  Margin="0,0,-24,0">
+                                                <Grid.Background>
+                                                    <LinearGradientBrush EndPoint="0,0" StartPoint="1.5,0" ColorInterpolationMode="ScRgbLinearInterpolation">
+                                                        <GradientStop Offset="0.9"/>
+                                                        <GradientStop Color="{ThemeResource BlurpleColor}" Offset="0"/>
+                                                    </LinearGradientBrush>
+                                                </Grid.Background>
+                                                <Border Visibility="Visible" Height="24" Width="2" Background="{ThemeResource Blurple}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="1"/>
+
+                                                <TextBlock x:Name="FriendNotificationCounter" Foreground="{ThemeResource Blurple}" Text="1" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="24,0,24,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+                                                    <TextBlock.RenderTransform>
+                                                        <CompositeTransform TranslateX="24"/>
+                                                    </TextBlock.RenderTransform>
+                                                </TextBlock>
+                                            </Grid>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <SymbolIcon Symbol="People" Margin="6,6,6,6" Opacity="1"/>
+                                                <TextBlock Text="Friends" VerticalAlignment="Center" Margin="12,0,0,0"  Opacity="0.8"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </ListViewItem>
+                                    <TextBlock x:Uid="/Main/DirectMessageTB" x:Name="DirectMessageBlock" Text="DIRECT MESSAGES" Opacity="0.8" Margin="24,24,0,6"/>
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  Width="228">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
                                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>
@@ -1255,8 +1312,6 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-
-
                             <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="Discord UWP" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
                             <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
@@ -1497,54 +1552,6 @@
                                     <!--<SymbolIcon Margin="10,0,0,0" Symbol="More"/>-->
                                 </StackPanel>
                             </Button>
-                            <ToggleButton x:Name="FriendsButton" Click="OpenFriendPanel" Width="230" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Stretch" BorderThickness="0" Style="{StaticResource FriendsButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <SymbolIcon Symbol="People" HorizontalAlignment="Left"/>
-                                    <TextBlock x:Uid="/Main/FriendsTB" Text="FRIENDS" FontWeight="SemiBold" Margin="10,0"/>
-                                    <Border Visibility="Visible" Opacity="0" x:Name="FriendsNotificationBorder" Background="#f04747" CornerRadius="4" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                        <Border.Resources>
-                                            <Storyboard x:Name="ShowFriendsBadge">
-                                                <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationBorder" Storyboard.TargetProperty="Opacity">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseOut"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                                <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleX">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseOut"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                                <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleY">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseOut"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                            </Storyboard>
-                                            <Storyboard x:Name="HideFriendsBadge">
-                                                <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="FriendsNotificationBorder" Storyboard.TargetProperty="Opacity">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseIn"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                                <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleX">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseIn"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                                <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetName="FriendsNotificationScale" Storyboard.TargetProperty="ScaleY">
-                                                    <DoubleAnimation.EasingFunction>
-                                                        <BackEase EasingMode="EaseIn"/>
-                                                    </DoubleAnimation.EasingFunction>
-                                                </DoubleAnimation>
-                                            </Storyboard>
-                                        </Border.Resources>
-                                        <Border.RenderTransform>
-                                            <CompositeTransform x:Name="FriendsNotificationScale" CenterY="4" CenterX="6" ScaleY="0.5" ScaleX="0.5"/>
-                                        </Border.RenderTransform>
-                                        <TextBlock x:Name="FriendsNotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,0,6,2" FontSize="13.333"/>
-                                    </Border>
-                                </StackPanel>
-                            </ToggleButton>
                             <StackPanel x:Name="ChannelHeader" Orientation="Vertical" VerticalAlignment="Center" Width="400" Tapped="ChannelHeader_Tapped">
                                 <TextBlock x:Name="ChannelName" Text="Channel Name" FontWeight="Bold"/>
                                 <md:MarkdownTextBlock x:Name="ChannelTopic" Text="Channel Topic" FontSize="13" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0" TextWrapping="NoWrap" Height="18" VerticalAlignment="Bottom" IsTextSelectionEnabled="False"/>

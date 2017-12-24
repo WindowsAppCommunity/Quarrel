@@ -291,4 +291,7 @@
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Code d'authentification</value>
   </data>
+  <data name="DirectMessageTB.Text" xml:space="preserve">
+    <value>MESSAGES PRIVÉS</value>
+  </data>
 </root>
