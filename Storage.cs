@@ -52,7 +52,7 @@ namespace Discord_UWP
     public class Settings
     {
         //Tuple<string, User> ActiveUser;
-        public ushort lastVerison = 0;
+        public string lastVerison = "0";
         public bool LockChannels = false;
         public bool AutoHideChannels = true;
         public bool AutoHidePeople = false;
