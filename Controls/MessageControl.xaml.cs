@@ -129,6 +129,8 @@ namespace Discord_UWP.Controls
             {
                 if (MessageType == MessageTypes.Advert)
                 {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     VisualStateManager.GoToState(this, "Advert", false);
                     advert = new AdControl();
                     advert.HorizontalAlignment = HorizontalAlignment.Center;
@@ -141,10 +143,14 @@ namespace Discord_UWP.Controls
                     Grid.SetColumnSpan(advert, 10);
                     Grid.SetRowSpan(advert, 10);
                     rootGrid.Children.Add(advert);
+                    if(reactionView!=null)
+                    rootGrid.Children.Remove(reactionView);
                     return;
                 }
                 else if(MessageType == MessageTypes.RecipientAdded)
                 {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
@@ -155,6 +161,8 @@ namespace Discord_UWP.Controls
                 }
                 else if(MessageType == MessageTypes.RecipientRemoved)
                 {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
@@ -165,6 +173,8 @@ namespace Discord_UWP.Controls
                 }
                 else if(MessageType == MessageTypes.Call)
                 {
+                    if(rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
@@ -179,6 +189,8 @@ namespace Discord_UWP.Controls
                 }
                 else if (MessageType == MessageTypes.PinnedMessage)
                 {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
@@ -189,6 +201,8 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
