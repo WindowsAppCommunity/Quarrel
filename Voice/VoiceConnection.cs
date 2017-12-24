@@ -44,10 +44,9 @@ namespace Discord_UWP.Voice
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
-        private readonly byte[] _nonce = new byte[24];
-        private byte[] _rtpHeader = new byte[24];
-        private byte[] _encrypted = new byte[15000];
-        private byte[] _unencrypted = new byte[15000];
+        private byte[] _nonce = new byte[24];
+        private byte[] _encrypted = new byte[3840];
+        private byte[] _unencrypted = new byte[3840];
 
         private byte[] secretkey;
 
@@ -267,13 +266,16 @@ namespace Discord_UWP.Voice
         {
             try
             {
-                Buffer.BlockCopy((byte[])e.Message, 0, _nonce, 0, 12);
-                //int samps = SecretBox.Decrypt((byte[])e.Message, 12, (e.Message as byte[]).Length, _unencrypted, 0, _nonce, secretkey);
-                Buffer.BlockCopy((byte[])e.Message, 12, _encrypted, 0, (e.Message as byte[]).Length-12);
+                var packet = (byte[])e.Message;
+                Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
+                Buffer.BlockCopy(packet, 12, _encrypted, 0, packet.Length-12);
+
                 _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
-                int framesize = 120 * 48; //120 ms * 48 samples per ms
-                float[] output = new float[framesize * 2]; // framesize * 2 channel
+                //Framesize is wrong
+                int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
+                float[] output = new float[framesize]; // framesize 
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
                 //AudioTrig.AddFrame(output, (uint)samples);
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
