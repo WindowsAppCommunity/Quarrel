@@ -1687,6 +1687,7 @@ namespace Discord_UWP
 
         private void OpenSettings(object sender, RoutedEventArgs e)
         {
+            userFlyout.Hide();
             App.NavigateToSettings();
         }
 
