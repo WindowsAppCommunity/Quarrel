@@ -36,10 +36,13 @@ namespace Discord_UWP
         public MainPage()
         {
             this.InitializeComponent();
-            Setup();
-
-            
-
+            if (!App.IsOnline())
+            {
+                SubFrameNavigator(typeof(Offline));
+            } else
+            {
+                Setup();
+            }
         }
 
         ScrollViewer MessageScrollviewer;
@@ -224,9 +227,10 @@ namespace Discord_UWP
 
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
-            
-        }
 
+            //LocalSettings
+            Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
+        }
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
             string guild = e.GuildId;
@@ -245,6 +249,14 @@ namespace Discord_UWP
                 }
             }
         }
+
+        private void Storage_SettingsChangedHandler(object sender, EventArgs e)
+        {
+            MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+            LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+            ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+        }
+
 
         public void ClearData()
         {
