@@ -812,6 +812,7 @@ namespace Discord_UWP
             Storage.Settings.Theme = Theme.Dark;
             Storage.Settings.AccentBrush = false;
             Storage.Settings.mutedChnEffectServer = false;
+            Storage.Settings.Vibrate = true;
         }
         private void LoadSettings()
         {

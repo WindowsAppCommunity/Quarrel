@@ -220,10 +220,19 @@ namespace Discord_UWP.SubPages
                 DishTImer.Interval = new TimeSpan(0, 0, 0, 0, 100);
                 DishTImer.Tick += DishTImer_Tick;
 
-                MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateMp3(AudioEncodingQuality.Medium);
 
                 AudioStream = new InMemoryRandomAccessStream();
-                await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                try
+                {
+                    MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
+                    await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                }
+                catch
+                {
+                    MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
+                    await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                }
+                
                 DishTImer.Start();
                 recording = true;
             }

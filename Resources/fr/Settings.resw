@@ -228,4 +228,16 @@
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
     <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
   </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>Couleur d'accentuation système</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Blurple Discord</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>AUTRE</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Afficher les phrases de chargement</value>
+  </data>
 </root>

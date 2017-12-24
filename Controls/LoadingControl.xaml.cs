@@ -30,6 +30,12 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             var message = EntryMessages.GetMessage();
+            if (!Storage.Settings.ShowWelcomeMessage)
+            {
+                MessageBlock.Visibility = Visibility.Collapsed;
+                Animation.Begin();
+                return;
+            }
             MessageBlock.Text = message.Key.ToUpper();
             if(message.Value != "")
                 CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;

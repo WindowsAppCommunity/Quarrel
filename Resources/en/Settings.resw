@@ -228,4 +228,16 @@
   <data name="mutedChannelsAffectServerCB" xml:space="preserve">
     <value>Muted channels affect server unread status?</value>
   </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>System accent color</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blurple</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>OTHER</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Show loading messages</value>
+  </data>
 </root>

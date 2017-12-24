@@ -47,7 +47,7 @@
                     <Button Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="0,0,12,0" Click="CreateServerClick" Width="124">
                         <Button.Content>
                             <StackPanel>
-                                <TextBlock x:Uid="/Dialogs/CreateServerTB" Text="Create Server" HorizontalAlignment="Center"/>
+                                <TextBlock x:Uid="/Dialogs/CreateServerTB" Text="Create Server" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                                 <SymbolIcon Symbol="Add" Height="96" Width="36" RenderTransformOrigin="0.5,0.5">
                                     <SymbolIcon.RenderTransform>
                                         <CompositeTransform ScaleX="2" ScaleY="2"/>
@@ -60,7 +60,7 @@
                     <Button Style="{StaticResource DiscordButton}" Background="{StaticResource Blurple}" Margin="12,0,0,0" Grid.Column="2" Click="JoinServerClick" Width="124">
                         <Button.Content>
                             <StackPanel>
-                                <TextBlock x:Uid="/Dialogs/JoinServerTB" Text="Join Server" HorizontalAlignment="Center"/>
+                                <TextBlock x:Uid="/Dialogs/JoinServerTB" Text="Join Server" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"/>
                                 <SymbolIcon Symbol="SetTile" Height="96" Width="36" RenderTransformOrigin="0.5,0.5">
                                     <SymbolIcon.RenderTransform>
                                         <CompositeTransform ScaleX="2" ScaleY="2"/>

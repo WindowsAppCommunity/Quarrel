@@ -23,6 +23,9 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Composition;
 using Windows.UI;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Navigation;
+using Windows.Gaming.Input;
+using Windows.Foundation.Metadata;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,12 +39,13 @@ namespace Discord_UWP
         public MainPage()
         {
             this.InitializeComponent();
-            Setup();
-
-            
-
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            sideDrawer.SetupInteraction(ChannelHeader);
+            Setup();
+            base.OnNavigatedTo(e);
+        }
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
         BackgroundAccessStatus bgAccess;
@@ -979,9 +983,24 @@ namespace Discord_UWP
             //CompChannelName.Text = ChannelName.Text;
             ChannelTopic.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id].raw.Topic : "";
             //CompChannelTopic.Text = ChannelTopic.Text;
-
+            if (ChannelTopic.Text == null || ChannelTopic.Text.Trim() == "")
+            {
+                ChannelTopic.Visibility = Visibility.Collapsed;
+                ChannelName.Margin = new Thickness(0,10,0,0);
+            }
+                
+            else
+            {
+                ChannelTopic.Visibility = Visibility.Visible;
+                ChannelName.Margin = new Thickness(0,0,0,0);
+            }
+                
             MessageList.Items.Clear();
-            var emessages = await RESTCalls.GetChannelMessages(App.CurrentChannelId);
+            IEnumerable<Message> emessages = null;
+            await Task.Run(async () =>
+            {
+                emessages = await RESTCalls.GetChannelMessages(App.CurrentChannelId);
+            });
             if (emessages != null)
             {
                 var messages = MessageManager.ConvertMessage(emessages.ToList());
@@ -996,8 +1015,11 @@ namespace Discord_UWP
             {
                 //TODO: Check offline status and potentially set to offline mode
             }
-
-            var epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
+            IEnumerable<Message> epinnedmessages = null;
+            await Task.Run(async () =>
+            {
+                epinnedmessages = await RESTCalls.GetChannelPinnedMessages(App.CurrentChannelId);
+            });
             if (epinnedmessages != null)
             {
                 var pinnedmessages = MessageManager.ConvertMessage(epinnedmessages.ToList());
@@ -1479,7 +1501,28 @@ namespace Discord_UWP
                  {
                      MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
                      App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
-
+                     if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)
+                     {
+                         var vibrationDuration = TimeSpan.FromMilliseconds(200);
+                         if (ApiInformation.IsTypePresent("Windows.Phone.Devices.Notification"))
+                         {
+                             var phonevibrate = Windows.Phone.Devices.Notification.VibrationDevice.GetDefault();
+                             phonevibrate.Vibrate(vibrationDuration);
+                         }
+                         //This will be for another time, it clearly isn't working right now
+                        /* var gamepad = Windows.Gaming.Input.Gamepad.Gamepads.FirstOrDefault();
+                         if(gamepad!=null)
+                         {
+                             GamepadVibration vibration = new GamepadVibration();
+                             await Task.Run(async () =>
+                             {
+                                 vibration.RightMotor = 0.5;
+                                 gamepad.Vibration = vibration;
+                                 await Task.Delay(vibrationDuration);
+                                 vibration.RightMotor = 0;
+                             });
+                         }*/
+                     }
                      if (e.Message.TTS)
                      {
                          MediaElement mediaplayer = new MediaElement();
@@ -1665,7 +1708,7 @@ namespace Discord_UWP
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
+            ChannelHeader.MaxWidth = e.NewSize.Width - (72*3)+1;
         }
 
         private void UserStatus_Checked(object sender, RoutedEventArgs e)
@@ -1895,6 +1938,16 @@ namespace Discord_UWP
         private void HideBadge_Completed(object sender, object e)
         {
 
+        }
+
+        private void cmdBar_Opening(object sender, object e)
+        {
+            ChannelTopic.LineHeight = 12;
+        }
+
+        private void cmdBar_Closing(object sender, object e)
+        {
+            ChannelTopic.LineHeight = 24;
         }
     }
 }

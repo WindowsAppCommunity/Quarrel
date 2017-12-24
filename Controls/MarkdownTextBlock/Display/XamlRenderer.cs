@@ -367,6 +367,11 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         public TextWrapping TextWrapping { get; set; }
 
         /// <summary>
+        /// Gets or sets the line height
+        /// </summary>
+        public Double LineHeight { get; set; }
+
+        /// <summary>
         /// Gets or sets the brush used to render links.  If this is <c>null</c>, then
         /// <see cref="Foreground"/> is used.
         /// </summary>
@@ -1235,10 +1240,11 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 FontStretch = FontStretch,
                 FontStyle = FontStyle,
                 FontWeight = FontWeight,
-                LineHeight=22,
+                LineHeight=LineHeight,
                 Foreground = context.Foreground,
                 IsTextSelectionEnabled = IsTextSelectionEnabled,
-                TextWrapping = TextWrapping
+                TextWrapping = TextWrapping,
+                
             };
             blockUIElementCollection?.Add(result);
 

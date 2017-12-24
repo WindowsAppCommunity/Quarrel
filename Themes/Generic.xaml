@@ -64,6 +64,7 @@
         <Setter Property="TableCellPadding" Value="9, 4, 9, 4" />
         <Setter Property="TableMargin" Value="0, 5, 0, 5" />
         <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="LineHeight" Value="22" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MarkdownTextBlock">
