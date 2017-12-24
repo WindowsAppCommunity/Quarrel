@@ -49,5 +49,33 @@ namespace Discord_UWP.SubPages
         {
             Frame.Visibility = Visibility.Collapsed;
         }
+        DispatcherTimer timer = new DispatcherTimer();
+        private async void joinDiscordUWPServer(object sender, RoutedEventArgs e)
+        {
+            JoinServer.IsHitTestVisible = false;
+            JoinServerText.Text = App.GetString("/About/JoinWait");
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += TimerOnTick;
+            try
+            {
+                await RESTCalls.AcceptInvite("wQmQgtq"); //TODO: Rig to App.Events
+            }
+            catch /*(Exception exception)*/
+            {
+                JoinServerText.Text = App.GetString("/About/JoinFail");
+                timer.Start();
+                return;
+            }
+            JoinServerText.Text = App.GetString("/About/JoinSucess");
+            timer.Start();
+        }
+
+        private void TimerOnTick(object sender, object e)
+        {
+            timer.Tick -= TimerOnTick;
+            timer.Stop();
+            JoinServer.IsHitTestVisible = true;
+            JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServer");
+        }
     }
 }

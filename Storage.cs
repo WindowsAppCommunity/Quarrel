@@ -75,5 +75,6 @@ namespace Discord_UWP
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
+        public bool EnableAcrylic = true;
     }
 }

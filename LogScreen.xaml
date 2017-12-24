@@ -317,12 +317,12 @@
             <TextBlock Text="Unofficial client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="NormalAuth" Visibility="Visible">
-                    <TextBox x:Uid="EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
-                    <PasswordBox x:Uid="PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+                    <TextBox x:Uid="/About/EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
+                    <PasswordBox x:Uid="/About/PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
-                    <TextBlock x:Uid="EmailTBox" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="12,6,0,0"/>
-                    <PasswordBox x:Uid="MFAPasswordTBox" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+                    <TextBlock x:Uid="/About/MFATB" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="12,6,0,0"/>
+                    <PasswordBox x:Uid="/About/MFAPasswordTBox" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
                 </StackPanel>
             </Grid>
             <Button HorizontalAlignment="Stretch" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
