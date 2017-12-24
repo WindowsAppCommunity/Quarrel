@@ -145,6 +145,9 @@ namespace Discord_UWP.Controls
                 }
                 else if(MessageType == MessageTypes.RecipientAdded)
                 {
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
                     VisualStateManager.GoToState(this, "Alternative", false);
                     AlternativeIcon.Glyph = "";
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
@@ -152,6 +155,9 @@ namespace Discord_UWP.Controls
                 }
                 else if(MessageType == MessageTypes.RecipientRemoved)
                 {
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
                     VisualStateManager.GoToState(this, "Alternative", false);
                     AlternativeIcon.Glyph = "";
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
@@ -159,6 +165,9 @@ namespace Discord_UWP.Controls
                 }
                 else if(MessageType == MessageTypes.Call)
                 {
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
                     VisualStateManager.GoToState(this, "Alternative", false);
                     AlternativeIcon.Glyph = "";
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
@@ -170,6 +179,9 @@ namespace Discord_UWP.Controls
                 }
                 else if (MessageType == MessageTypes.PinnedMessage)
                 {
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
                     VisualStateManager.GoToState(this, "Alternative", false);
                     AlternativeIcon.Glyph = "";
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
