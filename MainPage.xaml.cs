@@ -192,6 +192,7 @@ namespace Discord_UWP
             App.NavigateToIAPSHandler += App_NavigateToIAPSHandler;
             //Flyouts
             App.MenuHandler += App_MenuHandler;
+            App.MentionHandler += App_MentionHandler;
             App.ShowMemberFlyoutHandler += App_ShowMemberFlyoutHandler;
             //Link
             App.LinkClicked += App_LinkClicked;
@@ -229,6 +230,14 @@ namespace Discord_UWP
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
+        }
+
+        private void App_MentionHandler(object sender, App.MentionArgs e)
+        {
+            if (MessageBox1.Text.Trim() == "")
+                MessageBox1.Text = "@" + e.Username + "#" + e.Discriminator;
+            else
+                MessageBox1.Text = MessageBox1.Text + " @" + e.Username + "#" + e.Discriminator;
         }
 
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
@@ -293,6 +302,7 @@ namespace Discord_UWP
             App.NavigateToIAPSHandler -= App_NavigateToIAPSHandler;
             //Flyouts
             App.MenuHandler -= App_MenuHandler;
+            App.MentionHandler -= App_MentionHandler;
             App.ShowMemberFlyoutHandler -= App_ShowMemberFlyoutHandler;
             //Link
             App.LinkClicked -= App_LinkClicked;
