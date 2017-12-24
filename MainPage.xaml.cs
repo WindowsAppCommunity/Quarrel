@@ -38,21 +38,8 @@ namespace Discord_UWP
             this.InitializeComponent();
             Setup();
 
-            Package package = Package.Current;
-            PackageId packageId = package.Id;
-            PackageVersion version = packageId.Version;
             
-            if (Storage.Settings.lastVerison == 0)
-            {
-                Storage.Settings.lastVerison = version.Build;
-                Storage.SaveAppSettings();
-                App.NavigateToAbout();
-            } else if (Storage.Settings.lastVerison != version.Build)
-            {
-                Storage.Settings.lastVerison = version.Build;
-                Storage.SaveAppSettings();
-                App.NavigateToAbout(true);
-            }
+
         }
 
         ScrollViewer MessageScrollviewer;
@@ -1392,6 +1379,22 @@ namespace Discord_UWP
                                  App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
                                  break;
                          }
+                     }
+                     //Check version number, and if it's different from before, open the what's new page
+                     Package package = Package.Current;
+                     PackageId packageId = package.Id;
+                     PackageVersion version = packageId.Version;
+                     if (Storage.Settings.lastVerison == 0)
+                     {
+                         Storage.Settings.lastVerison = version.Build;
+                         Storage.SaveAppSettings();
+                         App.NavigateToAbout(true);
+                     }
+                     else if (Storage.Settings.lastVerison != version.Build)
+                     {
+                         Storage.Settings.lastVerison = version.Build;
+                         Storage.SaveAppSettings();
+                         App.NavigateToAbout(true);
                      }
                      Loading.Hide(true);
                  });
