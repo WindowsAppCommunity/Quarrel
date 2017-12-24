@@ -1888,6 +1888,7 @@ namespace Discord_UWP
             FriendsItem.IsSelected = true;
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
+            sideDrawer.OpenLeft();
         }
 
         private void HideBadge_Completed(object sender, object e)
