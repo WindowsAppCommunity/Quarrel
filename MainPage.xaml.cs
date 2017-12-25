@@ -726,6 +726,7 @@ namespace Discord_UWP
                     if (item.Id == val)
                     {
                         ChannelList.SelectedItem = item;
+                        ChannelList_ItemClick(null, null);
                     }
                 }
             }
