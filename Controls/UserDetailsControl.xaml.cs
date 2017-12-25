@@ -120,6 +120,11 @@ namespace Discord_UWP.Controls
                     RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
+                try
+                {
+                    Note.Text = LocalState.Notes[DisplayedMember.User.Id];
+                }
+                catch { }
                 //TODO: DM Functionality
                 //TODO: Live status+playing indicator
                 //TODO: 
@@ -130,6 +135,7 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             SendDM.Send += SendDirectMessage;
+
             GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
         }
 

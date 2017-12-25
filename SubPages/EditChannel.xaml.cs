@@ -48,7 +48,7 @@ namespace Discord_UWP.SubPages
 
         private void SaveChannelSettings(object sender, RoutedEventArgs e)
         {
-            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = LocalState.Guilds[App.CurrentGuildId].channels[channelId].raw.Position, NSFW = NsfwSwitch.IsOn };
+            Discord_UWP.API.Channel.Models.ModifyChannel modifychannel = new Discord_UWP.API.Channel.Models.ModifyChannel() { Name = ChannelName.Text, Topic = ChannelTopic.Text, Bitrate = 64000, Position = LocalState.Guilds[App.CurrentGuildId].channels[channelId].raw.Position, NSFW = NsfwSwitch.IsOn};
             Task.Run(async () =>
             {
                 await RESTCalls.ModifyGuildChannel(channelId, modifychannel);

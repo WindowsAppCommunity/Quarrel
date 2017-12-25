@@ -228,4 +228,16 @@
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
     <value>Sourdine canaux effet serveur non lu État?</value>
   </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value />
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>OTROS</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value />
+  </data>
 </root>

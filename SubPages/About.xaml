@@ -229,13 +229,46 @@
                                 <TextBlock Text="Fixed mark as read in DMs" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added backbutton functionality" TextWrapping="Wrap"/>
+                                <TextBlock Text="Added back button functionality" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Guild role permissions editing" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Remove Ads no longer expires after a year (it lasts forever now)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Side panels open with trackpad swipes" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Started adding xbox cinematic mode behind the scenes" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Small controller input improvements" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Guild order now updates in real-time and is no longer wrong" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Recording audio is fixed on mobile" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added missing translations" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed attachements" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed status needing to be updated twice" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed save button for photos" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added What's New welcome screen" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Lots and lots more bug fixes, can't remember everything we did :P" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
