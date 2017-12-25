@@ -648,6 +648,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UpdateNotificationTask\UpdateNotificationTask.csproj">
+      <Project>{e8978980-da38-480b-850b-0bbd28baa6fc}</Project>
+      <Name>UpdateNotificationTask</Name>
+    </ProjectReference>
     <ProjectReference Include="DiscordAPI.csproj">
       <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
       <Name>DiscordAPI</Name>
