@@ -968,6 +968,11 @@ namespace Discord_UWP
                     }
                 };
             }
+            else
+            {
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+            }
         }
         public async static Task RequestReset()
         {
