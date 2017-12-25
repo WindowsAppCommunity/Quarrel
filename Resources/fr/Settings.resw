@@ -226,7 +226,7 @@
     <value>Demandes d'amis</value>
   </data>
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
+    <value>Les serveurs muets effectent l'indicateur "lu" du serveur?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Couleur d'accentuation système</value>

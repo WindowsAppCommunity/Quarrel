@@ -53,7 +53,7 @@ namespace Discord_UWP
                     switch (result.exception.Message)
                     {
                         case "Response status code does not indicate success: 400().":
-                            ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email and password";
+                            ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email for an email from Discord to verify your IP";
                             break;
                         case "TBD":
                             ermsg = "A bug in the code is preventing log in, some imported code (refit) isn't working, trying again later may work";
