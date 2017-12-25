@@ -160,9 +160,6 @@
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
     <value>Correo electrónico</value>
   </data>
-  <data name="Join Discord UWP Server" xml:space="preserve">
-    <value>Unirse a discordia UWP servidor</value>
-  </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value>Unirse a discordia UWP servidor</value>
     <comment>Button to join the Discord UWP server</comment>
@@ -191,5 +188,8 @@
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Contraseña</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Unirse a discordia UWP servidor</value>
   </data>
 </root>

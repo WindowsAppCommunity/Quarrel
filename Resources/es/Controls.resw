@@ -258,4 +258,31 @@
   <data name="FriendsLI.Content" xml:space="preserve">
     <value>AMIGOS</value>
   </data>
+  <data name="AddedUser" xml:space="preserve">
+    <value>añadido</value>
+  </data>
+  <data name="RemovedUser" xml:space="preserve">
+    <value>quitado</value>
+  </data>
+  <data name="ToTheConversation" xml:space="preserve">
+    <value>a la conversación</value>
+  </data>
+  <data name="FromTheConversation" xml:space="preserve">
+    <value>de la conversación</value>
+  </data>
+  <data name="YouMissedACall" xml:space="preserve">
+    <value>Te perdiste una llamada de</value>
+  </data>
+  <data name="PinnedAMessageInThisChannel" xml:space="preserve">
+    <value>ha fijado un mensaje en este canal.</value>
+  </data>
+  <data name="CallStartedBy" xml:space="preserve">
+    <value>Llamada iniciada por</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>inició una llamada</value>
+  </data>
+  <data name="You" xml:space="preserve">
+    <value>Tu</value>
+  </data>
 </root>

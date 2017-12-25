@@ -229,15 +229,21 @@
     <value>Sourdine canaux effet serveur non lu État?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
-    <value />
+    <value>Color del acento del sistema</value>
   </data>
   <data name="BlurpleRadio.Content" xml:space="preserve">
-    <value />
+    <value>Blurple Discord</value>
   </data>
   <data name="OTHERTB.Text" xml:space="preserve">
     <value>OTROS</value>
   </data>
   <data name="ShowWelcomeCB.Content" xml:space="preserve">
-    <value />
+    <value>Mostrar mensajes de carga</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Sourdine canaux affet serveur non lu État?</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Activar efectos acrílicos (fondo borroso)</value>
   </data>
 </root>

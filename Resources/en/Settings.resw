@@ -243,4 +243,7 @@
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Enable Acrylic effects (blurred background)</value>
   </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Muted channels effect server unread status?</value>
+  </data>
 </root>

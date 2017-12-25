@@ -270,4 +270,28 @@
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Código de autenticación</value>
   </data>
+  <data name="DirectMessagesTB.Text" xml:space="preserve">
+    <value>MENSAJES DIRECTOS</value>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>AMIGOS</value>
+  </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>te envié una solicitud de amigo</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Niegan</value>
+  </data>
+  <data name="Notifications_Reply" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="RecentMentionsABB.Label" xml:space="preserve">
+    <value>Menciones recientes</value>
+  </data>
+  <data name="DirectMessageTB.Text" xml:space="preserve">
+    <value>MENSAJES DIRECTOS</value>
+  </data>
 </root>
