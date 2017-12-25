@@ -243,4 +243,7 @@
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Activer les effects Acrylic (arrière-plan flouté)</value>
   </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Les salons muets affectent le statut "lu" du serveur?</value>
+  </data>
 </root>
