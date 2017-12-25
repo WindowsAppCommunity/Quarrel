@@ -18,7 +18,7 @@ namespace Discord_UWP
             {
                 sideDrawer.ToggleLeft();
             }
-            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadRightTrigger)
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
                 sideDrawer.ToggleRight();
             }

@@ -178,7 +178,7 @@
     <value>Créer des invitations</value>
   </data>
   <data name="CreateServerTB.Text" xml:space="preserve">
-    <value>NOUVEAU SALON</value>
+    <value>Créer un serveur</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
     <value>Assourdir des membres</value>
@@ -241,7 +241,7 @@
     <value>Désolé, mais l'invitation est périmée ou invalide.</value>
   </data>
   <data name="JoinServerTB.Text" xml:space="preserve">
-    <value>Rejoindre le serveur</value>
+    <value>Rejoindre un serveur</value>
   </data>
   <data name="KickMembersToggle.Header" xml:space="preserve">
     <value>Expulser des membres</value>

@@ -599,6 +599,9 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Concentus">
@@ -645,6 +648,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UpdateNotificationTask\UpdateNotificationTask.csproj">
+      <Project>{e8978980-da38-480b-850b-0bbd28baa6fc}</Project>
+      <Name>UpdateNotificationTask</Name>
+    </ProjectReference>
     <ProjectReference Include="DiscordAPI.csproj">
       <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
       <Name>DiscordAPI</Name>

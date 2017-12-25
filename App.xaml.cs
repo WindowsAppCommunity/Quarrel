@@ -793,7 +793,7 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
-        private void ResetSettings()
+        private static void ResetSettings()
         {
             Storage.Settings.lastVerison = "0";
             Storage.Settings.AutoHideChannels = true;
@@ -812,6 +812,9 @@ namespace Discord_UWP
             Storage.Settings.Theme = Theme.Dark;
             Storage.Settings.AccentBrush = false;
             Storage.Settings.mutedChnEffectServer = false;
+            Storage.Settings.Vibrate = true;
+            Storage.Settings.EnableAcrylic = true;
+            Storage.SaveAppSettings();
         }
         private void LoadSettings()
         {
@@ -931,14 +934,13 @@ namespace Discord_UWP
         /// Invoked when the application is not launche normally by the end user
         /// </summary>
         /// <param name="args">Detais about the activation event</param>
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected override async void OnActivated(IActivatedEventArgs args)
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                //If the app isn't already open, do so
+
                 if (args.PreviousExecutionState != ApplicationExecutionState.Running)
                     LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
-
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
                 var count = segments.Count();
@@ -946,6 +948,8 @@ namespace Discord_UWP
                 {
                     if(segments[0] == "guild")
                     {
+                        //If the app isn't already open, do so
+                        
                         if (count == 3)
                             App.SelectGuildChannel(segments[1], segments[2]);
                         else if(count == 2)
@@ -953,25 +957,34 @@ namespace Discord_UWP
                     }
                     else if(segments[0] == "reset")
                     {
-                        ContentDialog AreYouSure = new ContentDialog
-                        {
-                            Title = "ARE YOU SURE?",
-                            Content = "This will fully reset Discord UWP, meaning that you will be logged out of your account and all of your settings will be reset. This will NOT affect your Discord account.",
-                            CloseButtonText = "Cancel",
-                            PrimaryButtonText="Reset Discord UWP"
-                        };
-                        AreYouSure.PrimaryButtonClick += (a, e) =>
-                         {
-                             ResetSettings();
-                             var token = Storage.PasswordVault.FindAllByResource("Token");
-                             foreach (var t in token)
-                                 Storage.PasswordVault.Remove(t);
-                             Application.Current.Exit();
-                         };
-                        AreYouSure.ShowAsync();
+                        await RequestReset();
                     }
                 };
             }
+            else
+            {
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+            }
+        }
+        public async static Task RequestReset()
+        {
+            ContentDialog AreYouSure = new ContentDialog
+            {
+                Title = "ARE YOU SURE?",
+                Content = "This will fully reset Discord UWP, meaning that you will be logged out of your account, all of your settings will be reset, and the application will then exit. This will NOT affect your Discord account.",
+                CloseButtonText = "Cancel",
+                PrimaryButtonText = "Reset Discord UWP"
+            };
+            AreYouSure.PrimaryButtonClick += (a, e) =>
+                                 {
+                                     ResetSettings();
+                                     var token = Storage.PasswordVault.FindAllByResource("Token");
+                                     foreach (var t in token)
+                                         Storage.PasswordVault.Remove(t);
+                                     Application.Current.Exit();
+                                 };
+            await AreYouSure.ShowAsync();
         }
         /// <summary>
         /// Invoked when Navigation to a certain page fails
@@ -1003,7 +1016,7 @@ namespace Discord_UWP
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
-                if (!App.CinematicMode)
+                if (!App.CinematicMode && Storage.Settings.EnableAcrylic)
                 {
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
                     App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()

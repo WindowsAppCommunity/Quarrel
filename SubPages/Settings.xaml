@@ -633,19 +633,23 @@
                             <ScrollViewer Padding="0,0,24,0">
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
+                                   <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
-                                    <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,0"/>
-                                    <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme"/>
-                                    <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme"/>
+                                    <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
+                                    <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
+                                    <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
-                                    <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="13" Margin="0,6,0,0"/>
-                                    <ToggleSwitch x:Name="AccentColorSwitch" OnContent="AccentColor" OffContent="Blurple"/> <!--//TODO: Translate-->
+                                    <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="13" Margin="0,12,0,0"/>
+                                    <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
+                                    <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
+                                    <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
+
+                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
-                                    <!-- <TextBlock Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>-->
+                                    <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
+                                    <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,12"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -678,6 +682,8 @@
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <HyperlinkButton x:Uid="/Settings/ResetRespUiHyperlink" Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
+                                    <HyperlinkButton Content="Reset Discord UWP" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
+
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>

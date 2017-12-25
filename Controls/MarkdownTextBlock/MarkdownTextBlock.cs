@@ -1054,6 +1054,24 @@ namespace Discord_UWP.MarkdownTextBlock
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
+        /// Gets or sets the line height.
+        /// </summary>
+        public Double LineHeight
+        {
+            get { return (Double)GetValue(LineHeightProperty); }
+            set { SetValue(LineHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="LineHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty LineHeightProperty = DependencyProperty.Register(
+            nameof(LineHeight),
+            typeof(Double),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        /// <summary>
         /// Calls OnPropertyChanged.
         /// </summary>
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1203,6 +1221,7 @@ namespace Discord_UWP.MarkdownTextBlock
                     TableCellPadding = TableCellPadding,
                     TableMargin = TableMargin,
                     TextWrapping = TextWrapping,
+                    LineHeight=LineHeight,
                     LinkForeground = LinkForeground,
                     ImageStretch = ImageStretch
                 };

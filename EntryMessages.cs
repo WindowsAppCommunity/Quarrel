@@ -70,7 +70,7 @@ namespace Discord_UWP
                 case 56: return kvp("shaken not shtirred", "@Aslan#9846");
                 case 57: return kvp("All natural!", "@SamCraftRecon#9075"); 
                 case 58: return kvp("100 % sugar free", "@Aslan#9846");
-                case 59: return kvp("Its Wednesday             My dudes, @Abaan404#9892");
+                case 59: return kvp("-_-");
                 case 60: return kvp("You got a license for that?", "@Aslan#9846");
                 case 61: return kvp("Did you bring snacks?", "Chestbeard#9806");
                 case 62: return kvp("Suitable for Vegans", "@SamCraftRecon#9075");

@@ -4132,6 +4132,36 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="FlyoutPresenterStyle1NOLISTVIEW" TargetType="FlyoutPresenter">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="Background" Value="{ThemeResource AcrylicFlyoutBackground}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundChromeHighBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="MinWidth" Value="{ThemeResource FlyoutThemeMinWidth}"/>
+                <Setter Property="MaxWidth" Value="{ThemeResource FlyoutThemeMaxWidth}"/>
+                <Setter Property="MinHeight" Value="{ThemeResource FlyoutThemeMinHeight}"/>
+                <Setter Property="MaxHeight" Value="{ThemeResource FlyoutThemeMaxHeight}"/>
+                <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollMode" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="FlyoutPresenter">
+                            <controls:DropShadowPanel BlurRadius="50.0"
+                          ShadowOpacity="0.6">
+                                <Border BorderBrush="{ThemeResource Blurple}" BorderThickness="{TemplateBinding BorderThickness}" Background="{ThemeResource AcrylicFlyoutBackground}" CornerRadius="4">
+                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                            </controls:DropShadowPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="FlyoutPresenterStyle2" TargetType="FlyoutPresenter">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
