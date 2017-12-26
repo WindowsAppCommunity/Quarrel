@@ -220,12 +220,6 @@
     <PackageReference Include="Concentus">
       <Version>1.1.7</Version>
     </PackageReference>
-    <PackageReference Include="Discord.Net.Audio">
-      <Version>0.9.6</Version>
-    </PackageReference>
-    <PackageReference Include="libsodium-uwp">
-      <Version>1.0.152</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.5</Version>
     </PackageReference>

@@ -6,7 +6,7 @@ using Discord_UWP.Sockets;
 using Discord_UWP.Voice.DownstreamEvents;
 using Discord_UWP.Voice.UpstreamEvents;
 using Newtonsoft.Json;
-using Sodium;
+//using Sodium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -270,7 +270,7 @@ namespace Discord_UWP.Voice
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                 Buffer.BlockCopy(packet, 12, _encrypted, 0, packet.Length-12);
 
-                _unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+                //_unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
 
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 //Framesize is wrong

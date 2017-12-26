@@ -607,9 +607,6 @@
     <PackageReference Include="Concentus">
       <Version>1.1.7</Version>
     </PackageReference>
-    <PackageReference Include="libsodium-uwp">
-      <Version>1.0.152</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.5</Version>
     </PackageReference>
@@ -618,6 +615,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.SDK">
       <Version>10.1705.16001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit">
+      <Version>2.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>2.1.1</Version>
