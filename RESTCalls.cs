@@ -688,12 +688,12 @@ namespace Discord_UWP
             return new SharedModels.GuildChannel();
         }
 
-        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessages(string id)
+        public static async Task<IEnumerable<SharedModels.Message>> GetChannelMessages(string id, int limit = 50)
         {
             try
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
-                return await channelservice.GetChannelMessages(id);
+                return await channelservice.GetChannelMessages(id, limit);
             }
             catch /*(Exception exception)*/
             {
@@ -751,7 +751,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessage(chnid, msgid);
             }
-            catch /*(Exception exception)*/
+            catch (Exception exception)
             {
                 //App.NavigateToBugReport(exception);
             }
