@@ -29,8 +29,8 @@ namespace Discord_UWP.API.Channel
         [Get("/v6/channels/{channelId}/messages/{messageId)")]
         Task<Message> GetChannelMessage([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
-        [Get("/v6/channels/{channelId}/messages")]
-        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId);
+        [Get("/v6/channels/{channelId}/messages?limit={limit}")]
+        Task<IEnumerable<Message>> GetChannelMessages([AliasAs("channelId")] string channelId, [AliasAs("limit")] int limit = 1000);
 
         [Get("/v6/channels/{channelId}/messages?limit=50&before={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesBefore([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
