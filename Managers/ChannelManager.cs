@@ -259,9 +259,7 @@ namespace Discord_UWP.Managers
                 sc.Id = channel.Id;
                 sc.Type = channel.Type;
                 long ticks = 0;
-                //ticks = (await RESTCalls.GetMessage(channel.Id, channel.LastMessageId)).Timestamp.Ticks;
-                var lastMsg = (await RESTCalls.GetChannelMessages(channel.Id, 1)).LastOrDefault();
-                ticks = lastMsg.Timestamp.Ticks;
+                ticks = (await RESTCalls.GetChannelMessages(channel.Id, 1)).LastOrDefault().Timestamp.Ticks;
                 while (dictChannels.ContainsKey(ticks))
                 {
                     ticks++;
