@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Discord_UWP.SharedModels;
+using Discord_UWP.LocalModels;
 
 namespace Discord_UWP.Managers
 {
     public class MessageManager
     {
-        public static List<MessageContainer> ConvertMessage(List<Message> messages)
+        public static async Task<List<MessageContainer>> ConvertMessage(List<Message> messages)
         {
             if (messages != null)
             {
@@ -21,6 +22,14 @@ namespace Discord_UWP.Managers
                 messages.Reverse();
                 foreach (var message in messages)
                 {
+                    foreach (var user in message.Mentions)
+                    {
+                        if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
+                        {
+                            LocalState.Guilds[App.CurrentGuildId].members.Add(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
+                        }
+                    }
+
                     returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), prev.HasValue ? prev.Value.User.Id == message.User.Id : false, null));
                     adCheck--;
                     if (adCheck == 0 && App.ShowAds)

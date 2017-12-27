@@ -733,7 +733,7 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
-                App.NavigateToProfile(memberscvs[val].Raw.User);
+                App.NavigateToProfile(LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else if (e.Link.StartsWith("@&"))
             {
@@ -745,7 +745,7 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@"))
             {
                 string val = e.Link.Remove(0, 1);
-                App.NavigateToProfile(memberscvs[val].Raw.User);
+                App.NavigateToProfile(LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else
             {
@@ -1005,7 +1005,7 @@ namespace Discord_UWP
                 ChannelTopic.Visibility = Visibility.Visible;
                 ChannelName.Margin = new Thickness(0,0,0,0);
             }
-                
+
             MessageList.Items.Clear();
             IEnumerable<Message> emessages = null;
             await Task.Run(async () =>
@@ -1014,7 +1014,7 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-                var messages = MessageManager.ConvertMessage(emessages.ToList());
+                var messages = await MessageManager.ConvertMessage(emessages.ToList());
                 if (messages != null)
                 {
                     foreach (var message in messages)
@@ -1033,7 +1033,7 @@ namespace Discord_UWP
             });
             if (epinnedmessages != null)
             {
-                var pinnedmessages = MessageManager.ConvertMessage(epinnedmessages.ToList());
+                var pinnedmessages = await MessageManager.ConvertMessage(epinnedmessages.ToList());
                 if (pinnedmessages != null)
                 {
                     foreach (var message in pinnedmessages)
@@ -1051,7 +1051,7 @@ namespace Discord_UWP
             memberscvs.Clear();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
-                await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
+                //await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
                 var members = await RESTCalls.GetGuildMembers(App.CurrentGuildId);
                 if (members == null)
                 {
@@ -1362,7 +1362,7 @@ namespace Discord_UWP
         private async void LoadOlderMessages()
         {
             DisableLoadingMessages = true;
-            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
             if (messages != null)
             {
                 messages.Reverse();
@@ -1380,7 +1380,7 @@ namespace Discord_UWP
         {
             var offset = MessageScrollviewer.VerticalOffset;
             DisableLoadingMessages = true;
-            var messages = MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
             if (messages != null)
             {
                 foreach (var message in messages)
