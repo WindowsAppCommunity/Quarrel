@@ -935,7 +935,7 @@ namespace Discord_UWP
             }
         }
 
-        public void RenderDMChannels()
+        public async void RenderDMChannels()
         {
             ClearMessageArea();
             ServerNameButton.Visibility = Visibility.Collapsed;
@@ -951,7 +951,7 @@ namespace Discord_UWP
 
             ChannelList.Items.Clear();
 
-            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
+            foreach (ChannelManager.SimpleChannel channel in await ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
                 ChannelList.Items.Add(channel);
             }
