@@ -250,14 +250,20 @@ namespace Discord_UWP.Managers
             return Sorted;
         }
 
-        public static List<SimpleChannel> OrderChannels(List<DirectMessageChannel> channels)
+        public static async Task<List<SimpleChannel>> OrderChannels(List<DirectMessageChannel> channels)
         {
-            List<SimpleChannel> returnChannels = new List<SimpleChannel>();
+            Dictionary<long, SimpleChannel> dictChannels = new Dictionary<long, SimpleChannel>();
             foreach (var channel in channels)
             {
                 SimpleChannel sc = new SimpleChannel();
                 sc.Id = channel.Id;
                 sc.Type = channel.Type;
+                long ticks = 0;
+                ticks = (await RESTCalls.GetMessage(channel.Id, channel.LastMessageId)).Timestamp.Ticks;
+                while (dictChannels.ContainsKey(ticks))
+                {
+                    ticks++;
+                }
                 switch (channel.Type)
                 {
                     case 1: //DM
@@ -294,7 +300,7 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        returnChannels.Add(sc);
+                        dictChannels.Add(ticks, sc);
                         break;
                     case 3: //Group
                         sc.Name = channel.Name;
@@ -323,13 +329,18 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        returnChannels.Add(sc);
+                        dictChannels.Add(ticks, sc);
                         break;
                 }
             }
 
             //TODO: OrderBy, IsUnread on top
-
+            List<SimpleChannel> returnChannels = new List<SimpleChannel>();
+            foreach (var chn in dictChannels.OrderBy(x => x.Key))
+            {
+                returnChannels.Add(chn.Value);
+            }
+            returnChannels.Reverse();
             return returnChannels;
         }
     }
