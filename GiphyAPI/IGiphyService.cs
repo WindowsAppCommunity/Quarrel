@@ -12,9 +12,9 @@ namespace GiphyAPI
     public interface IGiphyService
     {
         [Get("/v1/gifs/search?api_key={"+GiphyAPI.GiphyKey+"}&q={query}&limit={limit}&offset={offset}&fmt=json")]
-        Task<IEnumerable<SearchResult>> Search( [AliasAs("query")] string query, [AliasAs("limit")]int limit = 20, [AliasAs("offset")] int offset = 0);
+        Task<SearchResult> Search( [AliasAs("query")] string query, [AliasAs("limit")]int limit = 20, [AliasAs("offset")] int offset = 0);
 
         [Get("/v1/gifs/trending&api_key={" + GiphyAPI.GiphyKey + "}&limit={limit}&offset={offset}")]
-        Task<IEnumerable<SearchResult>> Trending([AliasAs("limit")] int limit = 20, [AliasAs("offset")] int offset = 0);
+        Task<SearchResult> Trending([AliasAs("limit")] int limit = 20, [AliasAs("offset")] int offset = 0);
     }
 }

@@ -8,11 +8,11 @@ using Refit;
 
 namespace GiphyAPI
 {
-    public class GiphyAPI
+    public static class GiphyAPI
     {
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
 
-        public IGiphyService GetGiphyService()
+        public static IGiphyService GetGiphyService()
         {
             return RestService.For<IGiphyService>("api.giphy.com");
         }

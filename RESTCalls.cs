@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Windows.Security.Credentials;
 using Windows.Web.Http;
 
 using Discord_UWP.API;
@@ -24,7 +24,9 @@ using Discord_UWP.SharedModels;
 using Discord_UWP.LocalModels;
 
 using Discord_UWP.Managers;
-using Windows.Security.Credentials;
+
+using GiphyAPI;
+using GiphyAPI.Models;
 
 namespace Discord_UWP
 {
@@ -1084,6 +1086,14 @@ namespace Discord_UWP
         }
         #endregion
 
+        #endregion
+
+        #region Giphy
+        public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
+        {
+            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+            return await giphyService.Search(query, limit, offset);
+        }
         #endregion
 
         static AuthenticatedRestFactory AuthenticatedRestFactory;
