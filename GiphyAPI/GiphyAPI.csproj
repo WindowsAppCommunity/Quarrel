@@ -109,6 +109,7 @@
     <Compile Include="GiphyAPI.cs" />
     <Compile Include="IGiphyService.cs" />
     <Compile Include="Models\Gif.cs" />
+    <Compile Include="Models\Images.cs" />
     <Compile Include="Models\Meta.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SearchResult.cs" />
