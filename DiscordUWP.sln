@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordAPI", "DiscordAPI.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateNotificationTask", "UpdateNotificationTask\UpdateNotificationTask.csproj", "{E8978980-DA38-480B-850B-0BBD28BAA6FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiphyAPI", "GiphyAPI\GiphyAPI.csproj", "{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,22 @@ Global
 		{E8978980-DA38-480B-850B-0BBD28BAA6FC}.Release|x64.Build.0 = Release|x64
 		{E8978980-DA38-480B-850B-0BBD28BAA6FC}.Release|x86.ActiveCfg = Release|x86
 		{E8978980-DA38-480B-850B-0BBD28BAA6FC}.Release|x86.Build.0 = Release|x86
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|ARM.Build.0 = Debug|ARM
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|x64.ActiveCfg = Debug|x64
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|x64.Build.0 = Debug|x64
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|x86.ActiveCfg = Debug|x86
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Debug|x86.Build.0 = Debug|x86
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|ARM.ActiveCfg = Release|ARM
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|ARM.Build.0 = Release|ARM
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|x64.ActiveCfg = Release|x64
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|x64.Build.0 = Release|x64
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|x86.ActiveCfg = Release|x86
+		{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
