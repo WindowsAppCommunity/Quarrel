@@ -1094,6 +1094,12 @@ namespace Discord_UWP
             IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
             return await giphyService.Search(query, limit, offset);
         }
+
+        public async Task<SearchResult> GetTrendingGiphy(int limit = 20, int offset = 0)
+        {
+            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+            return await giphyService.Trending(limit, offset);
+        }
         #endregion
 
         static AuthenticatedRestFactory AuthenticatedRestFactory;
