@@ -656,6 +656,10 @@
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
     </ProjectReference>
+    <ProjectReference Include="GiphyAPI\GiphyAPI.csproj">
+      <Project>{cf993df8-e392-44b4-afa7-4da1750d24f2}</Project>
+      <Name>GiphyAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="UpdateNotificationTask\UpdateNotificationTask.csproj">
       <Project>{e8978980-da38-480b-850b-0bbd28baa6fc}</Project>
       <Name>UpdateNotificationTask</Name>
