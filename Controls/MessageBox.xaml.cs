@@ -459,5 +459,10 @@ namespace Discord_UWP.Controls
             return indexes;
         }
         #endregion
+
+        private void GiphyButton_Click(object sender, RoutedEventArgs e)
+        {
+            GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }
