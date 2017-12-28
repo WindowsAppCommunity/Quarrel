@@ -166,6 +166,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -188,19 +189,22 @@
                 </ListView>
             </Border>
         </Popup>
-        <Button x:Name="EmojiButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1" Padding="8">
-            <SymbolIcon Symbol="Emoji"/>
-        </Button>
 
+        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top"  HorizontalAlignment="Right">
+            <Button x:Name="EmojiButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" Click="Button_Click" Padding="8">
+                <SymbolIcon Symbol="Emoji"/>
+            </Button>
+            <Button x:Name="GiphyButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" Click="GiphyButton_Click" Padding="8">
+                <SymbolIcon Symbol="BrowsePhotos"/>
+            </Button>
+        </StackPanel>
+        
         <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
         <Button x:Name="attachButton" Style="{StaticResource DiscordButton}" Foreground="{ThemeResource InvertedBG}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
-
-
-
             <SymbolIcon Symbol="Attach"/>
-
-
-
         </Button>
+        <Grid x:Name="GiphySelect" Grid.ColumnSpan="3" Visibility="Collapsed">
+            
+        </Grid>
     </Grid>
 </UserControl>
