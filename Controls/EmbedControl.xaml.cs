@@ -232,24 +232,31 @@ namespace Discord_UWP.Controls
                 ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                 ThumbnailImage.Visibility = Visibility.Collapsed;
             }
+
+            switch (EmbedContent.Type)
+            {
+                case "gifv":
+                    ImageViewbox.Visibility = Visibility.Visible;
+                    ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
+                    break;
+                default:
+                    break;
+            }
         }
 
         private StackPanel GenerateField(EmbedField field)
         {
             StackPanel sp = new StackPanel();
-            //double minwidth = 0;
-            //double maxwidth = Double.NaN;
-            
-            if(field.Name != null)
-                sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock(){ Text=field.Name, FontSize=13, EnableHiddenLinks=true, FontWeight=FontWeights.SemiBold });
-            if(field.Value != null)
-                sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock() { Text=field.Value, FontSize=13, Opacity=0.75, EnableHiddenLinks=true});
+            if (field.Name != null)
+                sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock() { Text = field.Name, FontSize = 13, EnableHiddenLinks = true, FontWeight = FontWeights.SemiBold });
+            if (field.Value != null)
+                sp.Children.Add(new MarkdownTextBlock.MarkdownTextBlock() { Text = field.Value, FontSize = 13, Opacity = 0.75, EnableHiddenLinks = true });
             if (field.Inline)
             {
                 sp.MinWidth = 150;
                 sp.MaxWidth = 204;
             }
-            sp.Margin = new Thickness(0,6,0,0);
+            sp.Margin = new Thickness(0, 6, 0, 0);
             return sp;
         }
         public EmbedControl()

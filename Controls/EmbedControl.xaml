@@ -16,7 +16,6 @@
         <Grid>
             <Border x:Name="SideBorder" Width="4" HorizontalAlignment="Left" Background="Red" CornerRadius="4,0,0,4"/>
             <StackPanel x:Name="stacker" Margin="16,12,12,12">
-                
                 <Grid x:Name="HeaderGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition x:Name="MainColumn"/>
