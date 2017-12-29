@@ -464,6 +464,7 @@ namespace Discord_UWP.Controls
         private void GiphyButton_Click(object sender, RoutedEventArgs e)
         {
             GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            TextBox_TextChanged(null, null);
         }
 
         private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -487,7 +488,7 @@ namespace Discord_UWP.Controls
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
-            GiphyList.Visibility = Visibility.Collapsed;
+            GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
         }
     }
