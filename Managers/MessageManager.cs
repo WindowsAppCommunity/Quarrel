@@ -24,7 +24,7 @@ namespace Discord_UWP.Managers
                 {
                     foreach (var user in message.Mentions)
                     {
-                        if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
+                        if (!App.CurrentGuildIsDM && !LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
                         {
                             LocalState.Guilds[App.CurrentGuildId].members.Add(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
                         }

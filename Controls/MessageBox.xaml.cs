@@ -479,5 +479,10 @@ namespace Discord_UWP.Controls
                 GiphyList.Items.Add(gif);
             }
         }
+
+        private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Text += (sender as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
+        }
     }
 }
