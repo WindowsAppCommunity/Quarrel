@@ -482,7 +482,7 @@ namespace Discord_UWP.Controls
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (sender as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
+            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
         }
     }
 }

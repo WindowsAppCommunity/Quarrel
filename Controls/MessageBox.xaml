@@ -342,7 +342,7 @@
                 <RowDefinition Height="200"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="GiphyList" Height="200" SelectionMode="None" ItemClick="GiphyList_ItemClick">
+            <ListView x:Name="GiphyList" Height="200" SelectionMode="None" IsItemClickEnabled="True" ItemClick="GiphyList_ItemClick">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
