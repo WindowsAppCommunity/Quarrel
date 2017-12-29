@@ -473,10 +473,10 @@ namespace Discord_UWP.Controls
             var gifs = await service.Search(giphySearch.Text, 10);
             foreach(var gif in gifs.Gif)
             {
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri(gif.Images.fixedHeightDownsized.Url));
-                img.Margin = new Thickness(2, 0, 2, 0);
-                GiphyList.Items.Add(img);
+                //Image img = new Image();
+                //img.Source = new BitmapImage(new Uri(gif.Images.fixedHeightDownsized.Url));
+                //img.Margin = new Thickness(2, 0, 2, 0);
+                GiphyList.Items.Add(gif);
             }
         }
     }

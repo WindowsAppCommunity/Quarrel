@@ -348,11 +348,11 @@
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <!--<ListView.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        
+                        <Image Source="{Binding Images.fixedHeightDownsized.Url}"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>-->
+                </ListView.ItemTemplate>
             </ListView>
             <TextBox x:Name="giphySearch" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
