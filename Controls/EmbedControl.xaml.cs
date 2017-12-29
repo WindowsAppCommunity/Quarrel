@@ -235,10 +235,15 @@ namespace Discord_UWP.Controls
 
             switch (EmbedContent.Type)
             {
+                case "gif":
                 case "gifv":
+                    HeaderGrid.Visibility = Visibility.Collapsed;
+                    FooterSP.Visibility = Visibility.Collapsed;
                     ImageViewbox.Visibility = Visibility.Visible;
                     ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                     break;
+                case "image":
+                case "video":
                 default:
                     break;
             }
