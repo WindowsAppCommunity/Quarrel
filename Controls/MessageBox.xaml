@@ -204,7 +204,18 @@
             <SymbolIcon Symbol="Attach"/>
         </Button>
         <Grid x:Name="GiphySelect" Grid.ColumnSpan="3" Visibility="Collapsed">
-            
+            <ListView Height="200">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </UserControl>
