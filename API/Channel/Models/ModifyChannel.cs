@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Discord_UWP.SharedModels;
+
 namespace Discord_UWP.API.Channel.Models
 {
     public struct ModifyChannel
@@ -21,5 +23,9 @@ namespace Discord_UWP.API.Channel.Models
         public int UserLimit { get; set; }
         [JsonProperty("nsfw")]
         public bool NSFW { get; set; }
+        [JsonProperty("permission_overwrites")]
+        public IEnumerable<Overwrite> PermissionOverwrites { get; set; }
+        [JsonProperty("parent_id")]
+        public string ParentId { get; set; }
     }
 }
