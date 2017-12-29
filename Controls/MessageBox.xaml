@@ -330,19 +330,6 @@
             </Button>
             <Button x:Name="GiphyButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" Click="GiphyButton_Click" Padding="8">
                 <FontIcon Glyph=""/>
-                <Button.Flyout>
-                    <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
-                        <Grid>
-                            <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled">
-                                <StackPanel Orientation="Horizontal" x:Name="GiphyWrapper">
-                                    
-                                </StackPanel>
-                            </ScrollViewer>
-                            
-                            <TextBox x:Name="giphySearch" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" TextChanged="TextBox_TextChanged"/>
-                        </Grid>
-                    </Flyout>
-                </Button.Flyout>
             </Button>
         </StackPanel>
         
@@ -350,19 +337,24 @@
         <Button x:Name="attachButton" Style="{StaticResource DiscordButton}" Foreground="{ThemeResource InvertedBG}" Opacity="0.4" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
             <SymbolIcon Symbol="Attach"/>
         </Button>
-        <Grid x:Name="GiphySelect" Grid.ColumnSpan="3" Visibility="Collapsed">
-            <ListView Height="200">
+        <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="GiphyList" Height="200">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
+                <!--<ListView.ItemTemplate>
                     <DataTemplate>
                         
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>-->
             </ListView>
+            <TextBox x:Name="giphySearch" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
     </Grid>
 </UserControl>

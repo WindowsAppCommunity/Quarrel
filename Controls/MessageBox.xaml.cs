@@ -469,13 +469,14 @@ namespace Discord_UWP.Controls
         private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var service = GiphyAPI.GiphyAPI.GetGiphyService();
-            GiphyWrapper.Children.Clear();
+            GiphyList.Items.Clear();
             var gifs = await service.Search(giphySearch.Text, 10);
             foreach(var gif in gifs.Gif)
             {
                 Image img = new Image();
-                img.Source = new BitmapImage(new Uri(gif.Images.DownsizedSmall.Url));
+                img.Source = new BitmapImage(new Uri(gif.Images.fixedHeightDownsized.Url));
                 img.Margin = new Thickness(2, 0, 2, 0);
+                GiphyList.Items.Add(img);
             }
         }
     }
