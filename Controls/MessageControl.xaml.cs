@@ -395,7 +395,7 @@ namespace Discord_UWP.Controls
             if (Message.HasValue)
             {
                 messageid = Message.Value.Id;
-                if (Message.Value.MentionEveryone || Message.Value.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id))
+                if (Message.Value.MentionEveryone || (Message.Value.Mentions != null &&  Message.Value.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id)))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
@@ -618,13 +618,20 @@ namespace Discord_UWP.Controls
             if (!Message.HasValue || (Message.HasValue && Message.Value.Embeds == null)) return;
             if (Message.Value.Embeds.Any() || Message.Value.Attachments.Any())
                 EmbedViewer.Visibility = Visibility.Visible;
-            foreach (Embed embed in Message.Value.Embeds)
+            
+            if (Message.Value.Embeds != null)
             {
-                EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
+                foreach (Embed embed in Message.Value.Embeds)
+                {
+                    EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
+                }
             }
-            foreach(Attachment attach in Message.Value.Attachments)
+            if (Message.Value.Attachments != null)
             {
-                EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
+                foreach (Attachment attach in Message.Value.Attachments)
+                {
+                    EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
+                }
             }
         }
 
