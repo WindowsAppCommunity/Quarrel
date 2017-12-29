@@ -620,7 +620,7 @@ namespace Discord_UWP.Controls
                 EmbedViewer.Visibility = Visibility.Visible;
             foreach (Embed embed in Message.Value.Embeds)
             {
-                EmbedViewer.Children.Add(new EmbedControl(){EmbedContent = embed});
+                EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
             }
             foreach(Attachment attach in Message.Value.Attachments)
             {
