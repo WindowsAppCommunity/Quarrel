@@ -31,6 +31,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="FriendsButton" TargetType="ToggleButton">
             <Setter Property="Background" Value="{ThemeResource ToggleButtonBackground}"/>
             <Setter Property="Foreground" Value="{ThemeResource ToggleButtonForeground}"/>

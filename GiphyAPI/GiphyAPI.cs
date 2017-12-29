@@ -14,7 +14,7 @@ namespace GiphyAPI
 
         public static IGiphyService GetGiphyService()
         {
-            return RestService.For<IGiphyService>("api.giphy.com");
+            return RestService.For<IGiphyService>("http://api.giphy.com");
         }
     }
 }
