@@ -11,7 +11,7 @@
     d:DesignWidth="400">
     <UserControl.Resources>
 
-        <Style x:Key="TextBoxStyle1" TargetType="TextBox">
+        <Style x:Key="TextBoxStyle2" TargetType="TextBox">
             <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
             <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
             <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}"/>
