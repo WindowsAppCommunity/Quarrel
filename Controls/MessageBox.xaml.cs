@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using Discord_UWP.LocalModels;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -463,6 +464,19 @@ namespace Discord_UWP.Controls
         private void GiphyButton_Click(object sender, RoutedEventArgs e)
         {
             GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var service = GiphyAPI.GiphyAPI.GetGiphyService();
+            GiphyWrapper.Children.Clear();
+            var gifs = await service.Search(giphySearch.Text, 10);
+            foreach(var gif in gifs.Gif)
+            {
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri(gif.Images.DownsizedSmall.Url));
+                img.Margin = new Thickness(2, 0, 2, 0);
+            }
         }
     }
 }
