@@ -470,12 +470,16 @@ namespace Discord_UWP.Controls
         {
             var service = GiphyAPI.GiphyAPI.GetGiphyService();
             GiphyList.Items.Clear();
-            var gifs = await service.Search(giphySearch.Text, 10);
+            GiphyAPI.Models.SearchResult gifs;
+            if (giphySearch.Text == null || giphySearch.Text == "")
+            {
+                gifs = await service.Trending();
+            } else
+            {
+                gifs = await service.Search(giphySearch.Text);
+            }
             foreach(var gif in gifs.Gif)
             {
-                //Image img = new Image();
-                //img.Source = new BitmapImage(new Uri(gif.Images.fixedHeightDownsized.Url));
-                //img.Margin = new Thickness(2, 0, 2, 0);
                 GiphyList.Items.Add(gif);
             }
         }
@@ -483,6 +487,8 @@ namespace Discord_UWP.Controls
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
+            GiphyList.Visibility = Visibility.Collapsed;
+            giphySearch.Text = "";
         }
     }
 }
