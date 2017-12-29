@@ -553,11 +553,14 @@ namespace Discord_UWP.Controls
         }
         public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
         {
-            int minIndex = str.IndexOf(searchstring);
-            while (minIndex != -1)
+            if (str == null)
             {
-                yield return minIndex;
-                minIndex = str.IndexOf(searchstring, minIndex + searchstring.Length);
+                int minIndex = str.IndexOf(searchstring);
+                while (minIndex != -1)
+                {
+                    yield return minIndex;
+                    minIndex = str.IndexOf(searchstring, minIndex + searchstring.Length);
+                }
             }
         }
         private ToggleButton GenerateReactionToggle(Reactions reaction)
