@@ -794,6 +794,7 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
+
         private static void ResetSettings()
         {
             Storage.Settings.lastVerison = "0";

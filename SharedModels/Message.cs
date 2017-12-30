@@ -9,6 +9,25 @@ namespace Discord_UWP.SharedModels
 {
     public struct Message
     {
+        public Message AddPending(Message gatewayData)
+        {
+            Id = gatewayData.Id;
+            Attachments = gatewayData.Attachments;
+            Embeds = gatewayData.Embeds;
+            Mentions = gatewayData.Mentions;
+            MentionEveryone = gatewayData.MentionEveryone;
+            MentionRoles = gatewayData.MentionRoles;
+            if (gatewayData.Timestamp.Ticks > 100000)
+            {
+                Timestamp = gatewayData.Timestamp;
+            }
+            else
+            {
+                Timestamp.AddTicks(gatewayData.Timestamp.Ticks);
+            }
+            return this;
+        }
+
         [JsonProperty("id")]
         public string Id { get; set; }
         [JsonProperty("channel_id")]
