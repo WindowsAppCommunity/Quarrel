@@ -65,7 +65,7 @@ namespace Discord_UWP.Managers
         }
         public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
         {
-            Message message = new Message() { ChannelId = chnId, Content = upsert.Content, User = LocalState.CurrentUser, TTS = upsert.TTS };
+            Message message = new Message() { ChannelId = chnId, Content = upsert.Content, User = LocalState.CurrentUser, TTS = upsert.TTS, Timestamp = DateTime.Now };
             MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);
             return msg;
         }

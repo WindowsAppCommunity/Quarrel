@@ -239,10 +239,10 @@ namespace Discord_UWP.Controls
             {
                 if (IsPending)
                 {
-                    this.Opacity = 0.8;
+                    content.Opacity = 0.5;
                 } else
                 {
-                    this.Opacity = 1;
+                    content.Opacity = 1;
                 }
             }
         }

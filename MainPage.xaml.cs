@@ -1516,7 +1516,11 @@ namespace Discord_UWP
                      {
                          if (lastMsg.Pending)
                          {
-                             lastMsg.Message = lastMsg.Message.Value.AddPending(e.Message);
+                             lastMsg.Message = lastMsg.Message.Value.MergePending(e.Message);
+                             if (lastMsg.Message.Value.User.Id == null)
+                             {
+                                 lastMsg.Message.Value.SetUser(LocalModels.LocalState.CurrentUser);
+                             }
                              lastMsg.Pending = false;
                          }
                      } else
