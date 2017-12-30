@@ -880,6 +880,12 @@ namespace Discord_UWP
             LaunchProcedure(e.SplashScreen, e.PreviousExecutionState, e.PrelaunchActivated, e.Arguments);
             
         }
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+
+        }
+
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
         {
             var licenseInformation = CurrentApp.LicenseInformation;
