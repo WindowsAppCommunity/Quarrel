@@ -298,5 +298,25 @@ namespace Discord_UWP.Controls
             }
             
         }
+
+        private void ShareEmbed(object sender, RoutedEventArgs e)
+        {
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested; ;
+        }
+
+        private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(EmbedContent.Url))
+            {
+                args.Request.Data.SetText(EmbedContent.Url);
+                args.Request.Data.Properties.Title = Windows.ApplicationModel.Package.Current.DisplayName;
+            }
+            else
+            {
+                args.Request.FailWithDisplayText("Nothing to share");
+            }
+
+        }
     }
 }
