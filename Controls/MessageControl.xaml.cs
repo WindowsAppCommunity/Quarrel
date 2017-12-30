@@ -78,6 +78,17 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsPending
+        {
+            get { return (bool)GetValue(IsPendingProperty); }
+            set { SetValue(IsPendingProperty, value); }
+        }
+        public static readonly DependencyProperty IsPendingProperty = DependencyProperty.Register(
+            nameof(IsPending),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         //The header of the messages, that can indicate data such as "new messages" or the date
         public string Header
         {
@@ -224,6 +235,16 @@ namespace Discord_UWP.Controls
             //        HeaderUI.Visibility = Visibility.Collapsed;
             //    }
             //}
+            if (prop == IsPendingProperty)
+            {
+                if (IsPending)
+                {
+                    this.Opacity = 0.8;
+                } else
+                {
+                    this.Opacity = 1;
+                }
+            }
         }
 
         public MessageControl()
