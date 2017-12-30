@@ -553,7 +553,7 @@ namespace Discord_UWP.Controls
         }
         public static IEnumerable<int> AllIndexesOf(string str, string searchstring)
         {
-            if (str == null)
+            if (str != null)
             {
                 int minIndex = str.IndexOf(searchstring);
                 while (minIndex != -1)
