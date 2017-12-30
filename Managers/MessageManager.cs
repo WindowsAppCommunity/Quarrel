@@ -60,19 +60,26 @@ namespace Discord_UWP.Managers
         }
         public static MessageContainer MakeMessage(Message message) //TODO: IsContinuous
         {
-            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);
+            return msg;
+        }
+        public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
+        {
+            Message message = new Message() { ChannelId = chnId, Content = upsert.Content, User = LocalState.CurrentUser, TTS = upsert.TTS };
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);
             return msg;
         }
 
         public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert}
         public class MessageContainer : INotifyPropertyChanged
         {
-            public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header)
+            public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
             {
                 Message = message;
                 MessageType = messageType;
                 IsContinuation = isContinuation;
                 Header = header;
+                Pending = pending;
             }
 
             private SharedModels.Message? _message;
@@ -102,6 +109,13 @@ namespace Discord_UWP.Managers
             {
                 get => _header;
                 set { if (_header == value) return; _header = value; OnPropertyChanged("Header"); }
+            }
+
+            private bool _pending;
+            public bool Pending
+            {
+                get => _pending;
+                set { if (_pending == value) return; _pending = value; OnPropertyChanged("Pending"); }
             }
 
             public event PropertyChangedEventHandler PropertyChanged;
