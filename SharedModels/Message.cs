@@ -9,7 +9,7 @@ namespace Discord_UWP.SharedModels
 {
     public struct Message
     {
-        public Message AddPending(Message gatewayData)
+        public Message MergePending(Message gatewayData)
         {
             Id = gatewayData.Id;
             Attachments = gatewayData.Attachments;
@@ -17,6 +17,10 @@ namespace Discord_UWP.SharedModels
             Mentions = gatewayData.Mentions;
             MentionEveryone = gatewayData.MentionEveryone;
             MentionRoles = gatewayData.MentionRoles;
+            if (gatewayData.User.Id != null)
+            {
+                User = gatewayData.User;
+            }
             if (gatewayData.Timestamp.Ticks > 100000)
             {
                 Timestamp = gatewayData.Timestamp;
@@ -26,6 +30,11 @@ namespace Discord_UWP.SharedModels
                 Timestamp.AddTicks(gatewayData.Timestamp.Ticks);
             }
             return this;
+        }
+
+        public void SetUser(User user)
+        {
+            User = user;
         }
 
         [JsonProperty("id")]
