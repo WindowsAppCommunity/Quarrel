@@ -10,6 +10,10 @@ namespace Discord_UWP
     {
         public static KeyValuePair<string,string> GetMessage()
         {
+            if (App.AslansBullshit)
+            {
+                return kvp("Past og splash");
+            }
             Random rand = new Random();
             switch (rand.Next(0, 84))
             {
