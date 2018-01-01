@@ -353,10 +353,11 @@
         </Button>
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="230"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="GiphyList" Height="200" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemClick="GiphyList_ItemClick">
+            <ProgressRing x:Name="progring" Foreground="{ThemeResource Blurple}" IsActive="True"/>
+            <ListView x:Name="GiphyList" Height="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemClick="GiphyList_ItemClick">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>
@@ -364,7 +365,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding Images.fixedHeightDownsized.Url}"/>
+                        <MediaElement Source="{Binding Images.Preview.Mp4Url}" AutoPlay="True" MediaEnded="MediaElement_MediaEnded"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

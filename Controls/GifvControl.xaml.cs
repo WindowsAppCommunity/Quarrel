@@ -1,4 +1,5 @@
 ﻿using Discord_UWP.SharedModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,10 @@ namespace Discord_UWP.Controls
         public Embed EmbedContent
         {
             get { return (Embed)GetValue(EmbedContentProperty); }
-            set { mediaelement.Source = new Uri(value.Video.Url); }
+            set {
+                mediaelement.Source = new Uri(value.Video.Url);
+              
+            }
         }
 
         public GifvControl()
@@ -36,6 +40,22 @@ namespace Discord_UWP.Controls
         {
             mediaelement.Position = TimeSpan.Zero;
             mediaelement.Play();
+        }
+
+        private async void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            await mediaelement.Fade(1, 100).StartAsync();
+            LoadingIndic.Visibility = Visibility.Collapsed;
+        }
+
+        private void content_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           
         }
     }
 }

@@ -465,31 +465,58 @@ namespace Discord_UWP.Controls
         {
             GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             TextBox_TextChanged(null, null);
+            searchCooldown.Interval = TimeSpan.FromMilliseconds(1500);
+            searchCooldown.Tick += SearchCooldown_Tick;
         }
 
-        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        string previousSearch = "empty";
+        private async void SearchCooldown_Tick(object sender, object e)
         {
+            if (giphySearch.Text == previousSearch)
+                return;
+            previousSearch = giphySearch.Text;
             var service = GiphyAPI.GiphyAPI.GetGiphyService();
-            GiphyList.Items.Clear();
+            
             GiphyAPI.Models.SearchResult gifs;
             if (giphySearch.Text == null || giphySearch.Text == "")
             {
                 gifs = await service.Trending();
-            } else
+            }
+            else
             {
                 gifs = await service.Search(giphySearch.Text);
             }
-            foreach(var gif in gifs.Gif)
+            await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                GiphyList.Items.Add(gif);
-            }
+                progring.Visibility = Visibility.Collapsed;
+                foreach (var gif in gifs.Gif)
+                {
+                    GiphyList.Items.Add(gif);
+                }
+            }));
+        }
+
+        DispatcherTimer searchCooldown = new DispatcherTimer();
+        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GiphyList.Items.Clear();
+            progring.Visibility = Visibility.Visible;
+            searchCooldown.Start();
+            //TODO Kill any search tasks currently awaiting completion
         }
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
+            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.EmbedUrl;
             GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
+        }
+
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            var m = (sender as MediaElement);
+            m.Position = TimeSpan.Zero;
+            m.Play();
         }
     }
 }
