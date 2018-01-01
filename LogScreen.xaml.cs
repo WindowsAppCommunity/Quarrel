@@ -52,6 +52,7 @@ namespace Discord_UWP
                     string ermsg = "";
                     switch (result.exception.Message)
                     {
+                        case "Response status code does not indicate success: 400 ().":
                         case "Response status code does not indicate success: 400().":
                             ermsg = "Response code (from Discord Servers) indicates failure (400), please check your email for an email from Discord to verify your IP";
                             break;

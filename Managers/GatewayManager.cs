@@ -264,20 +264,27 @@ namespace Discord_UWP.Managers
             #endregion
 
             #region GuildSettings (Notifications)
-            foreach (SharedModels.GuildSetting guild in e.EventData.GuildSettings)
+            if (e.EventData.GuildSettings != null)
             {
-                if (LocalState.GuildSettings.ContainsKey(guild.GuildId))
+                foreach (SharedModels.GuildSetting guild in e.EventData.GuildSettings)
                 {
-                    LocalState.GuildSettings[guild.GuildId] = new LocalModels.GuildSetting(guild);
-                } else
-                {
-                    LocalState.GuildSettings.Add(guild.GuildId, new LocalModels.GuildSetting(guild));
+                    if (guild.GuildId != null)
+                    {
+                        if (LocalState.GuildSettings.ContainsKey(guild.GuildId))
+                        {
+                            LocalState.GuildSettings[guild.GuildId] = new LocalModels.GuildSetting(guild);
+                        }
+                        else
+                        {
+                            LocalState.GuildSettings.Add(guild.GuildId, new LocalModels.GuildSetting(guild));
+                        }
+                    }
                 }
             }
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.GuildSettings (ln 267-276)"); });
             #endregion
-
+              
             #region GuildOrder
             int pos = 0;
             foreach (string guild in e.EventData.Settings.GuildOrder)

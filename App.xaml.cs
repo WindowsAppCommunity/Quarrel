@@ -740,7 +740,7 @@ namespace Discord_UWP
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
-        internal const bool AslansBullshit = false;
+        internal const bool AslansBullshit = true;
 
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
