@@ -67,23 +67,23 @@ namespace Discord_UWP.Managers
 
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
-        private static void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             LocalState.CurrentUser = e.EventData.User;
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set LocalState.CurrentUser (ln 72)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.CurrentUser (ln 72)");});
 
             LocalState.Notes = e.EventData.Notes;
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set LocalState.Notes (ln 76)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.Notes (ln 76)");});
 
             Storage.Settings.DiscordLightTheme = e.EventData.Settings.Theme == "Light" ? true : false;
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set Storage.Settings.DiscordLightTheme (ln 80)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set Storage.Settings.DiscordLightTheme (ln 80)");});
 
             Storage.Settings.DevMode = e.EventData.Settings.DevMode;
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() => { App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");});
 
             #region Friends
             foreach (var friend in e.EventData.Friends)
@@ -97,7 +97,7 @@ namespace Discord_UWP.Managers
                 }
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set AllFriends (ln 89-98)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
             #endregion
 
             #region DMs
@@ -112,7 +112,7 @@ namespace Discord_UWP.Managers
                 }
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set all DMs (ln 104-113)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set all DMs (ln 104-113)");});
             #endregion
 
             #region Guild
@@ -126,7 +126,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds.Add(guild.Id, new LocalModels.Guild(guild));
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added guild with id" + guild.Id + "(ln 121-127)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added guild with id" + guild.Id + "(ln 121-127)"); });
 
                 if (guild.Members != null)
                 {
@@ -146,7 +146,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[guild.Id].valid = false;
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added members of guild with id" + guild.Id + "(ln 131-147)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added members of guild with id" + guild.Id + "(ln 131-147)"); });
 
                 if (guild.Roles != null)
                 {
@@ -166,7 +166,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[guild.Id].valid = false;
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added roles of guild with id" + guild.Id + "(ln 151-167)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added roles of guild with id" + guild.Id + "(ln 151-167)"); });
 
                 LocalState.Guilds[guild.Id].GetPermissions();
 
@@ -188,7 +188,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[guild.Id].valid = false;
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added channels of guild with id" + guild.Id + "(ln 173-189)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added channels of guild with id" + guild.Id + "(ln 173-189)"); });
 
                 if (guild.Presences != null)
                 {
@@ -208,7 +208,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[guild.Id].valid = false;
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added presences of guild with id" + guild.Id + "(ln 193-209)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added presences of guild with id" + guild.Id + "(ln 193-209)"); });
 
                 if (guild.VoiceStates != null)
                 {
@@ -228,7 +228,7 @@ namespace Discord_UWP.Managers
                     LocalState.Guilds[guild.Id].valid = false;
                 }
                 if (App.AslansBullshit)
-                    App.StatusChanged("Succesfully added voice states of guild with id" + guild.Id + "(ln 213-229)");
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added voice states of guild with id" + guild.Id + "(ln 213-229)"); });
             }
             #endregion
 
@@ -244,7 +244,7 @@ namespace Discord_UWP.Managers
                 }
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set LocalSate.PresenceDict (ln 236-245)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalSate.PresenceDict (ln 236-245)"); });
             #endregion
 
             #region ReadState (RPC)
@@ -260,7 +260,7 @@ namespace Discord_UWP.Managers
                 }
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set LocalState.RPC (ln 251-261)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.RPC (ln 251-261)"); });
             #endregion
 
             #region GuildSettings (Notifications)
@@ -275,7 +275,7 @@ namespace Discord_UWP.Managers
                 }
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set LocalState.GuildSettings (ln 267-276)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.GuildSettings (ln 267-276)"); });
             #endregion
 
             #region GuildOrder
@@ -289,7 +289,7 @@ namespace Discord_UWP.Managers
                 pos++;
             }
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set guild positions (ln 282-290)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set guild positions (ln 282-290)"); });
             #endregion
 
             #region CurrentUserPresence
@@ -303,12 +303,12 @@ namespace Discord_UWP.Managers
             }
             App.UserStatusChanged(e.EventData.Settings);
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully set CurrentUserPresence (ln 296-304)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set CurrentUserPresence (ln 296-304)"); });
             #endregion
 
             App.ReadyRecieved();
             if (App.AslansBullshit)
-                App.StatusChanged("Succesfully recieved Ready Packet (ln 309)");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully recieved Ready Packet (ln 309)"); });
         }
         #endregion
 
