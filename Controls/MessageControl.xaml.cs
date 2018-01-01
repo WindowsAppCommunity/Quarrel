@@ -647,7 +647,15 @@ namespace Discord_UWP.Controls
             {
                 foreach (Embed embed in Message.Value.Embeds)
                 {
-                    EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
+                    if (EmbedIsNoBorder(embed))
+                    {
+                        //TODO add attachement control instead of embed control
+                    }
+                    else
+                    {
+                        EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
+                    }
+                    
                 }
             }
             if (Message.Value.Attachments != null)
@@ -658,7 +666,10 @@ namespace Discord_UWP.Controls
                 }
             }
         }
-
+        private bool EmbedIsNoBorder(Embed embed)
+        {
+            return false;
+        }
 
         private void moreButton_Click(object sender, RoutedEventArgs e)
         {
