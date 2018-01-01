@@ -647,8 +647,9 @@ namespace Discord_UWP.Controls
             {
                 foreach (Embed embed in Message.Value.Embeds)
                 {
-                    if (EmbedIsNoBorder(embed))
+                    if (embed.Type == "gifv")
                     {
+                        EmbedViewer.Children.Add(new GifvControl() { EmbedContent = embed });
                         //TODO add attachement control instead of embed control
                     }
                     else
