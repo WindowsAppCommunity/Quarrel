@@ -12,7 +12,7 @@ namespace Discord_UWP
         {
             if (App.AslansBullshit)
             {
-                return kvp("Past og splash");
+                return kvp("Past og splash - waitng for Ready packet");
             }
             Random rand = new Random();
             switch (rand.Next(0, 84))
