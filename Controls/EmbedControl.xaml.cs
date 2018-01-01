@@ -82,6 +82,7 @@ namespace Discord_UWP.Controls
                     UrlTitleBlock.Visibility = Visibility.Visible;
                     UrlTitleBlock.Content = EmbedContent.Title;
                     UrlTitleBlock.NavigateUri = new Uri(EmbedContent.Url);
+                    ShareButton.Visibility = Visibility.Visible;
                 }
             }
             else
