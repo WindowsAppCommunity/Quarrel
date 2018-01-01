@@ -305,6 +305,7 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Javascript sources\Source1.js" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
