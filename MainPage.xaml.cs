@@ -936,7 +936,7 @@ namespace Discord_UWP
             }
         }
 
-        public async void RenderDMChannels()
+        public void RenderDMChannels()
         {
             ClearMessageArea();
 
@@ -956,7 +956,7 @@ namespace Discord_UWP
 
             ChannelList.Items.Clear();
 
-            foreach (ChannelManager.SimpleChannel channel in await ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
+            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
                 if (App.CurrentGuildIsDM)
                 {
