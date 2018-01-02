@@ -203,50 +203,24 @@ namespace Discord_UWP.Controls
             //Thumbnail
             if (EmbedContent.Thumbnail.Url != null)
             {
-                if (everythingisnull)
+                if (EmbedContent.Type == "article")
                 {
-                    HeaderGrid.Visibility = Visibility.Collapsed;
+                    ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
+                    ThumbnailImage.Visibility = Visibility.Collapsed;
                     ImageViewbox.Visibility = Visibility.Visible;
-                    ImageViewer.Source  = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
+                    ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
                 else
                 {
-                    //If the aspect ratio of the thumbnail is higher than 1.2 and there is no image, display the thumbnail at the place of the large image
-                    if (EmbedContent.Thumbnail.Width / EmbedContent.Thumbnail.Height > 1.2 && ImageViewbox.Visibility == Visibility.Collapsed && EmbedContent.Thumbnail.Width+EmbedContent.Thumbnail.Height > 256)
-                    {
-                        ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
-                        ThumbnailImage.Visibility = Visibility.Collapsed;
-                        ImageViewbox.Visibility = Visibility.Visible;
-                        ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    }
-                    else
-                    {
-                        ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
-                        ThumbnailImage.Visibility = Visibility.Visible;
-                        ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    }
-
+                    ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
+                    ThumbnailImage.Visibility = Visibility.Visible;
+                    ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
             }
             else
             {
                 ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                 ThumbnailImage.Visibility = Visibility.Collapsed;
-            }
-
-            switch (EmbedContent.Type)
-            {
-                case "gif":
-                case "gifv":
-                    HeaderGrid.Visibility = Visibility.Collapsed;
-                    FooterSP.Visibility = Visibility.Collapsed;
-                    ImageViewbox.Visibility = Visibility.Visible;
-                    ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    break;
-                case "image":
-                case "video":
-                default:
-                    break;
             }
         }
 

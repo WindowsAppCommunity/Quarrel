@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 
 using Discord_UWP.LocalModels;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Threading;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -465,7 +466,7 @@ namespace Discord_UWP.Controls
         {
             GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             TextBox_TextChanged(null, null);
-            searchCooldown.Interval = TimeSpan.FromMilliseconds(1500);
+            searchCooldown.Interval = TimeSpan.FromMilliseconds(1200);
             searchCooldown.Tick += SearchCooldown_Tick;
         }
 
@@ -478,6 +479,7 @@ namespace Discord_UWP.Controls
             var service = GiphyAPI.GiphyAPI.GetGiphyService();
             
             GiphyAPI.Models.SearchResult gifs;
+
             if (giphySearch.Text == null || giphySearch.Text == "")
             {
                 gifs = await service.Trending();
@@ -507,7 +509,7 @@ namespace Discord_UWP.Controls
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.EmbedUrl;
+            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.BitlyUrl;
             GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
         }

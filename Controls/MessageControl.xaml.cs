@@ -652,6 +652,22 @@ namespace Discord_UWP.Controls
                         EmbedViewer.Children.Add(new GifvControl() { EmbedContent = embed });
                         //TODO add attachement control instead of embed control
                     }
+                    else if(embed.Type == "image")
+                    {
+                        EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = new Attachment()
+                        {
+                            Filename = embed.Image.Url,
+                            Width = embed.Image.Width,
+                            Height = embed.Image.Height,
+                            Url = embed.Image.Url,
+                            Size = 0
+                        }
+                        });
+                    }
+                    else if(embed.Type == "video")
+                    {
+                        //TODO Add support for video
+                    }
                     else
                     {
                         EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });

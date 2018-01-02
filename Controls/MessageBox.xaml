@@ -368,8 +368,17 @@
                         <MediaElement Source="{Binding Images.Preview.Mp4Url}" AutoPlay="True" MediaEnded="MediaElement_MediaEnded"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem" >
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinHeight" Value="0"/>
+                        <Setter Property="MinWidth" Value="0"/>
+                        <Setter Property="Margin" Value="1,0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
-            <TextBox x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
+            <TextBox x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
     </Grid>
 </UserControl>
