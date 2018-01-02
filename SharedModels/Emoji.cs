@@ -19,5 +19,7 @@ namespace Discord_UWP.SharedModels
         public bool RequireColons { get; set; }
         [JsonProperty("managed")]
         public bool Managed { get; set; }
+        [JsonProperty("animated")]
+        public bool Animated { get; set; }
     }
 }

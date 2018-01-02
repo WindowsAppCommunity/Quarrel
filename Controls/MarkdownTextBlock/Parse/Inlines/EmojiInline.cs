@@ -35,6 +35,8 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// </summary>
         public string Id { get; set; }
 
+        public bool IsAnimated { get; set; }
+
         string IInlineLeaf.Text
         {
             get => GetText();
@@ -60,14 +62,19 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         {
             int innerStart = start + 1;
 
-            // Check for a known scheme e.g. "https://".
             int pos = -1;
+            bool animated = false;
             if (maxEnd - innerStart >= 1 && string.Equals(markdown.Substring(innerStart, 1), ":", StringComparison.OrdinalIgnoreCase))
             {
-                    // Emoji scheme found.
-                    pos = innerStart + 1;
+                // Emoji scheme found.
+                pos = innerStart + 1;
             }
-
+            else if (maxEnd - innerStart >= 1 && string.Equals(markdown.Substring(innerStart, 2), "a:", StringComparison.OrdinalIgnoreCase))
+            {
+                // Animated emoji scheme found.
+                pos = innerStart + 1;
+                animated = true;
+            }
             if (pos == -1)
             {
                 return null;
@@ -93,12 +100,15 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
             if (dotcnt < 2)
                 return null;
 
-            
-            var name = substr.Substring(0, substr.IndexOf(":", 1)+1);
-            var id = substr.Substring(name.Length, substr.Length-name.Length);
+            string name = "";
+            if (animated)
+                substr = substr.Remove(0, 1);
+
+            name = substr.Substring(0, substr.IndexOf(":", 1) + 1);
+            var id = substr.Substring(name.Length, substr.Length - name.Length);
 
 
-            return new Helpers.Common.InlineParseResult(new EmojiInline { Name = name, Id = id }, start, innerEnd + 1);
+            return new Helpers.Common.InlineParseResult(new EmojiInline { Name = name, Id = id, IsAnimated = animated }, start, innerEnd + 1);
         }
 
         /// <summary>

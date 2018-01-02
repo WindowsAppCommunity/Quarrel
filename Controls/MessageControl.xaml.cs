@@ -656,10 +656,10 @@ namespace Discord_UWP.Controls
                     {
                         EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = new Attachment()
                         {
-                            Filename = embed.Image.Url,
-                            Width = embed.Image.Width,
-                            Height = embed.Image.Height,
-                            Url = embed.Image.Url,
+                            Filename = "file.jpg",
+                            Width = embed.Thumbnail.Width,
+                            Height = embed.Thumbnail.Height,
+                            Url = embed.Thumbnail.Url,
                             Size = 0
                         }
                         });

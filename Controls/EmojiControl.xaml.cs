@@ -134,12 +134,14 @@ namespace Discord_UWP.Controls
                     if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
                             .Roles.Intersect(emoji.Roles)
                             .Any()) return;
+                    string extension = ".png";
+                    if (emoji.Animated) extension = ".gif";
                     guildEmojis.Add(new GuildSide()
                     {
                         category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
                         hasDiversity = false,
                         names = new List<string>() { emoji.Name },
-                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png",
+                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + extension,
                         id = emoji.Id
                     });
                 }

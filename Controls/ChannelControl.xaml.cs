@@ -360,7 +360,7 @@ namespace Discord_UWP.Controls
                     ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                     Chevron.Visibility = Visibility.Visible;
                     HoverCache.Visibility = Visibility.Visible;
-                    this.Margin = new Thickness(0, 14, 0, 0);
+                    this.Margin = new Thickness(0, 6, 0, 0);
                 }
             }
             
