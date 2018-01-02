@@ -646,7 +646,7 @@ namespace Discord_UWP.Controls
             reactionToggle.Content = stack;
             reactionToggle.Style = (Style)App.Current.Resources["EmojiButton"];
             reactionToggle.MinHeight = 0;
-            reactionToggle.Height = 24;
+            reactionToggle.Height = 32;
             return reactionToggle;
         }
         private void LoadEmbedsAndAttachements()
