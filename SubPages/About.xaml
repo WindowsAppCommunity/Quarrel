@@ -222,6 +222,30 @@
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="DMs show in correct order" TextWrapping="Wrap"/>
                             </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed channel editing" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed typing indicator and member list" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added Giphy gif selector" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added share button to embeds" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="No longer crashes when you send a link" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed issue causing splash screen crashes" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Embeds now adjust to their type more" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="givf support" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.3.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fluent Design UI Rework" TextWrapping="Wrap"/>
