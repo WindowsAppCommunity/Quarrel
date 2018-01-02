@@ -613,7 +613,7 @@ namespace Discord_UWP.Controls
                 {
                     Width = 18,
                     Height = 18,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png")),
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji)),
                     VerticalAlignment = VerticalAlignment.Center
                 });
             }
@@ -632,11 +632,13 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
+                    string extension = ".png";
+                    if (reaction.Emoji.Animated) extension = ".gif";
                     stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
                     {
                         Width = 18,
                         Height = 18,
-                        Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + reaction.Emoji.Id + ".png")),
+                        Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + reaction.Emoji.Id + extension)),
                         VerticalAlignment = VerticalAlignment.Center
                     });
                 }
