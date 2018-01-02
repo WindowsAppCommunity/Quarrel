@@ -954,7 +954,10 @@ namespace Discord_UWP
 
             foreach (ChannelManager.SimpleChannel channel in await ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
-                ChannelList.Items.Add(channel);
+                if (App.CurrentGuildIsDM)
+                {
+                    ChannelList.Items.Add(channel);
+                }
             }
         }
 
