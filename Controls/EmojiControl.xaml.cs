@@ -42,6 +42,7 @@ namespace Discord_UWP.Controls
         {
             public List<string> names { get; set; }
             public bool? hasDiversity { get; set; }
+            public bool CustomEmoji { get; set; }
             public virtual string category { get; set; }
             public int position { get; set; }
 
@@ -142,7 +143,8 @@ namespace Discord_UWP.Controls
                         hasDiversity = false,
                         names = new List<string>() { emoji.Name },
                         surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + extension,
-                        id = emoji.Id
+                        id = emoji.Id,
+                        CustomEmoji = true
                     });
                 }
             }
