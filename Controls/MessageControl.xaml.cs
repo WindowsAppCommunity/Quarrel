@@ -35,6 +35,7 @@ using Discord_UWP.SharedModels;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using static Discord_UWP.Managers.MessageManager;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace Discord_UWP.Controls
 {
@@ -210,10 +211,9 @@ namespace Discord_UWP.Controls
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                     content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                 }
-                else
+                else if(MessageType == MessageTypes.Default)
                 {
-                    if (rootGrid.Children.Contains(reactionView))
-                        rootGrid.Children.Remove(reactionView);
+                    
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
@@ -263,15 +263,10 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                        if (reactionView == null)
-                            reactionView = new GridView
-                            {
-                                SelectionMode = ListViewSelectionMode.None,
-                                Margin = new Thickness(0),
-                                Padding = new Thickness(0)
-                            };
+                    if (reactionView == null)
+                        reactionView = GenerateWrapGrid();
                     ToggleButton toRemove = null;
-                    foreach (ToggleButton toggle in reactionView.Items)
+                    foreach (ToggleButton toggle in reactionView.Children)
                     {
                         var tuple = toggle.Tag as Tuple<string, string, Reactions>;
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
@@ -318,7 +313,7 @@ namespace Discord_UWP.Controls
                         }
                     }
                     if (toRemove != null)
-                        reactionView.Items.Remove(toRemove);
+                        reactionView.Children.Remove(toRemove);
                 });
         }
 
@@ -330,18 +325,13 @@ namespace Discord_UWP.Controls
                 {
                     if (reactionView == null)
                     {
-                        reactionView = new GridView
-                        {
-                            SelectionMode = ListViewSelectionMode.None,
-                            Margin = new Thickness(6, 0, 0, 0),
-                            Padding = new Thickness(0)
-                        };
+                        reactionView = GenerateWrapGrid();
                         rootGrid.Children.Add(reactionView);
                     }
 
 
                     bool success = false;
-                    foreach (ToggleButton toggle in reactionView.Items)
+                    foreach (ToggleButton toggle in reactionView.Children)
                     {
                         var tuple = toggle.Tag as Tuple<string, string, Reactions>;
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
@@ -397,7 +387,7 @@ namespace Discord_UWP.Controls
                             Emoji = data.Emoji,
                             Me = LocalState.CurrentUser.Id.Equals(data.UserId),
                         });
-                        reactionView.Items.Add(toggle);
+                        reactionView.Children.Add(toggle);
                     }
                 });
         }
@@ -407,10 +397,22 @@ namespace Discord_UWP.Controls
             
         }
 
-        private GridView reactionView;
+        private WrapPanel reactionView;
         //private Attachment attachement;
         private string userid = "";
         public string messageid = "";
+        public Microsoft.Toolkit.Uwp.UI.Controls.WrapPanel GenerateWrapGrid()
+        {
+            var wg = new WrapPanel()
+            {
+                Orientation=Orientation.Horizontal,
+                Margin = new Thickness(6, 4, 0, 0),
+                HorizontalSpacing=4,
+                VerticalSpacing=4
+            };
+            return wg;
+            
+        }
         public void UpdateMessage()
         {
             if (Message.HasValue)
@@ -502,17 +504,10 @@ namespace Discord_UWP.Controls
 
                 if (Message.Value.Reactions != null)
                 {
-                    reactionView = new GridView
-                    {
-                        SelectionMode = ListViewSelectionMode.None,
-                        Margin = new Thickness(6, 0, 0, 0),
-                        Padding = new Thickness(0)
-
-                    };
+                    reactionView = GenerateWrapGrid();
                     foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count > 0))
                     {
-
-                        reactionView.Items.Add(GenerateReactionToggle(reaction));
+                        reactionView.Children.Add(GenerateReactionToggle(reaction));
                     }
                     Grid.SetRow(reactionView, 3);
                     Grid.SetColumn(reactionView, 1);
@@ -606,32 +601,52 @@ namespace Discord_UWP.Controls
                         if (emoji.Name == reaction.Emoji.Name)
                         {
                             serversideEmoji = emoji.Id;
+                            if (emoji.Animated) serversideEmoji = serversideEmoji + ".gif";
+                            else serversideEmoji = serversideEmoji + ".png";
                         }
+
                     }
             }
             if (serversideEmoji != null)
             {
                 stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
                 {
-                    Width = 20,
-                    Height = 20,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png"))
+                    Width = 18,
+                    Height = 18,
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + serversideEmoji + ".png")),
+                    VerticalAlignment = VerticalAlignment.Center
                 });
             }
             else
             {
-                stack.Children.Add(new TextBlock()
+                string emoji = reaction.Emoji.Name;
+                if (NeoSmart.Unicode.Emoji.IsEmoji(emoji))
                 {
-                    FontSize = 20,
-                    Text = reaction.Emoji.Name,
-                    FontFamily = new FontFamily("ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji")
-                });
+                    stack.Children.Add(new TextBlock()
+                    {
+                        FontSize = 18,
+                        Text = reaction.Emoji.Name,
+                        FontFamily = new FontFamily("ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji"),
+                        VerticalAlignment = VerticalAlignment.Center
+                    });
+                }
+                else
+                {
+                    stack.Children.Add(new Windows.UI.Xaml.Controls.Image()
+                    {
+                        Width = 18,
+                        Height = 18,
+                        Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + reaction.Emoji.Id + ".png")),
+                        VerticalAlignment = VerticalAlignment.Center
+                    });
+                }
             }
             stack.Children.Add(new TextBlock() { Text = reaction.Count.ToString(), Margin = new Thickness(4, 0, 0, 0) });
             stack.Clip = new RectangleGeometry(){Rect=new Rect(0,-4,96,28)};
             reactionToggle.Content = stack;
             reactionToggle.Style = (Style)App.Current.Resources["EmojiButton"];
             reactionToggle.MinHeight = 0;
+            reactionToggle.Height = 24;
             return reactionToggle;
         }
         private void LoadEmbedsAndAttachements()
