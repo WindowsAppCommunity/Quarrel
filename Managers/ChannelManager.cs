@@ -70,6 +70,12 @@ namespace Discord_UWP.Managers
                 get { return _id; }
                 set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
             }
+            private string _lastmessageid;
+            public string LastMessageId
+            {
+                get { return _lastmessageid; }
+                set { if (_lastmessageid == value) return; _lastmessageid = value; OnPropertyChanged("LastMessageId"); }
+            }
 
             private string _parentid;
             public string ParentId
@@ -262,6 +268,7 @@ namespace Discord_UWP.Managers
                 {
                     case 1: //DM
                         sc.Name = "@" + channel.Users.FirstOrDefault().Username;
+                        sc.LastMessageId = channel.LastMessageId;
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
@@ -298,7 +305,7 @@ namespace Discord_UWP.Managers
                         break;
                     case 3: //Group
                         sc.Name = channel.Name;
-
+                        sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
                         if (channel.Name != null && channel.Name != "")
                         {
@@ -328,9 +335,8 @@ namespace Discord_UWP.Managers
                 }
             }
 
-            //TODO: OrderBy, IsUnread on top
-
-            return returnChannels;
+            
+            return returnChannels.OrderByDescending(x => x.LastMessageId).ToList();
         }
     }
 }
