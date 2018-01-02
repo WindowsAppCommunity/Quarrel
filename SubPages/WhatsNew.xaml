@@ -116,6 +116,18 @@
                             <Paragraph>
                                 <Run Text="• givf support"/>
                             </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Animated emoji support"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed broken reactions"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Added leave and remove options for group chats"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Log in errors go to log in screen instead of hanging"/>
+                            </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
