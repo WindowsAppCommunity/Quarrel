@@ -322,10 +322,17 @@ namespace Discord_UWP.Controls
                 //    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + ":");
                 //    MessageEditor.SelectionStart = newSelectionStart;
                 //}
-                int newSelectionStart = MessageEditor.SelectionStart + args.surrogates.Length;
-                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, args.surrogates);
-                MessageEditor.SelectionStart = newSelectionStart;
-                MessageEditor.Focus(FocusState.Keyboard);
+                string emojiText = "";
+                if (args.CustomEmoji)
+                    emojiText = ":" + args.names.First() + ":";
+                else
+                    emojiText = args.surrogates;
+
+                    int newSelectionStart = MessageEditor.SelectionStart + emojiText.Length;
+                    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, emojiText);
+                    MessageEditor.SelectionStart = newSelectionStart;
+                    MessageEditor.Focus(FocusState.Keyboard);
+                
             };
         }
 
