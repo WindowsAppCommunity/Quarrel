@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2015 Nezametdinov E. Ildus
 // See LICENSE.TXT for licensing details
 
+#include "pch.h"
 #include "Salsa20.h"
 
 #include <iostream>
@@ -16,7 +17,7 @@ using namespace ucstk;
 class Salsa
 {
 public:
-	Salsa() : inputFileName_(), outputFileName_(), shouldShowHelp_(false)
+	Salsa() : inputFileName_(), outputFileName_()
 	{
 		std::memset(key_, 0, sizeof(key_));
 	}
@@ -26,56 +27,8 @@ public:
 	Salsa& operator =(const Salsa&) = delete;
 	Salsa& operator =(Salsa&&) = delete;
 
-	/**
-	* \brief Reads parameters from command line and validates them.
-	* \param[in] argc number of command line arguments passed
-	* \param[in] argv array of command line arguments
-	* \return true on success
-	*/
-	bool initialize(int argc, char* argv[])
+	bool initialize(int argc, std::string key)
 	{
-		std::string key;
-		shouldShowHelp_ = false;
-
-		for (int i = 0; i < argc; ++i)
-		{
-			std::string parameter = argv[i];
-
-			if (parameter == "-p")
-			{
-				if ((argc - i - 1) != 3)
-					break;
-
-				inputFileName_ = argv[++i];
-				outputFileName_ = argv[++i];
-				key = argv[++i];
-				break;
-			}
-
-			if (parameter == "-h")
-			{
-				shouldShowHelp_ = true;
-				return true;
-			}
-		}
-
-		if (inputFileName_.empty())
-		{
-			std::cout << "E: Input file name was not specified." << std::endl;
-			return false;
-		}
-
-		if (outputFileName_.empty())
-		{
-			std::cout << "E: Output file name was not specified." << std::endl;
-			return false;
-		}
-
-		if (inputFileName_ == outputFileName_)
-		{
-			std::cout << "E: Input and output files should be distinct." << std::endl;
-			return false;
-		}
 
 		if (key.empty())
 		{
@@ -96,35 +49,21 @@ public:
 	* \brief Encrypts or decrypts the file.
 	* \return true on success
 	*/
-	bool execute()
+	byte* execute(byte* input)
 	{
-		if (shouldShowHelp_)
-		{
-			std::cout << "Usage: salsa20 -p INPUT OUTPUT KEY" << std::endl;
-			std::cout << "       salsa20 -h" << std::endl;
-			std::cout << std::endl << "Salsa20 is a stream cypher (see http://cr.yp.to/snuffle.html).";
-			std::cout << std::endl << std::endl;
-			std::cout << "Options:" << std::endl;
-			std::cout << "  -h Shows this help text." << std::endl;
-			std::cout << "  -p Encrypts or decrypts file INPUT with KEY and outputs result to file OUTPUT.";
-			std::cout << std::endl;
-			std::cout << "     KEY is a 32-byte key concatenated with 8-byte IV written in HEX.";
-			std::cout << std::endl;
-			return true;
-		}
 
 		std::ifstream inputStream(inputFileName_, std::ios_base::binary);
 		if (!inputStream)
 		{
 			std::cout << "E: Could not open input file." << std::endl;
-			return false;
+			//return false;
 		}
 
 		std::ofstream outputStream(outputFileName_, std::ios_base::binary);
 		if (!outputStream)
 		{
 			std::cout << "E: Could not create output file." << std::endl;
-			return false;
+			//return false;
 		}
 
 		const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
@@ -163,7 +102,7 @@ public:
 		}
 
 		std::cout << std::endl << "OK" << std::endl;
-		return true;
+		//return true;
 	}
 
 private:
@@ -229,20 +168,5 @@ private:
 	// Data members
 	std::string inputFileName_, outputFileName_;
 	uint8_t key_[KEY_SIZE];
-	bool shouldShowHelp_;
 
 };
-
-// Entry point
-int main(int argc, char* argv[])
-{
-	Salsa program;
-
-	if (!program.initialize(argc, argv))
-		return 1;
-
-	if (!program.execute())
-		return 2;
-
-	return 0;
-}
