@@ -45,7 +45,7 @@
             <RowDefinition Height="Auto" MaxHeight="300"/>
             <RowDefinition Height="Auto" MaxHeight="10"/>
         </Grid.RowDefinitions>
-        <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-24,-24,0"/>
+        <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-18,-24,0"/>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="24" Width="2" Background="{ThemeResource Foreground}" Margin="-22,0,4,0" HorizontalAlignment="Left" Opacity="0.75"/>
         <Grid x:Name="grid" Grid.RowSpan="4" Grid.ColumnSpan="4" Opacity="0" Margin="0,0,-24,0">
             <Grid.Background>
