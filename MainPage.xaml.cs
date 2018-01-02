@@ -369,7 +369,7 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
-            if (App.LoggedIn() && (App.GatewayCreated))
+            if (App.LoggedIn())
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
@@ -408,14 +408,11 @@ namespace Discord_UWP
                 {
                     Console.WriteLine(exception.Message);
                 }
+                SubFrame.Visibility = Visibility.Collapsed;
             } else
             {
                 SubFrameNavigator(typeof(LogScreen));
             }
-
-            SubFrame.Visibility = Visibility.Collapsed;
-            SetupEvents();
-            GatewayManager.StartGateway();
         }
         #endregion
 
