@@ -408,6 +408,9 @@ namespace Discord_UWP
                 {
                     Console.WriteLine(exception.Message);
                 }
+            } else
+            {
+                SubFrameNavigator(typeof(LogScreen));
             }
 
             SubFrame.Visibility = Visibility.Collapsed;
