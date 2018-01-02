@@ -35,5 +35,10 @@ namespace Discord_UWP.SharedModels
         public string UserLimit { get; set; }
         [JsonProperty("nsfw")]
         public bool NSFW { get; set; }
+
+        public void UpdateLMID(string id)
+        {
+            LastMessageId = id;
+        }
     }
 }

@@ -329,17 +329,28 @@ namespace Discord_UWP.Managers
                 App.UpdateUnreadIndicators();
             } else
             {
-                foreach (var guild in LocalState.Guilds) //TODO: Check efficiency
+                
+                if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                 {
-                    if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                    LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
+
+                    if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                     {
-                        var editableRawChn = guild.Value.channels[e.EventData.ChannelId].raw;
-                        editableRawChn.LastMessageId = e.EventData.Id;
-                        guild.Value.channels[e.EventData.ChannelId].raw = editableRawChn;
-                        if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                    }
+                } else
+                {
+                    foreach (var guild in LocalState.Guilds)
+                    {
+                        if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
                         {
-                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = editableRawChn.LastMessageId, MentionCount = e.EventData.Mentions.FirstOrDefault( x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0 , LastPinTimestamp = null });
-                        } 
+                            guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
+
+                            if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                            {
+                                LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                            }
+                        }
                     }
                 }
                 App.UpdateUnreadIndicators();
