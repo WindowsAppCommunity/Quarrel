@@ -9,13 +9,8 @@
     d:DesignHeight="300"
     d:DesignWidth="400" SizeChanged="UserControl_SizeChanged">
 
-    <Grid x:Name="content" MaxWidth="400">
-        <Grid x:Name="LoadingIndic">
-            <Grid.Background>
-                <SolidColorBrush Opacity="0.2" Color="{ThemeResource SystemAltHighColor}"/>
-            </Grid.Background>
-            <ProgressRing Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
+    <Grid x:Name="content" MaxWidth="400" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <ProgressRing x:Name="LoadingIndic" IsActive="True" Margin="4,4,0,0" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <MediaElement MediaOpened="mediaelement_MediaOpened" MediaEnded="mediaelement_MediaEnded" x:Name="mediaelement" AreTransportControlsEnabled="False" AutoPlay="True" />
     </Grid>
 </UserControl>

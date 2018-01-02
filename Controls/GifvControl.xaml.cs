@@ -28,7 +28,8 @@ namespace Discord_UWP.Controls
             get { return (Embed)GetValue(EmbedContentProperty); }
             set {
                 mediaelement.Source = new Uri(value.Video.Url);
-              
+                if (value.Video.Width < 400) mediaelement.MaxWidth = value.Video.Width;
+                mediaelement.MaxHeight = value.Video.Height;
             }
         }
 
