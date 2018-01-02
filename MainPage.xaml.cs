@@ -939,6 +939,10 @@ namespace Discord_UWP
         public async void RenderDMChannels()
         {
             ClearMessageArea();
+
+            ChannelLoading.IsActive = true;
+            ChannelLoading.Visibility = Visibility.Visible;
+
             ServerNameButton.Visibility = Visibility.Collapsed;
             FriendsItem.Visibility = Visibility.Visible;
             DirectMessageBlock.Visibility = Visibility.Visible;
@@ -959,11 +963,18 @@ namespace Discord_UWP
                     ChannelList.Items.Add(channel);
                 }
             }
+
+            ChannelLoading.IsActive = false;
+            ChannelLoading.Visibility = Visibility.Collapsed;
         }
 
         public void RenderGuildChannels() //App.CurrentGuildId is set
         {
             ClearMessageArea();
+
+            ChannelLoading.IsActive = true;
+            ChannelLoading.Visibility = Visibility.Visible;
+
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
@@ -979,6 +990,9 @@ namespace Discord_UWP
             {
                 ChannelList.Items.Add(channel);
             }
+
+            ChannelLoading.IsActive = false;
+            ChannelLoading.Visibility = Visibility.Collapsed;
         }
 
         //bool MessageRange_LastMessage = false;
