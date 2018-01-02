@@ -42,7 +42,15 @@ namespace Discord_UWP.Flyouts
 
                 if (dm.OwnerId == LocalState.CurrentUser.Id)
                 {
-                    //Remove from group
+                    MenuFlyoutItem removeFromDm = new MenuFlyoutItem()
+                    {
+                        Text = App.GetString("/Flyouts/RemoveFromGroup"),
+                        Icon = new SymbolIcon(Symbol.LeaveChat),
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Tag = new Tuple<string, string>(dm.Id, user.Id)
+                    };
+                    removeFromDm.Click += FlyoutManager.RemoveGroupUser;
+                    item.Items.Add(removeFromDm);
 
                     MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
                     item.Items.Add(sep2);
@@ -122,6 +130,20 @@ namespace Discord_UWP.Flyouts
                 menu.Items.Add(item);
                 x++;
             }
+
+            MenuFlyoutSeparator sep3 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep3);
+
+            MenuFlyoutItem leaveDm = new MenuFlyoutItem()
+            {
+                Text = App.GetString("/Flyouts/LeaveGroup"),
+                Icon = new SymbolIcon(Symbol.LeaveChat),
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                Tag = new Tuple<string, string>(dm.Id, LocalState.CurrentUser.Id)
+            };
+            leaveDm.Click += FlyoutManager.RemoveGroupUser;
+            menu.Items.Add(leaveDm);
+
             return menu;
         }
     }
