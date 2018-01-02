@@ -1202,7 +1202,10 @@
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Header>
-                                            <Rectangle x:Name="ChannelListHeader"/>
+                                            <Grid>
+                                                <Rectangle x:Name="ChannelListHeader"/>
+                                                <ProgressRing x:Name="ChannelLoading"/>
+                                            </Grid>
                                         </ListView.Header>
                                     </ListView>
                                     <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">

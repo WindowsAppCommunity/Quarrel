@@ -92,6 +92,30 @@
                             <Paragraph>
                                 <Run Text="• DMs show in correct order"/>
                             </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed channel editing"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed typing indicator and member list"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Added Giphy gif selector"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Added share button to embeds"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• No longer crashes when you send a link"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed issue causing splash screen crashes"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Embeds now adjust to their type more"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• givf support"/>
+                            </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
