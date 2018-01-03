@@ -14,9 +14,9 @@ namespace Discord_UWP
             {
                 return kvp("Past og splash - waitng for Ready packet");
             }
+
             Random rand = new Random();
-            Random contextualRand = new Random();
-            if (contextualRand.Next(2) == 0)
+            if (rand.Next(4) % 4 != 0)
             {
                 DateTime now = DateTime.Now;
                 if (now.Month == 12 && now.Day == 25)
