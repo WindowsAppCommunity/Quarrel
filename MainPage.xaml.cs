@@ -757,7 +757,7 @@ namespace Discord_UWP
         #region API
         private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
         {
-            MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
+            //MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
             await RESTCalls.CreateMessage(e.ChannelId, e.Message);
         }
 
@@ -1528,22 +1528,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     var lastMsg = MessageList.Items.LastOrDefault() as MessageManager.MessageContainer;
-                     if (e.Message.User.Id == LocalState.CurrentUser.Id)
-                     {
-                         if (lastMsg.Pending)
-                         {
-                             lastMsg.Message = lastMsg.Message.Value.MergePending(e.Message);
-                             if (lastMsg.Message.Value.User.Id == null)
-                             {
-                                 lastMsg.Message.Value.SetUser(LocalModels.LocalState.CurrentUser);
-                             }
-                             lastMsg.Pending = false;
-                         }
-                     } else
-                     {
+                     //var lastMsg = MessageList.Items.LastOrDefault() as MessageManager.MessageContainer;
+                     //if (e.Message.User.Id == LocalState.CurrentUser.Id)
+                     //{
+                     //    if (lastMsg.Pending)
+                     //    {
+                     //        lastMsg.Message = lastMsg.Message.Value.MergePending(e.Message);
+                     //        if (lastMsg.Message.Value.User.Id == null)
+                     //        {
+                     //            lastMsg.Message.Value.SetUser(LocalModels.LocalState.CurrentUser);
+                     //        }
+                     //        lastMsg.Pending = false;
+                     //    }
+                     //} else
+                     //{
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
-                     }
+                     //}
                      App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
                      if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)
                      {
