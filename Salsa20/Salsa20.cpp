@@ -5,7 +5,6 @@
 
 namespace Salsa20ns
 {
-
 	Salsa20::Salsa20(const uint8_t* key)
 	{
 		std::memset(vector_, 0, sizeof(vector_));

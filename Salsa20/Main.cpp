@@ -15,23 +15,42 @@
 
 namespace Salsa20ns
 {
-	class membuf : public std::basic_streambuf<char> {
+	class imembuf : public std::basic_streambuf<char> {
 	public:
-		membuf(const uint8_t *p, size_t l) {
+		imembuf(const uint8_t *p, size_t l) {
 			setg((char*)p, (char*)p, (char*)p + l);
 		}
 	};
-	
-	class memstream : public std::istream {
+
+	class omembuf : public std::basic_streambuf<char> {
 	public:
-		memstream(const uint8_t *p, size_t l) :
+		omembuf(const uint8_t *p, size_t l) {
+			std::streambuf::getloc();
+		}
+	};
+	
+	class memistream : public std::istream {
+	public:
+		memistream(const byte *p, size_t l) :
 			std::istream(&_buffer),
 			_buffer(p, l) {
 			rdbuf(&_buffer);
 		}
 
 	private:
-		membuf _buffer;
+		imembuf _buffer;
+	};
+
+	class memostream : public std::ostream {
+	public:
+		memostream(const byte *p, size_t l) :
+			std::ostream(&_buffer),
+			_buffer(p, l) {
+			rdbuf(&_buffer);
+		}
+
+	private:
+		omembuf _buffer;
 	};
 
 	public ref class SalsaManager sealed
@@ -65,8 +84,9 @@ namespace Salsa20ns
 		//To return and take 2 byte[]s
 		Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
 		{
-			memstream inputStream(data, dataLength);
-
+			memistream inputStream(data.begin(), dataLength);
+			//memostream outputStream(new Array<byte>)
+			
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
 			uint8_t chunk[chunkSize];
 
@@ -82,7 +102,6 @@ namespace Salsa20ns
 			// process file
 			Salsa20 salsa20(key_);
 			salsa20.setIv(&key_[IV_OFFSET]);
-			std::cout << "Processing file \"" << inputFileName_ << '"' << std::endl;
 
 			for (decltype(numChunks) i = 0; i < numChunks; ++i)
 			{
@@ -103,7 +122,6 @@ namespace Salsa20ns
 			}
 
 			std::cout << std::endl << "OK" << std::endl;
-			return true;
 		}
 
 	private:
