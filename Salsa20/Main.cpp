@@ -31,9 +31,11 @@ public:
 	SalsaManager& operator =(const SalsaManager&) = delete;
 	SalsaManager& operator =(SalsaManager&&) = delete;
 
-	bool initialize(std::string key)
+	bool initialize(Platform::String platformKey)
 	{
-
+		std::wstring key;
+		auto wchar  = platformKey.Data();
+		key = wchar; //Gotta love c++
 		if (key.empty())
 		{
 			std::cout << "E: Key was not specified." << std::endl;
@@ -48,7 +50,6 @@ public:
 
 		return true;
 	}
-
 	//To return and take byte[]
 	bool execute()
 	{
@@ -120,7 +121,7 @@ private:
 	* \param[out] byte byte
 	* \return true on success
 	*/
-	bool readByte(const char* string, uint8_t& byte)
+	bool readByte(const wchar_t* string, uint8_t& byte)
 	{
 		byte = 0;
 
@@ -149,7 +150,7 @@ private:
 	* \param[in] string string
 	* \return true on success
 	*/
-	bool readKeyFromString(const std::string& string)
+	bool readKeyFromString(const std::wstring& string)
 	{
 		auto stringLength = string.length();
 
