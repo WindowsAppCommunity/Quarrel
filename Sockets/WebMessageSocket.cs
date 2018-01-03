@@ -15,8 +15,8 @@ namespace Discord_UWP.Sockets
     public class WebMessageSocket : IWebMessageSocket
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
-        public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;      
-
+        public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
+        public bool UseCompression = true;
         private readonly MessageWebSocket _socket;
         private readonly DataWriter _dataWriter;
 
@@ -30,9 +30,12 @@ namespace Discord_UWP.Sockets
         {
             var socket = new MessageWebSocket();
             socket.Control.MessageType = SocketMessageType.Utf8;
-            _compressed = new MemoryStream();
+            if (UseCompression)
+            {
+                _compressed = new MemoryStream();
+                _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
+            }
 
-            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
             socket.MessageReceived += HandleMessage;
             socket.Closed += HandleClosed;
            
@@ -44,7 +47,7 @@ namespace Discord_UWP.Sockets
             return new DataWriter(_socket.OutputStream);
         }
 
-        public async Task ConnectAsync(string connectionUrl)
+        public async Task ConnectAsync(string connectionUrl, bool UseCompression)
         {
             try
             {
@@ -72,34 +75,41 @@ namespace Discord_UWP.Sockets
         {
             try
             {
-                
-                var datastr = e.GetDataStream().AsStreamForRead();
-                var ms = new MemoryStream();
-                datastr.CopyTo(ms);
-                ms.Position = 0;
-                byte[] data = new byte[ms.Length];
-                ms.Read(data, 0, (int)ms.Length);
-                int index = 0;
-                int count = data.Length;
-                using (var decompressed = new MemoryStream())
+                if (UseCompression)
                 {
-                    if (data[0] == 0x78)
+                    var datastr = e.GetDataStream().AsStreamForRead();
+                    var ms = new MemoryStream();
+                    datastr.CopyTo(ms);
+                    ms.Position = 0;
+                    byte[] data = new byte[ms.Length];
+                    ms.Read(data, 0, (int)ms.Length);
+                    int index = 0;
+                    int count = data.Length;
+                    using (var decompressed = new MemoryStream())
                     {
-                        _compressed.Write(data, index + 2, count- 2);
-                        _compressed.SetLength(count - 2);
-                    }
-                    else
-                    {
-                        _compressed.Write(data, index, count);
-                        _compressed.SetLength(count);
-                    }
+                        if (data[0] == 0x78)
+                        {
+                            _compressed.Write(data, index + 2, count - 2);
+                            _compressed.SetLength(count - 2);
+                        }
+                        else
+                        {
+                            _compressed.Write(data, index, count);
+                            _compressed.SetLength(count);
+                        }
 
-                    _compressed.Position = 0;
-                    _decompressor.CopyTo(decompressed);
-                    _compressed.Position = 0;
-                    decompressed.Position = 0;
-                    using (var reader = new StreamReader(decompressed))
-                        OnMessageReceived(reader.ReadToEnd());
+                        _compressed.Position = 0;
+                        _decompressor.CopyTo(decompressed);
+                        _compressed.Position = 0;
+                        decompressed.Position = 0;
+                        using (var reader = new StreamReader(decompressed))
+                            OnMessageReceived(reader.ReadToEnd());
+                    }
+                }
+                else
+                {
+                    var dr = e.GetDataReader();
+                    OnMessageReceived(dr.ReadString(dr.UnconsumedBufferLength));
                 }
             }
             catch { }
