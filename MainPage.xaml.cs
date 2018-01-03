@@ -214,7 +214,7 @@ namespace Discord_UWP
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
             App.UpdateUnreadIndicatorsHandler += App_UpdateUnreadIndicatorsHandler;
-            App.UserStatusChangedHandler += App_UserStatusChangedHandler; ;
+            App.UserStatusChangedHandler += App_UserStatusChangedHandler;
             //UpdateUI-Messages
             App.MessageCreatedHandler += App_MessageCreatedHandler;
             App.MessageDeletedHandler += App_MessageDeletedHandler;
@@ -343,6 +343,8 @@ namespace Discord_UWP
                     Name = "Discord UWP Notifier",
                     TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
                 };
+
+                task.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
 
                 bgTrigger = new ApplicationTrigger();
                 task.SetTrigger(bgTrigger);
