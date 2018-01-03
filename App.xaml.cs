@@ -828,6 +828,7 @@ namespace Discord_UWP
             Storage.Settings.mutedChnEffectServer = false;
             Storage.Settings.Vibrate = true;
             Storage.Settings.EnableAcrylic = true;
+            Storage.Settings.UseCompression = true;
             Storage.SaveAppSettings();
         }
         private void LoadSettings()

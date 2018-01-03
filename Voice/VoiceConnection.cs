@@ -79,7 +79,7 @@ namespace Discord_UWP.Voice
 
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("3"));
+            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("3"), false);
             IdentifySelfToVoiceConnection();
         }
 
