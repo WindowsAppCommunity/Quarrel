@@ -179,6 +179,7 @@
     <Compile Include="SharedModels\GuildMemberChunk.cs" />
     <Compile Include="SharedModels\GuildMemberRemove.cs" />
     <Compile Include="SharedModels\GuildMemberUpdate.cs" />
+    <Compile Include="SharedModels\GuildSync.cs" />
     <Compile Include="SharedModels\Integration.cs" />
     <Compile Include="SharedModels\Invite.cs" />
     <Compile Include="SharedModels\InviteMetadata.cs" />
