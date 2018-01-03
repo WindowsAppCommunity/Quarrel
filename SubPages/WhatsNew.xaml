@@ -90,43 +90,10 @@
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• DMs show in correct order"/>
+                                <Run Text="• Fixed message updating"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Fixed channel editing"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Fixed typing indicator and member list"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Added Giphy gif selector"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Added share button to embeds"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• No longer crashes when you send a link"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Fixed issue causing splash screen crashes"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Embeds now adjust to their type more"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• givf support"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Animated emoji support"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Fixed broken reactions"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Added leave and remove options for group chats"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Log in errors go to log in screen instead of hanging"/>
+                                <Run Text="• Fixed gif button"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>

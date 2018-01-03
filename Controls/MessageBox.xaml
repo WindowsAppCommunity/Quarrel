@@ -343,7 +343,7 @@
                 <SymbolIcon Symbol="Emoji"/>
             </Button>
             <Button x:Name="GiphyButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="0.4" Background="Transparent" Click="GiphyButton_Click" Padding="8">
-                <FontIcon Glyph=""/>
+                <FontIcon Glyph="" FontFamily="Segoe MDL2 Assets"/>
             </Button>
         </StackPanel>
         
