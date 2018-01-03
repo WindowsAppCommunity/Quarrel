@@ -146,7 +146,7 @@ namespace Discord_UWP.Gateway
 
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6"));
+            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", "&compress=zlib-stream"));
         }
 
         // TODO: good chance the socket will be disposed when attempting to resume so yah

@@ -15,7 +15,28 @@ namespace Discord_UWP
                 return kvp("Past og splash - waitng for Ready packet");
             }
             Random rand = new Random();
-            switch (rand.Next(0, 84))
+            Random contextualRand = new Random();
+            if (contextualRand.Next(2) == 0)
+            {
+                DateTime now = DateTime.Now;
+                if (now.Month == 12 && now.Day == 25)
+                {
+                    switch (rand.Next(0, 3))
+                    {
+                        case 0: return kvp("Ho ho ho");
+                        case 1: return kvp("Merry Christmas!");
+                        case 2: return kvp("What a beautiful christmas day...");
+                        case 3: return kvp("All I want for christmas is a loading screen");
+                    }
+                }
+                if(now.Month == 12 && now.Day == 21)
+                {
+                      return kvp((now.Year - 2012).ToString() + " years since the end of the world");
+                    
+                }
+            }
+            
+            switch (rand.Next(0, 85))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -60,7 +81,7 @@ namespace Discord_UWP
                 case 42: return kvp("I should charge money for new downloads now...", "@Neel#2970");
                 case 43: return kvp("Aren't you a little short to be a storm trooper?", "@DougTheDog6#5067");
                 case 44: return kvp("Can we stop it with Star Wars?");
-                case 45: return kvp("No, I am your father", "@ModProg|Roland#6987");
+                case 45: return kvp("VOICE IS NOT AVAILABLE YET!");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
                 case 47: return kvp("System.out.println(\"Hello World\");", "@ModProg|Roland#6987");
                 case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
@@ -69,12 +90,12 @@ namespace Discord_UWP
                 case 51: return kvp("You spin me right round, baby right round", "omgPANTO#6232");
                 case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 53: return kvp("YOU'RE A WIZARD LARRY!", "@SamCraftRecon#9075");
-                case 54: return kvp("Updating memes.", "@SamCraftRecon#9075");
+                case 54: return kvp("Updating memes...", "@SamCraftRecon#9075");
                 case 55: return kvp("L.O.L. ing at cats", "@SamCraftRecon#9075");
                 case 56: return kvp("shaken not shtirred", "@Aslan#9846");
                 case 57: return kvp("All natural!", "@SamCraftRecon#9075"); 
                 case 58: return kvp("100 % sugar free", "@Aslan#9846");
-                case 59: return kvp("-_-");
+                case 59: return kvp("Searching for the meaning of life");
                 case 60: return kvp("You got a license for that?", "@Aslan#9846");
                 case 61: return kvp("Did you bring snacks?", "Chestbeard#9806");
                 case 62: return kvp("Suitable for Vegans", "@SamCraftRecon#9075");
@@ -86,12 +107,11 @@ namespace Discord_UWP
                 case 68: return kvp("I have the power of God and Anime");
                 case 69: return kvp("I ain't got no sleep");
                 case 80: return kvp("No ketchup, just sauce, raw sauce");
-                case 81: return kvp("Babes, Man's not hot");
+                case 81: return kvp("I said babes, loading's not hot");
                 case 82: return kvp("The ting goes skrrraah");
                 case 83: return kvp("Tacos incoming, prepare for pure joy", "@LuketheDuke424#2556");
                 case 84: return kvp("Waiting for Senpai", "@LuketheDuke424#2556");
-                case 85: return kvp("Converting caffeine into code", "@LuketheDuke424#2556");
-                case 86: return kvp("Is a hippopotamus really a hippopotomus or just a really cool opotamus?", "@GamingWolfYT#1152");
+                case 85: return kvp("Is this even legal?", "@Smash_kirby#0966");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
