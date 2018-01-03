@@ -81,8 +81,10 @@ namespace Salsa20ns
 			return true;
 		}
 
+
+
 		//To return and take 2 byte[]s
-		Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
+		/*Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
 		{
 			memistream inputStream(data.begin(), dataLength);
 			//memostream outputStream(new Array<byte>)
@@ -123,7 +125,7 @@ namespace Salsa20ns
 
 			std::cout << std::endl << "OK" << std::endl;
 		}
-
+		*/
 	private:
 		/// Helper constants
 		enum : size_t
