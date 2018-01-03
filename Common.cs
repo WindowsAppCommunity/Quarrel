@@ -13,6 +13,7 @@ using Discord_UWP.SharedModels;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Windows.UI.Core;
 
 namespace Discord_UWP
 {
@@ -20,11 +21,11 @@ namespace Discord_UWP
     {
         public static SolidColorBrush IntToColor(int color)
         {
-            byte a = (byte)(255);
-            byte r = (byte)(color >> 16);
-            byte g = (byte)(color >> 8);
-            byte b = (byte)(color >> 0);
-            return new SolidColorBrush(Color.FromArgb(a, r, g, b));
+                byte a = (byte)(255);
+                byte r = (byte)(color >> 16);
+                byte g = (byte)(color >> 8);
+                byte b = (byte)(color >> 0);
+                return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
         public static SolidColorBrush GetSolidColorBrush(string hex)

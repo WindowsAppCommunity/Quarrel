@@ -42,6 +42,7 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<Guild>> GuildCreated;
         public event EventHandler<GatewayEventArgs<Guild>> GuildUpdated;
         public event EventHandler<GatewayEventArgs<GuildDelete>> GuildDeleted;
+        public event EventHandler<GatewayEventArgs<GuildSync>> GuildSynced;
 
         public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanAdded;
         public event EventHandler<GatewayEventArgs<GuildBanUpdate>> GuildBanRemoved;
@@ -107,6 +108,7 @@ namespace Discord_UWP.Gateway
                 { EventNames.GUILD_CREATED, OnGuildCreated },
                 { EventNames.GUILD_UPDATED, OnGuildUpdated },
                 { EventNames.GUILD_DELETED, OnGuildDeleted },
+                { EventNames.GUILD_SYNC, OnGuildSynced },
                 { EventNames.MESSAGE_CREATED, OnMessageCreated },
                 { EventNames.MESSAGE_UPDATED, OnMessageUpdated },
                 { EventNames.MESSAGE_DELETED, OnMessageDeleted },
@@ -134,6 +136,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated }
             };
         }
+
+
 
         private void PrepareSocket()
         {
@@ -371,6 +375,11 @@ namespace Discord_UWP.Gateway
             FireEventOnDelegate(gatewayEvent, GuildDeleted);
         }
 
+        private void OnGuildSynced(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, GuildSynced);
+        }
+
         private void OnGuildBanAdded(SocketFrame gatewayEvent)
         {
             FireEventOnDelegate(gatewayEvent, GuildBanAdded);
@@ -408,7 +417,6 @@ namespace Discord_UWP.Gateway
 
         private void OnTypingStarted(SocketFrame gatewayEvent)
         {
-            Debug.WriteLine("TYPING");
             FireEventOnDelegate(gatewayEvent, TypingStarted);
         }
 
