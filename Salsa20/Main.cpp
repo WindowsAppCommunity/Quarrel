@@ -31,10 +31,10 @@ public:
 	SalsaManager& operator =(const SalsaManager&) = delete;
 	SalsaManager& operator =(SalsaManager&&) = delete;
 
-	bool initialize(Platform::String platformKey)
+	bool initialize(Platform::String ^platformKey)
 	{
 		std::wstring key;
-		auto wchar  = platformKey.Data();
+		auto wchar  = platformKey->Data();
 		key = wchar; //Gotta love c++
 		if (key.empty())
 		{
