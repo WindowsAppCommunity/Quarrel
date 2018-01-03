@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <cstring>
 
-namespace ucstk
+namespace Salsa20ns
 {
 
 	using std::size_t;
@@ -112,5 +112,5 @@ namespace ucstk
 
 }
 
-#include "Salsa20.inl"
+#include "Salsa20.cpp"
 #endif
