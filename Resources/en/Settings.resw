@@ -246,4 +246,7 @@
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
     <value>Muted channels effect server unread status?</value>
   </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Enable data compression (Faster)</value>
+  </data>
 </root>

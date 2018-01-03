@@ -76,5 +76,6 @@ namespace Discord_UWP
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
         public bool EnableAcrylic = true;
+        public bool UseCompression = true;
     }
 }
