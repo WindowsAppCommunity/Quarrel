@@ -64,7 +64,7 @@ namespace Discord_UWP
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public static class AudioTrig
+    public static class AudioManager
     {
         static AudioGraph graph;
         private static AudioDeviceOutputNode deviceOutputNode;
