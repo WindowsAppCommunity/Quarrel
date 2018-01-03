@@ -15,6 +15,25 @@
 
 namespace Salsa20ns
 {
+	class membuf : public std::basic_streambuf<char> {
+	public:
+		membuf(const uint8_t *p, size_t l) {
+			setg((char*)p, (char*)p, (char*)p + l);
+		}
+	};
+	
+	class memstream : public std::istream {
+	public:
+		memstream(const uint8_t *p, size_t l) :
+			std::istream(&_buffer),
+			_buffer(p, l) {
+			rdbuf(&_buffer);
+		}
+
+	private:
+		membuf _buffer;
+	};
+
 	public ref class SalsaManager sealed
 	{
 	public:
@@ -22,16 +41,11 @@ namespace Salsa20ns
 		{
 			std::memset(key_, 0, sizeof(key_));
 		}
-		//SalsaManager(const SalsaManager&) = delete;
-		//SalsaManager(SalsaManager&&) = delete;
-		~SalsaManager() {}
-		//SalsaManager& operator =(const SalsaManager&) = delete;
-		//SalsaManager& operator =(SalsaManager&&) = delete;
 
 		bool initialize(Platform::String ^platformKey)
 		{
 			std::wstring key;
-			auto wchar = platformKey->Data();
+			const wchar_t *wchar = platformKey->Data();
 			key = wchar; //Gotta love c++, no cast needed
 			if (key.empty())
 			{
@@ -47,22 +61,11 @@ namespace Salsa20ns
 
 			return true;
 		}
-		//To return and take 2 byte[]s
-		bool execute()
-		{
-			std::ifstream inputStream(inputFileName_, std::ios_base::binary);
-			if (!inputStream)
-			{
-				std::cout << "E: Could not open input file." << std::endl;
-				return false;
-			}
 
-			std::ofstream outputStream(outputFileName_, std::ios_base::binary);
-			if (!outputStream)
-			{
-				std::cout << "E: Could not create output file." << std::endl;
-				return false;
-			}
+		//To return and take 2 byte[]s
+		Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
+		{
+			memstream inputStream(data, dataLength);
 
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
 			uint8_t chunk[chunkSize];
@@ -85,7 +88,7 @@ namespace Salsa20ns
 			{
 				inputStream.read(reinterpret_cast<char*>(chunk), sizeof(chunk));
 				salsa20.processBlocks(chunk, chunk, NUM_OF_BLOCKS_PER_CHUNK);
-				outputStream.write(reinterpret_cast<const char*>(chunk), sizeof(chunk));
+				//outputStream.write(reinterpret_cast<const char*>(chunk), sizeof(chunk));
 
 				float percentage = 100.0f * static_cast<float>(i + 1) / static_cast<float>(numChunks);
 				std::printf("[%3.2f]\r", percentage);
@@ -95,7 +98,7 @@ namespace Salsa20ns
 			{
 				inputStream.read(reinterpret_cast<char*>(chunk), remainderSize);
 				salsa20.processBytes(chunk, chunk, remainderSize);
-				outputStream.write(reinterpret_cast<const char*>(chunk), remainderSize);
+				//outputStream.write(reinterpret_cast<const char*>(chunk), remainderSize);
 				std::cout << "[100.00]";
 			}
 
