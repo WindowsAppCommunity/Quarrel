@@ -19,6 +19,7 @@ namespace Discord_UWP.Gateway
         public const string GUILD_CREATED = "GUILD_CREATE";
         public const string GUILD_UPDATED = "GUILD_UPDATE";
         public const string GUILD_DELETED = "GUILD_DELETE";
+        public const string GUILD_SYNC = "GUILD_SYNC";
 
         public const string GUILD_BAN_ADDED = "GUILD_BAN_ADD";
         public const string GUILD_BAN_REMOVED = "GUILD_BAN_REMOVE";
