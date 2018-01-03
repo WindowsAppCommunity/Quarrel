@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400" Background="Transparent">
     <UserControl.Resources>
         <Storyboard x:Name="ShowTyping">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="rectangle">
@@ -66,7 +66,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="12,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -89,7 +89,7 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
-                <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
+                <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                     <TextBlock x:Uid="BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>

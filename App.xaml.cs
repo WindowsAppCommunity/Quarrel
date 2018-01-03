@@ -733,7 +733,6 @@ namespace Discord_UWP
 
         #region Statics
         public static SplashScreen Splash;
-
         internal static bool CurrentGuildIsDM;
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
