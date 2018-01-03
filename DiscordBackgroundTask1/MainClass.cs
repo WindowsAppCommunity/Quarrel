@@ -14,10 +14,17 @@ namespace DiscordBackgroundTask1
 {
     public sealed class MainClass : IBackgroundTask
     {
+        BackgroundTaskDeferral _deferral;
+
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            //throw new NotImplementedException();
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
+            _deferral = taskInstance.GetDeferral();
+
+            // TODO: Insert code to start one or more asynchronous methods using the
+            //       await keyword, for example:
+
+            _deferral.Complete();
         }
 
         
