@@ -555,6 +555,12 @@ namespace Discord_UWP
             UpdatePresenceHandler?.Invoke(typeof(App), new UpdatePresenceArgs() { Status = status });
         }
 
+        public static event EventHandler<SharedModels.GuildSync> GuildSyncedHandler;
+        public static void GuildSynced(SharedModels.GuildSync gs)
+        {
+            GuildSyncedHandler?.Invoke(typeof(App), gs);
+        }
+
         public class VoiceConnectArgs
         {
             public string ChannelId;

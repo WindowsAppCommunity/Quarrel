@@ -38,6 +38,7 @@ namespace Discord_UWP.Managers
             Gateway.GuildCreated += Gateway_GuildCreated;
             Gateway.GuildDeleted += Gateway_GuildDeleted;
             Gateway.GuildUpdated += Gateway_GuildUpdated;
+            Gateway.GuildSynced += Gateway_GuildSynced;
             //GuildMember
             Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
             Gateway.GuildMemberChunk += Gateway_GuildMemberChunk;
@@ -64,6 +65,7 @@ namespace Discord_UWP.Managers
 
             await Gateway.ConnectAsync();
         }
+
 
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
@@ -534,6 +536,11 @@ namespace Discord_UWP.Managers
         {
 
         }
+        private static void Gateway_GuildSynced(object sender, Gateway.GatewayEventArgs<GuildSync> e)
+        {
+            App.GuildSynced(e.EventData);
+        }
+
         #endregion
 
         #region GuildMember
