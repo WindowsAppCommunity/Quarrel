@@ -277,7 +277,10 @@ namespace Discord_UWP.Voice
                 int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
                 float[] output = new float[framesize]; // framesize 
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-                //AudioTrig.AddFrame(output, (uint)samples);
+
+                //TODO: CPPReference
+                
+
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
