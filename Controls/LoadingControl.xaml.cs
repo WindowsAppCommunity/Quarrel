@@ -40,7 +40,14 @@ namespace Discord_UWP.Controls
             if(message.Value != "")
                 CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
             Animation.Begin();
+            App.StatusChangedHandler += App_StatusChangedHandler;
         }
+
+        private void App_StatusChangedHandler(object sender, string e)
+        {
+            MessageBlock.Text = e;
+        }
+
         public void AdjustSize()
         {
             var location = App.Splash.ImageLocation;

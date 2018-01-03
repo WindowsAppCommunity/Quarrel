@@ -102,8 +102,8 @@ namespace Discord_UWP.Controls
             {
                 if (e.UserId == DisplayedMember.Raw.User.Id)
                 {
-                    DisplayedMember.IsTyping = e.Typing;
-                    if (e.Typing)
+                    DisplayedMember.IsTyping = e.Typing && e.ChnId == App.CurrentChannelId;
+                    if (DisplayedMember.IsTyping)
                     {
                         ShowTyping.Begin();
                     }

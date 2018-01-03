@@ -371,7 +371,7 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
-            if (App.LoggedIn() && (App.GatewayCreated))
+            if (App.LoggedIn())
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
@@ -410,11 +410,11 @@ namespace Discord_UWP
                 {
                     Console.WriteLine(exception.Message);
                 }
+                SubFrame.Visibility = Visibility.Collapsed;
+            } else
+            {
+                SubFrameNavigator(typeof(LogScreen));
             }
-
-            SubFrame.Visibility = Visibility.Collapsed;
-            SetupEvents();
-            GatewayManager.StartGateway();
         }
         #endregion
 
@@ -759,6 +759,7 @@ namespace Discord_UWP
         #region API
         private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
         {
+            MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
             await RESTCalls.CreateMessage(e.ChannelId, e.Message);
         }
 
@@ -937,9 +938,13 @@ namespace Discord_UWP
             }
         }
 
-        public async void RenderDMChannels()
+        public void RenderDMChannels()
         {
             ClearMessageArea();
+
+            ChannelLoading.IsActive = true;
+            ChannelLoading.Visibility = Visibility.Visible;
+
             ServerNameButton.Visibility = Visibility.Collapsed;
             FriendsItem.Visibility = Visibility.Visible;
             DirectMessageBlock.Visibility = Visibility.Visible;
@@ -953,15 +958,25 @@ namespace Discord_UWP
 
             ChannelList.Items.Clear();
 
-            foreach (ChannelManager.SimpleChannel channel in await ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
+            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
-                ChannelList.Items.Add(channel);
+                if (App.CurrentGuildIsDM)
+                {
+                    ChannelList.Items.Add(channel);
+                }
             }
+
+            ChannelLoading.IsActive = false;
+            ChannelLoading.Visibility = Visibility.Collapsed;
         }
 
         public void RenderGuildChannels() //App.CurrentGuildId is set
         {
             ClearMessageArea();
+
+            ChannelLoading.IsActive = true;
+            ChannelLoading.Visibility = Visibility.Visible;
+
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
@@ -977,6 +992,9 @@ namespace Discord_UWP
             {
                 ChannelList.Items.Add(channel);
             }
+
+            ChannelLoading.IsActive = false;
+            ChannelLoading.Visibility = Visibility.Collapsed;
         }
 
         //bool MessageRange_LastMessage = false;
@@ -1512,7 +1530,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     var lastMsg = MessageList.Items.LastOrDefault() as MessageManager.MessageContainer;
+                     if (e.Message.User.Id == LocalState.CurrentUser.Id)
+                     {
+                         if (lastMsg.Pending)
+                         {
+                             lastMsg.Message = lastMsg.Message.Value.MergePending(e.Message);
+                             if (lastMsg.Message.Value.User.Id == null)
+                             {
+                                 lastMsg.Message.Value.SetUser(LocalModels.LocalState.CurrentUser);
+                             }
+                             lastMsg.Pending = false;
+                         }
+                     } else
+                     {
+                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     }
                      App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
                      if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)
                      {

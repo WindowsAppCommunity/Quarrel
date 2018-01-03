@@ -82,6 +82,7 @@ namespace Discord_UWP.Controls
                     UrlTitleBlock.Visibility = Visibility.Visible;
                     UrlTitleBlock.Content = EmbedContent.Title;
                     UrlTitleBlock.NavigateUri = new Uri(EmbedContent.Url);
+                    ShareButton.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -202,45 +203,24 @@ namespace Discord_UWP.Controls
             //Thumbnail
             if (EmbedContent.Thumbnail.Url != null)
             {
-                if (everythingisnull)
+                if (EmbedContent.Type == "article")
                 {
-                    HeaderGrid.Visibility = Visibility.Collapsed;
+                    ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
+                    ThumbnailImage.Visibility = Visibility.Collapsed;
                     ImageViewbox.Visibility = Visibility.Visible;
-                    ImageViewer.Source  = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
+                    ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
                 else
                 {
-                    //If the aspect ratio of the thumbnail is higher than 1.2 and there is no image, display the thumbnail at the place of the large image
-                    if (EmbedContent.Thumbnail.Width / EmbedContent.Thumbnail.Height > 1.2 && ImageViewbox.Visibility == Visibility.Collapsed && EmbedContent.Thumbnail.Width+EmbedContent.Thumbnail.Height > 256)
-                    {
-                        ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
-                        ThumbnailImage.Visibility = Visibility.Collapsed;
-                        ImageViewbox.Visibility = Visibility.Visible;
-                        ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    }
-                    else
-                    {
-                        ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
-                        ThumbnailImage.Visibility = Visibility.Visible;
-                        ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    }
-
+                    ThumbnailColumn.Width = new GridLength(1, GridUnitType.Star);
+                    ThumbnailImage.Visibility = Visibility.Visible;
+                    ThumbnailImage.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
                 }
             }
             else
             {
                 ThumbnailColumn.Width = new GridLength(0, GridUnitType.Pixel);
                 ThumbnailImage.Visibility = Visibility.Collapsed;
-            }
-
-            switch (EmbedContent.Type)
-            {
-                case "gifv":
-                    ImageViewbox.Visibility = Visibility.Visible;
-                    ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Thumbnail.Url));
-                    break;
-                default:
-                    break;
             }
         }
 
@@ -292,6 +272,26 @@ namespace Discord_UWP.Controls
                 });
             }
             
+        }
+
+        private void ShareEmbed(object sender, RoutedEventArgs e)
+        {
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested; ;
+        }
+
+        private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
+        {
+            if (!string.IsNullOrEmpty(EmbedContent.Url))
+            {
+                args.Request.Data.SetText(EmbedContent.Url);
+                args.Request.Data.Properties.Title = Windows.ApplicationModel.Package.Current.DisplayName;
+            }
+            else
+            {
+                args.Request.FailWithDisplayText("Nothing to share");
+            }
+
         }
     }
 }

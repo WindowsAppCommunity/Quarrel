@@ -10,8 +10,12 @@ namespace Discord_UWP
     {
         public static KeyValuePair<string,string> GetMessage()
         {
+            if (App.AslansBullshit)
+            {
+                return kvp("Past og splash - waitng for Ready packet");
+            }
             Random rand = new Random();
-            switch (rand.Next(0, 83))
+            switch (rand.Next(0, 84))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -85,6 +89,9 @@ namespace Discord_UWP
                 case 81: return kvp("Babes, Man's not hot");
                 case 82: return kvp("The ting goes skrrraah");
                 case 83: return kvp("Tacos incoming, prepare for pure joy", "@LuketheDuke424#2556");
+                case 84: return kvp("Waiting for Senpai", "@LuketheDuke424#2556");
+                case 85: return kvp("Converting caffeine into code", "@LuketheDuke424#2556");
+                case 86: return kvp("Is a hippopotamus really a hippopotomus or just a really cool opotamus?", "@GamingWolfYT#1152");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }

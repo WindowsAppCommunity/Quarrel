@@ -183,6 +183,12 @@ namespace Discord_UWP.Managers
         {
             //App.Inv((sender as MenuFlyoutItem).Tag.ToString());
         }
+
+        public static async void RemoveGroupUser(object sender, RoutedEventArgs e)
+        {
+            var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
+            await RESTCalls.RemoveGroupUser(senderTag.Item1, senderTag.Item2);
+        }
         #endregion
 
         #endregion
