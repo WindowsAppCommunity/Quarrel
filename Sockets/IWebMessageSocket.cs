@@ -22,7 +22,7 @@ namespace Discord_UWP.Sockets
         event EventHandler<MessageReceivedEventArgs> MessageReceived;
         event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
 
-        Task ConnectAsync(string connectionUrl);
+        Task ConnectAsync(string connectionUrl, bool UseCompression);
         Task SendMessageAsync(string message);
     }
 }

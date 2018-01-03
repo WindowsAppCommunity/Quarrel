@@ -676,6 +676,8 @@
                         <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
+                                    <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}"/>
+
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>

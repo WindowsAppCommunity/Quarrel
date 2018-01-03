@@ -246,4 +246,7 @@
   <data name="mutedChannelsAffectServerCB" xml:space="preserve">
     <value>Les salons muets affectent le statut "lu" du serveur?</value>
   </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Activer la compression de données</value>
+  </data>
 </root>
