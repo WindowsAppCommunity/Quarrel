@@ -8,13 +8,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Salsa20.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Salsa20.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Salsa20.inl" />
+    <None Include="Salsa20.cpp" />
   </ItemGroup>
 </Project>
