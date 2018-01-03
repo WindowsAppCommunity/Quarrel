@@ -1,6 +1,10 @@
 ﻿// Copyright (c) 2015 Nezametdinov E. Ildus
 // See LICENSE.TXT for licensing details
 
+//TODO: Replace read file code with byte[] (byte*) to istream
+//TODO: Replace write file code with istream to byte[] (byte*)
+//TODO: Place in referncable namespace to access from DiscordAPI in C#
+
 #include "pch.h"
 #include "Salsa20.h"
 
