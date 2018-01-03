@@ -64,7 +64,7 @@ namespace Discord_UWP
         void GetBuffer(out byte* buffer, out uint capacity);
     }
 
-    public static class AudioTrig
+    public static class AudioManager
     {
         static AudioGraph graph;
         private static AudioDeviceOutputNode deviceOutputNode;
@@ -76,6 +76,7 @@ namespace Discord_UWP
 
         public static async Task CreateAudioGraph()
         {
+            Console.WriteLine("Creating AudioGraph");
             // Create an AudioGraph with default settings
             AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
             //settings.EncodingProperties.SampleRate = 48000;
@@ -103,7 +104,9 @@ namespace Discord_UWP
             AudioEncodingProperties nodeEncodingProperties = graph.EncodingProperties;
             nodeEncodingProperties.ChannelCount = 2;
             frameInputNode = graph.CreateFrameInputNode(nodeEncodingProperties);
+            //frameInputNode = await AudioManager.CreateDeviceInputNode();
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
+            await CreateDeviceInputNode();
 
             // Initialize the Frame Input Node in the stopped state
             frameInputNode.Start();
@@ -127,7 +130,7 @@ namespace Discord_UWP
             //    //graph.Start();
             //    //started = true;
             //}
-            AudioFrame frame = new Windows.Media.AudioFrame(samples * 2);
+            AudioFrame frame = new AudioFrame(samples * 2);
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
             {
@@ -153,7 +156,7 @@ namespace Discord_UWP
         {
             // Buffer size is (number of samples) * (size of each sample) * (number of channels)
             uint bufferSize = samples * sizeof(float) * 2;
-            AudioFrame frame = new Windows.Media.AudioFrame(bufferSize);
+            AudioFrame frame = new AudioFrame(bufferSize);
 
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
@@ -215,6 +218,25 @@ namespace Discord_UWP
             #endregion
 
             return frame;
+        }
+
+        public static async Task CreateDeviceInputNode()
+        {
+            Windows.Devices.Enumeration.DeviceInformationCollection devices =
+             await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Media.Devices.MediaDevice.GetAudioCaptureSelector());
+
+            // Show UI to allow the user to select a device
+            Windows.Devices.Enumeration.DeviceInformation selectedDevice = devices[0];
+
+            CreateAudioDeviceInputNodeResult result =
+                await graph.CreateDeviceInputNodeAsync(MediaCategory.Media, graph.EncodingProperties, selectedDevice);
+            if (result.Status != AudioDeviceNodeCreationStatus.Success)
+            {
+                // Cannot create device output node
+                return;
+            }
+            
+            //graph.deviceInputNode = result.DeviceInputNode;
         }
 
         private static void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)

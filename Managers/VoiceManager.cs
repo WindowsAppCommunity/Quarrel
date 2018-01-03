@@ -29,7 +29,7 @@ namespace Discord_UWP.Managers
 
         private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
         {
-            AudioTrig.AddFrame(e.EventData.data, e.EventData.samples);
+            AudioManager.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
         public static VoiceConnection VoiceConnection;
