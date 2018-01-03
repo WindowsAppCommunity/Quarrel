@@ -109,6 +109,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GifvControl.xaml.cs">
+      <DependentUpon>GifvControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
@@ -305,6 +308,9 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Javascript sources\READY.json" />
+    <None Include="Javascript sources\Source1.js" />
+    <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -443,6 +449,10 @@
     <Page Include="Controls\FriendPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\GifvControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GuildControl.xaml">
       <Generator>MSBuild:Compile</Generator>

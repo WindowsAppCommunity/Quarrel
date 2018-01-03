@@ -42,6 +42,7 @@ namespace Discord_UWP.Controls
         {
             public List<string> names { get; set; }
             public bool? hasDiversity { get; set; }
+            public bool CustomEmoji { get; set; }
             public virtual string category { get; set; }
             public int position { get; set; }
 
@@ -134,13 +135,16 @@ namespace Discord_UWP.Controls
                     if (emoji.Roles.Count() != 0 && !LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id]
                             .Roles.Intersect(emoji.Roles)
                             .Any()) return;
+                    string extension = ".png";
+                    if (emoji.Animated) extension = ".gif";
                     guildEmojis.Add(new GuildSide()
                     {
                         category = LocalState.Guilds[App.CurrentGuildId].Raw.Name.ToUpper(),
                         hasDiversity = false,
                         names = new List<string>() { emoji.Name },
-                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + ".png",
-                        id = emoji.Id
+                        surrogates = "https://cdn.discordapp.com/emojis/" + emoji.Id + extension,
+                        id = emoji.Id,
+                        CustomEmoji = true
                     });
                 }
             }

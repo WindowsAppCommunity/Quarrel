@@ -299,7 +299,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock x:Uid="/Dialogs/EditChannelTB" x:Name="header" Text="EDIT CHANNEL" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                    <Pivot x:Name="pivot" Grid.ColumnSpan="2" Visibility="Collapsed" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
+                    <Pivot x:Name="pivot" Grid.ColumnSpan="2" Visibility="Visible" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
                         <PivotItem x:Uid="/Dialogs/OverviewPI" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
@@ -341,7 +341,7 @@
                             </Grid>
                         </PivotItem>
                     </Pivot>
-                    <TextBlock FontSize="13.333" Opacity="0.8" TextAlignment="Center" Text="Sorry, but this feature has been temporarily disabled, because it was resetting the configuration of the edited channel. We're working hard to fix this, and an update will soon be released!" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24,0,24,0"/>
+                    <!--<TextBlock FontSize="13.333" Opacity="0.8" TextAlignment="Center" Text="Sorry, but this feature has been temporarily disabled, because it was resetting the configuration of the edited channel. We're working hard to fix this, and an update will soon be released!" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24,0,24,0"/>-->
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                             <Grid.ColumnDefinitions>
@@ -350,7 +350,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" Visibility="Collapsed" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
+                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" Visibility="Visible" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveChannelSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
                         </Grid>
                     </Grid>
                 </Grid>

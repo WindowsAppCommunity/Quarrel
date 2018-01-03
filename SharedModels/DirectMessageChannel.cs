@@ -24,5 +24,10 @@ namespace Discord_UWP.SharedModels
         public IEnumerable<User> Users { get; set; }
         [JsonProperty("last_message_id")]
         public string LastMessageId { get; set; }
+
+        public void UpdateLMID(string id)
+        {
+            LastMessageId = id;
+        }
     }
 }

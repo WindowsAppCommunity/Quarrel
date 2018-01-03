@@ -84,6 +84,12 @@ namespace Discord_UWP
         {
             LogOutHandler?.Invoke(typeof(App), new EventArgs());
         }
+
+        public static event EventHandler<string> StatusChangedHandler;
+        public static void StatusChanged(string msg)
+        {
+            StatusChangedHandler?.Invoke(typeof(App), msg);
+        }
         #endregion
 
         #region General
@@ -734,6 +740,7 @@ namespace Discord_UWP
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
+        internal const bool AslansBullshit = false;
 
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
@@ -794,6 +801,7 @@ namespace Discord_UWP
         }
         #endregion
         #endregion
+
         private static void ResetSettings()
         {
             Storage.Settings.lastVerison = "0";
@@ -880,6 +888,12 @@ namespace Discord_UWP
             LaunchProcedure(e.SplashScreen, e.PreviousExecutionState, e.PrelaunchActivated, e.Arguments);
             
         }
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+
+        }
+
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
         {
             var licenseInformation = CurrentApp.LicenseInformation;

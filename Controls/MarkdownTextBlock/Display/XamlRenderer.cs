@@ -807,13 +807,16 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         {
             //If the emoji is the only content of the message
             InlineUIContainer imageRun = new InlineUIContainer();
+            string extension = ".png";
+            if (element.IsAnimated) extension = ".gif";
             if (_document.length > 0 && _document.length == (element.Id.Length + element.Name.Length + 2))
             {
+                
                 imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
                     Width = 42,
                     Height = 42,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + ".png"))
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
                 };
             }
             else
@@ -823,7 +826,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     Margin=new Thickness(2,0,2,-4),
                     Width = 20,
                     Height = 20,
-                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + ".png"))
+                    Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
                 };
             }
             //Add the tooltip of the emoji's name

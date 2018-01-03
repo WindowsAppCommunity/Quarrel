@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 
 using Discord_UWP.LocalModels;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Threading;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -321,10 +322,17 @@ namespace Discord_UWP.Controls
                 //    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, ":" + args.names[0] + ":");
                 //    MessageEditor.SelectionStart = newSelectionStart;
                 //}
-                int newSelectionStart = MessageEditor.SelectionStart + args.surrogates.Length;
-                MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, args.surrogates);
-                MessageEditor.SelectionStart = newSelectionStart;
-                MessageEditor.Focus(FocusState.Keyboard);
+                string emojiText = "";
+                if (args.CustomEmoji)
+                    emojiText = ":" + args.names.First() + ":";
+                else
+                    emojiText = args.surrogates;
+
+                    int newSelectionStart = MessageEditor.SelectionStart + emojiText.Length;
+                    MessageEditor.Text = MessageEditor.Text.Insert(MessageEditor.SelectionStart, emojiText);
+                    MessageEditor.SelectionStart = newSelectionStart;
+                    MessageEditor.Focus(FocusState.Keyboard);
+                
             };
         }
 
@@ -464,31 +472,60 @@ namespace Discord_UWP.Controls
         private void GiphyButton_Click(object sender, RoutedEventArgs e)
         {
             GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            TextBox_TextChanged(null, null);
+            searchCooldown.Interval = TimeSpan.FromMilliseconds(1200);
+            searchCooldown.Tick += SearchCooldown_Tick;
         }
 
-        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        string previousSearch = "empty";
+        private async void SearchCooldown_Tick(object sender, object e)
         {
+            if (giphySearch.Text == previousSearch)
+                return;
+            previousSearch = giphySearch.Text;
             var service = GiphyAPI.GiphyAPI.GetGiphyService();
-            GiphyList.Items.Clear();
+            
             GiphyAPI.Models.SearchResult gifs;
+
             if (giphySearch.Text == null || giphySearch.Text == "")
             {
                 gifs = await service.Trending();
-            } else
+            }
+            else
             {
                 gifs = await service.Search(giphySearch.Text);
             }
-            foreach(var gif in gifs.Gif)
+            await (Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                GiphyList.Items.Add(gif);
-            }
+                progring.Visibility = Visibility.Collapsed;
+                foreach (var gif in gifs.Gif)
+                {
+                    GiphyList.Items.Add(gif);
+                }
+            }));
+        }
+
+        DispatcherTimer searchCooldown = new DispatcherTimer();
+        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            GiphyList.Items.Clear();
+            progring.Visibility = Visibility.Visible;
+            searchCooldown.Start();
+            //TODO Kill any search tasks currently awaiting completion
         }
 
         private void GiphyList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.Images.Orginial.Url;
-            GiphyList.Visibility = Visibility.Collapsed;
+            Text += (e.ClickedItem as GiphyAPI.Models.Gif?).Value.BitlyUrl;
+            GiphySelect.Visibility = Visibility.Collapsed;
             giphySearch.Text = "";
+        }
+
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            var m = (sender as MediaElement);
+            m.Position = TimeSpan.Zero;
+            m.Play();
         }
     }
 }

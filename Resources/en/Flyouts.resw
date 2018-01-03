@@ -153,6 +153,9 @@
   <data name="KickMember" xml:space="preserve">
     <value>Kick member</value>
   </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Leave Group</value>
+  </data>
   <data name="LeaveServer" xml:space="preserve">
     <value>Leave server</value>
   </data>
@@ -188,6 +191,9 @@
   </data>
   <data name="RemoveFriend" xml:space="preserve">
     <value>Remove friend</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Remove From Group</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>

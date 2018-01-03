@@ -87,5 +87,8 @@ namespace Discord_UWP.API.Channel
 
         [Post("/channels/{channelId}/invites")]
         Task<SharedModels.Invite> CreateChannelInvite([AliasAs("channelId")] string channelid, [Body] CreateInvite invite);
+
+        [Delete("/channels/{channelId}/recipients/{userId}")]
+        Task RemoveGroupUser([AliasAs("channelId")] string channelid, [AliasAs("userId")] string userId);
     }
 }

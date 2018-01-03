@@ -98,6 +98,5 @@
                 <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
         </StackPanel>
-
     </Grid>
 </UserControl>

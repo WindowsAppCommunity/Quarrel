@@ -67,15 +67,24 @@ namespace Discord_UWP.Managers
 
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
-        private static void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
+        private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
             LocalState.CurrentUser = e.EventData.User;
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.CurrentUser (ln 72)");});
 
             LocalState.Notes = e.EventData.Notes;
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.Notes (ln 76)");});
 
             Storage.Settings.DiscordLightTheme = e.EventData.Settings.Theme == "Light" ? true : false;
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set Storage.Settings.DiscordLightTheme (ln 80)");});
+
             Storage.Settings.DevMode = e.EventData.Settings.DevMode;
-            
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() => { App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");});
+
             #region Friends
             foreach (var friend in e.EventData.Friends)
             {
@@ -87,8 +96,10 @@ namespace Discord_UWP.Managers
                     LocalState.Friends.Add(friend.Id, friend);
                 }
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
             #endregion
-            
+
             #region DMs
             foreach (var dm in e.EventData.PrivateChannels)
             {
@@ -100,6 +111,8 @@ namespace Discord_UWP.Managers
                     LocalState.DMs.Add(dm.Id, dm);
                 }
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set all DMs (ln 104-113)");});
             #endregion
 
             #region Guild
@@ -112,6 +125,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds.Add(guild.Id, new LocalModels.Guild(guild));
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added guild with id" + guild.Id + "(ln 121-127)"); });
 
                 if (guild.Members != null)
                 {
@@ -130,6 +145,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[guild.Id].valid = false;
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added members of guild with id" + guild.Id + "(ln 131-147)"); });
 
                 if (guild.Roles != null)
                 {
@@ -148,6 +165,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[guild.Id].valid = false;
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added roles of guild with id" + guild.Id + "(ln 151-167)"); });
 
                 LocalState.Guilds[guild.Id].GetPermissions();
 
@@ -168,6 +187,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[guild.Id].valid = false;
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added channels of guild with id" + guild.Id + "(ln 173-189)"); });
 
                 if (guild.Presences != null)
                 {
@@ -186,6 +207,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[guild.Id].valid = false;
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added presences of guild with id" + guild.Id + "(ln 193-209)"); });
 
                 if (guild.VoiceStates != null)
                 {
@@ -204,6 +227,8 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[guild.Id].valid = false;
                 }
+                if (App.AslansBullshit)
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added voice states of guild with id" + guild.Id + "(ln 213-229)"); });
             }
             #endregion
 
@@ -218,6 +243,8 @@ namespace Discord_UWP.Managers
                     LocalState.PresenceDict.Add(presence.User.Id, presence);
                 }
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalSate.PresenceDict (ln 236-245)"); });
             #endregion
 
             #region ReadState (RPC)
@@ -232,21 +259,32 @@ namespace Discord_UWP.Managers
                     LocalState.RPC.Add(readstate.Id, readstate);
                 }
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.RPC (ln 251-261)"); });
             #endregion
 
             #region GuildSettings (Notifications)
-            foreach (SharedModels.GuildSetting guild in e.EventData.GuildSettings)
+            if (e.EventData.GuildSettings != null)
             {
-                if (LocalState.GuildSettings.ContainsKey(guild.GuildId))
+                foreach (SharedModels.GuildSetting guild in e.EventData.GuildSettings)
                 {
-                    LocalState.GuildSettings[guild.GuildId] = new LocalModels.GuildSetting(guild);
-                } else
-                {
-                    LocalState.GuildSettings.Add(guild.GuildId, new LocalModels.GuildSetting(guild));
+                    if (guild.GuildId != null)
+                    {
+                        if (LocalState.GuildSettings.ContainsKey(guild.GuildId))
+                        {
+                            LocalState.GuildSettings[guild.GuildId] = new LocalModels.GuildSetting(guild);
+                        }
+                        else
+                        {
+                            LocalState.GuildSettings.Add(guild.GuildId, new LocalModels.GuildSetting(guild));
+                        }
+                    }
                 }
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.GuildSettings (ln 267-276)"); });
             #endregion
-
+              
             #region GuildOrder
             int pos = 0;
             foreach (string guild in e.EventData.Settings.GuildOrder)
@@ -257,6 +295,8 @@ namespace Discord_UWP.Managers
                 }
                 pos++;
             }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set guild positions (ln 282-290)"); });
             #endregion
 
             #region CurrentUserPresence
@@ -269,9 +309,13 @@ namespace Discord_UWP.Managers
                 LocalState.PresenceDict.Add(e.EventData.User.Id, new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status });
             }
             App.UserStatusChanged(e.EventData.Settings);
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set CurrentUserPresence (ln 296-304)"); });
             #endregion
 
             App.ReadyRecieved();
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully recieved Ready Packet (ln 309)"); });
         }
         #endregion
 
@@ -285,17 +329,28 @@ namespace Discord_UWP.Managers
                 App.UpdateUnreadIndicators();
             } else
             {
-                foreach (var guild in LocalState.Guilds) //TODO: Check efficiency
+                
+                if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                 {
-                    if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                    LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
+
+                    if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                     {
-                        var editableRawChn = guild.Value.channels[e.EventData.ChannelId].raw;
-                        editableRawChn.LastMessageId = e.EventData.Id;
-                        guild.Value.channels[e.EventData.ChannelId].raw = editableRawChn;
-                        if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                    }
+                } else
+                {
+                    foreach (var guild in LocalState.Guilds)
+                    {
+                        if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
                         {
-                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = editableRawChn.LastMessageId, MentionCount = e.EventData.Mentions.FirstOrDefault( x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0 , LastPinTimestamp = null });
-                        } 
+                            guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
+
+                            if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                            {
+                                LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                            }
+                        }
                     }
                 }
                 App.UpdateUnreadIndicators();

@@ -138,7 +138,8 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
             "ssh://",
             "ms-windows-store://",
             "#",
-            "@"
+            "@",
+            "discorduwp://"
         };
 
         /// <summary>

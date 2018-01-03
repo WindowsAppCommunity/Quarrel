@@ -70,6 +70,12 @@ namespace Discord_UWP.Managers
                 get { return _id; }
                 set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
             }
+            private string _lastmessageid;
+            public string LastMessageId
+            {
+                get { return _lastmessageid; }
+                set { if (_lastmessageid == value) return; _lastmessageid = value; OnPropertyChanged("LastMessageId"); }
+            }
 
             private string _parentid;
             public string ParentId
@@ -250,24 +256,19 @@ namespace Discord_UWP.Managers
             return Sorted;
         }
 
-        public static async Task<List<SimpleChannel>> OrderChannels(List<DirectMessageChannel> channels)
+        public static List<SimpleChannel> OrderChannels(List<DirectMessageChannel> channels)
         {
-            Dictionary<long, SimpleChannel> dictChannels = new Dictionary<long, SimpleChannel>();
+            List<SimpleChannel> returnChannels = new List<SimpleChannel>();
             foreach (var channel in channels)
             {
                 SimpleChannel sc = new SimpleChannel();
                 sc.Id = channel.Id;
                 sc.Type = channel.Type;
-                long ticks = 0;
-                ticks = (await RESTCalls.GetChannelMessages(channel.Id, 1)).LastOrDefault().Timestamp.Ticks;
-                while (dictChannels.ContainsKey(ticks))
-                {
-                    ticks++;
-                }
                 switch (channel.Type)
                 {
                     case 1: //DM
                         sc.Name = "@" + channel.Users.FirstOrDefault().Username;
+                        sc.LastMessageId = channel.LastMessageId;
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
@@ -300,11 +301,11 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        dictChannels.Add(ticks, sc);
+                        returnChannels.Add(sc);
                         break;
                     case 3: //Group
                         sc.Name = channel.Name;
-
+                        sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
                         if (channel.Name != null && channel.Name != "")
                         {
@@ -329,19 +330,13 @@ namespace Discord_UWP.Managers
                             else
                                 sc.IsUnread = false;
                         }
-                        dictChannels.Add(ticks, sc);
+                        returnChannels.Add(sc);
                         break;
                 }
             }
 
-            //TODO: OrderBy, IsUnread on top
-            List<SimpleChannel> returnChannels = new List<SimpleChannel>();
-            foreach (var chn in dictChannels.OrderBy(x => x.Key))
-            {
-                returnChannels.Add(chn.Value);
-            }
-            returnChannels.Reverse();
-            return returnChannels;
+            
+            return returnChannels.OrderByDescending(x => x.LastMessageId).ToList();
         }
     }
 }
