@@ -14,6 +14,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+using Salsa20;
+
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
 
@@ -48,6 +50,7 @@ namespace Discord_UWP.Voice
         private byte[] _encrypted = new byte[3840];
         private byte[] _unencrypted = new byte[3840];
 
+        private SalsaManager salsaManager = new SalsaManager();
         private byte[] secretkey;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
@@ -279,7 +282,7 @@ namespace Discord_UWP.Voice
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
 
                 //TODO: CPPReference
-                
+
 
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }

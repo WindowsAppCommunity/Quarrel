@@ -13,7 +13,7 @@
 #include <fstream>
 #include <string>
 
-namespace Salsa20ns
+namespace Salsa20
 {
 
 	public ref class SalsaManager sealed
@@ -24,27 +24,14 @@ namespace Salsa20ns
 			std::memset(key_, 0, sizeof(key_));
 		}
 
-		bool initialize(Platform::String ^platformKey)
+		bool initialize()
 		{
-			std::wstring key;
-			const wchar_t *wchar = platformKey->Data();
-			key = wchar; //Gotta love c++, no cast needed
-			if (key.empty())
-			{
-				std::cout << "E: Key was not specified." << std::endl;
-				return false;
-			}
-
-			if (!readKeyFromString(key))
-			{
-				std::cout << "E: Invalid key value." << std::endl;
-				return false;
-			}
+			//std::wstring key;
+			//const wchar_t *wchar = platformKey->Data();
+			//key = wchar; //Gotta love c++, no cast needed
 
 			return true;
 		}
-
-		
 
 		//To return and take 2 byte[]s
 
