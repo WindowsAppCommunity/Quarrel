@@ -47,8 +47,7 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
         private byte[] _nonce = new byte[24];
-        private byte[] _encrypted = new byte[3840];
-        private byte[] _unencrypted = new byte[3840];
+        private byte[] _data = new byte[3840];
 
         private SalsaManager salsaManager = new SalsaManager();
         private byte[] secretkey;
@@ -273,18 +272,14 @@ namespace Discord_UWP.Voice
             {
                 var packet = (byte[])e.Message;
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
-                Buffer.BlockCopy(packet, 12, _encrypted, 0, packet.Length-12);
-
-                //_unencrypted = StreamEncryption.DecryptXSalsa20(_encrypted, _nonce, secretkey);
+                Buffer.BlockCopy(packet, 12, _data, 0, packet.Length-12);
+                
+                salsaManager.processFrame(out _data);
 
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
-                //Framesize is wrong
                 int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
                 float[] output = new float[framesize]; // framesize 
-                int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
-
-                //TODO: CPPReference
-                //salsaManager.processFrame();
+                int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
 
 
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
