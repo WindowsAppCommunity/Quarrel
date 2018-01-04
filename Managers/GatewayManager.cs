@@ -357,12 +357,9 @@ namespace Discord_UWP.Managers
                     }
                 }
                 App.UpdateUnreadIndicators();
-
-                if (Storage.Settings.Toasts)
-                {
-                    NotifcationManager.CreateMessageCreatedNotifcation(e.EventData);
-                }
+                
             }
+            NotifcationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
         private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
