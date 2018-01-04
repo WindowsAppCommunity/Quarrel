@@ -744,23 +744,26 @@ namespace Discord_UWP.Controls
 
         private void UserControl_Holding(object sender, HoldingRoutedEventArgs e)
         {
-            if (App.CurrentGuildId != null)
+            if (MessageType != MessageTypes.Advert)
             {
-                if (Message?.User.Id == Message.Value.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.Value.ChannelId].permissions.SendMessages)
+                if (App.CurrentGuildId != null)
                 {
-                    MoreReply.Visibility = Visibility.Collapsed;
+                    if (Message?.User.Id == Message.Value.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.Value.ChannelId].permissions.SendMessages)
+                    {
+                        MoreReply.Visibility = Visibility.Collapsed;
+                    }
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    {
+                        MoreDelete.Visibility = Visibility.Collapsed;
+                        MoreEdit.Visibility = Visibility.Collapsed;
+                    }
                 }
-                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                if (Message?.User.Id != LocalState.CurrentUser.Id)
                 {
-                    MoreDelete.Visibility = Visibility.Collapsed;
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
+                FlyoutBase.ShowAttachedFlyout(moreButton);
             }
-            if (Message?.User.Id != LocalState.CurrentUser.Id)
-            {
-                MoreEdit.Visibility = Visibility.Collapsed;
-            }
-            FlyoutBase.ShowAttachedFlyout(moreButton);
         }
 
         private async void ToggleReaction(object sender, RoutedEventArgs e)
