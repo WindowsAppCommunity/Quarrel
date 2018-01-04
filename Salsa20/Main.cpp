@@ -19,27 +19,28 @@ namespace Salsa20
 	public ref class SalsaManager sealed
 	{
 	public:
+
 		SalsaManager() : inputFileName_(), outputFileName_()
 		{
 			std::memset(key_, 0, sizeof(key_));
 		}
 
-		bool initialize()
+		bool initialize(const Platform::Array<uint8_t>^ vectKey)
 		{
-			//std::wstring key;
-			//const wchar_t *wchar = platformKey->Data();
-			//key = wchar; //Gotta love c++, no cast needed
-
+			for (int i = 0; i < vectKey->Length; i++) {
+				key_[i] = vectKey[i];
+			}
 			return true;
 		}
 
 		//To return and take 2 byte[]s
 
-		void processFrame() {
 
-			auto arraySize = 0; //TODO: take size of array
 
-			//output cache
+		void processFrame(Platform::Array<uint8_t>^* input) {
+
+			auto arraySize = (*input)->Length;
+
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
 			uint8_t chunk[chunkSize];
 
@@ -52,8 +53,12 @@ namespace Salsa20
 			auto remainderSize = arraySize % chunkSize;
 
 			//processChunks
-			
-			//salsa20.processBlocks();
+			for (int i = 0; i < numChunks; i++)
+			{
+				
+				salsa20.processBlocks(chunk, chunk, numChunks);
+				
+			}
 
 			//processRemainder
 			//salsa20.processBytes();

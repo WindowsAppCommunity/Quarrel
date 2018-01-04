@@ -263,6 +263,8 @@ namespace Discord_UWP.Voice
         {
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
+
+            salsaManager.initialize(secretkey);
         }
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
@@ -282,6 +284,7 @@ namespace Discord_UWP.Voice
                 int samples = decoder.Decode(_unencrypted, 0, _unencrypted.Length, output, 0, framesize);
 
                 //TODO: CPPReference
+                //salsaManager.processFrame();
 
 
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
