@@ -16,35 +16,29 @@
 namespace Salsa20
 {
 
-	public ref class SalsaManager sealed
-	{
+	public ref class SalsaManager sealed {
 	public:
 
-		SalsaManager() : inputFileName_(), outputFileName_()
-		{
+		SalsaManager() {
 			std::memset(key_, 0, sizeof(key_));
 		}
 
-		bool initialize(const Platform::Array<uint8_t>^ vectKey)
-		{
+		bool initialize(const Platform::Array<uint8_t>^ vectKey) {
 			for (int i = 0; i < vectKey->Length; i++) {
 				key_[i] = vectKey[i];
 			}
 			return true;
 		}
 
-		//To return and take 2 byte[]s
 
+		void processFrame(Platform::Array<uint8_t>^* io, const Platform::Array<uint8_t>^ nonce) { //TODO: Handle nonce
 
-
-		void processFrame(Platform::Array<uint8_t>^* input) {
-
-			auto arraySize = (*input)->Length;
+			auto arraySize = (*io)->Length;
 
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
 			uint8_t chunk[chunkSize];
 
-			//Initialize decrypter
+			//Initialize encrypter/decrypter
 			Salsa20 salsa20(key_);
 			salsa20.setIv(&key_[IV_OFFSET]);
 
@@ -53,15 +47,32 @@ namespace Salsa20
 			auto remainderSize = arraySize % chunkSize;
 
 			//processChunks
-			for (int i = 0; i < numChunks; i++)
-			{
-				//Move to chunk
+			for (int i = 0; i < numChunks; i++) {
+				//copy from input to chunk
+				for (int pos = 0; pos < chunkSize; pos++) {
+					chunk[pos] = (*io)->get(pos + (i*chunkSize));
+				}
+				//process
 				salsa20.processBlocks(chunk, chunk, numChunks);
-				//Move from chunk
+				//copy from chunk to input
+				for (int pos = 0; pos < chunkSize; pos++) {
+					(*io)->set(pos + (i*chunkSize), chunk[pos]);
+				}
 			}
 
 			//processRemainder
-			//salsa20.processBytes();
+			if (remainderSize != 0) {
+				//copy from input to chunk
+				for (int i = 0; i < remainderSize; i++) {
+					chunk[i] = (*io)->get(i+(chunkSize*numChunks));
+				}
+				//process
+				salsa20.processBytes(chunk, chunk, remainderSize);
+				//copy from chunk to input
+				for (int i = 0; i < remainderSize; i++) {
+					(*io)->set(i + (chunkSize*numChunks), chunk[i]);
+				}
+			}
 		}
 
 		/*Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
@@ -107,8 +118,7 @@ namespace Salsa20
 
 	private:
 		/// Helper constants
-		enum : size_t
-		{
+		enum : size_t {
 			NUM_OF_BLOCKS_PER_CHUNK = 8192,
 			IV_OFFSET = Salsa20::KEY_SIZE,
 			KEY_SIZE = Salsa20::KEY_SIZE + Salsa20::IV_SIZE
@@ -120,12 +130,10 @@ namespace Salsa20
 		* \param[out] byte byte
 		* \return true on success
 		*/
-		bool readByte(const wchar_t* string, uint8_t& byte)
-		{
+		bool readByte(const wchar_t* string, uint8_t& byte) {
 			byte = 0;
 
-			for (uint32_t i = 0; i < 2; ++i)
-			{
+			for (uint32_t i = 0; i < 2; ++i) {
 				uint8_t value = 0;
 				char c = string[i];
 
@@ -166,7 +174,6 @@ namespace Salsa20
 		}
 
 		// Data members
-		std::string inputFileName_, outputFileName_;
 		uint8_t key_[KEY_SIZE];
 	};
 }
