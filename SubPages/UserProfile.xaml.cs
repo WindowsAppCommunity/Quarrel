@@ -229,6 +229,15 @@ namespace Discord_UWP.SubPages
                 pivotHeaders.Visibility = Visibility.Collapsed;
                 BotIndicator.Visibility = Visibility.Visible;
             }
+            if (LocalState.PresenceDict.ContainsKey(profile.User.Id))
+            {
+                if (LocalState.PresenceDict[profile.User.Id].Game.HasValue)
+                {
+                    richPresence.GameContent = LocalState.PresenceDict[profile.User.Id].Game.Value;
+                }
+            }
+            else
+                richPresence.Visibility = Visibility.Collapsed;
         }
 
         private void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
