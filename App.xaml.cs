@@ -52,6 +52,7 @@ namespace Discord_UWP
             LoadSettings();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            CoreApplication.EnablePrelaunch(true);
         }
         
         /// <summary>
@@ -899,9 +900,10 @@ namespace Discord_UWP
         {
 
         }
-
+        static bool WasPreLaunched = false;
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
         {
+            
             var licenseInformation = CurrentApp.LicenseInformation;
             if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
             {
@@ -910,31 +912,74 @@ namespace Discord_UWP
 
             Frame rootFrame = Window.Current.Content as Frame;
 
-            SetupTitleBar();
-            InitializeResources();
 
-            Splash = splash;
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
 
             if (PrelaunchActivated == false)
             {
+                if (PreviousExecutionState == ApplicationExecutionState.Suspended && WasPreLaunched)
+                {
+                    SetupTitleBar();
+                    InitializeResources();
+                    SetupMainPage?.Invoke(null, null);
+                }
+                else
+                {
+                    Splash = splash;
+                    SetupTitleBar();
+                    InitializeResources();
+                    // Do not repeat app initialization when the Window already has content,
+                    // just ensure that the window is active
+                    if (rootFrame == null)
+                    {
+                        // Create a Frame to act as the navigation context and navigate to the first page
+                        rootFrame = new Frame();
+
+                        rootFrame.NavigationFailed += OnNavigationFailed;
+
+                        if (PreviousExecutionState == ApplicationExecutionState.Terminated)
+                        {
+                            //TODO: Load state from previously suspended application
+                        }
+
+                        // Place the frame in the current Window
+                        Window.Current.Content = rootFrame;
+                    }
+
+
+                    if (rootFrame.Content == null)
+                    {
+                        // When the navigation stack isn't restored navigate to the first page,
+                        // configuring the new page by passing required information as a navigation
+                        // parameter
+                        rootFrame.Navigate(typeof(MainPage), Arguments);
+
+                        SetupMainPage?.Invoke(null, null);
+                    }
+                }
+
+            }
+            else
+            {
+                Splash = splash;
+                WasPreLaunched = true;
+                if (rootFrame == null)
+                {
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Load state from previously suspended application
+                    }
+
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
+                }
+
+
                 if (rootFrame.Content == null)
                 {
                     // When the navigation stack isn't restored navigate to the first page,
@@ -942,6 +987,9 @@ namespace Discord_UWP
                     // parameter
                     rootFrame.Navigate(typeof(MainPage), Arguments);
                 }
+            }
+
+                
 
                 //Cortana crap
                 //var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///VoiceCommands.xml"));
@@ -949,8 +997,9 @@ namespace Discord_UWP
                 // Ensure the current window is active
                 Window.Current.Activate();
                 Window.Current.CoreWindow.Activated += WindowFocusChanged;
-            }
+
         }
+        public static event EventHandler SetupMainPage;
         /// <summary>
         /// Invoked when the application is not launche normally by the end user
         /// </summary>
@@ -1036,9 +1085,13 @@ namespace Discord_UWP
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
+                Brush brush = ((Brush)App.Current.Resources["AcrylicChannelPaneBackground"]);
+                if (brush.GetType() == typeof(AcrylicBrush))
+                    return; // this means that resources have already been initialized (=app pelaunched)
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
                 if (!App.CinematicMode && Storage.Settings.EnableAcrylic)
                 {
+                    
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
                     App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
                     {
