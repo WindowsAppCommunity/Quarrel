@@ -15,43 +15,6 @@
 
 namespace Salsa20ns
 {
-	class imembuf : public std::basic_streambuf<char> {
-	public:
-		imembuf(const uint8_t *p, size_t l) {
-			setg((char*)p, (char*)p, (char*)p + l);
-		}
-	};
-
-	class omembuf : public std::basic_streambuf<char> {
-	public:
-		omembuf(const uint8_t *p, size_t l) {
-			std::streambuf::getloc();
-		}
-	};
-	
-	class memistream : public std::istream {
-	public:
-		memistream(const byte *p, size_t l) :
-			std::istream(&_buffer),
-			_buffer(p, l) {
-			rdbuf(&_buffer);
-		}
-
-	private:
-		imembuf _buffer;
-	};
-
-	class memostream : public std::ostream {
-	public:
-		memostream(const byte *p, size_t l) :
-			std::ostream(&_buffer),
-			_buffer(p, l) {
-			rdbuf(&_buffer);
-		}
-
-	private:
-		omembuf _buffer;
-	};
 
 	public ref class SalsaManager sealed
 	{
@@ -81,12 +44,37 @@ namespace Salsa20ns
 			return true;
 		}
 
-
+		
 
 		//To return and take 2 byte[]s
+
+		void processFrame() {
+
+			auto arraySize = 0; //TODO: take size of array
+
+			//output cache
+			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
+			uint8_t chunk[chunkSize];
+
+			//Initialize decrypter
+			Salsa20 salsa20(key_);
+			salsa20.setIv(&key_[IV_OFFSET]);
+
+			//Split into chunks of chunkSize
+			auto numChunks = arraySize / chunkSize;
+			auto remainderSize = arraySize % chunkSize;
+
+			//processChunks
+			
+			//salsa20.processBlocks();
+
+			//processRemainder
+			//salsa20.processBytes();
+		}
+
 		/*Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
 		{
-			memistream inputStream(data.begin(), dataLength);
+			//memistream inputStream(data.begin(), dataLength);
 			//memostream outputStream(new Array<byte>)
 			
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
@@ -122,10 +110,9 @@ namespace Salsa20ns
 				//outputStream.write(reinterpret_cast<const char*>(chunk), remainderSize);
 				std::cout << "[100.00]";
 			}
-
-			std::cout << std::endl << "OK" << std::endl;
 		}
 		*/
+
 	private:
 		/// Helper constants
 		enum : size_t
