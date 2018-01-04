@@ -140,10 +140,8 @@ namespace Discord_UWP
                             App.NavigateToDMChannel(null, null, false, true);
                         }
                     }
-                } else
-                {
-                    e.Handled = true;
                 }
+                e.Handled = true;
             }
         }
 
