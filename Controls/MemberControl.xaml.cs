@@ -80,7 +80,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    game.Opacity = 0.8;
+                    game.Opacity = 0.6;
                     rich.Visibility = Visibility.Collapsed;
                 }
                     

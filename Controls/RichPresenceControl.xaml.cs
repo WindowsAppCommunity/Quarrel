@@ -32,6 +32,29 @@ namespace Discord_UWP.Controls
             typeof(RichPresenceControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public bool IsLarge
+        {
+            set
+            {
+                if(value == true)
+                {
+                    LargeImgRect.Width = 104;
+                    LargeImgRect.Height = 104;
+                    LargeImgRect.RadiusX = 8;
+                    LargeImgRect.RadiusY = 8;
+                    LargeImgRect.Margin = new Thickness(0, 0, 18, 0);
+                    SmallimgRect.Width = 36;
+                    SmallimgRect.Height = 36;
+                    SmallimgRect.RadiusY = 18;
+                    SmallimgRect.RadiusX = 18;
+                    SmallimgRect.Margin = new Thickness(0, 0, 9, -9);
+
+                    GameTB.FontSize = 15;
+                    DetailsTB.FontSize = 13.333;
+                    StateTB.FontSize = 13.333;
+                }
+            }
+        }
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as RichPresenceControl;
