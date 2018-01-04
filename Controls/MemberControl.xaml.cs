@@ -22,6 +22,7 @@ using Discord_UWP.SharedModels;
 using System.Threading.Tasks;
 
 using Discord_UWP.Managers;
+using Windows.UI.Text;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -72,9 +73,22 @@ namespace Discord_UWP.Controls
                 playing.Visibility = Visibility.Visible;
                 game.Visibility = Visibility.Visible;
                 game.Text = DisplayedMember.status.Game.Value.Name;
+                if (DisplayedMember.status.Game.Value.State != null)
+                {
+                    game.Opacity = 1;
+                    rich.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    game.Opacity = 0.6;
+                    rich.Visibility = Visibility.Collapsed;
+                }
+                    
             }
             else
             {
+                playing.Visibility = Visibility.Collapsed;
+                rich.Visibility = Visibility.Collapsed;
                 game.Visibility=Visibility.Collapsed;
             }
             if (DisplayedMember.Raw.User.Bot)

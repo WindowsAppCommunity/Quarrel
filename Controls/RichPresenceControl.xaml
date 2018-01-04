@@ -9,7 +9,29 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-
+    <Grid Margin="0,4,0,4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Rectangle x:Name="LargeImgRect" Width="58" Height="58" RadiusX="4" RadiusY="4" Margin="0,0,10,0">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="Largeimg"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle x:Name="SmallimgRect" Width="20" Height="20" RadiusX="10" RadiusY="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,-5">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="Smallimg"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+        <Grid Grid.Column="1" >
+            <StackPanel>
+                <TextBlock x:Name="GameTB" FontSize="13.333" FontWeight="SemiBold"/>
+                <TextBlock x:Name="DetailsTB" FontSize="11" Opacity="0.8"/>
+                <TextBlock x:Name="StateTB" FontWeight="SemiLight" FontSize="11" Opacity="0.6"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

@@ -341,7 +341,12 @@ namespace Discord_UWP
                     {
                         var sortedMembers =
                             memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
-
+                        
+                        foreach (var m in sortedMembers)
+                        {
+                            int count =  m.Count();
+                            
+                        }
                         await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
                             {

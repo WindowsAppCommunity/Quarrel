@@ -128,6 +128,16 @@ namespace Discord_UWP.Controls
                 //TODO: DM Functionality
                 //TODO: Live status+playing indicator
                 //TODO: 
+                if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
+                {
+                    if(LocalState.PresenceDict[DisplayedMember.User.Id].Game.HasValue)
+                    {
+                        PlayingHeader.Visibility = Visibility.Visible;
+                        var game = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
+                        richPresence.GameContent = game;
+                        richPresence.Visibility = Visibility.Visible;
+                    }
+                }
             }
         }
 
