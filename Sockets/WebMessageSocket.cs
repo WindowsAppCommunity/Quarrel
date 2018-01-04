@@ -16,7 +16,7 @@ namespace Discord_UWP.Sockets
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
-        public bool UseCompression = true;
+        public static bool UseCompression = true;
         private readonly MessageWebSocket _socket;
         private readonly DataWriter _dataWriter;
 
@@ -47,7 +47,7 @@ namespace Discord_UWP.Sockets
             return new DataWriter(_socket.OutputStream);
         }
 
-        public async Task ConnectAsync(string connectionUrl, bool UseCompression)
+        public async Task ConnectAsync(string connectionUrl)
         {
             try
             {

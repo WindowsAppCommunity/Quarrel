@@ -150,7 +150,8 @@ namespace Discord_UWP.Gateway
             {
                 append = "&compress=zlib-stream";
             }
-            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append), UseCompression);
+            WebMessageSocket.UseCompression = UseCompression;
+            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
         // TODO: good chance the socket will be disposed when attempting to resume so yah

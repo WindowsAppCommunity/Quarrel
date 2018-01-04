@@ -43,7 +43,7 @@ namespace Discord_UWP
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             sideDrawer.SetupInteraction(ChannelHeader);
-            Setup();
+            App.SetupMainPage += Setup;
             base.OnNavigatedTo(e);
         }
         ScrollViewer MessageScrollviewer;
@@ -51,7 +51,7 @@ namespace Discord_UWP
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
 
-        public void Setup()
+        public void Setup(object o, EventArgs args)
         {
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -476,7 +476,7 @@ namespace Discord_UWP
 
                 bgTrigger = new ApplicationTrigger();
                 task.SetTrigger(bgTrigger);
-
+                
                 task.Register();
                 Console.WriteLine("Task registered");
                 return true;
