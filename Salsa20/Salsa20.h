@@ -9,9 +9,8 @@
 #include <cstdint>
 #include <cstring>
 
-namespace Salsa20ns
+namespace Salsa20
 {
-
 	using std::size_t;
 	using std::int32_t;
 	using std::uint8_t;
