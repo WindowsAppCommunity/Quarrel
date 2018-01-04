@@ -3,9 +3,8 @@
 
 #include "Salsa20.h"
 
-namespace Salsa20ns
+namespace Salsa20
 {
-
 	Salsa20::Salsa20(const uint8_t* key)
 	{
 		std::memset(vector_, 0, sizeof(vector_));

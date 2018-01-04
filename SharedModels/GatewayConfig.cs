@@ -12,9 +12,9 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("url")]
         public string BaseUrl { get; set; }
 
-        public string GetFullGatewayUrl(string encodingType, string version)
+        public string GetFullGatewayUrl(string encodingType, string version, string append)
         {
-            return $"{BaseUrl}/?encoding={encodingType}&v={version}";
+            return $"{BaseUrl}/?encoding={encodingType}&v={version}{append}";
         }
     }
 }
