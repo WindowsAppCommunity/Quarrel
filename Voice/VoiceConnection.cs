@@ -281,7 +281,6 @@ namespace Discord_UWP.Voice
                 float[] output = new float[framesize]; // framesize 
                 int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
 
-
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
