@@ -73,6 +73,8 @@
                     <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
                 </TransitionCollection>
             </StackPanel.Transitions>
+            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="Collapsed" x:Name="PlayingHeader" Text="PLAYING" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+            <local:RichPresenceControl Visibility="Collapsed" x:Name="richPresence"/>
             <TextBlock x:Uid="/Controls/RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
             <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
             <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
