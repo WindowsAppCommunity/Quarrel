@@ -31,9 +31,9 @@ namespace Discord_UWP.Managers
                     }
 
                     returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), prev.HasValue ? prev.Value.User.Id == message.User.Id : false, null));
-                    adCheck--;
-                    if (adCheck == 0 && App.ShowAds)
+                    if (adCheck == 0 && App.ShowAds && !Storage.Settings.VideoAd)
                     {
+                        adCheck--;
                         returnMessages.Add(new MessageContainer(null, MessageTypes.Advert, false, null));
                         adCheck = 5;
                     }
