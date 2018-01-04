@@ -285,4 +285,7 @@
   <data name="You" xml:space="preserve">
     <value>You</value>
   </data>
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>PLAYING</value>
+  </data>
 </root>

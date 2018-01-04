@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:c="using:Discord_UWP.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Page.Resources>
@@ -134,9 +135,13 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-
-                                <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,38,0,0" LostFocus="NoteBox_LostFocus"/>
+                                <StackPanel>
+                                    <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
+                                    <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
+                                </StackPanel>
+                                
                                 <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                     <GridView.ItemTemplate>
                                         <DataTemplate>
