@@ -274,7 +274,7 @@ namespace Discord_UWP.Voice
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                 Buffer.BlockCopy(packet, 12, _data, 0, packet.Length-12);
                 
-                salsaManager.processFrame(out _data);
+                salsaManager.processFrame(out _data, _nonce);
 
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample

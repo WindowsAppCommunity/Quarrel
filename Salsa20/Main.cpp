@@ -31,13 +31,14 @@ namespace Salsa20
 		}
 
 
-		void processFrame(Platform::Array<uint8_t>^* input) { //TODO: Handle nonce
-			auto arraySize = (*input)->Length;
+		void processFrame(Platform::Array<uint8_t>^* io, const Platform::Array<uint8_t>^ nonce) { //TODO: Handle nonce
+
+			auto arraySize = (*io)->Length;
 
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
 			uint8_t chunk[chunkSize];
 
-			//Initialize decrypter
+			//Initialize encrypter/decrypter
 			Salsa20 salsa20(key_);
 			salsa20.setIv(&key_[IV_OFFSET]);
 
@@ -49,13 +50,13 @@ namespace Salsa20
 			for (int i = 0; i < numChunks; i++) {
 				//copy from input to chunk
 				for (int pos = 0; pos < chunkSize; pos++) {
-					chunk[pos] = (*input)->get(pos + (i*chunkSize));
+					chunk[pos] = (*io)->get(pos + (i*chunkSize));
 				}
 				//process
 				salsa20.processBlocks(chunk, chunk, numChunks);
 				//copy from chunk to input
 				for (int pos = 0; pos < chunkSize; pos++) {
-					(*input)->set(pos + (i*chunkSize), chunk[pos]);
+					(*io)->set(pos + (i*chunkSize), chunk[pos]);
 				}
 			}
 
@@ -63,13 +64,13 @@ namespace Salsa20
 			if (remainderSize != 0) {
 				//copy from input to chunk
 				for (int i = 0; i < remainderSize; i++) {
-					chunk[i] = (*input)->get(i+(chunkSize*numChunks));
+					chunk[i] = (*io)->get(i+(chunkSize*numChunks));
 				}
 				//process
 				salsa20.processBytes(chunk, chunk, remainderSize);
 				//copy from chunk to input
 				for (int i = 0; i < remainderSize; i++) {
-					(*input)->set(i + (chunkSize*numChunks), chunk[i]);
+					(*io)->set(i + (chunkSize*numChunks), chunk[i]);
 				}
 			}
 		}
