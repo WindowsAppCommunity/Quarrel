@@ -84,7 +84,6 @@ namespace Discord_UWP.Gateway
             _webMessageSocket = new WebMessageSocket();
             _authenticator = authenticator;
             _gatewayConfig = config;
-
             eventHandlers = GetEventHandlers();
             operationHandlers = GetOperationHandlers();
           
@@ -143,10 +142,16 @@ namespace Discord_UWP.Gateway
         {
             _webMessageSocket.MessageReceived += OnSocketMessageReceived;
         }
-
+        public bool UseCompression;
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6"));
+            string append = "";
+            if (UseCompression)
+            {
+                append = "&compress=zlib-stream";
+            }
+            WebMessageSocket.UseCompression = UseCompression;
+            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
         // TODO: good chance the socket will be disposed when attempting to resume so yah

@@ -90,7 +90,7 @@
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• Fixed message updating"/>
+                                <Run Text="• 400-500% speed increase opening the app!"/>
                             </Paragraph>
                             <Paragraph>
                                 <Run Text="• Fixed gif button"/>
