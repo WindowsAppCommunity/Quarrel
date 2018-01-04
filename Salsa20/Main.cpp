@@ -19,7 +19,7 @@ namespace Salsa20
 	public ref class SalsaManager sealed {
 	public:
 
-		SalsaManager() : inputFileName_(), outputFileName_() {
+		SalsaManager() {
 			std::memset(key_, 0, sizeof(key_));
 		}
 
@@ -30,13 +30,8 @@ namespace Salsa20
 			return true;
 		}
 
-		//To return and take 2 byte[]s
 
-
-
-		void processFrame(Platform::Array<uint8_t>^* input) {
-
-			//TODO: Handle nonce
+		void processFrame(Platform::Array<uint8_t>^* input) { //TODO: Handle nonce
 			auto arraySize = (*input)->Length;
 
 			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
@@ -178,7 +173,6 @@ namespace Salsa20
 		}
 
 		// Data members
-		std::string inputFileName_, outputFileName_;
 		uint8_t key_[KEY_SIZE];
 	};
 }
