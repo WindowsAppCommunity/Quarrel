@@ -55,9 +55,9 @@ namespace Salsa20
 			//processChunks
 			for (int i = 0; i < numChunks; i++)
 			{
-				
+				//Move to chunk
 				salsa20.processBlocks(chunk, chunk, numChunks);
-				
+				//Move from chunk
 			}
 
 			//processRemainder
