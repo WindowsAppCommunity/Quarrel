@@ -51,6 +51,7 @@ namespace Discord_UWP.Controls
 
                     GameTB.FontSize = 15;
                     DetailsTB.FontSize = 13.333;
+                    TimeTB.FontSize = 13.333;
                     StateTB.FontSize = 13.333;
                 }
             }
@@ -61,7 +62,7 @@ namespace Discord_UWP.Controls
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
-
+        DispatcherTimer timer;
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == GameContentProperty)
@@ -82,6 +83,23 @@ namespace Discord_UWP.Controls
                     DetailsTB.Text = game.Details;               
                 else               
                     DetailsTB.Visibility = Visibility.Collapsed;
+
+                if (game.Party.HasValue)
+                {
+                    StateTB.Text += " (" + game.Party.Value.Size[0] + "/" + game.Party.Value.Size[1] + ")";  
+                }
+                if (game.TimeStamps.HasValue && (game.State!="" || game.Details !="") && (game.TimeStamps.Value.Start.HasValue || game.TimeStamps.Value.End.HasValue))
+                {
+                    timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    UpdateTimer(null, null);
+                    timer.Start();
+                    timer.Tick += UpdateTimer;
+                }
+                else
+                {
+                    TimeTB.Visibility = Visibility.Collapsed;
+                }
                 //Assets
                 if(game.Assets.HasValue)
                 {
@@ -108,6 +126,23 @@ namespace Discord_UWP.Controls
                 }
             }
         }
+
+        private void UpdateTimer(object sender, object e)
+        {
+            if (GameContent.TimeStamps.Value.End.HasValue)
+            {
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Value.End.Value);
+
+                var timeleft = t.Subtract(DateTimeOffset.Now);
+                TimeTB.Text = timeleft.ToString(@"mm\:ss") + " left";
+            }
+            else if (GameContent.TimeStamps.Value.Start.HasValue)
+            {
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Value.Start.Value);
+                var timeleft = DateTimeOffset.Now.Subtract(t);
+                TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
+            }
+        }
         public Uri GetImageLink(string id, string gameid)
         {
             return new Uri("https://cdn.discordapp.com/app-assets/" + gameid + "/" + id + ".png?size=512");
@@ -115,6 +150,16 @@ namespace Discord_UWP.Controls
         public RichPresenceControl()
         {
             this.InitializeComponent();
+            Unloaded += RichPresenceControl_Unloaded;
+        }
+
+        private void RichPresenceControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if(timer != null)
+            {
+                timer.Stop();
+                timer.Tick -= UpdateTimer;
+            }
         }
     }
 }

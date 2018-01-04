@@ -35,16 +35,14 @@ namespace Discord_UWP.SharedModels
     public struct timestamps
     {
         [JsonProperty("start")]
-        public long Start;
+        public long? Start;
         [JsonProperty("end")]
-        public long End;
+        public long? End;
     }
     public struct party
     {
         [JsonProperty("size")]
-        public int[] Size { get; set; }
-        [JsonProperty("max")]
-        public int[] Max { get; set; }
+        public int?[] Size { get; set; }
         [JsonProperty("id")]
         public string Id { get; set; }
     }
