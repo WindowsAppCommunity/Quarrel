@@ -66,7 +66,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid Margin="12,0,0,0">
+    <Grid Margin="-12,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -88,14 +88,14 @@
         <local:TypingIndicator x:Name="typingIndicator" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,24,9,0" Visibility="Collapsed" Opacity="0"/>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
+                <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                 <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                     <TextBlock x:Uid="BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
-                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
+                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
+                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Normal" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

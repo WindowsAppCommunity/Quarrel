@@ -1178,9 +1178,9 @@
                                     </ListViewItem>
                                     <TextBlock x:Uid="/Main/DirectMessageTB" x:Name="DirectMessageBlock" Text="DIRECT MESSAGES" Opacity="0.8" Margin="24,24,0,6"/>
                                     <Button x:Name="ServerNameButton" Style="{StaticResource DiscordOpaqueButton}" Click="ServerNameButton_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Padding="0" Margin="0,0,0,8"  Background="Transparent">
-                                        <TextBlock x:Name="ServerName" Text="Server Name" Opacity="1" FontSize="18" Margin="24,12,0,12"/>
+                                        <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                     </Button>
-                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  Width="228">
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
                                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>
@@ -1331,7 +1331,7 @@
                     <controls:SideDrawer.ContentRight>
                         <SemanticZoom>
                             <SemanticZoom.ZoomedInView>
-                                <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="6,0,0,0" IsItemClickEnabled="True">
+                                <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="0,0,0,0" IsItemClickEnabled="True">
   
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
