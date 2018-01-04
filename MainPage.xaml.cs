@@ -1607,7 +1607,7 @@ namespace Discord_UWP
         private async void VideoAd_ErrorOccurred(object sender, AdErrorEventArgs e)
         {
             Storage.Settings.VideoAd = false;
-            MessageDialog msg = new MessageDialog("Couldn't find a video ad to show, showing a banner ad");
+            MessageDialog msg = new MessageDialog("Couldn't find a video ad to show, showing banner ads");
             await msg.ShowAsync();
         }
 
