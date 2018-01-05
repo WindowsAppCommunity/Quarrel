@@ -1,20 +1,236 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resources">
-      <UniqueIdentifier>85e4ea24-bb8d-4ce2-8619-39a13f055858</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Old">
+      <UniqueIdentifier>{4ff8517f-dfca-40d2-bdfe-062ea29211d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{57560dd4-179f-4a90-a43b-5aa9989dc6b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{0bcee5f9-e6f8-496e-8a51-bd833c02f1f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sodium">
+      <UniqueIdentifier>{f2f44457-7e36-4f51-906e-590f6eed7b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sodium">
+      <UniqueIdentifier>{e504c6d2-3054-4e92-9a8d-07b523db5b7f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="sodium\version.c">
+      <Filter>Source Files\sodium</Filter>
+    </ClCompile>
+    <ClCompile Include="sodium\core.c">
+      <Filter>Source Files\sodium</Filter>
+    </ClCompile>
+    <ClCompile Include="sodium\codecs.c">
+      <Filter>Source Files\sodium</Filter>
+    </ClCompile>
+    <ClCompile Include="sodium\utils.c">
+      <Filter>Source Files\sodium</Filter>
+    </ClCompile>
+    <ClCompile Include="sodium\runtime.c">
+      <Filter>Source Files\sodium</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Salsa20.h">
+      <Filter>Old</Filter>
+    </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Salsa20.h" />
+    <ClInclude Include="sodium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\core.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_aead_aes256gcm.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_aead_chacha20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_aead_xchacha20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_auth.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_auth_hmacsha256.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_auth_hmacsha512.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_auth_hmacsha512256.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_box.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_box_curve25519xchacha20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_box_curve25519xsalsa20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_ed25519.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_hchacha20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_hsalsa20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_salsa20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_salsa208.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_core_salsa2012.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_generichash.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_generichash_blake2b.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_hash.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_hash_sha256.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_hash_sha512.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_kdf.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_kdf_blake2b.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_kx.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_onetimeauth.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_onetimeauth_poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_pwhash.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_pwhash_argon2i.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_pwhash_argon2id.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_pwhash_scryptsalsa208sha256.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_scalarmult.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_scalarmult_curve25519.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_scalarmult_ed25519.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_secretbox.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_secretbox_xchacha20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_secretbox_xsalsa20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_secretstream_xchacha20poly1305.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_shorthash.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_shorthash_siphash24.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_sign.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_sign_ed25519.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_sign_edwards25519sha512batch.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_chacha20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_salsa20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_salsa208.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_salsa2012.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_xchacha20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_stream_xsalsa20.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_verify_16.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_verify_32.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\crypto_verify_64.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\export.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\randombytes.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\randombytes_nativeclient.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\randombytes_salsa20_random.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\randombytes_sysrandom.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\runtime.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\utils.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\version.h">
+      <Filter>Header Files\sodium</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Salsa20.cpp" />
+    <None Include="Salsa20.cpp">
+      <Filter>Old</Filter>
+    </None>
   </ItemGroup>
 </Project>

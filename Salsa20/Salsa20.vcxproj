@@ -211,6 +211,68 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Salsa20.h" />
+    <ClInclude Include="sodium.h" />
+    <ClInclude Include="sodium\core.h" />
+    <ClInclude Include="sodium\crypto_aead_aes256gcm.h" />
+    <ClInclude Include="sodium\crypto_aead_chacha20poly1305.h" />
+    <ClInclude Include="sodium\crypto_aead_xchacha20poly1305.h" />
+    <ClInclude Include="sodium\crypto_auth.h" />
+    <ClInclude Include="sodium\crypto_auth_hmacsha256.h" />
+    <ClInclude Include="sodium\crypto_auth_hmacsha512.h" />
+    <ClInclude Include="sodium\crypto_auth_hmacsha512256.h" />
+    <ClInclude Include="sodium\crypto_box.h" />
+    <ClInclude Include="sodium\crypto_box_curve25519xchacha20poly1305.h" />
+    <ClInclude Include="sodium\crypto_box_curve25519xsalsa20poly1305.h" />
+    <ClInclude Include="sodium\crypto_core_ed25519.h" />
+    <ClInclude Include="sodium\crypto_core_hchacha20.h" />
+    <ClInclude Include="sodium\crypto_core_hsalsa20.h" />
+    <ClInclude Include="sodium\crypto_core_salsa20.h" />
+    <ClInclude Include="sodium\crypto_core_salsa2012.h" />
+    <ClInclude Include="sodium\crypto_core_salsa208.h" />
+    <ClInclude Include="sodium\crypto_generichash.h" />
+    <ClInclude Include="sodium\crypto_generichash_blake2b.h" />
+    <ClInclude Include="sodium\crypto_hash.h" />
+    <ClInclude Include="sodium\crypto_hash_sha256.h" />
+    <ClInclude Include="sodium\crypto_hash_sha512.h" />
+    <ClInclude Include="sodium\crypto_kdf.h" />
+    <ClInclude Include="sodium\crypto_kdf_blake2b.h" />
+    <ClInclude Include="sodium\crypto_kx.h" />
+    <ClInclude Include="sodium\crypto_onetimeauth.h" />
+    <ClInclude Include="sodium\crypto_onetimeauth_poly1305.h" />
+    <ClInclude Include="sodium\crypto_pwhash.h" />
+    <ClInclude Include="sodium\crypto_pwhash_argon2i.h" />
+    <ClInclude Include="sodium\crypto_pwhash_argon2id.h" />
+    <ClInclude Include="sodium\crypto_pwhash_scryptsalsa208sha256.h" />
+    <ClInclude Include="sodium\crypto_scalarmult.h" />
+    <ClInclude Include="sodium\crypto_scalarmult_curve25519.h" />
+    <ClInclude Include="sodium\crypto_scalarmult_ed25519.h" />
+    <ClInclude Include="sodium\crypto_secretbox.h" />
+    <ClInclude Include="sodium\crypto_secretbox_xchacha20poly1305.h" />
+    <ClInclude Include="sodium\crypto_secretbox_xsalsa20poly1305.h" />
+    <ClInclude Include="sodium\crypto_secretstream_xchacha20poly1305.h" />
+    <ClInclude Include="sodium\crypto_shorthash.h" />
+    <ClInclude Include="sodium\crypto_shorthash_siphash24.h" />
+    <ClInclude Include="sodium\crypto_sign.h" />
+    <ClInclude Include="sodium\crypto_sign_ed25519.h" />
+    <ClInclude Include="sodium\crypto_sign_edwards25519sha512batch.h" />
+    <ClInclude Include="sodium\crypto_stream.h" />
+    <ClInclude Include="sodium\crypto_stream_chacha20.h" />
+    <ClInclude Include="sodium\crypto_stream_salsa20.h" />
+    <ClInclude Include="sodium\crypto_stream_salsa2012.h" />
+    <ClInclude Include="sodium\crypto_stream_salsa208.h" />
+    <ClInclude Include="sodium\crypto_stream_xchacha20.h" />
+    <ClInclude Include="sodium\crypto_stream_xsalsa20.h" />
+    <ClInclude Include="sodium\crypto_verify_16.h" />
+    <ClInclude Include="sodium\crypto_verify_32.h" />
+    <ClInclude Include="sodium\crypto_verify_64.h" />
+    <ClInclude Include="sodium\export.h" />
+    <ClInclude Include="sodium\randombytes.h" />
+    <ClInclude Include="sodium\randombytes_nativeclient.h" />
+    <ClInclude Include="sodium\randombytes_salsa20_random.h" />
+    <ClInclude Include="sodium\randombytes_sysrandom.h" />
+    <ClInclude Include="sodium\runtime.h" />
+    <ClInclude Include="sodium\utils.h" />
+    <ClInclude Include="sodium\version.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -222,6 +284,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="sodium\codecs.c" />
+    <ClCompile Include="sodium\core.c" />
+    <ClCompile Include="sodium\runtime.c" />
+    <ClCompile Include="sodium\utils.c" />
+    <ClCompile Include="sodium\version.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Salsa20.cpp" />
