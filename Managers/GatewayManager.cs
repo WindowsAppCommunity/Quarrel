@@ -354,7 +354,9 @@ namespace Discord_UWP.Managers
                                 LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
                             } else
                             {
-                                LocalState.RPC[e.EventData.ChannelId].MentionCount += e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0;
+                                var editReadState = LocalState.RPC[e.EventData.ChannelId];
+                                editReadState.MentionCount += e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0;
+                                LocalState.RPC[e.EventData.ChannelId] = editReadState;
                             }
                         }
                     }
