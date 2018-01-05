@@ -6,7 +6,6 @@
 //TODO: Place in referncable namespace to access from DiscordAPI in C#
 
 #include "pch.h"
-#include "Salsa20.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -30,99 +29,107 @@ namespace Salsa20
 			return true;
 		}
 
+		void processFrame(Platform::Array<uint8_t>^* io, const Platform::Array<uint8_t>^ nonce) {
 
-		void processFrame(Platform::Array<uint8_t>^* io, const Platform::Array<uint8_t>^ nonce) { //TODO: Handle nonce
-
-			auto arraySize = (*io)->Length;
-
-			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
-			uint8_t chunk[chunkSize];
-
-			//Initialize encrypter/decrypter
-			Salsa20 salsa20(key_);
-			salsa20.setIv(&key_[IV_OFFSET]);
-
-			//Split into chunks of chunkSize
-			auto numChunks = arraySize / chunkSize;
-			auto remainderSize = arraySize % chunkSize;
-
-			//processChunks
-			for (int i = 0; i < numChunks; i++) {
-				//copy from input to chunk
-				for (int pos = 0; pos < chunkSize; pos++) {
-					chunk[pos] = (*io)->get(pos + (i*chunkSize));
-				}
-				//process
-				salsa20.processBlocks(chunk, chunk, numChunks);
-				//copy from chunk to input
-				for (int pos = 0; pos < chunkSize; pos++) {
-					(*io)->set(pos + (i*chunkSize), chunk[pos]);
-				}
-			}
-
-			//processRemainder
-			if (remainderSize != 0) {
-				//copy from input to chunk
-				for (int i = 0; i < remainderSize; i++) {
-					chunk[i] = (*io)->get(i+(chunkSize*numChunks));
-				}
-				//process
-				salsa20.processBytes(chunk, chunk, remainderSize);
-				//copy from chunk to input
-				for (int i = 0; i < remainderSize; i++) {
-					(*io)->set(i + (chunkSize*numChunks), chunk[i]);
-				}
-			}
 		}
+
+
+		#pragma region Depricated
+
+		//void processFrame(Platform::Array<uint8_t>^* io, const Platform::Array<uint8_t>^ nonce) { //TODO: Handle nonce
+
+		//	auto arraySize = (*io)->Length;
+
+		//	const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
+		//	uint8_t chunk[chunkSize];
+
+		//	//Initialize encrypter/decrypter
+		//	Salsa20 salsa20(key_);
+		//	salsa20.setIv(&key_[IV_OFFSET]);
+
+		//	//Split into chunks of chunkSize
+		//	auto numChunks = arraySize / chunkSize;
+		//	auto remainderSize = arraySize % chunkSize;
+
+		//	//processChunks
+		//	for (int i = 0; i < numChunks; i++) {
+		//		//copy from input to chunk
+		//		for (int pos = 0; pos < chunkSize; pos++) {
+		//			chunk[pos] = (*io)->get(pos + (i*chunkSize));
+		//		}
+		//		//process
+		//		salsa20.processBlocks(chunk, chunk, numChunks);
+		//		//copy from chunk to input
+		//		for (int pos = 0; pos < chunkSize; pos++) {
+		//			(*io)->set(pos + (i*chunkSize), chunk[pos]);
+		//		}
+		//	}
+
+		//	//processRemainder
+		//	if (remainderSize != 0) {
+		//		//copy from input to chunk
+		//		for (int i = 0; i < remainderSize; i++) {
+		//			chunk[i] = (*io)->get(i+(chunkSize*numChunks));
+		//		}
+		//		//process
+		//		salsa20.processBytes(chunk, chunk, remainderSize);
+		//		//copy from chunk to input
+		//		for (int i = 0; i < remainderSize; i++) {
+		//			(*io)->set(i + (chunkSize*numChunks), chunk[i]);
+		//		}
+		//	}
+		//}
 
 		/*Array<byte>^ decodeFrame(Array<byte> data, Array<byte> nonce, int dataLength)
 		{
-			//memistream inputStream(data.begin(), dataLength);
-			//memostream outputStream(new Array<byte>)
-			
-			const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
-			uint8_t chunk[chunkSize];
+		//memistream inputStream(data.begin(), dataLength);
+		//memostream outputStream(new Array<byte>)
 
-			// determine size of the file
-			inputStream.seekg(0, std::ios_base::end);
-			auto fileSize = inputStream.tellg();
-			inputStream.seekg(0, std::ios_base::beg);
+		const auto chunkSize = NUM_OF_BLOCKS_PER_CHUNK * Salsa20::BLOCK_SIZE;
+		uint8_t chunk[chunkSize];
 
-			// compute number of chunks and size of the remainder
-			auto numChunks = fileSize / chunkSize;
-			auto remainderSize = fileSize % chunkSize;
+		// determine size of the file
+		inputStream.seekg(0, std::ios_base::end);
+		auto fileSize = inputStream.tellg();
+		inputStream.seekg(0, std::ios_base::beg);
 
-			// process file
-			Salsa20 salsa20(key_);
-			salsa20.setIv(&key_[IV_OFFSET]);
+		// compute number of chunks and size of the remainder
+		auto numChunks = fileSize / chunkSize;
+		auto remainderSize = fileSize % chunkSize;
 
-			for (decltype(numChunks) i = 0; i < numChunks; ++i)
-			{
-				inputStream.read(reinterpret_cast<char*>(chunk), sizeof(chunk));
-				salsa20.processBlocks(chunk, chunk, NUM_OF_BLOCKS_PER_CHUNK);
-				//outputStream.write(reinterpret_cast<const char*>(chunk), sizeof(chunk));
+		// process file
+		Salsa20 salsa20(key_);
+		salsa20.setIv(&key_[IV_OFFSET]);
 
-				float percentage = 100.0f * static_cast<float>(i + 1) / static_cast<float>(numChunks);
-				std::printf("[%3.2f]\r", percentage);
-			}
+		for (decltype(numChunks) i = 0; i < numChunks; ++i)
+		{
+		inputStream.read(reinterpret_cast<char*>(chunk), sizeof(chunk));
+		salsa20.processBlocks(chunk, chunk, NUM_OF_BLOCKS_PER_CHUNK);
+		//outputStream.write(reinterpret_cast<const char*>(chunk), sizeof(chunk));
 
-			if (remainderSize != 0)
-			{
-				inputStream.read(reinterpret_cast<char*>(chunk), remainderSize);
-				salsa20.processBytes(chunk, chunk, remainderSize);
-				//outputStream.write(reinterpret_cast<const char*>(chunk), remainderSize);
-				std::cout << "[100.00]";
-			}
+		float percentage = 100.0f * static_cast<float>(i + 1) / static_cast<float>(numChunks);
+		std::printf("[%3.2f]\r", percentage);
+		}
+
+		if (remainderSize != 0)
+		{
+		inputStream.read(reinterpret_cast<char*>(chunk), remainderSize);
+		salsa20.processBytes(chunk, chunk, remainderSize);
+		//outputStream.write(reinterpret_cast<const char*>(chunk), remainderSize);
+		std::cout << "[100.00]";
+		}
 		}
 		*/
+#pragma endregion
+
 
 	private:
 		/// Helper constants
-		enum : size_t {
-			NUM_OF_BLOCKS_PER_CHUNK = 8192,
-			IV_OFFSET = Salsa20::KEY_SIZE,
-			KEY_SIZE = Salsa20::KEY_SIZE + Salsa20::IV_SIZE
-		};
+		//enum : size_t {
+		//	/*NUM_OF_BLOCKS_PER_CHUNK = 8192,
+		//	IV_OFFSET = Salsa20::KEY_SIZE,
+		//	KEY_SIZE = Salsa20::KEY_SIZE + Salsa20::IV_SIZE*/
+		//};
 
 		/**
 		* \brief Reads byte from string.
@@ -161,7 +168,7 @@ namespace Salsa20
 		{
 			auto stringLength = string.length();
 
-			if (stringLength != 2 * KEY_SIZE)
+			if (stringLength != 2 * 40)
 				return false;
 
 			for (decltype(stringLength) i = 0; i < stringLength; i += 2)
@@ -174,6 +181,6 @@ namespace Salsa20
 		}
 
 		// Data members
-		uint8_t key_[KEY_SIZE];
+		uint8_t key_[40];
 	};
 }
