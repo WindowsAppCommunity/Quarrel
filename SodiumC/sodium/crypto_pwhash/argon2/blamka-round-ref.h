@@ -1,7 +1,7 @@
 #ifndef blamka_round_ref_H
 #define blamka_round_ref_H
 
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 /*designed by the Lyra PHC team */
 static inline uint64_t

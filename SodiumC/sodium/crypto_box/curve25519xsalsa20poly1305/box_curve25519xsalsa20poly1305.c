@@ -1,12 +1,12 @@
 #include <string.h>
 
-#include "crypto_box_curve25519xsalsa20poly1305.h"
-#include "crypto_core_hsalsa20.h"
-#include "crypto_hash_sha512.h"
-#include "crypto_scalarmult_curve25519.h"
-#include "crypto_secretbox_xsalsa20poly1305.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/crypto_box_curve25519xsalsa20poly1305.h"
+#include "sodium/crypto_core_hsalsa20.h"
+#include "sodium/crypto_hash_sha512.h"
+#include "sodium/crypto_scalarmult_curve25519.h"
+#include "sodium/crypto_secretbox_xsalsa20poly1305.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
 int
 crypto_box_curve25519xsalsa20poly1305_seed_keypair(unsigned char *pk,

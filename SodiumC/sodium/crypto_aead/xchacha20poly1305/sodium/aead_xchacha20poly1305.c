@@ -4,14 +4,14 @@
 #include <limits.h>
 #include <string.h>
 
-#include "core.h"
-#include "crypto_aead_xchacha20poly1305.h"
-#include "crypto_aead_chacha20poly1305.h"
-#include "crypto_core_hchacha20.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_aead_xchacha20poly1305.h"
+#include "sodium/crypto_aead_chacha20poly1305.h"
+#include "sodium/crypto_core_hchacha20.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 int
 crypto_aead_xchacha20poly1305_ietf_encrypt_detached(unsigned char *c,

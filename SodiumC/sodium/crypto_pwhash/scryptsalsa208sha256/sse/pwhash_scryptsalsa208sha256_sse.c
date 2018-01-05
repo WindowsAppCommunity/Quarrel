@@ -34,8 +34,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "private/common.h"
-#include "private/sse2_64_32.h"
+#include "sodium/private/common.h"
+#include "sodium/private/sse2_64_32.h"
 
 #ifdef HAVE_EMMINTRIN_H
 

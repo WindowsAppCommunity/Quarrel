@@ -20,8 +20,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "crypto_generichash_blake2b.h"
-#include "export.h"
+#include "sodium/crypto_generichash_blake2b.h"
+#include "sodium/export.h"
 
 #define blake2b_init_param crypto_generichash_blake2b__init_param
 #define blake2b_init crypto_generichash_blake2b__init

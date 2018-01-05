@@ -1,13 +1,13 @@
 
 #include <stddef.h>
 
-#include "core.h"
-#include "crypto_generichash.h"
-#include "crypto_kx.h"
-#include "crypto_scalarmult.h"
-#include "private/common.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_generichash.h"
+#include "sodium/crypto_kx.h"
+#include "sodium/crypto_scalarmult.h"
+#include "sodium/private/common.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
 int
 crypto_kx_seed_keypair(unsigned char pk[crypto_kx_PUBLICKEYBYTES],

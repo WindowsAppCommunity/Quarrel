@@ -1,6 +1,6 @@
 #include "argon2-encoding.h"
 #include "argon2-core.h"
-#include "utils.h"
+#include "sodium/utils.h"
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>

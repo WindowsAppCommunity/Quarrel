@@ -6,9 +6,9 @@ Public domain.
 
 #include <stdint.h>
 
-#include "crypto_core_salsa20.h"
-#include "crypto_stream_salsa20.h"
-#include "utils.h"
+#include "sodium/crypto_core_salsa20.h"
+#include "sodium/crypto_stream_salsa20.h"
+#include "sodium/utils.h"
 
 #include "../stream_salsa20.h"
 #include "salsa20_ref.h"

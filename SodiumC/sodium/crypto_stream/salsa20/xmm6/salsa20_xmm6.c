@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 
-#include "utils.h"
+#include "sodium/utils.h"
 
 #include "../stream_salsa20.h"
 #include "salsa20_xmm6.h"

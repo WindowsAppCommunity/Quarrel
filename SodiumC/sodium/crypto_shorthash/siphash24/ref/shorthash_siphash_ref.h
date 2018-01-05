@@ -1,7 +1,7 @@
 #ifndef shorthash_siphash_H
 #define shorthash_siphash_H
 
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 #define SIPROUND             \
     do {                     \

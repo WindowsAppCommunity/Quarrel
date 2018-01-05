@@ -1,10 +1,10 @@
 
 #include "onetimeauth_poly1305.h"
-#include "crypto_onetimeauth_poly1305.h"
-#include "private/common.h"
-#include "private/implementations.h"
-#include "randombytes.h"
-#include "runtime.h"
+#include "sodium/crypto_onetimeauth_poly1305.h"
+#include "sodium/private/common.h"
+#include "sodium/private/implementations.h"
+#include "sodium/randombytes.h"
+#include "sodium/runtime.h"
 
 #include "donna/poly1305_donna.h"
 #if defined(HAVE_TI_MODE) && defined(HAVE_EMMINTRIN_H)

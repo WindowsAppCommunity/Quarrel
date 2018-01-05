@@ -1,8 +1,8 @@
 
 #include "poly1305_donna.h"
-#include "crypto_verify_16.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/crypto_verify_16.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 #ifdef HAVE_TI_MODE
 #include "poly1305_donna64.h"

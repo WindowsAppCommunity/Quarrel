@@ -29,14 +29,14 @@
 # include <immintrin.h>
 #endif
 
-#include "core.h"
-#include "crypto_core_salsa20.h"
-#include "crypto_stream_salsa20.h"
-#include "private/common.h"
-#include "randombytes.h"
-#include "randombytes_salsa20_random.h"
-#include "runtime.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_core_salsa20.h"
+#include "sodium/crypto_stream_salsa20.h"
+#include "sodium/private/common.h"
+#include "sodium/randombytes.h"
+#include "sodium/randombytes_salsa20_random.h"
+#include "sodium/runtime.h"
+#include "sodium/utils.h"
 
 #ifdef _WIN32
 # include <windows.h>

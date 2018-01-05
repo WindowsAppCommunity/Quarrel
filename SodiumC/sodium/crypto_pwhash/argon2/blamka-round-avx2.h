@@ -1,8 +1,8 @@
 #ifndef blamka_round_avx2_H
 #define blamka_round_avx2_H
 
-#include "private/common.h"
-#include "private/sse2_64_32.h"
+#include "sodium/private/common.h"
+#include "sodium/private/sse2_64_32.h"
 
 #define rotr32(x) _mm256_shuffle_epi32(x, _MM_SHUFFLE(2, 3, 0, 1))
 #define rotr24(x) _mm256_shuffle_epi8(x, _mm256_setr_epi8(3, 4, 5, 6, 7, 0, 1, 2, 11, 12, 13, 14, 15, 8, 9, 10, 3, 4, 5, 6, 7, 0, 1, 2, 11, 12, 13, 14, 15, 8, 9, 10))

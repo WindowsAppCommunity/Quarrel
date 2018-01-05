@@ -1,4 +1,4 @@
-#include "crypto_shorthash_siphash24.h"
+#include "sodium/crypto_shorthash_siphash24.h"
 
 size_t
 crypto_shorthash_siphashx24_bytes(void) {

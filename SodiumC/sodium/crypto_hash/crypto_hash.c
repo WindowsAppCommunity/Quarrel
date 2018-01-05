@@ -1,5 +1,5 @@
 
-#include "crypto_hash.h"
+#include "sodium/crypto_hash.h"
 
 size_t
 crypto_hash_bytes(void)

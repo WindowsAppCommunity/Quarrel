@@ -2,9 +2,9 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "crypto_verify_16.h"
-#include "crypto_verify_32.h"
-#include "crypto_verify_64.h"
+#include "sodium/crypto_verify_16.h"
+#include "sodium/crypto_verify_32.h"
+#include "sodium/crypto_verify_64.h"
 
 size_t
 crypto_verify_16_bytes(void)

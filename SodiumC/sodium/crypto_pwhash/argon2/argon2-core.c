@@ -22,11 +22,11 @@
 # include <sys/mman.h>
 #endif
 
-#include "crypto_generichash_blake2b.h"
-#include "private/common.h"
-#include "private/implementations.h"
-#include "runtime.h"
-#include "utils.h"
+#include "sodium/crypto_generichash_blake2b.h"
+#include "sodium/private/common.h"
+#include "sodium/private/implementations.h"
+#include "sodium/runtime.h"
+#include "sodium/utils.h"
 
 #include "argon2-core.h"
 #include "blake2b-long.h"

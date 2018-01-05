@@ -10,14 +10,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "core.h"
-#include "crypto_aead_aes256gcm.h"
-#include "export.h"
-#include "private/common.h"
-#include "private/sse2_64_32.h"
-#include "randombytes.h"
-#include "runtime.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_aead_aes256gcm.h"
+#include "sodium/export.h"
+#include "sodium/private/common.h"
+#include "sodium/private/sse2_64_32.h"
+#include "sodium/randombytes.h"
+#include "sodium/runtime.h"
+#include "sodium/utils.h"
 
 #if defined(HAVE_TMMINTRIN_H) && defined(HAVE_WMMINTRIN_H)
 

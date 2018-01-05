@@ -9,10 +9,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "core.h"
-#include "crypto_stream_chacha20.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_stream_chacha20.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 #include "../stream_chacha20.h"
 #include "chacha20_ref.h"

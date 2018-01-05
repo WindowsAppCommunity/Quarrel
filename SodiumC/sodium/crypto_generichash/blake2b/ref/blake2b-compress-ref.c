@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "blake2.h"
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 CRYPTO_ALIGN(64)
 static const uint64_t blake2b_IV[8] = {

@@ -1,6 +1,6 @@
 
-#include "crypto_shorthash.h"
-#include "randombytes.h"
+#include "sodium/crypto_shorthash.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_shorthash_bytes(void)

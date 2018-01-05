@@ -1,10 +1,10 @@
 
 #include <string.h>
 
-#include "crypto_box.h"
-#include "crypto_generichash.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/crypto_box.h"
+#include "sodium/crypto_generichash.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 static int
 _crypto_box_seal_nonce(unsigned char *nonce,
