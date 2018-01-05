@@ -23,6 +23,7 @@ using Discord_UWP.SharedModels;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Shapes;
 
 namespace Discord_UWP.Controls
 {
@@ -96,22 +97,47 @@ namespace Discord_UWP.Controls
                         {
                             var role = roles[roleStr];
                             var c = Common.IntToColor(role.Color);
-                            Border b = new Border()
+                            Visibility ellipseView = Visibility.Visible;
+                            if (role.Color == 0)
+                                ellipseView = Visibility.Collapsed;
+                            else
                             {
-                                CornerRadius = new CornerRadius(3, 3, 3, 3),
-                                Background = new SolidColorBrush(Color.FromArgb(50, c.Color.R, c.Color.G, c.Color.B)),
-                                BorderThickness = new Thickness(1),
-                                BorderBrush = c,
-                                Margin = new Thickness(2, 2, 2, 2),
-                                Child = new TextBlock()
+                                Border b = new Border()
                                 {
-                                    FontSize = 12,
-                                    Foreground = c,
-                                    Padding = new Thickness(4, 2, 4, 4),
-                                    Text = role.Name
-                                }
-                            };
-                            RoleWrapper.Children.Add(b);
+                                    CornerRadius = new CornerRadius(10, 10, 10, 10),
+                                    BorderThickness = new Thickness(1),
+                                    BorderBrush = c,
+                                    Margin = new Thickness(2, 2, 2, 2),
+                                    Child = new StackPanel()
+                                    {
+                                        Children =
+                                    {
+                                        new Ellipse
+                                        {
+                                            Margin=new Thickness(4,0,0,0),
+                                            Fill=c,
+                                            Width=11,
+                                            Height=11,
+                                            Visibility = ellipseView
+                                        },
+                                        new TextBlock
+                                        {
+                                            FontSize = 11,
+                                            Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"],
+                                            Padding = new Thickness(3, 2, 6, 3),
+                                            Opacity=0.8,
+                                            Text = role.Name
+                                        },
+
+                                    },
+                                        Orientation = Orientation.Horizontal
+                                    },
+                                    Tag = roleStr
+                                };
+
+                                RoleWrapper.Children.Add(b);
+                            }
+
                         }
                     }
                 }

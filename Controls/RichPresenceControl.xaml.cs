@@ -86,7 +86,8 @@ namespace Discord_UWP.Controls
 
                 if (game.Party.HasValue)
                 {
-                    StateTB.Text += " (" + game.Party.Value.Size[0] + "/" + game.Party.Value.Size[1] + ")";  
+                    if(game.Party.Value.Size != null)
+                        StateTB.Text += " (" + game.Party.Value.Size[0] + "/" + game.Party.Value.Size[1] + ")";  
                 }
                 if (game.TimeStamps.HasValue && (game.State!="" || game.Details !="") && (game.TimeStamps.Value.Start.HasValue || game.TimeStamps.Value.End.HasValue))
                 {
