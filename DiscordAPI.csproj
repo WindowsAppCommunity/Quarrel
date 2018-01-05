@@ -117,6 +117,7 @@
     <Compile Include="API\Channel\Models\MessageUpsert.cs" />
     <Compile Include="API\Channel\Models\ModifyChannel.cs" />
     <Compile Include="API\DiscordAPIConfiguration.cs" />
+    <Compile Include="API\Game\IGameService.cs" />
     <Compile Include="API\Gateway\IGatewayService.cs" />
     <Compile Include="API\Guild\IGuildService.cs" />
     <Compile Include="API\Guild\Models\CreateGuild.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="SharedModels\Emoji.cs" />
     <Compile Include="SharedModels\Friend.cs" />
     <Compile Include="SharedModels\Game.cs" />
+    <Compile Include="API\Game\Models\GamesList.cs" />
     <Compile Include="SharedModels\GatewayConfig.cs" />
     <Compile Include="SharedModels\Guild.cs" />
     <Compile Include="SharedModels\GuildChannel.cs" />

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
-
 using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.LocalModels
@@ -24,5 +19,6 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();
         public static VoiceState VoiceState = new VoiceState();
+        public static List<DiscordAPI.API.Game.GameList> SupportedGames;
     }
 }

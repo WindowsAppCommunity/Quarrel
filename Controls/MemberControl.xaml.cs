@@ -73,7 +73,7 @@ namespace Discord_UWP.Controls
                 playing.Visibility = Visibility.Visible;
                 game.Visibility = Visibility.Visible;
                 game.Text = DisplayedMember.status.Game.Value.Name;
-                if (DisplayedMember.status.Game.Value.State != null)
+                if (DisplayedMember.status.Game.Value.State != null || DisplayedMember.status.Game.Value.Details != null || DisplayedMember.status.Game.Value.SessionId != null)
                 {
                     game.Opacity = 1;
                     rich.Visibility = Visibility.Visible;
