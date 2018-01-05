@@ -16,6 +16,9 @@
     <Filter Include="Source Files\sodium">
       <UniqueIdentifier>{e504c6d2-3054-4e92-9a8d-07b523db5b7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\sodium\private">
+      <UniqueIdentifier>{66e9eeb4-0d0b-4d9e-9966-82b8323214cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -706,6 +709,27 @@
     </ClInclude>
     <ClInclude Include="sodium\crypto_stream\salsa20\xmm6int\u8.h">
       <Filter>Header Files\sodium</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\common.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\ed25519_ref10.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\ed25519_ref10_fe_25_5.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\ed25519_ref10_fe_51.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\implementations.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\mutex.h">
+      <Filter>Header Files\sodium\private</Filter>
+    </ClInclude>
+    <ClInclude Include="sodium\private\sse2_64_32.h">
+      <Filter>Header Files\sodium\private</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
