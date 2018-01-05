@@ -236,11 +236,21 @@ namespace Discord_UWP.Controls
                 {
                     ChannelName.Fade(1,200).Start();
                     UnreadIndicator.Visibility = Visibility.Visible;
+                    if (IsHidden)
+                    {
+                        //await this.Fade(0, 200, 0).StartAsync();
+                        this.Visibility = Visibility.Collapsed;
+                    }
                 }
                 else
                 {
                     ChannelName.Fade(0.6f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
+                    if (IsHidden)
+                    {
+                        this.Visibility = Visibility.Visible;
+                        this.Fade(1, 200, 0).Start();
+                    }
                 }
             }
             if (prop == IsMutedProperty)
@@ -292,7 +302,6 @@ namespace Discord_UWP.Controls
                 {
                     ChannelImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
                 }
-               
             }
             if (prop == TypeProperty)
             {
@@ -364,28 +373,30 @@ namespace Discord_UWP.Controls
                 }
             }
             
-            if(prop == IsHiddenProperty)
+            if (prop == IsHiddenProperty)
             {
-
-                if (IsHidden)
+                if (!IsUnread)
                 {
-                    if (Type == 4)
-                        Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
-                    else
+                    if (IsHidden)
                     {
-                        //await this.Fade(0, 200, 0).StartAsync();
-                        this.Visibility = Visibility.Collapsed;
+                        if (Type == 4)
+                            Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                        else
+                        {
+                            //await this.Fade(0, 200, 0).StartAsync();
+                            this.Visibility = Visibility.Collapsed;
+                        }
+
                     }
-
-                }
-                else
-                {
-                    if (Type == 4)
-                        Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
                     else
                     {
-                        this.Visibility = Visibility.Visible;
-                        this.Fade(1, 200, 0).Start();
+                        if (Type == 4)
+                            Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                        else
+                        {
+                            this.Visibility = Visibility.Visible;
+                            this.Fade(1, 200, 0).Start();
+                        }
                     }
                 }
             }
