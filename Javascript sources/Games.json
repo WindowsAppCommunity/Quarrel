@@ -1,0 +1,5426 @@
+﻿[
+  {
+    "executables": [
+      {
+        "name": "deploy/league of legends.exe",
+        "os": "win32"
+      },
+      {
+        "name": "league of legends.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5a15a24a3931880801709a32accd0a1d",
+    "id": "356869127241072640",
+    "name": "League of Legends",
+    "splash": "9915146539e20aceff096bd4e856aab3"
+  },
+  {
+    "aliases": [ "PUBG" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "578080"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tslgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tslgame_be.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/tslgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/tslgame_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2f91a330f6845bf57bd8d271e911b5c4",
+    "id": "356873622985506820",
+    "name": "PLAYERUNKNOWN'S BATTLEGROUNDS",
+    "splash": "75621361e5ffb56d789b973b5e575b22"
+  },
+  {
+    "aliases": [ "Counter-Strike Global Offensive" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "730"
+      }
+    ],
+    "executables": [
+      {
+        "name": "counter-strike global offensive/csgo.exe",
+        "os": "win32"
+      },
+      {
+        "name": "csgo.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "782a3bb612c6f1b3f7deed554935f361",
+    "id": "356875057940791296",
+    "name": "Counter-Strike: Global Offensive",
+    "publishers": [ "Valve" ],
+    "splash": "84096ee7cf9b0b4c8b08f373f2312576"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "overwatch.exe",
+        "os": "win32"
+      },
+      {
+        "name": "overwatch/overwatch launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "overwatch/overwatch.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "80776d5960a89d1d726e4dceaac7eee2",
+    "id": "356875221078245376",
+    "name": "Overwatch",
+    "splash": "ac088243bc713c37297073d7d12c453a"
+  },
+  {
+    "executables": [
+      {
+        "name": "bin/javaw.exe",
+        "os": "win32"
+      },
+      {
+        "name": "minecraft/minecraftlauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "166fbad351ecdd02d11a3b464748f66b",
+    "id": "356875570916753438",
+    "name": "Minecraft",
+    "splash": null
+  },
+  {
+    "aliases": [ "World of Warcraft™" ],
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "world of warcraft/wow-64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "wow-64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "fc92f820c44e72085dc6205e5e746850",
+    "id": "356875762940379136",
+    "name": "World of Warcraft",
+    "splash": "a04bfb0f10a2a531447e713a9e2443f0"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "hearthstone.exe",
+        "os": "win32"
+      },
+      {
+        "name": "hearthstone/hearthstone.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "584d496943e719a759906563442d2a87",
+    "id": "356875890958925834",
+    "name": "Hearthstone",
+    "splash": "d48d8206d9cb89c8a31b461e3c64ff8b"
+  },
+  {
+    "aliases": [ "DOTA 2" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "570"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dota2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/dota2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6b4b3fa4c83555d3008de69d33a60588",
+    "id": "356875988589740042",
+    "name": "Dota 2",
+    "splash": "b97e78635ec0fb2b79d19736e74ad2d2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "271590"
+      }
+    ],
+    "executables": [
+      {
+        "name": "grand theft auto v/gtavlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "gtavlauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "069d9f4871b5ebd2f62bd342ce6ba77f",
+    "id": "356876176465199104",
+    "name": "Grand Theft Auto V",
+    "splash": "6063707ba43224ee22f9de7bf0339aa1"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "359550"
+      },
+      {
+        "distributor": "uplay",
+        "sku": "635"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rainbowsix.exe",
+        "os": "win32"
+      },
+      {
+        "name": "rainbowsix_be.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tom clancy's rainbow six siege/rainbowsix.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tom clancy's rainbow six siege/rainbowsix_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "554af7ef210877b5f04fd1b727a3746e",
+    "id": "356876590342340608",
+    "name": "Tom Clancy's Rainbow Six Siege",
+    "splash": "028fe9a1748d259872a0dfa49eb818f2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "252950"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rocketleague.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/rocketleague.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a74899a5190c48a3e6ce9f8d2eaff348",
+    "id": "356877880938070016",
+    "name": "Rocket League",
+    "splash": "39a82b92cc95af7a11d024fec8540d28"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "base57286/heroesofthestorm_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "base57589/heroesofthestorm_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "heroesofthestorm_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7b3bc9037909ab14917accca8c6fb8c1",
+    "id": "356878860190613504",
+    "name": "Heroes of the Storm",
+    "splash": "69958c0fcb8ce236cbad894d316afa01"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "4000"
+      }
+    ],
+    "executables": [
+      {
+        "name": "garrysmod/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ade1008d735a1a134693b15ce02d79a8",
+    "id": "356879032584896512",
+    "name": "Garry's Mod",
+    "splash": "df179a691e75ad59389974454187e7fe"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "230410"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tools/launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "warframe.x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "warframe/warframe.x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "36f35ee3cb7c43e6499780bb774e4510",
+    "id": "356879186801065994",
+    "name": "Warframe",
+    "publishers": [ "Digital Extremes" ],
+    "splash": "e5185fe1f9ac1bd77cfdf3b2a5b97448"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "433850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "h1z1 king of the kill/h1z1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "h1z1 king of the kill/launchpad.exe",
+        "os": "win32"
+      },
+      {
+        "name": "h1z1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "launchpad.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "055abe4b445fdf29d47562ea28cf9478",
+    "id": "356881342321000448",
+    "name": "H1Z1: King of the Kill",
+    "publishers": [ "Daybreak Game Company" ],
+    "splash": "595405692aa306885249dd80bf4a805d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "346110"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/shootergame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/shootergame_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0fcbeec1dc0b40332e61dc8ce4a61975",
+    "id": "356887282982191114",
+    "name": "ARK: Survival Evolved",
+    "splash": "67be84bd214e91241cdba7c41e0ac9b8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "444090"
+      }
+    ],
+    "executables": [
+      {
+        "name": "paladins.exe",
+        "os": "win32"
+      },
+      {
+        "name": "paladinseac.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/paladins.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/paladinseac.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9b461d4598097fa1940e1f720754c0ea",
+    "id": "356887815394557952",
+    "name": "Paladins",
+    "publishers": [ "Hi-Rez Studios" ],
+    "splash": "50443b4951a05115a2f23312d47e9015"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "238960"
+      }
+    ],
+    "executables": [
+      {
+        "name": "path of exile/pathofexile_x64steam.exe",
+        "os": "win32"
+      },
+      {
+        "name": "pathofexile_x64steam.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1f162572c3123655e42c615b18074ff3",
+    "id": "356888453796986880",
+    "name": "Path of Exile",
+    "splash": "6eb27b0dcff2889ab250106a8035fde4"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "440"
+      }
+    ],
+    "executables": [
+      {
+        "name": "team fortress 2/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dfc652a5b75879148779dc2865270f87",
+    "id": "356888577310851072",
+    "name": "Team Fortress 2",
+    "splash": "a109376e705e71ab44e7d2d966cecc35"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "252490"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rust.exe",
+        "os": "win32"
+      },
+      {
+        "name": "rust/rust.exe",
+        "os": "win32"
+      },
+      {
+        "name": "rust/rustclient.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9ab7e18473429b016307b867e6c924a4",
+    "id": "356888738724446208",
+    "name": "Rust",
+    "splash": "edfdddb7a7270c154bcbda5477e2ba59"
+  },
+  {
+    "executables": [
+      {
+        "name": "world_of_tanks/worldoftanks.exe",
+        "os": "win32"
+      },
+      {
+        "name": "worldoftanks.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b8c3c5e2bb400a1154bad072f139f592",
+    "id": "356888961353908224",
+    "name": "World of Tanks",
+    "splash": "b125c7b6bd1ea27c2cef8b50b09c8c19"
+  },
+  {
+    "aliases": [ "FINAL FANTASY XIV - A Realm Reborn" ],
+    "executables": [
+      {
+        "name": "ffxiv_dx11.exe",
+        "os": "win32"
+      },
+      {
+        "name": "game/ffxiv_dx11.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8fbbc6725f295195c8dd4f390ccd8611",
+    "id": "356889262362329098",
+    "name": "FINAL FANTASY XIV",
+    "splash": "c99384f8b68bf43672bdb79d0a3833ea"
+  },
+  {
+    "executables": [
+      {
+        "name": "battlefield 1/bf1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "bf1.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ac762f535a430d026be3de847326d34d",
+    "id": "356889928279392276",
+    "name": "Battlefield™ 1",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "322170"
+      }
+    ],
+    "executables": [
+      {
+        "name": "geometry dash/geometrydash.exe",
+        "os": "win32"
+      },
+      {
+        "name": "geometrydash.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "67f35d9429ee338d6f2824163c1b773d",
+    "id": "356942674672091136",
+    "name": "Geometry Dash",
+    "splash": "cb3735ab8d02aa2ecd78ede3f06aee1e"
+  },
+  {
+    "executables": [
+      {
+        "name": "dolphin.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dolphin/dolphin.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e797f6823e872ab5e283f460c92c5049",
+    "id": "356943187589201930",
+    "name": "Dolphin",
+    "splash": "63acb6d7eab9250749f9fe8f3a294bbf"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "105600"
+      }
+    ],
+    "executables": [
+      {
+        "name": "terraria.exe",
+        "os": "win32"
+      },
+      {
+        "name": "terraria/terraria.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4c3c185abc0dfb4cb1ec5612de4d7366",
+    "id": "356943499456937984",
+    "name": "Terraria",
+    "splash": "b41510892fcefd0b5e4037ebaf7ae1ec"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "291550"
+      }
+    ],
+    "executables": [
+      {
+        "name": "brawlhalla.exe",
+        "os": "win32"
+      },
+      {
+        "name": "brawlhalla/brawlhalla.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "635721ef4940b790623761863e13afb0",
+    "id": "356944273133928458",
+    "name": "Brawlhalla",
+    "splash": "5f69a75ff4a835e2edb7d97eba43d050"
+  },
+  {
+    "application_id": "364785249202208768",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "218620"
+      }
+    ],
+    "executables": [
+      {
+        "name": "payday 2/payday2_win32_release.exe",
+        "os": "win32"
+      },
+      {
+        "name": "payday2_win32_release.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ee8b5591bed0d4a2664ca334c0d4d2b9",
+    "id": "356953043180322846",
+    "name": "PAYDAY 2",
+    "splash": "3a1f6e0e4d36f8226f14a7a0e4ead272"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "207610"
+      }
+    ],
+    "executables": [
+      {
+        "name": "the walking dead/walkingdead101.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e6b31c5081e792d1529b3dbac4b72363",
+    "id": "356953358952562688",
+    "name": "The Walking Dead",
+    "splash": "74846420f50c35daa41b4875a90ad399"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "584400"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sonic mania/sonicmania.exe",
+        "os": "win32"
+      },
+      {
+        "name": "sonicmania.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "57fa3cfa98a6d58d691ed1ea3b75da89",
+    "id": "356953520278339584",
+    "name": "Sonic Mania",
+    "splash": "8915e1138913ee47bd9eed3acf6bc9d9"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "431240"
+      }
+    ],
+    "executables": [
+      {
+        "name": "golf with your friends.exe",
+        "os": "win32"
+      },
+      {
+        "name": "golf with your friends/golf with your friends.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ec82a2f6545fdda0d64ea71a02fbee42",
+    "id": "356954034701205504",
+    "name": "Golf With Your Friends",
+    "splash": "1cdc1a7625d66dc230334e597a751efe"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "255710"
+      }
+    ],
+    "executables": [
+      {
+        "name": "cities.exe",
+        "os": "win32"
+      },
+      {
+        "name": "cities_skylines/cities.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "3b5eed7a9364591c629fcf47bd4a18f7",
+    "id": "356954111901433856",
+    "name": "Cities: Skylines",
+    "splash": "82c90cc04d2d541a4df3e089bd0cbb18"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "107410"
+      }
+    ],
+    "executables": [
+      {
+        "name": "arma 3/arma3launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "arma3launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2b3ffe0bf5e1f0bfcfaee8daf3d99a0f",
+    "id": "356954176338788352",
+    "name": "Arma 3",
+    "splash": "63b8aba29d08e9eab65420ffaadff2a2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "550"
+      }
+    ],
+    "executables": [
+      {
+        "name": "left 4 dead 2/left4dead2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "left4dead2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0a542ebb0544c5427f24deb3c67fcc99",
+    "id": "356954277803065354",
+    "name": "Left 4 Dead 2",
+    "splash": "6f327596a069605fbea022abc3a9666e"
+  },
+  {
+    "aliases": [ "Project64 1.6", "Project64 version 2.3.2.202" ],
+    "executables": [
+      {
+        "name": "project64 1.6/project64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "project64 2.3/project64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "cd334cb5029fe8e280c80fb63eb59f0a",
+    "id": "357606193918771210",
+    "name": "Project 64",
+    "splash": null
+  },
+  {
+    "aliases": [ "RuneScape 3", "RuneScape Launcher 2.2.4" ],
+    "executables": [
+      {
+        "name": "runescape launcher/runescape.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "337ce51307d4580001d1ab60706dda8a",
+    "id": "357606832899883008",
+    "name": "RuneScape",
+    "splash": "96854ff580d60286a9009e55dbea9cc2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "381210"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dead by daylight/deadbydaylight.exe",
+        "os": "win32"
+      },
+      {
+        "name": "deadbydaylight.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/deadbydaylight-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "64e7623c9af49f2e7dc7048df16b1013",
+    "id": "357607133254254632",
+    "name": "Dead by Daylight",
+    "splash": "21f6220ac81c817f2228e4e856b61d23"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "236390"
+      }
+    ],
+    "executables": [
+      {
+        "name": "war thunder/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b23dfa191e3f3aa8142572110a99723f",
+    "id": "357607478105604096",
+    "name": "War Thunder",
+    "splash": "04d71799c6c65c202262a7335f039264"
+  },
+  {
+    "application_id": "351821143981817856",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "304930"
+      }
+    ],
+    "executables": [
+      {
+        "name": "unturned.exe",
+        "os": "win32"
+      },
+      {
+        "name": "unturned/unturned.exe",
+        "os": "win32"
+      },
+      {
+        "name": "unturned/unturned_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "266de3427e85602adbff1012d93f4e1f",
+    "id": "357607578668105748",
+    "name": "Unturned",
+    "splash": "0c3af979982934ae4c9473873e385c95"
+  },
+  {
+    "executables": [
+      {
+        "name": "world_of_warships/wowslauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "wowslauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "10c02ab739f2737544f488f776010a18",
+    "id": "357607617046249482",
+    "name": "World of Warships",
+    "splash": "1e46e8261f79f2ef61cb4abf47127ac5"
+  },
+  {
+    "aliases": [ "Divinity - Original Sin 2", "Divinity Original Sin 2" ],
+    "application_id": "349134787773988865",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "435150"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/eocapp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "bin/supporttool.exe",
+        "os": "win32"
+      },
+      {
+        "name": "eocapp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6c018443f2c3067bf660d8b55ff9eb20",
+    "id": "358373730554085376",
+    "name": "Divinity: Original Sin 2",
+    "splash": "f79ab1b78f2fe375f7566f6b6e200ca2"
+  },
+  {
+    "aliases": [ "Battlefield™ 1" ],
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "battlefield 1/bf1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "bf1.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ac762f535a430d026be3de847326d34d",
+    "id": "358417041981571082",
+    "name": "Battlefield 1",
+    "splash": "ecef22acb800f922ea73ec24b45e733a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "250900"
+      }
+    ],
+    "executables": [
+      {
+        "name": "isaac-ng.exe",
+        "os": "win32"
+      },
+      {
+        "name": "the binding of isaac rebirth/isaac-ng.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1a139909cb5344dee95688dfedf728d8",
+    "id": "358420454764969994",
+    "name": "The Binding of Isaac: Rebirth",
+    "splash": "8f4c6a58ab9bb909df9b42cee8934dff"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "582660"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin64/blackdesert64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "black desert online steam launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "black desert online/black desert online steam launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "112e60c67a42d9d8f6c9e1f3c60e843b",
+    "id": "358420844491440148",
+    "name": "Black Desert Online",
+    "splash": "b344950b7913945d25a948692b70299a"
+  },
+  {
+    "aliases": [ "PUBG Test", "PUBG_Test" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "622590"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tslgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/tslgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2447c74e295cd57b0b4911013e13a107",
+    "id": "358421200801759232",
+    "name": "PLAYERUNKNOWN'S BATTLEGROUNDS (Test Server)",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "550650"
+      }
+    ],
+    "executables": [
+      {
+        "name": "steamlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/steamlauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "379c06993764b759e5392021385a4844",
+    "id": "358421399670358026",
+    "name": "Black Squad",
+    "splash": "a7ac918232441eb3172b87843f6ac1de"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "623940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "hiveswap act 1/hiveswap-act1.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0d4a3bac5860ff3bd85c9c5a42962c58",
+    "id": "358421573071536128",
+    "name": "HIVESWAP: ACT 1",
+    "splash": "88c2d1467889b86a642ad150e10dc294"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "394360"
+      }
+    ],
+    "executables": [
+      {
+        "name": "hearts of iron iv/hoi4.exe",
+        "os": "win32"
+      },
+      {
+        "name": "hoi4.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e59f973dc9129362bd86656a9feda266",
+    "id": "358421669603311616",
+    "name": "Hearts of Iron IV",
+    "splash": "185ff33b31468763b4caa6c757b72eed"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "113020"
+      }
+    ],
+    "executables": [
+      {
+        "name": "monaco.exe",
+        "os": "win32"
+      },
+      {
+        "name": "monaco/monaco.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5d6a28659e629816992a3c86864e7a2c",
+    "id": "358421725139959808",
+    "name": "Monaco",
+    "splash": "5253c177a9d7f16dc56838a27a592430"
+  },
+  {
+    "executables": [
+      {
+        "name": "bin64/client.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9ebe9e2c7d50ca718872325ca658ea93",
+    "id": "358421781398421514",
+    "name": "Blade & Soul",
+    "splash": "bc6a19b0f5aa224a44315225a8c31798"
+  },
+  {
+    "executables": [
+      {
+        "name": "sid meier's civilization v/civilizationv_dx11.exe",
+        "os": "win32"
+      },
+      {
+        "name": "sid meier's civilization v/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "400745bb5fa75f3f8d0fbc29d04e4c7c",
+    "id": "358421904601776138",
+    "name": "Sid Meier's Civilization V",
+    "splash": "03747e5ad53a03209cbbb6ab7a462f99"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "386360"
+      }
+    ],
+    "executables": [
+      {
+        "name": "smiteeac.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/smiteeac.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d47e191eb893a1d6377264e11f1e901b",
+    "id": "358422012990849024",
+    "name": "SMITE",
+    "splash": "5aad57fbc1c49285bc0138bef5724445"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "427520"
+      }
+    ],
+    "executables": [
+      {
+        "name": "factorio.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/factorio.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7624a1d91d9828ed2f2dc3510bbe09e6",
+    "id": "358422126602223616",
+    "name": "Factorio",
+    "splash": "a71908f78434ddbaa78e7adb7a849749"
+  },
+  {
+    "aliases": [ "Diablo 3" ],
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "diablo iii64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/diablo iii64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ea12a992732b0b6d521b109b88e60b9b",
+    "id": "358425751197974528",
+    "name": "Diablo III",
+    "splash": "3ceef15c08000c6c0272dc22a29616cb"
+  },
+  {
+    "aliases": [ "Starcraft 2", "Starcraft II" ],
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "base56787/sc2_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "base57507/sc2_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "sc2_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ba12a43bee663d2a3b06a583bc80f4bf",
+    "id": "358425800766128128",
+    "name": "StarCraft II",
+    "splash": "2f601ba4ace801789be0643a9656235d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "72850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "skyrim/skyrimlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "skyrim/tesv.exe",
+        "os": "win32"
+      },
+      {
+        "name": "skyrimlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tesv.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "05e8f8b49eb61bb6f4a97c77c1d7fbdb",
+    "id": "359507724196773888",
+    "name": "The Elder Scrolls V: Skyrim",
+    "publishers": [ "Bethesda Game Studios" ],
+    "splash": "60a0e606e903fd1558362715097a209c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "365590"
+      },
+      {
+        "distributor": "uplay",
+        "sku": "568"
+      }
+    ],
+    "executables": [
+      {
+        "name": "thedivision.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tom clancy's the division/thedivision.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "854257feadef4301745c0cb6fa51c15f",
+    "id": "359507798930751488",
+    "name": "Tom Clancy's The Division",
+    "publishers": [ "Massive Entertainment", "Ubisoft" ],
+    "splash": "f3641809fa1d5945f375d1616a3848d7"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "322330"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/dontstarve_steam.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dontstarve_steam.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b509a5d03676eace70e0a91a8a4dca89",
+    "id": "359508004078616586",
+    "name": "Don't Starve Together",
+    "splash": "625ae74a0f68982ef8a6e756a351be55"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "326460"
+      }
+    ],
+    "executables": [
+      {
+        "name": "shellshock live/shellshocklive.exe",
+        "os": "win32"
+      },
+      {
+        "name": "shellshocklive.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dba76e615a24e2ac9c4309efda06be95",
+    "id": "359508342571401216",
+    "name": "ShellShock Live",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "244850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin64/spaceengineers.exe",
+        "os": "win32"
+      },
+      {
+        "name": "spaceengineers.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "50367e015ab2e9edeecd1b013ce15ae9",
+    "id": "359508404034600990",
+    "name": "Space Engineers",
+    "splash": "9c1bfa5cc71bcabe7d26d8342a71a3d2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "211820"
+      }
+    ],
+    "executables": [
+      {
+        "name": "starbound.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/starbound.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "3d4cd654db31681e44a5c8fbbb40713f",
+    "id": "359508535123640320",
+    "name": "Starbound",
+    "splash": "62c84941f0bcbe6317f7d230c5d3beef"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "227300"
+      }
+    ],
+    "executables": [
+      {
+        "name": "eurotrucks2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win_x64/eurotrucks2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win_x86/eurotrucks2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "46bfdfc58e4eacbfde29b2461e118e78",
+    "id": "359508713658253318",
+    "name": "Euro Truck Simulator 2",
+    "splash": "2a901aa3dc38e84d9cc46f7b5f712ff8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "620"
+      }
+    ],
+    "executables": [
+      {
+        "name": "portal 2/portal2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "portal2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "80c416fd6e0d3104e5eab72f9077d72d",
+    "id": "359508941782122496",
+    "name": "Portal 2",
+    "splash": "53dac0d5521cdf069da1d513e5b66725"
+  },
+  {
+    "aliases": [ "The Sims™ 4" ],
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/ts4_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "912bd1dd19dfd2ef3b0191985f942a40",
+    "id": "359509007423242240",
+    "name": "The Sims 4",
+    "splash": "4bf8d6cfe112edc9295cb7e8d93db7a6"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "311210"
+      }
+    ],
+    "executables": [
+      {
+        "name": "blackops3.exe",
+        "os": "win32"
+      },
+      {
+        "name": "call of duty black ops iii/blackops3.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dc4ae5b7f541c947e78926b8a55b8ce3",
+    "id": "359509332490059776",
+    "name": "Call of Duty: Black Ops III",
+    "splash": "c38f8822fa7d54eb12acd546c8f1d22f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "413150"
+      }
+    ],
+    "executables": [
+      {
+        "name": "stardew valley.exe",
+        "os": "win32"
+      },
+      {
+        "name": "stardew valley/stardew valley.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1e84012079d438b46bbb3c3bf2a409bb",
+    "id": "359509387670192128",
+    "name": "Stardew Valley",
+    "splash": "81ff372fbd0557b8908331db0ae94524"
+  },
+  {
+    "aliases": [ "DARK SOULS™ III" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "374320"
+      }
+    ],
+    "executables": [
+      {
+        "name": "darksoulsiii.exe",
+        "os": "win32"
+      },
+      {
+        "name": "game/darksoulsiii.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4ae400e61d27c2b0b86fd1c15f4eb8d7",
+    "id": "359509500199436288",
+    "name": "DARK SOULS III",
+    "splash": "a7585b790f6ee93fcf167e861e4c9518"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "240"
+      }
+    ],
+    "executables": [
+      {
+        "name": "counter-strike source/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1d96939bfd19562b3b3934689dd047ba",
+    "id": "359509666876751872",
+    "name": "Counter-Strike: Source",
+    "splash": "1b401f28bc59a3b01fdd26a57374e75c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "377160"
+      }
+    ],
+    "executables": [
+      {
+        "name": "fallout 4/fallout4.exe",
+        "os": "win32"
+      },
+      {
+        "name": "fallout 4/fallout4launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "fallout4.exe",
+        "os": "win32"
+      },
+      {
+        "name": "fallout4launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6c903026d4fc97559ba48ecf9cc4dc04",
+    "id": "359509759642042378",
+    "name": "Fallout 4",
+    "splash": "82fd3394dedb4e6ae8178f0dee40dfb6"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "22380"
+      }
+    ],
+    "executables": [
+      {
+        "name": "fallout new vegas/falloutnv.exe",
+        "os": "win32"
+      },
+      {
+        "name": "fallout new vegas/falloutnvlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "falloutnv.exe",
+        "os": "win32"
+      },
+      {
+        "name": "falloutnvlauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2bef57e1f17a1e8b2959a1ed91494474",
+    "id": "359509858728542208",
+    "name": "Fallout: New Vegas",
+    "splash": "546c030342e549513b41476218b5164e"
+  },
+  {
+    "executables": [
+      {
+        "name": "maplestory.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d92a0da6cbe1561b98e9f9146600b219",
+    "id": "359510095811444736",
+    "name": "MapleStory",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "292030"
+      }
+    ],
+    "executables": [
+      {
+        "name": "witcher3.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/witcher3.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e62d3b1c9f547792347121cac397fd9c",
+    "id": "359510249486417920",
+    "name": "The Witcher 3: Wild Hunt",
+    "publishers": [ "CD PROJEKT RED" ],
+    "splash": "98063feaceb2847e8435496bbda26135"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "220"
+      }
+    ],
+    "executables": [
+      {
+        "name": "half-life 2/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "45ac0bc7f739607366bca0b4dc4c7918",
+    "id": "359510373361254400",
+    "name": "Half-Life 2",
+    "splash": "464116a6d262e1725f69b88d1488111b"
+  },
+  {
+    "aliases": [ "Battlefield 4™", "Battlefield 4™ (64 bit)" ],
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "battlefield 4/bf4.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8005e11a14d7227f73c68a7aff4820ba",
+    "id": "359510680459673610",
+    "name": "Battlefield 4",
+    "splash": "fb656971e2723fa24ab1ca2f2da9e60c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "268500"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher/modlauncherwpf.exe",
+        "os": "win32"
+      },
+      {
+        "name": "modlauncherwpf.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "15dbcc8b7d43ac5a038e1b42b550c300",
+    "id": "359510740878491658",
+    "name": "XCOM 2",
+    "splash": "d2689ebf34061062f9fbe7eb0caf602c"
+  },
+  {
+    "executables": [
+      {
+        "name": "guild wars 2/gw2-64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c6b0ba8fefae6de81551dfe60c26dce9",
+    "id": "359511228445491200",
+    "name": "Guild Wars 2",
+    "splash": "3c4890db52c991c2d14d32328dc1bca3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "489830"
+      }
+    ],
+    "executables": [
+      {
+        "name": "skyrim special edition/skyrimse.exe",
+        "os": "win32"
+      },
+      {
+        "name": "skyrim special edition/skyrimselauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "skyrimse.exe",
+        "os": "win32"
+      },
+      {
+        "name": "skyrimselauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "19c00372c4c1402e68128a542062f2e2",
+    "id": "359801269008859136",
+    "name": "The Elder Scrolls V: Skyrim Special Edition",
+    "splash": "60a0e606e903fd1558362715097a209c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "238320"
+      }
+    ],
+    "executables": [
+      {
+        "name": "olgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "outlast/outlastlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/olgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4a380b03f9cf59e42afe80e36f40cbba",
+    "id": "363408634568376320",
+    "name": "Outlast",
+    "splash": "25f174dbeec72035fd40f9673605ac6a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "274940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "depthgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/depthgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "791f19be2642d00e2b78b58f5436d3a5",
+    "id": "363408709495291934",
+    "name": "Depth",
+    "splash": "a7bf13ab1c64b409175ae9f445ff70a6"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "286160"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tabletop simulator.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tabletop simulator/tabletop simulator.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8f6d26ef7c9aa8de296db5858d85223c",
+    "id": "363408834095742976",
+    "name": "Tabletop Simulator",
+    "splash": "ed7fcaa9718d1e4c8b5e06483f7e8d0e"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "281990"
+      }
+    ],
+    "executables": [
+      {
+        "name": "stellaris.exe",
+        "os": "win32"
+      },
+      {
+        "name": "stellaris/stellaris.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a7b347a29279465267bf10fb0f6b5b1b",
+    "id": "363408909962182683",
+    "name": "Stellaris",
+    "splash": "cad26f8069541be2863bc3ec479330a1"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "304050"
+      }
+    ],
+    "executables": [
+      {
+        "name": "glyphclientapp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "trove/glyphclientapp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "720ef95d4fb508aca22b006a3e369fd2",
+    "id": "363409000399634432",
+    "name": "Trove",
+    "splash": "83d70644971d4c4a719ac34415f8d5fe"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "285900"
+      }
+    ],
+    "executables": [
+      {
+        "name": "gang beasts.exe",
+        "os": "win32"
+      },
+      {
+        "name": "gang beasts/gang beasts.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "25f58de774770f6d83e64e839cd69a0d",
+    "id": "363409129643180032",
+    "name": "Gang Beasts",
+    "splash": "6966d8e71e56bba9bd7832549f474aea"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "242760"
+      }
+    ],
+    "executables": [
+      {
+        "name": "the forest/theforest.exe",
+        "os": "win32"
+      },
+      {
+        "name": "theforest.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d757f03369c68943d76d6252f47a4813",
+    "id": "363409179668512788",
+    "name": "The Forest",
+    "splash": "dc5a7ac04c4863b3d67ba2b2f3ccd097"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "222880"
+      }
+    ],
+    "executables": [
+      {
+        "name": "insurgency.exe",
+        "os": "win32"
+      },
+      {
+        "name": "insurgency2/insurgency.exe",
+        "os": "win32"
+      },
+      {
+        "name": "insurgency2/insurgency_be.exe",
+        "os": "win32"
+      },
+      {
+        "name": "insurgency_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "813573fe2d3c0131a45129479c47dd8b",
+    "id": "363409205740175360",
+    "name": "Insurgency",
+    "splash": "16aed21cf40394c17fb113b19872bab7"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "236850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "eu4.exe",
+        "os": "win32"
+      },
+      {
+        "name": "europa universalis iv/eu4.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "79893ca103b029442f0ef3938aac5696",
+    "id": "363409417632481280",
+    "name": "Europa Universalis IV",
+    "publishers": [ "Paradox Development Studio" ],
+    "splash": "f9130f06c8df39666e6b6611106f1b40"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "334230"
+      }
+    ],
+    "executables": [
+      {
+        "name": "town of salem/townofsalem.exe",
+        "os": "win32"
+      },
+      {
+        "name": "townofsalem.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "85c83ed23382980dcddc46bdb8748c1a",
+    "id": "363409453699170304",
+    "name": "Town of Salem",
+    "splash": "a6742e64ecf24efb9fa9d5d797dc8582"
+  },
+  {
+    "application_id": "352378924317147156",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "504370"
+      }
+    ],
+    "executables": [
+      {
+        "name": "battlerite.exe",
+        "os": "win32"
+      },
+      {
+        "name": "battlerite/battlerite.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "f040ba4ff443a12dcfe4ab2a6759c235",
+    "id": "363409506647932938",
+    "name": "Battlerite",
+    "splash": "512d2a91a4ef1ca9cb8c7ffd099f7503"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "301520"
+      }
+    ],
+    "executables": [
+      {
+        "name": "robocraft.exe",
+        "os": "win32"
+      },
+      {
+        "name": "robocraft/robocraft.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8e67203ca773e07253d6254818cf4749",
+    "id": "363409532480913408",
+    "name": "Robocraft",
+    "splash": "aeb2e92af3061ec0c12fb74c41a162dd"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "571740"
+      }
+    ],
+    "executables": [
+      {
+        "name": "golfit-win64-shipping.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/golfit-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8e7525be642175127627a6b9d03f9e2d",
+    "id": "363409575321403402",
+    "name": "Golf It!",
+    "splash": "afda5a5980333a68e688527cbb6e05d2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "227940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "heroes & generals/heroesandgeneralsdesktop.exe",
+        "os": "win32"
+      },
+      {
+        "name": "heroesandgeneralsdesktop.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "16de2d8b5b4598733a4c4b48e4dd0295",
+    "id": "363409597312008212",
+    "name": "Heroes & Generals",
+    "splash": "bf61a06685392aafda4926cd854d4d86"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "453480"
+      }
+    ],
+    "executables": [
+      {
+        "name": "shadowverse.exe",
+        "os": "win32"
+      },
+      {
+        "name": "shadowverse/shadowverse.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "748e96fabbfc42013d1806fe220f891d",
+    "id": "363409615620407316",
+    "name": "Shadowverse",
+    "splash": "d72314c7581c59293066459ed7baf8cf"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "251570"
+      }
+    ],
+    "executables": [
+      {
+        "name": "7 days to die/7daystodie.exe",
+        "os": "win32"
+      },
+      {
+        "name": "7 days to die/7daystodie_eac.exe",
+        "os": "win32"
+      },
+      {
+        "name": "7daystodie.exe",
+        "os": "win32"
+      },
+      {
+        "name": "7daystodie_eac.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "975c0d5b07565875e4a30786e3d2e2e5",
+    "id": "363409643973771264",
+    "name": "7 Days to Die",
+    "splash": "bf8c81db7593a64576d4861a7316aec7"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "232090"
+      }
+    ],
+    "executables": [
+      {
+        "name": "kfgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/kfgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1741b6e80208428074900d6dde0bbf9c",
+    "id": "363409749175173120",
+    "name": "Killing Floor 2",
+    "splash": "1195a1b42c2b3cfbbd3c522f9814423c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "starcraft/starcraft.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "efc4c8eb5688c64647be477d7468d13d",
+    "id": "363409793119158272",
+    "name": "StarCraft",
+    "splash": "97daa5da944a194a82515b3c5138307b"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "391540"
+      }
+    ],
+    "executables": [
+      {
+        "name": "undertale/undertale.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "99ec17659fe44ba31ab007b85fd2454c",
+    "id": "363409849859571722",
+    "name": "Undertale",
+    "splash": "96685ba071cba83859bcc56970698729"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "312530"
+      }
+    ],
+    "executables": [
+      {
+        "name": "duck game/duckgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "duckgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1674e99d96799d387de6ed0cf9eccbc5",
+    "id": "363410951518552064",
+    "name": "Duck Game",
+    "splash": "e407243daef3971783f915db3f4066fc"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "333930"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dirty bomb/dirtybomblauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dirtybomblauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1c25db97bff54f1010d19fa5a0a2bbb0",
+    "id": "363411048713420800",
+    "name": "Dirty Bomb",
+    "splash": "6dfb00e7e5915cc3f91fc6fdc9cd106d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "397900"
+      }
+    ],
+    "executables": [
+      {
+        "name": "business tour/businesstour.exe",
+        "os": "win32"
+      },
+      {
+        "name": "businesstour.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "894c9ee48d5a771054190bc9da2f78cb",
+    "id": "363411278527594516",
+    "name": "Business Tour - Online Multiplayer Board Game",
+    "splash": "5f9470890b52cca46cb2e95686fa35d8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "588430"
+      }
+    ],
+    "executables": [
+      {
+        "name": "fallout shelter/falloutshelter.exe",
+        "os": "win32"
+      },
+      {
+        "name": "falloutshelter.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b0e4f86de99628334cdfc9643eba843d",
+    "id": "363411364552638464",
+    "name": "Fallout Shelter",
+    "splash": "2de90d528466f5580700fd41890b871f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "433340"
+      }
+    ],
+    "executables": [
+      {
+        "name": "slime rancher/slimerancher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "slimerancher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8effb3065a77b0b306fde7cd0d842ece",
+    "id": "363411395854991400",
+    "name": "Slime Rancher",
+    "splash": "12b97cdcee158e9e0b991e4bf58dfbb0"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "506540"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "lms.exe",
+        "os": "win32"
+      },
+      {
+        "name": "lms/launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "lms/lms.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0f5d25c5960c9e734e6adced21f4883f",
+    "id": "363411421553360896",
+    "name": "Last Man Standing",
+    "splash": "be4bb04701b0aba0a2d725d37ce96a06"
+  },
+  {
+    "aliases": [ "Titanfall™ 2" ],
+    "executables": [
+      {
+        "name": "titanfall2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "titanfall2/titanfall2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a2b5108bc074543b2f76d1def74e5399",
+    "id": "363411468441354240",
+    "name": "Titanfall 2",
+    "splash": "4eeddd382c0af2d06548bf9c894ae41f"
+  },
+  {
+    "aliases": [ "STAR WARS™ Battlefront™", "Star Wars Battlefront" ],
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "star wars battlefront/starwarsbattlefront.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "212e99543b2547fe7501267a42dc84cc",
+    "id": "363412167934083072",
+    "name": "STAR WARS Battlefront",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "48700"
+      }
+    ],
+    "executables": [
+      {
+        "name": "mountblade warband/binkplay.exe",
+        "os": "win32"
+      },
+      {
+        "name": "mountblade warband/mb_warband.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "bf9835d3663bfe8a0c70860ee0340689",
+    "id": "363412302998929418",
+    "name": "Mount & Blade: Warband",
+    "splash": "afab500c88e606201cce959f54875912"
+  },
+  {
+    "aliases": [ "STAR WARS™: The Old Republic™" ],
+    "executables": [
+      {
+        "name": "retailclient/swtor.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7825036225acf6b03f8a4fde81372c88",
+    "id": "363412489599188992",
+    "name": "STAR WARS: The Old Republic",
+    "splash": "16ea91b6f8d86bf4aea6997bd4e9d019"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "218230"
+      }
+    ],
+    "executables": [
+      {
+        "name": "planetside 2/launchpad.exe",
+        "os": "win32"
+      },
+      {
+        "name": "planetside 2/planetside2_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "planetside2_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dbf4eb4c8b31033dd269c35a8ba3544d",
+    "id": "363412528308682752",
+    "name": "PlanetSide 2",
+    "splash": "8bcd765463c02e3d1d312c5d934f9762"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "363970"
+      }
+    ],
+    "executables": [
+      {
+        "name": "clicker heroes.exe",
+        "os": "win32"
+      },
+      {
+        "name": "clicker heroes/clicker heroes.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "895a224cef0fa0d2fe2a2aa6508a6eb8",
+    "id": "363412660680785940",
+    "name": "Clicker Heroes",
+    "splash": "aa7138b4a7883f55f3832ca2d648e4e8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "3830"
+      }
+    ],
+    "executables": [
+      {
+        "name": "psychonauts.exe",
+        "os": "win32"
+      },
+      {
+        "name": "psychonauts/psychonauts.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c480bb1ecfa5d08bb1b0ef9e2fe24774",
+    "id": "363412675650125825",
+    "name": "Psychonauts",
+    "splash": "290ac0ad27fdd1434697954974934c58"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "270880"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win_x64/amtrucks.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "18b2fbfa74a3968c6f69af0f7533105c",
+    "id": "363412692083671040",
+    "name": "American Truck Simulator",
+    "splash": "7bbfcffd2639aa212334af1e1c1cc43e"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "10090"
+      }
+    ],
+    "executables": [
+      {
+        "name": "call of duty world at war/codwaw.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a2136149e172fcd57aec7cb76d42e0de",
+    "id": "363412728888557568",
+    "name": "Call of Duty: World at War",
+    "splash": "dd4156e920e8d25e80987daab25a442f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "386180"
+      }
+    ],
+    "executables": [
+      {
+        "name": "crossout/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "86657c66b007c140372b22ce084270a8",
+    "id": "363412799117852672",
+    "name": "Crossout",
+    "splash": "f1986f1002e6076d6aa922d33b5ca907"
+  },
+  {
+    "executables": [
+      {
+        "name": "app/dofus.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2183ef1fecfff1a569e6fb01a766e300",
+    "id": "363412841862266880",
+    "name": "Dofus",
+    "splash": "3ce228309dc4caefe3f65419ca7689de"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "10"
+      }
+    ],
+    "executables": [
+      {
+        "name": "half-life/hl.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c24dad3bf5cddd0520055f860e1525a4",
+    "id": "363412920681496586",
+    "name": "Counter-Strike",
+    "splash": "af06aa827f652e0d272b41268f5e7d64"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "665360"
+      }
+    ],
+    "executables": [
+      {
+        "name": "comedy night.exe",
+        "os": "win32"
+      },
+      {
+        "name": "comedy night/comedy night.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d25b701133e1a4280994cf664de34a10",
+    "id": "363413176605212682",
+    "name": "Comedy Night",
+    "splash": "d0fd898ff0821edc3872184061fae4ca"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "311690"
+      }
+    ],
+    "executables": [
+      {
+        "name": "enter the gungeon/etg.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "18599bc8cb90200d35ab13d1cea8d870",
+    "id": "363413202090065920",
+    "name": "Enter the Gungeon",
+    "splash": "305fa8ee283ef22f54648fdede4e371c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "359320"
+      }
+    ],
+    "executables": [
+      {
+        "name": "edlaunch.exe",
+        "os": "win32"
+      },
+      {
+        "name": "elite dangerous/edlaunch.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7b1ce02a57ca981585cee935d42a304f",
+    "id": "363413225578037248",
+    "name": "Elite Dangerous",
+    "splash": "d4dacda40ee7ca50bf9f488bae5498fa"
+  },
+  {
+    "executables": [
+      {
+        "name": "bin/wizardgraphicalclient.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "559db46c522e2f7df3fa52766b22dadb",
+    "id": "363413310474813450",
+    "name": "Wizard101",
+    "splash": "5003a939f33b47bd0fd70e2ad4c53a5a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "346900"
+      }
+    ],
+    "executables": [
+      {
+        "name": "adventure capitalist/adventure-capitalist.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6be1313e91da74d981ef33504794b959",
+    "id": "363413365667921930",
+    "name": "AdVenture Capitalist",
+    "splash": "d6980d913b797319bd84893289e990b0"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "221380"
+      }
+    ],
+    "executables": [
+      {
+        "name": "age2hd/aok hd.exe",
+        "os": "win32"
+      },
+      {
+        "name": "age2hd/launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "aok hd.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "672573bb07f96ecc1739457d13291455",
+    "id": "363413389021675530",
+    "name": "Age of Empires II: HD Edition",
+    "splash": "303332a0f6cb428d0b5ac6e2ebeec332"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "8500"
+      }
+    ],
+    "executables": [
+      {
+        "name": "evelauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "exefile.exe",
+        "os": "win32"
+      },
+      {
+        "name": "launcher/evelauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1bd1fbaca4e7da18204128cbbd0c865e",
+    "id": "363413402300710912",
+    "name": "EVE Online",
+    "splash": "438743d6d835324263c71f0d3d69d483"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "268130"
+      }
+    ],
+    "executables": [
+      {
+        "name": "heat signature/heat_signature.exe",
+        "os": "win32"
+      },
+      {
+        "name": "heat_signature.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2b0bd16070cc0447eb16a40a2bc73c41",
+    "id": "363413452976553984",
+    "name": "Heat Signature",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "294100"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rimworld/rimworldwin.exe",
+        "os": "win32"
+      },
+      {
+        "name": "rimworldwin.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "861d3eae85e0c0536588aeef94d9d5b8",
+    "id": "363413465584500737",
+    "name": "RimWorld",
+    "splash": "e63c84d492e993dddd8dcff1fb6f8843"
+  },
+  {
+    "application_id": "259392830932254721",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "207140"
+      }
+    ],
+    "executables": [
+      {
+        "name": "speedrunners.exe",
+        "os": "win32"
+      },
+      {
+        "name": "speedrunners/speedrunners.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "cb48279ea90e86fb4f71c709d3236395",
+    "id": "363413631938854922",
+    "name": "SpeedRunners",
+    "splash": "94e91cac9509fee1eb80a69b9503878a"
+  },
+  {
+    "executables": [
+      {
+        "name": "aces.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/aces.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c368f4a8eb1e14c98da713133a04587a",
+    "id": "363413661567680522",
+    "name": "WarThunder",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "383980"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rivals of aether/rivalsofaether.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b205ccca202ab6b8f35dc2474bba0d53",
+    "id": "363413717267906560",
+    "name": "Rivals of Aether",
+    "splash": "639d7e43ce85025200a12d49b2847b3d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "284160"
+      }
+    ],
+    "executables": [
+      {
+        "name": "beamng.drive/beamng.drive.exe",
+        "os": "win32"
+      },
+      {
+        "name": "bin64/beamng.drive.x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7cdf03d0914abf557c372f81182b4039",
+    "id": "363413743335374859",
+    "name": "BeamNG.drive",
+    "splash": "1e6f52750013a9088823845a235826d5"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "264710"
+      }
+    ],
+    "executables": [
+      {
+        "name": "subnautica.exe",
+        "os": "win32"
+      },
+      {
+        "name": "subnautica/subnautica.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "397268fe3cb93e561cd31093a55847d9",
+    "id": "363413811518242816",
+    "name": "Subnautica",
+    "splash": "9b911f41729f86e6f820e7f8461036a8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "289070"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64steam/civilizationvi.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "898cdf97668109199473d5cdc160fa98",
+    "id": "363413834301571072",
+    "name": "Sid Meier's Civilization VI",
+    "splash": "8eda4b54761775a6a4759a26811d66de"
+  },
+  {
+    "executables": [
+      {
+        "name": "bethesda.net_launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "launcher/bethesda.net_launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "008b72e1eee966e10a5962413daa582f",
+    "id": "363413894602948608",
+    "name": "The Elder Scrolls Online",
+    "splash": "50b9a85cda85c1670d8e6b4950e291d2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "379720"
+      }
+    ],
+    "executables": [
+      {
+        "name": "doom/doomx64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "doomx64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "564123ba75d83acd12f0223690599072",
+    "id": "363413961967927306",
+    "name": "DOOM",
+    "splash": "e8820e949e526abe39d7b3df42a1949a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "212680"
+      }
+    ],
+    "executables": [
+      {
+        "name": "ftl faster than light/ftlgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6bb701757ad6232284893750cb3c5d08",
+    "id": "363414030188150801",
+    "name": "FTL: Faster Than Light",
+    "splash": "8606b26658527ed811aebf152cd77b3b"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "200210"
+      }
+    ],
+    "executables": [
+      {
+        "name": "realm of the mad god/realm of the mad god.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a58ffd0d82109694dab00e2bcf736962",
+    "id": "363414084542005258",
+    "name": "Realm of the Mad God",
+    "splash": "c93739c5cc2c38313436ee4b899c548c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "225540"
+      }
+    ],
+    "executables": [
+      {
+        "name": "just cause 3/justcause3.exe",
+        "os": "win32"
+      },
+      {
+        "name": "justcause3.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4cb59a8aa3a737f7bf6ecd8f725d6cbc",
+    "id": "363414140502671360",
+    "name": "Just Cause 3",
+    "splash": "365b82183ba19efe7359c6fa46f24f53"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "400"
+      }
+    ],
+    "executables": [
+      {
+        "name": "portal/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "142643e3f81e8932fa94d5ac7aef697a",
+    "id": "363414173457186826",
+    "name": "Portal",
+    "splash": "28816ac7dc002572cc4b668f31c9324a"
+  },
+  {
+    "aliases": [ "Call of Duty: WWII", "Call of Duty: WWII - Multiplayer" ],
+    "application_id": "365569601993572352",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "696790"
+      }
+    ],
+    "executables": [
+      {
+        "name": "2015/vc_redist.x86.exe",
+        "os": "win32"
+      },
+      {
+        "name": "call of duty wwii beta/s2_mp64_ship.exe",
+        "os": "win32"
+      },
+      {
+        "name": "s2_mp64_ship.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "3a98c27c15aa01b85576509c7038990c",
+    "id": "363414302507401217",
+    "name": "Call of Duty®: WWII",
+    "splash": "87ca1917cfbfa6cd85326c68671b9287"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "588650"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dead cells/deadcells.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "409bdf22e789337764b144046d887bbb",
+    "id": "363414360422612992",
+    "name": "Dead Cells",
+    "splash": "9c60428570b5f5185d7995129e95c05c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "fifa 17/fifa17.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "49e4688b9201deeebc0286c14d652bab",
+    "id": "363414398129274890",
+    "name": "FIFA 17",
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "454650"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/dbxv2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "11289c3dfeabc6209c2ec030598854c7",
+    "id": "363414443129831444",
+    "name": "DRAGON BALL XENOVERSE 2",
+    "splash": "8a90c94363e9f72a9150450d9e09c84a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "438740"
+      }
+    ],
+    "executables": [
+      {
+        "name": "f13game/eac_launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "summercamp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/summercamp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2a654eea2d72d75904e892e5a9b36c6f",
+    "id": "363414482615271434",
+    "name": "Friday the 13th: The Game",
+    "splash": "05b69cd265bcd3b483d78329c6a38527"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "233450"
+      }
+    ],
+    "executables": [
+      {
+        "name": "prison architect/prison architect.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e8291d74af2a2c8c9827077589b05170",
+    "id": "363414635812093962",
+    "name": "Prison Architect",
+    "splash": "9f5c8be11c67fb8a342f73fbe7b956b5"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "389730"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tekkengame-win64-shipping.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/tekkengame-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "05bcfb4ccf8af3b5d1c2156257bff953",
+    "id": "363414667797725184",
+    "name": "TEKKEN 7",
+    "splash": "84e1b8a37dd365f95da6b50c75b5bff2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "641990"
+      }
+    ],
+    "executables": [
+      {
+        "name": "the escapists 2/theescapists2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "theescapists2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6eec4921b9e48e532bdcd6838674da5a",
+    "id": "363414712186306560",
+    "name": "The Escapists 2",
+    "splash": "5c3a512ca58c4c20aa90b94bca997341"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "203770"
+      }
+    ],
+    "executables": [
+      {
+        "name": "crusader kings ii/ck2game.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d61dc98937afec90eefad2733e2d75ae",
+    "id": "363414742661988352",
+    "name": "Crusader Kings II",
+    "splash": "30c2b61138de0d293e6f486088176f0d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "689090"
+      }
+    ],
+    "executables": [
+      {
+        "name": "microtransaction_simulator/microsimulator.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "43e13f5d6992103fe993fd717d8e3530",
+    "id": "363414852410015744",
+    "name": "Microtransaction Simulator",
+    "splash": "27064abbbb8bb6046c092410b82067be"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "291480"
+      }
+    ],
+    "executables": [
+      {
+        "name": "mycomgames/mycomgames.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8597a4edef527308a9765869fc35c573",
+    "id": "363414901030649856",
+    "name": "Warface",
+    "splash": "3fb683f3ea3d37ed6e3c30fa1d54fad8"
+  },
+  {
+    "aliases": [ "Middle-earth™: Shadow of Mordor™" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "241930"
+      }
+    ],
+    "executables": [
+      {
+        "name": "shadowofmordor.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/shadowofmordor.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dbd6ac3bb97b9cdbb4946b383cdc69fa",
+    "id": "363424997080956928",
+    "name": "Middle-earth: Shadow of Mordor",
+    "splash": "2f7ceaf0b7c9c2b47e57c12ef7d38524"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "287700"
+      }
+    ],
+    "executables": [
+      {
+        "name": "mgs_tpp/mgsvtpp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "mgsvtpp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a8d4bf90e06d6f78b278de54f4174d65",
+    "id": "363425113879609344",
+    "name": "METAL GEAR SOLID V: THE PHANTOM PAIN",
+    "splash": "e4dc09c5e238c00d3a140ce0fe3f240a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "627690"
+      }
+    ],
+    "executables": [
+      {
+        "name": "idlechampions/idledragons.exe",
+        "os": "win32"
+      },
+      {
+        "name": "idledragons.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a9ab6c72aad7cae13c18ea1a664900c0",
+    "id": "363425133274333214",
+    "name": "Idle Champions of the Forgotten Realms",
+    "splash": "e48f7f204341f6fbae9d322534a8cd69"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "339800"
+      }
+    ],
+    "executables": [
+      {
+        "name": "huniepop/huniepop.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7b10572839d1bcbb017d5bce629e3ae1",
+    "id": "363425169051615262",
+    "name": "HuniePop",
+    "splash": "afde26d45b4adaf6a85431f8bf3897c2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "386940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "ultimate chicken horse/ultimatechickenhorse.exe",
+        "os": "win32"
+      },
+      {
+        "name": "ultimatechickenhorse.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7db6f7d5c3baf9c00fd32c57110c693a",
+    "id": "363425213905371146",
+    "name": "Ultimate Chicken Horse",
+    "splash": "c4272abfb021268a47d99705b47e237a"
+  },
+  {
+    "aliases": [ "NieR:Automata™" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "524220"
+      }
+    ],
+    "executables": [
+      {
+        "name": "nierautomata.exe",
+        "os": "win32"
+      },
+      {
+        "name": "nierautomata/nierautomata.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c4f1f98afe3450bd507ad887d99d8376",
+    "id": "363425276300099584",
+    "name": "NieR:Automata",
+    "splash": "0d985a6e98a616c27df0b459aea6ca91"
+  },
+  {
+    "aliases": [ "DARK SOULS™ II: Scholar of the First Sin" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "335300"
+      }
+    ],
+    "executables": [
+      {
+        "name": "darksoulsii.exe",
+        "os": "win32"
+      },
+      {
+        "name": "game/darksoulsii.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c8498421d6d1b9163e3d0b77d9b734ba",
+    "id": "363426741269692416",
+    "name": "DARK SOULS II: Scholar of the First Sin",
+    "splash": "a1dfd3ac27487ad01bf08c166266c430"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "594570"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher/launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "total war warhammer ii/warhammer2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "warhammer2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "570fe95e5a25980e596d1aadae5ddf2a",
+    "id": "363426802640617482",
+    "name": "Total War: WARHAMMER II",
+    "splash": "8c67136a450ef83a6383f7ab64c1d829"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "245170"
+      }
+    ],
+    "executables": [
+      {
+        "name": "skullgirls/skullgirls.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "fab1e8e55b89bfb779790b4a54507ca0",
+    "id": "363426862363574272",
+    "name": "Skullgirls",
+    "splash": "06e97c876b8ba05cc904d662384914d3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "447020"
+      }
+    ],
+    "executables": [
+      {
+        "name": "farmingsimulator2017game.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/farmingsimulator2017game.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "61bed87d2da8e32dd8f24423a9e83323",
+    "id": "363426921612181504",
+    "name": "Farming Simulator 17",
+    "splash": "c43aefe5587517cbdffc8212aff48a33"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "282800"
+      }
+    ],
+    "executables": [
+      {
+        "name": "100 orange juice/100orange.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d433683ac90381899745caba0834f19d",
+    "id": "363427044333191169",
+    "name": "100% Orange Juice",
+    "splash": "85dc99a1287342a4afc219a001554499"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "247080"
+      }
+    ],
+    "executables": [
+      {
+        "name": "crypt of the necrodancer/necrodancer.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "118c8e810263a44719bb030bc589d7cc",
+    "id": "363427101346627584",
+    "name": "Crypt of the NecroDancer",
+    "splash": "0b06817f453c91c7ea4bdb46b3ec760c"
+  },
+  {
+    "aliases": [ "Call of Duty: Black Ops II - Multiplayer" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "202970"
+      },
+      {
+        "distributor": "steam",
+        "sku": "202990"
+      }
+    ],
+    "executables": [
+      {
+        "name": "call of duty black ops ii/t6mp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0d320e70ad7c00bf2273ecaa1547b69a",
+    "id": "363427270024626176",
+    "name": "Call of Duty: Black Ops II",
+    "splash": "b30778fa934ddc3c70c9afa7052cd624"
+  },
+  {
+    "aliases": [ "Sonic Adventure™ 2" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "213610"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sonic adventure 2/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "363427419249442816",
+    "name": "Sonic Adventure 2",
+    "splash": "b0cfe7aabd3c43201ab584c74153acee"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "444640"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bloons td battles/battles-win.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1ad35bf3d8bf0d40d51a268ed2580f9b",
+    "id": "363427491995713536",
+    "name": "Bloons TD Battles",
+    "splash": "9006d618e5cf97f6249be44e2941b3b8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "205100"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win32/dishonored.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0a824ee9240367a5c30a707931b802cd",
+    "id": "363427574707257354",
+    "name": "Dishonored",
+    "splash": "19617d00216b85cb88169c944047f541"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "225840"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sven co-op/svencoop.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8c3a3bcf6fdbbc99bf830fb934a1ac04",
+    "id": "363427674309263360",
+    "name": "Sven Co-op",
+    "splash": "dfc813614965b0ce655851f0c2eecb9f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "394690"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tower-win64-shipping.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/tower-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "acb798a7428c6daedbacae59df61f4dd",
+    "id": "363427800088313856",
+    "name": "Tower Unite",
+    "splash": "e996826ff1b343ecaa9e2b1904ca13fd"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "239140"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dying light/dyinglightgame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dyinglightgame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e9465677c4f03394da82e8107ab73d70",
+    "id": "363427839137153024",
+    "name": "Dying Light",
+    "splash": "d83e6e087f91f562c7c72f9730d753f2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "219640"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/cmw.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "02d679f3b1ea099e3f8d018ba5690586",
+    "id": "363427969324023808",
+    "name": "Chivalry: Medieval Warfare",
+    "splash": "879ec52b22474f16a8ead754c57641b2"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "393380"
+      }
+    ],
+    "executables": [
+      {
+        "name": "squad/squad_launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "76ca41d78c15257bb3caf98a8e8ed28b",
+    "id": "363428011980357632",
+    "name": "Squad",
+    "splash": "f1d8df60cfe5894ebc0debf06cfad288"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "361420"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/astro-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d6d51621df8d0a7ea07e0fea9d450560",
+    "id": "363428060604792832",
+    "name": "ASTRONEER",
+    "splash": "94f0b4bf9fb462e3ec1222d71718d95a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "280790"
+      }
+    ],
+    "executables": [
+      {
+        "name": "creativerse/creativerse.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "dd87838fb60ae8e22edc551134aa66e5",
+    "id": "363428103919239168",
+    "name": "Creativerse",
+    "splash": "b5a87069debd59fb399fc67df872a301"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "15700"
+      }
+    ],
+    "executables": [
+      {
+        "name": "oddworld abes oddysee/abewin.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "122036797795a60e825236d2c6a15a2e",
+    "id": "363428220617621504",
+    "name": "Oddworld: Abe's Oddysee",
+    "splash": "9990985dc8dfd5784e1f1b019dd4a9d2"
+  },
+  {
+    "aliases": [ "Tom Clancy's Ghost Recon: Wildlands", "Tom Clancy's Ghost Recon® Wildlands" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "460930"
+      },
+      {
+        "distributor": "uplay",
+        "sku": "1771"
+      }
+    ],
+    "executables": [
+      {
+        "name": "grw.exe",
+        "os": "win32"
+      },
+      {
+        "name": "tom clancy's ghost recon wildlands/grw.exe",
+        "os": "win32"
+      },
+      {
+        "name": "wildlands/grw.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8c73cf21bcb37c15d80857282160bcb2",
+    "id": "363428336749379604",
+    "name": "Tom Clancy's Ghost Recon Wildlands",
+    "splash": "cdd66601783148aabc565198a60b6c17"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "235540"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "launcher/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "268103c03c514cef692527189ab31054",
+    "id": "363429268577058816",
+    "name": "Warhammer: End Times - Vermintide",
+    "splash": "dfd5b9b9241f4f475f956ada2cbefb97"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "238460"
+      }
+    ],
+    "executables": [
+      {
+        "name": "battleblock theater/battleblocktheater.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "0460513c2fa63f260453130ad62bd4a8",
+    "id": "363429294778744832",
+    "name": "BattleBlock Theater",
+    "splash": "583d3c9486c5824592c3663f980aeae3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "1250"
+      }
+    ],
+    "executables": [
+      {
+        "name": "system/killingfloor.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "cc041209037d96765ef15edd958ed183",
+    "id": "363429388156403712",
+    "name": "Killing Floor",
+    "splash": "6f87ff07440c46d5dd85291bd55655ee"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "220200"
+      }
+    ],
+    "executables": [
+      {
+        "name": "kerbal space program/ksp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "kerbal space program/ksp_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "740c9d93b022699c2cf55af48a076734",
+    "id": "363429406376722442",
+    "name": "Kerbal Space Program",
+    "splash": "b6bc3a8371222b0a3fe046f4178396d5"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "391220"
+      }
+    ],
+    "executables": [
+      {
+        "name": "rottr.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "780a603fe5499627dec19339d2f8c280",
+    "id": "363429423728427008",
+    "name": "Rise of the Tomb Raider",
+    "splash": "af221d527613743e0eacc23ae7de4285"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "204360"
+      }
+    ],
+    "executables": [
+      {
+        "name": "castlecrashers/castle.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "46906f3362efc605b1235a0174b16a6d",
+    "id": "363429462076817408",
+    "name": "Castle Crashers",
+    "splash": "edf323e18302d944392a2baea2c76f19"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "555570"
+      }
+    ],
+    "executables": [
+      {
+        "name": "newz/newzlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "newz/thenewz.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "6f5c25ea059aa39cc6929c1c6f769dbc",
+    "id": "363429491034554368",
+    "name": "Infestation: The New Z",
+    "splash": "afc95d5871f1df438c2f9530038e0b16"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "368420"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/tbl-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "10062841145856ac4fc73e922820f98c",
+    "id": "363429532377677824",
+    "name": "Mirage: Arcane Warfare",
+    "splash": "51befdf220f9df3c3abace8593b04d51"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "265630"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sdk/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "61e7b86e196a9028bda2490317093f88",
+    "id": "363429654540845056",
+    "name": "Fistful of Frags",
+    "splash": "77bbcc8cbe17b4a0bb14106fe683c52d"
+  },
+  {
+    "aliases": [ "STAR WARS™ Battlefront™ II", "Star Wars Battlefront II" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "6060"
+      }
+    ],
+    "executables": [
+      {
+        "name": "gamedata/battlefrontii.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d9bdc690e60aae686252886605f227c8",
+    "id": "363429717698936852",
+    "name": "STAR WARS Battlefront II",
+    "splash": "db08c8f9d50580b90cc879702824b6ab"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "268910"
+      }
+    ],
+    "executables": [
+      {
+        "name": "cuphead.exe",
+        "os": "win32"
+      },
+      {
+        "name": "cuphead/cuphead.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e473174ecd2bf29d56541591ed2d8c31",
+    "id": "363430002181668864",
+    "name": "Cuphead",
+    "splash": "a2e3cc78276e76c5b36d7187a93d5b1e"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "349040"
+      }
+    ],
+    "executables": [
+      {
+        "name": "naruto shippuden ultimate ninja storm 4/nsuns4.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a2a5bf84a9fc4b4c88a9f1c0e043c5c0",
+    "id": "363430045970071552",
+    "name": "NARUTO SHIPPUDEN: Ultimate Ninja STORM 4",
+    "splash": "44e81aebf2522ae8e6dbb795c9d4a913"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "323370"
+      }
+    ],
+    "executables": [
+      {
+        "name": "tera/tera-launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "52a86dba4ccc0581fbb35aab2eade6c1",
+    "id": "363430088521547786",
+    "name": "TERA",
+    "splash": "0d8d58dd019739d7e901e8bbe5991f8c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "206420"
+      }
+    ],
+    "executables": [
+      {
+        "name": "saints row iv/saintsrowiv.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "3d60d96bf3cfdd3c8c697ea87fb2224a",
+    "id": "363430103306338304",
+    "name": "Saints Row IV",
+    "splash": "665c83e804e4342188d43e5a641c0677"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "473690"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/absolver-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e3c14f9a6f3a8a756fba91f9bdb72f1d",
+    "id": "363430239134547978",
+    "name": "Absolver",
+    "splash": "dfe7fece821b15ad21a60548c8ddaa10"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "364360"
+      }
+    ],
+    "executables": [
+      {
+        "name": "launcher/launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8c837f452be593bc3aa5d6268a272136",
+    "id": "363430260810973194",
+    "name": "Total War: WARHAMMER",
+    "splash": "b894a4f7a02de11d153fc31357bb51fa"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "387990"
+      }
+    ],
+    "executables": [
+      {
+        "name": "release/scrapmechanic.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "19d8dfabfa59721d295b43fe5b287688",
+    "id": "363430304746176512",
+    "name": "Scrap Mechanic",
+    "splash": "97eb9d2bf77aeccab04bd477d7a19a5d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "457140"
+      }
+    ],
+    "executables": [
+      {
+        "name": "oxygennotincluded/oxygennotincluded.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "1037d19e54f972bed70089c065ff4664",
+    "id": "363430471322828800",
+    "name": "Oxygen Not Included",
+    "splash": "2c9a9cdcac194a2e4d35a09805df12d0"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "70"
+      }
+    ],
+    "executables": [
+      {
+        "name": "half-life/hl.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "16fa1dfcd0282e4d13c97c928f163b7d",
+    "id": "363430548028522496",
+    "name": "Half-Life",
+    "splash": "149210e7069943518df545565dbb8f7f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "242680"
+      }
+    ],
+    "executables": [
+      {
+        "name": "nuclear throne/nuclearthrone.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b3253f21eccdf354cba8bc08c2447e38",
+    "id": "363430560942653440",
+    "name": "Nuclear Throne",
+    "splash": "7bdc3e8a1f66edb91711a0e636364604"
+  },
+  {
+    "aliases": [ "Dishonored®: Death of the Outsider™" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "614570"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dishonored_do.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "363430605406339072",
+    "name": "Dishonored: Death of the Outsider",
+    "splash": "75f2db024cba5a0a8a9d509c55a5d7be"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "224260"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sdk/hl2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "307b48a4afd2b8274c3c9e49bdee2d91",
+    "id": "363430673694064640",
+    "name": "No More Room in Hell",
+    "splash": "9e5b6ad751b8b6534d42896cfe9cfe0f"
+  },
+  {
+    "aliases": [ "The Sims(TM) 3" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "47890"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/sims3launcherw.exe",
+        "os": "win32"
+      },
+      {
+        "name": "bin/ts3w.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5c7304472b823a78aecef84f80c0e772",
+    "id": "363430739456425994",
+    "name": "The Sims 3",
+    "splash": "52ca976e3e685088f20af52fac6ae14a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "373420"
+      }
+    ],
+    "executables": [
+      {
+        "name": "eocapp.exe",
+        "os": "win32"
+      },
+      {
+        "name": "shipping/eocapp.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "494b73dae737e317700a00b5616b43cd",
+    "id": "363430797257998356",
+    "name": "Divinity: Original Sin Enhanced Edition",
+    "splash": "ec70308e0ab81784453c52861b72312e"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "636480"
+      }
+    ],
+    "executables": [
+      {
+        "name": "ravenfield/ravenfield.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9f2335fcafc051439d2618d8f56c2e14",
+    "id": "363430881811234816",
+    "name": "Ravenfield",
+    "splash": "a408689f86446963d5f650c18e6f54d8"
+  },
+  {
+    "aliases": [ "Life is Strange™" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "319630"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win32/lifeisstrange.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c4514b77e998b3d60f3533096afc7676",
+    "id": "363430904867192832",
+    "name": "Life is Strange",
+    "splash": "ab545940b11665d47dc85cc511468c5a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "367520"
+      }
+    ],
+    "executables": [
+      {
+        "name": "hollow knight/hollow_knight.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "17f9795eddb4cb1ec72a4154245206d0",
+    "id": "363431029484027904",
+    "name": "Hollow Knight",
+    "splash": "a2a790eb5754e91c9520b9a9780d3996"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "55230"
+      }
+    ],
+    "executables": [
+      {
+        "name": "saints row the third/game_launcher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "fde7183e3ddd8e0ff9c5a9350d56846c",
+    "id": "363431107527704576",
+    "name": "Saints Row: The Third",
+    "splash": "b398528e79fece8fb8dfc2150919b81a"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "493340"
+      }
+    ],
+    "executables": [
+      {
+        "name": "planet coaster/planetcoaster.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9d44d6126d44f0f6490870ff87e08ed2",
+    "id": "363431197960962049",
+    "name": "Planet Coaster",
+    "splash": "7c612e8a421f16c4d4ec8b2a35bfacea"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "403640"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dishonored2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dishonored2/dishonored2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "48baef37dbbb52d7a56c551be070397f",
+    "id": "363431216000532480",
+    "name": "Dishonored 2",
+    "splash": "ad4909a4b673367082f0d1facee51f02"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "397950"
+      }
+    ],
+    "executables": [
+      {
+        "name": "clustertruck/clustertruck.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "06ee1c6884ee5113d30c31074cda32b3",
+    "id": "363431307629559808",
+    "name": "Clustertruck",
+    "splash": "75787d9cba10bdbdbda467413382359f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "459820"
+      }
+    ],
+    "executables": [
+      {
+        "name": "crushcrush/crushcrush.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "189a8107521edcf2e5d06cd74cb63046",
+    "id": "363431341599096842",
+    "name": "Crush Crush",
+    "splash": "2557b170eb62878253669109d1fc909b"
+  },
+  {
+    "aliases": [ "Battlefield 3™" ],
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "battlefield 3/bf3.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "42d68cfbeda061e6a8e9a998cba5d6c9",
+    "id": "363431403469144064",
+    "name": "Battlefield 3",
+    "splash": "b64002f7cc8e503f7c1f871b9f862468"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "251950"
+      }
+    ],
+    "executables": [
+      {
+        "name": "wwiionline/ww2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2e0e32655a450ed85afb9d492decc210",
+    "id": "363431447119527956",
+    "name": "World War II Online",
+    "splash": "bc428e6ac2efaab4c05f25f2be523973"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "231430"
+      }
+    ],
+    "executables": [
+      {
+        "name": "company of heroes 2/reliccoh2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d70edd0349d6a4b5a30ce3e6171539af",
+    "id": "363431541336047616",
+    "name": "Company of Heroes 2",
+    "splash": "d71e66c92958b0cac007bbdcc0da15b3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "610080"
+      }
+    ],
+    "executables": [
+      {
+        "name": "realm grinder/realmgrinderdesktop.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "04410c8845f4630d91b57e46c907757f",
+    "id": "363431556301193216",
+    "name": "Realm Grinder",
+    "splash": "8b1cbde320b99fe3b36c91e2fde26a3d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "234630"
+      }
+    ],
+    "executables": [
+      {
+        "name": "pcars64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "05ee81affd6196ff255981c1a90b6e99",
+    "id": "363431703504748544",
+    "name": "Project CARS",
+    "splash": "680d9ad9fc8b40de6d66c470e0979c16"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "679990"
+      }
+    ],
+    "executables": [
+      {
+        "name": "half_life_caged/hl.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "062a07b757fdea1ee2d131fcd1740a5d",
+    "id": "363431787214536704",
+    "name": "Half-Life: C.A.G.E.D.",
+    "splash": "411c502d6fcafb9e41a3b29b0ac70ce0"
+  },
+  {
+    "executables": [
+      {
+        "name": "guitar hero iii/gh3.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "91cebfba3545dfd91ec47863d1af2e73",
+    "id": "363431817312731136",
+    "name": "Guitar Hero III: Legends of Rock",
+    "splash": "27287148cb9d869aa9a9dcde35b6262b"
+  },
+  {
+    "aliases": [ "Roblox" ],
+    "executables": [
+      {
+        "name": "roblox/roblox.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "50a3d8888eb1923816c6856dd5f51353",
+    "id": "363445589247131668",
+    "name": "ROBLOX",
+    "splash": "e970e33dd647f87dc87f4dc4b28f4627"
+  },
+  {
+    "executables": [
+      {
+        "name": "grand theft auto san andreas/gta-sa.exe",
+        "os": "win32"
+      },
+      {
+        "name": "grand theft auto san andreas/gta_sa.exe",
+        "os": "win32"
+      },
+      {
+        "name": "gta-sa.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "58c222207d90c346aa4590a1d8de0a2f",
+    "id": "363447565905166336",
+    "name": "Grand Theft Auto San Andreas",
+    "splash": "99195e630e7865c4332d2584d03d5876"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "battlenet",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "destiny 2/destiny2.exe",
+        "os": "win32"
+      },
+      {
+        "name": "destiny2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "79744dd00a9bd47c06fa1078e6c705fe",
+    "id": "372438022647578634",
+    "name": "Destiny 2",
+    "publishers": [ "Blizzard Entertainment" ],
+    "splash": "2d646423539ce9fa89f06a5c1ae8cfcc"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "404680"
+      }
+    ],
+    "executables": [
+      {
+        "name": "hob/hoblauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "hoblauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5b49e6e578e73d674b432c31db0f8027",
+    "id": "372440317493903380",
+    "name": "Hob",
+    "splash": "a3475a84262ab066f46b6233fbfc7d5f"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "674940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "stickfight.exe",
+        "os": "win32"
+      },
+      {
+        "name": "stickfightthegame/stickfight.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9ca796e31254d56a71c4ae3ebb0e51c5",
+    "id": "372824735127568397",
+    "name": "Stick Fight: The Game",
+    "publishers": [ "Landfall West" ],
+    "splash": "569d516313c9535527d7a88314f56686"
+  },
+  {
+    "application_id": "367827983903490050",
+    "executables": [
+      {
+        "name": "osu!.exe",
+        "os": "win32"
+      },
+      {
+        "name": "osu!/osu!.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ea86f6c52576847a7cb81f1c1faa18a3",
+    "id": "372825641482977280",
+    "name": "osu!",
+    "publishers": [ "ppy Pty Ltd" ],
+    "splash": "8029278a3fab0e30108bd335f26ab8a0"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "38400"
+      }
+    ],
+    "executables": [
+      {
+        "name": "fallout/falloutlauncher.exe",
+        "os": "win32"
+      },
+      {
+        "name": "falloutlauncher.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "e61f946aecd1f5d1948e60697cbf7d08",
+    "id": "372825995084038144",
+    "name": "Fallout",
+    "splash": "53550094790ca172ceac3a624c6fd3e7"
+  },
+  {
+    "aliases": [ "Middle-earth™: Shadow of War™" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "356190"
+      }
+    ],
+    "executables": [
+      {
+        "name": "shadowofwar.exe",
+        "os": "win32"
+      },
+      {
+        "name": "x64/shadowofwar.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "68f4685213d45ed2a0f380ccb027eb93",
+    "id": "372826898465685519",
+    "name": "Middle-earth: Shadow of War",
+    "splash": "8b2bb826535bcc3b16dffad61357bc4f"
+  },
+  {
+    "application_id": "349947310375043074",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "505460"
+      }
+    ],
+    "executables": [
+      {
+        "name": "war-win64-shipping.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/war-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c75f0c7134eae454ddcfa8c4f46950fa",
+    "id": "374700298763108362",
+    "name": "Foxhole",
+    "splash": "e2d0790389db1ec362866f83f1165baf"
+  },
+  {
+    "application_id": "357706468843061258",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "291410"
+      }
+    ],
+    "executables": [
+      {
+        "name": "duelyst.exe",
+        "os": "win32"
+      },
+      {
+        "name": "duelyst/duelyst.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "74338e0db00366abe92fb202fc37d70c",
+    "id": "374700620629803016",
+    "name": "Duelyst",
+    "splash": "f07b66b3c5d81ba1c31c7278f0b22c1e"
+  },
+  {
+    "application_id": "346729383693778944",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "370770"
+      }
+    ],
+    "executables": [
+      {
+        "name": "holodrive.exe",
+        "os": "win32"
+      },
+      {
+        "name": "holodrive/holodrive.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "24fd930bd5f53b79270da42770676087",
+    "id": "374700849798184980",
+    "name": "Holodrive",
+    "splash": "5b8a5da9d946e0ba4c7c7c6e6486e4d5"
+  },
+  {
+    "application_id": "360541292578471937",
+    "distributor_games": [
+      {
+        "distributor": "gog",
+        "sku": ""
+      },
+      {
+        "distributor": "steam",
+        "sku": "286000"
+      }
+    ],
+    "executables": [
+      {
+        "name": "toothandtail.exe",
+        "os": "win32"
+      },
+      {
+        "name": "toothandtail/toothandtail.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4df1e485e3e436321073b020f2632675",
+    "id": "374701078404530213",
+    "name": "Tooth and Tail",
+    "splash": "f4cab3cf5d48c707782f4091f15bc4ac"
+  },
+  {
+    "application_id": "343232907390746625",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "323850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "love.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win/love.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a2f62440ab2e5e6a9971b4c170551841",
+    "id": "374701592127078416",
+    "name": "Move or Die",
+    "publishers": [ "Those Awesome Guys" ],
+    "splash": "03f12f7e2982f66bb6f038c67374200c"
+  },
+  {
+    "application_id": "365200071941292033",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "296300"
+      }
+    ],
+    "executables": [
+      {
+        "name": "ballistic/ballisticoverkill.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4a85261c527b1002b26050a3710073b0",
+    "id": "374704525111590912",
+    "name": "Ballistic Overkill",
+    "splash": "1bb9d6747a03862ac42d660df9d00239"
+  },
+  {
+    "application_id": "348146938681622538",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "396900"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/grip-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "f524b8d55abf434d91148917f6b1ded6",
+    "id": "374705911358423048",
+    "name": "GRIP",
+    "splash": "9767329c1db56ac3aee9044f6ddb98a8"
+  },
+  {
+    "application_id": "349114016968474626",
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "588210"
+      }
+    ],
+    "executables": [
+      {
+        "name": "hellion/hellion.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "de17672f52c4bf0534f312c8c77ecaf4",
+    "id": "374706311394361375",
+    "name": "HELLION",
+    "splash": "dbdd0eb305217ba6b7885165099227f6"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "201810"
+      }
+    ],
+    "executables": [
+      {
+        "name": "wolfenstein.the.new.order/wolfneworder_x64.exe",
+        "os": "win32"
+      },
+      {
+        "name": "wolfneworder_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "171b5e8a353328351345dd6f77c84027",
+    "id": "376171871873400832",
+    "name": "Wolfenstein: The New Order",
+    "publishers": [ "Machine Games" ],
+    "splash": "35b8040dc89e64a386113430e713c10c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "447820"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dayofinfamy.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dayofinfamy/dayofinfamy.exe",
+        "os": "win32"
+      },
+      {
+        "name": "dayofinfamy/dayofinfamy_be.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "376180187806695462",
+    "name": "Day of Infamy",
+    "splash": "5c72d0711b3e8bcc35d1b539046772d3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "466240"
+      }
+    ],
+    "executables": [
+      {
+        "name": "deceit.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win_x64/deceit.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "2c76bb6a1f55bc9a3b70890c27c390e2",
+    "id": "376180386801123358",
+    "name": "Deceit",
+    "splash": "a7651c13637e529c971b6071ef461a23"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "262060"
+      }
+    ],
+    "executables": [
+      {
+        "name": "_windows/darkest.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5cc0dece8f3a151b90a9feb5b95613fa",
+    "id": "376180518749995028",
+    "name": "Darkest Dungeon",
+    "splash": "6ffd32f00bacaa079e8c461252db8b90"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "622650"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bendy and the ink machine/batim.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "376180724291731472",
+    "name": "Bendy and the Ink Machine",
+    "splash": "139e3ae77dd4f2088556880f43769af4"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "253230"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win64/hatintimegame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a34f2308482105cc89de3d5d49b2bbdc",
+    "id": "376180889010307072",
+    "name": "A Hat in Time",
+    "splash": "d231b54266384dca60ddeaf529cb0be9"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "346010"
+      }
+    ],
+    "executables": [
+      {
+        "name": "besiege/besiege.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "376181155868966912",
+    "name": "Besiege",
+    "splash": "4129ed095c9f7bbe59a26c35499f22f8"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "554620"
+      }
+    ],
+    "executables": [
+      {
+        "name": "life is strange - before the storm/life is strange - before the storm.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "376181248596508672",
+    "name": "Life is Strange: Before the Storm",
+    "splash": "6e7822a8038d56c686d13efa5beba060"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "446150"
+      }
+    ],
+    "executables": [
+      {
+        "name": "guns up/guns up.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": null,
+    "id": "376181312890863616",
+    "name": "GUNS UP!",
+    "splash": "1ec232a9a707627281fc5fa8f355d481"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "433850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "h1z1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "h1z1/h1z1.exe",
+        "os": "win32"
+      },
+      {
+        "name": "h1z1/launchpad.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "b09790c0ec1826b9f45ab8d00a467a1e",
+    "id": "385537545276096522",
+    "name": "H1Z1",
+    "publishers": [ "Daybreak Game Company" ],
+    "splash": "1453c838e2d55cf3e9a896ae212eb214"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "601510"
+      }
+    ],
+    "executables": [
+      {
+        "name": "yu-gi-oh! duel links/dlpc.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "058411edfa95229c6adb7d56d9d1e8ce",
+    "id": "385537699366305792",
+    "name": "Yu-Gi-Oh! Duel Links",
+    "publishers": [ "Konami Digital Entertainment" ],
+    "splash": "7de504c72487d0c5ce6ba7aff9979417"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "origin",
+        "sku": ""
+      }
+    ],
+    "executables": [
+      {
+        "name": "fifa 18/fifa18.exe",
+        "os": "win32"
+      },
+      {
+        "name": "fifa18.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "44158e013cb0382a3dc6cdb39c4c17b7",
+    "id": "385537854320934922",
+    "name": "FIFA 18",
+    "publishers": [ "Electronic Arts" ],
+    "splash": null
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "210770"
+      }
+    ],
+    "executables": [
+      {
+        "name": "sanctumgame-win32-shipping.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win32/sanctumgame-win32-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "7251bf5330014ca4eb46d3a5ced3a237",
+    "id": "385537957806866432",
+    "name": "Sanctum 2",
+    "publishers": [ "Coffee Stain Studios" ],
+    "splash": "653be3fc2bf2baee070d0a70094efe10"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "477160"
+      }
+    ],
+    "executables": [
+      {
+        "name": "human fall flat/human.exe",
+        "os": "win32"
+      },
+      {
+        "name": "human.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "48823134f097206949116832d82dfb28",
+    "id": "385538103831429120",
+    "name": "Human: Fall Flat",
+    "publishers": [ "No Brakes Games" ],
+    "splash": "0b385438b7e10da626821749ce76c42d"
+  },
+  {
+    "aliases": [ "Watch_Dogs" ],
+    "distributor_games": [
+      {
+        "distributor": "uplay",
+        "sku": "274"
+      }
+    ],
+    "executables": [
+      {
+        "name": "bin/watch_dogs.exe",
+        "os": "win32"
+      },
+      {
+        "name": "watch_dogs.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "3cc98009686d929bf7c7ad43d71069d0",
+    "id": "385538279090683924",
+    "name": "Watch Dogs",
+    "publishers": [ "Ubisoft" ],
+    "splash": "75a497f7e289c27702027a208d0babad"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "582160"
+      },
+      {
+        "distributor": "uplay",
+        "sku": "3539"
+      }
+    ],
+    "executables": [
+      {
+        "name": "acorigins.exe",
+        "os": "win32"
+      },
+      {
+        "name": "assassin's creed origins/acorigins.exe",
+        "os": "win32"
+      },
+      {
+        "name": "assassins creed origins/acorigins.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "841763b6a50ddd5dfbaa482932442e8d",
+    "id": "385538388419280896",
+    "name": "Assassin's Creed Origins",
+    "publishers": [ "Ubisoft", "Ubisoft Montreal" ],
+    "splash": "e8829ad35f8527704c7e1dc968e32aef"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "666220"
+      }
+    ],
+    "executables": [
+      {
+        "name": "cs2d/cs2d.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "9daed670e5f514926bd53029ffd7923b",
+    "id": "385538625221165056",
+    "name": "CS2D",
+    "publishers": [ "Unreal Software" ],
+    "splash": "5b1c629140366015c69afe03be328c51"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "612880"
+      }
+    ],
+    "executables": [
+      {
+        "name": "newcolossus_x64vk.exe",
+        "os": "win32"
+      },
+      {
+        "name": "wolfenstein.ii.the.new.colossus/newcolossus_x64vk.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "4c211769cf59a88924ec40fc64fe04f1",
+    "id": "385538682184269834",
+    "name": "Wolfenstein II: The New Colossus",
+    "publishers": [ "Machine Games" ],
+    "splash": "3d7275129192941c25f58690ea3b661c"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "221100"
+      }
+    ],
+    "executables": [
+      {
+        "name": "dayz/dayz_x64.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "cff0c274f3a4cf2c1280dab58268ce9d",
+    "id": "385538724592746496",
+    "name": "DayZ",
+    "publishers": [ "Bohemia Interactive" ],
+    "splash": "c94c6673d3bf8514f3f6a25b9e925c77"
+  },
+  {
+    "aliases": [ "Brütal Legend" ],
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "225260"
+      }
+    ],
+    "executables": [
+      {
+        "name": "brutallegend/brutallegend.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "8e046b53fec886afa586d92fc1538e70",
+    "id": "385538840162467860",
+    "name": "Brutal Legend",
+    "publishers": [ "Double Fine Productions" ],
+    "splash": "6be9c4f3702b60646e93c217eece0104"
+  },
+  {
+    "aliases": [ "Epic Games Launcher" ],
+    "executables": [
+      {
+        "name": "fortniteclient-win64-shipping.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "5b302d2dfb23216fba6c61868d5d1509",
+    "id": "385609297884741652",
+    "name": "Fortnite",
+    "publishers": [ "Epic Games, Inc." ],
+    "splash": "b82e4ce1bb3835f5adfd9a1e766844ae"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "612020"
+      }
+    ],
+    "executables": [
+      {
+        "name": "zombidle/zombidle.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "88973394f9d689f5f3ab566f864779fb",
+    "id": "387375748262002710",
+    "name": "Zombidle",
+    "splash": "950f308ab3b35f2e730c43060c0f4d9d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "346940"
+      }
+    ],
+    "executables": [
+      {
+        "name": "shadowrun hong kong/srhk.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "ff9aa1bbc83effac4815483f3305e08a",
+    "id": "387376045269057564",
+    "name": "Shadowrun: Hong Kong",
+    "publishers": [ "Harebrained Schemes" ],
+    "splash": "4615e01a3b9b0c799207ddfd098eb00d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "418460"
+      }
+    ],
+    "executables": [
+      {
+        "name": "vngame.exe",
+        "os": "win32"
+      },
+      {
+        "name": "win64/vngame.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "597ca0f397f33a1363eb8d5145a4b602",
+    "id": "387402304158040074",
+    "name": "Rising Storm 2: Vietnam",
+    "publishers": [ "Antimatter Games" ],
+    "splash": "1672622854c30fe554b982a621876320"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "65930"
+      }
+    ],
+    "executables": [
+      {
+        "name": "win32/thebureau.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "891baf3ef733d816b4d3fd65d45084bf",
+    "id": "387402716965634066",
+    "name": "The Bureau: XCOM Declassified",
+    "publishers": [ "2K Marin" ],
+    "splash": "e5fc9793b6ff96b97df6b0d7b0a3eed3"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "237310"
+      }
+    ],
+    "executables": [
+      {
+        "name": "elsword/elsword.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "c1e602d7c0ff6c284a17829a9e98e1e8",
+    "id": "387402920238383122",
+    "name": "Elsword",
+    "publishers": [ "KOG" ],
+    "splash": "c8b320c4bdd7d7505d794c568c11e4a0"
+  },
+  {
+    "executables": [
+      {
+        "name": "total war - rome 2/rome2.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "99a08d9d0e937a9342ca7dd971430140",
+    "id": "387403734080159763",
+    "name": "Total War: Rome 2",
+    "splash": "397d2b06d320130e425b851c377f7fe7"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "738060"
+      }
+    ],
+    "executables": [
+      {
+        "name": "freddy fazbear's pizzeria simulator/pizzeria simulator.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "d02b0db97edd80a1fe051bc71549eccf",
+    "id": "389964632527339534",
+    "name": "Freddy Fazbear's Pizzeria Simulator",
+    "publishers": [ "Scott Cawthon" ],
+    "splash": "6434f02c2954d524c82fb172a13683f5"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "240720"
+      }
+    ],
+    "executables": [
+      {
+        "name": "getting over it/gettingoverit.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "f61d2ad31d598449d3cb9aaaa4035f2c",
+    "id": "389968138688659466",
+    "name": "Getting Over It with Bennett Foddy",
+    "publishers": [ "Bennett Foddy" ],
+    "splash": "b78551e2f9cdc808b6e17a7f1076a1f9"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "209080"
+      }
+    ],
+    "executables": [
+      {
+        "name": "guns of icarus online/gunsoficarusonline.exe",
+        "os": "win32"
+      },
+      {
+        "name": "gunsoficarusonline.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "56b5c75edc1e27c056febccd706881e8",
+    "id": "390293569832878098",
+    "name": "Guns of Icarus Online",
+    "publishers": [ "Muse Games" ],
+    "splash": "cf02dfa0c1b9ab22c0ba6ee0eefd7524"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "608800"
+      }
+    ],
+    "executables": [
+      {
+        "name": "guns of icarus online/gunsoficarusonline.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "194108a95425cd9f52e56c13222fbadd",
+    "id": "390293932199772160",
+    "name": "Guns of Icarus Alliance",
+    "publishers": [ "Muse Games" ],
+    "splash": "c8ec7a7beedbe56595ad36f313479e39"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "612020"
+      }
+    ],
+    "executables": [
+      {
+        "name": "zombidle/zombidle.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "88973394f9d689f5f3ab566f864779fb",
+    "id": "393178973129015328",
+    "name": "Zombidle: REMONSTERED",
+    "publishers": [ "Berzerk Studio" ],
+    "splash": "950f308ab3b35f2e730c43060c0f4d9d"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "483850"
+      }
+    ],
+    "executables": [
+      {
+        "name": "gunsnboxes/gunsnboxes.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "febf8b97c4f09b673dfe8f41a00e5b8f",
+    "id": "393511930838515742",
+    "name": "Guns N' Boxes",
+    "publishers": [ "LightArrow Games" ],
+    "splash": "d8b488f691f6d9f70c4c667c4bb66515"
+  },
+  {
+    "distributor_games": [
+      {
+        "distributor": "steam",
+        "sku": "438100"
+      }
+    ],
+    "executables": [
+      {
+        "name": "vrchat/vrchat.exe",
+        "os": "win32"
+      }
+    ],
+    "icon": "a87dfe64fa914769f1c6cf37daa0a3d1",
+    "id": "398632010442211348",
+    "name": "VRChat",
+    "publishers": [ "VRChat Inc." ],
+    "splash": "a93eb36a39f180dcab448a053c3bfee9"
+  }
+]

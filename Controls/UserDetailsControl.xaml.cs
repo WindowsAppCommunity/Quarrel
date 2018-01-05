@@ -173,6 +173,43 @@ namespace Discord_UWP.Controls
             SendDM.Send += SendDirectMessage;
 
             GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+            Unloaded += UserDetailsControl_Unloaded;
+        }
+
+        private void UserDetailsControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+            Unloaded -= UserDetailsControl_Unloaded;
+        }
+
+        private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        try
+                {
+                    if (e.EventData.User.Id == DisplayedMember.User.Id)
+                    {
+                        if (e.EventData.Game.HasValue)
+                        {
+                            PlayingHeader.Visibility = Visibility.Visible;
+                            var game = e.EventData.Game.Value;
+                            richPresence.GameContent = game;
+                            richPresence.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            PlayingHeader.Visibility = Visibility.Collapsed;
+                            richPresence.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }
+                catch{ }
+            });
+          
         }
 
         private async void Gateway_UserNoteUpdated(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
