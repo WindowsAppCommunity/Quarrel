@@ -816,7 +816,7 @@ namespace Discord_UWP
 
                 HttpMultipartFormDataContent content = new HttpMultipartFormDataContent("---------------------------7e11a60110a78");
 
-                //content.Add(new HttpStringContent(message.Content), "content");
+                content.Add(new HttpStringContent(message.Content), "content");
                 content.Add(new HttpStringContent(Uri.EscapeUriString(JsonConvert.SerializeObject(message))), "payload_json");
                 //content.Add(new HttpStringContent(message.TTS.ToString()), "tts");
 
