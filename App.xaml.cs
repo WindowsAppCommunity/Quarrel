@@ -1172,6 +1172,7 @@ namespace Discord_UWP
                 App.Current.Resources["BlurpleTranslucent"] = new SolidColorBrush((Color)App.Current.Resources["BlurpleTranslucentColor"]);
                 App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor); //Set to system accent color
                 App.Current.Resources["BlurpleColor"] = accentColor; //Set to system accent color
+                App.Current.Resources["BlurpleColorTransparent"] = Color.FromArgb(0, accentColor.R, accentColor.G, accentColor.B);
             }
             else
             {
