@@ -27,6 +27,7 @@ using Discord_UWP.Managers;
 
 using GiphyAPI;
 using GiphyAPI.Models;
+using DiscordAPI.API.Game;
 
 namespace Discord_UWP
 {
@@ -1112,6 +1113,22 @@ namespace Discord_UWP
         {
             IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
             return await giphyService.Trending(limit, offset);
+        }
+        #endregion
+
+        #region Games
+        public static async Task<List<GameList>> GetGamelist()
+        {
+            try
+            {
+                IGameService gameservice = AuthenticatedRestFactory.GetGameService();
+                return await gameservice.GetGames();
+            }
+            catch (Exception exception)
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new List<GameList>();
         }
         #endregion
 

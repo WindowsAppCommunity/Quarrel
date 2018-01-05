@@ -42,6 +42,11 @@ namespace Discord_UWP.SubPages
         {
             CloseButton_Click(null, null);
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
+            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+            GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
+            GatewayManager.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
+            GatewayManager.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
         }
 
         private void NavAway_Completed(object sender, object e)
@@ -50,6 +55,7 @@ namespace Discord_UWP.SubPages
         }
 
         private SharedModels.UserProfile profile;
+        string userid;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -58,9 +64,11 @@ namespace Discord_UWP.SubPages
             {
                 profile = new SharedModels.UserProfile();
                 profile.User = (User)e.Parameter;
+                userid = profile.User.Id;
             }
             else if(e.Parameter is string)
             {
+                userid = (e.Parameter as string);
                 profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
             }
             else
@@ -104,6 +112,7 @@ namespace Discord_UWP.SubPages
                 NoteBox.Text = LocalState.Notes[profile.User.Id];
 
             GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
             GatewayManager.Gateway.RelationShipAdded += Gateway_RelationshipAdded;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
@@ -238,6 +247,23 @@ namespace Discord_UWP.SubPages
             }
             else
                 richPresence.Visibility = Visibility.Collapsed;
+        }
+
+        private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
+        {
+            if (e.EventData.User.Id == profile.User.Id)
+            {
+                if (e.EventData.Game.HasValue)
+                {
+                    var game = e.EventData.Game.Value;
+                    richPresence.GameContent = game;
+                    richPresence.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    richPresence.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
