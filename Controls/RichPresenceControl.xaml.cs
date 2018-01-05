@@ -162,5 +162,15 @@ namespace Discord_UWP.Controls
                 timer.Tick -= UpdateTimer;
             }
         }
+
+        private void Spectate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AskToJoin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

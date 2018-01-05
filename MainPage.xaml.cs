@@ -197,6 +197,8 @@ namespace Discord_UWP
         }
 
         bool DisableLoadingMessages;
+        bool AtBottom = false;
+        bool AtTop = false;
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (MessageList.Items.Count > 0)
@@ -1578,26 +1580,49 @@ namespace Discord_UWP
                         MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
             }
-         //   await Task.Delay(1500);
+            await Task.Delay(1500);
             DisableLoadingMessages = false;
+        }
+        private bool LastMessageIsLoaded()
+        {
+            try
+            {
+                var lastmessageid = (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id;
+                if (lastmessageid == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return true;
+            }
         }
         private async void LoadNewerMessages()
         {
-            var offset = MessageScrollviewer.VerticalOffset;
-            DisableLoadingMessages = true;
-            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
-            if (messages != null)
+            try
             {
-                foreach (var message in messages)
+                if (!LastMessageIsLoaded())
                 {
-                    MessageList.Items.Add(message);
-                    if(MessageList.Items.Count > 150)
-                        MessageList.Items.RemoveAt(0);
+                    var offset = MessageScrollviewer.VerticalOffset;
+                    DisableLoadingMessages = true;
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+                    if (messages != null)
+                    {
+                        foreach (var message in messages)
+                        {
+                            MessageList.Items.Add(message);
+                            if (MessageList.Items.Count > 150)
+                                MessageList.Items.RemoveAt(0);
+                        }
+                        
+                    }
+                    await Task.Delay(1500);
+                    MessageScrollviewer.ChangeView(0, offset, 1);
+                    DisableLoadingMessages = false;
                 }
-                MessageScrollviewer.ChangeView(0, offset, 1);
             }
-         //   await Task.Delay(1500);
-            DisableLoadingMessages = false;
+            catch {}
         }
         #endregion
 
