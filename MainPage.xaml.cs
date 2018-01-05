@@ -1580,7 +1580,7 @@ namespace Discord_UWP
                         MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
             }
-            await Task.Delay(1500);
+            await Task.Delay(1000);
             DisableLoadingMessages = false;
         }
         private bool LastMessageIsLoaded()
@@ -1617,7 +1617,7 @@ namespace Discord_UWP
                         }
                         
                     }
-                    await Task.Delay(1500);
+                    await Task.Delay(1000);
                     MessageScrollviewer.ChangeView(0, offset, 1);
                     DisableLoadingMessages = false;
                 }
