@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Navigation;
 using Windows.Gaming.Input;
 using Windows.Foundation.Metadata;
+using Windows.Foundation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -91,12 +92,6 @@ namespace Discord_UWP
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             //Setup MessageList infinite scroll
-            MessageScrollviewer = Common.GetScrollViewer(MessageList);
-            if (MessageScrollviewer != null)
-            {
-                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
-            }
-
 
 
             //Hook up the login Event
@@ -111,6 +106,59 @@ namespace Discord_UWP
             {
                 App_LoggingInHandlerAsync(null,null);
             }
+        }
+
+        private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            RefreshVisibilityIndicators();
+        }
+
+        bool prevshowabove = false;
+        bool prevshowbelow = false;
+        private void RefreshVisibilityIndicators()
+        {
+            bool showabove = false;
+            bool showbelow = false;
+
+            foreach (GuildManager.SimpleGuild sg in ServerList.Items)
+            {
+                if (sg.NotificationCount > 0)
+                {
+                    var pos = GetVisibilityPosition((ListViewItem)ServerList.ContainerFromItem(sg), ServerScrollviewer);
+                    if (pos == VisibilityPosition.Above)
+                        showabove = true;
+                    else if (pos == VisibilityPosition.Below)
+                        showbelow = true;
+                }
+            }
+            if (showabove && !prevshowabove)
+                NewAboveIndicator.Fade(1,200).Start();
+            else if(prevshowabove != showabove)
+                NewAboveIndicator.Fade(0, 200).Start();
+            if (showbelow && !prevshowbelow)
+                NewBelowIndicator.Fade(1, 200).Start();
+            else if(prevshowbelow != showbelow)
+                NewBelowIndicator.Fade(0, 200).Start();
+
+            prevshowbelow = showbelow;
+            prevshowabove = showabove;
+        }
+        enum VisibilityPosition { Visible, Above, Below, Hidden };
+        private VisibilityPosition GetVisibilityPosition(FrameworkElement element, FrameworkElement container)
+        {
+            if (element == null || container == null)
+                return VisibilityPosition.Hidden;
+
+            if (element.Visibility != Visibility.Visible)
+                return VisibilityPosition.Hidden;
+
+            Rect elementBounds = element.TransformToVisual(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
+            Rect containerBounds = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+            if (elementBounds.Bottom<4)
+                return VisibilityPosition.Above;
+            else if (elementBounds.Top>containerBounds.Bottom-32)
+                return VisibilityPosition.Below;
+            else return VisibilityPosition.Visible;
         }
 
         Stack<Tuple<string, string>> navigationHistory = new Stack<Tuple<string, string>>();
@@ -1508,8 +1556,9 @@ namespace Discord_UWP
                     //ShowBadge.Begin();
                     //BurgerNotificationCounter.Text = Fullcount.ToString();
                     //}
-
+                    RefreshVisibilityIndicators();
                 });
+
         }
 
         private async void LoadOlderMessages()
@@ -2131,6 +2180,15 @@ namespace Discord_UWP
         private void cmdBar_Closing(object sender, object e)
         {
             ChannelTopic.LineHeight = 24;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (MessageScrollviewer != null)
+            {
+                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
         }
     }
 }
