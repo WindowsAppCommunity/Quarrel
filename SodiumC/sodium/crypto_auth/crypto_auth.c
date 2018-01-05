@@ -1,6 +1,6 @@
 
-#include "crypto_auth.h"
-#include "randombytes.h"
+#include "sodium/crypto_auth.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_auth_bytes(void)

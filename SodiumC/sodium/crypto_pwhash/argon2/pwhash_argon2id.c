@@ -7,10 +7,10 @@
 
 #include "argon2-core.h"
 #include "argon2.h"
-#include "crypto_pwhash_argon2id.h"
-#include "private/common.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/crypto_pwhash_argon2id.h"
+#include "sodium/private/common.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
 #define STR_HASHBYTES 32U
 

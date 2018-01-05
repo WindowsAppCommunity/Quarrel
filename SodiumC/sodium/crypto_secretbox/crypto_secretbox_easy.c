@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "core.h"
-#include "crypto_core_hsalsa20.h"
-#include "crypto_onetimeauth_poly1305.h"
-#include "crypto_secretbox.h"
-#include "crypto_stream_salsa20.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_core_hsalsa20.h"
+#include "sodium/crypto_onetimeauth_poly1305.h"
+#include "sodium/crypto_secretbox.h"
+#include "sodium/crypto_stream_salsa20.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 int
 crypto_secretbox_detached(unsigned char *c, unsigned char *mac,

@@ -1,6 +1,6 @@
 
-#include "crypto_kdf.h"
-#include "randombytes.h"
+#include "sodium/crypto_kdf.h"
+#include "sodium/randombytes.h"
 
 const char *
 crypto_kdf_primitive(void)

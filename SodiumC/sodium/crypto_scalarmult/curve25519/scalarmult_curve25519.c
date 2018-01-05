@@ -1,8 +1,8 @@
 
-#include "crypto_scalarmult_curve25519.h"
-#include "private/implementations.h"
+#include "sodium/crypto_scalarmult_curve25519.h"
+#include "sodium/private/implementations.h"
 #include "scalarmult_curve25519.h"
-#include "runtime.h"
+#include "sodium/runtime.h"
 
 #ifdef HAVE_AVX_ASM
 # include "sandy2x/curve25519_sandy2x.h"

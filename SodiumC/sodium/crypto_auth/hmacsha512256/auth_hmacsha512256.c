@@ -3,12 +3,12 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "crypto_auth_hmacsha512.h"
-#include "crypto_auth_hmacsha512256.h"
-#include "crypto_hash_sha512.h"
-#include "crypto_verify_32.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/crypto_auth_hmacsha512.h"
+#include "sodium/crypto_auth_hmacsha512256.h"
+#include "sodium/crypto_hash_sha512.h"
+#include "sodium/crypto_verify_32.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
 size_t
 crypto_auth_hmacsha512256_bytes(void)

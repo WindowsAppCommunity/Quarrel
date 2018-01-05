@@ -32,7 +32,7 @@
 
 #include <sys/types.h>
 
-#include "crypto_auth_hmacsha256.h"
+#include "sodium/crypto_auth_hmacsha256.h"
 
 /**
  * PBKDF2_SHA256(passwd, passwdlen, salt, saltlen, c, buf, dkLen):

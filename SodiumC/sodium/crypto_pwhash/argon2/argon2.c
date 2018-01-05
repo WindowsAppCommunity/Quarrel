@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "utils.h"
+#include "sodium/utils.h"
 
 #include "argon2-core.h"
 #include "argon2-encoding.h"

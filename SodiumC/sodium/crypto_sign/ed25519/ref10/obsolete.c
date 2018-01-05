@@ -3,12 +3,12 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "crypto_hash_sha512.h"
-#include "crypto_sign_edwards25519sha512batch.h"
-#include "crypto_verify_32.h"
-#include "private/ed25519_ref10.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/crypto_hash_sha512.h"
+#include "sodium/crypto_sign_edwards25519sha512batch.h"
+#include "sodium/crypto_verify_32.h"
+#include "sodium/private/ed25519_ref10.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
 int
 crypto_sign_edwards25519sha512batch_keypair(unsigned char *pk,

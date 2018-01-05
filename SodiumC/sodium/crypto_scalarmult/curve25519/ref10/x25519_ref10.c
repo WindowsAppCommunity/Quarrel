@@ -3,9 +3,9 @@
 #include <stdint.h>
 
 #include "../scalarmult_curve25519.h"
-#include "export.h"
-#include "private/ed25519_ref10.h"
-#include "utils.h"
+#include "sodium/export.h"
+#include "sodium/private/ed25519_ref10.h"
+#include "sodium/utils.h"
 #include "x25519_ref10.h"
 
 /*

@@ -7,8 +7,8 @@ Public domain.
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "crypto_core_hsalsa20.h"
-#include "private/common.h"
+#include "sodium/crypto_core_hsalsa20.h"
+#include "sodium/private/common.h"
 
 #define ROUNDS 20
 #define U32C(v) (v##U)

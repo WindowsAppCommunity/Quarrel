@@ -1,6 +1,6 @@
 
-#include "crypto_stream.h"
-#include "randombytes.h"
+#include "sodium/crypto_stream.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_stream_keybytes(void)

@@ -1,5 +1,5 @@
 
-#include "crypto_sign.h"
+#include "sodium/crypto_sign.h"
 
 size_t
 crypto_sign_statebytes(void)

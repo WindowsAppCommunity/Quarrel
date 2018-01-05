@@ -1,6 +1,6 @@
 
-#include "crypto_secretbox.h"
-#include "randombytes.h"
+#include "sodium/crypto_secretbox.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_secretbox_keybytes(void)

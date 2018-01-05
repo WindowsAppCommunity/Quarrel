@@ -1,5 +1,5 @@
 
-#include "crypto_scalarmult.h"
+#include "sodium/crypto_scalarmult.h"
 
 const char *
 crypto_scalarmult_primitive(void)

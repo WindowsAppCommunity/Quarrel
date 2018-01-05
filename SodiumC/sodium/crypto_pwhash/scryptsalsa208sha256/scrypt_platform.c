@@ -25,7 +25,7 @@
 #include <stdlib.h>
 
 #include "crypto_scrypt.h"
-#include "runtime.h"
+#include "sodium/runtime.h"
 
 #if !defined(MAP_ANON) && defined(MAP_ANONYMOUS)
 # define MAP_ANON MAP_ANONYMOUS

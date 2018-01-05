@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "crypto_generichash_blake2b.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/crypto_generichash_blake2b.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 #include "blake2b-long.h"
 

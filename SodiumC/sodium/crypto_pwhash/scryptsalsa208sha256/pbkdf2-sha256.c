@@ -31,12 +31,12 @@
 
 #include <sys/types.h>
 
-#include "core.h"
-#include "crypto_auth_hmacsha256.h"
-#include "crypto_pwhash_scryptsalsa208sha256.h"
+#include "sodium/core.h"
+#include "sodium/crypto_auth_hmacsha256.h"
+#include "sodium/crypto_pwhash_scryptsalsa208sha256.h"
 #include "pbkdf2-sha256.h"
-#include "private/common.h"
-#include "utils.h"
+#include "sodium/private/common.h"
+#include "sodium/utils.h"
 
 /**
  * PBKDF2_SHA256(passwd, passwdlen, salt, saltlen, c, buf, dkLen):

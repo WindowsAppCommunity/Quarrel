@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "crypto_stream_salsa20.h"
-#include "private/common.h"
-#include "private/sse2_64_32.h"
-#include "utils.h"
+#include "sodium/crypto_stream_salsa20.h"
+#include "sodium/private/common.h"
+#include "sodium/private/sse2_64_32.h"
+#include "sodium/utils.h"
 
 #if defined(HAVE_AVX2INTRIN_H) && defined(HAVE_EMMINTRIN_H) && \
     defined(HAVE_TMMINTRIN_H) && defined(HAVE_SMMINTRIN_H)

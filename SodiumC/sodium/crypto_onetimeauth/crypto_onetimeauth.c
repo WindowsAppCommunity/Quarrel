@@ -1,6 +1,6 @@
 
-#include "crypto_onetimeauth.h"
-#include "randombytes.h"
+#include "sodium/crypto_onetimeauth.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_onetimeauth_statebytes(void)

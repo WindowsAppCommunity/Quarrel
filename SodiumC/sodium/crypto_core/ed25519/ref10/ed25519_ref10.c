@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "crypto_verify_32.h"
-#include "private/common.h"
-#include "private/ed25519_ref10.h"
-#include "utils.h"
+#include "sodium/crypto_verify_32.h"
+#include "sodium/private/common.h"
+#include "sodium/private/ed25519_ref10.h"
+#include "sodium/utils.h"
 
 static inline uint64_t
 load_3(const unsigned char *in)

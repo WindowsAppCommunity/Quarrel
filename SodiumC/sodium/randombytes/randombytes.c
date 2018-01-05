@@ -10,19 +10,19 @@
 # include <emscripten.h>
 #endif
 
-#include "core.h"
-#include "crypto_stream_chacha20.h"
-#include "randombytes.h"
+#include "sodium/core.h"
+#include "sodium/crypto_stream_chacha20.h"
+#include "sodium/randombytes.h"
 #ifdef RANDOMBYTES_DEFAULT_IMPLEMENTATION
-# include "randombytes_default.h"
+# include "sodium/randombytes_default.h"
 #else
 # ifdef __native_client__
-#  include "randombytes_nativeclient.h"
+#  include "sodium/randombytes_nativeclient.h"
 # else
-#  include "randombytes_sysrandom.h"
+#  include "sodium/randombytes_sysrandom.h"
 # endif
 #endif
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 /* C++Builder defines a "random" macro */
 #undef random

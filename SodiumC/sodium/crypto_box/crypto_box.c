@@ -1,5 +1,5 @@
 
-#include "crypto_box.h"
+#include "sodium/crypto_box.h"
 
 size_t
 crypto_box_seedbytes(void)

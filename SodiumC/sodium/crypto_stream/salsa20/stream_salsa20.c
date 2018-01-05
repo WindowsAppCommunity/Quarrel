@@ -1,8 +1,8 @@
-#include "crypto_stream_salsa20.h"
-#include "private/common.h"
-#include "private/implementations.h"
-#include "randombytes.h"
-#include "runtime.h"
+#include "sodium/crypto_stream_salsa20.h"
+#include "sodium/private/common.h"
+#include "sodium/private/implementations.h"
+#include "sodium/randombytes.h"
+#include "sodium/runtime.h"
 #include "stream_salsa20.h"
 
 #ifdef HAVE_AMD64_ASM

@@ -4,15 +4,15 @@
 #include <limits.h>
 #include <string.h>
 
-#include "core.h"
-#include "crypto_aead_chacha20poly1305.h"
-#include "crypto_onetimeauth_poly1305.h"
-#include "crypto_stream_chacha20.h"
-#include "crypto_verify_16.h"
-#include "randombytes.h"
-#include "utils.h"
+#include "sodium/core.h"
+#include "sodium/crypto_aead_chacha20poly1305.h"
+#include "sodium/crypto_onetimeauth_poly1305.h"
+#include "sodium/crypto_stream_chacha20.h"
+#include "sodium/crypto_verify_16.h"
+#include "sodium/randombytes.h"
+#include "sodium/utils.h"
 
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 static const unsigned char _pad0[16] = { 0 };
 

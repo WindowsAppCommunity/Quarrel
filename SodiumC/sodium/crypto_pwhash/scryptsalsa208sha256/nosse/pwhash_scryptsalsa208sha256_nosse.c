@@ -36,7 +36,7 @@
 
 #include "../crypto_scrypt.h"
 #include "../pbkdf2-sha256.h"
-#include "private/common.h"
+#include "sodium/private/common.h"
 
 static inline void
 blkcpy_64(escrypt_block_t *dest, const escrypt_block_t *src)

@@ -1,5 +1,5 @@
-#include "crypto_stream_salsa208.h"
-#include "randombytes.h"
+#include "sodium/crypto_stream_salsa208.h"
+#include "sodium/randombytes.h"
 
 size_t
 crypto_stream_salsa208_keybytes(void)
