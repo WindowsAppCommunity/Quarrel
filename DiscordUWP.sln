@@ -19,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateNotificationTask", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiphyAPI", "GiphyAPI\GiphyAPI.csproj", "{CF993DF8-E392-44B4-AFA7-4DA1750D24F2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Salsa20", "Salsa20\Salsa20.vcxproj", "{1A0FE401-F58A-46D7-A692-AECA0F934E1C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Runtime", "Runtime\Runtime.vcxproj", "{1A0FE401-F58A-46D7-A692-AECA0F934E1C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SodiumC", "SodiumC\SodiumC.vcxproj", "{E7AC7946-CA02-4DD6-A168-37AC806F9E18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,12 +133,26 @@ Global
 		{1A0FE401-F58A-46D7-A692-AECA0F934E1C}.Release|x64.Build.0 = Release|x64
 		{1A0FE401-F58A-46D7-A692-AECA0F934E1C}.Release|x86.ActiveCfg = Release|Win32
 		{1A0FE401-F58A-46D7-A692-AECA0F934E1C}.Release|x86.Build.0 = Release|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|ARM.ActiveCfg = Debug|ARM
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|ARM.Build.0 = Debug|ARM
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|x64.ActiveCfg = Debug|x64
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|x64.Build.0 = Debug|x64
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|x86.ActiveCfg = Debug|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Debug|x86.Build.0 = Debug|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|ARM.ActiveCfg = Release|ARM
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|ARM.Build.0 = Release|ARM
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x64.ActiveCfg = Release|x64
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x64.Build.0 = Release|x64
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x86.ActiveCfg = Release|Win32
+		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
+		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
 	EndGlobalSection
 EndGlobal

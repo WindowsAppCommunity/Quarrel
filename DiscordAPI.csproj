@@ -242,9 +242,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Salsa20\Salsa20.vcxproj">
+    <ProjectReference Include="Runtime\Runtime.vcxproj">
       <Project>{1a0fe401-f58a-46d7-a692-aeca0f934e1c}</Project>
-      <Name>Salsa20</Name>
+      <Name>Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
