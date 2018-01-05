@@ -135,11 +135,11 @@ namespace Discord_UWP
                 }
             }
             if (showabove && !prevshowabove)
-                NewAboveIndicator.Fade(1,200).Start();
+                NewAboveIndicator.Fade(0.8f,200).Start();
             else if(prevshowabove != showabove)
                 NewAboveIndicator.Fade(0, 200).Start();
             if (showbelow && !prevshowbelow)
-                NewBelowIndicator.Fade(1, 200).Start();
+                NewBelowIndicator.Fade(0.8f, 200).Start();
             else if(prevshowbelow != showbelow)
                 NewBelowIndicator.Fade(0, 200).Start();
 

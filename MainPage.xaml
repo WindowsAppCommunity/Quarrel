@@ -1078,22 +1078,7 @@
                 <controls:SideDrawer x:Name="sideDrawer">
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
-                            <Rectangle x:Name="NewAboveIndicator" Opacity="0"  Height="64" IsHitTestVisible="False" VerticalAlignment="Top">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0" Color="{ThemeResource BlurpleColor}"/>
-                                        <GradientStop Offset="1" Color="#00000000"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <Rectangle x:Name="NewBelowIndicator" Opacity="0" Height="64" IsHitTestVisible="False" VerticalAlignment="Bottom">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="1" Color="{ThemeResource BlurpleColor}"/>
-                                        <GradientStop Offset="0" Color="#00000000"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
+
                             <ScrollViewer x:Name="ServerScrollviewer"  VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed" ViewChanged="ServerScrollviewer_ViewChanged">
                                 <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True"
                                           XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection">
@@ -1122,6 +1107,22 @@
                                     
                                 </ListView>
                             </ScrollViewer>
+                            <Rectangle x:Name="NewAboveIndicator" Opacity="0" Height="72" IsHitTestVisible="False" VerticalAlignment="Top">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="{ThemeResource BlurpleColor}"/>
+                                        <GradientStop Offset="1" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="NewBelowIndicator" Opacity="0" Height="72" IsHitTestVisible="False" VerticalAlignment="Bottom">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="1" Color="{ThemeResource BlurpleColor}"/>
+                                        <GradientStop Offset="0" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
                             <Rectangle IsHitTestVisible="False" Width="12" HorizontalAlignment="Right" Opacity="{StaticResource ShadowOpacity}">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
