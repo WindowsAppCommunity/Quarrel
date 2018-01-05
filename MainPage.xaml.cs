@@ -5,12 +5,10 @@ using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.Store;
 using Windows.ApplicationModel.Background;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
@@ -22,11 +20,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Composition;
-using Windows.UI;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Navigation;
-using Windows.Gaming.Input;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
 
@@ -55,7 +49,7 @@ namespace Discord_UWP
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
 
-        public void Setup(object o, EventArgs args)
+        public async void Setup(object o, EventArgs args)
         {
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -109,6 +103,8 @@ namespace Discord_UWP
             {
                 App_LoggingInHandlerAsync(null,null);
             }
+
+            LocalState.SupportedGames = await RESTCalls.GetGamelist();
         }
 
         private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)

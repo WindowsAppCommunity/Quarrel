@@ -1,4 +1,5 @@
 ﻿using Discord_UWP.SharedModels;
+using DiscordAPI.API.Game;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,6 +68,12 @@ namespace Discord_UWP.Controls
         {
             if (prop == GameContentProperty)
             {
+                SmallimgRect.RadiusX = 10;
+                SmallimgRect.RadiusY = 10;
+                SmallimgRect.Width = 20;
+                SmallimgRect.Height = 20;
+                SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
+
                 var game = GameContent;
                 //Game title
                 if(game.Name != null)          
@@ -120,6 +127,47 @@ namespace Discord_UWP.Controls
                     if (game.Assets.Value.SmallImage != null)
                         ToolTipService.SetToolTip(SmallimgRect, game.Assets.Value.SmallText);
                 }
+                else if(game.Name != null)
+                {
+                   
+                    GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Name);
+                    if(!gli.HasValue)
+                        gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.ApplicationId);
+                    if (gli.HasValue)
+                    {
+                        if (gli.Value.Splash != null) {
+                            Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
+                            if (gli.Value.Icon != null)
+                            {
+                                Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
+                                SmallimgRect.RadiusX = 4;
+                                SmallimgRect.RadiusY = 4;
+                                SmallimgRect.Width = 24;
+                                SmallimgRect.Height = 24;
+                                SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
+                            }
+                                
+                            else
+                                SmallimgRect.Visibility = Visibility.Collapsed;
+                        }
+                        else if(gli.Value.Icon != null)
+                        {
+                            Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id,true, ""));
+                        }
+                        else
+                        {
+                            LargeImgRect.Visibility = Visibility.Collapsed;
+                            SmallimgRect.Visibility = Visibility.Collapsed;
+                        }
+                        
+                    }
+                    else
+                    {
+                        LargeImgRect.Visibility = Visibility.Collapsed;
+                        SmallimgRect.Visibility = Visibility.Collapsed;
+                    }
+
+                }
                 else
                 {
                     LargeImgRect.Visibility = Visibility.Collapsed;
@@ -144,9 +192,11 @@ namespace Discord_UWP.Controls
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
             }
         }
-        public Uri GetImageLink(string id, string gameid)
+        public Uri GetImageLink(string id, string gameid, bool game = false, string append = "?size=512")
         {
-            return new Uri("https://cdn.discordapp.com/app-assets/" + gameid + "/" + id + ".png?size=512");
+            string type = "app";
+            if (game) type = "game";
+            return new Uri("https://cdn.discordapp.com/"+type+"-assets/" + gameid + "/" + id + ".png"+append);
         }
         public RichPresenceControl()
         {

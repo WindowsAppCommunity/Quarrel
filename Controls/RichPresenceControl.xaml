@@ -22,7 +22,7 @@
         <Grid>
             <Rectangle x:Name="LargeImgRect" Width="58" Height="58" RadiusX="4" RadiusY="4" Margin="0,0,10,0">
                 <Rectangle.Fill>
-                    <ImageBrush x:Name="Largeimg"/>
+                    <ImageBrush x:Name="Largeimg" Stretch="UniformToFill"/>
                 </Rectangle.Fill>
             </Rectangle>
 
