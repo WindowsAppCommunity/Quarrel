@@ -41,11 +41,6 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class MessageControl : UserControl
     {
-        /*<summary>
-        Fired when a link element in the markdown was tapped.
-        </summary>*/
-
-        //public event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
 
         //Is the more button visible?
         public Visibility MoreButtonVisibility
@@ -217,7 +212,10 @@ namespace Discord_UWP.Controls
                     if (rootGrid.Children.Contains(advert))
                         rootGrid.Children.Remove(advert);
                     advert = null;
-                    VisualStateManager.GoToState(this, "VisualState", false);
+                    if (IsContinuation)
+                        VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+                    else
+                        VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
                 }
             }
             if (prop == MessageProperty)
@@ -415,6 +413,11 @@ namespace Discord_UWP.Controls
         }
         public void UpdateMessage()
         {
+            if (rootGrid.Children.Contains(advert))
+                rootGrid.Children.Remove(advert);
+            advert = null;
+            if (rootGrid.Children.Contains(reactionView))
+                rootGrid.Children.Remove(reactionView);
             if (Message.HasValue)
             {
                 messageid = Message.Value.Id;
@@ -592,7 +595,6 @@ namespace Discord_UWP.Controls
             }
             StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal };
             string serversideEmoji = null;
-            Debug.WriteLine(reaction.Emoji.Name);
             if (!App.CurrentGuildIsDM)
             {
                 if (LocalState.Guilds[App.CurrentGuildId].Raw.Emojis != null)

@@ -15,6 +15,10 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid>
             <Rectangle x:Name="LargeImgRect" Width="58" Height="58" RadiusX="4" RadiusY="4" Margin="0,0,10,0">
                 <Rectangle.Fill>
@@ -38,5 +42,10 @@
                 <TextBlock x:Name="TimeTB" FontSize="11" Opacity="0.6"/>
             </StackPanel>
         </Grid>
+        <!--
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="1">
+            <Button x:Name="Spectate" Content="Spectate" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Click="Spectate_Click"/>
+            <Button x:Name="AskToJoin" Content="Ask to join" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Click="AskToJoin_Click"/>
+        </StackPanel>-->
     </Grid>
 </UserControl>
