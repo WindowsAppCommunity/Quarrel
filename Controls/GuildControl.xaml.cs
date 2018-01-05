@@ -172,6 +172,8 @@ namespace Discord_UWP.Controls
                 if (ImageUrl != "empty" && ImageUrl != "")
                 {
                     GuildImageBrush.ImageSource = new BitmapImage(new Uri(ImageUrl));
+                    TextIcon.Text = "";
+                    TextIcon.Visibility = Visibility.Collapsed;
                 }
                 else if (ImageUrl == "empty")
                 {
