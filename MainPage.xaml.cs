@@ -1,6 +1,7 @@
 ﻿using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
+using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using Windows.ApplicationModel.Background;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -41,6 +43,7 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             sideDrawer.SetupInteraction(ChannelHeader);
@@ -1635,7 +1638,29 @@ namespace Discord_UWP
                          App.NavigateToAbout(true);
                      }
                      Loading.Hide(true);
+                     if (Storage.Settings.VideoAd)
+                     {
+                         InterstitialAd videoAd = new InterstitialAd();
+                         videoAd.AdReady += VideoAd_AdReady;
+                         videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
+                         videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
+                     }
                  });
+        }
+
+        private void VideoAd_AdReady(object sender, object e)
+        {
+            (sender as InterstitialAd).Show();
+        }
+
+        private async void VideoAd_ErrorOccurred(object sender, AdErrorEventArgs e)
+        {
+            Storage.Settings.VideoAd = false;
+            Storage.SettingsChanged();
+            Storage.SaveAppSettings();
+
+            MessageDialog msg = new MessageDialog("Couldn't find a video ad to show, showing banner ads");
+            await msg.ShowAsync();
         }
 
         private async void App_TypingHandler(object sender, App.TypingArgs e)
