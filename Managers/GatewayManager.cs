@@ -534,7 +534,7 @@ namespace Discord_UWP.Managers
             //TODO: Deal with guild outages
             if (LocalState.Guilds.ContainsKey(e.EventData.GuildId))
             {
-                
+                App.GuildDeleted(e.EventData.GuildId);
             }
         }
         private static void Gateway_GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
@@ -562,7 +562,7 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
         {
-            if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
+            if (LocalState.Guilds.ContainsKey(e.EventData.guildId) && LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
             {
                 LocalState.Guilds[e.EventData.guildId].members.Remove(e.EventData.User.Id);
             }

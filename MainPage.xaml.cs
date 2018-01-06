@@ -282,22 +282,25 @@ namespace Discord_UWP
             
         }
 
-        private void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
+        private async void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
         {
-            
-            foreach(GuildManager.SimpleGuild guild in ServerList.Items)
-            {
-                if(guild.Id == e.GuildId)
-                {
-                    if (App.CurrentGuildId == e.GuildId)
-                        ServerList.SelectedIndex = 0;
-                    
-                    ServerList.Items.Remove(guild);
-                    if (LocalState.Guilds.ContainsKey(e.GuildId))
-                        LocalState.Guilds.Remove(e.GuildId);
-                    break;
-                }
-            }
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                               () =>
+                               {
+                                   foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                                   {
+                                       if (guild.Id == e.GuildId)
+                                       {
+                                           if (App.CurrentGuildId == e.GuildId)
+                                               ServerList.SelectedIndex = 0;
+
+                                           ServerList.Items.Remove(guild);
+                                           if (LocalState.Guilds.ContainsKey(e.GuildId))
+                                               LocalState.Guilds.Remove(e.GuildId);
+                                           break;
+                                       }
+                                   }
+                               });
         }
 
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
@@ -929,13 +932,14 @@ namespace Discord_UWP
                     if (item.Id == val)
                     {
                         ChannelList.SelectedItem = item;
-                        ChannelList_ItemClick(null, null);
+                        ChannelList_SelectionChanged(null, null);
                     }
                 }
             }
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
+               
                 App.NavigateToProfile(LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else if (e.Link.StartsWith("@&"))
@@ -2255,6 +2259,11 @@ namespace Discord_UWP
             {
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             }
+        }
+
+        private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            App.ShowMemberFlyout(sender, ((KeyValuePair<string,Member>)e.ClickedItem).Value.Raw.User);
         }
     }
 }
