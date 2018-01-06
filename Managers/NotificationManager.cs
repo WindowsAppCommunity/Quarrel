@@ -21,11 +21,23 @@ namespace Discord_UWP.Managers
         {
             TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
             bool muted = false;
+            string ChnGldName = String.Empty;
             foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
             {
-                if (guild.channels.ContainsKey(message.ChannelId) && LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                if (guild.channels.ContainsKey(message.ChannelId))
                 {
-                    muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
+                    ChnGldName = guild.Raw.Name + " - #" + guild.channels[message.ChannelId].raw.Name;
+                    if (LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                    {
+                        muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
+                    }
+                }
+            }
+            foreach (var dm in LocalState.DMs.Values)
+            {
+                if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
+                {
+                    ChnGldName = dm.Name;
                 }
             }
 
@@ -129,6 +141,7 @@ namespace Discord_UWP.Managers
                     count += chn.MentionCount;
                 }
                 SendBadgeNotification(count);
+                UpdateDetailedStatus(message, ChnGldName);
                 #endregion
             }
         }
@@ -167,6 +180,49 @@ namespace Discord_UWP.Managers
             tileXml.LoadXml(payload);
             var badgeNotification = new TileNotification(tileXml);
             TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
+        }
+
+        public static void UpdateDetailedStatus(Message message, string name)
+        {
+            TileContent content = new TileContent()
+            {
+                Visual = new TileVisual()
+                {
+                    LockDetailedStatus1 = message.User.Username,
+                    LockDetailedStatus2 = name,
+                    LockDetailedStatus3 = message.Content,
+
+                    TileWide = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Text = message.User.Username,
+                                    HintStyle = AdaptiveTextStyle.Caption
+                                },
+
+                                new AdaptiveText()
+                                {
+                                    Text = name,
+                                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                },
+
+                                new AdaptiveText()
+                                {
+                                    Text = message.Content,
+                                    HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                }
+                            }
+                        }
+                    },
+                }
+            };
+
+            var tileNotification = new TileNotification(content.GetXml());
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotification);
         }
 
         public enum BadgeGlyph
