@@ -22,15 +22,18 @@ namespace Discord_UWP.Managers
             TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
             bool muted = false;
             string ChnGldName = String.Empty;
+            string ChnName = String.Empty;
             foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
             {
                 if (guild.channels.ContainsKey(message.ChannelId))
                 {
-                    ChnGldName = guild.Raw.Name + " - #" + guild.channels[message.ChannelId].raw.Name;
+                    ChnName = guild.channels[message.ChannelId].raw.Name;
+                    ChnGldName = guild.Raw.Name + " - #" + ChnName;
                     if (LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
                     {
                         muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
                     }
+                    break;
                 }
             }
             foreach (var dm in LocalState.DMs.Values)
@@ -38,6 +41,7 @@ namespace Discord_UWP.Managers
                 if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
                 {
                     ChnGldName = dm.Name;
+                    break;
                 }
             }
 
@@ -46,8 +50,7 @@ namespace Discord_UWP.Managers
                 try //Because sometimes the intitialization of toastTitle throws an unknown exception
                 {
                     #region CreateContent
-                    string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" +
-                        LocalState.Guilds.FirstOrDefault(x => x.Value.channels.ContainsKey(message.ChannelId)).Value.channels[message.ChannelId].raw.Name;
+                    string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
                     string content = message.Content;
                     string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
                     string conversationId = message.ChannelId;
