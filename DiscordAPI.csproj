@@ -212,6 +212,7 @@
     <Compile Include="Voice\DownstreamEvents\VoiceData.cs" />
     <Compile Include="Voice\EventNames.cs" />
     <Compile Include="Voice\OperationCode.cs" />
+    <Compile Include="Voice\Sodium.cs" />
     <Compile Include="Voice\UpstreamEvents\Identify.cs" />
     <Compile Include="Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="Voice\UpstreamEvents\Speak.cs" />
