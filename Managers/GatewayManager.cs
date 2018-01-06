@@ -398,7 +398,7 @@ namespace Discord_UWP.Managers
                 ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
                 LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
             }
-            catch (Exception) { }
+            catch { }
              App.UpdateUnreadIndicators();
         }
         #endregion
