@@ -738,5 +738,8 @@
     <ClInclude Include="sodium\crypto_scalarmult\curve25519\ref10\x25519_ref10.h">
       <Filter>Header Files\sodium</Filter>
     </ClInclude>
+    <ClInclude Include="sodium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

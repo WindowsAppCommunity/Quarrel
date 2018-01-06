@@ -1,20 +1,20 @@
 ﻿#include "pch.h"
+#include "sodium.h"
 
 #define SodiumC_EXPORTS  
-#ifdef SodiumC_EXPORTS  
-#define SodiumC_API __declspec(dllexport)  
-#else  
-#define TRADITIONALDLL_API __declspec(dllimport)  
-#endif 
-//TODO: Basic function call
+#define SodiumC_API __declspec(dllexport)
 
-extern "C" {
-	SodiumC_API int add(int a, int b);
+bool initialize() {
+	if (sodium_init() == -1) {
+		return false;
+	}
+	return true;
 }
 
- int add(int a, int b) {
-	return a + b;
-}
+//void decodeFrame(UINT8 packet[], UINT8 nonce[]) {
+//
+//	int error = crypto_secretbox_easy()
+//}
 
 //BOOL APIENTRY DllMain(HMODULE /* hModule */, DWORD ul_reason_for_call, LPVOID /* lpReserved */)
 //{
