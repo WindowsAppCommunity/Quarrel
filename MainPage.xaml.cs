@@ -1377,16 +1377,15 @@ namespace Discord_UWP
             {
                 var typer = LocalState.Typers.ElementAt(i);
 
-                try
+                for (int channelNb = 0; i < ChannelList.Items.Count; i++)
                 {
-                    (ChannelList.Items.FirstOrDefault(
-                            x => (x as ChannelManager.SimpleChannel).Id == typer.Key.channelId) as ChannelManager.SimpleChannel)
-                        .IsTyping = true;
+                    if(((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).Id == typer.Key.channelId)
+                    {
+                        ((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).IsTyping = true;
+                        break;
+                    }
                 }
-                catch /*(Exception exception)*/
-                {
-                    //App.NavigateToBugReport(exception);
-                }
+
                 if (App.CurrentChannelId != null)
                 {
                     if (App.CurrentGuildIsDM)
