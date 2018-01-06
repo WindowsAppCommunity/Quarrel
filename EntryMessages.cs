@@ -36,7 +36,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 88))
+            switch (rand.Next(0, 89))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -115,6 +115,7 @@ namespace Discord_UWP
                 case 86: return kvp("Maximizing Hype", "@Civiled#1713");
                 case 87: return kvp("Preparing the Men", "@Civiled#1713");
                 case 88: return kvp("Everytime you ask, it becomes a little longer");
+                case 89: return kvp("And also with you", "John Mulaney");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
