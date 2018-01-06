@@ -175,7 +175,6 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                     break;
                 }
             }
-            Debug.WriteLine("mention type=" + type);
             if (pos == -1)
             {
                 return null;

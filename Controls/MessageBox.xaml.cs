@@ -132,13 +132,13 @@ namespace Discord_UWP.Controls
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            //TODO Optimize the hell out of this
             try
             {
                 SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
                 //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
                 SuggestionBlock.ItemsSource = null;
                 string str = MessageEditor.Text;
-                Debug.WriteLine("TEXTCHANGED");
                 if (MessageEditor.SelectionStart < str.Length)
                 {
                     selectionstart = MessageEditor.SelectionStart;
