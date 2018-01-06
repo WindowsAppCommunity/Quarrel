@@ -132,6 +132,7 @@ namespace Discord_UWP.Controls
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            //TODO Optimize the hell out of this
             try
             {
                 SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
