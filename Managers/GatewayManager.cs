@@ -359,7 +359,7 @@ namespace Discord_UWP.Managers
                 App.UpdateUnreadIndicators();
                 
             }
-            NotifcationManager.CreateMessageCreatedNotifcation(e.EventData);
+            NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
         private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)

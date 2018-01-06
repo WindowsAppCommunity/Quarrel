@@ -14,6 +14,8 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
+using System.Xml.Linq;
+using System.Xml;
 
 namespace Discord_UWP
 {
