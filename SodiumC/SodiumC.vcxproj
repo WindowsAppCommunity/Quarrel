@@ -188,6 +188,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="sodium.h" />
     <ClInclude Include="SodiumC.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="sodium\core.h" />
