@@ -230,7 +230,7 @@
     <Compile Include="Managers\GuildManager.cs" />
     <Compile Include="Managers\MemberManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
-    <Compile Include="Managers\NotifcationManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Managers\UserActivityManager.cs" />
     <Compile Include="Managers\VoiceManager.cs" />
     <Compile Include="Offline.xaml.cs">
@@ -299,11 +299,17 @@
     <Compile Include="SubPages\WhatsNew.xaml.cs">
       <DependentUpon>WhatsNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\emojifont.ttf" />
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -317,6 +323,7 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="Discord UWP_TemporaryKey.pfx" />
+    <PRIResource Include="Resources\en\TileTemplates.resw" />
     <PRIResource Include="Resources\fr\Settings.resw" />
     <PRIResource Include="Resources\fr\Main.resw" />
     <PRIResource Include="Resources\fr\Flyouts.resw" />
