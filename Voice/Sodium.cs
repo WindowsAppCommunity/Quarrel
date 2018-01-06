@@ -9,7 +9,6 @@ namespace Discord_UWP.Voice
 {
     public unsafe static class SecretBox
     {
-
         private static int SecretBoxEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
         {
             switch (System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture)
@@ -43,26 +42,25 @@ namespace Discord_UWP.Voice
         }
 
         #region 32
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("x86/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxEasy32(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("x86/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxOpenEasy32(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
 
         #region 64
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("x64/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxEasy64(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("x64/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxOpenEasy64(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
 
         #region Arm
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("ARM/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxEasyArm(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("SodiumC", CallingConvention = CallingConvention.StdCall)]
+        [DllImport("ARM/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int SecretBoxOpenEasyArm(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
-
 
         public static int Encrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
         {
