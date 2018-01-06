@@ -29,7 +29,7 @@ namespace Discord_UWP.Managers
                 {
                     ChnName = guild.channels[message.ChannelId].raw.Name;
                     ChnGldName = guild.Raw.Name + " - #" + ChnName;
-                    if (LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                    if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
                     {
                         muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
                     }
