@@ -230,6 +230,7 @@ namespace Discord_UWP.Controls
                     PlayingBlock.Visibility = Visibility.Collapsed;
                 }
             }
+
             if (prop == IsUnreadProperty)
             {
                 if (IsUnread && !IsMuted)
@@ -372,10 +373,9 @@ namespace Discord_UWP.Controls
                     this.Margin = new Thickness(0, 18, 0, 0);
                 }
             }
-            
             if (prop == IsHiddenProperty)
             {
-                if (!IsUnread)
+                if (!IsUnread || IsMuted)
                 {
                     if (IsHidden)
                     {

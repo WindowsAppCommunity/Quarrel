@@ -1110,14 +1110,6 @@ namespace Discord_UWP.MarkdownTextBlock
         {
             // Grab our root
             _rootElement = GetTemplateChild("RootElement") as Border;
-            if (_rootElement == null)
-            {
-                Debug.WriteLine("Root element is null");
-            }
-            else
-            {
-                Debug.WriteLine("Root element isn't null");
-            }
             // And make sure to render any markdown we have.
             RenderMarkdown();
         }
@@ -1135,7 +1127,7 @@ namespace Discord_UWP.MarkdownTextBlock
         /// </summary>
         private void RenderMarkdown()
         {
-            Debug.WriteLine(Text);
+
             // Make sure we have something to parse.
             if (Text == null)
             {

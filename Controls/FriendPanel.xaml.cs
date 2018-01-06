@@ -141,7 +141,6 @@ namespace Discord_UWP.Controls
                         PendingCounter.Text = App.FriendNotifications.ToString();
                         PendingView.Items.Add(NewSF(e.EventData));
                     }
-                    Debug.WriteLine(sfriend);
                 });
         }
         private SimpleFriend NewSF(KeyValuePair<string, Friend> f)

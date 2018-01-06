@@ -1,35 +1,21 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
-using Microsoft.QueryStringDotNET;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Networking.Connectivity;
-using Windows.Security.Credentials;
 using Windows.UI;
-using Windows.UI.Notifications;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Media.Animation;
-using Discord_UWP.Gateway.DownstreamEvents;
-using Microsoft.Toolkit.Uwp;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 
@@ -758,6 +744,7 @@ namespace Discord_UWP
         public static ResourceLoader ResTileTemplates = ResourceLoader.GetForCurrentView("TileTemplates");
         public static string GetString(string str)
         {
+
             str = str.Remove(0, 1);
             int index = str.IndexOf('/');
             string map = str.Remove(index);
