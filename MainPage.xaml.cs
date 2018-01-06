@@ -23,6 +23,8 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using Windows.ApplicationModel.ExtendedExecution;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -562,10 +564,65 @@ namespace Discord_UWP
             }
         }
 
+        private ExtendedExecutionSession session = null;
+        private async void BeginExtendedExecution()
+        {
+            ClearExtendedExecution();
+
+            var newSession = new ExtendedExecutionSession
+            {
+                Reason = ExtendedExecutionReason.Unspecified,
+                Description = "Periodic update of live tile"
+            };
+            newSession.Revoked += SessionRevoked;
+            ExtendedExecutionResult result = await newSession.RequestExtensionAsync();
+
+            switch (result)
+            {
+                case ExtendedExecutionResult.Allowed:
+                    session = newSession;
+                    Console.WriteLine("Extened execution");
+                    //periodicTimer = new Timer();
+                    break;
+
+                default:
+                case ExtendedExecutionResult.Denied:
+                    newSession.Dispose();
+                    break;
+            }
+        }
+
+        void ClearExtendedExecution()
+        {
+            if (session != null)
+            {
+                session.Revoked -= SessionRevoked;
+                session.Dispose();
+                session = null;
+            }
+        }
+
+        private async void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                switch (args.Reason)
+                {
+                    case ExtendedExecutionRevokedReason.Resumed:
+                        break;
+
+                    case ExtendedExecutionRevokedReason.SystemPolicy:
+                        break;
+                }
+
+                ClearExtendedExecution();
+            });
+        }
+
         #region AppEvents
 
         #region LogIn
-    private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
+        private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
         {
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
@@ -580,6 +637,7 @@ namespace Discord_UWP
                 GatewayManager.StartGateway();
                 //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
 
+                BeginExtendedExecution();
                 try
                 {
                     bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
