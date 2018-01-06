@@ -575,6 +575,7 @@ namespace Discord_UWP
             {
                 SetupEvents();
                 GatewayManager.StartGateway();
+                //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
 
                 try
                 {

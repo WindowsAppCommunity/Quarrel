@@ -73,8 +73,8 @@ namespace Discord_UWP.Sockets
 
         private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
-            try
-            {
+            // try
+            // {
                 if (UseCompression)
                 {
                     var datastr = e.GetDataStream().AsStreamForRead();
@@ -111,8 +111,8 @@ namespace Discord_UWP.Sockets
                     var dr = e.GetDataReader();
                     OnMessageReceived(dr.ReadString(dr.UnconsumedBufferLength));
                 }
-            }
-            catch { }
+            // }
+            // catch { }
         }
         public void ConvertToBase64(Stream stream)
         {
