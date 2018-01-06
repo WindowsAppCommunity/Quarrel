@@ -375,7 +375,7 @@ namespace Discord_UWP.Controls
             
             if (prop == IsHiddenProperty)
             {
-                if (!IsUnread)
+                if (!IsUnread || IsMuted)
                 {
                     if (IsHidden)
                     {
