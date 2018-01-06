@@ -135,85 +135,6 @@ namespace Discord_UWP.Managers
 
         public static void SendBadgeNotification(int value)
         {
-            TileContent tileContent = new TileContent()
-            {
-                Visual = new TileVisual()
-                {
-                    TileSmall = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png",
-                            }
-                            /*Children = {
-                                new AdaptiveText() {
-                                    Text = tileTitle,
-                                    HintStyle = AdaptiveTextStyle.Caption
-                                },
-
-                                new AdaptiveText()
-                                {
-                                    Text = message.,
-                                    HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                },
-
-                                new AdaptiveText()
-                                {
-                                    Text = message.Content,
-                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
-                                    HintWrap = true
-                                }
-                            }*/
-                        }
-                    },
-
-                    TileMedium = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    },
-
-                    TileWide = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    },
-
-                    TileLarge = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    }
-                }
-            };
-
-            // Xml:
-            // <badge value="" />
-            /*var badgeXml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
-            var badgeNode = badgeXml.GetElementsByTagName("badge")[0];
-            ((XmlNode)badgeNode).GetXElement().FirstAttribute.SetValue(value.ToString());*/
-
             string xml1 = @"<badge value='";
             string xml2 = @"' />";
             var badgeXml = new Windows.Data.Xml.Dom.XmlDocument();
@@ -226,84 +147,12 @@ namespace Discord_UWP.Managers
             string payload = App.GetString("/TileTemplates/Iconic");
             var tileXml = new Windows.Data.Xml.Dom.XmlDocument();
             tileXml.LoadXml(payload);
-            var badgeNotification = new BadgeNotification(tileXml);
+            var badgeNotification = new TileNotification(tileXml);
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
         }
 
         public static void SendBadgeNotification(BadgeGlyph value)
         {
-            TileContent tileContent = new TileContent()
-            {
-                Visual = new TileVisual()
-                {
-                    TileSmall = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png",
-                            }
-                            /*Children = {
-                                new AdaptiveText() {
-                                    Text = tileTitle,
-                                    HintStyle = AdaptiveTextStyle.Caption
-                                },
-
-                                new AdaptiveText()
-                                {
-                                    Text = message.,
-                                    HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                },
-
-                                new AdaptiveText()
-                                {
-                                    Text = message.Content,
-                                    HintStyle = AdaptiveTextStyle.CaptionSubtle,
-                                    HintWrap = true
-                                }
-                            }*/
-                        }
-                    },
-
-                    TileMedium = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    },
-
-                    TileWide = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    },
-
-                    TileLarge = new TileBinding()
-                    {
-                        Content = new TileBindingContentIconic()
-                        {
-                            Icon = new TileBasicImage()
-                            {
-                                AlternateText = "New Discord Messages",
-                                Source = "pack://application:,,,/Assets/DiscordIcon.png"
-                            }
-                        }
-                    }
-                }
-            };
-
             string xml1 = @"<badge value='";
             string xml2 = @"' />";
             var badgeXml = new Windows.Data.Xml.Dom.XmlDocument();
@@ -316,7 +165,8 @@ namespace Discord_UWP.Managers
             string payload = App.GetString("/TileTemplates/Iconic");
             var tileXml = new Windows.Data.Xml.Dom.XmlDocument();
             tileXml.LoadXml(payload);
-            var badgeNotification = new BadgeNotification(tileXml);
+            var badgeNotification = new TileNotification(tileXml);
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
         }
 
         public enum BadgeGlyph

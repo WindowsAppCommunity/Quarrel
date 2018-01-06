@@ -121,12 +121,12 @@
     <value>&lt;tile&gt;
   &lt;visual&gt;
 
-    &lt;binding template="TileSquare150x150IconWithBadge"&gt;
-      &lt;image id="1" src="pack://application:,,,/Assets/DiscordIcon.png" alt="New messages"/&gt;
+    &lt;binding template='TileSquare150x150IconWithBadge'&gt;
+      &lt;image id='1' src='Assets/DiscordIcon.png' alt='New messages'/&gt;
     &lt;/binding&gt;
 
-    &lt;binding template="TileSquare71x71IconWithBadge"&gt;
-      &lt;image id="1" src="pack://application:,,,/Assets/DiscordIcon.png" alt="New messages"/&gt;
+    &lt;binding template='TileSquare71x71IconWithBadge'&gt;
+      &lt;image id='1' src='Assets/DiscordIcon.png' alt='New messages'/&gt;
     &lt;/binding&gt;
 
   &lt;/visual&gt;
