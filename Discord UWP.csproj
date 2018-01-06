@@ -314,6 +314,7 @@
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Javascript sources\Games.json" />
     <None Include="Javascript sources\GUILD_SYNC.json" />
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />

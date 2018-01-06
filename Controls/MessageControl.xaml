@@ -40,7 +40,7 @@
                         </Setter>
                         <Setter Target="rootGrid.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>12,2,12,6</Thickness>
+                                <Thickness>0,2,12,6</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="moresymbol.(FrameworkElement.Margin)">
