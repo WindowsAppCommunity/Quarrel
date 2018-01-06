@@ -1,31 +1,28 @@
 ﻿using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
+using Microsoft.Advertising.WinRT.UI;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
-using Windows.ApplicationModel.Store;
 using Windows.ApplicationModel.Background;
 using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Composition;
-using Windows.UI;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Navigation;
-using Windows.Gaming.Input;
 using Windows.Foundation.Metadata;
+using Windows.Foundation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -40,6 +37,7 @@ namespace Discord_UWP
         {
             this.InitializeComponent();
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             sideDrawer.SetupInteraction(ChannelHeader);
@@ -51,7 +49,7 @@ namespace Discord_UWP
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
 
-        public void Setup(object o, EventArgs args)
+        public async void Setup(object o, EventArgs args)
         {
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -91,12 +89,6 @@ namespace Discord_UWP
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             //Setup MessageList infinite scroll
-            MessageScrollviewer = Common.GetScrollViewer(MessageList);
-            if (MessageScrollviewer != null)
-            {
-                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
-            }
-
 
 
             //Hook up the login Event
@@ -111,6 +103,61 @@ namespace Discord_UWP
             {
                 App_LoggingInHandlerAsync(null,null);
             }
+
+            LocalState.SupportedGames = await RESTCalls.GetGamelist();
+        }
+
+        private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            RefreshVisibilityIndicators();
+        }
+
+        bool prevshowabove = false;
+        bool prevshowbelow = false;
+        private void RefreshVisibilityIndicators()
+        {
+            bool showabove = false;
+            bool showbelow = false;
+
+            foreach (GuildManager.SimpleGuild sg in ServerList.Items)
+            {
+                if (sg.NotificationCount > 0)
+                {
+                    var pos = GetVisibilityPosition((ListViewItem)ServerList.ContainerFromItem(sg), ServerScrollviewer);
+                    if (pos == VisibilityPosition.Above)
+                        showabove = true;
+                    else if (pos == VisibilityPosition.Below)
+                        showbelow = true;
+                }
+            }
+            if (showabove && !prevshowabove)
+                NewAboveIndicator.Fade(0.8f,200).Start();
+            else if(prevshowabove != showabove)
+                NewAboveIndicator.Fade(0, 200).Start();
+            if (showbelow && !prevshowbelow)
+                NewBelowIndicator.Fade(0.8f, 200).Start();
+            else if(prevshowbelow != showbelow)
+                NewBelowIndicator.Fade(0, 200).Start();
+
+            prevshowbelow = showbelow;
+            prevshowabove = showabove;
+        }
+        enum VisibilityPosition { Visible, Above, Below, Hidden };
+        private VisibilityPosition GetVisibilityPosition(FrameworkElement element, FrameworkElement container)
+        {
+            if (element == null || container == null)
+                return VisibilityPosition.Hidden;
+
+            if (element.Visibility != Visibility.Visible)
+                return VisibilityPosition.Hidden;
+
+            Rect elementBounds = element.TransformToVisual(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
+            Rect containerBounds = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
+            if (elementBounds.Bottom<4)
+                return VisibilityPosition.Above;
+            else if (elementBounds.Top>containerBounds.Bottom-32)
+                return VisibilityPosition.Below;
+            else return VisibilityPosition.Visible;
         }
 
         Stack<Tuple<string, string>> navigationHistory = new Stack<Tuple<string, string>>();
@@ -140,14 +187,14 @@ namespace Discord_UWP
                             App.NavigateToDMChannel(null, null, false, true);
                         }
                     }
-                } else
-                {
-                    e.Handled = true;
                 }
+                e.Handled = true;
             }
         }
 
         bool DisableLoadingMessages;
+        bool AtBottom = false;
+        bool AtTop = false;
         private void MessageScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             if (MessageList.Items.Count > 0)
@@ -224,6 +271,8 @@ namespace Discord_UWP
             App.GuildChannelCreatedHandler += App_GuildChannelCreatedHandler;
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
+            App.GuildDeletedHandler += App_GuildDeletedHandler;
+            
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
             //UpdateUI-Members
             App.MembersUpdatedHandler += App_MembersUpdatedHandler;
@@ -231,6 +280,24 @@ namespace Discord_UWP
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
+        }
+
+        private void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
+        {
+            
+            foreach(GuildManager.SimpleGuild guild in ServerList.Items)
+            {
+                if(guild.Id == e.GuildId)
+                {
+                    if (App.CurrentGuildId == e.GuildId)
+                        ServerList.SelectedIndex = 0;
+                    
+                    ServerList.Items.Remove(guild);
+                    if (LocalState.Guilds.ContainsKey(e.GuildId))
+                        LocalState.Guilds.Remove(e.GuildId);
+                    break;
+                }
+            }
         }
 
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
@@ -341,7 +408,12 @@ namespace Discord_UWP
                     {
                         var sortedMembers =
                             memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
-
+                        
+                        foreach (var m in sortedMembers)
+                        {
+                            int count =  m.Count();
+                            
+                        }
                         await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
                             {
@@ -1506,8 +1578,9 @@ namespace Discord_UWP
                     //ShowBadge.Begin();
                     //BurgerNotificationCounter.Text = Fullcount.ToString();
                     //}
-
+                    RefreshVisibilityIndicators();
                 });
+
         }
 
         private async void LoadOlderMessages()
@@ -1524,26 +1597,49 @@ namespace Discord_UWP
                         MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
             }
-         //   await Task.Delay(1500);
+            await Task.Delay(1000);
             DisableLoadingMessages = false;
+        }
+        private bool LastMessageIsLoaded()
+        {
+            try
+            {
+                var lastmessageid = (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id;
+                if (lastmessageid == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+                return true;
+            }
         }
         private async void LoadNewerMessages()
         {
-            var offset = MessageScrollviewer.VerticalOffset;
-            DisableLoadingMessages = true;
-            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
-            if (messages != null)
+            try
             {
-                foreach (var message in messages)
+                if (!LastMessageIsLoaded())
                 {
-                    MessageList.Items.Add(message);
-                    if(MessageList.Items.Count > 150)
-                        MessageList.Items.RemoveAt(0);
+                    var offset = MessageScrollviewer.VerticalOffset;
+                    DisableLoadingMessages = true;
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+                    if (messages != null)
+                    {
+                        foreach (var message in messages)
+                        {
+                            MessageList.Items.Add(message);
+                            if (MessageList.Items.Count > 150)
+                                MessageList.Items.RemoveAt(0);
+                        }
+                        
+                    }
+                    await Task.Delay(1000);
+                    MessageScrollviewer.ChangeView(0, offset, 1);
+                    DisableLoadingMessages = false;
                 }
-                MessageScrollviewer.ChangeView(0, offset, 1);
             }
-         //   await Task.Delay(1500);
-            DisableLoadingMessages = false;
+            catch {}
         }
         #endregion
 
@@ -1584,7 +1680,29 @@ namespace Discord_UWP
                          App.NavigateToAbout(true);
                      }
                      Loading.Hide(true);
+                     if (Storage.Settings.VideoAd)
+                     {
+                         InterstitialAd videoAd = new InterstitialAd();
+                         videoAd.AdReady += VideoAd_AdReady;
+                         videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
+                         videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
+                     }
                  });
+        }
+
+        private void VideoAd_AdReady(object sender, object e)
+        {
+            (sender as InterstitialAd).Show();
+        }
+
+        private async void VideoAd_ErrorOccurred(object sender, AdErrorEventArgs e)
+        {
+            Storage.Settings.VideoAd = false;
+            Storage.SettingsChanged();
+            Storage.SaveAppSettings();
+
+            MessageDialog msg = new MessageDialog("Couldn't find a video ad to show, showing banner ads");
+            await msg.ShowAsync();
         }
 
         private async void App_TypingHandler(object sender, App.TypingArgs e)
@@ -2129,6 +2247,15 @@ namespace Discord_UWP
         private void cmdBar_Closing(object sender, object e)
         {
             ChannelTopic.LineHeight = 24;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (MessageScrollviewer != null)
+            {
+                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ using Discord_UWP.Managers;
 
 using GiphyAPI;
 using GiphyAPI.Models;
+using DiscordAPI.API.Game;
 
 namespace Discord_UWP
 {
@@ -816,7 +817,7 @@ namespace Discord_UWP
 
                 HttpMultipartFormDataContent content = new HttpMultipartFormDataContent("---------------------------7e11a60110a78");
 
-                //content.Add(new HttpStringContent(message.Content), "content");
+                content.Add(new HttpStringContent(message.Content), "content");
                 content.Add(new HttpStringContent(Uri.EscapeUriString(JsonConvert.SerializeObject(message))), "payload_json");
                 //content.Add(new HttpStringContent(message.TTS.ToString()), "tts");
 
@@ -1112,6 +1113,22 @@ namespace Discord_UWP
         {
             IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
             return await giphyService.Trending(limit, offset);
+        }
+        #endregion
+
+        #region Games
+        public static async Task<List<GameList>> GetGamelist()
+        {
+            try
+            {
+                IGameService gameservice = AuthenticatedRestFactory.GetGameService();
+                return await gameservice.GetGames();
+            }
+            catch (Exception exception)
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new List<GameList>();
         }
         #endregion
 
