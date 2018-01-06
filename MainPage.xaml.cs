@@ -271,6 +271,8 @@ namespace Discord_UWP
             App.GuildChannelCreatedHandler += App_GuildChannelCreatedHandler;
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
+            App.GuildDeletedHandler += App_GuildDeletedHandler;
+            
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
             //UpdateUI-Members
             App.MembersUpdatedHandler += App_MembersUpdatedHandler;
@@ -278,6 +280,24 @@ namespace Discord_UWP
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
             
+        }
+
+        private void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
+        {
+            
+            foreach(GuildManager.SimpleGuild guild in ServerList.Items)
+            {
+                if(guild.Id == e.GuildId)
+                {
+                    if (App.CurrentGuildId == e.GuildId)
+                        ServerList.SelectedIndex = 0;
+                    
+                    ServerList.Items.Remove(guild);
+                    if (LocalState.Guilds.ContainsKey(e.GuildId))
+                        LocalState.Guilds.Remove(e.GuildId);
+                    break;
+                }
+            }
         }
 
         private async void App_GuildSyncedHandler(object sender, GuildSync e)

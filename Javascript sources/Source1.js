@@ -12281,7 +12281,9 @@
         c = function (e, t, n) {
             var o = {},
                 s = i(function () {
-                    return !!a[e]() || "​" != "​"[e]()
+                    return !!a[e]() || "​
+" != "​
+"[e]()
                 }),
                 u = o[e] = s ? t(d) : a[e];
             n && (o[n] = u), r(r.P + r.F * s, "String", o)
