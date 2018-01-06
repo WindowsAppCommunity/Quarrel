@@ -1,6 +1,4 @@
-﻿using Concentus;
-using Concentus.Structs;
-using Discord_UWP.Authentication;
+﻿using Concentus.Structs;
 using Discord_UWP.SharedModels;
 using Discord_UWP.Sockets;
 using Discord_UWP.Voice.DownstreamEvents;
@@ -9,12 +7,8 @@ using Newtonsoft.Json;
 //using Sodium;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-
-using Salsa20;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
@@ -49,7 +43,7 @@ namespace Discord_UWP.Voice
         private byte[] _nonce = new byte[24];
         private byte[] _data = new byte[3840];
 
-        private SalsaManager salsaManager = new SalsaManager();
+      //  private SalsaManager salsaManager = new SalsaManager();
         private byte[] secretkey;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
@@ -263,7 +257,7 @@ namespace Discord_UWP.Voice
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
 
-            salsaManager.initialize(secretkey);
+         //   salsaManager.initialize(secretkey);
         }
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
@@ -274,7 +268,7 @@ namespace Discord_UWP.Voice
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                 Buffer.BlockCopy(packet, 12, _data, 0, packet.Length-12);
                 
-                salsaManager.processFrame(out _data, _nonce);
+         //       salsaManager.processFrame(out _data, _nonce);
 
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample

@@ -75,8 +75,8 @@ namespace Discord_UWP.Sockets
         {
             if (UseCompression)
             {
-                using (datastr = e.GetDataStream().AsStreamForRead())
-                using (ms = new MemoryStream())
+                using (var datastr = e.GetDataStream().AsStreamForRead())
+                using (var ms = new MemoryStream())
                 {
                     datastr.CopyTo(ms);
                     ms.Position = 0;

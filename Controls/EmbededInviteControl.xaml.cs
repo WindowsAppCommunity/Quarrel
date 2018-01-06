@@ -54,6 +54,9 @@ namespace Discord_UWP.Controls
         }
         private async void LoadInvite(bool ForceJoin)
         {
+            InviteCode = InviteCode.Replace(">\n", "");
+            InviteCode = InviteCode.Replace("http://discord.me/","");
+            InviteCode = InviteCode.Replace("https://discord.me/", "");
             InviteCode = InviteCode.Replace("https://discord.gg/", "");
             InviteCode = InviteCode.Replace("http://discord.gg/", "");
             InviteCode = InviteCode.Replace("https://discordapp.com/invite/", "");
