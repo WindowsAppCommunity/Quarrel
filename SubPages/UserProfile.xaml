@@ -130,52 +130,47 @@
                     </ListView>
                     <Pivot x:Name="pivot" Grid.Column="0" Grid.Row="1" Padding="0" SelectionChanged="pivot_SelectionChanged" IsLocked="False">
                         <PivotItem Margin="0,-48,0,0">
-                            <Grid Margin="24,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <StackPanel>
-                                    <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
-                                    <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
-                                </StackPanel>
-                                
-                                <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
-                                    <GridView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource LightBG}">
-                                                <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                                                <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridView.ItemTemplate>
-                                    <tk:AdaptiveGridView.Footer>
-                                        <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left">
-                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
-                                                <Grid>
-                                                    <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
-                                                </Grid>
-                                            </HyperlinkButton>
-                                            <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
-                                                <Grid>
-                                                    <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
-                                                </Grid>
-                                            </HyperlinkButton>
-                                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed">
-                                                <Grid>
-                                                    <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                                    <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
-                                                </Grid>
-                                            </HyperlinkButton>
+                            <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="24,12,24,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource LightBG}">
+                                            <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
+                                            <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
                                         </StackPanel>
-                                    </tk:AdaptiveGridView.Footer>
-                                </tk:AdaptiveGridView>
-                            </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                                <tk:AdaptiveGridView.Header>
+                                    <StackPanel>
+                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
+                                        <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
+                                    </StackPanel>
+                                </tk:AdaptiveGridView.Header>
+                                <tk:AdaptiveGridView.Footer>
+                                    <StackPanel Grid.Row="2" VerticalAlignment="Bottom" Margin="0" HorizontalAlignment="Left">
+                                        <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
+                                            <Grid>
+                                                <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                        <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
+                                            <Grid>
+                                                <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                        <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed">
+                                            <Grid>
+                                                <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                    </StackPanel>
+                                </tk:AdaptiveGridView.Footer>
+                            </tk:AdaptiveGridView>
                         </PivotItem>
                         <PivotItem x:Name="CommonSrvspivot"  Margin="0,-48,0,0">
                             <Grid>

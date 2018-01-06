@@ -398,7 +398,7 @@ namespace Discord_UWP.Managers
                 ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
                 LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
             }
-            catch (Exception) { }
+            catch { }
              App.UpdateUnreadIndicators();
         }
         #endregion
@@ -534,7 +534,7 @@ namespace Discord_UWP.Managers
             //TODO: Deal with guild outages
             if (LocalState.Guilds.ContainsKey(e.EventData.GuildId))
             {
-                
+                App.GuildDeleted(e.EventData.GuildId);
             }
         }
         private static void Gateway_GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
@@ -562,7 +562,7 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
         {
-            if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
+            if (LocalState.Guilds.ContainsKey(e.EventData.guildId) && LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
             {
                 LocalState.Guilds[e.EventData.guildId].members.Remove(e.EventData.User.Id);
             }

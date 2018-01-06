@@ -687,6 +687,10 @@ namespace Discord_UWP.Controls
                     {
                         //TODO Add support for video
                     }
+                    else if (embed.Type == "article")
+                    {
+                        //TODO: Support Articles
+                    }
                     else
                     {
                         EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
