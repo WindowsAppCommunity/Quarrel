@@ -364,15 +364,14 @@ namespace Discord_UWP
                         }
                     }
                     int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
-                    foreach (GuildMember member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+
+                    foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                     {
-                        
-                        if (e.IsLarge && !LocalState.PresenceDict.ContainsKey(member.User.Id))
-                        {
-                        }
+                        if (e.IsLarge && !LocalState.PresenceDict.ContainsKey(member.Key))
+                        { }
                         else
                         {
-                            var m = new Member(member);
+                            Member m = new Member(member.Value);
                             m.Raw.Roles = m.Raw.Roles.OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
                             if (m.Raw.Roles.FirstOrDefault() != null &&
                                 LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
@@ -415,7 +414,6 @@ namespace Discord_UWP
                         foreach (var m in sortedMembers)
                         {
                             int count =  m.Count();
-                            
                         }
                         await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
@@ -1605,17 +1603,31 @@ namespace Discord_UWP
         }
         private bool LastMessageIsLoaded()
         {
-            try
+            if (App.CurrentGuildIsDM)
             {
-                var lastmessageid = (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id;
-                if (lastmessageid == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
-                    return true;
-                else
-                    return false;
+                for (int i = MessageList.Items.Count; i < 0; i--)
+                {
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    {
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
+                            return true;
+                        else return false;
+                    }
+                }
+                return false;
             }
-            catch
+            else
             {
-                return true;
+                for (int i = MessageList.Items.Count; i < 0; i--)
+                {
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    {
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                            return true;
+                        else return false;
+                    }
+                }
+                return false;
             }
         }
         private async void LoadNewerMessages()
