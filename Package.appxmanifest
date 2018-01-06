@@ -16,6 +16,23 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
+        <Extension Category="windows.updateTask" EntryPoint="UpdateNotificationTask.UpdateTask" />
+        <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
+          <BackgroundTasks>
+            <Task Type="timer" />
+            <uap:Task Type="chatMessageNotification" />
+          </BackgroundTasks>
+        </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discord">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discorduwp">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget>
             <uap:SupportedFileTypes>
@@ -26,26 +43,9 @@
             <uap:DataFormat>Bitmap</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discorduwp">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discord">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
-          <BackgroundTasks>
-            <Task Type="timer" />
-            <uap:Task Type="chatMessageNotification" />
-          </BackgroundTasks>
-        </Extension>
-        <Extension Category="windows.updateTask" EntryPoint="UpdateNotificationTask.UpdateTask" />
       </Extensions>
       <uap:VisualElements DisplayName="Discord UWP" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Discord UWP" BackgroundColor="transparent">
-        <uap:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.png" />
+        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Discord UWP" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />

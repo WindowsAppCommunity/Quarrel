@@ -90,6 +90,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
@@ -212,6 +213,7 @@
     <Compile Include="Voice\DownstreamEvents\VoiceData.cs" />
     <Compile Include="Voice\EventNames.cs" />
     <Compile Include="Voice\OperationCode.cs" />
+    <Compile Include="Voice\Sodium.cs" />
     <Compile Include="Voice\UpstreamEvents\Identify.cs" />
     <Compile Include="Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="Voice\UpstreamEvents\Speak.cs" />
