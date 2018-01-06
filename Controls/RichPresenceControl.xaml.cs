@@ -35,6 +35,7 @@ namespace Discord_UWP.Controls
 
         public bool IsLarge
         {
+            get { return IsLarge; }
             set
             {
                 if(value == true)
@@ -140,11 +141,22 @@ namespace Discord_UWP.Controls
                             if (gli.Value.Icon != null)
                             {
                                 Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                                SmallimgRect.RadiusX = 4;
-                                SmallimgRect.RadiusY = 4;
-                                SmallimgRect.Width = 24;
-                                SmallimgRect.Height = 24;
-                                SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
+                                if (!IsLarge)
+                                {
+                                    SmallimgRect.RadiusX = 4;
+                                    SmallimgRect.RadiusY = 4;
+                                    SmallimgRect.Width = 24;
+                                    SmallimgRect.Height = 24;
+                                    SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
+                                }
+                                else
+                                {
+                                    SmallimgRect.RadiusX = 8;
+                                    SmallimgRect.RadiusY = 8;
+                                    SmallimgRect.Width = 48;
+                                    SmallimgRect.Height = 48;
+                                    SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
+                                }
                             }
                                 
                             else
