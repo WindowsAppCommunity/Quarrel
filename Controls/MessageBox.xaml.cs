@@ -138,7 +138,6 @@ namespace Discord_UWP.Controls
                 //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
                 SuggestionBlock.ItemsSource = null;
                 string str = MessageEditor.Text;
-                Debug.WriteLine("TEXTCHANGED");
                 if (MessageEditor.SelectionStart < str.Length)
                 {
                     selectionstart = MessageEditor.SelectionStart;
