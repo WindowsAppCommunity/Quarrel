@@ -42,7 +42,12 @@ namespace Discord_UWP.Voice
         private readonly VoiceServerUpdate _voiceServerConfig;
         private byte[] _nonce = new byte[24];
         private byte[] _data = new byte[3840];
-        
+        private OpusDecoder decoder = new OpusDecoder(48000, 2);
+        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms /** 2 channels*/ * 2 bytes per sample
+        private float[] output = new float[framesize];
+
+        bool first = true;
+
         private byte[] secretkey;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
@@ -259,24 +264,26 @@ namespace Discord_UWP.Voice
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
         {
-            try
+            if (!first)
             {
-                var packet = (byte[])e.Message;
-                Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
+                //try
+                //{
+                    var packet = (byte[])e.Message;
+                    Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
 
-                Cypher.process(packet, 12, packet.Length, _data, 0, _nonce, secretkey);
+                    Cypher.process(packet, 12, packet.Length, _data, 0, _nonce, secretkey);
+                    int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
 
-                OpusDecoder decoder = new OpusDecoder(48000, 2);
-                int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
-                float[] output = new float[framesize]; // framesize 
-                int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
-
-                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
-            }
-            catch (Exception exception)
+                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                //}
+                //catch (Exception exception)
+                //{
+                    //System.Diagnostics.Debug.WriteLine(exception.Message);
+                    //App.NavigateToBugReport(exception);
+                //}
+            } else
             {
-                System.Diagnostics.Debug.WriteLine(exception.Message);
-                //App.NavigateToBugReport(exception);
+                first = !first;
             }
         }
         #endregion
