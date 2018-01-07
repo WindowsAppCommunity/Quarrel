@@ -238,6 +238,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTCalls.cs" />
+    <Compile Include="ShareTarget.xaml.cs">
+      <DependentUpon>ShareTarget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Storage.cs" />
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -522,6 +525,10 @@
     <Page Include="Offline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShareTarget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\About.xaml">
       <Generator>MSBuild:Compile</Generator>
