@@ -2,6 +2,7 @@
 using DiscordAPI.API.Game;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,14 +23,14 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class RichPresenceControl : UserControl
     {
-        public Game GameContent
+        public Game? GameContent
         {
-            get { return (Game)GetValue(GameContentProperty); }
+            get { return (Game?)GetValue(GameContentProperty); }
             set { SetValue(GameContentProperty, value); }
         }
         public static readonly DependencyProperty GameContentProperty = DependencyProperty.Register(
             nameof(GameContent),
-            typeof(Game),
+            typeof(Game?),
             typeof(RichPresenceControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -67,139 +68,143 @@ namespace Discord_UWP.Controls
         DispatcherTimer timer;
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == GameContentProperty)
+            if (prop == GameContentProperty && GameContent.HasValue)
             {
-                SmallimgRect.RadiusX = 10;
-                SmallimgRect.RadiusY = 10;
-                SmallimgRect.Width = 20;
-                SmallimgRect.Height = 20;
-                SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
+                    SmallimgRect.RadiusX = 10;
+                    SmallimgRect.RadiusY = 10;
+                    SmallimgRect.Width = 20;
+                    SmallimgRect.Height = 20;
+                    SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
 
-                var game = GameContent;
-                //Game title
-                if(game.Name != null)          
-                    GameTB.Text = game.Name;
-                else                
-                    GameTB.Visibility = Visibility.Collapsed;
-                //State
-                if (game.State != null)                
-                    StateTB.Text = game.State;                
-                else               
-                    StateTB.Visibility = Visibility.Collapsed;
-                //Details
-                if(game.Details != null)
-                    DetailsTB.Text = game.Details;               
-                else               
-                    DetailsTB.Visibility = Visibility.Collapsed;
+                    Game? game = GameContent;
+                    //Game title
+                    if (game.Value.Name != null)
+                        GameTB.Text = game.Value.Name;
+                    else
+                        GameTB.Visibility = Visibility.Collapsed;
+                    //State
+                    if (game.Value.State != null)
+                        StateTB.Text = game.Value.State;
+                    else
+                        StateTB.Visibility = Visibility.Collapsed;
+                    //Details
+                    if (game.Value.Details != null)
+                        DetailsTB.Text = game.Value.Details;
+                    else
+                        DetailsTB.Visibility = Visibility.Collapsed;
 
-                if (game.Party.HasValue)
-                {
-                    if(game.Party.Value.Size != null)
-                        StateTB.Text += " (" + game.Party.Value.Size[0] + "/" + game.Party.Value.Size[1] + ")";  
-                }
-                if (game.TimeStamps.HasValue && (game.State!="" || game.Details !="") && (game.TimeStamps.Value.Start.HasValue || game.TimeStamps.Value.End.HasValue))
-                {
-                    timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromSeconds(1);
-                    UpdateTimer(null, null);
-                    timer.Start();
-                    timer.Tick += UpdateTimer;
-                }
-                else
-                {
-                    TimeTB.Visibility = Visibility.Collapsed;
-                }
-                //Assets
-                if(game.Assets.HasValue)
-                {
-                    //Large image
-                    if (game.Assets.Value.LargeImage != null)
-                        Largeimg.ImageSource = new BitmapImage(GetImageLink(game.Assets.Value.LargeImage, game.ApplicationId));
-                    else
-                        LargeImgRect.Visibility = Visibility.Collapsed;
-                    //Small image
-                    if (game.Assets.Value.SmallImage != null)
-                        Smallimg.ImageSource = new BitmapImage(GetImageLink(game.Assets.Value.SmallImage, game.ApplicationId));
-                    else
-                        SmallimgRect.Visibility = Visibility.Collapsed;
-                    //Image tooltips
-                    if (game.Assets.Value.LargeText != null)
-                        ToolTipService.SetToolTip(LargeImgRect, game.Assets.Value.LargeText);
-                    if (game.Assets.Value.SmallImage != null)
-                        ToolTipService.SetToolTip(SmallimgRect, game.Assets.Value.SmallText);
-                }
-                else if(game.Name != null)
-                {
-                   
-                    GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Name);
-                    if(!gli.HasValue)
-                        gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.ApplicationId);
-                    if (gli.HasValue)
+                    if (game.Value.Party.HasValue)
                     {
-                        if (gli.Value.Splash != null) {
-                            Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
-                            if (gli.Value.Icon != null)
-                            {
-                                Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                                if (!IsLarge)
-                                {
-                                    SmallimgRect.RadiusX = 4;
-                                    SmallimgRect.RadiusY = 4;
-                                    SmallimgRect.Width = 24;
-                                    SmallimgRect.Height = 24;
-                                    SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
-                                }
-                                else
-                                {
-                                    SmallimgRect.RadiusX = 8;
-                                    SmallimgRect.RadiusY = 8;
-                                    SmallimgRect.Width = 48;
-                                    SmallimgRect.Height = 48;
-                                    SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
-                                }
-                            }
-                                
-                            else
-                                SmallimgRect.Visibility = Visibility.Collapsed;
-                        }
-                        else if(gli.Value.Icon != null)
+                        if (game.Value.Party.Value.Size != null)
+                            StateTB.Text += " (" + game.Value.Party.Value.Size[0] + "/" + game.Value.Party.Value.Size[1] + ")";
+                    }
+                    if (game.Value.TimeStamps.HasValue && (game.Value.State != "" || game.Value.Details != "") && (game.Value.TimeStamps.Value.Start.HasValue || game.Value.TimeStamps.Value.End.HasValue))
+                    {
+                        timer = new DispatcherTimer();
+                        timer.Interval = TimeSpan.FromSeconds(1);
+                        UpdateTimer(null, null);
+                        timer.Start();
+                        timer.Tick += UpdateTimer;
+                    }
+                    else
+                    {
+                        TimeTB.Visibility = Visibility.Collapsed;
+                    }
+                    //Assets
+                    if (game.Value.Assets.HasValue)
+                    {
+                        //Large image
+                        if (game.Value.Assets.Value.LargeImage != null)
+                            Largeimg.ImageSource = new BitmapImage(GetImageLink(game.Value.Assets.Value.LargeImage, game.Value.ApplicationId));
+                        else
+                            LargeImgRect.Visibility = Visibility.Collapsed;
+                        //Small image
+                        if (game.Value.Assets.Value.SmallImage != null)
+                            Smallimg.ImageSource = new BitmapImage(GetImageLink(game.Value.Assets.Value.SmallImage, game.Value.ApplicationId));
+                        else
+                            SmallimgRect.Visibility = Visibility.Collapsed;
+                        //Image tooltips
+                        if (game.Value.Assets.Value.LargeText != null)
+                            ToolTipService.SetToolTip(LargeImgRect, game.Value.Assets.Value.LargeText);
+                        if (game.Value.Assets.Value.SmallImage != null)
+                            ToolTipService.SetToolTip(SmallimgRect, game.Value.Assets.Value.SmallText);
+
+                    }
+                   /* else if (game.Value.Name != null)
+                    {
+                    
+                        GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
+                        if (!gli.HasValue)
+                            gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
+                        if (gli.HasValue)
                         {
-                            Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id,true, ""));
+                            if (gli.Value.Splash != null)
+                            {
+                                Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
+                                if (gli.Value.Icon != null)
+                                {
+                                    Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
+                                    if (!IsLarge)
+                                    {
+                                        SmallimgRect.RadiusX = 4;
+                                        SmallimgRect.RadiusY = 4;
+                                        SmallimgRect.Width = 24;
+                                        SmallimgRect.Height = 24;
+                                        SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
+                                    }
+                                    else
+                                    {
+                                        SmallimgRect.RadiusX = 8;
+                                        SmallimgRect.RadiusY = 8;
+                                        SmallimgRect.Width = 48;
+                                        SmallimgRect.Height = 48;
+                                        SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
+                                    }
+                                }
+
+                                else
+                                    SmallimgRect.Visibility = Visibility.Collapsed;
+                            }
+                            else if (gli.Value.Icon != null)
+                            {
+                                Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
+                            }
+                            else
+                            {
+                                LargeImgRect.Visibility = Visibility.Collapsed;
+                                SmallimgRect.Visibility = Visibility.Collapsed;
+                            }
+
                         }
                         else
                         {
                             LargeImgRect.Visibility = Visibility.Collapsed;
                             SmallimgRect.Visibility = Visibility.Collapsed;
                         }
-                        
-                    }
+
+                    }*/
                     else
                     {
                         LargeImgRect.Visibility = Visibility.Collapsed;
                         SmallimgRect.Visibility = Visibility.Collapsed;
                     }
-
-                }
-                else
-                {
-                    LargeImgRect.Visibility = Visibility.Collapsed;
-                    SmallimgRect.Visibility = Visibility.Collapsed;
-                }
+                
             }
+        
         }
 
         private void UpdateTimer(object sender, object e)
         {
-            if (GameContent.TimeStamps.Value.End.HasValue)
+            if (GameContent.Value.TimeStamps.Value.End.HasValue)
             {
-                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Value.End.Value);
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.End.Value);
 
                 var timeleft = t.Subtract(DateTimeOffset.Now);
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " left";
             }
-            else if (GameContent.TimeStamps.Value.Start.HasValue)
+            else if (GameContent.Value.TimeStamps.Value.Start.HasValue)
             {
-                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Value.Start.Value);
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.Start.Value);
                 var timeleft = DateTimeOffset.Now.Subtract(t);
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
             }
@@ -208,7 +213,8 @@ namespace Discord_UWP.Controls
         {
             string type = "app";
             if (game) type = "game";
-            return new Uri("https://cdn.discordapp.com/"+type+"-assets/" + gameid + "/" + id + ".png"+append);
+            var uri= new Uri("https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append);
+            return uri;
         }
         public RichPresenceControl()
         {

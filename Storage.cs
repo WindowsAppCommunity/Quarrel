@@ -62,6 +62,8 @@ namespace Discord_UWP
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;
+        public bool Badge = true;
+        public bool LiveTile = true;
         public double RespUiM = 500;
         public double RespUiL = 1000;
         public double RespUiXl = 1500;
@@ -78,5 +80,6 @@ namespace Discord_UWP
         public bool EnableAcrylic = true;
         public bool UseCompression = true;
         public bool VideoAd = false;
+        public bool GifsOnHover = true;
     }
 }

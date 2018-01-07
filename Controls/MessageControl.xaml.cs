@@ -687,12 +687,9 @@ namespace Discord_UWP.Controls
                     {
                         //TODO Add support for video
                     }
-                    else if (embed.Type == "article")
-                    {
-                        //TODO: Support Articles
-                    }
                     else
                     {
+                        //The difference between rich content and article is done within the EmbedControl
                         EmbedViewer.Children.Add(new EmbedControl() { EmbedContent = embed });
                     }
                     
