@@ -8,9 +8,22 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBox x:Name="data" HorizontalAlignment="Stretch"/>
-            <Button Content="Process" HorizontalAlignment="Center" Click="Button_Click"/>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <TextBox x:Name="iog" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="iuwp" HorizontalAlignment="Stretch" Grid.Column="1"/>
+            <Button Content="Process" HorizontalAlignment="Center" Click="Button_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="oog" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="ouwp" HorizontalAlignment="Stretch" Grid.Column="1"/>
+        </Grid>
     </Grid>
 </Page>
