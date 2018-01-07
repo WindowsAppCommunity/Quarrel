@@ -803,6 +803,8 @@ namespace Discord_UWP
             Storage.Settings.AutoHideChannels = true;
             Storage.Settings.AutoHidePeople = false;
             Storage.Settings.Toasts = false;
+            Storage.Settings.LiveTile = true;
+            Storage.Settings.Badge = true;
             Storage.Settings.HighlightEveryone = true;
             Storage.Settings.CompactMode = false;
             Storage.Settings.Toasts = false;
