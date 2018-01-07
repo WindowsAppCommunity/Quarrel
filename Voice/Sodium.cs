@@ -7,82 +7,48 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice
 {
-    public unsafe static class SecretBox
+    public unsafe static class Cypher
     {
-        private static int SecretBoxEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
+        private static int StreamCypher(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
         {
-            switch (System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture)
+            switch (RuntimeInformation.ProcessArchitecture)
             {
                 case Architecture.Arm:
-                    return SecretBoxEasyArm(output, input, inputLength, nonce, secret);
+                    return StreamCypherArm(output, input, inputLength, nonce, secret);
                 case Architecture.Arm64:
-                    return SecretBoxEasyArm(output, input, inputLength, nonce, secret);
+                    return StreamCypherArm(output, input, inputLength, nonce, secret);
                 case Architecture.X64:
-                    return SecretBoxEasy64(output, input, inputLength, nonce, secret);
+                    return StreamCypher64(output, input, inputLength, nonce, secret);
                 case Architecture.X86:
-                    return SecretBoxEasy32(output, input, inputLength, nonce, secret);
+                    return StreamCypher32(output, input, inputLength, nonce, secret);
             }
-            return SecretBoxEasy32(output, input, inputLength, nonce, secret);
-        }
-
-        private static int SecretBoxOpenEasy(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
-        {
-            switch (System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture)
-            {
-                case Architecture.Arm:
-                    return SecretBoxOpenEasyArm(output, input, inputLength, nonce, secret);
-                case Architecture.Arm64:
-                    return SecretBoxOpenEasyArm(output, input, inputLength, nonce, secret);
-                case Architecture.X64:
-                    return SecretBoxOpenEasy64(output, input, inputLength, nonce, secret);
-                case Architecture.X86:
-                    return SecretBoxOpenEasy32(output, input, inputLength, nonce, secret);
-            }
-            return SecretBoxEasy32(output, input, inputLength, nonce, secret);
+            return StreamCypher32(output, input, inputLength, nonce, secret);
         }
 
         #region 32
-        [DllImport("x86/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxEasy32(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("x86/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxOpenEasy32(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+        [DllImport("SodiumCWin32.dll", EntryPoint = "StreamCypher", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int StreamCypher32(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
 
         #region 64
-        [DllImport("x64/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxEasy64(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("x64/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxOpenEasy64(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+        [DllImport("SodiumCx64.dll", EntryPoint = "StreamCypher", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int StreamCypher64(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
 
         #region Arm
-        [DllImport("ARM/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxEasyArm(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
-        [DllImport("ARM/SodiumC/SodiumC.dll", CallingConvention = CallingConvention.StdCall)]
-        private static extern int SecretBoxOpenEasyArm(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
+        [DllImport("SodiumCARM.dll", EntryPoint = "StreamCypher", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int StreamCypherArm(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
         #endregion
 
-        public static int Encrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
+        public static int process(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
         {
             fixed (byte* inPtr = input)
             fixed (byte* outPtr = output)
             {
-                int error = SecretBoxEasy(outPtr + outputOffset, inPtr + inputOffset, inputLength, nonce, secret);
+                int error = StreamCypher(outPtr + outputOffset, inPtr + inputOffset, inputLength, nonce, secret);
                 if (error != 0)
                     throw new Exception($"Sodium Error: {error}");
                 return inputLength + 16;
-            }
-        }
-
-        public static int Decrypt(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, byte[] nonce, byte[] secret)
-        {
-            fixed (byte* inPtr = input)
-            fixed (byte* outPtr = output)
-            {
-                int error = SecretBoxOpenEasy(outPtr + outputOffset, inPtr + inputOffset, inputLength, nonce, secret);
-                if (error != 0)
-                    throw new Exception($"Sodium Error: {error}");
-                return inputLength - 16;
             }
         }
     }
