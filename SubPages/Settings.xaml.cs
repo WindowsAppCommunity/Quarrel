@@ -43,6 +43,8 @@ namespace Discord_UWP.SubPages
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
             Toasts.IsChecked = Storage.Settings.Toasts;
+            LiveTile.IsChecked = Storage.Settings.LiveTile;
+            Badge.IsChecked = Storage.Settings.Badge;
             Vibrate.IsChecked = Storage.Settings.Vibrate;
             CompactMode.IsChecked = Storage.Settings.CompactMode;
             FriendsNotifyDMs.IsChecked = Storage.Settings.FriendsNotifyDMs;
@@ -58,6 +60,8 @@ namespace Discord_UWP.SubPages
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
             VideosAds.IsChecked = Storage.Settings.VideoAd;
+            GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
+
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
             else
@@ -83,6 +87,8 @@ namespace Discord_UWP.SubPages
             //TODO: Settings
             Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
             Storage.Settings.Toasts = (bool)Toasts.IsChecked;
+            Storage.Settings.LiveTile = (bool)LiveTile.IsChecked;
+            Storage.Settings.Badge = (bool)Badge.IsChecked;
             Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
             Storage.Settings.RespUiM = RespUI_M.Value;
             Storage.Settings.RespUiL = RespUI_L.Value;
@@ -100,6 +106,8 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
+            Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
+
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;
             else if ((bool)radio_Light.IsChecked)

@@ -22,15 +22,18 @@ namespace Discord_UWP.Managers
             TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
             bool muted = false;
             string ChnGldName = String.Empty;
+            string ChnName = String.Empty;
             foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
             {
                 if (guild.channels.ContainsKey(message.ChannelId))
                 {
-                    ChnGldName = guild.Raw.Name + " - #" + guild.channels[message.ChannelId].raw.Name;
-                    if (LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                    ChnName = guild.channels[message.ChannelId].raw.Name;
+                    ChnGldName = guild.Raw.Name + " - #" + ChnName;
+                    if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
                     {
                         muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
                     }
+                    break;
                 }
             }
             foreach (var dm in LocalState.DMs.Values)
@@ -38,24 +41,21 @@ namespace Discord_UWP.Managers
                 if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
                 {
                     ChnGldName = dm.Name;
+                    break;
                 }
             }
 
             if (message.User.Id != LocalState.CurrentUser.Id && !muted)
             {
-                try //Because sometimes the intitialization of toastTitle throws an unknown exception
-                {
-                    #region CreateContent
-                    string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" +
-                        LocalState.Guilds.FirstOrDefault(x => x.Value.channels.ContainsKey(message.ChannelId)).Value.channels[message.ChannelId].raw.Name;
-                    string content = message.Content;
-                    string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
-                    string conversationId = message.ChannelId;
-                    #endregion
+                #region CreateContent
+                string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
+                string content = message.Content;
+                string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
+                string conversationId = message.ChannelId;
+                #endregion
 
-                    if (Storage.Settings.Toasts)
+                if (Storage.Settings.Toasts)
                     {
-                        #region Toast
                         ToastVisual visual = new ToastVisual()
                         {
                             BindingGeneric = new ToastBindingGeneric()
@@ -126,23 +126,22 @@ namespace Discord_UWP.Managers
                         ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                         ToastNotificationManager.CreateToastNotifier().Show(notification);
-                        #endregion
                     }
-                }
-                catch (Exception ex)
+
+                if (Storage.Settings.Badge)
                 {
-                    Console.WriteLine(">An unknown error occurred: " + ex.Message);
+                    int count = 0;
+                    foreach (var chn in LocalState.RPC.Values.ToList())
+                    {
+                        count += chn.MentionCount;
+                    }
+                    SendBadgeNotification(count);
                 }
 
-                #region Badge
-                int count = 0;
-                foreach (var chn in LocalState.RPC.Values.ToList())
+                if (Storage.Settings.LiveTile)
                 {
-                    count += chn.MentionCount;
+                    UpdateDetailedStatus(message, ChnGldName);
                 }
-                SendBadgeNotification(count);
-                UpdateDetailedStatus(message, ChnGldName);
-                #endregion
             }
         }
 

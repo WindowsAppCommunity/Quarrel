@@ -146,21 +146,16 @@ namespace Discord_UWP.Controls
                     RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
-                try
-                {
+                if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
-                }
-                catch { }
-                //TODO: DM Functionality
-                //TODO: Live status+playing indicator
-                //TODO: 
+
+                //TODO: DM Functionality 
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game.HasValue)
                     {
                         PlayingHeader.Visibility = Visibility.Visible;
-                        var game = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
-                        richPresence.GameContent = game;
+                        richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
                         richPresence.Visibility = Visibility.Visible;
                     }
                 }

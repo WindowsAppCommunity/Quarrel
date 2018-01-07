@@ -23,6 +23,8 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using Windows.ApplicationModel.ExtendedExecution;
+using System.Threading;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -364,15 +366,14 @@ namespace Discord_UWP
                         }
                     }
                     int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
-                    foreach (GuildMember member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+
+                    foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                     {
-                        
-                        if (e.IsLarge && !LocalState.PresenceDict.ContainsKey(member.User.Id))
-                        {
-                        }
+                        if (e.IsLarge && !LocalState.PresenceDict.ContainsKey(member.Key))
+                        { }
                         else
                         {
-                            var m = new Member(member);
+                            Member m = new Member(member.Value);
                             m.Raw.Roles = m.Raw.Roles.OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
                             if (m.Raw.Roles.FirstOrDefault() != null &&
                                 LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
@@ -415,7 +416,6 @@ namespace Discord_UWP
                         foreach (var m in sortedMembers)
                         {
                             int count =  m.Count();
-                            
                         }
                         await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
@@ -562,10 +562,65 @@ namespace Discord_UWP
             }
         }
 
+        private ExtendedExecutionSession session = null;
+        private async void BeginExtendedExecution()
+        {
+            ClearExtendedExecution();
+
+            var newSession = new ExtendedExecutionSession
+            {
+                Reason = ExtendedExecutionReason.Unspecified,
+                Description = "Periodic update of live tile"
+            };
+            newSession.Revoked += SessionRevoked;
+            ExtendedExecutionResult result = await newSession.RequestExtensionAsync();
+
+            switch (result)
+            {
+                case ExtendedExecutionResult.Allowed:
+                    session = newSession;
+                    Console.WriteLine("Extened execution");
+                    //periodicTimer = new Timer();
+                    break;
+
+                default:
+                case ExtendedExecutionResult.Denied:
+                    newSession.Dispose();
+                    break;
+            }
+        }
+
+        void ClearExtendedExecution()
+        {
+            if (session != null)
+            {
+                session.Revoked -= SessionRevoked;
+                session.Dispose();
+                session = null;
+            }
+        }
+
+        private async void SessionRevoked(object sender, ExtendedExecutionRevokedEventArgs args)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                switch (args.Reason)
+                {
+                    case ExtendedExecutionRevokedReason.Resumed:
+                        break;
+
+                    case ExtendedExecutionRevokedReason.SystemPolicy:
+                        break;
+                }
+
+                ClearExtendedExecution();
+            });
+        }
+
         #region AppEvents
 
         #region LogIn
-    private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
+        private async void App_LoggingInHandlerAsync(object sender, EventArgs e)
         {
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
@@ -580,6 +635,7 @@ namespace Discord_UWP
                 GatewayManager.StartGateway();
                 //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
 
+                BeginExtendedExecution();
                 try
                 {
                     bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
@@ -1605,17 +1661,31 @@ namespace Discord_UWP
         }
         private bool LastMessageIsLoaded()
         {
-            try
+            if (App.CurrentGuildIsDM)
             {
-                var lastmessageid = (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id;
-                if (lastmessageid == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
-                    return true;
-                else
-                    return false;
+                for (int i = MessageList.Items.Count; i < 0; i--)
+                {
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    {
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
+                            return true;
+                        else return false;
+                    }
+                }
+                return false;
             }
-            catch
+            else
             {
-                return true;
+                for (int i = MessageList.Items.Count; i < 0; i--)
+                {
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    {
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                            return true;
+                        else return false;
+                    }
+                }
+                return false;
             }
         }
         private async void LoadNewerMessages()
