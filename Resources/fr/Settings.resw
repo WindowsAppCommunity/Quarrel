@@ -249,4 +249,13 @@
   <data name="Enable compression (Faster)" xml:space="preserve">
     <value>Activer la compression de données</value>
   </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Afficher des pubs videos plutôt que des bannières</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MESSAGES</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Jouer les gifs lors d'un clic ou survolement</value>
+  </data>
 </root>

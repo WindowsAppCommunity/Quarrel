@@ -46,6 +46,17 @@ namespace Discord_UWP.Controls
         private async void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
         {
             await mediaelement.Fade(1, 100).StartAsync();
+            if (!Storage.Settings.GifsOnHover)
+            {
+                mediaelement.AutoPlay = true;
+            }     
+            else
+            {
+                mediaelement.AutoPlay = false;
+                if (above)
+                    mediaelement.Play();
+            }
+                
             LoadingIndic.Visibility = Visibility.Collapsed;
         }
 
@@ -57,6 +68,55 @@ namespace Discord_UWP.Controls
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
            
+        }
+
+        bool above = false;
+        private void mediaelement_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            above = true;
+            if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
+            {
+                mediaelement.Position = TimeSpan.Zero;
+                if(mediaelement.CurrentState == MediaElementState.Stopped)
+                mediaelement.Play();
+            }
+        }
+
+        private void mediaelement_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            above = false;
+            if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
+            {
+                mediaelement.Position = TimeSpan.Zero;
+                mediaelement.Stop();
+            }
+        }
+
+        private void mediaelement_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+        }
+
+        private void mediaelement_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (e.Pointer.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
+            {
+                if (above)
+                {
+                    above = false;
+                    mediaelement.Position = TimeSpan.Zero;
+                    if (mediaelement.CurrentState == MediaElementState.Playing)
+                        mediaelement.Stop();
+                }
+                else
+                {
+                    above = true;
+                    mediaelement.Position = TimeSpan.Zero;
+                    if (mediaelement.CurrentState == MediaElementState.Stopped)
+                        mediaelement.Play();
+                }
+
+            }
         }
     }
 }
