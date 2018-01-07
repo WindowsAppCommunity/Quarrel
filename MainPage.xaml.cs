@@ -2330,10 +2330,5 @@ namespace Discord_UWP
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             }
         }
-
-        private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            App.ShowMemberFlyout(sender, ((KeyValuePair<string,Member>)e.ClickedItem).Value.Raw.User);
-        }
     }
 }
