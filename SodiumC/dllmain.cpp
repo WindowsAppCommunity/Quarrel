@@ -1,31 +1,27 @@
 ﻿#include "pch.h"
 #include "sodium.h"
 
-#define SodiumC_EXPORTS  
-#define SodiumC_API __declspec(dllexport)
-
-bool initialize() {
-	if (sodium_init() == -1) {
-		return false;
-	}
-	return true;
+BOOL APIENTRY DllMain(HMODULE /* hModule */, DWORD ul_reason_for_call, LPVOID /* lpReserved */)
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+		if (_sodium_alloc_init() == -1) {
+			return false;
+		}
+		break;
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
 }
 
-//void decodeFrame(UINT8 packet[], UINT8 nonce[]) {
-//
-//	int error = crypto_secretbox_easy()
-//}
+extern "C" {
 
-//BOOL APIENTRY DllMain(HMODULE /* hModule */, DWORD ul_reason_for_call, LPVOID /* lpReserved */)
-//{
-//    switch (ul_reason_for_call)
-//    {
-//    case DLL_PROCESS_ATTACH:
-//    case DLL_THREAD_ATTACH:
-//    case DLL_THREAD_DETACH:
-//    case DLL_PROCESS_DETACH:
-//        break;
-//    }
-//    return TRUE;
-//}
+	__declspec(dllexport) int __cdecl StreamCypher(UINT8* output, UINT8* input, long inputLength, UINT8 nonce[], UINT8 secret[]) {
+		return crypto_stream_xor(output, input, inputLength, nonce, secret);
+	}
 
+}

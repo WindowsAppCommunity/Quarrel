@@ -319,6 +319,8 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
+    <Content Include="SodiumCWin32.dll" />
+    <Content Include="SodiumCx64.dll" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>

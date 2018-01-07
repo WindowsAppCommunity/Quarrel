@@ -264,7 +264,7 @@ namespace Discord_UWP.Voice
                 var packet = (byte[])e.Message;
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
 
-                SecretBox.Decrypt(packet, 12, packet.Length, _data, 0, _nonce, secretkey);
+                Cypher.process(packet, 12, packet.Length, _data, 0, _nonce, secretkey);
 
                 OpusDecoder decoder = new OpusDecoder(48000, 2);
                 int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
