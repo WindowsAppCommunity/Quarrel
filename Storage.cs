@@ -80,5 +80,6 @@ namespace Discord_UWP
         public bool EnableAcrylic = true;
         public bool UseCompression = true;
         public bool VideoAd = false;
+        public bool GifsOnHover = true;
     }
 }
