@@ -105,7 +105,6 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             App.TypingHandler += App_TypingHandler;
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
-            Tapped += OpenMemberFlyout;
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
         }
@@ -191,7 +190,7 @@ namespace Discord_UWP.Controls
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
         {
-            App.ShowMemberFlyout(this, DisplayedMember.Raw.User);
+
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)

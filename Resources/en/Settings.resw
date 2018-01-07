@@ -249,4 +249,13 @@
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Enable data compression (Faster)</value>
   </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Use video ads instead of banners</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MESSAGES</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Only play gifs on hover or click</value>
+  </data>
 </root>
