@@ -75,6 +75,13 @@ namespace Discord_UWP.SubPages
                 radio_Windows.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Discord)
                 radio_Discord.IsChecked = true;
+
+            if (Storage.Settings.collapseOverride == CollapseOverride.None)
+                NoOverride.IsChecked = true;
+            else if (Storage.Settings.collapseOverride == CollapseOverride.Mention)
+                OverrideMention.IsChecked = true;
+            else if (Storage.Settings.collapseOverride == CollapseOverride.Unread)
+                OverrideUnread.IsChecked = true;
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -116,6 +123,13 @@ namespace Discord_UWP.SubPages
                 Storage.Settings.Theme = Theme.Windows;
             else if ((bool)radio_Discord.IsChecked)
                 Storage.Settings.Theme = Theme.Discord;
+
+            if ((bool)NoOverride.IsChecked)
+                Storage.Settings.collapseOverride = CollapseOverride.None;
+            else if ((bool)OverrideMention.IsChecked)
+                Storage.Settings.collapseOverride = CollapseOverride.Mention;
+            else if ((bool)OverrideUnread.IsChecked)
+                Storage.Settings.collapseOverride = CollapseOverride.Unread;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();

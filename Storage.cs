@@ -49,6 +49,7 @@ namespace Discord_UWP
     }
 
     public enum Theme { Dark, Light, Windows, Discord }
+    public enum CollapseOverride { None, Mention, Unread }
     public class Settings
     {
         //Tuple<string, User> ActiveUser;
@@ -81,5 +82,6 @@ namespace Discord_UWP
         public bool UseCompression = true;
         public bool VideoAd = false;
         public bool GifsOnHover = true;
+        public CollapseOverride collapseOverride = CollapseOverride.Unread;
     }
 }
