@@ -130,8 +130,11 @@ namespace Discord_UWP
                 case 75: return kvp("Is this even legal?", "@Smash_kirby#0966");
                 case 76: return kvp("Maximizing Hype", "@Civiled#1713");
                 case 77: return kvp("Preparing the Men", "@Civiled#1713");
-                case 78: return kvp("Everytime you ask, it becomes a little longer");
+                case 78: return kvp("This app, bu");
                 case 79: return kvp("And also with you", "John Mulaney");
+                case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
+                case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
+                case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
