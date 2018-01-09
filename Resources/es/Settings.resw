@@ -246,4 +246,28 @@
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Activar efectos acrílicos (fondo borroso)</value>
   </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Activar la compresión de datos (más rápido)</value>
+  </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Utiliser des publicités vidéo au lieu de bannières</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MENSAJES</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Sólo reproducir gifs en el vuelo estacionario o haga clic en</value>
+  </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Habilitar la compresión de datos </value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Menciona</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Leídos</value>
+  </data>
 </root>

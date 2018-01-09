@@ -47,18 +47,15 @@ namespace Discord_UWP.Managers
 
             if (message.User.Id != LocalState.CurrentUser.Id && !muted)
             {
-                try //Because sometimes the intitialization of toastTitle throws an unknown exception
-                {
-                    #region CreateContent
-                    string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
-                    string content = message.Content;
-                    string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
-                    string conversationId = message.ChannelId;
-                    #endregion
+                #region CreateContent
+                string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
+                string content = message.Content;
+                string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
+                string conversationId = message.ChannelId;
+                #endregion
 
-                    if (Storage.Settings.Toasts)
+                if (Storage.Settings.Toasts)
                     {
-                        #region Toast
                         ToastVisual visual = new ToastVisual()
                         {
                             BindingGeneric = new ToastBindingGeneric()
@@ -129,23 +126,22 @@ namespace Discord_UWP.Managers
                         ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                         ToastNotificationManager.CreateToastNotifier().Show(notification);
-                        #endregion
                     }
-                }
-                catch (Exception ex)
+
+                if (Storage.Settings.Badge)
                 {
-                    Console.WriteLine(">An unknown error occurred: " + ex.Message);
+                    int count = 0;
+                    foreach (var chn in LocalState.RPC.Values.ToList())
+                    {
+                        count += chn.MentionCount;
+                    }
+                    SendBadgeNotification(count);
                 }
 
-                #region Badge
-                int count = 0;
-                foreach (var chn in LocalState.RPC.Values.ToList())
+                if (Storage.Settings.LiveTile)
                 {
-                    count += chn.MentionCount;
+                    UpdateDetailedStatus(message, ChnGldName);
                 }
-                SendBadgeNotification(count);
-                UpdateDetailedStatus(message, ChnGldName);
-                #endregion
             }
         }
 

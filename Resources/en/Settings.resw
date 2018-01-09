@@ -258,4 +258,16 @@
   <data name="GifsOnHoverCB.Content" xml:space="preserve">
     <value>Only play gifs on hover or click</value>
   </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Enable data compression</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Mentions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Unread</value>
+  </data>
 </root>

@@ -64,10 +64,10 @@ namespace Discord_UWP.Sockets
         {
             using (var dataReader = e.GetDataReader())
             {
-                dataReader.ByteOrder = ByteOrder.LittleEndian;
-                byte[] fileContent = new byte[dataReader.UnconsumedBufferLength];
-                dataReader.ReadBytes(fileContent); //TODO: Don't recieve sound as a string!!!
-                OnMessageReceived(fileContent);
+                dataReader.ByteOrder = ByteOrder.BigEndian; //TO CHECK
+                byte[] packet = new byte[dataReader.UnconsumedBufferLength];
+                dataReader.ReadBytes(packet); //TODO: Don't recieve sound as a string!!!
+                OnMessageReceived(packet);
             }
         }
 
