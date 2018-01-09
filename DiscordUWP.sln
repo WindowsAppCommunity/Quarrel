@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiphyAPI", "GiphyAPI\GiphyA
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SodiumC", "SodiumC\SodiumC.vcxproj", "{E7AC7946-CA02-4DD6-A168-37AC806F9E18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +132,26 @@ Global
 		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x64.Build.0 = Release|x64
 		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x86.ActiveCfg = Release|Win32
 		{E7AC7946-CA02-4DD6-A168-37AC806F9E18}.Release|x86.Build.0 = Release|Win32
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|ARM.Build.0 = Debug|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|ARM.Deploy.0 = Debug|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x64.ActiveCfg = Debug|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x64.Build.0 = Debug|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x64.Deploy.0 = Debug|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x86.ActiveCfg = Debug|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x86.Build.0 = Debug|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Debug|x86.Deploy.0 = Debug|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|Any CPU.ActiveCfg = Release|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|ARM.ActiveCfg = Release|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|ARM.Build.0 = Release|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|ARM.Deploy.0 = Release|ARM
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x64.ActiveCfg = Release|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x64.Build.0 = Release|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x64.Deploy.0 = Release|x64
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x86.ActiveCfg = Release|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x86.Build.0 = Release|x86
+		{8856F3DC-9BAE-4545-A8BA-103C4DD7857A}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

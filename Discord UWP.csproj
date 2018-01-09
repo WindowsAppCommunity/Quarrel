@@ -238,6 +238,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RESTCalls.cs" />
+    <Compile Include="ShareTarget.xaml.cs">
+      <DependentUpon>ShareTarget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Storage.cs" />
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -319,6 +322,9 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
+    <Content Include="SodiumCARM.dll" />
+    <Content Include="SodiumCWin32.dll" />
+    <Content Include="SodiumCx64.dll" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -522,6 +528,10 @@
     <Page Include="Offline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShareTarget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\About.xaml">
       <Generator>MSBuild:Compile</Generator>

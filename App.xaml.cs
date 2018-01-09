@@ -21,6 +21,7 @@ using Windows.ApplicationModel.Store;
 
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
+using System.Diagnostics;
 
 namespace Discord_UWP
 {
@@ -803,9 +804,13 @@ namespace Discord_UWP
             Storage.Settings.AutoHideChannels = true;
             Storage.Settings.AutoHidePeople = false;
             Storage.Settings.Toasts = false;
+            Storage.Settings.LiveTile = true;
+            Storage.Settings.Badge = true;
             Storage.Settings.HighlightEveryone = true;
             Storage.Settings.CompactMode = false;
             Storage.Settings.Toasts = false;
+            Storage.Settings.LiveTile = true;
+            Storage.Settings.Badge = true;
             Storage.Settings.RespUiM = 500;
             Storage.Settings.RespUiL = 1000;
             Storage.Settings.RespUiXl = 1500;
@@ -887,7 +892,9 @@ namespace Discord_UWP
 
         protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
-
+            var rootFrame = new Frame();
+            rootFrame.Navigate(typeof(ShareTarget), args.ShareOperation);
+            Window.Current.Activate();
         }
         static bool WasPreLaunched = false;
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
@@ -990,40 +997,49 @@ namespace Discord_UWP
         }
         public static event EventHandler SetupMainPage;
         /// <summary>
-        /// Invoked when the application is not launche normally by the end user
+        /// Invoked when the application is not launched normally by the end user
         /// </summary>
-        /// <param name="args">Detais about the activation event</param>
+        /// <param name="args">Details about the activation event</param>
         protected override async void OnActivated(IActivatedEventArgs args)
         {
-            if (args.Kind == ActivationKind.Protocol)
+            switch (args.Kind)
             {
+                #region Protocol
+                case ActivationKind.Protocol:
+                    if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                        LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+                    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                    string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
+                    var count = segments.Count();
+                    if (count > 0)
+                    {
+                        if (segments[0] == "guild")
+                        {
+                            //If the app isn't already open, do so
 
-                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
-                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
-                var count = segments.Count();
-                if (count > 0)
-                {
-                    if(segments[0] == "guild")
-                    {
-                        //If the app isn't already open, do so
-                        
-                        if (count == 3)
-                            App.SelectGuildChannel(segments[1], segments[2]);
-                        else if(count == 2)
-                            App.SelectGuildChannel(segments[1], null);
-                    }
-                    else if(segments[0] == "reset")
-                    {
-                        await RequestReset();
-                    }
-                };
-            }
-            else
-            {
-                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
-                    LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+                            if (count == 3)
+                                App.SelectGuildChannel(segments[1], segments[2]);
+                            else if (count == 2)
+                                App.SelectGuildChannel(segments[1], null);
+                        }
+                        else if (segments[0] == "reset")
+                        {
+                            await RequestReset();
+                        }
+                    };
+                    break;
+                #endregion
+
+                #region ShartTarget
+                case ActivationKind.ShareTarget:
+                    
+                    break;
+                #endregion
+
+                default:
+                    if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                        LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+                    break;
             }
         }
         public async static Task RequestReset()

@@ -1348,7 +1348,7 @@
                     <controls:SideDrawer.ContentRight>
                         <SemanticZoom>
                             <SemanticZoom.ZoomedInView>
-                                <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="0,0,0,0" IsItemClickEnabled="True" ItemClick="MembersListView_ItemClick">
+                                <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="0,0,0,0" IsItemClickEnabled="True">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>

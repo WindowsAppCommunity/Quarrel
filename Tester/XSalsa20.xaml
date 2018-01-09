@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="Tester.XSalsa20"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tester"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <TextBox x:Name="iog" HorizontalAlignment="Stretch"/>
+            <TextBox x:Name="iuwp" HorizontalAlignment="Stretch" Grid.Column="1"/>
+            <Button Content="Process" HorizontalAlignment="Center" Click="Button_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="oog" HorizontalAlignment="Stretch" Grid.Row="2"/>
+            <TextBox x:Name="ouwp" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
+        </Grid>
+    </Grid>
+</Page>

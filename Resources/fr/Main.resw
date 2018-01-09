@@ -198,9 +198,6 @@
   <data name="Offline" xml:space="preserve">
     <value>Hors-ligne</value>
   </data>
-  <data name="OfflineError" xml:space="preserve">
-    <value />
-  </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
     <value>En ligne</value>
   </data>

@@ -41,8 +41,11 @@ namespace Discord_UWP.Voice
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
         private byte[] _nonce = new byte[24];
-        private byte[] _data = new byte[3840];
-        
+        private byte[] _data;
+        private OpusDecoder decoder = new OpusDecoder(48000, 2);
+        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
+        private float[] output = new float[framesize];
+
         private byte[] secretkey;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
@@ -59,6 +62,7 @@ namespace Discord_UWP.Voice
             _udpSocket = new UDPSocket();
             _state = state;
             _voiceServerConfig = config;
+
 
             eventHandlers = GetEventHandlers();
             operationHandlers = GetOperationHandlers();
@@ -263,20 +267,27 @@ namespace Discord_UWP.Voice
             {
                 var packet = (byte[])e.Message;
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
+                _data = new byte[packet.Length-12-16];
 
-                SecretBox.Decrypt(packet, 12, packet.Length, _data, 0, _nonce, secretkey);
+                int error = Cypher.decrypt(packet, 12, packet.Length-12, _data, 0, _nonce, secretkey);
+                if (_data.Length != error)
+                {
+                    throw new Exception("UGHHHH...."); //Conflicting sizes
+                }
 
-                OpusDecoder decoder = new OpusDecoder(48000, 2);
-                int framesize = 20 * 48 * 2 * 2; //20 ms * 48 samples per ms * 2 channels * 2 bytes per sample
-                float[] output = new float[framesize]; // framesize 
-                int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
+                if (!_data.Equals(new byte[] { 0xF8, 0xFF, 0xFE}))
+                {
+                    int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
 
-                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+                } else
+                { //Catch
+
+                }
             }
             catch (Exception exception)
             {
                 System.Diagnostics.Debug.WriteLine(exception.Message);
-                //App.NavigateToBugReport(exception);
             }
         }
         #endregion

@@ -710,7 +710,7 @@ namespace Discord_UWP.Managers
         {
             await AudioManager.CreateAudioGraph();
             VoiceManager.VoiceConnection = new Voice.VoiceConnection(e.EventData, LocalState.VoiceState);
-            await VoiceManager.VoiceConnection.ConnectAsync();
+            VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 
         private static void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceState> e)
