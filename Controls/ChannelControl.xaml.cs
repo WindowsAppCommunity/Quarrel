@@ -253,6 +253,7 @@ namespace Discord_UWP.Controls
                         this.Fade(1, 200, 0).Start();
                     }
                 }
+                UpdateHidden();
             }
             if (prop == IsMutedProperty)
             {
@@ -267,6 +268,7 @@ namespace Discord_UWP.Controls
                 {
                     MuteIcon.Visibility = Visibility.Collapsed;
                 }
+                UpdateHidden();
             }
             if (prop == IsTypingProperty)
             {
@@ -292,6 +294,7 @@ namespace Discord_UWP.Controls
                 {
                     HideBadge.Begin();
                 }
+                UpdateHidden();
             }
             if (prop == ChnNameProperty)
             {
@@ -375,30 +378,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsHiddenProperty)
             {
-                if (!IsUnread || IsMuted)
-                {
-                    if (IsHidden)
-                    {
-                        if (Type == 4)
-                            Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
-                        else
-                        {
-                            //await this.Fade(0, 200, 0).StartAsync();
-                            this.Visibility = Visibility.Collapsed;
-                        }
-
-                    }
-                    else
-                    {
-                        if (Type == 4)
-                            Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
-                        else
-                        {
-                            this.Visibility = Visibility.Visible;
-                            this.Fade(1, 200, 0).Start();
-                        }
-                    }
-                }
+                UpdateHidden();
             }
             
             //TODO: Vocie channels
@@ -431,6 +411,34 @@ namespace Discord_UWP.Controls
         {
             //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
             App.ConnectToVoice(Id, App.CurrentGuildId);
+        }
+
+        public void UpdateHidden()
+        {
+            if ((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0) || IsMuted)
+            {
+                if (IsHidden)
+                {
+                    if (Type == 4)
+                        Chevron.Rotate(-90, 7, 7, 400, 0, EasingType.Circle).Start();
+                    else
+                    {
+                        //await this.Fade(0, 200, 0).StartAsync();
+                        this.Visibility = Visibility.Collapsed;
+                    }
+
+                }
+                else
+                {
+                    if (Type == 4)
+                        Chevron.Rotate(0, 7, 7, 400, 0, EasingType.Circle).Start();
+                    else
+                    {
+                        this.Visibility = Visibility.Visible;
+                        this.Fade(1, 200, 0).Start();
+                    }
+                }
+            }
         }
 
         public ChannelControl()
