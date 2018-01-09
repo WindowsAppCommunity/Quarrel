@@ -133,72 +133,64 @@ namespace Discord_UWP.Controls
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO Optimize the hell out of this
-            try
+            SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
+            //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
+            SuggestionBlock.ItemsSource = null;
+            string str = MessageEditor.Text;
+            if (MessageEditor.SelectionStart < str.Length)
             {
-                SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
-                //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
-                SuggestionBlock.ItemsSource = null;
-                string str = MessageEditor.Text;
-                if (MessageEditor.SelectionStart < str.Length)
-                {
-                    selectionstart = MessageEditor.SelectionStart;
-                    str = str.Remove(MessageEditor.SelectionStart);
-                }
-                else
-                {
-                    selectionstart = MessageEditor.Text.Length;
-                }
+                selectionstart = MessageEditor.SelectionStart;
+                str = str.Remove(MessageEditor.SelectionStart);
+            }
+            else
+            {
+                selectionstart = MessageEditor.Text.Length;
+            }
 
-                if (!String.IsNullOrWhiteSpace(str))
+            if (!String.IsNullOrWhiteSpace(str))
+            {
+                if (str.Last() != ' ' || str.Count() < 2) 
+                //cancel if the last letter is a space or there are less than 2 chars
                 {
-                    if (str.Last() != ' ' || str.Count() < 2
-                    ) //cancel if the last letter is a space or there are less than 2 chars
+                    str = str.Trim();
+                    string word = "";
+                    //if the letter contains a space, get the last word, otherwise the string is a single word
+                    if (str.Contains(' '))
+                        word = str.Split(' ').Last();
+                    else if (str.Contains('\r'))
+                        word = str.Split('\r').Last();
+                    else word = str;
+
+                    if (word.StartsWith("@"))
                     {
-                        str = str.Trim();
-                        string word = "";
-                        //if the letter contains a space, get the last word, otherwise the string is a single word
-                        if (str.Contains(' '))
-                            word = str.Split(' ').Last();
-                        else if (str.Contains('\r'))
-                            word = str.Split('\r').Last();
-                        else word = str;
-
-                       if (word.StartsWith("@"))
+                        string query = word.Remove(0, 1);
+                        selectionstart = selectionstart - word.Length;
+                        PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
+                        if (query != "")
                         {
-                            string query = word.Remove(0, 1);
-                            selectionstart = selectionstart - word.Length;
-                            PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
-                            if (query != "")
-                            {
-                                //Something in this block is crashing the UI, but I dunno what
-                                IEnumerable<string> userlist =
-                                    LocalState.Guilds[App.CurrentGuildId].members.Where(x => x.Value.User.Username.StartsWith(query))
-                                        .Select(x => "@" + x.Value.User.Username + "#" + x.Value.User.Discriminator);
-                                IEnumerable<string> rolelist =
-                                    LocalState.Guilds[App.CurrentGuildId].roles
-                                        .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
-                                        .Select(x => "@" + x.Value.Name);
-                                rolelist.Concat(new List<string> {"@here", "@everyone"});
-                                SuggestionBlock.ItemsSource = userlist.Concat(rolelist);
-                                SuggestionPopup.IsOpen = true;
-                            }
-                        }
-                        else if (word.StartsWith("#"))
-                        {
-                            string query = word.Remove(0, 1);
-                            selectionstart = selectionstart - word.Length;
-                            PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
-                            
-                            SuggestionBlock.ItemsSource = LocalState.Guilds[App.CurrentGuildId].channels
-                                .Where(x => x.Value.raw.Type == 0 && x.Value.raw.Name.StartsWith(query))
-                                .Select(x => "#" + x.Value.raw.Name);
+                            //Something in this block is crashing the UI, but I dunno what
+                            IEnumerable<string> userlist =
+                                LocalState.Guilds[App.CurrentGuildId].members.Where(x => x.Value.User.Username.StartsWith(query))
+                                    .Select(x => "@" + x.Value.User.Username + "#" + x.Value.User.Discriminator);
+                            IEnumerable<string> rolelist =
+                                LocalState.Guilds[App.CurrentGuildId].roles
+                                    .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
+                                    .Select(x => "@" + x.Value.Name);
+                            rolelist.Concat(new List<string> { "@here", "@everyone" });
+                            SuggestionBlock.ItemsSource = userlist.Concat(rolelist);
                             SuggestionPopup.IsOpen = true;
                         }
-                        else
-                        {
-                            SuggestionBlock.ItemsSource = null;
-                            SuggestionPopup.IsOpen = false;
-                        }
+                    }
+                    else if (word.StartsWith("#"))
+                    {
+                        string query = word.Remove(0, 1);
+                        selectionstart = selectionstart - word.Length;
+                        PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
+
+                        SuggestionBlock.ItemsSource = LocalState.Guilds[App.CurrentGuildId].channels
+                            .Where(x => x.Value.raw.Type == 0 && x.Value.raw.Name.StartsWith(query))
+                            .Select(x => "#" + x.Value.raw.Name);
+                        SuggestionPopup.IsOpen = true;
                     }
                     else
                     {
@@ -211,13 +203,13 @@ namespace Discord_UWP.Controls
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
                 }
-              //  Text = str;
             }
-            catch
+            else
             {
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
             }
+            //  Text = str;
             TextChanged?.Invoke(sender, e);
         }
 
