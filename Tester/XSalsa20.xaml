@@ -16,14 +16,15 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             
             <TextBox x:Name="iog" HorizontalAlignment="Stretch"/>
             <TextBox x:Name="iuwp" HorizontalAlignment="Stretch" Grid.Column="1"/>
             <Button Content="Process" HorizontalAlignment="Center" Click="Button_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="oog" HorizontalAlignment="Stretch"/>
-            <TextBox x:Name="ouwp" HorizontalAlignment="Stretch" Grid.Column="1"/>
+            <TextBox x:Name="oog" HorizontalAlignment="Stretch" Grid.Row="2"/>
+            <TextBox x:Name="ouwp" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="2"/>
         </Grid>
     </Grid>
 </Page>
