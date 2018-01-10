@@ -650,7 +650,7 @@
       <Version>1.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1711.28001</Version>
