@@ -13,7 +13,7 @@
 
     </UserControl.Resources>
 
-    <Grid x:Name="rootGrid" Margin="0,24,0,6" HorizontalAlignment="Stretch" Background="Transparent">
+    <Grid x:Name="rootGrid" Margin="0,24,12,6" HorizontalAlignment="Stretch" Background="Transparent">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Advert">
