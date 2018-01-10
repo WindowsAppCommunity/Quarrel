@@ -22,6 +22,7 @@ using Windows.ApplicationModel.Store;
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Discord_UWP
 {
@@ -724,12 +725,14 @@ namespace Discord_UWP
         internal static bool CurrentGuildIsDM;
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
+        internal static DawgSharp.Dawg<DawgSharp.DawgItem> MemberListDawg;
         internal static int FriendNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
+        internal static bool DontLogin = false;
         internal const string ClientId = "357923233636286475";
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
@@ -1025,6 +1028,10 @@ namespace Discord_UWP
                         else if (segments[0] == "reset")
                         {
                             await RequestReset();
+                        }
+                        else if(segments[0] == "nologin")
+                        {
+                            DontLogin = true;
                         }
                     };
                     break;
