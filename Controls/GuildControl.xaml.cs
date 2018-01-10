@@ -156,11 +156,13 @@ namespace Discord_UWP.Controls
                     NotificationCounter.Text = NotificationCount.ToString();
                     ShowBadge.Begin();
                     UnreadIndicator.Background = (SolidColorBrush)App.Current.Resources["Blurple"];
+                    UnreadIndicator.Opacity = 1;
                 }
                 else
                 {
                     HideBadge.Begin();
                     UnreadIndicator.Background = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                    UnreadIndicator.Opacity = 0.75;
                 }
             }
             if (prop == GuildNameProperty)

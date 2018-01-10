@@ -35,8 +35,7 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
-        <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
-
+        <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Opacity="0.75" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
         <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
         <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
             <Rectangle.Fill>
