@@ -129,7 +129,7 @@ namespace Discord_UWP.Controls
         string PureText = "";
         int selectionstart = 0;
         //bool EnableChanges = true;
-
+        string mentionPrefix = "";
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO Optimize the hell out of this
@@ -163,26 +163,37 @@ namespace Discord_UWP.Controls
 
                     if (word.StartsWith("@"))
                     {
+                        mentionPrefix = "@";
                         string query = word.Remove(0, 1);
                         selectionstart = selectionstart - word.Length;
                         PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
                         if (query != "")
                         {
-                            //Something in this block is crashing the UI, but I dunno what
-                            IEnumerable<string> userlist =
-                                LocalState.Guilds[App.CurrentGuildId].members.Where(x => x.Value.User.Username.StartsWith(query))
-                                    .Select(x => "@" + x.Value.User.Username + "#" + x.Value.User.Discriminator);
-                            IEnumerable<string> rolelist =
-                                LocalState.Guilds[App.CurrentGuildId].roles
-                                    .Where(x => x.Value.Name.StartsWith(query) && x.Value.Mentionable)
-                                    .Select(x => "@" + x.Value.Name);
-                            rolelist.Concat(new List<string> { "@here", "@everyone" });
-                            SuggestionBlock.ItemsSource = userlist.Concat(rolelist);
-                            SuggestionPopup.IsOpen = true;
+                            if (App.MemberListDawg == null)
+                            {
+                                SuggestionBlock.ItemsSource = null;
+                                SuggestionPopup.IsOpen = false;
+                            }
+                            else
+                            {
+                                var list = App.MemberListDawg.MatchPrefix(query).Take(12);
+                                if(list.Count() == 0)
+                                {
+                                    SuggestionBlock.ItemsSource = null;
+                                    SuggestionPopup.IsOpen = false;
+                                }
+                                else
+                                {
+                                    SuggestionBlock.ItemsSource = list;
+                                    SuggestionPopup.IsOpen = true;
+                                }
+                                
+                            }
                         }
                     }
                     else if (word.StartsWith("#"))
                     {
+                        mentionPrefix = "";
                         string query = word.Remove(0, 1);
                         selectionstart = selectionstart - word.Length;
                         PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
@@ -209,17 +220,18 @@ namespace Discord_UWP.Controls
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
             }
-            //  Text = str;
-            TextChanged?.Invoke(sender, e);
         }
-
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             PopupTransform.Y = -e.NewSize.Height;
         }
 
-        private void SelectSuggestion(string suggestion)
+        private void SelectSuggestion(KeyValuePair<string, DawgSharp.DawgItem> item)
         {
+          
+            string suggestion = mentionPrefix + item.Value.InsertText;
+            if (suggestion == "")
+                suggestion = mentionPrefix + item.Key;
             //EnableChanges = false;
             var str = MessageEditor.Text;
             MessageEditor.Text = PureText.Insert(selectionstart, suggestion);
@@ -250,12 +262,12 @@ namespace Discord_UWP.Controls
                         InsertNewLine();
                     }
                     else if (HandleSuggestions)
-                        SelectSuggestion(SuggestionBlock.SelectedItem as string);
+                        SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
                     else
                         SendBox_OnClick(null, null);
                 }
                 else if (HandleSuggestions)
-                    SelectSuggestion(SuggestionBlock.SelectedItem as string);
+                    SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
                 else
                     InsertNewLine();
             }
@@ -281,7 +293,7 @@ namespace Discord_UWP.Controls
 
         private void SuggestionBlock_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            SelectSuggestion(e.ClickedItem as string);
+            SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)e.ClickedItem);
         }
 
         private void MessageEditor_OnLostFocus(object sender, RoutedEventArgs e)

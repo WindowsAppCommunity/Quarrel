@@ -92,6 +92,7 @@ namespace Discord_UWP
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             //Setup MessageList infinite scroll
 
+            if (App.DontLogin) return;
 
             //Hook up the login Event
             App.LoggingInHandler += App_LoggingInHandlerAsync;
@@ -101,7 +102,7 @@ namespace Discord_UWP
                 SubFrameNavigator(typeof(LogScreen));
                 return;
             }
-            else
+            else 
             {
                 App_LoggingInHandlerAsync(null,null);
             }
@@ -304,10 +305,11 @@ namespace Discord_UWP
                                    }
                                });
         }
-
+        private DawgSharp.DawgBuilder<DawgSharp.DawgItem> MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
         {
             memberscvs.Clear();
+            MemberListBuilder.Clear();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null && App.CurrentGuildId == e.GuildId) //Reduntant I know
             {
                 //await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
@@ -333,13 +335,15 @@ namespace Discord_UWP
                 {
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
                     {
-
                         LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
                     }
                     else
                     {
                         LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
                     }
+                    MemberListBuilder.Insert(member.User.Username + "#" + member.User.Discriminator, new DawgSharp.DawgItem() { InsertText = "" });
+                    if (!string.IsNullOrEmpty(member.Nick))
+                        MemberListBuilder.Insert(member.Nick, new DawgSharp.DawgItem() { InsertText=member.User.Username + "#"+member.User.Discriminator } );
                 }
                 int totalrolecounter = 0;
 
@@ -428,7 +432,10 @@ namespace Discord_UWP
                     {
 
                     }
-
+                    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                    sw.Start();
+                    App.MemberListDawg = MemberListBuilder.BuildDawg();
+                    sw.Stop();
                     //else
                     //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 }
