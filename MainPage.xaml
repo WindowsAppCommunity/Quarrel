@@ -1506,13 +1506,13 @@
                         <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
-                                    <ListView x:Name="PinnedMessageList" SelectionMode="None" Width="450" MaxHeight="500">
+                                    <ListView x:Name="PinnedMessageList" SelectionMode="None" MaxWidth="450" MaxHeight="500">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
                                                  MessageType="{Binding MessageType}"
-                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed" Width="430"/>
+                                                 Header="{Binding Header}" MoreButtonVisibility="Collapsed" MaxWidth="430"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Footer>
