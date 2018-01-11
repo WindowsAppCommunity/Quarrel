@@ -58,46 +58,46 @@ namespace Discord_UWP.SubPages
             LicenseInformation licenseInformation = CurrentApp.LicenseInformation;
             switch ((sender as Button).Tag.ToString())
             {
-                case "RemoveAds":
-                    if (!licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RemoveAds");
+                //case "RemoveAds":
+                //    if (!licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                //    {
+                //        try
+                //        {
+                //            // The customer doesn't own this feature, so
+                //            // show the purchase dialog.
+                //            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RemoveAds");
 
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                                await msg.ShowAsync();
-                            }
+                //            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                //            {
+                //                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
+                //                await msg.ShowAsync();
+                //            }
+                //            else
+                //            {
+                //                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
+                //                await msg.ShowAsync();
+                //            }
 
-                            licenseInformation = CurrentApp.LicenseInformation;
+                //            licenseInformation = CurrentApp.LicenseInformation;
 
-                            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                            {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                                App.ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
+                //            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
+                //            {
+                //                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
+                //                App.ShowAds = false;
+                //            }
+                //            //Check the license state to determine if the in-app purchase was successful.
+                //        }
+                //        catch (Exception)
+                //        {
+                //            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
+                //            await msg.ShowAsync();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        // The customer already owns this feature.
+                //    }
+                //    break;
                 case "Polite":
                     if (!licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
                     {
@@ -122,7 +122,7 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
                             {
-                                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
+                                PoliteDonatation.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
@@ -145,9 +145,9 @@ namespace Discord_UWP.SubPages
                         {
                             // The customer doesn't own this feature, so
                             // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDonation ");
+                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDonation");
 
-                            if (licenseInformation.ProductLicenses["SignificantDonation "].IsActive)
+                            if (licenseInformation.ProductLicenses["SignificantDonation"].IsActive)
                             {
                                 MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
                                 await msg.ShowAsync();
@@ -162,6 +162,7 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
                             {
+                                SignificantDonatation.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
@@ -201,6 +202,7 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
                             {
+                                OMGTHXDonatation.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
@@ -240,6 +242,7 @@ namespace Discord_UWP.SubPages
 
                             if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
                             {
+                                RidiculousDonatation.Visibility = Visibility.Collapsed;
                                 App.ShowAds = false;
                             }
                             //Check the license state to determine if the in-app purchase was successful.
