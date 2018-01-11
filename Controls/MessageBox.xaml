@@ -411,6 +411,7 @@
         </Grid.ColumnDefinitions>
         <TextBox x:Uid="/Controls/SendMessageTBox" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False"/>
         <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" Style="{StaticResource SendButton}" Padding="8" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource Blurple}"/>
+        
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
             <Popup.RenderTransform>
                 <TranslateTransform x:Name="PopupTransform"/>
@@ -437,11 +438,11 @@
                 <SymbolIcon Symbol="Emoji"/>
             </Button>
             <Button x:Name="GiphyButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource DiscordButton}" Opacity="1" Background="Transparent" Click="GiphyButton_Click" Padding="8">
-                <FontIcon Glyph="" FontFamily="Segoe MDL2 Assets"/>
+                <SymbolIcon Symbol="BrowsePhotos"/>
             </Button>
         </StackPanel>
         
-        <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
+        <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click" FontFamily="Segoe MDL2 Assets"/>
         <Button x:Name="attachButton" Style="{StaticResource DiscordButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
             <SymbolIcon Symbol="Attach"/>
         </Button>
@@ -472,7 +473,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <TextBox x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle2}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
+            <TextBox x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle1}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
     </Grid>
 </UserControl>
