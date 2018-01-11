@@ -415,7 +415,7 @@ namespace Discord_UWP.Controls
 
         public void UpdateHidden()
         {
-            if ((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0) || IsMuted)
+            if (IsMuted || !((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0)))
             {
                 if (IsHidden)
                 {
