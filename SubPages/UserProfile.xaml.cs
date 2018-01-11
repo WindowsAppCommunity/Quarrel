@@ -121,7 +121,6 @@ namespace Discord_UWP.SubPages
 
             try
             {
-
                 if (profile.ConnectedAccount != null)
                 {
                     for (int i = 0; i < profile.ConnectedAccount.Count(); i++)

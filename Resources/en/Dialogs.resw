@@ -316,7 +316,7 @@
     <value>Overview</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>Polite donation $0.99</value>
+    <value>Polite donation $1.29</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
     <value>Read message history</value>
@@ -467,5 +467,8 @@
   </data>
   <data name="GotIt.Content" xml:space="preserve">
     <value>Got it!</value>
+  </data>
+  <data name="DonationsTB" xml:space="preserve">
+    <value>DONATIONS</value>
   </data>
 </root>

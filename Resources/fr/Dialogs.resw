@@ -316,7 +316,7 @@
     <value>Vue d'ensemble</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>Donation polie $0.99</value>
+    <value>Donation polie $1.29</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
     <value>Consulter l'historique des message</value>
@@ -467,5 +467,8 @@
   </data>
   <data name="GotIt.Content" xml:space="preserve">
     <value>Compris!</value>
+  </data>
+  <data name="DonationsTB" xml:space="preserve">
+    <value />
   </data>
 </root>
