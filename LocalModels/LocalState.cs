@@ -10,6 +10,7 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, DirectMessageChannel> DMs = new Dictionary<string, DirectMessageChannel>();
         public static User CurrentUser = new User();
         public static Dictionary<string, Friend> Friends = new Dictionary<string, Friend>();
+        public static Dictionary<string, Friend> Blocked = new Dictionary<string, Friend>();
         public static Dictionary<string, string> Notes = new Dictionary<string, string>();
 
         public static Dictionary<TypingStart, DispatcherTimer> Typers = new Dictionary<TypingStart, DispatcherTimer>();

@@ -80,10 +80,11 @@ namespace Discord_UWP.Managers
                 IsContinuation = isContinuation;
                 Header = header;
                 Pending = pending;
+                Blocked = messageType != MessageTypes.Advert && LocalState.Blocked.ContainsKey(message.Value.Id);
             }
 
-            private SharedModels.Message? _message;
-            public SharedModels.Message? Message
+            private Message? _message;
+            public Message? Message
             {
                 get => _message;
                 set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); }
@@ -116,6 +117,13 @@ namespace Discord_UWP.Managers
             {
                 get => _pending;
                 set { if (_pending == value) return; _pending = value; OnPropertyChanged("Pending"); }
+            }
+
+            private bool _blocked;
+            public bool Blocked
+            {
+                get => _blocked;
+                set { if (_blocked == value) return; _blocked = value; OnPropertyChanged("Blocked"); }
             }
 
             public event PropertyChangedEventHandler PropertyChanged;

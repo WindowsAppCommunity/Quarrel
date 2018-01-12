@@ -1308,7 +1308,9 @@
                                         <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
                                                  MessageType="{Binding MessageType}"
-                                                 Header="{Binding Header}"/>
+                                                 Header="{Binding Header}"
+                                                 IsPending="{Binding Pending}"
+                                                 IsBlocked="{Binding Blocked}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                                 <ListView.Footer>

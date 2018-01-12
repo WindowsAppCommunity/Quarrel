@@ -85,6 +85,17 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsBlocked
+        {
+            get { return (bool)GetValue(IsBlockedProperty); }
+            set { SetValue(IsBlockedProperty, value); }
+        }
+        public static readonly DependencyProperty IsBlockedProperty = DependencyProperty.Register(
+            nameof(IsBlocked),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         //The header of the messages, that can indicate data such as "new messages" or the date
         public string Header
         {
@@ -241,6 +252,18 @@ namespace Discord_UWP.Controls
                 } else
                 {
                     content.Opacity = 1;
+                }
+            }
+            if (prop == IsBlockedProperty)
+            {
+                if (IsBlocked)
+                {
+                    content.Visibility = Visibility.Collapsed;
+                    BlockedMessage.Visibility = Visibility.Visible;
+                } else
+                {
+                    content.Visibility = Visibility.Visible;
+                    BlockedMessage.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -427,7 +450,6 @@ namespace Discord_UWP.Controls
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
                     content.BorderThickness = new Thickness(2, 0, 0, 0);
                 }
-
                 else
                 {
                     content.Background = null;
@@ -552,6 +574,18 @@ namespace Discord_UWP.Controls
                             InviteCode = text1
                         });
                     }
+
+                if (LocalState.Blocked.ContainsKey(userid))
+                {
+                    IsBlocked = true;
+                    content.Visibility = Visibility.Collapsed;
+                    BlockedMessage.Visibility = Visibility.Visible;
+                } else
+                {
+                    IsBlocked = false;
+                    BlockedMessage.Visibility = Visibility.Collapsed;
+                    content.Visibility = Visibility.Collapsed;
+                }
             }
             else
             {
@@ -919,6 +953,13 @@ namespace Discord_UWP.Controls
         private void contentStacker_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
 
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsBlocked = false;
+            content.Visibility = Visibility.Visible;
+            BlockedMessage.Visibility = Visibility.Collapsed;
         }
     }
 }
