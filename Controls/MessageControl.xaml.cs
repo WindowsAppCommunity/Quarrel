@@ -584,7 +584,7 @@ namespace Discord_UWP.Controls
                 {
                     IsBlocked = false;
                     BlockedMessage.Visibility = Visibility.Collapsed;
-                    content.Visibility = Visibility.Collapsed;
+                    content.Visibility = Visibility.Visible;
                 }
             }
             else
