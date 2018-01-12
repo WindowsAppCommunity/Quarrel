@@ -98,6 +98,17 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Friends.Add(friend.Id, friend);
                 }
+                if (friend.Type == 2)
+                {
+                    if (LocalState.Blocked.ContainsKey(friend.Id))
+                    {
+                        LocalState.Blocked[friend.Id] = friend;
+                    }
+                    else
+                    {
+                        LocalState.Blocked.Add(friend.Id, friend);
+                    }
+                }
             }
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });

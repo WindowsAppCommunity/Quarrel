@@ -120,6 +120,10 @@
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed"/>
+        <StackPanel x:Name="BlockedMessage" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Message Blocked" HorizontalAlignment="Center"/>
+            <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>
+        </StackPanel>
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
