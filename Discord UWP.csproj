@@ -254,6 +254,9 @@
       <DependentUpon>ShareTarget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
+    <Compile Include="SubPages\Debug.xaml.cs">
+      <DependentUpon>Debug.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -545,6 +548,10 @@
     <Page Include="ShareTarget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\Debug.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\About.xaml">
       <Generator>MSBuild:Compile</Generator>

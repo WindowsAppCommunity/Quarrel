@@ -863,13 +863,11 @@ namespace Discord_UWP.Controls
             content.Visibility = Visibility.Visible;
         }
 
-
         private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
         {
             //LinkClicked(sender, e);
             await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
-
 
         private async void MorePin_Click(object sender, RoutedEventArgs e)
         {
