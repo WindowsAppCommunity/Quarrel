@@ -43,8 +43,8 @@ namespace Discord_UWP.Voice
         private byte[] _nonce = new byte[24];
         private byte[] _data;
         private OpusDecoder decoder = new OpusDecoder(48000, 2);
-        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
-        private float[] output = new float[framesize];
+        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms// * 2 bytes per sample
+        private float[] output = new float[framesize*2];
 
         private byte[] secretkey;
 
@@ -269,21 +269,15 @@ namespace Discord_UWP.Voice
                 Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                 _data = new byte[packet.Length-12-16];
 
-                int error = Cypher.decrypt(packet, 12, packet.Length-12, _data, 0, _nonce, secretkey);
-                if (_data.Length != error)
+                int outputLength = Cypher.decrypt(packet, 12, packet.Length-12, _data, 0, _nonce, secretkey);
+                if (_data.Length != outputLength)
                 {
                     throw new Exception("UGHHHH...."); //Conflicting sizes
                 }
 
-                if (!_data.Equals(new byte[] { 0xF8, 0xFF, 0xFE}))
-                {
-                    int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
+                int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
 
-                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
-                } else
-                { //Catch
-
-                }
+                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {
