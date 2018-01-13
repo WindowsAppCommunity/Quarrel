@@ -8,6 +8,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 using Windows.Foundation;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.Networking.Connectivity;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -746,6 +748,7 @@ namespace Discord_UWP
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
+        internal static MediaPlayer mediaPlayer;
 
         internal static List<string> eventList = new List<string>();
 

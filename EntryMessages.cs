@@ -28,6 +28,7 @@ namespace Discord_UWP
                         case 1: return kvp("Merry Christmas!");
                         case 2: return kvp("What a beautiful christmas day...");
                         case 3: return kvp("All I want for christmas is a loading screen");
+
                     }
                 }
                 if(now.Month == 12 && now.Day == 21)
@@ -51,9 +52,11 @@ namespace Discord_UWP
                     }
                 }
             }
-            
-            switch (rand.Next(0, 79))
+
+            switch (rand.Next(0, 88))
+            //switch (83)
             {
+                //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
                 case 3:  return kvp("Aligning buttons");
@@ -135,6 +138,12 @@ namespace Discord_UWP
                 case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
                 case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
                 case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
+                case 83: return kvp("(Image)Spongebob.gif");
+                case 84: return kvp("(Image)Squidward.gif", "@Civiled#1713");
+                case 85: return kvp("(Image)Pikachu.gif", "@Civiled#1713");
+                case 86: return kvp("(Image)Homer.gif", "@Civiled#1713");
+                case 87: return kvp("(Image)NyanCat.gif");
+                case 88: return kvp("(Image)Orange.gif", "@Civiled#1713");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }

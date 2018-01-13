@@ -338,6 +338,13 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
+    <Content Include="Assets\EntryMessages\Homer.gif" />
+    <Content Include="Assets\EntryMessages\JOHNCENA.wav" />
+    <Content Include="Assets\EntryMessages\NyanCat.gif" />
+    <Content Include="Assets\EntryMessages\Orange.gif" />
+    <Content Include="Assets\EntryMessages\Pikachu.gif" />
+    <Content Include="Assets\EntryMessages\Spongebob.gif" />
+    <Content Include="Assets\EntryMessages\Squidward.gif" />
     <Content Include="SodiumCARM.dll" />
     <Content Include="SodiumCWin32.dll" />
     <Content Include="SodiumCx64.dll" />
