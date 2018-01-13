@@ -56,6 +56,7 @@ namespace Discord_UWP
         public static event EventHandler LoggingInHandler;
         public static void LoggingIn()
         {
+            App.AddToEventList("Logging in...");
             LoggingInHandler?.Invoke(typeof(App), new EventArgs());
             App.GatewayCreated = true;
         }
@@ -71,6 +72,7 @@ namespace Discord_UWP
         public static event EventHandler LogOutHandler;
         public static void LogOut()
         {
+            App.AddToEventList("Logging out...");
             LogOutHandler?.Invoke(typeof(App), new EventArgs());
         }
 
@@ -716,6 +718,13 @@ namespace Discord_UWP
         {
             UniversalPointerDownHandler?.Invoke(null, args);
         }
+
+        public static event EventHandler<string> EventListUpdatedHandler;
+        public static void AddToEventList(string eventItem)
+        {
+            eventList.Add(eventItem);
+            EventListUpdatedHandler?.Invoke(null, eventItem);
+        }
         #endregion
 
         #endregion
@@ -738,6 +747,7 @@ namespace Discord_UWP
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
 
+        internal static List<string> eventList = new List<string>();
 
         public static ResourceLoader ResAbout = ResourceLoader.GetForCurrentView("About");
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
