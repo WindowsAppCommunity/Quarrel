@@ -24,6 +24,11 @@ namespace Discord_UWP.SubPages
             App.EventListUpdatedHandler += App_EventListUpdatedHandler;
         }
 
+        private void NavAway_Completed(object sender, object e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
+        }
+
         private void App_EventListUpdatedHandler(object sender, string e)
         {
             Events.Items.Add(new ListViewItem() { Content = e });
