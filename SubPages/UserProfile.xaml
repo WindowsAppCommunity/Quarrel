@@ -14,7 +14,7 @@
         <local:BooleanToVisibilityConverter x:Key="BoolToVis" />
 
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
-            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgridCU">
                 <DoubleAnimation.EasingFunction>
                     <SineEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
@@ -30,8 +30,6 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-
-        
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
