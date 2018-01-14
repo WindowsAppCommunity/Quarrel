@@ -21,20 +21,25 @@ namespace Discord_UWP
                 DateTime now = DateTime.Now;
                 if (now.Month == 12 && now.Day == 25)
                 {
-                    switch (rand.Next(0, 3))
+                    switch (rand.Next(0, 4))
                     {
                         //Christmas day
                         case 0: return kvp("Ho ho ho");
                         case 1: return kvp("Merry Christmas!");
                         case 2: return kvp("What a beautiful christmas day...");
                         case 3: return kvp("All I want for christmas is a loading screen");
-
+                        case 4: return kvp("Making Christmas bells");
+                  
                     }
                 }
                 if(now.Month == 12 && now.Day == 21)
                 {
                     //End of the world
-                    return kvp((now.Year - 2012).ToString() + " years since the end of the world");
+                    switch (rand.Next(0, 2))
+                    {
+                        case 0: return kvp((now.Year - 2012).ToString() + " years since the end of the world");
+                        case 1: return kvp("The world ended exactly " + (now.Year - 2012).ToString() + " years ago");
+                }
                     
                 }
                 if(now.Month == 5 && now.Day == 4)
@@ -48,13 +53,13 @@ namespace Discord_UWP
                         case 3: return kvp("Removing Porgs from the Millenium Falcon...");
                         case 4: return kvp("Travelling through hyperspace");
                         case 5: return kvp("Murdering Jar Jar Binks");
-                      
+                        case 6: return kvp("Attempting a force projection");
                     }
                 }
             }
 
-            switch (rand.Next(0, 88))
-            //switch (rand.Next(83, 88))
+            //switch (90)
+            switch (rand.Next(0, 92))
             //switch (71)
             {
                 //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
