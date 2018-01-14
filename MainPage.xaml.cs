@@ -26,6 +26,8 @@ using Windows.Foundation;
 using Windows.ApplicationModel.ExtendedExecution;
 using System.Threading;
 
+using Discord_UWP.Managers;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Discord_UWP
@@ -1639,11 +1641,30 @@ namespace Discord_UWP
                         HideFriendsBadge.Begin();
                     }
 
-                    //if (Fullcount > 0) //TODO
-                    //{
-                    //ShowBadge.Begin();
-                    //BurgerNotificationCounter.Text = Fullcount.ToString();
-                    //}
+                    if (Fullcount != App.AllNotifications)
+                    {
+                        if (Fullcount > 0)
+                        {
+                            App.FriendNotifications = Fullcount;
+                            //ShowBadge.Begin();//TODO
+                            //BurgerNotificationCounter.Text = Fullcount.ToString();
+                        }
+                        else
+                        {
+                            App.FriendNotifications = Fullcount;
+                            //HideBadge.Begin();//TODO
+                        }
+
+                        if (Storage.Settings.Badge)
+                        {
+                            int count = 0;
+                            foreach (var chn in LocalState.RPC.Values.ToList())
+                            {
+                                count += chn.MentionCount;
+                            }
+                            NotificationManager.SendBadgeNotification(count);
+                        }
+                    }
                     RefreshVisibilityIndicators();
                 });
 
