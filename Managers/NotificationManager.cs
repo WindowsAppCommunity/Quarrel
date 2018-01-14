@@ -137,22 +137,27 @@ namespace Discord_UWP.Managers
             }
         }
 
+        static int previousvalue = -1;
         public static void SendBadgeNotification(int value)
         {
-            string xml1 = @"<badge value='";
-            string xml2 = @"' />";
-            var badgeXml = new Windows.Data.Xml.Dom.XmlDocument();
-            badgeXml.LoadXml(xml1 + value.ToString() + xml2);
+            if(value != previousvalue)
+            {
+                string xml1 = @"<badge value='";
+                string xml2 = @"' />";
+                var badgeXml = new Windows.Data.Xml.Dom.XmlDocument();
+                badgeXml.LoadXml(xml1 + value.ToString() + xml2);
 
-            var badge = new BadgeNotification(badgeXml);
-            BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
+                var badge = new BadgeNotification(badgeXml);
+                BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(badge);
 
-            // Create a badge notification from the XML content.
-            string payload = App.GetString("/TileTemplates/Iconic");
-            var tileXml = new Windows.Data.Xml.Dom.XmlDocument();
-            tileXml.LoadXml(payload);
-            var badgeNotification = new TileNotification(tileXml);
-            TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
+                // Create a badge notification from the XML content.
+                string payload = App.GetString("/TileTemplates/Iconic");
+                var tileXml = new Windows.Data.Xml.Dom.XmlDocument();
+                tileXml.LoadXml(payload);
+                var badgeNotification = new TileNotification(tileXml);
+                TileUpdateManager.CreateTileUpdaterForApplication().Update(badgeNotification);
+                previousvalue = value;
+            }
         }
 
         public static void SendBadgeNotification(BadgeGlyph value)
