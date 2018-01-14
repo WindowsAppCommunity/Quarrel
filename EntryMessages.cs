@@ -54,7 +54,8 @@ namespace Discord_UWP
             }
 
             switch (rand.Next(0, 88))
-            //switch (83)
+            //switch (rand.Next(83, 88))
+            //switch (71)
             {
                 //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
                 case 0:  return kvp("HUZZAH");
@@ -78,14 +79,14 @@ namespace Discord_UWP
                 case 20: return kvp("Splash screen*", "@ToonWK#5841");
                 case 21: return kvp("I don't mean to be rude but...");
                 case 22: return kvp("Converting caffeine to code");
-                case 23: return kvp("😬");
+                case 23: return kvp("(Image)BB8.gif");
                 case 24: return kvp("Burning evidence...");
                 case 25: return kvp("Oh, it's you");
                 case 26: return kvp("Making covfefe");
                 case 27: return kvp("Hiring lawyers");
                 case 28: return kvp("if(NotWorking) { MakeItWork(); }");
                 case 29: return kvp("Genji on the Payload?!", "@ModProg|Roland#6987");
-                case 30: return kvp("Waiting for opus 😪", "@hvb#2543");
+                case 30: return kvp("(Image)Shark.gif", "@Civiled#1713");
                 case 31: return kvp("Capturing the flag...", "@Gavirlas#9973");
                 case 32: return kvp("Does it even load", "@Gavirlas#9973");
                 case 33: return kvp("Gotta go fast!", "@YoshiAsk#4385");
@@ -102,7 +103,7 @@ namespace Discord_UWP
                 case 44: return kvp("Smooth animations warning", "@Gavirlas#9973");
                 case 45: return kvp("VOICE IS NOT AVAILABLE YET!");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
-                case 47: return kvp("System.out.println(\"Hello World\");", "@ModProg|Roland#6987");
+                case 47: return kvp("(Image)Pug.gif", "@@Civiled#1713");
                 case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
                 case 49: return kvp("Ready player one?", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 50: return kvp("Watch the icon rollin' rollin'", "@Gavirlas#9973");
@@ -126,7 +127,7 @@ namespace Discord_UWP
                 case 68: return kvp("I have the power of God and Anime");
                 case 69: return kvp("I ain't got no sleep");
                 case 70: return kvp("No ketchup, just sauce, raw sauce");
-                case 71: return kvp("I said babes, loading's not hot");
+                case 71: return kvp("(Image)HypnoToad.gif", "@Civiled#1713");
                 case 72: return kvp("The ting goes skrrraah");
                 case 73: return kvp("Tacos incoming, prepare for pure joy", "@LuketheDuke424#2556");
                 case 74: return kvp("Waiting for Senpai", "@LuketheDuke424#2556");
@@ -134,7 +135,7 @@ namespace Discord_UWP
                 case 76: return kvp("Maximizing Hype", "@Civiled#1713");
                 case 77: return kvp("Preparing the Men", "@Civiled#1713");
                 case 78: return kvp("This app, bu");
-                case 79: return kvp("And also with you", "John Mulaney");
+                case 79: return kvp("\"And also with you", "John Mulaney\"");
                 case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
                 case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
                 case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
@@ -144,6 +145,10 @@ namespace Discord_UWP
                 case 86: return kvp("(Image)Homer.gif", "@Civiled#1713");
                 case 87: return kvp("(Image)NyanCat.gif");
                 case 88: return kvp("(Image)Orange.gif", "@Civiled#1713");
+                case 89: return kvp("(Image)Kenny.gif", "@Civiled#1713");
+                case 90: return kvp("(Image)Putin.gif", "@Civiled#1713");
+                case 91: return kvp("(Image)Patrick.gif", "@Civiled#1713");
+                case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
