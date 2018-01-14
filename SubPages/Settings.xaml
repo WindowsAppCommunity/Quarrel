@@ -654,7 +654,7 @@
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
-                                    <CheckBox x:Uid="/Settings/VideoAds" x:Name="VideosAds" Content="Use video ads instead of banners" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,12"/>
+                                    <!--<CheckBox x:Uid="/Settings/VideoAds" x:Name="VideosAds" Content="Use video ads instead of banners" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,12"/>-->
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
