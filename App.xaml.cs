@@ -738,6 +738,7 @@ namespace Discord_UWP
         internal static string CurrentChannelId;
         internal static DawgSharp.Dawg<DawgSharp.DawgItem> MemberListDawg;
         internal static int FriendNotifications;
+        internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
         internal static bool CinematicMode = false;
@@ -748,7 +749,7 @@ namespace Discord_UWP
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
-        internal static MediaPlayer mediaPlayer;
+        //internal static MediaPlayer mediaPlayer;
 
         internal static List<string> eventList = new List<string>();
 

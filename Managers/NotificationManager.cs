@@ -23,6 +23,7 @@ namespace Discord_UWP.Managers
             bool muted = false;
             string ChnGldName = String.Empty;
             string ChnName = String.Empty;
+
             foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
             {
                 if (guild.channels.ContainsKey(message.ChannelId))
@@ -36,6 +37,7 @@ namespace Discord_UWP.Managers
                     break;
                 }
             }
+
             foreach (var dm in LocalState.DMs.Values)
             {
                 if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
@@ -126,21 +128,11 @@ namespace Discord_UWP.Managers
                         ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                         ToastNotificationManager.CreateToastNotifier().Show(notification);
-                    }
-
-                if (Storage.Settings.Badge)
-                {
-                    int count = 0;
-                    foreach (var chn in LocalState.RPC.Values.ToList())
-                    {
-                        count += chn.MentionCount;
-                    }
-                    SendBadgeNotification(count);
                 }
 
                 if (Storage.Settings.LiveTile)
                 {
-                    UpdateDetailedStatus(message, ChnGldName);
+                    NotificationManager.UpdateDetailedStatus(message, ChnGldName);
                 }
             }
         }
