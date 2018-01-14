@@ -60,7 +60,7 @@ namespace Discord_UWP.Managers
         }
         public static MessageContainer MakeMessage(Message message) //TODO: IsContinuous
         {
-            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, false);
             return msg;
         }
         public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)

@@ -409,7 +409,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Uid="/Controls/SendMessageTBox" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False"/>
+        <TextBox x:Uid="/Controls/SendMessagePlaceholderText" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False"/>
         <Button x:Name="SendBox" Grid.Column="2" Content="&#xE122;" Style="{StaticResource SendButton}" Padding="8" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource Blurple}"/>
         
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
