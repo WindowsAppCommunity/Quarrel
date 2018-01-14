@@ -248,34 +248,45 @@ namespace Discord_UWP.SubPages
                 richPresence.Visibility = Visibility.Collapsed;
         }
 
-        private void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
+        private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
-            if (e.EventData.User.Id == profile.User.Id)
-            {
-                if (e.EventData.Game.HasValue)
-                {
-                    var game = e.EventData.Game.Value;
-                    richPresence.GameContent = game;
-                    richPresence.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    richPresence.Visibility = Visibility.Collapsed;
-                }
-            }
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        if (e.EventData.User.Id == profile.User.Id)
+                        {
+                            if (e.EventData.Game.HasValue)
+                            {
+                                var game = e.EventData.Game.Value;
+                                richPresence.GameContent = game;
+                                richPresence.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                richPresence.Visibility = Visibility.Collapsed;
+                            }
+                        }
+                    });
         }
 
-        private void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
+        private async void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
         {
-            
-            if(gatewayEventArgs.EventData.user.Id == profile.User.Id)
-            SwitchFriendValues(gatewayEventArgs.EventData.Type);
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
+                            SwitchFriendValues(gatewayEventArgs.EventData.Type);
+                    });
         }
 
-        private void Gateway_RelationshipAdded(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
+        private async void Gateway_RelationshipAdded(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
         {
-            if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
-                SwitchFriendValues(gatewayEventArgs.EventData.Type);
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
+                            SwitchFriendValues(gatewayEventArgs.EventData.Type);
+                    });
         }
 
         private void Gateway_RelationshipRemoved(object sender, GatewayEventArgs<Friend> e)

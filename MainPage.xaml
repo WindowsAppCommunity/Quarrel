@@ -1348,72 +1348,75 @@
                         </Grid>
                     </controls:SideDrawer.ContentMain>
                     <controls:SideDrawer.ContentRight>
-                        <SemanticZoom>
-                            <SemanticZoom.ZoomedInView>
-                                <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="0,0,0,0" IsItemClickEnabled="True">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                    <ListView.GroupStyle>
-                                        <GroupStyle HidesIfEmpty="True">
-                                            <GroupStyle.HeaderContainerStyle>
-                                                <Style TargetType="ListViewBaseHeaderItem">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                                </Style>
-                                            </GroupStyle.HeaderContainerStyle>
-                                            <GroupStyle.HeaderTemplate>
-                                                <DataTemplate>
-                                                    <Grid VerticalAlignment="Top">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition/>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Margin="0"/>
-                                                        <TextBlock Grid.Column="1" Text="{Binding Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </GroupStyle.HeaderTemplate>
-                                        </GroupStyle>
-                                    </ListView.GroupStyle>
-                                </ListView>
-                            </SemanticZoom.ZoomedInView>
-                            <SemanticZoom.ZoomedOutView>
-                                <ListView ItemsSource="{Binding Source={StaticResource MembersCvs}, Path=CollectionGroups}" Margin="0" >
-                                    <ListView.Background>
-                                        <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
-                                    </ListView.Background>
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <ItemsStackPanel VerticalAlignment="Center"/>
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
-                                                <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                    <ListView.Footer>
-                                        <Rectangle Height="48"/>
-                                    </ListView.Footer>
-                                </ListView>
-                            </SemanticZoom.ZoomedOutView>
-                        </SemanticZoom>
+                        <Grid>
+                            <controls:UserDetailsControl x:Name="UserDetails" Visibility="Collapsed" DMPane="True"/>
+                            <SemanticZoom x:Name="MemberListFull" Visibility="Collapsed">
+                                <SemanticZoom.ZoomedInView>
+                                    <ListView x:Name="MembersListView" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemsSource="{Binding Source={StaticResource MembersCvs}, UpdateSourceTrigger=PropertyChanged}" SelectionMode="None" Margin="0,0,0,0" IsItemClickEnabled="True">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                        <ListView.GroupStyle>
+                                            <GroupStyle HidesIfEmpty="True">
+                                                <GroupStyle.HeaderContainerStyle>
+                                                    <Style TargetType="ListViewBaseHeaderItem">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </GroupStyle.HeaderContainerStyle>
+                                                <GroupStyle.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <Grid VerticalAlignment="Top">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Text="{Binding Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Margin="0"/>
+                                                            <TextBlock Grid.Column="1" Text="{Binding Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </GroupStyle.HeaderTemplate>
+                                            </GroupStyle>
+                                        </ListView.GroupStyle>
+                                    </ListView>
+                                </SemanticZoom.ZoomedInView>
+                                <SemanticZoom.ZoomedOutView>
+                                    <ListView ItemsSource="{Binding Source={StaticResource MembersCvs}, Path=CollectionGroups}" Margin="0" >
+                                        <ListView.Background>
+                                            <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.1"/>
+                                        </ListView.Background>
+                                        <ListView.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <ItemsStackPanel VerticalAlignment="Center"/>
+                                            </ItemsPanelTemplate>
+                                        </ListView.ItemsPanel>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="ListViewItem">
+                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
+                                                    <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                        <ListView.Footer>
+                                            <Rectangle Height="48"/>
+                                        </ListView.Footer>
+                                    </ListView>
+                                </SemanticZoom.ZoomedOutView>
+                            </SemanticZoom>
+                        </Grid>
                     </controls:SideDrawer.ContentRight>
                 </controls:SideDrawer>
             </Grid>

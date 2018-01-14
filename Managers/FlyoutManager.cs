@@ -52,7 +52,8 @@ namespace Discord_UWP.Managers
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
-                DisplayedMember = member
+                DisplayedMember = member,
+                DMPane = false
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
             return flyout;
@@ -63,7 +64,8 @@ namespace Discord_UWP.Managers
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
-                DisplayedMember = new GuildMember() { User = user }
+                DisplayedMember = new GuildMember() { User = user },
+                DMPane = false
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
             return flyout;

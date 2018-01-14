@@ -35,7 +35,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Width="248" Padding="0,0,0,0">
+    <Grid x:Name="mainGrid" Width="248" Padding="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -77,7 +77,7 @@
             <local:RichPresenceControl Visibility="Collapsed" x:Name="richPresence"/>
             <TextBlock x:Uid="/Controls/RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
             <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
-            <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+            <TextBlock x:Uid="/Dialogs/NoteTB" HorizontalAlignment="Stretch" Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
             <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0" LostFocus="Note_LostFocus"/>
 
             <local:MessageBox x:Name="SendDM" Margin="0,24,0,0"/>
