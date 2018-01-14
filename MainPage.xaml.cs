@@ -718,7 +718,7 @@ namespace Discord_UWP
                 App.CurrentGuildId = e.GuildId;
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
-                RenderMembers();
+                memberscvs.Clear();
                 RenderGuildChannels();
             } else
             {
@@ -2153,7 +2153,7 @@ namespace Discord_UWP
             {
                 var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
                 App.NavigateToGuild(guildid);
-               
+                
                 sideDrawer.OpenLeft();
                 Task.Run(() =>
                 {

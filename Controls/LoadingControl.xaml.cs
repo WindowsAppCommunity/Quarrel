@@ -59,7 +59,7 @@ namespace Discord_UWP.Controls
                 Animation.Begin();
                 return;
             }
-            if (message.Key.Substring(0, 7) == "(Image)")
+            if (message.Key.Length>7 && message.Key.Substring(0, 7) == "(Image)")
             {
                 Image.Source = new BitmapImage(new Uri("ms-appx:///Assets/EntryMessages/" + message.Key.Substring(7)));
                 MessageBlock.Visibility = Visibility.Collapsed;
