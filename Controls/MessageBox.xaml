@@ -442,7 +442,7 @@
             </Button>
         </StackPanel>
         
-        <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click" FontFamily="Segoe MDL2 Assets"/>
+        <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
         <Button x:Name="attachButton" Style="{StaticResource DiscordButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
             <SymbolIcon Symbol="Attach"/>
         </Button>
