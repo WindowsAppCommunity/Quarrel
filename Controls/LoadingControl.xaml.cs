@@ -39,13 +39,7 @@ namespace Discord_UWP.Controls
         public void initialize()
         {
             var message = EntryMessages.GetMessage();
-            if (message.Key.Substring(0, 7) == "(Image)")
-            {
-                Image.Source = new BitmapImage(new Uri("ms-appx:///Assets/EntryMessages/" + message.Key.Substring(7)));
-                MessageBlock.Visibility = Visibility.Collapsed;
-                viewbox.Visibility = Visibility.Collapsed;
-                Image.Visibility = Visibility.Visible;
-            }
+
             //else if (message.Key.Substring(0, 7) == "(Audio)")
             //{
             //    App.mediaPlayer = new MediaPlayer();
@@ -56,17 +50,33 @@ namespace Discord_UWP.Controls
             //    MessageBlock.Visibility = Visibility.Collapsed;
             //}
 
+            var location = App.Splash.ImageLocation;
+            viewbox.Width = location.Width;
+            
             if (!Storage.Settings.ShowWelcomeMessage)
             {
                 MessageBlock.Visibility = Visibility.Collapsed;
                 Animation.Begin();
                 return;
             }
+            if (message.Key.Substring(0, 7) == "(Image)")
+            {
+                Image.Source = new BitmapImage(new Uri("ms-appx:///Assets/EntryMessages/" + message.Key.Substring(7)));
+                MessageBlock.Visibility = Visibility.Collapsed;
+                viewbox.Visibility = Visibility.Collapsed;
+                Image.Visibility = Visibility.Visible;
+                GifIn.Begin();
+            }
+            else
+            {
+                Animation.Begin();
+            }
             MessageBlock.Text = message.Key.ToUpper();
             if (message.Value != "")
                 CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
             Animation.Begin();
             App.StatusChangedHandler += App_StatusChangedHandler;
+
         }
 
         private void MediaPlayer_CurrentStateChanged(MediaPlayer sender, object args)
