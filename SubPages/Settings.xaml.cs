@@ -59,7 +59,7 @@ namespace Discord_UWP.SubPages
             EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;//TODO Translate and add "Questions? Join our server!"
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
-            VideosAds.IsChecked = Storage.Settings.VideoAd;
+            //VideosAds.IsChecked = Storage.Settings.VideoAd;
             GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
             if (Storage.Settings.AccentBrush)
@@ -112,7 +112,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
-            Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
+            //Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
             Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
 
             if ((bool)radio_Dark.IsChecked)
