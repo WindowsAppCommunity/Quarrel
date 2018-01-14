@@ -98,6 +98,7 @@ namespace Discord_UWP.Controls
         {
             if (animate)
             {
+                //TODO: Shrink Image
                 LoadOut.Begin();
             }
             else this.Visibility = Visibility.Collapsed;
