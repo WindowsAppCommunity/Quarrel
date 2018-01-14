@@ -1659,13 +1659,13 @@ namespace Discord_UWP
                     {
                         if (Fullcount > 0)
                         {
-                            App.FriendNotifications = Fullcount;
+                            App.AllNotifications = Fullcount;
                             //ShowBadge.Begin();//TODO
                             //BurgerNotificationCounter.Text = Fullcount.ToString();
                         }
                         else
                         {
-                            App.FriendNotifications = Fullcount;
+                            App.AllNotifications = Fullcount;
                             //HideBadge.Begin();//TODO
                         }
 
