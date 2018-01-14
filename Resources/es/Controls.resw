@@ -201,7 +201,7 @@
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
     <value>Buscar...</value>
   </data>
-  <data name="SendMessageTBox.PlaceholderText" xml:space="preserve">
+  <data name="SendMessagePlaceholderText" xml:space="preserve">
     <value>Enviar mensaje</value>
   </data>
   <data name="Streaming" xml:space="preserve">

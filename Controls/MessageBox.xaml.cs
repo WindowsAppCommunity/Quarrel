@@ -80,7 +80,7 @@ namespace Discord_UWP.Controls
         public MessageBox()
         {
             this.InitializeComponent();
-            MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessage"); //TODO: Check if can be done with x:Uid
+            MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessagePlaceholderText"); //TODO: Check if can be done with x:Uid
         }
 
         public void Clear()

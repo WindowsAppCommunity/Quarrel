@@ -251,7 +251,7 @@
                                     <Thickness>0</Thickness>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Target="rootgrid.(Grid.Padding)">
+                            <Setter Target="rootgridCU.(Grid.Padding)">
                                 <Setter.Value>
                                     <Thickness>100</Thickness>
                                 </Setter.Value>
@@ -265,7 +265,7 @@
                     </VisualState>
                     <VisualState x:Name="VisualState">
                         <VisualState.Setters>
-                            <Setter Target="rootgrid.(Grid.Padding)">
+                            <Setter Target="rootgridCU.(Grid.Padding)">
                                 <Setter.Value>
                                     <Thickness>112</Thickness>
                                 </Setter.Value>
