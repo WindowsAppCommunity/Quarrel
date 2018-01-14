@@ -718,7 +718,7 @@ namespace Discord_UWP
                 App.CurrentGuildId = e.GuildId;
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
-                MembersListView.Items.Clear();
+                memberscvs.Clear();
                 RenderGuildChannels();
             } else
             {
