@@ -39,6 +39,18 @@ namespace Discord_UWP.Controls
             typeof(GuildMember),
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        public bool DMPane
+        {
+            get { return (bool)GetValue(DMPaneProperty); }
+            set { SetValue(DMPaneProperty, value); }
+        }
+        public static readonly DependencyProperty DMPaneProperty = DependencyProperty.Register(
+            nameof(DisplayedMember),
+            typeof(bool),
+            typeof(UserDetailsControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as UserDetailsControl;
@@ -160,15 +172,29 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
+            if (prop == DMPaneProperty)
+            {
+                if (DMPane)
+                {
+                    SendDM.Visibility = Visibility.Collapsed;
+                    mainGrid.Width = 200;
+                } else
+                {
+                    SendDM.Visibility = Visibility.Visible;
+                    mainGrid.Width = 248;
+                }
+            }
         }
 
         public UserDetailsControl()
         {
             this.InitializeComponent();
             SendDM.Send += SendDirectMessage;
-
-            GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
-            GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+            if (App.GatewayCreated)
+            {
+                GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
+                GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
+            }
             Unloaded += UserDetailsControl_Unloaded;
         }
 
@@ -279,7 +305,10 @@ namespace Discord_UWP.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
+            if ((Parent is FlyoutPresenter))
+            {
+                ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
+            }
             App.NavigateToProfile(DisplayedMember.User);
         }
 

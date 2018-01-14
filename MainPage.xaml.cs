@@ -716,6 +716,8 @@ namespace Discord_UWP
                 }
 
                 App.CurrentGuildId = e.GuildId;
+                UserDetails.Visibility = Visibility.Collapsed;
+                MemberListFull.Visibility = Visibility.Visible;
                 RenderMembers();
                 RenderGuildChannels();
             } else
@@ -817,6 +819,18 @@ namespace Discord_UWP
                     ServerList.SelectedIndex = 0;
                     App.CurrentChannelId = e.ChannelId;
                     RenderMessages();
+                }
+
+                if (LocalState.DMs[e.ChannelId].Type == 1)
+                {
+                    UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
+                    UserDetails.Visibility = Visibility.Visible;
+                    MemberListFull.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    //TODO: Update GroupMemberList
+                    UserDetails.Visibility = Visibility.Collapsed;
+                    MemberListFull.Visibility = Visibility.Visible;
                 }
 
                 App.MarkChannelAsRead(e.ChannelId);
