@@ -53,6 +53,19 @@ namespace Discord_UWP.Controls
             set { SetValue(IsEnabledProperty, value); }
         }
 
+        public bool IsCompact
+        {
+            set
+            {
+                if (value == true)
+                {
+                    EmojiButton.Visibility = Visibility.Collapsed;
+                    attachButton.Visibility = Visibility.Collapsed;
+                    GiphyButton.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         public new readonly DependencyProperty IsEnabledProperty = DependencyProperty.Register(
             nameof(IsEnabled),
             typeof(bool),
