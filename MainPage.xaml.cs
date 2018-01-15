@@ -935,19 +935,10 @@ namespace Discord_UWP
         }
         private void App_NavigateToProfileHandler(object sender, App.ProfileNavigationArgs e)
         {
-            if (App.FCU)
-            {
-                if (e.User.Bot)
-                    SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
-                else
-                    SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
-            } else
-            {
-                if (e.User.Bot)
-                    SubFrameNavigator(typeof(SubPages.UserProfileOld), e.User);
-                else
-                    SubFrameNavigator(typeof(SubPages.UserProfileOld), e.User.Id);
-            }
+            if (e.User.Bot)
+                SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
+            else
+                SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
         }
         private void App_OpenAttachementHandler(object sender, SharedModels.Attachment e)
         {

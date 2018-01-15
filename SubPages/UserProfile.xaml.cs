@@ -118,7 +118,13 @@ namespace Discord_UWP.SubPages
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
 
-            BackgroundGrid.Blur(8,0).Start();
+            if (App.FCU)
+            {
+                BackgroundGrid.Blur(8, 0).Start();
+            } else
+            {
+                CUBackgroundGrid.Blur(8, 0).Start();
+            }
 
             try
             {
@@ -223,12 +229,25 @@ namespace Discord_UWP.SubPages
                 if (profile.User.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
                 var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + AvatarExtension));
                 AvatarFull.ImageSource = image;
-                AvatarBlurred.Source = image;
+                if (App.FCU)
+                {
+                    AvatarBlurred.Source = image;
+                }
+                else
+                {
+                    CUAvatarBlurred.Source = image;
+                }
             } else
             {
                 var image = new BitmapImage(new Uri("ms-appx:///Assets/DiscordIcon.png"));
                 AvatarFull.ImageSource = image;
-                AvatarBlurred.Source = image;
+                if (App.FCU)
+                {
+                    AvatarBlurred.Source = image;
+                } else
+                {
+                    CUAvatarBlurred.Source = image;
+                }
             }
 
             if (profile.User.Bot)
