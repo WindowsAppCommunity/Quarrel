@@ -1079,8 +1079,7 @@
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer x:Name="ServerScrollviewer"  VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed" ViewChanged="ServerScrollviewer_ViewChanged">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True"
-                                          XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 

@@ -80,8 +80,8 @@
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="600" VerticalAlignment="Center" >
-            <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="24,18,24,0" Margin="0,48,0,0">
+            <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,18,24,0" Margin="0,48,0,0">
                 <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="0,0,0,18">
                     <TextBlock x:Name="header" Text="CHANNEL NAME" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                     <markdowntextblock:MarkdownTextBlock x:Name="TopicBlock" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
