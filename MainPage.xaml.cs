@@ -208,8 +208,8 @@ namespace Discord_UWP
                 double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
                 if (fromTop < 100 && !DisableLoadingMessages)
                     LoadOlderMessages();
-                if (fromBottom < 100 && !DisableLoadingMessages)
-                    LoadNewerMessages();
+             //   if (fromBottom < 100 && !DisableLoadingMessages)
+             //       LoadNewerMessages();
             }
         }
 
@@ -1694,8 +1694,8 @@ namespace Discord_UWP
                 foreach (var message in messages)
                 {
                     MessageList.Items.Insert(0, message);
-                    if(MessageList.Items.Count > 150)
-                        MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
+              //      if(MessageList.Items.Count > 150)
+               //         MessageList.Items.RemoveAt(MessageList.Items.Count - 1);
                 }
             }
             await Task.Delay(1000);

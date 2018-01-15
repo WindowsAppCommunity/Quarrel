@@ -177,11 +177,18 @@ namespace Discord_UWP.Controls
                 if (DMPane)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    mainGrid.Width = 200;
+                    mainGrid.Width = 228;
+                    UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
+                    Nick.HorizontalAlignment = HorizontalAlignment.Left;
+                    profileGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                    Nick.Margin = new Thickness(12, 12, 0, 0);
+                    UserStacker.Margin = new Thickness(12, 6, 0, 0);
+                    Username.FontSize = 18;
+                    Discriminator.FontSize = 15;
+                    profileGrid.Margin = new Thickness(12, 24, 0, 0);
                 } else
                 {
-                    SendDM.Visibility = Visibility.Visible;
-                    mainGrid.Width = 248;
+                   //Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
                 }
             }
         }
