@@ -122,8 +122,8 @@
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
-            <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="64" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="4" Padding="24,24,24,0" Margin="0,48,0,0">
+            <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -135,47 +135,7 @@
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        
-                        <!--<StackPanel x:Name="Header" Padding="0" Margin="12,0,0,0">
-                            <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                            <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
-                                <Paragraph>
-                                    <Run x:Uid="/About/AboutDesc1">Discord UWP is an</Run>
-                                    <Bold>
-                                        <Run x:Uid="/About/AboutDesc2">unofficial</Run>
-                                    </Bold>
-                                    <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
-                                    <Bold>
-                                        <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
-                                    </Bold>
-                                    <Run x:Uid="/About/AboutDesc5">
-                                        ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
-                                    </Run>
-                                </Paragraph>
-                            </RichTextBlock>
-                            <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
-                                    <TextBlock x:Uid="/About/DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                            <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
-                            <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
-                        </StackPanel>-->
-                        
+
                         <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,-24,0" Padding="-12,0,24,0">
                             <ListView.Header>
                                 <StackPanel Padding="0" Margin="12,0,0,0">
@@ -215,7 +175,8 @@
                                     </HyperlinkButton>
                                     <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
                                     <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
-                                    <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,22,0,0" FontSize="20"/>
+                                    <Rectangle Fill="{ThemeResource Blurple}" Height="1" Margin="0,11,0,0"/>
+                                    <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,11,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
                             <ListViewHeaderItem Content="VERSION 6.4.0" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
