@@ -31,9 +31,9 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class UserProfile : Page
+    public sealed partial class UserProfileOld : Page
     {
-        public UserProfile()
+        public UserProfileOld()
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -85,6 +85,14 @@ namespace Discord_UWP.SubPages
             {
                 profile.Friend = null;
             }
+
+            if (ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5))
+            {
+
+            } else
+            {
+
+            } 
 
             username.Text = profile.User.Username;
             username.Fade(1, 400);
@@ -233,9 +241,9 @@ namespace Discord_UWP.SubPages
 
             if (profile.User.Bot)
             {
-                //CommonSrvspivot.Visibility = Visibility.Collapsed;
-                //CommonFrdspivot.Visibility = Visibility.Collapsed;
-                //pivotHeaders.Visibility = Visibility.Collapsed;
+                CommonSrvspivot.Visibility = Visibility.Collapsed;
+                CommonFrdspivot.Visibility = Visibility.Collapsed;
+                pivotHeaders.Visibility = Visibility.Collapsed;
                 BotIndicator.Visibility = Visibility.Visible;
             }
             if (LocalState.PresenceDict.ContainsKey(profile.User.Id))
@@ -244,27 +252,9 @@ namespace Discord_UWP.SubPages
                 {
                     richPresence.GameContent = LocalState.PresenceDict[profile.User.Id].Game.Value;
                 }
-                else
-                    richPresence.Visibility = Visibility.Collapsed;
             }
             else
                 richPresence.Visibility = Visibility.Collapsed;
-
-            var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
-            int relationshipcount = relationships.Count();
-            LoadingMutualFriends.Fade(0, 200).Start();
-            if (relationshipcount == 0)
-                NoMutualFriends.Fade(0.2f, 200).Start();
-            else
-                for (int i = 0; i < relationshipcount; i++)
-                {
-                    var relationship = relationships.ElementAt(i);
-                    relationship.Discriminator = "#" + relationship.Discriminator;
-                    if (relationship.Avatar != null) relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
-                    else relationship.ImagePath = "ms-appx:///Assets/DiscordIcon.png";
-
-                    MutualFriends.Items.Add(relationship);
-                }
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
@@ -439,6 +429,31 @@ namespace Discord_UWP.SubPages
             //TODO: Open guild
         }
 
+        private bool LoadedRelationships = false;
+
+        private async void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (pivot.SelectedIndex == 2 && !LoadedRelationships)
+            {
+                LoadedRelationships = true;
+                var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
+                int relationshipcount = relationships.Count();
+                LoadingMutualFriends.Fade(0, 200).Start();
+                if (relationshipcount == 0)
+                    NoMutualFriends.Fade(0.2f, 200).Start();
+                else
+                    for (int i = 0; i < relationshipcount; i++)
+                    {
+                        var relationship = relationships.ElementAt(i);
+                        relationship.Discriminator = "#" + relationship.Discriminator;
+                        if (relationship.Avatar != null) relationship.ImagePath = "https://cdn.discordapp.com/avatars/" + relationship.Id + "/" + relationship.Avatar + ".png";
+                        else relationship.ImagePath = "ms-appx:///Assets/DiscordIcon.png";
+
+                        MutualFriends.Items.Add(relationship);
+                    }
+            }
+        }
+
         private async void SendFriendRequest(object sender, RoutedEventArgs e)
         {
             await Task.Run(async () =>
@@ -461,52 +476,47 @@ namespace Discord_UWP.SubPages
             App.NavigateToDMChannel(profile.User.Id); //TODO: Allow userId DM navigation
             CloseButton_Click(null,null);
         }
-
-        private void Block_Click(object sender, RoutedEventArgs e)
-        {
-            App.BlockUser(userid);
-        }
     }
 
-    public class BooleanToVisibilityConverter : IValueConverter
-    {
-        public BooleanToVisibilityConverter()
-        {
-        }
+    //public class BooleanToVisibilityConverter : IValueConverter
+    //{
+    //    public BooleanToVisibilityConverter()
+    //    {
+    //    }
 
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
-        }
+    //    public object Convert(object value, Type targetType, object parameter, string language)
+    //    {
+    //        if (value is bool && (bool)value)
+    //        {
+    //            return Visibility.Visible;
+    //        }
+    //        return Visibility.Collapsed;
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Visible);
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    //    {
+    //        return (value is Visibility && (Visibility)value == Visibility.Visible);
+    //    }
+    //}
 
-    public class BooleanToVisibilityConverterInverse : IValueConverter
-    {
-        public BooleanToVisibilityConverterInverse()
-        {
-        }
+    //public class BooleanToVisibilityConverterInverse : IValueConverter
+    //{
+    //    public BooleanToVisibilityConverterInverse()
+    //    {
+    //    }
 
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Collapsed;
-            }
-            return Visibility.Visible;
-        }
+    //    public object Convert(object value, Type targetType, object parameter, string language)
+    //    {
+    //        if (value is bool && (bool)value)
+    //        {
+    //            return Visibility.Collapsed;
+    //        }
+    //        return Visibility.Visible;
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Collapsed);
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    //    {
+    //        return (value is Visibility && (Visibility)value == Visibility.Collapsed);
+    //    }
+    //}
 }
