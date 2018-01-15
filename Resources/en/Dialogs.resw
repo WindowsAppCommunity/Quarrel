@@ -471,4 +471,10 @@
   <data name="DonationsTB" xml:space="preserve">
     <value>DONATIONS</value>
   </data>
+  <data name="CommonFriendsTB.Text" xml:space="preserve">
+    <value>COMMON FRIENDS</value>
+  </data>
+  <data name="CommonServersTB.Text" xml:space="preserve">
+    <value>COMMON SERVER</value>
+  </data>
 </root>
