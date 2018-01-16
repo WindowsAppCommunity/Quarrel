@@ -60,7 +60,7 @@ namespace Discord_UWP.SubPages
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
             //VideosAds.IsChecked = Storage.Settings.VideoAd;
-            GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
+            //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
@@ -113,7 +113,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             //Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
-            Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
+            //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
 
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;
