@@ -158,7 +158,11 @@ namespace Discord_UWP.SubPages
                         else element.NickVisibility = Visibility.Collapsed;
 
                         MutualGuilds.Items.Add(element);
-                        NoCommonServers.Visibility = Visibility.Collapsed;
+                    }
+                    if (MutualGuilds.Items.Count > 0)
+                    {
+                        commonServerPanel.Visibility = Visibility.Visible;
+                        commonserverHeader.Fade(1, 300, 0).Start();
                     }
                 }
             }
@@ -271,10 +275,11 @@ namespace Discord_UWP.SubPages
 
             var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
             int relationshipcount = relationships.Count();
-            LoadingMutualFriends.Fade(0, 200).Start();
-            if (relationshipcount == 0)
-                NoMutualFriends.Fade(0.2f, 200).Start();
-            else
+
+            if (relationshipcount == 0) return;
+
+            commonFriendPanel.Visibility = Visibility.Visible;
+            commonfriendHeader.Fade(1, 300, 0).Start();
                 for (int i = 0; i < relationshipcount; i++)
                 {
                     var relationship = relationships.ElementAt(i);
@@ -284,6 +289,7 @@ namespace Discord_UWP.SubPages
 
                     MutualFriends.Items.Add(relationship);
                 }
+
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)

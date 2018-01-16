@@ -86,10 +86,10 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Rectangle Tapped="UIElement_OnTapped" Fill="Transparent" Margin="-100"/>
-            <Grid x:Name="grid" MaxWidth="768" MaxHeight="600" >
+            <Grid x:Name="grid" MaxWidth="768" MaxHeight="768" >
                 <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
                 <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
-                    <Grid>
+                    <Grid Background="{ThemeResource Background}">
                         <FCU:ParallaxView Source="{x:Bind ParallaxScroll}" VerticalShift="100">
                             <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
                                 <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
@@ -101,48 +101,26 @@
                         </CU:Grid>
 
                         <ScrollViewer x:Name="ParallaxScroll">
-                            <Grid Padding="0,250,0,0">
-                                <StackPanel Margin="0,32,0,0" Padding="40,0,40,0" Background="{ThemeResource DeepBG}">
+                            <Grid Padding="0,180,0,0">
+                                <Rectangle Height="64" VerticalAlignment="Top" Opacity="0.5">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Color="Black" Offset="0"/>
+                                                <GradientStop Offset="1"/>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel Margin="0,48,0,-64" Padding="40,0,40,64" Background="{ThemeResource AcrylicFlyoutBackground}">
                                     <Grid Height="88" Margin="128,0,0,0">
                                         <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-
-                                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Button x:Uid="/Dialogs/SendFriendReqBTN"  x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                            <Button x:Uid="/Dialogs/AcceptFriendReqBTN" x:Name="acceptFriend" Content="Accept Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                            <Button x:Uid="/Dialogs/FriendReqSentBTN" x:Name="pendingFriend" Content="Friend Request sent" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False"/>
-                                            <Button x:Uid="/Dialogs/UnblockBTN" x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
-                                        </Grid>
                                     </Grid>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,10" HorizontalAlignment="Left">
-                                        <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
-                                            <Grid>
-                                                <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                                <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
-                                            </Grid>
-                                        </HyperlinkButton>
-                                        <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
-                                            <Grid>
-                                                <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
-                                                <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
-                                            </Grid>
-                                        </HyperlinkButton>
-                                        <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed" Click="Block_Click">
-                                            <Grid>
-                                                <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                                <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
-                                            </Grid>
-                                        </HyperlinkButton>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
-                                        <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <TextBox BorderThickness="1" x:Name="NoteBox" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
-                                    </StackPanel>
-                                    <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
+                                    
+                                    <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                         <GridView.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource LightBG}">
+                                                <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource DeepBG}">
                                                     <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
                                                     <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
@@ -151,7 +129,13 @@
                                         </GridView.ItemTemplate>
                                     </tk:AdaptiveGridView>
                                     <StackPanel>
-                                        <TextBlock x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
+                                        <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <TextBox BorderThickness="0" x:Name="NoteBox" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                                    </StackPanel>
+                                    <StackPanel x:Name="commonServerPanel">
+                                        <TextBlock x:Name="commonserverHeader" Opacity="0" x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -169,10 +153,9 @@
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
-                                        <TextBlock x:Uid="/Dialogs/NoCommonServersTB" x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                                     </StackPanel>
-                                    <StackPanel>
-                                        <TextBlock x:Uid="/Dialogs/CommonFriendsTB" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <StackPanel x:Name="commonFriendPanel">
+                                        <TextBlock x:Name="commonfriendHeader" Opacity="0" x:Uid="/Dialogs/CommonFriendsTB" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <ListView x:Name="MutualFriends" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
@@ -190,8 +173,6 @@
                                                 </DataTemplate>
                                             </ListView.ItemTemplate>
                                         </ListView>
-                                        <ProgressRing x:Name="LoadingMutualFriends" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                        <TextBlock x:Uid="/Dialogs/NoCommonFriendsTB" x:Name="NoMutualFriends" Visibility="Visible" Text="NO FRIENDS IN COMMON" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <Grid>
@@ -201,13 +182,57 @@
                                         </Rectangle.Fill>
                                     </Rectangle>
 
-                                    <StackPanel Orientation="Horizontal" Height="128" Margin="178,0,0,0" VerticalAlignment="Top">
-                                        <TextBlock x:Name="username" Text="" FontSize="20" VerticalAlignment="Top"/>
-                                        <TextBlock x:Name="discriminator" Text="" FontSize="20" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top"/>
-                                        <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="0" Padding="12,6" CornerRadius="2" Visibility="Collapsed">
-                                            <TextBlock x:Uid="BotTB" Text="BOT" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">
+                                        <TextBlock x:Name="username" Text="" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
+                                        <TextBlock x:Name="discriminator" Text="" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
+                                        <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="6,2,0,0" Padding="8,4" CornerRadius="2" Visibility="Collapsed">
+                                            <TextBlock x:Uid="BotTB" Text="BOT" FontSize="14" VerticalAlignment="Center"/>
                                         </Border>
                                     </StackPanel>
+                                    <tk:WrapPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
+                                        <HyperlinkButton  x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed" >
+                                                <Grid>
+                                                    <FontIcon Glyph="" HorizontalAlignment="Left"/>
+                                                    <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Send friend request" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton x:Name="acceptFriend" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
+                                                <Grid>
+                                                    <FontIcon Glyph="" HorizontalAlignment="Left"/>
+                                                    <TextBlock x:Uid="/Dialogs/AcceptFriendReqBTN" Text="Accept friend request" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource Blurple}" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
+                                                <Grid>
+                                                    <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
+                                                    <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend request sent" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton x:Name="Unblock" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
+                                                <Grid>
+                                                    <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
+                                                    <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Accept friend request" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                            <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
+                                            <Grid>
+                                                <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                        <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
+                                            <Grid>
+                                                <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
+                                                <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
+                                            </Grid>
+                                        </HyperlinkButton>
+                                            <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed" Click="Block_Click">
+                                                <Grid>
+                                                    <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
+                                                    <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
+                                                </Grid>
+                                            </HyperlinkButton>
+                                        </tk:WrapPanel>
                                 </Grid>
                             </Grid>
                         </ScrollViewer>
