@@ -77,6 +77,12 @@ namespace Discord_UWP.SubPages
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
             picker.FileTypeFilter.Add("*");
             StorageFile file = await picker.PickSingleFileAsync();
+            if ((await file.GetBasicPropertiesAsync()).Size > 8388608)
+            {
+                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("file must be less than 8MBs");
+                await dialog.ShowAsync();
+                return;
+            }
             if (file != null)
             {
                 AddAttachement(file);
