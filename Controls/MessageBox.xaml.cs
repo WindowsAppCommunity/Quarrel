@@ -241,10 +241,12 @@ namespace Discord_UWP.Controls
 
         private void SelectSuggestion(KeyValuePair<string, DawgSharp.DawgItem> item)
         {
-          
-            string suggestion = mentionPrefix + item.Value.InsertText;
-            if (suggestion == "")
+            string suggestion;
+            if (item.Value.InsertText == "")
                 suggestion = mentionPrefix + item.Key;
+            else
+                suggestion = mentionPrefix + item.Value.InsertText;
+            
             //EnableChanges = false;
             var str = MessageEditor.Text;
             MessageEditor.Text = PureText.Insert(selectionstart, suggestion);

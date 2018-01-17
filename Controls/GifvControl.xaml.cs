@@ -45,6 +45,8 @@ namespace Discord_UWP.Controls
 
         private async void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
         {
+            mediaelement.AutoPlay = true;
+            /*
             await mediaelement.Fade(1, 100).StartAsync();
             if (!Storage.Settings.GifsOnHover)
             {
@@ -56,7 +58,7 @@ namespace Discord_UWP.Controls
                 if (above)
                     mediaelement.Play();
             }
-                
+                */
             LoadingIndic.Visibility = Visibility.Collapsed;
         }
 
@@ -72,24 +74,24 @@ namespace Discord_UWP.Controls
 
         bool above = false;
         private void mediaelement_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
+        {/*
             above = true;
             if(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
             {
                 mediaelement.Position = TimeSpan.Zero;
                 if(mediaelement.CurrentState == MediaElementState.Stopped)
                 mediaelement.Play();
-            }
+            }*/
         }
 
         private void mediaelement_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
+        {/*
             above = false;
             if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
             {
                 mediaelement.Position = TimeSpan.Zero;
                 mediaelement.Stop();
-            }
+            }*/
         }
 
         private void mediaelement_Tapped(object sender, TappedRoutedEventArgs e)
@@ -99,6 +101,7 @@ namespace Discord_UWP.Controls
 
         private void mediaelement_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            /*
             if (e.Pointer.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Mouse && Storage.Settings.GifsOnHover)
             {
                 if (above)
@@ -116,7 +119,7 @@ namespace Discord_UWP.Controls
                         mediaelement.Play();
                 }
 
-            }
+            }*/
         }
     }
 }

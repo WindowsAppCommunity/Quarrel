@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendReqBTN.Content" xml:space="preserve">
+  <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
     <value>Accepter la demande d'ami</value>
   </data>
   <data name="AddReactionsToggle.Header" xml:space="preserve">
@@ -213,7 +213,7 @@
   <data name="FileSizeTB.Text" xml:space="preserve">
     <value>Taille du fichier:</value>
   </data>
-  <data name="FriendReqSentBTN.Content" xml:space="preserve">
+  <data name="FriendReqSentBTN.Text" xml:space="preserve">
     <value>Demande d'ami envoyée</value>
   </data>
   <data name="GeneralPermissionsTB.Text" xml:space="preserve">
@@ -354,7 +354,7 @@
   <data name="SaveBTN.Content" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
-  <data name="SendFriendReqBTN.Content" xml:space="preserve">
+  <data name="SendFriendReqBTN.Text" xml:space="preserve">
     <value>Envoyer une demande d'ami</value>
   </data>
   <data name="SendMessagesToggle.Header" xml:space="preserve">
@@ -384,7 +384,7 @@
   <data name="TextPermissionsTB.Text" xml:space="preserve">
     <value>PERMISSIONS TEXTUELLES</value>
   </data>
-  <data name="UnblockBTN.Content" xml:space="preserve">
+  <data name="UnblockBTN.Text" xml:space="preserve">
     <value>Débloquer</value>
   </data>
   <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
