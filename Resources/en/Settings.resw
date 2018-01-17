@@ -162,7 +162,7 @@
   <data name="LightRadio.Content" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="LogoutBTN.Content" xml:space="preserve">
+  <data name="LogoutBTN" xml:space="preserve">
     <value>Log out</value>
   </data>
   <data name="NotificationsPI.Header" xml:space="preserve">
