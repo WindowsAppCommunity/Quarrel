@@ -311,6 +311,9 @@
     <Compile Include="SubPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\UserProfileCU.xaml.cs">
+      <DependentUpon>UserProfileCU.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserProfile.xaml.cs">
       <DependentUpon>UserProfile.xaml</DependentUpon>
     </Compile>
@@ -633,6 +636,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\Settings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\UserProfileCU.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

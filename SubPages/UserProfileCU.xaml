@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Discord_UWP.SubPages.UserProfile"
+    x:Class="Discord_UWP.SubPages.UserProfileCU"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP.SubPages"
@@ -7,8 +7,6 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:c="using:Discord_UWP.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
-    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d">
     <Page.Resources>
         <local:BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -88,11 +86,10 @@
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
                 <Grid>
-                    <FCU:ParallaxView Source="{x:Bind ParallaxScroll}" VerticalShift="100">
-                        <FCU:Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
-                            <FCU:Image x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
-                        </FCU:Grid>
-                    </FCU:ParallaxView>
+
+                    <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
+                        <Image x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
+                    </Grid>
 
                     <ScrollViewer x:Name="ParallaxScroll">
                         <Grid Padding="0,250,0,0">

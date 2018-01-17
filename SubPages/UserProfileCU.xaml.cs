@@ -31,9 +31,9 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class UserProfile : Page
+    public sealed partial class UserProfileCU : Page
     {
-        public UserProfile()
+        public UserProfileCU()
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -465,48 +465,6 @@ namespace Discord_UWP.SubPages
         private void Block_Click(object sender, RoutedEventArgs e)
         {
             App.BlockUser(userid);
-        }
-    }
-
-    public class BooleanToVisibilityConverter : IValueConverter
-    {
-        public BooleanToVisibilityConverter()
-        {
-        }
-
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Visible);
-        }
-    }
-
-    public class BooleanToVisibilityConverterInverse : IValueConverter
-    {
-        public BooleanToVisibilityConverterInverse()
-        {
-        }
-
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Collapsed;
-            }
-            return Visibility.Visible;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Collapsed);
         }
     }
 }
