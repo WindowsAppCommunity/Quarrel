@@ -310,8 +310,6 @@ namespace Discord_UWP
         private DawgSharp.DawgBuilder<DawgSharp.DawgItem> MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
         {
-            memberscvs.Clear();
-            MemberListBuilder.Clear();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null && App.CurrentGuildId == e.GuildId) //Reduntant I know
             {
                 //await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
@@ -702,6 +700,9 @@ namespace Discord_UWP
         #region Navigation
         private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
+            memberscvs.Clear();
+            MemberListBuilder = null;
+            MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
             if (e.GuildId != "DMs")
             {
@@ -718,7 +719,6 @@ namespace Discord_UWP
                 App.CurrentGuildId = e.GuildId;
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
-                memberscvs.Clear();
                 RenderGuildChannels();
             } else
             {

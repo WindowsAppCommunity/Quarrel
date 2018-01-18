@@ -31,12 +31,6 @@ namespace DawgSharp
             }
         }
 
-        public void Clear()
-        {
-            root.Children.Clear();
-            lastPath.Clear();
-        }
-
         private void InsertLastPath(string strKey, TPayload value)
         {
             int i = 0;
