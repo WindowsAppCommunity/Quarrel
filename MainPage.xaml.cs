@@ -432,10 +432,10 @@ namespace Discord_UWP
                     {
 
                     }
-                    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-                    sw.Start();
+                    //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+                    //sw.Start();
                     App.MemberListDawg = MemberListBuilder.BuildDawg();
-                    sw.Stop();
+                    //sw.Stop();
                     //else
                     //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 }
