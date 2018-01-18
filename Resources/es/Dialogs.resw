@@ -156,7 +156,7 @@
   <data name="BodyTB.Text" xml:space="preserve">
     <value>CUERPO</value>
   </data>
-  <data name="CancelBTN.Content" xml:space="preserve">
+  <data name="CancelBTN" xml:space="preserve">
     <value>CANCELAR</value>
   </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">

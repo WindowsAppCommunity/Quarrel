@@ -776,7 +776,7 @@
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
                     Grid.ColumnSpan="2"/>
-                                <Rectangle x:Name="bgIndic"  Fill="{ThemeResource InvertedBG}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <Rectangle x:Name="bgIndic" Fill="{ThemeResource InvertedBG}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 <Border x:Name="Indic" Background="{ThemeResource InvertedBG}" Width="2" Opacity="0" HorizontalAlignment="Left" >
                                     <Border.RenderTransform>
                                         <ScaleTransform x:Name="IndicScale" ScaleY="0" CenterY="32"/>
