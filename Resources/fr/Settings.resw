@@ -270,4 +270,7 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Traduction</value>
+  </data>
 </root>

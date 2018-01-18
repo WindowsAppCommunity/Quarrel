@@ -270,4 +270,7 @@
   <data name="Unread" xml:space="preserve">
     <value>Unread</value>
   </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Translations</value>
+  </data>
 </root>
