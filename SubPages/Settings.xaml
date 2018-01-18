@@ -687,6 +687,15 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
+                        <PivotItem x:Uid="/Settings/TranslatorPI" Header="Translations">
+                            <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
+                                <StackPanel>
+                                    <!--TEMP UI-->
+                                    <TextBox x:Name="FrenflyEmail" Header="Frengly Email"/>
+                                    <PasswordBox x:Name="FrenflyPassword" Header="Frengly Password"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </PivotItem>
                         <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
