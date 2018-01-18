@@ -132,7 +132,7 @@
                                         <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
                                         <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <TextBox BorderThickness="0" x:Name="NoteBox" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                                        <TextBox BorderThickness="0" x:Name="NoteBox" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
                                     </StackPanel>
                                     <StackPanel x:Name="commonServerPanel">
                                         <TextBlock x:Name="commonserverHeader" Opacity="0" x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>

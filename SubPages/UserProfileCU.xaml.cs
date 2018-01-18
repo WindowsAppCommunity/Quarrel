@@ -31,9 +31,9 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
-    public sealed partial class UserProfile : Page
+    public sealed partial class UserProfileCU : Page
     {
-        public UserProfile()
+        public UserProfileCU()
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -152,11 +152,7 @@ namespace Discord_UWP.SubPages
                         else element.NickVisibility = Visibility.Collapsed;
 
                         MutualGuilds.Items.Add(element);
-                    }
-                    if (MutualGuilds.Items.Count > 0)
-                    {
-                        commonServerPanel.Visibility = Visibility.Visible;
-                        commonserverHeader.Fade(1, 300, 0).Start();
+                        NoCommonServers.Visibility = Visibility.Collapsed;
                     }
                 }
             }
@@ -256,11 +252,10 @@ namespace Discord_UWP.SubPages
 
             var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
             int relationshipcount = relationships.Count();
-
-            if (relationshipcount == 0) return;
-
-            commonFriendPanel.Visibility = Visibility.Visible;
-            commonfriendHeader.Fade(1, 300, 0).Start();
+            LoadingMutualFriends.Fade(0, 200).Start();
+            if (relationshipcount == 0)
+                NoMutualFriends.Fade(0.2f, 200).Start();
+            else
                 for (int i = 0; i < relationshipcount; i++)
                 {
                     var relationship = relationships.ElementAt(i);
@@ -270,7 +265,6 @@ namespace Discord_UWP.SubPages
 
                     MutualFriends.Items.Add(relationship);
                 }
-
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
@@ -471,48 +465,6 @@ namespace Discord_UWP.SubPages
         private void Block_Click(object sender, RoutedEventArgs e)
         {
             App.BlockUser(userid);
-        }
-    }
-
-    public class BooleanToVisibilityConverter : IValueConverter
-    {
-        public BooleanToVisibilityConverter()
-        {
-        }
-
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Visible;
-            }
-            return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Visible);
-        }
-    }
-
-    public class BooleanToVisibilityConverterInverse : IValueConverter
-    {
-        public BooleanToVisibilityConverterInverse()
-        {
-        }
-
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value is bool && (bool)value)
-            {
-                return Visibility.Collapsed;
-            }
-            return Visibility.Visible;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return (value is Visibility && (Visibility)value == Visibility.Collapsed);
         }
     }
 }
