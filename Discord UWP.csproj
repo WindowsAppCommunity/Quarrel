@@ -723,6 +723,10 @@
       <Project>{89e34785-a142-43dc-8916-41cd073e9bbe}</Project>
       <Name>DiscordBackgroundTask1</Name>
     </ProjectReference>
+    <ProjectReference Include="FrenglyAPI\FrenglyAPI.csproj">
+      <Project>{2824bdc3-eab7-4f57-a951-cb862a51a92a}</Project>
+      <Name>FrenglyAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="GiphyAPI\GiphyAPI.csproj">
       <Project>{cf993df8-e392-44b4-afa7-4da1750d24f2}</Project>
       <Name>GiphyAPI</Name>
