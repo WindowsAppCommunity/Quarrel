@@ -57,9 +57,8 @@ namespace Discord_UWP
                     }
                 }
             }
-
-            //switch (90)
-            switch (rand.Next(0, 92))
+            
+            switch (rand.Next(0, 93))
             //switch (71)
             {
                 //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
@@ -139,8 +138,8 @@ namespace Discord_UWP
                 case 75: return kvp("Is this even legal?", "@Smash_kirby#0966");
                 case 76: return kvp("Maximizing Hype", "@Civiled#1713");
                 case 77: return kvp("Preparing the Men", "@Civiled#1713");
-                case 78: return kvp("This app, bu");
-                case 79: return kvp("\"And also with you", "John Mulaney\"");
+                case 78: return kvp("(Image)Knife.gif");
+                case 79: return kvp("\"And also with you\"", "John Mulaney");
                 case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
                 case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
                 case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
@@ -154,6 +153,7 @@ namespace Discord_UWP
                 case 90: return kvp("(Image)Putin.gif", "@Civiled#1713");
                 case 91: return kvp("(Image)Patrick.gif", "@Civiled#1713");
                 case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
+                case 93: return kvp("Pending next game changer");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
