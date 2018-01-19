@@ -698,10 +698,14 @@ namespace Discord_UWP
         #endregion
 
         #region Navigation
-        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             memberscvs.Clear();
-            MemberListBuilder = null;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                             () =>
+                             {
+                                MembersCvs.Source = null; //TODO: Make minimal MemberList for if GuildSync doesn't work
+                             });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
             if (e.GuildId != "DMs")
