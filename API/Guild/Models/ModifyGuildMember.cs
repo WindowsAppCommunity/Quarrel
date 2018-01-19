@@ -10,6 +10,52 @@ namespace Discord_UWP.API.Guild.Models
 {
     public struct ModifyGuildMember
     {
+        public ModifyGuildMember(GuildMember member)
+        {
+            Nick = member.Nick;
+            Roles = member.Roles;
+            Mute = member.Mute;
+            Deaf = member.Deaf;
+            ChannelId = null;
+        }
+
+        public bool TryAddRole(string roleId)
+        {
+            if (!Roles.Contains(roleId))
+            {
+                var roles = Roles.ToList();
+                roles.Add(roleId);
+                Roles = Roles.AsEnumerable();
+                return true;
+            }
+            return false;
+        }
+
+        public bool TryRemoveRole(string roleId)
+        {
+            if (Roles.Contains(roleId))
+            {
+                var roles = Roles.ToList();
+                roles.Remove(roleId);
+                Roles = Roles.AsEnumerable();
+                return true;
+            }
+            return false;
+        }
+
+        public void ToggleRole(string roleId)
+        {
+            var roles = Roles.ToList();
+            if (Roles.Contains(roleId))
+            {
+                roles.Remove(roleId);
+            } else
+            {
+                roles.Add(roleId);
+            }
+            Roles = Roles.AsEnumerable();
+        }
+
         [JsonProperty("nick")]
         public string Nick { get; set; }
         [JsonProperty("roles")]

@@ -176,14 +176,17 @@ namespace Discord_UWP.Managers
         }
         #endregion
 
-        public static void InviteToServer(object sender, RoutedEventArgs e)
+        public static async void InviteToServer(object sender, RoutedEventArgs e)
         {
-            //App.Inv((sender as MenuFlyoutItem).Tag.ToString());
+            await RESTCalls.CreateInvite((sender as MenuFlyoutItem).Tag.ToString(), new CreateInvite() { MaxUses = 1, Temporary = false, Unique = true });
+            //TODO: Send invite
         }
 
-        public static void AddRole(object sender, RoutedEventArgs e)
+        public static async void AddRole(object sender, RoutedEventArgs e)
         {
-            //App.Inv((sender as MenuFlyoutItem).Tag.ToString());
+            var modify = new API.Guild.Models.ModifyGuildMember(LocalState.Guilds[App.CurrentGuildId].members[((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2]);
+            modify.ToggleRole((((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item1));
+            await RESTCalls.ModifyGuildMember(App.CurrentGuildId, ((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2, modify);
         }
 
         public static async void RemoveGroupUser(object sender, RoutedEventArgs e)
