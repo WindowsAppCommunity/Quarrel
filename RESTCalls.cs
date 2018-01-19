@@ -30,8 +30,6 @@ using DiscordAPI.API.Game;
 using GiphyAPI;
 using GiphyAPI.Models;
 
-using FrenglyAPI;
-
 namespace Discord_UWP
 {
     public class RESTCalls
@@ -1116,42 +1114,6 @@ namespace Discord_UWP
         {
             IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
             return await giphyService.Trending(limit, offset);
-        }
-        #endregion
-
-        #region Frengly
-        public enum Langs { English, Arabic, Bulgarian,
-            Czech, Danish, Estonian, Tagalog,
-            Finnish, French, German, Greek, iw,
-            Hindi, Hungarian, Icelandic, Indonesian, Irish,
-            Italian, Japanese, Korean, Latin, Latvian,
-            Lithuanian, Macedonian, Maltese, Norwegian, Persian,
-            Polish, Portuguese, Romanian, Russian, Serbian,
-            Slovak, Sinhala, Spanish, Swedish, Thai,
-            Turkish, Vietnamese, Chinease}
-
-        private string LangToString(Langs lang)
-        {
-            switch (lang)
-            {
-                case Langs.English: return "en";
-                case Langs.Arabic: return "ar";
-                case Langs.Bulgarian: return "bg";
-                case Langs.Czech: return "cs";
-                case Langs.Danish: return "da";
-                case Langs.German: return "de";
-                case Langs.Greek: return "el";
-                case Langs.Chinease: return "zh";
-            }
-            return "en";
-        }
-
-        public async Task<string> Translate(string text, Langs inLan, Langs outLan, string email, string password, string key = null)
-        {
-            string inLang = LangToString(inLan);
-            string outLang = LangToString(outLan);
-            ITranslateService translateService = FrenglyAPI.FrenglyAPI.GetGiphyService();
-            return await translateService.Translate(new TranlateData() { Text = text, InLan = inLang, OutLan = outLang, Email = email, Password = password});
         }
         #endregion
 
