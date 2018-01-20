@@ -178,8 +178,8 @@ namespace Discord_UWP.Managers
 
         public static async void InviteToServer(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.CreateInvite((sender as MenuFlyoutItem).Tag.ToString(), new CreateInvite() { MaxUses = 1, Temporary = false, Unique = true });
-            //TODO: Send invite
+            var invite = await RESTCalls.CreateInvite(((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item1, new CreateInvite() { MaxUses = 1, Temporary = false, Unique = true });
+            App.NavigateToDMChannel(((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2, "https://discord.gg/" + invite.String, true, false, true);
         }
 
         public static async void AddRole(object sender, RoutedEventArgs e)
