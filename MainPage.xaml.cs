@@ -689,6 +689,7 @@ namespace Discord_UWP
                 {
                     ServerList.SelectedIndex = 0;
                     App.CurrentChannelId = e.ChannelId;
+                    RenderDMChannels();
                     RenderMessages();
                 }
 
@@ -725,31 +726,39 @@ namespace Discord_UWP
                 {
                     App.CurrentGuildIsDM = true;
                     ServerList.SelectedIndex = 0;
-                }
-
-                var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
-                if (!LocalState.DMs.ContainsKey(channel.Id))
-                {
-                    LocalState.DMs.Add(channel.Id, channel);
                     RenderDMChannels();
                 }
-
+                bool handeled = false;
+                int i = 0;
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (chn.Id == channel.Id)
+                    if (chn.Members != null && chn.Members.Count == 1 && chn.Members.ContainsKey(e.UserId))
                     {
-                        App.CurrentChannelId = chn.Id;
-                        ChannelList.SelectedItem = chn;
+                        ChannelList.SelectedIndex = i;
+                        handeled = true;
+                    }
+                    i++;
+                }
+                if (!handeled)
+                {
+                    var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
+                    App.CurrentChannelId = channel.Id;
+                    if (!LocalState.DMs.ContainsKey(channel.Id))
+                    {
+                        LocalState.DMs.Add(channel.Id, channel);
+                    }
+                    RenderDMChannels();
+                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == channel.Id)
+                        {
+                            ChannelList.SelectedItem = chn;
+                        }
                     }
                 }
-                App.MarkChannelAsRead(App.CurrentChannelId);
-                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
-                if (!e.OnBack)
-                {
-                    navigationHistory.Push(currentPage);
-                }
-
+                RenderMessages();
                 //Can't be on Back, OnBack is done with ChannelId
+                //Redirects to navigate by ChannelId
 
             } else //Nav to Friends
             {
@@ -970,14 +979,14 @@ namespace Discord_UWP
             
         }
 
-        private void App_AddFriendHandler(object sender, App.AddFriendArgs e)
+        private async void App_AddFriendHandler(object sender, App.AddFriendArgs e)
         {
-
+            await RESTCalls.SendFriendRequest(e.UserId);
         }
 
-        private void App_BlockUserHandler(object sender, App.BlockUserArgs e)
+        private async void App_BlockUserHandler(object sender, App.BlockUserArgs e)
         {
-
+            await RESTCalls.BlockUser(e.UserId);
         }
 
         private async void App_MarkMessageAsReadHandler(object sender, App.MarkMessageAsReadArgs e)
@@ -1127,7 +1136,7 @@ namespace Discord_UWP
             }
         }
 
-        public void RenderDMChannels()
+        public void RenderDMChannels(string id = null)
         {
             ClearMessageArea();
 
@@ -1139,8 +1148,11 @@ namespace Discord_UWP
             DirectMessageBlock.Visibility = Visibility.Visible;
 
             //Select FriendPanel
-            FriendsItem.IsSelected = true;
-            friendPanel.Visibility = Visibility.Visible;
+            if (id == null)
+            {
+                FriendsItem.IsSelected = true;
+                friendPanel.Visibility = Visibility.Visible;
+            }
 
             AddChannelButton.Visibility = Visibility.Collapsed;
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
@@ -1152,6 +1164,11 @@ namespace Discord_UWP
                 if (App.CurrentGuildIsDM)
                 {
                     ChannelList.Items.Add(channel);
+                    if (id != null && channel.Id == id)
+                    {
+                        ChannelList.SelectedItem = channel;
+                        App.CurrentChannelId = id;
+                    }
                 }
             }
 
