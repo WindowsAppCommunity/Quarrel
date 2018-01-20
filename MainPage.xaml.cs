@@ -672,7 +672,7 @@ namespace Discord_UWP
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
         }
-        private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
+        private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
             if (e.ChannelId != null) //Nav by ChannelId
             {
@@ -721,11 +721,36 @@ namespace Discord_UWP
 
             } else if (e.UserId != null) //Nav by UserId
             {
+                if (!App.CurrentGuildIsDM)
+                {
+                    App.CurrentGuildIsDM = true;
+                    ServerList.SelectedIndex = 0;
+                }
+
+                var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
+                if (!LocalState.DMs.ContainsKey(channel.Id))
+                {
+                    LocalState.DMs.Add(channel.Id, channel);
+                    RenderDMChannels();
+                }
+
+                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                {
+                    if (chn.Id == channel.Id)
+                    {
+                        App.CurrentChannelId = chn.Id;
+                        ChannelList.SelectedItem = chn;
+                    }
+                }
+                App.MarkChannelAsRead(App.CurrentChannelId);
+                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(currentPage);
                 }
-                //TODO: Nav by UserId
+
+                //Can't be on Back, OnBack is done with ChannelId
+
             } else //Nav to Friends
             {
                 if (App.CurrentGuildIsDM)
