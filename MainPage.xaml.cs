@@ -708,6 +708,15 @@ namespace Discord_UWP
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
 
+                if (e.Message != null && !e.Send)
+                {
+                    MessageBox1.Text = e.Message;
+                }
+                else if (e.Send && e.Message != null)
+                {
+                    App.CreateMessage(App.CurrentChannelId, e.Message);
+                }
+
                 if (e.OnBack)
                 {
                     foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
@@ -757,6 +766,14 @@ namespace Discord_UWP
                     }
                 }
                 RenderMessages();
+
+                if (e.Message != null && !e.Send)
+                {
+                    MessageBox1.Text = e.Message;
+                } else if (e.Send && e.Message != null)
+                {
+                    App.CreateMessage(App.CurrentChannelId, e.Message);
+                }
                 //Can't be on Back, OnBack is done with ChannelId
                 //Redirects to navigate by ChannelId
 
