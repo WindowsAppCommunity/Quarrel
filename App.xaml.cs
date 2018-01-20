@@ -168,13 +168,15 @@ namespace Discord_UWP
             public bool OnBack { get; set; }
         }
         public static event EventHandler<DMChannelNavigationArgs> NavigateToDMChannelHandler;
-        public static void NavigateToDMChannel(string channelId, string message = null, bool send = false, bool onBack = false)
+        public static void NavigateToDMChannel(string Id, string message = null, bool send = false, bool onBack = false, bool user = false)
         {
-            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, Message = message, Send = send, OnBack = onBack });
-        }
-        public static void NavigateToDMChannel(string channelId, string userId, string message = null, bool send = false, bool onBack = false)
-        {
-            NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = channelId, UserId = userId, Message = message, Send = send, OnBack = onBack });
+            if (user)
+            {
+                NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = Id, Message = message, Send = send, OnBack = onBack });
+            } else
+            {
+                NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { UserId = Id, Message = message, Send = send, OnBack = onBack });
+            }
         }
         #endregion
 
