@@ -459,5 +459,29 @@ namespace Discord_UWP.Controls
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
         }
+
+        private void contentLeft2_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        {
+            if (contentLeft2.Content != null)
+                ((Control)contentLeft2.Content).Focus(FocusState.Keyboard);
+        }
+
+        private void contentLeft1_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        {
+            if (contentLeft1.Content != null)
+                ((Control)contentLeft1.Content).Focus(FocusState.Keyboard);
+        }
+
+        private void contentRight_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        {
+            if (contentRight.Content != null)
+                ((Control)contentRight.Content).Focus(FocusState.Keyboard);
+        }
+
+        private void ContentControl1_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        {
+            if(ContentControl1.Content != null)
+                ((Control)ContentControl1).Focus(FocusState.Keyboard);
+        }
     }
 }

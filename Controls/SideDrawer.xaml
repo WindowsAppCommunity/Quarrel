@@ -36,7 +36,7 @@
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="leftSide" HorizontalAlignment="Left">
             <Grid x:Name="leftPanel" Background="{ThemeResource AcrylicGuildPaneBackground}">
-                <ContentControl x:Name="contentLeft1" Width="72" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                <ContentControl x:Name="contentLeft1" Width="72" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" FocusEngaged="contentLeft1_FocusEngaged" IsTabStop="False"/>
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftPanelCache" Fill="Black"/>
             </Grid>
             <Grid x:Name="leftSecondaryPanel" Background="{ThemeResource AcrylicChannelPaneBackground}" Margin="0,0,0,0" HorizontalAlignment="Left">
@@ -48,12 +48,12 @@
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
-                <ContentControl x:Name="contentLeft2" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                <ContentControl x:Name="contentLeft2" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" FocusEngaged="contentLeft2_FocusEngaged"/>
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftSecondaryPanelCache" Fill="Black"/>
             </Grid>
         </Grid>
         <Grid x:Name="rightSide" HorizontalAlignment="Right"  Background="{ThemeResource AcrylicChannelPaneBackground}" Margin="0,0,-72,0">
-            <ContentControl x:Name="contentRight" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <ContentControl x:Name="contentRight" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsFocusEngagementEnabled="False" FocusEngaged="contentRight_FocusEngaged" IsTabStop="False"/>
             <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="rightPanelCache" Fill="Black"/>
         </Grid>
         <Grid x:Name="content"  Background="{ThemeResource AcrylicMessageBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -73,7 +73,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <ContentControl x:Name="ContentControl1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,0,12,0">
+            <ContentControl x:Name="ContentControl1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,0,12,0" FocusEngaged="ContentControl1_FocusEngaged" IsTabStop="False">
 
             </ContentControl>
         </Grid>

@@ -689,6 +689,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>2.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.DeveloperTools">
+      <Version>2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
       <Version>2.1.1</Version>
     </PackageReference>

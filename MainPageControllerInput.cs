@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Gaming.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Discord_UWP
 {
@@ -14,6 +15,7 @@ namespace Discord_UWP
     {
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
+            
             if(args.VirtualKey == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
                 sideDrawer.ToggleLeft();
@@ -30,6 +32,14 @@ namespace Discord_UWP
             {
                 ViewHint.Press();
             }
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadY)
+            {
+                YHint.Press();
+                if(((Control)FocusManager.GetFocusedElement()).Parent == ServerList)
+                {
+                    App.ShowMenuFlyout(ServerList.SelectedItem, Managers.FlyoutManager.Type.Guild, ((Managers.GuildManager.SimpleGuild)ServerList.SelectedItem).Id, null, new Windows.Foundation.Point(0, 0));
+                }
+            }
         }
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
@@ -40,6 +50,10 @@ namespace Discord_UWP
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
             {
                 ViewHint.Release();
+            }
+            else if(args.VirtualKey == Windows.System.VirtualKey.GamepadY)
+            {
+                YHint.Release();
             }
         }
     }

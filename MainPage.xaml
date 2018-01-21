@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Discord_UWP.Controls"
     xmlns:tkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:tkd="using:Microsoft.Toolkit.Uwp.DeveloperTools"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
 
@@ -1079,7 +1080,7 @@
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer x:Name="ServerScrollviewer"  VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed" ViewChanged="ServerScrollviewer_ViewChanged">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" IsItemClickEnabled="True" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" ItemClick="ServerList_ItemClick" IsItemClickEnabled="True"  Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection" FocusEngaged="ServerList_FocusEngaged"  FocusDisengaged="ServerList_FocusDisengaged">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 
@@ -1195,7 +1196,7 @@
                                     <Button x:Name="ServerNameButton" Style="{StaticResource DiscordOpaqueButton}" Click="ServerNameButton_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Padding="0" Margin="0,0,0,8"  Background="Transparent">
                                         <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                     </Button>
-                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228">
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" XYFocusLeft="{x:Bind ServerList}">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
                                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>
@@ -1248,7 +1249,7 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="Discord UWP" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
+                            <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
                             <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
@@ -1261,12 +1262,13 @@
                                             <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <Grid Visibility="Collapsed" Width="256" Margin="0,6,0,0">
+                                            <Grid Visibility="Visible" Width="256" Margin="0,6,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock x:Uid="/Main/PlayingTB" Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
+                                                <TextBox x:Name="PlayingBox" Grid.Column="1" LostFocus="TextBlock_LostFocus"/>
                                             </Grid>
                                         </StackPanel>
                                     </Flyout>
@@ -1339,6 +1341,7 @@
                             <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
                             <Grid x:Name="ControllerHints" Visibility="Collapsed"  Grid.Row="3">
                                 <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
+                                    <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
                                     <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
                                     <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu"/>
                                 </StackPanel>
@@ -1546,6 +1549,9 @@
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
         </Frame>
+        <!--<tkd:FocusTracker IsActive="True" 
+                                     VerticalAlignment="Center" 
+                                     HorizontalAlignment="Center"/>-->
 
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>
