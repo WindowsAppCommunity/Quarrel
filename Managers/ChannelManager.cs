@@ -183,8 +183,8 @@ namespace Discord_UWP.Managers
                 set { if (_hidden == value) return; _hidden = value; OnPropertyChanged("Hidden"); }
             }
 
-            private List<string> _members;
-            public List<string> Members
+            private Dictionary<string, User> _members;
+            public Dictionary<string, User> Members
             {
                 get { return _members; }
                 set { if (_members == value) return; _members = value; OnPropertyChanged("Members"); }
@@ -270,6 +270,13 @@ namespace Discord_UWP.Managers
                         sc.Name = "@" + channel.Users.FirstOrDefault().Username;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
+
+                        sc.Members = new Dictionary<string, User>();
+                        foreach (User user in channel.Users)
+                        {
+                            sc.Members.Add(user.Id, user);
+                        }
+
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
                             sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Status;
@@ -307,6 +314,13 @@ namespace Discord_UWP.Managers
                         sc.Name = channel.Name;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+
+                        sc.Members = new Dictionary<string, User>();
+                        foreach (User user in channel.Users)
+                        {
+                            sc.Members.Add(user.Id, user);
+                        }
+
                         if (channel.Name != null && channel.Name != "")
                         {
                             sc.Name = channel.Name;

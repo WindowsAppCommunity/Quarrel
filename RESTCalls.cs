@@ -25,9 +25,10 @@ using Discord_UWP.LocalModels;
 
 using Discord_UWP.Managers;
 
+using DiscordAPI.API.Game;
+
 using GiphyAPI;
 using GiphyAPI.Models;
-using DiscordAPI.API.Game;
 
 namespace Discord_UWP
 {
