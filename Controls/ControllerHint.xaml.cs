@@ -37,6 +37,7 @@ namespace Discord_UWP.Controls
         AnimationSet anim;
         AnimationSet anim2;
         AnimationSet anim3;
+        AnimationSet anim4;
         public void Press()
         {
             if(anim != null)
@@ -46,8 +47,8 @@ namespace Discord_UWP.Controls
                 anim3.Stop();
             }
             anim = glow.Blur(3, 300);
-            anim2 = normal.Fade(0.8f, 300);
-            anim3 = glow.Fade(1, 300);
+            anim2 = normal.Fade(0.8f, 200);
+            anim3 = glow.Fade(1, 200);
             anim.Start();
             anim2.Start();
             anim3.Start();
@@ -61,11 +62,29 @@ namespace Discord_UWP.Controls
                 anim3.Stop();
             }
             anim = glow.Blur(0, 300);
-            anim2 = normal.Fade(0.6f, 300);
-            anim3 = glow.Fade(0, 300);
+            anim2 = normal.Fade(0.6f, 200);
+            anim3 = glow.Fade(0, 200);
             anim.Start();
             anim2.Start();
             anim3.Start();
+        }
+        public void Show()
+        {
+            if(anim4 != null)
+            {
+                anim4.Stop();
+            }
+            anim4 = (this).Fade(1, 200);
+            anim4.Start();
+        }
+        public void Hide()
+        {
+            if (anim4 != null)
+            {
+                anim4.Stop();
+            }
+            anim4 = (this).Fade(0, 200);
+            anim4.Start();
         }
     }
 }

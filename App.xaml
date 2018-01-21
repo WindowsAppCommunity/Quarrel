@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <Application.Resources>
         <ResourceDictionary>
@@ -384,6 +385,10 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource Blurple}"/>
+                <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
+                <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
+                <Setter Property="FocusVisualMargin" Value="-6,-1,-12,-2"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
@@ -702,9 +707,9 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Rectangle x:Name="BorderBackground"
                     IsHitTestVisible="False"
-                    Fill="{ThemeResource SystemControlHighlightListAccentLowBrush}"
+                    Fill="Transparent"
                     Opacity="0"
-                    Control.IsTemplateFocusTarget="True"/>
+                    Control.IsTemplateFocusTarget="True" Visibility="Collapsed"/>
                                 <Grid x:Name="ContentPresenterGrid"
               Background="Transparent"
               Margin="0,0,0,0">
@@ -717,7 +722,7 @@
                             Content="{TemplateBinding Content}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"/>
+                            Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
                                 </Grid>
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
@@ -799,8 +804,10 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="UseSystemFocusVisuals" Value="True" />
-                <Setter Property="FocusVisualPrimaryBrush" Value="Red" />
-                <Setter Property="FocusVisualSecondaryBrush" Value="Blue" />
+                <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource Blurple}"/>
+                <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
+                <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
+                <Setter Property="FocusVisualMargin" Value="-24,0,-24,0"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
@@ -1070,7 +1077,7 @@
                             Content="{TemplateBinding Content}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"/>
+                            Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
                                 </Grid>
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we

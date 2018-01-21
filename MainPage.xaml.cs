@@ -2158,8 +2158,9 @@ namespace Discord_UWP
 
         private void ServerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ServerList.SelectedItem != null)
+            if (ServerList.SelectedItem != null && ServerSelectionWasClicked)
             {
+                ServerSelectionWasClicked = false;
                 var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
                 App.NavigateToGuild(guildid);
                 
@@ -2173,7 +2174,8 @@ namespace Discord_UWP
 
         bool IgnoreChange = false;
         bool lastChangeProgrammatic = false;
-        bool SelectionWasClicked = true;
+        bool ChannelSelectionWasClicked = true;
+        bool ServerSelectionWasClicked = true;
         object previousSelection;
         private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2187,9 +2189,9 @@ namespace Discord_UWP
             {
                 if (!IgnoreChange) //True if the last selection was a category, Voice channel
                 {
-                    if (SelectionWasClicked)
+                    if (ChannelSelectionWasClicked)
                     {
-                        SelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
+                        ChannelSelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
 
                         if (ChannelList.SelectedItem != null) //Called on clear
                         {
@@ -2252,10 +2254,17 @@ namespace Discord_UWP
         }
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            SelectionWasClicked = true;
+            ChannelSelectionWasClicked = true;
             if (e.ClickedItem == ChannelList.SelectedItem)
                 //This is for xbox one, because when "clicking" on a channel, it is already selected
                 ChannelList_SelectionChanged(null, null);
+        }
+        private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ServerSelectionWasClicked = true;
+            if (e.ClickedItem == ServerList.SelectedItem)
+                //This if for xbox one, because when clicking on a channel it is already selected
+                ServerList_SelectionChanged(null, null);
         }
 
         private void AddChannelButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -2380,6 +2389,21 @@ namespace Discord_UWP
             {
                 MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             }
+        }
+
+        private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
+        {
+            GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
+        }
+
+        private void ServerList_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        {
+            YHint.Show();
+        }
+
+        private void ServerList_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
+        {
+            YHint.Hide();
         }
     }
 }
