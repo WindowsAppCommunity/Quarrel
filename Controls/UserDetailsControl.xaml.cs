@@ -252,7 +252,7 @@ namespace Discord_UWP.Controls
 
         private void SendDirectMessage(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(null, DisplayedMember.User.Id, SendDM.Text, true);
+            App.NavigateToDMChannel(DisplayedMember.User.Id, SendDM.Text, true, false, true);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
