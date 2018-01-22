@@ -357,6 +357,9 @@
     <Content Include="Assets\EntryMessages\Spongebob.gif" />
     <Content Include="Assets\EntryMessages\Squidward.gif" />
     <Content Include="Assets\EntryMessages\Twerk.gif" />
+    <Content Condition="$(Platform) == 'x86'" Include="SodiumCWin32.dll" />
+    <Content Condition="$(Platform) == 'x64'" Include="SodiumCx64.dll" />
+    <Content Condition="$(Platform) == 'ARM'" Include="SodiumCARM.dll" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
