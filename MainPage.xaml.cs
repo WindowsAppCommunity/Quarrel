@@ -572,6 +572,7 @@ namespace Discord_UWP
                              () =>
                              {
                                 MembersCvs.Source = null; //TODO: Make minimal MemberList for if GuildSync doesn't work
+                                 TempRenderMembers();
                              });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
@@ -1289,9 +1290,8 @@ namespace Discord_UWP
             sideDrawer.CloseLeft();
         }
 
-        public async void RenderMembers()
+        public async void TempRenderMembers()
         {
-            /*
             memberscvs.Clear();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null) //Reduntant I know
             {
@@ -1372,8 +1372,8 @@ namespace Discord_UWP
                         await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
                             {
-                            // MembersCVS = new CollectionViewSource();
-                            MembersCvs.Source = sortedMembers;
+                                // MembersCVS = new CollectionViewSource();
+                                MembersCvs.Source = sortedMembers;
                             });
                     }
                     catch
@@ -1385,8 +1385,8 @@ namespace Discord_UWP
                     //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
                 }
             }
-        */
-            }
+
+        }
 
         public void UpdateTyping()
         {
@@ -2064,10 +2064,10 @@ namespace Discord_UWP
                             {
                                 m.status = new Presence() { Status = "offline", Game = null };
                             }
-                            //if (memberscvs.ContainsKey(m.Raw.User.Id))
-                            //{
-                            //    memberscvs.Remove(m.Raw.User.Id);
-                            //}
+                            if (memberscvs.ContainsKey(m.Raw.User.Id))
+                            {
+                                memberscvs.Remove(m.Raw.User.Id);
+                            }
                             memberscvs.Add(m.Raw.User.Id, m);
                         }
                     }
