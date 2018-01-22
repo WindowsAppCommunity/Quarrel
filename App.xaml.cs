@@ -743,7 +743,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal static bool CinematicMode = true;
+        internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
         internal static bool DontLogin = false;
