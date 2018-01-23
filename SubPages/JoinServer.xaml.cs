@@ -30,6 +30,15 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
 
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter as string != null)
+            {
+                Invite.Text = e.Parameter as string;
+            }
+        }
+
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
             CloseButton_Click(null, null);

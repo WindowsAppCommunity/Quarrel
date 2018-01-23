@@ -28,7 +28,7 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
 
-        private void App_SubpageCloseHandler(object sender, EventArgs e)
+            private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
             CloseButton_Click(null, null);
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
