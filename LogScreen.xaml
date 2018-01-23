@@ -344,7 +344,7 @@
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                     <Grid MaxWidth="256">
                         <TextBlock Margin="12" TextWrapping="Wrap" FontSize="12" Text="Discord UWP is in absolutely no way endorsed by Discord, Inc.
-                                   Even so, The developpers of this app guarantee that none of your personal data exists elsewhere than on your device.
+                                   Even so, The developers of this app guarantee that none of your personal data exists elsewhere than on your device.
                                    
                                    The only data we keep once you've logged in is a Token which allows you to automatically be connected when you open the app, without even needing to store your password. It is stored securely using UWPs encrypted PasswordVault."/>
                     </Grid>
