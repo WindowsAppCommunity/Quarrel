@@ -186,11 +186,14 @@
                                 </StackPanel>
                             </StackPanel>
                             <Grid>
-                                <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Rectangle.Fill>
-                                        <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
-                                    </Rectangle.Fill>
-                                </Rectangle>
+                                <Grid>
+                                    <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                    <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Rectangle.Fill>
+                                            <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
 
                                 <StackPanel Orientation="Horizontal" Height="128" Margin="178,0,0,0" VerticalAlignment="Top">
                                     <TextBlock x:Name="username" Text="" FontSize="20" VerticalAlignment="Top"/>

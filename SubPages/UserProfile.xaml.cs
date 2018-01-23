@@ -221,18 +221,17 @@ namespace Discord_UWP.SubPages
                 BadgePanel.Children.Add(img);
                 img.Fade(1.2f);
             }
+
+            var image = new BitmapImage(Common.AvatarUri(profile.User.Avatar, profile.User.Id));
+            AvatarFull.ImageSource = image;
+            AvatarBlurred.Source = image;
+
             if (profile.User.Avatar != null)
             {
-                var AvatarExtension = ".png";
-                if (profile.User.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
-                var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + profile.User.Id + "/" + profile.User.Avatar + AvatarExtension));
-                AvatarFull.ImageSource = image;
-                AvatarBlurred.Source = image;
+                AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
             } else
             {
-                var image = new BitmapImage(new Uri("ms-appx:///Assets/DiscordIcon.png"));
-                AvatarFull.ImageSource = image;
-                AvatarBlurred.Source = image;
+                AvatarBG.Fill = Common.DiscriminatorColor(profile.User.Discriminator);
             }
 
             if (profile.User.Bot)

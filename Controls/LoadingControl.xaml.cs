@@ -34,6 +34,14 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             initialize();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(5000);
+            timer.Tick += ShowReset;
+        }
+
+        private void ShowReset(object sender, object e)
+        {
+            ResetButton.Visibility = Visibility.Visible;
         }
 
         public void initialize()
@@ -127,6 +135,11 @@ namespace Discord_UWP.Controls
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AdjustSize();
+        }
+
+        private async void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            await App.RequestReset();
         }
     }
 }

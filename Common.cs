@@ -30,6 +30,24 @@ namespace Discord_UWP
                 return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
+        public static SolidColorBrush DiscriminatorColor(string desc)
+        {
+            switch (Convert.ToInt32(desc) % 5)
+            {
+                case 0: //Blurple
+                    return new SolidColorBrush(Color.FromArgb(255, 114, 137, 218));
+                case 1: //Grey
+                    return new SolidColorBrush(Color.FromArgb(255, 116, 127, 141));
+                case 2: //Green
+                    return new SolidColorBrush(Color.FromArgb(255, 67, 181, 129));
+                case 3: //Yellow
+                    return new SolidColorBrush(Color.FromArgb(255, 250, 166, 26));
+                case 4: //Red
+                    return new SolidColorBrush(Color.FromArgb(255, 250, 71, 71));
+            }
+            return new SolidColorBrush(Color.FromArgb(255, 114, 137, 218));
+        }
+
         public static SolidColorBrush GetSolidColorBrush(string hex)
         {
             hex = hex.Replace("#", string.Empty);
@@ -111,9 +129,11 @@ namespace Discord_UWP
         public static Uri AvatarUri(string s, string userid = "", string suffix = "")
         {
             if (String.IsNullOrEmpty(s))
-                return new Uri("ms-appx:///Assets/DiscordAssets/default_avatar.png");
-            else
-                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".jpg" + suffix);
+                return new Uri("ms-appx:///Assets/DiscordIcon.png");
+            else if (s.StartsWith("a_"))
+                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".gif" + suffix);
+            else 
+                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".png" + suffix);
         }
 
         public static ScrollViewer GetScrollViewer(DependencyObject o)

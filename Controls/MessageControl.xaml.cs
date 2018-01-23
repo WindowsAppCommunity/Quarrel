@@ -517,22 +517,12 @@ namespace Discord_UWP.Controls
                 if (!Storage.Settings.DevMode)
                     MoreCopyId.Visibility = Visibility.Collapsed;
 
-                if (!string.IsNullOrEmpty(Message.Value.User.Avatar))
-                {
-                    avatar.Fill = new ImageBrush()
-                    {
-                        ImageSource = new BitmapImage(
-                            new Uri("https://cdn.discordapp.com/avatars/" + Message.Value.User.Id + "/" +
-                                    Message.Value.User.Avatar + ".jpg"))
-                    };
-                }
+                AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(Message.Value.User.Avatar, Message.Value.User.Id));
+
+                if (Message.Value.User.Avatar == null)
+                    AvatarBG.Fill = Common.DiscriminatorColor(Message.Value.User.Discriminator);
                 else
-                {
-                    avatar.Fill = new ImageBrush()
-                    {
-                        ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Square150x150Logo.scale-200.png"))
-                    };
-                }
+                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
 
                 timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
                 if (Message.Value.EditedTimestamp.HasValue)
@@ -606,7 +596,7 @@ namespace Discord_UWP.Controls
                 content.Visibility = Visibility.Visible;
                 Grid.SetRow(moreButton,2);
                 username.Content = "";
-                avatar.Fill = null;
+                Avatar.Fill = null;
                 timestamp.Text = "";
                 content.Text = "";
                 if (rootGrid.Children.Contains(reactionView))
@@ -732,7 +722,12 @@ namespace Discord_UWP.Controls
                     }
                     else if(embed.Type == "video")
                     {
-                        //TODO Add support for video
+                        //TODO: Handle video differently
+                        if (embed.Url.Contains("youtube"))
+                        {
+                            EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
+                        }
+                        EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
                     }
                     else
                     {
