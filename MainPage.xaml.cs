@@ -983,7 +983,7 @@ namespace Discord_UWP
             {
                 string val = e.Link.Remove(0, 2);
                 //TODO Fix this shit
-                MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberDisplayedRole.Id == val));
+                MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberHoistRole.Id == val));
                 sideDrawer.OpenRight();
             }
             else if (e.Link.StartsWith("@"))
@@ -2065,30 +2065,18 @@ namespace Discord_UWP
 
                     foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                     {
-                        if (e.IsLarge && !LocalState.PresenceDict.ContainsKey(member.Key))
-                        { }
-                        else
+                        if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
                         {
                             Member m = new Member(member.Value);
-                            m.Raw.Roles = m.Raw.Roles.OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
-                            if (m.Raw.Roles.FirstOrDefault() != null &&
-                                LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
-                                LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                            m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+
+                            //Set it to first Hoist Role or everyone if null
+                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                            () =>
                             {
-                                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                () =>
-                                {
-                                    m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
-                                });
-                            }
-                            else
-                            {
-                                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                () =>
-                                {
-                                    m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
-                                });
-                            }
+                                m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
+                            });
+
                             if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                             {
                                 m.status = LocalState.PresenceDict[m.Raw.User.Id];
@@ -2097,17 +2085,17 @@ namespace Discord_UWP
                             {
                                 m.status = new Presence() { Status = "offline", Game = null };
                             }
-                            //if (memberscvs.ContainsKey(m.Raw.User.Id))
-                            //{
-                            //    memberscvs.Remove(m.Raw.User.Id);
-                            //}
+                            if (memberscvs.ContainsKey(m.Raw.User.Id))
+                            {
+                                memberscvs.Remove(m.Raw.User.Id);
+                            }
                             memberscvs.Add(m.Raw.User.Id, m);
                         }
                     }
                     try
                     {
                         var sortedMembers =
-                            memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+                            memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
                         foreach (var m in sortedMembers)
                         {
@@ -2172,11 +2160,11 @@ namespace Discord_UWP
                     LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
                     LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
                 {
-                    m.MemberDisplayedRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
+                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
                 }
                 else
                 {
-                    m.MemberDisplayedRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
+                    m.MemberHoistRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
                 }
                 if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                 {
@@ -2195,7 +2183,7 @@ namespace Discord_UWP
             try
             {
                 var sortedMembers =
-                    memberscvs.GroupBy(m => m.Value.MemberDisplayedRole).OrderByDescending(x => x.Key.Position);
+                    memberscvs.GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
