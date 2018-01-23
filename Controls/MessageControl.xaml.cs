@@ -217,6 +217,19 @@ namespace Discord_UWP.Controls
                     AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                     content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                 }
+                else if(MessageType == MessageTypes.GuildMemberJoined)
+                {
+                    if (rootGrid.Children.Contains(reactionView))
+                        rootGrid.Children.Remove(reactionView);
+                    if (rootGrid.Children.Contains(advert))
+                        rootGrid.Children.Remove(advert);
+                    advert = null;
+                    VisualStateManager.GoToState(this, "Alternative", false);
+                    AlternativeIcon.Glyph = "";
+                    AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
+                    content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/JoinedTheServer");
+                }
+
                 else if(MessageType == MessageTypes.Default)
                 {
                     

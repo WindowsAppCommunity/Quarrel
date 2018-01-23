@@ -743,7 +743,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal static bool CinematicMode = true;
+        internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
         internal static bool DontLogin = false;
@@ -1111,6 +1111,7 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+            if (App.CinematicMode) App.Current.Resources["ShowFocusVisuals"] = true;
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {

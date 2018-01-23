@@ -288,4 +288,7 @@
   <data name="PlayingTB.Text" xml:space="preserve">
     <value>JOUE À</value>
   </data>
+  <data name="JoinedTheServer" xml:space="preserve">
+    <value>a rejoins le serveur!</value>
+  </data>
 </root>

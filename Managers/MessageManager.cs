@@ -30,7 +30,7 @@ namespace Discord_UWP.Managers
                         }
                     }
 
-                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), prev.HasValue ? prev.Value.User.Id == message.User.Id : false, null));
+                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), ShouldContinuate(message, prev), null));
                     adCheck--;
                     if (adCheck == 0 && App.ShowAds && !Storage.Settings.VideoAd)
                     {
@@ -42,6 +42,14 @@ namespace Discord_UWP.Managers
                 return returnMessages;
             }
             return null; //else
+        }
+        private static bool ShouldContinuate(Message current, Message? previous)
+        {
+            //If the previous message exists, is a normal message, and was published than 2 minutes ago, the current one should continuate it
+            if (previous.HasValue && previous.Value.Type == 7 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2)
+                return true;
+            else
+                return false;
         }
         public static MessageTypes GetMessageType(int type)
         {

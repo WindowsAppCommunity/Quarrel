@@ -48,7 +48,7 @@
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
-                <ContentControl x:Name="contentLeft2" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" FocusEngaged="contentLeft2_FocusEngaged"/>
+                <ContentControl x:Name="contentLeft2" Width="228" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" GotFocus="contentLeft2_GotFocus"/>
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftSecondaryPanelCache" Fill="Black"/>
             </Grid>
         </Grid>

@@ -119,6 +119,13 @@ namespace Discord_UWP.Managers
                 set { if (_imageurl == value) return; _imageurl = value; OnPropertyChanged("ImageURL"); }
             }
 
+            private bool _isselected;
+            public bool IsSelected
+            {
+                get { return _isselected; }
+                set { if (_isselected == value) return; _isselected = value; OnPropertyChanged("IsSelected"); }
+            }
+
             private int _type;
 
             /// <summary>
@@ -207,6 +214,7 @@ namespace Discord_UWP.Managers
                 sc.Type = channel.raw.Type;
                 sc.Position = channel.raw.Position;
                 sc.ParentId = channel.raw.ParentId;
+                
                 switch (channel.raw.Type)
                 {
                     case 0:

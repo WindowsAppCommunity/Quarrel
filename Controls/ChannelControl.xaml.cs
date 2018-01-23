@@ -162,6 +162,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+        public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
+            nameof(IsSelected),
+            typeof(bool),
+            typeof(ChannelControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public List<string> Members
         {
             get { try { return (List<string>)GetValue(MembersProperty); } catch { return null; } }
@@ -190,6 +201,18 @@ namespace Discord_UWP.Controls
             //        this.Visibility = Visibility.Collapsed;
             //    }
             //}
+
+            if (prop == IsSelectedProperty)
+            {
+                if (IsSelected)
+                {
+                    SelectIndicator.Fade(1, 200).Start();
+                }
+                else
+                {
+                    SelectIndicator.Fade(0, 200).Start();
+                }
+            }
 
             if (prop == UserStatusProperty)
             {

@@ -117,6 +117,17 @@ namespace Discord_UWP.Controls
             typeof(GuildControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+        public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
+            nameof(IsSelected),
+            typeof(bool),
+            typeof(GuildControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as GuildControl;
@@ -127,6 +138,17 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            if(prop == IsSelectedProperty)
+            {
+                if (IsSelected)
+                {
+                    SelectIndicator.Fade(1, 200).Start();
+                }
+                else
+                {
+                    SelectIndicator.Fade(0, 200).Start();
+                }
+            }
             if (prop == IsUnreadProperty)
             {
                 if (IsUnread && !IsMuted)

@@ -568,6 +568,7 @@ namespace Discord_UWP
         private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             memberscvs.Clear();
+            (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                              () =>
                              {
@@ -575,18 +576,24 @@ namespace Discord_UWP
                              });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
+
+            foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+            {
+                if (guild.Id == e.GuildId)
+                {
+                    ServerList.SelectedItem = guild;
+                    guild.IsSelected = true;
+                }
+                else
+                {
+                    guild.IsSelected = false;
+                }
+            }
+
             if (e.GuildId != "DMs")
             {
                 MemberToggle.Visibility = Visibility.Visible;
-                
-                foreach (GuildManager.SimpleGuild guild in ServerList.Items)
-                {
-                    if (guild.Id == e.GuildId)
-                    {
-                        ServerList.SelectedItem = guild;
-                    }
-                }
-
+               
                 App.CurrentGuildId = e.GuildId;
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
@@ -655,6 +662,7 @@ namespace Discord_UWP
                     if (guild.Id == e.GuildId)
                     {
                         ServerList.SelectedItem = guild;
+                       
                     }
                 }
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
@@ -663,6 +671,11 @@ namespace Discord_UWP
                     {
                         lastChangeProgrammatic = true;
                         ChannelList.SelectedItem = chn;
+                        chn.IsSelected = true;
+                    }
+                    else
+                    {
+                        chn.IsSelected = false;
                     }
                 }
 
@@ -671,6 +684,12 @@ namespace Discord_UWP
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
+            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                if (chn.Id == e.ChannelId)
+                    chn.IsSelected = true;
+                else
+                    chn.IsSelected = false;
+            UpdateTyping();
         }
         private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
@@ -787,6 +806,12 @@ namespace Discord_UWP
                     ServerList.SelectedIndex = 0;
                 }
             }
+            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                if (chn.Id == e.ChannelId)
+                    chn.IsSelected = true;
+                else
+                    chn.IsSelected = false;
+            UpdateTyping();
         }
 
         #endregion
@@ -2224,6 +2249,7 @@ namespace Discord_UWP
             if (ServerList.SelectedItem != null && ServerSelectionWasClicked)
             {
                 ServerSelectionWasClicked = false;
+                
                 var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
                 App.NavigateToGuild(guildid);
                 
@@ -2459,14 +2485,39 @@ namespace Discord_UWP
             GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
         }
 
-        private void ServerList_FocusEngaged(Control sender, FocusEngagedEventArgs args)
+        private void ServerList_GotFocus(object sender, RoutedEventArgs e)
         {
             YHint.Show();
         }
 
-        private void ServerList_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
+        private void ServerList_LostFocus(object sender, RoutedEventArgs e)
         {
-            YHint.Hide();
+            ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((ChannelManager.SimpleChannel)x).Id == App.CurrentChannelId);
+        }
+
+        private void sideDrawer_SecondaryLeftFocused_1(object sender, EventArgs e)
+        {
+            if (App.CinematicMode)
+            {
+                if (ChannelList.SelectedItem != null)
+                {
+                    ListViewItem item = (ListViewItem)ChannelList.ContainerFromItem(ChannelList.SelectedItem);
+                    item.Focus(FocusState.Keyboard);
+                }
+                else
+                    ChannelList.Focus(FocusState.Keyboard);
+            } 
+            
+        }
+
+        private void ChannelList_GotFocus(object sender, RoutedEventArgs e)
+        {
+            YHint.Show();
+        }
+
+        private void ChannelList_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
         }
     }
 }
