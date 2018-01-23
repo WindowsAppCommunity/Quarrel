@@ -616,10 +616,12 @@ namespace Discord_UWP
             } else
             {
                 string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
-                for (int x = 0; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
+                channels[0] = App.CurrentGuildId;
+                for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
                 {
                     channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
                 }
+
                 GatewayManager.Gateway.SubscribeToGuild(channels);
             }
             App.UpdateUnreadIndicators();
