@@ -57,7 +57,11 @@ namespace Discord_UWP.Controls
                 username.Text = DisplayedFriend.User.Username;
                 discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedFriend.User.Avatar, DisplayedFriend.User.Id));
-                
+                if (DisplayedFriend.User.Avatar == null)
+                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+                else
+                    AvatarBG.Fill = Common.DiscriminatorColor(DisplayedFriend.User.Discriminator);
+
                 SharedGuildContainer.Children.Clear();
                 if(DisplayedFriend.SharedGuilds != null)
                 foreach (var guild in DisplayedFriend.SharedGuilds)

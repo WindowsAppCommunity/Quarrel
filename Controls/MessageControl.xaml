@@ -48,7 +48,7 @@
                                 <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="avatar.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Avatar.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="contentStacker.(UIElement.Visibility)" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -110,7 +110,12 @@
             <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" Grid.Column="1" Foreground="{ThemeResource Blurple}"/>
             <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="5,0,0,0" Grid.Column="2"/>
         </Grid>
-        <Rectangle x:Name="avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" Fill="#00000000" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
+        <Rectangle x:Name="AvatarBG" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
+        <Rectangle x:Name="Avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
+            <Rectangle.Fill>
+                <ImageBrush x:Name="AvatarBrush"/>
+            </Rectangle.Fill>
+        </Rectangle>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
             <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">

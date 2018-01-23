@@ -62,9 +62,14 @@ namespace Discord_UWP.Controls
             else
                 username.Text = "";
 
-            if(DisplayedMember.Raw.User.Avatar != null)
-                Avatar.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + DisplayedMember.Raw.User.Id + "/" + DisplayedMember.Raw.User.Avatar + ".png?size=64"));
-            if(DisplayedMember.status.Status != null && DisplayedMember.status.Status != "invisible")
+            Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
+
+            if (DisplayedMember.Raw.User.Avatar != null)
+                AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+            else
+                AvatarBG.Fill = Common.DiscriminatorColor(DisplayedMember.Raw.User.Discriminator);
+
+            if (DisplayedMember.status.Status != null && DisplayedMember.status.Status != "invisible")
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
             else if (DisplayedMember.status.Status == "invisible")
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];

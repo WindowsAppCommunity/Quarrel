@@ -1120,7 +1120,13 @@ namespace Discord_UWP
 
         public void RenderCurrentUser()
         {
-            ImageBrush image = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + LocalState.CurrentUser.Id + "/" + LocalState.CurrentUser.Avatar + ".jpg")) };
+            ImageBrush image = new ImageBrush() { ImageSource = new BitmapImage(Common.AvatarUri(LocalState.CurrentUser.Avatar, LocalState.CurrentUser.Id)) };
+
+            if (LocalState.CurrentUser.Avatar == null)
+                AvatarBG.Fill = Common.DiscriminatorColor(LocalState.CurrentUser.Discriminator);
+            else
+                AvatarBG.Fill = Common.GetSolidColorBrush(Windows.UI.Colors.Transparent);
+
             Avatar.Fill = image;
             LargeAvatar.Fill = image;
             Username.Text = LocalState.CurrentUser.Username;
@@ -2480,10 +2486,10 @@ namespace Discord_UWP
             }
         }
 
-        private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
-        {
-            GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
-        }
+        //private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
+        //}
 
         private void ServerList_GotFocus(object sender, RoutedEventArgs e)
         {
