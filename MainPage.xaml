@@ -1076,11 +1076,11 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1" Background="{ThemeResource AcrylicChannelPaneBackground}">
-                <controls:SideDrawer x:Name="sideDrawer">
+                <controls:SideDrawer x:Name="sideDrawer" SecondaryLeftFocused="sideDrawer_SecondaryLeftFocused_1">
                     <controls:SideDrawer.ContentLeft>
                         <Grid>
                             <ScrollViewer x:Name="ServerScrollviewer"  VerticalScrollBarVisibility="Hidden" PointerPressed="ScrollViewer_PointerPressed" ViewChanged="ServerScrollviewer_ViewChanged">
-                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" ItemClick="ServerList_ItemClick" IsItemClickEnabled="True"  Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection" FocusEngaged="ServerList_FocusEngaged"  FocusDisengaged="ServerList_FocusDisengaged">
+                                <ListView x:Name="ServerList" SelectionChanged="ServerList_SelectionChanged" ItemClick="ServerList_ItemClick" IsItemClickEnabled="True"  Width="72" ItemContainerStyle="{StaticResource ServerIconStyle}" Style="{StaticResource SimplifiedListView}" XYFocusRight="{x:Bind ChannelList}" XYFocusRightNavigationStrategy="Projection" GotFocus="ServerList_GotFocus" LostFocus="ServerList_LostFocus">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:GuildControl Id="{Binding Id}" 
@@ -1090,7 +1090,8 @@
                                                            IsUnread="{Binding IsUnread}"
                                                            IsMuted="{Binding IsMuted}"
                                                            IsDM="{Binding IsDM}"
-                                                           IsValid="{Binding IsValid}"/>
+                                                           IsValid="{Binding IsValid}"
+                                                           IsSelected="{Binding IsSelected}"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>
@@ -1196,7 +1197,7 @@
                                     <Button x:Name="ServerNameButton" Style="{StaticResource DiscordOpaqueButton}" Click="ServerNameButton_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Padding="0" Margin="0,0,0,8"  Background="Transparent">
                                         <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                     </Button>
-                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" XYFocusLeft="{x:Bind ServerList}">
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" XYFocusLeft="{x:Bind ServerList}" GotFocus="ChannelList_GotFocus" LostFocus="ChannelList_LostFocus">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
                                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>
@@ -1214,7 +1215,8 @@
                                                                          IsUnread="{Binding IsUnread}" 
                                                                          IsTyping="{Binding IsTyping}" 
                                                                          IsMuted="{Binding IsMuted}"
-                                                                         IsHidden="{Binding Hidden}"/>
+                                                                         IsHidden="{Binding Hidden}"
+                                                                         IsSelected="{Binding IsSelected}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Header>
@@ -1343,7 +1345,17 @@
                                 <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
                                     <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
                                     <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
-                                    <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu"/>
+                                    <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
+                                        <controls:ControllerHint.ContextFlyout>
+                                            <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
+                                                <MenuFlyoutSeparator/>
+                                                <MenuFlyoutItem Text="About" Click="NavToAbout"/>
+                                                <MenuFlyoutItem Text="What's New?" Click="WhatsNewClick"/>
+                                                <MenuFlyoutItem Text="In-App Purchases" Click="NavToIAPs"/>
+                                                <MenuFlyoutItem Text="Settings" Click="OpenSettings"/>
+                                            </MenuFlyout>
+                                        </controls:ControllerHint.ContextFlyout>
+                                    </controls:ControllerHint>
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -1549,9 +1561,9 @@
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
         </Frame>
-        <!--<tkd:FocusTracker IsActive="True" 
+        <tkd:FocusTracker IsActive="True" 
                                      VerticalAlignment="Center" 
-                                     HorizontalAlignment="Center"/>-->
+                                     HorizontalAlignment="Center"/>
 
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>

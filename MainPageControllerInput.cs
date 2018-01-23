@@ -46,6 +46,7 @@ namespace Discord_UWP
             if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
             {
                 MenuHint.Release();
+                MenuHint.ContextFlyout.ShowAt(YHint);
             }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
             {
@@ -54,6 +55,7 @@ namespace Discord_UWP
             else if(args.VirtualKey == Windows.System.VirtualKey.GamepadY)
             {
                 YHint.Release();
+                
             }
         }
     }

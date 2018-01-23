@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -19,6 +20,19 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class TypingIndicator : UserControl
     {
+        public bool IsWhite
+        {
+            set
+            {
+                if(value)
+                {
+                    ellipse.Fill = new SolidColorBrush(Colors.White);
+                    ellipse1.Fill = new SolidColorBrush(Colors.White);
+                    ellipse2.Fill = new SolidColorBrush(Colors.White);
+
+                }
+            }
+        }
         public TypingIndicator()
         {
             this.InitializeComponent();

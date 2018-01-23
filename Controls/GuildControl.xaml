@@ -35,6 +35,11 @@
         </Storyboard>
     </UserControl.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
+        <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
+            <Border.Background>
+                <SolidColorBrush Opacity="0.2" Color="{ThemeResource BlurpleColor}"/>
+            </Border.Background>
+        </Border>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Opacity="0.75" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
         <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
         <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
@@ -51,11 +56,11 @@
         <Border x:Name="border" Visibility="Visible" Opacity="0" Margin="0,0,-12,0" VerticalAlignment="Bottom">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="1,0" ColorInterpolationMode="ScRgbLinearInterpolation">
-                    <GradientStop Offset="0.9"/>
+                    <GradientStop Offset="0.9" Color="{ThemeResource BlurpleColorTransparent}"/>
                     <GradientStop Color="{ThemeResource BlurpleColor}" Offset="0"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <TextBlock x:Name="NotificationCounter" Foreground="{ThemeResource InvertedBG}" Text="1" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
+            <TextBlock x:Name="NotificationCounter" Foreground="White" Text="1" FontWeight="SemiBold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="4,0,4,2" FontSize="15" RenderTransformOrigin="0.5,0.5">
                 <TextBlock.RenderTransform>
                     <CompositeTransform TranslateX="24"/>
                 </TextBlock.RenderTransform>

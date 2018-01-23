@@ -46,6 +46,8 @@ namespace Discord_UWP.Controls
             get { return contentRight.Content; }
             set { contentRight.Content = value; }
         }
+
+        public event EventHandler SecondaryLeftFocused;
         private Visual rootVisual;
         private Compositor compositor;
         private InteractionTracker tracker;
@@ -310,20 +312,21 @@ namespace Discord_UWP.Controls
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
             var state = VisualStateGroup.CurrentState;
-            VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = Small });
+            
 
             if (App.CinematicMode)
             {
                 SmallTrigger.MinWindowWidth = 0;
                 MediumTrigger.MinWindowWidth = 0;
-                LargeTrigger.MinWindowWidth = 0;
-                ExtraLargeTrigger.MinWindowWidth = 1;
+                LargeTrigger.MinWindowWidth = 1;
+                ExtraLargeTrigger.MinWindowWidth = 100000;
                 maingrid.Margin = new Thickness(54, 0, 54, 0);
                 leftPanel.Margin = new Thickness(-54, 0, 0, 0);
                 leftPanel.Padding = new Thickness(54, 0, 0, 0);
                 rightSide.Margin = new Thickness(0, 0, 54, 0);
                 rightSide.Padding = new Thickness(0, 0, -54, 0);
             }
+            VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = Small });
         }
         InteractionTrackerInertiaRestingValue startpoint;
         InteractionTrackerInertiaRestingValue midpoint;
@@ -462,26 +465,27 @@ namespace Discord_UWP.Controls
 
         private void contentLeft2_FocusEngaged(Control sender, FocusEngagedEventArgs args)
         {
-            if (contentLeft2.Content != null)
-                ((Control)contentLeft2.Content).Focus(FocusState.Keyboard);
+           
         }
 
         private void contentLeft1_FocusEngaged(Control sender, FocusEngagedEventArgs args)
         {
-            if (contentLeft1.Content != null)
-                ((Control)contentLeft1.Content).Focus(FocusState.Keyboard);
+
         }
 
         private void contentRight_FocusEngaged(Control sender, FocusEngagedEventArgs args)
         {
-            if (contentRight.Content != null)
-                ((Control)contentRight.Content).Focus(FocusState.Keyboard);
+
         }
 
         private void ContentControl1_FocusEngaged(Control sender, FocusEngagedEventArgs args)
         {
-            if(ContentControl1.Content != null)
-                ((Control)ContentControl1).Focus(FocusState.Keyboard);
+
+        }
+
+        private void contentLeft2_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SecondaryLeftFocused?.Invoke(null, null);
         }
     }
 }

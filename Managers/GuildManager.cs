@@ -32,6 +32,7 @@ namespace Discord_UWP.Managers
                 set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
             }
 
+
             private string _name;
             public string Name
             {
@@ -81,6 +82,13 @@ namespace Discord_UWP.Managers
                 set { if (_isvalid == value) return; _isvalid = value; OnPropertyChanged("IsValid"); }
             }
 
+            private bool _isselected;
+            public bool IsSelected
+            {
+                get { return _isselected; }
+                set { if (_isselected == value) return; _isselected = value; OnPropertyChanged("IsSelected"); }
+            }
+
             public SimpleGuild Clone()
             {
                 SimpleGuild sg = new SimpleGuild();
@@ -92,6 +100,7 @@ namespace Discord_UWP.Managers
                 sg.Name = Name;
                 sg.NotificationCount = NotificationCount;
                 sg.IsValid = IsValid;
+                sg.IsSelected = IsSelected;
                 return sg;
             }
 
@@ -110,7 +119,8 @@ namespace Discord_UWP.Managers
                 IsDM = false,
                 IsMuted = LocalState.GuildSettings.ContainsKey(guild.Id) ? LocalState.GuildSettings[guild.Id].raw.Muted : false,
                 IsUnread = false, //Will Change if true
-                IsValid = true //Will change if false
+                IsValid = true, //Will change if false
+                IsSelected = false
             };
 
             foreach (var chn in LocalState.Guilds[guild.Id].channels.Values)

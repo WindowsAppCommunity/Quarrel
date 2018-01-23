@@ -121,6 +121,7 @@
             <SolidColorBrush x:Key="offline" Color="#747f8d"/>
             <Color x:Key="OfflineColor">#747f8d</Color>
             <x:Double x:Key="ShadowOpacity">0.1</x:Double>
+            <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
@@ -384,7 +385,7 @@
                 <Setter Property="Padding" Value="6,1,0,1"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource ShowFocusVisuals}" />
                 <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource Blurple}"/>
                 <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
                 <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
@@ -473,49 +474,43 @@
                                         </VisualState>
                                         <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
+                                                <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase EasingMode="EaseIn"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.4" To="1">
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                                     <DoubleAnimation.EasingFunction>
-                                                        <CircleEase EasingMode="EaseOut"/>
+                                                        <CircleEase EasingMode="EaseIn"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.4" To="1">
+                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0">
                                                     <DoubleAnimation.EasingFunction>
-                                                        <ElasticEase EasingMode="EaseOut" Oscillations="2"/>
+                                                        <CircleEase EasingMode="EaseIn"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOverSelected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
+                                                <DoubleAnimation Storyboard.TargetName="bgIndic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.075">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.4" To="1">
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.5">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.4" To="1">
+                                                <DoubleAnimation Storyboard.TargetName="IndicScale" Storyboard.TargetProperty="ScaleY" Duration="0:0:0.2" To="0.4">
                                                     <DoubleAnimation.EasingFunction>
-                                                        <ElasticEase EasingMode="EaseOut" Oscillations="2"/>
+                                                        <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
@@ -803,7 +798,7 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource ShowFocusVisuals}" />
                 <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource Blurple}"/>
                 <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
                 <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
@@ -859,27 +854,21 @@
 
                                         <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
                                                     <DoubleAnimation.EasingFunction>
-                                                        <CircleEase EasingMode="EaseOut"/>
+                                                        <ExponentialEase EasingMode="EaseInOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOverSelected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0.1">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase EasingMode="EaseOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                             </Storyboard>
                                         </VisualState>
