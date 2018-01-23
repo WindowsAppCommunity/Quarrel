@@ -109,6 +109,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\VideoEmbedControl.xaml.cs">
+      <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\GifvControl.xaml.cs">
       <DependentUpon>GifvControl.xaml</DependentUpon>
     </Compile>
@@ -479,6 +482,10 @@
     <Page Include="Controls\ControllerHint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoEmbedControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\EmbedControl.xaml">
       <Generator>MSBuild:Compile</Generator>
