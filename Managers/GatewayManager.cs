@@ -67,7 +67,6 @@ namespace Discord_UWP.Managers
             await Gateway.ConnectAsync();
         }
 
-
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
         private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
@@ -148,6 +147,7 @@ namespace Discord_UWP.Managers
                     {
                         if (LocalState.Guilds[guild.Id].members.ContainsKey(member.User.Id))
                         {
+                            
                             LocalState.Guilds[guild.Id].members[member.User.Id] = member;
                         }
                         else

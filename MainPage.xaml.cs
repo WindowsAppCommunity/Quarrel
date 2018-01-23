@@ -2017,14 +2017,10 @@ namespace Discord_UWP
                         else
                             LocalState.PresenceDict.Add(presence.User.Id, presence);
                     }
-
-                }
-                if (members == null)
-                {
-                    //TODO: Check offline status and potentially set to offline mode
                 }
                 foreach (var member in members)
                 {
+                    member.setRoles(member.Roles.OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
                     {
                         LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
@@ -2033,6 +2029,7 @@ namespace Discord_UWP
                     {
                         LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
                     }
+
                     MemberListBuilder.Insert(member.User.Username + "#" + member.User.Discriminator, new DawgSharp.DawgItem() { InsertText = "" });
                     if (!string.IsNullOrEmpty(member.Nick))
                         MemberListBuilder.Insert(member.Nick, new DawgSharp.DawgItem() { InsertText = member.User.Username + "#" + member.User.Discriminator });
@@ -2092,6 +2089,7 @@ namespace Discord_UWP
                             memberscvs.Add(m.Raw.User.Id, m);
                         }
                     }
+
                     try
                     {
                         var sortedMembers =
@@ -2153,33 +2151,36 @@ namespace Discord_UWP
                 }
             }
 
-            foreach (var member in LocalState.Guilds[App.CurrentGuildId].members.Values)
+            foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
             {
-                var m = new Member(member);
-                if (m.Raw.Roles.FirstOrDefault() != null &&
-                    LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(m.Raw.Roles.FirstOrDefault()) &&
-                    LocalState.Guilds[App.CurrentGuildId].roles[m.Raw.Roles.FirstOrDefault()].Hoist)
+                if (LocalState.Guilds[App.CurrentGuildId].Raw.MemberCount < 1000 || LocalState.PresenceDict.ContainsKey(member.Key)) //Small guild
                 {
-                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(), App.CurrentGuildId, everyonecounter);
+                    Member m = new Member(member.Value);
+                    m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+
+                    //Set it to first Hoist Role or everyone if null
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
+                    });
+
+                    if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                    {
+                        m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                    }
+                    else
+                    {
+                        m.status = new Presence() { Status = "offline", Game = null };
+                    }
+                    if (memberscvs.ContainsKey(m.Raw.User.Id))
+                    {
+                        memberscvs.Remove(m.Raw.User.Id);
+                    }
+                    memberscvs.Add(m.Raw.User.Id, m);
                 }
-                else
-                {
-                    m.MemberHoistRole = MemberManager.GetRole(null, App.CurrentGuildId, everyonecounter);
-                }
-                if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
-                {
-                    m.status = LocalState.PresenceDict[m.Raw.User.Id];
-                }
-                else
-                {
-                    m.status = new Presence() { Status = "offline", Game = null };
-                }
-                if (memberscvs.ContainsKey(m.Raw.User.Id))
-                {
-                    memberscvs.Remove(m.Raw.User.Id);
-                }
-                memberscvs.Add(m.Raw.User.Id, m);
             }
+
             try
             {
                 var sortedMembers =

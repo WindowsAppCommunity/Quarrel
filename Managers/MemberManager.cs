@@ -46,8 +46,7 @@ namespace Discord_UWP.Managers
         }
 
         public SharedModels.GuildMember Raw;
-
-        public SharedModels.Role HighRole = new SharedModels.Role();
+        
         public bool IsTyping { get; set; }
         public HoistRole MemberHoistRole { get; set; }
         public SharedModels.Presence status { get; set; }
