@@ -1262,14 +1262,6 @@
                                             <RadioButton x:Uid="/Main/IdleRadio" x:Name="UserStatusIdle" Foreground="#faa61a" GroupName="status" Content="Idle" Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/DNDRadio" x:Name="UserStatusDND" Foreground="#f04747" GroupName="status" Tag="You will receive no notifications" Content="Do not disturb"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
                                             <RadioButton x:Uid="/Main/InvisibleRadio" x:Name="UserStatusInvisible" Foreground="#747f8d" GroupName="status" Tag="You will appear offline to other users, but will still get normal Discord features" Content="Invisible"  Style="{StaticResource DiscordRadioButton}" Checked="UserStatus_Checked"/>
-                                            <Grid Visibility="Visible" Width="256" Margin="0,6,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock x:Uid="/Main/PlayingTB" Text="Playing" VerticalAlignment="Center" Padding="0,0,4,0" Margin="0" UseLayoutRounding="False"/>
-                                                <TextBox x:Name="PlayingBox" Grid.Column="1" LostFocus="TextBlock_LostFocus"/>
-                                            </Grid>
                                         </StackPanel>
                                     </Flyout>
                                 </Button.Flyout>

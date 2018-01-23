@@ -2460,10 +2460,10 @@ namespace Discord_UWP
             }
         }
 
-        private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
-        {
-            GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
-        }
+        //private void TextBlock_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    GatewayManager.Gateway.UpdateStatus("online", null, new Game() { Name = PlayingBox.Text });
+        //}
 
         private void ServerList_FocusEngaged(Control sender, FocusEngagedEventArgs args)
         {
