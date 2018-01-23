@@ -1266,12 +1266,14 @@
                                     </Flyout>
                                 </Button.Flyout>
                                 <StackPanel Orientation="Horizontal">
-                                    <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
-                                    <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
-                                        <Rectangle.Fill>
-                                            <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
+                                    <Grid>
+                                        <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
+                                        <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
+                                            <Rectangle.Fill>
+                                                <ImageBrush Stretch="Uniform" ImageSource="Assets/DiscordAssets/default_avatar.jpg"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Grid>
                                     <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="12" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
                                     <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
                                         <TextBlock x:Name="Username" Text="Username" FontWeight="SemiBold"/>
