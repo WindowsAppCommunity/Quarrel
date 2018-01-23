@@ -709,7 +709,12 @@ namespace Discord_UWP.Controls
                     }
                     else if(embed.Type == "video")
                     {
-                        //TODO Add support for video
+                        //TODO: Handle video differently
+                        if (embed.Url.Contains("youtube"))
+                        {
+                            EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
+                        }
+                        EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
                     }
                     else
                     {
