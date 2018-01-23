@@ -30,6 +30,24 @@ namespace Discord_UWP
                 return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
+        public static SolidColorBrush DescriminatorColor(string desc)
+        {
+            switch (Convert.ToInt32(desc) % 5)
+            {
+                case 0: //Blurple
+                    return new SolidColorBrush(Color.FromArgb(255, 114, 137, 218));
+                case 1: //Grey
+                    return new SolidColorBrush(Color.FromArgb(255, 116, 127, 141));
+                case 2: //Green
+                    return new SolidColorBrush(Color.FromArgb(255, 67, 181, 129));
+                case 3: //Yellow
+                    return new SolidColorBrush(Color.FromArgb(255, 250, 166, 26));
+                case 4: //Red
+                    return new SolidColorBrush(Color.FromArgb(255, 250, 71, 71));
+            }
+            return new SolidColorBrush(Color.FromArgb(255, 114, 137, 218));
+        }
+
         public static SolidColorBrush GetSolidColorBrush(string hex)
         {
             hex = hex.Replace("#", string.Empty);
