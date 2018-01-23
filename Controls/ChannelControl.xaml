@@ -62,7 +62,7 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        <Rectangle Visibility="Collapsed" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Fill="{ThemeResource Blurple}" Opacity="0.0"/>
+        <Rectangle Visibility="Collapsed" x:Name="ChannelImageBackdrop" Width="36" Height="36"  Margin="0,6,6,6" RadiusX="18" RadiusY="18" Opacity="1"/>
         <Rectangle Visibility="Collapsed" x:Name="ChannelImage" Width="36" Height="36" Margin="0,6,6,6" RadiusX="18" RadiusY="18">
             <Rectangle.Fill>
                 <ImageBrush x:Name="ChannelImageBrush"/>

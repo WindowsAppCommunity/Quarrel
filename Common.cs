@@ -30,7 +30,7 @@ namespace Discord_UWP
                 return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
-        public static SolidColorBrush DescriminatorColor(string desc)
+        public static SolidColorBrush DiscriminatorColor(string desc)
         {
             switch (Convert.ToInt32(desc) % 5)
             {
@@ -129,9 +129,11 @@ namespace Discord_UWP
         public static Uri AvatarUri(string s, string userid = "", string suffix = "")
         {
             if (String.IsNullOrEmpty(s))
-                return new Uri("ms-appx:///Assets/DiscordAssets/default_avatar.png");
-            else
-                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".jpg" + suffix);
+                return new Uri("ms-appx:///Assets/DiscordIcon.png");
+            else if (s.StartsWith("a_"))
+                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".gif" + suffix);
+            else 
+                return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".png" + suffix);
         }
 
         public static ScrollViewer GetScrollViewer(DependencyObject o)

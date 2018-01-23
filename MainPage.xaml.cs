@@ -1095,7 +1095,13 @@ namespace Discord_UWP
 
         public void RenderCurrentUser()
         {
-            ImageBrush image = new ImageBrush() { ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + LocalState.CurrentUser.Id + "/" + LocalState.CurrentUser.Avatar + ".jpg")) };
+            ImageBrush image = new ImageBrush() { ImageSource = new BitmapImage(Common.AvatarUri(LocalState.CurrentUser.Avatar, LocalState.CurrentUser.Id)) };
+
+            if (LocalState.CurrentUser.Avatar == null)
+                AvatarBG.Fill = Common.DiscriminatorColor(LocalState.CurrentUser.Discriminator);
+            else
+                AvatarBG.Fill = Common.GetSolidColorBrush(Windows.UI.Colors.Transparent);
+
             Avatar.Fill = image;
             LargeAvatar.Fill = image;
             Username.Text = LocalState.CurrentUser.Username;

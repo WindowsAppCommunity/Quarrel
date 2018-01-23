@@ -74,6 +74,7 @@
 
         <Rectangle Opacity="0.1" Fill="{ThemeResource InvertedBG}" Width="36" Height="36" Margin="6" RadiusX="36" RadiusY="36">
         </Rectangle>
+        <Rectangle x:Name="AvatarBG" Width="36" Height="36" Margin="6" RadiusX="36" RadiusY="36"/>
         <Rectangle Width="36" Height="36" Margin="6" RadiusX="36" RadiusY="36">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Avatar"/>
