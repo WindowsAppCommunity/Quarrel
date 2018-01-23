@@ -239,10 +239,10 @@ namespace Discord_UWP
         #endregion
 
         #region JoinServer
-        public static event EventHandler NavigateToJoinServerHandler;
-        public static void NavigateToJoinServer()
+        public static event EventHandler<string> NavigateToJoinServerHandler;
+        public static void NavigateToJoinServer(string code = null)
         {
-            NavigateToJoinServerHandler?.Invoke(typeof(App), null);
+            NavigateToJoinServerHandler?.Invoke(typeof(App), code);
         }
         #endregion
 
@@ -1022,12 +1022,12 @@ namespace Discord_UWP
         /// <param name="args">Details about the activation event</param>
         protected override async void OnActivated(IActivatedEventArgs args)
         {
+            string launchArgs = "";
             switch (args.Kind)
             {
                 #region Protocol
                 case ActivationKind.Protocol:
-                    if (args.PreviousExecutionState != ApplicationExecutionState.Running)
-                        LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
+
                     ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                     string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
                     var count = segments.Count();
@@ -1035,12 +1035,17 @@ namespace Discord_UWP
                     {
                         if (segments[0] == "guild")
                         {
-                            //If the app isn't already open, do so
-
-                            if (count == 3)
-                                App.SelectGuildChannel(segments[1], segments[2]);
-                            else if (count == 2)
-                                App.SelectGuildChannel(segments[1], null);
+                            if (App.FullyLoaded)
+                            {
+                                if (count == 3)
+                                    App.SelectGuildChannel(segments[1], segments[2]);
+                                else if (count == 2)
+                                    App.SelectGuildChannel(segments[1], null);
+                            }
+                            else
+                            {
+                                launchArgs = eventArgs.Uri.ToString();
+                            }
                         }
                         else if (segments[0] == "reset")
                         {
@@ -1049,6 +1054,16 @@ namespace Discord_UWP
                         else if(segments[0] == "nologin")
                         {
                             DontLogin = true;
+                        } else if (segments[0] == "invite")
+                        {
+                            if (App.FullyLoaded)
+                            {
+                                App.NavigateToJoinServer(segments[1]);
+                            }
+                            else
+                            {
+                                launchArgs = eventArgs.Uri.ToString();
+                            }
                         }
                     };
                     break;
@@ -1058,13 +1073,10 @@ namespace Discord_UWP
                 case ActivationKind.ShareTarget:
                     
                     break;
-                #endregion
-
-                default:
-                    if (args.PreviousExecutionState != ApplicationExecutionState.Running)
-                        LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "");
-                    break;
+                    #endregion
             }
+            if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, launchArgs);
         }
         public async static Task RequestReset()
         {

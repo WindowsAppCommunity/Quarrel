@@ -1556,9 +1556,9 @@
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>
         </Frame>
-        <tkd:FocusTracker IsActive="True" 
+        <!--<tkd:FocusTracker IsActive="True" 
                                      VerticalAlignment="Center" 
-                                     HorizontalAlignment="Center"/>
+                                     HorizontalAlignment="Center"/>-->
 
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>

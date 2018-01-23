@@ -45,6 +45,7 @@ namespace Discord_UWP
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             sideDrawer.SetupInteraction(ChannelHeader);
+            setupArgs = e.Parameter as string;
             App.SetupMainPage += Setup;
             base.OnNavigatedTo(e);
         }
@@ -52,6 +53,7 @@ namespace Discord_UWP
         ItemsStackPanel messageStacker;
         BackgroundAccessStatus bgAccess;
         static ApplicationTrigger bgTrigger = null;
+        string setupArgs = "";
 
         public async void Setup(object o, EventArgs args)
         {
@@ -545,6 +547,25 @@ namespace Discord_UWP
                     Console.WriteLine(exception.Message);
                 }
                 SubFrame.Visibility = Visibility.Collapsed;
+                if (setupArgs != "")
+                {
+                    string[] segments = setupArgs.Replace("discorduwp://", "").Split('/');
+                    var count = segments.Count();
+                    if (count > 0)
+                    {
+                        if (segments[0] == "guild")
+                        {
+                            if (count == 3)
+                                App.SelectGuildChannel(segments[1], segments[2]);
+                            else if (count == 2)
+                                App.SelectGuildChannel(segments[1], null);
+                        }
+                        else if (segments[0] == "invite")
+                        {
+                            App.NavigateToJoinServer(segments[1]);
+                        }
+                    }
+                }
             } else
             {
                 SubFrameNavigator(typeof(LogScreen));
@@ -870,9 +891,9 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.EditGuild), e.GuildId);
         }
-        private void App_NavigateToJoinServerHandler(object sender, EventArgs e)
+        private void App_NavigateToJoinServerHandler(object sender, string e)
         {
-            SubFrameNavigator(typeof(SubPages.JoinServer));
+            SubFrameNavigator(typeof(SubPages.JoinServer), e);
         }
         private void App_NavigateToLeaveServerHandler(object sender, App.LeaverServerNavigationArgs e)
         {
