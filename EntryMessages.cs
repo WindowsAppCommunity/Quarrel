@@ -32,6 +32,7 @@ namespace Discord_UWP
                   
                     }
                 }
+
                 if(now.Month == 12 && now.Day == 21)
                 {
                     //End of the world
@@ -39,9 +40,9 @@ namespace Discord_UWP
                     {
                         case 0: return kvp((now.Year - 2012).ToString() + " years since the end of the world");
                         case 1: return kvp("The world ended exactly " + (now.Year - 2012).ToString() + " years ago");
+                    }
                 }
-                    
-                }
+
                 if(now.Month == 5 && now.Day == 4)
                 {
                     //Star wars day (May the fourth)
@@ -154,6 +155,7 @@ namespace Discord_UWP
                 case 91: return kvp("(Image)Patrick.gif", "@Civiled#1713");
                 case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
                 case 93: return kvp("Pending next game changer");
+                case 94: return kvp("So the skype app is having issues huh?", "@Filip96#8066");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
