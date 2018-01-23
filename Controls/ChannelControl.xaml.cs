@@ -336,11 +336,16 @@ namespace Discord_UWP.Controls
                 {
                     //DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
-                    ChannelImageBackdrop.Visibility = Visibility.Visible;
+                    if (LocalState.DMs[Id].Users.FirstOrDefault().Avatar == null)
+                    {
+                        ChannelImageBackdrop.Visibility = Visibility.Visible;
+                    }
                     ChannelImage.Visibility = Visibility.Visible;
                     Status.Visibility = Visibility.Visible;
                     grid.Height = 48;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
+                    ChannelImageBackdrop.Fill = Common.DiscriminatorColor(LocalState.DMs[Id].Users.FirstOrDefault().Discriminator);
+                    ChannelImageBrush.ImageSource = new BitmapImage(Common.AvatarUri(LocalState.DMs[Id].Users.FirstOrDefault().Avatar, LocalState.DMs[Id].Users.FirstOrDefault().Id, "?size=64"));
                     //Tapped -= JoinVoiceChannel;
                 }
                 else if (Type == 3)

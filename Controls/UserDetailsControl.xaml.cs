@@ -82,20 +82,11 @@ namespace Discord_UWP.Controls
                 Avatar.ImageSource = new BitmapImage(imageURL);
                 AvatarBlurred.Source = new BitmapImage(imageURL);
                 BackgroundGrid.Blur(8, 0).Start();
-                if (user.Avatar != null)
-                {
-                    var AvatarExtension = ".png";
-                    if (user.Avatar.StartsWith("a_")) AvatarExtension = ".gif";
-                    var image = new BitmapImage(new Uri("https://cdn.discordapp.com/avatars/" + user.Id + "/" + user.Avatar + AvatarExtension));
-                    Avatar.ImageSource = image;
-                    AvatarBlurred.Source = image;
-                }
-                else
-                {
-                    var image = new BitmapImage(new Uri("ms-appx:///Assets/DiscordIcon.png"));
-                    Avatar.ImageSource = image;
-                    AvatarBlurred.Source = image;
-                }
+
+                var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Avatar));
+                Avatar.ImageSource = image;
+                AvatarBlurred.Source = image;
+
                 if (!App.CurrentGuildIsDM)
                 {
                     if (DisplayedMember.Roles.Count() == 0)

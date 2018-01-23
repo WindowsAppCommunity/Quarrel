@@ -14,8 +14,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top">
+        </Grid.ColumnDefinitions>
+        <Rectangle x:Name="AvatarBG" Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top"/>
+        <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top">
                 <Rectangle.Fill>
                     <ImageBrush x:Name="Avatar"/>
                 </Rectangle.Fill>
