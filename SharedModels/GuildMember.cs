@@ -21,5 +21,10 @@ namespace Discord_UWP.SharedModels
         public bool Deaf { get; set; }
         [JsonProperty("mute")]
         public bool Mute { get; set; }
+
+        public void setRoles(IEnumerable<string> roles)
+        {
+            Roles = roles;
+        }
     }
 }
