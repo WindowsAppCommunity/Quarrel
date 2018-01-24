@@ -54,8 +54,8 @@
                         <TextBlock x:Name="FooterText"  Text="FooterText" FontSize="12" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                        <Button x:Name="myTubeButton" Click="OpenInmyTube" Style="{StaticResource IntegratedButton}" Visibility="Collapsed">
-                            <SymbolIcon Symbol="NewWindow"/>
+                        <Button x:Name="myTubeButton" Click="OpenInmyTube" Style="{StaticResource IntegratedButton}" Visibility="Collapsed" Margin="0,0,12,0">
+                            <BitmapIcon UriSource="ms-appx:///Assets/MyTubeSmall.png" Width="24"/>
                         </Button>
                         <Button x:Name="ShareButton" Click="ShareEmbed" Style="{StaticResource IntegratedButton}" Visibility="Collapsed">
                             <SymbolIcon Symbol="Share"/>
