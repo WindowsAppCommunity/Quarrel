@@ -2039,6 +2039,7 @@ namespace Discord_UWP
                             LocalState.PresenceDict.Add(presence.User.Id, presence);
                     }
                 }
+                
                 foreach (var member in members)
                 {
                     member.setRoles(member.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));

@@ -27,6 +27,7 @@ namespace Discord_UWP.Controls
         {
             get { return (Embed)GetValue(EmbedContentProperty); }
             set {
+                mediaelement.AutoPlay = true;
                 mediaelement.Source = new Uri(value.Video.Url);
                 if (value.Video.Width < 400) mediaelement.MaxWidth = value.Video.Width;
                 mediaelement.MaxHeight = value.Video.Height;
@@ -45,7 +46,7 @@ namespace Discord_UWP.Controls
 
         private async void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
         {
-            mediaelement.AutoPlay = true;
+            
             /*
             await mediaelement.Fade(1, 100).StartAsync();
             if (!Storage.Settings.GifsOnHover)
