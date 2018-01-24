@@ -339,14 +339,20 @@ namespace Discord_UWP.Managers
             if (App.CurrentChannelId == e.EventData.ChannelId)
             {
                 App.MessageCreated(e.EventData);
-                App.MarkChannelAsRead(e.EventData.ChannelId);
+                if (e.EventData.User.Id != LocalState.CurrentUser.Id)
+                {
+                    App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
+                }
                 App.UpdateUnreadIndicators();
             } else
             {
                 
                 if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                 {
-                    LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
+                    if (e.EventData.User.Id != LocalState.CurrentUser.Id)
+                    {
+                        LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
+                    }
 
                     if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                     {
@@ -358,7 +364,10 @@ namespace Discord_UWP.Managers
                     {
                         if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
                         {
-                            guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
+                            if (e.EventData.User.Id != LocalState.CurrentUser.Id)
+                            {
+                                guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
+                            }
 
                             if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                             {
