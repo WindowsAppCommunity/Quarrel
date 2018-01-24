@@ -49,11 +49,14 @@
                 <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
                     <Border Width="96" Height="96" CornerRadius="48">
-                        <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
-                            <Rectangle.Fill>
-                                <ImageBrush x:Name="Avatar"/>
-                            </Rectangle.Fill>
-                        </Rectangle>
+                        <Grid>
+                            <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
+                            <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                                <Rectangle.Fill>
+                                    <ImageBrush x:Name="Avatar"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
                     </Border>
                 </Button>
                 <!--<Rectangle x:Name="CacheRectangle"  IsHitTestVisible="False" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="Black" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
