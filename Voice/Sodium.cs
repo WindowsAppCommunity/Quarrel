@@ -8,34 +8,34 @@ namespace Discord_UWP.Voice
 
         private static int Encrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
         {
-            switch (RuntimeInformation.ProcessArchitecture)
-            {
-                case Architecture.Arm:
-                    return EncryptARM(output, input, inputLength, nonce, secret);
-                case Architecture.Arm64:
-                    return EncryptARM(output, input, inputLength, nonce, secret);
-                case Architecture.X64:
-                    return Encrypt64(output, input, inputLength, nonce, secret);
-                case Architecture.X86:
-                    return Encrypt32(output, input, inputLength, nonce, secret);
-            }
+            //switch (RuntimeInformation.ProcessArchitecture)
+            //{
+            //    case Architecture.Arm:
+            //        return EncryptARM(output, input, inputLength, nonce, secret);
+            //    case Architecture.Arm64:
+            //        return EncryptARM(output, input, inputLength, nonce, secret);
+            //    case Architecture.X64:
+            //        return Encrypt64(output, input, inputLength, nonce, secret);
+            //    case Architecture.X86:
+            //        return Encrypt32(output, input, inputLength, nonce, secret);
+            //}
             //return Encrypt32(output, input, inputLength, nonce, secret);
             return -1;
         }
 
         private static int Decrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
         {
-            switch (RuntimeInformation.ProcessArchitecture)
-            {
-                case Architecture.Arm:
-                    return DecryptARM(output, input, inputLength, nonce, secret);
-                case Architecture.Arm64:
-                    return DecryptARM(output, input, inputLength, nonce, secret);
-                case Architecture.X64:
-                    return Decrypt64(output, input, inputLength, nonce, secret);
-                case Architecture.X86:
-                    return Decrypt32(output, input, inputLength, nonce, secret);
-            }
+            //switch (RuntimeInformation.ProcessArchitecture)
+            //{
+            //    case Architecture.Arm:
+            //        return DecryptARM(output, input, inputLength, nonce, secret);
+            //    case Architecture.Arm64:
+            //        return DecryptARM(output, input, inputLength, nonce, secret);
+            //    case Architecture.X64:
+            //        return Decrypt64(output, input, inputLength, nonce, secret);
+            //    case Architecture.X86:
+            //        return Decrypt32(output, input, inputLength, nonce, secret);
+            //}
             //return Decrypt32(output, input, inputLength, nonce, secret);
             return -1;
         }
