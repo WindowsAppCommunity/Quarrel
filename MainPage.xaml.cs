@@ -2042,7 +2042,7 @@ namespace Discord_UWP
                 
                 foreach (var member in members)
                 {
-                    member.setRoles(member.Roles.OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
+                    member.setRoles(member.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
                     {
                         LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
