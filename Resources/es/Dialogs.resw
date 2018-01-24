@@ -469,7 +469,7 @@
     <value>¡Entendido!</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
-    <value />
+    <value>DONACIONES</value>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
     <value>AMIGOS COMUNES</value>

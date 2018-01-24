@@ -469,7 +469,7 @@
     <value>Compris!</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
-    <value />
+    <value>DONS</value>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
     <value>AMIS EN COMMUN</value>
