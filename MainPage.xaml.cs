@@ -718,6 +718,7 @@ namespace Discord_UWP
         {
             if (e.ChannelId != null) //Nav by ChannelId
             {
+                EncryptionManager.UpdateKey(e.ChannelId);
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(currentPage);
@@ -2392,7 +2393,10 @@ namespace Discord_UWP
 
         private void CreateMessage(object sender, RoutedEventArgs e)
         {
-            App.CreateMessage(App.CurrentChannelId, MessageBox1.Text);
+            var text = MessageBox1.Text;
+            if (encryptionToggle.IsChecked == true)
+                text = EncryptionManager.EncryptMessage(text);
+            App.CreateMessage(App.CurrentChannelId, text);
             
             MessageBox1.Text = "";
             MessageBox1.FocusTextBox();
@@ -2537,6 +2541,14 @@ namespace Discord_UWP
         private void ChannelList_LostFocus(object sender, RoutedEventArgs e)
         {
             ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
+        }
+
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (App.CurrentGuildIsDM)
+            {
+                App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeRequest());
+            }
         }
     }
 }

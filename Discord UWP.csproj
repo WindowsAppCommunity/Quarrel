@@ -130,6 +130,9 @@
     <Compile Include="DawgSharp\OldDawg.cs" />
     <Compile Include="DawgSharp\PrefixMatcher.cs" />
     <Compile Include="DawgSharp\YaleDawg.cs" />
+    <Compile Include="DiffieHellman\BigInt.cs" />
+    <Compile Include="DiffieHellman\DiffieHellman.cs" />
+    <Compile Include="DiffieHellman\StrongNumberProvider.cs" />
     <Compile Include="MainPageControllerInput.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
       <DependentUpon>AttachementControl.xaml</DependentUpon>
@@ -240,6 +243,7 @@
     </Compile>
     <Compile Include="Managers\AudioManager.cs" />
     <Compile Include="Managers\ChannelManager.cs" />
+    <Compile Include="Managers\EncryptionManager.cs" />
     <Compile Include="Managers\FlyoutManager.cs" />
     <Compile Include="Managers\GatewayManager.cs" />
     <Compile Include="Managers\GuildManager.cs" />
