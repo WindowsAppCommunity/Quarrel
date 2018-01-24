@@ -83,9 +83,17 @@ namespace Discord_UWP.Controls
                 AvatarBlurred.Source = new BitmapImage(imageURL);
                 BackgroundGrid.Blur(8, 0).Start();
 
-                var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Avatar));
+                var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
                 AvatarBlurred.Source = image;
+
+                if (user.Avatar == null)
+                {
+                    AvatarBG.Fill = Common.DiscriminatorColor(user.Discriminator);
+                } else
+                {
+                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+                }
 
                 if (!App.CurrentGuildIsDM)
                 {
