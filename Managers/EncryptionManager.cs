@@ -19,9 +19,9 @@ namespace Discord_UWP.Managers
         //ACCEPT IT AND SET THE KEY
         public static string GetHandshakeResponse(string request)
         {
-            DiffieHellman.DiffieHellman alice = new DiffieHellman.DiffieHellman(256).GenerateResponse(request);
-            key = alice.Key;
-            return "[[[DUWP_E2E]-HandshakeResponse]{" + alice.ToString() + "}]";
+            me = new DiffieHellman.DiffieHellman(256).GenerateResponse(request);
+            SetKey();
+            return "[[[DUWP_E2E]-HandshakeResponse]{" + me.ToString() + "}]";
             //Set Alice's key
         }
 
@@ -31,16 +31,21 @@ namespace Discord_UWP.Managers
             if (me != null)
             {
                 me.HandleResponse(response);
-                if (Storage.EncryptionKeys.ContainsKey(App.CurrentChannelId))
-                    Storage.EncryptionKeys[App.CurrentChannelId] = me.Key;
-                else
-                    Storage.EncryptionKeys.Add(App.CurrentChannelId, me.Key);
-                Storage.SaveEncryptionKeys();
-                key = me.Key;
+                SetKey();
                 return me.Key.ToString();
             }
             else
                 return "Uncrackable!";
+        }
+
+        public static void SetKey()
+        {
+            if (Storage.EncryptionKeys.ContainsKey(App.CurrentChannelId))
+                Storage.EncryptionKeys[App.CurrentChannelId] = me.Key;
+            else
+                Storage.EncryptionKeys.Add(App.CurrentChannelId, me.Key);
+            Storage.SaveEncryptionKeys();
+            key = me.Key;
         }
         public static void UpdateKey(string channelId)
         {
