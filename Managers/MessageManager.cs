@@ -30,7 +30,7 @@ namespace Discord_UWP.Managers
                         }
                     }
 
-                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), ShouldContinuate(message, prev), null));
+                    returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type, message.Content), ShouldContinuate(message, prev), null));
                     adCheck--;
                     if (adCheck == 0 && App.ShowAds && !Storage.Settings.VideoAd)
                     {
@@ -51,8 +51,38 @@ namespace Discord_UWP.Managers
             else
                 return false;
         }
-        public static MessageTypes GetMessageType(int type)
+        public static MessageTypes GetMessageType(int type, string content)
         {
+            if (content.StartsWith("[[[DUWP_E2E]"))
+            {
+                try
+                {
+                    if (content.StartsWith("[[[DUWP_E2E]-Encrypted]{"))
+                    {
+                        return MessageTypes.EncryptedMessage;
+                    }
+                    else if (content.StartsWith("[[[DUWP_E2E]-HandshakeRequest]{"))
+                    {
+                        return MessageTypes.StartEncryption;
+                    }
+                    else if (content.StartsWith("[[[DUWP_E2E]-HandshakeResponse"))
+                    {
+                        content = content.Remove(0, 32);
+                        content = content.Remove(content.Length - 2);
+                        if (!Storage.EncryptionKeys.ContainsKey(App.CurrentChannelId))
+                        EncryptionManager.HandleHandshakeResponse(content);
+                        return MessageTypes.AcceptEncryption;
+                    }
+                    else if (content == "[[[DUWP_E2E]-StopEncryption]]")
+                    {
+                        return MessageTypes.StopEncryption;
+                    }
+                }
+                catch
+                {
+                    return MessageTypes.FailedEncryption;
+                } 
+            }
             switch (type)
             {
                 case 0: return MessageTypes.Default;
@@ -68,17 +98,17 @@ namespace Discord_UWP.Managers
         }
         public static MessageContainer MakeMessage(Message message) //TODO: IsContinuous
         {
-            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, false);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type,message.Content), false, null, false);
             return msg;
         }
         public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
         {
             Message message = new Message() { ChannelId = chnId, Content = upsert.Content, User = LocalState.CurrentUser, TTS = upsert.TTS, Timestamp = DateTime.Now };
-            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), false, null, true);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type, message.Content), false, null, true);
             return msg;
         }
 
-        public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert}
+        public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert, StartEncryption, AcceptEncryption, StopEncryption, FailedEncryption, EncryptedMessage }
         public class MessageContainer : INotifyPropertyChanged
         {
             public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)

@@ -848,7 +848,12 @@ namespace Discord_UWP
         }
         private void LoadSettings()
         {
-
+            try
+            {
+               // Storage.ClearEncryptionKeys();
+                Storage.RetrieveEncryptionKeys();
+            }
+            catch { }
             if (Storage.SavedSettings.Containers.ContainsKey("settings"))
             {
                 try
