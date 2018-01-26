@@ -933,9 +933,6 @@ namespace Discord_UWP
 
             Frame rootFrame = Window.Current.Content as Frame;
 
-
-
-
             if (PrelaunchActivated == false)
             {
                 if (PreviousExecutionState == ApplicationExecutionState.Suspended && WasPreLaunched)
