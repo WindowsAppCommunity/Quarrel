@@ -15,11 +15,45 @@ using Windows.Security.Credentials;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
+using Newtonsoft.Json;
 
 namespace Discord_UWP
 {
     public static class Storage
     {
+        public static Dictionary<string,byte[]> EncryptionKeys = new Dictionary<string, byte[]>();
+        public static void SaveEncryptionKeys()
+        {
+            Dictionary<string, string> SerializableEncryptionKeys = new Dictionary<string, string>();
+            foreach(var key in EncryptionKeys)
+            {
+                SerializableEncryptionKeys.Add(key.Key, Convert.ToBase64String(key.Value));
+            }
+            string keys = JsonConvert.SerializeObject(SerializableEncryptionKeys);
+            var eks = Storage.PasswordVault.RetrieveAll().Where(x => x.Resource == "encryptionKeys");
+            foreach (var ek in eks)
+                Storage.PasswordVault.Remove(ek);
+            PasswordVault.Add(new PasswordCredential("encryptionKeys", "encryptionKeys", keys));
+        }
+        public static void RetrieveEncryptionKeys()
+        {
+            var ek = Storage.PasswordVault.RetrieveAll().FirstOrDefault(x => x.Resource == "encryptionKeys");
+            if (ek != null)
+            {
+                ek.RetrievePassword();
+                var SerializedKeys = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(ek.Password);
+                foreach (var key in SerializedKeys)
+                {
+                    EncryptionKeys.Add(key.Key, Convert.FromBase64String(key.Value));
+                }
+            }
+        }
+        public static void ClearEncryptionKeys()
+        {
+            var ek = Storage.PasswordVault.RetrieveAll().FirstOrDefault(x => x.Resource == "encryptionKeys");
+                Storage.PasswordVault.Remove(ek);
+            
+        }
         public static event EventHandler SettingsChangedHandler;
 
         public static void SettingsChanged()
@@ -46,6 +80,7 @@ namespace Discord_UWP
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
         public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
+
     }
 
     public enum Theme { Dark, Light, Windows, Discord }
