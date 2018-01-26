@@ -921,15 +921,12 @@ namespace Discord_UWP
         {
             
             var licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
             {
                 App.ShowAds = false;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
-
-
-
 
             if (PrelaunchActivated == false)
             {
