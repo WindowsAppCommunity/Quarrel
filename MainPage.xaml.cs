@@ -2073,7 +2073,7 @@ namespace Discord_UWP
                         {
                             int rolecounter = 0;
                             foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                                if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                                if (m.Roles != null && m.Roles.FirstOrDefault() == role.Id) rolecounter++;
                             totalrolecounter += rolecounter;
                             roleAlt.MemberCount = rolecounter;
                         }
