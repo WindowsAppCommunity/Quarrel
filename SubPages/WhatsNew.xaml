@@ -95,6 +95,9 @@
                             <Paragraph>
                                 <Run Text="• Fixed occasional MemberList loading crash"/>
                             </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed crashes and glitchs on mobile after resuming the app"/>
+                            </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
