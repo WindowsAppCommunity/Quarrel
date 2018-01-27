@@ -42,9 +42,10 @@ namespace Discord_UWP
             LoadSettings();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += App_Resuming;
             CoreApplication.EnablePrelaunch(true);
         }
-        
+
         /// <summary>
         /// This is a task that is executed after the gateway is loaded, and so the app fully loaded and ready to go
         /// </summary>
@@ -1122,6 +1123,11 @@ namespace Discord_UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private async void App_Resuming(object sender, object e)
+        {
+            await GatewayManager.Gateway.ResumeAsync();
         }
 
         public void InitializeResources()
