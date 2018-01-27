@@ -723,7 +723,11 @@ namespace Discord_UWP
         {
             if (e.ChannelId != null) //Nav by ChannelId
             {
-                EncryptionManager.UpdateKey(e.ChannelId);
+                if (App.e2e)
+                {
+                    EncryptionManager.UpdateKey(e.ChannelId);
+                }
+
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(currentPage);
