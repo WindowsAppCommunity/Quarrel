@@ -57,6 +57,11 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
+            if (!App.e2e)
+            {
+                encryptionToggle.Visibility = Visibility.Collapsed;
+                encryptSend.Visibility = Visibility.Collapsed;
+            }
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
