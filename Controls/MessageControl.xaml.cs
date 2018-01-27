@@ -811,8 +811,10 @@ namespace Discord_UWP.Controls
                         if (embed.Url.Contains("youtube"))
                         {
                             EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
+                        } else
+                        {
+                            EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
                         }
-                        EmbedViewer.Children.Add(new VideoEmbedControl() { EmbedContent = embed });
                     }
                     else
                     {
