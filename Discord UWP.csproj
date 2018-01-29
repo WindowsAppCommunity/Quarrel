@@ -364,7 +364,9 @@
     <Content Include="Assets\EntryMessages\Pikachu.gif" />
     <Content Include="Assets\EntryMessages\Pug.gif" />
     <Content Include="Assets\EntryMessages\Putin.gif" />
+    <Content Include="Assets\EntryMessages\RoadHouse.gif" />
     <Content Include="Assets\EntryMessages\Shark.gif" />
+    <Content Include="Assets\EntryMessages\Shooter.gif" />
     <Content Include="Assets\EntryMessages\Spongebob.gif" />
     <Content Include="Assets\EntryMessages\Squidward.gif" />
     <Content Include="Assets\EntryMessages\Twerk.gif" />

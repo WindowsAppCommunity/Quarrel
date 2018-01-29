@@ -59,7 +59,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 93))
+            switch (rand.Next(0, 96))
             //switch (71)
             {
                 //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
@@ -156,6 +156,8 @@ namespace Discord_UWP
                 case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
                 case 93: return kvp("Pending next game changer");
                 case 94: return kvp("So the skype app is having issues huh?", "@Filip96#8066");
+                case 95: return kvp("(Image)Shooter.gif", "@Konno#0098");
+                case 96: return kvp("(Image)RoadHouse.gif", "@Darth#5735");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
