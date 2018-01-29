@@ -308,7 +308,13 @@ namespace Discord_UWP.Controls
 
         private void SuggestionBlock_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)e.ClickedItem);
+            if (e.ClickedItem is string)
+            {
+                //SelectSuggestion(e.ClickedItem);
+            } else
+            {
+                SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)e.ClickedItem);
+            }
         }
 
         private void MessageEditor_OnLostFocus(object sender, RoutedEventArgs e)
