@@ -187,6 +187,21 @@
                                 <TextBlock Text="Fixed doubling YouTube embeds" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed crashes and glitchs on mobile and xbox after resuming the app" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Moved ads for performance enhancement" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed profile page and embeds on CU (build 15086)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Changed In-App purchases to remove ads" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Removed gif loading icons (took up storage and annoying)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="" TextWrapping="Wrap"/>
                             </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.4.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>

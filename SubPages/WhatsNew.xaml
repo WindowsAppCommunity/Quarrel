@@ -96,7 +96,19 @@
                                 <Run Text="• Fixed occasional MemberList loading crash"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Fixed crashes and glitchs on mobile after resuming the app"/>
+                                <Run Text="• Fixed crashes and glitchs on mobile and xbox after resuming the app"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Moved ads for performance enhancement"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed profile page and embeds on CU (build 15086)"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Changed In-App purchases to Remove Ads"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Removed gif loading images"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>

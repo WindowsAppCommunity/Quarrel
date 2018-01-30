@@ -35,7 +35,7 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             initialize();
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(10000);
+            timer.Interval = new TimeSpan(100000);
             timer.Tick += ShowReset;
             timer.Start();
         }
