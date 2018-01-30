@@ -17,7 +17,7 @@ namespace Discord_UWP.Managers
             if (messages != null)
             {
                 Message? prev = null;
-                int adCheck = 5;
+                //int adCheck = 5;
                 List<MessageContainer> returnMessages = new List<MessageContainer>();
                 messages.Reverse();
                 foreach (var message in messages)
@@ -31,12 +31,12 @@ namespace Discord_UWP.Managers
                     }
 
                     returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type, message.Content), ShouldContinuate(message, prev), null));
-                    adCheck--;
-                    if (adCheck == 0 && App.ShowAds && !Storage.Settings.VideoAd)
-                    {
-                        returnMessages.Add(new MessageContainer(null, MessageTypes.Advert, false, null));
-                        adCheck = 5;
-                    }
+                    //adCheck--;
+                    //if (adCheck == 0 && App.ShowAds && !Storage.Settings.VideoAd)
+                    //{
+                    //    returnMessages.Add(new MessageContainer(null, MessageTypes.Advert, false, null));
+                    //    adCheck = 5;
+                    //}
                     prev = message;
                 }
                 return returnMessages;
