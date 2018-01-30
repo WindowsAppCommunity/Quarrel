@@ -62,6 +62,10 @@ namespace Discord_UWP
                 encryptionToggle.Visibility = Visibility.Collapsed;
                 encryptSend.Visibility = Visibility.Collapsed;
             }
+            if (!App.ShowAds)
+            {
+                Ad.Visibility = Visibility.Collapsed;
+            }
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
