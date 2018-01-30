@@ -1552,7 +1552,7 @@
                         <AppBarToggleButton x:Name="encryptionToggle" Label="Conversation is encrypted"/>
                         <AppBarButton Label="About" Click="NavToAbout"/>
                         <AppBarButton Label="What's New?" Click="WhatsNewClick"/>
-                        <AppBarButton Label="In-App Purchases" Click="NavToIAPs"/>
+                        <AppBarButton Label="Donations" Click="NavToIAPs"/>
                         <AppBarButton Label="Settings" Click="OpenSettings"/>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>

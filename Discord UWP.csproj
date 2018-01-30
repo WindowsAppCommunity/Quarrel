@@ -375,7 +375,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
-    <None Include="Discord UWP_TemporaryKey.pfx" />
     <PRIResource Include="Resources\en\TileTemplates.resw" />
     <PRIResource Include="Resources\fr\Settings.resw" />
     <PRIResource Include="Resources\fr\Main.resw" />
