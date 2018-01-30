@@ -98,10 +98,18 @@
                                     <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Button x:Uid="/Dialogs/SendFriendReqBTN"  x:Name="sendFriendRequest" Content="Send Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                        <Button x:Uid="/Dialogs/AcceptFriendReqBTN" x:Name="acceptFriend" Content="Accept Friend request" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed"/>
-                                        <Button x:Uid="/Dialogs/FriendReqSentBTN" x:Name="pendingFriend" Content="Friend Request sent" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False"/>
-                                        <Button x:Uid="/Dialogs/UnblockBTN" x:Name="Unblock" Content="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend"/>
+                                        <Button x:Name="sendFriendRequest" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed">
+                                            <TextBlock Text="Send Friend request"/>
+                                        </Button>
+                                        <Button x:Name="acceptFriend" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed">
+                                            <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Accept Friend request"/>
+                                        </Button>
+                                        <Button x:Name="pendingFriend" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False">
+                                            <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend Request sent"/>
+                                        </Button>
+                                        <Button x:Name="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend">
+                                            <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Unblock"/>
+                                        </Button>
                                     </Grid>
                                 </Grid>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,10" HorizontalAlignment="Left">
