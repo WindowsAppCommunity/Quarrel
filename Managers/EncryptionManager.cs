@@ -76,6 +76,10 @@ namespace Discord_UWP.Managers
         }
         public static string DecryptMessage(string content)
         {
+            if (key == null)
+            {
+                return content; //If you don't know, just throw
+            }
             content = content.Remove(0, 24);
             content = content.Remove(content.Length - 2);
             using (Aes aesAlg = Aes.Create())
