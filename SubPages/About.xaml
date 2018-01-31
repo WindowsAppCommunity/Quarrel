@@ -179,6 +179,10 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,11,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 6.4.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added time format options" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.4.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed occasional MemberList loading crash" TextWrapping="Wrap"/>

@@ -300,6 +300,11 @@ namespace Discord_UWP.SubPages
             await App.RequestReset();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToProfile(LocalModels.LocalState.CurrentUser);
+        }
+
         //TODO: Voice channels
         //private async void DebugAudioGraph(object sender, RoutedEventArgs e)
         //{
