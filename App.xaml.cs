@@ -846,6 +846,8 @@ namespace Discord_UWP
             Storage.Settings.Vibrate = true;
             Storage.Settings.EnableAcrylic = true;
             Storage.Settings.UseCompression = true;
+            Storage.Settings.DateFormat = "M/d/yyyy";
+            Storage.Settings.TimeFormat = "h:mm tt";
             Storage.SaveAppSettings();
         }
         private void LoadSettings()

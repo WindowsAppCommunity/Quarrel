@@ -618,7 +618,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
+        <Grid x:Name="grid" MaxWidth="512" MaxHeight="800" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -650,11 +650,26 @@
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
-                                    <!--<ComboBox x:Name="TimeFormat">
-                                        <ComboBoxItem/>
-                                        <ComboBoxItem/>
-                                        <ComboBoxItem/>
-                                    </ComboBox>-->
+                                    <ComboBox x:Name="DateFormat" Header="Date Format" SelectedIndex="0">
+                                        <ComboBoxItem Content="M/d/yyyy"/>
+                                        <ComboBoxItem Content="M/d/yy"/>
+                                        <ComboBoxItem Content="MM/dd/yy"/>
+                                        <ComboBoxItem Content="MM/dd/yyyy"/>
+                                        <ComboBoxItem Content="yy/MM/dd"/>
+                                        <ComboBoxItem Content="yyyy-MM-dd"/>
+                                        <ComboBoxItem Content="dd-MMM-yy"/>
+                                    </ComboBox>
+                                    
+                                    <ComboBox x:Name="TimeFormat" Header="Time Format" SelectedIndex="0">
+                                        <ComboBoxItem Content="h:mm tt"/>
+                                        <ComboBoxItem Content="hh:mm tt"/>
+                                        <ComboBoxItem Content="H:mm"/>
+                                        <ComboBoxItem Content="HH:mm"/>
+                                        <ComboBoxItem Content="h:mm:ss tt"/>
+                                        <ComboBoxItem Content="hh:mm:ss tt"/>
+                                        <ComboBoxItem Content="H:mm:ss"/>
+                                        <ComboBoxItem Content="HH:mm:ss"/>
+                                    </ComboBox>
                                     
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
