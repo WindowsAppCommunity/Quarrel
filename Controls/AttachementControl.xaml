@@ -5,12 +5,13 @@
     xmlns:local="using:Discord_UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
     <Grid>
-        <Viewbox x:Name="AttachedImageViewbox"  HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
+        <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
             <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped"/>
         </Viewbox>
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>

@@ -110,6 +110,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageControl - Copy.xaml.cs">
+      <DependentUpon>MessageControl - Copy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
@@ -350,28 +353,11 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
-    <Content Include="Assets\EntryMessages\BB8.gif" />
-    <Content Include="Assets\EntryMessages\Homer.gif" />
-    <Content Include="Assets\EntryMessages\HypnoToad.gif" />
-    <Content Include="Assets\EntryMessages\JOHNCENA.wav" />
-    <Content Include="Assets\EntryMessages\Kenny.gif" />
-    <Content Include="Assets\EntryMessages\Knife.gif" />
-    <Content Include="Assets\EntryMessages\NyanCat.gif" />
-    <Content Include="Assets\EntryMessages\Orange.gif" />
-    <Content Include="Assets\EntryMessages\Patrick.gif" />
-    <Content Include="Assets\EntryMessages\Pikachu.gif" />
-    <Content Include="Assets\EntryMessages\Pug.gif" />
-    <Content Include="Assets\EntryMessages\Putin.gif" />
-    <Content Include="Assets\EntryMessages\Shark.gif" />
-    <Content Include="Assets\EntryMessages\Spongebob.gif" />
-    <Content Include="Assets\EntryMessages\Squidward.gif" />
-    <Content Include="Assets\EntryMessages\Twerk.gif" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
-    <None Include="Discord UWP_TemporaryKey.pfx" />
     <PRIResource Include="Resources\en\TileTemplates.resw" />
     <PRIResource Include="Resources\fr\Settings.resw" />
     <PRIResource Include="Resources\fr\Main.resw" />
@@ -486,6 +472,10 @@
     <Page Include="Controls\ControllerHint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageControl - Copy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\VideoEmbedControl.xaml">
       <Generator>MSBuild:Compile</Generator>

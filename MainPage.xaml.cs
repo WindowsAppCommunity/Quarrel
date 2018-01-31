@@ -57,6 +57,15 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
+            if (!App.e2e)
+            {
+                encryptionToggle.Visibility = Visibility.Collapsed;
+                encryptSend.Visibility = Visibility.Collapsed;
+            }
+            if (!App.ShowAds)
+            {
+                Ad.Visibility = Visibility.Collapsed;
+            }
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
@@ -718,7 +727,11 @@ namespace Discord_UWP
         {
             if (e.ChannelId != null) //Nav by ChannelId
             {
-                EncryptionManager.UpdateKey(e.ChannelId);
+                if (App.e2e)
+                {
+                    EncryptionManager.UpdateKey(e.ChannelId);
+                }
+
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(currentPage);
@@ -2068,7 +2081,7 @@ namespace Discord_UWP
                         {
                             int rolecounter = 0;
                             foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                                if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
+                                if (m.Roles != null && m.Roles.FirstOrDefault() == role.Id) rolecounter++;
                             totalrolecounter += rolecounter;
                             roleAlt.MemberCount = rolecounter;
                         }
