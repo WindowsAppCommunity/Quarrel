@@ -19,11 +19,11 @@ namespace Discord_UWP
             if (rand.Next(4) % 4 != 0)
             {
                 DateTime now = DateTime.Now;
-                if (now.Month == 12 && now.Day == 25)
+                if (now.Month == 12 && (now.Day == 25 || now.Day == 24))
                 {
                     switch (rand.Next(0, 4))
                     {
-                        //Christmas day
+                        //Christmas eve or day
                         case 0: return kvp("Ho ho ho");
                         case 1: return kvp("Merry Christmas!");
                         case 2: return kvp("What a beautiful christmas day...");
@@ -32,7 +32,17 @@ namespace Discord_UWP
                   
                     }
                 }
-
+                else
+                if (now.Month == 10 && now.Day == 31)
+                {
+                    //Halloween
+                    switch (rand.Next(0, 1))
+                    {
+                        case 0: return kvp("Boo", "@Satan#666");
+                        case 1: return kvp("Cutting pumpkins", "@Satan#666");
+                    }
+                }
+                else
                 if(now.Month == 12 && now.Day == 21)
                 {
                     //End of the world
@@ -42,7 +52,7 @@ namespace Discord_UWP
                         case 1: return kvp("The world ended exactly " + (now.Year - 2012).ToString() + " years ago");
                     }
                 }
-
+                else
                 if(now.Month == 5 && now.Day == 4)
                 {
                     //Star wars day (May the fourth)
@@ -59,10 +69,9 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 93))
+            switch (rand.Next(0, 94))
             //switch (71)
             {
-                //if it begins as "(Image)" or "(Audio)", it's handeled by the LoadingControls
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
                 case 3:  return kvp("Aligning buttons");
@@ -84,7 +93,7 @@ namespace Discord_UWP
                 case 20: return kvp("Splash screen*", "@ToonWK#5841");
                 case 21: return kvp("I don't mean to be rude but...");
                 case 22: return kvp("Converting caffeine to code");
-                case 23: return kvp("(Image)BB8.gif");
+                case 23: return kvp("Improvise, Adapt, Overcome");
                 case 24: return kvp("Burning evidence...");
                 case 25: return kvp("Oh, it's you");
                 case 26: return kvp("Making covfefe");
@@ -108,7 +117,7 @@ namespace Discord_UWP
                 case 44: return kvp("Smooth animations warning", "@Gavirlas#9973");
                 case 45: return kvp("VOICE IS NOT AVAILABLE YET!");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
-                case 47: return kvp("(Image)Pug.gif", "@@Civiled#1713");
+                case 47: return kvp("Ripping FAT ergos");
                 case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
                 case 49: return kvp("Ready player one?", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 50: return kvp("Watch the icon rollin' rollin'", "@Gavirlas#9973");
@@ -139,20 +148,20 @@ namespace Discord_UWP
                 case 75: return kvp("Is this even legal?", "@Smash_kirby#0966");
                 case 76: return kvp("Maximizing Hype", "@Civiled#1713");
                 case 77: return kvp("Preparing the Men", "@Civiled#1713");
-                case 78: return kvp("(Image)Knife.gif");
+                case 78: return kvp("Picking Tide Pods off the vine", "@Darth4212#5735");
                 case 79: return kvp("\"And also with you\"", "John Mulaney");
                 case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
                 case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
                 case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
-                case 83: return kvp("(Image)Spongebob.gif");
-                case 84: return kvp("(Image)Squidward.gif", "@Civiled#1713");
-                case 85: return kvp("(Image)Pikachu.gif", "@Civiled#1713");
-                case 86: return kvp("(Image)Homer.gif", "@Civiled#1713");
-                case 87: return kvp("(Image)NyanCat.gif");
-                case 88: return kvp("(Image)Orange.gif", "@Civiled#1713");
-                case 89: return kvp("(Image)Kenny.gif", "@Civiled#1713");
-                case 90: return kvp("(Image)Putin.gif", "@Civiled#1713");
-                case 91: return kvp("(Image)Patrick.gif", "@Civiled#1713");
+                case 83: return kvp("Turning bugs into features");
+                case 84: return kvp("Deats dy Boctor Bre");
+                case 85: return kvp("Tragdor the Dragon");
+                case 86: return kvp("The random # was 86");
+                case 87: return kvp("Finding \"Da wey\"", "@joosthoi1#0460");
+                case 88: return kvp("Delaying startup", "@joosthoi1#0460");
+                case 89: return kvp("Double Dipping", "@Aslan#9846");
+                case 90: return kvp("Shout out to Bob");
+                case 91: return kvp("Inhaling air, exhaling memes", "@Aslan#9846");
                 case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
                 case 93: return kvp("Pending next game changer");
                 case 94: return kvp("So the skype app is having issues huh?", "@Filip96#8066");

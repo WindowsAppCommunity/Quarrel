@@ -42,9 +42,10 @@ namespace Discord_UWP
             LoadSettings();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += App_Resuming;
             CoreApplication.EnablePrelaunch(true);
         }
-        
+
         /// <summary>
         /// This is a task that is executed after the gateway is loaded, and so the app fully loaded and ready to go
         /// </summary>
@@ -751,6 +752,7 @@ namespace Discord_UWP
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
+        internal const bool e2e = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
         //internal static MediaPlayer mediaPlayer;
 
@@ -844,6 +846,8 @@ namespace Discord_UWP
             Storage.Settings.Vibrate = true;
             Storage.Settings.EnableAcrylic = true;
             Storage.Settings.UseCompression = true;
+            Storage.Settings.DateFormat = "M/d/yyyy";
+            Storage.Settings.TimeFormat = "h:mm tt";
             Storage.SaveAppSettings();
         }
         private void LoadSettings()
@@ -926,15 +930,12 @@ namespace Discord_UWP
         {
             
             var licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
+            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
             {
                 App.ShowAds = false;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
-
-
-
 
             if (PrelaunchActivated == false)
             {
@@ -1124,6 +1125,11 @@ namespace Discord_UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private async void App_Resuming(object sender, object e)
+        {
+            await GatewayManager.Gateway.ResumeAsync();
         }
 
         public void InitializeResources()

@@ -179,6 +179,43 @@
                                     <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,11,0,0" FontSize="20"/>
                                 </StackPanel>
                             </ListView.Header>
+                            <ListViewHeaderItem Content="VERSION 6.4.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Added time format options" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.4.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed occasional MemberList loading crash" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed doubling YouTube embeds" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed crashes and glitchs on mobile and xbox after resuming the app" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Moved ads for performance enhancement" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed profile page and embeds on CU (build 15086)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Changed In-App purchases to remove ads" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Removed gif loading icons (took up storage and annoying)" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.4.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed original remove ads" TextWrapping="Wrap"/>
+                            </ListViewItem>
+                            <ListViewHeaderItem Content="VERSION 6.4.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
+                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
+                                <TextBlock Text="Fixed splash screen crash" TextWrapping="Wrap"/>
+                            </ListViewItem>
                             <ListViewHeaderItem Content="VERSION 6.4.0" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
                             <ListViewItem Style="{StaticResource ListViewItemStyle1}">
                                 <TextBlock Text="Fixed Message updating" TextWrapping="Wrap"/>

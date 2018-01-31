@@ -39,7 +39,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace Discord_UWP.Controls
 {
-    public sealed partial class MessageControl : UserControl
+    public sealed partial class MessageControlOld : UserControl
     {
 
         //Is the more button visible?
@@ -59,7 +59,7 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty MessageTypeProperty = DependencyProperty.Register(
             nameof(MessageType),
             typeof(MessageTypes),
-            typeof(MessageControl),
+            typeof(MessageControlOld),
             new PropertyMetadata(MessageTypes.Default, OnPropertyChangedStatic));
 
         //Is the message the continuation of another one?
@@ -71,7 +71,7 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty IsContinuationProperty = DependencyProperty.Register(
             nameof(IsContinuation),
             typeof(bool),
-            typeof(MessageControl),
+            typeof(MessageControlOld),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
         public bool IsPending
@@ -82,7 +82,7 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty IsPendingProperty = DependencyProperty.Register(
             nameof(IsPending),
             typeof(bool),
-            typeof(MessageControl),
+            typeof(MessageControlOld),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
         public bool IsBlocked
@@ -93,7 +93,7 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty IsBlockedProperty = DependencyProperty.Register(
             nameof(IsBlocked),
             typeof(bool),
-            typeof(MessageControl),
+            typeof(MessageControlOld),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
         //The header of the messages, that can indicate data such as "new messages" or the date
@@ -105,7 +105,7 @@ namespace Discord_UWP.Controls
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
             nameof(Header),
             typeof(string),
-            typeof(MessageControl),
+            typeof(MessageControlOld),
             new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
         //The message to be displayed
@@ -124,7 +124,7 @@ namespace Discord_UWP.Controls
         //Calls OnPropertyChanged for this instance of the control
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as MessageControl;
+            var instance = d as MessageControlOld;
             instance?.OnPropertyChanged(d, e.Property);
         }
         AdControl advert;
@@ -136,12 +136,12 @@ namespace Discord_UWP.Controls
             if (prop == IsContinuationProperty)
             {
                 if (IsContinuation)
-                    VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
+                    VisualStateManager.GoToState(((MessageControlOld)d), "Continuation", false);
                 else
-                    VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
+                    VisualStateManager.GoToState(((MessageControlOld)d), "VisualState", false);
             }
             if(Storage.Settings.CompactMode)
-                VisualStateManager.GoToState(((MessageControl)d), "Compact", false);
+                VisualStateManager.GoToState(((MessageControlOld)d), "Compact", false);
 
             if (prop == MessageTypeProperty)
             {
@@ -346,7 +346,7 @@ namespace Discord_UWP.Controls
             App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeResponse(content));
         }
 
-        public MessageControl()
+        public MessageControlOld()
         {
             this.InitializeComponent();
             if (GatewayManager.Gateway != null) //idrk

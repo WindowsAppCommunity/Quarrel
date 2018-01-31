@@ -8,6 +8,7 @@
     xmlns:controls="using:Discord_UWP.Controls"
     xmlns:tkc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tkd="using:Microsoft.Toolkit.Uwp.DeveloperTools"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
 
@@ -1317,15 +1318,21 @@
                                     </Grid>
                                 </ListView.Footer>
                             </ListView>
-                            <Grid x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
+                            <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                                <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" Margin="0,0,0,32" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
+                                <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
                                 <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                                     <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
+                                <ads:AdControl x:Name="Ad" HorizontalAlignment="Center"
+                                               Background="Transparent"
+                                               Height="50" Width="300"
+                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               AdUnitId="336795"
+                                               />
                                 <!--<controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>-->
-                            </Grid>
+                            </StackPanel>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
                             <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
                                 <Rectangle.Fill>
@@ -1346,7 +1353,7 @@
                                                 <MenuFlyoutSeparator/>
                                                 <MenuFlyoutItem Text="About" Click="NavToAbout"/>
                                                 <MenuFlyoutItem Text="What's New?" Click="WhatsNewClick"/>
-                                                <MenuFlyoutItem Text="In-App Purchases" Click="NavToIAPs"/>
+                                                <MenuFlyoutItem Text="Remove Ads" Click="NavToIAPs"/>
                                                 <MenuFlyoutItem Text="Settings" Click="OpenSettings"/>
                                             </MenuFlyout>
                                         </controls:ControllerHint.ContextFlyout>
@@ -1541,11 +1548,11 @@
                         <AppBarButton x:Name="MemberToggle" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
-                        <AppBarButton Label="Encrypt conversation" Click="AppBarButton_Click"/>
+                        <AppBarButton x:Name="encryptSend" Label="Encrypt conversation" Click="AppBarButton_Click"/>
                         <AppBarToggleButton x:Name="encryptionToggle" Label="Conversation is encrypted"/>
                         <AppBarButton Label="About" Click="NavToAbout"/>
                         <AppBarButton Label="What's New?" Click="WhatsNewClick"/>
-                        <AppBarButton Label="In-App Purchases" Click="NavToIAPs"/>
+                        <AppBarButton Label="Remove Ads" Click="NavToIAPs"/>
                         <AppBarButton Label="Settings" Click="OpenSettings"/>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>

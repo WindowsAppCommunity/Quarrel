@@ -86,6 +86,15 @@ namespace Discord_UWP.SubPages
                 profile.Friend = null;
             }
 
+            if (userid == LocalState.CurrentUser.Id)
+            {
+                ProfileSettings.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ProfileSettings.Visibility = Visibility.Collapsed;
+            }
+
             username.Text = profile.User.Username;
             username.Fade(1, 400);
             discriminator.Text = "#" + profile.User.Discriminator;

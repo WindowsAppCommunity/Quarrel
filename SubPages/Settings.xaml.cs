@@ -66,7 +66,59 @@ namespace Discord_UWP.SubPages
                 radioAccent_Windows.IsChecked = true;
             else
                 radioAccent_Discord.IsChecked = true;
-                
+
+            switch (Storage.Settings.TimeFormat)
+            {
+                case "h:mm tt":
+                    TimeFormat.SelectedIndex = 0;
+                    break;
+                case "hh:mm tt":
+                    TimeFormat.SelectedIndex = 1;
+                    break;
+                case "H:mm":
+                    TimeFormat.SelectedIndex = 2;
+                    break;
+                case "HH:mm":
+                    TimeFormat.SelectedIndex = 3;
+                    break;
+                case "h:mm:ss tt":
+                    TimeFormat.SelectedIndex = 4;
+                    break;
+                case "hh:mm:ss tt":
+                    TimeFormat.SelectedIndex = 5;
+                    break;
+                case "H:mm:ss":
+                    TimeFormat.SelectedIndex = 6;
+                    break;
+                case "HH:mm:ss":
+                    TimeFormat.SelectedIndex = 7;
+                    break;
+            }
+            switch (Storage.Settings.DateFormat)
+            {
+                case "M/d/yyyy":
+                    DateFormat.SelectedIndex = 0;
+                    break;
+                case "M/d/yy":
+                    DateFormat.SelectedIndex = 1;
+                    break;
+                case "MM/dd/yy":
+                    DateFormat.SelectedIndex = 2;
+                    break;
+                case "MM/dd/yyyy":
+                    DateFormat.SelectedIndex = 3;
+                    break;
+                case "yy/MM/dd":
+                    DateFormat.SelectedIndex = 4;
+                    break;
+                case "yyyy-MM-dd":
+                    DateFormat.SelectedIndex = 5;
+                    break;
+                case "dd-MMM-yy":
+                    DateFormat.SelectedIndex = 6;
+                    break;
+            }
+
             if (Storage.Settings.Theme == Theme.Dark)
                 radio_Dark.IsChecked = true;
             else if (Storage.Settings.Theme == Theme.Light)
@@ -114,6 +166,58 @@ namespace Discord_UWP.SubPages
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             //Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
+
+            switch (TimeFormat.SelectedIndex)
+            {
+                case 0:
+                    Storage.Settings.TimeFormat = "h:mm tt";
+                    break;
+                case 1:
+                    Storage.Settings.TimeFormat = "hh:mm tt";
+                    break;
+                case 2:
+                    Storage.Settings.TimeFormat = "H:mm";
+                    break;
+                case 3:
+                    Storage.Settings.TimeFormat = "HH:mm";
+                    break;
+                case 4:
+                    Storage.Settings.TimeFormat = "h:mm:ss tt";
+                    break;
+                case 5:
+                    Storage.Settings.TimeFormat = "hh:mm:ss tt";
+                    break;
+                case 6:
+                    Storage.Settings.TimeFormat = "H:mm:ss";
+                    break;
+                case 7:
+                    Storage.Settings.TimeFormat = "HH:mm:ss";
+                    break;
+            }
+            switch (DateFormat.SelectedIndex)
+            {
+                case 0:
+                    Storage.Settings.DateFormat = "M/d/yyyy";
+                    break;
+                case 1:
+                    Storage.Settings.DateFormat = "M/d/yy";
+                    break;
+                case 2:
+                    Storage.Settings.DateFormat = "MM/dd/yy";
+                    break;
+                case 3:
+                    Storage.Settings.DateFormat = "MM/dd/yyyy";
+                    break;
+                case 4:
+                    Storage.Settings.DateFormat = "yy/MM/dd";
+                    break;
+                case 5:
+                    Storage.Settings.DateFormat = "yyyy-MM-dd";
+                    break;
+                case 6:
+                    Storage.Settings.DateFormat = "dd-MMM-yy";
+                    break;
+            }
 
             if ((bool)radio_Dark.IsChecked)
                 Storage.Settings.Theme = Theme.Dark;
@@ -194,6 +298,11 @@ namespace Discord_UWP.SubPages
         private async void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
         {
             await App.RequestReset();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToProfile(LocalModels.LocalState.CurrentUser);
         }
 
         //TODO: Voice channels
