@@ -88,11 +88,10 @@ namespace Discord_UWP
             { result = App.GetString("/Main/Yesterday") + " "; }
             else
             {
-                var localCulture = new CultureInfo(GlobalizationPreferences.Languages.First());
-                result = dt.Date.ToString("d", localCulture) + " ";
+                result += dt.ToString(Storage.Settings.DateFormat);
             }
 
-            result += " " + dt.ToString("HH:mm");
+            result += " " + dt.ToString(Storage.Settings.TimeFormat);
 
             return result;
         }

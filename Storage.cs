@@ -117,6 +117,8 @@ namespace Discord_UWP
         public bool UseCompression = true;
         public bool VideoAd = false;
         public bool GifsOnHover = true;
+        public string DateFormat = "M/d/yyyy";
+        public string TimeFormat = "h:mm tt";
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
     }
 }
