@@ -110,6 +110,7 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
     </Compile>

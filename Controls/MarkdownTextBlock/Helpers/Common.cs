@@ -37,6 +37,11 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
             Italic,
 
             /// <summary>
+            /// An bold and italic block
+            /// </summary>
+            BoldItalic,
+
+            /// <summary>
             /// A link block
             /// </summary>
             MarkdownLink,
@@ -102,6 +107,7 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
 
         static Common()
         {
+            BoldItalicTextInline.AddTripChars(_triggerList);
             BoldTextInline.AddTripChars(_triggerList);
             ItalicTextInline.AddTripChars(_triggerList);
             MarkdownLinkInline.AddTripChars(_triggerList);
@@ -214,6 +220,9 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                         InlineParseResult parseResult = null;
                         switch (currentTripChar.Method)
                         {
+                            case InlineParseMethod.BoldItalic:
+                                parseResult = BoldItalicTextInline.Parse(markdown, pos, end);
+                                break;
                             case InlineParseMethod.Bold:
                                 parseResult = BoldTextInline.Parse(markdown, pos, end);
                                 break;
