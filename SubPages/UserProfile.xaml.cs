@@ -89,6 +89,8 @@ namespace Discord_UWP.SubPages
             if (userid == LocalState.CurrentUser.Id)
             {
                 ProfileSettings.Visibility = Visibility.Visible;
+                UsernameEdit.Text = LocalState.CurrentUser.Username;
+                EmailEdit.Text = LocalState.CurrentUser.Email;
             } else
             {
                 ProfileSettings.Visibility = Visibility.Collapsed;
@@ -478,6 +480,14 @@ namespace Discord_UWP.SubPages
         private void Block_Click(object sender, RoutedEventArgs e)
         {
             App.BlockUser(userid);
+        }
+
+        private async void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsernameEdit.Text != LocalState.CurrentUser.Username)
+            {
+                await RESTCalls.ModifyCurrentUser(UsernameEdit.Text);
+            }
         }
     }
 

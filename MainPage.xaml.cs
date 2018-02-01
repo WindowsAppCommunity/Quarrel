@@ -1123,7 +1123,7 @@ namespace Discord_UWP
 
         private async void App_UpdatePresenceHandler(object sender, App.UpdatePresenceArgs e)
         {
-            await RESTCalls.ChangeUserSettings(e.Status);
+            await RESTCalls.ChangeUserStatus(e.Status);
         }
 
         private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
