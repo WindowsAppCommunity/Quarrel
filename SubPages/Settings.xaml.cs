@@ -82,10 +82,9 @@ namespace Discord_UWP.SubPages
                     TimeFormat.SelectedIndex = 3;
                     break;
                 default:
-                    DateFormat.SelectedIndex = 4;
+                    TimeFormat.SelectedIndex = 4;
                     CustomTimeF.Text = Storage.Settings.TimeFormat;
                     break;
-
             }
 
             if (TimeFormat.SelectedIndex == 4)
@@ -174,11 +173,10 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.VideoAd = (bool)VideosAds.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
 
-            switch (DateFormat.SelectedIndex)
+            switch (TimeFormat.SelectedIndex)
             {
                 case 0:
                     Storage.Settings.TimeFormat = "h:mm tt";
-                    TimeFormat.SelectedIndex = 0;
                     break;
                 case 1:
                     Storage.Settings.TimeFormat = "H:mm";
@@ -190,9 +188,8 @@ namespace Discord_UWP.SubPages
                     Storage.Settings.TimeFormat = "HH:mm:ss";
                     break;
                 default:
-                    CustomTimeF.Text = Storage.Settings.TimeFormat;
+                    Storage.Settings.TimeFormat = CustomTimeF.Text;
                     break;
-
             }
             switch (DateFormat.SelectedIndex)
             {
@@ -301,23 +298,31 @@ namespace Discord_UWP.SubPages
 
         private void TimeFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ComboBox).SelectedIndex == 4)
+            if (CustomTimeF != null)
             {
-                CustomTimeF.Visibility = Visibility.Visible;
-            } else
-            {
-                CustomTimeF.Visibility = Visibility.Collapsed;
+                if ((sender as ComboBox).SelectedIndex == 4)
+                {
+                    CustomTimeF.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CustomTimeF.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
         private void DateFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ComboBox).SelectedIndex == 4)
+            if (CustomDateF != null)
             {
-                CustomDateF.Visibility = Visibility.Visible;
-            } else
-            {
-                CustomDateF.Visibility = Visibility.Collapsed;
+                if ((sender as ComboBox).SelectedIndex == 4)
+                {
+                    CustomDateF.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CustomDateF.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
