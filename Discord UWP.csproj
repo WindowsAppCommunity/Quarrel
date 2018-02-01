@@ -113,6 +113,7 @@
     <Compile Include="Controls\MessageControl - Copy.xaml.cs">
       <DependentUpon>MessageControl - Copy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
     </Compile>
