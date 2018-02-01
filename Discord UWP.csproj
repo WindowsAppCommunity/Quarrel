@@ -343,6 +343,7 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\ConnectionLogos\spotify.png" />
     <Content Include="Assets\emojifont.ttf" />
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
