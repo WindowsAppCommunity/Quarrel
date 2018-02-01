@@ -115,14 +115,14 @@
                                         <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     </Grid>
 
-                                    <tk:Expander x:Name="ProfileSettings" Visibility="Visible" Background="#55000000" Foreground="{x:Null}" IsExpanded="False" Header="Profile settings" HorizontalContentAlignment="Stretch">
+                                    <tk:Expander x:Name="ProfileSettings" Visibility="Visible" Background="#55000000" IsExpanded="False" Header="Profile settings" HorizontalContentAlignment="Stretch">
                                         <StackPanel Margin="10,0">
-                                            <TextBox x:Name="UsernameEdit" Header="Usermal"/>
-                                            <TextBox x:Name="EmailEdit" Header="Email"/>
-                                            <Rectangle Height="3" Margin="0,10,0,10" Fill="{ThemeResource Blurple}"/>
+                                            <TextBox x:Name="UsernameEdit" Header="Username"/>
+                                            <TextBox x:Name="EmailEdit" Header="Email" IsReadOnly="True"/>
+                                            <Rectangle Height="1" Margin="0,10,0,10" Fill="{ThemeResource Blurple}"/>
                                             <StackPanel HorizontalAlignment="Right">
                                                 <!--TODO:-->
-                                                <Button x:Uid="/Dialogs/SaveBTN" x:Name="Save" Content="Save" Background="{ThemeResource Blurple}" Style="{ThemeResource DiscordButton}"/>
+                                                <Button x:Uid="/Dialogs/SaveBTN" x:Name="Save" Content="Save" Background="{ThemeResource Blurple}" Style="{ThemeResource DiscordButton}" Click="Save_Click"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </tk:Expander>

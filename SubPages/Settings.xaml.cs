@@ -72,28 +72,30 @@ namespace Discord_UWP.SubPages
                 case "h:mm tt":
                     TimeFormat.SelectedIndex = 0;
                     break;
-                case "hh:mm tt":
+                case "H:mm":
                     TimeFormat.SelectedIndex = 1;
                     break;
-                case "H:mm":
+                case "hh:mm:ss tt":
                     TimeFormat.SelectedIndex = 2;
                     break;
-                case "HH:mm":
+                case "HH:mm:ss":
                     TimeFormat.SelectedIndex = 3;
                     break;
-                case "h:mm:ss tt":
+                default:
                     TimeFormat.SelectedIndex = 4;
-                    break;
-                case "hh:mm:ss tt":
-                    TimeFormat.SelectedIndex = 5;
-                    break;
-                case "H:mm:ss":
-                    TimeFormat.SelectedIndex = 6;
-                    break;
-                case "HH:mm:ss":
-                    TimeFormat.SelectedIndex = 7;
+                    CustomTimeF.Text = Storage.Settings.TimeFormat;
                     break;
             }
+
+            if (TimeFormat.SelectedIndex == 4)
+            {
+                CustomTimeF.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CustomTimeF.Visibility = Visibility.Collapsed;
+            }
+
             switch (Storage.Settings.DateFormat)
             {
                 case "M/d/yyyy":
@@ -105,18 +107,22 @@ namespace Discord_UWP.SubPages
                 case "MM/dd/yy":
                     DateFormat.SelectedIndex = 2;
                     break;
-                case "MM/dd/yyyy":
+                case "MMM/dd/yy":
                     DateFormat.SelectedIndex = 3;
                     break;
-                case "yy/MM/dd":
+                default:
                     DateFormat.SelectedIndex = 4;
+                    CustomDateF.Text = Storage.Settings.DateFormat;
                     break;
-                case "yyyy-MM-dd":
-                    DateFormat.SelectedIndex = 5;
-                    break;
-                case "dd-MMM-yy":
-                    DateFormat.SelectedIndex = 6;
-                    break;
+            }
+
+            if (DateFormat.SelectedIndex == 4)
+            {
+                CustomDateF.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CustomDateF.Visibility = Visibility.Collapsed;
             }
 
             if (Storage.Settings.Theme == Theme.Dark)
@@ -173,25 +179,16 @@ namespace Discord_UWP.SubPages
                     Storage.Settings.TimeFormat = "h:mm tt";
                     break;
                 case 1:
-                    Storage.Settings.TimeFormat = "hh:mm tt";
-                    break;
-                case 2:
                     Storage.Settings.TimeFormat = "H:mm";
                     break;
-                case 3:
-                    Storage.Settings.TimeFormat = "HH:mm";
-                    break;
-                case 4:
-                    Storage.Settings.TimeFormat = "h:mm:ss tt";
-                    break;
-                case 5:
+                case 2:
                     Storage.Settings.TimeFormat = "hh:mm:ss tt";
                     break;
-                case 6:
-                    Storage.Settings.TimeFormat = "H:mm:ss";
-                    break;
-                case 7:
+                case 3:
                     Storage.Settings.TimeFormat = "HH:mm:ss";
+                    break;
+                default:
+                    Storage.Settings.TimeFormat = CustomTimeF.Text;
                     break;
             }
             switch (DateFormat.SelectedIndex)
@@ -206,16 +203,10 @@ namespace Discord_UWP.SubPages
                     Storage.Settings.DateFormat = "MM/dd/yy";
                     break;
                 case 3:
-                    Storage.Settings.DateFormat = "MM/dd/yyyy";
+                    Storage.Settings.DateFormat = "MMM/dd/yy";
                     break;
-                case 4:
-                    Storage.Settings.DateFormat = "yy/MM/dd";
-                    break;
-                case 5:
-                    Storage.Settings.DateFormat = "yyyy-MM-dd";
-                    break;
-                case 6:
-                    Storage.Settings.DateFormat = "dd-MMM-yy";
+                default:
+                    Storage.Settings.DateFormat = CustomDateF.Text;
                     break;
             }
 
@@ -303,6 +294,36 @@ namespace Discord_UWP.SubPages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             App.NavigateToProfile(LocalModels.LocalState.CurrentUser);
+        }
+
+        private void TimeFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CustomTimeF != null)
+            {
+                if ((sender as ComboBox).SelectedIndex == 4)
+                {
+                    CustomTimeF.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CustomTimeF.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void DateFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CustomDateF != null)
+            {
+                if ((sender as ComboBox).SelectedIndex == 4)
+                {
+                    CustomDateF.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CustomDateF.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         //TODO: Voice channels

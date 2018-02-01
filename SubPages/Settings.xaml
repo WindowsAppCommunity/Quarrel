@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tkx="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
@@ -649,27 +650,26 @@
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
-                                    <ComboBox x:Name="DateFormat" Header="Date Format" SelectedIndex="0">
+                                    <ComboBox x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
                                         <ComboBoxItem Content="M/d/yyyy"/>
                                         <ComboBoxItem Content="M/d/yy"/>
                                         <ComboBoxItem Content="MM/dd/yy"/>
-                                        <ComboBoxItem Content="MM/dd/yyyy"/>
-                                        <ComboBoxItem Content="yy/MM/dd"/>
-                                        <ComboBoxItem Content="yyyy-MM-dd"/>
-                                        <ComboBoxItem Content="dd-MMM-yy"/>
+                                        <ComboBoxItem Content="MMM/dd/yy"/>
+                                        <ComboBoxItem Content="Custom"/>
                                     </ComboBox>
-                                    
-                                    <ComboBox x:Name="TimeFormat" Header="Time Format" SelectedIndex="0">
+
+                                    <TextBox x:Name="CustomDateF" Header="Custom Date Format"/>
+
+                                    <ComboBox x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
                                         <ComboBoxItem Content="h:mm tt"/>
-                                        <ComboBoxItem Content="hh:mm tt"/>
                                         <ComboBoxItem Content="H:mm"/>
-                                        <ComboBoxItem Content="HH:mm"/>
-                                        <ComboBoxItem Content="h:mm:ss tt"/>
                                         <ComboBoxItem Content="hh:mm:ss tt"/>
-                                        <ComboBoxItem Content="H:mm:ss"/>
                                         <ComboBoxItem Content="HH:mm:ss"/>
+                                        <ComboBoxItem Content="Custom"/>
                                     </ComboBox>
-                                    
+
+                                    <TextBox x:Name="CustomTimeF" Header="Custom Time Format"/>
+
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
