@@ -476,5 +476,13 @@ namespace Discord_UWP.SubPages
         {
             App.BlockUser(userid);
         }
+
+        private async void Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsernameEdit.Text != LocalState.CurrentUser.Username)
+            {
+                await RESTCalls.ModifyCurrentUser(UsernameEdit.Text);
+            }
+        }
     }
 }

@@ -224,7 +224,7 @@ namespace Discord_UWP
             return guildSettings;
         }
 
-        public static async Task ChangeUserSettings(string settings)
+        public static async Task ChangeUserStatus(string status)
         {
             try
             {
@@ -232,9 +232,9 @@ namespace Discord_UWP
                 {
                     try
                     {
-                        GatewayManager.Gateway.UpdateStatus(settings, 0, null);
+                        GatewayManager.Gateway.UpdateStatus(status, 0, null);
                         IUserService userservice = AuthenticatedRestFactory.GetUserService();
-                        await userservice.UpdateSettings("{\"status\":\"" + settings + "\"}");
+                        await userservice.UpdateSettings("{\"status\":\"" + status + "\"}");
                     }
                     catch /*(Exception exception)*/
                     {
