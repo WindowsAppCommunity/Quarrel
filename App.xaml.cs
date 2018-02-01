@@ -854,7 +854,7 @@ namespace Discord_UWP
         {
             try
             {
-               // Storage.ClearEncryptionKeys();
+                Storage.ClearEncryptionKeys();
                 Storage.RetrieveEncryptionKeys();
             }
             catch { }

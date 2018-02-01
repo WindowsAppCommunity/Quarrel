@@ -76,27 +76,30 @@ namespace Discord_UWP.Managers
         }
         public static string DecryptMessage(string content)
         {
-            if (key == null)
+            try
             {
-                return content; //If you don't know, just throw
-            }
-            content = content.Remove(0, 24);
-            content = content.Remove(content.Length - 2);
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = key;
-                aesAlg.IV = new byte[] { 0x91, 0xf9, 0xec, 0x64, 0x3e, 0xb9, 0x22, 0x90, 0xe7, 0x56, 0xbd, 0x77, 0x78, 0xec, 0x49, 0xe4 };
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(content)))
+                content = content.Remove(0, 24);
+                content = content.Remove(content.Length - 2);
+                using (Aes aesAlg = Aes.Create())
                 {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    aesAlg.Key = key;
+                    aesAlg.IV = new byte[] { 0x91, 0xf9, 0xec, 0x64, 0x3e, 0xb9, 0x22, 0x90, 0xe7, 0x56, 0xbd, 0x77, 0x78, 0xec, 0x49, 0xe4 };
+                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+                    using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(content)))
                     {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                         {
-                            return srDecrypt.ReadToEnd();
+                            using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                            {
+                                return srDecrypt.ReadToEnd();
+                            }
                         }
                     }
                 }
+            }
+            catch
+            {
+                return "**`Failed to decrypt message`**";
             }
         }
     }
