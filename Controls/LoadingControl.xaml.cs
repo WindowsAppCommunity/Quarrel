@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Animations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             initialize();
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(100000);
+            timer.Interval = TimeSpan.FromSeconds(6);
             timer.Tick += ShowReset;
             timer.Start();
         }
@@ -43,6 +44,7 @@ namespace Discord_UWP.Controls
         private void ShowReset(object sender, object e)
         {
             ResetButton.Visibility = Visibility.Visible;
+            ResetButton.Fade(1).Start();
         }
 
         public void initialize()
