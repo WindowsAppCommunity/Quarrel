@@ -1097,8 +1097,15 @@ namespace Discord_UWP
 
         private async void App_MuteChannelHandler(object sender, App.MuteChannelArgs e)
         {
-            //Assumes you muted it from active guild
-            var returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId, new SharedModels.GuildSetting() { ChannelOverrides = new List<SharedModels.ChannelOverride> { new ChannelOverride() { Channel_Id = e.ChannelId, Muted = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId) ? !(LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId].Muted) : true } } });
+            Dictionary<string, ChannelOverride> chns = new Dictionary<string, ChannelOverride>();
+            var chan = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId];
+            chan.Channel_Id = null;
+            chan.Muted = !chan.Muted;
+            chns.Add(e.ChannelId, chan);
+
+            var returned = await RESTCalls.ModifyGuildSettings(App.CurrentGuildId, new GuildSettingModify() { ChannelOverrides = chns});
+
+            LocalState.GuildSettings[App.CurrentGuildId].raw = returned;
 
             foreach (var chn in returned.ChannelOverrides)
             {
@@ -1112,7 +1119,7 @@ namespace Discord_UWP
 
         private async void App_MuteGuildHandler(object sender, App.MuteGuildArgs e)
         {
-            LocalState.GuildSettings[e.GuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSetting() { Muted = !(LocalState.GuildSettings[e.GuildId].raw.Muted) }));
+            LocalState.GuildSettings[e.GuildId] = new LocalModels.GuildSetting(await RESTCalls.ModifyGuildSettings(e.GuildId, new SharedModels.GuildSettingModify() { Muted = !(LocalState.GuildSettings[e.GuildId].raw.Muted) }));
             App.UpdateUnreadIndicators();
         }
 
