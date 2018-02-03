@@ -1148,8 +1148,8 @@ namespace Discord_UWP
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
                     App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
                     {
-                        TintOpacity = 0.6,
-                        //Opacity = 0.6,
+                        TintOpacity = Storage.Settings.SecondaryOpacity,
+                        //Opacity = 1,
                         TintColor = ChannelColor,
                         FallbackColor = ChannelColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -1157,8 +1157,8 @@ namespace Discord_UWP
                     var GuildColor = ((SolidColorBrush)App.Current.Resources["AcrylicGuildPaneBackground"]).Color;
                     App.Current.Resources["AcrylicGuildPaneBackground"] = new AcrylicBrush()
                     {
-                        TintOpacity = 0.4,
-                        //Opacity = 0.4,
+                        TintOpacity = Storage.Settings.TertiaryOpacity,
+                        //Opacity = 0.0,
                         TintColor = GuildColor,
                         FallbackColor = GuildColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -1166,8 +1166,8 @@ namespace Discord_UWP
                     var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
                     App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
                     {
-                        TintOpacity = 0.7,
-                        //Opacity = 0.7,
+                        TintOpacity = Storage.Settings.CmdOpacity,
+                        //Opacity = 0.0,
                         TintColor = CommandBarColor,
                         FallbackColor = CommandBarColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
@@ -1175,8 +1175,8 @@ namespace Discord_UWP
                     var MessageColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
                     App.Current.Resources["AcrylicMessageBackground"] = new AcrylicBrush()
                     {
-                        TintOpacity = 0.9,
-                        //Opacity = 1,
+                        TintOpacity = Storage.Settings.MainOpacity,
+                        //Opacity = 0,
                         TintColor = UserBackground,
                         FallbackColor = UserBackground,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
