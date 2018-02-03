@@ -1076,6 +1076,7 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            <!--<Rectangle x:Name="BackgroundImage"/>--> <!--TODO-->
             <Grid Grid.Row="1" Background="{ThemeResource AcrylicChannelPaneBackground}">
                 <controls:SideDrawer x:Name="sideDrawer" SecondaryLeftFocused="sideDrawer_SecondaryLeftFocused_1">
                     <controls:SideDrawer.ContentLeft>

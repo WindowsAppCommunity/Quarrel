@@ -140,6 +140,11 @@ namespace Discord_UWP.SubPages
                 OverrideMention.IsChecked = true;
             else if (Storage.Settings.collapseOverride == CollapseOverride.Unread)
                 OverrideUnread.IsChecked = true;
+
+            MainPanelBlur.Value = Storage.Settings.MainOpacity;
+            SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
+            TertiaryPanelBlur.Value = Storage.Settings.TertiaryOpacity;
+            CommandBarBlur.Value = Storage.Settings.CmdOpacity;
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -225,6 +230,11 @@ namespace Discord_UWP.SubPages
                 Storage.Settings.collapseOverride = CollapseOverride.Mention;
             else if ((bool)OverrideUnread.IsChecked)
                 Storage.Settings.collapseOverride = CollapseOverride.Unread;
+
+            Storage.Settings.MainOpacity = MainPanelBlur.Value;
+            Storage.Settings.SecondaryOpacity = SecondaryPanelBlur.Value;
+            Storage.Settings.TertiaryOpacity = TertiaryPanelBlur.Value;
+            Storage.Settings.CmdOpacity = CommandBarBlur.Value;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();

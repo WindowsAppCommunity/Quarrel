@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tkx="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d">
     <Page.Resources>
@@ -635,18 +636,29 @@
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                     <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
-                                    <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="13" Margin="0,12,0,0"/>
+
+                                    <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
                                     <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
 
-                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                    <TextBlock Text="Acrylic options" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                    <!--<Slider x:Name="MainPanelOpacity" Header="Main Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
+                                    <Slider x:Name="MainPanelBlur" Header="Main Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                    <!--<Slider x:Name="SecondaryPanelOpacity" Header="Secondary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
+                                    <Slider x:Name="SecondaryPanelBlur" Header="Secondary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                    <!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
+                                    <Slider x:Name="TertiaryPanelBlur" Header="Tertiary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                    <!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
+                                    <Slider x:Name="CommandBarBlur" Header="Command Bar Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+
+                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
