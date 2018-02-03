@@ -255,6 +255,7 @@
     <Compile Include="Managers\MemberManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
+    <Compile Include="Managers\RPCManager.cs" />
     <Compile Include="Managers\UserActivityManager.cs" />
     <Compile Include="Managers\VoiceManager.cs" />
     <Compile Include="Offline.xaml.cs">
@@ -710,6 +711,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.HttpListener">
+      <Version>1.0.3.4</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
