@@ -103,6 +103,10 @@ namespace Discord_UWP
         public double RespUiM = 500;
         public double RespUiL = 1000;
         public double RespUiXl = 1500;
+        public double MainOpacity = 0.9;
+        public double SecondaryOpacity = 0.6;
+        public double TertiaryOpacity = 0.4;
+        public double CmdOpacity = 0.7;
         public bool ExpensiveRender = false;
         public bool ShowOfflineMembers = false;
         public bool DevMode = false;
