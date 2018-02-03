@@ -273,4 +273,16 @@
   <data name="TranslatorPI" xml:space="preserve">
     <value>Translations</value>
   </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Custom Time Format</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Custom Date Format</value>
+  </data>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>Date Format</value>
+  </data>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>Time Format</value>
+  </data>
 </root>

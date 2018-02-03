@@ -19,7 +19,7 @@ namespace Discord_UWP.API.User
         
         [Patch("/v6/users/@me/guilds/{guildId}/settings")]
         [Headers("Content-Type: application/json;")]
-        Task<GuildSetting> ModifyGuildSettings([AliasAs("guildId")] string guildId, [Body] GuildSetting guildSetting);
+        Task<GuildSetting> ModifyGuildSettings([AliasAs("guildId")] string guildId, [Body] GuildSettingModify guildSetting);
 
         [Patch("/v6/users/@me/settings")]
         [Headers("Content-Type: application/json;")]
