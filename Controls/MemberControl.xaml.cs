@@ -78,10 +78,20 @@ namespace Discord_UWP.Controls
                 playing.Visibility = Visibility.Visible;
                 game.Visibility = Visibility.Visible;
                 game.Text = DisplayedMember.status.Game.Value.Name;
+              
                 if (DisplayedMember.status.Game.Value.State != null || DisplayedMember.status.Game.Value.Details != null || DisplayedMember.status.Game.Value.SessionId != null)
                 {
                     game.Opacity = 1;
                     rich.Visibility = Visibility.Visible;
+                    switch (DisplayedMember.status.Game.Value.Type)
+                    {
+                        case 0:
+                            playing.Text = "Playing";break;
+                        case 1:
+                            playing.Text = "Streaming";break;
+                        case 2:
+                            playing.Text = "Listening to";break;
+                    }
                 }
                 else
                 {
