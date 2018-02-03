@@ -92,6 +92,21 @@
                             <Paragraph>
                                 <Run Text="• Added time format options"/>
                             </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Added compatibility with simultaneously bold and italic text"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Spotify support"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed channel muting"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Reset option only shows after loading 10 seconds"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Displays Streaming instead of Playing when streaming"/>
+                            </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
