@@ -70,14 +70,18 @@ namespace Discord_UWP.Controls
         {
             if (prop == GameContentProperty && GameContent.HasValue)
             {
-                    SmallimgRect.RadiusX = 10;
-                    SmallimgRect.RadiusY = 10;
-                    SmallimgRect.Width = 20;
-                    SmallimgRect.Height = 20;
-                    SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
+                SmallimgRect.RadiusX = 10;
+                SmallimgRect.RadiusY = 10;
+                SmallimgRect.Width = 20;
+                SmallimgRect.Height = 20;
+                SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
 
-                    Game? game = GameContent;
+                Game? game = GameContent;
+
+                if (game.Value.Type != 2)
+                {
                     //Game title
+
                     if (game.Value.Name != null)
                         GameTB.Text = game.Value.Name;
                     else
@@ -128,69 +132,107 @@ namespace Discord_UWP.Controls
                             ToolTipService.SetToolTip(LargeImgRect, game.Value.Assets.Value.LargeText);
                         if (game.Value.Assets.Value.SmallImage != null)
                             ToolTipService.SetToolTip(SmallimgRect, game.Value.Assets.Value.SmallText);
-
                     }
-                   /* else if (game.Value.Name != null)
-                    {
-                    
-                        GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
-                        if (!gli.HasValue)
-                            gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
-                        if (gli.HasValue)
-                        {
-                            if (gli.Value.Splash != null)
-                            {
-                                Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
-                                if (gli.Value.Icon != null)
-                                {
-                                    Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                                    if (!IsLarge)
-                                    {
-                                        SmallimgRect.RadiusX = 4;
-                                        SmallimgRect.RadiusY = 4;
-                                        SmallimgRect.Width = 24;
-                                        SmallimgRect.Height = 24;
-                                        SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
-                                    }
-                                    else
-                                    {
-                                        SmallimgRect.RadiusX = 8;
-                                        SmallimgRect.RadiusY = 8;
-                                        SmallimgRect.Width = 48;
-                                        SmallimgRect.Height = 48;
-                                        SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
-                                    }
-                                }
-
-                                else
-                                    SmallimgRect.Visibility = Visibility.Collapsed;
-                            }
-                            else if (gli.Value.Icon != null)
-                            {
-                                Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
-                            }
-                            else
-                            {
-                                LargeImgRect.Visibility = Visibility.Collapsed;
-                                SmallimgRect.Visibility = Visibility.Collapsed;
-                            }
-
-                        }
-                        else
-                        {
-                            LargeImgRect.Visibility = Visibility.Collapsed;
-                            SmallimgRect.Visibility = Visibility.Collapsed;
-                        }
-
-                    }*/
                     else
                     {
                         LargeImgRect.Visibility = Visibility.Collapsed;
                         SmallimgRect.Visibility = Visibility.Collapsed;
                     }
-                
+                }
+                else
+                {
+                    if (game.Value.Assets.HasValue)
+                    {
+                        if (game.Value.Assets.Value.LargeImage != null)
+                            Largeimg.ImageSource = new BitmapImage(GetSpotifyImageLink(game.Value.Assets.Value.LargeImage));
+                    }
+                    else
+                    {
+                        LargeImgRect.Visibility = Visibility.Collapsed;
+                        SmallimgRect.Visibility = Visibility.Collapsed;
+                    }
+                    //Artist = state
+                    //Album = large_text
+                    //Song = details
+                    if (game.Value.Details != null)
+                        GameTB.Text = game.Value.Details;
+                    if (game.Value.State != null)
+                        DetailsTB.Text = "by " + game.Value.State;
+                    if (game.Value.Assets.Value.LargeText != null)
+                        StateTB.Text =  game.Value.Assets.Value.LargeText;
+                    TimeTB.Visibility = Visibility.Collapsed;
+
+                    timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(1);
+                    UpdateProgressBar(null, null);
+                    timer.Start();
+                    timer.Tick += UpdateProgressBar;
+                    spotifyGrid.Visibility = Visibility.Visible;
+                }
+
             }
-        
+            else
+            {
+                LargeImgRect.Visibility = Visibility.Collapsed;
+                SmallimgRect.Visibility = Visibility.Collapsed;
+            }
+
+            /* else if (game.Value.Name != null)
+             {
+
+                 GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
+                 if (!gli.HasValue)
+                     gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
+                 if (gli.HasValue)
+                 {
+                     if (gli.Value.Splash != null)
+                     {
+                         Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Splash, gli.Value.Id, true, ""));
+                         if (gli.Value.Icon != null)
+                         {
+                             Smallimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
+                             if (!IsLarge)
+                             {
+                                 SmallimgRect.RadiusX = 4;
+                                 SmallimgRect.RadiusY = 4;
+                                 SmallimgRect.Width = 24;
+                                 SmallimgRect.Height = 24;
+                                 SmallimgRect.Margin = new Thickness(0, 0, 7, -7);
+                             }
+                             else
+                             {
+                                 SmallimgRect.RadiusX = 8;
+                                 SmallimgRect.RadiusY = 8;
+                                 SmallimgRect.Width = 48;
+                                 SmallimgRect.Height = 48;
+                                 SmallimgRect.Margin = new Thickness(0, 0, 14, -14);
+                             }
+                         }
+
+                         else
+                             SmallimgRect.Visibility = Visibility.Collapsed;
+                     }
+                     else if (gli.Value.Icon != null)
+                     {
+                         Largeimg.ImageSource = new BitmapImage(GetImageLink(gli.Value.Icon, gli.Value.Id, true, ""));
+                     }
+                     else
+                     {
+                         LargeImgRect.Visibility = Visibility.Collapsed;
+                         SmallimgRect.Visibility = Visibility.Collapsed;
+                     }
+
+                 }
+                 else
+                 {
+                     LargeImgRect.Visibility = Visibility.Collapsed;
+                     SmallimgRect.Visibility = Visibility.Collapsed;
+                 }
+
+             }*/
+
+
+
         }
 
         private void UpdateTimer(object sender, object e)
@@ -209,12 +251,32 @@ namespace Discord_UWP.Controls
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
             }
         }
+        private void UpdateProgressBar(object sender, object e)
+        {
+            var st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.Start.Value);
+            var et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.End.Value);
+
+            //full length
+            var length = et.Subtract(st);
+            EndTime.Text = length.ToString(@"mm\:ss");
+
+            //time left
+            var time = DateTimeOffset.Now.Subtract(st);
+            StartTime.Text= time.ToString(@"mm\:ss");
+
+            progbar.Maximum = length.TotalMilliseconds;
+            progbar.Value = time.TotalMilliseconds;
+        }
         public Uri GetImageLink(string id, string gameid, bool game = false, string append = "?size=512")
         {
             string type = "app";
             if (game) type = "game";
             var uri= new Uri("https://cdn.discordapp.com/" + type + "-assets/" + gameid + "/" + id + ".png" + append);
             return uri;
+        }
+        public Uri GetSpotifyImageLink(string id)
+        {
+            return new Uri("https://i.scdn.co/image/" + id.Remove(0, 8));
         }
         public RichPresenceControl()
         {
