@@ -237,10 +237,10 @@ namespace Discord_UWP.Managers
                         break;
                     case 2:
                         //TODO: Voice Channels
-                        //if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
-                        //{
-                        //    returnChannels.Add(sc);
-                        //}
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        {
+                            returnChannels.Add(sc);
+                        }
                         break;
                     case 4:
                         sc.Name = sc.Name.ToUpper();

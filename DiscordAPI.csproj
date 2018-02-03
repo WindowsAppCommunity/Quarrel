@@ -199,7 +199,6 @@
     <Compile Include="Voice\DownstreamEvents\VoiceData.cs" />
     <Compile Include="Voice\EventNames.cs" />
     <Compile Include="Voice\OperationCode.cs" />
-    <Compile Include="Voice\Sodium.cs" />
     <Compile Include="Voice\UpstreamEvents\Identify.cs" />
     <Compile Include="Voice\UpstreamEvents\SelectProtocol.cs" />
     <Compile Include="Voice\UpstreamEvents\Speak.cs" />
@@ -228,6 +227,12 @@
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="RuntimeComponent\RuntimeComponent.csproj">
+      <Project>{7a537745-ce73-4c4a-9fc5-0b6d28ca891c}</Project>
+      <Name>RuntimeComponent</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

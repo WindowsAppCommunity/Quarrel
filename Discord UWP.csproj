@@ -356,6 +356,9 @@
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
+    <Content Include="SodiumCARM.dll" />
+    <Content Include="SodiumCWin32.dll" />
+    <Content Include="SodiumCx64.dll" />
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -740,6 +743,10 @@
     <ProjectReference Include="GiphyAPI\GiphyAPI.csproj">
       <Project>{cf993df8-e392-44b4-afa7-4da1750d24f2}</Project>
       <Name>GiphyAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="RuntimeComponent\RuntimeComponent.csproj">
+      <Project>{7a537745-ce73-4c4a-9fc5-0b6d28ca891c}</Project>
+      <Name>RuntimeComponent</Name>
     </ProjectReference>
     <ProjectReference Include="UpdateNotificationTask\UpdateNotificationTask.csproj">
       <Project>{e8978980-da38-480b-850b-0bbd28baa6fc}</Project>
