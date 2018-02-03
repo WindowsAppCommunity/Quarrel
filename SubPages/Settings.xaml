@@ -650,7 +650,7 @@
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
-                                    <ComboBox x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
+                                    <ComboBox x:Uid="/Settings/DateFormat" x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
                                         <ComboBoxItem Content="M/d/yyyy"/>
                                         <ComboBoxItem Content="M/d/yy"/>
                                         <ComboBoxItem Content="MM/dd/yy"/>
@@ -660,7 +660,7 @@
 
                                     <TextBox x:Name="CustomDateF" Header="Custom Date Format"/>
 
-                                    <ComboBox x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
+                                    <ComboBox x:Uid="/Settings/TimeFormat" x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
                                         <ComboBoxItem Content="h:mm tt"/>
                                         <ComboBoxItem Content="H:mm"/>
                                         <ComboBoxItem Content="hh:mm:ss tt"/>
@@ -668,7 +668,7 @@
                                         <ComboBoxItem Content="Custom"/>
                                     </ComboBox>
 
-                                    <TextBox x:Name="CustomTimeF" Header="Custom Time Format"/>
+                                    <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format"/>
 
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>

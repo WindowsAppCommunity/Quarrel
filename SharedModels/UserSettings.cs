@@ -83,6 +83,28 @@ namespace Discord_UWP.SharedModels
 
     }
 
+    public struct GuildSettingModify
+    {
+        [JsonProperty("guild_id")]
+        public string GuildId { get; set; }
+
+        [JsonProperty("suppress_everyone")]
+        public bool SuppressEveryone { get; set; }
+
+        [JsonProperty("muted")]
+        public bool Muted { get; set; }
+
+        [JsonProperty("mobile_push")]
+        public bool MobilePush { get; set; }
+
+        [JsonProperty("message_notifications")]
+        public int MessageNotifications { get; set; }
+
+        [JsonProperty("channel_overrides")]
+        public IDictionary<string, ChannelOverride> ChannelOverrides { get; set; }
+
+    }
+
     public struct ChannelOverride
     {
         [JsonProperty("channel_id")]
