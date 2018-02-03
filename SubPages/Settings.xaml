@@ -658,9 +658,6 @@
                                     <!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
                                     <Slider x:Name="CommandBarBlur" Header="Command Bar Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
 
-                                    <TextBlock Text="Acrylic options" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    
-
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
