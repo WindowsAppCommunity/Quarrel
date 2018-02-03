@@ -121,7 +121,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
+        <Grid x:Name="grid" MaxWidth="512" MaxHeight="350" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -136,198 +136,45 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <ListView SelectionMode="None" Grid.Row="1" Margin="0,0,-24,0" Padding="-12,0,24,0">
-                            <ListView.Header>
-                                <StackPanel Padding="0" Margin="12,0,0,0">
-                                    <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                                    <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
-                                        <Paragraph>
-                                            <Run x:Uid="/About/AboutDesc1">Discord UWP is an</Run>
-                                            <Bold>
-                                                <Run x:Uid="/About/AboutDesc2">unofficial</Run>
-                                            </Bold>
-                                            <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
-                                            <Bold>
-                                                <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
-                                            </Bold>
-                                            <Run x:Uid="/About/AboutDesc5">
-                                                ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
-                                            </Run>
-                                        </Paragraph>
-                                    </RichTextBlock>
-                                    <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
-                                            <TextBlock x:Uid="/About/DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
-                                        </StackPanel>
-                                    </HyperlinkButton>
-                                    <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                            <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
-                                        </StackPanel>
-                                    </HyperlinkButton>
-                                    <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                            <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
-                                        </StackPanel>
-                                    </HyperlinkButton>
-                                    <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                                    <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
-                                    <Rectangle Fill="{ThemeResource Blurple}" Height="1" Margin="0,11,0,0"/>
-                                    <TextBlock x:Uid="/About/ChangelogTB" Text="CHANGELOG" FontWeight="SemiBold" Margin="0,11,0,0" FontSize="20"/>
+                        <StackPanel Padding="0" Margin="12,0,0,0">
+                            <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
+                            <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
+                                <Paragraph>
+                                    <Run x:Uid="/About/AboutDesc1">Discord UWP is an</Run>
+                                    <Bold>
+                                        <Run x:Uid="/About/AboutDesc2">unofficial</Run>
+                                    </Bold>
+                                    <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
+                                    <Bold>
+                                        <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
+                                    </Bold>
+                                    <Run x:Uid="/About/AboutDesc5">
+                                        ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
+                                    </Run>
+                                </Paragraph>
+                            </RichTextBlock>
+                            <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
+                                    <TextBlock x:Uid="/About/DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
                                 </StackPanel>
-                            </ListView.Header>
-                            <ListViewHeaderItem Content="VERSION 6.4.4" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added time format options" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.4.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed occasional MemberList loading crash" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed doubling YouTube embeds" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed crashes and glitchs on mobile and xbox after resuming the app" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Moved ads for performance enhancement" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed profile page and embeds on CU (build 15086)" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Changed In-App purchases to remove ads" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Removed gif loading icons (took up storage and annoying)" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.4.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed original remove ads" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.4.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed splash screen crash" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.4.0" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed Message updating" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.3.3" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed Message updating" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed gif button" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.3.2" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="DMs show in correct order" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed channel editing" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed typing indicator and member list" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added Giphy gif selector" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added share button to embeds" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="No longer crashes when you send a link" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed issue causing splash screen crashes" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Embeds now adjust to their type more" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="givf support" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Animated emoji support" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed broken reactions" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added leave and remove controls to group chats" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Log in errors go to log in screen instead of hanging" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.3.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fluent Design UI Rework" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Login patches" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed mark as read in DMs" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added back button functionality" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Guild role permissions editing" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Remove Ads no longer expires after a year (it lasts forever now)" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Side panels open with trackpad swipes" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Started adding xbox cinematic mode behind the scenes" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Small controller input improvements" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Guild order now updates in real-time and is no longer wrong" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Recording audio is fixed on mobile" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added missing translations" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed attachements" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed status needing to be updated twice" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Fixed save button for photos" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Added What's New welcome screen" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Lots and lots more bug fixes, can't remember everything we did :P" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.2.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="(Likely) Fixed splash screen crashes" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                            <ListViewHeaderItem Content="VERSION 6.1.1" Margin="0" Style="{StaticResource ListViewHeaderItemStyle1}"/>
-                            <ListViewItem Style="{StaticResource ListViewItemStyle1}">
-                                <TextBlock Text="Full rework" TextWrapping="Wrap"/>
-                            </ListViewItem>
-                        </ListView>
+                            </HyperlinkButton>
+                            <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
+                                </StackPanel>
+                            </HyperlinkButton>
+                            <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
+                                    <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
+                                </StackPanel>
+                            </HyperlinkButton>
+                            <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
+                            <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
+                        </StackPanel>
+
                     </Grid>
                 </Grid>
             </Border>
