@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid>
             <Rectangle x:Name="LargeImgRect" Width="58" Height="58" RadiusX="4" RadiusY="4" Margin="0,0,10,0">
@@ -42,6 +43,12 @@
                 <TextBlock x:Name="TimeTB" FontSize="11" Opacity="0.6"/>
             </StackPanel>
         </Grid>
+        <Grid x:Name="spotifyGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="0,8,0,6" VerticalAlignment="Top" Grid.Row="2">
+            <ProgressBar x:Name="progbar" Padding="0,6,0,0" Grid.Column="1" VerticalAlignment="Top" Height="2"/>
+            <TextBlock x:Name="StartTime" Margin="0,6,0,0" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="EndTime"  Grid.Column="2" VerticalAlignment="Top" Margin="0,6,0,0" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Right"/>
+        </Grid>
+        
         <!--
         <StackPanel Grid.ColumnSpan="2" Grid.Row="1">
             <Button x:Name="Spectate" Content="Spectate" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Click="Spectate_Click"/>

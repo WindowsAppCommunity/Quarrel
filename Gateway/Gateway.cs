@@ -229,7 +229,8 @@ namespace Discord_UWP.Gateway
         {
             var gatewayEvent = JsonConvert.DeserializeObject<SocketFrame>(args.Message);
             lastGatewayEvent = gatewayEvent;
-
+            if (args.Message.Contains("Spotify"))
+                Debug.WriteLine("spotify");
             if (operationHandlers.ContainsKey(gatewayEvent.Operation.GetValueOrDefault()))
             {
                 operationHandlers[gatewayEvent.Operation.GetValueOrDefault()](gatewayEvent);
