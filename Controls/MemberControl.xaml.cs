@@ -55,6 +55,11 @@ namespace Discord_UWP.Controls
             if (DisplayedMember.IsTyping) ShowTyping.Begin();
             else HideTyping.Begin();
 
+            if (DisplayedMember.Raw.Roles.Count() > 0)
+            {
+                username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[DisplayedMember.Raw.Roles.First()].Color);
+            }
+
             if (DisplayedMember.Raw.Nick != null)
                 username.Text = DisplayedMember.Raw.Nick;
             else if (DisplayedMember.Raw.User.Username != null)
