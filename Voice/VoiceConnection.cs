@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
+using RuntimeComponent;
+
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
 
 
