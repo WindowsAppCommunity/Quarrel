@@ -261,7 +261,6 @@
     <Compile Include="Managers\MemberManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
-    <Compile Include="Managers\RPCManager.cs" />
     <Compile Include="Managers\UserActivityManager.cs" />
     <Compile Include="Managers\VoiceManager.cs" />
     <Compile Include="Offline.xaml.cs">
