@@ -130,7 +130,7 @@ namespace Discord_UWP
             //    //graph.Start();
             //    //started = true;
             //}
-            AudioFrame frame = new AudioFrame(samples * 2);
+            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
             {
