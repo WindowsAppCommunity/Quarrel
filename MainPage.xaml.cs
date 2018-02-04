@@ -118,8 +118,6 @@ namespace Discord_UWP
 
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
 
-            //Start RPC server
-            RPCServer.TryStart();
         }
 
         private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
