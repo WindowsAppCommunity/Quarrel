@@ -37,11 +37,19 @@ namespace Discord_UWP.Controls
         private void Deafen_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Toggle local deafen
+            AudioManager.ChangeDeafStatus(Deafen.IsChecked.Value);
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Toggle local mute
+            
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            //TODO: Change volume
+            AudioManager.ChangeVolume(e.NewValue);
         }
     }
 }
