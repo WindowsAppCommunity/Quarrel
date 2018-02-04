@@ -60,13 +60,13 @@ namespace Discord_UWP.Sockets
             await _dataWriter.StoreAsync();
         }
 
-        private void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
+        private async void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
         {
             using (var dataReader = e.GetDataReader())
             {
-                dataReader.ByteOrder = ByteOrder.BigEndian; //TO CHECK
+                // dataReader.ByteOrder = ByteOrder.BigEndian;
                 byte[] packet = new byte[dataReader.UnconsumedBufferLength];
-                dataReader.ReadBytes(packet); //TODO: Don't recieve sound as a string!!!
+                dataReader.ReadBytes(packet);
                 OnMessageReceived(packet);
             }
         }

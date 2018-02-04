@@ -62,10 +62,6 @@ namespace Discord_UWP
                 encryptionToggle.Visibility = Visibility.Collapsed;
                 encryptSend.Visibility = Visibility.Collapsed;
             }
-            if (!App.ShowAds)
-            {
-                Ad.Visibility = Visibility.Collapsed;
-            }
             //Setup UI
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
@@ -2324,6 +2320,11 @@ namespace Discord_UWP
                     if (ChannelSelectionWasClicked)
                     {
                         ChannelSelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
+
+                        if (!App.ShowAds)
+                        {
+                            Ad.Visibility = Visibility.Collapsed;
+                        }
 
                         if (ChannelList.SelectedItem != null) //Called on clear
                         {
