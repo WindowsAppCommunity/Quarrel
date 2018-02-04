@@ -277,7 +277,8 @@ namespace Discord_UWP.Voice
                     throw new Exception("UGHHHH...."); //Conflicting sizes
                 }
 
-                int samples = decoder.Decode(_data, 0, _data.Length, output, 0, framesize);
+                int headerSize = GetHeaderSize(packet, _data);
+                int samples = decoder.Decode(_data, headerSize, _data.Length - headerSize, output, 0, framesize);
 
                 VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
@@ -315,6 +316,22 @@ namespace Discord_UWP.Voice
                     }
                 }
             }
+        }
+
+        public static int GetHeaderSize(byte[] header, byte[] buffer)
+        {
+            byte headerByte = header[0];
+            bool extension = (headerByte & 0b0001_0000) != 0;
+            int csics = (headerByte & 0b0000_1111) >> 4;
+
+            if (!extension)
+                return csics * 4;
+
+            int extensionOffset = csics * 4;
+            int extensionLength =
+                (buffer[extensionOffset + 2] << 8) |
+                (buffer[extensionOffset + 3]);
+            return extensionOffset + 4 + (extensionLength * 4);
         }
 
         private async Task SendHeartbeatAsync()
