@@ -9,7 +9,7 @@
     d:DesignHeight="50"
     d:DesignWidth="300" RequestedTheme="Dark">
 
-    <Grid Background="Transparent">
+    <Grid Background="{ThemeResource AcrylicUserBackground}" Padding="12" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="0,0,0,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
@@ -25,6 +25,13 @@
             <StackPanel>
                 <ToggleButton x:Name="Mute" Content="" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="4" Background="Transparent" Click="Mute_Click"/>
                 <ToggleButton x:Name="Deafen" Content="" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" Padding="4" Background="Transparent" Click="Deafen_Click"/>
+                <Button x:Name="volumeIcon" Style="{StaticResource DiscordButton}">
+                    <Button.Flyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
+                            <Slider x:Name="VolumeSlider" Value="0.75" Maximum="1" Minimum="0" SmallChange="0.01" LargeChange="0.1" ValueChanged="VolumeSlider_ValueChanged"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
             </StackPanel>
             <Button FontWeight="SemiBold" Content="" FontSize="18" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="6,0,0,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
             <Button FontWeight="SemiBold" Content="PUSH TO TALK" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="6,0,0,0"/>
