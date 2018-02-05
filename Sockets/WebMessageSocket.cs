@@ -16,14 +16,12 @@ namespace Discord_UWP.Sockets
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
-        public bool UseCompression = false;
+        public static bool UseCompression = true;
         private readonly MessageWebSocket _socket;
         private readonly DataWriter _dataWriter;
 
-        public WebMessageSocket(bool compression)
+        public WebMessageSocket()
         {
-            UseCompression = compression;
-
             _socket = GetMessageWebSocket();
             _dataWriter = GetDataWriter();
         }

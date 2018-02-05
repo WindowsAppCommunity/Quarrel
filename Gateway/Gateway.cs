@@ -32,8 +32,6 @@ namespace Discord_UWP.Gateway
         private Ready? lastReady;
         private SocketFrame? lastGatewayEvent;
 
-        public bool UseCompression;
-
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly IAuthenticator _authenticator;
         private readonly GatewayConfig _gatewayConfig;
@@ -83,7 +81,7 @@ namespace Discord_UWP.Gateway
 
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
-            _webMessageSocket = new WebMessageSocket(UseCompression);
+            _webMessageSocket = new WebMessageSocket();
             _authenticator = authenticator;
             _gatewayConfig = config;
             eventHandlers = GetEventHandlers();
@@ -144,6 +142,7 @@ namespace Discord_UWP.Gateway
         {
             _webMessageSocket.MessageReceived += OnSocketMessageReceived;
         }
+        public bool UseCompression;
         public async Task ConnectAsync()
         {
             string append = "";
@@ -151,6 +150,7 @@ namespace Discord_UWP.Gateway
             {
                 append = "&compress=zlib-stream";
             }
+            WebMessageSocket.UseCompression = UseCompression;
             await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
