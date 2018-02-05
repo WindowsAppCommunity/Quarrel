@@ -74,6 +74,23 @@ namespace Discord_UWP
         //private static bool started = false;
         //public static 
 
+        public static async void ChangeVolume(double value)
+        {
+            if(ready)
+                deviceOutputNode.OutgoingGain = value;
+        }
+        public static async void ChangeDeafStatus(bool deaf)
+        {
+            if (ready)
+                if (deaf)
+                {
+                    deviceOutputNode.Stop();
+                }
+                else
+                {
+                    deviceOutputNode.Start();
+                }
+        }
         public static async Task CreateAudioGraph()
         {
             Console.WriteLine("Creating AudioGraph");
