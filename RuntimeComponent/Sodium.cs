@@ -7,17 +7,6 @@ namespace RuntimeComponent
     public unsafe static class Cypher
     {
 
-#if !X86 && !X64 && !ARM //Should never happen
-        private static int Encrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
-        {
-            return -1;
-        }
-        private static int Decrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret)
-        {
-            return -1;
-        }
-#endif
-
 #if X86
         [DllImport("SodiumCWin32.dll", EntryPoint = "Encrypt", CallingConvention = CallingConvention.Cdecl)]
         private static extern int Encrypt(byte* output, byte* input, long inputLength, byte[] nonce, byte[] secret);
