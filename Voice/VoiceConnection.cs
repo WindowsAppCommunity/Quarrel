@@ -60,7 +60,7 @@ namespace Discord_UWP.Voice
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
-            _webMessageSocket = new WebMessageSocket(false);
+            _webMessageSocket = new WebMessageSocket();
             _udpSocket = new UDPSocket();
             _state = state;
             _voiceServerConfig = config;
