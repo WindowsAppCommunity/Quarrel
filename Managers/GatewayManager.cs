@@ -16,6 +16,7 @@ namespace Discord_UWP.Managers
     {
         public async static void StartGateway()
         {
+
             //Ready
             Gateway.Ready += Gateway_Ready;
             //Message
@@ -63,7 +64,6 @@ namespace Discord_UWP.Managers
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
             Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
 
-            Gateway.UseCompression = Storage.Settings.UseCompression;
             await Gateway.ConnectAsync();
         }
 
