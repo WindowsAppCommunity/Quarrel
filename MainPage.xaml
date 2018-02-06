@@ -1228,12 +1228,15 @@
                                             </Grid>
                                         </ListView.Header>
                                     </ListView>
-                                    <ListViewItem Visibility="Collapsed" x:Name="AddChannelButton" Height="50" Tapped="AddChannelButton_Tapped">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
-                                            <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
-                                        </StackPanel>
-                                    </ListViewItem>
+                                    <StackPanel x:Name="AddChannelButton" Visibility="Collapsed">
+                                        <Rectangle Fill="White" Height="1" Margin="15"/>
+                                        <ListViewItem Height="25" Tapped="AddChannelButton_Tapped">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE109;" FontSize="22" Padding="0,0,15,0"/>
+                                                <TextBlock x:Uid="/Main/AddChannelTB" Text="Add Channel"/>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                    </StackPanel>
                                     <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 </StackPanel>
                             </ScrollViewer>
@@ -1254,8 +1257,8 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                             <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
-                            <controls:VoiceConnectionControl
-                                Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64"/>
+                            <!--<controls:VoiceConnectionControl
+                                Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64"/>-->
                             <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
