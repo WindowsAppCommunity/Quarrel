@@ -113,9 +113,34 @@ namespace Discord_UWP.Voice
             await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
         }
 
-        public void SendSpeaking(bool speaking)
+        public async void SendSpeaking(bool speaking)
         {
-            
+            if (speaking == false)
+            {
+                if (lastReady.HasValue)
+                {
+                    byte[] opus = new byte[15];
+                    byte[] nonce = makeHeader();
+                    Buffer.BlockCopy(nonce, 0, opus, 0, 12);
+                    opus[12] = 0xF8;
+                    opus[13] = 0xFF;
+                    opus[14] = 0xFE;
+                    Cypher.encrypt(opus, 12, 4096, opus, 12, nonce, secretkey);
+                    await _udpSocket.SendBytesAsync(opus);
+                }
+            }
+
+            var speakingPacket = new SocketFrame
+            {
+                Operation = OperationCode.Speaking.ToInt(),
+                Payload = new Speak()
+                {
+                    Speaking = speaking,
+                    Delay = 0,
+                    SSRC = lastReady.Value.SSRC
+                }
+            };
+            await _webMessageSocket.SendJsonObjectAsync(speakingPacket);
         }
 
         byte[] makeHeader()

@@ -10,7 +10,7 @@ namespace Discord_UWP.Voice.UpstreamEvents
     public struct Speak
     {
         [JsonProperty("speaking")]
-        public string Speaking { get; set; }
+        public bool Speaking { get; set; }
         [JsonProperty("delay")]
         public int Delay { get; set; }
         [JsonProperty("ssrc")]
