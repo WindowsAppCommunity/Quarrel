@@ -438,7 +438,7 @@ namespace Discord_UWP.Controls
         private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
             //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
-            App.ConnectToVoice(Id, App.CurrentGuildId);
+            App.ConnectToVoice(Id, App.CurrentGuildId, CName);
         }
 
         public void UpdateHidden()

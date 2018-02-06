@@ -22,11 +22,17 @@ namespace Discord_UWP.Controls
         public VoiceConnectionControl()
         {
             this.InitializeComponent();
+            App.VoiceConnectHandler += App_VoiceConnectHandler;
+        }
+
+        private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
+        {
+            ChannelName.Text = e.ChannelName;
         }
 
         private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Disconnect
+            App.ConnectToVoice(null, null, "");
         }
 
         private void MiniView_Click(object sender, RoutedEventArgs e)
