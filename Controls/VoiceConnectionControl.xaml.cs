@@ -57,5 +57,10 @@ namespace Discord_UWP.Controls
             //TODO: Change volume
             AudioManager.ChangeVolume(e.NewValue);
         }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Expanded.Visibility = Expanded.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }
