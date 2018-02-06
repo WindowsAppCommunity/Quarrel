@@ -1132,6 +1132,14 @@ namespace Discord_UWP
 
         private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
+            if (e.ChannelId != null)
+            {
+                VoiceController.Visibility = Visibility.Visible;
+            } else
+            {
+                VoiceController.Visibility = Visibility.Collapsed;
+            }
+
             await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
         }
         #endregion

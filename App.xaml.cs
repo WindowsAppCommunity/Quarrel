@@ -561,11 +561,12 @@ namespace Discord_UWP
         {
             public string ChannelId;
             public string GuildId;
+            public string ChannelName;
         }
         public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
-        public static void ConnectToVoice(string channelId, string guildId)
+        public static void ConnectToVoice(string channelId, string guildId, string ChannelName)
         {
-            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId });
+            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName});
         }
         #region Relations
         public class AddFriendArgs : EventArgs
