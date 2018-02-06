@@ -1275,7 +1275,13 @@ namespace Discord_UWP
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
-            AddChannelButton.Visibility = Visibility.Collapsed;
+            if (LocalState.Guilds[App.CurrentGuildId].permissions.ManageChannels || LocalState.Guilds[App.CurrentGuildId].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
+            {
+                AddChannelButton.Visibility = Visibility.Visible;
+            } else
+            {
+                AddChannelButton.Visibility = Visibility.Collapsed;
+            }
 
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
