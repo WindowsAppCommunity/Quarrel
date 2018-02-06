@@ -25,6 +25,13 @@ namespace Discord_UWP.Managers
             await VoiceConnection.ConnectAsync();
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
+
+            AudioManager.InputRecieved += AudioManager_InputRecieved;
+        }
+
+        private static void AudioManager_InputRecieved(object sender, float[] e)
+        {
+            //VoiceConnection.SendVoiceData(e);
         }
 
         private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
