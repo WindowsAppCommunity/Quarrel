@@ -66,9 +66,17 @@ namespace Discord_UWP
 
     public static class AudioManager
     {
+        public static event EventHandler<float[]> InputRecieved;
+
         static AudioGraph graph;
+
+        private static AudioDeviceInputNode deviceInputNode;
         private static AudioDeviceOutputNode deviceOutputNode;
+
+        private static AudioFrameOutputNode frameOutputNode;
         private static AudioFrameInputNode frameInputNode;
+
+
         private static double theta = 0;
         private static bool ready = false;
         //private static bool started = false;
@@ -96,8 +104,9 @@ namespace Discord_UWP
             Console.WriteLine("Creating AudioGraph");
             // Create an AudioGraph with default settings
             AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
-            //settings.EncodingProperties.SampleRate = 48000;
-            //settings.EncodingProperties.ChannelCount = 2;
+            //settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
+            //settings.DesiredSamplesPerQuantum = 920;
+            //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             CreateAudioGraphResult result = await AudioGraph.CreateAsync(settings);
 
             if (result.Status != AudioGraphCreationStatus.Success)
@@ -118,12 +127,12 @@ namespace Discord_UWP
             deviceOutputNode = deviceOutputNodeResult.DeviceOutputNode;
 
             // Create the FrameInputNode at the same format as the graph, except explicitly set stereo.
-            AudioEncodingProperties nodeEncodingProperties = graph.EncodingProperties;
-            nodeEncodingProperties.ChannelCount = 2;
-            frameInputNode = graph.CreateFrameInputNode(nodeEncodingProperties);
+            frameInputNode = graph.CreateFrameInputNode(graph.EncodingProperties);
             //frameInputNode = await AudioManager.CreateDeviceInputNode();
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
-            await CreateDeviceInputNode();
+
+            //TODO: Sending Audio
+            //await CreateDeviceInputNode();
 
             // Initialize the Frame Input Node in the stopped state
             frameInputNode.Start();
@@ -135,7 +144,6 @@ namespace Discord_UWP
             // Start the graph since we will only start/stop the frame input node
             graph.Start();
             ready = true;
-            
         }
 
         unsafe public static void AddFrame(float[] framedata, uint samples)
@@ -239,11 +247,13 @@ namespace Discord_UWP
 
         public static async Task CreateDeviceInputNode()
         {
-            Windows.Devices.Enumeration.DeviceInformationCollection devices =
-             await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Media.Devices.MediaDevice.GetAudioCaptureSelector());
+            frameOutputNode = graph.CreateFrameOutputNode();
+            graph.QuantumStarted += Graph_QuantumStarted;
 
-            // Show UI to allow the user to select a device
-            Windows.Devices.Enumeration.DeviceInformation selectedDevice = devices[0];
+            Windows.Devices.Enumeration.DeviceInformation selectedDevice =
+             await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
+
+            //TODO: Show UI to allow the user to select a device
 
             CreateAudioDeviceInputNodeResult result =
                 await graph.CreateDeviceInputNodeAsync(MediaCategory.Media, graph.EncodingProperties, selectedDevice);
@@ -253,7 +263,40 @@ namespace Discord_UWP
                 return;
             }
             
-            //graph.deviceInputNode = result.DeviceInputNode;
+            
+            deviceInputNode = result.DeviceInputNode;
+            deviceInputNode.AddOutgoingConnection(frameOutputNode);
+            frameOutputNode.Start();
+        }
+
+        private static void Graph_QuantumStarted(AudioGraph sender, object args)
+        {
+            AudioFrame frame = frameOutputNode.GetFrame();
+            ProcessFrameOutput(frame);
+        }
+
+        unsafe private static void ProcessFrameOutput(AudioFrame frame)
+        {
+            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+            using (IMemoryBufferReference reference = buffer.CreateReference())
+            {
+                byte* dataInBytes;
+                uint capacityInBytes;
+                float* dataInFloat;
+
+                // Get the buffer from the AudioFrame
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+
+                dataInFloat = (float*)dataInBytes;
+                float[] dataInFloats = new float[capacityInBytes/sizeof(float)];
+
+                for (int i = 0; i < capacityInBytes / sizeof(float); i++)
+                {
+                    dataInFloats[i] = dataInFloat[i];
+                }
+
+                InputRecieved?.Invoke(null, dataInFloats);
+            }
         }
 
         private static void node_QuantumStarted(AudioFrameInputNode sender, FrameInputNodeQuantumStartedEventArgs args)

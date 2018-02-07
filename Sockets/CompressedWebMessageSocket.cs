@@ -12,14 +12,14 @@ using Windows.Storage.Streams;
 
 namespace Discord_UWP.Sockets
 {
-    public class WebMessageSocket : IWebMessageSocket
+    public class CompressedWebMessageSocket : IWebMessageSocket
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         public event EventHandler<ConnectionClosedEventArgs> ConnectionClosed;
         private readonly MessageWebSocket _socket;
         private readonly DataWriter _dataWriter;
 
-        public WebMessageSocket()
+        public CompressedWebMessageSocket()
         {
             _socket = GetMessageWebSocket();
             _dataWriter = GetDataWriter();
@@ -29,6 +29,8 @@ namespace Discord_UWP.Sockets
         {
             var socket = new MessageWebSocket();
             socket.Control.MessageType = SocketMessageType.Utf8;
+            _compressed = new MemoryStream();
+            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
 
             socket.MessageReceived += HandleMessage;
             socket.Closed += HandleClosed;
@@ -67,8 +69,36 @@ namespace Discord_UWP.Sockets
 
         private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
-            var dr = e.GetDataReader();
-            OnMessageReceived(dr.ReadString(dr.UnconsumedBufferLength));
+            using (var datastr = e.GetDataStream().AsStreamForRead())
+            using (var ms = new MemoryStream())
+            {
+                datastr.CopyTo(ms);
+                ms.Position = 0;
+                byte[] data = new byte[ms.Length];
+                ms.Read(data, 0, (int)ms.Length);
+                int index = 0;
+                int count = data.Length;
+                using (var decompressed = new MemoryStream())
+                {
+                    if (data[0] == 0x78)
+                    {
+                        _compressed.Write(data, index + 2, count - 2);
+                        _compressed.SetLength(count - 2);
+                    }
+                    else
+                    {
+                        _compressed.Write(data, index, count);
+                        _compressed.SetLength(count);
+                    }
+
+                    _compressed.Position = 0;
+                    _decompressor.CopyTo(decompressed);
+                    _compressed.Position = 0;
+                    decompressed.Position = 0;
+                    using (var reader = new StreamReader(decompressed))
+                        OnMessageReceived(reader.ReadToEnd());
+                }
+            }
         }
         public void ConvertToBase64(Stream stream)
         {

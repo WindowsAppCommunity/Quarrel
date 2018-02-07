@@ -192,6 +192,7 @@
     <Compile Include="Sockets\IWebMessageSocket.cs" />
     <Compile Include="Sockets\IWebSocketExtensions.cs" />
     <Compile Include="Sockets\UDPSocket.cs" />
+    <Compile Include="Sockets\CompressedWebMessageSocket.cs" />
     <Compile Include="Sockets\WebMessageSocket.cs" />
     <Compile Include="Voice\DownstreamEvents\Hello.cs" />
     <Compile Include="Voice\DownstreamEvents\Ready.cs" />

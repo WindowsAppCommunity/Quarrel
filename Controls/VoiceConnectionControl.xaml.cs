@@ -22,11 +22,17 @@ namespace Discord_UWP.Controls
         public VoiceConnectionControl()
         {
             this.InitializeComponent();
+            App.VoiceConnectHandler += App_VoiceConnectHandler;
+        }
+
+        private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
+        {
+            ChannelName.Text = e.ChannelName;
         }
 
         private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Disconnect
+            App.ConnectToVoice(null, null, "");
         }
 
         private void MiniView_Click(object sender, RoutedEventArgs e)
@@ -50,6 +56,11 @@ namespace Discord_UWP.Controls
         {
             //TODO: Change volume
             AudioManager.ChangeVolume(e.NewValue);
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Expanded.Visibility = Expanded.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

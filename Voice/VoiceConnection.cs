@@ -44,8 +44,26 @@ namespace Discord_UWP.Voice
         private readonly VoiceServerUpdate _voiceServerConfig;
         private byte[] _nonce = new byte[24];
         private byte[] _data;
+
+        private float[] partialFrame = null;
+
+        private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
         private OpusDecoder decoder = new OpusDecoder(48000, 2);
-        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms// * 2 bytes per sample
+
+        private ushort sequence = 0;
+
+        private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
+
+        public const int SamplingRate = 48000;
+        public const int Channels = 2;
+        public const int FrameMillis = 20;
+
+        public const int SampleBytes = sizeof(float) * Channels;
+
+        public const int FrameSamplesPerChannel = SamplingRate / 1000 * FrameMillis;
+        public const int FrameSamples = FrameSamplesPerChannel * Channels;
+        public const int FrameBytes = FrameSamplesPerChannel * SampleBytes;
+
         private float[] output = new float[framesize*2];
 
         private byte[] secretkey;
@@ -107,22 +125,89 @@ namespace Discord_UWP.Voice
             await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
         }
 
-        public void SendSpeaking(bool speaking)
+        public async void SendSpeaking(bool speaking)
         {
-            
+            if (speaking == false)
+            {
+                if (lastReady.HasValue)
+                {
+                    byte[] opus = new byte[15];
+                    byte[] nonce = makeHeader();
+                    Buffer.BlockCopy(nonce, 0, opus, 0, 12);
+                    opus[12] = 0xF8;
+                    opus[13] = 0xFF;
+                    opus[14] = 0xFE;
+                    Cypher.encrypt(opus, 12, 4096, opus, 12, nonce, secretkey);
+                    await _udpSocket.SendBytesAsync(opus);
+                }
+            }
+
+            var speakingPacket = new SocketFrame
+            {
+                Operation = OperationCode.Speaking.ToInt(),
+                Payload = new Speak()
+                {
+                    Speaking = speaking,
+                    Delay = 0,
+                    SSRC = lastReady.HasValue ? lastReady.Value.SSRC : 0
+                }
+            };
+            await _webMessageSocket.SendJsonObjectAsync(speakingPacket);
         }
 
-        public void SendVoiceHeader()
+        byte[] makeHeader()
         {
-            //_rtpHeader[0] = 0x80;
-            //_rtpHeader[1] = 0x78;
+            byte[] header = new byte[24];
+            if (lastReady.HasValue)
+            {
+                header[0] = 0x80; //No extension
+                header[1] = 0x78;
 
-            //StreamEncryption.EncryptXSalsa20(new byte[12], new byte[12], secretkey);
+                byte[] seq = BitConverter.GetBytes(sequence);
+                header[2] = seq[0];
+                header[3] = seq[1];
+
+                byte[] time = BitConverter.GetBytes((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+                header[4] = time[0];
+                header[5] = time[1];
+                header[6] = time[2];
+                header[7] = time[3];
+
+                byte[] ssrc = BitConverter.GetBytes(lastReady.Value.SSRC);
+                header[8] = ssrc[0];
+                header[9] = ssrc[1];
+                header[10] = ssrc[2];
+                header[11] = ssrc[3];
+            }
+            return header;
         }
 
-        public void SendVoiceData()
+        public async void SendVoiceData(float[] frame)
         {
+            if (lastReady.HasValue)
+            {
+                if (partialFrame == null)
+                {
+                    partialFrame = frame;
+                } else
+                {
+                    float[] pcm = new float[1920];
+                    Buffer.BlockCopy(partialFrame, 0, pcm, 0, 960 * sizeof(float));
+                    Buffer.BlockCopy(frame, 0, pcm, 960 * sizeof(float), 960 * sizeof(float));
 
+                    byte[] buffer = new byte[FrameBytes];
+                    int encodedSize = encoder.Encode(pcm, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
+
+                    byte[] opus = new byte[encodedSize + 12 + 16];
+                    byte[] nonce = makeHeader();
+                    Buffer.BlockCopy(nonce, 0, opus, 0, 12);
+                    Buffer.BlockCopy(buffer, 0, opus, 0, encodedSize);
+
+                    Cypher.encrypt(opus, 12, opus.Length, opus, 12, nonce, secretkey);
+                    await _udpSocket.SendBytesAsync(opus);
+                    partialFrame = null;
+                }
+            }
         }
 
         async void IpDiscover(object sender, PacketReceivedEventArgs args)
