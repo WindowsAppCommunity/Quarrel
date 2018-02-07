@@ -54,8 +54,7 @@ namespace Discord_UWP.Controls
 
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            //TODO: Change volume
-            AudioManager.ChangeVolume(e.NewValue);
+            AudioManager.ChangeVolume(e.NewValue/100);
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)

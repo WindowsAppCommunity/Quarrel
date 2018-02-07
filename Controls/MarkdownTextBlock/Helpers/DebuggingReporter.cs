@@ -24,7 +24,7 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
             Debug.WriteLine(errorText);
             if (Debugger.IsAttached)
             {
-                Debugger.Break();
+                //Debugger.Break();
             }
         }
     }
