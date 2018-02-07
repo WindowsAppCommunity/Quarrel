@@ -31,7 +31,9 @@ namespace Discord_UWP.Managers
 
         private static void AudioManager_InputRecieved(object sender, float[] e)
         {
-            //VoiceConnection.SendVoiceData(e);
+            //TODO: silence detection
+            VoiceConnection.SendSpeaking(true);
+            VoiceConnection.SendVoiceData(e);
         }
 
         private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
