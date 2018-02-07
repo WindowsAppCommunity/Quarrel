@@ -64,7 +64,7 @@ namespace Discord_UWP.Controls
                 if (DisplayedMember == null) return;
                 username.Text = DisplayedMember.Raw.User.Username;
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
-                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
+                //Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
                 //if(DisplayedFriend.UserStatus != null)
                 //status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 //if (!Session.Online)

@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -1231,7 +1233,7 @@
             </Style>
             <Style x:Key="DiscordButton" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Padding" Value="12"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -1255,13 +1257,6 @@
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOver">
-                                            <VisualState.Setters>
-                                                <Setter Target="RootGrid.(RevealBrush.State)" Value="PointerOver" />
-                                                <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
-                                                <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushPointerOver}" />
-                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
-                                            </VisualState.Setters>
-
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
@@ -1277,13 +1272,6 @@
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Pressed">
-                                            <VisualState.Setters>
-                                                <Setter Target="RootGrid.(RevealBrush.State)" Value="Pressed" />
-                                                <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPressed}" />
-                                                <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushPressed}" />
-                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundPressed}" />
-                                            </VisualState.Setters>
-                                            
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
