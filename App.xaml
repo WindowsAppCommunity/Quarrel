@@ -1231,7 +1231,7 @@
             </Style>
             <Style x:Key="DiscordButton" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="Padding" Value="12"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -1255,6 +1255,13 @@
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootGrid.(RevealBrush.State)" Value="PointerOver" />
+                                                <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
+                                                <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushPointerOver}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                            </VisualState.Setters>
+
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
@@ -1270,6 +1277,13 @@
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootGrid.(RevealBrush.State)" Value="Pressed" />
+                                                <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPressed}" />
+                                                <Setter Target="ContentPresenter.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushPressed}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundPressed}" />
+                                            </VisualState.Setters>
+                                            
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
@@ -1300,10 +1314,9 @@
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <Border CornerRadius="4" x:Name="bgDisabled" Opacity="0" BorderBrush="{ThemeResource Greyple}" BorderThickness="1"/>
-                                <Border CornerRadius="4" x:Name="bgColor" Background="{TemplateBinding Background}"/>
+                                <Border x:Name="bgDisabled" Opacity="0" BorderBrush="{ThemeResource Greyple}" BorderThickness="1"/>
+                                <Border x:Name="bgColor" Background="{TemplateBinding Background}"/>
                                 <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
