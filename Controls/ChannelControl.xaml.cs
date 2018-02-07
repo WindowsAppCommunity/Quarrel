@@ -184,6 +184,8 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public List<VoiceState> VoiceMembers;
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as ChannelControl;
@@ -353,6 +355,37 @@ namespace Discord_UWP.Controls
                     //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
+
+                    VoiceMembers = new List<VoiceState>();
+                    foreach (var user in LocalState.VoiceDict.Values)
+                    {
+                        if (user.ChannelId == Id)
+                        {
+                            VoiceMembers.Add(user);
+                        }
+                    }
+
+                    if (VoiceMembers != null)
+                    {
+                        foreach (VoiceState member in VoiceMembers)
+                        {
+                            if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.UserId))
+                            {
+                                MemberList.Items.Add(member.UserId);
+                            }
+                        }
+                        //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
+                    }
+
+                    if (MemberList.Items.Count > 0)
+                    {
+                        MemberListEnd.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        MemberListEnd.Visibility = Visibility.Collapsed;
+                    }
+
                     Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
@@ -408,31 +441,6 @@ namespace Discord_UWP.Controls
             {
                 UpdateHidden();
             }
-            
-            //TODO: Vocie channels
-            //if (prop == MembersProperty)
-            //{
-            //    if (Members != null)
-            //    {
-            //        foreach (string member in Members)
-            //        {
-            //            if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member))
-            //            {
-            //                MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[member] });
-            //            }
-            //        }
-            //        //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
-            //    }
-
-            //    if (MemberList.Items.Count > 0)
-            //    {
-            //        MemberListEnd.Visibility = Visibility.Visible;
-            //    }
-            //    else
-            //    {
-            //        MemberListEnd.Visibility = Visibility.Collapsed;
-            //    }
-            //}
         }
 
         private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)

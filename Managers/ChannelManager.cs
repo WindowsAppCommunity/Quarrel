@@ -197,6 +197,13 @@ namespace Discord_UWP.Managers
                 set { if (_members == value) return; _members = value; OnPropertyChanged("Members"); }
             }
 
+            private List<VoiceState> _voiceMembers;
+            public List<VoiceState> VoiceMembers
+            {
+                get { return _voiceMembers; }
+                set { if (_voiceMembers == value) return; _voiceMembers = value; OnPropertyChanged("VoiceMembers"); }
+            }
+
             public event PropertyChangedEventHandler PropertyChanged;
             public void OnPropertyChanged(string propertyName)
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
@@ -323,11 +330,11 @@ namespace Discord_UWP.Managers
                         sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
 
-                        sc.Members = new Dictionary<string, User>();
-                        foreach (User user in channel.Users)
-                        {
-                            sc.Members.Add(user.Id, user);
-                        }
+                        //sc.Members = new Dictionary<string, User>();
+                        //foreach (User user in channel.Users)
+                        //{
+                        //    sc.Members.Add(user.Id, user);
+                        //}
 
                         if (channel.Name != null && channel.Name != "")
                         {
