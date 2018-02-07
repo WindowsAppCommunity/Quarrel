@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:c="using:Discord_UWP.Controls"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
@@ -36,7 +37,6 @@
     </Page.RenderTransform>
 
     <Grid>
-        <!--TODO: Add Parallax-->
         <Grid x:Name="rootgrid" Background="Transparent" Margin="-100" Padding="100,112" >
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="VisualStateGroup">
@@ -186,7 +186,7 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <Grid>
-                                    <Grid>
+                                    <Grid x:Name="FullAvatar">
                                         <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                         <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
                                             <Rectangle.Fill>

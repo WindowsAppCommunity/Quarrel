@@ -78,24 +78,26 @@ namespace Discord_UWP
             var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
             creds.RetrievePassword();
             Token = creds.Password;
-           
 
-                config = new DiscordApiConfiguration
-                {
-                    BaseUrl = "https://discordapp.com/api"
-                };
-                BasicRestFactory basicRestFactory = new BasicRestFactory(config);
 
-                IAuthenticator authenticator = new DiscordAuthenticator(Token);
-                AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
+            config = new DiscordApiConfiguration
+            {
+                BaseUrl = "https://discordapp.com/api"
+            };
+            BasicRestFactory basicRestFactory = new BasicRestFactory(config);
 
-                //TODO: Maybe restructure gateway setup
-                IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
+            IAuthenticator authenticator = new DiscordAuthenticator(Token);
+            AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
 
-                SharedModels.GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
-                GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
+            //TODO: Maybe restructure gateway setup
+            IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
 
+            GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
+
+            Gateway.Gateway.UseCompression = Storage.Settings.UseCompression;
+            GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
         }
+
         public static async Task<LoginResult> LoginMFA(string code, string ticket)
         {
             try

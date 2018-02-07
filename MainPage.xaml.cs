@@ -1151,6 +1151,14 @@ namespace Discord_UWP
 
         private async void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
+            if (e.ChannelId != null)
+            {
+                VoiceController.Visibility = Visibility.Visible;
+            } else
+            {
+                VoiceController.Visibility = Visibility.Collapsed;
+            }
+
             await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, true, false);
         }
         #endregion
@@ -1294,7 +1302,13 @@ namespace Discord_UWP
             ServerNameButton.Visibility = Visibility.Visible;
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
-            AddChannelButton.Visibility = Visibility.Collapsed;
+            if (LocalState.Guilds[App.CurrentGuildId].permissions.ManageChannels || LocalState.Guilds[App.CurrentGuildId].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
+            {
+                AddChannelButton.Visibility = Visibility.Visible;
+            } else
+            {
+                AddChannelButton.Visibility = Visibility.Collapsed;
+            }
 
             ChannelName.Text = /*CompChannelName.Text =*/ ChannelTopic.Text = /*CompChannelTopic.Text =*/ "";
 
