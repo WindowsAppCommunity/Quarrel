@@ -215,7 +215,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0"/> <!--TODO: Soundboard-->
             </Grid.ColumnDefinitions>
-            <Slider x:Name="VolumeSlider" Header="Volume" Value="0.75" Maximum="1" Minimum="0" SmallChange="0.01" LargeChange="0.1" ValueChanged="VolumeSlider_ValueChanged"/>
+            <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
         
         <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.Row="1" Grid.ColumnSpan="4"/>
