@@ -27,6 +27,7 @@ using Windows.ApplicationModel.ExtendedExecution;
 using System.Threading;
 
 using Discord_UWP.Managers;
+using Windows.Security.Credentials;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -90,7 +91,7 @@ namespace Discord_UWP
                 CinematicMask1.Visibility = Visibility.Visible;
                 CinematicMask2.Visibility = Visibility.Visible;
                 ControllerHints.Visibility = Visibility.Visible;
-                
+
             }
 
             //Setup BackButton
@@ -106,14 +107,14 @@ namespace Discord_UWP
             //Hook up the login Event
             App.LoggingInHandler += App_LoggingInHandlerAsync;
             //Verify if a token exists, if not navigate to login page
-            if(App.LoggedIn() == false)
+            if (App.LoggedIn() == false)
             {
                 SubFrameNavigator(typeof(LogScreen));
                 return;
             }
-            else 
+            else
             {
-                App_LoggingInHandlerAsync(null,null);
+                App_LoggingInHandlerAsync(null, null);
             }
 
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
@@ -144,12 +145,12 @@ namespace Discord_UWP
                 }
             }
             if (showabove && !prevshowabove)
-                NewAboveIndicator.Fade(0.8f,200).Start();
-            else if(prevshowabove != showabove)
+                NewAboveIndicator.Fade(0.8f, 200).Start();
+            else if (prevshowabove != showabove)
                 NewAboveIndicator.Fade(0, 200).Start();
             if (showbelow && !prevshowbelow)
                 NewBelowIndicator.Fade(0.8f, 200).Start();
-            else if(prevshowbelow != showbelow)
+            else if (prevshowbelow != showbelow)
                 NewBelowIndicator.Fade(0, 200).Start();
 
             prevshowbelow = showbelow;
@@ -166,9 +167,9 @@ namespace Discord_UWP
 
             Rect elementBounds = element.TransformToVisual(container).TransformBounds(new Rect(0.0, 0.0, element.ActualWidth, element.ActualHeight));
             Rect containerBounds = new Rect(0.0, 0.0, container.ActualWidth, container.ActualHeight);
-            if (elementBounds.Bottom<4)
+            if (elementBounds.Bottom < 4)
                 return VisibilityPosition.Above;
-            else if (elementBounds.Top>containerBounds.Bottom-32)
+            else if (elementBounds.Top > containerBounds.Bottom - 32)
                 return VisibilityPosition.Below;
             else return VisibilityPosition.Visible;
         }
@@ -216,8 +217,8 @@ namespace Discord_UWP
                 double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
                 if (fromTop < 100 && !DisableLoadingMessages)
                     LoadOlderMessages();
-             //   if (fromBottom < 100 && !DisableLoadingMessages)
-             //       LoadNewerMessages();
+                //   if (fromBottom < 100 && !DisableLoadingMessages)
+                //       LoadNewerMessages();
             }
         }
 
@@ -285,14 +286,14 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildDeletedHandler += App_GuildDeletedHandler;
-            
+
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
             //UpdateUI-Members
             App.MembersUpdatedHandler += App_MembersUpdatedHandler;
 
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
-            
+
         }
 
         private async void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
@@ -329,14 +330,14 @@ namespace Discord_UWP
         {
             string guild = e.GuildId;
             string channel = e.ChannelId;
-            foreach(GuildManager.SimpleGuild g in ServerList.Items)
+            foreach (GuildManager.SimpleGuild g in ServerList.Items)
             {
                 if (g.Id == guild)
                     ServerList.SelectedItem = g;
             }
-            if(channel != null)
+            if (channel != null)
             {
-                foreach(ChannelManager.SimpleChannel c in ChannelList.Items)
+                foreach (ChannelManager.SimpleChannel c in ChannelList.Items)
                 {
                     if (c.Id == e.ChannelId)
                         ChannelList.SelectedItem = c;
@@ -433,7 +434,7 @@ namespace Discord_UWP
 
                 bgTrigger = new ApplicationTrigger();
                 task.SetTrigger(bgTrigger);
-                
+
                 task.Register();
                 Console.WriteLine("Task registered");
                 return true;
@@ -516,7 +517,6 @@ namespace Discord_UWP
                 SetupEvents();
                 GatewayManager.StartGateway();
                 //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
-
                 BeginExtendedExecution();
                 try
                 {
@@ -575,6 +575,25 @@ namespace Discord_UWP
             } else
             {
                 SubFrameNavigator(typeof(LogScreen));
+            }
+        }
+
+        public class UserLogin {
+            public string Token { get; set; }
+            public string Name { get; set; }
+            public SolidColorBrush Foreground { get; set; }
+        }
+        private async void RefreshLoginList()
+        {
+            var tokens = Storage.PasswordVault.FindAllByResource("Token");
+            List<UserLogin> users = new List<UserLogin>();
+            foreach(var user in tokens)
+            {
+                UserLogin u = new UserLogin();
+                u.Name = user.UserName;
+                user.RetrievePassword();
+                u.Token = user.Password;
+                
             }
         }
         #endregion
@@ -2585,6 +2604,11 @@ namespace Discord_UWP
             {
                 App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeRequest());
             }
+        }
+
+        private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -82,7 +82,6 @@ namespace Discord_UWP
                 }
                 else if (result.Token != null)
                 {
-                    
                     App.LoggingIn();
                     App.SubpageClosed();
                 }
