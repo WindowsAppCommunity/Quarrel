@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Shapes;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Controls
 {
@@ -29,8 +30,8 @@ namespace Discord_UWP.Controls
     {
         public class SimpleMember : INotifyPropertyChanged
         {
-            private Member _member;
-            public Member Member
+            private VoiceState _member;
+            public VoiceState Member
             {
                 get { return _member; }
                 set { _member = value; OnPropertyChanged("Member"); }
@@ -41,14 +42,16 @@ namespace Discord_UWP.Controls
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         }
 
-        public Member DisplayedMember
+        private GuildMember member;
+        
+        public VoiceState DisplayedMember
         {
-            get { return (Member)GetValue(DisplayedMemberProperty); }
+            get { return (VoiceState)GetValue(DisplayedMemberProperty); }
             set { SetValue(DisplayedMemberProperty, value); }
         }
         public static readonly DependencyProperty DisplayedMemberProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
-            typeof(Member),
+            typeof(VoiceState),
             typeof(VoiceMemberControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
@@ -61,8 +64,9 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedMemberProperty)
             {
-                if (DisplayedMember == null) return;
-                username.Text = DisplayedMember.Raw.User.Username;
+                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedMember.UserId];
+                username.Text = member.User.Username;
+
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
                 //Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
                 //if(DisplayedFriend.UserStatus != null)
@@ -83,7 +87,7 @@ namespace Discord_UWP.Controls
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
         {
-            App.ShowMemberFlyout(this, DisplayedMember.Raw.User);
+            App.ShowMemberFlyout(this, member.User);
         }
     }
 }
