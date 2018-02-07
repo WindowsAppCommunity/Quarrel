@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
@@ -315,6 +316,7 @@ namespace Discord_UWP.Controls
             {
                 ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             }
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", FullAvatar);
             App.NavigateToProfile(DisplayedMember.User);
         }
 
