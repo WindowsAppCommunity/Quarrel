@@ -6,26 +6,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="50"
+    d:DesignWidth="250">
     <Grid VerticalAlignment="Top" Margin="0,6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-        <Rectangle Height="24" Width="24" RadiusX="12" RadiusY="12" Margin="0,0,12,0" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <!--<Rectangle Height="24" Width="24" RadiusX="12" RadiusY="12" Margin="0,0,12,0" VerticalAlignment="Top">
             <Rectangle.Fill>
                 <ImageBrush x:Name="Avatar"/>
             </Rectangle.Fill>
-        </Rectangle>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="15" FontWeight="Normal"/>
-            <!--<StackPanel Orientation="Horizontal">
-                <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
-                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
-            </StackPanel>-->
+        </Rectangle>-->
+        <TextBlock x:Name="username" Text="Username" Grid.Column="1" VerticalAlignment="Center" FontSize="15" FontWeight="Normal"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="2">
+            <FontIcon Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets"/>
+            <FontIcon Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets"/>
         </StackPanel>
         <!--<Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>-->
     </Grid>
