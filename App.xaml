@@ -220,7 +220,8 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Grid CornerRadius="0,4,4,0" x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <Grid CornerRadius="0,4,4,0" x:Name="RootGrid" BorderBrush="{TemplateBinding Background}" BorderThickness="2">
+                                
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
@@ -270,6 +271,7 @@
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
+                                
                                 <ContentPresenter CornerRadius="0,4,4,0" x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Grid>
                         </ControlTemplate>
@@ -1238,12 +1240,12 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Grid x:Name="RootGrid">
+                            <Grid x:Name="RootGrid" BorderBrush="{TemplateBinding Background}" BorderThickness="0.5">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
                                         <VisualState x:Name="Normal">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase/>
                                                     </DoubleAnimation.EasingFunction>
@@ -1258,7 +1260,7 @@
                                         </VisualState>
                                         <VisualState x:Name="PointerOver">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:0.2">
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase/>
                                                     </DoubleAnimation.EasingFunction>
@@ -1304,7 +1306,8 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Border x:Name="bgDisabled" Opacity="0" BorderBrush="{ThemeResource Greyple}" BorderThickness="1"/>
                                 <Border x:Name="bgColor" Background="{TemplateBinding Background}"/>
-                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Background}"/>
+
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
