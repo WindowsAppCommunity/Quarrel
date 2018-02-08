@@ -76,7 +76,7 @@ namespace Discord_UWP
         private static AudioFrameOutputNode frameOutputNode;
         private static AudioFrameInputNode frameInputNode;
 
-
+        private static int quantum = 0;
         private static double theta = 0;
         private static bool ready = false;
         //private static bool started = false;
@@ -103,9 +103,9 @@ namespace Discord_UWP
         {
             Console.WriteLine("Creating AudioGraph");
             // Create an AudioGraph with default settings
-            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
+            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.GameChat);
             //settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
-            //settings.DesiredSamplesPerQuantum = 920;
+            //settings.DesiredSamplesPerQuantum = 960;
             //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             CreateAudioGraphResult result = await AudioGraph.CreateAsync(settings);
 
@@ -128,11 +128,10 @@ namespace Discord_UWP
 
             // Create the FrameInputNode at the same format as the graph, except explicitly set stereo.
             frameInputNode = graph.CreateFrameInputNode(graph.EncodingProperties);
-            //frameInputNode = await AudioManager.CreateDeviceInputNode();
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
 
             //TODO: Sending Audio
-            //await CreateDeviceInputNode();
+            await CreateDeviceInputNode();
 
             // Initialize the Frame Input Node in the stopped state
             frameInputNode.Start();
@@ -247,7 +246,12 @@ namespace Discord_UWP
 
         public static async Task CreateDeviceInputNode()
         {
-            frameOutputNode = graph.CreateFrameOutputNode();
+            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
+            settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
+            settings.DesiredSamplesPerQuantum = 960;
+            settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
+            frameOutputNode = graph.CreateFrameOutputNode(settings.EncodingProperties);
+            quantum = 0;
             graph.QuantumStarted += Graph_QuantumStarted;
 
             Windows.Devices.Enumeration.DeviceInformation selectedDevice =
@@ -256,7 +260,7 @@ namespace Discord_UWP
             //TODO: Show UI to allow the user to select a device
 
             CreateAudioDeviceInputNodeResult result =
-                await graph.CreateDeviceInputNodeAsync(MediaCategory.Media, graph.EncodingProperties, selectedDevice);
+                await graph.CreateDeviceInputNodeAsync(MediaCategory.Media, settings.EncodingProperties, selectedDevice);
             if (result.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
@@ -271,8 +275,11 @@ namespace Discord_UWP
 
         private static void Graph_QuantumStarted(AudioGraph sender, object args)
         {
-            AudioFrame frame = frameOutputNode.GetFrame();
-            ProcessFrameOutput(frame);
+           if (++quantum % 2 == 0)
+           {
+              AudioFrame frame = frameOutputNode.GetFrame();
+              ProcessFrameOutput(frame);
+           }
         }
 
         unsafe private static void ProcessFrameOutput(AudioFrame frame)
