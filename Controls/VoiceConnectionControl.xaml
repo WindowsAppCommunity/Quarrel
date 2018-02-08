@@ -206,8 +206,8 @@
             <ColumnDefinition Width="0"/> <!--TODO: Show connection status-->
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="Expanded" Visibility="Collapsed" Grid.ColumnSpan="5">
@@ -222,7 +222,7 @@
         <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="2" Grid.Column="1" Margin="0,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
         <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="2" Grid.Column="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
         
-        <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" Width="65" FontSize="18" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
-        <ToggleButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Margin="-4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click"/>
+        <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" FontSize="18" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+        <ToggleButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.Column="4" Margin="0,-4,-4,4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click"/>
     </Grid>
 </UserControl>
