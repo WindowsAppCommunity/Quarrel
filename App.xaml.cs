@@ -16,6 +16,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Core;
@@ -755,7 +756,8 @@ namespace Discord_UWP
         internal const bool AslansBullshit = false;
         internal const bool e2e = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
-        //internal static MediaPlayer mediaPlayer;
+
+        internal static ImageSource navImageCache = null;
 
         internal static List<string> eventList = new List<string>();
 

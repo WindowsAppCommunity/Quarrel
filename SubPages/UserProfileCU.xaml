@@ -207,7 +207,7 @@
                                 </StackPanel>
                             </StackPanel>
                             <Grid>
-                                <Grid>
+                                <Grid x:Name="FullAvatar">
                                     <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Rectangle.Fill>
