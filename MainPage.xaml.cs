@@ -106,6 +106,9 @@ namespace Discord_UWP
 
             //Hook up the login Event
             App.LoggingInHandler += App_LoggingInHandlerAsync;
+
+            UISize.CurrentStateChanged += UISize_CurrentStateChanged;
+
             //Verify if a token exists, if not navigate to login page
             if (App.LoggedIn() == false)
             {
@@ -119,6 +122,19 @@ namespace Discord_UWP
 
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
 
+        }
+
+        private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            if (e.NewState == Large || e.NewState == ExtraLarge)
+            {
+                PCAd.Visibility = Visibility.Visible;
+                MobileAd.Visibility = Visibility.Collapsed;
+            } else
+            {
+                PCAd.Visibility = Visibility.Collapsed;
+                MobileAd.Visibility = Visibility.Visible;
+            }
         }
 
         private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -2352,9 +2368,17 @@ namespace Discord_UWP
                     {
                         ChannelSelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
 
-                        if (!App.ShowAds)
+                        if (App.ShowAds)
                         {
-                            Ad.Visibility = Visibility.Collapsed;
+                            if (UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge)
+                            {
+                                PCAd.Visibility = Visibility.Visible;
+                                MobileAd.Visibility = Visibility.Collapsed;
+                            } else
+                            {
+                                PCAd.Visibility = Visibility.Collapsed;
+                                MobileAd.Visibility = Visibility.Visible;
+                            }
                         }
 
                         if (ChannelList.SelectedItem != null) //Called on clear
@@ -2403,7 +2427,6 @@ namespace Discord_UWP
                             }
                         }
                     }
-
                 }
                 else
                 {
