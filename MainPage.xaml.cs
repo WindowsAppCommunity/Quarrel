@@ -121,7 +121,6 @@ namespace Discord_UWP
             }
 
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
-
         }
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
