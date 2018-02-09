@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources.Core;
 
 using RuntimeComponent;
 
@@ -37,6 +38,8 @@ namespace Discord_UWP.Voice
 
         private Ready? lastReady;
         private SocketFrame? lastEvent;
+
+        private bool mobile;
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly UDPSocket _udpSocket;
@@ -79,6 +82,9 @@ namespace Discord_UWP.Voice
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
+            var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+            mobile = (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+
             _webMessageSocket = new WebMessageSocket();
             _udpSocket = new UDPSocket();
             _state = state;
@@ -195,26 +201,20 @@ namespace Discord_UWP.Voice
         {
             if (lastReady.HasValue && frame.Length == 1920)
             {
-                //if (partialFrame == null)
-                //{
-                //    partialFrame = frame;
-                //} else
-                //{
-                    //float[] pcm = new float[1920];
-                    //Buffer.BlockCopy(frame, 0, pcm, 0, 960 * sizeof(float));
-                    //Buffer.BlockCopy(frame, 0, pcm, 960 * sizeof(float), 960 * sizeof(float));
+                int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
 
-                    int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
-
-                    byte[] opus = new byte[encodedSize + 12 + 16];
-                    byte[] nonce = makeHeader();
-                    Buffer.BlockCopy(nonce, 0, opus, 0, 12);
-                    Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
-
+                byte[] opus = new byte[encodedSize + 12 + 16];
+                byte[] nonce = makeHeader();
+                Buffer.BlockCopy(nonce, 0, opus, 0, 12);
+                Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
+                if (!mobile)
+                {
                     Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
-                    await _udpSocket.SendBytesAsync(opus);
-                    //partialFrame = null;
-                //}
+                } else
+                {
+                    //TODO: Libsodium
+                }
+                await _udpSocket.SendBytesAsync(opus);
             }
         }
 
@@ -366,10 +366,16 @@ namespace Discord_UWP.Voice
                     Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                     _data = new byte[packet.Length - 12 - 16];
 
-                    int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
-                    if (_data.Length != outputLength)
+                    if (!mobile)
                     {
-                        throw new Exception("UGHHHH...."); //Conflicting sizes
+                        int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
+                        if (_data.Length != outputLength)
+                        {
+                            throw new Exception("UGHHHH...."); //Conflicting sizes
+                        }
+                    } else
+                    {
+                        //TODO: Libsodium
                     }
 
                     int headerSize = GetHeaderSize(packet, _data);
