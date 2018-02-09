@@ -206,14 +206,29 @@ namespace Discord_UWP.Controls
 
             if (prop == IsSelectedProperty)
             {
-                if (IsSelected)
+                if (Type == 2)
                 {
-                    SelectIndicator.Fade(1, 200).Start();
+                    if (IsSelected)
+                    {
+                        ChannelName.Fade(1, 200).Start();
+                        VoiceIcon.Fade(1, 200).Start();
+                    }
+                    else
+                    {
+                        ChannelName.Fade(0.6f, 200).Start();
+                        VoiceIcon.Fade(0.6f, 200).Start();
+                    }
                 }
-                else
-                {
-                    SelectIndicator.Fade(0, 200).Start();
-                }
+                    if (IsSelected)
+                    {
+                        SelectIndicator.Fade(1, 200).Start();
+                    }
+                    else
+                    {
+                        SelectIndicator.Fade(0, 200).Start();
+                    }
+                
+
             }
 
             if (prop == UserStatusProperty)

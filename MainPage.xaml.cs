@@ -736,7 +736,7 @@ namespace Discord_UWP
                         ChannelList.SelectedItem = chn;
                         chn.IsSelected = true;
                     }
-                    else
+                    else if(chn.Type != 2)
                     {
                         chn.IsSelected = false;
                     }
@@ -750,7 +750,7 @@ namespace Discord_UWP
             foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 if (chn.Id == e.ChannelId)
                     chn.IsSelected = true;
-                else
+                else if(chn.Type != 2)
                     chn.IsSelected = false;
             UpdateTyping();
         }
@@ -1173,7 +1173,16 @@ namespace Discord_UWP
             {
                 VoiceController.Hide();
             }
-
+            foreach(ChannelManager.SimpleChannel chn in ChannelList.Items)
+            {
+                if(chn.Type == 2)
+                {
+                    if (e.ChannelId == chn.Id)
+                        chn.IsSelected = true;
+                    else
+                        chn.IsSelected = false;
+                }
+            }
             await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, LocalState.VoiceState.SelfMute, LocalState.VoiceState.SelfMute);
         }
         #endregion
@@ -2401,7 +2410,6 @@ namespace Discord_UWP
                             else if (channel.Type == 2) //VOICE
                             {
                                 IgnoreChange = true;
-                                channel.IsSelected = true;
                                 App.ConnectToVoice(channel.Id, App.CurrentGuildId, channel.Name, LocalState.Guilds[App.CurrentGuildId].Raw.Name);
                                 if (previousSelection == null)
                                     ChannelList.SelectedIndex = -1;
