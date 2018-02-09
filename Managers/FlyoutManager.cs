@@ -119,9 +119,9 @@ namespace Discord_UWP.Managers
             App.NavigateToDMChannel((sender as MenuFlyoutItem).Tag.ToString(), null, false, false, true);
         }
 
-        public static void KickMember(object sender, RoutedEventArgs e)
+        public static async void KickMember(object sender, RoutedEventArgs e)
         {
-            //App.NavigateToCreateBan((sender as MenuFlyoutItem).Tag.ToString());
+            await RESTCalls.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
         }
 
         public static void BanMember(object sender, RoutedEventArgs e)
