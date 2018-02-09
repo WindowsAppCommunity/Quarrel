@@ -1168,10 +1168,10 @@ namespace Discord_UWP
         {
             if (e.ChannelId != null)
             {
-                VoiceController.Visibility = Visibility.Visible;
+                VoiceController.Show();
             } else
             {
-                VoiceController.Visibility = Visibility.Collapsed;
+                VoiceController.Hide();
             }
 
             await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, LocalState.VoiceState.SelfMute, LocalState.VoiceState.SelfMute);

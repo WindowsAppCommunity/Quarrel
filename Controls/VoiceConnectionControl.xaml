@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="150"
-    d:DesignWidth="250" RequestedTheme="Dark">
+    d:DesignWidth="250" RequestedTheme="Dark" x:Name="ContentGrid">
     <UserControl.Resources>
         <Style x:Key="ToggleButtonStyle1" TargetType="ToggleButton">
             <Setter Property="Background" Value="{ThemeResource ToggleButtonBackground}"/>
@@ -192,45 +192,106 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </UserControl.Resources>
+        <Storyboard x:Name="ShowExpanded">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Expanded" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Visible" KeyTime="0"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Expanded" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ExpandedTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="64"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HideExpanded">
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="Expanded" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ExpandedTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="64"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Expanded" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Collapsed" KeyTime="0:0:0.3"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="ShowContent">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGrid" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Visible" KeyTime="0"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ContentGrid" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ContentTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="64"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
 
-    <Grid Background="{ThemeResource AcrylicUserBackgroundDarker}" BorderThickness="0,0,0,0">
+        </Storyboard>
+        <Storyboard x:Name="HideContent">
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ContentGrid" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ContentTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="64"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentGrid" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Collapsed" KeyTime="0:0:0.3"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.RenderTransform>
+        <TranslateTransform x:Name="ContentTranslate"/>
+    </UserControl.RenderTransform>
+    <Grid BorderThickness="0,0,0,0">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0"/> <!--TODO: Show connection status-->
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.5*"/>
-            <ColumnDefinition Width="0.5*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid x:Name="Expanded" Visibility="Collapsed" Grid.ColumnSpan="5">
+        <Grid x:Name="Expanded" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="ExpandedTranslate"/>
+            </Grid.RenderTransform>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0"/> <!--TODO: Soundboard-->
             </Grid.ColumnDefinitions>
             <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
-        
-        <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.Row="1" Grid.ColumnSpan="4" FontSize="12" Padding="8,8,0,8"/>
-        <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="2" Grid.Column="1" Margin="0,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
-        <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="2" Grid.Column="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
-        
-        <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
-        <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
-        <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-                    <GradientStop Offset="1"/>
-                    <GradientStop Color="Black" Offset="0"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Grid Grid.Row="1" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <!--TODO: Show connection status-->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="4" FontSize="12" Padding="8,8,0,8"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="1" Grid.Column="1" Margin="0,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="1" Grid.Column="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
+
+            <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+            <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
+            <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                        <GradientStop Offset="1"/>
+                        <GradientStop Color="Black" Offset="0"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
     </Grid>
 </UserControl>

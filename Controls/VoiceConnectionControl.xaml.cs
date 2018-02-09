@@ -25,7 +25,14 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             App.VoiceConnectHandler += App_VoiceConnectHandler;
         }
-
+        public void Show()
+        {
+            ShowContent.Begin();
+        }
+        public void Hide()
+        {
+            HideContent.Begin();
+        }
         private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
             ChannelName.Text = e.ChannelName;
@@ -60,7 +67,10 @@ namespace Discord_UWP.Controls
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            Expanded.Visibility = Expanded.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            if (Expanded.Visibility == Visibility.Visible)
+                HideExpanded.Begin();
+            else
+                ShowExpanded.Begin();
         }
     }
 }
