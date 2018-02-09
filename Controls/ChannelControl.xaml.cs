@@ -377,14 +377,6 @@ namespace Discord_UWP.Controls
                         //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                     }
 
-                    if (MemberList.Items.Count > 0)
-                    {
-                        MemberListEnd.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        MemberListEnd.Visibility = Visibility.Collapsed;
-                    }
 
                     Tapped += JoinVoiceChannel;
                 }

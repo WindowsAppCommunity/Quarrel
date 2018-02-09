@@ -1143,6 +1143,7 @@ namespace Discord_UWP
                 if (brush.GetType() == typeof(AcrylicBrush))
                     return; // this means that resources have already been initialized (=app pelaunched)
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
+                var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
                 if (!App.CinematicMode && Storage.Settings.EnableAcrylic)
                 {
                     
@@ -1164,7 +1165,7 @@ namespace Discord_UWP
                         FallbackColor = GuildColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
                     };
-                    var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                   
                     App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
                     {
                         TintOpacity = Storage.Settings.CmdOpacity,
@@ -1190,6 +1191,15 @@ namespace Discord_UWP
                     //Opacity = 1,
                     TintColor = UserBackground,
                     FallbackColor = UserBackground,
+                    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                };
+
+                App.Current.Resources["AcrylicUserBackgroundDarker"] = new AcrylicBrush()
+                {
+                    TintOpacity = 0.3,
+                    //Opacity = 1,
+                    TintColor = CommandBarColor,
+                    FallbackColor = CommandBarColor,
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
                 };
 

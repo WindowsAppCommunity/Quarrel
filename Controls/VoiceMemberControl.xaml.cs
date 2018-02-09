@@ -55,6 +55,17 @@ namespace Discord_UWP.Controls
             typeof(VoiceMemberControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        public string DisplayedUserId
+        {
+            get { return (string)GetValue(DisplayedUserIdProperty); }
+            set { SetValue(DisplayedUserIdProperty, value); }
+        }
+        public static readonly DependencyProperty DisplayedUserIdProperty = DependencyProperty.Register(
+            nameof(DisplayedUserId),
+            typeof(string),
+            typeof(VoiceMemberControl),
+            new PropertyMetadata("", OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as VoiceMemberControl;
@@ -62,11 +73,10 @@ namespace Discord_UWP.Controls
         }
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == DisplayedMemberProperty)
+            if (prop == DisplayedUserIdProperty)
             {
                 member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedMember.UserId];
                 username.Text = member.User.Username;
-
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
                 //Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
                 //if(DisplayedFriend.UserStatus != null)
