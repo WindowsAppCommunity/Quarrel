@@ -2401,6 +2401,8 @@ namespace Discord_UWP
                             else if (channel.Type == 2) //VOICE
                             {
                                 IgnoreChange = true;
+                                channel.IsSelected = true;
+                                App.ConnectToVoice(channel.Id, App.CurrentGuildId, channel.Name, LocalState.Guilds[App.CurrentGuildId].Raw.Name);
                                 if (previousSelection == null)
                                     ChannelList.SelectedIndex = -1;
                                 else
@@ -2410,6 +2412,7 @@ namespace Discord_UWP
                             {
                                 sideDrawer.CloseLeft();
                                 previousSelection = ChannelList.SelectedItem;
+                               
                                 if (App.CurrentGuildIsDM)
                                 {
                                     var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
