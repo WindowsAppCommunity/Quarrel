@@ -50,7 +50,7 @@ namespace Discord_UWP.Controls
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Toggle local mute
-            App.localMute = !App.localMute;
+            App.UpdateLocalMute(!LocalModels.LocalState.VoiceState.SelfMute);
         }
 
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
