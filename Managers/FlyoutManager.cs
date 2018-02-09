@@ -116,7 +116,7 @@ namespace Discord_UWP.Managers
 
         public static void MessageUser(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel((sender as MenuFlyoutItem).Tag.ToString());
+            App.NavigateToDMChannel((sender as MenuFlyoutItem).Tag.ToString(), null, false, false, true);
         }
 
         public static void KickMember(object sender, RoutedEventArgs e)
