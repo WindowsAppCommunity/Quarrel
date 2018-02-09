@@ -82,8 +82,8 @@ namespace Discord_UWP.Voice
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
-            var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-            mobile = (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+            //var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+            //mobile = (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
 
             _webMessageSocket = new WebMessageSocket();
             _udpSocket = new UDPSocket();
