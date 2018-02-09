@@ -728,7 +728,7 @@ namespace Discord_UWP.Managers
         #region Voice
         private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
-            await AudioManager.CreateAudioGraph();
+            await AudioManager.CreateAudioGraphs();
             VoiceManager.VoiceConnection = new Voice.VoiceConnection(e.EventData, LocalState.VoiceState);
             VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
