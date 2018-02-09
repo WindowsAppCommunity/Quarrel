@@ -563,11 +563,12 @@ namespace Discord_UWP
             public string ChannelId;
             public string GuildId;
             public string ChannelName;
+            public string GuildName;
         }
         public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
-        public static void ConnectToVoice(string channelId, string guildId, string ChannelName)
+        public static void ConnectToVoice(string channelId, string guildId, string ChannelName, string GuildName)
         {
-            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName});
+            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName, GuildName=GuildName});
         }
 
         public static void UpdateLocalMute(bool muted)

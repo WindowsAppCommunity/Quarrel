@@ -24,7 +24,17 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             App.VoiceConnectHandler += App_VoiceConnectHandler;
+            App.NavigateToGuildHandler += App_NavigateToGuildHandler;
         }
+        string guildid = "";
+        private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
+        {
+            if (e.GuildId != guildid && ChannelGrid.Visibility == Visibility.Collapsed)
+                ShowChannel.Begin();
+            else if (ChannelGrid.Visibility != Visibility.Collapsed)
+                HideChannel.Begin();
+        }
+
         public void Show()
         {
             ShowContent.Begin();
@@ -35,12 +45,14 @@ namespace Discord_UWP.Controls
         }
         private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
+            guildid = e.GuildId;
             ChannelName.Text = e.ChannelName;
+            GuildName.Text = e.GuildName;
         }
 
         private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            App.ConnectToVoice(null, null, "");
+            App.ConnectToVoice(null, null, "","");
         }
 
         private async void MiniView_Click(object sender, RoutedEventArgs e)
@@ -71,6 +83,11 @@ namespace Discord_UWP.Controls
                 HideExpanded.Begin();
             else
                 ShowExpanded.Begin();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToGuild(guildid);
         }
     }
 }

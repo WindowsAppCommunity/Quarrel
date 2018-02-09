@@ -245,6 +245,32 @@
                 <DiscreteObjectKeyFrame Value="Collapsed" KeyTime="0:0:0.3"/>
             </ObjectAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="ShowChannel">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ChannelGrid" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Visible" KeyTime="0"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ChannelGrid" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ChannelTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="32"/>
+                <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.467" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HideChannel">
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ChannelGrid" Storyboard.TargetProperty="Opacity">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.3" Storyboard.TargetName="ChannelTranslate" Storyboard.TargetProperty="Y">
+                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <SplineDoubleKeyFrame KeySpline="0.2,0 0,1" KeyTime="0:0:0.167" Value="32"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ChannelGrid" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame Value="Collapsed" KeyTime="0:0:0.3"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
@@ -252,6 +278,7 @@
     <Grid BorderThickness="0,0,0,0">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -265,7 +292,19 @@
             </Grid.ColumnDefinitions>
             <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
-        <Grid Grid.Row="1" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid x:Name="ChannelGrid" Visibility="Collapsed" Grid.Row="1" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="ChannelTranslate"/>
+            </Grid.RenderTransform>
+            <Button Style="{StaticResource DiscordOpaqueButton}" Background="Transparent" Padding="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="Button_Click">
+                <StackPanel  Padding="8,8,0,8">
+                    <TextBlock x:Name="GuildName" Text="Guild Name" Grid.ColumnSpan="4" FontSize="11" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="4" FontSize="11" FontWeight="Light"/>
+                </StackPanel>
+            </Button>
+            
+        </Grid>
+        <Grid Grid.Row="2" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -275,14 +314,13 @@
                 <!--TODO: Show connection status-->
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.ColumnSpan="4" FontSize="12" Padding="8,8,0,8"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="1" Grid.Column="1" Margin="0,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="1" Grid.Column="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
 
-            <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+            <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
             <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
             <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
                 <Rectangle.Fill>
