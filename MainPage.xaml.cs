@@ -1342,6 +1342,8 @@ namespace Discord_UWP
 
             foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()))
             {
+                if (VoiceController.channelid == channel.Id)
+                    channel.IsSelected = true;
                 ChannelList.Items.Add(channel);
             }
 

@@ -212,13 +212,17 @@ namespace Discord_UWP.Controls
                     {
                         ChannelName.Fade(1, 200).Start();
                         VoiceIcon.Fade(1, 200).Start();
+                        SelectIndicator.Fade(0.6f, 200).Start();
                     }
                     else
                     {
                         ChannelName.Fade(0.6f, 200).Start();
                         VoiceIcon.Fade(0.6f, 200).Start();
+                        SelectIndicator.Fade(0.6f, 200).Start();
                     }
                 }
+                else
+                {
                     if (IsSelected)
                     {
                         SelectIndicator.Fade(1, 200).Start();
@@ -227,6 +231,8 @@ namespace Discord_UWP.Controls
                     {
                         SelectIndicator.Fade(0, 200).Start();
                     }
+                }
+
                 
 
             }
