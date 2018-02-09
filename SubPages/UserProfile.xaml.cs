@@ -64,6 +64,11 @@ namespace Discord_UWP.SubPages
 
             ConnectedAnimation imageAnimation =
         ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            if (App.navImageCache != null)
+            {
+                AvatarFull.ImageSource = App.navImageCache;
+                App.navImageCache = null;
+            }
             if (imageAnimation != null)
             {
                 imageAnimation.TryStart(FullAvatar);
@@ -241,7 +246,10 @@ namespace Discord_UWP.SubPages
             }
 
             var image = new BitmapImage(Common.AvatarUri(profile.User.Avatar, profile.User.Id));
-            AvatarFull.ImageSource = image;
+            if (AvatarFull.ImageSource == null)
+            {
+                AvatarFull.ImageSource = image;
+            }
             AvatarBlurred.Source = image;
 
             if (profile.User.Avatar != null)

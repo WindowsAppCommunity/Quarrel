@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Discord_UWP.Gateway;
@@ -60,6 +61,18 @@ namespace Discord_UWP.SubPages
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            ConnectedAnimation imageAnimation =
+         ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            if (App.navImageCache != null)
+            {
+                AvatarFull.ImageSource = App.navImageCache;
+                App.navImageCache = null;
+            }
+            if (imageAnimation != null)
+            {
+                imageAnimation.TryStart(FullAvatar);
+            }
 
             if (e.Parameter is User)
             {
@@ -229,7 +242,10 @@ namespace Discord_UWP.SubPages
 
 
             var image = new BitmapImage(Common.AvatarUri(profile.User.Avatar, profile.User.Id));
-            AvatarFull.ImageSource = image;
+            if (AvatarFull.ImageSource == null)
+            {
+                AvatarFull.ImageSource = image;
+            }
             AvatarBlurred.Source = image;
 
             if (profile.User.Avatar != null)

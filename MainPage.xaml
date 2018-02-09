@@ -1076,7 +1076,8 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <!--<Rectangle x:Name="BackgroundImage"/>--> <!--TODO-->
+            <!--<Rectangle x:Name="BackgroundImage"/>-->
+            <!--TODO-->
             <Grid Grid.Row="1" Background="{ThemeResource AcrylicChannelPaneBackground}">
                 <controls:SideDrawer x:Name="sideDrawer" SecondaryLeftFocused="sideDrawer_SecondaryLeftFocused_1">
                     <controls:SideDrawer.ContentLeft>
@@ -1106,7 +1107,7 @@
                                             </Button.Content>
                                         </Button>
                                     </ListView.Footer>
-                                    
+
                                 </ListView>
                             </ScrollViewer>
                             <Rectangle x:Name="NewAboveIndicator" Opacity="0" Height="72" IsHitTestVisible="False" VerticalAlignment="Top">
@@ -1345,15 +1346,15 @@
                                     <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <ads:AdControl x:Name="Ad" HorizontalAlignment="Center"
-                                               Background="Transparent"
-                                               Height="50" Width="300"
+                                <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
+                                               Visibility="Collapsed" Background="Transparent"
+                                               Height="50" Width="320"
                                                ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
-                                               AdUnitId="336795"
-                                               />
+                                               AdUnitId="336795"/>
                                 <!--<controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>-->
                             </StackPanel>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
+
                             <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -1513,11 +1514,10 @@
                                 <TextBlock x:Name="ChannelName" Text="Channel Name" FontWeight="SemiBold"/>
                                 <md:MarkdownTextBlock x:Name="ChannelTopic" LineHeight="24" Text="Channel Topic" FontSize="10" FontFamily="Assets/emojifont.ttf#Twitter Color Emoji" Margin="0,5,0,0" IsTextSelectionEnabled="False"/>
                             </StackPanel>
-                            
                         </StackPanel>
                     </CommandBar.Content>
                     <CommandBar.PrimaryCommands>
-                                 <!--<AppBarButton x:Name="RecentMentions" Icon="Pin" Label="Show Pinned Messages">
+                        <!--<AppBarButton x:Name="RecentMentions" Icon="Pin" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                                     <Pivot Title="Recent Mentions">
@@ -1578,6 +1578,12 @@
                 </CommandBar>
             </StackPanel>
         </Grid>
+
+        <ads:AdControl x:Name="PCAd" VerticalAlignment="Top" HorizontalAlignment="Center"
+                                               Visibility="Collapsed" Background="Transparent"
+                                               Height="50" Width="320"
+                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               AdUnitId="336795"/>
 
         <Rectangle x:Name="SubFrameMask" IsHitTestVisible="False" Grid.ColumnSpan="12" Grid.RowSpan="12" Opacity="0" Fill="Black"/>
         <Frame x:Name="SubFrame" Visibility="Collapsed" Canvas.ZIndex="9999">

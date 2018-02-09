@@ -206,8 +206,8 @@
             <ColumnDefinition Width="0"/> <!--TODO: Show connection status-->
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
         <Grid x:Name="Expanded" Visibility="Collapsed" Grid.ColumnSpan="5">
@@ -215,7 +215,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0"/> <!--TODO: Soundboard-->
             </Grid.ColumnDefinitions>
-            <Slider x:Name="VolumeSlider" Header="Volume" Value="0.75" Maximum="1" Minimum="0" SmallChange="0.01" LargeChange="0.1" StepFrequency="0.01" ValueChanged="VolumeSlider_ValueChanged"/>
+            <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
         
         <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.Row="1" Grid.ColumnSpan="4" FontSize="12" Padding="8,8,0,8"/>
