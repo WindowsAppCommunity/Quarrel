@@ -1174,7 +1174,7 @@ namespace Discord_UWP
                 VoiceController.Visibility = Visibility.Collapsed;
             }
 
-            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, false, false);
+            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, LocalState.VoiceState.SelfMute, LocalState.VoiceState.SelfMute);
         }
         #endregion
 
