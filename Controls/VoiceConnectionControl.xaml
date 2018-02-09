@@ -194,12 +194,12 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="{ThemeResource AcrylicUserBackground}" Padding="4" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="0,0,0,1">
+    <Grid Background="{ThemeResource AcrylicUserBackgroundDarker}" BorderThickness="0,0,0,0">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -215,14 +215,22 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0"/> <!--TODO: Soundboard-->
             </Grid.ColumnDefinitions>
-            <Slider x:Name="VolumeSlider" Header="Volume" Value="0.75" Maximum="1" Minimum="0" SmallChange="0.01" LargeChange="0.1" ValueChanged="VolumeSlider_ValueChanged"/>
+            <Slider x:Name="VolumeSlider" Header="Volume" Value="0.75" Maximum="1" Minimum="0" SmallChange="0.01" LargeChange="0.1" StepFrequency="0.01" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
         
-        <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.Row="1" Grid.ColumnSpan="4"/>
+        <TextBlock x:Name="ChannelName" Text="Channel Name" Grid.Row="1" Grid.ColumnSpan="4" FontSize="12" Padding="8,8,0,8"/>
         <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="2" Grid.Column="1" Margin="0,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
         <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="2" Grid.Column="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
         
-        <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" Width="65" FontSize="18" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
-        <ToggleButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" Margin="-4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click"/>
+        <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" Margin="6,0,10,0" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+        <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
+        <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                    <GradientStop Offset="1"/>
+                    <GradientStop Color="Black" Offset="0"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </UserControl>

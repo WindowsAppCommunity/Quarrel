@@ -19,10 +19,10 @@
                 <ImageBrush x:Name="Avatar"/>
             </Rectangle.Fill>
         </Rectangle>-->
-        <TextBlock x:Name="username" Text="Username" Grid.Column="1" VerticalAlignment="Center" FontSize="15" FontWeight="Normal"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="2">
-            <FontIcon Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets"/>
-            <FontIcon Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets"/>
+        <TextBlock x:Name="username" Text="Username" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+            <FontIcon Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="13.333" Margin="0,0,8,0" Opacity="0.5"/>
+            <FontIcon Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Opacity="0.5"/>
         </StackPanel>
         <!--<Rectangle Grid.ColumnSpan="4" Fill="{ThemeResource InvertedBG}" Opacity="0.2" VerticalAlignment="Bottom" Height="1" Margin="0,0,0,-9"/>-->
     </Grid>
