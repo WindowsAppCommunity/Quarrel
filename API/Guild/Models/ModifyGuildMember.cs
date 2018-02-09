@@ -25,7 +25,7 @@ namespace Discord_UWP.API.Guild.Models
             {
                 var roles = Roles.ToList();
                 roles.Add(roleId);
-                Roles = Roles.AsEnumerable();
+                Roles = roles.AsEnumerable();
                 return true;
             }
             return false;
@@ -37,7 +37,7 @@ namespace Discord_UWP.API.Guild.Models
             {
                 var roles = Roles.ToList();
                 roles.Remove(roleId);
-                Roles = Roles.AsEnumerable();
+                Roles = roles.AsEnumerable();
                 return true;
             }
             return false;
@@ -53,7 +53,7 @@ namespace Discord_UWP.API.Guild.Models
             {
                 roles.Add(roleId);
             }
-            Roles = Roles.AsEnumerable();
+            Roles = roles.AsEnumerable();
         }
 
         [JsonProperty("nick")]

@@ -47,7 +47,7 @@ namespace Discord_UWP.API.Guild
         [Get("/guilds/{guildId}/members")]
         Task<IEnumerable<GuildMember>> ListGuildMemebers([AliasAs("guildId")] string guildId, [AliasAs("limit")] int limit = 1000, [AliasAs("after")] int after = 0);
 
-        [Patch("/guilds/{guildId}/members/{userId}")]
+        [Patch("/v6/guilds/{guildId}/members/{userId}")]
         Task ModifyGuildMember([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId, [Body] ModifyGuildMember modifyGuildMember);
 
         [Patch("/guilds/{guildId}/members/{userId}/nick")]
