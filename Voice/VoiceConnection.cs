@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources.Core;
 
 using RuntimeComponent;
 
@@ -38,6 +39,8 @@ namespace Discord_UWP.Voice
         private Ready? lastReady;
         private SocketFrame? lastEvent;
 
+        private bool mobile;
+
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
@@ -45,7 +48,8 @@ namespace Discord_UWP.Voice
         private byte[] _nonce = new byte[24];
         private byte[] _data;
 
-        private float[] partialFrame = null;
+        //private float[] partialFrame = null;
+        byte[] buffer = new byte[FrameBytes];
 
         private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
         private OpusDecoder decoder = new OpusDecoder(48000, 2);
@@ -78,6 +82,9 @@ namespace Discord_UWP.Voice
 
         public VoiceConnection(VoiceServerUpdate config, VoiceState state)
         {
+            var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+            mobile = (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+
             _webMessageSocket = new WebMessageSocket();
             _udpSocket = new UDPSocket();
             _state = state;
@@ -163,17 +170,25 @@ namespace Discord_UWP.Voice
                 header[0] = 0x80; //No extension
                 header[1] = 0x78;
 
-                byte[] seq = BitConverter.GetBytes(sequence);
-                header[2] = seq[0];
-                header[3] = seq[1];
+                //byte[] seq = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(sequence));
+                if (BitConverter.IsLittleEndian)
+                {
+                    header[2] = (byte)(sequence >> 8);
+                    header[3] = (byte)(sequence & 0xFF);
+                } else
+                {
+                    header[2] = (byte)(sequence & 0xFF);
+                    header[3] = (byte)(sequence >> 8);
+                }
+                sequence++;
 
-                byte[] time = BitConverter.GetBytes((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+                byte[] time = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds));
                 header[4] = time[0];
                 header[5] = time[1];
                 header[6] = time[2];
                 header[7] = time[3];
 
-                byte[] ssrc = BitConverter.GetBytes(lastReady.Value.SSRC);
+                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.Value.SSRC));
                 header[8] = ssrc[0];
                 header[9] = ssrc[1];
                 header[10] = ssrc[2];
@@ -184,29 +199,22 @@ namespace Discord_UWP.Voice
 
         public async void SendVoiceData(float[] frame)
         {
-            if (lastReady.HasValue)
+            if (lastReady.HasValue && frame.Length == 1920)
             {
-                if (partialFrame == null)
+                int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
+
+                byte[] opus = new byte[encodedSize + 12 + 16];
+                byte[] nonce = makeHeader();
+                Buffer.BlockCopy(nonce, 0, opus, 0, 12);
+                Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
+                if (!mobile)
                 {
-                    partialFrame = frame;
+                    Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
                 } else
                 {
-                    float[] pcm = new float[1920];
-                    Buffer.BlockCopy(partialFrame, 0, pcm, 0, 960 * sizeof(float));
-                    Buffer.BlockCopy(frame, 0, pcm, 960 * sizeof(float), 960 * sizeof(float));
-
-                    byte[] buffer = new byte[FrameBytes];
-                    int encodedSize = encoder.Encode(pcm, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
-
-                    byte[] opus = new byte[encodedSize + 12 + 16];
-                    byte[] nonce = makeHeader();
-                    Buffer.BlockCopy(nonce, 0, opus, 0, 12);
-                    Buffer.BlockCopy(buffer, 0, opus, 0, encodedSize);
-
-                    Cypher.encrypt(opus, 12, opus.Length, opus, 12, nonce, secretkey);
-                    await _udpSocket.SendBytesAsync(opus);
-                    partialFrame = null;
+                    //TODO: Libsodium
                 }
+                await _udpSocket.SendBytesAsync(opus);
             }
         }
 
@@ -352,20 +360,29 @@ namespace Discord_UWP.Voice
         {
             try
             {
-                var packet = (byte[])e.Message;
-                Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
-                _data = new byte[packet.Length-12-16];
-
-                int outputLength = Cypher.decrypt(packet, 12, packet.Length-12, _data, 0, _nonce, secretkey);
-                if (_data.Length != outputLength)
+                if (secretkey != null)
                 {
-                    throw new Exception("UGHHHH...."); //Conflicting sizes
+                    var packet = (byte[])e.Message;
+                    Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
+                    _data = new byte[packet.Length - 12 - 16];
+
+                    if (!mobile)
+                    {
+                        int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
+                        if (_data.Length != outputLength)
+                        {
+                            throw new Exception("UGHHHH...."); //Conflicting sizes
+                        }
+                    } else
+                    {
+                        //TODO: Libsodium
+                    }
+
+                    int headerSize = GetHeaderSize(packet, _data);
+                    int samples = decoder.Decode(_data, headerSize, _data.Length - headerSize, output, 0, framesize);
+
+                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
                 }
-
-                int headerSize = GetHeaderSize(packet, _data);
-                int samples = decoder.Decode(_data, headerSize, _data.Length - headerSize, output, 0, framesize);
-
-                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {

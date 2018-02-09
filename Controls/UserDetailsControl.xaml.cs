@@ -317,6 +317,7 @@ namespace Discord_UWP.Controls
                 ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             }
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", FullAvatar);
+            App.navImageCache = Avatar.ImageSource;
             App.NavigateToProfile(DisplayedMember.User);
         }
 

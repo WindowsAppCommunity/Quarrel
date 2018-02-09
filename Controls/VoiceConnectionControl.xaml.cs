@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,9 +36,9 @@ namespace Discord_UWP.Controls
             App.ConnectToVoice(null, null, "");
         }
 
-        private void MiniView_Click(object sender, RoutedEventArgs e)
+        private async void MiniView_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Enter miniview
+            bool modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
         }
 
         private void Deafen_Click(object sender, RoutedEventArgs e)
@@ -49,13 +50,12 @@ namespace Discord_UWP.Controls
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Toggle local mute
-            
+            App.localMute = !App.localMute;
         }
 
         private void VolumeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            //TODO: Change volume
-            AudioManager.ChangeVolume(e.NewValue);
+            AudioManager.ChangeVolume(e.NewValue/100);
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
