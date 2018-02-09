@@ -569,6 +569,24 @@ namespace Discord_UWP
         {
             VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName});
         }
+
+        public static void UpdateLocalMute(bool muted)
+        {
+            LocalModels.LocalState.VoiceState.SelfMute = muted;
+            UpdateVoiceState();
+        }
+
+        public static void UpdateLocalDeaf(bool deaf)
+        {
+            LocalModels.LocalState.VoiceState.SelfDeaf = deaf;
+            UpdateVoiceState();
+        }
+
+        public static async void UpdateVoiceState()
+        {
+            await GatewayManager.Gateway.VoiceStatusUpdate(LocalModels.LocalState.VoiceState.GuildId, LocalModels.LocalState.VoiceState.ChannelId, LocalModels.LocalState.VoiceState.SelfMute, LocalModels.LocalState.VoiceState.SelfDeaf);
+        }
+
         #region Relations
         public class AddFriendArgs : EventArgs
         {
