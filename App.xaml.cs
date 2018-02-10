@@ -22,6 +22,7 @@ using Windows.UI.ViewManagement;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 
+using Microsoft.Toolkit.Uwp;
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
@@ -831,14 +832,55 @@ namespace Discord_UWP
             }
         }
 
+        public static bool IsDesktop
+        {
+            get
+            {
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Desktop";
+            }
+        }
+
         public static bool IsMobile
         {
             get
             {
-                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Phone";
             }
         }
+
+        public static bool IsXbox
+        {
+            get
+            {
+                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
+                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
+            }
+        }
+
+        public static bool IsTablet
+        {
+            get
+            {
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Tablet";
+            }
+        }
+
+        public static bool IsIOT
+        {
+            get
+            {
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Universal";
+            }
+        }
+
+        public static bool IsSurfaceHub
+        {
+            get
+            {
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Team";
+            }
+        }
+
         #endregion
         #endregion
 
