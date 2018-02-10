@@ -27,7 +27,7 @@ namespace Discord_UWP
         public Offline()
         {
             this.InitializeComponent();
-            loadMessages();
+            //loadMessages();
         }
 
         //public async void loadMessages()
