@@ -124,5 +124,6 @@ namespace Discord_UWP
         public string DateFormat = "M/d/yyyy";
         public string TimeFormat = "h:mm tt";
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
+        //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
     }
 }

@@ -15,6 +15,24 @@
     </Page.Resources>-->
 
     <Grid Background="{ThemeResource AcrylicMessageBackground}">
+        <!--<ListView x:Name="SavedMessages">
+            <ListView.Header>
+                <Grid>
+                    <TextBlock Text="You're offline, but you can still view saved messages" HorizontalAlignment="Center"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <controls:MessageControl Message="{Binding Message}"
+                                                 IsContinuation="{Binding IsContinuation}"
+                                                 MessageType="{Binding MessageType}"
+                                                 Header="{Binding Header}"
+                                                 IsPending="{Binding Pending}"
+                                                 IsBlocked="{Binding Blocked}"
+                                             MoreButtonVisibility="Collapsed"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
         <Viewbox x:Name="viewbox" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
             <Viewbox.RenderTransform>
                 <CompositeTransform/>

@@ -61,6 +61,7 @@ namespace Discord_UWP.SubPages
             UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
             //VideosAds.IsChecked = Storage.Settings.VideoAd;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
+            
 
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;

@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Discord_UWP.Managers;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Discord_UWP
@@ -25,6 +27,15 @@ namespace Discord_UWP
         public Offline()
         {
             this.InitializeComponent();
+            loadMessages();
         }
+
+        //public async void loadMessages()
+        //{
+        //    foreach (var message in await MessageManager.ConvertMessage(Storage.Settings.savedMessages.Values.ToList()))
+        //    {
+        //        SavedMessages.Items.Add(message);
+        //    }
+        //}
     }
 }
