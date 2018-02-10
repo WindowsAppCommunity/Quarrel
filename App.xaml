@@ -45,6 +45,7 @@
                     FallbackColor="#DDFFFFFF"/>-->
                     <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FFF2F2F3"/>
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDark" Color="#FFF2F2F3"/>
+                    <SolidColorBrush x:Key="AcrylicUserBackgroundDarker" Color="#FFE0E0E5"/>
                     <SolidColorBrush x:Key="Foreground" Color="Black"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
@@ -97,6 +98,7 @@
                     FallbackColor="#AA000000"/>-->
                     <SolidColorBrush x:Key="AcrylicUserBackground" Color="#FF303238"/>
                     <SolidColorBrush x:Key="AcrylicUserBackgroundDark" Color="Black"/>
+                    <SolidColorBrush x:Key="AcrylicUserBackgroundDarker" Color="#FF141618"/>
                     <SolidColorBrush x:Key="Foreground" Color="White"/>
 
                     <SolidColorBrush x:Key="Greyple" Color="#99AAB5"/>
