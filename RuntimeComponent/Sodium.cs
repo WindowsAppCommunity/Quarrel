@@ -50,7 +50,7 @@ namespace RuntimeComponent
                 return inputLength + 16;
             }
         }
-
+        
         public static int decrypt([ReadOnlyArray()]byte[] input, int inputOffset, int inputLength, [WriteOnlyArray()]byte[] output, int outputOffset, [ReadOnlyArray()]byte[] nonce, [ReadOnlyArray()]byte[] secret)
         {
             fixed (byte* inPtr = input)
