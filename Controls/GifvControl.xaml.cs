@@ -44,7 +44,7 @@ namespace Discord_UWP.Controls
             mediaelement.Play();
         }
 
-        private async void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
+        private void mediaelement_MediaOpened(object sender, RoutedEventArgs e)
         {
             
             /*

@@ -43,7 +43,7 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            bool everythingisnull = true;
+            //bool everythingisnull = true;
             //Accent color
             if (EmbedContent.Color != 0)
                 SideBorder.Background = Common.IntToColor(EmbedContent.Color);
@@ -53,7 +53,7 @@ namespace Discord_UWP.Controls
             //Author
             if (EmbedContent.Author.Name != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 AuthorSP.Visibility=Visibility.Visible;
                 AuthorText.Content = EmbedContent.Author.Name;
                 if(EmbedContent.Author.Url != null)
@@ -69,7 +69,7 @@ namespace Discord_UWP.Controls
             //Title
             if (EmbedContent.Title != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 if (EmbedContent.Url == null)
                 {
                     UrlTitleBlock.Visibility = Visibility.Collapsed;
@@ -100,7 +100,7 @@ namespace Discord_UWP.Controls
             //Description
             if (EmbedContent.Description != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 DescriptionBlock.Visibility = Visibility.Visible;
                 DescriptionBlock.Text = EmbedContent.Description;
             }
@@ -114,7 +114,7 @@ namespace Discord_UWP.Controls
             FieldsStacker.Children.Clear();
             if (EmbedContent.Fields != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 FieldsStacker.Visibility = Visibility.Visible;
                 foreach (var field in EmbedContent.Fields)
                 {
@@ -147,7 +147,7 @@ namespace Discord_UWP.Controls
             //Image
             if (EmbedContent.Image.Url != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 ImageViewbox.Visibility = Visibility.Visible;
                 ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
                 if(EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null
@@ -197,7 +197,7 @@ namespace Discord_UWP.Controls
             //Provider
             if (EmbedContent.Provider.Name != null)
             {
-                everythingisnull = false;
+                //everythingisnull = false;
                 ProviderHyperlink.Visibility = Visibility.Visible;
                 ProviderHyperlink.Content = EmbedContent.Provider.Name;
                 if (EmbedContent.Provider.Url != null)
@@ -298,7 +298,6 @@ namespace Discord_UWP.Controls
             {
                 args.Request.FailWithDisplayText("Nothing to share");
             }
-
         }
     }
 }

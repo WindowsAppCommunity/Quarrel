@@ -941,7 +941,7 @@ namespace Discord_UWP
             
         }
 
-        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
             var rootFrame = new Frame();
             rootFrame.Navigate(typeof(ShareTarget), args.ShareOperation);
