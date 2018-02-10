@@ -114,9 +114,6 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MessageControl - Copy.xaml.cs">
-      <DependentUpon>MessageControl - Copy.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
@@ -270,6 +267,9 @@
       <DependentUpon>ShareTarget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
+    <Compile Include="SubPages\SavedMessages.xaml.cs">
+      <DependentUpon>SavedMessages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\Debug.xaml.cs">
       <DependentUpon>Debug.xaml</DependentUpon>
     </Compile>
@@ -481,10 +481,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MessageControl - Copy.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\VideoEmbedControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -576,6 +572,10 @@
     <Page Include="ShareTarget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\SavedMessages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\Debug.xaml">
       <Generator>MSBuild:Compile</Generator>

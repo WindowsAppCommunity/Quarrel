@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Discord_UWP.Controls"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:tkx="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     mc:Ignorable="d">

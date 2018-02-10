@@ -831,6 +831,10 @@ namespace Discord_UWP.Controls
                     MoreEdit.Visibility = Visibility.Collapsed;
                 }
             }
+            //if (Storage.Settings.savedMessages.ContainsKey(messageid))
+            //{
+            //    MoreSave.Text = "Unsave"; //TODO:Translate
+            //}
             FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
 
@@ -1034,5 +1038,17 @@ namespace Discord_UWP.Controls
             content.Visibility = Visibility.Visible;
             BlockedMessage.Visibility = Visibility.Collapsed;
         }
+
+        //private void MoreSave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Storage.Settings.savedMessages.ContainsKey(messageid))
+        //    {
+        //        Storage.Settings.savedMessages.Remove(messageid);
+        //    }
+        //    else
+        //    {
+        //        Storage.Settings.savedMessages.Add(messageid, Message.Value);
+        //    }
+        //}
     }
 }
