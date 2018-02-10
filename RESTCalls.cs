@@ -219,7 +219,7 @@ namespace Discord_UWP
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.ModifyGuildSettings(guildId, guildSettings);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -757,7 +757,7 @@ namespace Discord_UWP
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 return await channelservice.GetChannelMessage(chnid, msgid);
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -1127,7 +1127,7 @@ namespace Discord_UWP
                 IGameService gameservice = AuthenticatedRestFactory.GetGameService();
                 return await gameservice.GetGames();
             }
-            catch (Exception exception)
+            catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
             }
