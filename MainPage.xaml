@@ -1595,6 +1595,8 @@
                                      VerticalAlignment="Center" 
                                      HorizontalAlignment="Center"/>-->
 
+        <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>
 </Page>

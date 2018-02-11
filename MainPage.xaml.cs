@@ -14,6 +14,7 @@ using Windows.Media.SpeechSynthesis;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -312,6 +313,8 @@ namespace Discord_UWP
 
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
+
+            App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
         }
 
@@ -2644,6 +2647,19 @@ namespace Discord_UWP
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void App_ToggleCOModeHandler(object sender, EventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.Default)
+            {
+                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
+            }
+            else
+            {
+                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+            }
+            COVoice.Visibility = COVoice.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
