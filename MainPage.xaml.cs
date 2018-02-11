@@ -41,6 +41,10 @@ namespace Discord_UWP
         public MainPage()
         {
             this.InitializeComponent();
+            if (!App.IsDesktop)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
