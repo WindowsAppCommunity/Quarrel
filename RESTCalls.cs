@@ -76,9 +76,11 @@ namespace Discord_UWP
             var credentials = Storage.PasswordVault.FindAllByResource("Token");
 
             var creds = credentials.FirstOrDefault(); //TODO: support multi-account storage
+            foreach (var cred in credentials)
+                if (cred.UserName == Storage.Settings.DefaultAccount)
+                    creds = cred;
             creds.RetrievePassword();
             Token = creds.Password;
-
 
             config = new DiscordApiConfiguration
             {

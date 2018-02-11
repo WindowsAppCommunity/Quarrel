@@ -918,6 +918,7 @@ namespace Discord_UWP
             Storage.Settings.UseCompression = true;
             Storage.Settings.DateFormat = "M/d/yyyy";
             Storage.Settings.TimeFormat = "h:mm tt";
+            Storage.Settings.DefaultAccount = "";
             Storage.SaveAppSettings();
         }
         private void LoadSettings()

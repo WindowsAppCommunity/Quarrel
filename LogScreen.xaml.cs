@@ -47,7 +47,12 @@ namespace Discord_UWP
                 {
                     result = await RESTCalls.Login(username, password);
                 });
-                if (result.exception != null)
+                if(result.CaptchaKey != null)
+                {
+                    MessageDialog md = new MessageDialog("...And won't let us log you in. To fix this, simply log in to Discord from a web browser on this device, and try again here", "Discord thinks you're a bot!");
+                    md.ShowAsync();
+                }
+                else if (result.exception != null)
                 {
                     string ermsg = "";
                     switch (result.exception.Message)

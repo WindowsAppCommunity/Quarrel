@@ -359,6 +359,7 @@
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
+    <Content Include="Javascript sources\ReCaptcha.html" />
     <Content Include="SodiumCARM.dll" />
     <Content Include="SodiumCWin32.dll" />
     <Content Include="SodiumCx64.dll" />

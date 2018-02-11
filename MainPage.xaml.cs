@@ -63,6 +63,9 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
+            //Reset everything, for when accounts are being switched
+            ServerList.Items.Clear();
+            
             if (!App.e2e)
             {
                 encryptionToggle.Visibility = Visibility.Collapsed;
@@ -530,6 +533,17 @@ namespace Discord_UWP
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
             await RESTCalls.SetupToken();
+            var credentials = Storage.PasswordVault.FindAllByResource("Token");
+            AccountView.Items.Clear();
+            foreach(var cred in credentials)
+            {
+                if(cred.UserName != Storage.Settings.DefaultAccount)
+                AccountView.Items.Add(cred);
+            }
+            if (App.IsMobile)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
             if (App.LoggedIn())
             {
                 SetupEvents();
@@ -2646,7 +2660,23 @@ namespace Discord_UWP
 
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
+            //Delete account
+        }
 
+        private void AppBarButton_Click_2(object sender, RoutedEventArgs e)
+        {
+            //Add account
+            SubFrameNavigator(typeof(LogScreen));
+        }
+
+        private void AccountView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //Switch account
+            userFlyout.Hide();
+            Storage.Settings.DefaultAccount = ((PasswordCredential)e.ClickedItem).UserName;
+            Storage.SaveAppSettings();
+            Loading.Show(true);
+            Setup(null,null);
         }
 
         private async void App_ToggleCOModeHandler(object sender, EventArgs e)
