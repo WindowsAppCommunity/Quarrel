@@ -1310,7 +1310,6 @@
                                 <Border x:Name="bgDisabled" Opacity="0" BorderBrush="{ThemeResource Greyple}" BorderThickness="1"/>
                                 <Border x:Name="bgColor" Background="{TemplateBinding Background}"/>
                                 <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Background}"/>
-
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -4423,6 +4422,140 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="BetterAppBarButton"  TargetType="AppBarButton">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="Width" Value="68"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="AppBarButton">
+                            <Grid
+            x:Name="Root"
+            MinWidth="{TemplateBinding MinWidth}"
+            MaxWidth="{TemplateBinding MaxWidth}" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="ApplicationViewStates">
+                                        <VisualState x:Name="FullSize"/>
+                                        <VisualState x:Name="Compact">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TextLabel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Overflow">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentRoot" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverflowTextLabel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="OverflowWithToggleButtons">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentRoot" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverflowTextLabel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OverflowTextLabel" Storyboard.TargetProperty="Margin">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="38,0,12,0"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" To="0">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="InputModeStates">
+                                        <VisualState x:Name="InputModeDefault" />
+                                        <VisualState x:Name="TouchInputMode" >
+                                            <VisualState.Setters>
+                                                <Setter Target="OverflowTextLabel.Padding" Value="0,11,0,13" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="Indic"  Fill="{ThemeResource Foreground}" Opacity="0"/>
+                                <Grid x:Name="ContentRoot" MinHeight="0" MinWidth="0" Opacity="0.4" HorizontalAlignment="Center"
+                                        VerticalAlignment="Stretch">
+                                    <ContentPresenter
+                x:Name="Content"
+                Height="20"
+                Content="{TemplateBinding Icon}"
+                Foreground="{TemplateBinding Foreground}"
+                HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                AutomationProperties.AccessibilityView="Raw"/>
+                                    <TextBlock
+                x:Name="TextLabel"
+                Text="{TemplateBinding Label}"
+                Foreground="{TemplateBinding Foreground}"
+                FontSize="12"
+                FontFamily="{TemplateBinding FontFamily}"
+                TextAlignment="Center"
+                TextWrapping="Wrap"
+                Margin="0,0,0,6" Visibility="Collapsed"/>
+                                </Grid>
+
+                                <TextBlock
+              x:Name="OverflowTextLabel"
+              Text="{TemplateBinding Label}"
+              Foreground="{TemplateBinding Foreground}"
+              FontSize="15"
+              FontFamily="{TemplateBinding FontFamily}"
+              TextAlignment="Left"
+              TextTrimming="Clip"
+              TextWrapping="NoWrap"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Center"
+              Margin="12,0,12,0"
+              Padding="0,5,0,7"
+              Visibility="Collapsed"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
