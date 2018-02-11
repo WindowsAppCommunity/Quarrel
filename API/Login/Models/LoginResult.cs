@@ -18,6 +18,9 @@ namespace Discord_UWP.API.Login.Models
         [JsonProperty("ticket")]
         public string Ticket { get; set; }
 
+        [JsonProperty("captcha_key")]
+        public List<string> CaptchaKey { get; set; }
+
         public Exception exception { get; set; }
     }
 }
