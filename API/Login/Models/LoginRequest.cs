@@ -13,6 +13,8 @@ namespace Discord_UWP.API.Login.Models
         public string Email { get; set; }
         [JsonProperty("password")]
         public string Password { get; set; }
+        [JsonProperty("captcha_key")]
+        public string[] CaptchaKey { get; set; }
     }
     public struct LoginMFARequest
     {

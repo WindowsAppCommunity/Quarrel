@@ -324,6 +324,7 @@
                     <TextBlock x:Uid="/About/MFATB" VerticalAlignment="Center" Text="Two-factor authentication:" Margin="12,6,0,0"/>
                     <PasswordBox x:Uid="/About/MFAPasswordTBox" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
                 </StackPanel>
+                <WebView x:Name="ReCaptchaView" Visibility="Collapsed"/>
             </Grid>
             <Button HorizontalAlignment="Stretch" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
