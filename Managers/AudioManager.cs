@@ -151,7 +151,12 @@ namespace Discord_UWP
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
-            graphsettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 24);
+            graphsettings.EncodingProperties = new AudioEncodingProperties();
+            graphsettings.EncodingProperties.Subtype = "Float";
+            graphsettings.EncodingProperties.SampleRate = 48000;
+            graphsettings.EncodingProperties.ChannelCount = 2;
+            graphsettings.EncodingProperties.BitsPerSample = 32;
+            graphsettings.EncodingProperties.Bitrate = 3072000;
             //settings.DesiredSamplesPerQuantum = 960;
             //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             CreateAudioGraphResult graphresult = await AudioGraph.CreateAsync(graphsettings);
