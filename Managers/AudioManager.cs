@@ -111,9 +111,12 @@ namespace Discord_UWP
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
-            //settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
-            //settings.DesiredSamplesPerQuantum = 960;
-            //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
+            graphsettings.EncodingProperties = new AudioEncodingProperties();
+            graphsettings.EncodingProperties.Subtype = "Float";
+            graphsettings.EncodingProperties.SampleRate = 48000;
+            graphsettings.EncodingProperties.ChannelCount = 2;
+            graphsettings.EncodingProperties.BitsPerSample = 32;
+            graphsettings.EncodingProperties.Bitrate = 3072000;
             CreateAudioGraphResult graphresult = await AudioGraph.CreateAsync(graphsettings);
 
             if (graphresult.Status != AudioGraphCreationStatus.Success)
@@ -148,7 +151,7 @@ namespace Discord_UWP
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
-            //settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
+            graphsettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 24);
             //settings.DesiredSamplesPerQuantum = 960;
             //settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             CreateAudioGraphResult graphresult = await AudioGraph.CreateAsync(graphsettings);
@@ -162,11 +165,11 @@ namespace Discord_UWP
             ingraph = graphresult.Graph;
 
 
-            AudioGraphSettings settings = new AudioGraphSettings(AudioRenderCategory.Communications);
-            settings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
-            settings.DesiredSamplesPerQuantum = 960;
-            settings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
-            frameOutputNode = ingraph.CreateFrameOutputNode(settings.EncodingProperties);
+            AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
+            nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
+            nodesettings.DesiredSamplesPerQuantum = 960;
+            nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
+            frameOutputNode = ingraph.CreateFrameOutputNode(outgraph.EncodingProperties);
             quantum = 0;
             ingraph.QuantumStarted += Graph_QuantumStarted;
 
@@ -176,7 +179,7 @@ namespace Discord_UWP
             //TODO: Show UI to allow the user to select a device
 
             CreateAudioDeviceInputNodeResult result =
-                await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, settings.EncodingProperties, selectedDevice);
+                await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
             if (result.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
@@ -287,7 +290,6 @@ namespace Discord_UWP
 
             return frame;
         }
-
 
         private static void Graph_QuantumStarted(AudioGraph sender, object args)
         {

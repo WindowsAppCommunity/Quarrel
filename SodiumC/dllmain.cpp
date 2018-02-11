@@ -20,11 +20,11 @@ BOOL APIENTRY DllMain(HMODULE /* hModule */, DWORD ul_reason_for_call, LPVOID /*
 
 extern "C" {
 
-	__declspec(dllexport) int __cdecl Encrypt(UINT8* output, UINT8* input, long inputLength, UINT8 nonce[], UINT8 secret[]) {
+	__declspec(dllexport) int __cdecl Encrypt(UINT8* output, UINT8* input, unsigned long long inputLength, UINT8* nonce, UINT8* secret) {
 		return crypto_secretbox_easy(output, input, inputLength, nonce, secret);
 	}
 
-	__declspec(dllexport) int __cdecl Decrypt(UINT8* output, UINT8* input, long inputLength, UINT8 nonce[], UINT8 secret[]) {
+	__declspec(dllexport) int __cdecl Decrypt(UINT8* output, UINT8* input, unsigned long long inputLength, UINT8* nonce, UINT8* secret) {
 		return crypto_secretbox_open_easy(output, input, inputLength, nonce, secret);
 	}
 }
