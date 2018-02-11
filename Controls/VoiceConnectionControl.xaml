@@ -458,14 +458,15 @@
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
     </UserControl.RenderTransform>
-    <Grid BorderThickness="0,0,0,0">
+    <Grid x:Name="MainGrid" BorderThickness="0,0,0,0">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="Expanded" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid x:Name="Expanded" Grid.Row="1" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="ExpandedTranslate"/>
             </Grid.RenderTransform>
@@ -475,7 +476,7 @@
             </Grid.ColumnDefinitions>
             <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
-        <Grid x:Name="ChannelGrid" Visibility="Collapsed" Grid.Row="1" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid x:Name="ChannelGrid" Visibility="Collapsed" Grid.Row="2" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="ChannelTranslate"/>
             </Grid.RenderTransform>
@@ -487,7 +488,7 @@
             </Button>
             
         </Grid>
-        <Grid Grid.Row="2" Background="{ThemeResource AcrylicUserBackgroundDarker}">
+        <Grid Grid.Row="3" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

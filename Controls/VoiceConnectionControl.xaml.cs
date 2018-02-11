@@ -28,7 +28,41 @@ namespace Discord_UWP.Controls
                 miniViewColumn.Width = new GridLength(0);
             }
             App.VoiceConnectHandler += App_VoiceConnectHandler;
+            App.ToggleCOModeHandler += App_ToggleCOModeHandler;
         }
+
+        public bool FullScreen
+        {
+            get { return (bool)GetValue(FullscreenProperty); }
+            set { SetValue(FullscreenProperty, value); }
+        }
+        public static readonly DependencyProperty FullscreenProperty = DependencyProperty.Register(
+            nameof(FullScreen),
+            typeof(bool),
+            typeof(UserDetailsControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var instance = d as VoiceConnectionControl;
+            instance?.OnPropertyChanged(d, e.Property);
+        }
+
+        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        {
+            if (prop == FullscreenProperty)
+            {
+                MainGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
+                MainGrid.VerticalAlignment = VerticalAlignment.Stretch;
+                MainGrid.Background = (App.Current.Resources["AcrylicUserBackgroundDarker"] as Brush);
+            }
+        }
+
+        private void App_ToggleCOModeHandler(object sender, EventArgs e)
+        {
+            Minimode.IsChecked = ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.Default;
+        }
+
         public string guildid = "";
         public string channelid = "";
         private void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
@@ -66,13 +100,7 @@ namespace Discord_UWP.Controls
 
         private async void MiniView_Click(object sender, RoutedEventArgs e)
         {
-            if (Minimode.IsChecked == true)
-            {
-                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay);
-            } else
-            {
-                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
-            }
+            App.ToggleCOMode();
         }
 
         private void Deafen_Click(object sender, RoutedEventArgs e)

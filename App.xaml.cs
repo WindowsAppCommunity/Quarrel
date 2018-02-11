@@ -752,6 +752,12 @@ namespace Discord_UWP
             eventList.Add(eventItem);
             EventListUpdatedHandler?.Invoke(null, eventItem);
         }
+
+        public static event EventHandler ToggleCOModeHandler;
+        public static void ToggleCOMode()
+        {
+            ToggleCOModeHandler?.Invoke(null, null);
+        }
         #endregion
 
         #endregion
