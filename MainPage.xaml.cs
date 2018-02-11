@@ -41,6 +41,10 @@ namespace Discord_UWP
         public MainPage()
         {
             this.InitializeComponent();
+            if (!App.IsDesktop)
+            {
+                TitleBarHolder.Visibility = Visibility.Collapsed;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -523,10 +527,6 @@ namespace Discord_UWP
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
             await RESTCalls.SetupToken();
-            if (App.IsMobile)
-            {
-                TitleBarHolder.Visibility = Visibility.Collapsed;
-            }
             if (App.LoggedIn())
             {
                 SetupEvents();
