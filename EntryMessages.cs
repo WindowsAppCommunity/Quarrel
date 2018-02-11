@@ -165,6 +165,8 @@ namespace Discord_UWP
                 case 92: return kvp("\"Cut the baby down the middle\"", "John Mulaney");
                 case 93: return kvp("Pending next game changer");
                 case 94: return kvp("So the skype app is having issues huh?", "@Filip96#8066");
+                case 95: return kvp("NOT THE BEES", "@Aslan#9846");
+                case 96: return kvp("I'm getting all dizzy here", "@lachlan2357#5459");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
