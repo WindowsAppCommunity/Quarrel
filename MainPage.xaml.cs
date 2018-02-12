@@ -2091,7 +2091,6 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-
                      if (ChannelList.Items.Count > 0)
                      {
                          foreach (ChannelManager.SimpleChannel channel in ChannelList.Items)

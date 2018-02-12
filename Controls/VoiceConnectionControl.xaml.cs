@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
@@ -13,6 +15,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+using Discord_UWP.Managers;
+
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -29,6 +34,13 @@ namespace Discord_UWP.Controls
             }
             App.VoiceConnectHandler += App_VoiceConnectHandler;
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
+            App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
+        }
+
+        private void App_UpdateVoiceStateHandler(object sender, EventArgs e)
+        {
+            Deafen.IsChecked = LocalModels.LocalState.VoiceState.SelfDeaf;
+            Mute.IsChecked = LocalModels.LocalState.VoiceState.SelfMute;
         }
 
         public bool FullScreen
@@ -55,6 +67,7 @@ namespace Discord_UWP.Controls
                 MainGrid.HorizontalAlignment = HorizontalAlignment.Stretch;
                 MainGrid.VerticalAlignment = VerticalAlignment.Stretch;
                 MainGrid.Background = (App.Current.Resources["AcrylicUserBackgroundDarker"] as Brush);
+                ShowChannel.Begin();
             }
         }
 
@@ -98,15 +111,14 @@ namespace Discord_UWP.Controls
             App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
         }
 
-        private async void MiniView_Click(object sender, RoutedEventArgs e)
+        private void MiniView_Click(object sender, RoutedEventArgs e)
         {
             App.ToggleCOMode();
         }
 
         private void Deafen_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Toggle local deafen
-            AudioManager.ChangeDeafStatus(Deafen.IsChecked.Value);
+            App.UpdateLocalDeaf(!LocalModels.LocalState.VoiceState.SelfDeaf);
         }
 
         private void Mute_Click(object sender, RoutedEventArgs e)
