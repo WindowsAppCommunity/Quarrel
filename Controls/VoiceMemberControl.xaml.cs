@@ -71,7 +71,14 @@ namespace Discord_UWP.Controls
 
                 username.Text = member.User.Username;
 
-                //Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
+                AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(member.User.Avatar, member.User.Id));
+
+                if (member.User.Avatar == null)
+                    AvatarBG.Fill = Common.DiscriminatorColor(member.User.Discriminator);
+                else
+                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+
+                
                 //if (DisplayedFriend.UserStatus != null)
                 //    status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 //if (!Session.Online)
