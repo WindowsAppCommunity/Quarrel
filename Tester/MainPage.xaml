@@ -11,6 +11,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <tk:Carousel>
             <Button Content="XSalsa20 (x64 only in testing)" Click="Button_Click"/>
+            <Button Content="Voice RT (x64 only in testing)" Click="Button_Click_1"/>
         </tk:Carousel>
     </Grid>
 </Page>
