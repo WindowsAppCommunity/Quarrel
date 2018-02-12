@@ -392,7 +392,7 @@ namespace Discord_UWP.Controls
                         {
                             if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.UserId))
                             {
-                                MemberList.Items.Add(member.UserId);
+                                MemberList.Items.Add(member);
                             }
                         }
                         //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });

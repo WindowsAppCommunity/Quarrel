@@ -189,7 +189,7 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:VoiceMemberControl DisplayedUserId="{Binding Value}"/>
+                    <local:VoiceMemberControl DisplayedUserId="{Binding UserId}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

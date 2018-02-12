@@ -10,6 +10,8 @@
     xmlns:tkd="using:Microsoft.Toolkit.Uwp.DeveloperTools"
     xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
+    xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
+    xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
 
     <Page.Resources>
@@ -1555,7 +1557,10 @@
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
-                        <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
+                        <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
+                            <FCU:AppBarButton.KeyboardAccelerators>
+                                <FCU:KeyboardAccelerator Key="P" Modifiers="Control" Invoked="KeyboardOpenPin"/>
+                            </FCU:AppBarButton.KeyboardAccelerators>
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
                                     <ListView x:Name="PinnedMessageList" SelectionMode="None" MaxWidth="450" MaxHeight="500">

@@ -2690,5 +2690,12 @@ namespace Discord_UWP
             }
             COVoice.Visibility = COVoice.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        #region KeyboardAccelorators
+        private void KeyboardOpenPin(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            PinnedMessags.Flyout.ShowAt(PinnedMessags);
+        }
+        #endregion
     }
 }

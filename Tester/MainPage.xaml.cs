@@ -31,5 +31,10 @@ namespace Tester
         {
             this.Frame.Navigate(typeof(XSalsa20));
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

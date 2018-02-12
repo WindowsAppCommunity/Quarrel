@@ -43,17 +43,8 @@ namespace Discord_UWP.Controls
         }
 
         private GuildMember member;
-        
-        public VoiceState DisplayedMember
-        {
-            get { return (VoiceState)GetValue(DisplayedMemberProperty); }
-            set { SetValue(DisplayedMemberProperty, value); }
-        }
-        public static readonly DependencyProperty DisplayedMemberProperty = DependencyProperty.Register(
-            nameof(DisplayedMember),
-            typeof(VoiceState),
-            typeof(VoiceMemberControl),
-            new PropertyMetadata("", OnPropertyChangedStatic));
+
+        public VoiceState voiceState;
 
         public string DisplayedUserId
         {
@@ -75,16 +66,53 @@ namespace Discord_UWP.Controls
         {
             if (prop == DisplayedUserIdProperty)
             {
-                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedMember.UserId];
+                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedUserId];
+                voiceState = LocalState.VoiceDict[DisplayedUserId];
+
                 username.Text = member.User.Username;
-                //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
+
                 //Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
-                //if(DisplayedFriend.UserStatus != null)
-                //status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
+                //if (DisplayedFriend.UserStatus != null)
+                //    status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 //if (!Session.Online)
                 //{
                 //    status.Visibility = Visibility.Collapsed;
                 //}
+
+                if (voiceState.SelfDeaf || voiceState.ServerDeaf)
+                {
+                    if (voiceState.ServerDeaf)
+                    {
+                        //TODO: Change color?
+                    } else
+                    {
+                        //TODO: Change color back?
+                    }
+                    Deaf.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Deaf.Visibility = Visibility.Collapsed;
+                }
+
+                if (voiceState.SelfMute || voiceState.ServerMute)
+                {
+                    if (voiceState.ServerMute)
+                    {
+                        //TODO: Change color?
+                    }
+                    else
+                    {
+                        //TODO: Change color back?
+                    }
+                    Mute.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Mute.Visibility = Visibility.Collapsed;
+                }
+
+                //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
 
             }
         }
