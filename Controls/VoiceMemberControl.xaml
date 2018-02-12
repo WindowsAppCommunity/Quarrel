@@ -14,12 +14,13 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <!--<Rectangle Height="24" Width="24" RadiusX="12" RadiusY="12" Margin="0,0,12,0" VerticalAlignment="Top">
+        <Rectangle x:Name="AvatarBG" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
+        <Rectangle x:Name="Avatar" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
             <Rectangle.Fill>
-                <ImageBrush x:Name="Avatar"/>
+                <ImageBrush x:Name="AvatarBrush"/>
             </Rectangle.Fill>
-        </Rectangle>-->
-        <TextBlock x:Name="username" Text="Username" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
+        </Rectangle>
+        <TextBlock x:Name="username" Text="Username" Margin="12,0,0,0" Grid.Column="1" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.5"/>
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
             <FontIcon x:Name="Deaf" Glyph="&#xEC54;" FontFamily="Segoe MDL2 Assets" FontSize="13.333" Margin="0,0,8,0" Opacity="0.5"/>
             <FontIcon x:Name="Mute" Glyph="&#xE74F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Opacity="0.5"/>

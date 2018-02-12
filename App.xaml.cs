@@ -582,6 +582,7 @@ namespace Discord_UWP
         public static void UpdateLocalDeaf(bool deaf)
         {
             LocalModels.LocalState.VoiceState.SelfDeaf = deaf;
+            AudioManager.ChangeDeafStatus(deaf);
             UpdateVoiceState();
         }
 
