@@ -740,7 +740,6 @@ namespace Discord_UWP.Managers
                 if (e.EventData.UserId == LocalState.CurrentUser.Id)
                 {
                     LocalState.VoiceState = e.EventData;
-                    
                 }
                 if (LocalState.VoiceDict.ContainsKey(e.EventData.UserId))
                 {

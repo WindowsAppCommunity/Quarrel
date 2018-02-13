@@ -8,6 +8,8 @@ using System.ServiceModel.Channels;
 using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -184,7 +186,7 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
-        public List<VoiceState> VoiceMembers;
+        public Dictionary<string, VoiceMemberContainer> VoiceMembers;
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -377,20 +379,23 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     VoiceIcon.Visibility = Visibility.Visible;
 
-                    VoiceMembers = new List<VoiceState>();
+                    VoiceMembers = new Dictionary<string, VoiceMemberContainer>();
+
+                    GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+
                     foreach (var user in LocalState.VoiceDict.Values)
                     {
                         if (user.ChannelId == Id)
                         {
-                            VoiceMembers.Add(user);
+                            VoiceMembers.Add(user.UserId, new VoiceMemberContainer() { VoiceState = LocalState.VoiceDict[user.UserId]});
                         }
                     }
 
                     if (VoiceMembers != null)
                     {
-                        foreach (VoiceState member in VoiceMembers)
+                        foreach (VoiceMemberContainer member in VoiceMembers.Values)
                         {
-                            if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.UserId))
+                            if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.VoiceState.UserId))
                             {
                                 MemberList.Items.Add(member);
                             }
@@ -449,6 +454,11 @@ namespace Discord_UWP.Controls
                     HoverCache.Visibility = Visibility.Visible;
                     this.Margin = new Thickness(0, 18, 0, 0);
                 }
+
+                if (Type != 2)
+                {
+                    GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
+                }
             }
             if (prop == IsHiddenProperty)
             {
@@ -456,10 +466,32 @@ namespace Discord_UWP.Controls
             }
         }
 
+        private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (e.EventData.ChannelId == Id)
+                     {
+                         if (VoiceMembers.ContainsKey(e.EventData.UserId))
+                         {
+                             VoiceMembers[e.EventData.UserId] = new VoiceMemberContainer() { VoiceState = e.EventData };
+                         }
+                         else
+                         {
+                             VoiceMembers.Add(e.EventData.UserId, new VoiceMemberContainer() { VoiceState = e.EventData });
+                         }
+                     }
+                     else if (VoiceMembers.ContainsKey(e.EventData.UserId) && e.EventData.ChannelId == Id)
+                     {
+                         VoiceMembers.Remove(e.EventData.UserId);
+                     }
+                 });
+        }
+
         private void JoinVoiceChannel(object sender, TappedRoutedEventArgs e)
         {
             //await GatewayManager.Gateway.VoiceStatusUpdate(Id, App.CurrentGuildId, true, false);
-           
         }
 
         public void UpdateHidden()

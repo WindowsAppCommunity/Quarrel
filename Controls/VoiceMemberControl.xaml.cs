@@ -1,59 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
+﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 using Discord_UWP.LocalModels;
-using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
+using System;
+using System.ComponentModel;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Discord_UWP.Controls
 {
     public sealed partial class VoiceMemberControl : UserControl
     {
-        public class SimpleMember : INotifyPropertyChanged
-        {
-            private VoiceState _member;
-            public VoiceState Member
-            {
-                get { return _member; }
-                set { _member = value; OnPropertyChanged("Member"); }
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropertyChanged(string propertyName)
-            { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
-        }
-
         private GuildMember member;
 
-        public VoiceState voiceState;
-
-        public string DisplayedUserId
+        public VoiceState DisplayedUser
         {
-            get { return (string)GetValue(DisplayedUserIdProperty); }
-            set { SetValue(DisplayedUserIdProperty, value); }
+            get { return (VoiceState)GetValue(DisplayedUserProperty); }
+            set { SetValue(DisplayedUserProperty, value); }
         }
-        public static readonly DependencyProperty DisplayedUserIdProperty = DependencyProperty.Register(
-            nameof(DisplayedUserId),
-            typeof(string),
+        public static readonly DependencyProperty DisplayedUserProperty = DependencyProperty.Register(
+            nameof(DisplayedUser),
+            typeof(VoiceState),
             typeof(VoiceMemberControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
@@ -64,10 +35,9 @@ namespace Discord_UWP.Controls
         }
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == DisplayedUserIdProperty)
+            if (prop == DisplayedUserProperty)
             {
-                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedUserId];
-                voiceState = LocalState.VoiceDict[DisplayedUserId];
+                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedUser.UserId];
 
                 username.Text = member.User.Username;
 
@@ -86,9 +56,9 @@ namespace Discord_UWP.Controls
                 //    status.Visibility = Visibility.Collapsed;
                 //}
 
-                if (voiceState.SelfDeaf || voiceState.ServerDeaf)
+                if (DisplayedUser.SelfDeaf || DisplayedUser.ServerDeaf)
                 {
-                    if (voiceState.ServerDeaf)
+                    if (DisplayedUser.ServerDeaf)
                     {
                         //TODO: Change color?
                     } else
@@ -102,9 +72,9 @@ namespace Discord_UWP.Controls
                     Deaf.Visibility = Visibility.Collapsed;
                 }
 
-                if (voiceState.SelfMute || voiceState.ServerMute)
+                if (DisplayedUser.SelfMute || DisplayedUser.ServerMute)
                 {
-                    if (voiceState.ServerMute)
+                    if (DisplayedUser.ServerMute)
                     {
                         //TODO: Change color?
                     }
@@ -128,11 +98,39 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             Tapped += OpenMemberFlyout;
+            Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+        }
+
+        private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (e.EventData.UserId == DisplayedUser.UserId)
+                    {
+                        DisplayedUser = e.EventData;
+                        OnPropertyChanged(null, DisplayedUserProperty);
+                    }
+                });
         }
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
         {
             App.ShowMemberFlyout(this, member.User);
         }
+    }
+
+    public class VoiceMemberContainer : INotifyPropertyChanged
+    {
+        private VoiceState voiceState;
+        public VoiceState VoiceState
+        {
+            get { return voiceState; }
+            set { if (voiceState.Equals(value)) return; voiceState = value; OnPropertyChanged("VoiceState"); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
     }
 }
