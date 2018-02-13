@@ -676,8 +676,13 @@ namespace Discord_UWP
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
                 RenderGuildChannels();
+
+                Ad.Visibility = Visibility.Visible;
+
             } else
             {
+                Ad.Visibility = Visibility.Collapsed;
+
                 App.CurrentGuildId = null;
                 MemberToggle.Visibility = Visibility.Collapsed;
                 RenderDMChannels();
@@ -708,6 +713,7 @@ namespace Discord_UWP
         {
             if (App.CurrentGuildId == e.GuildId)
             {
+                Ad.Visibility = Visibility.Collapsed;
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(currentPage);
