@@ -86,17 +86,11 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Insider build 4 (6.4.9)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Insider build 5 (6.4.10)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• Fixed selfDeafen for serverside"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Users now show properly"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Basic mini mode support"/>
+                                <Run Text="• Fixed mobile"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>

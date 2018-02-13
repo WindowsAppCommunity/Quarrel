@@ -1329,7 +1329,7 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-
+                            
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -1365,9 +1365,14 @@
                                                Height="50" Width="320"
                                                ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
                                                AdUnitId="336795"/>
-                                <!--<controls:VoiceConnectionControl Grid.Row="1" x:Name="voiceConnectionControl" HorizontalAlignment="Left"/>-->
                             </StackPanel>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
+
+                            <ads:AdControl x:Name="Ad" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Visibility="Collapsed" Background="Transparent"
+                                               Height="250" Width="300"
+                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               AdUnitId="336795"/>
 
                             <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
                                 <Rectangle.Fill>
@@ -1558,9 +1563,6 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                         <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
-                            <FCU:AppBarButton.KeyboardAccelerators>
-                                <FCU:KeyboardAccelerator Key="P" Modifiers="Control" Invoked="KeyboardOpenPin"/>
-                            </FCU:AppBarButton.KeyboardAccelerators>
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
                                     <ListView x:Name="PinnedMessageList" SelectionMode="None" MaxWidth="450" MaxHeight="500">
