@@ -473,17 +473,15 @@ namespace Discord_UWP.Controls
                  {
                      if (e.EventData.ChannelId == Id)
                      {
-                         if (VoiceMembers.ContainsKey(e.EventData.UserId))
-                         {
-                             VoiceMembers[e.EventData.UserId] = new VoiceMemberContainer() { VoiceState = e.EventData };
-                         }
-                         else
+                         if (!VoiceMembers.ContainsKey(e.EventData.UserId))
                          {
                              VoiceMembers.Add(e.EventData.UserId, new VoiceMemberContainer() { VoiceState = e.EventData });
+                             MemberList.Items.Add(VoiceMembers[e.EventData.UserId]);
                          }
                      }
-                     else if (VoiceMembers.ContainsKey(e.EventData.UserId) && e.EventData.ChannelId == Id)
+                     else if (VoiceMembers.ContainsKey(e.EventData.UserId))
                      {
+                         MemberList.Items.Remove(VoiceMembers[e.EventData.UserId]);
                          VoiceMembers.Remove(e.EventData.UserId);
                      }
                  });
