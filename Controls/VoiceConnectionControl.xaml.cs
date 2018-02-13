@@ -68,6 +68,10 @@ namespace Discord_UWP.Controls
                 MainGrid.VerticalAlignment = VerticalAlignment.Stretch;
                 MainGrid.Background = (App.Current.Resources["AcrylicUserBackgroundDarker"] as Brush);
                 ShowChannel.Begin();
+                if (App.ShowAds)
+                {
+                    FullScreenAdBanner.Visibility = Visibility.Visible;
+                }
             }
         }
 
