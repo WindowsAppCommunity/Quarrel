@@ -115,7 +115,7 @@
                                         <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     </Grid>
 
-                                    <tk:Expander x:Name="ProfileSettings" Visibility="Visible" Background="#55000000" IsExpanded="False" Header="Profile settings" HorizontalContentAlignment="Stretch">
+                                    <tk:Expander x:Name="ProfileSettings" Visibility="Collapsed" Background="#55000000" IsExpanded="False" Header="Profile settings" HorizontalContentAlignment="Stretch">
                                         <StackPanel Margin="10,0">
                                             <TextBox x:Name="UsernameEdit" Header="Username"/>
                                             <TextBox x:Name="EmailEdit" Header="Email" IsReadOnly="True"/>
