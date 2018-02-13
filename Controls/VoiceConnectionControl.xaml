@@ -459,7 +459,6 @@
         <TranslateTransform x:Name="ContentTranslate"/>
     </UserControl.RenderTransform>
     <Grid x:Name="MainGrid" BorderThickness="0,0,0,0">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
