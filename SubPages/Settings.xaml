@@ -685,7 +685,7 @@
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
-                                    <CheckBox x:Uid="/Settings/" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
+                                    <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
