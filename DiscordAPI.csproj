@@ -197,6 +197,7 @@
     <Compile Include="Voice\DownstreamEvents\Hello.cs" />
     <Compile Include="Voice\DownstreamEvents\Ready.cs" />
     <Compile Include="Voice\DownstreamEvents\SessionDescription.cs" />
+    <Compile Include="Voice\DownstreamEvents\Speak.cs" />
     <Compile Include="Voice\DownstreamEvents\VoiceData.cs" />
     <Compile Include="Voice\EventNames.cs" />
     <Compile Include="Voice\OperationCode.cs" />

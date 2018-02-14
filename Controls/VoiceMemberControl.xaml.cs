@@ -99,6 +99,21 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             Tapped += OpenMemberFlyout;
             Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
+            Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+        }
+
+        private void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
+        {
+            if (e.EventData.UserId == DisplayedUser.UserId)
+            {
+                if (e.EventData.Speaking)
+                {
+                    username.Opacity = 1;
+                } else
+                {
+                    username.Opacity = 0.5;
+                }
+            }
         }
 
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
