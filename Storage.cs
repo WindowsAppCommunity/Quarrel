@@ -118,6 +118,7 @@ namespace Discord_UWP
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
         public bool EnableAcrylic = true;
+        public bool VoiceChannels = false;
         public bool UseCompression = true;
         public bool VideoAd = false;
         public bool GifsOnHover = true;
