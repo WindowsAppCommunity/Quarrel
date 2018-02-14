@@ -48,7 +48,7 @@ namespace Discord_UWP.Controls
                 else
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
 
-                
+
                 //if (DisplayedFriend.UserStatus != null)
                 //    status.Fill = (SolidColorBrush)App.Current.Resources[DisplayedFriend.UserStatus];
                 //if (!Session.Online)
@@ -61,7 +61,8 @@ namespace Discord_UWP.Controls
                     if (DisplayedUser.ServerDeaf)
                     {
                         //TODO: Change color?
-                    } else
+                    }
+                    else
                     {
                         //TODO: Change color back?
                     }
@@ -91,7 +92,7 @@ namespace Discord_UWP.Controls
 
                 if (LocalState.VoiceState.ChannelId == DisplayedUser.ChannelId)
                 {
-                    Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+                    //Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
                 }
 
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
@@ -109,28 +110,28 @@ namespace Discord_UWP.Controls
 
         private void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
         {
-            if (e.ChannelId == DisplayedUser.ChannelId)
-            {
-                Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
-            } else
-            {
-                Managers.VoiceManager.VoiceConnection.Speak -= VoiceConnection_Speak;
-            }
+            //if (e.ChannelId == DisplayedUser.ChannelId)
+            //{
+            //    Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+            //} else
+            //{
+            //    Managers.VoiceManager.VoiceConnection.Speak -= VoiceConnection_Speak;
+            //}
         }
 
-        private void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
-        {
-            if (e.EventData.UserId == DisplayedUser.UserId)
-            {
-                if (e.EventData.Speaking)
-                {
-                    username.Opacity = 1;
-                } else
-                {
-                    username.Opacity = 0.5;
-                }
-            }
-        }
+        //private void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
+        //{
+        //    if (e.EventData.UserId == DisplayedUser.UserId)
+        //    {
+        //        if (e.EventData.Speaking)
+        //        {
+        //            username.Opacity = 1;
+        //        } else
+        //        {
+        //            username.Opacity = 0.5;
+        //        }
+        //    }
+        //}
 
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
         {
