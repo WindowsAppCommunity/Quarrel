@@ -89,6 +89,11 @@ namespace Discord_UWP.Controls
                     Mute.Visibility = Visibility.Collapsed;
                 }
 
+                if (LocalState.VoiceState.ChannelId == DisplayedUser.ChannelId)
+                {
+                    Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+                }
+
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
 
             }
@@ -99,7 +104,18 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             Tapped += OpenMemberFlyout;
             Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
-            Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+            Managers.VoiceManager.ConnectoToVoiceHandler += VoiceManager_ConnectoToVoiceHandler;
+        }
+
+        private void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
+        {
+            if (e.ChannelId == DisplayedUser.ChannelId)
+            {
+                Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+            } else
+            {
+                Managers.VoiceManager.VoiceConnection.Speak -= VoiceConnection_Speak;
+            }
         }
 
         private void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
