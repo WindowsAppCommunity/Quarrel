@@ -90,16 +90,16 @@
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
+                                <Run Text="• In settings you can enable voice channels (recieving only) this is mainly useful for Music Channels" FontWeight="Bold"/>
+                            </Paragraph>
+                            <Paragraph>
                                 <Run Text="• Updates now have &quot;cute&quot; names"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Small style change"/>
+                                <Run Text="• Style changes"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• "/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• In settings you can enable voice channels (recieving only) this is mainly useful for Music Channels"/>
+                                <Run Text="• Fixed modify roles"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
