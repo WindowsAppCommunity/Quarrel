@@ -23,7 +23,7 @@ BindingGeneric=    new ToastBindingGeneric()
     {
         new AdaptiveText()
         {
-            Text = "Discord UWP has been updated!"
+            Text = "Discord UWP has been updated with partial Voice Channels!"
         },
 
         new AdaptiveText()
