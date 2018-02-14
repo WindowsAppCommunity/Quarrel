@@ -1270,7 +1270,7 @@
                                             <Rectangle x:Name="LargeAvatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="0,-36,0,0"/>
                                             <TextBlock x:Name="LargeUsername" FontSize="18" FontWeight="SemiLight" Text="{Binding Text, ElementName=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,6,0,0"/>
                                             <TextBlock x:Name="LargeDiscriminator" Text="{Binding Text, ElementName=Discriminator, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="SemiBold" Opacity="0.5" FontSize="13" HorizontalAlignment="Center"/>
-                                            <ListView x:Name="AccountView" ItemContainerStyle="{StaticResource ChannelItemStyle}" Margin="-20,6,-40,8" SelectionMode="None" IsItemClickEnabled="True" ItemClick="AccountView_ItemClick">
+                                            <ListView x:Name="AccountView" Visibility="Collapsed" ItemContainerStyle="{StaticResource ChannelItemStyle}" Margin="-20,6,-40,8" SelectionMode="None" IsItemClickEnabled="True" ItemClick="AccountView_ItemClick">
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
                                                         <Grid>
@@ -1288,7 +1288,7 @@
                                                     </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>
-                                            <Grid Margin="0,0,0,8">
+                                            <Grid Visibility="Collapsed" Margin="0,0,0,8">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition/>
                                                     <ColumnDefinition/>
