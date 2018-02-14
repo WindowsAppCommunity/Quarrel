@@ -74,6 +74,7 @@ namespace Discord_UWP.Voice
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
+        public event EventHandler<VoiceConnectionEventArgs<DownstreamEvents.Speak>> Speak;
 
         public VoiceConnection()
         {
@@ -152,7 +153,7 @@ namespace Discord_UWP.Voice
             var speakingPacket = new SocketFrame
             {
                 Operation = OperationCode.Speaking.ToInt(),
-                Payload = new Speak()
+                Payload = new UpstreamEvents.Speak()
                 {
                     Speaking = speaking,
                     Delay = 0,
@@ -265,7 +266,8 @@ namespace Discord_UWP.Voice
             {
                 { OperationCode.Ready.ToInt(), OnReady },
                 { OperationCode.Hello.ToInt(), OnHello },
-                { OperationCode.SessionDescription.ToInt(), OnSessionDesc }
+                { OperationCode.SessionDescription.ToInt(), OnSessionDesc },
+                {OperationCode.Speaking.ToInt(), OnSpeaking }
             };
         }
 
@@ -274,33 +276,9 @@ namespace Discord_UWP.Voice
             return new Dictionary<string, VoiceConnectionEventHandler>
             {
                 { EventNames.READY, OnReady },
-                //{ EventNames.GUILD_CREATED, OnGuildCreated },
-                //{ EventNames.GUILD_UPDATED, OnGuildUpdated },
-                //{ EventNames.GUILD_DELETED, OnGuildDeleted },
-                //{ EventNames.MESSAGE_CREATED, OnMessageCreated },
-                //{ EventNames.MESSAGE_UPDATED, OnMessageUpdated },
-                //{ EventNames.MESSAGE_DELETED, OnMessageDeleted },
-                //{ EventNames.GUILD_BAN_ADDED,  OnGuildBanAdded },
-                //{ EventNames.GUILD_BAN_REMOVED, OnGuildBanRemoved },
-                //{ EventNames.MESSAGE_REACTION_ADD, OnMessageReactionAdd },
-                //{ EventNames.MESSAGE_REACTION_REMOVE, OnMessageReactionRemove },
-                //{ EventNames.MESSAGE_REACTION_REMOVE_ALL, OnMessageReactionRemoveAll },
-                //{ EventNames.MESSAGE_ACK, OnMessageAck },
-                //{ EventNames.CHANNEL_CREATED, OnChannelCreated },
-                //{ EventNames.CHANNEL_UPDATED, OnChannelUpdated },
-                //{ EventNames.CHANNEL_DELETED, OnChannelDeleted },
-                //{ EventNames.GUILD_MEMBER_ADDED, OnGuildMemberAdded},
-                //{ EventNames.GUILD_MEMBER_REMOVED, OnGuildMemberRemoved },
-                //{ EventNames.GUILD_MEMBER_UPDATED, OnGuildMemberUpdated },
-                //{ EventNames.GUILD_MEMBER_CHUNK, OnGuildMemberChunk },
-                //{ EventNames.PRESENCE_UPDATED, OnPresenceUpdated },
-                //{ EventNames.TYPING_START, OnTypingStarted},
-                //{ EventNames.FRIEND_ADDED, OnRelationShipAdded },
-                //{ EventNames.FRIEND_REMOVED, OnRelationShipRemoved },
-                //{ EventNames.FRIEND_UPDATE, OnRelationShipUpdated },
-                //{ EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
-                //{ EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
-                //{ EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated }
+                { EventNames.HEARTBEAT, OnHello},
+                { EventNames.SELECT_PROTOCOL, OnSessionDesc },
+                { EventNames.SPEAKING, OnSpeaking }
             };
         }
 
@@ -354,6 +332,12 @@ namespace Discord_UWP.Voice
         {
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
+        }
+
+        private void OnSpeaking(SocketFrame Event)
+        {
+           var Speaking = Event.GetData<DownstreamEvents.Speak>();
+            FireEventOnDelegate(Event, Speak);
         }
 
         private void processVoicePacket(object sender, PacketReceivedEventArgs e)
