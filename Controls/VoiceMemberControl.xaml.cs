@@ -66,11 +66,11 @@ namespace Discord_UWP.Controls
                     {
                         //TODO: Change color back?
                     }
-                    Deaf.Visibility = Visibility.Visible;
+                    ShowDeaf.Begin();
                 }
                 else
                 {
-                    Deaf.Visibility = Visibility.Collapsed;
+                    HideDeaf.Begin();
                 }
 
                 if (DisplayedUser.SelfMute || DisplayedUser.ServerMute)
@@ -83,11 +83,11 @@ namespace Discord_UWP.Controls
                     {
                         //TODO: Change color back?
                     }
-                    Mute.Visibility = Visibility.Visible;
+                    ShowMute.Begin();
                 }
                 else
                 {
-                    Mute.Visibility = Visibility.Collapsed;
+                    HideMute.Begin();
                 }
 
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
