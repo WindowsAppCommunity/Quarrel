@@ -90,11 +90,6 @@ namespace Discord_UWP.Controls
                     Mute.Visibility = Visibility.Collapsed;
                 }
 
-                if (LocalState.VoiceState.ChannelId == DisplayedUser.ChannelId)
-                {
-                    //Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
-                }
-
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
 
             }
@@ -108,42 +103,54 @@ namespace Discord_UWP.Controls
             Managers.VoiceManager.ConnectoToVoiceHandler += VoiceManager_ConnectoToVoiceHandler;
         }
 
-        private void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
+        private async void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
         {
-            //if (e.ChannelId == DisplayedUser.ChannelId)
-            //{
-            //    Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
-            //} else
-            //{
-            //    Managers.VoiceManager.VoiceConnection.Speak -= VoiceConnection_Speak;
-            //}
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (e.ChannelId == DisplayedUser.ChannelId)
+                     {
+                         Managers.VoiceManager.VoiceConnection.Speak += VoiceConnection_Speak;
+                     }
+                     else
+                     {
+                         Managers.VoiceManager.VoiceConnection.Speak -= VoiceConnection_Speak;
+                     }
+                 });
         }
 
-        //private void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
-        //{
-        //    if (e.EventData.UserId == DisplayedUser.UserId)
-        //    {
-        //        if (e.EventData.Speaking)
-        //        {
-        //            username.Opacity = 1;
-        //        } else
-        //        {
-        //            username.Opacity = 0.5;
-        //        }
-        //    }
-        //}
+        private async void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (e.EventData.UserId == DisplayedUser.UserId)
+                     {
+                         if (e.EventData.Speaking)
+                         {
+                             //username.Opacity = 1; //TODO: Replace with StoryBoard
+                             Speaking.Begin();
+                         }
+                         else
+                         {
+                             //username.Opacity = 0.5; //TODO: Replace with StoryBoard
+                             StopSpeaking.Begin();
+                         }
+                     }
+                 });
+        }
 
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    if (e.EventData.UserId == DisplayedUser.UserId)
-                    {
-                        DisplayedUser = e.EventData;
-                        OnPropertyChanged(null, DisplayedUserProperty);
-                    }
-                });
+                 () =>
+                 {
+                     if (e.EventData.UserId == DisplayedUser.UserId)
+                     {
+                         DisplayedUser = e.EventData;
+                         OnPropertyChanged(null, DisplayedUserProperty);
+                     }
+                 });
         }
 
         private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)

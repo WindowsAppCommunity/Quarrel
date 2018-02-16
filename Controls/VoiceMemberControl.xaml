@@ -8,13 +8,40 @@
     mc:Ignorable="d"
     d:DesignHeight="50"
     d:DesignWidth="250">
+    <UserControl.Resources>
+        <Storyboard x:Name="Speaking">
+            <DoubleAnimation Duration="0:0:0.2" To="3" Storyboard.TargetProperty="(Rectangle.StrokeThickness)" Storyboard.TargetName="AvatarBG" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="StopSpeaking">
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(Rectangle.StrokeThickness)" Storyboard.TargetName="AvatarBG" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+        
     <Grid VerticalAlignment="Top" Margin="0,6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="AvatarBG" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
+        <Rectangle x:Name="AvatarBG" Stroke="Green" StrokeThickness="0" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1"/>
         <Rectangle x:Name="Avatar" RadiusX="48" RadiusY="48" Height="24" Width="24" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,0,0,0" Grid.Row="1">
             <Rectangle.Fill>
                 <ImageBrush x:Name="AvatarBrush"/>
