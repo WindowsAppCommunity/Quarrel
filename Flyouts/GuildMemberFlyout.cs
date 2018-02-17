@@ -29,14 +29,19 @@ namespace Discord_UWP.Flyouts
             };
             profile.Click += FlyoutManager.OpenProfile;
             menu.Items.Add(profile);
-            MenuFlyoutItem message = new MenuFlyoutItem()
+
+            if (member.User.Id != LocalState.CurrentUser.Id)
             {
-                Text = App.GetString("/Flyouts/Message"),
-                Tag = member.User.Id,
-                Icon = new SymbolIcon(Symbol.Message)
-            };
-            message.Click += FlyoutManager.MessageUser;
-            menu.Items.Add(message);
+                MenuFlyoutItem message = new MenuFlyoutItem()
+                {
+                    Text = App.GetString("/Flyouts/Message"),
+                    Tag = member.User.Id,
+                    Icon = new SymbolIcon(Symbol.Message)
+                };
+                message.Click += FlyoutManager.MessageUser;
+                menu.Items.Add(message);
+            }
+
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
             if (member.User.Id != LocalState.CurrentUser.Id)
