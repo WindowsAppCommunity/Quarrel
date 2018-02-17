@@ -509,6 +509,20 @@ namespace Discord_UWP
             }
             return null;
         }
+
+        public static async Task<SearchResults> SearchGuild(string guildId, SearchArgs args, int offset)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.SearchGuildMessages(guildId, args.ConvertToArgs(), offset);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new SearchResults();
+        }
         #endregion
 
         #region Set

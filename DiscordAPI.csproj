@@ -107,6 +107,7 @@
     <Compile Include="API\Game\IGameService.cs" />
     <Compile Include="API\Gateway\IGatewayService.cs" />
     <Compile Include="API\Guild\IGuildService.cs" />
+    <Compile Include="API\Guild\Models\SearchArgs.cs" />
     <Compile Include="API\Guild\Models\CreateGuild.cs" />
     <Compile Include="API\Guild\Models\CreateGuildBan.cs" />
     <Compile Include="API\Guild\Models\CreateGuildChannel.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="API\Guild\Models\ModifyGuildMember.cs" />
     <Compile Include="API\Guild\Models\ModifyGuildRole.cs" />
     <Compile Include="API\Guild\Models\ModifyIntegration.cs" />
+    <Compile Include="API\Guild\Models\SearchResults.cs" />
     <Compile Include="API\Invite\IInviteService.cs" />
     <Compile Include="API\Login\ILoginService.cs" />
     <Compile Include="API\Login\Models\LoginRequest.cs" />
