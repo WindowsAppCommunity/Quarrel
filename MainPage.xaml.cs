@@ -1122,7 +1122,6 @@ namespace Discord_UWP
                 await RESTCalls.TriggerTypingIndicator(e.ChannelId);
                 typingCooldown.Start();
             }
-            
         }
 
         private async void App_AddFriendHandler(object sender, App.AddFriendArgs e)

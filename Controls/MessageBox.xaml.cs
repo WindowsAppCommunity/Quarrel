@@ -233,6 +233,7 @@ namespace Discord_UWP.Controls
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
             }
+            TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
