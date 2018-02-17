@@ -477,4 +477,10 @@
   <data name="CommonServersTB.Text" xml:space="preserve">
     <value>SERVEURS EN COMMUN</value>
   </data>
+  <data name="TextChannel" xml:space="preserve">
+    <value>Canal de texte</value>
+  </data>
+  <data name="VoiceChannel" xml:space="preserve">
+    <value>Canal vocal</value>
+  </data>
 </root>

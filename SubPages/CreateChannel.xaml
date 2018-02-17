@@ -90,6 +90,8 @@
                         <TextBlock x:Uid="/Dialogs/CreateChannelTB" Text="CREATE CHANNEL" FontWeight="Bold" ></TextBlock>
                         <TextBlock x:Uid="/Dialogs/NameTB" FontSize="13.333" Foreground="{ThemeResource Blurple}" Text="NAME" FontWeight="SemiBold" Margin="0,12,0,0"/>
                         <TextBox x:Name="GuildName" Margin="0,6,0,0"/>
+                        <RadioButton x:Uid="/Dialogs/TextChannel" x:Name="TextChannel" Content="Text Channel" GroupName="ChannelType" Style="{StaticResource DiscordRadioButton}"/>
+                        <RadioButton x:Uid="/Dialogs/VoiceChannel" x:Name="VoiceChannel" Content="Voice Channel" GroupName="ChannelType" Style="{StaticResource DiscordRadioButton}"/>
                     </StackPanel>
                     <Grid Grid.Row="2" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
@@ -106,3 +108,4 @@
         </Grid>
     </Grid>
 </Page>
+    
