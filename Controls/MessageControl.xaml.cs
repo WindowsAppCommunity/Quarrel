@@ -621,14 +621,6 @@ namespace Discord_UWP.Controls
                 }
                 LoadEmbedsAndAttachements();
 
-                foreach (User user in Message.Value.Mentions)
-                {
-                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].members.Add(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
-                    }
-                }
-
                 content.Users = Message.Value.Mentions;
                 if (Message?.Content == "")
                 {
