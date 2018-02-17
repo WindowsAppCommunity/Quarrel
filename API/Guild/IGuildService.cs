@@ -112,5 +112,8 @@ namespace Discord_UWP.API.Guild
 
         [Get("/guilds/{guildId}/embed")]
         Task<GuildEmbed> ModifyGuildEmbed([AliasAs("guildId")] string guildId, [Body] GuildEmbed guildEmbed);
+
+        [Get("/v6/guilds/{guildId}/messages/search?{args}&{offset}")]
+        Task<SearchResults> SearchGuildMessages([AliasAs("guildId")] string guildId, [AliasAs("args")] string args, [AliasAs("offset")] int offset);
     }
 }
