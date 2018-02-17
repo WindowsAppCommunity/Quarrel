@@ -512,7 +512,7 @@ namespace Discord_UWP.Controls
             return wg;
             
         }
-        public void UpdateMessage()
+        public async void UpdateMessage()
         {
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
@@ -543,14 +543,21 @@ namespace Discord_UWP.Controls
                 GuildMember member;
                 if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
                 else userid = "";
-                if (App.CurrentGuildId != null && Message.Value.User.Id != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.Value.User.Id))
+                if (App.CurrentGuildId != null && Message.Value.User.Id != null)
                 {
-                    member = LocalState.Guilds[App.CurrentGuildId].members[Message.Value.User.Id];
+                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.Value.User.Id))
+                    {
+                        member = LocalState.Guilds[App.CurrentGuildId].members[Message.Value.User.Id];
+                    } else
+                    {
+                        member = await RESTCalls.GetGuildMember(App.CurrentGuildId, Message.Value.User.Id);
+                    }
                 }
                 else
                 {
                     member = new GuildMember();
                 }
+
                 if (member.Nick != null)
                 {
                     username.Content = member.Nick;
@@ -613,6 +620,15 @@ namespace Discord_UWP.Controls
                     reactionView = null;
                 }
                 LoadEmbedsAndAttachements();
+
+                foreach (User user in Message.Value.Mentions)
+                {
+                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
+                    {
+                        LocalState.Guilds[App.CurrentGuildId].members.Add(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
+                    }
+                }
+
                 content.Users = Message.Value.Mentions;
                 if (Message?.Content == "")
                 {

@@ -1033,11 +1033,18 @@ namespace Discord_UWP
             e.Flyout.ShowAt((sender as UIElement), e.Point);
         }
 
-        private void App_ShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs e)
+        private async void App_ShowMemberFlyoutHandler(object sender, App.ProfileNavigationArgs e)
         {
             if (!App.CurrentGuildIsDM)
             {
-                var member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
+                var member = new GuildMember();
+                if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
+                {
+                    member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
+                } else
+                {
+                    member = await RESTCalls.GetGuildMember(App.CurrentGuildId, e.User.Id);
+                }
                 FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
             }
             else
@@ -1066,7 +1073,7 @@ namespace Discord_UWP
             {
                 string val = e.Link.Remove(0, 2);
                
-                App.NavigateToProfile(LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else if (e.Link.StartsWith("@&"))
             {
@@ -1078,7 +1085,7 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@"))
             {
                 string val = e.Link.Remove(0, 1);
-                App.NavigateToProfile(LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else
             {
