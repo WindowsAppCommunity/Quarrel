@@ -5,6 +5,7 @@
     xmlns:local="using:Discord_UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:control="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
@@ -424,11 +425,13 @@
                         <Grid.Background>
                             <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.75"/>
                         </Grid.Background>
-                        <StackPanel VerticalAlignment="Center" Margin="48,0">
-                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0,0,0,-6"/>
-                            <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="12" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0"/>
-                            <ProgressBar x:Name="progressBar" Value="0" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
-                        </StackPanel>
+                        <Grid Width="250" Height="250" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="48,0">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-6">
+                                <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}"/>
+                                <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="12" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0"/>
+                            </StackPanel>
+                            <control:RadialProgressBar x:Name="progressBar" Value="0" Maximum="100" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Border>
