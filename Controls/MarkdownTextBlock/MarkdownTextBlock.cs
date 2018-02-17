@@ -1292,7 +1292,7 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
-            App.FireLinkClicked(eventArgs);
+            App.FireLinkClicked(this, eventArgs);
         }
 
         private bool multiClickDetectionTriggered;
@@ -1322,7 +1322,7 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
-            App.FireLinkClicked(eventArgs);
+            App.FireLinkClicked(this, eventArgs);
         }
 
         

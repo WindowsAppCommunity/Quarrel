@@ -122,9 +122,9 @@ namespace Discord_UWP
         /// Fired when a link element in the markdown was tapped.
         /// </summary>
         public static event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
-        public static void FireLinkClicked(MarkdownTextBlock.LinkClickedEventArgs LinkeventArgs)
+        public static void FireLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs LinkeventArgs)
         {
-            LinkClicked?.Invoke(typeof(App), LinkeventArgs);
+            LinkClicked?.Invoke(sender, LinkeventArgs);
         }
         #endregion
 
