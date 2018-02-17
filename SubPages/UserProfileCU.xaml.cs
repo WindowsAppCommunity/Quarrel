@@ -58,6 +58,7 @@ namespace Discord_UWP.SubPages
 
         private SharedModels.UserProfile profile;
         string userid;
+        bool navFromFlyout = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -68,6 +69,7 @@ namespace Discord_UWP.SubPages
             {
                 AvatarFull.ImageSource = App.navImageCache;
                 App.navImageCache = null;
+                navFromFlyout = true;
             }
             if (imageAnimation != null)
             {
@@ -242,7 +244,7 @@ namespace Discord_UWP.SubPages
 
 
             var image = new BitmapImage(Common.AvatarUri(profile.User.Avatar, profile.User.Id));
-            if (AvatarFull.ImageSource == null)
+            if (!navFromFlyout)
             {
                 AvatarFull.ImageSource = image;
             }
