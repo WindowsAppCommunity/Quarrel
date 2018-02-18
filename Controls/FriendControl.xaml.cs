@@ -147,13 +147,13 @@ namespace Discord_UWP.Controls
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.SendFriendRequest(DisplayedFriend.User.Id); //TOOD: Rig to App.Events
+            await RESTCalls.SendFriendRequest(DisplayedFriend.User.Id);
             AcceptFriend?.Invoke(null,null);
         }
 
         private async void RemoveRelationship(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.RemoveFriend(DisplayedFriend.User.Id); //TODO: Rig to App.Events
+            await RESTCalls.RemoveFriend(DisplayedFriend.User.Id);
             RemovedFriend?.Invoke(null,null);
         }
 
