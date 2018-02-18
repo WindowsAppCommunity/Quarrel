@@ -233,21 +233,28 @@ namespace Discord_UWP.Controls
         {
             return new Vector2(input.X-HalfPoint, input.Y);
         }
+        float LimitHeight(float input)
+        {
+            if (input > height)
+                return height;
+            else
+                return input;
+        }
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
             using (var cpb = new CanvasPathBuilder(args.DrawingSession))
             {
                 cpb.BeginFigure(0, height);
                 
-                Vector2 p0 = new Vector2(Point0, height - smoother1.Smooth(AudioManager.AudioSpec1) * height);
-                Vector2 p1 = new Vector2(Point1, height - smoother2.Smooth(AudioManager.AudioSpec2) * height);
-                Vector2 p2 = new Vector2(Point2, height - smoother3.Smooth(AudioManager.AudioSpec3) * height);
-                Vector2 p3 = new Vector2(Point3, height - smoother4.Smooth(AudioManager.AudioSpec4) * height);
-                Vector2 p4 = new Vector2(Point4, height - smoother5.Smooth(AudioManager.AudioSpec5) * height);
-                Vector2 p5 = new Vector2(Point5, height - smoother6.Smooth(AudioManager.AudioSpec6) * height);
-                Vector2 p6 = new Vector2(Point6, height - smoother7.Smooth(AudioManager.AudioSpec7) * height);
-                Vector2 p7 = new Vector2(Point7, height - smoother8.Smooth(AudioManager.AudioSpec8) * height);
-                Vector2 p8 = new Vector2(Point8, height - smoother9.Smooth(AudioManager.AudioSpec9) * height);
+                Vector2 p0 = new Vector2(Point0, LimitHeight(height - smoother1.Smooth(AudioManager.AudioSpec1) * height));
+                Vector2 p1 = new Vector2(Point1, LimitHeight(height - smoother2.Smooth(AudioManager.AudioSpec2) * height));
+                Vector2 p2 = new Vector2(Point2, LimitHeight(height - smoother3.Smooth(AudioManager.AudioSpec3) * height));
+                Vector2 p3 = new Vector2(Point3, LimitHeight(height - smoother4.Smooth(AudioManager.AudioSpec4) * height));
+                Vector2 p4 = new Vector2(Point4, LimitHeight(height - smoother5.Smooth(AudioManager.AudioSpec5) * height));
+                Vector2 p5 = new Vector2(Point5, LimitHeight(height - smoother6.Smooth(AudioManager.AudioSpec6) * height));
+                Vector2 p6 = new Vector2(Point6, LimitHeight(height - smoother7.Smooth(AudioManager.AudioSpec7) * height));
+                Vector2 p7 = new Vector2(Point7, LimitHeight(height - smoother8.Smooth(AudioManager.AudioSpec8) * height));
+                Vector2 p8 = new Vector2(Point8, LimitHeight(height - smoother9.Smooth(AudioManager.AudioSpec9) * height));
 
 
                 cpb.AddLine(p0);
