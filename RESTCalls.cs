@@ -931,14 +931,14 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task<SharedModels.GuildChannel> CreateChannel(string guildid, string name)
+        public static async Task<SharedModels.GuildChannel> CreateChannel(string guildid, string name, string type = "text")
         {
             try
             {
                 CreateGuildChannel cgc = new CreateGuildChannel();
                 cgc.Bitrate = 64000;
                 cgc.Name = name;
-                cgc.Type = "text";
+                cgc.Type = type;
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.CreateGuildChannel(guildid, cgc);
             }
