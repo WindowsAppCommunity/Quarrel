@@ -19,6 +19,8 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.Managers;
 using Windows.UI;
 using System.Numerics;
+using Microsoft.Graphics.Canvas.Geometry;
+using Microsoft.Graphics.Canvas.Brushes;
 
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -154,17 +156,27 @@ namespace Discord_UWP.Controls
 
         private void SetupVisualizer()
         {
-            smoother1 = new Smoother(12, 5, 0.5, 0.8);
-            smoother2 = new Smoother(8, 5);
-            smoother3 = new Smoother(8, 6);
-            smoother4 = new Smoother(8, 6);
-            smoother5 = new Smoother(4, 6);
+            smoother1 = new Smoother(4, 6);
+            smoother2 = new Smoother(4, 12);
+            smoother3 = new Smoother(4, 14);
+            smoother4 = new Smoother(4, 14);
+            smoother5 = new Smoother(4, 15);
+            smoother6 = new Smoother(4, 16);
+            smoother7 = new Smoother(4, 16);
+            smoother8 = new Smoother(4, 15);
+            smoother9 = new Smoother(4, 14);
+            Blurple = (Color)App.Current.Resources["BlurpleColor"];
+            TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
         }
         Smoother smoother1;
         Smoother smoother2;
         Smoother smoother3;
         Smoother smoother4;
         Smoother smoother5;
+        Smoother smoother6;
+        Smoother smoother7;
+        Smoother smoother8;
+        Smoother smoother9;
         public class Smoother
         {
             /// <summary>
@@ -172,7 +184,7 @@ namespace Discord_UWP.Controls
             /// </summary>
             /// <param name="SmoothTime">The smoothing window in *10ms</param>
             /// /// <param name="multiplier">The opacity multiplier (5 by default)</param>
-            public Smoother(int smoothTime, float multiplier = 5, double smoothnessThresholdUp = 0.2, double smoothnessThresholdDown = 0.6, float smoothLimit = 0.82f)
+            public Smoother(int smoothTime, float multiplier = 5, double smoothnessThresholdUp = 1, double smoothnessThresholdDown = 1, float smoothLimit = 1f)
             {
                 SmoothTime = smoothTime;
                 Multiplier = multiplier;
@@ -191,7 +203,7 @@ namespace Discord_UWP.Controls
             //If the difference with the previous sample isn't too big, This function uses a simple moving average formula to smooth the value out
             public float Smooth(float input)
             {
-                if ((input - PreviousVal) < SmoothingThresholdUp && (PreviousVal - input) < SmoothingThresholdDown && input < SmoothLimit)
+                //if ((input - PreviousVal) < SmoothingThresholdUp && (PreviousVal - input) < SmoothingThresholdDown && input < SmoothLimit)
                     input = (((PreviousVal * SmoothTime) + input) / (SmoothTime + 1));
 
                 PreviousVal = input;
@@ -199,18 +211,82 @@ namespace Discord_UWP.Controls
             }
         }
 
+        Color Blurple;
+        Color TransparentBlurple;
+        float height = 47;
+        float HalfPoint;
+        float Point0 = 0;
+        float Point1;
+        float Point2;
+        float Point3;
+        float Point4;
+        float Point5;
+        float Point6;
+        float Point7;
+        float Point8;
+
+        Vector2 GetC1(Vector2 input)
+        {
+            return new Vector2(input.X+HalfPoint, input.Y);
+        }
+        Vector2 GetC2(Vector2 input)
+        {
+            return new Vector2(input.X-HalfPoint, input.Y);
+        }
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
-            var width = 12 + 48 * AudioManager.AudioSpec1;
-            Vector2 Point1 = new Vector2(0, smoother1.Smooth(AudioManager.AudioSpec1) * 64);
-            Vector2 Point2 = new Vector2(57, smoother2.Smooth(AudioManager.AudioSpec2) * 64);
-            Vector2 Point3 = new Vector2(114, smoother3.Smooth(AudioManager.AudioSpec3) * 64);
-            Vector2 Point4 = new Vector2(171, smoother4.Smooth(AudioManager.AudioSpec4) * 64);
-            Vector2 Point5 = new Vector2(228, smoother5.Smooth(AudioManager.AudioSpec5) * 64);
-            args.DrawingSession.DrawLine(Point1, Point2, Colors.Red);
-            args.DrawingSession.DrawLine(Point2, Point3, Colors.Red);
-            args.DrawingSession.DrawLine(Point3, Point4, Colors.Red);
-            args.DrawingSession.DrawLine(Point4, Point5, Colors.Red);
+            using (var cpb = new CanvasPathBuilder(args.DrawingSession))
+            {
+                cpb.BeginFigure(0, height);
+                
+                Vector2 p0 = new Vector2(Point0, height - smoother1.Smooth(AudioManager.AudioSpec1) * height);
+                Vector2 p1 = new Vector2(Point1, height - smoother2.Smooth(AudioManager.AudioSpec2) * height);
+                Vector2 p2 = new Vector2(Point2, height - smoother3.Smooth(AudioManager.AudioSpec3) * height);
+                Vector2 p3 = new Vector2(Point3, height - smoother4.Smooth(AudioManager.AudioSpec4) * height);
+                Vector2 p4 = new Vector2(Point4, height - smoother5.Smooth(AudioManager.AudioSpec5) * height);
+                Vector2 p5 = new Vector2(Point5, height - smoother6.Smooth(AudioManager.AudioSpec6) * height);
+                Vector2 p6 = new Vector2(Point6, height - smoother7.Smooth(AudioManager.AudioSpec7) * height);
+                Vector2 p7 = new Vector2(Point7, height - smoother8.Smooth(AudioManager.AudioSpec8) * height);
+                Vector2 p8 = new Vector2(Point8, height - smoother9.Smooth(AudioManager.AudioSpec9) * height);
+
+
+                cpb.AddLine(p0);
+                cpb.AddCubicBezier(GetC1(p0), GetC2(p1), p1);
+                cpb.AddCubicBezier(GetC1(p1), GetC2(p2), p2);
+                cpb.AddCubicBezier(GetC1(p2), GetC2(p3), p3);
+                cpb.AddCubicBezier(GetC1(p3), GetC2(p4), p4);
+                cpb.AddCubicBezier(GetC1(p4), GetC2(p5), p5);
+                cpb.AddCubicBezier(GetC1(p5), GetC2(p6), p6);
+                cpb.AddCubicBezier(GetC1(p6), GetC2(p7), p7);
+                cpb.AddCubicBezier(GetC1(p7), GetC2(p8), p8);
+                cpb.AddLine(new Vector2(p8.X, height));
+                
+      
+                cpb.EndFigure(CanvasFigureLoop.Closed);
+                CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, TransparentBlurple, Blurple)
+                {
+                    EndPoint = new Vector2(0, height+48),
+                    StartPoint = new Vector2(0, -12)
+                };
+                var path = CanvasGeometry.CreatePath(cpb);
+                //args.DrawingSession.DrawGeometry(path, Blurple, 1);
+                args.DrawingSession.FillGeometry(path, gradient);
+            }
+        }
+
+        private void CanvasAnimatedControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            height = (float)e.NewSize.Height - 1;
+            float Segment = (float)e.NewSize.Width / 8;
+            Point1 = Segment;
+            HalfPoint = Segment / 2;
+            Point2 = Segment * 2;
+            Point3 = Segment * 3;
+            Point4 = Segment * 4;
+            Point5 = Segment * 5;
+            Point6 = Segment * 6;
+            Point7 = Segment * 7;
+            Point8 = Segment * 8;
         }
     }
 }
