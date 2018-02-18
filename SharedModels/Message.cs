@@ -70,7 +70,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("type")]
         public int Type { get; set; }
         [JsonProperty("hits")]
-        public bool Hits { get; set; }
+        public bool Hit { get; set; }
     }
 
     public struct MessageAck

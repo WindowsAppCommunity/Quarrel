@@ -16,7 +16,6 @@ namespace Discord_UWP.Managers
     {
         public async static void StartGateway()
         {
-
             //Ready
             Gateway.Ready += Gateway_Ready;
             //Message
@@ -346,9 +345,12 @@ namespace Discord_UWP.Managers
                 App.UpdateUnreadIndicators();
             } else
             {
-                
                 if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                 {
+                    if (e.EventData.Type == 3)
+                    {
+                        //TODO: Handle calls
+                    }
                     if (e.EventData.User.Id != LocalState.CurrentUser.Id)
                     {
                         LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);

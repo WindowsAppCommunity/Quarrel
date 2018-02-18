@@ -71,7 +71,7 @@ namespace Discord_UWP.Controls
 
             try
             {
-                DisplayedInvite = await RESTCalls.GetInvite(InviteCode); //TODO: Rig to App.Events (maybe, probably not actually)
+                DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
                 Loading.Fade(0, 200).Start();
                 GuildName.Visibility = Visibility.Visible;
                 TimeSpan timeDiff = TimeSpan.FromSeconds(1);
@@ -159,8 +159,8 @@ namespace Discord_UWP.Controls
                 Loading.Opacity = 1;
 
                 //DisplayedInvite = await RESTCalls.AcceptInvite(InviteCode); I guess this doesn't work or something...
-                await RESTCalls.AcceptInvite(InviteCode); //TODO: Rig to App.Events
-                DisplayedInvite = await RESTCalls.GetInvite(InviteCode); //TODO: Rig to App.Events (maybe, probably not actually)
+                await RESTCalls.AcceptInvite(InviteCode);
+                DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
                 DisplayedInvite.Uses++;
                 LoadInvite(true);
             }
