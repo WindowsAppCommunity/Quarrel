@@ -52,7 +52,7 @@ using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using FFT;
+using FFT.Processing;
 
 namespace Discord_UWP
 {
@@ -86,6 +86,10 @@ namespace Discord_UWP
         public static float AudioSpec3 = 0;
         public static float AudioSpec4 = 0;
         public static float AudioSpec5 = 0;
+        public static float AudioSpec6 = 0;
+        public static float AudioSpec7 = 0;
+        public static float AudioSpec8 = 0;
+        public static float AudioSpec9 = 0;
 
 
         //private static bool started = false;
@@ -238,11 +242,15 @@ namespace Discord_UWP
 
             float[] leftChannel = channelData[1];
 
-            AudioSpec1 = FFT.Processing.HelperMethods.Max(leftChannel, 0, 1);
-            AudioSpec2 = FFT.Processing.HelperMethods.Max(leftChannel, 2, 4);
-            AudioSpec3 = FFT.Processing.HelperMethods.Max(leftChannel, 5, 10);
-            AudioSpec4 = FFT.Processing.HelperMethods.Max(leftChannel, 10, 15);
-            AudioSpec5 = FFT.Processing.HelperMethods.Max(leftChannel, 15, 26);
+            AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+            AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+            AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+            AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+            AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+            AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+            AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+            AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+            AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
             frameInputNode.AddFrame(frame);
         }
 
