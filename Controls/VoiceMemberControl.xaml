@@ -10,11 +10,6 @@
     d:DesignWidth="250">
     <UserControl.Resources>
         <Storyboard x:Name="Speaking">
-            <DoubleAnimation Duration="0:0:0.2" To="3" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="AvatarBG" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
@@ -22,11 +17,6 @@
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="StopSpeaking">
-            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="AvatarBG" d:IsOptimized="True">
-                <DoubleAnimation.EasingFunction>
-                    <CircleEase EasingMode="EaseIn"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
             <DoubleAnimation Duration="0:0:0.2" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="username" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
