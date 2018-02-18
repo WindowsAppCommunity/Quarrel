@@ -60,11 +60,11 @@ namespace Discord_UWP.Controls
                 {
                     if (DisplayedUser.ServerDeaf)
                     {
-                        //TODO: Change color?
+                        ServerDeaf.Begin();
                     }
                     else
                     {
-                        //TODO: Change color back?
+                        LocalDeaf.Begin();
                     }
                     ShowDeaf.Begin();
                 }
@@ -77,11 +77,11 @@ namespace Discord_UWP.Controls
                 {
                     if (DisplayedUser.ServerMute)
                     {
-                        //TODO: Change color?
+                        ServerMute.Begin();
                     }
                     else
                     {
-                        //TODO: Change color back?
+                        LocalMute.Begin();
                     }
                     ShowMute.Begin();
                 }
