@@ -160,8 +160,7 @@ namespace Discord_UWP.Controls
                 }
                 if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
-
-                //TODO: DM Functionality 
+                
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game.HasValue)
