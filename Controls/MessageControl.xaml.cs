@@ -899,9 +899,9 @@ namespace Discord_UWP.Controls
             if (reaction.Emoji.Id != null)
                 emojiStr += ":" + reaction.Emoji.Id;
             if ((sender as ToggleButton)?.IsChecked == false) //Inverted since it changed
-                await RESTCalls.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr); //TODO: Rig to App.Events
+                await RESTCalls.DeleteReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
             else
-                await RESTCalls.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr); //TODO: Rig to App.Events
+                await RESTCalls.CreateReactionAsync(tuple.Item1, tuple.Item2, emojiStr);
     }
 
         string EditValue = "";
@@ -941,7 +941,7 @@ namespace Discord_UWP.Controls
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
             editBox.IsEnabled = false;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text)); //TODO: Rig to App.Events
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
@@ -960,16 +960,16 @@ namespace Discord_UWP.Controls
         {
             if (Message.Value.Pinned)
             {
-                await RESTCalls.UnpinMessage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
+                await RESTCalls.UnpinMessage(Message.Value.ChannelId, Message.Value.Id);
             } else
             {
-                await RESTCalls.PinMesage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
+                await RESTCalls.PinMesage(Message.Value.ChannelId, Message.Value.Id);
             }
         }
 
         private async void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.DeleteMessage(Message.Value.ChannelId, Message.Value.Id); //TODO: Rig to App.Events
+            await RESTCalls.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
         }
 
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
@@ -1022,7 +1022,7 @@ namespace Discord_UWP.Controls
                 var emoji = (EmojiControl.GuildSide)e;
                 emojiStr = emoji.names[0] + ":" + emoji.id;
             }
-            await RESTCalls.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr); //TODO: Rig to App.Events
+            await RESTCalls.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr);
         }
 
         private void MoreReply_Click(object sender, RoutedEventArgs e)
