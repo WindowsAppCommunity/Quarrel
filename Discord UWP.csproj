@@ -110,6 +110,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AudioProcessing\Complex.cs" />
+    <Compile Include="AudioProcessing\Fft.cs" />
+    <Compile Include="AudioProcessing\HelperMethods.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
