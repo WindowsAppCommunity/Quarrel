@@ -6,6 +6,7 @@
     xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     d:DesignHeight="150"
     d:DesignWidth="250" RequestedTheme="Dark" x:Name="ContentGrid">
@@ -511,7 +512,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-
+            <canvas:CanvasAnimatedControl  Grid.ColumnSpan="6" Grid.RowSpan="3" Draw="CanvasAnimatedControl_Draw"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MiniView_Click"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" IsEnabled="False" IsChecked="True" Content="" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>

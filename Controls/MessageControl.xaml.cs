@@ -550,7 +550,7 @@ namespace Discord_UWP.Controls
                         member = LocalState.Guilds[App.CurrentGuildId].members[Message.Value.User.Id];
                     } else
                     {
-                        member = await RESTCalls.GetGuildMember(App.CurrentGuildId, Message.Value.User.Id);
+                        member = new GuildMember() { User = Message.Value.User };
                     }
                 }
                 else

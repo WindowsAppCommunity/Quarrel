@@ -52,6 +52,7 @@ using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using FFT;
 
 namespace Discord_UWP
 {
@@ -80,6 +81,13 @@ namespace Discord_UWP
         private static int quantum = 0;
         private static double theta = 0;
         private static bool ready = false;
+        public static float AudioSpec1 = 0;
+        public static float AudioSpec2 = 0;
+        public static float AudioSpec3 = 0;
+        public static float AudioSpec4 = 0;
+        public static float AudioSpec5 = 0;
+
+
         //private static bool started = false;
         //public static 
 
@@ -225,6 +233,16 @@ namespace Discord_UWP
                     }
                 }
             }
+            List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+            List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
+
+            float[] leftChannel = channelData[1];
+
+            AudioSpec1 = FFT.Processing.HelperMethods.Max(leftChannel, 0, 1);
+            AudioSpec2 = FFT.Processing.HelperMethods.Max(leftChannel, 2, 4);
+            AudioSpec3 = FFT.Processing.HelperMethods.Max(leftChannel, 5, 10);
+            AudioSpec4 = FFT.Processing.HelperMethods.Max(leftChannel, 10, 15);
+            AudioSpec5 = FFT.Processing.HelperMethods.Max(leftChannel, 15, 26);
             frameInputNode.AddFrame(frame);
         }
 
@@ -324,6 +342,8 @@ namespace Discord_UWP
                 {
                     dataInFloats[i] = dataInFloat[i];
                 }
+
+
 
                 InputRecieved?.Invoke(null, dataInFloats);
             }
