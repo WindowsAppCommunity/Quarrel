@@ -676,8 +676,10 @@ namespace Discord_UWP
                 UserDetails.Visibility = Visibility.Collapsed;
                 MemberListFull.Visibility = Visibility.Visible;
                 RenderGuildChannels();
-
-                Ad.Visibility = Visibility.Visible;
+                if (App.ShowAds)
+                {
+                    Ad.Visibility = Visibility.Visible;
+                }
 
             } else
             {
