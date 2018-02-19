@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace DiscordAPI.API.Game
+namespace Discord_UWP.API.Game
 {
 
     public struct Executable
