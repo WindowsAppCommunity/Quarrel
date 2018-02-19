@@ -95,7 +95,20 @@ namespace Discord_UWP.Gateway
           
             PrepareSocket();
         }
-
+        public async Task Search(string query, List<string> guilds, int limit)
+        {
+            var frame = new SocketFrame()
+            {
+                Operation = 8,
+                Payload = new DiscordAPI.SharedModels.Search
+                {
+                    query = query,
+                    limit = limit,
+                    guild_id = guilds
+                }
+            };
+            await _webMessageSocket.SendJsonObjectAsync(frame);
+        }
         private IDictionary<int, GatewayEventHandler> GetOperationHandlers()
         {
             return new Dictionary<int, GatewayEventHandler>
@@ -234,8 +247,6 @@ namespace Discord_UWP.Gateway
         {
             var gatewayEvent = JsonConvert.DeserializeObject<SocketFrame>(args.Message);
             lastGatewayEvent = gatewayEvent;
-            if (args.Message.Contains("Spotify"))
-                Debug.WriteLine("spotify");
             if (operationHandlers.ContainsKey(gatewayEvent.Operation.GetValueOrDefault()))
             {
                 operationHandlers[gatewayEvent.Operation.GetValueOrDefault()](gatewayEvent);
@@ -528,5 +539,6 @@ namespace Discord_UWP.Gateway
             };
             await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
+
     }
 }

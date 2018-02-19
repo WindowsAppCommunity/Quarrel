@@ -182,6 +182,7 @@
     <Compile Include="SharedModels\Reactions.cs" />
     <Compile Include="SharedModels\ReadState.cs" />
     <Compile Include="SharedModels\Role.cs" />
+    <Compile Include="SharedModels\Search.cs" />
     <Compile Include="SharedModels\SharedFriend.cs" />
     <Compile Include="SharedModels\TypingStart.cs" />
     <Compile Include="SharedModels\User.cs" />
