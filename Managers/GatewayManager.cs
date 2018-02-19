@@ -759,6 +759,7 @@ namespace Discord_UWP.Managers
         }
         #endregion
 
+
         public static Gateway.Gateway Gateway;
     }
 }
