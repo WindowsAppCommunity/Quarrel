@@ -2621,5 +2621,10 @@ namespace Discord_UWP
             PinnedMessags.Flyout.ShowAt(PinnedMessags);
         }
         #endregion
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.Search));
+        }
     }
 }
