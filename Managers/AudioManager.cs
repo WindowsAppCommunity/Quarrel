@@ -90,7 +90,7 @@ namespace Discord_UWP
         public static float AudioSpec7 = 0;
         public static float AudioSpec8 = 0;
         public static float AudioSpec9 = 0;
-
+        public static float AudioAverage = 0;
 
         //private static bool started = false;
         //public static 
@@ -251,6 +251,7 @@ namespace Discord_UWP
             AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
             AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
             AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+            AudioAverage = (AudioSpec1 + AudioSpec2 + AudioSpec3 + AudioSpec4 + AudioSpec5 + AudioSpec5 + AudioSpec6 + AudioSpec7 + AudioSpec8 + AudioSpec9)/9;
             frameInputNode.AddFrame(frame);
         }
 
