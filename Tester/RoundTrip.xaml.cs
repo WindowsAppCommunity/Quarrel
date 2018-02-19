@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Concentus.Structs;
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Tester
@@ -26,6 +28,9 @@ namespace Tester
         {
             this.InitializeComponent();
         }
+
+        private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
+        private OpusDecoder decoder = new OpusDecoder(48000, 2);
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -46,13 +51,14 @@ namespace Tester
             byte[] key = new byte[] { /*tbd */}; //Length of 32
 
             byte[] opus = new byte[TBD];
-            //TODO: Call Opus lib
+            int encodedSize = encoder.Encode(e, 0, (48000 / 1000 * 20), opus, 0, (48000 / 1000 * 20 * sizeof(float) * 2));
             RuntimeComponent.Cypher.encrypt(opus, 0, 0, opus, 0, nonce, key);
+
             RuntimeComponent.Cypher.decrypt(opus, 0, 0, opus, 0, nonce, key);
 
             float[] frame = new float[e.Length];
-            uint samples = 0; //TODO: Call Opus lib
-            AudioManager.AddFrame(frame, samples);
+            int samples = decoder.Decode(opus, 0, opus.Length, frame, 0, (20 * 48 * 2));
+            AudioManager.AddFrame(frame, (uint)samples);
         }
     }
 }
