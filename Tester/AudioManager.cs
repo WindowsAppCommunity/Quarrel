@@ -2,9 +2,6 @@
 using Discord_UWP.API.User;
 using Discord_UWP.API.User.Models;
 using Discord_UWP.Authentication;
-using Microsoft.Advertising.WinRT.UI;
-using Microsoft.QueryStringDotNET;
-using Microsoft.Toolkit.Uwp.Notifications;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,16 +42,13 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
-using static Discord_UWP.Common;
-using Discord_UWP.LocalModels;
 using Discord_UWP.Gateway.DownstreamEvents;
 using Discord_UWP.Gateway;
 using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using FFT.Processing;
 
-namespace Discord_UWP
+namespace Tester
 {
     [ComImport]
     [Guid("5B0D3235-4DBA-4D44-865E-8F1D0E4FD04D")]
@@ -81,15 +75,15 @@ namespace Discord_UWP
         private static int quantum = 0;
         private static double theta = 0;
         private static bool ready = false;
-        public static float AudioSpec1 = 0;
-        public static float AudioSpec2 = 0;
-        public static float AudioSpec3 = 0;
-        public static float AudioSpec4 = 0;
-        public static float AudioSpec5 = 0;
-        public static float AudioSpec6 = 0;
-        public static float AudioSpec7 = 0;
-        public static float AudioSpec8 = 0;
-        public static float AudioSpec9 = 0;
+        //public static float AudioSpec1 = 0;
+        //public static float AudioSpec2 = 0;
+        //public static float AudioSpec3 = 0;
+        //public static float AudioSpec4 = 0;
+        //public static float AudioSpec5 = 0;
+        //public static float AudioSpec6 = 0;
+        //public static float AudioSpec7 = 0;
+        //public static float AudioSpec8 = 0;
+        //public static float AudioSpec9 = 0;
 
 
         //private static bool started = false;
@@ -237,20 +231,20 @@ namespace Discord_UWP
                     }
                 }
             }
-            List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
-            List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
+            //List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+            //List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
 
-            float[] leftChannel = channelData[1];
+            //float[] leftChannel = channelData[1];
 
-            AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
-            AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
-            AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
-            AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
-            AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
-            AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
-            AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
-            AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
-            AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+            //AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+            //AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+            //AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+            //AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+            //AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+            //AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+            //AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+            //AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+            //AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
             frameInputNode.AddFrame(frame);
         }
 
