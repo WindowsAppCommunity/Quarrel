@@ -26,5 +26,33 @@ namespace Tester
         {
             this.InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as ToggleButton).IsChecked == true)
+            {
+                AudioManager.InputRecieved -= RTProcess;
+            } else
+            {
+                AudioManager.InputRecieved += RTProcess;
+            }
+        }
+
+
+        const int TBD = 0;
+        private void RTProcess(object sender, float[] e)
+        {
+            byte[] nonce = new byte[] { /*tbd */}; //Length of 24
+            byte[] key = new byte[] { /*tbd */}; //Length of 32
+
+            byte[] opus = new byte[TBD];
+            //TODO: Call Opus lib
+            RuntimeComponent.Cypher.encrypt(opus, 0, 0, opus, 0, nonce, key);
+            RuntimeComponent.Cypher.decrypt(opus, 0, 0, opus, 0, nonce, key);
+
+            float[] frame = new float[e.Length];
+            uint samples = 0; //TODO: Call Opus lib
+            AudioManager.AddFrame(frame, samples);
+        }
     }
 }
