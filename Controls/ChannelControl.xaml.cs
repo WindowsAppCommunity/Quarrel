@@ -370,10 +370,10 @@ namespace Discord_UWP.Controls
                     //TEXT
                     HashtagIcon.Visibility = Visibility.Visible;
                     VoiceIcon.Visibility = Visibility.Collapsed;
-                    
-                    //Tapped -= JoinVoiceChannel;
+                    MemberList.Visibility = Visibility.Collapsed;
+                    Tapped -= JoinVoiceChannel;
                 }
-                else if(Type == 2)
+                else if (Type == 2)
                 {
                     //VOICE
                     HashtagIcon.Visibility = Visibility.Collapsed;
@@ -403,7 +403,6 @@ namespace Discord_UWP.Controls
                         //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                     }
 
-
                     Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
@@ -420,7 +419,8 @@ namespace Discord_UWP.Controls
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
                     ChannelImageBackdrop.Fill = Common.DiscriminatorColor(LocalState.DMs[Id].Users.FirstOrDefault().Discriminator);
                     ChannelImageBrush.ImageSource = new BitmapImage(Common.AvatarUri(LocalState.DMs[Id].Users.FirstOrDefault().Avatar, LocalState.DMs[Id].Users.FirstOrDefault().Id, "?size=64"));
-                    //Tapped -= JoinVoiceChannel;
+                    MemberList.Visibility = Visibility.Collapsed;
+                    Tapped -= JoinVoiceChannel;
                 }
                 else if (Type == 3)
                 {
@@ -438,12 +438,14 @@ namespace Discord_UWP.Controls
                         ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
-                    //Tapped -= JoinVoiceChannel;
+                    MemberList.Visibility = Visibility.Collapsed;
+                    Tapped -= JoinVoiceChannel;
                 }
                 else if (Type == 4)
                 {
                     //CHANNEL CATEGORY
                     HashtagIcon.Visibility = Visibility.Collapsed;
+                    VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
                     Status.Visibility = Visibility.Collapsed;
@@ -453,6 +455,8 @@ namespace Discord_UWP.Controls
                     Chevron.Visibility = Visibility.Visible;
                     HoverCache.Visibility = Visibility.Visible;
                     this.Margin = new Thickness(0, 18, 0, 0);
+                    MemberList.Visibility = Visibility.Collapsed;
+                    Tapped -= JoinVoiceChannel;
                 }
 
                 if (Type != 2)
