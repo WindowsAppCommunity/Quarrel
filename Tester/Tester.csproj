@@ -155,6 +155,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Concentus">
+      <Version>1.1.7</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.5</Version>
     </PackageReference>
