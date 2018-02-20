@@ -1,5 +1,4 @@
 ﻿using Discord_UWP.SharedModels;
-using DiscordAPI.API.Game;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

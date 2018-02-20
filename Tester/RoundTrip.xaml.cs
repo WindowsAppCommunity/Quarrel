@@ -43,14 +43,12 @@ namespace Tester
             }
         }
 
-
-        const int TBD = 0;
         private void RTProcess(object sender, float[] e)
         {
-            byte[] nonce = new byte[] { /*tbd */}; //Length of 24
-            byte[] key = new byte[] { /*tbd */}; //Length of 32
+            byte[] nonce = new byte[] { 128, 120, 192, 46, 6, 144, 172, 128, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //Length of 24
+            byte[] key = new byte[] { 40, 221, 122, 207, 253, 63, 24, 97, 28, 168, 80, 250, 98, 165, 166, 32, 161, 61, 248, 51, 84, 26, 171, 14, 139, 17, 174, 121, 9, 74, 181, 33 }; //Length of 32
 
-            byte[] opus = new byte[TBD];
+            byte[] opus = new byte[(48000 / 1000 * 20 * sizeof(float) * 2)];
             int encodedSize = encoder.Encode(e, 0, (48000 / 1000 * 20), opus, 0, (48000 / 1000 * 20 * sizeof(float) * 2));
             RuntimeComponent.Cypher.encrypt(opus, 0, 0, opus, 0, nonce, key);
 

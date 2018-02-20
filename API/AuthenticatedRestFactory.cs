@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Discord_UWP.API.Guild;
 using Discord_UWP.API.Voice;
 using Discord_UWP.API.Invite;
-using DiscordAPI.API.Game;
+using Discord_UWP.API.Game;
 
 namespace Discord_UWP.API
 {
