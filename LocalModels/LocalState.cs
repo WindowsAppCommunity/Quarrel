@@ -20,6 +20,6 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();
         public static VoiceState VoiceState = new VoiceState();
-        public static List<DiscordAPI.API.Game.GameList> SupportedGames;
+        public static List<API.Game.GameList> SupportedGames;
     }
 }

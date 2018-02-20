@@ -222,10 +222,10 @@
       <Version>6.0.7</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.3</Version>
+      <Version>11.0.1</Version>
     </PackageReference>
     <PackageReference Include="refit">
-      <Version>4.1.0</Version>
+      <Version>4.3.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
