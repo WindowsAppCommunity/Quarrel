@@ -207,6 +207,7 @@ namespace Discord_UWP
             deviceInputNode = result.DeviceInputNode;
             deviceInputNode.AddOutgoingConnection(frameOutputNode);
             frameOutputNode.Start();
+            ingraph.Start();
         }
 
         unsafe public static void AddFrame(float[] framedata, uint samples)
