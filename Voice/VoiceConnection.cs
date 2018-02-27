@@ -183,7 +183,7 @@ namespace Discord_UWP.Voice
                 }
                 sequence++;
 
-                byte[] time = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder((Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds));
+                byte[] time = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(sequence*20));
                 header[4] = time[0];
                 header[5] = time[1];
                 header[6] = time[2];
