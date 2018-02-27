@@ -566,6 +566,7 @@ namespace Discord_UWP
             public string ChannelName;
             public string GuildName;
         }
+
         public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
         public static void ConnectToVoice(string channelId, string guildId, string ChannelName, string GuildName)
         {
@@ -591,6 +592,7 @@ namespace Discord_UWP
             await GatewayManager.Gateway.VoiceStatusUpdate(LocalModels.LocalState.VoiceState.GuildId, LocalModels.LocalState.VoiceState.ChannelId, LocalModels.LocalState.VoiceState.SelfMute, LocalModels.LocalState.VoiceState.SelfDeaf);
             UpdateVoiceStateHandler?.Invoke(null, null);
         }
+
 
         #region Relations
         public class AddFriendArgs : EventArgs
