@@ -2056,6 +2056,7 @@ namespace Discord_UWP
                             LocalState.PresenceDict.Add(presence.User.Id, presence);
                     }
                 }
+                int totalrolecounter = 0;
                 
                 foreach (var member in members)
                 {
@@ -2073,8 +2074,7 @@ namespace Discord_UWP
                     if (!string.IsNullOrEmpty(member.Nick))
                         MemberListBuilder.Insert(member.Nick, new DawgSharp.DawgItem() { InsertText = member.User.Username + "#" + member.User.Discriminator });
                 }
-                int totalrolecounter = 0;
-
+                
                 if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
                 {
                     foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
@@ -2098,7 +2098,7 @@ namespace Discord_UWP
                         }
                     }
                     int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
-
+                     
                     foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                     {
                         if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))

@@ -36,5 +36,10 @@ namespace Tester
         {
             this.Frame.Navigate(typeof(RoundTrip));
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Mentions));
+        }
     }
 }

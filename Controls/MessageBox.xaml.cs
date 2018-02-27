@@ -135,7 +135,39 @@ namespace Discord_UWP.Controls
         }
         private void SendBox_OnClick(object sender, RoutedEventArgs e)
         {
-            Text = ProcessString(Text);
+            //Text = ProcessString(Text);
+            var mentions = Common.FindMentions(Text);
+            foreach (var mention in mentions)
+            {
+                if (mention[0] == '@')
+                {
+                    int discIndex = mention.IndexOf('#');
+                    string username = mention.Substring(1, discIndex-1);
+                    string disc = mention.Substring(1 + discIndex);
+                    SharedModels.User? user;
+                    if (App.CurrentGuildIsDM)
+                    {
+                        user = LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Username == username && x.Discriminator == disc);
+                    } else
+                    {
+                        user = LocalState.Guilds[App.CurrentGuildId].members.FirstOrDefault(x => x.Value.User.Username == username && x.Value.User.Discriminator == disc).Value.User;
+                    }
+                    if (user.HasValue)
+                    {
+                        Text = Text.Replace("@" + user.Value.Username + "#" + user.Value.Discriminator, "<@!" + user.Value.Id + ">");
+                    }
+                } else if (mention[0] == '#')
+                {
+                    if (!App.CurrentGuildIsDM)
+                    {
+                        var channel = LocalState.Guilds[App.CurrentGuildId].channels.FirstOrDefault(x => x.Value.raw.Name == mention.Substring(1)).Value;
+                        if (channel != null)
+                        {
+                            Text = Text.Replace("#" + channel.raw.Name, "<#" + channel.raw.Id + ">");
+                        }
+                    }
+                }
+            }
             Send?.Invoke(sender, e);
         }
 
