@@ -12,6 +12,7 @@
         <tk:Carousel>
             <Button Content="XSalsa20 (x64 only in testing)" Click="Button_Click"/>
             <Button Content="Voice RT (x64 only in testing)" Click="Button_Click_1"/>
+            <Button Content="Mentions" Click="Button_Click_2"/>
         </tk:Carousel>
     </Grid>
 </Page>

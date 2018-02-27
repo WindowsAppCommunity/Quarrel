@@ -17,6 +17,8 @@ using Windows.UI.Core;
 using System.Xml.Linq;
 using System.Xml;
 
+using Discord_UWP.LocalModels;
+
 namespace Discord_UWP
 {
     class Common
@@ -157,6 +159,100 @@ namespace Discord_UWP
                 }
             }
             return null;
+        }
+
+        public static List<string> FindMentions(string message)
+        {
+            List<string> mentions = new List<string>();
+            bool inMention = false;
+            bool inDesc = false;
+            bool inChannel = false;
+            string cache = "";
+            string descCache = "";
+            string chnCache = "";
+            foreach (char c in message)
+            {
+                if (inMention)
+                {
+                    if (c == '#')
+                    {
+                        inDesc = true;
+                    }
+                    else if (c == ' ')
+                    {
+                        inMention = false;
+                        inDesc = false;
+                        cache = "";
+                        descCache = "";
+                    }
+                    else if (inDesc)
+                    {
+                        if (Char.IsDigit(c))
+                        {
+                            descCache += c;
+                        }
+                        else
+                        {
+                            inMention = false;
+                            inDesc = false;
+                            cache = "";
+                            descCache = "";
+                        }
+                        if (descCache.Length == 4)
+                        {
+                            User? mention = null;
+                            if (App.CurrentGuildIsDM)
+                            {
+                                mention = LocalState.DMs[App.CurrentChannelId].Users
+                               .Where(x => x.Username == cache && x.Username + "#" + x.Discriminator == descCache).FirstOrDefault();
+                            } else
+                            {
+                                GuildMember? member = LocalState.Guilds[App.CurrentGuildId].members
+                               .Where(x => x.Value.User.Username == cache && x.Value.User.Username + "#" + x.Value.User.Discriminator == descCache).FirstOrDefault().Value;
+                                if (member.HasValue)
+                                {
+                                    mention = member.Value.User;
+                                }
+                            }
+                            if (mention.HasValue)
+                            {
+                                mentions.Add("@" + cache + "#" + descCache);
+                            }
+                            inMention = false;
+                            inDesc = false;
+                            cache = "";
+                            descCache = "";
+                        }
+                    }
+                    else
+                    {
+                        cache += c;
+                    }
+                }
+                else if (inChannel)
+                {
+                    if (c == ' ')
+                    {
+                        inChannel = false;
+                        chnCache = "";
+                    } else
+                    {
+                        chnCache += c;
+                        if (!App.CurrentGuildIsDM)
+                        {
+                            mentions.Add("#" + chnCache);
+                        }
+                    }
+                }
+                else if (c == '@')
+                {
+                    inMention = true;
+                } else if (c == '#')
+                {
+                    inChannel = true;
+                }
+            }
+            return mentions;
         }
     }
 }
