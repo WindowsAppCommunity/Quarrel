@@ -1210,6 +1210,21 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
+
+            if (Storage.Settings.CustomBG)
+            {
+                App.Current.Resources["BGImage"] = new BitmapImage(new Uri(Storage.Settings.BGFilePath));
+
+                var mainColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                App.Current.Resources["AcrylicMessageBackground"] = new SolidColorBrush() { Color = mainColor, Opacity = Storage.Settings.MainOpacity };
+                var secColor = ((SolidColorBrush)App.Current.Resources["AcrylicMessageBackground"]).Color;
+                App.Current.Resources["AcrylicChannelPaneBackground"] = new SolidColorBrush() { Color = secColor, Opacity = Storage.Settings.SecondaryOpacity };
+                var terColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
+                App.Current.Resources["AcrylicGuildPaneBackground"] = new SolidColorBrush() { Color = terColor, Opacity = Storage.Settings.TertiaryOpacity };
+                var cmdColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                App.Current.Resources["AcrylicCommandBarBackground"] = new SolidColorBrush() { Color = cmdColor, Opacity = Storage.Settings.CmdOpacity };
+            }
+
             if (App.CinematicMode) App.Current.Resources["ShowFocusVisuals"] = true;
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
@@ -1219,7 +1234,7 @@ namespace Discord_UWP
                     return; // this means that resources have already been initialized (=app pelaunched)
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;
                 var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
-                if (!App.CinematicMode && Storage.Settings.EnableAcrylic)
+                if (!App.CinematicMode && Storage.Settings.EnableAcrylic && !Storage.Settings.CustomBG)
                 {
                     
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
@@ -1298,11 +1313,10 @@ namespace Discord_UWP
                     BackgroundSource = AcrylicBackgroundSource.Backdrop
                 };
             }
-
             if (App.CinematicMode)
             {
                 //Remove the artificial TV-Safe area in cinematic mode:
-                Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetDesiredBoundsMode(Windows.UI.ViewManagement.ApplicationViewBoundsMode.UseCoreWindow);
+                ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
             }
             if (Storage.Settings.AccentBrush)
             {

@@ -103,6 +103,8 @@ namespace Discord_UWP
         public double RespUiM = 500;
         public double RespUiL = 1000;
         public double RespUiXl = 1500;
+        public bool CustomBG = false;
+        public string BGFilePath = "";
         public double MainOpacity = 0.9;
         public double SecondaryOpacity = 0.6;
         public double TertiaryOpacity = 0.4;
