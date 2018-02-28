@@ -1202,9 +1202,6 @@
                                     <Button x:Name="ServerNameButton" Style="{StaticResource DiscordOpaqueButton}" Click="ServerNameButton_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Padding="0" Margin="0,0,0,8"  Background="Transparent">
                                         <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                     </Button>
-                                    <Button Style="{StaticResource DiscordButton}" Content="Search" Click="Search_Click" Padding="12,4" HorizontalAlignment="Stretch">
-                                        
-                                    </Button>
                                     <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" XYFocusLeft="{x:Bind ServerList}" GotFocus="ChannelList_GotFocus" LostFocus="ChannelList_LostFocus">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
@@ -1565,6 +1562,7 @@
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
+                        <AppBarButton Icon="Find" Click="Search_Click"/>
                         <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
