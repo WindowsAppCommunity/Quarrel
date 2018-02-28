@@ -91,8 +91,7 @@
                         <TextBox x:Name="SearchQuery" BorderThickness="1" Margin="0,6,0,0" TextChanged="SearchQuery_TextChanged"/>
                     </StackPanel>
                     <Grid Margin="0,12,0,0" Grid.Row="2">
-                        <ListView x:Name="SearchResults" ItemContainerStyle="{StaticResource ListViewItemExpanded}">
-                        </ListView>
+                        <ListView x:Name="SearchResults" ItemContainerStyle="{StaticResource ListViewItemExpanded}"/>
                     </Grid>
                 </Grid>
             </Border>

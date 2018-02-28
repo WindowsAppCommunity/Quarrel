@@ -483,4 +483,7 @@
   <data name="VoiceChannel" xml:space="preserve">
     <value>Canal de voz</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
 </root>
