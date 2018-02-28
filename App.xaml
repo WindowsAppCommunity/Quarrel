@@ -129,6 +129,9 @@
             <Color x:Key="OfflineColor">#747f8d</Color>
             <x:Double x:Key="ShadowOpacity">0.1</x:Double>
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
+
+            <BitmapImage x:Key="BGImage"/>
+
             <Style x:Key="RichEditBoxStyle1" TargetType="RichEditBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -146,6 +147,9 @@ namespace Discord_UWP.SubPages
             SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
             TertiaryPanelBlur.Value = Storage.Settings.TertiaryOpacity;
             CommandBarBlur.Value = Storage.Settings.CmdOpacity;
+
+            CustomBGToggle.IsOn = Storage.Settings.CustomBG;
+            FilePath.Text = Storage.Settings.BGFilePath;
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -236,6 +240,9 @@ namespace Discord_UWP.SubPages
             Storage.Settings.SecondaryOpacity = SecondaryPanelBlur.Value;
             Storage.Settings.TertiaryOpacity = TertiaryPanelBlur.Value;
             Storage.Settings.CmdOpacity = CommandBarBlur.Value;
+
+            Storage.Settings.CustomBG = CustomBGToggle.IsOn;
+            Storage.Settings.BGFilePath = FilePath.Text;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();
@@ -337,11 +344,18 @@ namespace Discord_UWP.SubPages
             }
         }
 
-        //TODO: Voice channels
-        //private async void DebugAudioGraph(object sender, RoutedEventArgs e)
-        //{
-        //    await AudioTrig.CreateAudioGraph();
-        //    AudioTrig.GenerateAudioData(48000);
-        //}
+        private async void SelectFile(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker picker = new FileOpenPicker();
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".png");
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            var file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                FilePath.Text = file.Path;
+            }
+        }
     }
 }

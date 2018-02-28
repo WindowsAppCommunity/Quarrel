@@ -99,7 +99,6 @@ namespace Discord_UWP
                 CinematicMask1.Visibility = Visibility.Visible;
                 CinematicMask2.Visibility = Visibility.Visible;
                 ControllerHints.Visibility = Visibility.Visible;
-
             }
 
             //Setup BackButton
@@ -109,6 +108,11 @@ namespace Discord_UWP
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             //Setup MessageList infinite scroll
+
+            if (!Storage.Settings.CustomBG)
+            {
+                BackgroundImage.Visibility = Visibility.Collapsed;
+            }
 
             if (App.DontLogin) return;
 

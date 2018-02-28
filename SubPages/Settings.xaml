@@ -647,17 +647,7 @@
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
                                     <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
-
-                                    <TextBlock Text="Acrylic options" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <!--<Slider x:Name="MainPanelOpacity" Header="Main Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
-                                    <Slider x:Name="MainPanelBlur" Header="Main Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                    <!--<Slider x:Name="SecondaryPanelOpacity" Header="Secondary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
-                                    <Slider x:Name="SecondaryPanelBlur" Header="Secondary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                    <!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
-                                    <Slider x:Name="TertiaryPanelBlur" Header="Tertiary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                    <!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>-->
-                                    <Slider x:Name="CommandBarBlur" Header="Command Bar Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-
+                                    
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
@@ -689,6 +679,30 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
+                        <!--<PivotItem x:Uid="/Settings/UiPI" Header="Background" Margin="12,0,0,0">
+                            <ScrollViewer Padding="0,0,24,0">
+                                <StackPanel x:Name="CustomBG" Margin="0,0,24,32">
+                                    <ToggleSwitch x:Name="CustomBGToggle" OffContent="Default Background" OnContent="Custom Background"/>
+                                    <StackPanel x:Name="ImageBG">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Select File" Click="SelectFile"/>
+                                            <TextBlock x:Name="FilePath" Text="File" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel x:Name="AcrylicBG">
+                                        <TextBlock Text="Acrylic options" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        --><!--<Slider x:Name="MainPanelOpacity" Header="Main Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
+                                        <Slider x:Name="MainPanelBlur" Header="Main Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                        --><!--<Slider x:Name="SecondaryPanelOpacity" Header="Secondary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
+                                        <Slider x:Name="SecondaryPanelBlur" Header="Secondary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                        --><!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
+                                        <Slider x:Name="TertiaryPanelBlur" Header="Tertiary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                        --><!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
+                                        <Slider x:Name="CommandBarBlur" Header="Command Bar Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </PivotItem>-->
                         <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
