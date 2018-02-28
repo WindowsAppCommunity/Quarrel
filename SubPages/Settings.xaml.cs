@@ -143,13 +143,13 @@ namespace Discord_UWP.SubPages
             else if (Storage.Settings.collapseOverride == CollapseOverride.Unread)
                 OverrideUnread.IsChecked = true;
 
-            MainPanelBlur.Value = Storage.Settings.MainOpacity;
-            SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
-            TertiaryPanelBlur.Value = Storage.Settings.TertiaryOpacity;
-            CommandBarBlur.Value = Storage.Settings.CmdOpacity;
+            //MainPanelBlur.Value = Storage.Settings.MainOpacity;
+            //SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
+            //TertiaryPanelBlur.Value = Storage.Settings.TertiaryOpacity;
+            //CommandBarBlur.Value = Storage.Settings.CmdOpacity;
 
-            CustomBGToggle.IsOn = Storage.Settings.CustomBG;
-            FilePath.Text = Storage.Settings.BGFilePath;
+            //CustomBGToggle.IsOn = Storage.Settings.CustomBG;
+            //FilePath.Text = Storage.Settings.BGFilePath;
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -236,13 +236,13 @@ namespace Discord_UWP.SubPages
             else if ((bool)OverrideUnread.IsChecked)
                 Storage.Settings.collapseOverride = CollapseOverride.Unread;
 
-            Storage.Settings.MainOpacity = MainPanelBlur.Value;
-            Storage.Settings.SecondaryOpacity = SecondaryPanelBlur.Value;
-            Storage.Settings.TertiaryOpacity = TertiaryPanelBlur.Value;
-            Storage.Settings.CmdOpacity = CommandBarBlur.Value;
+            //Storage.Settings.MainOpacity = MainPanelBlur.Value;
+            //Storage.Settings.SecondaryOpacity = SecondaryPanelBlur.Value;
+            //Storage.Settings.TertiaryOpacity = TertiaryPanelBlur.Value;
+            //Storage.Settings.CmdOpacity = CommandBarBlur.Value;
 
-            Storage.Settings.CustomBG = CustomBGToggle.IsOn;
-            Storage.Settings.BGFilePath = FilePath.Text;
+            //Storage.Settings.CustomBG = CustomBGToggle.IsOn;
+            //Storage.Settings.BGFilePath = FilePath.Text;
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();
@@ -354,7 +354,7 @@ namespace Discord_UWP.SubPages
             var file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                FilePath.Text = file.Path;
+                //FilePath.Text = file.Path;
             }
         }
     }
