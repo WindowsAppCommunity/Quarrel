@@ -700,7 +700,7 @@
       <Version>1.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.6</Version>
+      <Version>6.0.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1711.28001</Version>
@@ -709,31 +709,31 @@
       <Version>10.1705.16001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.DeveloperTools">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.HttpListener">
-      <Version>1.0.3.4</Version>
+      <Version>1.0.3.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.3</Version>
+      <Version>11.0.1</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>

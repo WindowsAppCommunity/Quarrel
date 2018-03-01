@@ -27,7 +27,6 @@ using Windows.Foundation;
 using Windows.ApplicationModel.ExtendedExecution;
 using System.Threading;
 
-using Discord_UWP.Managers;
 using Windows.Security.Credentials;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -619,7 +618,7 @@ namespace Discord_UWP
             public string Name { get; set; }
             public SolidColorBrush Foreground { get; set; }
         }
-        private async void RefreshLoginList()
+        private void RefreshLoginList()
         {
             var tokens = Storage.PasswordVault.FindAllByResource("Token");
             List<UserLogin> users = new List<UserLogin>();
