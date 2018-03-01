@@ -39,8 +39,6 @@ namespace Discord_UWP.Voice
         private Ready? lastReady;
         private SocketFrame? lastEvent;
 
-        private bool mobile;
-
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
@@ -208,13 +206,7 @@ namespace Discord_UWP.Voice
                 byte[] nonce = makeHeader();
                 Buffer.BlockCopy(nonce, 0, opus, 0, 12);
                 Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
-                if (!mobile)
-                {
-                    Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
-                } else
-                {
-                    //TODO: Libsodium
-                }
+                Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
                 await _udpSocket.SendBytesAsync(opus);
             }
         }
@@ -350,16 +342,11 @@ namespace Discord_UWP.Voice
                     Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
                     _data = new byte[packet.Length - 12 - 16];
 
-                    if (!mobile)
+
+                    int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
+                    if (_data.Length != outputLength)
                     {
-                        int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
-                        if (_data.Length != outputLength)
-                        {
-                            throw new Exception("UGHHHH...."); //Conflicting sizes
-                        }
-                    } else
-                    {
-                        //TODO: Libsodium
+                        throw new Exception("UGHHHH...."); //Conflicting sizes
                     }
 
                     int headerSize = GetHeaderSize(packet, _data);
