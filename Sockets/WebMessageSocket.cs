@@ -62,10 +62,8 @@ namespace Discord_UWP.Sockets
                 //App.NavigateToBugReport(exception);
             }
         }
-        private MemoryStream _compressed;
-        private DeflateStream _decompressor;
 
-        private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
+        private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
             var dr = e.GetDataReader();
             OnMessageReceived(dr.ReadString(dr.UnconsumedBufferLength));

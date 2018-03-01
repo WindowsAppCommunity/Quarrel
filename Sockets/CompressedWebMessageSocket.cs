@@ -67,7 +67,7 @@ namespace Discord_UWP.Sockets
         private MemoryStream _compressed;
         private DeflateStream _decompressor;
 
-        private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
+        private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
             using (var datastr = e.GetDataStream().AsStreamForRead())
             using (var ms = new MemoryStream())

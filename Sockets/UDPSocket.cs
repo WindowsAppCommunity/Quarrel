@@ -60,7 +60,7 @@ namespace Discord_UWP.Sockets
             await _dataWriter.StoreAsync();
         }
 
-        private async void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
+        private void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
         {
             using (var dataReader = e.GetDataReader())
             {
