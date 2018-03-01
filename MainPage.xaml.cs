@@ -2508,6 +2508,7 @@ namespace Discord_UWP
         {
             ClearMessageArea();
             FriendsItem.IsSelected = true;
+            (ChannelList.SelectedItem as ChannelManager.SimpleChannel).IsSelected = false;
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
             sideDrawer.CloseLeft();
