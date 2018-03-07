@@ -366,9 +366,11 @@
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
-    <Content Include="SodiumCARM.dll" />
+    <None Include="Package.xml" />
+    <!--<Content Include="SodiumCARM.dll"/>
     <Content Include="SodiumCWin32.dll" />
-    <Content Include="SodiumCx64.dll" />
+    <Content Include="SodiumCx64.dll" />-->
+    <Content Include="SodiumC$(Platform).dll"/>
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -700,7 +702,7 @@
       <Version>1.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.7</Version>
+      <Version>6.0.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1711.28001</Version>

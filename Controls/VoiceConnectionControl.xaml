@@ -514,7 +514,7 @@
             </Grid.ColumnDefinitions>
             <canvas:CanvasAnimatedControl  Grid.ColumnSpan="6" Grid.RowSpan="3" Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MiniView_Click"/>
-            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" Content="" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" IsEnabled="False" IsChecked="True" x:Name="Mute" Content="" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click"/>
 
             <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>

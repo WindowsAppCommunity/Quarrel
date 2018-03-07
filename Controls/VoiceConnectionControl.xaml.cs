@@ -106,6 +106,7 @@ namespace Discord_UWP.Controls
         private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
             App.NavigateToGuildHandler += App_NavigateToGuildHandler;
+            App.UpdateLocalMute(true);
             guildid = e.GuildId;
             channelid = e.ChannelId;
             ChannelName.Text = e.ChannelName;
@@ -151,6 +152,11 @@ namespace Discord_UWP.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Minimode.IsChecked == true)
+            {
+                Minimode.IsChecked = false;
+                App.ToggleCOMode();
+            }
             App.NavigateToGuild(guildid);
         }
 

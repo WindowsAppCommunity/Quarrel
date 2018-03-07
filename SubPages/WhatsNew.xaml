@@ -101,6 +101,12 @@
                             <Paragraph>
                                 <Run Text="• Fixed modify roles"/>
                             </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed typing indicator"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Rewrote the mention parser  (should work faster and more reliably)"/>
+                            </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">

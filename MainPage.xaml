@@ -1566,7 +1566,7 @@
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
-                        <AppBarButton Icon="Find" Click="Search_Click"/>
+                        <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
                         <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
