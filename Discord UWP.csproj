@@ -367,10 +367,11 @@
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
+    <Content Include="SodiumC.dll" />
     <!--<Content Include="SodiumCARM.dll"/>
     <Content Include="SodiumCWin32.dll" />
     <Content Include="SodiumCx64.dll" />-->
-    <Content Include="SodiumC$(Platform).dll"/>
+    <!--<Content Include="SodiumC$(Platform).dll" />-->
     <Content Include="VoiceCommands.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -774,9 +775,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>copy /y $(SolutionDir)$(PlatformName)\SodiumC.dll $(ProjectDir)</PreBuildEvent>
   </PropertyGroup>
-  <Target Name="AfterBuild">
-  </Target>
 </Project>
