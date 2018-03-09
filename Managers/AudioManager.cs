@@ -244,41 +244,57 @@ namespace Discord_UWP
             //    //graph.Start();
             //    //started = true;
             //}
-            AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
-            using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
-            using (IMemoryBufferReference reference = buffer.CreateReference())
-            {
-                byte* dataInBytes;
-                uint capacityInBytes;
-
-                // Get the buffer from the AudioFrame
-                ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
-                // Cast to float since the data we are generating is float
-                float* dataInFloat = (float *)dataInBytes;
-                fixed (float* frames = framedata)
+                AudioFrame frame = new AudioFrame(samples * 2 * sizeof(float));
+                using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
+                using (IMemoryBufferReference reference = buffer.CreateReference())
                 {
-                    for (int i = 0; i< samples*2; i++)
+                    byte* dataInBytes;
+                    uint capacityInBytes;
+
+                    // Get the buffer from the AudioFrame
+                    ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+                    // Cast to float since the data we are generating is float
+                    float* dataInFloat = (float*)dataInBytes;
+                    fixed (float* frames = framedata)
                     {
-                        dataInFloat[i] = frames[i];
+                        for (int i = 0; i < samples * 2; i++)
+                        {
+                            dataInFloat[i] = frames[i];
+                        }
                     }
                 }
-            }
-            List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
-            List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
+                if (LocalState.VoiceState.SelfDeaf)
+                {
+                    AudioSpec1 = 0;
+                    AudioSpec2 = 0;
+                    AudioSpec3 = 0;
+                    AudioSpec4 = 0;
+                    AudioSpec5 = 0;
+                    AudioSpec6 = 0;
+                    AudioSpec7 = 0;
+                    AudioSpec8 = 0;
+                    AudioSpec9 = 0;
+                    AudioAverage = 0;
+                }
+                else
+                {
+                    List<float[]> amplitudeData = FFT.Processing.HelperMethods.ProcessFrameOutput(frame);
+                    List<float[]> channelData = FFT.Processing.HelperMethods.GetFftData(FFT.Processing.HelperMethods.ConvertTo512(amplitudeData, outgraph), outgraph);
 
-            float[] leftChannel = channelData[1];
+                    float[] leftChannel = channelData[1];
 
-            AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
-            AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
-            AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
-            AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
-            AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
-            AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
-            AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
-            AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
-            AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
-            AudioAverage = (AudioSpec1 + AudioSpec2 + AudioSpec3 + AudioSpec4 + AudioSpec5 + AudioSpec5 + AudioSpec6 + AudioSpec7 + AudioSpec8 + AudioSpec9)/9;
-            frameInputNode.AddFrame(frame);
+                    AudioSpec1 = HelperMethods.Max(leftChannel, 0, 1);
+                    AudioSpec2 = HelperMethods.Max(leftChannel, 2, 3);
+                    AudioSpec3 = HelperMethods.Max(leftChannel, 3, 4);
+                    AudioSpec4 = HelperMethods.Max(leftChannel, 4, 5);
+                    AudioSpec5 = HelperMethods.Max(leftChannel, 5, 6);
+                    AudioSpec6 = HelperMethods.Max(leftChannel, 7, 8);
+                    AudioSpec7 = HelperMethods.Max(leftChannel, 9, 10);
+                    AudioSpec8 = HelperMethods.Max(leftChannel, 10, 12);
+                    AudioSpec9 = HelperMethods.Max(leftChannel, 14, 26);
+                    AudioAverage = (AudioSpec1 + AudioSpec2 + AudioSpec3 + AudioSpec4 + AudioSpec5 + AudioSpec5 + AudioSpec6 + AudioSpec7 + AudioSpec8 + AudioSpec9) / 9;
+                }
+                frameInputNode.AddFrame(frame);
         }
 
         unsafe static public AudioFrame GenerateAudioData(uint samples)
