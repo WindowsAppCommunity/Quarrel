@@ -190,10 +190,24 @@ namespace Discord_UWP
             quantum = 0;
             ingraph.QuantumStarted += Graph_QuantumStarted;
 
-            Windows.Devices.Enumeration.DeviceInformation selectedDevice =
-             await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
+            Windows.Devices.Enumeration.DeviceInformation selectedDevice;
 
-            //TODO: Show UI to allow the user to select a device
+            if (Storage.Settings.OutputDevice == "Default")
+            {
+                selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
+                Windows.Media.Devices.MediaDevice.DefaultAudioRenderDeviceChanged += MediaDevice_DefaultAudioRenderDeviceChanged;
+            }
+            else
+            {
+                try
+                {
+                    selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Storage.Settings.OutputDevice);
+                }
+                catch
+                {
+                    selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
+                }
+            }
 
             CreateAudioDeviceInputNodeResult result =
                 await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
@@ -208,6 +222,11 @@ namespace Discord_UWP
             deviceInputNode.AddOutgoingConnection(frameOutputNode);
             frameOutputNode.Start();
             ingraph.Start();
+        }
+
+        private static async void MediaDevice_DefaultAudioRenderDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs args)
+        {
+            //TODO: Switch devices
         }
 
         public static void DisposeAudioGraphs()

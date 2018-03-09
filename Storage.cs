@@ -127,6 +127,7 @@ namespace Discord_UWP
         public string DateFormat = "M/d/yyyy";
         public string TimeFormat = "h:mm tt";
         public string DefaultAccount = "";
+        public string OutputDevice = "Default";
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
         //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
     }

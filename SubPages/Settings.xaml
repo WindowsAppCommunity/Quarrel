@@ -631,8 +631,8 @@
                     <TextBlock x:Uid="/Settings/SettingsTB" x:Name="header" Text="SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <PivotItem x:Uid="/Settings/UiPI" Header="UI" Margin="12,0,0,0">
-                            <ScrollViewer Padding="0,0,24,0">
-                                <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
+                            <ScrollViewer Padding="0,0,12,0">
+                                <StackPanel x:Name="UI_Menu">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
@@ -675,7 +675,6 @@
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
-                                    <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -729,6 +728,15 @@
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
+                                </StackPanel>
+                            </ScrollViewer>
+                        </PivotItem>
+                        <PivotItem x:Uid="/Settings/AudioPI" Header="Audio" Margin="12,0,0,0">
+                            <ScrollViewer Padding="0,0,12,0">
+                                <StackPanel>
+                                    <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
+                                    <!--<ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>-->
+                                    <ComboBox x:Name="OutputDevices" x:Uid="/Settings/OutputDevicesCB" Header="Output Devices"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
