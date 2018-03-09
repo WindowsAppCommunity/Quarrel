@@ -37,7 +37,7 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
@@ -150,6 +150,21 @@ namespace Discord_UWP.SubPages
 
             //CustomBGToggle.IsOn = Storage.Settings.CustomBG;
             //FilePath.Text = Storage.Settings.BGFilePath;
+
+            //Output Devices
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+            OutputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
+            OutputDevices.SelectedIndex = 0;
+            int i = 0;
+            foreach (var device in devices)
+            {
+                OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id});
+                if (device.Id == Storage.Settings.OutputDevice)
+                {
+                    OutputDevices.SelectedIndex = i;
+                }
+                i++;
+            }
         }
 
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
@@ -243,6 +258,8 @@ namespace Discord_UWP.SubPages
 
             //Storage.Settings.CustomBG = CustomBGToggle.IsOn;
             //Storage.Settings.BGFilePath = FilePath.Text;
+
+            Storage.Settings.OutputDevice = (OutputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();
