@@ -136,15 +136,18 @@ namespace Discord_UWP
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            if (e.NewState == Large || e.NewState == ExtraLarge)
+            if (App.ShowAds)
             {
-                PCAd.Visibility = Visibility.Visible;
-                MobileAd.Visibility = Visibility.Collapsed;
-            } else
-            {
-                PCAd.Visibility = Visibility.Collapsed;
-                MobileAd.Visibility = Visibility.Visible;
-            }
+                if (e.NewState == Large || e.NewState == ExtraLarge)
+                {
+                    PCAd.Visibility = Visibility.Visible;
+                    MobileAd.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    PCAd.Visibility = Visibility.Collapsed;
+                    MobileAd.Visibility = Visibility.Visible;
+                }
+            } 
         }
 
         private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
