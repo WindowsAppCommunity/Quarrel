@@ -231,8 +231,8 @@ namespace Discord_UWP
 
         public static void DisposeAudioGraphs()
         {
-            ingraph.Dispose();
-            outgraph.Dispose();
+            //ingraph.Dispose();
+            //outgraph.Dispose();
         }
 
         unsafe public static void AddFrame(float[] framedata, uint samples)
