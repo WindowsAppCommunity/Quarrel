@@ -147,7 +147,11 @@ namespace Discord_UWP
                     PCAd.Visibility = Visibility.Collapsed;
                     MobileAd.Visibility = Visibility.Visible;
                 }
-            } 
+            }  else
+            {
+                PCAd.Visibility = Visibility.Collapsed;
+                MobileAd.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ServerScrollviewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
