@@ -42,10 +42,14 @@ namespace Discord_UWP.Controls
             App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
         }
 
-        private void App_UpdateVoiceStateHandler(object sender, EventArgs e)
+        private async void App_UpdateVoiceStateHandler(object sender, EventArgs e)
         {
-            Deafen.IsChecked = LocalModels.LocalState.VoiceState.SelfDeaf;
-            Mute.IsChecked = LocalModels.LocalState.VoiceState.SelfMute;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     Deafen.IsChecked = LocalModels.LocalState.VoiceState.SelfDeaf;
+                     Mute.IsChecked = LocalModels.LocalState.VoiceState.SelfMute;
+                 });
         }
 
         public bool FullScreen

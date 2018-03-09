@@ -576,12 +576,14 @@ namespace Discord_UWP
         public static event EventHandler UpdateVoiceStateHandler;
         public static void UpdateLocalMute(bool muted)
         {
+            LocalModels.LocalState.Muted = muted;
             LocalModels.LocalState.VoiceState.SelfMute = muted;
             UpdateVoiceState();
         }
         
         public static void UpdateLocalDeaf(bool deaf)
         {
+            LocalModels.LocalState.Deafen = deaf;
             LocalModels.LocalState.VoiceState.SelfDeaf = deaf;
             AudioManager.ChangeDeafStatus(deaf);
             UpdateVoiceState();
