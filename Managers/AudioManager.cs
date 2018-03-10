@@ -75,6 +75,9 @@ namespace Discord_UWP
         private static AudioDeviceInputNode deviceInputNode;
         private static AudioDeviceOutputNode deviceOutputNode;
 
+        private static string OutputDeviceID;
+        private static string InputDeviceID;
+
         private static AudioFrameOutputNode frameOutputNode;
         private static AudioFrameInputNode frameInputNode;
 
@@ -208,6 +211,8 @@ namespace Discord_UWP
                     selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
                 }
             }
+
+            OutputDeviceID = selectedDevice.Id;
 
             CreateAudioDeviceInputNodeResult result =
                 await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
@@ -410,6 +415,20 @@ namespace Discord_UWP
             {
                 AudioFrame audioData = GenerateAudioData(numSamplesNeeded);
                 frameInputNode.AddFrame(audioData);
+            }
+        }
+
+        public static void UpdateOutputDeviceID(string outID)
+        {
+            if (OutputDeviceID != outID)
+            {
+                if (outID == "Default")
+                {
+                    //TODO: Switch Output device to Default
+                } else
+                {
+                    //TODO: Switch Output device to Selected
+                }
             }
         }
     }

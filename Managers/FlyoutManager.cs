@@ -15,7 +15,7 @@ namespace Discord_UWP.Managers
 {
     public class FlyoutManager
     {
-        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn }
+        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn}
         public static MenuFlyout ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
