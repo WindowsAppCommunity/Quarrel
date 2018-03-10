@@ -154,10 +154,9 @@ namespace Discord_UWP
         }
 
         public static event EventHandler<GuildChannelNavigationArgs> NavigateToGuildChannelHandler;
-        public static Task NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false, bool onBack = false)
+        public static void NavigateToGuildChannel(string guildId, string channelId, string message = null, bool send = false, bool onBack = false)
         {
             NavigateToGuildChannelHandler?.Invoke(typeof(App), new GuildChannelNavigationArgs() { GuildId = guildId, ChannelId = channelId, Message = message, Send = send, OnBack = onBack });
-            return null;
         }
         #endregion
 

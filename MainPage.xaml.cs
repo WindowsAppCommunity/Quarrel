@@ -1072,14 +1072,7 @@ namespace Discord_UWP
             if (e.Link.StartsWith("#"))
             {
                 string val = e.Link.Remove(0, 1);
-                foreach (ChannelManager.SimpleChannel item in ChannelList.Items)
-                {
-                    if (item.Id == val)
-                    {
-                        ChannelList.SelectedItem = item;
-                        ChannelList_SelectionChanged(null, null);
-                    }
-                }
+                App.NavigateToGuildChannel(App.CurrentGuildId, val);
             }
             else if (e.Link.StartsWith("@!"))
             {
