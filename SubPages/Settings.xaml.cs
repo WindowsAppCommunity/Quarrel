@@ -158,7 +158,7 @@ namespace Discord_UWP.SubPages
             int i = 0;
             foreach (var device in devices)
             {
-                OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id});
+                OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled});
                 if (device.Id == Storage.Settings.OutputDevice)
                 {
                     OutputDevices.SelectedIndex = i;
