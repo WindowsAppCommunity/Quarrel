@@ -229,9 +229,9 @@ namespace Discord_UWP
             ingraph.Start();
         }
 
-        private static async void MediaDevice_DefaultAudioRenderDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs args)
+        private static void MediaDevice_DefaultAudioRenderDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs args)
         {
-            //TODO: Switch devices
+            UpdateOutputDeviceID("Default");
         }
 
         public static void DisposeAudioGraphs()
@@ -399,8 +399,6 @@ namespace Discord_UWP
                     dataInFloats[i] = dataInFloat[i];
                 }
 
-
-
                 InputRecieved?.Invoke(null, dataInFloats);
             }
         }
@@ -418,16 +416,16 @@ namespace Discord_UWP
             }
         }
 
-        public static void UpdateOutputDeviceID(string outID)
+        public static async void UpdateOutputDeviceID(string outID)
         {
             if (OutputDeviceID != outID)
             {
                 if (outID == "Default")
                 {
-                    //TODO: Switch Output device to Default
+                    //Switch to Default
                 } else
                 {
-                    //TODO: Switch Output device to Selected
+                    //Switch to ID
                 }
             }
         }
