@@ -115,8 +115,10 @@ namespace Discord_UWP
                     deviceOutputNode.Start();
                 }
         }
+
         public static async Task CreateAudioGraphs()
         {
+            OutputDeviceID = Storage.Settings.OutputDevice;
             await CreateDeviceOutputNode();
             await CreateDeviceInputNode();
         }
@@ -195,7 +197,7 @@ namespace Discord_UWP
 
             Windows.Devices.Enumeration.DeviceInformation selectedDevice;
 
-            if (Storage.Settings.OutputDevice == "Default")
+            if (OutputDeviceID == "Default")
             {
                 selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
                 Windows.Media.Devices.MediaDevice.DefaultAudioRenderDeviceChanged += MediaDevice_DefaultAudioRenderDeviceChanged;
@@ -204,15 +206,14 @@ namespace Discord_UWP
             {
                 try
                 {
-                    selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Storage.Settings.OutputDevice);
+                    selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(OutputDeviceID);
                 }
                 catch
                 {
                     selectedDevice = await Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
+                    OutputDeviceID = "Default";
                 }
             }
-
-            OutputDeviceID = selectedDevice.Id;
 
             CreateAudioDeviceInputNodeResult result =
                 await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
@@ -236,8 +237,19 @@ namespace Discord_UWP
 
         public static void DisposeAudioGraphs()
         {
-            //ingraph.Dispose();
-            //outgraph.Dispose();
+            deviceInputNode.Dispose();
+            frameOutputNode.Dispose();
+            ingraph.Dispose();
+            deviceOutputNode.Dispose();
+            frameInputNode.Dispose();
+            outgraph.Dispose();
+        }
+
+        public static void DisposeOutGraph()
+        {
+            outgraph.Dispose();
+            frameInputNode.Dispose();
+            deviceOutputNode.Dispose();
         }
 
         unsafe public static void AddFrame(float[] framedata, uint samples)
@@ -420,13 +432,9 @@ namespace Discord_UWP
         {
             if (OutputDeviceID != outID)
             {
-                if (outID == "Default")
-                {
-                    //Switch to Default
-                } else
-                {
-                    //Switch to ID
-                }
+                OutputDeviceID = outID;
+                DisposeOutGraph();
+                await CreateDeviceOutputNode();
             }
         }
     }
