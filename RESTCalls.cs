@@ -330,7 +330,7 @@ namespace Discord_UWP
                 IUserService userservice = AuthenticatedRestFactory.GetUserService();
                 return await userservice.GetUserProfile(id);
             }
-            catch /*(Exception exception)*/
+            catch (Exception exception)
             {
                 //App.NavigateToBugReport(exception);
             }
@@ -489,7 +489,7 @@ namespace Discord_UWP
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.GetGuildMemeber(guildid, userid);
             }
-            catch /*(Exception exception)*/
+            catch (Exception exception)
             {
                 //App.NavigateToBugReport(exception);
             }

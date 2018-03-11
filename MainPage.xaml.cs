@@ -987,16 +987,16 @@ namespace Discord_UWP
         {
             if (App.FCU)
             {
-                if (e.User.Bot)
+                //if (e.User.Bot)
                     SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
-                else
-                    SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
+                //else
+                    //SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
             } else
             {
-                if (e.User.Bot)
+                //if (e.User.Bot)
                     SubFrameNavigator(typeof(SubPages.UserProfileCU), e.User);
-                else
-                    SubFrameNavigator(typeof(SubPages.UserProfileCU), e.User.Id);
+                //else
+                    //SubFrameNavigator(typeof(SubPages.UserProfileCU), e.User.Id);
             }
         }
         private void App_OpenAttachementHandler(object sender, SharedModels.Attachment e)
@@ -1057,7 +1057,13 @@ namespace Discord_UWP
                 {
                     member = await RESTCalls.GetGuildMember(App.CurrentGuildId, e.User.Id);
                 }
-                FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
+                if (member.User.Id != null)
+                {
+                    FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
+                } else
+                {
+                    FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+                }
             }
             else
             {
@@ -2507,7 +2513,10 @@ namespace Discord_UWP
         {
             ClearMessageArea();
             FriendsItem.IsSelected = true;
-            (ChannelList.SelectedItem as ChannelManager.SimpleChannel).IsSelected = false;
+            if (ChannelList.SelectedItem != null && ChannelList.SelectedItem is ChannelManager.SimpleChannel)
+            {
+                (ChannelList.SelectedItem as ChannelManager.SimpleChannel).IsSelected = false;
+            }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
             sideDrawer.CloseLeft();

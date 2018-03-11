@@ -96,7 +96,7 @@ namespace Discord_UWP.Controls
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
                 }
 
-                if (!App.CurrentGuildIsDM)
+                if (DisplayedMember.JoinedAt.Ticks != 0)
                 {
                     if (DisplayedMember.Roles.Count() == 0)
                     {
