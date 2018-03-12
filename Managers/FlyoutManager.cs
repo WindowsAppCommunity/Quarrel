@@ -16,7 +16,7 @@ namespace Discord_UWP.Managers
     public class FlyoutManager
     {
         public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn}
-        public static MenuFlyout ShowMenu(Type type, string id, string parentId)
+        public static async Task<MenuFlyout> ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
             switch (type)
@@ -39,7 +39,13 @@ namespace Discord_UWP.Managers
                 case Type.GuildMember:
                     if (parentId != null)
                     {
-                        flyout = FlyoutCreator.MakeGuildMemberMenu(LocalState.Guilds[parentId].members[id]);
+                        if (LocalState.Guilds[parentId].members.ContainsKey(id))
+                        {
+                            flyout = FlyoutCreator.MakeGuildMemberMenu(LocalState.Guilds[parentId].members[id]);
+                        } else
+                        {
+                            flyout = FlyoutCreator.MakeGuildMemberMenu(await RESTCalls.GetGuildMember(parentId, id));
+                        }
                     }
                     break;
                     //TODO: User Flyout

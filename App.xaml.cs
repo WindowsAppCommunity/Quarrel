@@ -105,9 +105,9 @@ namespace Discord_UWP
             public Point Point { get; set; }
         }
         public static event EventHandler<MenuArgs> MenuHandler;
-        public static void ShowMenuFlyout(object sender, FlyoutManager.Type type, string Id, string parentId, Point point)
+        public static async void ShowMenuFlyout(object sender, FlyoutManager.Type type, string Id, string parentId, Point point)
         {
-            MenuHandler?.Invoke(sender, new MenuArgs() {Flyout = FlyoutManager.ShowMenu(type, Id, parentId), Point = point});
+            MenuHandler?.Invoke(sender, new MenuArgs() {Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point});
         }
 
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
