@@ -162,9 +162,9 @@ namespace Discord_UWP.Flyouts
                         Text = role.Name,
                         Tag = new Tuple<string, string>(role.Id, member.User.Id),
                         Foreground = Common.IntToColor(role.Color),
-                        IsChecked = LocalState.Guilds[App.CurrentGuildId].members[member.User.Id].Roles.Contains(role.Id),
+                        IsChecked = member.Roles != null && member.Roles.Contains(role.Id),
                         //Style = (Style)App.Current.Resources["ToggleOnlyCheckbox"],
-                        IsEnabled = (role.Position < LocalState.Guilds[App.CurrentGuildId].roles[LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id].Roles.First()].Position || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)  //TODO: Double check role system
+                        IsEnabled = LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault() != null && role.Position < LocalState.Guilds[App.CurrentGuildId].roles[LocalState.Guilds[App.CurrentGuildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()].Position || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id  //TODO: Double check role system
                     };
                     roleItem.Click += FlyoutManager.AddRole;
                     if (role.Name != "@everyone")
