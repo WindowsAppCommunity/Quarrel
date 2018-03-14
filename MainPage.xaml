@@ -1245,7 +1245,7 @@
                                         </ListViewItem>
                                     </StackPanel>
                                     <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                    <Rectangle Width="1" Height="{Binding ActualHeight, ElementName=VoiceController, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <Rectangle x:Name="VoiceControlPadding"  Width="1" Height="{Binding ActualHeight, ElementName=VoiceController, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                             </ScrollViewer>
                             <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
@@ -1266,7 +1266,7 @@
                             </Rectangle>
                             <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
                             <controls:VoiceConnectionControl
-                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64" Visibility="Collapsed"/>
+                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64" Visibility="Collapsed" SizeChanged="VoiceController_SizeChanged"/>
                             <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
@@ -1620,7 +1620,7 @@
                                      VerticalAlignment="Center" 
                                      HorizontalAlignment="Center"/>-->
 
-        <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" SizeChanged="COVoice_SizeChanged" VerticalAlignment="Stretch"/>
 
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
     </Grid>
