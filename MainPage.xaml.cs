@@ -2639,5 +2639,15 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.Search));
         }
+
+        private void COVoice_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
+        }
+
+        private void VoiceController_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            VoiceControlPadding.Height = VoiceController.ActualHeight;
+        }
     }
 }
