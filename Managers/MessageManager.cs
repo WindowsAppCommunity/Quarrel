@@ -46,7 +46,7 @@ namespace Discord_UWP.Managers
         public static bool ShouldContinuate(Message current, Message? previous)
         {
             //If the previous message exists, is a normal message, and was published than 2 minutes ago, the current one should continuate it
-            if (previous.HasValue && previous.Value.Type == 0 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2)
+            if (previous.HasValue && previous.Value.Type == 0 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2 && previous.Value.User.Id == current.User.Id)
                 return true;
             else
                 return false;
