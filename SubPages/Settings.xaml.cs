@@ -155,7 +155,7 @@ namespace Discord_UWP.SubPages
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
             OutputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
             OutputDevices.SelectedIndex = 0;
-            int i = 0;
+            int i = 1;
             foreach (var device in devices)
             {
                 OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled});
