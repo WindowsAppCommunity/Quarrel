@@ -1245,6 +1245,7 @@
                                         </ListViewItem>
                                     </StackPanel>
                                     <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                    <Rectangle Width="1" Height="{Binding ActualHeight, ElementName=VoiceController, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                             </ScrollViewer>
                             <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
