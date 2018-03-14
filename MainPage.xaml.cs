@@ -1928,7 +1928,10 @@ namespace Discord_UWP
                      //    }
                      //} else
                      //{
-                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message));
+                     Message? last = null;
+                     if (MessageList.Items.Last() != null)
+                         last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+                     MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
                      //}
                      App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
                      if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)

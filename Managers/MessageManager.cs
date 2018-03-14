@@ -43,10 +43,10 @@ namespace Discord_UWP.Managers
             }
             return null; //else
         }
-        private static bool ShouldContinuate(Message current, Message? previous)
+        public static bool ShouldContinuate(Message current, Message? previous)
         {
             //If the previous message exists, is a normal message, and was published than 2 minutes ago, the current one should continuate it
-            if (previous.HasValue && previous.Value.Type == 7 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2)
+            if (previous.HasValue && previous.Value.Type == 0 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2)
                 return true;
             else
                 return false;
@@ -96,9 +96,9 @@ namespace Discord_UWP.Managers
                 default: return MessageTypes.Default;
             }
         }
-        public static MessageContainer MakeMessage(Message message) //TODO: IsContinuous
+        public static MessageContainer MakeMessage(Message message, bool isContinuation = false) //TODO: IsContinuous
         {
-            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type,message.Content), false, null, false);
+            MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type,message.Content), isContinuation, null, false);
             return msg;
         }
         public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
