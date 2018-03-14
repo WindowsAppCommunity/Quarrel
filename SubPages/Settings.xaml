@@ -735,7 +735,7 @@
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
-                                    <ComboBox x:Name="OutputDevices" x:Uid="/Settings/OutputDevicesCB" Header="Output Devices" IsEnabled="False"/>
+                                    <ComboBox x:Name="OutputDevices" x:Uid="/Settings/OutputDevicesCB" Header="Output Devices"/>
                                     <TextBlock Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/> <!--TODO: Translate-->
                                     <!--<ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>-->
                                 </StackPanel>

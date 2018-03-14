@@ -86,20 +86,29 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 7.2: Blatant bug patches" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 7.2.2 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• Voice channels no longer connect as self-deafen initally"/>
+                                <Run Text="• Fixed a common bug according to the Dev Center statistics (10% of crashes)"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• The audio visualizer now deafens with the app"/>
+                                <Run Text="• Fixed any other bug I could find"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Fixed remove ads (sorry donaters)"/>
+                                <Run Text="• No longer crashes when you open the User-Flyout of a user who is no longer a member of the server"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Moved voice options to &quot;Audio&quot; in settings"/>
+                                <Run Text="• Increased loading speed of User-Profile page"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Audio device options"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed opening Member flyout for offline large guild members"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Fixed crashing on YouTube links"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
