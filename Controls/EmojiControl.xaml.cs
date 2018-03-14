@@ -210,7 +210,7 @@ namespace Discord_UWP.Controls
                 else if (SkinTone5.IsChecked == true)
                     suffix = ":skin-tone-5:";
             }
-            return ":" + e.names[0] + ":" + suffix;
+            return "<:" + e.names[0] + ":" + suffix ;
         }
         private bool loaded = false;
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)

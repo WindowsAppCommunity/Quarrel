@@ -381,8 +381,15 @@ namespace Discord_UWP.Controls
                 //    MessageEditor.SelectionStart = newSelectionStart;
                 //}
                 string emojiText = "";
-                if (args.CustomEmoji)
-                    emojiText = ":" + args.names.First() + ":";
+                if (args.GetType() == typeof(EmojiControl.GuildSide))
+                {
+                    var emoji = (EmojiControl.GuildSide)args;
+                    if (emoji.surrogates.EndsWith(".gif"))
+                        emojiText = "<a:" + emoji.names.First() + ":" + emoji.id + ">";
+                    else
+                        emojiText = "<:" + emoji.names.First() + ":" + emoji.id + ">";
+                }
+                    
                 else
                     emojiText = args.surrogates;
 
