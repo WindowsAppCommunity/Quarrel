@@ -23,5 +23,6 @@ namespace Discord_UWP.LocalModels
         public static bool Muted;
         public static bool Deafen;
         public static List<API.Game.GameList> SupportedGames;
+        public static Dictionary<string, string> Drafts = new Dictionary<string, string>();
     }
 }
