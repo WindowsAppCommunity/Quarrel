@@ -653,8 +653,45 @@ namespace Discord_UWP
         #endregion
 
         #region Navigation
+        private void SaveDraft()
+        {
+            if (App.CurrentChannelId != null)
+            {
+                if (MessageBox1.Text == "")
+                {
+                    if (LocalState.Drafts.ContainsKey(App.CurrentChannelId))
+                    {
+                        LocalState.Drafts.Remove(App.CurrentChannelId);
+                    }
+                }
+                else
+                {
+                    if (LocalState.Drafts.ContainsKey(App.CurrentChannelId))
+                    {
+                        LocalState.Drafts[App.CurrentChannelId] = MessageBox1.Text;
+                    }
+                    else
+                    {
+                        LocalState.Drafts.Add(App.CurrentChannelId, MessageBox1.Text);
+                    }
+                }
+            }
+        }
+
+        private void LoadDraft()
+        {
+            if (App.CurrentChannelId != null && LocalState.Drafts.ContainsKey(App.CurrentChannelId))
+            {
+                MessageBox1.Text = LocalState.Drafts[App.CurrentChannelId];
+            } else
+            {
+                MessageBox1.Text = "";
+            }
+        }
+
         private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
+            SaveDraft();
             memberscvs.Clear();
             (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -723,6 +760,7 @@ namespace Discord_UWP
         }
         private void App_NavigateToGuildChannelHandler(object sender, App.GuildChannelNavigationArgs e)
         {
+            SaveDraft();
             if (App.CurrentGuildId == e.GuildId)
             {
                 Ad.Visibility = Visibility.Collapsed;
@@ -788,9 +826,11 @@ namespace Discord_UWP
                 else if(chn.Type != 2)
                     chn.IsSelected = false;
             UpdateTyping();
+            LoadDraft();
         }
         private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
+            SaveDraft();
             if (e.ChannelId != null) //Nav by ChannelId
             {
                 if (App.e2e)
@@ -915,6 +955,7 @@ namespace Discord_UWP
                 else
                     chn.IsSelected = false;
             UpdateTyping();
+            LoadDraft();
         }
 
         #endregion

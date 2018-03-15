@@ -86,35 +86,17 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 7.3: Confusing info below" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 7.3.1 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• Fixed a common bug according to the Dev Center statistics (10% of crashes)"/>
+                                <Run Text="• Fixed Light theme"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Fixed any other bug I could find"/>
+                                <Run Text="• Fixed member list virtuallization"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• No longer crashes when you open the User-Flyout of a user who is no longer a member of the server"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Increased loading speed of User-Profile page"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Audio device options"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Fixed opening Member flyout for offline large guild members"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Fixed crashing on YouTube links"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• Handle default audio device switching"/>
-                            </Paragraph>
-                            <Paragraph>
-                                <Run Text="• AudioGraph related bug fixes"/>
+                                <Run Text="• Message continuation (Message merging)"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>

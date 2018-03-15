@@ -58,6 +58,9 @@ namespace Discord_UWP.Controls
             if (DisplayedMember.Raw.Roles.Count() > 0)
             {
                 username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[DisplayedMember.Raw.Roles.First()].Color);
+            } else
+            {
+                username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
             }
 
             if (DisplayedMember.Raw.Nick != null)
