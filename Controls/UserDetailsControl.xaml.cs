@@ -177,6 +177,7 @@ namespace Discord_UWP.Controls
                 if (DMPane)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                     mainGrid.Width = 228;
                     UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.HorizontalAlignment = HorizontalAlignment.Left;
