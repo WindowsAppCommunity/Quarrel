@@ -215,16 +215,19 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                         content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                     }
+
                     else if (MessageType == MessageTypes.GuildMemberJoined)
                     {
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
+                        AlternativeIcon.Glyph = "";
                         AlternativeIcon.FontSize = 18;
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
-                        content.Text = "**Discussions here are now end-to-end encrypted**";
+                        content.Text = "**"+Message.Value.User.Username + "**" + " joined the server!";
                     }
+
+                    
                     else if (MessageType == MessageTypes.FailedEncryption)
                     {
                         if (rootGrid.Children.Contains(reactionView))
