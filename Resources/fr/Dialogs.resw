@@ -295,7 +295,7 @@
     <value>AUCUNE INVITATIONS</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>NOTES</value>
+    <value>Notes</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
     <value>Les utilisateurs devront confirmer leur âge pour utiliser ce salon. Il sera egalement exempt de tout filtrage d'éventuel contenu explicite. It will also be exempt from explicit content filtering.</value>

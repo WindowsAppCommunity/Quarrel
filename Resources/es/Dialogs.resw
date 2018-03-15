@@ -295,7 +295,7 @@
     <value>NO INVITA</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>NOTAS</value>
+    <value>Notas</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
     <value>Los usuarios deberán confirmar que son de más de edad legal para ver el contenido en este canal. También estará exento de filtrado explícito de contenido.</value>

@@ -66,6 +66,7 @@ namespace Discord_UWP.Controls
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                 }
                 if (DisplayedMember.Nick != null)
                 {

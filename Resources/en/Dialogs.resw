@@ -295,7 +295,7 @@
     <value>NO INVITES</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>NOTES</value>
+    <value>Notes</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
     <value>Users will need to confirm they are of over legal age to view content in this channel. It will also be exempt from explicit content filtering.</value>
