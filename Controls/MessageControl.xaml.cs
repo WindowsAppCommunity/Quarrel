@@ -566,6 +566,20 @@ namespace Discord_UWP.Controls
                     username.Content = member.Nick;
                 }
 
+                if (LocalState.PresenceDict.ContainsKey(member.User.Id))
+                {
+                    if (LocalState.PresenceDict[member.User.Id].Status != null && LocalState.PresenceDict[member.User.Id].Status != "invisible")
+                        ShadowPresence.Color = (Color)App.Current.Resources[Common.Capitalize(LocalState.PresenceDict[member.User.Id].Status) + "Color"];
+                    else if (LocalState.PresenceDict[member.User.Id].Status == "invisible")
+                        //ShadowPresence.Color = (Color)App.Current.Resources["OfflineColor"];
+                        ShadowPresence.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    //ShadowPresence.Color = (Color)App.Current.Resources["OfflineColor"];
+                    ShadowPresence.Visibility = Visibility.Collapsed;
+                }
+
                 if (member.Roles != null && member.Roles.Any())
                 {
                     foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
