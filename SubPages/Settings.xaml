@@ -32,7 +32,7 @@
             <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}"/>
             <Setter Property="Foreground" Value="{ThemeResource CheckBoxForegroundUnchecked}"/>
             <Setter Property="BorderBrush" Value="{ThemeResource CheckBoxBorderBrushUnchecked}"/>
-            <Setter Property="Padding" Value="8,5,0,0"/>
+            <Setter Property="Padding" Value="8,6,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -47,7 +47,7 @@
                     <ControlTemplate TargetType="CheckBox">
                         <Grid x:Name="RootGrid" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="24"/>
+                                <ColumnDefinition Width="20"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <VisualStateManager.VisualStateGroups>
@@ -350,10 +350,10 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Grid Height="32" VerticalAlignment="Top" Margin="0">
-                                <Rectangle x:Name="RectangleFill" RadiusX="3" RadiusY="3" Fill="{ThemeResource Blurple}" Width="20" Height="20" Opacity="21"/>
-                                <Rectangle x:Name="NormalRectangle" RadiusX="3" RadiusY="3" Height="20" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="20">
+                                <Rectangle x:Name="RectangleFill" RadiusX="0" RadiusY="0" StrokeThickness="2" Fill="{ThemeResource Blurple}" Width="18" Height="18" Opacity="0"/>
+                                <Rectangle x:Name="NormalRectangle" RadiusX="0" RadiusY="0" Height="18" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="2" UseLayoutRounding="False" Width="18">
                                     <Rectangle.RenderTransform>
-                                        <ScaleTransform x:Name="RectangleScale" CenterX="10" CenterY="10"/>
+                                        <ScaleTransform x:Name="RectangleScale" CenterX="9" CenterY="9"/>
                                     </Rectangle.RenderTransform>
                                 </Rectangle>
                                 <FontIcon x:Name="CheckGlyph"  Foreground="{ThemeResource CheckBoxCheckGlyphForegroundUnchecked}" FontSize="18" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE001;" Opacity="1">
@@ -642,11 +642,12 @@
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
-
+                                    <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
+                                    
                                     <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
-                                    <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
+                                 
                                     
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>

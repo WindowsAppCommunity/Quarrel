@@ -2590,7 +2590,7 @@
                                 <Grid Height="32" VerticalAlignment="Top">
                                     <Ellipse x:Name="OuterEllipse" Fill="{StaticResource RadioButtonOuterEllipseFill}" Height="18" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" UseLayoutRounding="False" Width="18">
                                         <Ellipse.RenderTransform>
-                                            <ScaleTransform CenterX="8" CenterY="8" x:Name="OuterTransform"/>
+                                            <ScaleTransform CenterX="9" CenterY="9" x:Name="OuterTransform"/>
                                         </Ellipse.RenderTransform>
                                     </Ellipse>
                                     <Ellipse x:Name="CheckOuterEllipse" Fill="{ThemeResource RadioButtonOuterEllipseCheckedFill}" Height="18" Opacity="0" Stroke="{ThemeResource RadioButtonOuterEllipseCheckedStroke}" StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" UseLayoutRounding="False" Width="18"/>
