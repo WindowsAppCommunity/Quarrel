@@ -49,16 +49,24 @@
             <Grid x:Name="profileGrid" Margin="0,24,0,0">
                 <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
-                    <Border Width="96" Height="96" CornerRadius="48">
-                        <Grid x:Name="FullAvatar">
-                            <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                            <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
-                                <Rectangle.Fill>
-                                    <ImageBrush x:Name="Avatar"/>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                        </Grid>
-                    </Border>
+                    <Grid>
+                        <Border Width="96" Height="96" CornerRadius="48">
+                            <Grid x:Name="FullAvatar">
+                                <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
+                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                                    <Rectangle.Fill>
+                                        <ImageBrush x:Name="Avatar"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                        </Border>
+                        <Rectangle x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource LightBG}" Width="24" Height="24" RadiusX="16" RadiusY="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">
+                            <Rectangle.RenderTransform>
+                                <CompositeTransform TranslateX="0"/>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Ellipse x:Name="status" Width="24" Height="24" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
                 </Button>
                 <!--<Rectangle x:Name="CacheRectangle"  IsHitTestVisible="False" Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="Black" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="ShowProfile" IsHitTestVisible="False" TextAlignment="Center" FontWeight="Bold" FontSize="12" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -96,7 +104,7 @@
                 <TextBlock x:Uid="/Controls/RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
                 <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
 
-                <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="12,12,12,0" Opacity="0.5"/>
+                <Rectangle x:Name="border" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="12,12,12,0" Opacity="0.5"/>
                 <local:MessageBox x:Name="SendDM" Margin="0,10,0,0" IsCompact="True"/>
             </StackPanel>
         </Grid>

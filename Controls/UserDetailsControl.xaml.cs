@@ -66,7 +66,7 @@ namespace Discord_UWP.Controls
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    rectangle.Visibility = Visibility.Collapsed;
+                    border.Visibility = Visibility.Collapsed;
                 }
                 if (DisplayedMember.Nick != null)
                 {
@@ -95,6 +95,17 @@ namespace Discord_UWP.Controls
                 } else
                 {
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+                }
+
+                if (LocalState.PresenceDict.ContainsKey(user.Id))
+                {
+                    if (LocalState.PresenceDict[user.Id].Status != null && LocalState.PresenceDict[user.Id].Status != "invisible")
+                        rectangle.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[user.Id].Status];
+                    else if (LocalState.PresenceDict[user.Id].Status == "invisible")
+                        rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                } else
+                {
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                 }
 
                 if (DisplayedMember.JoinedAt.Ticks != 0)
@@ -177,7 +188,7 @@ namespace Discord_UWP.Controls
                 if (DMPane)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    rectangle.Visibility = Visibility.Collapsed;
+                    border.Visibility = Visibility.Collapsed;
                     mainGrid.Width = 228;
                     UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.HorizontalAlignment = HorizontalAlignment.Left;
