@@ -41,7 +41,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" MaxWidth="{Binding ActualWidth, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="0" Grid.ColumnSpan="4">
+        <Grid x:Name="BackgroundGrid" Grid.RowSpan="2" VerticalAlignment="Top">
             <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
         </Grid>
         
@@ -65,26 +65,41 @@
                     SHOW<LineBreak/>PROFILE
                 </TextBlock>-->
             </Grid>
-            <TextBlock x:Name="Nick" Text="Nick" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Center" Margin="0,12,0,0"/>
-            <StackPanel x:Name="UserStacker" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,6,0,24">
+            <TextBlock x:Name="Nick" Text="Nick" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="18" HorizontalAlignment="Center" MaxWidth="200" Margin="0,12,0,0"/>
+            <StackPanel x:Name="UserStacker" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,6,0,24">
                 <TextBlock x:Name="Username" FontSize="16" Text="User"/>
                 <TextBlock x:Name="Discriminator" FontSize="13" Text="#000" FontWeight="SemiBold" Opacity="0.4" VerticalAlignment="Bottom"/>
             </StackPanel>
+            <Button BorderThickness="0" Background="Transparent" Width="60" Height="60" Margin="0,-60,0,0">
+                <StackPanel>
+                    <FontIcon Glyph="&#xE70F;"/>
+                    <TextBlock x:Uid="/Dialogs/NoteTB" HorizontalAlignment="Stretch" Text="Notes" FontSize="13" FontWeight="Light"/>
+                </StackPanel>
+                
+                <Button.Flyout>
+                    <Flyout>
+                        <!--TODO: Note flyout-->
+                        <TextBox x:Name="Note" Height="20" Width="248" BorderThickness="1" LostFocus="Note_LostFocus"/>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="12">
-            <StackPanel.Transitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
-                </TransitionCollection>
-            </StackPanel.Transitions>
-            <TextBlock x:Uid="/Controls/PlayingTB" Visibility="Collapsed" x:Name="PlayingHeader" Text="PLAYING" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
-            <local:RichPresenceControl Visibility="Collapsed" x:Name="richPresence"/>
-            <TextBlock x:Uid="/Controls/RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
-            <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
-            <TextBlock x:Uid="/Dialogs/NoteTB" HorizontalAlignment="Stretch" Text="NOTE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
-            <TextBox x:Name="Note"  BorderThickness="1" Margin="0,4,0,0" LostFocus="Note_LostFocus"/>
+        <Grid Grid.Row="1" Background="{ThemeResource Background}">
+            <StackPanel Margin="12">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="-100" IsStaggeringEnabled="True"/>
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+                <TextBlock x:Uid="/Controls/PlayingTB" Visibility="Collapsed" x:Name="PlayingHeader" Text="PLAYING" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                <local:RichPresenceControl Visibility="Collapsed" x:Name="richPresence"/>
+                <TextBlock x:Uid="/Controls/RoleTB" x:Name="RoleHeader" Text="ROLE" FontSize="13.333" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,4,-2,0"/>
 
-            <local:MessageBox x:Name="SendDM" Margin="0,24,0,0" IsCompact="True"/>
-        </StackPanel>
+                <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="12,12,12,0" Opacity="0.5"/>
+                <local:MessageBox x:Name="SendDM" Margin="0,10,0,0" IsCompact="True"/>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </UserControl>
