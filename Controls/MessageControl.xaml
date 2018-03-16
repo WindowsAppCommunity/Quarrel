@@ -51,7 +51,7 @@
                         </Setter>
                         <Setter Target="Avatar.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="contentStacker.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="ShadowPresence.(UIElement.Visibility)" Value="Collapsed"/>
+                        <!--<Setter Target="ShadowPresence.(UIElement.Visibility)" Value="Collapsed"/>-->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Alternative">
@@ -144,9 +144,9 @@
             <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="5,0,0,0" Grid.Column="2"/>
         </Grid>
 
-        <toolkit:DropShadowPanel x:Name="ShadowPresence" Color="Cyan" BlurRadius="10" Height="50" Width="50" Padding="1" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
+        <!--<toolkit:DropShadowPanel x:Name="ShadowPresence" Color="Cyan" BlurRadius="10" Height="50" Width="50" Padding="1" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
             <Rectangle Fill="Black" Height="48" Width="48" RadiusX="100" RadiusY="100" VerticalAlignment="Top"/>
-        </toolkit:DropShadowPanel>
+        </toolkit:DropShadowPanel>-->
         <Rectangle x:Name="AvatarBG" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
         <Rectangle x:Name="Avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
             <Rectangle.Fill>
