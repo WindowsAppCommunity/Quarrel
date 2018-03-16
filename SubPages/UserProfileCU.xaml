@@ -207,13 +207,19 @@
                                 </StackPanel>
                             </StackPanel>
                             <Grid>
-                                <Grid x:Name="FullAvatar">
+                                <Grid x:Name="FullAvatar" VerticalAlignment="Top" HorizontalAlignment="Left">
                                     <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Rectangle.Fill>
                                             <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
                                         </Rectangle.Fill>
                                     </Rectangle>
+                                    <Rectangle x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource LightBG}" Width="32" Height="32" RadiusX="16" RadiusY="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">
+                                        <Rectangle.RenderTransform>
+                                            <CompositeTransform TranslateX="0"/>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                    <Ellipse x:Name="status" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"/>
                                 </Grid>
 
                                 <StackPanel Orientation="Horizontal" Height="128" Margin="178,0,0,0" VerticalAlignment="Top">

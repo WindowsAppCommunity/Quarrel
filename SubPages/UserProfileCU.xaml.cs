@@ -101,6 +101,18 @@ namespace Discord_UWP.SubPages
                 profile.Friend = null;
             }
 
+            if (LocalState.PresenceDict.ContainsKey(userid))
+            {
+                if (LocalState.PresenceDict[userid].Status != null && LocalState.PresenceDict[userid].Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[userid].Status];
+                else if (LocalState.PresenceDict[userid].Status == "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+            }
+            else
+            {
+                rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+            }
+
             if (userid == LocalState.CurrentUser.Id)
             {
                 ProfileSettings.Visibility = Visibility.Visible;
@@ -312,6 +324,11 @@ namespace Discord_UWP.SubPages
                             {
                                 richPresence.Visibility = Visibility.Collapsed;
                             }
+
+                            if (e.EventData.Status != null && e.EventData.Status != "invisible")
+                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
+                            else if (e.EventData.Status == "invisible")
+                                rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                         }
                     });
         }
@@ -408,6 +425,7 @@ namespace Discord_UWP.SubPages
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationshipAdded;
             GatewayManager.Gateway.RelationShipUpdated -= Gateway_RelationshipUpdated;
             GatewayManager.Gateway.RelationShipRemoved -= Gateway_RelationshipRemoved;
