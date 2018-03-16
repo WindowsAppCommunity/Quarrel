@@ -69,6 +69,11 @@ namespace Discord_UWP
             return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
 
+        public static string Capitalize(string entry)
+        {
+            return entry.Substring(0, 1).ToUpper() + entry.Substring(1);
+        }
+
         public static bool IsYesterday(DateTime dt)
         {
             DateTime yesterday = DateTime.Today.AddDays(-1);
