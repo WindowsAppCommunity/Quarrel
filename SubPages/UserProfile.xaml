@@ -89,7 +89,7 @@
             <Grid x:Name="grid" MaxWidth="768" MaxHeight="768" >
                 <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
                 <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
-                    <Grid Background="{ThemeResource Background}">
+                    <Grid Background="Black">
                         <FCU:ParallaxView Source="{x:Bind Path=ParallaxScroll}" VerticalShift="100">
                             <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
                                 <Image Opacity="0" x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
