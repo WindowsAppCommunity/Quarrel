@@ -86,17 +86,17 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 7.3.1 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 7.3.2 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel>
                         <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
                             <Paragraph>
-                                <Run Text="• Fixed Light theme"/>
+                                <Run Text="• Message drafing by channel"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Fixed member list virtuallization"/>
+                                <Run Text="• Redesigned UserFlyout"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Message continuation (Message merging)"/>
+                                <Run Text="• Added Presence to UserFlyout and Profile Page"/>
                             </Paragraph>
                         </RichTextBlock>
                     </StackPanel>
