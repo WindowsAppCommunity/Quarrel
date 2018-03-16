@@ -515,7 +515,7 @@ namespace Discord_UWP.Controls
             return wg;
             
         }
-        public async void UpdateMessage()
+        public void UpdateMessage()
         {
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
@@ -582,18 +582,13 @@ namespace Discord_UWP.Controls
 
                 if (member.Roles != null && member.Roles.Any())
                 {
-                    foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
-                    {
-                        if (role.Id == member.Roles.First<string>())
-                        {
-                            username.Foreground = IntToColor(role.Color);
-                        }
-                    }
+                    username.Foreground = IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[member.Roles.First()].Color);
                 }
                 else
                 {
                     username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 }
+
                 if (Message.Value.User.Bot == true)
                     BotIndicator.Visibility = Visibility.Visible;
                 else
