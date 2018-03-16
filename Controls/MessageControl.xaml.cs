@@ -566,7 +566,7 @@ namespace Discord_UWP.Controls
                     username.Content = member.Nick;
                 }
 
-                if (LocalState.PresenceDict.ContainsKey(member.User.Id))
+                if (member.User.Id != null && LocalState.PresenceDict.ContainsKey(member.User.Id))
                 {
                     if (LocalState.PresenceDict[member.User.Id].Status != null && LocalState.PresenceDict[member.User.Id].Status != "invisible")
                         ShadowPresence.Color = (Color)App.Current.Resources[Common.Capitalize(LocalState.PresenceDict[member.User.Id].Status) + "Color"];
