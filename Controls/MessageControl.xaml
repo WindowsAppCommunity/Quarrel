@@ -50,6 +50,7 @@
                             </Setter.Value>
                         </Setter>
                         <Setter Target="Avatar.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="AvatarBG.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="contentStacker.(UIElement.Visibility)" Value="Collapsed"/>
                         <!--<Setter Target="ShadowPresence.(UIElement.Visibility)" Value="Collapsed"/>-->
                     </VisualState.Setters>
