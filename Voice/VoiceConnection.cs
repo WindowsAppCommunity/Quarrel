@@ -173,10 +173,10 @@ namespace Discord_UWP.Voice
                 if (BitConverter.IsLittleEndian)
                 {
                     header[2] = (byte)(sequence >> 8);
-                    header[3] = (byte)(sequence & 0xFF);
+                    header[3] = (byte)(sequence >> 0);
                 } else
                 {
-                    header[2] = (byte)(sequence & 0xFF);
+                    header[2] = (byte)(sequence >> 0);
                     header[3] = (byte)(sequence >> 8);
                 }
                 sequence++;
