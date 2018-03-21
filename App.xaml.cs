@@ -802,11 +802,15 @@ namespace Discord_UWP
         public static ResourceLoader ResTileTemplates = ResourceLoader.GetForCurrentView("TileTemplates");
         public static string GetString(string str)
         {
-
             str = str.Remove(0, 1);
             int index = str.IndexOf('/');
-            string map = str.Remove(index);
-            str = str.Remove(0, index + 1);
+            string map = str;
+            if (index != -1)
+            {
+                map = str.Remove(index);
+                str = str.Remove(0, index + 1);
+            }
+
             switch (map)
             {
                 case "About": return ResAbout.GetString(str);

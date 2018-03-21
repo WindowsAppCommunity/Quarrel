@@ -64,7 +64,7 @@ namespace Discord_UWP.API.User
         [Headers("Content-Type: application/json;")]
         Task SendFriendRequest([AliasAs("userId")] string id, [Body] string body = "{}");
 
-        [Put("/v6/users/@me/relationships/{userID}")]
+        [Patch("/v6/users/@me/relationships/{userID}")]
         [Headers("Content-Type: application/json;")]
         Task BlockUser([AliasAs("userId")] string id, [Body] string body = "{type:2}");
 

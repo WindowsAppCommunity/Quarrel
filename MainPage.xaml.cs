@@ -1241,9 +1241,9 @@ namespace Discord_UWP
             App.UpdateUnreadIndicators();
         }
 
-        private void App_RemoveFriendHandler(object sender, App.RemoveFriendArgs e)
+        private async void App_RemoveFriendHandler(object sender, App.RemoveFriendArgs e)
         {
-
+            await RESTCalls.RemoveFriend(e.UserId);
         }
 
         private async void App_UpdatePresenceHandler(object sender, App.UpdatePresenceArgs e)
