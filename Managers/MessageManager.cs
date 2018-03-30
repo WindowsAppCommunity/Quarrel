@@ -106,13 +106,16 @@ namespace Discord_UWP.Managers
         {
             public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
             {
+                LastRead = message.HasValue && App.LastReadMsgId == message.Value.Id;
                 Message = message;
                 MessageType = messageType;
-                IsContinuation = isContinuation;
+                if (LastRead)
+                    IsContinuation = false; //If a message has a "New messages" indicator, don't show it as a continuation message
+                else
+                    IsContinuation = isContinuation;
                 Header = header;
                 Pending = pending;
                 Blocked = messageType != MessageTypes.Advert && LocalState.Blocked.ContainsKey(message.Value.Id);
-                LastRead = message.HasValue && App.LastReadMsgId == message.Value.Id;
             }
 
             private Message? _message;

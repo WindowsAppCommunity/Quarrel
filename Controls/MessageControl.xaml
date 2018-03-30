@@ -133,16 +133,16 @@
             <RowDefinition x:Name="row4" Height="Auto"/>
             <RowDefinition x:Name="row5" Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="HeaderUI" Grid.ColumnSpan="3" Visibility="Collapsed">
+        <Grid x:Name="HeaderUI" Grid.ColumnSpan="3" Visibility="Visible" Margin="8,8,-12,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="0,0,5,0"/>
-            <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" Grid.Column="1" Foreground="{ThemeResource Blurple}"/>
-            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="5,0,0,0" Grid.Column="2"/>
+            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="0,0,6,0"/>
+            <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" FontWeight="SemiLight" Grid.Column="1" Foreground="{ThemeResource Blurple}"/>
+            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="6,0,0,0" Grid.Column="2"/>
         </Grid>
 
         <!--<toolkit:DropShadowPanel x:Name="ShadowPresence" Color="Cyan" BlurRadius="10" Height="50" Width="50" Padding="1" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
@@ -161,7 +161,7 @@
             </Border>
             
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
-            <FontIcon x:Name="encrypted" Glyph="" Margin="4,0,0,0"/>
+            <FontIcon x:Name="encrypted" Glyph="" FontSize="12" Margin="6,4,0,0" Visibility="Collapsed"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource Foreground}"/>
@@ -184,15 +184,6 @@
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
         <StackPanel x:Name="EmbedViewer" Grid.Row="4" Grid.Column="1" Padding="0" Visibility="Collapsed"/>
-        <Grid x:Name="NewMessageHeader" Visibility="Collapsed" Grid.Row="6" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Rectangle Height="1" Fill="Red" Margin="5"/>
-            <TextBlock Text="NEW MESSAGES" Foreground="Red" Grid.Column="1"/>
-            <Rectangle Height="1" Fill="Red" Margin="5" Grid.Column="2"/>
-        </Grid>
+
     </Grid>
 </UserControl>

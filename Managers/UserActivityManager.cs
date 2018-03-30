@@ -43,8 +43,8 @@ namespace Discord_UWP.Managers
                 timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
                 timelinecard = timelinecard.Replace("$IMAGE", GuildImage);
 
-              userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
-            //userActivity.VisualElements.DisplayText = "Hello Activities";
+             // userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
+            userActivity.VisualElements.DisplayText = "Hello Activities";
 
             userActivity.ActivationUri = new Uri("discorduwp://Navigate/Guild/"+ GuildId+ "/"+ChannelId);
             userActivity.ContentUri = new Uri(GuildImage);
@@ -54,7 +54,7 @@ namespace Discord_UWP.Managers
             
             //Save
             await userActivity.SaveAsync(); //save the new metadata
-
+            _currentActivity?.Dispose();
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
