@@ -316,10 +316,10 @@ namespace Discord_UWP.Controls
             {
                 if (LastRead)
                 {
-                    NewMessageHeader.Visibility = Visibility.Visible;
+                    HeaderUI.Visibility = Visibility.Visible;
                 } else
                 {
-                    NewMessageHeader.Visibility = Visibility.Collapsed;
+                    HeaderUI.Visibility = Visibility.Collapsed;
                 }
             }
             //if (prop == HeaderProperty)
