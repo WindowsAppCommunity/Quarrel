@@ -108,6 +108,17 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(string.Empty, OnPropertyChangedStatic));
 
+        public bool LastRead
+        {
+            get { return (bool)GetValue(LastReadProperty); }
+            set { SetValue(LastReadProperty, value); }
+        }
+        public static readonly DependencyProperty LastReadProperty = DependencyProperty.Register(
+            nameof(LastRead),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         //The message to be displayed
         public SharedModels.Message? Message
         {
@@ -300,6 +311,16 @@ namespace Discord_UWP.Controls
             if (prop == MessageProperty)
             {
                 UpdateMessage();
+            }
+            if (prop == LastReadProperty)
+            {
+                if (LastRead)
+                {
+                    NewMessageHeader.Visibility = Visibility.Visible;
+                } else
+                {
+                    NewMessageHeader.Visibility = Visibility.Collapsed;
+                }
             }
             //if (prop == HeaderProperty)
             //{
