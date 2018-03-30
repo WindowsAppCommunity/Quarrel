@@ -184,5 +184,15 @@
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
         </Button>
         <StackPanel x:Name="EmbedViewer" Grid.Row="4" Grid.Column="1" Padding="0" Visibility="Collapsed"/>
+        <Grid x:Name="NewMessageHeader" Visibility="Collapsed" Grid.Row="6" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Height="1" Fill="Red" Margin="5"/>
+            <TextBlock Text="NEW MESSAGES" Foreground="Red" Grid.Column="1"/>
+            <Rectangle Height="1" Fill="Red" Margin="5" Grid.Column="2"/>
+        </Grid>
     </Grid>
 </UserControl>

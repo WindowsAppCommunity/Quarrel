@@ -1348,7 +1348,8 @@
                                                  MessageType="{Binding MessageType}"
                                                  Header="{Binding Header}"
                                                  IsPending="{Binding Pending}"
-                                                 IsBlocked="{Binding Blocked}"/>
+                                                 IsBlocked="{Binding Blocked}"
+                                                 LastRead="{Binding LastRead}"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                                 <ListView.Footer>

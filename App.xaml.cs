@@ -773,6 +773,7 @@ namespace Discord_UWP
         internal static bool CurrentGuildIsDM;
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
+        internal static string LastReadMsgId;
         internal static DawgSharp.Dawg<DawgSharp.DawgItem> MemberListDawg;
         internal static int FriendNotifications;
         internal static int AllNotifications;

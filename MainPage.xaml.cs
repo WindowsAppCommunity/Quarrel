@@ -770,6 +770,7 @@ namespace Discord_UWP
                 }
 
                 App.CurrentChannelId = e.ChannelId;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
@@ -798,7 +799,6 @@ namespace Discord_UWP
                     if (guild.Id == e.GuildId)
                     {
                         ServerList.SelectedItem = guild;
-                       
                     }
                 }
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
@@ -816,6 +816,7 @@ namespace Discord_UWP
                 }
 
                 App.CurrentChannelId = e.ChannelId;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
@@ -846,11 +847,13 @@ namespace Discord_UWP
                 if (App.CurrentGuildIsDM)
                 {
                     App.CurrentChannelId = e.ChannelId;
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                     RenderMessages();
                 } else
                 {
                     ServerList.SelectedIndex = 0;
                     App.CurrentChannelId = e.ChannelId;
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                     RenderDMChannels();
                     RenderMessages();
                 }
@@ -914,6 +917,7 @@ namespace Discord_UWP
                 {
                     var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
                     App.CurrentChannelId = channel.Id;
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                     if (!LocalState.DMs.ContainsKey(channel.Id))
                     {
                         LocalState.DMs.Add(channel.Id, channel);
@@ -1474,18 +1478,29 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
+                Managers.MessageManager.MessageContainer lastRead = null;
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
                 if (messages != null)
                 {
                     foreach (var message in messages)
                     {
                         MessageList.Items.Add(message);
+                        if (message.LastRead)
+                        {
+                            lastRead = message;
+                        }
+                    }
+
+                    if (lastRead != null)
+                    {
+                        MessageList.ScrollIntoView(lastRead); //Play with this
                     }
                 }
             } else
             {
                 //TODO: Check offline status and potentially set to offline mode
             }
+
             IEnumerable<Message> epinnedmessages = null;
             await Task.Run(async () =>
             {
