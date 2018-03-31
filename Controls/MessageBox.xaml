@@ -617,7 +617,6 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                
             </Border>
         </Popup>
 

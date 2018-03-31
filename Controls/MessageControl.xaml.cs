@@ -1080,6 +1080,19 @@ namespace Discord_UWP.Controls
             BlockedMessage.Visibility = Visibility.Collapsed;
         }
 
+        private void UserControl_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+       //     if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && moreButton.Opacity!=1 && ShowMoreButton.GetCurrentState() == ClockState.Stopped)
+       //         ShowMoreButton.Begin();
+            
+        }
+
+        private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+     //       if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse && moreButton.Opacity != 0 && HideMoreButton.GetCurrentState() == ClockState.Stopped)
+       //         HideMoreButton.Begin();
+        }
+
         //private void MoreSave_Click(object sender, RoutedEventArgs e)
         //{
         //    if (Storage.Settings.savedMessages.ContainsKey(messageid))
