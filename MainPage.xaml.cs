@@ -1480,15 +1480,25 @@ namespace Discord_UWP
             {
                 Managers.MessageManager.MessageContainer lastRead = null;
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
+                bool NextIsLastRead = false;
                 if (messages != null)
                 {
                     foreach (var message in messages)
                     {
-                        MessageList.Items.Add(message);
+                       //This is ugly and looks complicated, but all it's doing is checking if a message is the last read one, 
+                       //and if so moving the LastRead=true to the next message (via NextIsLastRead)
                         if (message.LastRead)
                         {
-                            lastRead = message;
+                            message.LastRead = false;
+                            NextIsLastRead = true;
                         }
+                        else if (NextIsLastRead)
+                        {
+                            message.LastRead = true;
+                            lastRead = message;
+                            NextIsLastRead = false; //reset this so that it's only the top message with the indicator
+                        }
+                        MessageList.Items.Add(message);
                     }
 
                     if (lastRead != null)

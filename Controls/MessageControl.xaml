@@ -9,9 +9,22 @@
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6" PointerPressed="UserControl_PointerPressed">
+    d:DesignWidth="400" RightTapped="UserControl_RightTapped" Holding="UserControl_Holding" Margin="0,0,0,-6" PointerPressed="UserControl_PointerPressed" PointerEntered="UserControl_PointerEntered" PointerExited="UserControl_PointerExited">
     <UserControl.Resources>
-
+        <Storyboard x:Name="ShowMoreButton" Duration="0:0:0.2">
+            <DoubleAnimation Storyboard.TargetName="moreButton" Storyboard.TargetProperty="Opacity" To="1">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="HideMoreButton" Duration="0:0:0.2">
+            <DoubleAnimation Storyboard.TargetName="moreButton" Storyboard.TargetProperty="Opacity" To="0">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </UserControl.Resources>
 
     <Grid x:Name="rootGrid" Margin="0,24,12,6" HorizontalAlignment="Stretch" Background="Transparent">
@@ -169,7 +182,7 @@
             <TextBlock Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>
         </StackPanel>
-        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
+        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1=0" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <MenuFlyoutItem x:Uid="ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
