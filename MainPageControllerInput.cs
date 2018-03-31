@@ -15,7 +15,10 @@ namespace Discord_UWP
     {
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
-            
+            if(args.VirtualKey == Windows.System.VirtualKey.Shift)
+            {
+                MessageBox1.ShiftDown();
+            }
             if(args.VirtualKey == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
                 sideDrawer.ToggleLeft();
@@ -43,6 +46,10 @@ namespace Discord_UWP
         }
         private void CoreWindow_KeyUp(CoreWindow sender, KeyEventArgs args)
         {
+            if (args.VirtualKey == Windows.System.VirtualKey.Shift)
+            {
+                MessageBox1.ShiftUp();
+            }
             if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
             {
                 MenuHint.Release();
