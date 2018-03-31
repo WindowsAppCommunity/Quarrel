@@ -1493,7 +1493,7 @@ namespace Discord_UWP
 
                     if (lastRead != null)
                     {
-                        MessageList.ScrollIntoView(lastRead); //Play with this
+                        MessageList.ScrollIntoView(lastRead, ScrollIntoViewAlignment.Leading); //Play with this
                     }
                 }
             } else
