@@ -522,13 +522,13 @@
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
                                         </Storyboard>
-                                       
+
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="bg"  Background="{ThemeResource InvertedBG}" CornerRadius="0,4,4,0"/>
                             <Border x:Name="bbg"  Background="{ThemeResource Blurple}" CornerRadius="0,4,4,0"/>
-                           <TextBlock x:Name="blurple" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource Blurple}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="blurple" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource Blurple}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="fg" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource AcrylicMessageBackground}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                         </Grid>
@@ -536,7 +536,54 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <Storyboard x:Name="showAttachSymbol">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="moreSymbol" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="attachSymbol" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="attachButtonScale" Storyboard.TargetProperty="ScaleX">
+                <DiscreteDoubleKeyFrame KeyTime="0" Value="1.35"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="attachButtonScale" Storyboard.TargetProperty="ScaleY">
+                <DiscreteDoubleKeyFrame KeyTime="0" Value="1.25"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="showMoreSymbol">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="moreSymbol" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="attachSymbol" Storyboard.TargetProperty="Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+            </ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="attachButtonScale" Storyboard.TargetProperty="ScaleX">
+                <DiscreteDoubleKeyFrame KeyTime="0" Value="1.25"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="attachButtonScale" Storyboard.TargetProperty="ScaleY">
+                <DiscreteDoubleKeyFrame KeyTime="0" Value="1.35"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <Grid Padding="{Binding Padding, ElementName=uc}" Background="{Binding Background, ElementName=uc}">
@@ -578,14 +625,49 @@
             <Button x:Name="EmojiButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Click="Button_Click" Padding="8">
                 <SymbolIcon Symbol="Emoji"/>
             </Button>
-            <Button x:Name="GiphyButton" Foreground="{ThemeResource InvertedBG}" Style="{StaticResource ContentButton}" Opacity="1" Background="Transparent" Click="GiphyButton_Click" Padding="8">
-                <SymbolIcon Symbol="BrowsePhotos"/>
-            </Button>
         </StackPanel>
         
         <HyperlinkButton x:Uid="CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
         <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
-            <SymbolIcon Symbol="Attach"/>
+            <Grid>
+                <Grid.RenderTransform>
+                    <ScaleTransform x:Name="attachButtonScale" CenterX="10" CenterY="10"/>
+                </Grid.RenderTransform>
+                <SymbolIcon x:Name="moreSymbol" Symbol="More" Visibility="Visible"/>
+                <SymbolIcon x:Name="attachSymbol"  Symbol="Attach" Visibility="Collapsed"></SymbolIcon>
+            </Grid>
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
+                    
+                    
+                    <MenuFlyoutSubItem Text="E2E Encryption">
+                        <MenuFlyoutItem  Text="Send encryption request">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="Send"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="About">
+                            <MenuFlyoutItem.Icon>
+                                <SymbolIcon Symbol="Help"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSubItem.Icon>
+                            <FontIcon Glyph=""/>
+                        </MenuFlyoutSubItem.Icon>
+                    </MenuFlyoutSubItem>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Text="Search giphy" Click="AddGiphy_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="BrowsePhotos"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Add attachement" Click="AddAttachement_Click">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="Attach"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout>
         </Button>
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>

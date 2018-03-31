@@ -133,7 +133,7 @@
             <RowDefinition x:Name="row4" Height="Auto"/>
             <RowDefinition x:Name="row5" Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="HeaderUI" Grid.ColumnSpan="3" Visibility="Collapsed" Margin="8,8,-12,8">
+        <Grid x:Name="HeaderUI" Grid.ColumnSpan="3" Visibility="Collapsed" Margin="8,8,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -155,13 +155,13 @@
             </Rectangle.Fill>
         </Rectangle>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
-            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
+            <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
             </Border>
             
-            <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="6,0,0,2" VerticalAlignment="Bottom" Opacity="0.5"/>
-            <FontIcon x:Name="encrypted" Glyph="" FontSize="12" Margin="6,4,0,0" Visibility="Collapsed"/>
+            <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.5"/>
+            <FontIcon x:Name="encrypted" Glyph="" FontSize="11" Margin="4,0,0,-2" Visibility="Collapsed"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.RowSpan="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource Foreground}"/>

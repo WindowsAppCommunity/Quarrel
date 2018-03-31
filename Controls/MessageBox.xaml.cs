@@ -61,7 +61,7 @@ namespace Discord_UWP.Controls
                 {
                     EmojiButton.Visibility = Visibility.Collapsed;
                     attachButton.Visibility = Visibility.Collapsed;
-                    GiphyButton.Visibility = Visibility.Collapsed;
+                    
                 }
             }
         }
@@ -407,7 +407,10 @@ namespace Discord_UWP.Controls
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            OpenAdvanced?.Invoke(null, null);
+            if(shiftisdown)
+                OpenAdvanced?.Invoke(null, null);
+            else
+                FlyoutBase.ShowAttachedFlyout(sender as Button);
         }
 
         #region TextProcessing
@@ -534,13 +537,6 @@ namespace Discord_UWP.Controls
         }
         #endregion
 
-        private void GiphyButton_Click(object sender, RoutedEventArgs e)
-        {
-            GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            TextBox_TextChanged(null, null);
-            searchCooldown.Interval = TimeSpan.FromMilliseconds(1200);
-            searchCooldown.Tick += SearchCooldown_Tick;
-        }
 
         string previousSearch = "empty";
         private async void SearchCooldown_Tick(object sender, object e)
@@ -591,6 +587,33 @@ namespace Discord_UWP.Controls
             var m = (sender as MediaElement);
             m.Position = TimeSpan.Zero;
             m.Play();
+        }
+
+        bool shiftisdown = false;
+        public void ShiftDown()
+        {
+            if (!shiftisdown)
+                showAttachSymbol.Begin();
+            shiftisdown = true;
+        }
+        public void ShiftUp()
+        {
+            if (shiftisdown)
+                showMoreSymbol.Begin();
+            shiftisdown = false;
+        }
+
+        private void AddGiphy_Click(object sender, RoutedEventArgs e)
+        {
+            GiphySelect.Visibility = GiphySelect.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            TextBox_TextChanged(null, null);
+            searchCooldown.Interval = TimeSpan.FromMilliseconds(1200);
+            searchCooldown.Tick += SearchCooldown_Tick;
+        }
+
+        private void AddAttachement_Click(object sender, RoutedEventArgs e)
+        {
+            OpenAdvanced?.Invoke(null, null);
         }
     }
 }
