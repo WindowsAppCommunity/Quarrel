@@ -917,6 +917,7 @@ namespace Discord_UWP
             Storage.Settings.RespUiM = 500;
             Storage.Settings.RespUiL = 1000;
             Storage.Settings.RespUiXl = 1500;
+          
             //Storage.Settings.AppBarAtBottom = false;
             Storage.Settings.DiscordLightTheme = false;
             Storage.Settings.ExpensiveRender = false;
@@ -925,7 +926,7 @@ namespace Discord_UWP
             Storage.Settings.AccentBrush = false;
             Storage.Settings.mutedChnEffectServer = false;
             Storage.Settings.Vibrate = true;
-            Storage.Settings.EnableAcrylic = true;
+            Storage.Settings.EnableAcrylic = false;
             Storage.Settings.UseCompression = true;
             Storage.Settings.DateFormat = "M/d/yyyy";
             Storage.Settings.TimeFormat = "h:mm tt";

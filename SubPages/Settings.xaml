@@ -664,7 +664,7 @@
                                     <TextBox x:Name="CustomDateF" Header="Custom Date Format"/>
 
                                     <ComboBox x:Uid="/Settings/TimeFormat" x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
-                                        <ComboBoxItem Content="h:mm tt"/>
+                                        <ComboBoxItem Content="hh:mm"/>
                                         <ComboBoxItem Content="H:mm"/>
                                         <ComboBoxItem Content="hh:mm:ss tt"/>
                                         <ComboBoxItem Content="HH:mm:ss"/>

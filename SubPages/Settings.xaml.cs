@@ -71,7 +71,7 @@ namespace Discord_UWP.SubPages
 
             switch (Storage.Settings.TimeFormat)
             {
-                case "h:mm tt":
+                case "hh:mm":
                     TimeFormat.SelectedIndex = 0;
                     break;
                 case "H:mm":
@@ -201,7 +201,7 @@ namespace Discord_UWP.SubPages
             switch (TimeFormat.SelectedIndex)
             {
                 case 0:
-                    Storage.Settings.TimeFormat = "h:mm tt";
+                    Storage.Settings.TimeFormat = "hh:mm";
                     break;
                 case 1:
                     Storage.Settings.TimeFormat = "H:mm";

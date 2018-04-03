@@ -119,13 +119,13 @@ namespace Discord_UWP
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
-        public bool EnableAcrylic = true;
+        public bool EnableAcrylic = false;
         public bool VoiceChannels = false;
         public bool UseCompression = true;
         public bool VideoAd = false;
         public bool GifsOnHover = true;
         public string DateFormat = "M/d/yyyy";
-        public string TimeFormat = "h:mm tt";
+        public string TimeFormat = "hh:mm";
         public string DefaultAccount = "";
         public string OutputDevice = "Default";
         public CollapseOverride collapseOverride = CollapseOverride.Unread;

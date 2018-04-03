@@ -21,17 +21,17 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Border x:Name="JoinIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="{StaticResource Blurple}" >
-                <SymbolIcon Symbol="Add"/>
+                <SymbolIcon Symbol="Add" Foreground="White"/>
             </Border>
             <Border x:Name="GreenIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="#ff43b581" >
-                <SymbolIcon Symbol="Accept"/>
+                <SymbolIcon Symbol="Accept" Foreground="White"/>
             </Border>
             <Border x:Name="RedIcon" Visibility="Visible" Opacity="0" VerticalAlignment="Top" Height="58" Width="58" Margin="12" CornerRadius="64" Background="#fff04747" >
-                <SymbolIcon Symbol="Clear"/>
+                <SymbolIcon Symbol="Clear" Foreground="White"/>
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,12,24,12">
-                <TextBlock x:Name="ChannelName" Opacity="0" Text="Expired invite link" FontSize="13.333" FontWeight="Bold" TextWrapping="Wrap"/>
-                <TextBlock x:Name="GuildName" Opacity="0" Text="Discord UWP" FontWeight="Light"/>
+                <TextBlock x:Name="ChannelName" Opacity="0" Foreground="{ThemeResource InvertedBG}" Text="Expired invite link" FontSize="13.333" FontWeight="Bold" TextWrapping="Wrap"/>
+                <TextBlock x:Name="GuildName" Opacity="0" Foreground="{ThemeResource InvertedBG}" Text="Discord UWP" FontWeight="Light"/>
             </StackPanel>
             <ProgressRing x:Name="Loading" Foreground="{StaticResource Blurple}" IsActive="True" Grid.ColumnSpan="2"/>
         </Grid>
