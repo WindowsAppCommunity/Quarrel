@@ -1334,7 +1334,30 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            
+                            <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
+                               
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0.1" Color="{ThemeResource DarkBGColor}"/>
+                                        <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="-0.8" Color="{ThemeResource BlurpleColor}"/>
+                                            <GradientStop Offset="1" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                            </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
+                                    <TextBlock Text="+50 NEW MESSAGES" FontSize="12" Foreground="{ThemeResource InvertedBG}" FontWeight="SemiBold" />
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="MARK AS READ" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="REACH" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
+
+                                </StackPanel>
+                                
+                            </Grid>
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>

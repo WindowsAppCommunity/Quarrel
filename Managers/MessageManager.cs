@@ -106,7 +106,7 @@ namespace Discord_UWP.Managers
         {
             public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
             {
-                LastRead = message.HasValue && App.LastReadMsgId == message.Value.Id;
+                LastRead = false; // this is false, we decided if it should be marked as "last read" later on
                 Message = message;
                 MessageType = messageType;
                 if (LastRead)

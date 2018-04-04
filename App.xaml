@@ -54,6 +54,7 @@
 
                     <SolidColorBrush x:Key="DarkBG" Color="#e1e3e5"/>
                     <Color x:Key="DarkBGColor">#e1e3e5</Color>
+                    <Color x:Key="DarkBGColorTransparent">#00e1e3e5</Color>
                     <SolidColorBrush x:Key="MidBG" Color="#e3e8ed"/>
                     <SolidColorBrush x:Key="MidBG_hover" Color="#2e3036"/>
                     <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
@@ -107,6 +108,7 @@
 
                     <SolidColorBrush x:Key="DarkBG" Color="#1e2124"/>
                     <Color x:Key="DarkBGColor">#1e2124</Color>
+                    <Color x:Key="DarkBGColorTransparent">#001e21e4</Color>
                     <SolidColorBrush x:Key="MidBG" Color="#2a2c31"/>
                     <SolidColorBrush x:Key="MidBG_hover" Color="#2e3036"/>
                     <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
