@@ -37,6 +37,9 @@ namespace Discord_UWP.API.Channel
 
         [Get("/v6/channels/{channelId}/messages?limit=50&after={messageId}")]
         Task<IEnumerable<Message>> GetChannelMessagesAfter([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
+        
+        [Get("/v6/channels/{channelId}/messages?limit=50&around={messageId}")]
+        Task<IEnumerable<Message>> GetChannelMessagesAround([AliasAs("channelId")] string channelId, [AliasAs("messageId")] string messageId);
 
         [Post("/channels/{channelId}/messages")]
         Task<Message> CreateMessage([AliasAs("channelId")] string channelId, [Body] MessageUpsert message);

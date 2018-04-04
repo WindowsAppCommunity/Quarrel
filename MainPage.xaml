@@ -1338,25 +1338,36 @@
                                
                                 <Grid.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <GradientStop Offset="0.1" Color="{ThemeResource DarkBGColor}"/>
+                                        <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
                                 </Grid.Background>
                                 <Rectangle>
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="-0.8" Color="{ThemeResource BlurpleColor}"/>
-                                            <GradientStop Offset="1" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                            <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
+                                            <GradientStop Offset="0.6" Color="{ThemeResource BlurpleColorTransparent}"/>
                                             </LinearGradientBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
                                 <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
-                                    <TextBlock Text="+50 NEW MESSAGES" FontSize="12" Foreground="{ThemeResource InvertedBG}" FontWeight="SemiBold" />
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="MARK AS READ" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="REACH" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
-
+                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
                                 </StackPanel>
-                                
+                            </Grid>
+                            <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Bottom" Margin="-12,0,-12,0" Grid.RowSpan="4">
+
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                        <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
+                                        <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
+                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="ReturnToPresent_Click"/>
+                                </StackPanel>
                             </Grid>
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}">
                                 <ListView.ItemsPanel>
