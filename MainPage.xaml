@@ -1353,8 +1353,8 @@
                                 <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
                                     <TextBlock Text="+50 NEW MESSAGES" FontSize="12" Foreground="{ThemeResource InvertedBG}" FontWeight="SemiBold" />
                                     <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="MARK AS READ" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="REACH" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
-
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="REACH" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="ReachNewMsgs"/>
+                                    <ProgressRing x:Name="NewMsgsLoading" IsActive="False" Visibility="Collapsed"/>
                                 </StackPanel>
                                 
                             </Grid>
