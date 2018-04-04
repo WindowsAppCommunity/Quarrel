@@ -182,7 +182,7 @@
             <TextBlock Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>
         </StackPanel>
-        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1=0" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
+        <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <MenuFlyoutItem x:Uid="ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>

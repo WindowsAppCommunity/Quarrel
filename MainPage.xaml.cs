@@ -1296,6 +1296,7 @@ namespace Discord_UWP
         {
             friendPanel.Visibility = Visibility.Collapsed;
             MessageList.Items.Clear();
+            MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             SendMessage.Visibility = Visibility.Collapsed;
             //CompressedChannelHeader.Visibility = Visibility.Collapsed;
             PinnedMessags.Visibility = Visibility.Collapsed;
@@ -1383,6 +1384,7 @@ namespace Discord_UWP
             {
                 FriendsItem.IsSelected = true;
                 friendPanel.Visibility = Visibility.Visible;
+                MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             }
 
             AddChannelButton.Visibility = Visibility.Collapsed;
@@ -1445,6 +1447,7 @@ namespace Discord_UWP
         //bool MessageRange_LastMessage = false;
         public async void RenderMessages() //App.CurrentChannelId is set
         {
+            MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             MessagesLoading.Visibility = Visibility.Visible;
             FriendsItem.IsSelected = false;
             friendPanel.Visibility = Visibility.Collapsed;
@@ -1478,32 +1481,58 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-                Managers.MessageManager.MessageContainer lastRead = null;
+                Managers.MessageManager.MessageContainer scrollTo = null;
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
-                bool NextIsLastRead = false;
                 if (messages != null)
                 {
-                    foreach (var message in messages)
+                    var FirstMessageTime = Common.SnowflakeToTime(messages.First().Message.Value.Id);
+                    var LastMessageTime = Common.SnowflakeToTime(messages.Last().Message.Value.Id);
+                    var LastReadTime = Common.SnowflakeToTime(App.LastReadMsgId);
+                    if (FirstMessageTime < LastReadTime)
                     {
-                       //This is ugly and looks complicated, but all it's doing is checking if a message is the last read one, 
-                       //and if so moving the LastRead=true to the next message (via NextIsLastRead)
-                        if (message.LastRead)
+                        //the last read message is after the first one in the list
+                        if (LastMessageTime > LastReadTime)
                         {
-                            message.LastRead = false;
-                            NextIsLastRead = true;
+                            //Go through every message, and compare the timestamp to the lastreadtime
+                            bool CanBeLastRead = true;
+                            for (int i = 0; i < messages.Count(); i++)
+                            {
+                                if (CanBeLastRead)
+                                {
+                                    //the first one with a larger timestamp gets the "NEW MESSAGES" header
+                                    var CurrentMessageTime = Common.SnowflakeToTime(messages[i].Message.Value.Id);
+                                    if (CurrentMessageTime > LastReadTime)
+                                    {
+                                        messages[i].LastRead = true;
+                                        scrollTo = messages[i];
+                                        CanBeLastRead = false;
+                                    }
+                                }
+                                MessageList.Items.Add(messages[i]);
+                            }
                         }
-                        else if (NextIsLastRead)
+                        else
                         {
-                            message.LastRead = true;
-                            lastRead = message;
-                            NextIsLastRead = false; //reset this so that it's only the top message with the indicator
+                            //The last read message is after the span of currently displayed messages
+                            for (int i = 0; i < messages.Count(); i++)
+                                MessageList.Items.Add(messages[i]);
+                            
                         }
-                        MessageList.Items.Add(message);
+                    }
+                    else
+                    {
+                        //the last read message is before the first one in the list
+                        for (int i = 0; i < messages.Count(); i++)
+                            MessageList.Items.Add(messages[i]);
+                        scrollTo = messages.First();
+                        MoreNewMessageIndicator.Opacity = 0;
+                        MoreNewMessageIndicator.Visibility = Visibility.Visible;
+                        MoreNewMessageIndicator.Fade(1, 300).Start();
                     }
 
-                    if (lastRead != null)
+                    if (scrollTo != null)
                     {
-                        MessageList.ScrollIntoView(lastRead, ScrollIntoViewAlignment.Leading); //Play with this
+                        MessageList.ScrollIntoView(scrollTo, ScrollIntoViewAlignment.Leading);
                     }
                 }
             } else
@@ -1974,6 +2003,39 @@ namespace Discord_UWP
                 });
         }
 
+        private async void UpdateLastRead(string lastReadId)
+        {
+            var FirstMessageTime = Common.SnowflakeToTime(((MessageManager.MessageContainer)MessageList.Items.First()).Message.Value.Id);
+            var LastMessageTime = Common.SnowflakeToTime(((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id);
+            var LastReadTime = Common.SnowflakeToTime(lastReadId);
+            if (FirstMessageTime < LastReadTime)
+            {
+                //the last read message is after the first one in the list
+                if (LastMessageTime > LastReadTime)
+                {
+                    //Go through every message, and compare the timestamp to the lastreadtime
+                    for (int i = 0; i < MessageList.Items.Count(); i++)
+                    {
+                        var CurrentMessageTime = Common.SnowflakeToTime(((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id);
+                        //the first one with a larger timestamp gets the "NEW MESSAGES" header
+                        if (CurrentMessageTime > LastReadTime)
+                        {
+
+                            ((MessageManager.MessageContainer)MessageList.Items[i]).LastRead = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    //The last read message is after the span of currently displayed messages
+                }
+            }
+            else
+            {
+                //the last read message is before the first one in the list
+            }
+        }
         #region Messages
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
         {
@@ -2503,8 +2565,6 @@ namespace Discord_UWP
         private void CreateMessage(object sender, RoutedEventArgs e)
         {
             var text = MessageBox1.Text;
-            if (encryptionToggle.IsChecked == true)
-                text = EncryptionManager.EncryptMessage(text);
             App.CreateMessage(App.CurrentChannelId, text);
             
             MessageBox1.Text = "";
@@ -2589,6 +2649,7 @@ namespace Discord_UWP
             }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
+            MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
         }
 

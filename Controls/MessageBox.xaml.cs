@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.LocalModels;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Threading;
+using Discord_UWP.Managers;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -168,6 +169,8 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
+            if (EnableEncryption.IsChecked == true)
+                Text = EncryptionManager.EncryptMessage(Text);
             Send?.Invoke(sender, e);
         }
 
@@ -614,6 +617,21 @@ namespace Discord_UWP.Controls
         private void AddAttachement_Click(object sender, RoutedEventArgs e)
         {
             OpenAdvanced?.Invoke(null, null);
+        }
+
+        private void SendEncryption_Click(object sender, RoutedEventArgs e)
+        {
+            App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeRequest());
+        }
+
+        private void AboutEncryption_Click(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as MenuFlyoutItem);
+        }
+
+        private void ToggleEncryption_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

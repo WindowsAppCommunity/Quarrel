@@ -18,6 +18,7 @@ using System.Xml.Linq;
 using System.Xml;
 
 using Discord_UWP.LocalModels;
+using System.Collections;
 
 namespace Discord_UWP
 {
@@ -31,6 +32,12 @@ namespace Discord_UWP
                 byte b = (byte)(color >> 0);
                 return new SolidColorBrush(Color.FromArgb(a, r, g, b));
         }
+
+        public static double SnowflakeToTime(string id)
+        {
+            //returns unix time in ms
+            return (double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)/10;
+        } 
 
         public static SolidColorBrush DiscriminatorColor(string desc)
         {
