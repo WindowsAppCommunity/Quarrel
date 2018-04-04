@@ -2780,5 +2780,28 @@ namespace Discord_UWP
         {
             VoiceControlPadding.Height = VoiceController.ActualHeight;
         }
+
+        private async void ReachNewMsgs(object sender, RoutedEventArgs e)
+        {
+            //TODO: get continuation working on the bottom and merely load messages before
+            NewMsgsLoading.Visibility = Visibility.Visible;
+            NewMsgsLoading.IsActive = true;
+            MessageManager.MessageContainer scrollTo = null;
+            while (scrollTo == null)
+            {
+                var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items[0] as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+                foreach (var message in messages)
+                {
+                    MessageList.Items.Insert(0, message);
+                    if (message.Message.Value.Id == App.LastReadMsgId)
+                    {
+                        scrollTo = message;
+                    }
+                }
+            }
+            MessageList.ScrollIntoView(scrollTo);
+            NewMsgsLoading.IsActive = false;
+            NewMsgsLoading.Visibility = Visibility.Collapsed;
+        }
     }
 }
