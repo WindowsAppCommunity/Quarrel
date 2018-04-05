@@ -2284,7 +2284,10 @@ namespace Discord_UWP
                         if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
                         {
                             Member m = new Member(member.Value);
-                            m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+                            if (m.Raw.Roles != null)
+                            {
+                                m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+                            }
 
                             //Set it to first Hoist Role or everyone if null
                             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

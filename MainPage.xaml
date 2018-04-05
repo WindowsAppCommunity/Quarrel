@@ -1336,13 +1336,13 @@
                             </Grid.RowDefinitions>
                             <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
                                
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
-                                </Grid.Background>
-                                <Rectangle>
+                                </Grid.Background>-->
+                                <Rectangle IsHitTestVisible="False">
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                             <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
@@ -1357,13 +1357,13 @@
                                 </StackPanel>
                             </Grid>
                             <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Collapsed" Opacity="0" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
-                                <Grid.Background>
+                                <!--<Grid.Background>
                                     <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                                         <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
-                                </Grid.Background>
-                                <Rectangle>
+                                </Grid.Background>-->
+                                <Rectangle IsHitTestVisible="False">
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                                             <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
