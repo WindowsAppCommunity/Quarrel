@@ -1334,7 +1334,7 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
+                            <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Visible" Opacity="1" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
                                
                                 <Grid.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -1356,23 +1356,30 @@
                                     <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
                                 </StackPanel>
                             </Grid>
-                            <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Bottom" Margin="-12,0,-12,0" Grid.RowSpan="4">
-
+                            <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Visible" Opacity="1" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
                                 <Grid.Background>
                                     <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                                         <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
                                 </Grid.Background>
-                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
-                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="ReturnToPresent_Click"/>
+                                <Rectangle>
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                            <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
+                                            <GradientStop Offset="0.5" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" VerticalAlignment="Bottom"  Margin="12,8,24,8" >
+                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top" Foreground="{ThemeResource Blurple}"/>
+                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
                                 </StackPanel>
                             </Grid>
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                        <ItemsStackPanel  Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
@@ -1389,10 +1396,11 @@
                                 <ListView.Footer>
                                     <Grid Height="22" Margin="0,0,0,0">
                                         <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoMessage" Text="No messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                        <ProgressBar x:Name="MessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                                     </Grid>
                                 </ListView.Footer>
                             </ListView>
+                            <ProgressBar x:Name="MessagesLoadingTop" Grid.Row="0" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Top" Visibility="Collapsed"/>
+                            <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                             <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
                                 <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
