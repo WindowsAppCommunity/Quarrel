@@ -1519,7 +1519,7 @@ namespace Discord_UWP
         public enum Position { Before, After };
         public async void AddMessages(Position position, bool scroll, List<MessageManager.MessageContainer> messages, bool showNewMessageIndicator)
         {
-            if (messages != null)
+            if (messages != null && messages.Count > 0)
             {
                 ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
                 MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
@@ -2214,7 +2214,7 @@ namespace Discord_UWP
                 
                 foreach (var member in members)
                 {
-                    member.setRoles(member.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
+                    member.setRoles(member.Roles.TakeWhile(x => App.CurrentGuildId != null && LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
                     if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
                     {
                         LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
