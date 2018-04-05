@@ -250,7 +250,7 @@ namespace Discord_UWP
                 double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
                 if (fromTop < 100 && !DisableLoadingMessages)
                     LoadOlderMessages();
-                if (fromBottom < 100 && !DisableLoadingMessages)
+                if (fromBottom < 200 && !DisableLoadingMessages)
                     LoadNewerMessages();
             }
         }
@@ -1519,10 +1519,10 @@ namespace Discord_UWP
         public enum Position { Before, After };
         public async void AddMessages(Position position, bool scroll, List<MessageManager.MessageContainer> messages, bool showNewMessageIndicator)
         {
+            ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
+            MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             if (messages != null && messages.Count > 0)
             {
-                ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
-                MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
                 MessageManager.MessageContainer scrollTo = null;
                 if (showNewMessageIndicator)
                 {
@@ -1598,11 +1598,17 @@ namespace Discord_UWP
                     MessageList.ScrollIntoView(scrollTo, ScrollIntoViewAlignment.Leading);
                 }
             }
-            if(LocalState.RPC[App.CurrentChannelId].LastMessageId != ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id)
+
+            Message? last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+            if (last.HasValue && last.Value.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
             {
-                ReturnToPresentIndicator.Opacity = 0;
+                ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
                 ReturnToPresentIndicator.Fade(1, 300).Start();
+            }
+            else
+            {
+                ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
             }
         }
         
@@ -1848,8 +1854,10 @@ namespace Discord_UWP
         private async void LoadOlderMessages()
         {
             DisableLoadingMessages = true;
+            MessagesLoadingTop.Visibility = Visibility.Visible;
             var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
             AddMessages(Position.Before, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
+            MessagesLoadingTop.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
             DisableLoadingMessages = false;
         }
@@ -1886,14 +1894,18 @@ namespace Discord_UWP
         {
             try
             {
-                if (LocalState.RPC[App.CurrentChannelId].LastMessageId != ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id)
+                Message? last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+                if (last.HasValue && last.Value.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
                 {
-                    var offset = MessageScrollviewer.VerticalOffset;
+                    // var offset = MessageScrollviewer.VerticalOffset;
+                    MessagesLoading.Visibility = Visibility.Visible;
                     DisableLoadingMessages = true;
                     var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+                    messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
                     AddMessages(Position.After, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
+                    MessagesLoading.Visibility = Visibility.Collapsed;
                     await Task.Delay(1000);
-                    MessageScrollviewer.ChangeView(0, offset, 1);
+                    messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
                     DisableLoadingMessages = false;
                 }
             }
@@ -1906,10 +1918,12 @@ namespace Discord_UWP
             {
                 if (!LastMessageIsLoaded())
                 {
+                    MessagesLoadingTop.Visibility = Visibility.Visible;
                     MessageList.Items.Clear();
                     DisableLoadingMessages = true;
                     var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAround(App.CurrentChannelId, id)).ToList());
                     AddMessages(Position.After, true, messages, true);
+                    MessagesLoadingTop.Visibility = Visibility.Collapsed;
                     await Task.Delay(1000);
                     DisableLoadingMessages = false;
                 }
@@ -2069,9 +2083,21 @@ namespace Discord_UWP
                      //} else
                      //{
                      Message? last = null;
-                     if (MessageList.Items.Last() != null)
+                     if (MessageList.Items.Count > 0)
+                     {
                          last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
-                     MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
+                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId)
+                            //Only add a message if the last one is functional
+                            MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
+                     }
+                     else
+                     {
+                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message, false));
+                     }
+                     
+                     var tempRPC = LocalState.RPC[App.CurrentChannelId];
+                     tempRPC.LastMessageId = e.Message.Id;
+                     LocalState.RPC[App.CurrentChannelId] = tempRPC;
 
                      //}
                      if (e.Message.User.Id != LocalState.CurrentUser.Id)
