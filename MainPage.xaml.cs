@@ -2278,38 +2278,47 @@ namespace Discord_UWP
                         }
                     }
                     int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
-                     
-                    foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
+
+                    try
                     {
-                        if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
+
+                        foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                         {
-                            Member m = new Member(member.Value);
-                            if (m.Raw.Roles != null)
+                            if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
                             {
-                                m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
-                            }
+                                Member m = new Member(member.Value);
+                                if (m.Raw.Roles != null)
+                                {
+                                    m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+                                }
 
-                            //Set it to first Hoist Role or everyone if null
-                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                            () =>
-                            {
-                                m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
-                            });
+                                //Set it to first Hoist Role or everyone if null
+                                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                () =>
+                                {
+                                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
+                                });
 
-                            if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
-                            {
-                                m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                                if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                                {
+                                    m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                                }
+                                else
+                                {
+                                    m.status = new Presence() { Status = "offline", Game = null };
+                                }
+                                if (memberscvs.ContainsKey(m.Raw.User.Id))
+                                {
+                                    memberscvs.Remove(m.Raw.User.Id);
+                                }
+                                memberscvs.Add(m.Raw.User.Id, m);
                             }
-                            else
-                            {
-                                m.status = new Presence() { Status = "offline", Game = null };
-                            }
-                            if (memberscvs.ContainsKey(m.Raw.User.Id))
-                            {
-                                memberscvs.Remove(m.Raw.User.Id);
-                            }
-                            memberscvs.Add(m.Raw.User.Id, m);
                         }
+
+                    }
+                    catch (Exception er)
+                    {
+                        Console.WriteLine(er.HResult + ": " + er.Message);
                     }
 
                     try

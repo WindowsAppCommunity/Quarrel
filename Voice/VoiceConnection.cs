@@ -230,7 +230,8 @@ namespace Discord_UWP.Voice
             {
                 Address = ip,
                 Port = port,
-                Mode = "xsalsa20_poly1305"
+                Codecs = (new List<Codec>() { new Codec() { Name = "opus", payloadType = 120, Priority = 1, Type = "audio" }, new Codec() { Name = "VP8", payloadType = 101, Priority = 1, Type = "video" } }).ToArray(),
+                Mode = "xsalsa20_poly1305_suffix"
             };
 
             var payload = new SelectProtocol()
