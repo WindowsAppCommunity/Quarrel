@@ -1614,22 +1614,24 @@
                         <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
-                                    <ListView x:Name="PinnedMessageList" SelectionMode="None" MaxWidth="450" MaxHeight="500">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:MessageControl Message="{Binding Message}"
+                                    <Grid>
+                                        <ListView x:Name="PinnedMessageList" SelectionMode="None" MaxWidth="450" MaxHeight="500">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:MessageControl Message="{Binding Message}"
                                                  IsContinuation="{Binding IsContinuation}"
                                                  MessageType="{Binding MessageType}"
                                                  Header="{Binding Header}" MoreButtonVisibility="Collapsed" MaxWidth="430"/>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                        <ListView.Footer>
-                                            <Grid Height="22" Margin="0,0,0,0">
-                                                <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoPinnedMessages" Text="No Pinned Messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                                <ProgressBar x:Name="PinnedMessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                                            </Grid>
-                                        </ListView.Footer>
-                                    </ListView>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                            <ListView.Footer>
+                                                <Grid Height="22" Margin="0,0,0,0">
+                                                    <ProgressBar x:Name="PinnedMessagesLoading" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                                                </Grid>
+                                            </ListView.Footer>
+                                        </ListView>
+                                        <TextBlock x:Name="NoPinnedMessages" Visibility="Collapsed" Text="NO PINNED MESSAGES" Padding="48" FontWeight="SemiBold" Opacity="0.4"/>
+                                    </Grid>
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>
