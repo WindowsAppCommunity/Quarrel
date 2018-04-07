@@ -47,7 +47,6 @@
         
         <StackPanel x:Name="Stacker">
             <Grid x:Name="profileGrid" Margin="0,24,0,0">
-                <Rectangle Width="96" Height="96" RadiusX="48" RadiusY="48" Margin="0" Fill="{ThemeResource InvertedBG}" Opacity="0.1" VerticalAlignment="Top"/>
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
                     <Grid>
                         <Border Width="96" Height="96" CornerRadius="48">

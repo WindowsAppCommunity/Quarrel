@@ -52,10 +52,11 @@ namespace Discord_UWP.Sockets
         public async Task SendDiscovery(int ssrc)
         {
             var packet = new byte[70];
-            packet[0] = (byte)(ssrc >> 24);
-            packet[1] = (byte)(ssrc >> 16);
-            packet[2] = (byte)(ssrc >> 8);
-            packet[3] = (byte)(ssrc >> 0);
+            byte[] ssrcBig = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(ssrc));
+            packet[0] = ssrcBig[0];
+            packet[1] = ssrcBig[1];
+            packet[2] = ssrcBig[2];
+            packet[3] = ssrcBig[3];
             _dataWriter.WriteBytes(packet);
             await _dataWriter.StoreAsync();
         }
