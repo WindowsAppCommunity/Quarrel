@@ -770,7 +770,7 @@ namespace Discord_UWP
                 }
 
                 App.CurrentChannelId = e.ChannelId;
-                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                App.LastReadMsgId = LocalState.RPC.ContainsKey(e.ChannelId) ? LocalState.RPC[e.ChannelId].LastMessageId : null;
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
@@ -1599,7 +1599,7 @@ namespace Discord_UWP
                 }
             }
 
-            Message? last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+            Message? last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
             if (last.HasValue && last.Value.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
