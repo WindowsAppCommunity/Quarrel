@@ -2266,7 +2266,8 @@ namespace Discord_UWP
                      if (ChannelList.Items.Count > 0)
                      {
                          var chn = ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]);
-                         ChannelList.Items.Insert(findLocation(chn), chn);
+                         if (chn != null)
+                             ChannelList.Items.Insert(findLocation(chn), chn);
                      }
                  });
         }
