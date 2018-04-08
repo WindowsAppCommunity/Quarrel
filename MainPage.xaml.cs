@@ -2185,7 +2185,8 @@ namespace Discord_UWP
                  {
                      if (ChannelList.Items.Count > 0)
                      {
-                         ChannelList.Items.Add(ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]));
+                         var chn = ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]);
+                         ChannelList.Items.Insert(findLocation(chn), chn);
                      }
                  });
         }
@@ -2206,6 +2207,23 @@ namespace Discord_UWP
                          }
                      }
                  });
+        }
+
+        private int findLocation(ChannelManager.SimpleChannel gc)
+        {
+            int pos = 0;
+            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            {
+                if (chn.ParentId == gc.ParentId)
+                {
+                    if (gc.Position == chn.Position)
+                    {
+                        return pos;
+                    }
+                }
+                pos++;
+            }
+            return 0;
         }
         #endregion
 
