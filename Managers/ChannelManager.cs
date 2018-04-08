@@ -15,6 +15,7 @@ namespace Discord_UWP.Managers
     {
         public static SimpleChannel MakeChannel(LocalModels.GuildChannel channel)
         {
+            channel.GetPermissions();
             SimpleChannel sc = new SimpleChannel();
             sc.Id = channel.raw.Id;
             sc.Name = channel.raw.Name;
@@ -40,13 +41,19 @@ namespace Discord_UWP.Managers
                     }
                     break;
                 case 2:
-                    //TODO: Voice Channels
+                    if (Storage.Settings.VoiceChannels)
+                    {
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        {
+                            return sc;
+                        }
+                    }
                     break;
                 case 4:
                     //TODO: Categories
                     break;
             }
-            return sc; 
+            return sc;
         }
 
         public class SimpleChannel : INotifyPropertyChanged
