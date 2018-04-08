@@ -53,7 +53,7 @@ namespace Discord_UWP.Managers
                     //TODO: Categories
                     break;
             }
-            return sc;
+            return null;
         }
 
         public class SimpleChannel : INotifyPropertyChanged
