@@ -36,6 +36,7 @@ namespace Discord_UWP
         public static double SnowflakeToTime(string id)
         {
             //returns unix time in ms
+            if (String.IsNullOrEmpty(id)) return 0;
             return (double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)/10;
         } 
 

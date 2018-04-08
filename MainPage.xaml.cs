@@ -28,6 +28,7 @@ using Windows.ApplicationModel.ExtendedExecution;
 using System.Threading;
 
 using Windows.Security.Credentials;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -1159,8 +1160,83 @@ namespace Discord_UWP
         #region API
         private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
         {
+            
             //MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
-            await RESTCalls.CreateMessage(e.ChannelId, e.Message);
+            if (e.Message.Content.Length > 10000)
+            {
+                //To avoid spam
+                MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Discord UWP", "Over 10 000 characters?!");
+                await md.ShowAsync();
+                return;
+            }
+            else if(e.Message.Content.Length > 2000)
+            {
+                MessagesLoading.Visibility = Visibility.Visible;
+                //Split the message into <2000 char ones and send them individually
+                var split = SplitToLines(e.Message.Content, 2000);
+                var splitcount = split.Count();
+                if (splitcount < 10)
+                {
+                    for (int i = 0; i < split.Count(); i++)
+                    {
+                        API.Channel.Models.MessageUpsert splitmessage = new API.Channel.Models.MessageUpsert();
+                        splitmessage.Content = split.ElementAt(i);
+                        if (i == splitcount)
+                        {
+                            //if it's the last message, send the file along with it
+                            splitmessage.file = e.Message.file;
+                        }
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
+                        await RESTCalls.CreateMessage(e.ChannelId, splitmessage);
+                        sw.Stop();
+                        if (sw.ElapsedMilliseconds < 500) //make sure to wait at least 500ms between each message
+                            await Task.Delay(Convert.ToInt32((500 - sw.ElapsedMilliseconds)));
+                    }
+                }
+                else
+                {
+                    MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Discord UWP", "Wait, what?!");
+                    await md.ShowAsync();
+                    return;
+                }
+                MessagesLoading.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                //Just send the message
+                await RESTCalls.CreateMessage(e.ChannelId, e.Message);
+            }
+            
+        }
+
+        private static IEnumerable<string> SplitToLines(string stringToSplit, int maxLineLength)
+        {
+            string[] words = stringToSplit.Split(' ');
+            System.Text.StringBuilder line = new System.Text.StringBuilder();
+            foreach (string word in words)
+            {
+                if (word.Length + line.Length <= maxLineLength)
+                {
+                    line.Append(word + " ");
+                }
+                else
+                {
+                    if (line.Length > 0)
+                    {
+                        yield return line.ToString().Trim();
+                        line.Clear();
+                    }
+                    string overflow = word;
+                    while (overflow.Length > maxLineLength)
+                    {
+                        yield return overflow.Substring(0, maxLineLength);
+                        overflow = overflow.Substring(maxLineLength);
+                    }
+                    line.Append(overflow + " ");
+                }
+            }
+            yield return line.ToString().Trim();
         }
 
         //The typing cooldown disables the trigger typing event from being fired if it was already triggered less than 5 seconds ago
@@ -1512,6 +1588,10 @@ namespace Discord_UWP
                     }
                 }
             }
+            if (PinnedMessageList.Items.Count == 0)
+                NoPinnedMessages.Visibility = Visibility.Visible;
+            else
+                NoPinnedMessages.Visibility = Visibility.Collapsed;
             MessagesLoading.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
         }
@@ -1569,7 +1649,7 @@ namespace Discord_UWP
                                     MessageList.Items.Insert(i, messages[i]);
                         }
                     }
-                    else
+                    else if(LastReadTime != 0)
                     {
                         //the last read message is before the first one in the list
                         outofboundsNewMessage = true;
