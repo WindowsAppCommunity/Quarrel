@@ -2791,6 +2791,7 @@ namespace Discord_UWP
 
         private void OpenFriendPanel(object sender, TappedRoutedEventArgs e)
         {
+            App.CurrentChannelId = null;
             ClearMessageArea();
             FriendsItem.IsSelected = true;
             if (ChannelList.SelectedItem != null && ChannelList.SelectedItem is ChannelManager.SimpleChannel)
@@ -2801,6 +2802,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
+            
         }
 
         private void HideBadge_Completed(object sender, object e)
@@ -2939,6 +2941,42 @@ namespace Discord_UWP
         private void ReturnToPresent_Click(object sender, RoutedEventArgs e)
         {
             RenderMessages();
+        }
+
+        
+        private void content_DragOver(object sender, DragEventArgs e)
+        {
+            if(App.CurrentChannelId != null)
+            {
+                e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+
+                DroppingRectangle.Fade(1, 300).Start();
+                var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+                var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+                DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 0, 0).Start();
+                DroppingRectangle.Scale(1f, 1f, cX, cY, 300).Start();
+            }
+           
+        }
+
+        private void content_DragLeave(object sender, DragEventArgs e)
+        {
+            DroppingRectangle.Fade(0, 300).Start();
+            var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+            var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+            DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 300).Start();
+        }
+
+        private void content_Drop(object sender, DragEventArgs e)
+        {
+            if (App.CurrentChannelId != null)
+            {
+                SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e.DataView);
+                DroppingRectangle.Fade(0, 300).Start();
+                var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+                var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+                DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 300).Start();
+            }
         }
     }
 }
