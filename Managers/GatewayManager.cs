@@ -336,7 +336,7 @@ namespace Discord_UWP.Managers
         #region Message
         private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
-            bool IsDM = true;
+            bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
                 if (App.CurrentChannelId == e.EventData.ChannelId)
