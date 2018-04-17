@@ -1853,17 +1853,23 @@ namespace Discord_UWP
                     if (App.CurrentGuildIsDM)
                     {
                         foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                        {
                             if (LocalState.RPC.ContainsKey(sc.Id))
                             {
                                 ReadState readstate = LocalState.RPC[sc.Id];
                                 sc.NotificationCount = readstate.MentionCount;
-                                var StorageChannel = LocalState.DMs[sc.Id];
-                                if (StorageChannel.LastMessageId != null &&
-                                    readstate.LastMessageId != StorageChannel.LastMessageId)
-                                    sc.IsUnread = true;
-                                else
-                                    sc.IsUnread = false;
+                                //Just ignore unread indicators for DMs:
+
+                                //  var StorageChannel = LocalState.DMs[sc.Id];
+                                // if (StorageChannel.LastMessageId != null &&
+                                //   readstate.LastMessageId != StorageChannel.LastMessageId)
+                                //  sc.IsUnread = true;
+                                //  else
+                                //    sc.IsUnread = false;
                             }
+                            sc.IsUnread = false;
+                        }
+                           
                     }
                     else
                     {
