@@ -1708,8 +1708,8 @@ namespace Discord_UWP
                 (channel as ChannelManager.SimpleChannel).IsTyping = false;
             for (int i = 0; i < LocalState.Typers.Count; i++)
             {
+                //Go through every "typer"
                 var typer = LocalState.Typers.ElementAt(i);
-
                 for (int channelNb = 0; i < ChannelList.Items.Count; i++)
                 {
                     if(((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).Id == typer.Key.channelId)
@@ -1808,8 +1808,8 @@ namespace Discord_UWP
                                         Fullcount += readstate.MentionCount;
                                     }
                                     var StorageChannel = LocalState.DMs[chn.Id];
-                                    if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
-                                        gclone.IsUnread = true;
+                                  //  if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
+                                   //     gclone.NotificationCount += 1;
                                 }
                         }
                         else
@@ -1838,7 +1838,6 @@ namespace Discord_UWP
                                     if (chan.raw.LastMessageId != null
                                     && chan.raw.LastMessageId != readstate.LastMessageId && (Storage.Settings.mutedChnEffectServer || !Muted)
                                     ) //if channel is unread and not muted
-                                           //if(chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId)
                                         gclone.IsUnread = true;
                                 }
                         }
@@ -2166,7 +2165,8 @@ namespace Discord_UWP
                      if (MessageList.Items.Count > 0)
                      {
                          last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
-                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId)
+                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
+}
                             //Only add a message if the last one is functional
                             MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
                      }
@@ -2175,13 +2175,19 @@ namespace Discord_UWP
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message, false));
                      }
                      
-                     var tempRPC = LocalState.RPC[App.CurrentChannelId];
-                     tempRPC.LastMessageId = e.Message.Id;
-                     LocalState.RPC[App.CurrentChannelId] = tempRPC;
+                     //set the last message id
 
                      //}
-                     if (e.Message.User.Id != LocalState.CurrentUser.Id)
-                        App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                     if (e.Message.User.Id == LocalState.CurrentUser.Id)
+                     {
+                         //do something????
+                     }
+                     else
+                     {
+                         App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                     }
+                     
+
                      if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)
                      {
                          var vibrationDuration = TimeSpan.FromMilliseconds(200);
