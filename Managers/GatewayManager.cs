@@ -336,6 +336,7 @@ namespace Discord_UWP.Managers
         #region Message
         private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
+            bool IsDM = true;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
                 if (App.CurrentChannelId == e.EventData.ChannelId)
@@ -348,6 +349,7 @@ namespace Discord_UWP.Managers
                 {
                     if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
+                        IsDM = true;
                         if (e.EventData.Type == 3)
                         {
                             //TODO: Handle calls
@@ -357,10 +359,25 @@ namespace Discord_UWP.Managers
                             LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
                         }
 
-                        if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        if (LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                         {
-                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                            var clone = LocalState.RPC[e.EventData.ChannelId];
+                            clone.MentionCount += 1;
+                            
+                            LocalState.RPC[e.EventData.ChannelId] = clone;
                         }
+                        else
+                        {
+                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = 1 });
+                        }
+
+                        if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
+                        {
+                            var temp = LocalState.DMs[e.EventData.ChannelId];
+                            temp.LastMessageId = e.EventData.Id;
+                            LocalState.DMs[e.EventData.ChannelId] = temp;
+                        }
+                            
                     }
                     else
                     {
@@ -398,7 +415,6 @@ namespace Discord_UWP.Managers
                     App.MessageCreated(e.EventData);
                 if (LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                 {
-                    
                     var clone = LocalState.RPC[e.EventData.ChannelId];
                     clone.LastMessageId = e.EventData.Id;
                     LocalState.RPC[e.EventData.ChannelId] = clone;
@@ -409,11 +425,15 @@ namespace Discord_UWP.Managers
                 }
             }
 
-            //Update the last message ID in the LocalState.Guilds
-            foreach (var guild in LocalState.Guilds)
-                if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
-                    LocalState.Guilds[guild.Key].channels[e.EventData.ChannelId].raw.LastMessageId = e.EventData.Id;
+            if (!IsDM)
+            {
+                //Update the last message ID in the LocalState.Guilds
+                foreach (var guild in LocalState.Guilds)
+                    if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                        LocalState.Guilds[guild.Key].channels[e.EventData.ChannelId].raw.LastMessageId = e.EventData.Id;
+            }
 
+            
             NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
