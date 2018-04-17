@@ -336,59 +336,84 @@ namespace Discord_UWP.Managers
         #region Message
         private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
-            if (App.CurrentChannelId == e.EventData.ChannelId)
+            if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
-                App.MessageCreated(e.EventData);
-                if (e.EventData.User.Id != LocalState.CurrentUser.Id)
+                if (App.CurrentChannelId == e.EventData.ChannelId)
                 {
+                    App.MessageCreated(e.EventData);
                     App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
+                    App.UpdateUnreadIndicators();
                 }
-                App.UpdateUnreadIndicators();
-            } else
-            {
-                if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
+                else
                 {
-                    if (e.EventData.Type == 3)
+                    if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
-                        //TODO: Handle calls
-                    }
-                    if (e.EventData.User.Id != LocalState.CurrentUser.Id)
-                    {
-                        LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
-                    }
-
-                    if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
-                    {
-                        LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
-                    }
-                } else
-                {
-                    foreach (var guild in LocalState.Guilds)
-                    {
-                        if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                        if (e.EventData.Type == 3)
                         {
-                            if (e.EventData.User.Id != LocalState.CurrentUser.Id)
-                            {
-                                guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
-                            }
+                            //TODO: Handle calls
+                        }
+                        if (e.EventData.User.Id != LocalState.CurrentUser.Id)
+                        {
+                            LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
+                        }
 
-                            if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                        {
+                            LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                        }
+                    }
+                    else
+                    {
+                        foreach (var guild in LocalState.Guilds)
+                        {
+                            if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
                             {
-                                LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
-                            } else
-                            {
-                                if (e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone)
+                                if (e.EventData.User.Id != LocalState.CurrentUser.Id)
                                 {
-                                    var editReadState = LocalState.RPC[e.EventData.ChannelId];
-                                    editReadState.MentionCount++;
-                                    LocalState.RPC[e.EventData.ChannelId] = editReadState;
+                                    guild.Value.channels[e.EventData.ChannelId].raw.UpdateLMID(e.EventData.Id);
+                                }
+
+                                if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                                {
+                                    LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                                }
+                                else
+                                {
+                                    if (e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone)
+                                    {
+                                        var editReadState = LocalState.RPC[e.EventData.ChannelId];
+                                        editReadState.MentionCount++;
+                                        LocalState.RPC[e.EventData.ChannelId] = editReadState;
+                                    }
                                 }
                             }
                         }
                     }
+                    App.UpdateUnreadIndicators();
                 }
-                App.UpdateUnreadIndicators();
             }
+            else
+            {
+                if(App.CurrentChannelId == e.EventData.ChannelId)
+                    App.MessageCreated(e.EventData);
+                if (LocalState.RPC.ContainsKey(e.EventData.ChannelId))
+                {
+                    
+                    var clone = LocalState.RPC[e.EventData.ChannelId];
+                    clone.LastMessageId = e.EventData.Id;
+                    LocalState.RPC[e.EventData.ChannelId] = clone;
+                }
+                else
+                {
+                    LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id });
+                }
+            }
+
+            //Update the last message ID in the LocalState.Guilds
+            foreach (var guild in LocalState.Guilds)
+                if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
+                    LocalState.Guilds[guild.Key].channels[e.EventData.ChannelId].raw.LastMessageId = e.EventData.Id;
+
             NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
