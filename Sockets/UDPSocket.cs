@@ -52,7 +52,8 @@ namespace Discord_UWP.Sockets
         public async Task SendDiscovery(int ssrc)
         {
             var packet = new byte[70];
-            byte[] ssrcBig = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(ssrc));
+            //byte[] ssrcBig = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(ssrc));
+            byte[] ssrcBig = BitConverter.GetBytes(ssrc);
             packet[0] = ssrcBig[0];
             packet[1] = ssrcBig[1];
             packet[2] = ssrcBig[2];
