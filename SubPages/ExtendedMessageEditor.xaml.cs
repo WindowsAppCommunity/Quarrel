@@ -45,11 +45,21 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.Parameter != null)
-                BodyText.Text = e.Parameter.ToString();
+            {
+                if(e.Parameter.GetType() == typeof(DataPackageView))
+                {
+                    var param = await (e.Parameter as DataPackageView).GetStorageItemsAsync();
+                    foreach(var file in param)
+                        AddAttachement(file as StorageFile);
+                }
+                else
+                    BodyText.Text = e.Parameter.ToString();
+            }
+               
 
         }
         private void NavAway_Completed(object sender, object e)

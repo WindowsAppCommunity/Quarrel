@@ -1072,7 +1072,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="content">
+        <Grid x:Name="content" AllowDrop="True" DragOver="content_DragOver" DragLeave="content_DragLeave" Drop="content_Drop">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
@@ -1668,5 +1668,23 @@
         <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" SizeChanged="COVoice_SizeChanged" VerticalAlignment="Stretch"/>
 
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
+
+        <Grid x:Name="DroppingRectangle" Opacity="0" IsHitTestVisible="False">
+            <Rectangle>
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="Black" Opacity="0.75"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Margin="48"  Fill="Transparent" RadiusX="6" RadiusY="6" StrokeDashArray="4 4" StrokeThickness="1" Stroke="{ThemeResource Greyple}" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <TextBlock Foreground="{ThemeResource Greyple}" FontWeight="SemiLight" FontSize="16" Text="ADD ATTACHEMENT" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="64" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <CompositeTransform/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Grid>
     </Grid>
 </Page>
