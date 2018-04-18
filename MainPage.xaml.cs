@@ -1708,8 +1708,8 @@ namespace Discord_UWP
                 (channel as ChannelManager.SimpleChannel).IsTyping = false;
             for (int i = 0; i < LocalState.Typers.Count; i++)
             {
+                //Go through every "typer"
                 var typer = LocalState.Typers.ElementAt(i);
-
                 for (int channelNb = 0; i < ChannelList.Items.Count; i++)
                 {
                     if(((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).Id == typer.Key.channelId)
@@ -1808,8 +1808,8 @@ namespace Discord_UWP
                                         Fullcount += readstate.MentionCount;
                                     }
                                     var StorageChannel = LocalState.DMs[chn.Id];
-                                    if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
-                                        gclone.IsUnread = true;
+                                  //  if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
+                                   //     gclone.NotificationCount += 1;
                                 }
                         }
                         else
@@ -1838,7 +1838,6 @@ namespace Discord_UWP
                                     if (chan.raw.LastMessageId != null
                                     && chan.raw.LastMessageId != readstate.LastMessageId && (Storage.Settings.mutedChnEffectServer || !Muted)
                                     ) //if channel is unread and not muted
-                                           //if(chan.raw.LastMessageId != null && chan.raw.LastMessageId != readstate.LastMessageId)
                                         gclone.IsUnread = true;
                                 }
                         }
@@ -1854,17 +1853,23 @@ namespace Discord_UWP
                     if (App.CurrentGuildIsDM)
                     {
                         foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                        {
                             if (LocalState.RPC.ContainsKey(sc.Id))
                             {
                                 ReadState readstate = LocalState.RPC[sc.Id];
                                 sc.NotificationCount = readstate.MentionCount;
-                                var StorageChannel = LocalState.DMs[sc.Id];
-                                if (StorageChannel.LastMessageId != null &&
-                                    readstate.LastMessageId != StorageChannel.LastMessageId)
-                                    sc.IsUnread = true;
-                                else
-                                    sc.IsUnread = false;
+                                //Just ignore unread indicators for DMs:
+
+                                //  var StorageChannel = LocalState.DMs[sc.Id];
+                                // if (StorageChannel.LastMessageId != null &&
+                                //   readstate.LastMessageId != StorageChannel.LastMessageId)
+                                //  sc.IsUnread = true;
+                                //  else
+                                //    sc.IsUnread = false;
                             }
+                            sc.IsUnread = false;
+                        }
+                           
                     }
                     else
                     {
@@ -2166,7 +2171,8 @@ namespace Discord_UWP
                      if (MessageList.Items.Count > 0)
                      {
                          last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
-                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId)
+                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
+}
                             //Only add a message if the last one is functional
                             MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
                      }
@@ -2175,13 +2181,19 @@ namespace Discord_UWP
                          MessageList.Items.Add(MessageManager.MakeMessage(e.Message, false));
                      }
                      
-                     var tempRPC = LocalState.RPC[App.CurrentChannelId];
-                     tempRPC.LastMessageId = e.Message.Id;
-                     LocalState.RPC[App.CurrentChannelId] = tempRPC;
+                     //set the last message id
 
                      //}
-                     if (e.Message.User.Id != LocalState.CurrentUser.Id)
-                        App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                     if (e.Message.User.Id == LocalState.CurrentUser.Id)
+                     {
+                         //do something????
+                     }
+                     else
+                     {
+                         App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                     }
+                     
+
                      if (Storage.Settings.Vibrate && e.Message.User.Id!=LocalState.CurrentUser.Id)
                      {
                          var vibrationDuration = TimeSpan.FromMilliseconds(200);
@@ -2791,6 +2803,7 @@ namespace Discord_UWP
 
         private void OpenFriendPanel(object sender, TappedRoutedEventArgs e)
         {
+            App.CurrentChannelId = null;
             ClearMessageArea();
             FriendsItem.IsSelected = true;
             if (ChannelList.SelectedItem != null && ChannelList.SelectedItem is ChannelManager.SimpleChannel)
@@ -2801,6 +2814,7 @@ namespace Discord_UWP
             friendPanel.Visibility = Visibility.Visible;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
+            
         }
 
         private void HideBadge_Completed(object sender, object e)
@@ -2939,6 +2953,42 @@ namespace Discord_UWP
         private void ReturnToPresent_Click(object sender, RoutedEventArgs e)
         {
             RenderMessages();
+        }
+
+        
+        private void content_DragOver(object sender, DragEventArgs e)
+        {
+            if(App.CurrentChannelId != null)
+            {
+                e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+
+                DroppingRectangle.Fade(1, 300).Start();
+                var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+                var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+                DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 0, 0).Start();
+                DroppingRectangle.Scale(1f, 1f, cX, cY, 300).Start();
+            }
+           
+        }
+
+        private void content_DragLeave(object sender, DragEventArgs e)
+        {
+            DroppingRectangle.Fade(0, 300).Start();
+            var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+            var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+            DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 300).Start();
+        }
+
+        private void content_Drop(object sender, DragEventArgs e)
+        {
+            if (App.CurrentChannelId != null)
+            {
+                SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e.DataView);
+                DroppingRectangle.Fade(0, 300).Start();
+                var cX = Convert.ToSingle(DroppingRectangle.ActualWidth / 2f);
+                var cY = Convert.ToSingle(DroppingRectangle.ActualHeight / 2f);
+                DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 300).Start();
+            }
         }
     }
 }
