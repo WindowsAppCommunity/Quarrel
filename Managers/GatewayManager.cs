@@ -334,7 +334,7 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region Message
-        private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private async static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
@@ -433,7 +433,23 @@ namespace Discord_UWP.Managers
                         LocalState.Guilds[guild.Key].channels[e.EventData.ChannelId].raw.LastMessageId = e.EventData.Id;
             }
 
-            
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     var initialTypercount = LocalState.Typers.Count;
+                     for (int i = 0; i < initialTypercount; i++)
+                     {
+                         KeyValuePair<TypingStart, DispatcherTimer> typer = LocalState.Typers.ElementAtOrDefault(i);
+                         if (typer.Key != null)
+                             if (typer.Key.channelId == e.EventData.ChannelId && typer.Key.userId == e.EventData.User.Id)
+                             {
+                                 LocalState.Typers.Remove(typer.Key);
+                             }
+                     }
+
+                     if (LocalState.Typers.Count != initialTypercount)
+                         App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
+                 });
             NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
@@ -724,8 +740,8 @@ namespace Discord_UWP.Managers
                  {
                      DispatcherTimer timer = new DispatcherTimer();
                      /*If the user was already typing in that channel before...*/
-                     if (LocalState.Typers.Count > 0 && LocalState.Typers.Any(x => x.Key.userId == e.EventData.userId &&
-                                                             x.Key.channelId == e.EventData.channelId))
+                     if (LocalState.Typers.Count > 0 && LocalState.Typers.Any(x => x.Key.userId == e.EventData.userId && 
+                                                                                   x.Key.channelId == e.EventData.channelId))
                      {
                          /*...Reset the timer by calling Start again*/
                          LocalState.Typers.First(x => x.Key.userId == e.EventData.userId && x.Key.channelId == e.EventData.channelId)
@@ -738,14 +754,12 @@ namespace Discord_UWP.Managers
                          timer.Tick += (sender2, o1) =>
                          {
                              timer.Stop();
-                             try
+                             var typer = LocalState.Typers.FirstOrDefault(t => t.Value == timer);
+                             if (typer.Key != null)
                              {
-                                 App.UpdateTyping(LocalState.Typers.First(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
-                                 LocalState.Typers.Remove(LocalState.Typers.First(t => t.Value == timer).Key);
-                             }
-                             catch
-                             {
-
+                                 App.UpdateTyping(LocalState.Typers.FirstOrDefault(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
+                                 LocalState.Typers.Remove(typer.Key);
+                                 App.UpdateTyping("", false, "");
                              }
                          };
                          timer.Start();
