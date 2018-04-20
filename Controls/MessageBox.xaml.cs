@@ -169,8 +169,8 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
-            if (EnableEncryption.IsChecked == true)
-                Text = EncryptionManager.EncryptMessage(Text);
+            //if (EnableEncryption.IsChecked == true)
+            //    Text = EncryptionManager.EncryptMessage(Text);
             Send?.Invoke(sender, e);
         }
 

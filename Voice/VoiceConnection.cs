@@ -187,7 +187,7 @@ namespace Discord_UWP.Voice
                 header[6] = time[2];
                 header[7] = time[3];
 
-                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.Value.SSRC));
+                byte[] ssrc = BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder(*/lastReady.Value.SSRC/*)*/);
                 header[8] = ssrc[0];
                 header[9] = ssrc[1];
                 header[10] = ssrc[2];
@@ -230,8 +230,8 @@ namespace Discord_UWP.Voice
             {
                 Address = ip,
                 Port = port,
-                Codecs = (new List<Codec>() { new Codec() { Name = "opus", payloadType = 120, Priority = 1, Type = "audio" }, new Codec() { Name = "VP8", payloadType = 101, Priority = 1, Type = "video" } }).ToArray(),
-                Mode = "xsalsa20_poly1305_suffix"
+                //Codecs = (new List<Codec>() { new Codec() { Name = "opus", payloadType = 120, Priority = 1, Type = "audio" }/*, new Codec() { Name = "VP8", payloadType = 101, Priority = 1, Type = "video" }*/ }).ToArray(),
+                Mode = "xsalsa20_poly1305" //"_suffix"
             };
 
             var payload = new SelectProtocol()

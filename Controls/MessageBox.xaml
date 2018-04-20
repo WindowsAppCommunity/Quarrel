@@ -639,7 +639,7 @@
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     
                     
-                    <MenuFlyoutSubItem Text="E2E Encryption">
+                    <!--<MenuFlyoutSubItem Text="E2E Encryption">
                         <MenuFlyoutItem Click="SendEncryption_Click" Text="Send encryption request">
                             <MenuFlyoutItem.Icon>
                                 <SymbolIcon Symbol="Send"/>
@@ -665,7 +665,7 @@
                             <FontIcon Glyph=""/>
                         </MenuFlyoutSubItem.Icon>
                     </MenuFlyoutSubItem>
-                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutSeparator/>-->
                     <MenuFlyoutItem Text="Search giphy" Click="AddGiphy_Click">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="BrowsePhotos"/>
