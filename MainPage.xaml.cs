@@ -919,6 +919,7 @@ namespace Discord_UWP
                     var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
                     App.CurrentChannelId = channel.Id;
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                    //LocalState.RPC[e]
                     if (!LocalState.DMs.ContainsKey(channel.Id))
                     {
                         LocalState.DMs.Add(channel.Id, channel);
@@ -1680,7 +1681,7 @@ namespace Discord_UWP
             }
 
             Message? last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
-            if (last.HasValue && last.Value.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
+            if (last.HasValue && last.Value.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
