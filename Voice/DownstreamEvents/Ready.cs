@@ -11,7 +11,7 @@ namespace Discord_UWP.Voice.DownstreamEvents
     public struct Ready
     {
         [JsonProperty("ssrc")]
-        public int SSRC { get; set; }
+        public uint SSRC { get; set; }
         [JsonProperty("ip")]
         public string Ip { get; set; }
         [JsonProperty("port")]

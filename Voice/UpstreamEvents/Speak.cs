@@ -14,6 +14,6 @@ namespace Discord_UWP.Voice.UpstreamEvents
         [JsonProperty("delay")]
         public int Delay { get; set; }
         [JsonProperty("ssrc")]
-        public int SSRC { get; set; }
+        public uint SSRC { get; set; }
     }
 }
