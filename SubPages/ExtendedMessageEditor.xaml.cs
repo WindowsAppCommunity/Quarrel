@@ -57,7 +57,7 @@ namespace Discord_UWP.SubPages
                         AddAttachement(file as StorageFile);
                 }
                 else
-                    BodyText.Text = e.Parameter.ToString();
+                    Editor.Text = e.Parameter.ToString();
             }
                
 
@@ -225,32 +225,36 @@ namespace Discord_UWP.SubPages
         {
             if (!recording)
             {
-                CaptureMedia = new MediaCapture();
-                var captureSettings = new MediaCaptureInitializationSettings();
-                captureSettings.StreamingCaptureMode = StreamingCaptureMode.Audio;
-                await CaptureMedia.InitializeAsync(captureSettings);
-                CaptureMedia.Failed += CaptureMedia_Failed;
-                CaptureMedia.RecordLimitationExceeded += CaptureMedia_RecordLimitationExceeded;
-
-                DishTImer = new DispatcherTimer();
-                DishTImer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-                DishTImer.Tick += DishTImer_Tick;
-
-
-                AudioStream = new InMemoryRandomAccessStream();
                 try
                 {
-                    MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
-                    await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                    CaptureMedia = new MediaCapture();
+                    var captureSettings = new MediaCaptureInitializationSettings();
+                    captureSettings.StreamingCaptureMode = StreamingCaptureMode.Audio;
+                    await CaptureMedia.InitializeAsync(captureSettings);
+                    CaptureMedia.Failed += CaptureMedia_Failed;
+                    CaptureMedia.RecordLimitationExceeded += CaptureMedia_RecordLimitationExceeded;
+
+                    DishTImer = new DispatcherTimer();
+                    DishTImer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+                    DishTImer.Tick += DishTImer_Tick;
+
+                    AudioStream = new InMemoryRandomAccessStream();
+                    try
+                    {
+                        MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
+                        await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                    }
+                    catch
+                    {
+                        MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
+                        await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
+                    }
+
+                    DishTImer.Start();
+                    recording = true;
                 }
-                catch
-                {
-                    MediaEncodingProfile encodingProfile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
-                    await CaptureMedia.StartRecordToStreamAsync(encodingProfile, AudioStream);
-                }
+                catch { }
                 
-                DishTImer.Start();
-                recording = true;
             }
             else
             {
@@ -266,7 +270,7 @@ namespace Discord_UWP.SubPages
                     byte[] buffer = new byte[(int)AudioStream.Size];
                     dataReader.ReadBytes(buffer);
                     await FileIO.WriteBytesAsync(mediaFile, buffer);
-                    RecordButton.Text = App.GetString("/Dialogs/AdvancedRecordSoundTB.Text");
+                    RecordButton.Text = App.GetString("/Dialogs/AdvancedRecordSoundTB");
                     RecordHyperlink.IsEnabled = true;
                 }
                 AddAttachement(mediaFile);

@@ -63,6 +63,7 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
+            
             //Reset everything, for when accounts are being switched
             ServerList.Items.Clear();
             
@@ -2260,6 +2261,8 @@ namespace Discord_UWP
                  });
         }
 
+
+
         private async void App_MessageDeletedHandler(object sender, App.MessageDeletedArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -2279,6 +2282,7 @@ namespace Discord_UWP
                                      var temp = LocalState.RPC[App.CurrentChannelId];
                                      temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id;
                                      LocalState.RPC[App.CurrentChannelId] = temp;
+                                     LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId = temp.LastMessageId;
                                  }
                              }
                          }
