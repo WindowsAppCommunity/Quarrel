@@ -2237,16 +2237,25 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     if (MessageList.Items.Count > 0)
+                     for (int i = 0; i < MessageList.Items.Count; i++)
                      {
-                         foreach (MessageManager.MessageContainer message in MessageList.Items)
+                         MessageManager.MessageContainer message = (MessageManager.MessageContainer)MessageList.Items[i];
+                         if (message.Message.HasValue && message.Message.Value.Id == e.MessageId)
                          {
-                             if (message.Message.HasValue && message.Message.Value.Id == e.MessageId)
+                             MessageList.Items.Remove(message);
+                             if (LocalState.RPC[App.CurrentChannelId].LastMessageId == e.MessageId)
                              {
-                                 MessageList.Items.Remove(message);
+                                 MessageManager.MessageContainer last = (MessageManager.MessageContainer)MessageList.Items.LastOrDefault();
+                                 if (last != null)
+                                 {
+                                     var temp = LocalState.RPC[App.CurrentChannelId];
+                                     temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id;
+                                     LocalState.RPC[App.CurrentChannelId] = temp;
+                                 }
                              }
                          }
                      }
+
                  });
         }
 
