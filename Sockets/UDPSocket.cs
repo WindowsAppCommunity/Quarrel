@@ -49,7 +49,7 @@ namespace Discord_UWP.Sockets
             await _dataWriter.StoreAsync();
         }
 
-        public async Task SendDiscovery(int ssrc)
+        public async Task SendDiscovery(uint ssrc)
         {
             var packet = new byte[70];
             packet[0] = (byte)(ssrc >> 24);

@@ -21,7 +21,7 @@ namespace Discord_UWP.Managers
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
             App.UpdateLocalDeaf(LocalState.Deafen);
-            App.UpdateLocalMute(LocalState.VoiceState.SelfMute = true); //LocalState.Muted);
+            App.UpdateLocalMute(LocalState.VoiceState.SelfMute = false); //LocalState.Muted);
             VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
             VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             await VoiceConnection.ConnectAsync();
@@ -35,8 +35,8 @@ namespace Discord_UWP.Managers
         {
             //TODO: Sending voice
             //TODO: silence detection
-            //VoiceConnection.SendSpeaking(true);
-            //VoiceConnection.SendVoiceData(e);
+            VoiceConnection.SendSpeaking(true);
+            VoiceConnection.SendVoiceData(e);
         }
 
         private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)
