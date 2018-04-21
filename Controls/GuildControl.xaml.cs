@@ -211,9 +211,9 @@ namespace Discord_UWP.Controls
                     }
                 }
             }
-            if (prop == IsDMProperty)
+            if (prop == IdProperty)
             {
-                if (IsDM)
+                if (Id != null && Id == "DMs")
                 {
                     DMView.Visibility = Visibility.Visible;
                     GuildImageBackdrop.Visibility = Visibility.Collapsed;
