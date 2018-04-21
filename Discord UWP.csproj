@@ -736,7 +736,7 @@
       <Version>1.0.3.5</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.1</Version>
+      <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>
