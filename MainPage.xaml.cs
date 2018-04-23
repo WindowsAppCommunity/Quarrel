@@ -63,6 +63,7 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
+            
             //Reset everything, for when accounts are being switched
             ServerList.Items.Clear();
             
@@ -1402,7 +1403,7 @@ namespace Discord_UWP
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
             DM.Id = "DMs";
             DM.Name = App.GetString("/Main/DirectMessages");
-            DM.IsDM = true;
+            DM.IsDM = false;
             foreach (var chn in LocalState.DMs.Values)
                 if (LocalState.RPC.ContainsKey(chn.Id))
                 {
@@ -1681,7 +1682,7 @@ namespace Discord_UWP
             }
 
             Message? last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
-            if (last.HasValue && last.Value.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+            if (last.HasValue && App.CurrentGuildId != null && App.CurrentChannelId != null && last.Value.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
@@ -1773,6 +1774,8 @@ namespace Discord_UWP
             }
         }
 
+        int TempGuildCount = 0;
+        List<GuildManager.SimpleGuild> oldTempGuilds;
         private async void UpdateGuildAndChannelUnread()
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -1798,7 +1801,7 @@ namespace Discord_UWP
                             {
                                 gclone.NotificationCount += App.FriendNotifications;
                             }
-
+                            List<GuildManager.SimpleGuild> TempGuilds = new List<GuildManager.SimpleGuild>();
                             foreach (var chn in LocalState.DMs.Values)
                                 if (LocalState.RPC.ContainsKey(chn.Id))
                                 {
@@ -1808,12 +1811,38 @@ namespace Discord_UWP
                                         gclone.NotificationCount += readstate.MentionCount;
                                         Fullcount += readstate.MentionCount;
                                     }
-                                    var StorageChannel = LocalState.DMs[chn.Id];
-                                  //  if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
-                                   //     gclone.NotificationCount += 1;
+                                    // var StorageChannel = LocalState.DMs[chn.Id];
+                                    //  if (StorageChannel.LastMessageId != null && readstate.LastMessageId != StorageChannel.LastMessageId)
+                                    //     gclone.NotificationCount += 1;
+                                /*    if (readstate.MentionCount > 0)
+                                    {
+                                        GuildManager.SimpleGuild tempguild = new GuildManager.SimpleGuild()
+                                        {
+                                            Name = chn.Name,
+                                            IsDM = true,
+                                            NotificationCount = readstate.MentionCount,
+                                            Id = chn.Id,
+                                            TempLastMessageId = chn.LastMessageId
+                                        };
+                                        TempGuilds.Add(tempguild);
+                                    }*/
                                 }
+                            
+                            //Remove all TempGuilds from serverlist;
+                            /*bool TempGuildZone = true;
+                            while (TempGuildZone)
+                            {
+                                if (((GuildManager.SimpleGuild)ServerList.Items[1]).IsDM)
+                                    ServerList.Items.RemoveAt(1);
+                                else
+                                    TempGuildZone = false;
+                            }
+                            //Add all tempguilds
+                            foreach (var tempguild in TempGuilds.OrderBy(x => Common.SnowflakeToTime(x.TempLastMessageId)).Reverse())
+                                ServerList.Items.Insert(1, tempguild);
+                            TempGuildCount = TempGuilds.Count;*/
                         }
-                        else
+                        else if(!guild.IsDM)
                         {
                             if (LocalState.GuildSettings.ContainsKey(gclone.Id))
                             {
@@ -2113,7 +2142,7 @@ namespace Discord_UWP
                             if (ServerList.Items.IndexOf(item) != position)
                             {
                                 ServerList.Items.Remove(item);
-                                ServerList.Items.Insert(position, item);
+                                ServerList.Items.Insert(position+TempGuildCount, item);
                             }
                             position++;
                         }
@@ -2232,6 +2261,8 @@ namespace Discord_UWP
                  });
         }
 
+
+
         private async void App_MessageDeletedHandler(object sender, App.MessageDeletedArgs e)
         {
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -2251,6 +2282,7 @@ namespace Discord_UWP
                                      var temp = LocalState.RPC[App.CurrentChannelId];
                                      temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id;
                                      LocalState.RPC[App.CurrentChannelId] = temp;
+                                     LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId = temp.LastMessageId;
                                  }
                              }
                          }
@@ -2336,7 +2368,7 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     ServerList.Items.Insert(1, GuildManager.CreateGuild(e.Guild));
+                     ServerList.Items.Insert(1+TempGuildCount, GuildManager.CreateGuild(e.Guild));
                  });
         }
         private async void App_GuildSyncedHandler(object sender, GuildSync e)

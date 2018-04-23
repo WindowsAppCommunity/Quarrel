@@ -850,14 +850,15 @@ namespace Discord_UWP
 
                 HttpMultipartFormDataContent content = new HttpMultipartFormDataContent("---------------------------7e11a60110a78");
 
-                content.Add(new HttpStringContent(message.Content), "content");
-                content.Add(new HttpStringContent(Uri.EscapeUriString(JsonConvert.SerializeObject(message))), "payload_json");
+                
+                //content.Add(new HttpStringContent(Uri.EscapeUriString(JsonConvert.SerializeObject(message))), "payload_json");
+                
                 //content.Add(new HttpStringContent(message.TTS.ToString()), "tts");
 
                 if (file != null)
                     content.Add(new HttpStreamContent(await file.OpenAsync(Windows.Storage.FileAccessMode.Read)), "file", file.Name);
 
-
+                content.Add(new HttpStringContent(message.Content), "content");
 
                 content.Headers.ContentType = new Windows.Web.Http.Headers.HttpMediaTypeHeaderValue("multipart/form-data; boundary=---------------------------7e11a60110a78");
 

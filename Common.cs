@@ -38,9 +38,9 @@ namespace Discord_UWP
             //returns unix time in ms
             if (String.IsNullOrEmpty(id)) return 0;
             return (double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)/10;
-        } 
+        }
 
-        public static SolidColorBrush DiscriminatorColor(string desc)
+    public static SolidColorBrush DiscriminatorColor(string desc)
         {
             switch (Convert.ToInt32(desc) % 5)
             {

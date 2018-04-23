@@ -40,6 +40,13 @@ namespace Discord_UWP.Managers
                 set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
             }
 
+            private string _lastmessageId;
+            public string TempLastMessageId
+            {
+                get { return _lastmessageId; }
+                set { if (_lastmessageId == value) return; _lastmessageId = value; OnPropertyChanged("TempLastMessageId"); }
+            }
+
             private string _imageurl;
             public string ImageURL
             {
@@ -101,6 +108,7 @@ namespace Discord_UWP.Managers
                 sg.NotificationCount = NotificationCount;
                 sg.IsValid = IsValid;
                 sg.IsSelected = IsSelected;
+                sg.TempLastMessageId = TempLastMessageId;
                 return sg;
             }
 
