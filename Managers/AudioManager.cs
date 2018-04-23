@@ -332,11 +332,17 @@ namespace Discord_UWP
 
         public static void DisposeAudioGraphs()
         {
-            ingraph.Dispose();
+            if (ingraph != null)
+            {
+                ingraph.Dispose();
+            }
             frameOutputNode = null;
             deviceInputNode = null;
             ingraph = null;
-            outgraph.Dispose();
+            if (outgraph != null)
+            {
+                outgraph.Dispose();
+            }
             frameInputNode = null;
             deviceOutputNode = null;
             outgraph = null;
@@ -370,7 +376,7 @@ namespace Discord_UWP
                         }
                     }
                 }
-                if (LocalState.VoiceState.SelfDeaf)
+                if (LocalState.VoiceState.SelfDeaf || LocalState.VoiceState.ServerDeaf)
                 {
                     AudioSpec1 = 0;
                     AudioSpec2 = 0;
