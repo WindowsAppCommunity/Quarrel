@@ -294,7 +294,7 @@
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
     </Page.RenderTransform>
-    <Grid x:Name="rootgrid" Background="Transparent" Margin="-50" Padding="100,112">
+    <Grid x:Name="rootgrid" Background="Transparent" Margin="-50"  Padding="100,112">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Small">
@@ -343,7 +343,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid">
+        <Grid x:Name="grid" MaxWidth="500" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Margin="0,48,0,0">
                 <Grid>
@@ -360,7 +360,7 @@
                             </StackPanel.ChildrenTransitions>
                             <TextBlock x:Name="header" x:Uid="/Dialogs/AdvancedMessageEditorTB" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                             <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
-                            <TextBox x:Name="Editor" Margin="0,6,0,0"/>
+                            <TextBox x:Name="Editor" BorderThickness="1" Margin="0,6,0,0"/>
                             <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
                             <Grid Margin="0,6,0,0">
                                 <Grid.ChildrenTransitions>
