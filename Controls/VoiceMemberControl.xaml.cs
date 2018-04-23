@@ -99,8 +99,20 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             Tapped += OpenMemberFlyout;
+            RightTapped += OpenVoiceFlyout;
+            Holding += OpenVoiceFlyout;
             Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
             Managers.VoiceManager.ConnectoToVoiceHandler += VoiceManager_ConnectoToVoiceHandler;
+        }
+
+        private void OpenVoiceFlyout(object sender, HoldingRoutedEventArgs e)
+        {
+            //TODO: Voice managment flyout
+        }
+
+        private void OpenVoiceFlyout(object sender, RightTappedRoutedEventArgs e)
+        {
+            //TODO: Voice managment flyout
         }
 
         private async void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
@@ -128,12 +140,10 @@ namespace Discord_UWP.Controls
                      {
                          if (e.EventData.Speaking)
                          {
-                             //username.Opacity = 1; //TODO: Replace with StoryBoard
                              Speaking.Begin();
                          }
                          else
                          {
-                             //username.Opacity = 0.5; //TODO: Replace with StoryBoard
                              StopSpeaking.Begin();
                          }
                      }

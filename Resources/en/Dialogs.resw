@@ -130,7 +130,7 @@
     <value>ADVANCED MESSAGE EDITOR</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Attachements</value>
+    <value>Attachments</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Attach files</value>
