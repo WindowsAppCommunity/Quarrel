@@ -401,6 +401,8 @@ namespace Discord_UWP.Managers
                                         var editReadState = LocalState.RPC[e.EventData.ChannelId];
                                         editReadState.MentionCount++;
                                         LocalState.RPC[e.EventData.ChannelId] = editReadState;
+                                        if(Storage.Settings.GlowOnMention)
+                                            App.FlashMention();
                                     }
                                 }
                             }
