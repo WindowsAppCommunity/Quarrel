@@ -178,6 +178,7 @@ namespace Discord_UWP.Controls
         int selectionstart = 0;
         //bool EnableChanges = true;
         string mentionPrefix = "";
+
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             //TODO Optimize the hell out of this
@@ -430,7 +431,7 @@ namespace Discord_UWP.Controls
 
                 bool keepon = false;
                 int whitespaceindex = 0;
-                while (keepon == false && whitespaceindex < 8) //Don't waist ressources with usernames that have more than 8 whitespaces in them
+                while (keepon && whitespaceindex < 8) //Don't waist ressources with usernames that have more than 8 whitespaces in them
                 {
                     int nextWhiteSpace = AllIndexesOf(' ', CroppedInput).ElementAt(whitespaceindex);
                     if (nextWhiteSpace == 0 | nextWhiteSpace == -1)

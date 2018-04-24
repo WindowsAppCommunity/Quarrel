@@ -95,6 +95,7 @@ namespace Discord_UWP
         public bool HighlightEveryone = true;
         public bool FriendsNotifyDMs = true;
         public bool FriendsNotifyFriendRequest = false;
+        public bool GlowOnMention = true;
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;

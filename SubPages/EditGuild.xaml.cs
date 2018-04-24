@@ -25,6 +25,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -57,7 +58,10 @@ namespace Discord_UWP.SubPages
 
         private void SaveGuildSettings(object sender, RoutedEventArgs e)
         {
-            Discord_UWP.API.Guild.Models.ModifyGuild modifyguild = new Discord_UWP.API.Guild.Models.ModifyGuild() { Name = GuildName.Text};
+            saveBTNtext.Opacity = 0;
+            SaveButton.IsEnabled = false;
+            saveBTNprog.Visibility = Visibility.Visible;
+            Discord_UWP.API.Guild.Models.ModifyGuild modifyguild = new Discord_UWP.API.Guild.Models.ModifyGuild() { Name = GuildName.Text };
             Task.Run(async () =>
             {
                 await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
@@ -115,6 +119,11 @@ namespace Discord_UWP.SubPages
             guildId = e.Parameter.ToString();
             var guild = LocalState.Guilds[guildId];
             GuildName.Text = guild.Raw.Name;
+            if (string.IsNullOrEmpty(guild.Raw.Icon))
+                deleteImage.Visibility = Visibility.Collapsed;
+            else
+                GuildIcon.ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Raw.Id + "/icons/" + guild.Raw.Icon + ".png"));
+
             header.Text = App.GetString("/Flyouts/Edit").ToUpper() + " " + guild.Raw.Name.ToUpper();
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
@@ -417,5 +426,36 @@ namespace Discord_UWP.SubPages
         }
         
         private string guildId = "";
+
+        private void GuildIcon_ImageOpened(object sender, RoutedEventArgs e)
+        {
+            GuildIconRect.Opacity = 1;
+            GuildIconRect.Fade(1, 300).Start();
+        }
+
+        private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            var picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            if (file != null)
+            {
+                // Application now has read/write access to the picked file
+                string uri = file.Path;
+                BitmapImage img = new BitmapImage();
+                using(var fileStream = await file.OpenStreamForReadAsync())
+                    await img.SetSourceAsync(fileStream.AsRandomAccessStream());
+                GuildIcon.ImageSource = img;
+            }
+        }
+
+        private void deleteImage_Click(object sender, RoutedEventArgs e)
+        {
+            GuildIcon.ImageSource = null;
+        }
     }
 }
