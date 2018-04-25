@@ -174,7 +174,7 @@
                             <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
                             <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
                         </StackPanel>
-
+                        <TextBlock Text="7.4.1" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Grid>
             </Border>
