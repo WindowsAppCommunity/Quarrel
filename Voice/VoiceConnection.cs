@@ -192,7 +192,7 @@ namespace Discord_UWP.Voice
                 header[6] = time[2];
                 header[7] = time[3];
 
-                byte[] ssrc = BitConverter.GetBytes(/*System.Net.IPAddress.HostToNetworkOrder(*/lastReady.Value.SSRC/*)*/);
+                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.Value.SSRC));
                 header[8] = ssrc[0];
                 header[9] = ssrc[1];
                 header[10] = ssrc[2];
@@ -331,7 +331,12 @@ namespace Discord_UWP.Voice
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
 
-            SendSilence(); 
+            SendSpeaking(true);
+            for (int i = 0; i < 100; i++)
+            {
+                SendSilence();
+            }
+            SendSpeaking(false);
         }
 
         private void OnSpeaking(SocketFrame Event)
