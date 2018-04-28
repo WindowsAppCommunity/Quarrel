@@ -29,7 +29,6 @@ namespace Discord_UWP
                         case 2: return kvp("What a beautiful christmas day...");
                         case 3: return kvp("All I want for christmas is a loading screen");
                         case 4: return kvp("Making Christmas bells");
-                  
                     }
                 }
                 else
@@ -46,31 +45,55 @@ namespace Discord_UWP
                 if(now.Month == 12 && now.Day == 21)
                 {
                     //End of the world
-                    switch (rand.Next(0, 2))
+                    switch (rand.Next(0, 1))
                     {
                         case 0: return kvp((now.Year - 2012).ToString() + " years since the end of the world");
                         case 1: return kvp("The world ended exactly " + (now.Year - 2012).ToString() + " years ago");
                     }
                 }
                 else
-                if(now.Month == 5 && now.Day == 4)
+                if(now.Month == 5)
                 {
-                    //Star wars day (May the fourth)
-                    switch (rand.Next(0, 5))
+                    if (now.Day == 4)
                     {
-                        case 0: return kvp("May the force be with you", "@Darth4212#5735");
-                        case 1: return kvp("Using the force");
-                        case 2: return kvp("A long time ago in a galaxy far, far away...");
-                        case 3: return kvp("Removing Porgs from the Millenium Falcon...");
-                        case 4: return kvp("Travelling through hyperspace");
-                        case 5: return kvp("Murdering Jar Jar Binks");
-                        case 6: return kvp("Attempting a force projection");
+                        //Star wars day (May the fourth)
+                        switch (rand.Next(0, 6))
+                        {
+                            case 0: return kvp("May the force be with you", "@Darth4212#5735");
+                            case 1: return kvp("Using the force");
+                            case 2: return kvp("A long time ago in a galaxy far, far away...");
+                            case 3: return kvp("Removing Porgs from the Millenium Falcon...");
+                            case 4: return kvp("Travelling through hyperspace");
+                            case 5: return kvp("Murdering Jar Jar Binks");
+                            case 6: return kvp("Attempting a force projection");
+                        }
                     }
+                    else
+                    if(now.Day == 5)
+                    {
+                        switch (rand.Next(0, 0))
+                        {
+                            case 0: return kvp("Putting on sombrero", "@austinception#8911");
+                        }
+                    }
+                }
+                else
+                if (now.Month == 7 && now.Day == 4)
+                {
+                    //July 4th (American indepence day
+                    switch (rand.Next(0, 0))
+                    {
+                        case 0: return kvp("*Eagle screech*", "@austinception#8911");
+                    }
+                }
+                else 
+                if (now.DayOfWeek == DayOfWeek.Thursday)
+                {
+                    return kvp("\"Be happy, it's Friday Eve\"", "Grace Cloonan");
                 }
             }
             
-            switch (rand.Next(0, 94))
-            //switch (71)
+            switch (rand.Next(0, 103))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -167,6 +190,13 @@ namespace Discord_UWP
                 case 94: return kvp("So the skype app is having issues huh?", "@Filip96#8066");
                 case 95: return kvp("NOT THE BEES", "@Aslan#9846");
                 case 96: return kvp("I'm getting all dizzy here", "@lachlan2357#5459");
+                case 97: return kvp("...and that's how I lost my tail", "@austinception#8911");
+                case 98: return kvp("if you're reading this, it's too late", "@austinception#8911");
+                case 99: return kvp("Welcome to Chili's");
+                case 100: return kvp("Dabbing since 2034", "@joosthoi#0460");
+                case 101: return kvp("Is Mayonnaise an instrument?", "@Shakenbacon#1769");
+                case 102: return kvp("Riding a train", "@Aslan#9846");
+                case 103: return kvp("Inconceivable!", "@austinception#8911");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
