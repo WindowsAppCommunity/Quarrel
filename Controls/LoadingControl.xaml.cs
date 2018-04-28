@@ -84,7 +84,16 @@ namespace Discord_UWP.Controls
             }
             MessageBlock.Text = message.Key.ToUpper();
             if (message.Value != "")
-                CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
+            {
+                if (message.Value[0] == '@')
+                {
+                    CreditBlock.Text = App.GetString("/Main/SubmittedBy") + " " + message.Value;
+                }
+                else
+                {
+                    CreditBlock.Text = "- " + message.Value;
+                }
+            }
             Animation.Begin();
             App.StatusChangedHandler += App_StatusChangedHandler;
 
