@@ -294,6 +294,7 @@ namespace Discord_UWP
             App.LinkClicked += App_LinkClicked;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
+            App.FlashMentionHandler += App_FlashMentionHandler;
             typingCooldown.Tick += TypingCooldown_Tick;
             App.StartTypingHandler += App_StartTypingHandler;
             App.AddFriendHandler += App_AddFriendHandler;
@@ -331,6 +332,18 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
+        }
+
+        private async void App_FlashMentionHandler(object sender, EventArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                               () =>
+                               {
+                                   if (MentionFlasherStoryboard.GetCurrentState() != ClockState.Stopped)
+                                       MentionFlasherStoryboard.Stop();
+                                   MentionFlasherStoryboard.Begin();
+                               });
+            
         }
 
         private async void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)

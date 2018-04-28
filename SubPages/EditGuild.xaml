@@ -289,7 +289,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="1024" MaxHeight="1200" >
+        <Grid x:Name="grid" MaxWidth="800" MaxHeight="1200" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -302,9 +302,28 @@
                     <Pivot x:Name="pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0" SelectionChanged="Pivot_SelectionChanged">
                         <PivotItem x:Uid="/Dialogs/OverviewPI" Header="Overview" Margin="12,0,0,0">
                             <ScrollViewer>
-                                <StackPanel x:Name="UI_Menu" Margin="0,0,24,32">
+                                <StackPanel x:Name="UI_Menu" Margin="0,0,24,32" HorizontalAlignment="Stretch">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
+                                    <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
+                                        <Rectangle x:Name="GuildIconRect" Opacity="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                                            <Rectangle.Fill>
+                                                <ImageBrush x:Name="GuildIcon" Stretch="UniformToFill" ImageOpened="GuildIcon_ImageOpened"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <StackPanel Margin="0,6,0,0"  Grid.Row="1">
+                                            <TextBlock Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>
+                                            <HyperlinkButton Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                            <HyperlinkButton x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                                            
+                                        </StackPanel>
+
+                                    </Grid>
+                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
@@ -479,11 +498,19 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12"/>
+                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12">
+                                <Button.Content>
+                                    <Grid>
+                                        <TextBlock x:Name="saveBTNtext" Text="Save"/>
+                                        <ProgressRing x:Name="saveBTNprog" IsActive="True"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
             </Border>
         </Grid>
+
     </Grid>
 </Page>
