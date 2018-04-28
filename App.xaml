@@ -120,6 +120,7 @@
             </ResourceDictionary.ThemeDictionaries>
             <SolidColorBrush x:Key="Blurple" Color="#7289DA"/>
             <Color x:Key="BlurpleColor">#7289DA</Color>
+            <Color x:Key="BlurpleColorSemiTransparent">#7F7289DA</Color>
             <Color x:Key="BlurpleColorTransparent">#007289DA</Color>
             <SolidColorBrush x:Key="online" Color="#ff43b581"/>
             <Color x:Key="OnlineColor">#ff43b581</Color>

@@ -62,7 +62,8 @@ namespace Discord_UWP.SubPages
             UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
             VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
-            
+
+            MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
 
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
@@ -142,6 +143,7 @@ namespace Discord_UWP.SubPages
                 OverrideMention.IsChecked = true;
             else if (Storage.Settings.collapseOverride == CollapseOverride.Unread)
                 OverrideUnread.IsChecked = true;
+            
 
             //MainPanelBlur.Value = Storage.Settings.MainOpacity;
             //SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
@@ -197,6 +199,8 @@ namespace Discord_UWP.SubPages
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
+
+            Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
 
             switch (TimeFormat.SelectedIndex)
             {

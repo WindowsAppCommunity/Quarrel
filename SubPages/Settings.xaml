@@ -651,6 +651,7 @@
                                     
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
+                                    <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Content="Glow the left side of the screen when you are mentioned" Margin="0,0,0,6"/>
                                  <!--   <CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
                                     <ComboBox x:Uid="/Settings/DateFormat" x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">

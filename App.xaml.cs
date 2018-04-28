@@ -529,6 +529,11 @@ namespace Discord_UWP
             CreateMessageHandler?.Invoke(typeof(App), new CreateMessageArgs() { ChannelId = channelId, Message = new API.Channel.Models.MessageUpsert() { Content = message } });
         }
 
+        public static event EventHandler FlashMentionHandler;
+        public static void FlashMention()
+        {
+            FlashMentionHandler?.Invoke(null,null);
+        }
 
         #endregion
 
@@ -906,6 +911,7 @@ namespace Discord_UWP
             Storage.Settings.lastVerison = "0";
             Storage.Settings.AutoHideChannels = true;
             Storage.Settings.AutoHidePeople = false;
+            Storage.Settings.GlowOnMention = true;
             Storage.Settings.Toasts = false;
             Storage.Settings.LiveTile = true;
             Storage.Settings.Badge = true;
@@ -1333,6 +1339,8 @@ namespace Discord_UWP
                 App.Current.Resources["Blurple"] = new SolidColorBrush(accentColor); //Set to system accent color
                 App.Current.Resources["BlurpleColor"] = accentColor; //Set to system accent color
                 App.Current.Resources["BlurpleColorTransparent"] = Color.FromArgb(0, accentColor.R, accentColor.G, accentColor.B);
+
+                App.Current.Resources["BlurpleColorSemiTransparent"] = Color.FromArgb(127, accentColor.R, accentColor.G, accentColor.B);
             }
             else
             {
