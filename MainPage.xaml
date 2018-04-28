@@ -1225,7 +1225,8 @@
                                                                          IsTyping="{Binding IsTyping}" 
                                                                          IsMuted="{Binding IsMuted}"
                                                                          IsHidden="{Binding Hidden}"
-                                                                         IsSelected="{Binding IsSelected}"/>
+                                                                         IsSelected="{Binding IsSelected}"
+                                                                         NSFW="{Binding Nsfw}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Header>

@@ -20,6 +20,7 @@ namespace Discord_UWP.Managers
             sc.Id = channel.raw.Id;
             sc.Name = channel.raw.Name;
             sc.Type = channel.raw.Type;
+            sc.Nsfw = channel.raw.NSFW;
             switch (channel.raw.Type)
             {
                 case 0:
@@ -228,7 +229,8 @@ namespace Discord_UWP.Managers
                 sc.Type = channel.raw.Type;
                 sc.Position = channel.raw.Position;
                 sc.ParentId = channel.raw.ParentId;
-                
+                sc.Nsfw = channel.raw.NSFW;
+
                 switch (channel.raw.Type)
                 {
                     case 0:
