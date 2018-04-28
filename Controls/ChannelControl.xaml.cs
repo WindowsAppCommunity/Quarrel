@@ -175,6 +175,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool NSFW
+        {
+            get { return (bool)GetValue(NSFWProperty); }
+            set { SetValue(NSFWProperty, value); }
+        }
+        public static readonly DependencyProperty NSFWProperty = DependencyProperty.Register(
+            nameof(NSFW),
+            typeof(bool),
+            typeof(ChannelControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public List<string> Members
         {
             get { try { return (List<string>)GetValue(MembersProperty); } catch { return null; } }
@@ -467,6 +478,16 @@ namespace Discord_UWP.Controls
             if (prop == IsHiddenProperty)
             {
                 UpdateHidden();
+            }
+            if (prop == NSFWProperty)
+            {
+                if (NSFW)
+                {
+                    HashtagIcon.Foreground = ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
+                } else
+                {
+                    HashtagIcon.Foreground = ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
+                }
             }
         }
 
