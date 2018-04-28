@@ -201,6 +201,7 @@ namespace Discord_UWP.Controls
                 }
                 else if (ImageUrl == "empty")
                 {
+                    GuildImageBrush.ImageSource = null;
                     if (GuildName != "")
                     {
                         TextIcon.Text = String.Join("", Regex.Matches(GuildName, @"(?<=^|[ \-_|+=~])\w")
