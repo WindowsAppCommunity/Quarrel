@@ -322,7 +322,7 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildDeletedHandler += App_GuildDeletedHandler;
-
+            App.GuildUpdatedHandler += App_GuildUpdatedHandler;
             App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
             //UpdateUI-Members
             App.MembersUpdatedHandler += App_MembersUpdatedHandler;
@@ -332,6 +332,28 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
+        }
+
+        private async void App_GuildUpdatedHandler(object sender, SharedModels.Guild e)
+        {
+            //update localstate guilds
+            LocalState.Guilds[e.Id].Raw = e;
+            //update icon
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                               () =>
+                               {
+                                   foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                                   {
+                                       if (guild.Id == e.Id)
+                                       {
+                                           if (!string.IsNullOrEmpty(e.Icon))
+                                               guild.ImageURL = "https://discordapp.com/api/guilds/" + e.Id + "/icons/" + e.Icon + ".jpg";
+
+                                           else
+                                               guild.ImageURL = "empty";
+                                       }
+                                   }
+                               });
         }
 
         private async void App_FlashMentionHandler(object sender, EventArgs e)
@@ -467,7 +489,7 @@ namespace Discord_UWP
             //UpdateUI-Guilds
             App.GuildCreatedHandler -= App_GuildCreatedHandler;
             App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
-
+            
         }
 
         public static bool RegisterBacgkround()

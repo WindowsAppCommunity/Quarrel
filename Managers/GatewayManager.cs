@@ -625,7 +625,10 @@ namespace Discord_UWP.Managers
         }
         private static void Gateway_GuildUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
-
+            if (LocalState.Guilds.ContainsKey(e.EventData.Id))
+            {
+                App.GuildUpdated(e.EventData);
+            }
         }
         private static void Gateway_GuildSynced(object sender, Gateway.GatewayEventArgs<GuildSync> e)
         {

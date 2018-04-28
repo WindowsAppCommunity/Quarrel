@@ -310,14 +310,14 @@
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
-                                        <Rectangle x:Name="GuildIconRect" Opacity="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                                        <Rectangle x:Name="GuildIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
                                             <Rectangle.Fill>
                                                 <ImageBrush x:Name="GuildIcon" Stretch="UniformToFill" ImageOpened="GuildIcon_ImageOpened"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Margin="0,6,0,0"  Grid.Row="1">
                                             <TextBlock Text="We recommend you use an image which is at least 512x512px" TextWrapping="Wrap" FontWeight="SemiLight" FontSize="13.333" Opacity="0.75"/>
-                                            <HyperlinkButton Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                            <HyperlinkButton x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
                                             <HyperlinkButton x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                             
                                         </StackPanel>
@@ -325,6 +325,7 @@
                                     </Grid>
                                     <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
+                                   
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
