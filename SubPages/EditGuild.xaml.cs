@@ -26,6 +26,8 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Graphics.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,11 +63,18 @@ namespace Discord_UWP.SubPages
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
             saveBTNprog.Visibility = Visibility.Visible;
-            Discord_UWP.API.Guild.Models.ModifyGuild modifyguild = new Discord_UWP.API.Guild.Models.ModifyGuild() { Name = GuildName.Text };
+            API.Guild.Models.ModifyGuild modifyguild;
+            if (string.IsNullOrEmpty(base64img))
+                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+            else
+                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+            if (DeletedImage)
+                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
             Task.Run(async () =>
             {
                 await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
             });
+
             CloseButton_Click(null, null);
         }
 
@@ -114,6 +123,7 @@ namespace Discord_UWP.SubPages
             }
         }
 
+        string initialiconURL = null;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
@@ -122,11 +132,14 @@ namespace Discord_UWP.SubPages
             if (string.IsNullOrEmpty(guild.Raw.Icon))
                 deleteImage.Visibility = Visibility.Collapsed;
             else
-                GuildIcon.ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Raw.Id + "/icons/" + guild.Raw.Icon + ".png"));
+                GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + guild.Raw.Id + "/" + guild.Raw.Icon + ".png"));
+
 
             header.Text = App.GetString("/Flyouts/Edit").ToUpper() + " " + guild.Raw.Name.ToUpper();
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
+                deleteImage.IsEnabled = false;
+                uploadImage.IsEnabled = false;
                 GuildName.IsEnabled = false;
                 pivot.Items.Remove(Invites);
             }
@@ -298,7 +311,8 @@ namespace Discord_UWP.SubPages
                     NoInvites.Fade(0.2f, 200).Start();
                     LoadingInvite.Fade(0, 200).Start();
                 }
-            } else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
+            }
+            else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
             {
                 BanView.Items.Clear();
                 NoBans.Opacity = 0;
@@ -339,7 +353,8 @@ namespace Discord_UWP.SubPages
             if ((role.Position >= LocalState.Guilds[guildId].GetHighestRole(LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles).Position || (!LocalState.Guilds[guildId].permissions.ManageRoles && !LocalState.Guilds[guildId].permissions.Administrator)) && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = DeafenMembers.IsEnabled = MoveMembers.IsEnabled = UseVad.IsEnabled = false;
-            } else
+            }
+            else
             {
                 RoleName.IsEnabled = Hoist.IsEnabled = AllowMention.IsEnabled = Administrator.IsEnabled = ViewAuditLog.IsEnabled = ManageServer.IsEnabled = ManageRoles.IsEnabled = ManageChannels.IsEnabled = KickMembers.IsEnabled = BanMembers.IsEnabled = CreateInstantInvite.IsEnabled = ChangeNickname.IsEnabled = ManageNicknames.IsEnabled = ManageEmojis.IsEnabled = ManageWebhooks.IsEnabled = ReadMessages.IsEnabled = SendMessages.IsEnabled = SendTtsMessages.IsEnabled = ManageMessages.IsEnabled = EmbedLinks.IsEnabled = AttachFiles.IsEnabled = ReadMessageHistory.IsEnabled = MentionEveryone.IsEnabled = UseExternalEmojis.IsEnabled = AddReactions.IsEnabled = ConnectPerm.IsEnabled = Speak.IsEnabled = MuteMembers.IsEnabled = DeafenMembers.IsEnabled = MoveMembers.IsEnabled = UseVad.IsEnabled = true;
             }
@@ -384,7 +399,7 @@ namespace Discord_UWP.SubPages
             loadingRoles = false;
         }
 
-        class SimpleRole : INotifyPropertyChanged 
+        class SimpleRole : INotifyPropertyChanged
         {
             public SimpleRole(string id, string name, SolidColorBrush color)
             {
@@ -424,15 +439,16 @@ namespace Discord_UWP.SubPages
         {
             SaveRoleSettings();
         }
-        
+
         private string guildId = "";
 
         private void GuildIcon_ImageOpened(object sender, RoutedEventArgs e)
         {
-            GuildIconRect.Opacity = 1;
+            GuildIconRect.Opacity = 0;
             GuildIconRect.Fade(1, 300).Start();
         }
-
+        string base64img = "";
+        bool DeletedImage = false;
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             var picker = new Windows.Storage.Pickers.FileOpenPicker();
@@ -444,18 +460,74 @@ namespace Discord_UWP.SubPages
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
-                // Application now has read/write access to the picked file
-                string uri = file.Path;
-                BitmapImage img = new BitmapImage();
-                using(var fileStream = await file.OpenStreamForReadAsync())
-                    await img.SetSourceAsync(fileStream.AsRandomAccessStream());
-                GuildIcon.ImageSource = img;
+                try
+                {
+
+                    string uri = file.Path;
+
+                    base64img = "data:" + file.ContentType + ";base64,";
+                    // var tempfile = await RescaleImage(file, 128, 128);
+                    base64img += Convert.ToBase64String(await filetobytes(file));
+                    BitmapImage img = new BitmapImage();
+                    GuildIconRect.Opacity = 0;
+                    using (var fileStream = await file.OpenStreamForReadAsync())
+                    {
+                        await img.SetSourceAsync(fileStream.AsRandomAccessStream());
+                    }
+
+                    GuildIcon.ImageSource = img;
+                    GuildIconRect.Fade(1, 300).Start();
+                    deleteImage.Content = "Cancel icon modification";
+                    deleteImage.Visibility = Visibility.Visible;
+                }
+                catch { }
             }
         }
 
+        private async Task<StorageFile> RescaleImage(StorageFile sourceFile, uint width, uint height)
+        {
+            var imageStream = await sourceFile.OpenReadAsync();
+            var decoder = await BitmapDecoder.CreateAsync(imageStream);
+            StorageFolder folder = ApplicationData.Current.TemporaryFolder;
+            StorageFile tempfile = await folder.CreateFileAsync("icon.png", CreationCollisionOption.OpenIfExists);
+            using (var resizedStream = await tempfile.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                var encoder = await BitmapEncoder.CreateForTranscodingAsync(resizedStream, decoder);
+                encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Linear;
+                encoder.BitmapTransform.ScaledWidth = width;
+                encoder.BitmapTransform.ScaledHeight = height;
+                await encoder.FlushAsync();
+            }
+            return tempfile;
+        }
+        private async Task<byte[]> filetobytes(Windows.Storage.StorageFile file)
+        {
+            using (var inputStream = await file.OpenSequentialReadAsync())
+            {
+                var readStream = inputStream.AsStreamForRead();
+                var byteArray = new byte[readStream.Length];
+                await readStream.ReadAsync(byteArray, 0, byteArray.Length);
+                return byteArray;
+            }
+        }
         private void deleteImage_Click(object sender, RoutedEventArgs e)
         {
-            GuildIcon.ImageSource = null;
+            if (deleteImage.Content.ToString() == "Cancel icon modification")
+            {
+                if (string.IsNullOrEmpty(LocalState.Guilds[guildId].Raw.Icon))
+                    GuildIcon.ImageSource = null;
+                else
+                    GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + LocalState.Guilds[guildId].Raw.Id + "/" + LocalState.Guilds[guildId].Raw.Icon + ".png"));
+                base64img = null;
+                deleteImage.Content = "Delete";
+                DeletedImage = false;
+            }
+            else
+            {
+                DeletedImage = true;
+                GuildIcon.ImageSource = null;
+                deleteImage.Content = "Cancel icon modification";
+            }
         }
     }
 }

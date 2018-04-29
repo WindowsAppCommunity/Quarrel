@@ -483,6 +483,12 @@ namespace Discord_UWP
             GuildCreatedHandler?.Invoke(typeof(App), new GuildCreatedArgs() { Guild = guild });
         }
 
+        public static event EventHandler<SharedModels.Guild> GuildUpdatedHandler;
+        public static void GuildUpdated(SharedModels.Guild guild)
+        {
+            GuildUpdatedHandler?.Invoke(typeof(App), guild);
+        }
+
         public class GuildDeletedArgs
         {
             public string GuildId;
