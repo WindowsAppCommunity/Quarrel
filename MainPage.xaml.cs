@@ -3045,5 +3045,11 @@ namespace Discord_UWP
                 DroppingRectangle.Scale(1.05f, 1.05f, cX, cY, 300).Start();
             }
         }
+
+        private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
+            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Nullable<KeyValuePair<string, Member>>).Value.Value.Raw.User);
+        }
     }
 }
