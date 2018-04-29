@@ -2602,6 +2602,7 @@ namespace Discord_UWP
 
             try
             {
+                App.DisposeMemberList(); //Clear all existing MemberList Items (cleanly)
                 var sortedMembers =
                     memberscvs.GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
@@ -3071,7 +3072,7 @@ namespace Discord_UWP
         private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
-            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Nullable<KeyValuePair<string, Member>>).Value.Value.Raw.User);
+            App.ShowMemberFlyout(memberItem, (e.ClickedItem as KeyValuePair<string, Member>?).Value.Value.Raw.User);
         }
     }
 }
