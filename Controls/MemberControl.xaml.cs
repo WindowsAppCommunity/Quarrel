@@ -124,12 +124,24 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
 
+            App.DisposeMemberListHandler += Dispose;
             App.PresenceUpdatedHandler += App_PresenceUpdatedHandler; ;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             App.TypingHandler += App_TypingHandler;
             RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
+        }
+
+        private void Dispose(object sender, EventArgs e)
+        {
+            App.DisposeMemberListHandler -= Dispose;
+            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler; ;
+            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
+            App.TypingHandler -= App_TypingHandler;
+            RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
+            RightTapped -= OpenMenuFlyout;
+            Holding -= OpenMenuFlyout;
         }
 
         private void App_TypingHandler(object sender, App.TypingArgs e)
