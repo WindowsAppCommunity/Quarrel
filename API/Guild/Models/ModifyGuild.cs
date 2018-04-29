@@ -21,8 +21,8 @@ namespace Discord_UWP.API.Guild.Models
         public int AfkTimeout { get; set; }
         [JsonProperty("icon")]
         public string Icon { get; set; }
-        [JsonProperty("owner_id")]
-        public string OwnerId { get; set; }
+      //  [JsonProperty("owner_id")]
+      //  public string OwnerId { get; set; }
         [JsonProperty("splash")]
         public string Splash { get; set; }
     }
