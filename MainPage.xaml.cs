@@ -579,7 +579,14 @@ namespace Discord_UWP
         {
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
-            await RESTCalls.SetupToken();
+            try
+            {
+                await RESTCalls.SetupToken();
+            }
+            catch
+            {
+                Page.Frame.Navigate(typeof(Offline));
+            }
             var credentials = Storage.PasswordVault.FindAllByResource("Token");
             AccountView.Items.Clear();
             foreach(var cred in credentials)
