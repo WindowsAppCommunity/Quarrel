@@ -71,7 +71,7 @@ namespace Discord_UWP.SubPages
             var channel = LocalState.Guilds.FirstOrDefault(x => x.Value.channels.ContainsKey(channelId))
                 .Value.channels[channelId];
             ChannelName.Text = channel.raw.Name;
-            header.Text = App.GetString("/Dialogs/EDIT") + " " + channel.raw.Name.ToUpper();
+            header.Text = App.GetString("/Dialogs/EDIT") + " #" + channel.raw.Name.ToUpper();
             if(channel.raw.Topic != null)
                 ChannelTopic.Text = channel.raw.Topic;
             NsfwSwitch.IsOn = channel.raw.NSFW;
