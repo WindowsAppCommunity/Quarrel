@@ -8,7 +8,7 @@ using Windows.UI.Notifications;
 
 namespace DiscordBackgroundTask1
 {
-    public class SendToast
+    public sealed class SendToast
     {
         public static void Default(string message)
         {
@@ -21,8 +21,10 @@ namespace DiscordBackgroundTask1
             var toast = new ToastNotification(xml);
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
-        public static void UnreadDM(ReadyStructure.PrivateChannel channel, int count, string lastmessage)
+
+        public static void UnreadDM(string channelstr, int count, string lastmessage)
         {
+            ReadyStructure.PrivateChannel channel = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadyStructure.PrivateChannel>(channelstr);
             string imageurl = "";
             string text = "";
             if(channel.type == 1)
@@ -75,7 +77,7 @@ namespace DiscordBackgroundTask1
             ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
 
-        public static void FriendRequest(ReadyStructure.User2 user)
+        public static void FriendRequest(string username, string avatar, string userid, string relationshipid)
         {
             var toastContent = new ToastContent()
             {
@@ -85,12 +87,12 @@ namespace DiscordBackgroundTask1
                     {
                         Children = {
                         new AdaptiveText() {
-                            Text = user.username + " sent you a friend request"
+                            Text = username + " sent you a friend request"
                         }
                         },
                         AppLogoOverride = new ToastGenericAppLogo()
                         {
-                            Source = "https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png",
+                            Source = "https://cdn.discordapp.com/avatars/" + userid + "/" + avatar + ".png",
                             HintCrop = ToastGenericAppLogoCrop.Circle
                         }
                     }
@@ -98,10 +100,10 @@ namespace DiscordBackgroundTask1
                 Actions = new ToastActionsCustom()
                 {
                     Buttons = {
-                         new ToastButton("Accept", "relationship/accept/"+user.id) {
+                         new ToastButton("Accept", "relationship/accept/"+relationshipid) {
                             ActivationType = ToastActivationType.Background
                          },
-                         new ToastButton("Decline", "relationship/decline/="+user.id) {
+                         new ToastButton("Decline", "relationship/decline/="+relationshipid) {
                             ActivationType = ToastActivationType.Background
                          }
                     }

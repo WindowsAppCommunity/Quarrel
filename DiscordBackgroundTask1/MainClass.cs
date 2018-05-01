@@ -114,7 +114,7 @@ namespace DiscordBackgroundTask1
                 else if(frame.Type == "READY")
                 {
                     //Ready event
-                    var ready = (ReadyStructure.Ready)frame.Payload;
+                    var ready = frame.Payload as ReadyStructure.Ready;
                     Dictionary<string, ReadyStructure.ReadState> readstates = new Dictionary<string, ReadyStructure.ReadState>();
                     foreach (var readstate in ready.read_state)
                         readstates.Add(readstate.id, readstate);
@@ -122,7 +122,7 @@ namespace DiscordBackgroundTask1
                     {
                         if (readstates[channel.id].mention_count > 0)
                         {
-                            SendToast.UnreadDM(channel, readstates[channel.id].mention_count.Value, readstates[channel.id].last_message_id);
+                            SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count.Value, readstates[channel.id].last_message_id);
                         }
                     }
                     foreach(var relationship in ready.relationships)
@@ -130,7 +130,7 @@ namespace DiscordBackgroundTask1
                         if(relationship.type == 3)
                         {
                             //incoming friend request, show notification
-                            SendToast.FriendRequest(relationship.user);
+                            SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
                         }
                     }
                 }
