@@ -492,30 +492,6 @@ namespace Discord_UWP
             
         }
 
-        public static bool RegisterBacgkround()
-        {
-            try
-            {
-                var task = new BackgroundTaskBuilder
-                {
-                    Name = "Discord UWP Notifier",
-                    TaskEntryPoint = typeof(DiscordBackgroundTask1.MainClass).ToString()
-                };
-
-                task.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-
-                bgTrigger = new ApplicationTrigger();
-                task.SetTrigger(bgTrigger);
-
-                task.Register();
-                Console.WriteLine("Task registered");
-                return true;
-            }
-            catch /*(Exception ex)*/
-            {
-                return false;
-            }
-        }
 
         private ExtendedExecutionSession session = null;
         private async void BeginExtendedExecution()
@@ -604,40 +580,7 @@ namespace Discord_UWP
                 GatewayManager.StartGateway();
                 //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
                 BeginExtendedExecution();
-                try
-                {
-                    bgAccess = await BackgroundExecutionManager.RequestAccessAsync();
-                    switch (bgAccess)
-                    {
-                        case BackgroundAccessStatus.Unspecified:
-                            Console.WriteLine("Unspecified result");
-                            break;
-                        case BackgroundAccessStatus.AlwaysAllowed:
-                            if (RegisterBacgkround() == true)
-                            {
-                                var result = await bgTrigger.RequestAsync();
-                                Console.WriteLine(result.ToString());
-                            }
-                            break;
-                        case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                            if (RegisterBacgkround() == true)
-                            {
-                                var result = await bgTrigger.RequestAsync();
-                                Console.WriteLine(result.ToString());
-                            }
-                            break;
-                        case BackgroundAccessStatus.DeniedBySystemPolicy:
-                            Console.WriteLine("Denied by system policy");
-                            break;
-                        case BackgroundAccessStatus.DeniedByUser:
-                            Console.WriteLine("Denied by user");
-                            break;
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception.Message);
-                }
+                BackgroundTaskManager.TryRegisterBackgroundTask();
                 SubFrame.Visibility = Visibility.Collapsed;
                 if (setupArgs != "")
                 {
