@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -161,12 +162,15 @@
         <!--<toolkit:DropShadowPanel x:Name="ShadowPresence" Color="Cyan" BlurRadius="10" Height="50" Width="50" Padding="1" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
             <Rectangle Fill="Black" Height="48" Width="48" RadiusX="100" RadiusY="100" VerticalAlignment="Top"/>
         </toolkit:DropShadowPanel>-->
+        
         <Rectangle x:Name="AvatarBG" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1"/>
-        <Rectangle x:Name="Avatar" RadiusX="100" RadiusY="100" Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
-            <Rectangle.Fill>
-                <ImageBrush x:Name="AvatarBrush"/>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Button Height="48" Width="48" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1" Click="Username_OnClick" RightTapped="username_RightTapped" Style="{StaticResource DimButton}">
+            <Rectangle x:Name="Avatar" extensions:Mouse.Cursor="Hand" RadiusX="100" RadiusY="100" Height="48" Width="48" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="AvatarBrush"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Button>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
             <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">

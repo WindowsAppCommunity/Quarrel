@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Class="Discord_UWP.Controls.UserDetailsControl"
     mc:Ignorable="d"
@@ -49,16 +50,16 @@
             <Grid x:Name="profileGrid" Margin="0,24,0,0">
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
                     <Grid>
-                        <Border Width="96" Height="96" CornerRadius="48">
+                        <Button Width="96" Height="96" Style="{StaticResource DimButton}" Click="Button_Click">
                             <Grid x:Name="FullAvatar">
                                 <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                                <Rectangle x:Name="AvatarRectangle" extensions:Mouse.Cursor="Hand" Height="96" Width="96" RadiusX="48" RadiusY="48">
                                     <Rectangle.Fill>
                                         <ImageBrush x:Name="Avatar"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Grid>
-                        </Border>
+                        </Button>
                         <Rectangle x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource LightBG}" Width="24" Height="24" RadiusX="16" RadiusY="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">
                             <Rectangle.RenderTransform>
                                 <CompositeTransform TranslateX="0"/>
