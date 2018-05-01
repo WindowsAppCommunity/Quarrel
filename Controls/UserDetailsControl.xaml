@@ -50,10 +50,10 @@
             <Grid x:Name="profileGrid" Margin="0,24,0,0">
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
                     <Grid>
-                        <Button Width="96" Height="96" Style="{StaticResource DimButton}" extensions:Mouse.Cursor="Hand" Click="Button_Click">
+                        <Button Width="96" Height="96" Style="{StaticResource DimButton}" Click="Button_Click">
                             <Grid x:Name="FullAvatar">
                                 <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                                <Rectangle x:Name="AvatarRectangle" extensions:Mouse.Cursor="Hand" Height="96" Width="96" RadiusX="48" RadiusY="48">
                                     <Rectangle.Fill>
                                         <ImageBrush x:Name="Avatar"/>
                                     </Rectangle.Fill>
