@@ -99,6 +99,20 @@ namespace Discord_UWP.Flyouts
                 menu.Items.Add(block);
             }
 
+            MenuFlyoutSeparator sep2 = new MenuFlyoutSeparator();
+            menu.Items.Add(sep2);
+
+            MenuFlyoutItem CloseDM = new MenuFlyoutItem()
+            {
+                Text = "Close DM", //TODO: Translate App.GetString("/Flyouts/Unblock"),
+                Icon = new SymbolIcon(Symbol.LeaveChat),
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                Tag = dm.Id,
+            };
+            CloseDM.Click += FlyoutManager.DeleteChannel;
+
+            menu.Items.Add(CloseDM);
+
             return menu;
         }
     }
