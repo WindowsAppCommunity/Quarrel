@@ -11,7 +11,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Managers
 {
-    class ChannelManager
+    public static class ChannelManager
     {
         public static SimpleChannel MakeChannel(LocalModels.GuildChannel channel)
         {
@@ -21,6 +21,8 @@ namespace Discord_UWP.Managers
             sc.Name = channel.raw.Name;
             sc.Type = channel.raw.Type;
             sc.Nsfw = channel.raw.NSFW;
+            sc.Position = channel.raw.Position;
+            sc.ParentId = channel.raw.ParentId;
             switch (channel.raw.Type)
             {
                 case 0:
