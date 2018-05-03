@@ -443,7 +443,7 @@ namespace Discord_UWP
             App.NavigateToGuildChannelHandler -= App_NavigateToGuildChannelHandler;
             App.NavigateToDMChannelHandler -= App_NavigateToDMChannelHandler;
             //SubPages
-            App.SubpageClosedHandler -= App_SubpageClosedHandler; ;
+            App.SubpageClosedHandler -= App_SubpageClosedHandler;
             App.NavigateToBugReportHandler -= App_NavigateToBugReportHandler;
             App.NavigateToChannelEditHandler -= App_NavigateToChannelEditHandler;
             App.NavigateToCreateBanHandler -= App_NavigateToCreateBanHandler;
@@ -471,30 +471,50 @@ namespace Discord_UWP
             App.LinkClicked -= App_LinkClicked;
             //API
             App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.FlashMentionHandler -= App_FlashMentionHandler;
+            typingCooldown.Tick -= TypingCooldown_Tick;
             App.StartTypingHandler -= App_StartTypingHandler;
             App.AddFriendHandler -= App_AddFriendHandler;
             App.BlockUserHandler -= App_BlockUserHandler;
+            App.MarkMessageAsReadHandler -= App_MarkMessageAsReadHandler;
             App.MarkChannelAsReadHandler -= App_MarkChannelAsReadHandler;
             App.MarkGuildAsReadHandler -= App_MarkGuildAsReadHandler;
             App.MuteChannelHandler -= App_MuteChannelHandler;
             App.MuteGuildHandler -= App_MuteGuildHandler;
             App.RemoveFriendHandler -= App_RemoveFriendHandler;
             App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
+            App.VoiceConnectHandler -= App_VoiceConnectHandler;
+            App.GuildSyncedHandler -= App_GuildSyncedHandler;
+            //DM
+            App.DMCreatedHandler -= App_DMCreatedHandler;
+            App.DMDeletedHandler -= App_DMDeletedHandler;
+            App.DMUpdatePosHandler -= App_DMUpdatePosHandler;
             //UpdateUI
             App.ReadyRecievedHandler -= App_ReadyRecievedHandler;
             App.TypingHandler -= App_TypingHandler;
             App.UpdateUnreadIndicatorsHandler -= App_UpdateUnreadIndicatorsHandler;
-            App.UserStatusChangedHandler -= App_UserStatusChangedHandler; ;
+            App.UserStatusChangedHandler -= App_UserStatusChangedHandler;
             //UpdateUI-Messages
             App.MessageCreatedHandler -= App_MessageCreatedHandler;
             App.MessageDeletedHandler -= App_MessageDeletedHandler;
             App.MessageEditedHandler -= App_MessageEditedHandler;
             //UpdateUI-Channels
             App.GuildChannelCreatedHandler -= App_GuildChannelCreatedHandler;
+            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
+            App.GuildChannelUpdatedHandler -= App_GuildChannelUpdatedHandler;
             //UpdateUI-Guilds
             App.GuildCreatedHandler -= App_GuildCreatedHandler;
-            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
-            
+            App.GuildDeletedHandler -= App_GuildDeletedHandler;
+            App.GuildUpdatedHandler -= App_GuildUpdatedHandler;
+            //UpdateUI-Members
+            App.MembersUpdatedHandler -= App_MembersUpdatedHandler;
+
+            //Auto selects
+            App.SelectGuildChannelHandler -= App_SelectGuildChannelHandler;
+
+            App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
+
+
         }
 
 
