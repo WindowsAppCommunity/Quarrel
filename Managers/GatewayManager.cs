@@ -551,6 +551,11 @@ namespace Discord_UWP.Managers
             {
                 LocalState.Guilds[e.EventData.GuildId].channels[e.EventData.Id] = new LocalModels.GuildChannel(e.EventData);
             }
+
+            if (e.EventData.GuildId == App.CurrentGuildId)
+            {
+                App.GuildChannelUpdated(e.EventData);
+            }
         }
         #endregion
 
