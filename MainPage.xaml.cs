@@ -308,6 +308,10 @@ namespace Discord_UWP
             App.UpdatePresenceHandler += App_UpdatePresenceHandler;
             App.VoiceConnectHandler += App_VoiceConnectHandler;
             App.GuildSyncedHandler += App_GuildSyncedHandler;
+            //DM
+            App.DMCreatedHandler += App_DMCreatedHandler;
+            App.DMDeletedHandler += App_DMDeletedHandler;
+            App.DMUpdatePosHandler += App_DMUpdatePosHandler;
             //UpdateUI
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
@@ -2297,6 +2301,55 @@ namespace Discord_UWP
 
         #endregion
 
+        #region DMs
+
+        private async void App_DMCreatedHandler(object sender, App.DMCreatedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        if (ChannelList.Items.Count > 0)
+                        {
+                            var chn = ChannelManager.MakeChannel(e.DMChannel);
+                            if (chn != null)
+                                ChannelList.Items.Insert(findLocation(chn), chn);
+                        }
+                    });
+        }
+
+        private async void App_DMDeletedHandler(object sender, App.DMDeletedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        {
+                            if (chn.Id == e.DMId)
+                            {
+                                ChannelList.Items.Remove(chn);
+                            }
+                        }
+                    });
+        }
+
+        private async void App_DMUpdatePosHandler(object sender, App.DMUpdatePosArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        {
+                            if (chn.Id == e.Id)
+                            {
+                                ChannelList.Items.Remove(chn);
+                                ChannelList.Items.Insert(0, chn);
+                            }
+                        }
+                    });
+        }
+
+        #endregion
+
         #region Channel
         private async void App_GuildChannelCreatedHandler(object sender, App.GuildChannelCreatedArgs e)
         {
@@ -2336,27 +2389,45 @@ namespace Discord_UWP
             App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
         }
 
-        private int findLocation(ChannelManager.SimpleChannel gc)
+        private int findLocation(ChannelManager.SimpleChannel c)
         {
-            if (gc.Type != 4)
+            if (c.Type == 0 || c.Type == 2 || c.Type == 4)
+            {
+                if (c.Type != 4)
+                {
+                    int pos = 0;
+                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == c.ParentId)
+                        {
+                            if (c.Type == 0)
+                            {
+                                return pos + c.Position + 1;
+                            }
+                            else if (c.Type == 2)
+                            {
+                                //TODO: Handle Voice channels
+                            }
+                        }
+                        pos++;
+                    }
+                } else
+                {
+                    //TODO: Handle Categories
+                }
+            } else // type == 1 or 3
             {
                 int pos = 0;
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (chn.Id == gc.ParentId)
+                    if (Common.SnowflakeToTime(c.LastMessageId) > Common.SnowflakeToTime(chn.LastMessageId))
                     {
-                        if (gc.Type == 0)
-                        {
-                            return pos + gc.Position + 1;
-                        }
-                        else if (gc.Type == 2)
-                        {
-                            //TODO: Handle Voice channels
-                        }
+                        return pos;
                     }
                     pos++;
                 }
             }
+
             return 0;
         }
         #endregion
