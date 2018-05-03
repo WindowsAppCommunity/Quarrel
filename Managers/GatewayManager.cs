@@ -336,6 +336,10 @@ namespace Discord_UWP.Managers
         #region Message
         private async static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
+            if (App.CurrentGuildIsDM)
+            {
+                App.DMUpdate(e.EventData.ChannelId, e.EventData.Id);
+            }
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
@@ -509,12 +513,28 @@ namespace Discord_UWP.Managers
         #region DMs
         private static void Gateway_DirectMessageChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
         {
+            if (!LocalState.DMs.ContainsKey(e.EventData.Id))
+            {
+                LocalState.DMs.Add(e.EventData.Id, e.EventData);
+            }
 
+            if (App.CurrentGuildIsDM)
+            {
+                App.DMCreated(e.EventData);
+            }
         }
 
         private static void Gateway_DirectMessageChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.DirectMessageChannel> e)
         {
+            if (LocalState.DMs.ContainsKey(e.EventData.Id))
+            {
+                LocalState.DMs.Remove(e.EventData.Id);
+            }
 
+            if (App.CurrentGuildIsDM)
+            {
+                App.DMDeleted(e.EventData.Id);
+            }
         }
         #endregion
 

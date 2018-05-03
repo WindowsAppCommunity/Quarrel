@@ -449,6 +449,41 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region DMS
+
+        public class DMCreatedArgs
+        {
+           public SharedModels.DirectMessageChannel DMChannel;
+        }
+        public static event EventHandler<DMCreatedArgs> DMCreatedHandler;
+        public static void DMCreated(SharedModels.DirectMessageChannel DM)
+        {
+            DMCreatedHandler?.Invoke(typeof(App), new DMCreatedArgs() { DMChannel = DM});
+        }
+
+        public class DMDeletedArgs
+        {
+            public string DMId;
+        }
+        public static event EventHandler<DMDeletedArgs> DMDeletedHandler;
+        public static void DMDeleted(string id)
+        {
+            DMDeletedHandler?.Invoke(typeof(App), new DMDeletedArgs() { DMId = id });
+        }
+
+        public class DMUpdatePosArgs
+        {
+            public string Id;
+            public string LastMsgId;
+        }
+        public static event EventHandler<DMUpdatePosArgs> DMUpdatePosHandler;
+        public static void DMUpdate(string id, string lmId)
+        {
+            DMUpdatePosHandler?.Invoke(typeof(App), new DMUpdatePosArgs() { Id = id, LastMsgId = lmId});
+        }
+
+        #endregion
+
         #region Channels
         public class GuildChannelCreatedArgs
         {
