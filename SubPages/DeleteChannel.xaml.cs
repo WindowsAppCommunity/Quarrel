@@ -41,7 +41,13 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             chnId = e.Parameter.ToString();
-            Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
+            if (App.CurrentGuildIsDM)
+            {
+                Message.Text = "Are you sure you want to Close your DM with " + LocalState.DMs[chnId].Users.FirstOrDefault().Username; //TODO: Translate
+            } else
+            {
+                Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[chnId].raw.Name + "?";
+            }
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
