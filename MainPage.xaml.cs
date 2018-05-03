@@ -2338,17 +2338,24 @@ namespace Discord_UWP
 
         private int findLocation(ChannelManager.SimpleChannel gc)
         {
-            int pos = 0;
-            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            if (gc.Type != 4)
             {
-                if (chn.ParentId == gc.ParentId)
+                int pos = 0;
+                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (gc.Position == chn.Position)
+                    if (chn.Id == gc.ParentId)
                     {
-                        return pos;
+                        if (gc.Type == 0)
+                        {
+                            return pos + gc.Position + 1;
+                        }
+                        else if (gc.Type == 2)
+                        {
+                            //TODO: Handle Voice channels
+                        }
                     }
+                    pos++;
                 }
-                pos++;
             }
             return 0;
         }
