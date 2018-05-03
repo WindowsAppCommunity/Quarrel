@@ -125,6 +125,7 @@ namespace Discord_UWP
         public bool UseCompression = true;
         public bool VideoAd = false;
         public bool GifsOnHover = true;
+        //public bool AutoChannelSelect = !App.IsMobile;
         public string DateFormat = "M/d/yyyy";
         public string TimeFormat = "hh:mm";
         public string DefaultAccount = "";
