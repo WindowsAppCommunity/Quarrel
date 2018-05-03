@@ -844,134 +844,95 @@ namespace Discord_UWP
         private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
             SaveDraft();
-            if (e.ChannelId != null) //Nav by ChannelId
+
+            if (e.UserId != null)
             {
-                if (App.e2e)
+                var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
+                if (!LocalState.DMs.ContainsKey(channel.Id))
                 {
-                    EncryptionManager.UpdateKey(e.ChannelId);
+                    LocalState.DMs.Add(channel.Id, channel);
                 }
+                e.ChannelId = channel.Id;
+            }
 
-                if (!e.OnBack)
-                {
-                    navigationHistory.Push(currentPage);
-                }
-
-                if (App.CurrentGuildIsDM)
-                {
-                    App.CurrentChannelId = e.ChannelId;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    RenderMessages();
-                } else
-                {
-                    ServerList.SelectedIndex = 0;
-                    App.CurrentChannelId = e.ChannelId;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    RenderDMChannels();
-                    RenderMessages();
-                }
-
-                if (LocalState.DMs[e.ChannelId].Type == 1)
-                {
-                    UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
-                    UserDetails.Visibility = Visibility.Visible;
-                    MemberListFull.Visibility = Visibility.Collapsed;
-                } else
-                {
-                    RenderGroupMembers();
-                    UserDetails.Visibility = Visibility.Collapsed;
-                    MemberListFull.Visibility = Visibility.Visible;
-                }
-
-                App.MarkChannelAsRead(e.ChannelId);
-                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
-
-                if (e.Message != null && !e.Send)
-                {
-                    MessageBox1.Text = e.Message;
-                }
-                else if (e.Send && e.Message != null)
-                {
-                    App.CreateMessage(App.CurrentChannelId, e.Message);
-                }
-
-                if (e.OnBack)
-                {
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
-                    {
-                        if (chn.Id == e.ChannelId)
-                        {
-                            lastChangeProgrammatic = true;
-                            ChannelList.SelectedItem = chn;
-                        }
-                    }
-                }
-
-            } else if (e.UserId != null) //Nav by UserId
+            if (App.e2e)
             {
-                if (!App.CurrentGuildIsDM)
-                {
-                    App.CurrentGuildIsDM = true;
-                    ServerList.SelectedIndex = 0;
-                    RenderDMChannels();
-                }
-                bool handeled = false;
-                int i = 0;
+                EncryptionManager.UpdateKey(e.ChannelId);
+            }
+
+            if (!e.OnBack)
+            {
+                navigationHistory.Push(currentPage);
+            }
+
+            if (App.CurrentGuildIsDM)
+            {
+                App.CurrentChannelId = e.ChannelId;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+            }
+            else
+            {
+                ServerList.SelectedIndex = 0;
+                App.CurrentChannelId = e.ChannelId;
+                App.CurrentGuildIsDM = true;
+                App.CurrentGuildId = null;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                RenderDMChannels();
+            }
+
+            if (LocalState.DMs[e.ChannelId].Type == 1)
+            {
+                UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
+                UserDetails.Visibility = Visibility.Visible;
+                MemberListFull.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                RenderGroupMembers();
+                UserDetails.Visibility = Visibility.Collapsed;
+                MemberListFull.Visibility = Visibility.Visible;
+            }
+
+            App.MarkChannelAsRead(e.ChannelId);
+            currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+
+            if (e.Message != null && !e.Send)
+            {
+                MessageBox1.Text = e.Message;
+            }
+            else if (e.Send && e.Message != null)
+            {
+                App.CreateMessage(App.CurrentChannelId, e.Message);
+            }
+
+            if (e.OnBack)
+            {
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (chn.Members != null && chn.Members.Count == 1 && chn.Members.ContainsKey(e.UserId))
+                    if (chn.Id == e.ChannelId)
                     {
-                        ChannelList.SelectedIndex = i;
-                        handeled = true;
+                        lastChangeProgrammatic = true;
+                        ChannelList.SelectedItem = chn;
                     }
-                    i++;
-                }
-                if (!handeled)
-                {
-                    var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
-                    App.CurrentChannelId = channel.Id;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    //LocalState.RPC[e]
-                    if (!LocalState.DMs.ContainsKey(channel.Id))
-                    {
-                        LocalState.DMs.Add(channel.Id, channel);
-                    }
-                    RenderDMChannels();
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
-                    {
-                        if (chn.Id == channel.Id)
-                        {
-                            ChannelList.SelectedItem = chn;
-                        }
-                    }
-                }
-                RenderMessages();
-
-                if (e.Message != null && !e.Send)
-                {
-                    MessageBox1.Text = e.Message;
-                } else if (e.Send && e.Message != null)
-                {
-                    App.CreateMessage(App.CurrentChannelId, e.Message);
-                }
-                //Can't be on Back, OnBack is done with ChannelId
-                //Redirects to navigate by ChannelId
-
-            } else //Nav to Friends
-            {
-                if (App.CurrentGuildIsDM)
-                {
-                    OpenFriendPanel(null, null);
-                } else
-                {
-                    ServerList.SelectedIndex = 0;
                 }
             }
+
             foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            {
                 if (chn.Id == e.ChannelId)
+                {
                     chn.IsSelected = true;
+                    ChannelList.SelectedItem = chn;
+                }
                 else
+                {
                     chn.IsSelected = false;
+                }
+            }
             UpdateTyping();
+
+            RenderMessages();
+
             LoadDraft();
         }
 
