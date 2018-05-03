@@ -470,6 +470,16 @@ namespace Discord_UWP
         {
             GuildChannelDeletedHandler?.Invoke(typeof(App), new GuildChannelDeletedArgs() { GuildId = guildId, ChannelId = channelId });
         }
+
+        public class GuildChannelUpdatedArgs
+        {
+            public SharedModels.GuildChannel Channel;
+        }
+        public static event EventHandler<GuildChannelUpdatedArgs> GuildChannelUpdatedHandler;
+        public static void GuildChannelUpdated(SharedModels.GuildChannel channel)
+        {
+            GuildChannelUpdatedHandler?.Invoke(typeof(App), new GuildChannelUpdatedArgs() { Channel = channel });
+        }
         #endregion
 
         #region Guilds

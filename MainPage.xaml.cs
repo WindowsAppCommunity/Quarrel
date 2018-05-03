@@ -319,11 +319,12 @@ namespace Discord_UWP
             App.MessageEditedHandler += App_MessageEditedHandler;
             //UpdateUI-Channels
             App.GuildChannelCreatedHandler += App_GuildChannelCreatedHandler;
+            App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
+            App.GuildChannelUpdatedHandler += App_GuildChannelUpdatedHandler;
             //UpdateUI-Guilds
             App.GuildCreatedHandler += App_GuildCreatedHandler;
             App.GuildDeletedHandler += App_GuildDeletedHandler;
             App.GuildUpdatedHandler += App_GuildUpdatedHandler;
-            App.GuildChannelDeletedHandler += App_GuildChannelDeletedHandler;
             //UpdateUI-Members
             App.MembersUpdatedHandler += App_MembersUpdatedHandler;
 
@@ -2327,6 +2328,12 @@ namespace Discord_UWP
                          }
                      }
                  });
+        }
+
+        private void App_GuildChannelUpdatedHandler(object sender, App.GuildChannelUpdatedArgs e)
+        {
+            App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
+            App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
         }
 
         private int findLocation(ChannelManager.SimpleChannel gc)
