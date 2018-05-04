@@ -33,6 +33,30 @@ namespace DiscordBackgroundTask1
         [JsonProperty("t")]
         public string Type { get; set; }
     }
+    public sealed class ReadState
+    {
+        public string last_message_id { get; set; }
+        public string id { get; set; }
+        public int mention_count { get; set; }
+    }
+    public sealed class Recipient
+    {
+        public string username { get; set; }
+        public string id { get; set; }
+        public string discriminator { get; set; }
+        public string avatar { get; set; }
+        public bool bot { get; set; }
+    }
+    public sealed class PrivateChannel
+    {
+        public int type { get; set; }
+        public IEnumerable<Recipient> recipients { get; set; }
+        public string last_message_id { get; set; }
+        public string id { get; set; }
+        public string owner_id { get; set; }
+        public string name { get; set; }
+        public string icon { get; set; }
+    }
 
     public sealed class MainClass : IBackgroundTask
     {
@@ -114,25 +138,34 @@ namespace DiscordBackgroundTask1
                 else if(frame.Type == "READY")
                 {
                     //Ready event
-                    var ready = frame.Payload as ReadyStructure.Ready;
-                    Dictionary<string, ReadyStructure.ReadState> readstates = new Dictionary<string, ReadyStructure.ReadState>();
-                    foreach (var readstate in ready.read_state)
-                        readstates.Add(readstate.id, readstate);
-                    foreach(var channel in ready.private_channels)
+                    var ready = JObject.Parse(message)["d"];
+                    IList<JToken> json_readstates = ready["read_state"].Children().ToList();
+                    Dictionary<string, ReadState> readstates = new Dictionary<string, ReadState>();
+                    foreach (var readstate in json_readstates)
                     {
-                        if (readstates[channel.id].mention_count > 0)
+                        var rs = readstate.ToObject<ReadState>();
+                        readstates.Add(rs.id, rs);
+                    }
+                        
+
+                    IList<JToken> privatechannels = ready["private_channels"].Children().ToList();
+                    foreach (var json_channel in privatechannels)
+                    {
+                        var channel = json_channel.ToObject<PrivateChannel>();
+                        if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
                         {
-                            SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count.Value, readstates[channel.id].last_message_id);
+                            //Unfortunately the channel must be sent as a string parameter, because windowsruntime
+                            SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                         }
                     }
-                    foreach(var relationship in ready.relationships)
+                  /*  foreach(var relationship in ready.relationships)
                     {
                         if(relationship.type == 3)
                         {
                             //incoming friend request, show notification
                             SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
                         }
-                    }
+                    */
                 }
             }
         }

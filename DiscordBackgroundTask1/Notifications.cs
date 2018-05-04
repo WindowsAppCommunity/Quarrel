@@ -24,7 +24,7 @@ namespace DiscordBackgroundTask1
 
         public static void UnreadDM(string channelstr, int count, string lastmessage)
         {
-            ReadyStructure.PrivateChannel channel = Newtonsoft.Json.JsonConvert.DeserializeObject<ReadyStructure.PrivateChannel>(channelstr);
+            PrivateChannel channel = Newtonsoft.Json.JsonConvert.DeserializeObject<PrivateChannel>(channelstr);
             string imageurl = "";
             string text = "";
             if(channel.type == 1)
