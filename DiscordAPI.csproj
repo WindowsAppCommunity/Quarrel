@@ -224,7 +224,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
-    <PackageReference Include="Refit">
+    <PackageReference Include="refit">
       <Version>4.3.0</Version>
     </PackageReference>
   </ItemGroup>
