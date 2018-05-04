@@ -376,10 +376,13 @@
     <MainPackageIdentityName>38062AvishaiDernis.Concentio</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.CopyrightBattle</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.Escape</MainPackageIdentityName>
+    <MainPackageIdentityName>38062AvishaiDernis.GroupQueue</MainPackageIdentityName>
+    <MainPackageIdentityName>38062AvishaiDernis.MemeTools</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.NetflixandDrill</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.OverwatchInfo</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.SpotifyUWP</MainPackageIdentityName>
     <MainPackageIdentityName>38062AvishaiDernis.UniversalMusic</MainPackageIdentityName>
+    <MainPackageIdentityName>38062AvishaiDernis.v2UWP</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBRWJ777C8R" />
 </StoreAssociation>

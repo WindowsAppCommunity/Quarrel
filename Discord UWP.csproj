@@ -17,8 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Discord UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>6286F0A620F36D3730CD9B0B274BFD6D909FD4D6</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>Discord UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>55D41C1D6CB2EFECDB87A097DFEB2F9C984BF6E8</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -361,6 +361,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="DawgSharp\key.snk" />
+    <None Include="Discord UWP_TemporaryKey.pfx" />
     <None Include="Javascript sources\Games.json" />
     <None Include="Javascript sources\GUILD_SYNC.json" />
     <None Include="Javascript sources\READY.json" />
