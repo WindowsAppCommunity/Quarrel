@@ -308,6 +308,10 @@ namespace Discord_UWP
             App.UpdatePresenceHandler += App_UpdatePresenceHandler;
             App.VoiceConnectHandler += App_VoiceConnectHandler;
             App.GuildSyncedHandler += App_GuildSyncedHandler;
+            //DM
+            App.DMCreatedHandler += App_DMCreatedHandler;
+            App.DMDeletedHandler += App_DMDeletedHandler;
+            App.DMUpdatePosHandler += App_DMUpdatePosHandler;
             //UpdateUI
             App.ReadyRecievedHandler += App_ReadyRecievedHandler;
             App.TypingHandler += App_TypingHandler;
@@ -439,7 +443,7 @@ namespace Discord_UWP
             App.NavigateToGuildChannelHandler -= App_NavigateToGuildChannelHandler;
             App.NavigateToDMChannelHandler -= App_NavigateToDMChannelHandler;
             //SubPages
-            App.SubpageClosedHandler -= App_SubpageClosedHandler; ;
+            App.SubpageClosedHandler -= App_SubpageClosedHandler;
             App.NavigateToBugReportHandler -= App_NavigateToBugReportHandler;
             App.NavigateToChannelEditHandler -= App_NavigateToChannelEditHandler;
             App.NavigateToCreateBanHandler -= App_NavigateToCreateBanHandler;
@@ -467,30 +471,50 @@ namespace Discord_UWP
             App.LinkClicked -= App_LinkClicked;
             //API
             App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.FlashMentionHandler -= App_FlashMentionHandler;
+            typingCooldown.Tick -= TypingCooldown_Tick;
             App.StartTypingHandler -= App_StartTypingHandler;
             App.AddFriendHandler -= App_AddFriendHandler;
             App.BlockUserHandler -= App_BlockUserHandler;
+            App.MarkMessageAsReadHandler -= App_MarkMessageAsReadHandler;
             App.MarkChannelAsReadHandler -= App_MarkChannelAsReadHandler;
             App.MarkGuildAsReadHandler -= App_MarkGuildAsReadHandler;
             App.MuteChannelHandler -= App_MuteChannelHandler;
             App.MuteGuildHandler -= App_MuteGuildHandler;
             App.RemoveFriendHandler -= App_RemoveFriendHandler;
             App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
+            App.VoiceConnectHandler -= App_VoiceConnectHandler;
+            App.GuildSyncedHandler -= App_GuildSyncedHandler;
+            //DM
+            App.DMCreatedHandler -= App_DMCreatedHandler;
+            App.DMDeletedHandler -= App_DMDeletedHandler;
+            App.DMUpdatePosHandler -= App_DMUpdatePosHandler;
             //UpdateUI
             App.ReadyRecievedHandler -= App_ReadyRecievedHandler;
             App.TypingHandler -= App_TypingHandler;
             App.UpdateUnreadIndicatorsHandler -= App_UpdateUnreadIndicatorsHandler;
-            App.UserStatusChangedHandler -= App_UserStatusChangedHandler; ;
+            App.UserStatusChangedHandler -= App_UserStatusChangedHandler;
             //UpdateUI-Messages
             App.MessageCreatedHandler -= App_MessageCreatedHandler;
             App.MessageDeletedHandler -= App_MessageDeletedHandler;
             App.MessageEditedHandler -= App_MessageEditedHandler;
             //UpdateUI-Channels
             App.GuildChannelCreatedHandler -= App_GuildChannelCreatedHandler;
+            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
+            App.GuildChannelUpdatedHandler -= App_GuildChannelUpdatedHandler;
             //UpdateUI-Guilds
             App.GuildCreatedHandler -= App_GuildCreatedHandler;
-            App.GuildChannelDeletedHandler -= App_GuildChannelDeletedHandler;
-            
+            App.GuildDeletedHandler -= App_GuildDeletedHandler;
+            App.GuildUpdatedHandler -= App_GuildUpdatedHandler;
+            //UpdateUI-Members
+            App.MembersUpdatedHandler -= App_MembersUpdatedHandler;
+
+            //Auto selects
+            App.SelectGuildChannelHandler -= App_SelectGuildChannelHandler;
+
+            App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
+
+
         }
 
 
@@ -820,134 +844,95 @@ namespace Discord_UWP
         private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
             SaveDraft();
-            if (e.ChannelId != null) //Nav by ChannelId
+
+            if (e.UserId != null)
             {
-                if (App.e2e)
+                var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
+                if (!LocalState.DMs.ContainsKey(channel.Id))
                 {
-                    EncryptionManager.UpdateKey(e.ChannelId);
+                    LocalState.DMs.Add(channel.Id, channel);
                 }
+                e.ChannelId = channel.Id;
+            }
 
-                if (!e.OnBack)
-                {
-                    navigationHistory.Push(currentPage);
-                }
-
-                if (App.CurrentGuildIsDM)
-                {
-                    App.CurrentChannelId = e.ChannelId;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    RenderMessages();
-                } else
-                {
-                    ServerList.SelectedIndex = 0;
-                    App.CurrentChannelId = e.ChannelId;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    RenderDMChannels();
-                    RenderMessages();
-                }
-
-                if (LocalState.DMs[e.ChannelId].Type == 1)
-                {
-                    UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
-                    UserDetails.Visibility = Visibility.Visible;
-                    MemberListFull.Visibility = Visibility.Collapsed;
-                } else
-                {
-                    RenderGroupMembers();
-                    UserDetails.Visibility = Visibility.Collapsed;
-                    MemberListFull.Visibility = Visibility.Visible;
-                }
-
-                App.MarkChannelAsRead(e.ChannelId);
-                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
-
-                if (e.Message != null && !e.Send)
-                {
-                    MessageBox1.Text = e.Message;
-                }
-                else if (e.Send && e.Message != null)
-                {
-                    App.CreateMessage(App.CurrentChannelId, e.Message);
-                }
-
-                if (e.OnBack)
-                {
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
-                    {
-                        if (chn.Id == e.ChannelId)
-                        {
-                            lastChangeProgrammatic = true;
-                            ChannelList.SelectedItem = chn;
-                        }
-                    }
-                }
-
-            } else if (e.UserId != null) //Nav by UserId
+            if (App.e2e)
             {
-                if (!App.CurrentGuildIsDM)
-                {
-                    App.CurrentGuildIsDM = true;
-                    ServerList.SelectedIndex = 0;
-                    RenderDMChannels();
-                }
-                bool handeled = false;
-                int i = 0;
+                EncryptionManager.UpdateKey(e.ChannelId);
+            }
+
+            if (!e.OnBack)
+            {
+                navigationHistory.Push(currentPage);
+            }
+
+            if (App.CurrentGuildIsDM)
+            {
+                App.CurrentChannelId = e.ChannelId;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+            }
+            else
+            {
+                ServerList.SelectedIndex = 0;
+                App.CurrentChannelId = e.ChannelId;
+                App.CurrentGuildIsDM = true;
+                App.CurrentGuildId = null;
+                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                RenderDMChannels();
+            }
+
+            if (LocalState.DMs[e.ChannelId].Type == 1)
+            {
+                UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
+                UserDetails.Visibility = Visibility.Visible;
+                MemberListFull.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                RenderGroupMembers();
+                UserDetails.Visibility = Visibility.Collapsed;
+                MemberListFull.Visibility = Visibility.Visible;
+            }
+
+            App.MarkChannelAsRead(e.ChannelId);
+            currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+
+            if (e.Message != null && !e.Send)
+            {
+                MessageBox1.Text = e.Message;
+            }
+            else if (e.Send && e.Message != null)
+            {
+                App.CreateMessage(App.CurrentChannelId, e.Message);
+            }
+
+            if (e.OnBack)
+            {
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (chn.Members != null && chn.Members.Count == 1 && chn.Members.ContainsKey(e.UserId))
+                    if (chn.Id == e.ChannelId)
                     {
-                        ChannelList.SelectedIndex = i;
-                        handeled = true;
+                        lastChangeProgrammatic = true;
+                        ChannelList.SelectedItem = chn;
                     }
-                    i++;
-                }
-                if (!handeled)
-                {
-                    var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
-                    App.CurrentChannelId = channel.Id;
-                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                    //LocalState.RPC[e]
-                    if (!LocalState.DMs.ContainsKey(channel.Id))
-                    {
-                        LocalState.DMs.Add(channel.Id, channel);
-                    }
-                    RenderDMChannels();
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
-                    {
-                        if (chn.Id == channel.Id)
-                        {
-                            ChannelList.SelectedItem = chn;
-                        }
-                    }
-                }
-                RenderMessages();
-
-                if (e.Message != null && !e.Send)
-                {
-                    MessageBox1.Text = e.Message;
-                } else if (e.Send && e.Message != null)
-                {
-                    App.CreateMessage(App.CurrentChannelId, e.Message);
-                }
-                //Can't be on Back, OnBack is done with ChannelId
-                //Redirects to navigate by ChannelId
-
-            } else //Nav to Friends
-            {
-                if (App.CurrentGuildIsDM)
-                {
-                    OpenFriendPanel(null, null);
-                } else
-                {
-                    ServerList.SelectedIndex = 0;
                 }
             }
+
             foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            {
                 if (chn.Id == e.ChannelId)
+                {
                     chn.IsSelected = true;
+                    ChannelList.SelectedItem = chn;
+                }
                 else
+                {
                     chn.IsSelected = false;
+                }
+            }
             UpdateTyping();
+
+            RenderMessages();
+
             LoadDraft();
         }
 
@@ -2297,6 +2282,55 @@ namespace Discord_UWP
 
         #endregion
 
+        #region DMs
+
+        private async void App_DMCreatedHandler(object sender, App.DMCreatedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        if (ChannelList.Items.Count > 0)
+                        {
+                            var chn = ChannelManager.MakeChannel(e.DMChannel);
+                            if (chn != null)
+                                ChannelList.Items.Insert(findLocation(chn), chn);
+                        }
+                    });
+        }
+
+        private async void App_DMDeletedHandler(object sender, App.DMDeletedArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        {
+                            if (chn.Id == e.DMId)
+                            {
+                                ChannelList.Items.Remove(chn);
+                            }
+                        }
+                    });
+        }
+
+        private async void App_DMUpdatePosHandler(object sender, App.DMUpdatePosArgs e)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        {
+                            if (chn.Id == e.Id)
+                            {
+                                ChannelList.Items.Remove(chn);
+                                ChannelList.Items.Insert(0, chn);
+                            }
+                        }
+                    });
+        }
+
+        #endregion
+
         #region Channel
         private async void App_GuildChannelCreatedHandler(object sender, App.GuildChannelCreatedArgs e)
         {
@@ -2336,27 +2370,45 @@ namespace Discord_UWP
             App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
         }
 
-        private int findLocation(ChannelManager.SimpleChannel gc)
+        private int findLocation(ChannelManager.SimpleChannel c)
         {
-            if (gc.Type != 4)
+            if (c.Type == 0 || c.Type == 2 || c.Type == 4)
+            {
+                if (c.Type != 4)
+                {
+                    int pos = 0;
+                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == c.ParentId)
+                        {
+                            if (c.Type == 0)
+                            {
+                                return pos + c.Position + 1;
+                            }
+                            else if (c.Type == 2)
+                            {
+                                //TODO: Handle Voice channels
+                            }
+                        }
+                        pos++;
+                    }
+                } else
+                {
+                    //TODO: Handle Categories
+                }
+            } else // type == 1 or 3
             {
                 int pos = 0;
                 foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
                 {
-                    if (chn.Id == gc.ParentId)
+                    if (Common.SnowflakeToTime(c.LastMessageId) > Common.SnowflakeToTime(chn.LastMessageId))
                     {
-                        if (gc.Type == 0)
-                        {
-                            return pos + gc.Position + 1;
-                        }
-                        else if (gc.Type == 2)
-                        {
-                            //TODO: Handle Voice channels
-                        }
+                        return pos;
                     }
                     pos++;
                 }
             }
+
             return 0;
         }
         #endregion

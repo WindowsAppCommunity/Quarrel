@@ -59,6 +59,95 @@ namespace Discord_UWP.Managers
             return null;
         }
 
+        public static SimpleChannel MakeChannel(SharedModels.DirectMessageChannel channel)
+        {
+            SimpleChannel sc = new SimpleChannel();
+            sc.Id = channel.Id;
+            sc.Type = channel.Type;
+            switch (channel.Type)
+            {
+                case 1: //DM
+                    sc.Name = "@" + channel.Users.FirstOrDefault().Username;
+                    sc.LastMessageId = channel.LastMessageId;
+                    sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
+
+                    sc.Members = new Dictionary<string, User>();
+                    foreach (User user in channel.Users)
+                    {
+                        sc.Members.Add(user.Id, user);
+                    }
+
+                    if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
+                    {
+                        sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Status;
+                        sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
+                        if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.HasValue)
+                        {
+                            sc.Playing = new Game()
+                            {
+                                Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
+                                .Value.Name,
+                                Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Type,
+                                Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Url
+                            };
+                        }
+                    }
+                    else
+                    {
+                        sc.UserStatus = "offline";
+                    }
+                    //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
+                    if (LocalState.RPC.ContainsKey(sc.Id))
+                    {
+                        ReadState readstate = LocalState.RPC[sc.Id];
+                        sc.NotificationCount = readstate.MentionCount;
+                        var StorageChannel = LocalState.DMs[sc.Id];
+                        if (StorageChannel.LastMessageId != null &&
+                            readstate.LastMessageId != StorageChannel.LastMessageId)
+                            sc.IsUnread = true;
+                        else
+                            sc.IsUnread = false;
+                    }
+                    return sc;
+                case 3: //Group
+                    sc.Name = channel.Name;
+                    sc.LastMessageId = channel.LastMessageId;
+                    sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+
+                    //sc.Members = new Dictionary<string, User>();
+                    //foreach (User user in channel.Users)
+                    //{
+                    //    sc.Members.Add(user.Id, user);
+                    //}
+
+                    if (channel.Name != null && channel.Name != "")
+                    {
+                        sc.Name = channel.Name;
+                    }
+                    else
+                    {
+                        List<string> channelMembers = new List<string>();
+                        foreach (var d in channel.Users)
+                            channelMembers.Add(d.Username);
+                        sc.Name = string.Join(", ", channelMembers);
+                    }
+
+                    if (LocalState.RPC.ContainsKey(sc.Id))
+                    {
+                        ReadState readstate = LocalState.RPC[sc.Id];
+                        sc.NotificationCount = readstate.MentionCount;
+                        var StorageChannel = LocalState.DMs[sc.Id];
+                        if (StorageChannel.LastMessageId != null &&
+                            readstate.LastMessageId != StorageChannel.LastMessageId)
+                            sc.IsUnread = true;
+                        else
+                            sc.IsUnread = false;
+                    }
+                    return sc;
+            }
+            return null;
+        }
+
         public class SimpleChannel : INotifyPropertyChanged
         {
             /* This is a really ugly class, but it's necessary to have the values update correctly */
