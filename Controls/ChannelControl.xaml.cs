@@ -245,9 +245,7 @@ namespace Discord_UWP.Controls
                         SelectIndicator.Fade(0, 200).Start();
                     }
                 }
-
-                
-
+                UpdateHidden();
             }
 
             if (prop == UserStatusProperty)
@@ -519,7 +517,7 @@ namespace Discord_UWP.Controls
 
         public void UpdateHidden()
         {
-            if (IsMuted || !((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0)))
+            if ((IsMuted || !((Storage.Settings.collapseOverride == CollapseOverride.Unread && IsUnread) || (Storage.Settings.collapseOverride == CollapseOverride.Mention && NotificationCount > 0))) && !IsSelected)
             {
                 if (IsHidden)
                 {
