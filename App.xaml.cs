@@ -1075,11 +1075,17 @@ namespace Discord_UWP
         static bool WasPreLaunched = false;
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
         {
-            
-            var licenseInformation = CurrentApp.LicenseInformation;
-            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
+            try
             {
-                App.ShowAds = false;
+                var licenseInformation = CurrentApp.LicenseInformation;
+                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
+                {
+                    App.ShowAds = false;
+                }
+            }
+            catch
+            {
+                //Debug mode
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
