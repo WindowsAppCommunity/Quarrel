@@ -57,6 +57,19 @@ namespace DiscordBackgroundTask1
         public string name { get; set; }
         public string icon { get; set; }
     }
+    public sealed class User2
+    {
+        public string username { get; set; }
+        public string id { get; set; }
+        public string discriminator { get; set; }
+        public string avatar { get; set; }
+    }
+    public sealed class Relationship
+    {
+        public User2 user { get; set; }
+        public int type { get; set; }
+        public string id { get; set; }
+    }
 
     public sealed class MainClass : IBackgroundTask
     {
@@ -158,14 +171,15 @@ namespace DiscordBackgroundTask1
                             SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                         }
                     }
-                  /*  foreach(var relationship in ready.relationships)
+                    foreach (var json_relationship in ready["relationships"])
                     {
-                        if(relationship.type == 3)
+                        var relationship = json_relationship.ToObject<Relationship>();
+                        if (relationship.type == 3)
                         {
                             //incoming friend request, show notification
                             SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
                         }
-                    */
+                    }
                 }
             }
         }
