@@ -101,16 +101,20 @@ namespace DiscordBackgroundTask1
                 {
                     Buttons = {
                          new ToastButton("Accept", "relationship/accept/"+relationshipid) {
-                            ActivationType = ToastActivationType.Background
+                            ActivationType = ToastActivationType.Background,
+                            ActivationOptions = new ToastActivationOptions(){ AfterActivationBehavior=ToastAfterActivationBehavior.PendingUpdate }
                          },
                          new ToastButton("Decline", "relationship/decline/="+relationshipid) {
-                            ActivationType = ToastActivationType.Background
+                            ActivationType = ToastActivationType.Background,
+                            ActivationOptions = new ToastActivationOptions(){ AfterActivationBehavior=ToastAfterActivationBehavior.PendingUpdate }
                          }
                     }
                 }
-                
             };
             var toastNotif = new ToastNotification(toastContent.GetXml());
+            toastNotif.Tag = relationshipid;
+            toastNotif.RemoteId = "relationship" + relationshipid;
+            toastNotif.Group = "relationship";
             ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
         public static DateTimeOffset SnowflakeToTime(string id)

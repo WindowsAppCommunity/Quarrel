@@ -57,6 +57,19 @@ namespace DiscordBackgroundTask1
         public string name { get; set; }
         public string icon { get; set; }
     }
+    public sealed class User2
+    {
+        public string username { get; set; }
+        public string id { get; set; }
+        public string discriminator { get; set; }
+        public string avatar { get; set; }
+    }
+    public sealed class Relationship
+    {
+        public User2 user { get; set; }
+        public int type { get; set; }
+        public string id { get; set; }
+    }
 
     public sealed class MainClass : IBackgroundTask
     {
@@ -71,6 +84,7 @@ namespace DiscordBackgroundTask1
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
+            /*
             _dataWriter = new DataWriter(webSocket.OutputStream);
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
             _deferral = taskInstance.GetDeferral();
@@ -90,7 +104,7 @@ namespace DiscordBackgroundTask1
             //WAIT FOR THE READY EVENT TO BE RECEIVED
             while (!FinishedTask)
                 await Task.Delay(250);
-            _deferral.Complete();
+            _deferral.Complete();*/
         }
        
         private void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
@@ -158,14 +172,15 @@ namespace DiscordBackgroundTask1
                             SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                         }
                     }
-                  /*  foreach(var relationship in ready.relationships)
+                    foreach (var json_relationship in ready["relationships"])
                     {
-                        if(relationship.type == 3)
+                        var relationship = json_relationship.ToObject<Relationship>();
+                        if (relationship.type == 3)
                         {
                             //incoming friend request, show notification
                             SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
                         }
-                    */
+                    }
                 }
             }
         }
