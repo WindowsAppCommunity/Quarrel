@@ -199,7 +199,7 @@
                     <MenuFlyoutItem x:Uid="CopyIdItem" x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
-            <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top"/>
+            <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Collapsed"/>
         </Button>
         <StackPanel x:Name="EmbedViewer" Grid.Row="4" Grid.Column="1" Padding="0" Visibility="Collapsed"/>
 
