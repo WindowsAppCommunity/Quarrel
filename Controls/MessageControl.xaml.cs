@@ -865,11 +865,10 @@ namespace Discord_UWP.Controls
                 if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
-                    MoreEdit.Visibility = Visibility.Collapsed;
                 }
-                else if (Message?.User.Id != LocalState.CurrentUser.Id)
+                if (Message?.User.Id == LocalState.CurrentUser.Id)
                 {
-                    MoreEdit.Visibility = Visibility.Collapsed;
+                    MoreEdit.Visibility = Visibility.Visible;
                 }
             }
             //if (Storage.Settings.savedMessages.ContainsKey(messageid))
