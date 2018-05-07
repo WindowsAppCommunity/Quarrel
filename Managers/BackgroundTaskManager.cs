@@ -11,34 +11,46 @@ namespace Discord_UWP.Managers
     {
         public static async void TryRegisterBackgroundTask()
         {
+            /*
+            //Register time triggered background task
             var access = await BackgroundExecutionManager.RequestAccessAsync();
-
-            //abort if access isn't granted
             if (access == BackgroundAccessStatus.DeniedBySystemPolicy || access == BackgroundAccessStatus.DeniedByUser)
                 return;
-
             var taskRegistered = false;
-            var exampleTaskName = "MainClass";
-
+            var taskName = "MainClass";
             foreach (var task in BackgroundTaskRegistration.AllTasks)
-            {
-                if (task.Value.Name == exampleTaskName)
+                if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName)))
                 {
                     taskRegistered = true;
                     break;
                 }
-            }
             if (!taskRegistered)
             {
                 var builder = new BackgroundTaskBuilder();
 
-                builder.Name = exampleTaskName;
+                builder.Name = taskName;
                 builder.TaskEntryPoint = "DiscordBackgroundTask1.MainClass";
                 builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-                TimeTrigger fifteenMinutes = new TimeTrigger(15, false);
-                builder.SetTrigger(fifteenMinutes);
+                TimeTrigger timetrigger = new TimeTrigger(25, false);
+                builder.SetTrigger(timetrigger);
                 builder.Register();
             }
+            
+            //Register invisible background task, to handle notification clicks
+            const string taskName2 = "InvisibleBackgroundTask";
+            if (BackgroundTaskRegistration.AllTasks.Any(i => i.Value.Name.Equals(taskName2)))
+                return; //Now we can just return, because we don't need to execute the rest of the code
+            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+            BackgroundTaskBuilder builder2 = new BackgroundTaskBuilder()
+            {
+                Name = taskName2,
+            };
+
+            // Assign the toast action trigger
+            builder2.SetTrigger(new ToastNotificationActionTrigger());
+
+            // And register the task
+            builder2.Register();*/
         }
     }
 }

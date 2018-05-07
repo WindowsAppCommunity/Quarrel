@@ -1065,6 +1065,7 @@ namespace Discord_UWP
             
         }
 
+
         protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
             var rootFrame = new Frame();
