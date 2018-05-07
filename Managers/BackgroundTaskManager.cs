@@ -11,6 +11,7 @@ namespace Discord_UWP.Managers
     {
         public static async void TryRegisterBackgroundTask()
         {
+            /*
             //Register time triggered background task
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             if (access == BackgroundAccessStatus.DeniedBySystemPolicy || access == BackgroundAccessStatus.DeniedByUser)
@@ -49,7 +50,7 @@ namespace Discord_UWP.Managers
             builder2.SetTrigger(new ToastNotificationActionTrigger());
 
             // And register the task
-            builder2.Register();
+            builder2.Register();*/
         }
     }
 }

@@ -84,6 +84,7 @@ namespace DiscordBackgroundTask1
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
+            /*
             _dataWriter = new DataWriter(webSocket.OutputStream);
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
             _deferral = taskInstance.GetDeferral();
@@ -103,7 +104,7 @@ namespace DiscordBackgroundTask1
             //WAIT FOR THE READY EVENT TO BE RECEIVED
             while (!FinishedTask)
                 await Task.Delay(250);
-            _deferral.Complete();
+            _deferral.Complete();*/
         }
        
         private void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
