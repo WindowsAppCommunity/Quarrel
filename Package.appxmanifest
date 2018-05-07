@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=DUWP Test" Version="7.4.1.0" />
+  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="7.5.0.0" />
   <mp:PhoneIdentity PhoneProductId="2d9dab6c-5d48-4d38-8c26-ec097ba95ceb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Discord UWP</DisplayName>
@@ -16,11 +16,22 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Discord_UWP.App">
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
+        <Extension Category="windows.backgroundTasks" EntryPoint="InvisibleBackgroundTask.InvisibleBackgroundTask">
           <BackgroundTasks>
-            <Task Type="timer" />
+            <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
+        <Extension Category="windows.updateTask" EntryPoint="UpdateNotificationTask.UpdateTask" />
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discord">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="discorduwp">
+            <uap:DisplayName>Discord UWP</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget>
             <uap:SupportedFileTypes>
@@ -31,20 +42,9 @@
             <uap:DataFormat>Bitmap</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discorduwp">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="discord">
-            <uap:DisplayName>Discord UWP</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <Extension Category="windows.updateTask" EntryPoint="UpdateNotificationTask.UpdateTask" />
-        <Extension Category="windows.backgroundTasks" EntryPoint="InvisibleBackgroundTask.InvisibleBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
           <BackgroundTasks>
-            <Task Type="systemEvent" />
+            <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
       </Extensions>
