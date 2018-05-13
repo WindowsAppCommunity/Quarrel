@@ -327,6 +327,15 @@ namespace Discord_UWP.Managers
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set CurrentUserPresence (ln 296-304)"); });
             #endregion
 
+            #region Spotify
+            foreach(var account in e.EventData.ConnectedAccount)
+            {
+                if(account.Type == "spotify" && account.AccessToken!=null)
+                {
+                    SpotifyManager.StartGateway(account.AccessToken);
+                }
+            }
+            #endregion
             App.ReadyRecieved();
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully recieved Ready Packet (ln 309)"); });
