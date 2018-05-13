@@ -44,7 +44,7 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="spotifyGrid" Visibility="Collapsed" Grid.ColumnSpan="2" Margin="0,8,0,6" VerticalAlignment="Top" Grid.Row="2">
-            <ProgressBar x:Name="progbar" Padding="0,6,0,0" Grid.Column="1" VerticalAlignment="Top" Height="2"/>
+            <ProgressBar x:Name="progbar" Margin="0,0,0,0" Grid.Column="1" VerticalAlignment="Top" Foreground="White" Value="50" Height="2" MinHeight="0"/>
             <TextBlock x:Name="StartTime" Margin="0,6,0,0" VerticalAlignment="Top" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Left"/>
             <TextBlock x:Name="EndTime"  Grid.Column="2" VerticalAlignment="Top" Margin="0,6,0,0" FontWeight="SemiLight" FontSize="10" Opacity="0.8" HorizontalAlignment="Right"/>
         </Grid>
