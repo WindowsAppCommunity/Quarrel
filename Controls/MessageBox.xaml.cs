@@ -100,6 +100,15 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
             MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessagePlaceholderText"); //TODO: Check if can be done with x:Uid
+            SpotifyManager.SpotifyStateUpdated += SpotifyManager_SpotifyStateUpdated;
+        }
+
+        private void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
+        {
+            if (SpotifyManager.SpotifyState.IsPlaying)
+                spotifyActive.Visibility = Visibility.Visible;
+            else
+                spotifyActive.Visibility = Visibility.Collapsed;
         }
 
         public void Clear()

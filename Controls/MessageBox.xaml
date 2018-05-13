@@ -634,6 +634,7 @@
                 </Grid.RenderTransform>
                 <SymbolIcon x:Name="moreSymbol" Symbol="More" Visibility="Visible"/>
                 <SymbolIcon x:Name="attachSymbol"  Symbol="Attach" Visibility="Collapsed"></SymbolIcon>
+                
             </Grid>
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
@@ -679,6 +680,7 @@
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
         </Button>
+        <Ellipse x:Name="spotifyActive" Visibility="Collapsed" Width="12" Height="12" Fill="#1DB954" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="24,24,0,0" Grid.RowSpan="3"></Ellipse>
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
