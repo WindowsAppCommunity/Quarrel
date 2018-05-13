@@ -8,12 +8,12 @@ using Windows.UI.Notifications;
 
 namespace InvisibleBackgroundTask
 {
-    public sealed class InvisibleBackgroundTask
+    public sealed class Main : IBackgroundTask
     {
-        public async void Run(IBackgroundTaskInstance task)
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var deferral = task.GetDeferral();
-                    var details = task.TriggerDetails as Windows.UI.Notifications.ToastNotificationActionTriggerDetail;
+            var deferral = taskInstance.GetDeferral();
+                    var details = taskInstance.TriggerDetails as Windows.UI.Notifications.ToastNotificationActionTriggerDetail;
                     if (details != null)
                     {
                         string[] segments = details.Argument.Split('/');

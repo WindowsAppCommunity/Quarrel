@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Windows.Graphics.Imaging;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -56,8 +57,38 @@ namespace Discord_UWP.SubPages
                     foreach(var file in param)
                         AddAttachement(file as StorageFile);
                 }
+                else if(e.Parameter.GetType() == typeof(App.MessageEditorNavigationArgs))
+                {
+                    Editor.Text = (e.Parameter as App.MessageEditorNavigationArgs).Content;
+                    if ((e.Parameter as App.MessageEditorNavigationArgs).Paste == true)
+                    {
+                        DataPackageView dataPackageView = Clipboard.GetContent();
+                        if (dataPackageView.Contains(StandardDataFormats.StorageItems))
+                        {
+                            foreach (var file in await dataPackageView.GetStorageItemsAsync())
+                                AddAttachement(file as StorageFile);
+                        }
+                        else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
+                        {
+                            var bmpDPV = await dataPackageView.GetBitmapAsync();
+                            var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Clipboard.png", CreationCollisionOption.OpenIfExists);
+                            using (var writeStream = (await bmpSTR.OpenStreamForWriteAsync()).AsRandomAccessStream())
+                            using (var readStream = await bmpDPV.OpenReadAsync())
+                            {
+                                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(readStream.CloneStream());
+                                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, writeStream);
+                                encoder.SetSoftwareBitmap(await decoder.GetSoftwareBitmapAsync());
+                                await encoder.FlushAsync();
+                                AddAttachement(bmpSTR);
+                            }
+                        }
+                    }
+                }
                 else
+                {
                     Editor.Text = e.Parameter.ToString();
+                }
+                    
             }
                
 

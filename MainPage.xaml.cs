@@ -1050,7 +1050,7 @@ namespace Discord_UWP
         }
         private void App_NavigateToMessageEditorHandler(object sender, App.MessageEditorNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e.Content);
+            SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor), e);
         }
         private void App_NavigateToIAPSHandler(object sender, EventArgs e)
         {
@@ -2848,9 +2848,12 @@ namespace Discord_UWP
             App.StartTyping(App.CurrentChannelId);
         }
 
-        private void MessageBox1_OpenAdvanced(object sender, RoutedEventArgs e)
+        private void MessageBox1_OpenAdvanced(object sender, Controls.MessageBox.OpenAdvancedArgs e)
         {
-            App.NavigateToMessageEditor(MessageBox1.Text);
+            if(e == null)
+                App.NavigateToMessageEditor(MessageBox1.Text, false);
+            else
+                App.NavigateToMessageEditor(MessageBox1.Text, e.Paste);
             MessageBox1.Text = "";
         }
 
