@@ -3093,5 +3093,10 @@ namespace Discord_UWP
             var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
             App.ShowMemberFlyout(memberItem, (e.ClickedItem as KeyValuePair<string, Member>?).Value.Value.Raw.User);
         }
+
+        private void MessageBox1_OpenSpotify(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.SpotifyShare));
+        }
     }
 }
