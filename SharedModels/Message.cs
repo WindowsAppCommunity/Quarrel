@@ -41,6 +41,8 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("channel_id")]
         public string ChannelId { get; set; }
+        [JsonProperty("activity")]
+        public Activity? Activity { get; set; }
         [JsonProperty("author")]
         public User User { get; set; }
         [JsonProperty("content")]
@@ -72,7 +74,13 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("hits")]
         public bool Hit { get; set; }
     }
-
+    public struct Activity
+    {
+        [JsonProperty("party_id")]
+        public string PartyId { get; set; }
+        [JsonProperty("type")]
+        public int Type { get; set; }
+    }
     public struct MessageAck
     {
         [JsonProperty("message_id")]

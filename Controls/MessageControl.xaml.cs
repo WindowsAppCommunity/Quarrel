@@ -587,6 +587,15 @@ namespace Discord_UWP.Controls
                     username.Content = member.Nick;
                 }
 
+                if (Message.Value.Activity.HasValue)
+                {
+                    if(Message.Value.Activity.Value.Type == 3)
+                    {
+                        //Spotify
+                        
+                    }
+                }
+
                 //if (member.User.Id != null && LocalState.PresenceDict.ContainsKey(member.User.Id))
                 //{
                 //    if (LocalState.PresenceDict[member.User.Id].Status != null && LocalState.PresenceDict[member.User.Id].Status != "invisible")

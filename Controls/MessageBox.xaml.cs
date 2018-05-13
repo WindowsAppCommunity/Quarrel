@@ -25,6 +25,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Threading;
 using Discord_UWP.Managers;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.ApplicationModel.Core;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -40,6 +42,7 @@ namespace Discord_UWP.Controls
         public event EventHandler<RoutedEventArgs> Send;
         public event EventHandler<RoutedEventArgs> Cancel;
         public event EventHandler<OpenAdvancedArgs> OpenAdvanced;
+        public event EventHandler<RoutedEventArgs> OpenSpotify;
 
         public string Text
         {
@@ -67,7 +70,7 @@ namespace Discord_UWP.Controls
                 {
                     EmojiButton.Visibility = Visibility.Collapsed;
                     attachButton.Visibility = Visibility.Collapsed;
-                    
+                    spotifyActive.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -103,12 +106,16 @@ namespace Discord_UWP.Controls
             SpotifyManager.SpotifyStateUpdated += SpotifyManager_SpotifyStateUpdated;
         }
 
-        private void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
+        private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
         {
-            if (SpotifyManager.SpotifyState.IsPlaying)
-                spotifyActive.Visibility = Visibility.Visible;
-            else
-                spotifyActive.Visibility = Visibility.Collapsed;
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (SpotifyManager.SpotifyState.IsPlaying)
+                        spotifyActive.Fade(1, 200).Start();
+                    else
+                        spotifyActive.Fade(0, 200).Start();
+            });
         }
 
         public void Clear()
@@ -611,13 +618,23 @@ namespace Discord_UWP.Controls
         public void ShiftDown()
         {
             if (!shiftisdown)
+            {
                 showAttachSymbol.Begin();
+                spotifyActive.Opacity = 0;
+            }
             shiftisdown = true;
         }
         public void ShiftUp()
         {
             if (shiftisdown)
+            {
                 showMoreSymbol.Begin();
+                if (SpotifyManager.SpotifyState != null && SpotifyManager.SpotifyState.IsPlaying)
+                    spotifyActive.Fade(1, 200).Start();
+                else
+                    spotifyActive.Opacity = 0;
+            }
+                
             shiftisdown = false;
         }
 
@@ -657,6 +674,16 @@ namespace Discord_UWP.Controls
             {
                 OpenAdvanced(null, new OpenAdvancedArgs() { Paste = true });
             }
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SpotifyInvite(object sender, RoutedEventArgs e)
+        {
+            OpenSpotify?.Invoke(null, null);
         }
     }
 }

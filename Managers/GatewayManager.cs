@@ -332,7 +332,7 @@ namespace Discord_UWP.Managers
             {
                 if(account.Type == "spotify" && account.AccessToken!=null)
                 {
-                    SpotifyManager.StartGateway(account.AccessToken);
+                    SpotifyManager.Start(account.AccessToken, account.Id);
                 }
             }
             #endregion

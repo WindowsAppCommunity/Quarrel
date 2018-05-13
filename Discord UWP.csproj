@@ -118,6 +118,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListenOnSpotify.xaml.cs">
+      <DependentUpon>ListenOnSpotify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MarkdownTextBlock\Parse\Inlines\BoldItalicTextInline.cs" />
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
@@ -336,6 +339,9 @@
     <Compile Include="SubPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\SpotifyShare.xaml.cs">
+      <DependentUpon>SpotifyShare.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\UserProfileCU.xaml.cs">
       <DependentUpon>UserProfileCU.xaml</DependentUpon>
     </Compile>
@@ -369,6 +375,7 @@
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
+    <Content Include="Assets\spotify.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
     <Content Include="SodiumC.dll" />
@@ -492,6 +499,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ControllerHint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListenOnSpotify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -670,6 +681,10 @@
     <Page Include="SubPages\Settings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\SpotifyShare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\UserProfileCU.xaml">
       <Generator>MSBuild:Compile</Generator>

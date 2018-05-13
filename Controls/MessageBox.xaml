@@ -633,7 +633,7 @@
                     <ScaleTransform x:Name="attachButtonScale" CenterX="10" CenterY="10"/>
                 </Grid.RenderTransform>
                 <SymbolIcon x:Name="moreSymbol" Symbol="More" Visibility="Visible"/>
-                <SymbolIcon x:Name="attachSymbol"  Symbol="Attach" Visibility="Collapsed"></SymbolIcon>
+                <SymbolIcon x:Name="attachSymbol" Symbol="Attach" Visibility="Collapsed"></SymbolIcon>
                 
             </Grid>
             <FlyoutBase.AttachedFlyout>
@@ -677,10 +677,16 @@
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+                    <MenuFlyoutItem Text="Send Spotify invite" Click="SpotifyInvite" Foreground="#1DB954">
+                        <MenuFlyoutItem.Icon>
+                            <SymbolIcon Symbol="Play" Foreground="#1DB954"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
         </Button>
-        <Ellipse x:Name="spotifyActive" Visibility="Collapsed" Width="12" Height="12" Fill="#1DB954" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="24,24,0,0" Grid.RowSpan="3"></Ellipse>
+        <SymbolIcon x:Name="spotifyActive" Symbol="More" Opacity="1" Foreground="#1DB954" Visibility="Visible" VerticalAlignment="Top" Margin="0,8,0,0" IsHitTestVisible="False"></SymbolIcon>
+
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>

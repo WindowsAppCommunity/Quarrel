@@ -1404,7 +1404,7 @@
                             <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
                             <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
                                 <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                                <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced"/>
+                                <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
                                 <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
                                     <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
