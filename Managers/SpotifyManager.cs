@@ -274,7 +274,7 @@ namespace Discord_UWP.Managers
             //Connect to websocket
             MessageWebSocket webSocket = new MessageWebSocket();
             webSocket.MessageReceived += WebSocket_MessageReceived; ;
-            await webSocket.ConnectAsync(new Uri("https://dealer.spotify.com/?access_token="+token));
+            await webSocket.ConnectAsync(new Uri("wss://dealer.spotify.com/?access_token="+token));
         }
 
         private static void WebSocket_MessageReceived(MessageWebSocket sender, MessageWebSocketMessageReceivedEventArgs args)
@@ -283,6 +283,7 @@ namespace Discord_UWP.Managers
             JSON.Root root = Newtonsoft.Json.JsonConvert.DeserializeObject<JSON.Root>(dr.ReadString(dr.UnconsumedBufferLength));
             if (root.Type == "message")
             {
+                if(root.Payloads != null)
                 foreach(var payload in root.Payloads)
                 {
                     if(payload.Events != null)
