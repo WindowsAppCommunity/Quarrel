@@ -307,14 +307,24 @@
                     <RepositionThemeTransition/>
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
-            <Image Source="Assets/LogoWordmark_Blurple.png" MaxWidth="200" HorizontalAlignment="Center">
+
+            <Image Source="Assets/DiscordBlurpleIcon.png" MaxWidth="64" VerticalAlignment="Center" Margin="0,0,0,12">
                 <Image.Transitions>
                     <TransitionCollection>
-                        <EntranceThemeTransition FromVerticalOffset="-500"/>
+                        <EntranceThemeTransition FromVerticalOffset="-800"/>
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <TextBlock Text="Unofficial client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock Text="DISCORD UWP" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource Blurple}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
+                <TextBlock.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="-600"/>
+                    </TransitionCollection>
+                </TextBlock.Transitions>
+            </TextBlock>
+
+
+            <TextBlock Text="Unofficial Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="NormalAuth" Visibility="Visible">
                     <TextBox x:Uid="/About/EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>

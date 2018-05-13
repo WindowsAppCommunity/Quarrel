@@ -350,11 +350,12 @@ namespace Discord_UWP
         public class MessageEditorNavigationArgs : EventArgs
         {
             public string Content { get; set; }
+            public bool Paste { get; set; }
         }
         public static event EventHandler<MessageEditorNavigationArgs> NavigateToMessageEditorHandler;
-        public static void NavigateToMessageEditor(string content)
+        public static void NavigateToMessageEditor(string content, bool paste)
         {
-            NavigateToMessageEditorHandler?.Invoke(typeof(App), new MessageEditorNavigationArgs() { Content = content });
+            NavigateToMessageEditorHandler?.Invoke(typeof(App), new MessageEditorNavigationArgs() { Content = content, Paste = paste });
         }
         #endregion
 

@@ -24,6 +24,7 @@ using Discord_UWP.LocalModels;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Threading;
 using Discord_UWP.Managers;
+using Windows.ApplicationModel.DataTransfer;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,10 +32,14 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class MessageBox : UserControl
     {
+        public class OpenAdvancedArgs : EventArgs
+        {
+            public bool Paste { get; set; }
+        }
         public event EventHandler<TextChangedEventArgs> TextChanged;
         public event EventHandler<RoutedEventArgs> Send;
         public event EventHandler<RoutedEventArgs> Cancel;
-        public event EventHandler<RoutedEventArgs> OpenAdvanced;
+        public event EventHandler<OpenAdvancedArgs> OpenAdvanced;
 
         public string Text
         {
@@ -633,6 +638,16 @@ namespace Discord_UWP.Controls
         private void ToggleEncryption_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MessageEditor_Paste(object sender, TextControlPasteEventArgs e)
+        {
+            e.Handled = false;
+            DataPackageView dataPackageView = Clipboard.GetContent();
+            if (dataPackageView.Contains(StandardDataFormats.Bitmap) || dataPackageView.Contains(StandardDataFormats.StorageItems))
+            {
+                OpenAdvanced(null, new OpenAdvancedArgs() { Paste = true });
+            }
         }
     }
 }
