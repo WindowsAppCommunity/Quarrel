@@ -251,11 +251,12 @@ namespace Discord_UWP.Gateway
             {
                 operationHandlers[gatewayEvent.Operation.GetValueOrDefault()](gatewayEvent);
             }
-
+           
             if (gatewayEvent.Type != null && eventHandlers.ContainsKey(gatewayEvent.Type))
             {
                 eventHandlers[gatewayEvent.Type](gatewayEvent);
             }
+           
         }
         
         private void OnHelloReceived(SocketFrame gatewayEvent)
