@@ -111,10 +111,15 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (SpotifyManager.SpotifyState.IsPlaying)
-                        spotifyActive.Fade(1, 200).Start();
+                    if (SpotifyManager.SpotifyState != null)
+                    {
+                        if (SpotifyManager.SpotifyState.IsPlaying)
+                            spotifyActive.Fade(1, 200).Start();
+                        else
+                            spotifyActive.Fade(0, 200).Start();
+                    }
                     else
-                        spotifyActive.Fade(0, 200).Start();
+                        spotifyActive.Opacity = 0;
             });
         }
 
