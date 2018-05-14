@@ -86,11 +86,6 @@ namespace Discord_UWP
                         case 0: return kvp("*Eagle screech*", "@austinception#8911");
                     }
                 }
-                else 
-                if (now.DayOfWeek == DayOfWeek.Thursday)
-                {
-                    return kvp("\"Be happy, it's Friday Eve\"", "Grace Cloonan");
-                }
             }
             
             switch (rand.Next(0, 103))
@@ -123,18 +118,18 @@ namespace Discord_UWP
                 case 27: return kvp("Hiring lawyers");
                 case 28: return kvp("if(NotWorking) { MakeItWork(); }");
                 case 29: return kvp("Genji on the Payload?!", "@ModProg|Roland#6987");
-                case 30: return kvp("(Image)Shark.gif", "@Civiled#1713");
+                case 30: return kvp("Don't turn off your PC", "@Civiled#1713");
                 case 31: return kvp("Capturing the flag...", "@Gavirlas#9973");
                 case 32: return kvp("Does it even load", "@Gavirlas#9973");
                 case 33: return kvp("Gotta go fast!", "@YoshiAsk#4385");
-                case 34: return kvp("It's a Trap!", "@ModProg|Roland#6987");
+                case 34: return kvp("(Not even trying to load)", "@ModProg|Roland#6987");
                 case 35: return kvp("<Insert Wilhelm scream>", "@Aslan#9846");
                 case 36: return kvp("The sun is a deadly laser", "@ToonWK#5841");
                 case 37: return kvp("I need healing", "@Neel#2970");
                 case 38: return kvp("Han shot first", "@DougTheDog6#5067");
                 case 39: return kvp("Shots fired", "@Gavirlas#9973");
                 case 40: return kvp("$100! $200! $300!", "@DougTheDog6#5067");
-                case 41: return kvp("€100! €200! €300! Go Yurop!", "@ModProg|Roland#6987");
+                case 41: return kvp("€100! €200! €300!", "@ModProg|Roland#6987");
                 case 42: return kvp("I should charge money for new downloads now...", "@Neel#2970");
                 case 43: return kvp("Aren't you a little short to be a storm trooper?", "@DougTheDog6#5067");
                 case 44: return kvp("Smooth animations warning", "@Gavirlas#9973");
@@ -148,7 +143,7 @@ namespace Discord_UWP
                 case 52: return kvp("Watch the icon rollin' rollin'", "@ዘልኗጌልዪዕ_ርቿረጎክቿ#9883");
                 case 53: return kvp("YOU'RE A WIZARD LARRY!", "@SamCraftRecon#9075");
                 case 54: return kvp("Updating memes...", "@SamCraftRecon#9075");
-                case 55: return kvp("L.O.L. ing at cats", "@SamCraftRecon#9075");
+                case 55: return kvp("Saying hi to the NSA");
                 case 56: return kvp("shaken not shtirred", "@Aslan#9846");
                 case 57: return kvp("All natural!", "@SamCraftRecon#9075"); 
                 case 58: return kvp("100 % sugar free", "@Aslan#9846");
@@ -180,7 +175,7 @@ namespace Discord_UWP
                 case 84: return kvp("Deats dy Boctor Bre");
                 case 85: return kvp("Tragdor the Dragon");
                 case 86: return kvp("The random # was 86");
-                case 87: return kvp("Finding \"Da wey\"", "@joosthoi1#0460");
+                case 87: return kvp("Burying dead memes");
                 case 88: return kvp("Delaying startup", "@joosthoi1#0460");
                 case 89: return kvp("Double Dipping", "@Aslan#9846");
                 case 90: return kvp("Shout out to Bob");
@@ -193,7 +188,7 @@ namespace Discord_UWP
                 case 97: return kvp("...and that's how I lost my tail", "@austinception#8911");
                 case 98: return kvp("if you're reading this, it's too late", "@austinception#8911");
                 case 99: return kvp("Welcome to Chili's");
-                case 100: return kvp("Dabbing since 2034", "@joosthoi#0460");
+                case 100: return kvp("Sideloading virus...", "@austinception#8911");
                 case 101: return kvp("Is Mayonnaise an instrument?", "@Shakenbacon#1769");
                 case 102: return kvp("Riding a train", "@Aslan#9846");
                 case 103: return kvp("Inconceivable!", "@austinception#8911");

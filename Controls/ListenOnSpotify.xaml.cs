@@ -47,7 +47,6 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
-                                   
                                    if (Managers.SpotifyManager.SpotifyState != null && Managers.SpotifyManager.SpotifyState.IsPlaying)
                                    {
                                        sessionOver.Visibility = Visibility.Collapsed;
