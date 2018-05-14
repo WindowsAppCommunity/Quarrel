@@ -5,9 +5,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Discord_UWP.Managers
 {
@@ -273,12 +277,11 @@ namespace Discord_UWP.Managers
             }
         }
         private static DataWriter _dataWriter;
-        private async static Task SendMessageAsync(string content)
+        private async static Task SendPing()
         {
             try
             {
-                byte[] arrOutput = { 0x7B, 0x22, 0x74, 0x79, 0x70, 0x65, 0x22, 0x3A, 0x22, 0x70, 0x69, 0x6E, 0x67, 0x22, 0x7D };
-                _dataWriter.WriteBytes(arrOutput);
+                _dataWriter.WriteString("{\"type\":\"ping\"}");
                 await _dataWriter.StoreAsync();
             }
             catch /*(Exception exception)*/
@@ -333,6 +336,7 @@ namespace Discord_UWP.Managers
                 else return true;
             }
         }
+
         public async static Task<bool> RequestMe()
         {
             using (HttpClient client = new HttpClient())
@@ -355,12 +359,12 @@ namespace Discord_UWP.Managers
 
 
         private static string spotifyUsername;
-
+        private static DispatcherTimer timer;
         public async static void Start(string token, string username)
         {
+
             spotifyToken = token;
             spotifyUsername = username;
-            
             if (await GetInitialPlayerStatus())
             {
                 //Token appears to be valid
@@ -386,6 +390,15 @@ namespace Discord_UWP.Managers
 
         }
 
+        private static async void Timer_Tick(object sender, object e)
+        {
+            if (IsWebSocketOpen)
+            {
+                await SendPing();
+                timer.Start();
+            }
+        }
+
         private static MessageWebSocket webSocket;
         private async static Task<bool> ConnectToWebsocket()
         {
@@ -395,6 +408,9 @@ namespace Discord_UWP.Managers
                 webSocket = new MessageWebSocket();
                 webSocket.MessageReceived += WebSocket_MessageReceived;
                 webSocket.Closed += WebSocket_Closed;
+                webSocket.Control.MessageType = SocketMessageType.Utf8;
+                webSocket.Control.DesiredUnsolicitedPongInterval = TimeSpan.FromHours(1);
+                
                 _dataWriter = new DataWriter(webSocket.OutputStream);
                 //webSocket.SetRequestHeader("Cookie", "wp_access_token" + "=" + token);
 
@@ -404,6 +420,14 @@ namespace Discord_UWP.Managers
                 await webSocket.ConnectAsync(new Uri("wss://dealer.spotify.com/?access_token=" + spotifyToken));
                 IsWebSocketOpen = true;
                 stopwatch.Start();
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+    () =>
+    {
+        timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromSeconds(25);
+        timer.Tick += Timer_Tick;
+        timer.Start();
+    });
                 return true;
             }
             catch
@@ -414,16 +438,26 @@ namespace Discord_UWP.Managers
         }
 
         static Stopwatch stopwatch = new Stopwatch();
-        private static void WebSocket_Closed(IWebSocket sender, WebSocketClosedEventArgs args)
+        private async static void WebSocket_Closed(IWebSocket sender, WebSocketClosedEventArgs args)
         {
-            stopwatch.Stop();
-            Debug.WriteLine("Spotify websocket closed after " + stopwatch.ElapsedMilliseconds + "ms");
+            //Websocket closed, burn everything down
+            SpotifyState = null;
             IsWebSocketOpen = false;
-            //Gateway closed
+            SpotifyStateUpdated?.Invoke(null, null);
         }
 
         private async static void WebSocket_MessageReceived(MessageWebSocket sender, MessageWebSocketMessageReceivedEventArgs args)
         {
+            if(timer != null)
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+() =>
+{
+    timer.Stop();
+    timer.Start();
+});
+            }
+            
             var dr = args.GetDataReader();
             JSON.Root root = Newtonsoft.Json.JsonConvert.DeserializeObject<JSON.Root>(dr.ReadString(dr.UnconsumedBufferLength));
             if (root.Type == "message")
@@ -439,6 +473,17 @@ namespace Discord_UWP.Managers
                                 {
                                     SpotifyState = ev.Event.State;
                                     SpotifyStateUpdated?.Invoke(null, null);
+                                }
+                                else if(ev.Type == "DEVICE_STATE_CHANGED")
+                                {
+                                    //check for the spotify status again, maybe it's null (with invalid token verification)
+                                    if (!await GetInitialPlayerStatus())
+                                    {
+                                        if (await UpdateToken())
+                                            await GetInitialPlayerStatus();
+                                        else //otherwise, just give up and burn the entire thing down
+                                        { SpotifyState = null; SpotifyStateUpdated?.Invoke(null, null); }
+                                    }
                                 }
                             }
                     }
