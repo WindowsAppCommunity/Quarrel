@@ -861,6 +861,15 @@ namespace Discord_UWP.Controls
                     EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
                 }
             }
+            if (Message.Value.Activity.HasValue)
+            {
+                if(Message.Value.Activity.Value.Type == 3)
+                {
+                    var spotifylisten = new ListenOnSpotify();
+                    EmbedViewer.Children.Add(spotifylisten);
+                    spotifylisten.Setup(Message.Value.User.Id, Message.Value.Activity.Value.PartyId);
+                }
+            }
         }
         private bool EmbedIsNoBorder(Embed embed)
         {
