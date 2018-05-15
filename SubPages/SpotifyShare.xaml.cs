@@ -55,7 +55,7 @@ namespace Discord_UWP.SubPages
 
         private void MessageBox_Send(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }
