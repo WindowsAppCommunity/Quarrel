@@ -40,7 +40,6 @@ namespace Discord_UWP.Controls
                 bgArtwork.Visibility = Visibility.Visible;
                 contentGrid.Visibility = Visibility.Visible;
             }
-            
         }
 
         private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
@@ -48,7 +47,7 @@ namespace Discord_UWP.Controls
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
-                                   if (Managers.SpotifyManager.SpotifyState.IsPlaying)
+                                   if (Managers.SpotifyManager.SpotifyState != null && Managers.SpotifyManager.SpotifyState.IsPlaying)
                                    {
                                        sessionOver.Visibility = Visibility.Collapsed;
                                        bgArtwork.Visibility = Visibility.Visible;
