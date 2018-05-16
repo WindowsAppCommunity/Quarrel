@@ -655,7 +655,16 @@ namespace Discord_UWP
         #region LogOut
         private void App_LogOutHandler(object sender, EventArgs e)
         {
-            var creds = Storage.PasswordVault.Retrieve("Token", LocalState.CurrentUser.Email);
+            PasswordCredential creds;
+            try
+            {
+                creds = Storage.PasswordVault.Retrieve("Token", LocalState.CurrentUser.Email);
+            }
+            catch 
+            {
+                creds = Storage.PasswordVault.Retrieve("Token", "logintoken");
+            }
+            
             Storage.PasswordVault.Remove(creds);
 
             ClearData();

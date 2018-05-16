@@ -315,7 +315,7 @@
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <TextBlock Text="DISCORD UWP" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource Blurple}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
+            <TextBlock Text="Q U A R R E L" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource Blurple}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
                 <TextBlock.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="-600"/>
@@ -326,6 +326,9 @@
 
             <TextBlock Text="Unofficial Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
+                <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
+                    <PasswordBox x:Name="Token" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
+                </StackPanel>
                 <StackPanel x:Name="NormalAuth" Visibility="Visible">
                     <TextBox x:Uid="/About/EmailTBox" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}"/>
                     <PasswordBox x:Uid="/About/PasswordTBox" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>
@@ -347,14 +350,16 @@
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>
-            <HyperlinkButton Content="Forgot your password?" HorizontalAlignment="Center" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" Margin="0,12,0,0"/>
-            <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Center" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register"/>
-        </StackPanel>
-        <HyperlinkButton Content="Privacy policy" Opacity="0.6" HorizontalAlignment="Left" Foreground="Gray" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
+            <Grid>
+                <HyperlinkButton Content="Forgot your password?" HorizontalAlignment="Left" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" VerticalAlignment="Top"/>
+                <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
+            </Grid>
+         </StackPanel>
+        <HyperlinkButton Content="Privacy policy" HorizontalAlignment="Left" Foreground="{ThemeResource Blurple}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
             <HyperlinkButton.ContextFlyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                     <Grid MaxWidth="256">
-                        <TextBlock Margin="12" TextWrapping="Wrap" FontSize="12" Text="Discord UWP is in absolutely no way endorsed by Discord, Inc.
+                        <TextBlock Margin="12" TextWrapping="Wrap" FontSize="12" Text="Quarrel is in absolutely no way endorsed by Discord, Inc.
                                    Even so, The developers of this app guarantee that none of your personal data exists elsewhere than on your device.
                                    
                                    The only data we keep once you've logged in is a Token which allows you to automatically be connected when you open the app, without even needing to store your password. It is stored securely using UWPs encrypted PasswordVault."/>
@@ -362,5 +367,7 @@
                 </Flyout>
             </HyperlinkButton.ContextFlyout>
         </HyperlinkButton>
+        <HyperlinkButton x:Name="LoginWithToken" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource Blurple}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
+
     </Grid>
 </Page>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -127,6 +128,28 @@ namespace Discord_UWP
                     App.SubpageClosed();
                 }
             }
+            else if(TokenAuth.Visibility == Visibility.Visible)
+            {
+                using(HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Token.Password);
+                    var resp = await client.GetAsync("https://discordapp.com/api/v6/users/@me");
+                    
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        PasswordCredential credentials = new PasswordCredential("Token", "logintoken", Token.Password);
+                        Storage.PasswordVault.Add(credentials);
+                        App.LoggingIn();
+                        App.SubpageClosed();
+                    }
+                    else
+                    {
+                        MessageDialog md = new MessageDialog("Sorry, but that token didn't work. Are you sure it was valid?", "Login failed");
+                        await md.ShowAsync();
+                    }
+                }
+                
+            }
             (sender as Button).IsEnabled = true;
             ProgressRing.Visibility = Visibility.Collapsed;
             ProgressRing.IsActive = false;
@@ -147,6 +170,26 @@ namespace Discord_UWP
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             (sender as HyperlinkButton).ContextFlyout.ShowAt(sender as HyperlinkButton);
+        }
+
+        private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(LoginWithToken.Tag.ToString() == "Token")
+            {
+                LoginWithToken.Content = "Go back";
+                LoginWithToken.Tag = "Discord";
+                MFAuth.Visibility = Visibility.Collapsed;
+                NormalAuth.Visibility = Visibility.Collapsed;
+                TokenAuth.Visibility = Visibility.Visible;
+            }
+            else if(LoginWithToken.Tag.ToString() == "Discord")
+            {
+                LoginWithToken.Content = "Login with Discord Token";
+                LoginWithToken.Tag = "Token";
+                MFAuth.Visibility = Visibility.Collapsed;
+                TokenAuth.Visibility = Visibility.Collapsed;
+                NormalAuth.Visibility = Visibility.Visible;
+            }
         }
     }
 }

@@ -810,8 +810,8 @@ namespace Discord_UWP.Controls
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
 
-            if (!Message.HasValue || (Message.HasValue && Message.Value.Embeds == null)) return;
-            if (Message.Value.Embeds.Any() || Message.Value.Attachments.Any())
+            if (!Message.HasValue) return;
+            if (Message.Value.Embeds.Any() || Message.Value.Attachments.Any() || Message.Value.Activity.HasValue)
                 EmbedViewer.Visibility = Visibility.Visible;
             
             if (Message.Value.Embeds != null)
