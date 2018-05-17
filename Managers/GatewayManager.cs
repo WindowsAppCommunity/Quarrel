@@ -71,6 +71,10 @@ namespace Discord_UWP.Managers
         //Aparently can contain nullref, (~2% of crashes)
         private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
+            
+            Storage.UNSdeferralStart(); //This improves performance, it means that every UpdateNotificationTask() won't save to disk (but UNSdeferralEnd() MUST be called to save the values!
+            Storage.UNSclear(); //Purge it, no need to keep pointless shit in that dictionnary
+
             LocalState.CurrentUser = e.EventData.User;
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.CurrentUser (ln 72)");});
@@ -88,6 +92,7 @@ namespace Discord_UWP.Managers
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,() => { App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");});
 
             #region Friends
+             //This improves performance, because we aren't saving the settings on every loop
             foreach (var friend in e.EventData.Friends)
             {
                 if (LocalState.Friends.ContainsKey(friend.Id))
@@ -108,25 +113,15 @@ namespace Discord_UWP.Managers
                         LocalState.Blocked.Add(friend.Id, friend);
                     }
                 }
+                else if(friend.Type == 3)
+                {
+                    Storage.UpdateNotificationState("r" + friend.user.Id, friend.Id);
+                }
             }
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
             #endregion
 
-            #region DMs
-            foreach (var dm in e.EventData.PrivateChannels)
-            {
-                if (LocalState.DMs.ContainsKey(dm.Id))
-                {
-                    LocalState.DMs[dm.Id] = dm;
-                } else
-                {
-                    LocalState.DMs.Add(dm.Id, dm);
-                }
-            }
-            if (App.AslansBullshit)
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set all DMs (ln 104-113)");});
-            #endregion
 
             #region Guild
             foreach (var guild in e.EventData.Guilds)
@@ -262,6 +257,7 @@ namespace Discord_UWP.Managers
             #endregion
 
             #region ReadState (RPC)
+            
             foreach (ReadState readstate in e.EventData.ReadStates)
             {
                 if (LocalState.RPC.ContainsKey(readstate.Id))
@@ -272,10 +268,14 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.RPC.Add(readstate.Id, readstate);
                 }
+                if (readstate.MentionCount > 0)
+                    Storage.UpdateNotificationState("c" + readstate.Id, readstate.LastMessageId);
             }
+            Storage.UNSdeferralEnd();
             if (App.AslansBullshit)
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set LocalState.RPC (ln 251-261)"); });
             #endregion
+
 
             #region GuildSettings (Notifications)
             if (e.EventData.GuildSettings != null)
@@ -446,6 +446,10 @@ namespace Discord_UWP.Managers
                 foreach (var guild in LocalState.Guilds)
                     if (guild.Value.channels.ContainsKey(e.EventData.ChannelId))
                         LocalState.Guilds[guild.Key].channels[e.EventData.ChannelId].raw.LastMessageId = e.EventData.Id;
+            }
+            else
+            {
+                Storage.UpdateNotificationState("c" + e.EventData.ChannelId, e.EventData.Id);
             }
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -751,6 +755,10 @@ namespace Discord_UWP.Managers
             if (!LocalState.Friends.ContainsKey(e.EventData.Id))
             {
                 LocalState.Friends.Add(e.EventData.Id, e.EventData);
+            }
+            if(e.EventData.Type == 3)
+            {
+                Storage.UpdateNotificationState("r" + e.EventData.user.Id, e.EventData.Id);
             }
         }
 

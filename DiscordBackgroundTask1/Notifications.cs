@@ -87,7 +87,11 @@ namespace DiscordBackgroundTask1
                     {
                         Children = {
                         new AdaptiveText() {
-                            Text = username + " sent you a friend request"
+                            Text = username
+                        },
+                        new AdaptiveText()
+                        {
+                            Text = "Sent you a friend request"
                         }
                         },
                         AppLogoOverride = new ToastGenericAppLogo()

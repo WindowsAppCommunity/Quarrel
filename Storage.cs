@@ -22,6 +22,41 @@ namespace Discord_UWP
     public static class Storage
     {
         public static Dictionary<string,byte[]> EncryptionKeys = new Dictionary<string, byte[]>();
+
+        private static Dictionary<string, string> nrs2;
+
+        private static bool deferralling = false; //"Deferalling", I'm basically shakespeare, right?
+        public static void UpdateNotificationState(string id, string timestamp)
+        {
+            if (!deferralling)
+                UNSdeferralStart();
+            
+            if (nrs2.ContainsKey(id))
+                nrs2[id] = timestamp;
+            else
+                nrs2.Add(id, timestamp);
+
+            if (!deferralling)
+                UNSdeferralEnd();
+        }
+        public static void UNSclear()
+        {
+            nrs2 = new Dictionary<string, string>();
+        }
+        public static void UNSdeferralStart()
+        {
+            deferralling = false;
+            var ls = ApplicationData.Current.LocalSettings.Values;
+            if (!ls.ContainsKey("NotificationStates"))
+                ls.Add("NotificationStates", "{}");
+            var nrs = ls["NotificationStates"];
+            nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+        }
+        public static void UNSdeferralEnd()
+        {
+            deferralling = false;
+            ApplicationData.Current.LocalSettings.Values["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
+        }
         public static void SaveEncryptionKeys()
         {
             Dictionary<string, string> SerializableEncryptionKeys = new Dictionary<string, string>();
@@ -80,8 +115,10 @@ namespace Discord_UWP
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
         public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
-
     }
+
+
+
 
     public enum Theme { Dark, Light, Windows, Discord }
     public enum CollapseOverride { None, Mention, Unread }

@@ -1770,6 +1770,7 @@ namespace Discord_UWP
                         HideFriendsBadge.Begin();
                     }
                     int Fullcount = 0;
+
                     foreach (GuildManager.SimpleGuild guild in ServerList.Items)
                     {
                         GuildManager.SimpleGuild gclone = guild.Clone();

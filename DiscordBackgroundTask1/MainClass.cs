@@ -168,7 +168,11 @@ namespace DiscordBackgroundTask1
                         if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
                         {
                             //Unfortunately the channel must be sent as a string parameter, because windowsruntime
-                            SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
+                            if(ShouldShowNotification("c" + channel.id, channel.last_message_id))
+                            {
+                                SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
+                                UpdateNotificationState("c" + channel.id, channel.last_message_id);
+                            }
                         }
                     }
                     foreach (var json_relationship in ready["relationships"])
@@ -177,9 +181,14 @@ namespace DiscordBackgroundTask1
                         if (relationship.type == 3)
                         {
                             //incoming friend request, show notification
-                            SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
+                            if (ShouldShowNotification("r" + relationship.user.id, relationship.id))
+                            {
+                                SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
+                                UpdateNotificationState("r" + relationship.user.id, relationship.id);
+                            }
                         }
                     }
+                    webSocket.Close(1000, "");
                 }
             }
         }
@@ -197,5 +206,39 @@ namespace DiscordBackgroundTask1
             }
         }
 
+        public void UpdateNotificationState(string id, string timestamp)
+        {
+            var ls = ApplicationData.Current.LocalSettings.Values;
+            if (!ls.ContainsKey("NotificationStates"))
+                ls.Add("NotificationStates", "{}");
+            var nrs = ls["NotificationStates"];
+            var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+            if (nrs2.ContainsKey(id))
+            {
+                nrs2[id] = timestamp;
+            }
+            else
+            {
+                nrs2.Add(id, timestamp);
+            }
+            ls["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
+        }
+        public bool ShouldShowNotification(string id, string timestamp)
+        {
+            var ls = ApplicationData.Current.LocalSettings.Values;
+            if (!ls.ContainsKey("NotificationStates"))
+                ls.Add("NotificationStates", "{}");
+            var nrs = ls["NotificationStates"];
+            var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+            if (nrs2.ContainsKey(id))
+            {
+                if (nrs2[id] != timestamp)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
     }
 }
