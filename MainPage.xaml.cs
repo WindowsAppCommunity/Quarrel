@@ -1147,7 +1147,7 @@ namespace Discord_UWP
             if (e.Message.Content.Length > 10000)
             {
                 //To avoid spam
-                MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Discord UWP", "Over 10 000 characters?!");
+                MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Quarrel", "Over 10 000 characters?!");
                 await md.ShowAsync();
                 return;
             }
@@ -1178,7 +1178,7 @@ namespace Discord_UWP
                 }
                 else
                 {
-                    MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Discord UWP", "Wait, what?!");
+                    MessageDialog md = new MessageDialog("Sorry, but this message is way too long to be sent, even with Quarrel", "Wait, what?!");
                     await md.ShowAsync();
                     return;
                 }

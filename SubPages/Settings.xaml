@@ -757,7 +757,7 @@
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderXL" x:Name="RespUI_XL" Header="XL (Servers + Channels + Members)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <HyperlinkButton x:Uid="/Settings/ResetRespUiHyperlink" Content="Reset default breakpoints" FontSize="13.333" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemControlDisabledBaseHighBrush}"/>
-                                    <HyperlinkButton Content="Reset Discord UWP" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
+                                    <HyperlinkButton Content="Reset Quarrel" FontSize="13.333" Click="HyperlinkButton_Click_1" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource dnd}"/>
 
                                 </StackPanel>
                             </ScrollViewer>
