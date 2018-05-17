@@ -1088,7 +1088,7 @@ namespace Discord_UWP
             {
                 //Debug mode
             }
-
+            
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (PrelaunchActivated == false)
