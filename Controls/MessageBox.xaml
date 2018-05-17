@@ -655,8 +655,8 @@
                             </MenuFlyoutItem.Icon>
                             <FlyoutBase.AttachedFlyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                    <TextBlock TextWrapping="Wrap" FontSize="12" MaxWidth="224" Padding="12" Text="With Discord UWP, it is possible to have end-to-end encrypted discussions that nobody but you and your friend are able to read, and only using Discord UWP on this specific device.
-                                               \nFirst you must send a request, and, if your friend is also using Discord UWP, they will have the option to accept it. 
+                                    <TextBlock TextWrapping="Wrap" FontSize="12" MaxWidth="224" Padding="12" Text="With Quarrel, it is possible to have end-to-end encrypted discussions that nobody but you and your friend are able to read, and only using Quarrel on this specific device.
+                                               \nFirst you must send a request, and, if your friend is also using Quarrel, they will have the option to accept it. 
                                                Once they do, any discussion you have here will be end-to-end encrypted. This can be useful, for example, if you need to exchange sensitive information (such as passwords).
                                                \nFor the technical side, we use a Diffie-Hellman key exchange to initially start the conversation, and after that each message is encrypted using ultra-secure 256-bit AES."/>
                                 </Flyout>
@@ -685,7 +685,7 @@
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
         </Button>
-        <SymbolIcon x:Name="spotifyActive" Symbol="More" Opacity="1" Foreground="#1DB954" Visibility="Visible" VerticalAlignment="Top" Margin="0,8,0,0" IsHitTestVisible="False"></SymbolIcon>
+        <SymbolIcon x:Name="spotifyActive" Symbol="More" Opacity="0" Foreground="#1DB954" Visibility="Visible" VerticalAlignment="Top" Margin="0,8,0,0" IsHitTestVisible="False"></SymbolIcon>
 
         <Grid x:Name="GiphySelect" Grid.Row="2" Grid.ColumnSpan="3" Visibility="Collapsed">
             <Grid.RowDefinitions>

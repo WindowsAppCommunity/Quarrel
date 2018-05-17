@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Discord UWP is an</value>
+    <value>Quarrel is an</value>
     <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
@@ -165,7 +165,7 @@
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value>Join the app's Discord server</value>
-    <comment>Button to join the Discord UWP server</comment>
+    <comment>Button to join the Quarrel server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
     <value>Failed to join server!</value>

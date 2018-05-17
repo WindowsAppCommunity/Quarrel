@@ -31,7 +31,7 @@
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="6,12,24,12">
                 <TextBlock x:Name="ChannelName" Opacity="0" Foreground="{ThemeResource InvertedBG}" Text="Expired invite link" FontSize="13.333" FontWeight="Bold" TextWrapping="Wrap"/>
-                <TextBlock x:Name="GuildName" Opacity="0" Foreground="{ThemeResource InvertedBG}" Text="Discord UWP" FontWeight="Light"/>
+                <TextBlock x:Name="GuildName" Opacity="0" Foreground="{ThemeResource InvertedBG}" Text="Quarrel" FontWeight="Light"/>
             </StackPanel>
             <ProgressRing x:Name="Loading" Foreground="{StaticResource Blurple}" IsActive="True" Grid.ColumnSpan="2"/>
         </Grid>

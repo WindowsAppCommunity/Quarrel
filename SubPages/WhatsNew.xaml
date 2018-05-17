@@ -86,25 +86,32 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 7.5" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 8.0" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel>
-                        <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,24">
+                        <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
-                                <Run Text="• (Optional) screen glow on mention"/>
+                                <Run Text="• New name and icon (Discord, inc. didn't like the previous one)"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Better Guild Settings management"/>
+                                <Run Text="• Minor UI improvements"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• NSFW channels now show red"/>
+                                <Run Text="• The usual bug fixes"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Member List is significantly more efficient"/>
+                                <Run Text="• Spotify integration support"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• DM and Channel creation/update related bug fixes"/>
+                                <Run Text="• Ability to login with a Discord Token"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Paste images or files to add them as attachements"/>
+                            </Paragraph>
+                            <Paragraph>
+                                <Run Text="• Awesome background notifications for unread DMs and friend requests"/>
                             </Paragraph>
                         </RichTextBlock>
+                        <TextBlock Text="If you have any questions, please ask in Quarrel's Discord server" FontSize="12" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,12"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
@@ -115,7 +122,7 @@
                             <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
+                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
                             <Button x:Uid="/Dialogs/GotIt" x:Name="CloseButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Got it!" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="CloseButton_Click"/>

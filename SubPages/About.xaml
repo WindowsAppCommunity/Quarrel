@@ -140,7 +140,7 @@
                             <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                             <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
                                 <Paragraph>
-                                    <Run x:Uid="/About/AboutDesc1">Discord UWP is an</Run>
+                                    <Run x:Uid="/About/AboutDesc1">Quarrel is an</Run>
                                     <Bold>
                                         <Run x:Uid="/About/AboutDesc2">unofficial</Run>
                                     </Bold>
@@ -162,7 +162,7 @@
                             <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Discord UWP server" Margin="12,0,0,0"/>
+                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
                             <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">

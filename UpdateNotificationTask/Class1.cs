@@ -23,12 +23,12 @@ BindingGeneric=    new ToastBindingGeneric()
     {
         new AdaptiveText()
         {
-            Text = "Discord UWP has been updated with partial Voice Channels!"
+            Text = "Discord UWP has been rebranded, it's now called Quarrel!"
         },
 
         new AdaptiveText()
         {
-            Text = "There are a few new features and tons of bug fixes, do you want to check it out?"
+            Text = "This update also has a few new features. Wanna check it out?"
         }
                 }
                 }
