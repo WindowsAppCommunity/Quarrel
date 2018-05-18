@@ -77,6 +77,7 @@ namespace Discord_UWP.SubPages
                 timeSlider.IsEnabled = true;
                 timeSlider.Value = Storage.Settings.BackgroundTaskTime;
             }
+            bgEnabler_Toggled(null, null);
 
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
@@ -441,7 +442,7 @@ namespace Discord_UWP.SubPages
                 timeSlider.IsEnabled = false;
                 timeSlider.Value = 9;
                 RunEveryLabel.Opacity = 0.4;
-                sliderTime.Opacity = 0.4;
+                sliderTime.Opacity = 0.2;
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["InvertedBG"];
             }
         }
