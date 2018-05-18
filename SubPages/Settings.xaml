@@ -707,39 +707,43 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>-->
-                        <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications">
+                        <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications" Margin="0,0,12,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
-                                    <TextBlock x:Uid="/Settings/FriendsNotifyTB"  Text="Background notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
-                                    <ToggleSwitch x:Name="bgEnabler" FontSize="13.333"  Style="{StaticResource DiscordToggleSwitch}" Margin="0,6,0,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
-                                    <TextBlock Text="You shall receive notifications for new friend requests and unread DMs every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="0,-12,64,0"/>
-                                    <TextBlock Text="Run background process every:" FontSize="13.333" Margin="0,6,0,0"/>
-                                    <TextBlock x:Name="sliderTime" Text="15min" Foreground="{StaticResource Blurple}" FontSize="24" Margin="0,0,0,0" FontWeight="Light"/>
-                                    <Slider x:Name="timeSlider" Padding="12,0" Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>
-                                    <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/LiveTileCB" x:Name="LiveTile" Content="Show newest message on Start tile and lock screen" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/BadgeCB" x:Name="Badge" Content="Show mention count as badge" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
-                                    <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <CheckBox x:Uid="/Settings/mutedChannelsAffectServerCB" x:Name="mutedChannelsAffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
-                                <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
+                                    <TextBlock Text="Background notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <ToggleSwitch x:Name="bgEnabler" FontSize="13.333" VerticalContentAlignment="Top" Style="{StaticResource DiscordToggleSwitch}" Margin="12,0,12,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
+                                    <TextBlock Text="You shall receive notifications for new friend requests and unread DMs every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
+                                    <TextBlock Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
+                                    <TextBlock x:Name="sliderTime" Text="15min" Foreground="{StaticResource Blurple}" FontSize="28" Margin="12,0,0,0" FontWeight="SemiLight"/>
+                                    <Slider x:Name="timeSlider" Margin="12,-4,12,0" Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>
+                                    <StackPanel Margin="12,0,0,0">
+                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB"  Text="In-app notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
+                                        <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/LiveTileCB" x:Name="LiveTile" Content="Show newest message on Start tile and lock screen" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/BadgeCB" x:Name="Badge" Content="Show mention count as badge" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/mutedChannelsAffectServerCB" x:Name="mutedChannelsAffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
-                                    <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
-                                    <RadioButton x:Uid="/Settings/None" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                    <RadioButton x:Uid="/Settings/Unread" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                    <RadioButton x:Uid="/Settings/Mention" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <RadioButton x:Uid="/Settings/None" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/Unread" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/Mention" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
 
-                                    <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Only mentions and direct messages (default)</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected server</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
-                                </StackPanel>
+
+                                    </StackPanel>
+                                  </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
                         <PivotItem x:Uid="/Settings/AudioPI" Header="Audio" Margin="12,0,0,0">
