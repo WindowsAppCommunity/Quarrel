@@ -122,6 +122,21 @@ namespace Discord_UWP.Managers
                 await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
             #endregion
 
+            #region DMs
+            foreach (var dm in e.EventData.PrivateChannels)
+            {
+                if (LocalState.DMs.ContainsKey(dm.Id))
+                {
+                    LocalState.DMs[dm.Id] = dm;
+                }
+                else
+                {
+                    LocalState.DMs.Add(dm.Id, dm);
+                }
+            }
+            if (App.AslansBullshit)
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set all DMs (ln 104-113)"); });
+            #endregion
 
             #region Guild
             foreach (var guild in e.EventData.Guilds)
