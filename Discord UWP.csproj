@@ -362,7 +362,6 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
-    <Content Include="Assets\ConnectionLogos\spotify.png" />
     <Content Include="Assets\emojifont.ttf" />
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -375,7 +374,12 @@
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
-    <Content Include="Assets\spotify.png" />
+    <Content Include="Assets\ConnectionLogos\spotify.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
     <Content Include="SodiumC.dll" />
@@ -478,7 +482,6 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
