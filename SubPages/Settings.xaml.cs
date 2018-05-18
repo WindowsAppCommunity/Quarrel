@@ -406,8 +406,12 @@ namespace Discord_UWP.SubPages
         {
             int minutes = Convert.ToInt32(timeSlider.Value * 5);
             string timeTxt = "";
-            if (minutes > 60)
+
+            if (minutes == 288)
+                timeTxt = "24h";
+            else if (minutes > 60)
             {
+                
                 TimeSpan span = TimeSpan.FromMinutes(minutes);
                 timeTxt = span.Hours + "h";
                 if (span.Minutes != 0)
