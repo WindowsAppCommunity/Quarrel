@@ -471,6 +471,7 @@ namespace Discord_UWP.Managers
                             {
                                 if (ev.Type == "PLAYER_STATE_CHANGED")
                                 {
+                                    
                                     SpotifyState = ev.Event.State;
                                     SpotifyStateUpdated?.Invoke(null, null);
                                 }

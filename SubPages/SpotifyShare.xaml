@@ -85,7 +85,7 @@
                 <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="0,0,0,18">
                     <TextBlock x:Name="header" Text="LISTEN TOGETHER ON SPOTIFY" FontWeight="SemiBold" FontSize="20"/>
                      <controls:ListenOnSpotify x:Name="widgetSpotify" HorizontalAlignment="Left" Margin="0,12,0,0"/>
-                    <controls:MessageBox IsCompact="True" Margin="0,12,0,0" Send="MessageBox_Send"/>
+                    <controls:MessageBox x:Name="mbox"  IsCompact="True" Margin="0,12,0,0" Send="MessageBox_Send"/>
                 </StackPanel>
             </Border>
         </Grid>

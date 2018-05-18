@@ -121,7 +121,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="512" MaxHeight="350" >
+        <Grid x:Name="grid" MaxWidth="512" MaxHeight="512" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -129,7 +129,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="0,0,0,0">
+                    <Grid Margin="0,0,0,4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
@@ -146,10 +146,10 @@
                                     </Bold>
                                     <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
                                     <Bold>
-                                        <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Hammer &amp; Chisel, Inc</Run>
+                                        <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Discord, Inc.</Run>
                                     </Bold>
                                     <Run x:Uid="/About/AboutDesc5">
-                                        ; the company that built Discord. If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
+                                        If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
                                     </Run>
                                 </Paragraph>
                             </RichTextBlock>
@@ -171,10 +171,11 @@
                                     <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
                                 </StackPanel>
                             </HyperlinkButton>
-                            <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                            <TextBlock x:Uid="/About/DesignerCreditTB" Text="Designed by Lightmagic Apps" FontWeight="SemiBold"  FontSize="13.333"/>
+                            <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29 and KarmaEcrivain94" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
+
+                            <TextBlock TextWrapping="Wrap" Text="Special thanks to Austin Andelin for the app icon's concept" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                         </StackPanel>
-                        <TextBlock Text="7.4.1" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                        <TextBlock FontSize="13.33" x:Name="appVersion" Opacity="0.5" FontWeight="SemiBold" Grid.Row="1" Text="Quarrel 8.0.0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,24,0,12"/>
                     </Grid>
                 </Grid>
             </Border>

@@ -130,11 +130,11 @@
     <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>Les developpeurs ne sont d'aucune manière liés à Hammer &amp; Chisel, inc</value>
+    <value>Les developpeurs ne sont d'aucune manière liés à Discord, inc.</value>
     <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>; l'entreprise ayant conçu Discord. Si il y a un problème pendant que vous utilisez cette application; c'est purement notre faute:</value>
+    <value>Si il y a un problème pendant que vous utilisez cette application; c'est purement notre faute:</value>
     <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">

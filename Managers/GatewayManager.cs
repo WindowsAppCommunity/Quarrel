@@ -69,9 +69,10 @@ namespace Discord_UWP.Managers
 
         #region Ready
         //Aparently can contain nullref, (~2% of crashes)
+        public static string session = "";
         private static async void Gateway_Ready(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Ready> e)
         {
-            
+            session = e.EventData.SessionId;
             Storage.UNSdeferralStart(); //This improves performance, it means that every UpdateNotificationTask() won't save to disk (but UNSdeferralEnd() MUST be called to save the values!
             Storage.UNSclear(); //Purge it, no need to keep pointless shit in that dictionnary
 
@@ -347,7 +348,7 @@ namespace Discord_UWP.Managers
             {
                 if(account.Type == "spotify" && account.AccessToken!=null)
                 {
-                    SpotifyManager.Start(account.AccessToken, account.Id);
+                    //SpotifyManager.Start(account.AccessToken, account.Id);
                 }
             }
             #endregion

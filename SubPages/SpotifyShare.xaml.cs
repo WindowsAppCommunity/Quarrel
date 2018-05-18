@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discord_UWP.API.Channel.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -53,9 +54,12 @@ namespace Discord_UWP.SubPages
             App.SubpageClosed();
         }
 
-        private void MessageBox_Send(object sender, RoutedEventArgs e)
+        private async void MessageBox_Send(object sender, RoutedEventArgs e)
         {
-
+            //MessageUpsert mu = new MessageUpsert();
+            //mu.Content = mbox.Text;
+            //mu.Activity = new MessageActivity() { type = 3, party_id = "spotify:"+LocalModels.LocalState.CurrentUser.Id, session_id = Managers.GatewayManager.session };
+           // await RESTCalls.CreateMessage(App.CurrentChannelId, );
         }
     }
 }

@@ -324,7 +324,7 @@
             </TextBlock>
 
 
-            <TextBlock Text="Unofficial Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}"/>

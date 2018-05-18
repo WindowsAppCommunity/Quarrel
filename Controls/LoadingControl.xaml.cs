@@ -62,21 +62,13 @@ namespace Discord_UWP.Controls
             //}
 
             var location = App.Splash.ImageLocation;
-            viewbox.Width = location.Width;
+           // viewbox.Width = location.Width;
             
             if (!Storage.Settings.ShowWelcomeMessage)
             {
                 MessageBlock.Visibility = Visibility.Collapsed;
                 Animation.Begin();
                 return;
-            }
-            if (message.Key.Length>7 && message.Key.Substring(0, 7) == "(Image)")
-            {
-                Image.Source = new BitmapImage(new Uri("ms-appx:///Assets/EntryMessages/" + message.Key.Substring(7)));
-                MessageBlock.Visibility = Visibility.Collapsed;
-                viewbox.Visibility = Visibility.Collapsed;
-                Image.Visibility = Visibility.Visible;
-                GifIn.Begin();
             }
             else
             {
@@ -115,7 +107,7 @@ namespace Discord_UWP.Controls
         public void AdjustSize()
         {
             var location = App.Splash.ImageLocation;
-            viewbox.Width = location.Width;
+         //   viewbox.Width = location.Width;
             //this.Focus(FocusState.Pointer);
             //stack.Margin = new Thickness(0, location.Top - 32, 0, 0);
         }
