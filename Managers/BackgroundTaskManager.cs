@@ -11,7 +11,7 @@ namespace Discord_UWP.Managers
     {
         public static async void TryRegisterBackgroundTask()
         {
-            await RegisterBG("MainClass", "DiscordBackgroundTask1", new TimeTrigger(25,false), true);
+            await UpdateNotificationBGTask();
             await RegisterBG("Main", "InvisibleBackgroundTask", new ToastNotificationActionTrigger(), false);
         }
         private static async Task RegisterBG(string taskName, string name, IBackgroundTrigger trigger, bool internetRequired)
@@ -29,11 +29,33 @@ namespace Discord_UWP.Managers
             if (!taskRegistered)
             {
                 var builder = new BackgroundTaskBuilder();
-
                 builder.Name = taskName;
                 builder.TaskEntryPoint = name + "." + taskName;
                 if(internetRequired)
                     builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
+                builder.SetTrigger(trigger);
+                builder.Register();
+            }
+        }
+        public static async Task UpdateNotificationBGTask()
+        {
+            //Unregister task
+            string taskName = "MainClass";
+            string name = "DiscordBackgroundTask1";
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+                if (task.Value.Name == taskName)
+                    task.Value.Unregister(true);
+            //Re-register task
+            if (Storage.Settings.BackgroundTaskTime != 0)
+            {
+                var trigger = new TimeTrigger(Convert.ToUInt32(Storage.Settings.BackgroundTaskTime*5), false);
+                var access = await BackgroundExecutionManager.RequestAccessAsync();
+                if (access == BackgroundAccessStatus.DeniedBySystemPolicy || access == BackgroundAccessStatus.DeniedByUser)
+                    return;
+                var builder = new BackgroundTaskBuilder();
+                builder.Name = taskName;
+                builder.TaskEntryPoint = name + "." + taskName;
+                builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
                 builder.SetTrigger(trigger);
                 builder.Register();
             }

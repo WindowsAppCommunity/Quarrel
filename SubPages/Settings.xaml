@@ -710,6 +710,12 @@
                         <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
+                                    <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="Background notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                    <ToggleSwitch x:Name="bgEnabler"  Style="{StaticResource DiscordToggleSwitch}" Margin="0,6,0,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications"/>
+                                    <TextBlock Text="You shall receive notifications for new friend requests and unread DMs every time the background process runs" TextWrapping="Wrap" FontSize="12" Opacity="0.5" Margin="0,-12,64,0"/>
+                                    <TextBlock Text="Run background process every:" FontSize="13.333" Margin="0,6,0,0"/>
+                                    <TextBlock x:Name="sliderTime" Text="15min" Foreground="{StaticResource Blurple}" FontSize="24" Margin="0,-4,0,0" FontWeight="Light"/>
+                                    <Slider x:Name="timeSlider" Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3"/>
                                     <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>

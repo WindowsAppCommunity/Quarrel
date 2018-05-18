@@ -981,6 +981,7 @@ namespace Discord_UWP
             Storage.Settings.RespUiM = 500;
             Storage.Settings.RespUiL = 1000;
             Storage.Settings.RespUiXl = 1500;
+            Storage.Settings.BackgroundTaskTime = 9;
           
             //Storage.Settings.AppBarAtBottom = false;
             Storage.Settings.DiscordLightTheme = false;
