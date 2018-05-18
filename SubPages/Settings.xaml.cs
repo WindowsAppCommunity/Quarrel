@@ -428,7 +428,7 @@ namespace Discord_UWP.SubPages
             }
             else
             {
-                bgEnabler.IsEnabled = false;
+                timeSlider.IsEnabled = false;
             }
         }
     }
