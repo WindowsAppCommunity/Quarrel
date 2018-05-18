@@ -410,7 +410,7 @@ namespace Discord_UWP.SubPages
             {
                 TimeSpan span = TimeSpan.FromMinutes(minutes);
                 timeTxt = span.Hours + "h";
-                if (span.Minutes == 0)
+                if (span.Minutes != 0)
                     timeTxt += span.Minutes + "min";
             }
             else
