@@ -65,6 +65,19 @@ namespace Discord_UWP.SubPages
 
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
 
+            if (Storage.Settings.BackgroundTaskTime == 0)
+            {
+                bgEnabler.IsOn = false;
+                timeSlider.IsEnabled = false;
+                timeSlider.Value = 3;
+            }
+            else
+            {
+                bgEnabler.IsOn = true;
+                timeSlider.IsEnabled = true;
+                timeSlider.Value = Storage.Settings.BackgroundTaskTime;
+            }
+
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
             else
@@ -174,7 +187,7 @@ namespace Discord_UWP.SubPages
 
         }
 
-        private void SaveUserSettings(object sender, RoutedEventArgs e)
+        private async void SaveUserSettings(object sender, RoutedEventArgs e)
         {
             //TODO: Settings
             Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
@@ -201,6 +214,16 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
 
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
+
+            if (bgEnabler.IsOn)
+            {
+                Storage.Settings.BackgroundTaskTime = (int)timeSlider.Value;
+            }   
+            else
+            {
+                Storage.Settings.BackgroundTaskTime = 0;
+            }
+            await Managers.BackgroundTaskManager.UpdateNotificationBGTask();
 
             switch (TimeFormat.SelectedIndex)
             {
@@ -376,6 +399,36 @@ namespace Discord_UWP.SubPages
             if (file != null)
             {
                 //FilePath.Text = file.Path;
+            }
+        }
+
+        private void Slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            int minutes = Convert.ToInt32(timeSlider.Value * 5);
+            string timeTxt = "";
+            if (minutes > 60)
+            {
+                TimeSpan span = TimeSpan.FromMinutes(minutes);
+                timeTxt = span.Hours + "h";
+                if (span.Minutes == 0)
+                    timeTxt += span.Minutes + "min";
+            }
+            else
+            {
+                timeTxt = minutes + "min";
+            }
+            sliderTime.Text = timeTxt;
+        }
+
+        private void bgEnabler_Toggled(object sender, RoutedEventArgs e)
+        {
+            if (bgEnabler.IsOn)
+            {
+                timeSlider.IsEnabled = true;
+            }
+            else
+            {
+                bgEnabler.IsEnabled = false;
             }
         }
     }

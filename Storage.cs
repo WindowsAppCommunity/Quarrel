@@ -125,6 +125,7 @@ namespace Discord_UWP
     public class Settings
     {
         //Tuple<string, User> ActiveUser;
+        public int BackgroundTaskTime = 30;
         public string lastVerison = "0";
         public bool LockChannels = false;
         public bool AutoHideChannels = true;
