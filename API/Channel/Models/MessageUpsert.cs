@@ -7,6 +7,12 @@ using Newtonsoft.Json;
 
 namespace Discord_UWP.API.Channel.Models
 {
+    /*public struct MessageActivity
+    {
+        public string session_id { get; set; }
+        public int type { get; set; }
+        public string party_id { get; set; }
+    }*/
     public struct MessageUpsert
     {
         [JsonProperty("content")]
@@ -17,5 +23,7 @@ namespace Discord_UWP.API.Channel.Models
         public bool TTS { get; set; }
         [JsonProperty("file")]
         public string file { get; set; }
+       // [JsonProperty("activity")]
+       // public MessageActivity Activity { get; set; }
     }
 }

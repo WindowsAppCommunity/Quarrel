@@ -83,12 +83,19 @@ namespace Discord_UWP.Controls
         {
             if (preview)
             {
-                if (Managers.SpotifyManager.SpotifyState != null && Managers.SpotifyManager.SpotifyState.IsPlaying)
-                    UpdateUI(true, string.Join(", ", Managers.SpotifyManager.SpotifyState.Item.Artists.Select(x => x.Name)),
-                        Managers.SpotifyManager.SpotifyState.Item.Name,
-                        Managers.SpotifyManager.SpotifyState.Item.Album.Images.FirstOrDefault().Url);
-                else
+                try
+                {
+                    if (Managers.SpotifyManager.SpotifyState != null && Managers.SpotifyManager.SpotifyState.IsPlaying)
+                        UpdateUI(true, string.Join(", ", Managers.SpotifyManager.SpotifyState.Item.Artists.Select(x => x.Name)),
+                            Managers.SpotifyManager.SpotifyState.Item.Name,
+                            Managers.SpotifyManager.SpotifyState.Item.Album.Images.FirstOrDefault().Url);
+                    else
+                        UpdateUI(false);
+                }
+                catch (Exception)
+                {
                     UpdateUI(false);
+                }
             }
         }
 

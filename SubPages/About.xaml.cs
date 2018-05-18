@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -17,6 +18,11 @@ namespace Discord_UWP.SubPages
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
+
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+            appVersion.Text = "Quarrel " + string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
         }
 
         //protected override void OnNavigatedTo(NavigationEventArgs e)
