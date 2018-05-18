@@ -69,7 +69,7 @@ namespace Discord_UWP.SubPages
             {
                 bgEnabler.IsOn = false;
                 timeSlider.IsEnabled = false;
-                timeSlider.Value = 3;
+                timeSlider.Value = 9;
             }
             else
             {
@@ -407,15 +407,18 @@ namespace Discord_UWP.SubPages
             int minutes = Convert.ToInt32(timeSlider.Value * 5);
             string timeTxt = "";
 
-            if (minutes == 288)
-                timeTxt = "24h";
-            else if (minutes > 60)
+            if (minutes > 60)
             {
-                
                 TimeSpan span = TimeSpan.FromMinutes(minutes);
-                timeTxt = span.Hours + "h";
-                if (span.Minutes != 0)
-                    timeTxt += span.Minutes + "min";
+                if (span.Days == 1)
+                    timeTxt = "24h";
+                else
+                {
+                    timeTxt = span.Hours + "h";
+                    if (span.Minutes != 0)
+                        timeTxt += span.Minutes + "min";
+                }
+
             }
             else
             {
@@ -429,10 +432,17 @@ namespace Discord_UWP.SubPages
             if (bgEnabler.IsOn)
             {
                 timeSlider.IsEnabled = true;
+                RunEveryLabel.Opacity = 1;
+                sliderTime.Opacity = 1;
+                sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
             }
             else
             {
                 timeSlider.IsEnabled = false;
+                timeSlider.Value = 9;
+                RunEveryLabel.Opacity = 0.4;
+                sliderTime.Opacity = 0.4;
+                sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["InvertedBG"];
             }
         }
     }
