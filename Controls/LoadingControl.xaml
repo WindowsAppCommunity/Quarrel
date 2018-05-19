@@ -28,7 +28,7 @@
         <Button Opacity="0"/>
         <StackPanel x:Name="stack" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
             <ProgressRing Visibility="Collapsed" IsActive="False" Width="48" Height="48" Foreground="{ThemeResource Foreground}" Margin="0,0,0,12"/>
-            <Viewbox x:Name="viewbox" Height="250" Width="250" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Viewbox x:Name="viewbox" Width="150" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="24,0,0,24">
                 <Canvas x:Name="FullLayer" Width="2011.99" Height="1643.88">
                     <Ellipse Fill="{ThemeResource Foreground}" Canvas.Left="707.8" Canvas.Top="590.4" Width="152.7" Height="152.7"/>
                     <Canvas x:Name="FeatherLayer">
