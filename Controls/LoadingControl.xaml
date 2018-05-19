@@ -116,7 +116,7 @@
                 </Canvas>
             </Viewbox>
         </Canvas>
-        <StackPanel x:Name="stack" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+        <StackPanel x:Name="stack" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0">
             <ProgressRing Visibility="Collapsed" IsActive="False" Width="48" Height="48" Foreground="{ThemeResource Foreground}" Margin="0,0,0,12"/>
 
 
