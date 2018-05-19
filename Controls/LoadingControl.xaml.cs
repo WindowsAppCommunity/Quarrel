@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
@@ -39,6 +40,16 @@ namespace Discord_UWP.Controls
             timer.Interval = TimeSpan.FromSeconds(6);
             timer.Tick += ShowReset;
             timer.Start();
+            App.Splash.Dismissed += Splash_Dismissed;
+        }
+
+        private async void Splash_Dismissed(SplashScreen sender, object args)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       AdjustSize();
+                   });
         }
 
         private void ShowReset(object sender, object e)
@@ -61,8 +72,7 @@ namespace Discord_UWP.Controls
             //    MessageBlock.Visibility = Visibility.Collapsed;
             //}
 
-            var location = App.Splash.ImageLocation;
-            viewbox.Width = location.Width / 10;
+            AdjustSize();
 
             if (!Storage.Settings.ShowWelcomeMessage)
             {
@@ -90,14 +100,7 @@ namespace Discord_UWP.Controls
             App.StatusChangedHandler += App_StatusChangedHandler;
 
         }
-
-        private void MediaPlayer_CurrentStateChanged(MediaPlayer sender, object args)
-        {
-            if (sender.PlaybackSession != null && sender.PlaybackSession.PlaybackState != MediaPlaybackState.Playing)
-            {
-                sender.Dispose();
-            }
-        }
+        
 
         private void App_StatusChangedHandler(object sender, string e)
         {
