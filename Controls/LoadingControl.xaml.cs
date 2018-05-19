@@ -107,9 +107,12 @@ namespace Discord_UWP.Controls
         public void AdjustSize()
         {
             var location = App.Splash.ImageLocation;
-         //   viewbox.Width = location.Width;
+            viewbox.Width = location.Width;
+            viewbox.Height = location.Height;
+            Canvas.SetTop(viewbox, location.Top);
+            Canvas.SetLeft(viewbox, location.Left);
             //this.Focus(FocusState.Pointer);
-            //stack.Margin = new Thickness(0, location.Top - 32, 0, 0);
+            stack.Margin = new Thickness(0, location.Bottom, 0, 0);
         }
         public void Show(bool animate)
         {
