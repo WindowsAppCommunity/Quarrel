@@ -62,8 +62,8 @@ namespace Discord_UWP.Controls
             //}
 
             var location = App.Splash.ImageLocation;
-           // viewbox.Width = location.Width;
-            
+            viewbox.Width = location.Width;
+
             if (!Storage.Settings.ShowWelcomeMessage)
             {
                 MessageBlock.Visibility = Visibility.Collapsed;
