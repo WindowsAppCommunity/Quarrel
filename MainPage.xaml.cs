@@ -407,17 +407,21 @@ namespace Discord_UWP
         {
             string guild = e.GuildId;
             string channel = e.ChannelId;
-            foreach (GuildManager.SimpleGuild g in ServerList.Items)
+            if (guild == "friendrequests")
             {
-                if (g.Id == guild)
-                    ServerList.SelectedItem = g;
+                friendPanel.NavigateToFriendRequests();
             }
-            if (channel != null)
+            else
             {
-                foreach (ChannelManager.SimpleChannel c in ChannelList.Items)
+                foreach (GuildManager.SimpleGuild g in ServerList.Items)
                 {
-                    if (c.Id == e.ChannelId)
-                        ChannelList.SelectedItem = c;
+                    if (g.Id == guild)
+                    {
+                        if (string.IsNullOrEmpty(channel))
+                            App.NavigateToGuild(guild);
+                        else
+                            App.NavigateToGuildChannel(guild, channel);
+                    }   
                 }
             }
         }
@@ -838,7 +842,7 @@ namespace Discord_UWP
 
                 App.CurrentChannelId = e.ChannelId;
                 App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                RenderMessages();
+                //RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
@@ -1260,12 +1264,14 @@ namespace Discord_UWP
             {
                 if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
                 {
-                    await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
+                    if(LocalState.Guilds.ContainsKey(App.CurrentGuildId) && LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+                        await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
                     //Update Unread called on Gateway Event
                 }
             } else
             {
-                await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
+               if(LocalState.DMs.ContainsKey(e.ChannelId))
+                    await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
             }
         }
 

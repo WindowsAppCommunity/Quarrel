@@ -1226,10 +1226,15 @@ namespace Discord_UWP
                                 launchArgs = eventArgs.Uri.ToString();
                             }
                         }
+                        else if(segments[0] == "friendrequests")
+                        {
+                            App.SelectGuildChannel("friendrequests", null);
+                        }
                     };
                     break;
                 #endregion
 
+                   
                 #region ShartTarget
                 case ActivationKind.ShareTarget:
                     

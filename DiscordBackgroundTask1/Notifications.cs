@@ -67,7 +67,9 @@ namespace DiscordBackgroundTask1
                         }
                     }
                 },
-                DisplayTimestamp = SnowflakeToTime(lastmessage)
+                DisplayTimestamp = SnowflakeToTime(lastmessage),
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://guild/DMs/" + channel.id
             };
 
             // Create the toast notification
@@ -77,7 +79,7 @@ namespace DiscordBackgroundTask1
             ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
 
-        public static void NewMention(string icon, string guildid, string guildname, string channelname, int count, string lastmessage)
+        public static void NewMention(string icon, string guildid, string guildname, string channelname, string channelid, int count, string lastmessage)
         {
             string imageurl = "https://cdn.discordapp.com/icons/" + guildid + "/" + icon +".png";
             string text = "";
@@ -110,7 +112,9 @@ namespace DiscordBackgroundTask1
                         }
                     }
                 },
-                DisplayTimestamp = SnowflakeToTime(lastmessage)
+                DisplayTimestamp = SnowflakeToTime(lastmessage),
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://guild/"+guildid+"/"+channelid
             };
 
             // Create the toast notification
@@ -157,7 +161,9 @@ namespace DiscordBackgroundTask1
                             ActivationOptions = new ToastActivationOptions(){ AfterActivationBehavior=ToastAfterActivationBehavior.PendingUpdate }
                          }
                     }
-                }
+                },
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://friendrequests"
             };
             var toastNotif = new ToastNotification(toastContent.GetXml());
             toastNotif.Tag = relationshipid;

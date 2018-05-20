@@ -194,7 +194,10 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
-
+        public void NavigateToFriendRequests()
+        {
+            pivot.SelectedIndex = 1;
+        }
         public void FriendNotification(User user)
         {
             string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");

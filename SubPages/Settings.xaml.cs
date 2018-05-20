@@ -85,7 +85,7 @@ namespace Discord_UWP.SubPages
 
             if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
             {
-                string lastrunstatus = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"];
+                string lastrunstatus = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrunStatus"];
                 if (string.IsNullOrWhiteSpace(lastrunstatus))
                 {
                     bgLastRuntimeStatus.Visibility = Visibility.Collapsed;
@@ -113,7 +113,7 @@ namespace Discord_UWP.SubPages
 
                 if (lastrun.GetType() == typeof(long))
                 {
-                    var time = DateTimeOffset.FromUnixTimeSeconds((long)lastrun);
+                    var time = DateTimeOffset.FromUnixTimeSeconds((long)lastrun).ToLocalTime();
                     bgLastRuntime.Text = "The background task last ran succesfully ";
                     if (time.Date == DateTime.Now.Date)
                         bgLastRuntime.Text += "today at ";
