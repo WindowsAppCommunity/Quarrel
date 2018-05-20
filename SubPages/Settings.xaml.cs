@@ -79,6 +79,51 @@ namespace Discord_UWP.SubPages
             }
             bgEnabler_Toggled(null, null);
 
+            bgNotifyFriend.IsChecked = GetSetting("bgNotifyFriend");
+            bgNotifyDM.IsChecked = GetSetting("bgNotifyDM");
+            bgNotifyMention.IsChecked = GetSetting("bgNotifyMention");
+
+            if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
+            {
+                string lastrunstatus = (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"];
+                if (string.IsNullOrWhiteSpace(lastrunstatus))
+                {
+                    bgLastRuntimeStatus.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    bgLastRuntimeStatus.Visibility = Visibility.Visible;
+                    bgLastRuntimeStatus.Text = lastrunstatus;
+                }
+            }
+            else
+                bgLastRuntimeStatus.Visibility = Visibility.Collapsed;
+
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrun"))
+            {
+                if (bgLastRuntimeStatus.Visibility == Visibility.Collapsed)
+                    bgLastRuntime.Text = "The background task has not run yet";
+                else
+                    bgLastRuntime.Text = "The background task has not run succesfully yet";
+            }
+            else
+            {
+                var lastrun = Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"];
+                var status = GetSettingString("bgTaskLastrunStatus");
+
+                if (lastrun.GetType() == typeof(DateTime))
+                {
+                    var time = (DateTime)lastrun;
+                    bgLastRuntime.Text = "The background task last ran succesfully ";
+                    if (time.Date == DateTime.Now.Date)
+                        bgLastRuntime.Text += "today at ";
+                    else if (time.Date == DateTime.Now.Date.AddDays(-1))
+                        bgLastRuntime.Text += "yesterday at ";
+                    else
+                        bgLastRuntime.Text += "on " + time.ToString("MM/dd/yyyy") + " at ";
+                    bgLastRuntime.Text += time.ToString("HH:mm");
+                }
+            }
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
             else
@@ -182,7 +227,25 @@ namespace Discord_UWP.SubPages
                 i++;
             }
         }
-
+        private void ChangeSetting(string name, bool value)
+        {
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(name))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add(name, value);
+            else
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values[name] = value;
+        }
+        private bool GetSetting(string name)
+        {
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(name))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add(name, true);
+            return (bool)Windows.Storage.ApplicationData.Current.LocalSettings.Values[name];
+        }
+        private string GetSettingString(string name)
+        {
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(name))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add(name, "");
+            return (string)Windows.Storage.ApplicationData.Current.LocalSettings.Values[name];
+        }
         private void rootgrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
@@ -225,6 +288,9 @@ namespace Discord_UWP.SubPages
                 Storage.Settings.BackgroundTaskTime = 0;
             }
             await Managers.BackgroundTaskManager.UpdateNotificationBGTask();
+            ChangeSetting("bgNotifyFriend", (bool)bgNotifyFriend.IsChecked);
+            ChangeSetting("bgNotifyDM", (bool)bgNotifyDM.IsChecked);
+            ChangeSetting("bgNotifyMention", (bool)bgNotifyMention.IsChecked);
 
             switch (TimeFormat.SelectedIndex)
             {
@@ -433,6 +499,9 @@ namespace Discord_UWP.SubPages
             if (bgEnabler.IsOn)
             {
                 timeSlider.IsEnabled = true;
+                bgNotifyDM.IsEnabled = true;
+                bgNotifyFriend.IsEnabled = true;
+                bgNotifyMention.IsEnabled = true;
                 RunEveryLabel.Opacity = 1;
                 sliderTime.Opacity = 1;
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
@@ -440,6 +509,9 @@ namespace Discord_UWP.SubPages
             else
             {
                 timeSlider.IsEnabled = false;
+                bgNotifyDM.IsEnabled = false;
+                bgNotifyFriend.IsEnabled = false;
+                bgNotifyMention.IsEnabled = false;
                 timeSlider.Value = 9;
                 RunEveryLabel.Opacity = 0.4;
                 sliderTime.Opacity = 0.2;
