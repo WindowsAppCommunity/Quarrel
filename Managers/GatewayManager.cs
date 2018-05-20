@@ -285,7 +285,7 @@ namespace Discord_UWP.Managers
                     LocalState.RPC.Add(readstate.Id, readstate);
                 }
                 if (readstate.MentionCount > 0)
-                    Storage.UpdateNotificationState("c" + readstate.Id, readstate.LastMessageId);
+                    Storage.UpdateNotificationState("c" + readstate.Id, readstate.MentionCount.ToString());
             }
             Storage.UNSdeferralEnd();
             if (App.AslansBullshit)
@@ -465,7 +465,7 @@ namespace Discord_UWP.Managers
             }
             else
             {
-                Storage.UpdateNotificationState("c" + e.EventData.ChannelId, e.EventData.Id);
+                Storage.UpdateNotificationState("c" + e.EventData.ChannelId, "0");
             }
 
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

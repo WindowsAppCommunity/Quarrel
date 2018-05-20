@@ -77,6 +77,50 @@ namespace DiscordBackgroundTask1
             ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
 
+        public static void NewMention(string icon, string guildid, string guildname, string channelname, int count, string lastmessage)
+        {
+            string imageurl = "https://cdn.discordapp.com/icons/" + guildid + "/" + icon +".png";
+            string text = "";
+            if (count > 1)
+                text = count + " new mentions in #" + channelname;
+            else
+                text = "You have been mentioned in #" + channelname;
+
+            var toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                        new AdaptiveText()
+                        {
+                            Text = guildname
+                        },
+                        new AdaptiveText()
+                        {
+                            Text = text
+                        }
+                    },
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = imageurl,
+                            HintCrop = ToastGenericAppLogoCrop.Circle
+                        }
+                    }
+                },
+                DisplayTimestamp = SnowflakeToTime(lastmessage)
+            };
+
+            // Create the toast notification
+            var toastNotif = new ToastNotification(toastContent.GetXml());
+
+            // And send the notification
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
+        }
+
+
         public static void FriendRequest(string username, string avatar, string userid, string relationshipid)
         {
             var toastContent = new ToastContent()

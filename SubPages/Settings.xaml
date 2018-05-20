@@ -636,7 +636,7 @@
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                     <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
@@ -649,7 +649,7 @@
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
                                  
                                     
-                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="16" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                     <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Content="Glow the left side of the screen when you are mentioned" Margin="0,0,0,6"/>
                                     
@@ -710,15 +710,20 @@
                         <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications" Margin="0,0,12,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
-                                    <TextBlock Text="Background notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <TextBlock Text="BACKGROUND NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
                                     <ToggleSwitch x:Name="bgEnabler" FontSize="13.333" VerticalContentAlignment="Top" Style="{StaticResource DiscordToggleSwitch}" Margin="12,0,12,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
                                     <TextBlock Text="You shall receive notifications for new friend requests and unread DMs every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
                                     <TextBlock x:Name="RunEveryLabel" Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
                                     <TextBlock x:Name="sliderTime" Text="15min" Foreground="{StaticResource Blurple}" FontSize="28" Margin="12,0,0,0" FontWeight="SemiLight"/>
-                                    <Slider x:Name="timeSlider" Margin="12,-4,12,0" Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>
+                                    <Slider x:Name="timeSlider" Margin="12,-4,12,0"  Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>
+                                    <TextBlock x:Name="bgLastRuntime" Text="The background task has not run yet" FontSize="11" Opacity="0.5" Margin="12,0,0,0" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="bgLastRuntimeStatus" TextWrapping="Wrap" Text="There was a problem decrypting a websocket message on the last run" FontSize="11" Opacity="1" Foreground="{ThemeResource dnd}" Margin="12,0,0,0"/>
+                                    <CheckBox x:Name="bgNotifyFriend" Margin="12,4,0,0" Content="Friend requests" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Name="bgNotifyDM" Margin="12,0,0,0" Content="Unread DMs" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Name="bgNotifyMention" Margin="12,0,0,0" Content="New mentions" Style="{StaticResource CheckBoxStyle1}"/>
                                     <StackPanel Margin="12,0,0,0">
-                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB"  Text="In-app notifications" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
-                                        <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}"/>
+                                        <TextBlock Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                        <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
                                         <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/LiveTileCB" x:Name="LiveTile" Content="Show newest message on Start tile and lock screen" Style="{StaticResource CheckBoxStyle1}"/>
@@ -759,9 +764,10 @@
                         <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
-                                    <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                                    <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
 
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>
+                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
