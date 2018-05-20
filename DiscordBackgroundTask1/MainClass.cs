@@ -246,7 +246,7 @@ namespace DiscordBackgroundTask1
                                         {
                                             if (ShouldShowNotification("c" + channel.id, readstates[channel.id].mention_count.ToString()))
                                             {
-                                                SendToast.NewMention(guild.icon, guild.id, guild.name, channel.name, readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
+                                                SendToast.NewMention(guild.icon, guild.id, guild.name, channel.name, channel.id, readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                                                 UpdateNotificationState("c" + channel.id, readstates[channel.id].mention_count.ToString());
                                             }
                                         }

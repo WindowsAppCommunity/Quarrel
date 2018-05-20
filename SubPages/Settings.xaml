@@ -764,7 +764,7 @@
                         <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                                    <TextBlock Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
                                     <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
 
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
