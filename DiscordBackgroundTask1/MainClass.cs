@@ -277,9 +277,10 @@ namespace DiscordBackgroundTask1
         {
             UpdateLastRunStatus("");
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrun"))
-                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add("bgTaskLastrun", DateTime.Now);
-            Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"] = DateTime.Now;
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add("bgTaskLastrun", DateTimeOffset.Now.ToUnixTimeSeconds());
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"] = DateTimeOffset.Now.ToUnixTimeSeconds();
         }
+
         private void UpdateLastRunStatus(string message)
         {
 

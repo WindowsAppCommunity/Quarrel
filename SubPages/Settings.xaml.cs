@@ -111,9 +111,9 @@ namespace Discord_UWP.SubPages
                 var lastrun = Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"];
                 var status = GetSettingString("bgTaskLastrunStatus");
 
-                if (lastrun.GetType() == typeof(DateTime))
+                if (lastrun.GetType() == typeof(long))
                 {
-                    var time = (DateTime)lastrun;
+                    var time = DateTimeOffset.FromUnixTimeSeconds((long)lastrun);
                     bgLastRuntime.Text = "The background task last ran succesfully ";
                     if (time.Date == DateTime.Now.Date)
                         bgLastRuntime.Text += "today at ";
