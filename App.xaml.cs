@@ -1194,7 +1194,7 @@ namespace Discord_UWP
                     var count = segments.Count();
                     if (count > 0)
                     {
-                        if (segments[0] == "guild")
+                        if (segments[0] == "guild" || segments[0] == "channels")
                         {
                             if (App.FullyLoaded)
                             {

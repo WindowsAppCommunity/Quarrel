@@ -712,7 +712,7 @@
                                 <StackPanel x:Name="UserNotifications_Menu">
                                     <TextBlock Text="BACKGROUND NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
                                     <ToggleSwitch x:Name="bgEnabler" FontSize="13.333" VerticalContentAlignment="Top" Style="{StaticResource DiscordToggleSwitch}" Margin="12,0,12,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
-                                    <TextBlock Text="You shall receive notifications for new friend requests and unread DMs every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
+                                    <TextBlock Text="You will receive notifications for whatever is selected below every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
                                     <TextBlock x:Name="RunEveryLabel" Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
                                     <TextBlock x:Name="sliderTime" Text="15min" Foreground="{StaticResource Blurple}" FontSize="28" Margin="12,0,0,0" FontWeight="SemiLight"/>
                                     <Slider x:Name="timeSlider" Margin="12,-4,12,0"  Style="{StaticResource DiscordSlider}" Maximum="288" ValueChanged="Slider_ValueChanged" Minimum="3" IsThumbToolTipEnabled="False"/>

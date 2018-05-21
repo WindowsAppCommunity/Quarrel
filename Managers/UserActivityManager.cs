@@ -33,7 +33,7 @@ namespace Discord_UWP.Managers
         public static async Task GenerateActivityAsync(string GuildId, string GuildName, string GuildImage, string ChannelId, string ChannelName)
         {
             channel = UserActivityChannel.GetDefault();
-            if (GuildId == "DMs")
+            if (GuildId == "@me")
                 userActivity = await channel.GetOrCreateUserActivityAsync(ChannelId);
             else
                 userActivity = await channel.GetOrCreateUserActivityAsync(GuildId);

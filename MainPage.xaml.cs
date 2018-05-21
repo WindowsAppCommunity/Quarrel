@@ -413,14 +413,23 @@ namespace Discord_UWP
             }
             else
             {
+                
                 foreach (GuildManager.SimpleGuild g in ServerList.Items)
                 {
                     if (g.Id == guild)
                     {
+                        //App.CurrentGuildId = guild;
+
                         if (string.IsNullOrEmpty(channel))
+                        {
+                            IgnoreBackStack = true;
                             App.NavigateToGuild(guild);
+                        }
                         else
+                        {
+                            IgnoreBackStack = true;
                             App.NavigateToGuildChannel(guild, channel);
+                        }
                     }   
                 }
             }
@@ -725,7 +734,7 @@ namespace Discord_UWP
                                 MembersCvs.Source = null;
                              });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
-            App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
+            App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
 
             foreach (GuildManager.SimpleGuild guild in ServerList.Items)
             {
@@ -740,7 +749,7 @@ namespace Discord_UWP
                 }
             }
 
-            if (e.GuildId != "DMs")
+            if (e.GuildId != "@me")
             {
                 MemberToggle.Visibility = Visibility.Visible;
                
@@ -1387,7 +1396,7 @@ namespace Discord_UWP
         {
             ServerList.Items.Clear();
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
-            DM.Id = "DMs";
+            DM.Id = "@me";
             DM.Name = App.GetString("/Main/DirectMessages");
             DM.IsDM = false;
             foreach (var chn in LocalState.DMs.Values)
@@ -1782,7 +1791,7 @@ namespace Discord_UWP
                         GuildManager.SimpleGuild gclone = guild.Clone();
                         gclone.NotificationCount = 0; //Will Change if true
                         gclone.IsUnread = false; //Will change if true
-                        if (gclone.Id == "DMs")
+                        if (gclone.Id == "@me")
                         {
                             if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest)
                             {
@@ -2849,7 +2858,7 @@ namespace Discord_UWP
             Task.Run(async ()=>{
                 if (App.CurrentGuildIsDM)
                 {
-                    await UserActivityManager.GenerateActivityAsync("DMs", channel.Name, channel.ImageURL, channel.Id,"");
+                    await UserActivityManager.GenerateActivityAsync("@me", channel.Name, channel.ImageURL, channel.Id,"");
                 }
                 else
                 {
