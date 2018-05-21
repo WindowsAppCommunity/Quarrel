@@ -403,11 +403,12 @@ namespace Discord_UWP
                 MessageBox1.Text = MessageBox1.Text + " @" + e.Username + "#" + e.Discriminator;
         }
 
+        string autoselectchannel = "";
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
-            string guild = e.GuildId;
-            string channel = e.ChannelId;
-            if (guild == "friendrequests")
+            string guildid = e.GuildId;
+            string channelid = e.ChannelId;
+            if (guildid == "friendrequests")
             {
                 friendPanel.NavigateToFriendRequests();
             }
@@ -416,20 +417,11 @@ namespace Discord_UWP
                 
                 foreach (GuildManager.SimpleGuild g in ServerList.Items)
                 {
-                    if (g.Id == guild)
+                    if (g.Id == guildid)
                     {
-                        //App.CurrentGuildId = guild;
-
-                        if (string.IsNullOrEmpty(channel))
-                        {
-                            IgnoreBackStack = true;
-                            App.NavigateToGuild(guild);
-                        }
-                        else
-                        {
-                            IgnoreBackStack = true;
-                            App.NavigateToGuildChannel(guild, channel);
-                        }
+                        ServerSelectionWasClicked = true; //It wasn't actually, hehe. Let me teach you a lesson in trickery, this is going down in history...
+                        ServerList.SelectedItem = g;
+                        autoselectchannel = channelid;
                     }   
                 }
             }
@@ -1475,11 +1467,22 @@ namespace Discord_UWP
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
+
+                    if (!string.IsNullOrEmpty(autoselectchannel))
+                    {
+                        if (channel.Id == autoselectchannel)
+                        {
+                            ChannelSelectionWasClicked = true; //hehe, not actually true
+                            ChannelList.SelectedItem = channel;
+                        }
+                            
+                    }
                 }
             }
 
             ChannelLoading.IsActive = false;
             ChannelLoading.Visibility = Visibility.Collapsed;
+            autoselectchannel = null;
         }
 
         public void RenderGuildChannels() //App.CurrentGuildId is set
@@ -1511,10 +1514,19 @@ namespace Discord_UWP
                 if (VoiceController.channelid == channel.Id)
                     channel.IsSelected = true;
                 ChannelList.Items.Add(channel);
+                if (!string.IsNullOrEmpty(autoselectchannel))
+                {
+                    if (channel.Id == autoselectchannel)
+                    {
+                        ChannelSelectionWasClicked = true; //hehe, not actually true
+                        ChannelList.SelectedItem = channel;
+                    }
+                }
             }
 
             ChannelLoading.IsActive = false;
             ChannelLoading.Visibility = Visibility.Collapsed;
+            autoselectchannel = null;
         }
 
         private void GoToLastRead_Click(object sender, RoutedEventArgs e)
