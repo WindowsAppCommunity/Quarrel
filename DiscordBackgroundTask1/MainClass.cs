@@ -56,6 +56,19 @@ namespace DiscordBackgroundTask1
         public string name { get; set; }
         public string icon { get; set; }
     }
+    public sealed class Channel
+    {
+        public string last_message_id { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+    public sealed class Guild
+    {
+        public IEnumerable<Channel> channels { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string icon { get; set; }
+    }
     public sealed class User2
     {
         public string username { get; set; }
@@ -89,13 +102,32 @@ namespace DiscordBackgroundTask1
             _deferral = taskInstance.GetDeferral();
 
             //GET THE LOGIN TOKEN
+            try
+            {
             var creds = (new PasswordVault()).FindAllByResource("Token").FirstOrDefault();
             creds.RetrievePassword();
             token = creds.Password;
+            }
+            catch (Exception ex)
+            {
+                UpdateLastRunStatus("We couldn't retrieve the login token last time the background task ran ("+ex.Message+")");
+                return;
+            }
+
 
             //CONNECT TO THE GATEWAY
             webSocket.MessageReceived += WebSocket_MessageReceived;
-            await webSocket.ConnectAsync(new Uri("wss://gateway.discord.gg/?v=6&encoding=json&compress=zlib-stream"));
+            try
+            {
+
+                await webSocket.ConnectAsync(new Uri("wss://gateway.discord.gg/?v=6&encoding=json&compress=zlib-stream"));
+            }
+            catch(Exception ex)
+            {
+
+                UpdateLastRunStatus("On the last run, the task failed to connect to the gateway (" + ex.Message + ")");
+                return;
+            }
             _compressed = new MemoryStream();
             _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
                 
@@ -108,91 +140,154 @@ namespace DiscordBackgroundTask1
        
         private void WebSocket_MessageReceived(Windows.Networking.Sockets.MessageWebSocket sender, Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs args)
         {
-            using (var datastr = args.GetDataStream().AsStreamForRead())
-            using (var ms = new MemoryStream())
+            try
             {
-                datastr.CopyTo(ms);
-                ms.Position = 0;
-                byte[] data = new byte[ms.Length];
-                ms.Read(data, 0, (int)ms.Length);
-                int index = 0;
-                int count = data.Length;
-                using (var decompressed = new MemoryStream())
+                using (var datastr = args.GetDataStream().AsStreamForRead())
+                using (var ms = new MemoryStream())
                 {
-                    if (data[0] == 0x78)
+                    datastr.CopyTo(ms);
+                    ms.Position = 0;
+                    byte[] data = new byte[ms.Length];
+                    ms.Read(data, 0, (int)ms.Length);
+                    int index = 0;
+                    int count = data.Length;
+                    using (var decompressed = new MemoryStream())
                     {
-                        _compressed.Write(data, index + 2, count - 2);
-                        _compressed.SetLength(count - 2);
-                    }
-                    else
-                    {
-                        _compressed.Write(data, index, count);
-                        _compressed.SetLength(count);
-                    }
+                        if (data[0] == 0x78)
+                        {
+                            _compressed.Write(data, index + 2, count - 2);
+                            _compressed.SetLength(count - 2);
+                        }
+                        else
+                        {
+                            _compressed.Write(data, index, count);
+                            _compressed.SetLength(count);
+                        }
 
-                    _compressed.Position = 0;
-                    _decompressor.CopyTo(decompressed);
-                    _compressed.Position = 0;
-                    decompressed.Position = 0;
-                    using (var reader = new StreamReader(decompressed))
-                        OnMessageReceived(reader.ReadToEnd());
+                        _compressed.Position = 0;
+                        _decompressor.CopyTo(decompressed);
+                        _compressed.Position = 0;
+                        decompressed.Position = 0;
+                        using (var reader = new StreamReader(decompressed))
+                            OnMessageReceived(reader.ReadToEnd());
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                FinishedTask = true;
+                UpdateLastRunStatus("There was a problem while decrypting a websocket message on the last run");
             }
         }
         public async void OnMessageReceived(string message)
         {
-            SocketFrame frame = JsonConvert.DeserializeObject<SocketFrame>(message);
-            if (frame.Operation.HasValue){
-                if(frame.Operation == 10){
-                    //Hello
-                    string identify = "\"token\":\"" + token + "\",\"properties\":{\"$os\":\"\", \"$browser\":\"\", \"$device\":\"\"}";
-                    SendMessageAsync("IDENTIFY", identify, 2);
-                }
-                else if(frame.Type == "READY")
+            try
+            {
+                SocketFrame frame = JsonConvert.DeserializeObject<SocketFrame>(message);
+                if (frame.Operation.HasValue)
                 {
-                    //Ready event
-                    var ready = JObject.Parse(message)["d"];
-                    IList<JToken> json_readstates = ready["read_state"].Children().ToList();
-                    Dictionary<string, ReadState> readstates = new Dictionary<string, ReadState>();
-                    foreach (var readstate in json_readstates)
+                    if (frame.Operation == 10)
                     {
-                        var rs = readstate.ToObject<ReadState>();
-                        readstates.Add(rs.id, rs);
+                        //Hello
+                        string identify = "\"token\":\"" + token + "\",\"properties\":{\"$os\":\"\", \"$browser\":\"\", \"$device\":\"\"}";
+                        SendMessageAsync("IDENTIFY", identify, 2);
                     }
-                        
+                    else if (frame.Type == "READY")
+                    {
+                        try
+                        {
+                            //Ready event
+                            var ready = JObject.Parse(message)["d"];
+                            IList<JToken> json_readstates = ready["read_state"].Children().ToList();
+                            Dictionary<string, ReadState> readstates = new Dictionary<string, ReadState>();
+                            foreach (var readstate in json_readstates)
+                            {
+                                var rs = readstate.ToObject<ReadState>();
+                                readstates.Add(rs.id, rs);
+                            }
 
-                    IList<JToken> privatechannels = ready["private_channels"].Children().ToList();
-                    foreach (var json_channel in privatechannels)
-                    {
-                        var channel = json_channel.ToObject<PrivateChannel>();
-                        if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
-                        {
-                            //Unfortunately the channel must be sent as a string parameter, because windowsruntime
-                            if(ShouldShowNotification("c" + channel.id, channel.last_message_id))
-                            {
-                                SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
-                                UpdateNotificationState("c" + channel.id, channel.last_message_id);
-                            }
+
+                            IList<JToken> privatechannels = ready["private_channels"].Children().ToList();
+                            if (GetSetting("bgNotifyDM"))
+                                foreach (var json_channel in privatechannels)
+                                {
+                                    var channel = json_channel.ToObject<PrivateChannel>();
+                                    if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
+                                    {
+                                        //Unfortunately the channel must be sent as a string parameter, because windowsruntime
+                                        if (ShouldShowNotification("c" + channel.id, readstates[channel.id].mention_count.ToString()))
+                                        {
+                                            SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
+                                            UpdateNotificationState("c" + channel.id, readstates[channel.id].mention_count.ToString());
+                                        }
+                                    }
+                                }
+                            if (GetSetting("bgNotifyFriend"))
+                                foreach (var json_relationship in ready["relationships"])
+                                {
+                                    var relationship = json_relationship.ToObject<Relationship>();
+                                    if (relationship.type == 3)
+                                    {
+                                        //incoming friend request, show notification
+                                        if (ShouldShowNotification("r" + relationship.user.id, relationship.id))
+                                        {
+                                            SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
+                                            UpdateNotificationState("r" + relationship.user.id, relationship.id);
+                                        }
+                                    }
+                                }
+                            if (GetSetting("bgNotifyMention"))
+                                foreach (var json_guild in ready["guilds"])
+                                {
+                                    var guild = json_guild.ToObject<Guild>();
+                                    foreach (var channel in guild.channels)
+                                    {
+                                        if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
+                                        {
+                                            if (ShouldShowNotification("c" + channel.id, readstates[channel.id].mention_count.ToString()))
+                                            {
+                                                SendToast.NewMention(guild.icon, guild.id, guild.name, channel.name, channel.id, readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
+                                                UpdateNotificationState("c" + channel.id, readstates[channel.id].mention_count.ToString());
+                                            }
+                                        }
+                                    }
+                                }
+                            UpdateLastRun();
                         }
-                    }
-                    foreach (var json_relationship in ready["relationships"])
-                    {
-                        var relationship = json_relationship.ToObject<Relationship>();
-                        if (relationship.type == 3)
+                        catch(Exception ex)
                         {
-                            //incoming friend request, show notification
-                            if (ShouldShowNotification("r" + relationship.user.id, relationship.id))
-                            {
-                                SendToast.FriendRequest(relationship.user.username, relationship.user.avatar, relationship.user.id, relationship.id);
-                                UpdateNotificationState("r" + relationship.user.id, relationship.id);
-                            }
+                            UpdateLastRunStatus("There was an issue while processing the \"READY\" gateway event on the last run (" + ex.Message+")");
                         }
+                        webSocket.Close(1000, "");
                     }
-                    webSocket.Close(1000, "");
                 }
             }
+            catch(Exception ex)
+            {
+                UpdateLastRunStatus("There was a general error while processing a websocket message on the last run (" + ex.Message + ")");
+            }
+        }
+        private bool GetSetting(string name)
+        {
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(name))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add(name, true);
+            return (bool)Windows.Storage.ApplicationData.Current.LocalSettings.Values[name];
+        }
+        private void UpdateLastRun()
+        {
+            UpdateLastRunStatus("");
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrun"))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add("bgTaskLastrun", DateTimeOffset.Now.ToUnixTimeSeconds());
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrun"] = DateTimeOffset.Now.ToUnixTimeSeconds();
         }
 
+        private void UpdateLastRunStatus(string message)
+        {
+
+            if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
+                Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add("bgTaskLastrunStatus", message);
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrunStatus"] = message;
+        }
         public async void SendMessageAsync(string name, string content, int opcode)
         {
             try
@@ -203,6 +298,7 @@ namespace DiscordBackgroundTask1
             catch /*(Exception exception)*/
             {
                 //App.NavigateToBugReport(exception);
+                UpdateLastRunStatus("The background task ran into an issue while sending a message to the gateway");
             }
         }
 
