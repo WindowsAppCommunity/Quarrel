@@ -403,21 +403,26 @@ namespace Discord_UWP
                 MessageBox1.Text = MessageBox1.Text + " @" + e.Username + "#" + e.Discriminator;
         }
 
+        string autoselectchannel = "";
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
-            string guild = e.GuildId;
-            string channel = e.ChannelId;
-            foreach (GuildManager.SimpleGuild g in ServerList.Items)
+            string guildid = e.GuildId;
+            string channelid = e.ChannelId;
+            if (guildid == "friendrequests")
             {
-                if (g.Id == guild)
-                    ServerList.SelectedItem = g;
+                friendPanel.NavigateToFriendRequests();
             }
-            if (channel != null)
+            else
             {
-                foreach (ChannelManager.SimpleChannel c in ChannelList.Items)
+                
+                foreach (GuildManager.SimpleGuild g in ServerList.Items)
                 {
-                    if (c.Id == e.ChannelId)
-                        ChannelList.SelectedItem = c;
+                    if (g.Id == guildid)
+                    {
+                        ServerSelectionWasClicked = true; //It wasn't actually, hehe. Let me teach you a lesson in trickery, this is going down in history...
+                        ServerList.SelectedItem = g;
+                        autoselectchannel = channelid;
+                    }   
                 }
             }
         }
@@ -721,7 +726,7 @@ namespace Discord_UWP
                                 MembersCvs.Source = null;
                              });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
-            App.CurrentGuildIsDM = e.GuildId == "DMs"; //Could combine...
+            App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
 
             foreach (GuildManager.SimpleGuild guild in ServerList.Items)
             {
@@ -736,7 +741,7 @@ namespace Discord_UWP
                 }
             }
 
-            if (e.GuildId != "DMs")
+            if (e.GuildId != "@me")
             {
                 MemberToggle.Visibility = Visibility.Visible;
                
@@ -838,7 +843,7 @@ namespace Discord_UWP
 
                 App.CurrentChannelId = e.ChannelId;
                 App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                RenderMessages();
+                //RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
@@ -1260,12 +1265,14 @@ namespace Discord_UWP
             {
                 if (LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
                 {
-                    await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
+                    if(LocalState.Guilds.ContainsKey(App.CurrentGuildId) && LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(e.ChannelId))
+                        await RESTCalls.AckMessage(e.ChannelId, LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.LastMessageId);
                     //Update Unread called on Gateway Event
                 }
             } else
             {
-                await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
+               if(LocalState.DMs.ContainsKey(e.ChannelId))
+                    await RESTCalls.AckMessage(e.ChannelId, LocalState.DMs[e.ChannelId].LastMessageId);
             }
         }
 
@@ -1381,7 +1388,7 @@ namespace Discord_UWP
         {
             ServerList.Items.Clear();
             GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
-            DM.Id = "DMs";
+            DM.Id = "@me";
             DM.Name = App.GetString("/Main/DirectMessages");
             DM.IsDM = false;
             foreach (var chn in LocalState.DMs.Values)
@@ -1460,6 +1467,15 @@ namespace Discord_UWP
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
+
+                    if (!string.IsNullOrEmpty(autoselectchannel))
+                    {
+                        if (channel.Id == autoselectchannel)
+                        {
+                            ChannelSelectionWasClicked = true; //hehe, not actually true
+                            ChannelList.SelectedItem = channel;
+                        }
+                    }
                 }
             }
 
@@ -1496,6 +1512,15 @@ namespace Discord_UWP
                 if (VoiceController.channelid == channel.Id)
                     channel.IsSelected = true;
                 ChannelList.Items.Add(channel);
+                if (!string.IsNullOrEmpty(autoselectchannel))
+                {
+                    if (channel.Id == autoselectchannel)
+                    {
+                        ChannelSelectionWasClicked = true; //hehe, not actually true
+                        ChannelList.SelectedItem = channel;
+                    }
+                    
+                }
             }
 
             ChannelLoading.IsActive = false;
@@ -1776,7 +1801,7 @@ namespace Discord_UWP
                         GuildManager.SimpleGuild gclone = guild.Clone();
                         gclone.NotificationCount = 0; //Will Change if true
                         gclone.IsUnread = false; //Will change if true
-                        if (gclone.Id == "DMs")
+                        if (gclone.Id == "@me")
                         {
                             if (App.FriendNotifications > 0 && Storage.Settings.FriendsNotifyFriendRequest)
                             {
@@ -2033,19 +2058,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     RenderCurrentUser();
-                     RenderGuilds();
-                     ServerList.SelectedIndex = 0;
-                     friendPanel.Load();
-                     App.UpdateUnreadIndicators();
-                     App.FullyLoaded = true;
-                     if (App.PostLoadTask != null)
+                 RenderCurrentUser();
+                 RenderGuilds();
+                 ServerList.SelectedIndex = 0;
+                 friendPanel.Load();
+                 App.UpdateUnreadIndicators();
+                 App.FullyLoaded = true;
+                 if (App.PostLoadTask != null)
+                 {
+                     switch (App.PostLoadTask)
                      {
-                         switch (App.PostLoadTask)
-                         {
-                             case "SelectGuildChannelTask":
-                                 App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
-                                 break;
+                         case "SelectGuildChannelTask":
+                             App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
+                             break;
+                         case "invite":
+                             App.NavigateToJoinServer(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId);
+                             break;
                          }
                      }
                      //Check version number, and if it's different from before, open the what's new page
@@ -2800,6 +2828,7 @@ namespace Discord_UWP
         }
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            autoselectchannel = null;
             ChannelSelectionWasClicked = true;
             if (e.ClickedItem == ChannelList.SelectedItem)
                 //This is for xbox one, because when "clicking" on a channel, it is already selected
@@ -2807,6 +2836,7 @@ namespace Discord_UWP
         }
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            autoselectchannel = null;
             ServerSelectionWasClicked = true;
             if (e.ClickedItem == ServerList.SelectedItem)
                 //This if for xbox one, because when clicking on a channel it is already selected
@@ -2843,7 +2873,7 @@ namespace Discord_UWP
             Task.Run(async ()=>{
                 if (App.CurrentGuildIsDM)
                 {
-                    await UserActivityManager.GenerateActivityAsync("DMs", channel.Name, channel.ImageURL, channel.Id,"");
+                    await UserActivityManager.GenerateActivityAsync("@me", channel.Name, channel.ImageURL, channel.Id,"");
                 }
                 else
                 {

@@ -309,6 +309,7 @@ namespace Discord_UWP.Gateway
         {
             var ready = gatewayEvent.GetData<Ready>();
             lastReady = ready;
+           
 
             FireEventOnDelegate(gatewayEvent, Ready);
         }

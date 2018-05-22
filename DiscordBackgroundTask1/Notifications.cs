@@ -67,7 +67,9 @@ namespace DiscordBackgroundTask1
                         }
                     }
                 },
-                DisplayTimestamp = SnowflakeToTime(lastmessage)
+                DisplayTimestamp = SnowflakeToTime(lastmessage),
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://guild/DMs/" + channel.id
             };
 
             // Create the toast notification
@@ -76,6 +78,52 @@ namespace DiscordBackgroundTask1
             // And send the notification
             ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
         }
+
+        public static void NewMention(string icon, string guildid, string guildname, string channelname, string channelid, int count, string lastmessage)
+        {
+            string imageurl = "https://cdn.discordapp.com/icons/" + guildid + "/" + icon +".png";
+            string text = "";
+            if (count > 1)
+                text = count + " new mentions in #" + channelname;
+            else
+                text = "You have been mentioned in #" + channelname;
+
+            var toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                        new AdaptiveText()
+                        {
+                            Text = guildname
+                        },
+                        new AdaptiveText()
+                        {
+                            Text = text
+                        }
+                    },
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = imageurl,
+                            HintCrop = ToastGenericAppLogoCrop.Circle
+                        }
+                    }
+                },
+                DisplayTimestamp = SnowflakeToTime(lastmessage),
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://guild/"+guildid+"/"+channelid
+            };
+
+            // Create the toast notification
+            var toastNotif = new ToastNotification(toastContent.GetXml());
+
+            // And send the notification
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
+        }
+
 
         public static void FriendRequest(string username, string avatar, string userid, string relationshipid)
         {
@@ -113,7 +161,9 @@ namespace DiscordBackgroundTask1
                             ActivationOptions = new ToastActivationOptions(){ AfterActivationBehavior=ToastAfterActivationBehavior.PendingUpdate }
                          }
                     }
-                }
+                },
+                ActivationType = ToastActivationType.Protocol,
+                Launch = "discorduwp://friendrequests"
             };
             var toastNotif = new ToastNotification(toastContent.GetXml());
             toastNotif.Tag = relationshipid;

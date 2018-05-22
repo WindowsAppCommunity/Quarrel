@@ -22,7 +22,7 @@ namespace Discord_UWP.Managers
             switch (type)
             {
                 case Type.Guild:
-                    if (id != "DMs")
+                    if (id != "@me")
                     {
                         flyout = FlyoutCreator.MakeGuildMenu(LocalState.Guilds[id]);
                     }
