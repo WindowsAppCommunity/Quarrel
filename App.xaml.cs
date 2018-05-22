@@ -45,7 +45,7 @@ namespace Discord_UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += App_Resuming;
-            CoreApplication.EnablePrelaunch(true);
+            CoreApplication.EnablePrelaunch(false);
         }
 
         /// <summary>
@@ -241,10 +241,17 @@ namespace Discord_UWP
         #endregion
 
         #region JoinServer
+
         public static event EventHandler<string> NavigateToJoinServerHandler;
         public static void NavigateToJoinServer(string code = null)
         {
-            NavigateToJoinServerHandler?.Invoke(typeof(App), code);
+            if(App.FullyLoaded)
+                NavigateToJoinServerHandler?.Invoke(typeof(App), code);
+            else
+            {
+                App.PostLoadTask = "invite";
+                App.PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = code };
+            }
         }
         #endregion
 
@@ -755,8 +762,10 @@ namespace Discord_UWP
                 PostLoadTask = "SelectGuildChannelTask";
                 PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId };
             }
-
-            SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId });
+            else
+            {
+                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId });
+            }
         }
         public static Task SelectGuildChannelTask(string guildId, string channelId)
         {
@@ -1196,37 +1205,24 @@ namespace Discord_UWP
                     {
                         if (segments[0] == "guild" || segments[0] == "channels")
                         {
-                            if (App.FullyLoaded)
-                            {
-                                if (count == 3)
-                                    App.SelectGuildChannel(segments[1], segments[2]);
-                                else if (count == 2)
-                                    App.SelectGuildChannel(segments[1], null);
-                            }
-                            else
-                            {
-                                launchArgs = eventArgs.Uri.ToString();
-                            }
+                            if (count == 3)
+                                SelectGuildChannel(segments[1], segments[2]);
+                            else if (count == 2)
+                                SelectGuildChannel(segments[1], null);
                         }
                         else if (segments[0] == "reset")
                         {
                             await RequestReset();
                         }
-                        else if(segments[0] == "nologin")
+                        else if (segments[0] == "nologin")
                         {
                             DontLogin = true;
-                        } else if (segments[0] == "invite")
-                        {
-                            if (App.FullyLoaded)
-                            {
-                                App.NavigateToJoinServer(segments[1]);
-                            }
-                            else
-                            {
-                                launchArgs = eventArgs.Uri.ToString();
-                            }
                         }
-                        else if(segments[0] == "friendrequests")
+                        else if (segments[0] == "invite")
+                        {
+                            NavigateToJoinServer(segments[1]);
+                        }
+                        else if (segments[0] == "friendrequests")
                         {
                             App.SelectGuildChannel("friendrequests", null);
                         }
