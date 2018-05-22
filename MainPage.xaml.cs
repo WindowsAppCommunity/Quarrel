@@ -1475,14 +1475,12 @@ namespace Discord_UWP
                             ChannelSelectionWasClicked = true; //hehe, not actually true
                             ChannelList.SelectedItem = channel;
                         }
-                            
                     }
                 }
             }
 
             ChannelLoading.IsActive = false;
             ChannelLoading.Visibility = Visibility.Collapsed;
-            autoselectchannel = null;
         }
 
         public void RenderGuildChannels() //App.CurrentGuildId is set
@@ -1521,12 +1519,12 @@ namespace Discord_UWP
                         ChannelSelectionWasClicked = true; //hehe, not actually true
                         ChannelList.SelectedItem = channel;
                     }
+                    
                 }
             }
 
             ChannelLoading.IsActive = false;
             ChannelLoading.Visibility = Visibility.Collapsed;
-            autoselectchannel = null;
         }
 
         private void GoToLastRead_Click(object sender, RoutedEventArgs e)
@@ -2060,19 +2058,22 @@ namespace Discord_UWP
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     RenderCurrentUser();
-                     RenderGuilds();
-                     ServerList.SelectedIndex = 0;
-                     friendPanel.Load();
-                     App.UpdateUnreadIndicators();
-                     App.FullyLoaded = true;
-                     if (App.PostLoadTask != null)
+                 RenderCurrentUser();
+                 RenderGuilds();
+                 ServerList.SelectedIndex = 0;
+                 friendPanel.Load();
+                 App.UpdateUnreadIndicators();
+                 App.FullyLoaded = true;
+                 if (App.PostLoadTask != null)
+                 {
+                     switch (App.PostLoadTask)
                      {
-                         switch (App.PostLoadTask)
-                         {
-                             case "SelectGuildChannelTask":
-                                 App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
-                                 break;
+                         case "SelectGuildChannelTask":
+                             App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
+                             break;
+                         case "invite":
+                             App.NavigateToJoinServer(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId);
+                             break;
                          }
                      }
                      //Check version number, and if it's different from before, open the what's new page
@@ -2827,6 +2828,7 @@ namespace Discord_UWP
         }
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            autoselectchannel = null;
             ChannelSelectionWasClicked = true;
             if (e.ClickedItem == ChannelList.SelectedItem)
                 //This is for xbox one, because when "clicking" on a channel, it is already selected
@@ -2834,6 +2836,7 @@ namespace Discord_UWP
         }
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            autoselectchannel = null;
             ServerSelectionWasClicked = true;
             if (e.ClickedItem == ServerList.SelectedItem)
                 //This if for xbox one, because when clicking on a channel it is already selected
