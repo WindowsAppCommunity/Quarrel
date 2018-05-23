@@ -108,7 +108,7 @@ namespace Discord_UWP.Controls
 
         private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (SpotifyManager.SpotifyState != null)

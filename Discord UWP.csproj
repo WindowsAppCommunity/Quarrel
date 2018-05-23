@@ -727,6 +727,9 @@
     <PackageReference Include="Concentus">
       <Version>1.1.7</Version>
     </PackageReference>
+    <PackageReference Include="Html2Markdown">
+      <Version>3.2.1.341</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.4</Version>
     </PackageReference>

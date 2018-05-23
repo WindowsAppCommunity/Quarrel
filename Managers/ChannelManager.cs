@@ -58,7 +58,22 @@ namespace Discord_UWP.Managers
             }
             return null;
         }
+        public static SimpleChannel MakeChannel(SharedModels.GuildChannel channel, string overridelastmessageid = null)
+        {
+            SimpleChannel sc = new SimpleChannel();
+            sc.Id = channel.Id;
+            sc.Name = channel.Name;
+            sc.Type = channel.Type;
+            sc.Nsfw = channel.NSFW;
+            if (overridelastmessageid == null)
+                sc.LastMessageId = channel.LastMessageId;
+            else
+                sc.LastMessageId = overridelastmessageid;
+            sc.Position = channel.Position;
+            sc.ParentId = channel.ParentId;
+            return sc;
 
+        }
         public static SimpleChannel MakeChannel(SharedModels.DirectMessageChannel channel)
         {
             SimpleChannel sc = new SimpleChannel();

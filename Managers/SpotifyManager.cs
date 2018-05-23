@@ -420,7 +420,7 @@ namespace Discord_UWP.Managers
                 await webSocket.ConnectAsync(new Uri("wss://dealer.spotify.com/?access_token=" + spotifyToken));
                 IsWebSocketOpen = true;
                 stopwatch.Start();
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
     () =>
     {
         timer = new DispatcherTimer();
@@ -450,7 +450,7 @@ namespace Discord_UWP.Managers
         {
             if(timer != null)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
 () =>
 {
     timer.Stop();

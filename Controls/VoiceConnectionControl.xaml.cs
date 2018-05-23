@@ -44,7 +44,7 @@ namespace Discord_UWP.Controls
 
         private async void App_UpdateVoiceStateHandler(object sender, EventArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      Deafen.IsChecked = LocalModels.LocalState.VoiceState.SelfDeaf;

@@ -82,7 +82,7 @@ namespace Discord_UWP.SubPages
 
         private async void ChannelUpdated(object sender, GatewayEventArgs<SharedModels.GuildChannel> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (channelId == e.EventData.Id)

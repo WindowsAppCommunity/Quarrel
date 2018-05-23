@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Windows.Graphics.Imaging;
+using Windows.UI.Popups;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -63,35 +64,80 @@ namespace Discord_UWP.SubPages
                     if ((e.Parameter as App.MessageEditorNavigationArgs).Paste == true)
                     {
                         DataPackageView dataPackageView = Clipboard.GetContent();
-                        if (dataPackageView.Contains(StandardDataFormats.StorageItems))
-                        {
-                            foreach (var file in await dataPackageView.GetStorageItemsAsync())
-                                AddAttachement(file as StorageFile);
-                        }
-                        else if (dataPackageView.Contains(StandardDataFormats.Bitmap))
-                        {
-                            var bmpDPV = await dataPackageView.GetBitmapAsync();
-                            var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Clipboard.png", CreationCollisionOption.OpenIfExists);
-                            using (var writeStream = (await bmpSTR.OpenStreamForWriteAsync()).AsRandomAccessStream())
-                            using (var readStream = await bmpDPV.OpenReadAsync())
-                            {
-                                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(readStream.CloneStream());
-                                BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, writeStream);
-                                encoder.SetSoftwareBitmap(await decoder.GetSoftwareBitmapAsync());
-                                await encoder.FlushAsync();
-                                AddAttachement(bmpSTR);
-                            }
-                        }
+                        HandleDataPackage(dataPackageView, "Clipboard");
                     }
                 }
                 else
                 {
                     Editor.Text = e.Parameter.ToString();
-                }
-                    
+                }   
             }
-               
 
+            if (App.shareop != null)
+            {
+                header.Text = "SHARE";
+                shareTarget.Visibility = Visibility.Visible;
+                mediumTrigger.MinWindowWidth = 10000;
+                mediumTrigger.MinWindowHeight = 10000;
+                SaveButton.IsEnabled = false;
+                if (App.LoggedIn() == false)
+                {
+                    MessageDialog md = new MessageDialog("You must be logged into Quarrel to use it as a share target", "Sorry!");
+                    await md.ShowAsync();
+                    App.shareop.DismissUI();
+                }
+                else
+                {
+                    HandleDataPackage(App.shareop.Data, "Shared Image");
+                    List<GuildManager.SimpleGuild> guilds = new List<GuildManager.SimpleGuild>();
+                    await RESTCalls.SetupToken(true);
+                    var userguilds = await RESTCalls.GetGuilds();
+                    guilds.Add(new GuildManager.SimpleGuild() { Id = "@me", Name = App.GetString("/Main/DirectMessages"), ImageURL= "https://discordapp.com/assets/89576a4bb71f927eb20e8aef987b499b.svg" });
+                    foreach (var guild in userguilds)
+                        guilds.Add(GuildManager.CreateGuild(guild));
+                    serverOption.ItemsSource = guilds;
+                }
+            }
+            
+        }
+        private async void HandleDataPackage(DataPackageView data, string imagefilename)
+        {
+            if (data.Contains(StandardDataFormats.StorageItems))
+            {
+                foreach (var file in await data.GetStorageItemsAsync())
+                    AddAttachement(file as StorageFile);
+            }
+            else if (data.Contains(StandardDataFormats.Bitmap))
+            {
+                var bmpDPV = await data.GetBitmapAsync();
+                var bmpSTR = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(imagefilename+".png", CreationCollisionOption.OpenIfExists);
+                using (var writeStream = (await bmpSTR.OpenStreamForWriteAsync()).AsRandomAccessStream())
+                using (var readStream = await bmpDPV.OpenReadAsync())
+                {
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(readStream.CloneStream());
+                    BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, writeStream);
+                    encoder.SetSoftwareBitmap(await decoder.GetSoftwareBitmapAsync());
+                    await encoder.FlushAsync();
+                    AddAttachement(bmpSTR);
+                }
+            }
+            else if (data.Contains(StandardDataFormats.Text))
+            {
+                Editor.Text = await data.GetTextAsync();
+            }
+            else if (data.Contains(StandardDataFormats.WebLink))
+            {
+                Editor.Text = (await data.GetWebLinkAsync()).ToString();
+            }
+            else if (data.Contains(StandardDataFormats.ApplicationLink))
+            {
+                Editor.Text = (await data.GetApplicationLinkAsync()).ToString();
+            }
+            else if (data.Contains(StandardDataFormats.Html))
+            {
+                var converter = new Html2Markdown.Converter();
+                Editor.Text = converter.Convert(await data.GetHtmlFormatAsync());
+            }
         }
         private void NavAway_Completed(object sender, object e)
         {
@@ -133,6 +179,13 @@ namespace Discord_UWP.SubPages
         ulong FullUploadSize = 0;
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if(App.shareop != null)
+            {
+                if (channelOption.SelectedItem != null)
+                    App.CurrentChannelId = ((ChannelManager.SimpleChannel)channelOption.SelectedItem).Id;
+                else
+                    return;
+            }
             ProgressViewer.Visibility = Visibility.Visible;
             RESTCalls.MessageUploadProgress += Session_MessageUploadProgress; //TODO: Rig to App.Events
             
@@ -169,7 +222,10 @@ namespace Discord_UWP.SubPages
                 FullBytesSentBuffer = FullBytesSentBuffer + props.Size + overheadsize;
             }
             RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
-            CloseButton_Click(null, null);
+            if (App.shareop == null)
+                CloseButton_Click(null, null);
+            else
+                App.shareop.DismissUI();
         }
 
         ulong FullBytesSentBuffer = 0;
@@ -177,7 +233,7 @@ namespace Discord_UWP.SubPages
         {
             double percentage = Convert.ToDouble((100 * (FullBytesSentBuffer + progressInfo.BytesSent)) / FullUploadSize);
             if (percentage > 100) percentage = 100;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 progressVal.Text = percentage.ToString() + "%";
                 progressBar.Value = percentage;
@@ -328,6 +384,43 @@ namespace Discord_UWP.SubPages
             {
                 await sender.StopRecordAsync();
             });
+        }
+
+        private async void serverOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var guild = (GuildManager.SimpleGuild)e.AddedItems[0];
+            List<ChannelManager.SimpleChannel> channels = new List<ChannelManager.SimpleChannel>();
+            if(guild.Id == "@me")
+            {
+                var userchannels = await RESTCalls.GetDMs();
+                foreach(var channel in userchannels)
+                {
+                    ChannelManager.SimpleChannel c = new ChannelManager.SimpleChannel();
+                    c.Id = channel.Id;
+                    if (!string.IsNullOrEmpty(channel.Name))
+                        c.Name = channel.Name;
+                    else
+                        c.Name = channel.Users.First().Username;
+                    c.LastMessageId = "@";
+                    channels.Add(c);
+                }
+            }
+            else
+            {
+                var userchannels = await RESTCalls.GetGuildChannels(guild.Id);
+                foreach (var channel in userchannels)
+                    if (channel.Type != 2 && channel.Type != 4)
+                        channels.Add(ChannelManager.MakeChannel(channel, "#"));
+            }         
+            channelOption.ItemsSource = channels;
+        }
+
+        private void channelOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 1)
+                SaveButton.IsEnabled = true;
+            else
+                SaveButton.IsEnabled = false;
         }
     }
 }

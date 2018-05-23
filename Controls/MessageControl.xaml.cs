@@ -405,7 +405,7 @@ namespace Discord_UWP.Controls
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (reactionView == null)
@@ -465,7 +465,7 @@ namespace Discord_UWP.Controls
         private async void GatewayOnMessageReactionAdded(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (reactionView == null)
@@ -634,7 +634,16 @@ namespace Discord_UWP.Controls
 
                 if (member.Roles != null && member.Roles.Any())
                 {
-                    username.Foreground = IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[member.Roles.First()].Color);
+                    bool changed = false;
+                    foreach (var role in member.Roles)
+                        if (LocalState.Guilds[App.CurrentGuildId].roles[role].Color != 0)
+                        {
+                            username.Foreground = IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[role].Color);
+                            changed = true;
+                            break;
+                        }
+                    if (changed == false)
+                        username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 }
                 else
                 {
@@ -1013,7 +1022,7 @@ namespace Discord_UWP.Controls
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
             editBox.IsEnabled = false;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
