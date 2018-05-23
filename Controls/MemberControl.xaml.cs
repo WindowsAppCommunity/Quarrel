@@ -55,13 +55,26 @@ namespace Discord_UWP.Controls
             if (DisplayedMember.IsTyping) ShowTyping.Begin();
             else HideTyping.Begin();
 
+            if(DisplayedMember.Raw.User.Username == "Carbon")
+            {
+                var test = "";
+            }
             if (DisplayedMember.Raw.Roles.Count() > 0)
             {
-                username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[DisplayedMember.Raw.Roles.First()].Color);
+                bool changed = false;
+                foreach(var role in DisplayedMember.Raw.Roles)
+                    if(LocalState.Guilds[App.CurrentGuildId].roles[role].Color != 0)
+                    {
+                        username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[role].Color);
+                        changed = true;
+                        break;
+                    }
+                if(changed == false)
+                    username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
+                        
             } else
-            {
                 username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
-            }
+
 
             if (DisplayedMember.Raw.Nick != null)
                 username.Text = DisplayedMember.Raw.Nick;
@@ -168,7 +181,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     try
@@ -197,7 +210,7 @@ namespace Discord_UWP.Controls
 
         private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     try

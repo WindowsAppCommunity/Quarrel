@@ -63,76 +63,79 @@ namespace Discord_UWP
 
         public async void Setup(object o, EventArgs args)
         {
-            
-            //Reset everything, for when accounts are being switched
-            ServerList.Items.Clear();
-            
-            if (!App.e2e)
-            {
-                encryptionToggle.Visibility = Visibility.Collapsed;
-                encryptSend.Visibility = Visibility.Collapsed;
-            }
-            //Setup UI
-            MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
-            LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
-            ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
-            TransitionCollection collection = new TransitionCollection();
-            NavigationThemeTransition theme = new NavigationThemeTransition();
-            var info = new DrillInNavigationTransitionInfo();
-            theme.DefaultNavigationTransitionInfo = info;
-            collection.Add(theme);
-            SubFrame.ContentTransitions = collection;
 
-            //Setup cinematic mode
-            if (App.CinematicMode)
-            {
-                cmdBar.Visibility = Visibility.Collapsed;
-                TitleBarHolder.Visibility = Visibility.Collapsed;
-                userButton.Padding = new Thickness(0, 0, 0, 48);
-                userButton.Height = 112;
-                ServerList.Padding = new Thickness(0, 84, 0, 48);
-                ChannelList.Padding = new Thickness(0, 84, 0, 48);
-                CinematicChannelName.Visibility = Visibility.Visible;
-                CinematicGuildName.Visibility = Visibility.Visible;
-                friendPanel.Margin = new Thickness(0, 84, 0, 0);
-                MessageList.Padding = new Thickness(0, 84, 0, 0);
-                MessageArea.Margin = new Thickness(0);
-                CinematicMask1.Visibility = Visibility.Visible;
-                CinematicMask2.Visibility = Visibility.Visible;
-                ControllerHints.Visibility = Visibility.Visible;
-            }
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       //Reset everything, for when accounts are being switched
+                       ServerList.Items.Clear();
 
-            //Setup BackButton
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-            //Setup Controller input
-            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
-            Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
-            //Setup MessageList infinite scroll
+                       if (!App.e2e)
+                       {
+                           encryptionToggle.Visibility = Visibility.Collapsed;
+                           encryptSend.Visibility = Visibility.Collapsed;
+                       }
+                       //Setup UI
+                       MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
+                       LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
+                       ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
+                       TransitionCollection collection = new TransitionCollection();
+                       NavigationThemeTransition theme = new NavigationThemeTransition();
+                       var info = new DrillInNavigationTransitionInfo();
+                       theme.DefaultNavigationTransitionInfo = info;
+                       collection.Add(theme);
+                       SubFrame.ContentTransitions = collection;
 
-            if (!Storage.Settings.CustomBG)
-            {
-                BackgroundImage.Visibility = Visibility.Collapsed;
-            }
+                       //Setup cinematic mode
+                       if (App.CinematicMode)
+                       {
+                           cmdBar.Visibility = Visibility.Collapsed;
+                           TitleBarHolder.Visibility = Visibility.Collapsed;
+                           userButton.Padding = new Thickness(0, 0, 0, 48);
+                           userButton.Height = 112;
+                           ServerList.Padding = new Thickness(0, 84, 0, 48);
+                           ChannelList.Padding = new Thickness(0, 84, 0, 48);
+                           CinematicChannelName.Visibility = Visibility.Visible;
+                           CinematicGuildName.Visibility = Visibility.Visible;
+                           friendPanel.Margin = new Thickness(0, 84, 0, 0);
+                           MessageList.Padding = new Thickness(0, 84, 0, 0);
+                           MessageArea.Margin = new Thickness(0);
+                           CinematicMask1.Visibility = Visibility.Visible;
+                           CinematicMask2.Visibility = Visibility.Visible;
+                           ControllerHints.Visibility = Visibility.Visible;
+                       }
 
-            if (App.DontLogin) return;
+                       //Setup BackButton
+                       SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+                       SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+                       //Setup Controller input
+                       Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+                       Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+                       //Setup MessageList infinite scroll
 
-            //Hook up the login Event
-            App.LoggingInHandler += App_LoggingInHandlerAsync;
+                       if (!Storage.Settings.CustomBG)
+                       {
+                           BackgroundImage.Visibility = Visibility.Collapsed;
+                       }
 
-            UISize.CurrentStateChanged += UISize_CurrentStateChanged;
+                       if (App.DontLogin) return;
 
-            //Verify if a token exists, if not navigate to login page
-            if (App.LoggedIn() == false)
-            {
-                SubFrameNavigator(typeof(LogScreen));
-                return;
-            }
-            else
-            {
-                App_LoggingInHandlerAsync(null, null);
-            }
+                       //Hook up the login Event
+                       App.LoggingInHandler += App_LoggingInHandlerAsync;
 
+                       UISize.CurrentStateChanged += UISize_CurrentStateChanged;
+
+                       //Verify if a token exists, if not navigate to login page
+                       if (App.LoggedIn() == false)
+                       {
+                           SubFrameNavigator(typeof(LogScreen));
+                           return;
+                       }
+                       else
+                       {
+                           App_LoggingInHandlerAsync(null, null);
+                       }
+                   });
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
         }
 
@@ -214,7 +217,8 @@ namespace Discord_UWP
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (SubFrame.Visibility == Visibility.Visible)
+            
+            if (SubFrame.Visibility == Visibility.Visible && App.shareop == null) //if the app was opened as a share target, disable back navigation
             {
                 App.SubpageClose();
             } else
@@ -344,7 +348,7 @@ namespace Discord_UWP
             //update localstate guilds
             LocalState.Guilds[e.Id].Raw = e;
             //update icon
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
                                    foreach (GuildManager.SimpleGuild guild in ServerList.Items)
@@ -363,7 +367,7 @@ namespace Discord_UWP
 
         private async void App_FlashMentionHandler(object sender, EventArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
                                    if (MentionFlasherStoryboard.GetCurrentState() != ClockState.Stopped)
@@ -375,7 +379,7 @@ namespace Discord_UWP
 
         private async void App_GuildDeletedHandler(object sender, App.GuildDeletedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
                                    foreach (GuildManager.SimpleGuild guild in ServerList.Items)
@@ -612,25 +616,7 @@ namespace Discord_UWP
                 BeginExtendedExecution();
                 BackgroundTaskManager.TryRegisterBackgroundTask();
                 SubFrame.Visibility = Visibility.Collapsed;
-                if (setupArgs != "")
-                {
-                    string[] segments = setupArgs.Replace("discorduwp://", "").Split('/');
-                    var count = segments.Count();
-                    if (count > 0)
-                    {
-                        if (segments[0] == "guild")
-                        {
-                            if (count == 3)
-                                App.SelectGuildChannel(segments[1], segments[2]);
-                            else if (count == 2)
-                                App.SelectGuildChannel(segments[1], null);
-                        }
-                        else if (segments[0] == "invite")
-                        {
-                            App.NavigateToJoinServer(segments[1]);
-                        }
-                    }
-                }
+
             } else
             {
                 SubFrameNavigator(typeof(LogScreen));
@@ -719,69 +705,75 @@ namespace Discord_UWP
         {
             SaveDraft();
             memberscvs.Clear();
-            (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                              () =>
                              {
-                                MembersCvs.Source = null;
+
+                                 (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
+                                 MembersCvs.Source = null;
                              });
             MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                     {
+                         if (guild.Id == e.GuildId)
+                         {
+                             ServerList.SelectedItem = guild;
+                             guild.IsSelected = true;
+                         }
+                         else
+                         {
+                             guild.IsSelected = false;
+                         }
+                     }
 
-            foreach (GuildManager.SimpleGuild guild in ServerList.Items)
-            {
-                if (guild.Id == e.GuildId)
-                {
-                    ServerList.SelectedItem = guild;
-                    guild.IsSelected = true;
-                }
-                else
-                {
-                    guild.IsSelected = false;
-                }
-            }
+                     if (e.GuildId != "@me")
+                     {
+                         MemberToggle.Visibility = Visibility.Visible;
 
-            if (e.GuildId != "@me")
-            {
-                MemberToggle.Visibility = Visibility.Visible;
-               
-                App.CurrentGuildId = e.GuildId;
-                UserDetails.Visibility = Visibility.Collapsed;
-                MemberListFull.Visibility = Visibility.Visible;
-                RenderGuildChannels();
-                if (App.ShowAds)
-                {
-                    Ad.Visibility = Visibility.Visible;
-                }
+                         App.CurrentGuildId = e.GuildId;
+                         UserDetails.Visibility = Visibility.Collapsed;
+                         MemberListFull.Visibility = Visibility.Visible;
+                         RenderGuildChannels();
+                         if (App.ShowAds)
+                         {
+                             Ad.Visibility = Visibility.Visible;
+                         }
 
-            } else
-            {
-                Ad.Visibility = Visibility.Collapsed;
+                     }
+                     else
+                     {
+                         Ad.Visibility = Visibility.Collapsed;
 
-                App.CurrentGuildId = null;
-                MemberToggle.Visibility = Visibility.Collapsed;
-                RenderDMChannels();
-            }
+                         App.CurrentGuildId = null;
+                         MemberToggle.Visibility = Visibility.Collapsed;
+                         RenderDMChannels();
+                     }
 
-            if (App.CurrentGuildId == null)
-            {
-                string[] channels = new string[LocalState.DMs.Count];
-                for (int x = 0; x < LocalState.DMs.Count; x++)
-                {
-                    channels[x] = LocalState.DMs.Values.ToList()[x].Id;
-                }
-                GatewayManager.Gateway.SubscribeToGuild(channels);
-            } else
-            {
-                string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
-                channels[0] = App.CurrentGuildId;
-                for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
-                {
-                    channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
-                }
+                     if (App.CurrentGuildId == null)
+                     {
+                         string[] channels = new string[LocalState.DMs.Count];
+                         for (int x = 0; x < LocalState.DMs.Count; x++)
+                         {
+                             channels[x] = LocalState.DMs.Values.ToList()[x].Id;
+                         }
+                         GatewayManager.Gateway.SubscribeToGuild(channels);
+                     }
+                     else
+                     {
+                         string[] channels = new string[LocalState.Guilds[App.CurrentGuildId].channels.Count];
+                         channels[0] = App.CurrentGuildId;
+                         for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
+                         {
+                             channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
+                         }
 
-                GatewayManager.Gateway.SubscribeToGuild(channels);
-            }
+                         GatewayManager.Gateway.SubscribeToGuild(channels);
+                     }
+                 });
             App.UpdateUnreadIndicators();
         }
         private void App_NavigateToGuildChannelHandler(object sender, App.GuildChannelNavigationArgs e)
@@ -953,15 +945,19 @@ namespace Discord_UWP
         #endregion
 
         #region SubPages
-        private void SubFrameNavigator(Type page, object args = null)
+        private async void SubFrameNavigator(Type page, object args = null)
         {
-            if (Storage.Settings.ExpensiveRender)
-            {
-                content.Blur(2, 300).Start();
-            }
-            SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
-            SubFrame.Visibility = Visibility.Visible;
-            SubFrame.Navigate(page, args);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 () =>
+                 {
+                     if (Storage.Settings.ExpensiveRender)
+                     {
+                         content.Blur(2, 300).Start();
+                     }
+                     SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
+                     SubFrame.Visibility = Visibility.Visible;
+                     SubFrame.Navigate(page, args);
+                 });
         }
         private void App_SubpageClosedHandler(object sender, EventArgs e)
         {
@@ -1783,7 +1779,7 @@ namespace Discord_UWP
         List<GuildManager.SimpleGuild> oldTempGuilds;
         private async void UpdateGuildAndChannelUnread()
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     FriendNotificationCounter.Text = App.FriendNotifications.ToString();
@@ -2055,7 +2051,7 @@ namespace Discord_UWP
 
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                  RenderCurrentUser();
@@ -2101,6 +2097,33 @@ namespace Discord_UWP
                          videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
                      }
                  });
+            if (setupArgs != "")
+            {
+                if (setupArgs.StartsWith("quarrel://"))
+                {
+                    string[] segments = setupArgs.Replace("quarrel://", "").Split('/');
+                    var count = segments.Count();
+                    if (count > 0)
+                    {
+                        if (segments[0] == "guild")
+                        {
+                            if (count == 3)
+                                App.SelectGuildChannel(segments[1], segments[2]);
+                            else if (count == 2)
+                                App.SelectGuildChannel(segments[1], null);
+                        }
+                        else if (segments[0] == "invite")
+                        {
+                            App.NavigateToJoinServer(segments[1]);
+                        }
+                    }
+                }
+                else if (setupArgs == "SHARETARGET")
+                {
+                    SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor));
+                    navigationHistory.Clear();
+                }
+            }
         }
 
         private void VideoAd_AdReady(object sender, object e)
@@ -2120,7 +2143,7 @@ namespace Discord_UWP
 
         private async void App_TypingHandler(object sender, App.TypingArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     UpdateTyping();
@@ -2129,7 +2152,7 @@ namespace Discord_UWP
 
         private async void App_UpdateUnreadIndicatorsHandler(object sender, EventArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      UpdateGuildAndChannelUnread();
@@ -2138,7 +2161,7 @@ namespace Discord_UWP
 
         private async void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if(e.Settings.GuildOrder != null)
@@ -2189,7 +2212,7 @@ namespace Discord_UWP
         #region Messages
         private async void App_MessageCreatedHandler(object sender, App.MessageCreatedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
                      //var lastMsg = MessageList.Items.LastOrDefault() as MessageManager.MessageContainer;
@@ -2274,7 +2297,7 @@ namespace Discord_UWP
 
         private async void App_MessageDeletedHandler(object sender, App.MessageDeletedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      for (int i = 0; i < MessageList.Items.Count; i++)
@@ -2302,7 +2325,7 @@ namespace Discord_UWP
 
         private async void App_MessageEditedHandler(object sender, App.MessageEditedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (MessageList.Items.Count > 0)
@@ -2324,7 +2347,7 @@ namespace Discord_UWP
 
         private async void App_DMCreatedHandler(object sender, App.DMCreatedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         if (ChannelList.Items.Count > 0)
@@ -2338,7 +2361,7 @@ namespace Discord_UWP
 
         private async void App_DMDeletedHandler(object sender, App.DMDeletedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
@@ -2353,7 +2376,8 @@ namespace Discord_UWP
 
         private async void App_DMUpdatePosHandler(object sender, App.DMUpdatePosArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
@@ -2372,7 +2396,7 @@ namespace Discord_UWP
         #region Channel
         private async void App_GuildChannelCreatedHandler(object sender, App.GuildChannelCreatedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (ChannelList.Items.Count > 0)
@@ -2386,7 +2410,7 @@ namespace Discord_UWP
 
         private async void App_GuildChannelDeletedHandler(object sender, App.GuildChannelDeletedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (ChannelList.Items.Count > 0)
@@ -2454,7 +2478,7 @@ namespace Discord_UWP
         #region Guilds
         private async void App_GuildCreatedHandler(object sender, App.GuildCreatedArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      ServerList.Items.Insert(1+TempGuildCount, GuildManager.CreateGuild(e.Guild));
@@ -2535,7 +2559,7 @@ namespace Discord_UWP
                                 }
 
                                 //Set it to first Hoist Role or everyone if null
-                                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                 () =>
                                 {
                                     m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
@@ -2572,7 +2596,7 @@ namespace Discord_UWP
                         {
                             int count = m.Count();
                         }
-                        await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                             () =>
                             {
                                 // MembersCVS = new CollectionViewSource();
@@ -2632,7 +2656,7 @@ namespace Discord_UWP
                     m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
 
                     //Set it to first Hoist Role or everyone if null
-                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
@@ -2660,7 +2684,7 @@ namespace Discord_UWP
                 var sortedMembers =
                     memberscvs.GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                                 // MembersCVS = new CollectionViewSource();

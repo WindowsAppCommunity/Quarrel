@@ -491,7 +491,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (e.EventData.ChannelId == Id)

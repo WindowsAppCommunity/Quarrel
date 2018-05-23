@@ -101,7 +101,7 @@ namespace Discord_UWP.Controls
 
         private async void UpdateUI(bool visible, string artists = "", string title = "", string albumart = "")
         {
-        await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                    () =>
                    {
                        if (visible)
