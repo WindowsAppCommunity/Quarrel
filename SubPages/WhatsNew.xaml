@@ -108,7 +108,7 @@
                                 <Run Text="• Paste images or files to add them as attachements"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Awesome background notifications for unread DMs and friend requests"/>
+                                <Run Text="• Awesome background notifications for new DMs, mentions, and friend requests (configure these in the settings)"/>
                             </Paragraph>
                         </RichTextBlock>
                         <TextBlock Text="If you have any questions, please ask in Quarrel's Discord server" FontSize="12" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,12"/>
