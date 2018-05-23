@@ -128,7 +128,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if (e.EventData.Id == DisplayedInvite.Guild.Id)
                     LoadInvite(false);
@@ -137,7 +137,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 if (e.EventData.GuildId == DisplayedInvite.Guild.Id)
                     LoadInvite(false);

@@ -318,7 +318,7 @@
                         <Setter Target="button.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="rootgrid.(Grid.Padding)">
                             <Setter.Value>
-                                <Thickness>100</Thickness>
+                                <Thickness>50</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="grid.(FrameworkElement.MaxWidth)" Value="10000"/>
@@ -337,7 +337,7 @@
                         </Setter>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
+                        <AdaptiveTrigger x:Name="mediumTrigger" MinWindowWidth="600"/>
                     </VisualState.StateTriggers>
                 </VisualState>
             </VisualStateGroup>
@@ -359,6 +359,36 @@
                                 </TransitionCollection>
                             </StackPanel.ChildrenTransitions>
                             <TextBlock x:Name="header" x:Uid="/Dialogs/AdvancedMessageEditorTB" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                            <StackPanel x:Name="shareTarget" Visibility="Collapsed">
+
+                                <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="SERVER" Margin="0,12,0,0"/>
+                                <ComboBox x:Name="serverOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="serverOption_SelectionChanged" BorderThickness="1">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Padding="6">
+                                                <Ellipse Width="26" Height="26">
+                                                    <Ellipse.Fill>
+                                                        <ImageBrush ImageSource="{Binding ImageURL}"/>
+                                                    </Ellipse.Fill>
+                                                </Ellipse>
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="14" Margin="12,0,0,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="CHANNEL" Margin="0,12,0,0"></TextBlock>
+                                <ComboBox x:Name="channelOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="channelOption_SelectionChanged" BorderThickness="1">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Padding="6">
+                                                <TextBlock Text="{Binding LastMessageId}" Opacity="0.6" FontSize="13.33"/>
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13.333" Margin="4,0,0,0"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                           
                             <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
                             <TextBox x:Name="Editor" BorderThickness="1" Margin="0,6,0,0"/>
                             <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>

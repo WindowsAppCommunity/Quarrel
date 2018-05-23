@@ -164,7 +164,7 @@ namespace Discord_UWP.SubPages
         {
             if (e.EventData.GuildId == App.CurrentGuildId)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         for (int x = 0; x < BanView.Items.Count; x++)
@@ -187,7 +187,7 @@ namespace Discord_UWP.SubPages
         {
             if (e.EventData.GuildId == App.CurrentGuildId)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                        () =>
                        {
                            if (BanView.Items.Count == 0)
@@ -201,7 +201,7 @@ namespace Discord_UWP.SubPages
 
         private async void GuildUpdated(object sender, GatewayEventArgs<SharedModels.Guild> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     if (guildId == e.EventData.Id)

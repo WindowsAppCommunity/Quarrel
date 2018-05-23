@@ -45,11 +45,16 @@ namespace Discord_UWP.Controls
 
         private async void Splash_Dismissed(SplashScreen sender, object args)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                   () =>
-                   {
-                       AdjustSize();
-                   });
+            if (App.shareop == null)
+            {
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+       () =>
+       {
+           AdjustSize();
+       });
+            }
+            else
+                AdjustSize();
         }
 
         private void ShowReset(object sender, object e)
@@ -109,13 +114,21 @@ namespace Discord_UWP.Controls
 
         public void AdjustSize()
         {
-            var location = App.Splash.ImageLocation;
-            viewbox.Width = location.Width;
-            viewbox.Height = location.Height;
-            Canvas.SetTop(viewbox, location.Top);
-            Canvas.SetLeft(viewbox, location.Left);
-            //this.Focus(FocusState.Pointer);
-            stack.Margin = new Thickness(0, location.Bottom, 0, 0);
+            try
+            {
+
+                var location = App.Splash.ImageLocation;
+                viewbox.Width = location.Width;
+                viewbox.Height = location.Height;
+                Canvas.SetTop(viewbox, location.Top);
+                Canvas.SetLeft(viewbox, location.Left);
+                //this.Focus(FocusState.Pointer);
+                stack.Margin = new Thickness(0, location.Bottom, 0, 0);
+            }
+            catch (Exception)
+            {
+
+            }
         }
         public void Show(bool animate)
         {
