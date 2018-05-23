@@ -199,6 +199,24 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
                         content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/RemovedUser") + " **" + Message.Value.Mentions.First().Username + "** " + App.GetString("/Controls/FromTheConversation");
                     }
+                    else if(MessageType == MessageTypes.ChannelIconChanged)
+                    {
+                        if (rootGrid.Children.Contains(reactionView))
+                            rootGrid.Children.Remove(reactionView);
+                        VisualStateManager.GoToState(this, "Alternative", false);
+                        AlternativeIcon.Glyph = "";
+                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                        content.Text = "**" + Message.Value.User.Username + "** changed the channel's icon"; 
+                    }
+                    else if (MessageType == MessageTypes.ChannelNameChanged)
+                    {
+                        if (rootGrid.Children.Contains(reactionView))
+                            rootGrid.Children.Remove(reactionView);
+                        VisualStateManager.GoToState(this, "Alternative", false);
+                        AlternativeIcon.Glyph = "";
+                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                        content.Text = "**" + Message.Value.User.Username + "** changed the channel's name";
+                    }
                     else if (MessageType == MessageTypes.Call)
                     {
                         if (rootGrid.Children.Contains(reactionView))
@@ -297,6 +315,10 @@ namespace Discord_UWP.Controls
                             VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
                         else
                             VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
+                    }
+                    else if(MessageType == MessageTypes.ChannelIconChanged)
+                    {
+
                     }
                     else if (MessageType == MessageTypes.Default)
                     {

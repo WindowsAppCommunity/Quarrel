@@ -28,7 +28,7 @@ BindingGeneric=    new ToastBindingGeneric()
 
         new AdaptiveText()
         {
-            Text = "This update also has a few new features. Wanna check it out?"
+            Text = "This update also has a few new features (including background notifications!). Wanna check it out?"
         }
                 }
                 }

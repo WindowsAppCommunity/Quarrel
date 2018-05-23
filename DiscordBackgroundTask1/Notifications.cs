@@ -69,7 +69,7 @@ namespace DiscordBackgroundTask1
                 },
                 DisplayTimestamp = SnowflakeToTime(lastmessage),
                 ActivationType = ToastActivationType.Protocol,
-                Launch = "discorduwp://guild/DMs/" + channel.id
+                Launch = "quarrel://channels/@me/" + channel.id
             };
 
             // Create the toast notification
@@ -114,7 +114,7 @@ namespace DiscordBackgroundTask1
                 },
                 DisplayTimestamp = SnowflakeToTime(lastmessage),
                 ActivationType = ToastActivationType.Protocol,
-                Launch = "discorduwp://guild/"+guildid+"/"+channelid
+                Launch = "quarrel://channels/"+guildid+"/"+channelid
             };
 
             // Create the toast notification
@@ -163,7 +163,7 @@ namespace DiscordBackgroundTask1
                     }
                 },
                 ActivationType = ToastActivationType.Protocol,
-                Launch = "discorduwp://friendrequests"
+                Launch = "quarrel://friendrequests"
             };
             var toastNotif = new ToastNotification(toastContent.GetXml());
             toastNotif.Tag = relationshipid;
