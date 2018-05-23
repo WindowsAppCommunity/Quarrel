@@ -26,11 +26,18 @@ namespace Discord_UWP
     {
         public static SolidColorBrush IntToColor(int color)
         {
+            if(color != 0)
+            {
                 byte a = (byte)(255);
                 byte r = (byte)(color >> 16);
                 byte g = (byte)(color >> 8);
                 byte b = (byte)(color >> 0);
                 return new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            }
+            else
+            {
+                return (SolidColorBrush)App.Current.Resources["Foreground"];
+            }
         }
 
         public static double SnowflakeToTime(string id)

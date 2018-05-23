@@ -117,7 +117,7 @@ namespace Discord_UWP.Controls
 
         private async void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (e.ChannelId == DisplayedUser.ChannelId)
@@ -133,7 +133,7 @@ namespace Discord_UWP.Controls
 
         private async void VoiceConnection_Speak(object sender, Voice.VoiceConnectionEventArgs<Voice.DownstreamEvents.Speak> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (e.EventData.UserId == DisplayedUser.UserId)
@@ -152,7 +152,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_VoiceStateUpdated(object sender, Gateway.GatewayEventArgs<VoiceState> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
                      if (e.EventData.UserId == DisplayedUser.UserId)

@@ -116,7 +116,6 @@ namespace Discord_UWP.Managers
             public void OnPropertyChanged(string propertyName)
             { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
         }
-
         public static SimpleGuild CreateGuild(SharedModels.Guild guild)
         {
             var sg = new SimpleGuild()
@@ -141,6 +140,20 @@ namespace Discord_UWP.Managers
                         sg.IsUnread = true;
                 }
             return sg;
+        }
+        public static SimpleGuild CreateGuild(SharedModels.UserGuild guild)
+        {
+             return new SimpleGuild()
+            {
+                Id = guild.Id,
+                Name = guild.Name,
+                ImageURL = "https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg",
+                IsDM = false,
+                IsMuted = LocalState.GuildSettings.ContainsKey(guild.Id) ? LocalState.GuildSettings[guild.Id].raw.Muted : false,
+                IsUnread = false, //Will Change if true
+                IsValid = true, //Will change if false
+                IsSelected = false
+            };
         }
     }
 }

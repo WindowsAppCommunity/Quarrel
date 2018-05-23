@@ -55,7 +55,7 @@ namespace Discord_UWP.Managers
             //Save
             await userActivity.SaveAsync(); //save the new metadata
             _currentActivity?.Dispose();
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
             {
                 _currentActivity = userActivity.CreateSession();

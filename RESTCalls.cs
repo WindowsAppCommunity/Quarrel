@@ -71,7 +71,7 @@ namespace Discord_UWP
                 return new LoginResult() { exception=e };
             }
         }
-        public static async Task SetupToken()
+        public static async Task SetupToken(bool ignoregateway = false)
         {
             var credentials = Storage.PasswordVault.FindAllByResource("Token");
 
@@ -92,12 +92,16 @@ namespace Discord_UWP
             AuthenticatedRestFactory = new AuthenticatedRestFactory(config, authenticator);
 
             //TODO: Maybe restructure gateway setup
-            IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
+            if (!ignoregateway)
+            {
+                IGatewayConfigService gatewayService = basicRestFactory.GetGatewayConfigService();
 
-            GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
+                GatewayConfig gateconfig = await gatewayService.GetGatewayConfig();
 
-            Gateway.Gateway.UseCompression = Storage.Settings.UseCompression;
-            GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
+                Gateway.Gateway.UseCompression = Storage.Settings.UseCompression;
+                GatewayManager.Gateway = new Gateway.Gateway(gateconfig, authenticator);
+            }
+
         }
 
         public static async Task<LoginResult> LoginMFA(string code, string ticket)
@@ -452,6 +456,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
+        }
+        public static async Task<IEnumerable<SharedModels.GuildChannel>> GetGuildChannels(string id)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.GetGuildChannels(id);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
         }
 
         public static async Task<IEnumerable<SharedModels.GuildChannel>> GetGuildData(string id)

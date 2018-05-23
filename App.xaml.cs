@@ -1076,16 +1076,30 @@ namespace Discord_UWP
             
         }
 
-
-        protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        public static Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation shareop = null;
+        public static Windows.UI.Core.CoreDispatcher dispatcher;
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
+            shareop = args.ShareOperation;
+            Frame rootFrame = new Frame();
+            SetupTitleBar();
+            InitializeResources();
+            rootFrame.Navigate(typeof(SubPages.ExtendedMessageEditor));
+            Window.Current.Content = rootFrame;
+
+            ApplicationView.PreferredLaunchViewSize = new Size(350, 512);
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(300, 300));
+            Window.Current.Activate();
+            //LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, "SHARETARGET");
+            /*
             var rootFrame = new Frame();
             rootFrame.Navigate(typeof(ShareTarget), args.ShareOperation);
-            Window.Current.Activate();
+            Window.Current.Activate();*/
         }
         static bool WasPreLaunched = false;
         private void LaunchProcedure(SplashScreen splash, ApplicationExecutionState PreviousExecutionState, bool PrelaunchActivated, string Arguments)
         {
+            dispatcher = CoreApplication.GetCurrentView().Dispatcher;
             try
             {
                 var licenseInformation = CurrentApp.LicenseInformation;
@@ -1098,7 +1112,7 @@ namespace Discord_UWP
             {
                 //Debug mode
             }
-            
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (PrelaunchActivated == false)

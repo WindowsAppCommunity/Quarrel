@@ -309,7 +309,7 @@ namespace Discord_UWP.SubPages
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         if (e.EventData.User.Id == profile.User.Id)
@@ -335,7 +335,7 @@ namespace Discord_UWP.SubPages
 
         private async void Gateway_RelationshipUpdated(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
@@ -345,7 +345,7 @@ namespace Discord_UWP.SubPages
 
         private async void Gateway_RelationshipAdded(object sender, GatewayEventArgs<Friend> gatewayEventArgs)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
@@ -361,7 +361,7 @@ namespace Discord_UWP.SubPages
 
         private async void SwitchFriendValues(int type)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
 
                 RemoveFriendLink.Visibility = Visibility.Collapsed;
@@ -407,7 +407,7 @@ namespace Discord_UWP.SubPages
         {
             if (e.EventData.UserId == profile.User.Id)
             {
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         NoteBox.Text = e.EventData.Note;

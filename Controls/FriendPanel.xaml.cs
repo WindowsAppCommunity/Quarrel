@@ -89,7 +89,7 @@ namespace Discord_UWP.Controls
         }
         private async Task RemoveRelationshipFromUI(Gateway.GatewayEventArgs<Friend> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     var insideAllView = AllView.Items.FirstOrDefault(x => (x as SimpleFriend).User.Id == e.EventData.Id);
@@ -124,7 +124,7 @@ namespace Discord_UWP.Controls
         }
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
                     SimpleFriend sfriend = NewSF(e.EventData);
