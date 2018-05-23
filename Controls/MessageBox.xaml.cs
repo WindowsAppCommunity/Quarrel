@@ -242,27 +242,36 @@ namespace Discord_UWP.Controls
                         string query = word.Remove(0, 1);
                         selectionstart = selectionstart - word.Length;
                         PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
+
                         if (query != "")
                         {
+                            Debug.WriteLine("Query=\"" + query + "\"");
+                            Debug.WriteLine("PureText=\"" + PureText + "\"");
                             if (App.MemberListDawg == null)
                             {
+                                Debug.WriteLine("Cancelled");
                                 SuggestionBlock.ItemsSource = null;
                                 SuggestionPopup.IsOpen = false;
                             }
                             else
                             {
-                                var list = App.MemberListDawg.MatchPrefix(query).Take(12);
-                                if(list.Count() == 0)
+                                try
                                 {
-                                    SuggestionBlock.ItemsSource = null;
-                                    SuggestionPopup.IsOpen = false;
+                                    Debug.WriteLine("Got to stage 1");
+                                    var list = App.MemberListDawg.MatchPrefix(query).Take(12);
+                                    Debug.WriteLine("Got to stage 2");
+                                    if (list.Count() == 0)
+                                    {
+                                        SuggestionBlock.ItemsSource = null;
+                                        SuggestionPopup.IsOpen = false;
+                                    }
+                                    else
+                                    {
+                                        SuggestionBlock.ItemsSource = list;
+                                        SuggestionPopup.IsOpen = true;
+                                    }
                                 }
-                                else
-                                {
-                                    SuggestionBlock.ItemsSource = list;
-                                    SuggestionPopup.IsOpen = true;
-                                }
-                                
+                                catch { }
                             }
                         }
                     }
@@ -280,21 +289,28 @@ namespace Discord_UWP.Controls
                     }
                     else
                     {
+                        Debug.WriteLine("Trying to set as null 296");
                         SuggestionBlock.ItemsSource = null;
                         SuggestionPopup.IsOpen = false;
+                        Debug.WriteLine("Trying to set as null 299");
                     }
                 }
                 else
                 {
+                    Debug.WriteLine("Trying to set as null 304");
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
+                    Debug.WriteLine("Trying to set as null 307");
                 }
             }
             else
             {
+                Debug.WriteLine("Trying to set as null 308");
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
+                Debug.WriteLine("Trying to set as null 315");
             }
+            
             TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -353,8 +369,8 @@ namespace Discord_UWP.Controls
             if (e.Key == VirtualKey.Up)
             {
                 e.Handled = true;
-                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)                
-                    SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count-1;
+                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
+                    SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
                 else
                     SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
             }

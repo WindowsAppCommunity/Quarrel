@@ -1199,7 +1199,7 @@ namespace Discord_UWP
                 case ActivationKind.Protocol:
 
                     ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                    string[] segments = eventArgs.Uri.ToString().Replace("discorduwp://", "").Split('/');
+                    string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "").Split('/');
                     var count = segments.Count();
                     if (count > 0)
                     {
