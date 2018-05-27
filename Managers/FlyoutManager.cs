@@ -19,6 +19,8 @@ namespace Discord_UWP.Managers
         public static async Task<MenuFlyout> ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
+            if (App.CinematicMode)
+                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
             switch (type)
             {
                 case Type.Guild:
@@ -49,6 +51,13 @@ namespace Discord_UWP.Managers
                     }
                     break;
                     //TODO: User Flyout
+            }
+            if (App.CinematicMode)
+                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+            foreach(var item in flyout.Items)
+            {
+                if(item.GetType() == typeof(MenuFlyoutItem))
+                    item.Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"];
             }
             return flyout;
         }

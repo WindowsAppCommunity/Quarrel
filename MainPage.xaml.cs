@@ -93,8 +93,12 @@ namespace Discord_UWP
                            TitleBarHolder.Visibility = Visibility.Collapsed;
                            userButton.Padding = new Thickness(0, 0, 0, 48);
                            userButton.Height = 112;
-                           ServerList.Padding = new Thickness(0, 84, 0, 48);
-                           ChannelList.Padding = new Thickness(0, 84, 0, 48);
+                           //ServerList.Padding = new Thickness(0, 84, 0, 48);
+                           //ChannelList.Padding = new Thickness(0, 84, 0, 48);
+                           ServerScrollviewer.Margin = new Thickness(0, 84, 0, 48);
+                           ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
+                           MembersListView.Margin = new Thickness(0, 48, 0, 48);
+
                            CinematicChannelName.Visibility = Visibility.Visible;
                            CinematicGuildName.Visibility = Visibility.Visible;
                            friendPanel.Margin = new Thickness(0, 84, 0, 0);
@@ -103,6 +107,13 @@ namespace Discord_UWP
                            CinematicMask1.Visibility = Visibility.Visible;
                            CinematicMask2.Visibility = Visibility.Visible;
                            ControllerHints.Visibility = Visibility.Visible;
+                           Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+                           sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
+                           sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;
+                           sideDrawer.DrawsClosed += SideDrawer_DrawsClosed;
+                           SubFrame.FocusDisengaged += SubFrame_FocusDisengaged;
+                           userButton.IsTabStop = false;
+                           Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryResizeView(new Size(960,540));
                        }
 
                        //Setup BackButton
@@ -111,6 +122,7 @@ namespace Discord_UWP
                        //Setup Controller input
                        Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
                        Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+                       Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
                        //Setup MessageList infinite scroll
 
                        if (!Storage.Settings.CustomBG)
@@ -137,6 +149,11 @@ namespace Discord_UWP
                        }
                    });
             LocalState.SupportedGames = await RESTCalls.GetGamelist();
+        }
+
+        private void SubFrame_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
+        {
+            App.SubpageClose();
         }
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
@@ -950,13 +967,19 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
+
                      if (Storage.Settings.ExpensiveRender)
                      {
                          content.Blur(2, 300).Start();
                      }
+                     SubFrame.Navigate(page, args);
                      SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
                      SubFrame.Visibility = Visibility.Visible;
-                     SubFrame.Navigate(page, args);
+                     SubFrame.IsFocusEngagementEnabled = true;
+                     SubFrame.Focus(FocusState.Keyboard);
+                     SubFrame.IsFocusEngaged = true;
+                     ((Control)FocusManager.FindFirstFocusableElement(SubFrame)).Focus(FocusState.Keyboard);
+                    
                  });
         }
         private void App_SubpageClosedHandler(object sender, EventArgs e)
@@ -970,6 +993,8 @@ namespace Discord_UWP
                 content.Blur(0, 0).Start();
             }
             SubFrameMask.Fade(0f, 300, 0, 0).Start();
+            SubFrame.IsFocusEngagementEnabled = false;
+            SubFrame.IsFocusEngaged = false;
         }
 
         private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
@@ -1853,6 +1878,7 @@ namespace Discord_UWP
                             {
                                 gclone.IsMuted = false;
                             }
+                            //TODO replace with a for() loop
                             foreach (var chn in LocalState.Guilds[gclone.Id].channels.Values)
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
@@ -2048,12 +2074,20 @@ namespace Discord_UWP
             catch { }
         }
         #endregion
+        private async void SetupUI()
+        {
+            //Remove clipping from all the listviews
+            Common.RemoveScrollviewerClipping(ServerScrollviewer);
+            Common.RemoveScrollviewerClipping(ChannelScrollviewer);
+            Common.RemoveScrollviewerClipping(MembersListView);
 
+        }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
+                     SetupUI();
                  RenderCurrentUser();
                  RenderGuilds();
                  ServerList.SelectedIndex = 0;
@@ -3014,7 +3048,7 @@ namespace Discord_UWP
 
         private void ServerList_LostFocus(object sender, RoutedEventArgs e)
         {
-            ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((ChannelManager.SimpleChannel)x).Id == App.CurrentChannelId);
+           // ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((ChannelManager.SimpleChannel)x).Id == App.CurrentChannelId);
         }
 
         private void sideDrawer_SecondaryLeftFocused_1(object sender, EventArgs e)
@@ -3034,12 +3068,12 @@ namespace Discord_UWP
 
         private void ChannelList_GotFocus(object sender, RoutedEventArgs e)
         {
-            YHint.Show();
+           // YHint.Show();
         }
 
         private void ChannelList_LostFocus(object sender, RoutedEventArgs e)
         {
-            ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
+            //ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -3099,11 +3133,6 @@ namespace Discord_UWP
         private void COVoice_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 
-        }
-
-        private void VoiceController_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            VoiceControlPadding.Height = VoiceController.ActualHeight;
         }
 
         private void IgnoreNewMessages_Click(object sender, RoutedEventArgs e)

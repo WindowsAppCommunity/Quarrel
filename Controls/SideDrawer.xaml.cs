@@ -52,21 +52,38 @@ namespace Discord_UWP.Controls
         private Compositor compositor;
         private InteractionTracker tracker;
         private VisualInteractionSource interactionSource;
-
+        public event EventHandler DrawOpenedLeft;
+        public event EventHandler DrawOpenedRight;
+        public event EventHandler DrawsClosed;
         public SideDrawer()
         {
             this.InitializeComponent();
             Storage.SettingsChangedHandler += App_LocalSettingsUpdatedHandler;
-
-
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
-            compositor = rootVisual.Compositor;
-            
+            compositor = rootVisual.Compositor;         
             App.UniversalPointerDownHandler += Content_PointerPressed;
-            
-
         }
-
+        bool fullscreen = false;
+        public void ToggleFullScreen()
+        {
+            if (!fullscreen)
+            {
+                SmallTrigger.MinWindowWidth = 0;
+                MediumTrigger.MinWindowWidth = 100000;
+                LargeTrigger.MinWindowWidth = 100000;
+                ExtraLargeTrigger.MinWindowWidth = 100000;
+                fullscreen = true;
+            }
+            else
+            {
+                SmallTrigger.MinWindowWidth = 100000;
+                MediumTrigger.MinWindowWidth = 0;
+                LargeTrigger.MinWindowWidth = 100000;
+                ExtraLargeTrigger.MinWindowWidth = 100000;
+                fullscreen = false;
+            }
+            VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = VisualStateGroup.CurrentState });
+        }
         private void App_LocalSettingsUpdatedHandler(object sender, EventArgs e)
         {
             MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
@@ -231,6 +248,8 @@ namespace Discord_UWP.Controls
         public void SetupInteraction(UIElement DetachedHeader)
         {
 
+
+
             //Set up tracker
             var containerVisual = compositor.CreateContainerVisual();
             contentVis = ElementCompositionPreview.GetElementVisual(content);
@@ -312,20 +331,23 @@ namespace Discord_UWP.Controls
             LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
             ExtraLargeTrigger.MinWindowWidth = Storage.Settings.RespUiXl;
             var state = VisualStateGroup.CurrentState;
-            
 
+            //First, check for cinematic mode
             if (App.CinematicMode)
             {
                 SmallTrigger.MinWindowWidth = 0;
-                MediumTrigger.MinWindowWidth = 0;
-                LargeTrigger.MinWindowWidth = 1;
+                MediumTrigger.MinWindowWidth = 100000;
+                LargeTrigger.MinWindowWidth = 100000;
                 ExtraLargeTrigger.MinWindowWidth = 100000;
-                maingrid.Margin = new Thickness(54, 0, 54, 0);
-                leftPanel.Margin = new Thickness(-54, 0, 0, 0);
-                leftPanel.Padding = new Thickness(54, 0, 0, 0);
+                maingrid.Margin = new Thickness(0, 0, 0, 0);
+                ContentControl1.Margin = new Thickness(54, 0, 54, 0);
+                leftSide.Margin = new Thickness(54, 0, 0, 0);
+                leftPanel.Margin = new Thickness(12, 0, 0, 0);
                 rightSide.Margin = new Thickness(0, 0, 54, 0);
-                rightSide.Padding = new Thickness(0, 0, -54, 0);
+                width = 372;
             }
+
+
             VisualStateGroup_CurrentStateChanged(null, new VisualStateChangedEventArgs() { OldState = Small });
         }
         InteractionTrackerInertiaRestingValue startpoint;
@@ -428,10 +450,17 @@ namespace Discord_UWP.Controls
             CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
             Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
             kfa.Duration = TimeSpan.FromSeconds(0.5);
-            if (tracker.Position.X != 0)
+            if (tracker.Position.X < 0)
+            {
                 kfa.InsertKeyFrame(1.0f, Vector3Zero, cubicBezier);
+                DrawsClosed?.Invoke(null, null);
+            }
             else
+            {
                 kfa.InsertKeyFrame(1.0f, tracker.MinPosition, cubicBezier);
+                DrawOpenedLeft?.Invoke(null, null);
+            }
+                
             tracker.TryUpdatePositionWithAnimation(kfa);
         }
         public void ToggleRight()
@@ -439,10 +468,17 @@ namespace Discord_UWP.Controls
             CompositionEasingFunction cubicBezier = compositor.CreateCubicBezierEasingFunction(new Vector2(.45f, 1.5f), new Vector2(.45f, 1f));
             Vector3KeyFrameAnimation kfa = compositor.CreateVector3KeyFrameAnimation();
             kfa.Duration = TimeSpan.FromSeconds(0.5);
-            if (tracker.Position.X != 0)
+            if (tracker.Position.X > 0)
+            {
+                DrawsClosed?.Invoke(null, null);
                 kfa.InsertKeyFrame(1.0f, Vector3Zero, cubicBezier);
-            else
+            }
+                
+            else{
+                DrawOpenedRight?.Invoke(null, null);
                 kfa.InsertKeyFrame(1.0f, tracker.MaxPosition, cubicBezier);
+            }
+               
             tracker.TryUpdatePositionWithAnimation(kfa);
         }
 
