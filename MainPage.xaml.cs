@@ -118,6 +118,9 @@ namespace Discord_UWP
                            SubFrame.FocusDisengaged += SubFrame_FocusDisengaged;
                            userButton.IsTabStop = false;
                            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TryResizeView(new Size(960,540));
+                       } else
+                       {
+                           ServerScrollviewer.Margin = new Thickness(0, 0, 0, 0);
                        }
 
                        //Setup BackButton
