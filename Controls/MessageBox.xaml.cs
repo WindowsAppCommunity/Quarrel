@@ -365,23 +365,26 @@ namespace Discord_UWP.Controls
                 else
                     InsertNewLine();
             }
-
-            if (e.Key == VirtualKey.Up)
+            if (SuggestionPopup.IsOpen)
             {
-                e.Handled = true;
-                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
-                    SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
-                else
-                    SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
-            }
-            else if (e.Key == VirtualKey.Down)
-            {
-                e.Handled = true;
+                if (e.Key == VirtualKey.Up)
+                {
 
-                if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count-1)
-                    SuggestionBlock.SelectedIndex = 0;
-                else
-                    SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
+                    e.Handled = true;
+                    if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
+                        SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
+                    else
+                        SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
+                }
+                else if (e.Key == VirtualKey.Down)
+                {
+                    e.Handled = true;
+
+                    if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count - 1)
+                        SuggestionBlock.SelectedIndex = 0;
+                    else
+                        SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
+                }
             }
         }
 

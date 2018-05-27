@@ -1113,7 +1113,6 @@
                                             </Button.Content>
                                         </Button>
                                     </ListView.Footer>
-
                                 </ListView>
                             </ScrollViewer>
                             <Rectangle x:Name="NewAboveIndicator" Opacity="0" Height="72" IsHitTestVisible="False" VerticalAlignment="Top">
@@ -1144,7 +1143,12 @@
                     </controls:SideDrawer.ContentLeft>
                     <controls:SideDrawer.ContentLeftSecondary>
                         <Grid Grid.Column="1" BorderBrush="#00000000">
-                            <ScrollViewer HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False" Style="{StaticResource OffsetScrollbarSV}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer x:Name="ChannelScrollviewer" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False">
                                 <StackPanel Margin="0,0,0,82" Padding="0,6,0,0">
                                     <ListViewItem x:Name="FriendsItem" Tapped="OpenFriendPanel" Height="48"  Style="{StaticResource ChannelItemStyle}">
                                         <ListViewItem.Resources>
@@ -1206,7 +1210,7 @@
                                     <Button x:Name="ServerNameButton" Style="{StaticResource DiscordOpaqueButton}" Click="ServerNameButton_Click" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Padding="0" Margin="0,0,0,8"  Background="Transparent">
                                         <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                     </Button>
-                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" XYFocusLeft="{x:Bind ServerList}" GotFocus="ChannelList_GotFocus" LostFocus="ChannelList_LostFocus">
+                                    <ListView x:Name="ChannelList" SelectionChanged="ChannelList_SelectionChanged" ItemClick="ChannelList_ItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" CanDragItems="False" CanReorderItems="False" AllowDrop="False" Style="{StaticResource SimplifiedListView}"  HorizontalAlignment="Left" HorizontalContentAlignment="Left" Width="228" GotFocus="ChannelList_GotFocus" LostFocus="ChannelList_LostFocus">
                                         <ListView.ItemContainerTransitions>
                                             <TransitionCollection>
                                                 <RepositionThemeTransition IsStaggeringEnabled="False"/>
@@ -1246,10 +1250,9 @@
                                         </ListViewItem>
                                     </StackPanel>
                                     <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                    <Rectangle x:Name="VoiceControlPadding"  Width="1" Height="{Binding ActualHeight, ElementName=VoiceController, UpdateSourceTrigger=PropertyChanged}"/>
                                 </StackPanel>
                             </ScrollViewer>
-                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.RowSpan="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
+                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                                         <GradientStop Offset="1"/>
@@ -1267,8 +1270,8 @@
                             </Rectangle>
                             <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
                             <controls:VoiceConnectionControl
-                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64" Visibility="Collapsed" SizeChanged="VoiceController_SizeChanged"/>
-                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="1" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0,0,0,64" Visibility="Collapsed"/>
+                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="2" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
@@ -1310,7 +1313,9 @@
                                     </Flyout>
                                 </Button.Flyout>
                                 <StackPanel Orientation="Horizontal">
+                                    <controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>
                                     <Grid>
+                                        
                                         <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
                                         <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
                                             <Rectangle.Fill>
@@ -1319,7 +1324,9 @@
                                         </Rectangle>
                                     </Grid>
                                     <Ellipse x:Name="UserStatusIndicator" Fill="#ff43b581"  Width="12" Height="12" VerticalAlignment="Bottom" Margin="-12,0,0,0"/>
+                                    
                                     <StackPanel VerticalAlignment="Center" Margin="12,0,0,0">
+                                        
                                         <TextBlock x:Name="Username" Text="Username" FontWeight="SemiBold"/>
                                         <TextBlock x:Name="Discriminator" FontSize="12" Text="Discriminator" Opacity="0.5"/>
                                     </StackPanel>
@@ -1432,18 +1439,18 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                             <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
-                            <Grid x:Name="ControllerHints" Visibility="Collapsed"  Grid.Row="3">
+                            <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                 <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
                                     <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
                                     <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
                                     <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
                                         <controls:ControllerHint.ContextFlyout>
                                             <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                                                <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem Text="About" Click="NavToAbout"/>
-                                                <MenuFlyoutItem Text="What's New?" Click="WhatsNewClick"/>
-                                                <MenuFlyoutItem Text="Remove Ads" Click="NavToIAPs"/>
-                                                <MenuFlyoutItem Text="Settings" Click="OpenSettings"/>
+                                               <!-- <MenuFlyoutSeparator/>-->
+                                                <MenuFlyoutItem Text="About" Click="NavToAbout" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem Text="What's New?" Click="WhatsNewClick" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem Text="Remove Ads" Click="NavToIAPs" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem Text="Settings" Click="OpenSettings" Style="{StaticResource MenuFlyoutItemStyle1}"/>
                                             </MenuFlyout>
                                         </controls:ControllerHint.ContextFlyout>
                                     </controls:ControllerHint>
@@ -1655,7 +1662,31 @@
                                                Height="50" Width="320"
                                                ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
                                                AdUnitId="336795"/>
-
+        <Rectangle x:Name="MentionFlasher" Visibility="Visible" Opacity="0" IsHitTestVisible="False" VerticalAlignment="Stretch" Width="256" HorizontalAlignment="Left">
+            <Rectangle.Resources>
+                <Storyboard x:Name="MentionFlasherStoryboard">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MentionFlasher" Storyboard.TargetProperty="Opacity">
+                        <EasingDoubleKeyFrame Value="1" KeyTime="0:0:0.1">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseOut"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                        <EasingDoubleKeyFrame Value="0" KeyTime="0:0:0.75">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <CubicEase EasingMode="EaseInOut"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </Rectangle.Resources>
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                    <GradientStop Color="{ThemeResource BlurpleColor}" Offset="0"/>
+                    <GradientStop Color="{ThemeResource BlurpleColorSemiTransparent}" Offset="0.3" />
+                    <GradientStop Color="{ThemeResource BlurpleColorTransparent}" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         <Rectangle x:Name="SubFrameMask" IsHitTestVisible="False" Grid.ColumnSpan="12" Grid.RowSpan="12" Opacity="0" Fill="Black"/>
         <Frame x:Name="SubFrame" Visibility="Collapsed" Canvas.ZIndex="9999">
             <Frame.RenderTransform>
@@ -1687,30 +1718,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        <Rectangle x:Name="MentionFlasher" Visibility="Visible" Opacity="0" IsHitTestVisible="False" VerticalAlignment="Stretch" Width="256" HorizontalAlignment="Left">
-            <Rectangle.Resources>
-                <Storyboard x:Name="MentionFlasherStoryboard">
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MentionFlasher" Storyboard.TargetProperty="Opacity">
-                        <EasingDoubleKeyFrame Value="1" KeyTime="0:0:0.1">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                        <EasingDoubleKeyFrame Value="0" KeyTime="0:0:0.75">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
-            </Rectangle.Resources>
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                    <GradientStop Color="{ThemeResource BlurpleColor}" Offset="0"/>
-                    <GradientStop Color="{ThemeResource BlurpleColorSemiTransparent}" Offset="0.3" />
-                    <GradientStop Color="{ThemeResource BlurpleColorTransparent}" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+
     </Grid>
 </Page>
