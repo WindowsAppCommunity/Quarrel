@@ -45,7 +45,7 @@
             <RowDefinition Height="Auto" MaxHeight="300"/>
             <RowDefinition Height="Auto" MaxHeight="10"/>
         </Grid.RowDefinitions>
-        <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-18,-24,0"/>
+        <Rectangle x:Name="HoverCache" Visibility="Collapsed" Fill="{ThemeResource AcrylicChannelPaneBackground}" Opacity="0.6" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="-24,-18,-24,0"/>
         <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="0,0,0,0" HorizontalAlignment="Stretch" Margin="-24,0" Grid.ColumnSpan="3" Grid.RowSpan="12">
             <Border.Background>
                 <SolidColorBrush Opacity="0.2" Color="{ThemeResource BlurpleColor}"/>
@@ -194,5 +194,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
     </Grid>
 </UserControl>

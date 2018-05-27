@@ -29,6 +29,7 @@ using Discord_UWP.API.Game;
 
 using GiphyAPI;
 using GiphyAPI.Models;
+using System.Threading;
 
 namespace Discord_UWP
 {

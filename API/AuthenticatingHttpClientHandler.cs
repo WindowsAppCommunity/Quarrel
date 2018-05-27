@@ -23,8 +23,14 @@ namespace Discord_UWP.API
         {
             var token = _authenticator.GetToken();
             request.Headers.Add("Authorization", token);
-
-            return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

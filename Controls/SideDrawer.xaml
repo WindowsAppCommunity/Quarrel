@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400" SizeChanged="UserControl_SizeChanged">
 
-    <Grid x:Name="maingrid" PointerPressed="Content_PointerPressed">
+    <Grid x:Name="maingrid" Background="{ThemeResource AcrylicGuildPaneBackground}" PointerPressed="Content_PointerPressed">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup" CurrentStateChanged="VisualStateGroup_CurrentStateChanged">
                 <VisualState x:Name="Small">
@@ -35,7 +35,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="leftSide" HorizontalAlignment="Left">
-            <Grid x:Name="leftPanel" Background="{ThemeResource AcrylicGuildPaneBackground}">
+            <Grid x:Name="leftPanel"  Margin="9,0,0,0">
                 <ContentControl x:Name="contentLeft1" Width="72" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" FocusEngaged="contentLeft1_FocusEngaged" IsTabStop="False"/>
                 <Rectangle Visibility="Visible" IsHitTestVisible="False" x:Name="leftPanelCache" Fill="Black"/>
             </Grid>
