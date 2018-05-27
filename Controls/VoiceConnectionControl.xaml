@@ -475,7 +475,7 @@
                        Visibility="Collapsed" 
                        Background="Transparent"
                        Height="50" Width="320"
-                       ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                       ApplicationId="9nbrwj777c8r"
                        AdUnitId="336795"/>
         
         <Grid x:Name="Expanded" Grid.Row="1" Visibility="Collapsed" Grid.ColumnSpan="5" Padding="12" Opacity="0" Background="{ThemeResource AcrylicUserBackgroundDarker}">

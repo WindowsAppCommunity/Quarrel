@@ -165,7 +165,7 @@ namespace Discord_UWP.Controls
                     advert.HorizontalAlignment = HorizontalAlignment.Center;
                     advert.Width = 300;
                     advert.Height = 50;
-                    advert.ApplicationId = "d9818ea9-2456-4e67-ae3d-01083db564ee";
+                    advert.ApplicationId = "9nbrwj777c8r";
                     advert.AdUnitId = "336795";
                     advert.Margin = new Thickness(6);
                     advert.Background = new SolidColorBrush(Colors.Transparent);
