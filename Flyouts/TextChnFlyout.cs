@@ -42,12 +42,17 @@ namespace Discord_UWP.Flyouts
             menu.Items.Add(sep1);
             ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
             {
-                Text = App.GetString("/Flyouts/MuteChannel"),
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = chn.raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
             };
             //mute.IsChecked = LocalState.GuildSettings.Contains(chn.Raw.Id);
+
+            if (LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(chn.raw.Id) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[chn.raw.Id].Muted)
+                mute.Text = App.GetString("/Flyouts/UnmuteChannel");
+            else
+                mute.Text = App.GetString("/Flyouts/MuteChannel");
+
             mute.Click += FlyoutManager.MuteChannel;
             menu.Items.Add(mute);
             MenuFlyoutItem markasread = new MenuFlyoutItem()

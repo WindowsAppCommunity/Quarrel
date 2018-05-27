@@ -201,6 +201,12 @@
   <data name="Unblock" xml:space="preserve">
     <value>Unblock</value>
   </data>
+  <data name="UnmuteChannel" xml:space="preserve">
+    <value>Unmute channel</value>
+  </data>
+  <data name="UnmuteServer" xml:space="preserve">
+    <value>Unmute server</value>
+  </data>
   <data name="UnpinFromStart" xml:space="preserve">
     <value>Unpin from start</value>
   </data>

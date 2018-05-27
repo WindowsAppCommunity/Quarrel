@@ -159,6 +159,8 @@ namespace Discord_UWP.Managers
         public static void MuteServer(object sender, RoutedEventArgs e)
         {
             App.MuteGuild((sender as MenuFlyoutItem).Tag.ToString());
+
+            var item = ((sender as MenuFlyoutItem));
         }
 
         public static void MarkChannelasRead(object sender, RoutedEventArgs e)
@@ -169,6 +171,7 @@ namespace Discord_UWP.Managers
         public static void MuteChannel(object sender, RoutedEventArgs e)
         {
             App.MuteChannel((sender as MenuFlyoutItem).Tag.ToString());
+            var item = ((sender as MenuFlyoutItem));
         }
         #endregion
 
