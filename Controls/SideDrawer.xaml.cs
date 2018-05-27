@@ -62,6 +62,10 @@ namespace Discord_UWP.Controls
             rootVisual = ElementCompositionPreview.GetElementVisual(maingrid);
             compositor = rootVisual.Compositor;         
             App.UniversalPointerDownHandler += Content_PointerPressed;
+            if (App.CinematicMode)
+            {
+                leftPanel.Margin = new Thickness(9, 0, 0, 0);
+            }
         }
         bool fullscreen = false;
         public void ToggleFullScreen()
