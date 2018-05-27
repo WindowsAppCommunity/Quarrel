@@ -1111,6 +1111,7 @@ namespace Discord_UWP
             catch
             {
                 //Debug mode
+                App.ShowAds = true;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
