@@ -31,15 +31,19 @@ namespace Discord_UWP.Flyouts
             menu.Items.Add(editServer);
             MenuFlyoutSeparator sep1 = new MenuFlyoutSeparator();
             menu.Items.Add(sep1);
-            ToggleMenuFlyoutItem mute = new ToggleMenuFlyoutItem()
+            MenuFlyoutItem mute = new MenuFlyoutItem()
             {
-                Text = App.GetString("/Flyouts/MuteServer"),
+              //  Text = App.GetString("/Flyouts/MuteServer"),
                 //Text = "Mute Server",
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = guild.Raw.Id,
                 Margin = new Thickness(-26, 0, 0, 0)
             };
-            mute.IsChecked = LocalState.GuildSettings.ContainsKey(guild.Raw.Id) ? LocalState.GuildSettings[guild.Raw.Id].raw.Muted : false;
+            if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].raw.Muted)
+                mute.Text = App.GetString("/Flyouts/UnmuteServer");
+            else
+                mute.Text = App.GetString("/Flyouts/MuteServer");
+
             mute.Click += FlyoutManager.MuteServer;
             menu.Items.Add(mute);
             MenuFlyoutItem markasread = new MenuFlyoutItem()
