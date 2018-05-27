@@ -1410,17 +1410,17 @@
                                     <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
-                                               Visibility="Collapsed" Background="Transparent"
+                                               Visibility="Collapsed" Background="Red"
                                                Height="50" Width="320"
-                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
                             </StackPanel>
                             <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
 
                             <ads:AdControl x:Name="Ad" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                               Visibility="Collapsed" Background="Transparent"
+                                               Visibility="Collapsed" Background="Red"
                                                Height="250" Width="300"
-                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
 
                             <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
@@ -1651,9 +1651,9 @@
         </Grid>
 
         <ads:AdControl x:Name="PCAd" VerticalAlignment="Top" HorizontalAlignment="Center"
-                                               Visibility="Collapsed" Background="Transparent"
+                                               Visibility="Collapsed" Background="Red"
                                                Height="50" Width="320"
-                                               ApplicationId="d9818ea9-2456-4e67-ae3d-01083db564ee"
+                                               ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
 
         <Rectangle x:Name="SubFrameMask" IsHitTestVisible="False" Grid.ColumnSpan="12" Grid.RowSpan="12" Opacity="0" Fill="Black"/>
