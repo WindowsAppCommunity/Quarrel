@@ -157,30 +157,43 @@ namespace Discord_UWP
                 return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".png" + suffix);
         }
 
+        public static void RemoveScrollviewerClipping(DependencyObject o)
+        {
+            var sc = GetScrollContentPresenter(o);
+            if (sc != null)
+                sc.Clip = null;
+        }
+
+        private static ScrollContentPresenter GetScrollContentPresenter(DependencyObject o)
+        {
+            if (o is ScrollContentPresenter)
+                return o as ScrollContentPresenter;
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
+            {
+                var child = VisualTreeHelper.GetChild(o, i);
+                var result = GetScrollContentPresenter(child);
+                if (result == null)
+                    continue;
+                else
+                    return result;
+            }
+            return null;
+        }
         public static ScrollViewer GetScrollViewer(DependencyObject o)
         {
-            // Return the DependencyObject if it is a ScrollViewer
             if (o is ScrollViewer)
-            {
                 return o as ScrollViewer;
-            }
-
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
             {
                 var child = VisualTreeHelper.GetChild(o, i);
                 var result = GetScrollViewer(child);
                 if (result == null)
-                {
                     continue;
-                }
                 else
-                {
                     return result;
-                }
             }
             return null;
         }
-
         public static List<string> FindMentions(string message)
         {
             List<string> mentions = new List<string>();

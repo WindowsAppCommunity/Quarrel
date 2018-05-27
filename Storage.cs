@@ -86,8 +86,8 @@ namespace Discord_UWP
         public static void ClearEncryptionKeys()
         {
             var ek = Storage.PasswordVault.RetrieveAll().FirstOrDefault(x => x.Resource == "encryptionKeys");
-                Storage.PasswordVault.Remove(ek);
-            
+            if(ek!=null)
+            Storage.PasswordVault.Remove(ek);
         }
         public static event EventHandler SettingsChangedHandler;
 
