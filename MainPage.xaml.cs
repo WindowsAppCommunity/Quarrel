@@ -979,10 +979,10 @@ namespace Discord_UWP
                      SubFrame.Navigate(page, args);
                      SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
                      SubFrame.Visibility = Visibility.Visible;
-                     SubFrame.IsFocusEngagementEnabled = true;
-                     SubFrame.Focus(FocusState.Keyboard);
-                     SubFrame.IsFocusEngaged = true;
-                     ((Control)FocusManager.FindFirstFocusableElement(SubFrame)).Focus(FocusState.Keyboard);
+                     //SubFrame.IsFocusEngagementEnabled = true;
+                     //SubFrame.Focus(FocusState.Keyboard);
+                     //SubFrame.IsFocusEngaged = true;
+                     //((Control)FocusManager.FindFirstFocusableElement(SubFrame)).Focus(FocusState.Keyboard);
                     
                  });
         }
