@@ -343,7 +343,7 @@ namespace Discord_UWP.Controls
                 ContentControl1.Margin = new Thickness(54, 0, 54, 0);
                 leftSide.Margin = new Thickness(54, 0, 0, 0);
                 leftPanel.Margin = new Thickness(12, 0, 0, 0);
-                rightSide.Margin = new Thickness(0, 0, 54, 0);
+                rightSide.Margin = new Thickness(-54, 0, 54, 0);
                 width = 372;
             }
 
