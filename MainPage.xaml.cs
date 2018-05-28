@@ -1622,6 +1622,7 @@ namespace Discord_UWP
             if (epinnedmessages != null)
             {
                 var pinnedmessages = await MessageManager.ConvertMessage(epinnedmessages.ToList());
+                pinnedmessages.Reverse();
                 if (pinnedmessages != null)
                 {
                     foreach (var message in pinnedmessages)
