@@ -105,7 +105,7 @@
                                 <Run Text="• The most recent pinned messages will now be at the top of the list"/>
                             </Paragraph>
                             <Paragraph>
-                                <Run Text="• Paste images or files to add them as attachements"/>
+                                <Run Text="• The member list has been completely re-written and should now react to members joining/leaving the server, changing a user's role, etc..."/>
                             </Paragraph>
                         </RichTextBlock>
                         <TextBlock Text="If you have any questions, please ask in Quarrel's Discord server" FontSize="12" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,12"/>
