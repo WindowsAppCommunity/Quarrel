@@ -156,6 +156,7 @@ namespace Discord_UWP.SubPages
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
 
             BackgroundGrid.Blur(8, 0).Start();
+            base.OnNavigatedTo(e);
 
             profile = await RESTCalls.GetUserProfile(profile.User.Id);
             try
