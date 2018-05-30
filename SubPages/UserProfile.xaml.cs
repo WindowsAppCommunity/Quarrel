@@ -157,6 +157,7 @@ namespace Discord_UWP.SubPages
 
             BackgroundGrid.Blur(8, 0).Start();
 
+            profile = await RESTCalls.GetUserProfile(profile.User.Id);
             try
             {
                 if (profile.ConnectedAccount != null)

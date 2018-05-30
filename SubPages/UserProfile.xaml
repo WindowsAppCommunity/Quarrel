@@ -127,12 +127,12 @@
                                         </StackPanel>
                                     </tk:Expander>
 
-                                    <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
+                                    <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                         <tk:AdaptiveGridView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource DeepBG}">
                                                     <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
+                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="13.333" Opacity="0.75"/>
                                                     <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
                                                 </StackPanel>
                                             </DataTemplate>
