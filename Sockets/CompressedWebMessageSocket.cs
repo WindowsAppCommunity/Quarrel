@@ -109,7 +109,7 @@ namespace Discord_UWP.Sockets
         }
         private void OnMessageReceived(string message)
         {
-           // Debug.WriteLine(message);
+            Debug.WriteLine(message);
             var messageReceivedEvent = new MessageReceivedEventArgs
             {
                 Message = message

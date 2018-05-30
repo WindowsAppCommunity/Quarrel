@@ -1315,7 +1315,6 @@
                                 <StackPanel Orientation="Horizontal">
                                     <controls:ControllerHint x:Name="XHint" Label="" ButtonGlyph="" Margin="6,0,-16,0"/>
                                     <Grid>
-                                        
                                         <Rectangle x:Name="AvatarBG" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0"/>
                                         <Rectangle x:Name="Avatar" Width="36" Height="36" RadiusX="48" RadiusY="48" Margin="12,0,0,0">
                                             <Rectangle.Fill>
@@ -1467,7 +1466,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
-                                                    <controls:MemberControl DisplayedMember="{Binding Value}" Foreground="{Binding Value.MemberDisplayedRole.Brush}"/>
+                                                    <controls:MemberControl RawMember="{Binding Raw}" IsTyping="{Binding IsTyping}" Role="{Binding MemberHoistRole}"  Status="{Binding status}" Text="{Binding DisplayName}"/>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
@@ -1688,7 +1687,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Rectangle x:Name="SubFrameMask" IsHitTestVisible="False" Grid.ColumnSpan="12" Grid.RowSpan="12" Opacity="0" Fill="Black"/>
-        <Frame x:Name="SubFrame" Visibility="Collapsed" Canvas.ZIndex="9999">
+        <Frame x:Name="SubFrame" Visibility="Collapsed" Canvas.ZIndex="9999" GotFocus="SubFrame_GotFocus" LosingFocus="SubFrame_LosingFocus" LostFocus="SubFrame_LostFocus">
             <Frame.RenderTransform>
                 <ScaleTransform x:Name="SubFrameScale"/>
             </Frame.RenderTransform>

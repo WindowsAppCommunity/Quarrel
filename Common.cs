@@ -233,21 +233,21 @@ namespace Discord_UWP
                         }
                         if (descCache.Length == 4)
                         {
-                            User? mention = null;
+                            User mention = null;
                             if (App.CurrentGuildIsDM)
                             {
                                 mention = LocalState.DMs[App.CurrentChannelId].Users
                                .Where(x => x.Username == cache && x.Username + "#" + x.Discriminator == descCache).FirstOrDefault();
                             } else
                             {
-                                GuildMember? member = LocalState.Guilds[App.CurrentGuildId].members
+                                GuildMember member = LocalState.Guilds[App.CurrentGuildId].members
                                .Where(x => x.Value.User.Username == cache && x.Value.User.Username + "#" + x.Value.User.Discriminator == descCache).FirstOrDefault().Value;
-                                if (member.HasValue)
+                                if (member != null)
                                 {
-                                    mention = member.Value.User;
+                                    mention = member.User;
                                 }
                             }
-                            if (mention.HasValue)
+                            if (mention != null)
                             {
                                 mentions.Add("@" + cache + "#" + descCache);
                             }

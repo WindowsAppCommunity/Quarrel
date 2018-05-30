@@ -45,7 +45,7 @@ namespace Discord_UWP.Controls
             public User User
             {
                 get { return _user; }
-                set { if (_user.Equals(value)) return; _user = value; OnPropertyChanged("User"); }
+                set { if (_user == value) return; _user = value; OnPropertyChanged("User"); }
             }
 
             private string _userstatus;

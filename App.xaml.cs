@@ -987,9 +987,9 @@ namespace Discord_UWP
             Storage.Settings.Toasts = false;
             Storage.Settings.LiveTile = true;
             Storage.Settings.Badge = true;
-            Storage.Settings.RespUiM = 500;
-            Storage.Settings.RespUiL = 1000;
-            Storage.Settings.RespUiXl = 1500;
+            Storage.Settings.RespUiM = 400;
+            Storage.Settings.RespUiL = 720;
+            Storage.Settings.RespUiXl = 1000;
             Storage.Settings.BackgroundTaskTime = 9;
           
             //Storage.Settings.AppBarAtBottom = false;

@@ -421,11 +421,12 @@ namespace Discord_UWP.Managers
 
                                 if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId))
                                 {
-                                    LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone ? 1 : 0, LastPinTimestamp = null });
+                                    var mentioncount = e.EventData.Mentions?.FirstOrDefault(x => x.Id == LocalState.CurrentUser?.Id)?.Id != null || e.EventData.MentionEveryone ? 1 : 0;
+                                    LocalState.RPC.Add(e.EventData.ChannelId, new ReadState() { Id = e.EventData.ChannelId, LastMessageId = "0", MentionCount = mentioncount, LastPinTimestamp = null });
                                 }
                                 else
                                 {
-                                    if (e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id).Id != null || e.EventData.MentionEveryone)
+                                    if (e.EventData.Mentions.Count() > 0 && e.EventData.Mentions.FirstOrDefault(x => x.Id == LocalState.CurrentUser?.Id)?.Id != null || e.EventData.MentionEveryone)
                                     {
                                         var editReadState = LocalState.RPC[e.EventData.ChannelId];
                                         editReadState.MentionCount++;

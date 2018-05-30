@@ -139,9 +139,9 @@ namespace Discord_UWP
         public bool Toasts = false;
         public bool Badge = true;
         public bool LiveTile = true;
-        public double RespUiM = 500;
-        public double RespUiL = 1000;
-        public double RespUiXl = 1500;
+        public double RespUiM = 400;
+        public double RespUiL = 720;
+        public double RespUiXl = 1000;
         public bool CustomBG = false;
         public string BGFilePath = "";
         public double MainOpacity = 0.9;

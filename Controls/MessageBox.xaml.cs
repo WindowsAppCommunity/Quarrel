@@ -171,7 +171,7 @@ namespace Discord_UWP.Controls
                     int discIndex = mention.IndexOf('#');
                     string username = mention.Substring(1, discIndex-1);
                     string disc = mention.Substring(1 + discIndex);
-                    SharedModels.User? user;
+                    SharedModels.User user;
                     if (App.CurrentGuildIsDM)
                     {
                         user = LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Username == username && x.Discriminator == disc);
@@ -179,9 +179,9 @@ namespace Discord_UWP.Controls
                     {
                         user = LocalState.Guilds[App.CurrentGuildId].members.FirstOrDefault(x => x.Value.User.Username == username && x.Value.User.Discriminator == disc).Value.User;
                     }
-                    if (user.HasValue)
+                    if (user != null)
                     {
-                        Text = Text.Replace("@" + user.Value.Username + "#" + user.Value.Discriminator, "<@!" + user.Value.Id + ">");
+                        Text = Text.Replace("@" + user.Username + "#" + user.Discriminator, "<@!" + user.Id + ">");
                     }
                 } else if (mention[0] == '#')
                 {

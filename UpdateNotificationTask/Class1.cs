@@ -1,11 +1,14 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
+using Windows.Storage;
 using Windows.UI.Notifications;
 
 namespace UpdateNotificationTask
@@ -23,12 +26,12 @@ BindingGeneric=    new ToastBindingGeneric()
     {
         new AdaptiveText()
         {
-            Text = "Discord UWP has been rebranded, it's now called Quarrel!"
+            Text = "Quarrel has been updated!"
         },
 
         new AdaptiveText()
         {
-            Text = "This update also has a few new features (including background notifications!). Wanna check it out?"
+            Text = "Lots'o bug fixes and improvements"
         }
                 }
                 }
@@ -36,6 +39,16 @@ BindingGeneric=    new ToastBindingGeneric()
             content.Visual = visual;
             var toast = new ToastNotification(content.GetXml());
             ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+            //now change the responsive UI breakpoints
+            try
+            {
+            }
+            catch
+            {
+               //well, they weren't touched
+            }
         }
+
     }
 }
