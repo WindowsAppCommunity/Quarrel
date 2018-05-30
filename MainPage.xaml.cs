@@ -3364,17 +3364,10 @@ namespace Discord_UWP
         private bool IsParentFrame(DependencyObject child)
         {
             //recursion recursion recursion recursion recursion recursion to figure out if one of the DependencyObject's parents is the SubFrame
-            if (child == null) return true;
-            var current = VisualTreeHelper.GetParent(child);
-            while (current != null)
-            {
-                if (current == SubFrame)
-                    return true;
-                else if (current == content)
-                    return false;
-                current = VisualTreeHelper.GetParent(current);
-            };
-            return false;
+            if (((Control)child).BaseUri.ToString().EndsWith("MainPage.xaml"))
+                return false;
+            else
+                return true;
         }
 
     }
