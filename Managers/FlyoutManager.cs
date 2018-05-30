@@ -90,7 +90,7 @@ namespace Discord_UWP.Managers
         #region Profile
         public static void OpenProfile(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as Nullable<SharedModels.User>).Value);
+            App.NavigateToProfile(((sender as MenuFlyoutItem).Tag as SharedModels.User));
         }
         #endregion
 

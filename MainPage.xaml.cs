@@ -29,6 +29,8 @@ using System.Threading;
 
 using Windows.Security.Credentials;
 using System.Diagnostics;
+using Midgard.Collections;
+using Discord_UWP.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -336,6 +338,7 @@ namespace Discord_UWP
             App.UpdatePresenceHandler += App_UpdatePresenceHandler;
             App.VoiceConnectHandler += App_VoiceConnectHandler;
             App.GuildSyncedHandler += App_GuildSyncedHandler;
+            App.PresenceUpdatedHandler += App_PresenceUpdatedHandler;
             //DM
             App.DMCreatedHandler += App_DMCreatedHandler;
             App.DMDeletedHandler += App_DMDeletedHandler;
@@ -365,6 +368,129 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
+
+        }
+
+        private async void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
+        {
+            if (App.CurrentGuildId != e.EventData.guildId) return;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                memberscvs.Remove(FindMember(e.EventData.User.Id));
+            });
+        }
+
+        private async void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
+        {
+            if (App.CurrentGuildId != e.EventData.guildId) return;
+            var member = e.EventData;
+            Member m = new Member(new GuildMember()
+            {
+                Deaf = e.EventData.Deaf,
+                JoinedAt = e.EventData.JoinedAt,
+                Mute = e.EventData.Mute,
+                Nick = e.EventData.Nick,
+                Roles = e.EventData.Roles,
+                User = e.EventData.User
+            });
+            if (m.Raw.Roles != null)
+            {
+                m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
+            }
+            //Set it to first Hoist Role or everyone if null
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+            {
+                m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+            });
+
+            if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+            {
+                m.status = LocalState.PresenceDict[m.Raw.User.Id];
+            }
+            else
+            {
+                m.status = new Presence() { Status = "offline", Game = null };
+            }
+            if (member.Nick != null)
+                m.DisplayName = member.Nick;
+            else
+                m.DisplayName = member.User.Username;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+() =>
+{
+    memberscvs.Add(m);
+});
+        }
+
+        private Member FindMember(string id)
+        {
+            if (memberscvs != null && memberscvs.RoleIndexer.ContainsKey(id))
+            {
+                var key = memberscvs.RoleIndexer[id];
+                var group = memberscvs.FirstOrDefault(x => x.Key == key);
+                if (group != null)
+                {
+                    return (group.FirstOrDefault(x => x.Raw.User.Id == id));
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+        private async void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
+        {
+            if (App.CurrentGuildId != e.EventData.guildId) return;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var member = FindMember(e.EventData.User.Id);
+                member.Raw.Nick = e.EventData.Nick;
+                if (e.EventData.Nick != null)
+                {
+                    member.DisplayName = e.EventData.Nick;
+                }
+                else
+                {
+                    member.DisplayName = member.Raw.User.Username;
+                }
+                
+                member.Raw.User = e.EventData.User;
+                member.Raw.Roles = e.EventData.Roles;
+                // member.Raw.Nick = e.EventData.Nick;
+                var previoushoistrole = new HoistRole(member.MemberHoistRole.Id, member.MemberHoistRole.Position, member.MemberHoistRole.Name, member.MemberHoistRole.Membercount, member.MemberHoistRole.Brush);
+                member.MemberHoistRole = MemberManager.GetRole(e.EventData.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+                if(!member.MemberHoistRole.Equals(previoushoistrole))
+                {
+                    memberscvs.ChangeKey(member, previoushoistrole, member.MemberHoistRole);
+                    //memberscvs.Add(member);
+                }
+            });
+
+        }
+
+        private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
+        {
+            if (e.UserId == LocalState.CurrentUser.Id)
+                Debug.WriteLine("My presence updated");
+
+            if (LocalState.PresenceDict.ContainsKey(e.UserId))
+                LocalState.PresenceDict[e.UserId] = e.Presence;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                var member = FindMember(e.UserId);
+                if (member != null)
+                    member.status = e.Presence;
+            });
+         //   var member = memberscvs.Items.FirstOrDefault();
+                
+           // if (memberscvs.Item)
+             //   ((Member)memberscvs[e.UserId]).status = e.Presence;
+          /*  await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                   () =>
+                   {
+                       MembersCvs.Source = memberscvs;
+                   });*/
         }
 
         private async void App_GuildUpdatedHandler(object sender, SharedModels.Guild e)
@@ -728,7 +854,8 @@ namespace Discord_UWP
         private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             SaveDraft();
-            memberscvs.Clear();
+            if(memberscvs != null)
+                memberscvs.Clean();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                              () =>
                              {
@@ -983,7 +1110,7 @@ namespace Discord_UWP
                      SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
                      SubFrame.Visibility = Visibility.Visible;
                      //SubFrame.IsFocusEngagementEnabled = true;
-                     //SubFrame.Focus(FocusState.Keyboard);
+                     SubFrame.Focus(FocusState.Keyboard);
                      //SubFrame.IsFocusEngaged = true;
                      //((Control)FocusManager.FindFirstFocusableElement(SubFrame)).Focus(FocusState.Keyboard);
                     
@@ -1151,7 +1278,7 @@ namespace Discord_UWP
             {
                 string val = e.Link.Remove(0, 2);
                 //TODO Fix this shit
-                MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => x.Value.MemberHoistRole.Id == val));
+               // MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => ((Member)x.Value).MemberHoistRole.Id == val));
                 sideDrawer.OpenRight();
             }
             else if (e.Link.StartsWith("@"))
@@ -1737,7 +1864,7 @@ namespace Discord_UWP
         
         public void RenderGroupMembers()
         {
-            memberscvs.Clear();
+          //  memberscvs.Clear();
             //MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
             //MembersCvs.Source = memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.status);
         }
@@ -2099,6 +2226,9 @@ namespace Discord_UWP
         }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
+            GatewayManager.Gateway.GuildMemberRemoved += Gateway_GuildMemberRemoved;
+            GatewayManager.Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
+            GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
@@ -2175,6 +2305,8 @@ namespace Discord_UWP
             }
         }
 
+
+
         private void VideoAd_AdReady(object sender, object e)
         {
             (sender as InterstitialAd).Show();
@@ -2229,7 +2361,6 @@ namespace Discord_UWP
                         }
                         position = 0;
                     }
-
                         if (e.Settings.Status != null)
                         {
                             if (e.Settings.Status != "invisible")
@@ -2254,7 +2385,11 @@ namespace Discord_UWP
                                     UserStatusInvisible.IsChecked = true;
                                     break;
                             }
-                        }
+                        var member = FindMember(LocalState.CurrentUser.Id);
+                        member.status = new Presence() { Game = member.status.Game, GuildId = member.status.GuildId, Roles = member.status.Roles, Status = e.Settings.Status, User = member.status.User };
+                        if (LocalState.PresenceDict.ContainsKey(LocalState.CurrentUser.Id))
+                            LocalState.PresenceDict[LocalState.CurrentUser.Id] = member.status;
+                    }
                 });
         }
 
@@ -2533,8 +2668,10 @@ namespace Discord_UWP
                      ServerList.Items.Insert(1+TempGuildCount, GuildManager.CreateGuild(e.Guild));
                  });
         }
+
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
         {
+
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null && App.CurrentGuildId == e.GuildId) //Reduntant I know
             {
                 //await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
@@ -2575,14 +2712,6 @@ namespace Discord_UWP
                     foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                     {
                         Role roleAlt = role;
-                        if (role.Hoist)
-                        {
-                            int rolecounter = 0;
-                            foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                                if (m.Roles != null && m.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                            totalrolecounter += rolecounter;
-                            roleAlt.MemberCount = rolecounter;
-                        }
                         if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
                         {
                             LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
@@ -2592,11 +2721,10 @@ namespace Discord_UWP
                             LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
                         }
                     }
-                    int everyonecounter = LocalState.Guilds[App.CurrentGuildId].members.Count() - totalrolecounter;
 
+                    List<Managers.Member> tempMembers = new List<Managers.Member>();
                     try
                     {
-
                         foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
                         {
                             if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
@@ -2611,7 +2739,7 @@ namespace Discord_UWP
                                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                 () =>
                                 {
-                                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
+                                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
                                 });
 
                                 if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
@@ -2622,14 +2750,23 @@ namespace Discord_UWP
                                 {
                                     m.status = new Presence() { Status = "offline", Game = null };
                                 }
-                                if (memberscvs.ContainsKey(m.Raw.User.Id))
-                                {
-                                    memberscvs.Remove(m.Raw.User.Id);
-                                }
-                                memberscvs.Add(m.Raw.User.Id, m);
+                                if (member.Value.Nick != null)
+                                    m.DisplayName = member.Value.Nick;
+                                else
+                                    m.DisplayName = member.Value.User.Username;
+                                // if (memberscvs(m.Raw.User.Id))
+                                //{
+                                //   memberscvs.Remove(m.Raw.User.Id);
+                                //}
+                                tempMembers.Add(m);
                             }
                         }
-
+                        memberscvs = new GroupedObservableCollection<HoistRole, Managers.Member>(c => c.MemberHoistRole, tempMembers);
+                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            MembersCvs.Source = memberscvs;
+                        });
+                        
                     }
                     catch (Exception er)
                     {
@@ -2638,19 +2775,18 @@ namespace Discord_UWP
 
                     try
                     {
-                        var sortedMembers =
-                            memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
+                       // var sortedMembers = memberscvs.I.OrderBy(m => (m)Raw.User.Username).GroupBy(m => ((Member)m.Value).MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
-                        foreach (var m in sortedMembers)
-                        {
-                            int count = m.Count();
-                        }
-                        await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                            () =>
-                            {
+                      //  foreach (var m in sortedMembers)
+                      //  {
+                      //      int count = m.Count();
+                      //  }
+                      //  await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                      //      () =>
+                      //      {
                                 // MembersCVS = new CollectionViewSource();
-                                MembersCvs.Source = sortedMembers;
-                            });
+                      //          MembersCvs.Source = sortedMembers;
+                        //    });
                     }
                     catch
                     {
@@ -2678,14 +2814,6 @@ namespace Discord_UWP
                 foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                 {
                     Role roleAlt = role;
-                    if (role.Hoist)
-                    {
-                        int rolecounter = 0;
-                        foreach (GuildMember m in LocalState.Guilds[App.CurrentGuildId].members.Values)
-                            if (m.Roles.FirstOrDefault() == role.Id) rolecounter++;
-                        totalrolecounter += rolecounter;
-                        roleAlt.MemberCount = rolecounter;
-                    }
                     if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
                     {
                         LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
@@ -2708,7 +2836,7 @@ namespace Discord_UWP
                     await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId, everyonecounter);
+                        m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
                     });
 
                     if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
@@ -2719,25 +2847,25 @@ namespace Discord_UWP
                     {
                         m.status = new Presence() { Status = "offline", Game = null };
                     }
-                    if (memberscvs.ContainsKey(m.Raw.User.Id))
-                    {
-                        memberscvs.Remove(m.Raw.User.Id);
-                    }
-                    memberscvs.Add(m.Raw.User.Id, m);
+                   // if (memberscvs.ContainsKey(m.Raw.User.Id))
+                   // {
+                   //     memberscvs.Remove(m.Raw.User.Id);
+                  //  }
+                    memberscvs.Add(m);
                 }
             }
 
             try
             {
                 App.DisposeMemberList(); //Clear all existing MemberList Items (cleanly)
-                var sortedMembers =
-                    memberscvs.GroupBy(m => m.Value.MemberHoistRole).OrderByDescending(x => x.Key.Position);
+           //     var sortedMembers =
+           //         memberscvs.GroupBy(m => ((Member)m.Value).MemberHoistRole).OrderByDescending(x => x.Key.Position);
 
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                                 // MembersCVS = new CollectionViewSource();
-                                MembersCvs.Source = sortedMembers;
+                                MembersCvs.Source = memberscvs;
                     });
             }
             catch
@@ -2999,7 +3127,7 @@ namespace Discord_UWP
         }
         #endregion
 
-        public Dictionary<string, Member> memberscvs = new Dictionary<string, Member>();
+        public GroupedObservableCollection<HoistRole, Managers.Member> memberscvs;
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
@@ -3199,12 +3327,49 @@ namespace Discord_UWP
         private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
-            App.ShowMemberFlyout(memberItem, (e.ClickedItem as KeyValuePair<string, Member>?).Value.Value.Raw.User);
+            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Member).Raw.User);
         }
 
         private void MessageBox1_OpenSpotify(object sender, RoutedEventArgs e)
         {
             SubFrameNavigator(typeof(SubPages.SpotifyShare));
+        }
+
+        private void SubFrame_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SubFrame.Opacity == 1)
+            {
+                //NOPE, FUCK OFF, YOU'RE NOT ALLOWED TO LOSE FOCUS YOU USELESS INBRED CUMSTAIN
+                var el = FocusManager.GetFocusedElement();
+                if (el != null)
+                {
+                    Debug.WriteLine("It lost focus. Shit.");
+                }
+            }
+        }
+
+        private void SubFrame_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SubFrame_LosingFocus(UIElement sender, LosingFocusEventArgs args)
+        {
+            if(SubFrame.Opacity == 1 && !IsParentFrame(args.NewFocusedElement))
+            {
+                    if (args.OldFocusedElement.GetType() == typeof(Control))
+                        ((Control)args.OldFocusedElement).Focus(FocusState.Keyboard);
+            }
+        }
+        private bool IsParentFrame(DependencyObject child)
+        {
+            //recursion recursion recursion recursion recursion recursion to figure out if one of the DependencyObject's parents is the SubFrame
+            if (child == null)
+                return false;
+            else if(VisualTreeHelper.GetParent(child) == SubFrame)
+                return true;
+            else
+                return IsParentFrame(child);
         }
     }
 }

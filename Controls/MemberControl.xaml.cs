@@ -30,17 +30,64 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class MemberControl : UserControl
     {
-        public Member DisplayedMember
+        public GuildMember RawMember
         {
-            get { return (Member)GetValue(MemberProperty); }
-            set { SetValue(MemberProperty, value); }
+            get { return (GuildMember)GetValue(RawMemberProperty); }
+            set { SetValue(RawMemberProperty, value); }
         }
-        public static readonly DependencyProperty MemberProperty = DependencyProperty.Register(
-            nameof(DisplayedMember),
-            typeof(Member),
+        public static readonly DependencyProperty RawMemberProperty = DependencyProperty.Register(
+            nameof(RawMember),
+            typeof(GuildMember),
             typeof(MemberControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public Presence Status
+        {
+            get {
+                var pr = GetValue(PresenceProperty);
+                if (pr != null) return (Presence)pr;
+                else return new Presence();
+            }
+            set { SetValue(PresenceProperty, value); }
+        }
+        public static readonly DependencyProperty PresenceProperty = DependencyProperty.Register(
+            nameof(Status),
+            typeof(Presence),
+            typeof(MemberControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        public HoistRole Role
+        {
+            get { return (HoistRole)GetValue(RoleProperty); }
+            set { SetValue(RoleProperty, value); }
+        }
+        public static readonly DependencyProperty RoleProperty = DependencyProperty.Register(
+            nameof(Role),
+            typeof(HoistRole),
+            typeof(MemberControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        public bool IsTyping
+        {
+            get { return (bool)GetValue(IsTypingProperty); }
+            set { SetValue(IsTypingProperty, value); }
+        }
+        public static readonly DependencyProperty IsTypingProperty = DependencyProperty.Register(
+            nameof(IsTyping),
+            typeof(bool),
+            typeof(MemberControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            nameof(Text),
+            typeof(string),
+            typeof(MemberControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -51,97 +98,106 @@ namespace Discord_UWP.Controls
 
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (DisplayedMember == null) return;
-            if (DisplayedMember.IsTyping) ShowTyping.Begin();
-            else HideTyping.Begin();
-
-            if(DisplayedMember.Raw.User.Username == "Carbon")
+           
+            if(prop == TextProperty)
             {
-                var test = "";
+                if (Text == null) return;
+                username.Text = Text;
+                return;
             }
-            if (DisplayedMember.Raw.Roles.Count() > 0)
+            else if(prop == RawMemberProperty)
+            {
+                if (RawMember == null) return;
+
+
+                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(RawMember.User.Avatar, RawMember.User.Id));
+                if (RawMember.User.Avatar != null)
+                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
+                else
+                    AvatarBG.Fill = Common.DiscriminatorColor(RawMember.User.Discriminator);
+                if (RawMember.User.Bot)
+                    BotIndicator.Visibility = Visibility.Visible;
+                else
+                    BotIndicator.Visibility = Visibility.Collapsed;
+            }
+            else if(prop == IsTypingProperty)
+            {
+                if (IsTyping)
+                    ShowTyping.Begin();
+                else
+                    HideTyping.Begin();
+            }
+            else if(prop == PresenceProperty)
+            {
+                if (Status.Status != null && Status.Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[Status.Status];
+                else if (Status.Status == "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                if (Status.Game != null)
+                {
+                    playing.Visibility = Visibility.Visible;
+                    game.Visibility = Visibility.Visible;
+                    game.Text = Status.Game.Value.Name;
+                    UpdateColor();
+                    if (Status.Game.Value.State != null || Status.Game.Value.Details != null || Status.Game.Value.SessionId != null)
+                    {
+                        game.Opacity = 1;
+                        rich.Visibility = Visibility.Visible;
+                        switch (Status.Game.Value.Type)
+                        {
+                            case 0:
+                                playing.Text = "Playing"; break;
+                            case 1:
+                                playing.Text = "Streaming"; break;
+                            case 2:
+                                playing.Text = "Listening to"; break;
+                        }
+                    }
+                    else
+                    {
+                        game.Opacity = 0.6;
+                        rich.Visibility = Visibility.Collapsed;
+                    }
+
+                }
+                else
+                {
+                    playing.Visibility = Visibility.Collapsed;
+                    rich.Visibility = Visibility.Collapsed;
+                    game.Visibility = Visibility.Collapsed;
+                }
+            }
+            else if (prop == RoleProperty)
+            {
+                if (RawMember == null) return;
+                UpdateColor();
+            }
+        }
+        private void UpdateColor()
+        {
+            if (RawMember.Roles != null)
             {
                 bool changed = false;
-                foreach(var role in DisplayedMember.Raw.Roles)
-                    if(LocalState.Guilds[App.CurrentGuildId].roles[role].Color != 0)
+                foreach (var role in RawMember.Roles)
+                    if (LocalState.Guilds[App.CurrentGuildId].roles[role].Color != 0)
                     {
                         username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[role].Color);
                         changed = true;
                         break;
                     }
-                if(changed == false)
+                if (changed == false)
                     username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
-                        
-            } else
+            }
+            else
                 username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
-
-
-            if (DisplayedMember.Raw.Nick != null)
-                username.Text = DisplayedMember.Raw.Nick;
-            else if (DisplayedMember.Raw.User.Username != null)
-                username.Text = DisplayedMember.Raw.User.Username;
-            else
-                username.Text = "";
-
-            Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedMember.Raw.User.Avatar, DisplayedMember.Raw.User.Id));
-
-            if (DisplayedMember.Raw.User.Avatar != null)
-                AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
-            else
-                AvatarBG.Fill = Common.DiscriminatorColor(DisplayedMember.Raw.User.Discriminator);
-
-            if (DisplayedMember.status.Status != null && DisplayedMember.status.Status != "invisible")
-                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
-            else if (DisplayedMember.status.Status == "invisible")
-                rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-            if (DisplayedMember.status.Game != null)
-            {
-                playing.Visibility = Visibility.Visible;
-                game.Visibility = Visibility.Visible;
-                game.Text = DisplayedMember.status.Game.Value.Name;
-              
-                if (DisplayedMember.status.Game.Value.State != null || DisplayedMember.status.Game.Value.Details != null || DisplayedMember.status.Game.Value.SessionId != null)
-                {
-                    game.Opacity = 1;
-                    rich.Visibility = Visibility.Visible;
-                    switch (DisplayedMember.status.Game.Value.Type)
-                    {
-                        case 0:
-                            playing.Text = "Playing";break;
-                        case 1:
-                            playing.Text = "Streaming";break;
-                        case 2:
-                            playing.Text = "Listening to";break;
-                    }
-                }
-                else
-                {
-                    game.Opacity = 0.6;
-                    rich.Visibility = Visibility.Collapsed;
-                }
-                    
-            }
-            else
-            {
-                playing.Visibility = Visibility.Collapsed;
-                rich.Visibility = Visibility.Collapsed;
-                game.Visibility=Visibility.Collapsed;
-            }
-            if (DisplayedMember.Raw.User.Bot)
-                BotIndicator.Visibility = Visibility.Visible;
-            else
-                BotIndicator.Visibility = Visibility.Collapsed;
         }
-
         public MemberControl()
         {
             this.InitializeComponent();
 
             App.DisposeMemberListHandler += Dispose;
-            App.PresenceUpdatedHandler += App_PresenceUpdatedHandler; ;
-            GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
-            App.TypingHandler += App_TypingHandler;
-            RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
+          //  App.TypingHandler += App_TypingHandler;
+           // RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
         }
@@ -149,104 +205,23 @@ namespace Discord_UWP.Controls
         private void Dispose(object sender, EventArgs e)
         {
             App.DisposeMemberListHandler -= Dispose;
-            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler; ;
-            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
-            App.TypingHandler -= App_TypingHandler;
-            RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
+        //    App.TypingHandler -= App_TypingHandler;
+         //   RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             RightTapped -= OpenMenuFlyout;
             Holding -= OpenMenuFlyout;
-        }
-
-        private void App_TypingHandler(object sender, App.TypingArgs e)
-        {
-            if (DisplayedMember != null)
-            {
-                if (e.UserId == DisplayedMember.Raw.User.Id)
-                {
-                    DisplayedMember.IsTyping = e.Typing && e.ChnId == App.CurrentChannelId;
-                    if (DisplayedMember.IsTyping)
-                    {
-                        ShowTyping.Begin();
-                    }
-                    else
-                    {
-                        HideTyping.Begin();
-                    }
-                }
-            } else
-            {
-                App.TypingHandler -= App_TypingHandler;
-            }
-        }
-
-        private async void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<GuildMemberUpdate> e)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    try
-                    {
-                        if (DisplayedMember != null)
-                        {
-                            if (e.EventData.User.Id == DisplayedMember.Raw.User.Id)
-                            {
-                                DisplayedMember.Raw.Roles = e.EventData.Roles;
-                                DisplayedMember.Raw.Nick = e.EventData.Nick;
-                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
-                            }
-                        }
-                        else
-                        {
-                            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
-                            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                });
-        }
-
-        private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    try
-                    {
-                        if (DisplayedMember != null)
-                        {
-                            if (e.UserId == DisplayedMember.Raw.User.Id)
-                            {
-                                DisplayedMember.status = e.Presence;
-                                rectangle.Fill = (SolidColorBrush)App.Current.Resources[DisplayedMember.status.Status];
-                            }
-                        }
-                        else
-                        {
-                            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
-                            GatewayManager.Gateway.GuildMemberUpdated -= Gateway_GuildMemberUpdated;
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                });
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
         {
             if (e.HoldingState == HoldingState.Started)
-                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, RawMember.User.Id, App.CurrentGuildId, e.GetPosition(this));
 
         }
 
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             if (e.PointerDeviceType != PointerDeviceType.Touch)
-                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, DisplayedMember.Raw.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, RawMember.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
     }
 }
