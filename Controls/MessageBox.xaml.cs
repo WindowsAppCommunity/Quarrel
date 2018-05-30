@@ -49,7 +49,11 @@ namespace Discord_UWP.Controls
             get { return MessageEditor.Text; }
             set { MessageEditor.Text = value; }
         }
-
+        public new double FontSize
+        {
+            get { return MessageEditor.FontSize; }
+            set { MessageEditor.FontSize = value; }
+        }
         public readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
             typeof(string),

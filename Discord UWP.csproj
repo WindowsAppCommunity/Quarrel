@@ -386,6 +386,8 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\xbox_dark.png" />
+    <Content Include="Assets\xbox_light.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
     <Content Include="SodiumC.dll" />
