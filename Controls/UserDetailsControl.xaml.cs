@@ -66,7 +66,6 @@ namespace Discord_UWP.Controls
                 if (user.Id == LocalState.CurrentUser.Id)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    border.Visibility = Visibility.Collapsed;
                 }
                 if (DisplayedMember.Nick != null)
                 {
@@ -83,7 +82,9 @@ namespace Discord_UWP.Controls
                 var imageURL = Common.AvatarUri(user.Avatar, user.Id);
                 Avatar.ImageSource = new BitmapImage(imageURL);
                 AvatarBlurred.Source = new BitmapImage(imageURL);
+                
                 BackgroundGrid.Blur(8, 0).Start();
+                AvatarContainer.Saturation(0, 0).Start();
 
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
@@ -112,7 +113,7 @@ namespace Discord_UWP.Controls
                 {
                     if (DisplayedMember.Roles.Count() == 0)
                     {
-                        RoleHeader.Visibility = Visibility.Collapsed;
+                     //   RoleHeader.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
@@ -167,7 +168,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    RoleHeader.Visibility = Visibility.Collapsed;
+                   // RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
                 if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
@@ -177,9 +178,31 @@ namespace Discord_UWP.Controls
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game.HasValue)
                     {
-                        PlayingHeader.Visibility = Visibility.Visible;
+                       // PlayingHeader.Visibility = Visibility.Visible;
                         richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
                         richPresence.Visibility = Visibility.Visible;
+                        switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.Type)
+                        {
+                            case 0:
+                                {
+                                    PresenceColor.Fill = (SolidColorBrush)App.Current.Resources["Blurple"];
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                    break;
+                                }
+                        }
+                        if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.ApplicationId == "438122941302046720")
+                        {
+                            PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                        }
                     }
                 }
             }
@@ -188,7 +211,6 @@ namespace Discord_UWP.Controls
                 if (DMPane)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    border.Visibility = Visibility.Collapsed;
                     mainGrid.Width = 228;
                     UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.HorizontalAlignment = HorizontalAlignment.Left;
@@ -235,14 +257,14 @@ namespace Discord_UWP.Controls
                     {
                         if (e.EventData.Game.HasValue)
                         {
-                            PlayingHeader.Visibility = Visibility.Visible;
+                           // PlayingHeader.Visibility = Visibility.Visible;
                             var game = e.EventData.Game.Value;
                             richPresence.GameContent = game;
                             richPresence.Visibility = Visibility.Visible;
                         }
                         else
                         {
-                            PlayingHeader.Visibility = Visibility.Collapsed;
+                          //  PlayingHeader.Visibility = Visibility.Collapsed;
                             richPresence.Visibility = Visibility.Collapsed;
                         }
                     }
@@ -269,7 +291,7 @@ namespace Discord_UWP.Controls
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
         {
-            (sender as Image).Fade(0.2f, 200).Start();
+
         }
 
 

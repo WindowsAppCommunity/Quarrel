@@ -77,6 +77,10 @@ namespace Discord_UWP.Controls
 
                 Game? game = GameContent;
 
+                if (game.Value.ApplicationId == "438122941302046720")
+                    xboxlogo.Visibility = Visibility.Visible;
+                else
+                    xboxlogo.Visibility = Visibility.Collapsed;
                 if (game.Value.Type != 2)
                 {
                     //Game title
@@ -168,13 +172,14 @@ namespace Discord_UWP.Controls
                     timer.Tick += UpdateProgressBar;
                     spotifyGrid.Visibility = Visibility.Visible;
                 }
-
             }
             else
             {
                 LargeImgRect.Visibility = Visibility.Collapsed;
                 SmallimgRect.Visibility = Visibility.Collapsed;
             }
+
+           
 
             /* else if (game.Value.Name != null)
              {
