@@ -25,6 +25,12 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
+using Windows.UI.Composition;
+using Microsoft.Graphics.Canvas.Effects;
+using Windows.Graphics.Effects;
+using Windows.UI.Xaml.Hosting;
+
+using System.Numerics;
 
 namespace Discord_UWP.Controls
 {
@@ -70,25 +76,27 @@ namespace Discord_UWP.Controls
                 if (DisplayedMember.Nick != null)
                 {
                     UserStacker.Opacity = 0.5;
+                    UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Nick.Text = DisplayedMember.Nick;
                 } 
                 else
                 {
                     UserStacker.Opacity = 1;
+                    UserStacker.Margin = new Thickness(0, 20, 0, 20);
+                    Username.FontSize = 16;
+                    Username.FontWeight = Windows.UI.Text.FontWeights.SemiBold;
+                    Discriminator.FontSize = 14;
                     Nick.Visibility = Visibility.Collapsed;
                 }
                 Username.Text = user.Username;
                 Discriminator.Text = "#" + user.Discriminator;
                 var imageURL = Common.AvatarUri(user.Avatar, user.Id);
                 Avatar.ImageSource = new BitmapImage(imageURL);
-                AvatarBlurred.Source = new BitmapImage(imageURL);
-                
-                BackgroundGrid.Blur(8, 0).Start();
-                AvatarContainer.Saturation(0, 0).Start();
-
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
-                AvatarBlurred.Source = image;
+
+                SetupComposition(imageURL, Colors.Green);
+
 
                 if (user.Avatar == null)
                 {
@@ -181,28 +189,29 @@ namespace Discord_UWP.Controls
                        // PlayingHeader.Visibility = Visibility.Visible;
                         richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
                         richPresence.Visibility = Visibility.Visible;
+                        SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
                         switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.Type)
                         {
-                            case 0:
-                                {
-                                    PresenceColor.Fill = (SolidColorBrush)App.Current.Resources["Blurple"];
-                                    break;
-                                }
                             case 1:
                                 {
-                                    PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                    //streaming
+                                    color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
                                     break;
                                 }
                             case 2:
                                 {
-                                    PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                    //spotify
+                                    color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
                                     break;
                                 }
                         }
                         if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.ApplicationId == "438122941302046720")
                         {
-                            PresenceColor.Fill = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                            //xbox
+                            color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                         }
+                        PresenceColor.Fill = color;
+                        ChangeFlyoutBorder(color);
                     }
                 }
             }
@@ -211,20 +220,67 @@ namespace Discord_UWP.Controls
                 if (DMPane)
                 {
                     SendDM.Visibility = Visibility.Collapsed;
-                    mainGrid.Width = 228;
+                    borderColor.Width = 228;
+                    borderColor.CornerRadius = new CornerRadius(0);
+                    borderColor.BorderThickness = new Thickness(0);
                     UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.HorizontalAlignment = HorizontalAlignment.Left;
                     profileGrid.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.Margin = new Thickness(12, 12, 0, 0);
-                    UserStacker.Margin = new Thickness(12, 6, 0, 0);
-                    Username.FontSize = 18;
-                    Discriminator.FontSize = 15;
+                    UserStacker.Margin = new Thickness(12, 6, 0, 12);
+                    Username.FontSize = 14;
+                    Discriminator.FontSize = 12;
                     profileGrid.Margin = new Thickness(12, 24, 0, 0);
                 } else
                 {
                    //Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
                 }
             }
+        }
+        private void ChangeFlyoutBorder(SolidColorBrush color)
+        {
+            borderColor.BorderBrush = color;
+        }
+        SpriteVisual _imageVisual;
+        private async void SetupComposition(Uri imageURL, Color color)
+        {
+            Compositor _compositor;
+            ContainerVisual _container;
+            
+            CompositionSurfaceBrush _imageBrush;
+
+            _compositor = Window.Current.Compositor;
+            _imageBrush = _compositor.CreateSurfaceBrush();
+            _imageBrush.Stretch = CompositionStretch.UniformToFill;
+
+
+            LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+            _imageBrush.Surface = _loadedSurface;
+
+
+            var saturationEffect = new SaturationEffect
+            {
+                Saturation = 0.0f,
+                Source = new CompositionEffectSourceParameter("image")
+            };
+            var effectFactory = _compositor.CreateEffectFactory(saturationEffect);
+            var effectBrush = effectFactory.CreateBrush();
+            effectBrush.SetSourceParameter("image", _imageBrush);
+
+            var blurEffect = new GaussianBlurEffect
+            {
+                BlurAmount = 8,
+                Source = new CompositionEffectSourceParameter("image")
+            };
+            var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
+            var effectBrush2 = effectFactory2.CreateBrush();
+            effectBrush2.SetSourceParameter("image", effectBrush);
+
+            _imageVisual = _compositor.CreateSpriteVisual();
+            _imageVisual.Brush = effectBrush2;
+            _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
+            
+            ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
         }
 
         public UserDetailsControl()
@@ -245,7 +301,6 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Unloaded -= UserDetailsControl_Unloaded;
         }
-
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -363,6 +418,15 @@ namespace Discord_UWP.Controls
             {
                 await RESTCalls.AddNote(userid, note);
             });
+        }
+
+        private void AvatarContainer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(_imageVisual != null)
+            {
+                _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
+            }
+            
         }
     }
 }
