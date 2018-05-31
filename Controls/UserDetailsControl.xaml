@@ -178,17 +178,16 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid x:Name="mainGrid" Width="248" Padding="0,0,0,0">
+    <Border x:Name="borderColor" IsHitTestVisible="False" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{ThemeResource Blurple}">
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" VerticalAlignment="Top">
-            <Grid x:Name="AvatarContainer" Opacity="0.25">
-                <Image x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
-            </Grid>
-             <Rectangle x:Name="PresenceColor" Fill="{ThemeResource Background}" Opacity="0.25"/>
+        
+        <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
+            <Rectangle x:Name="PresenceColor" Opacity="0.5"/>
+            <Grid x:Name="AvatarContainer" SizeChanged="AvatarContainer_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.35"/>
         </Grid>
         
         <StackPanel x:Name="Stacker">
@@ -218,13 +217,14 @@
                     SHOW<LineBreak/>PROFILE
                 </TextBlock>-->
             </Grid>
+            
             <TextBlock x:Name="Nick" Text="Nick" FontWeight="SemiBold" TextWrapping="Wrap" FontSize="16" HorizontalAlignment="Center" MaxWidth="200" Margin="0,20,0,0"/>
             <StackPanel x:Name="UserStacker" Opacity="0.5" HorizontalAlignment="Center" Orientation="Horizontal" MaxWidth="200" Margin="0,2,0,20">
                 <TextBlock x:Name="Username" FontSize="12" Text="User"/>
                 <TextBlock x:Name="Discriminator" FontSize="11" Text="#000" Opacity="0.75" VerticalAlignment="Bottom"/>
             </StackPanel>
             <Grid>
-                <Rectangle Opacity="0.25" Fill="{Binding ElementName=PresenceColor, Path=Fill, UpdateSourceTrigger=PropertyChanged}" />
+                <Rectangle Opacity="0.5" Fill="{Binding ElementName=PresenceColor, Path=Fill, UpdateSourceTrigger=PropertyChanged}" />
                 <local:RichPresenceControl Margin="12,8" Visibility="Collapsed" x:Name="richPresence"/>
             </Grid>
         </StackPanel>
@@ -236,10 +236,10 @@
                     </TransitionCollection>
                 </StackPanel.Transitions>
                 <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,0,-2,0"/>
-                <TextBox Style="{StaticResource TextBoxStyle1}" x:Name="Note" PlaceholderText="Add note" FontSize="12" Padding="12,6,6,6" Margin="-12,12,-12,0" Height="20" BorderThickness="0" LostFocus="Note_LostFocus" MinHeight="28" VerticalContentAlignment="Center"/>
+                <TextBox Style="{StaticResource TextBoxStyle1}" x:Name="Note" PlaceholderText="Add note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" Height="20" BorderThickness="0" LostFocus="Note_LostFocus" MinHeight="28" VerticalContentAlignment="Center"/>
                 <local:MessageBox x:Name="SendDM" FontSize="13.333" Margin="-6,6,-6,-6" IsCompact="True"/>
             </StackPanel>
         </Grid>
-        
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

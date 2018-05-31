@@ -161,7 +161,7 @@ namespace Discord_UWP.Controls
                         GameTB.Text = game.Value.Details;
                     if (game.Value.State != null)
                         DetailsTB.Text = "by " + game.Value.State;
-                    if (game.Value.Assets.Value.LargeText != null)
+                    if (game.Value.Assets != null && game.Value.Assets.Value.LargeText != null)
                         StateTB.Text =  game.Value.Assets.Value.LargeText;
                     TimeTB.Visibility = Visibility.Collapsed;
 
