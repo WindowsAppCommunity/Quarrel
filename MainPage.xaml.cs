@@ -55,8 +55,8 @@ namespace Discord_UWP
             sideDrawer.SetupInteraction(ChannelHeader);
             setupArgs = e.Parameter as string;
             App.SetupMainPage += Setup;
-            PCAd.Width = MobileAd.Width = Ad.Width = 300;
-            PCAd.Height = MobileAd.Height = Ad.Height = 50;
+            //PCAd.Width = MobileAd.Width = Ad.Width = 300;
+            //PCAd.Height = MobileAd.Height = Ad.Height = 50;
             PCAd.ApplicationId = MobileAd.ApplicationId = Ad.ApplicationId = "9nbrwj777c8r";
             PCAd.AdUnitId = MobileAd.AdUnitId = Ad.AdUnitId = "1100023969";
             base.OnNavigatedTo(e);
