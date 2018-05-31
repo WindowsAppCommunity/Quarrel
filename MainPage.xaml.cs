@@ -393,6 +393,10 @@ namespace Discord_UWP
                 Roles = e.EventData.Roles,
                 User = e.EventData.User
             });
+            AddToMembersCvs(m);
+        }
+        private async void AddToMembersCvs(Member m)
+        {
             if (m.Raw.Roles != null)
             {
                 m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
@@ -412,17 +416,16 @@ namespace Discord_UWP
             {
                 m.status = new Presence() { Status = "offline", Game = null };
             }
-            if (member.Nick != null)
-                m.DisplayName = member.Nick;
+            if (m.Raw.Nick != null)
+                m.DisplayName = m.Raw.Nick;
             else
-                m.DisplayName = member.User.Username;
+                m.DisplayName = m.Raw.User.Username;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
 () =>
 {
     memberscvs.Add(m);
 });
         }
-
         private Member FindMember(string id)
         {
             if (memberscvs != null && memberscvs.RoleIndexer.ContainsKey(id))
@@ -471,9 +474,6 @@ namespace Discord_UWP
 
         private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
         {
-            if (e.UserId == LocalState.CurrentUser.Id)
-                Debug.WriteLine("My presence updated");
-
             if (LocalState.PresenceDict.ContainsKey(e.UserId))
                 LocalState.PresenceDict[e.UserId] = e.Presence;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -3364,17 +3364,10 @@ namespace Discord_UWP
         private bool IsParentFrame(DependencyObject child)
         {
             //recursion recursion recursion recursion recursion recursion to figure out if one of the DependencyObject's parents is the SubFrame
-            if (child == null) return true;
-            var current = VisualTreeHelper.GetParent(child);
-            while (current != null)
-            {
-                if (current == SubFrame)
-                    return true;
-                else if (current == content)
-                    return false;
-                current = VisualTreeHelper.GetParent(current);
-            };
-            return false;
+            if (((Control)child).BaseUri.ToString().EndsWith("MainPage.xaml"))
+                return false;
+            else
+                return true;
         }
 
     }
