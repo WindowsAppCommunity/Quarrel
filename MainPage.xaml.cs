@@ -1173,19 +1173,11 @@ namespace Discord_UWP
         }
         private void App_NavigateToProfileHandler(object sender, App.ProfileNavigationArgs e)
         {
-            if (App.FCU)
-            {
-                //if (e.User.Bot)
-                    SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
-                //else
-                    //SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
-            } else
-            {
-                //if (e.User.Bot)
-                    SubFrameNavigator(typeof(SubPages.UserProfileCU), e.User);
-                //else
-                    //SubFrameNavigator(typeof(SubPages.UserProfileCU), e.User.Id);
-            }
+                SubFrameNavigator(typeof(SubPages.UserProfile), e.User.Id);
+            //if (e.User.Bot)
+            //  SubFrameNavigator(typeof(SubPages.UserProfile), e.User);
+            //else
+            //
         }
         private void App_OpenAttachementHandler(object sender, SharedModels.Attachment e)
         {
@@ -3364,7 +3356,10 @@ namespace Discord_UWP
         private bool IsParentFrame(DependencyObject child)
         {
             //recursion recursion recursion recursion recursion recursion to figure out if one of the DependencyObject's parents is the SubFrame
-            if (((Control)child).BaseUri.ToString().EndsWith("MainPage.xaml"))
+            if (child == null) return true;
+            var childc = ((Control)child);
+            if (childc.BaseUri == null) return true;
+            if (childc.BaseUri.ToString().EndsWith("MainPage.xaml"))
                 return false;
             else
                 return true;

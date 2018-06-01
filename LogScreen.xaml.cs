@@ -33,7 +33,7 @@ namespace Discord_UWP
         string mfaTicket;
         private async void LogIn(object sender, RoutedEventArgs e)
         {
-            (sender as Button).IsEnabled = false;
+            loginButton.IsEnabled = false;
             ProgressRing.Visibility = Visibility.Visible;
             ProgressRing.IsActive = true;
             LoginText.Visibility = Visibility.Collapsed;
@@ -150,7 +150,7 @@ namespace Discord_UWP
                 }
                 
             }
-            (sender as Button).IsEnabled = true;
+            loginButton.IsEnabled = true;
             ProgressRing.Visibility = Visibility.Collapsed;
             ProgressRing.IsActive = false;
             LoginText.Visibility = Visibility.Visible;
@@ -190,6 +190,30 @@ namespace Discord_UWP
                 TokenAuth.Visibility = Visibility.Collapsed;
                 NormalAuth.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Password_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if(e.Key == Windows.System.VirtualKey.Enter)
+                LogIn(null, null);
+        }
+
+        private void Username_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter && Password.Visibility == Visibility.Visible)
+                Password.Focus(FocusState.Keyboard);
+        }
+
+        private void Token_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                LogIn(null, null);
+        }
+
+        private void MFAPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                LogIn(null, null);
         }
     }
 }

@@ -28,6 +28,7 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -82,156 +83,60 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Tapped="UIElement_OnTapped" Fill="Transparent" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="768" MaxHeight="600" >
+        <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
-
-                    <Grid x:Name="BackgroundGrid" MaxHeight="{Binding ActualHeight, ElementName=Stacker, UpdateSourceTrigger=PropertyChanged}" Margin="-24,0">
-                        <Image x:Name="AvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
-                    </Grid>
-
-                    <ScrollViewer x:Name="ParallaxScroll">
-                        <Grid Padding="0,250,0,0">
-                            <StackPanel Margin="0,32,0,0" Padding="40,0,40,0" Background="{ThemeResource DeepBG}">
-                                <Grid Height="88" Margin="128,0,0,0">
-                                    <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <Button x:Name="sendFriendRequest" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed">
-                                            <TextBlock Text="Send Friend request"/>
-                                        </Button>
-                                        <Button x:Name="acceptFriend" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Click="SendFriendRequest" Visibility="Collapsed">
-                                            <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Accept Friend request"/>
-                                        </Button>
-                                        <Button x:Name="pendingFriend" FontSize="13.333" Background="{ThemeResource Blurple}" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" IsEnabled="False">
-                                            <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend Request sent"/>
-                                        </Button>
-                                        <Button x:Name="Unblock" FontSize="13.333" Background="#43b581" Style="{StaticResource DiscordButton}" Padding="12,6" Width="175" Visibility="Collapsed" Click="RemoveFriend">
-                                            <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Unblock"/>
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-
-                                <tk:Expander x:Name="ProfileSettings" Visibility="Visible" Background="#55000000" IsExpanded="False" Header="Profile settings" HorizontalContentAlignment="Stretch">
-                                    <StackPanel Margin="10,0">
-                                        <TextBox x:Name="UsernameEdit" Header="Username"/>
-                                        <TextBox x:Name="EmailEdit" Header="Email" IsReadOnly="True"/>
-                                        <Rectangle Height="1" Margin="0,10,0,10" Fill="{ThemeResource Blurple}"/>
-                                        <StackPanel HorizontalAlignment="Right">
-                                            <!--TODO:-->
-                                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="Save" Content="Save" Background="{ThemeResource Blurple}" Style="{ThemeResource DiscordButton}" Click="Save_Click"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </tk:Expander>
-
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,10" HorizontalAlignment="Left">
-                                    <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
-                                        <Grid>
-                                            <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
-                                            <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
-                                        </Grid>
-                                    </HyperlinkButton>
-                                    <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
-                                        <Grid>
-                                            <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
-                                            <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
-                                        </Grid>
-                                    </HyperlinkButton>
-                                    <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed" Click="Block_Click">
-                                        <Grid>
-                                            <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
-                                            <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>
-                                        </Grid>
-                                    </HyperlinkButton>
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
-                                    <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <TextBox BorderThickness="1" x:Name="NoteBox" PlaceholderText="No note" Margin="0,6,0,0" LostFocus="NoteBox_LostFocus"/>
-                                </StackPanel>
-                                <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="196" Margin="0,12,0,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
-                                    <GridView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource LightBG}">
-                                                <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                                                <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridView.ItemTemplate>
-                                </tk:AdaptiveGridView>
-                                <StackPanel>
-                                    <TextBlock x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
-                                                    <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
-                                                        <Rectangle.Fill>
-                                                            <ImageBrush ImageSource="{Binding ImagePath}"/>
-                                                        </Rectangle.Fill>
-                                                    </Rectangle>
-                                                    <StackPanel VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                                                        <TextBlock Text="{Binding Nick}" Visibility="{Binding NickVisibility}" VerticalAlignment="Center" Margin="6,0,0,0" FontSize="11" Opacity="0.5"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                    <TextBlock x:Uid="/Dialogs/NoCommonServersTB" x:Name="NoCommonServers" Text="NO SERVERS IN COMMON" Opacity="0.25" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <TextBlock x:Uid="/Dialogs/CommonFriendsTB" Text="COMMON FRIENDS" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <ListView x:Name="MutualFriends" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
-                                                    <Rectangle Width="42" Height="42" VerticalAlignment="Stretch" HorizontalAlignment="Left" RadiusX="100" RadiusY="100">
-                                                        <Rectangle.Fill>
-                                                            <ImageBrush ImageSource="{Binding ImagePath}"/>
-                                                        </Rectangle.Fill>
-                                                    </Rectangle>
-                                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Username}" Margin="6,0,0,0" FontSize="13.333" Opacity="0.75" VerticalAlignment="Bottom"/>
-                                                        <TextBlock Text="{Binding Discriminator}" Margin="4,0,0,0" FontSize="11" Opacity="0.5" VerticalAlignment="Bottom"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                    <ProgressRing x:Name="LoadingMutualFriends" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
-                                    <TextBlock x:Uid="/Dialogs/NoCommonFriendsTB" x:Name="NoMutualFriends" Visibility="Visible" Text="NO FRIENDS IN COMMON" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <Grid>
-                                <Grid x:Name="FullAvatar" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                    <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Rectangle.Fill>
-                                            <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                    <Rectangle x:Name="rectangle" Fill="#43b581" StrokeThickness="2" Stroke="{ThemeResource LightBG}" Width="32" Height="32" RadiusX="16" RadiusY="16"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,24,4,0" RenderTransformOrigin="0.5,0.5">
-                                        <Rectangle.RenderTransform>
-                                            <CompositeTransform TranslateX="0"/>
-                                        </Rectangle.RenderTransform>
-                                    </Rectangle>
-                                    <Ellipse x:Name="status" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"/>
-                                </Grid>
-
-                                <StackPanel Orientation="Horizontal" Height="128" Margin="178,0,0,0" VerticalAlignment="Top">
-                                    <TextBlock x:Name="username" Text="" FontSize="20" VerticalAlignment="Top"/>
-                                    <TextBlock x:Name="discriminator" Text="" FontSize="20" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top"/>
-                                    <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="0" Padding="12,6" CornerRadius="2" Visibility="Collapsed">
-                                        <TextBlock x:Uid="BotTB" Text="BOT" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
-                                    </Border>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <ScrollViewer Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
+                        <StackPanel Grid.Row="0" Margin="12,12,24,0" Padding="0,0,0,24">
+                            <TextBlock Text="ACCOUNT" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                            <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
+                                <Rectangle x:Name="UserIconRect" Opacity="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="128" Height="128" RadiusX="128" RadiusY="128">
+                                    <Rectangle.Fill>
+                                        <ImageBrush x:Name="UserIcon" Stretch="UniformToFill" ImageOpened="GuildIcon_ImageOpened"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel Margin="0,6,0,0"  Grid.Row="1">
+                                   
+                                    <HyperlinkButton x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                    <HyperlinkButton x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                 </StackPanel>
                             </Grid>
-                        </Grid>
+                            <TextBox x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
+                            <TextBox x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
+                            <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
+                            <HyperlinkButton x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                            <PasswordBox x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
+                        </StackPanel>
                     </ScrollViewer>
+                    <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
+                        <HyperlinkButton Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
+                        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
+                                <Button.Content>
+                                        <Grid>
+                                            <TextBlock x:Name="saveBTNtext" Text="Save"/>
+                                            <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource Blurple}" IsActive="True"/>
+                                        </Grid>
+                                    </Button.Content>
+                                </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

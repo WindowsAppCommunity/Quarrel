@@ -58,7 +58,7 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        private void SaveGuildSettings(object sender, RoutedEventArgs e)
+        private async void SaveGuildSettings(object sender, RoutedEventArgs e)
         {
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
@@ -67,10 +67,10 @@ namespace Discord_UWP.SubPages
             if (string.IsNullOrEmpty(base64img))
                 modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
             else
-                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
             if (DeletedImage)
-                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
-            Task.Run(async () =>
+                modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+            await Task.Run(async () =>
             {
                 await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
             });
@@ -133,7 +133,6 @@ namespace Discord_UWP.SubPages
                 deleteImage.Visibility = Visibility.Collapsed;
             else
                 GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + guild.Raw.Id + "/" + guild.Raw.Icon + ".png"));
-
 
             header.Text = App.GetString("/Flyouts/Edit").ToUpper() + " " + guild.Raw.Name.ToUpper();
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
@@ -493,7 +492,7 @@ namespace Discord_UWP.SubPages
             using (var resizedStream = await tempfile.OpenAsync(FileAccessMode.ReadWrite))
             {
                 var encoder = await BitmapEncoder.CreateForTranscodingAsync(resizedStream, decoder);
-                encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Linear;
+                encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Cubic;
                 encoder.BitmapTransform.ScaledWidth = width;
                 encoder.BitmapTransform.ScaledHeight = height;
                 await encoder.FlushAsync();

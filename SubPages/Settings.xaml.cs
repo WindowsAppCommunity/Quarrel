@@ -422,7 +422,8 @@ namespace Discord_UWP.SubPages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            App.NavigateToProfile(LocalModels.LocalState.CurrentUser);
+            Frame.Navigate(typeof(SubPages.UserProfileCU));
+          //  App.NavigateToProfile(LocalModels.LocalState.CurrentUser);
         }
 
         private void TimeFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)

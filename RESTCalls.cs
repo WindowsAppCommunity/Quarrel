@@ -281,20 +281,18 @@ namespace Discord_UWP
             }
         }
 
-        public static async Task<User> ModifyCurrentUser(string newUsername)
+        public static async Task<User> ModifyCurrentUser(ModifyUser modifyuser)
         {
             try
             {
-                ModifyUser modifyuser = new ModifyUser();
-                modifyuser.Username = newUsername;
                 IUserService userService = AuthenticatedRestFactory.GetUserService();
                 return await userService.ModifyCurrentUser(modifyuser);
             }
             catch /*(Exception exception)*/
             {
+                return null;
                 //App.NavigateToBugReport(exception);
             }
-            return new User();
         }
 
         public static async Task LeaveServer(string guildId)
