@@ -587,6 +587,17 @@ namespace Discord_UWP
             CreateMessageHandler?.Invoke(typeof(App), new CreateMessageArgs() { ChannelId = channelId, Message = new API.Channel.Models.MessageUpsert() { Content = message } });
         }
 
+        public class DeleteMessageArgs
+        {
+            public string ChannelId;
+            public string MessageId;
+        }
+        public static event EventHandler<DeleteMessageArgs> DeleteMessageHandler;
+        public static void DeleteMessage(string channelId, string messageId)
+        {
+            DeleteMessageHandler?.Invoke(typeof(App), new DeleteMessageArgs() { ChannelId = channelId, MessageId = messageId });
+        }
+
         public static event EventHandler FlashMentionHandler;
         public static void FlashMention()
         {

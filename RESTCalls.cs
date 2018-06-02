@@ -307,6 +307,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+
+        public static async Task LeaveServer(object guildId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                await userservice.LeaveGuild((string)guildId);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
         #endregion
 
         #endregion
@@ -584,6 +597,21 @@ namespace Discord_UWP
             }
             return new SharedModels.Guild();
         }
+        public static async Task<SharedModels.Guild> CreateGuild(object args)
+        {
+            try
+            {
+                CreateGuild guild = new CreateGuild();
+                guild.Name = (string)(args as List<object>)[0];
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.CreateGuild(guild);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new SharedModels.Guild();
+        }
 
         public static async Task<SharedModels.Guild> ModifyGuild(string guildid, ModifyGuild modifyguild)
         {
@@ -605,6 +633,19 @@ namespace Discord_UWP
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 return await guildservice.DeleteGuild(guildid);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new SharedModels.Guild();
+        }
+        public static async Task<SharedModels.Guild> DeleteGuild(object guildid)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.DeleteGuild((string)guildid);
             }
             catch /*(Exception exception)*/
             {
@@ -640,6 +681,20 @@ namespace Discord_UWP
             }
             return new GuildMember();
         }
+        public static async Task<GuildMember> ModifyCurrentUserNickname(object args)
+        {
+            try
+            {
+                List<object> listArgs = (args as List<object>);
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.ModifyCurrentUserNickname((string)listArgs[0], new ModifyGuildMember() { Nick = (string)listArgs[1] });
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new GuildMember();
+        }
 
         public static async Task ModifyGuildMember(string guildId, string userId, ModifyGuildMember modify)
         {
@@ -666,6 +721,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+        public static async Task ModifyGuildMemberNickname(object args)
+        {
+            try
+            {
+                List<object> listArgs = (args as List<object>);
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                await guildservice.ModifyGuildMemberNickname((string)listArgs[0], (string)listArgs[1], new ModifyGuildMember() { Nick = (string)listArgs[2]});
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
 
         public static async Task RemoveGuildMember(string guildId, string userId)
         {
@@ -686,6 +754,18 @@ namespace Discord_UWP
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.CreateGuildBan(guildId, userId, guildBan);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
+        public static async Task CreateBan(object args)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                await guildservice.CreateGuildBan((args as Tuple<string, string, CreateGuildBan>).Item1, (args as Tuple<string, string, CreateGuildBan>).Item2, (args as Tuple<string, string, CreateGuildBan>).Item3);
             }
             catch /*(Exception exception)*/
             {
@@ -992,6 +1072,18 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+        public static async Task DeleteChannel(object chnid)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeleteChannel((string)chnid);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
 
         public static async Task<Message> EditMessageAsync(string chnid, string msgid, string content)
         {
@@ -1052,6 +1144,19 @@ namespace Discord_UWP
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.DeleteMessage(chnid, msgid);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
+        public static async Task DeleteMessage(object args)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeleteMessage((args as Tuple<string, string>).Item1, (args as Tuple<string, string>).Item2);
             }
             catch /*(Exception exception)*/
             {
