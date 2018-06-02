@@ -597,6 +597,21 @@ namespace Discord_UWP
             }
             return new SharedModels.Guild();
         }
+        public static async Task<SharedModels.Guild> CreateGuild(object args)
+        {
+            try
+            {
+                CreateGuild guild = new CreateGuild();
+                guild.Name = (string)(args as List<object>)[0];
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.CreateGuild(guild);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new SharedModels.Guild();
+        }
 
         public static async Task<SharedModels.Guild> ModifyGuild(string guildid, ModifyGuild modifyguild)
         {

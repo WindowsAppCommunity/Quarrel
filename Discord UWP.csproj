@@ -306,9 +306,6 @@
     <Compile Include="SubPages\CreateChannel.xaml.cs">
       <DependentUpon>CreateChannel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\CreateServer.xaml.cs">
-      <DependentUpon>CreateServer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\EditChannel.xaml.cs">
       <DependentUpon>EditChannel.xaml</DependentUpon>
     </Compile>
@@ -623,10 +620,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateChannel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\CreateServer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

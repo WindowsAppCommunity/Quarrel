@@ -1156,7 +1156,17 @@ namespace Discord_UWP
         }
         private void App_NavigateToCreateServerHandler(object sender, EventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.CreateServer));
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = "Create Server", //TODO: Translate
+                StartText = "",
+                PlaceHolderText = "Server Name",
+                SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") +  " " + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
+                ConfirmMessage = "Create",
+                ConfirmRed = false,
+                args = new List<object>(),
+                function = RESTCalls.CreateGuild
+            });
         }
         private void App_NavigateToDeleteChannelHandler(object sender, App.DeleteChannelNavigationArgs e)
         {
@@ -1420,7 +1430,7 @@ namespace Discord_UWP
             {
                 Message = "Are you sure you want to delete this message?", //TODO: Translate
                 ConfirmMessage = App.GetString("/Dialogs/Delete"),
-                SubMessage = "",
+                SubMessage = "", //TODO: Make this the message
                 StartText = "",
                 PlaceHolderText = null,
                 ConfirmRed = true,
