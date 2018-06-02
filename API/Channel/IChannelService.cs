@@ -22,7 +22,7 @@ namespace Discord_UWP.API.Channel
         [Put("/channels/{channelId}")]
         Task ModifyChannel([AliasAs("channelId")] string channelId, [Body] ModifyChannel modifyChannel);
 
-        [Get("/channels/{channelId}/messages")]
+        [Get("/v6/channels/{channelId}/messages")]
         Task DeleteChannelMessages([AliasAs("channelId")] string channelId);
 
         [Get("/v6/channels/{channelId}/messages/{messageId)")]

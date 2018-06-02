@@ -141,7 +141,7 @@ namespace Discord_UWP.Flyouts
                 {
                     Text = App.GetString("/Flyouts/ChangeNickname"),
                     Tag = member.User.Id,
-                    Icon = new SymbolIcon(Symbol.Edit)
+                    Icon = new SymbolIcon(Symbol.Rename)
                 };
                 changeNickname.Click += FlyoutManager.ChangeNickname;
                 menu.Items.Add(changeNickname);

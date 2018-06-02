@@ -139,7 +139,8 @@ namespace Discord_UWP.Managers
         }
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(HoistRole) && ((HoistRole)obj).Id == Id)
+
+            if (obj != null && obj.GetType() == typeof(HoistRole) && ((HoistRole)obj).Id == Id)
                 return true;
             else
                 return false;
