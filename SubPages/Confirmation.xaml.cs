@@ -23,9 +23,19 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LeaveServer : Page
+
+    public class ConfirmationData
     {
-        public LeaveServer()
+        public string Message { get; set; }
+        //public string SubMessage { get; set; }
+        public string ConfirmMessage { get; set; }
+        public object args { get; set; }
+        public Func<object, object> function { get; set; }
+    }
+
+    public sealed partial class Confirmation : Page
+    {
+        public Confirmation()
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -37,11 +47,13 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        string guildId = "";
+        ConfirmationData data;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            guildId = e.Parameter.ToString();
-            Message.Text = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[guildId].Raw.Name + "?";
+            data = (e.Parameter as ConfirmationData);
+            Message.Text = data.Message;
+            ConfirmButton.Content = data.ConfirmMessage;
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -62,9 +74,9 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.LeaveServer(guildId); //TODO: Rig to App.Events
+            data.function(data.args);
             CloseButton_Click(null, null);
         }
     }

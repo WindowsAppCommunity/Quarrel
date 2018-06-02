@@ -421,10 +421,10 @@ namespace Discord_UWP
             else
                 m.DisplayName = m.Raw.User.Username;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-() =>
-{
-    memberscvs.Add(m);
-});
+                () =>
+                {
+                    memberscvs.Add(m);
+                });
         }
         private Member FindMember(string id)
         {
@@ -1165,7 +1165,13 @@ namespace Discord_UWP
         }
         private void App_NavigateToLeaveServerHandler(object sender, App.LeaverServerNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.LeaveServer), e.GuildId);
+            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            {
+                Message = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                ConfirmMessage = App.GetString("/Dialogs/LeaveServer"),
+                args = e.GuildId,
+                function = RESTCalls.LeaveServer
+            });
         }
         private void App_NavigateToNicknameEditHandler(object sender, App.NicknameEditNavigationArgs e)
         {

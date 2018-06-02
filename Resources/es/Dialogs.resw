@@ -486,4 +486,7 @@
   <data name="Category" xml:space="preserve">
     <value>Categoría</value>
   </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Salir del servidor</value>
+  </data>
 </root>
