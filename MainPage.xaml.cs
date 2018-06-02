@@ -324,6 +324,7 @@ namespace Discord_UWP
             App.LinkClicked += App_LinkClicked;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
+            App.DeleteMessageHandler += App_DeleteMessageHandler;
             App.FlashMentionHandler += App_FlashMentionHandler;
             typingCooldown.Tick += TypingCooldown_Tick;
             App.StartTypingHandler += App_StartTypingHandler;
@@ -1300,7 +1301,6 @@ namespace Discord_UWP
         #region API
         private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
         {
-            
             //MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
             if (e.Message.Content.Length > 10000)
             {
@@ -1348,6 +1348,17 @@ namespace Discord_UWP
                 await RESTCalls.CreateMessage(e.ChannelId, e.Message);
             }
             
+        }
+
+        private void App_DeleteMessageHandler(object sender, App.DeleteMessageArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            {
+                Message = "Are you sure you want to delete this message?", //TODO: Translate
+                ConfirmMessage = "Delete",
+                args = new Tuple<string, string>(e.ChannelId, e.MessageId),
+                function = RESTCalls.DeleteMessage
+            });
         }
 
         private static IEnumerable<string> SplitToLines(string stringToSplit, int maxLineLength)

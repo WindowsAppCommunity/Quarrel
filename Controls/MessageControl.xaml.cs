@@ -1048,9 +1048,9 @@ namespace Discord_UWP.Controls
             }
         }
 
-        private async void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
+        private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
+            App.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
         }
 
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
