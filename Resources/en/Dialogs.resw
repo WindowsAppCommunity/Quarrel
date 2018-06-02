@@ -489,4 +489,7 @@
   <data name="LeaveServer" xml:space="preserve">
     <value>Leave Server</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
