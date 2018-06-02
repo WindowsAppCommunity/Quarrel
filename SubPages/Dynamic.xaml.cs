@@ -23,9 +23,19 @@ namespace Discord_UWP.SubPages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DeleteServer : Page
+
+    public class SubPageData
     {
-        public DeleteServer()
+        public string Message { get; set; }
+        public string SubMessage { get; set; }
+        public string ConfirmMessage { get; set; }
+        public object args { get; set; }
+        public Func<object, object> function { get; set; }
+    }
+
+    public sealed partial class DynamicSubPage : Page
+    {
+        public DynamicSubPage()
         {
             this.InitializeComponent();
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -37,11 +47,15 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
-        string guildId = "";
+        SubPageData data;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            guildId = e.Parameter.ToString();
-            Message.Text = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[guildId].Raw.Name + "?";
+            data = (e.Parameter as SubPageData);
+            Message.Text = data.Message;
+            SubMessage.Text = data.SubMessage;
+            if (data.ConfirmMessage == "") { ConfirmButton.Visibility = Visibility.Collapsed; }
+            else { ConfirmButton.Content = data.ConfirmMessage; }
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -62,9 +76,9 @@ namespace Discord_UWP.SubPages
             Frame.Visibility = Visibility.Collapsed;
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.DeleteGuild(guildId); //TODO: Rig to App.Events
+            data.function(data.args);
             CloseButton_Click(null, null);
         }
     }

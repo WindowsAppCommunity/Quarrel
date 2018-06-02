@@ -285,8 +285,8 @@
       <DependentUpon>ShareTarget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
-    <Compile Include="SubPages\Confirmation.xaml.cs">
-      <DependentUpon>Confirmation.xaml</DependentUpon>
+    <Compile Include="SubPages\Dynamic.xaml.cs">
+      <DependentUpon>Dynamic.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\SavedMessages.xaml.cs">
       <DependentUpon>SavedMessages.xaml</DependentUpon>
@@ -303,9 +303,6 @@
     <Compile Include="SubPages\BugReport.xaml.cs">
       <DependentUpon>BugReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\ChannelTopic.xaml.cs">
-      <DependentUpon>ChannelTopic.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\CreateBan.xaml.cs">
       <DependentUpon>CreateBan.xaml</DependentUpon>
     </Compile>
@@ -314,9 +311,6 @@
     </Compile>
     <Compile Include="SubPages\CreateServer.xaml.cs">
       <DependentUpon>CreateServer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\DeleteServer.xaml.cs">
-      <DependentUpon>DeleteServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\EditChannel.xaml.cs">
       <DependentUpon>EditChannel.xaml</DependentUpon>
@@ -610,7 +604,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SubPages\Confirmation.xaml">
+    <Page Include="SubPages\Dynamic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -634,10 +628,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SubPages\ChannelTopic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SubPages\CreateBan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -647,10 +637,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\CreateServer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\DeleteServer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

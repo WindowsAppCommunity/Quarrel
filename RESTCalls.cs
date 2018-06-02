@@ -625,6 +625,19 @@ namespace Discord_UWP
             }
             return new SharedModels.Guild();
         }
+        public static async Task<SharedModels.Guild> DeleteGuild(object guildid)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.DeleteGuild((string)guildid);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new SharedModels.Guild();
+        }
 
         public static async Task<IEnumerable<SharedModels.GuildChannel>> ModifyGuildChannelPositions(string channelid, int Position)
         {

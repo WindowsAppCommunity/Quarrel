@@ -1150,11 +1150,12 @@ namespace Discord_UWP
         }
         private void App_NavigateToDeleteChannelHandler(object sender, App.DeleteChannelNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = App.CurrentGuildIsDM
                 ? "Are you sure you want to Close your DM with " + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
                 : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?", //TODO: Translate
+                SubMessage = "",
                 ConfirmMessage = App.GetString("/Dialogs/Delete"),
                 args = e.ChannelId,
                 function = RESTCalls.DeleteChannel
@@ -1162,7 +1163,14 @@ namespace Discord_UWP
         }
         private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.DeleteServer), e.GuildId);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                SubMessage = "",
+                args = e.GuildId,
+                function = RESTCalls.DeleteGuild
+            });
         }
         private void App_NavigateToGuildEditHandler(object sender, App.GuildEditNavigationArgs e)
         {
@@ -1174,10 +1182,11 @@ namespace Discord_UWP
         }
         private void App_NavigateToLeaveServerHandler(object sender, App.LeaverServerNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
                 ConfirmMessage = App.GetString("/Dialogs/LeaveServer"),
+                SubMessage = "",
                 args = e.GuildId,
                 function = RESTCalls.LeaveServer
             });
@@ -1200,7 +1209,14 @@ namespace Discord_UWP
         }
         private void App_NavigateToChannelTopicHandler(object sender, App.ChannelTopicNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.ChannelTopic), e.Channel);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = e.Channel.Name,
+                ConfirmMessage = "",
+                SubMessage = e.Channel.Topic,
+                args = null,
+                function = null
+            });
         }
         private void App_NavigateToCreateChannelHandler(object sender, EventArgs e)
         {
@@ -1360,7 +1376,7 @@ namespace Discord_UWP
 
         private void App_DeleteMessageHandler(object sender, App.DeleteMessageArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = "Are you sure you want to delete this message?", //TODO: Translate
                 ConfirmMessage = App.GetString("/Dialogs/Delete"),
