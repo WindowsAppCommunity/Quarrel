@@ -285,6 +285,9 @@
       <DependentUpon>ShareTarget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
+    <Compile Include="SubPages\Confirmation.xaml.cs">
+      <DependentUpon>Confirmation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\SavedMessages.xaml.cs">
       <DependentUpon>SavedMessages.xaml</DependentUpon>
     </Compile>
@@ -335,9 +338,6 @@
     </Compile>
     <Compile Include="SubPages\JoinServer.xaml.cs">
       <DependentUpon>JoinServer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\LeaveServer.xaml.cs">
-      <DependentUpon>LeaveServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\PreviewAttachement.xaml.cs">
       <DependentUpon>PreviewAttachement.xaml</DependentUpon>
@@ -613,6 +613,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\Confirmation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SubPages\SavedMessages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -678,10 +682,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\JoinServer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\LeaveServer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

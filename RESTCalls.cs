@@ -307,6 +307,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+
+        public static async Task LeaveServer(object guildId)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                await userservice.LeaveGuild((string)guildId);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
         #endregion
 
         #endregion
