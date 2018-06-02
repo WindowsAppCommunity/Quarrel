@@ -666,6 +666,20 @@ namespace Discord_UWP
             }
             return new GuildMember();
         }
+        public static async Task<GuildMember> ModifyCurrentUserNickname(object args)
+        {
+            try
+            {
+                List<object> listArgs = (args as List<object>);
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                return await guildservice.ModifyCurrentUserNickname((string)listArgs[0], new ModifyGuildMember() { Nick = (string)listArgs[1] });
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return new GuildMember();
+        }
 
         public static async Task ModifyGuildMember(string guildId, string userId, ModifyGuildMember modify)
         {
@@ -692,6 +706,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+        public static async Task ModifyGuildMemberNickname(object args)
+        {
+            try
+            {
+                List<object> listArgs = (args as List<object>);
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                await guildservice.ModifyGuildMemberNickname((string)listArgs[0], (string)listArgs[1], new ModifyGuildMember() { Nick = (string)listArgs[2]});
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
 
         public static async Task RemoveGuildMember(string guildId, string userId)
         {
@@ -712,6 +739,18 @@ namespace Discord_UWP
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
                 await guildservice.CreateGuildBan(guildId, userId, guildBan);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
+        public static async Task CreateBan(object args)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                await guildservice.CreateGuildBan((args as Tuple<string, string, CreateGuildBan>).Item1, (args as Tuple<string, string, CreateGuildBan>).Item2, (args as Tuple<string, string, CreateGuildBan>).Item3);
             }
             catch /*(Exception exception)*/
             {

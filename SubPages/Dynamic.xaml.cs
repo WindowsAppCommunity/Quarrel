@@ -29,6 +29,9 @@ namespace Discord_UWP.SubPages
         public string Message { get; set; }
         public string SubMessage { get; set; }
         public string ConfirmMessage { get; set; }
+        public string StartText { get; set; }
+        public string PlaceHolderText { get; set; }
+        public bool ConfirmRed { get; set; }
         public object args { get; set; }
         public Func<object, object> function { get; set; }
     }
@@ -52,10 +55,20 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             data = (e.Parameter as SubPageData);
+
             Message.Text = data.Message;
+            if (data.PlaceHolderText != null)
+            {
+                StringArg.Visibility = Visibility.Visible;
+                StringArg.Text = data.StartText;
+                StringArg.PlaceholderText = data.PlaceHolderText;
+            }
             SubMessage.Text = data.SubMessage;
+
             if (data.ConfirmMessage == "") { ConfirmButton.Visibility = Visibility.Collapsed; }
             else { ConfirmButton.Content = data.ConfirmMessage; }
+            if (data.ConfirmRed) { ConfirmButton.Background = (Brush)App.Current.Resources["dnd"]; }
+
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -78,6 +91,10 @@ namespace Discord_UWP.SubPages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (data.PlaceHolderText != null && data.args is List<object>)
+            {
+                (data.args as List<object>).Add(StringArg.Text);
+            }
             data.function(data.args);
             CloseButton_Click(null, null);
         }

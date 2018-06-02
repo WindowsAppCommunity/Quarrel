@@ -303,9 +303,6 @@
     <Compile Include="SubPages\BugReport.xaml.cs">
       <DependentUpon>BugReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\CreateBan.xaml.cs">
-      <DependentUpon>CreateBan.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\CreateChannel.xaml.cs">
       <DependentUpon>CreateChannel.xaml</DependentUpon>
     </Compile>
@@ -317,9 +314,6 @@
     </Compile>
     <Compile Include="SubPages\EditGuild.xaml.cs">
       <DependentUpon>EditGuild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\EditNickname.xaml.cs">
-      <DependentUpon>EditNickname.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\ExtendedMessageEditor.xaml.cs">
       <DependentUpon>ExtendedMessageEditor.xaml</DependentUpon>
@@ -628,10 +622,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SubPages\CreateBan.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SubPages\CreateChannel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -645,10 +635,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\EditGuild.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\EditNickname.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
