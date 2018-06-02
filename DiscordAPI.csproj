@@ -226,7 +226,7 @@
       <Version>11.0.2</Version>
     </PackageReference>
     <PackageReference Include="Refit">
-      <Version>4.4.17</Version>
+      <Version>4.5.6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

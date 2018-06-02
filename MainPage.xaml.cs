@@ -324,6 +324,7 @@ namespace Discord_UWP
             App.LinkClicked += App_LinkClicked;
             //API
             App.CreateMessageHandler += App_CreateMessageHandler;
+            App.DeleteMessageHandler += App_DeleteMessageHandler;
             App.FlashMentionHandler += App_FlashMentionHandler;
             typingCooldown.Tick += TypingCooldown_Tick;
             App.StartTypingHandler += App_StartTypingHandler;
@@ -422,10 +423,10 @@ namespace Discord_UWP
             else
                 m.DisplayName = m.Raw.User.Username;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-() =>
-{
-    memberscvs.Add(m);
-});
+                () =>
+                {
+                    memberscvs.Add(m);
+                });
         }
         private Member FindMember(string id)
         {
@@ -1157,19 +1158,61 @@ namespace Discord_UWP
         }
         private void App_NavigateToCreateBanHandler(object sender, App.CreateBanNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.CreateBan), e.UserId);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = App.GetString("/Dialogs/VerifyBan") + LocalState.Guilds[App.CurrentGuildId].members[e.UserId].User.Username + "?",
+                ConfirmMessage = App.GetString("/Dialogs/Ban"),
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmRed = true,
+                args = new Tuple<string, string, API.Guild.Models.CreateGuildBan>(e.UserId, App.CurrentGuildId, new API.Guild.Models.CreateGuildBan() { DeleteMessageDays = 0}),
+                function = RESTCalls.CreateBan
+            });
         }
         private void App_NavigateToCreateServerHandler(object sender, EventArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.CreateServer));
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = "Create Server", //TODO: Translate
+                StartText = "",
+                PlaceHolderText = "Server Name",
+                SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") +  " " + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
+                ConfirmMessage = "Create",
+                ConfirmRed = false,
+                args = new List<object>(),
+                function = RESTCalls.CreateGuild
+            });
         }
         private void App_NavigateToDeleteChannelHandler(object sender, App.DeleteChannelNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.DeleteChannel), e.ChannelId);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = App.CurrentGuildIsDM
+                ? "Are you sure you want to Close your DM with " + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
+                : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?", //TODO: Translate
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                ConfirmRed = true,
+                args = e.ChannelId,
+                function = RESTCalls.DeleteChannel
+            });
         }
         private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.DeleteServer), e.GuildId);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmRed = true,
+                args = e.GuildId,
+                function = RESTCalls.DeleteGuild
+            });
         }
         private void App_NavigateToGuildEditHandler(object sender, App.GuildEditNavigationArgs e)
         {
@@ -1181,11 +1224,39 @@ namespace Discord_UWP
         }
         private void App_NavigateToLeaveServerHandler(object sender, App.LeaverServerNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.LeaveServer), e.GuildId);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                ConfirmMessage = App.GetString("/Dialogs/LeaveServer"),
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmRed = true,
+                args = e.GuildId,
+                function = RESTCalls.LeaveServer
+            });
         }
         private void App_NavigateToNicknameEditHandler(object sender, App.NicknameEditNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.EditNickname), e.UserId);
+            var member = LocalState.Guilds[App.CurrentGuildId].members[e.UserId];
+            var pageData = new SubPages.SubPageData()
+            {
+                Message = "Edit Nickname", //TODO: Translate
+                ConfirmMessage = "Save",
+                SubMessage = "",
+                StartText = member.Nick != null ? member.Nick : "",
+                ConfirmRed = false,
+                PlaceHolderText = member.User.Username,
+                args = e.UserId == LocalState.CurrentUser.Id ? new List<object>() { App.CurrentGuildId } : new List<object>() { App.CurrentGuildId, e.UserId },
+            };
+            if (e.UserId == LocalState.CurrentUser.Id)
+            {
+                pageData.function = RESTCalls.ModifyCurrentUserNickname;
+            } else
+            {
+                pageData.function = RESTCalls.ModifyGuildMemberNickname;
+            }
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), pageData);
         }
         private void App_NavigateToProfileHandler(object sender, App.ProfileNavigationArgs e)
         {
@@ -1201,7 +1272,17 @@ namespace Discord_UWP
         }
         private void App_NavigateToChannelTopicHandler(object sender, App.ChannelTopicNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.ChannelTopic), e.Channel);
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = e.Channel.Name,
+                ConfirmMessage = "",
+                SubMessage = e.Channel.Topic,
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmRed = false,
+                args = null,
+                function = null
+            });
         }
         private void App_NavigateToCreateChannelHandler(object sender, EventArgs e)
         {
@@ -1310,7 +1391,6 @@ namespace Discord_UWP
         #region API
         private async void App_CreateMessageHandler(object sender, App.CreateMessageArgs e)
         {
-            
             //MessageList.Items.Add(MessageManager.MakeMessage(e.ChannelId, e.Message));
             if (e.Message.Content.Length > 10000)
             {
@@ -1358,6 +1438,21 @@ namespace Discord_UWP
                 await RESTCalls.CreateMessage(e.ChannelId, e.Message);
             }
             
+        }
+
+        private void App_DeleteMessageHandler(object sender, App.DeleteMessageArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = "Are you sure you want to delete this message?", //TODO: Translate
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                SubMessage = "", //TODO: Make this the message
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmRed = true,
+                args = new Tuple<string, string>(e.ChannelId, e.MessageId),
+                function = RESTCalls.DeleteMessage
+            });
         }
 
         private static IEnumerable<string> SplitToLines(string stringToSplit, int maxLineLength)

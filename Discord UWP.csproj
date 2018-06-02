@@ -263,6 +263,9 @@
     <Compile Include="Managers\AudioManager.cs" />
     <Compile Include="Managers\BackgroundTaskManager.cs" />
     <Compile Include="Managers\ChannelManager.cs" />
+    <Compile Include="Managers\ColorDetector\ColorDetection.cs" />
+    <Compile Include="Managers\ColorDetector\ColorExtractor.cs" />
+    <Compile Include="Managers\ColorDetector\ColorUtility.cs" />
     <Compile Include="Managers\EncryptionManager.cs" />
     <Compile Include="Managers\FlyoutManager.cs" />
     <Compile Include="Managers\GatewayManager.cs" />
@@ -282,6 +285,9 @@
       <DependentUpon>ShareTarget.xaml</DependentUpon>
     </Compile>
     <Compile Include="Storage.cs" />
+    <Compile Include="SubPages\Dynamic.xaml.cs">
+      <DependentUpon>Dynamic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\SavedMessages.xaml.cs">
       <DependentUpon>SavedMessages.xaml</DependentUpon>
     </Compile>
@@ -297,32 +303,14 @@
     <Compile Include="SubPages\BugReport.xaml.cs">
       <DependentUpon>BugReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SubPages\ChannelTopic.xaml.cs">
-      <DependentUpon>ChannelTopic.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\CreateBan.xaml.cs">
-      <DependentUpon>CreateBan.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SubPages\CreateChannel.xaml.cs">
       <DependentUpon>CreateChannel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\CreateServer.xaml.cs">
-      <DependentUpon>CreateServer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\DeleteChannel.xaml.cs">
-      <DependentUpon>DeleteChannel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\DeleteServer.xaml.cs">
-      <DependentUpon>DeleteServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\EditChannel.xaml.cs">
       <DependentUpon>EditChannel.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\EditGuild.xaml.cs">
       <DependentUpon>EditGuild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\EditNickname.xaml.cs">
-      <DependentUpon>EditNickname.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\ExtendedMessageEditor.xaml.cs">
       <DependentUpon>ExtendedMessageEditor.xaml</DependentUpon>
@@ -332,9 +320,6 @@
     </Compile>
     <Compile Include="SubPages\JoinServer.xaml.cs">
       <DependentUpon>JoinServer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SubPages\LeaveServer.xaml.cs">
-      <DependentUpon>LeaveServer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SubPages\PreviewAttachement.xaml.cs">
       <DependentUpon>PreviewAttachement.xaml</DependentUpon>
@@ -612,6 +597,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SubPages\Dynamic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SubPages\SavedMessages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -632,27 +621,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SubPages\ChannelTopic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\CreateBan.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SubPages\CreateChannel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\CreateServer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\DeleteChannel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\DeleteServer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -661,10 +630,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\EditGuild.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\EditNickname.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -677,10 +642,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\JoinServer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SubPages\LeaveServer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -748,25 +709,25 @@
       <Version>10.1705.16001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.DeveloperTools">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.2.0</Version>
+      <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Midgard.ObservableGroupCollection">
       <Version>0.5.1</Version>
