@@ -9,7 +9,7 @@
     d:DesignHeight="256"
     d:DesignWidth="448">
 
-    <Grid x:Name="rootgrid" BorderBrush="#1DB954" BorderThickness="2" MaxWidth="448" Height="124" Padding="12" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+    <Grid x:Name="rootgrid" MaxWidth="400" Height="124" Padding="12" VerticalAlignment="Top" HorizontalAlignment="Stretch">
         <Image x:Name="bgArtwork" Source="ms-appx:///Assets/ConnectionLogos/spotify.png" HorizontalAlignment="Stretch" Margin="-12" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="1"/>
         <Rectangle Margin="-12" Fill="{ThemeResource AcrylicMessageBackground}" Opacity="0.8"/>
         <Grid x:Name="contentGrid">

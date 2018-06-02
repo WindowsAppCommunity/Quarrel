@@ -176,6 +176,7 @@
                             <TextBlock TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                             <TextBlock TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                         </StackPanel>
+                        <TextBlock x:Name="token" Text="test" FontSize="10" IsTextSelectionEnabled="True" Opacity="0.5" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,32" />
                         <TextBlock FontSize="13.33" x:Name="appVersion" Opacity="0.5" FontWeight="SemiBold" Grid.Row="1" Text="Quarrel 8.0.0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,24,0,12"/>
                     </Grid>
                 </Grid>

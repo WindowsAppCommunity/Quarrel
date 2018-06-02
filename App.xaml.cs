@@ -403,7 +403,6 @@ namespace Discord_UWP
             SubpageClosedHandler?.Invoke(typeof(App), EventArgs.Empty);
         }
         #endregion
-
         #endregion
 
         #region UIUpdates

@@ -64,7 +64,14 @@ namespace Discord_UWP.Managers
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
             Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
 
+            //Other
+            Gateway.SessionReplaced += Gateway_SessionReplaced;
             await Gateway.ConnectAsync();
+        }
+
+        private static void Gateway_SessionReplaced(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.SessionReplace> e)
+        {
+            session = e.EventData.session_id;
         }
 
         #region Ready
@@ -207,6 +214,7 @@ namespace Discord_UWP.Managers
                         {
                             LocalState.Guilds[guild.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
                         }
+                        LocalState.Guilds[guild.Id].channels[channel.Id].GetPermissions();
                     }
                 } else
                 {

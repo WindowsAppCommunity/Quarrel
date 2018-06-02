@@ -288,20 +288,20 @@ namespace Discord_UWP.Classes
             result = new Grouping<TKey, TElement>(key);
             this.LastAffectedGroup = result;
             bool assigned = false;
-            for (var i = 0; i < this.Count; i++)
+            if(key != null)
             {
-                Debug.WriteLine("Group name=" + (this[i].Key as Managers.HoistRole).Name);
-                Debug.WriteLine("Group position=" + (this[i].Key as Managers.HoistRole).Position);
-                Debug.WriteLine("Result name=" + (result.Key as Managers.HoistRole).Name);
-                Debug.WriteLine("Result position=" + (result.Key as Managers.HoistRole).Position);
-
-                if ((result.Key as Managers.HoistRole).Position > (this[i].Key as Managers.HoistRole).Position)
+                for (var i = 0; i < this.Count; i++)
                 {
-                    //Loop until a group has a position which is higher, then insert the new group just before
-                    this.Insert(i, result);
-                    return result;
+
+                    if ((result.Key as Managers.HoistRole).Position > (this[i].Key as Managers.HoistRole).Position)
+                    {
+                        //Loop until a group has a position which is higher, then insert the new group just before
+                        this.Insert(i, result);
+                        return result;
+                    }
                 }
             }
+
             if(!assigned) //No groups have been added yet, or none were higher, so just add the new group to the end
                 this.Add(result);
             return result;
