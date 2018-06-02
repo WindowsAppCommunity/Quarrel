@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -31,6 +32,13 @@ namespace Concentio
             //bitmapImage.SetSource(thumb);
             var str = thumb.AsStreamForRead();
             await Analyse(str, width, height);
+            str.Dispose();
+        }
+        public async Task Analyse(BitmapImage image, int width = 96, int height = 66)
+        {
+            RandomAccessStreamReference random = RandomAccessStreamReference.CreateFromUri(image.UriSour‌​ce);
+            IRandomAccessStream str = await random.OpenReadAsync();
+            await Analyse(str.AsStreamForRead(), width, height);
             str.Dispose();
         }
         public async Task Analyse(Stream str, int width =96, int height=66)
