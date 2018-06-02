@@ -366,10 +366,10 @@
   <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
     <value>Envoyer des messages TTS</value>
   </data>
-  <data name="ServerGuidelinesDesc1.Text" xml:space="preserve">
+  <data name="ServerGuidelinesDesc1" xml:space="preserve">
     <value>En créant un serveur vous acceptez les</value>
   </data>
-  <data name="ServerGuidelinesDesc2.Text" xml:space="preserve">
+  <data name="ServerGuidelinesDesc2" xml:space="preserve">
     <value>conditions d'utilisation communautaires de Discord</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
@@ -485,5 +485,14 @@
   </data>
   <data name="Category" xml:space="preserve">
     <value>Catégorie</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Quitter le serveur</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Bannir</value>
   </data>
 </root>
