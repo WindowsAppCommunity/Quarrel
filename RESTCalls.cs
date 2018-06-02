@@ -1072,6 +1072,19 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task DeleteMessage(object args)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeleteMessage((args as Tuple<string, string>).Item1, (args as Tuple<string, string>).Item2);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
         public static async Task TriggerTypingIndicator(string channelId)
         {
             try
