@@ -492,4 +492,7 @@
   <data name="Delete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Prohibición</value>
+  </data>
 </root>
