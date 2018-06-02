@@ -1150,7 +1150,15 @@ namespace Discord_UWP
         }
         private void App_NavigateToDeleteChannelHandler(object sender, App.DeleteChannelNavigationArgs e)
         {
-            SubFrameNavigator(typeof(SubPages.DeleteChannel), e.ChannelId);
+            SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
+            {
+                Message = App.CurrentGuildIsDM
+                ? "Are you sure you want to Close your DM with " + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
+                : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?", //TODO: Translate
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                args = e.ChannelId,
+                function = RESTCalls.DeleteChannel
+            });
         }
         private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)
         {
@@ -1355,7 +1363,7 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.Confirmation), new SubPages.ConfirmationData()
             {
                 Message = "Are you sure you want to delete this message?", //TODO: Translate
-                ConfirmMessage = "Delete",
+                ConfirmMessage = App.GetString("/Dialogs/Delete"),
                 args = new Tuple<string, string>(e.ChannelId, e.MessageId),
                 function = RESTCalls.DeleteMessage
             });

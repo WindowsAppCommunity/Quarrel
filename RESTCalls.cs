@@ -1005,6 +1005,18 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+        public static async Task DeleteChannel(object chnid)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeleteChannel((string)chnid);
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
 
         public static async Task<Message> EditMessageAsync(string chnid, string msgid, string content)
         {
