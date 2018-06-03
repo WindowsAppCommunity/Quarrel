@@ -254,5 +254,10 @@ namespace Discord_UWP.SubPages
                 newpassword.Password = "";
             }
         }
+
+        private async void MakeConnection(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(await RESTCalls.GetConnectionUrl(((sender as Button).Tag.ToString()))));
+        }
     }
 }
