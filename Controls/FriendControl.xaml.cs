@@ -69,7 +69,7 @@ namespace Discord_UWP.Controls
                     Button b = new Button()
                     {
                         Padding = new Thickness(0),
-                        Background = new SolidColorBrush(Colors.Transparent),
+                        Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
                         Margin = new Thickness(2,0,2,0),
                         Content = new Rectangle()
                         {

@@ -168,7 +168,7 @@ namespace Discord_UWP.Controls
                     advert.ApplicationId = "9nbrwj777c8r";
                     advert.AdUnitId = "336795";
                     advert.Margin = new Thickness(6);
-                    advert.Background = new SolidColorBrush(Colors.Transparent);
+                    advert.Background = new SolidColorBrush(Windows.UI.Colors.Transparent);
                     Grid.SetColumnSpan(advert, 10);
                     Grid.SetRowSpan(advert, 10);
                     rootGrid.Children.Add(advert);
@@ -991,7 +991,7 @@ namespace Discord_UWP.Controls
         {
             if (EditValue.Trim() == "") EditValue = content.Text;
             editBox = new MessageBox() { Text = EditValue.Trim(),
-                                         Background = new SolidColorBrush(Colors.Transparent),
+                                         Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
                                          Padding = new Thickness(6,6,12,6),
                                          IsEdit = true };
             editBox.Send += EditBox_Send;
