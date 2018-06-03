@@ -79,6 +79,7 @@ namespace Discord_UWP.Managers
             SimpleChannel sc = new SimpleChannel();
             sc.Id = channel.Id;
             sc.Type = channel.Type;
+           
             switch (channel.Type)
             {
                 case 1: //DM
@@ -128,7 +129,7 @@ namespace Discord_UWP.Managers
                     sc.Name = channel.Name;
                     sc.LastMessageId = channel.LastMessageId;
                     sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
-
+                    sc.Icon = channel.Icon;
                     //sc.Members = new Dictionary<string, User>();
                     //foreach (User user in channel.Users)
                     //{
@@ -231,6 +232,13 @@ namespace Discord_UWP.Managers
             {
                 get { return _imageurl; }
                 set { if (_imageurl == value) return; _imageurl = value; OnPropertyChanged("ImageURL"); }
+            }
+
+            private string _icon;
+            public string Icon
+            {
+                get { return _icon; }
+                set { if (_icon == value) return; _icon = value; OnPropertyChanged("Icon"); }
             }
 
             private bool _isselected;

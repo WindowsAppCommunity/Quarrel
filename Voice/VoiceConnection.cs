@@ -87,6 +87,7 @@ namespace Discord_UWP.Voice
             _webMessageSocket = new WebMessageSocket();
             _udpSocket = new UDPSocket();
             _state = state;
+            _state.SelfDeaf = false;
             _voiceServerConfig = config;
 
 

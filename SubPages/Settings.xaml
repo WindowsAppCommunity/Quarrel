@@ -675,7 +675,7 @@
                                         <ComboBoxItem Content="Custom"/>
                                     </ComboBox>
 
-                                    <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format"/>
+                                    <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}"/>
 
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>

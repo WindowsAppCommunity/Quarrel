@@ -139,6 +139,7 @@
     <Compile Include="Gateway\DownstreamEvents\MessageReactions.cs" />
     <Compile Include="Gateway\DownstreamEvents\Ready.cs" />
     <Compile Include="Gateway\DownstreamEvents\Resumed.cs" />
+    <Compile Include="Gateway\DownstreamEvents\SessionReplace.cs" />
     <Compile Include="Gateway\DownstreamEvents\UserNote.cs" />
     <Compile Include="Gateway\EventNames.cs" />
     <Compile Include="Gateway\Gateway.cs" />
@@ -219,7 +220,7 @@
       <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.1.4</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>

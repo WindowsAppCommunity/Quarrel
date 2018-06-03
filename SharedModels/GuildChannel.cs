@@ -35,6 +35,8 @@ namespace Discord_UWP.SharedModels
         public string UserLimit { get; set; }
         [JsonProperty("nsfw")]
         public bool NSFW { get; set; }
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
 
         public void UpdateLMID(string id)
         {

@@ -43,6 +43,17 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
+        public string Icon
+        {
+            get { return (string)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
+            nameof(Icon),
+            typeof(string),
+            typeof(ChannelControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
         public string CName
         {
             get { return (string)GetValue(ChnNameProperty); }
@@ -441,10 +452,13 @@ namespace Discord_UWP.Controls
                     grid.Height = 48;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
-                    if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                        ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_dark.png"));
-                    else
-                        ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
+                    if (string.IsNullOrEmpty(Icon)){
+                        if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                            ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_dark.png"));
+                        else
+                            ChannelImageBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/DiscordAssets/Friends_light.png"));
+
+                    }
 
                     ChannelImage.Margin = new Thickness(0,6,6,6);
                     MemberList.Visibility = Visibility.Collapsed;
@@ -485,6 +499,13 @@ namespace Discord_UWP.Controls
                 } else
                 {
                     HashtagIcon.Foreground = ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
+                }
+            }
+            if(prop == IconProperty)
+            {
+                if (!string.IsNullOrEmpty(Icon))
+                {
+                    ChannelImageBrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/channel-icons/" + Id + "/" + Icon + ".png"));
                 }
             }
         }
