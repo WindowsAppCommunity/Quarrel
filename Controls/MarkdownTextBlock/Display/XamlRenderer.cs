@@ -26,6 +26,7 @@ using Discord_UWP.MarkdownTextBlock.Parse;
 using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
 using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
 using NeoSmart.Unicode;
+using Windows.Foundation.Metadata;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
 {
@@ -49,6 +50,10 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             _linkRegister = linkRegister;
             _messageid = MessageId;
         }
+        
+
+        private static bool? _textDecorationsSupported = null;
+        private static bool TextDecorationsSupported => (bool)(_textDecorationsSupported ?? (_textDecorationsSupported = ApiInformation.IsTypePresent("Windows.UI.Text.TextDecorations")));
 
         /// <summary>
         /// Gets or sets the stretch used for images.
@@ -781,7 +786,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     RenderHyperlink(inlineCollection, (HyperlinkInline)element, context);
                     break;
                 case MarkdownInlineType.Strikethrough:
-                    RenderStrikethroughRun(inlineCollection, (StrikethroughTextInline)element, context);
+                    RenderStrikethroughRun(inlineCollection, (StrikethroughTextInline)element, parent, context);
                     break;
               /*  case MarkdownInlineType.Superscript:
                     RenderSuperscriptRun(inlineCollection, (SuperscriptTextInline)element, parent, context);
@@ -1078,30 +1083,16 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderStrikethroughRun(InlineCollection inlineCollection, StrikethroughTextInline element, RenderContext context)
+        private void RenderStrikethroughRun(InlineCollection inlineCollection, StrikethroughTextInline element, TextElement parent, RenderContext context)
         {
-            Span span = new Span
+            Span strikeSpan = new Span
             {
-                FontFamily = new FontFamily("Consolas")
+                TextDecorations = TextDecorations.Strikethrough
             };
 
-            // Render the children into the inline.
-            RenderInlineChildren(span.Inlines, element.Inlines, span, context);
-
-            AlterChildRuns(span, (parentSpan, run) =>
-            {
-                var text = run.Text;
-                var builder = new StringBuilder(text.Length * 2);
-                foreach (var c in text)
-                {
-                    builder.Append((char)0x0336);
-                    builder.Append(c);
-                }
-                run.Text = builder.ToString();
-            });
-
-            // Add it to the current inlines
-            inlineCollection.Add(span);
+            // Render the children into the bold inline.
+            RenderInlineChildren(strikeSpan.Inlines, element.Inlines, strikeSpan, context);
+            inlineCollection.Add(strikeSpan);
         }
 
         /// <summary>
