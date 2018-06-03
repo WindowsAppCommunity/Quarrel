@@ -873,6 +873,23 @@ namespace Discord_UWP
         internal const bool e2e = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
 
+        #region DerivedColors
+        internal static Dictionary<string, Color> userAccents = new Dictionary<string, Color>();
+        public async static Task<Nullable<Color>> getUserColor(SharedModels.User user)
+        {
+            if (userAccents.ContainsKey(user.Id))
+            {
+                return userAccents[user.Id];
+            } else
+            {
+                Colors.PictureAnalysis analysis = new Colors.PictureAnalysis();
+                await analysis.Analyse(new BitmapImage(new Uri(user.Avatar)));
+                userAccents.Add(user.Id, analysis.ColorList[0].Color);
+                return userAccents[user.Id];
+            }
+        }
+        #endregion
+
         internal static ImageSource navImageCache = null;
 
         internal static List<string> eventList = new List<string>();

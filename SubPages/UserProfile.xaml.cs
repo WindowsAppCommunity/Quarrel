@@ -76,6 +76,10 @@ namespace Discord_UWP.SubPages
                 imageAnimation.TryStart(FullAvatar);
             }
 
+            //Windows.UI.Color? color = (await App.getUserColor((e.Parameter as User)));
+
+            //UserAccent = new SolidColorBrush(color.HasValue ? color.Value : (Windows.UI.Color)App.Current.Resources["BlurpleColor"]);
+
             if (e.Parameter is User)
             {
                 profile = new SharedModels.UserProfile();
