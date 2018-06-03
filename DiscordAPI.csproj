@@ -139,6 +139,7 @@
     <Compile Include="Gateway\DownstreamEvents\MessageReactions.cs" />
     <Compile Include="Gateway\DownstreamEvents\Ready.cs" />
     <Compile Include="Gateway\DownstreamEvents\Resumed.cs" />
+    <Compile Include="Gateway\DownstreamEvents\SessionReplace.cs" />
     <Compile Include="Gateway\DownstreamEvents\UserNote.cs" />
     <Compile Include="Gateway\EventNames.cs" />
     <Compile Include="Gateway\Gateway.cs" />
