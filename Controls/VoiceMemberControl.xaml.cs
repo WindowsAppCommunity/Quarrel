@@ -91,7 +91,6 @@ namespace Discord_UWP.Controls
                 }
 
                 //discriminator.Text = "#" + DisplayedFriend.User.Discriminator;
-
             }
         }
 

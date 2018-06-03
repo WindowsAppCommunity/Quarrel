@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI;
 
-namespace Concentio
+namespace Discord_UWP.Colors
 {
 
     public class ColorDetection

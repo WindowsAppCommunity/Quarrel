@@ -95,7 +95,7 @@ namespace Discord_UWP.Controls
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
 
-                SetupComposition(imageURL, Colors.Green);
+                SetupComposition(imageURL, Windows.UI.Colors.Green);
 
 
                 if (user.Avatar == null)

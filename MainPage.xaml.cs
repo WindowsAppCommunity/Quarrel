@@ -1604,7 +1604,7 @@ namespace Discord_UWP
                         chn.IsSelected = false;
                 }
             }
-            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, LocalState.VoiceState.SelfMute, LocalState.VoiceState.SelfMute);
+            await GatewayManager.Gateway.VoiceStatusUpdate(e.GuildId, e.ChannelId, LocalState.VoiceState.SelfMute, LocalState.VoiceState.SelfDeaf);
         }
         #endregion
 

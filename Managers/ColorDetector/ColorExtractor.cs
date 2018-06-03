@@ -13,9 +13,9 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using static Concentio.ColorDetection;
+using static Discord_UWP.Colors.ColorDetection;
 
-namespace Concentio
+namespace Discord_UWP.Colors
 {
     public class PictureAnalysis
     {

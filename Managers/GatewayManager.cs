@@ -71,7 +71,7 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_SessionReplaced(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.SessionReplace> e)
         {
-            session = e.EventData.session_id;
+            session = e.EventData.SessionId;
         }
 
         #region Ready
