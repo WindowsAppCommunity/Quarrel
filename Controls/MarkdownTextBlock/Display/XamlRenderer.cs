@@ -1003,7 +1003,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 try
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention)
-                        content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username;
+                        content = "@" + (App.CurrentGuildIsDM ? LocalModels.LocalState.DMs[App.CurrentChannelId].Users.TakeWhile(x => x.Id == element.Text.Remove(0,1)).FirstOrDefault().Username : LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username);
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
                         content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 2)].Nick;

@@ -231,6 +231,7 @@ namespace Discord_UWP.Controls
                     Username.FontSize = 14;
                     Discriminator.FontSize = 12;
                     profileGrid.Margin = new Thickness(12, 24, 0, 0);
+                    Row1Grid.Background = new SolidColorBrush(Windows.UI.Colors.Transparent);
                 } else
                 {
                    //Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
