@@ -87,8 +87,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="0,0,0,24">
-                        <TextBlock x:Name="Message" Text="Message" FontWeight="Bold" FontSize="20" Margin="0,0,0,24" TextWrapping="WrapWholeWords"/>
-                        <TextBox x:Name="StringArg" Margin="0,12" Style="{ThemeResource TextBoxStyle1}" Visibility="Collapsed"/>
+                        <TextBlock x:Name="Message" Text="Message" FontWeight="Bold" FontSize="20" Margin="0,0,0,12" TextWrapping="WrapWholeWords"/>
+                        <TextBox x:Name="StringArg" Margin="0,0,0,12" Style="{ThemeResource TextBoxStyle1}" Visibility="Collapsed"/>
                         <markdowntextblock:MarkdownTextBlock x:Name="SubMessage" Text="Topic" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,0">
