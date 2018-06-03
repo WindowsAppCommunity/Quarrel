@@ -147,7 +147,7 @@ namespace Discord_UWP
 
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
-            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
+            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
             graphsettings.EncodingProperties = new AudioEncodingProperties();
             graphsettings.EncodingProperties.Subtype = "Float";
             graphsettings.EncodingProperties.SampleRate = 48000;
@@ -212,7 +212,7 @@ namespace Discord_UWP
         {
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
-            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
+            AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
             graphsettings.EncodingProperties = new AudioEncodingProperties();
             graphsettings.EncodingProperties.Subtype = "Float";
             graphsettings.EncodingProperties.SampleRate = 48000;
@@ -265,7 +265,7 @@ namespace Discord_UWP
             }
 
             CreateAudioDeviceInputNodeResult result =
-                await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Communications, nodesettings.EncodingProperties, selectedDevice);
+                await ingraph.CreateDeviceInputNodeAsync(MediaCategory.Media, nodesettings.EncodingProperties, selectedDevice);
             if (result.Status != AudioDeviceNodeCreationStatus.Success)
             {
                 // Cannot create device output node
