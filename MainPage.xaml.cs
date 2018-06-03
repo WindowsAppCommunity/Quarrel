@@ -394,6 +394,7 @@ namespace Discord_UWP
                 Roles = e.EventData.Roles,
                 User = e.EventData.User
             });
+
             AddToMembersCvs(m);
         }
         private async void AddToMembersCvs(Member m)
@@ -475,13 +476,28 @@ namespace Discord_UWP
 
         private async void App_PresenceUpdatedHandler(object sender, App.PresenceUpdatedArgs e)
         {
-            if (LocalState.PresenceDict.ContainsKey(e.UserId))
-                LocalState.PresenceDict[e.UserId] = e.Presence;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                var member = FindMember(e.UserId);
-                if (member != null)
-                    member.status = e.Presence;
+                if (App.CurrentGuildId != null && memberscvs != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId))
+                {
+                    var member = FindMember(e.UserId);
+                    if (member == null)
+                    {
+                        if (e.Presence.Status == "offline") return;
+                        member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
+                        member.MemberHoistRole = MemberManager.GetRole(member.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+                        if (!string.IsNullOrEmpty(member.Raw.Nick))
+                            member.DisplayName = member.Raw.Nick;
+                        else
+                            member.DisplayName = member.Raw.User.Username;
+                        member.status = e.Presence;
+                        memberscvs.Add(member);
+                    }
+                    else
+                    {
+                        member.status = e.Presence;
+                    }
+                }
             });
          //   var member = memberscvs.Items.FirstOrDefault();
                 

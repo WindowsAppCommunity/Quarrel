@@ -79,6 +79,8 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<VoiceState>> VoiceStateUpdated;
         public event EventHandler<GatewayEventArgs<VoiceServerUpdate>> VoiceServerUpdated;
 
+        public event EventHandler<GatewayEventArgs<SessionReplace>> SessionReplaced;
+
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
             if (UseCompression)
@@ -151,7 +153,8 @@ namespace Discord_UWP.Gateway
                 { EventNames.USER_NOTE_UPDATED, OnUserNoteUpdated },
                 { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
                 { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated },
-                { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated }
+                { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated },
+                {EventNames.SESSIONS_REPLACE, OnSessionReplaced }
             };
         }
 
@@ -312,6 +315,10 @@ namespace Discord_UWP.Gateway
            
 
             FireEventOnDelegate(gatewayEvent, Ready);
+        }
+        private void OnSessionReplaced(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, SessionReplaced);
         }
 
         private void OnMessageCreated(SocketFrame gatewayEvent)

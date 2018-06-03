@@ -82,6 +82,21 @@ namespace Discord_UWP.Flyouts
                 leaveServer.Click += FlyoutManager.LeaveServer;
                 menu.Items.Add(leaveServer);
             }
+
+            /* if (guild.permissions.ChangeNickname)
+             {
+                 MenuFlyoutItem changeNick = new MenuFlyoutItem()
+                 {
+                     Text = App.GetString("/Flyouts/ChangeNickname"),
+                     Tag = guild.Raw.Id,
+                     Icon = new SymbolIcon(Symbol.Rename),
+                     Margin = new Thickness(-26, 0, 0, 0)
+                 };
+                 changeNick.Click += FlyoutManager.ChangeNickname;
+                 menu.Items.Add(changeNick);
+             }*/
+
+            guild.GetPermissions();
             return menu;
         }
     }

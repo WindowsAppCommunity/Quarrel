@@ -118,12 +118,23 @@ namespace Discord_UWP.Controls
                     if (SpotifyManager.SpotifyState != null)
                     {
                         if (SpotifyManager.SpotifyState.IsPlaying)
+                        {
+                            spotifyInvite.Visibility = Visibility.Visible;
                             spotifyActive.Fade(1, 200).Start();
+                        }
+
                         else
+                        {
                             spotifyActive.Fade(0, 200).Start();
+                            spotifyInvite.Visibility = Visibility.Collapsed;
+                        }
                     }
                     else
+                    {
                         spotifyActive.Opacity = 0;
+                        spotifyInvite.Visibility = Visibility.Collapsed;
+                    }
+                      
             });
         }
 

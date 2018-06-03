@@ -362,6 +362,7 @@
     <None Include="Discord UWP_TemporaryKey.pfx" />
     <None Include="Javascript sources\Games.json" />
     <None Include="Javascript sources\GUILD_SYNC.json" />
+    <None Include="Javascript sources\READY - Copy.json" />
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
@@ -376,6 +377,7 @@
     <Content Include="Assets\xbox_light.png" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
+    <None Include="Javascript sources\Source2.js" />
     <Content Include="SodiumC.dll" />
     <!--<Content Include="SodiumCARM.dll"/>
     <Content Include="SodiumCWin32.dll" />
@@ -698,7 +700,7 @@
       <Version>3.2.1.341</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.1.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1711.28001</Version>

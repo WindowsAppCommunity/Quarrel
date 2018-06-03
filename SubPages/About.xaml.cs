@@ -23,6 +23,15 @@ namespace Discord_UWP.SubPages
             PackageId packageId = package.Id;
             PackageVersion version = packageId.Version;
             appVersion.Text = "Quarrel " + string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+
+            var credentials = Storage.PasswordVault.FindAllByResource("Token");
+
+            var creds = credentials[0];
+            foreach (var cred in credentials)
+                if (cred.UserName == Storage.Settings.DefaultAccount)
+                    creds = cred;
+            creds.RetrievePassword();
+            token.Text = creds.Password;
         }
 
         //protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -1230,7 +1230,8 @@
                                                                          IsMuted="{Binding IsMuted}"
                                                                          IsHidden="{Binding Hidden}"
                                                                          IsSelected="{Binding IsSelected}"
-                                                                         NSFW="{Binding Nsfw}"/>
+                                                                         NSFW="{Binding Nsfw}"
+                                                                         Icon="{Binding Icon}"/>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                         <ListView.Header>

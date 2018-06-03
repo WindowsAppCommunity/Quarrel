@@ -56,5 +56,7 @@ namespace Discord_UWP.Gateway
         public const string FRIEND_ADDED = "RELATIONSHIP_ADD";
         public const string FRIEND_REMOVED = "RELATIONSHIP_REMOVE";
         public const string FRIEND_UPDATE = "RELATIONSHIP_UPDATE";
+
+        public const string SESSIONS_REPLACE = "SESSIONS_REPLACE";
     }
 }

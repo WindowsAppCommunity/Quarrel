@@ -323,7 +323,7 @@
                                         </StackPanel>
 
                                     </Grid>
-                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" BorderBrush="{ThemeResource InvertedBG}" BorderThickness="1" TextChanged="ServerName_TextChanged"/>
+                                    <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" Style="{StaticResource TextBoxStyle1}" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
                                    
                                 </StackPanel>

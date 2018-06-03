@@ -677,7 +677,7 @@
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Visibility="Collapsed" Text="Send Spotify invite" Click="SpotifyInvite" Foreground="#1DB954">
+                    <MenuFlyoutItem x:Name="spotifyInvite"  Visibility="Collapsed" Text="Send Spotify invite" Click="SpotifyInvite" Foreground="#1DB954">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Play" Foreground="#1DB954"/>
                         </MenuFlyoutItem.Icon>
