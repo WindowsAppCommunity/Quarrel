@@ -20,8 +20,8 @@ namespace Discord_UWP.Managers
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
-            App.UpdateLocalDeaf(LocalState.Deafen);
-            App.UpdateLocalMute(LocalState.VoiceState.SelfMute = false); //LocalState.Muted);
+            App.UpdateLocalDeaf(false);
+            App.UpdateLocalMute(true); //LocalState.Muted);
             VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
             VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             await VoiceConnection.ConnectAsync();
