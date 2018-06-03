@@ -1155,10 +1155,14 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="context"> Persistent state. </param>
         private void RenderCodeRun(InlineCollection inlineCollection, CodeInline element, RenderContext context)
         {
+            var color = ((SolidColorBrush)Foreground).Color;
+            color.A = 160;
             var run = new Run
             {
                 FontFamily = CodeFontFamily ?? FontFamily,
-                Text = CollapseWhitespace(context, element.Text)
+                Text = CollapseWhitespace(context, element.Text),
+                Foreground = new SolidColorBrush(color)
+                
             };
 
             // Add it to the current inlines

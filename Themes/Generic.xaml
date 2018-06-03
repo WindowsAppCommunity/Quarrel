@@ -24,7 +24,7 @@
         <Setter Property="QuotePadding" Value="7, 2, 0, 4" />
         <Setter Property="CodeBackground" Value="{ThemeResource MarkdownBackgroundBrush}" />
         <Setter Property="CodeBorderBrush" Value="{ThemeResource MarkdownBorderBrush}" />
-        <Setter Property="CodeBorderThickness" Value="2" />
+        <Setter Property="CodeBorderThickness" Value="1" />
         <Setter Property="CodeFontFamily" Value="Consolas" />
         <Setter Property="CodeMargin" Value="0, 7, 0, 7" />
         <Setter Property="CodePadding" Value="10, 6, 10, 6" />
