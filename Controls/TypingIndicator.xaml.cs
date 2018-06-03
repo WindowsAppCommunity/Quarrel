@@ -26,9 +26,9 @@ namespace Discord_UWP.Controls
             {
                 if(value)
                 {
-                    ellipse.Fill = new SolidColorBrush(Colors.White);
-                    ellipse1.Fill = new SolidColorBrush(Colors.White);
-                    ellipse2.Fill = new SolidColorBrush(Colors.White);
+                    ellipse.Fill = new SolidColorBrush(Windows.UI.Colors.White);
+                    ellipse1.Fill = new SolidColorBrush(Windows.UI.Colors.White);
+                    ellipse2.Fill = new SolidColorBrush(Windows.UI.Colors.White);
 
                 }
             }
