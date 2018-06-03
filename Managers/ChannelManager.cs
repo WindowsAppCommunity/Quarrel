@@ -23,6 +23,7 @@ namespace Discord_UWP.Managers
             sc.Nsfw = channel.raw.NSFW;
             sc.Position = channel.raw.Position;
             sc.ParentId = channel.raw.ParentId;
+            sc.Icon = channel.raw.Icon;
             switch (channel.raw.Type)
             {
                 case 0:
