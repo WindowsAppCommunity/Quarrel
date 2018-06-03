@@ -21,8 +21,12 @@ namespace Discord_UWP
 
         public T GetData<T>()
         {
-            var dataAsJObject = Payload as JObject;
-            return dataAsJObject.ToObject<T>();
+            if (Payload is JObject)
+            {
+                var dataAsJObject = Payload as JObject;
+                return dataAsJObject.ToObject<T>();
+            }
+            return default(T);
         }
     }
 }
