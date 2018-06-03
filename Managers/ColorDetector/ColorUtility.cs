@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI;
 
-namespace Concentio
+namespace Discord_UWP.Colors
 {
     public static class ColorUtility
     {
