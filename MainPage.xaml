@@ -1253,7 +1253,7 @@
                                     <TextBlock x:Uid="/Main/NoChannelsTB" x:Name="NoGuildChannels" Text="No channels" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 </StackPanel>
                             </ScrollViewer>
-                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,64">
+                            <Rectangle IsHitTestVisible="False" Height="12" Opacity="{StaticResource ShadowOpacity}" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
                                         <GradientStop Offset="1"/>
