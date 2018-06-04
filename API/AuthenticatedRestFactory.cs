@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Discord_UWP.API.Guild;
 using Discord_UWP.API.Voice;
 using Discord_UWP.API.Invite;
+using Discord_UWP.API.Connections;
 using Discord_UWP.API.Game;
 
 namespace Discord_UWP.API
@@ -22,6 +23,11 @@ namespace Discord_UWP.API
             _apiConfig = config;
             _authenticator = authenticator;
         }
+        public IConnectionsService GetConnectionService()
+        {
+            return RestService.For<IConnectionsService>(GetAuthenticatingHttpClient());
+        }
+
         public IGameService GetGameService()
         {
             return RestService.For<IGameService>(GetAuthenticatingHttpClient());
