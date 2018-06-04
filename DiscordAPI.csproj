@@ -103,6 +103,8 @@
     <Compile Include="API\Channel\Models\EditMessage.cs" />
     <Compile Include="API\Channel\Models\MessageUpsert.cs" />
     <Compile Include="API\Channel\Models\ModifyChannel.cs" />
+    <Compile Include="API\Connections\IConnectionsService.cs" />
+    <Compile Include="API\Connections\Model\Connection.cs" />
     <Compile Include="API\DiscordAPIConfiguration.cs" />
     <Compile Include="API\Game\IGameService.cs" />
     <Compile Include="API\Gateway\IGatewayService.cs" />
