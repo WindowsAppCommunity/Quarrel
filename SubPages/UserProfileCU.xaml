@@ -117,6 +117,67 @@
                             <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
                             <HyperlinkButton x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                             <PasswordBox x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
+                            <TextBlock Text="Connections" Margin="0,12"/>
+                            <Grid Height="100" Margin="25,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Tag="twitch" Grid.Column="0" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/twitch.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="youtube" Grid.Column="1" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/youtube.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="reddit" Grid.Column="2" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/reddit.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="facebook" Grid.Column="3" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="#01FFFFFF">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/facebook.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="twitter" Grid.Column="4" Margin="10" Padding="10" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/twitter.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="spotify" Grid.Column="5" HorizontalAlignment="Stretch" Click="MakeConnection" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent" Padding="20">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/spotify.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                                <Button Tag="xbox" Grid.Column="6" HorizontalAlignment="Stretch" Click="MakeConnection" Background="Transparent" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="12">
+                                    <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <Rectangle.Fill>
+                                            <ImageBrush Stretch="Uniform" ImageSource="ms-appx:///Assets/ConnectionLogos/xbox.png"/>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Button>
+                            </Grid>
                         </StackPanel>
                     </ScrollViewer>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
