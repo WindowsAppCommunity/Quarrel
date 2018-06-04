@@ -72,6 +72,7 @@ namespace Discord_UWP.Managers
                 sc.LastMessageId = overridelastmessageid;
             sc.Position = channel.Position;
             sc.ParentId = channel.ParentId;
+            sc.Icon = channel.Icon;
             return sc;
 
         }
@@ -455,7 +456,7 @@ namespace Discord_UWP.Managers
                         sc.Name = channel.Name;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
-
+                        sc.Icon = channel.Icon;
                         //sc.Members = new Dictionary<string, User>();
                         //foreach (User user in channel.Users)
                         //{
