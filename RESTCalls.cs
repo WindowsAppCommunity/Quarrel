@@ -25,6 +25,7 @@ using Discord_UWP.LocalModels;
 
 using Discord_UWP.Managers;
 
+using Discord_UWP.API.Connections;
 using Discord_UWP.API.Game;
 
 using GiphyAPI;
@@ -1257,17 +1258,19 @@ namespace Discord_UWP
 
         #endregion
 
-        #region Giphy
-        public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
+        #region Connections
+        public static async Task<string> GetConnectionUrl(string service)
         {
-            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
-            return await giphyService.Search(query, limit, offset);
-        }
-
-        public async Task<SearchResult> GetTrendingGiphy(int limit = 20, int offset = 0)
-        {
-            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
-            return await giphyService.Trending(limit, offset);
+            try
+            {
+                IConnectionsService connectionservice = AuthenticatedRestFactory.GetConnectionService();
+                return (await connectionservice.GetOauthUrl(service)).Url;
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return "";
         }
         #endregion
 
@@ -1284,6 +1287,20 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
             return new List<GameList>();
+        }
+        #endregion
+
+        #region Giphy
+        public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
+        {
+            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+            return await giphyService.Search(query, limit, offset);
+        }
+
+        public async Task<SearchResult> GetTrendingGiphy(int limit = 20, int offset = 0)
+        {
+            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+            return await giphyService.Trending(limit, offset);
         }
         #endregion
 
