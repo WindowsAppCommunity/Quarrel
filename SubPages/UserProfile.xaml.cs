@@ -24,6 +24,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using Windows.UI;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -65,6 +66,8 @@ namespace Discord_UWP.SubPages
 
             ConnectedAnimation imageAnimation =
         ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            ConnectedAnimation animation2 =
+            ConnectedAnimationService.GetForCurrentView().GetAnimation("richpresence");
             if (App.navImageCache != null)
             {
                 AvatarFull.ImageSource = App.navImageCache;
@@ -75,6 +78,10 @@ namespace Discord_UWP.SubPages
             {
                 imageAnimation.TryStart(FullAvatar);
             }
+            if(animation2 != null)
+            {
+                animation2.TryStart(richPresence);
+            }
 
             //Windows.UI.Color? color = (await App.getUserColor((e.Parameter as User)));
 
@@ -83,22 +90,26 @@ namespace Discord_UWP.SubPages
             if (e.Parameter is User)
             {
                 profile = new SharedModels.UserProfile();
-                profile.User = (User)e.Parameter;
-                userid = profile.User.Id;
+                profile.user = (User)e.Parameter;
+                
+                userid = profile.user.Id;
             }
             else if(e.Parameter is string)
             {
                 userid = (e.Parameter as string);
-                profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+             //   profile = new SharedModels.UserProfile();
+              //  profile.user = new User() { Id = id}
+                var otherprofile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+                profile = otherprofile;
             }
             else
             {
                 CloseButton_Click(null, null);
                 return;
             }
-            if (LocalState.Friends.ContainsKey(profile.User.Id))
+            if (LocalState.Friends.ContainsKey(profile.user.Id))
             {
-                profile.Friend = LocalState.Friends[profile.User.Id];
+                profile.Friend = LocalState.Friends[profile.user.Id];
             }
             else
             {
@@ -125,17 +136,17 @@ namespace Discord_UWP.SubPages
                 AccountSettings.Visibility = Visibility.Collapsed;
             }
 
-            username.Text = profile.User.Username;
+            username.Text = profile.user.Username;
             username.Fade(1, 400);
-            discriminator.Text = "#" + profile.User.Discriminator;
+            discriminator.Text = "#" + profile.user.Discriminator;
             discriminator.Fade(0.4f, 800);
 
             if (profile.Friend.HasValue)
             {
                 SwitchFriendValues(profile.Friend.Value.Type);
             }
-            else if (profile.User.Id == LocalState.CurrentUser.Id) { }
-            else if (profile.User.Bot)
+            else if (profile.user.Id == LocalState.CurrentUser.Id) { }
+            else if (profile.user.Bot)
             {
                 SendMessageLink.Visibility = Visibility.Visible;
                 Block.Visibility = Visibility.Visible;
@@ -148,8 +159,8 @@ namespace Discord_UWP.SubPages
             }
 
 
-            if (LocalState.Notes.ContainsKey(profile.User.Id))
-                NoteBox.Text = LocalState.Notes[profile.User.Id];
+            if (LocalState.Notes.ContainsKey(profile.user.Id))
+                NoteBox.Text = LocalState.Notes[profile.user.Id];
 
             GatewayManager.Gateway.UserNoteUpdated += Gateway_UserNoteUpdated;
             GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
@@ -160,14 +171,14 @@ namespace Discord_UWP.SubPages
             BackgroundGrid.Blur(8, 0).Start();
             base.OnNavigatedTo(e);
 
-            profile = await RESTCalls.GetUserProfile(profile.User.Id);
+            profile = await RESTCalls.GetUserProfile(profile.user.Id);
             try
             {
-                if (profile.ConnectedAccount != null)
+                if (profile.connected_accounts != null)
                 {
-                    for (int i = 0; i < profile.ConnectedAccount.Count(); i++)
+                    for (int i = 0; i < profile.connected_accounts.Count(); i++)
                     {
-                        var element = profile.ConnectedAccount.ElementAt(i);
+                        var element = profile.connected_accounts.ElementAt(i);
                         string themeExt = "";
                         if (element.Type.ToLower() == "steam")
                         {
@@ -207,7 +218,7 @@ namespace Discord_UWP.SubPages
             }
             
 
-            switch (profile.User.Flags)
+            switch (profile.user.Flags)
             {
                 case 1:
                 {
@@ -263,33 +274,33 @@ namespace Discord_UWP.SubPages
                 img.Fade(1.2f);
             }
 
-            var image = new BitmapImage(Common.AvatarUri(profile.User.Avatar, profile.User.Id));
+            var image = new BitmapImage(Common.AvatarUri(profile.user.Avatar, profile.user.Id));
             if (!navFromFlyout)
             {
                 AvatarFull.ImageSource = image;
             }
             AvatarBlurred.Source = image;
 
-            if (profile.User.Avatar != null)
+            if (profile.user.Avatar != null)
             {
                 AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
             } else
             {
-                AvatarBG.Fill = Common.DiscriminatorColor(profile.User.Discriminator);
+                AvatarBG.Fill = Common.DiscriminatorColor(profile.user.Discriminator);
             }
 
-            if (profile.User.Bot)
+            if (profile.user.Bot)
             {
                 //CommonSrvspivot.Visibility = Visibility.Collapsed;
                 //CommonFrdspivot.Visibility = Visibility.Collapsed;
                 //pivotHeaders.Visibility = Visibility.Collapsed;
                 BotIndicator.Visibility = Visibility.Visible;
             }
-            if (LocalState.PresenceDict.ContainsKey(profile.User.Id))
+            if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
             {
-                if (LocalState.PresenceDict[profile.User.Id].Game.HasValue)
+                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue)
                 {
-                    richPresence.GameContent = LocalState.PresenceDict[profile.User.Id].Game.Value;
+                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game.Value;
                 }
                 else
                     richPresence.Visibility = Visibility.Collapsed;
@@ -297,7 +308,7 @@ namespace Discord_UWP.SubPages
             else
                 richPresence.Visibility = Visibility.Collapsed;
 
-            var relationships = await RESTCalls.GetUserRelationShips(profile.User.Id); //TODO: Rig to App.Events (maybe, probably not actually)
+            var relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
             int relationshipcount = relationships.Count();
 
             if (relationshipcount == 0) return;
@@ -314,6 +325,36 @@ namespace Discord_UWP.SubPages
                     MutualFriends.Items.Add(relationship);
                 }
 
+            UpdateBorderColor();
+        }
+        private void UpdateBorderColor()
+        {
+            if (richPresence.GameContent.HasValue)
+            {
+                richPresence.Visibility = Visibility.Visible;
+                SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
+                switch (richPresence.GameContent.Value.Type)
+                {
+                    case 1:
+                        {
+                            //streaming
+                            color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                            break;
+                        }
+                    case 2:
+                        {
+                            //spotify
+                            color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                            break;
+                        }
+                }
+                if (LocalState.PresenceDict[profile.user.Id].Game.Value.ApplicationId == "438122941302046720")
+                {
+                    //xbox
+                    color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                }
+                border.BorderBrush = color;
+            }
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
@@ -321,7 +362,7 @@ namespace Discord_UWP.SubPages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        if (e.EventData.User.Id == profile.User.Id)
+                        if (e.EventData.User.Id == profile.user.Id)
                         {
                             if (e.EventData.Game.HasValue)
                             {
@@ -338,6 +379,7 @@ namespace Discord_UWP.SubPages
                                 rectangle.Fill = (SolidColorBrush)App.Current.Resources[e.EventData.Status];
                             else if (e.EventData.Status == "invisible")
                                 rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                            UpdateBorderColor();
                         }
                     });
         }
@@ -347,7 +389,7 @@ namespace Discord_UWP.SubPages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
+                        if (gatewayEventArgs.EventData.user.Id == profile.user.Id)
                             SwitchFriendValues(gatewayEventArgs.EventData.Type);
                     });
         }
@@ -357,14 +399,14 @@ namespace Discord_UWP.SubPages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        if (gatewayEventArgs.EventData.user.Id == profile.User.Id)
+                        if (gatewayEventArgs.EventData.user.Id == profile.user.Id)
                             SwitchFriendValues(gatewayEventArgs.EventData.Type);
                     });
         }
 
         private void Gateway_RelationshipRemoved(object sender, GatewayEventArgs<Friend> e)
         {
-            if (e.EventData.Id == profile.User.Id)
+            if (e.EventData.Id == profile.user.Id)
                 SwitchFriendValues(0);
         }
 
@@ -414,7 +456,7 @@ namespace Discord_UWP.SubPages
         }
         private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
-            if (e.EventData.UserId == profile.User.Id)
+            if (e.EventData.UserId == profile.user.Id)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
@@ -444,7 +486,7 @@ namespace Discord_UWP.SubPages
 
         private async void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.AddNote(profile.User.Id, NoteBox.Text); //TODO: Rig to App.Events
+            await RESTCalls.AddNote(profile.user.Id, NoteBox.Text); //TODO: Rig to App.Events
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)
@@ -498,7 +540,7 @@ namespace Discord_UWP.SubPages
         {
             await Task.Run(async () =>
             {
-                await RESTCalls.SendFriendRequest(profile.User.Id); //TODO: Rig to App.Events
+                await RESTCalls.SendFriendRequest(profile.user.Id); //TODO: Rig to App.Events
             });
 
         }
@@ -507,13 +549,13 @@ namespace Discord_UWP.SubPages
         {
             await Task.Run(async () =>
             {
-                await RESTCalls.RemoveFriend(profile.User.Id); //TODO: Rig to App.Events
+                await RESTCalls.RemoveFriend(profile.user.Id); //TODO: Rig to App.Events
             });
         }
 
         private void SendMessageLink_Click(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(profile.User.Id, null, false, false, true); //TODO: Allow userId DM navigation
+            App.NavigateToDMChannel(profile.user.Id, null, false, false, true); //TODO: Allow userId DM navigation
             CloseButton_Click(null,null);
         }
 

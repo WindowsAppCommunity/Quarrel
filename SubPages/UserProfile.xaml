@@ -112,28 +112,28 @@
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
                                 </Rectangle>
-                                <StackPanel Margin="0,48,0,-64" Padding="40,0,40,64" Background="{ThemeResource AcrylicFlyoutBackground}">
+                                <StackPanel Margin="0,48,0,-64" Padding="40,0,40,64" Background="{ThemeResource MidBG}">
                                     <Grid Height="88" Margin="128,0,0,0">
                                         <StackPanel x:Name="BadgePanel" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                     </Grid>
-                                   
+                                    <StackPanel>
+                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
+                                        <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
+                                        <TextBox BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                                    </StackPanel>
+
                                     <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
                                         <tk:AdaptiveGridView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" Padding="12" MinWidth="164" Background="{ThemeResource DeepBG}">
                                                     <Image Source="{Binding ImagePath}" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
                                                     <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="13.333" Opacity="0.75"/>
-                                                    <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center"  Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
+                                                    <FontIcon Glyph="&#xE73E;" VerticalAlignment="Center" Margin="6,0,0,0" Visibility="{Binding Verified, Converter={StaticResource BoolToVis}}"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </tk:AdaptiveGridView.ItemTemplate>
                                     </tk:AdaptiveGridView>
-                                    <StackPanel>
-                                        <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
-                                        <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <TextBox BorderThickness="0" x:Name="NoteBox" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
-                                    </StackPanel>
                                     <StackPanel x:Name="commonServerPanel">
                                         <TextBlock x:Name="commonserverHeader" Opacity="0" x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
