@@ -117,8 +117,8 @@
                             <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
                             <HyperlinkButton x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                             <PasswordBox x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
-                            <TextBlock Text="Connections" Margin="0,12"/>
-                            <Grid Height="100" Margin="25,0">
+                            <TextBlock Text="Connections" Margin="0,12" Visibility="Collapsed"/>
+                            <Grid Height="100" Margin="25,0" Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
