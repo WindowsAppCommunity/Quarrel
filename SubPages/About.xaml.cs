@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -34,16 +36,14 @@ namespace Discord_UWP.SubPages
             token.Text = creds.Password;
         }
 
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //    base.OnNavigatedTo(e);
-
-        //    if ((bool)e.Parameter)
-        //    {
-        //        Grid.SetRow(Header, 2);
-        //    }
-        //}
-
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            StorageFile commitinfo = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/CommitInfo.txt"));
+            IList<string> details = await FileIO.ReadLinesAsync(commitinfo);
+            buildId.Text = "Commit " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
+            buildNumber.Text = "Build " + details[2];
+        }
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
             CloseButton_Click(null, null);

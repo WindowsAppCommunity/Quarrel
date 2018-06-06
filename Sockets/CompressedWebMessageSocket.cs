@@ -47,7 +47,7 @@ namespace Discord_UWP.Sockets
         {
             try
             {
-                await _socket.ConnectAsync(new Uri(connectionUrl));
+                await _socket.ConnectAsync(new Uri(connectionUrl)); 
             }
             catch { }
         }

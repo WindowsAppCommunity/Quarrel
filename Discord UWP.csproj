@@ -375,6 +375,7 @@
     <Content Include="Assets\StoreLogo.scale-400.png" />
     <Content Include="Assets\xbox_dark.png" />
     <Content Include="Assets\xbox_light.png" />
+    <Content Include="Assets\CommitInfo.txt" />
     <Content Include="Javascript sources\ReCaptcha.html" />
     <None Include="Package.xml" />
     <None Include="Javascript sources\Source2.js" />
@@ -387,6 +388,7 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
+    <None Include="PreBuild.ps1" />
     <PRIResource Include="Resources\en\TileTemplates.resw" />
     <PRIResource Include="Resources\fr\Settings.resw" />
     <PRIResource Include="Resources\fr\Main.resw" />
@@ -782,6 +784,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /y $(SolutionDir)$(PlatformName)\SodiumC.dll $(ProjectDir)</PreBuildEvent>
+    <PreBuildEvent>powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)PreBuild.ps1  -PlatformName:$(PlatformName) -ProjectDir:$(ProjectDir)</PreBuildEvent>
   </PropertyGroup>
 </Project>
