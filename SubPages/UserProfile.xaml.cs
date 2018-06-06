@@ -25,6 +25,10 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Windows.UI;
+using Windows.UI.Composition;
+using Microsoft.Graphics.Canvas.Effects;
+using Windows.UI.Xaml.Hosting;
+using System.Numerics;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -87,6 +91,7 @@ namespace Discord_UWP.SubPages
 
             //UserAccent = new SolidColorBrush(color.HasValue ? color.Value : (Windows.UI.Color)App.Current.Resources["BlurpleColor"]);
 
+            bool loadviaRest = true;
             if (e.Parameter is User)
             {
                 profile = new SharedModels.UserProfile();
@@ -100,6 +105,7 @@ namespace Discord_UWP.SubPages
              //   profile = new SharedModels.UserProfile();
               //  profile.user = new User() { Id = id}
                 var otherprofile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+                loadviaRest = false;
                 profile = otherprofile;
             }
             else
@@ -136,6 +142,19 @@ namespace Discord_UWP.SubPages
                 AccountSettings.Visibility = Visibility.Collapsed;
             }
 
+            if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
+            {
+                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue)
+                {
+                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game.Value;
+                }
+                else
+                    richPresence.Visibility = Visibility.Collapsed;
+            }
+            else
+                richPresence.Visibility = Visibility.Collapsed;
+            UpdateBorderColor();
+
             username.Text = profile.user.Username;
             username.Fade(1, 400);
             discriminator.Text = "#" + profile.user.Discriminator;
@@ -150,6 +169,7 @@ namespace Discord_UWP.SubPages
             {
                 SendMessageLink.Visibility = Visibility.Visible;
                 Block.Visibility = Visibility.Visible;
+                loadviaRest = false;
             }
             else
             {
@@ -168,10 +188,10 @@ namespace Discord_UWP.SubPages
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationshipUpdated;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationshipRemoved;
 
-            BackgroundGrid.Blur(8, 0).Start();
+          //  BackgroundGrid.Blur(8, 0).Start();
             base.OnNavigatedTo(e);
-
-            profile = await RESTCalls.GetUserProfile(profile.user.Id);
+            if(loadviaRest)
+                profile = await RESTCalls.GetUserProfile(profile.user.Id);
             try
             {
                 if (profile.connected_accounts != null)
@@ -274,12 +294,14 @@ namespace Discord_UWP.SubPages
                 img.Fade(1.2f);
             }
 
-            var image = new BitmapImage(Common.AvatarUri(profile.user.Avatar, profile.user.Id));
+            var imageurl = Common.AvatarUri(profile.user.Avatar, profile.user.Id);
+            SetupComposition(imageurl);
+            var image = new BitmapImage(imageurl);
             if (!navFromFlyout)
             {
                 AvatarFull.ImageSource = image;
             }
-            AvatarBlurred.Source = image;
+          //  AvatarBlurred.Source = image;
 
             if (profile.user.Avatar != null)
             {
@@ -296,18 +318,9 @@ namespace Discord_UWP.SubPages
                 //pivotHeaders.Visibility = Visibility.Collapsed;
                 BotIndicator.Visibility = Visibility.Visible;
             }
-            if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
-            {
-                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue)
-                {
-                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game.Value;
-                }
-                else
-                    richPresence.Visibility = Visibility.Collapsed;
-            }
-            else
-                richPresence.Visibility = Visibility.Collapsed;
 
+
+            if (profile.user.Bot) return; 
             var relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
             int relationshipcount = relationships.Count();
 
@@ -325,7 +338,6 @@ namespace Discord_UWP.SubPages
                     MutualFriends.Items.Add(relationship);
                 }
 
-            UpdateBorderColor();
         }
         private void UpdateBorderColor()
         {
@@ -353,6 +365,7 @@ namespace Discord_UWP.SubPages
                     //xbox
                     color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                 }
+                PresenceColor.Fill = color;
                 border.BorderBrush = color;
             }
         }
@@ -453,6 +466,54 @@ namespace Discord_UWP.SubPages
                         break;
                 }
             });
+        }
+        SpriteVisual _imageVisual;
+        private void SetupComposition(Uri imageURL)
+        {
+            Compositor _compositor;
+
+            CompositionSurfaceBrush _imageBrush;
+
+            _compositor = Window.Current.Compositor;
+            _imageBrush = _compositor.CreateSurfaceBrush();
+            _imageBrush.Stretch = CompositionStretch.UniformToFill;
+
+
+            LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+            _imageBrush.Surface = _loadedSurface;
+
+            var saturationEffect = new SaturationEffect
+            {
+                Saturation = 0.0f,
+                Source = new CompositionEffectSourceParameter("image")
+            };
+            var effectFactory = _compositor.CreateEffectFactory(saturationEffect);
+            var effectBrush = effectFactory.CreateBrush();
+            effectBrush.SetSourceParameter("image", _imageBrush);
+
+            var blurEffect = new GaussianBlurEffect
+            {
+                BlurAmount = 8,
+                Source = new CompositionEffectSourceParameter("image")
+            };
+            var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
+            var effectBrush2 = effectFactory2.CreateBrush();
+            effectBrush2.SetSourceParameter("image", effectBrush);
+
+            _imageVisual = _compositor.CreateSpriteVisual();
+            _imageVisual.Brush = effectBrush2;
+            _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
+
+            if (ParallaxScroll != null)
+            {
+                CompositionPropertySet scrollerViewerManipulation = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(ParallaxScroll);
+                ExpressionAnimation expression = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.4");
+                expression.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
+                _imageVisual.StartAnimation("Offset.Y", expression);
+            }
+
+            BackgroundGrid.Clip = new RectangleGeometry() { Rect = new Rect(new Point(0, 0), new Point(AvatarContainer.ActualWidth, AvatarContainer.ActualHeight)) };
+            ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
         }
         private async void Gateway_UserNoteUpdated(object sender, GatewayEventArgs<Gateway.DownstreamEvents.UserNote> e)
         {
@@ -567,6 +628,15 @@ namespace Discord_UWP.SubPages
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SubPages.UserProfileCU));
+        }
+
+        private void AvatarContainer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_imageVisual != null)
+            {
+                _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
+                BackgroundGrid.Clip = new RectangleGeometry() { Rect = new Rect(new Point(0, 0), new Point(AvatarContainer.ActualWidth, AvatarContainer.ActualHeight)) };
+            }
         }
     }
 

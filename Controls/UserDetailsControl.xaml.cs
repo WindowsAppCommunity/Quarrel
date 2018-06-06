@@ -95,7 +95,7 @@ namespace Discord_UWP.Controls
                 var image = new BitmapImage(Common.AvatarUri(user.Avatar, user.Id));
                 Avatar.ImageSource = image;
 
-                SetupComposition(imageURL, Windows.UI.Colors.Green);
+                SetupComposition(imageURL);
 
 
                 if (user.Avatar == null)
@@ -243,7 +243,7 @@ namespace Discord_UWP.Controls
             borderColor.BorderBrush = color;
         }
         SpriteVisual _imageVisual;
-        private void SetupComposition(Uri imageURL, Color color)
+        private void SetupComposition(Uri imageURL)
         {
             Compositor _compositor;
             
@@ -274,7 +274,7 @@ namespace Discord_UWP.Controls
             };
             var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
             var effectBrush2 = effectFactory2.CreateBrush();
-            effectBrush2.SetSourceParameter("image", _imageBrush);
+            effectBrush2.SetSourceParameter("image", effectBrush);
 
             _imageVisual = _compositor.CreateSpriteVisual();
             _imageVisual.Brush = effectBrush2;

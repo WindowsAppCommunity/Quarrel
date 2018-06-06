@@ -46,7 +46,7 @@ namespace Discord_UWP.Managers
              // userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
             userActivity.VisualElements.DisplayText = "Hello Activities";
 
-            userActivity.ActivationUri = new Uri("discorduwp://Navigate/Guild/"+ GuildId+ "/"+ChannelId);
+            userActivity.ActivationUri = new Uri("discorduwp://channels/"+ GuildId+ "/"+ChannelId);
             userActivity.ContentUri = new Uri(GuildImage);
             userActivity.ContentInfo = UserActivityContentInfo.FromJson("{\"@context\":\"~~http~~://schema.org\",\"@type\": \"CommunicateAction\",\"subjectOf\": \""+ChannelName+"\"}");
             userActivity.FallbackUri = new Uri("http://discordapp.com/channels/" + GuildId + "/" + ChannelId);

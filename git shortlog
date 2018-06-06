@@ -1,0 +1,268 @@
+[33mcommit 3eafe7649f608efa04f838ff36ee790f2351b34f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 3c397bc 4f944dd
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Wed Jun 6 11:41:31 2018 +0200
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/Discord%20UWP
+
+[33mcommit 3c397bc7fb28100ba310710f7be3fcb37606dd2a[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Wed Jun 6 11:41:01 2018 +0200
+
+    Fixed UserDetailsControl on mobile
+
+[33mcommit 4f944ddae39ebd2cfbc51418b4dcc2bfe4572fb1[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Tue Jun 5 22:47:36 2018 -0400
+
+    Hid connections
+
+[33mcommit 5db623fb75bd434a45be2c87dce2af7de3499f90[m
+Merge: 42f0e02 b94ebcc
+Author: Avishai Dernis <avid29@live.com>
+Date:   Tue Jun 5 01:44:15 2018 -0400
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/discord%20uwp
+
+[33mcommit 42f0e0236506ed0e9fa7c0ea91b3265a728723b4[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Tue Jun 5 01:44:12 2018 -0400
+
+    Changed in store name for 9.0 release
+
+[33mcommit b94ebcc104c59ccfa3f9b64096c1a762fcec8103[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Mon Jun 4 18:56:18 2018 +0200
+
+    updated .gitignore to ignore SodiumC.dll
+
+[33mcommit 77611b73e13517fcfe31540ce3ae46fd5c0a0e15[m
+Merge: 5a087d1 b1dd465
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Mon Jun 4 13:15:31 2018 +0200
+
+    merge
+
+[33mcommit 5a087d1dff775f8ade41ead6b6c459e0ecc72180[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Mon Jun 4 13:13:43 2018 +0200
+
+    Icon for Group DMs
+
+[33mcommit 989fa9c844819a172055a29703c10d01cc1982a5[m
+Merge: 40eab1c d30a6f2
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Mon Jun 4 12:57:02 2018 +0200
+
+    UI Changes + Icon for Group DMs
+
+[33mcommit b1dd46546cd60711f2a53520fd9b5070f8499f72[m
+Merge: 9740e43 05896e6
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sun Jun 3 18:47:41 2018 -0700
+
+    Merge
+
+[33mcommit 9740e43f463aaebd1d368d656f55a7ded98afbd9[m
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sun Jun 3 18:45:23 2018 -0700
+
+    Something with the Sodium DLL?
+
+[33mcommit 05896e679ea336cbd6a22f28c8136b4089c42721[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 18:56:32 2018 -0400
+
+    Connections (Styleless)
+
+[33mcommit 40eab1cb3697d5a63bcc7c1e8408cee4c9e1854b[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 19:25:02 2018 +0200
+
+    Way better strikethrough
+
+[33mcommit d30a6f22643004fb5c8465d7ea6c7960b19f26fb[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 13:23:36 2018 -0400
+
+    Fixed Voice Channels on Mobile
+
+[33mcommit 58ef0432a89cd3c12696b7b155f8e8bb6f561c36[m
+Merge: 1a1c154 da7235d
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 11:41:22 2018 -0400
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/discord%20uwp
+
+[33mcommit 1a1c1544d149fc32b952398322a63f511f3b5477[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 11:41:15 2018 -0400
+
+    Removed ugly non-transparent patch from DMPane and Fixed DM mentions
+
+[33mcommit da7235dc5c1d6cefea0d9247b8aba8725acaa677[m
+Merge: f91125c 9acad80
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 11:44:01 2018 +0200
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/Discord%20UWP
+
+[33mcommit f91125cb5c43c96a9be580f8ab2f0a70d27f30ee[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 11:42:29 2018 +0200
+
+    Made inline code more readable
+
+[33mcommit 9acad80e7b7819c6954dcfd953aea61f42dc3cab[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 02:55:34 2018 -0400
+
+    Fixed extra margin shadow
+
+[33mcommit 496a0d5467a3db242473f20a4bb6b769036471c1[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 02:02:40 2018 -0400
+
+    8.0.2
+
+[33mcommit 8db8e2d8836d858a7078993b5fd01a172ffe3369[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 01:41:43 2018 -0400
+
+    Fully sorted out deafen situation
+
+[33mcommit ffad919868abcea14b8bae4c96cb62c3fb4f0747[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 01:07:21 2018 -0400
+
+    Fixed VoiceController position
+
+[33mcommit fcb1bc6b888b4dc272028e6ed42fbbb1e2e3660b[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 01:02:13 2018 -0400
+
+    Actual patch (not a fix, just a patch)
+
+[33mcommit 4e788b306293bfc6d982db9f1e70c3f9d529d65c[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 00:56:53 2018 -0400
+
+    Fixed Newtonsoft misunderstanding (that's not how they work)
+
+[33mcommit 0d0798502c8bfc42828055698d2bc20aadaf9329[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 00:05:35 2018 -0400
+
+    Fixed insufficient path
+
+[33mcommit b956ebe85d6f33a3eba4fc7925f51a8e16f84809[m
+Merge: beeac6e ebd879b
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 00:01:19 2018 -0400
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/discord%20uwp
+
+[33mcommit beeac6eb3eddf0e191d00e99ac0cf73033d9e59c[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sun Jun 3 00:01:09 2018 -0400
+
+    Start on Derived color
+
+[33mcommit ebd879bfee7242a94eea27f0e732e3e4bbb3a3c3[m
+Merge: 9f6d08e 4ecc485
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sat Jun 2 17:14:24 2018 -0700
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/Discord%20UWP
+
+[33mcommit 9f6d08e36577cc146e460d0ba99d89660b0413c4[m
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sat Jun 2 17:13:55 2018 -0700
+
+    Defaulted self-deaf to false for voice connections
+
+[33mcommit 4ecc485461c647d3a6f72f7a1e62491cd702935f[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 00:48:41 2018 +0200
+
+    bug fix
+
+[33mcommit de67f7b581949d7e1f08739789e37c88ecd13d1a[m
+Merge: 885ee9b 82fe101
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 00:23:18 2018 +0200
+
+    merge
+
+[33mcommit 885ee9b6a5a369ab4d5f703a0ff0cc6fc1bcb00f[m
+Author: Lightmagic Apps <LightmagicApps@outlook.com>
+Date:   Sun Jun 3 00:02:06 2018 +0200
+
+    Fixed memercvs bugs + style changes
+
+[33mcommit 82fe10151aad476b3c4a3f6ffc0527ad10650077[m
+Merge: 8936d15 c07a54d
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sat Jun 2 13:23:40 2018 -0700
+
+    Merge branch 'master' of https://discorduwp.visualstudio.com/_git/Discord%20UWP
+
+[33mcommit 8936d157224442110a278842170765e63ef587c7[m
+Author: Yoshi Askharoun <jjask7@gmail.com>
+Date:   Sat Jun 2 13:23:13 2018 -0700
+
+    Updated Toolkit.Controls
+
+[33mcommit c07a54de1b6a93a97bce07fb9748f4a7dc613a8d[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sat Jun 2 08:32:45 2018 -0400
+
+    Dynamic Create Server
+
+[33mcommit e6c8ec0591552bc3c0a00c6f8f2ba941df291914[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sat Jun 2 02:18:45 2018 -0400
+
+    Dynamic SubPage for EditNickname
+
+[33mcommit be1987df21f077514dce06eb90608cfc61eaa23d[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Sat Jun 2 00:59:41 2018 -0400
+
+    Dynamic Subpage (Channel Topic support)
+
+[33mcommit b4574fcb4b36297166af528bbf1eb1a85099d18d[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 23:59:21 2018 -0400
+
+    Moved DeleteChannel to dynamic system
+
+[33mcommit f65485101b30e89f3caf29c376d54ed2c6807d64[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 23:42:28 2018 -0400
+
+    Delete message prompt
+
+[33mcommit e793599af618864cbd38cfaeba9b5b7265a74751[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 23:28:33 2018 -0400
+
+    Generic Confirmation subpage
+
+[33mcommit 918fb0cd39097747d5eb83e2b3f3559497ad652a[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 21:41:22 2018 -0400
+
+    Added BitmapImage Anaylze to ColorExtractor
+
+[33mcommit 2e1ad05ae49c809d8c41fc848ef6d32d802bfd66[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 21:31:40 2018 -0400
+
+    Nuget Update
+
+[33mcommit 9f8d38c9462aa46f42a0467284be0f49504aec2c[m
+Author: Avishai Dernis <avid29@live.com>
+Date:   Fri Jun 1 17:06:22 2018 -0400
+
+    Added ColorDetection code fro
