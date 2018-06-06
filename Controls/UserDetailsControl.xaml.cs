@@ -256,8 +256,7 @@ namespace Discord_UWP.Controls
 
             LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
             _imageBrush.Surface = _loadedSurface;
-
-
+            
             var saturationEffect = new SaturationEffect
             {
                 Saturation = 0.0f,
@@ -267,17 +266,25 @@ namespace Discord_UWP.Controls
             var effectBrush = effectFactory.CreateBrush();
             effectBrush.SetSourceParameter("image", _imageBrush);
 
-            var blurEffect = new GaussianBlurEffect
+
+            CompositionEffectBrush effectBrush2 = null;
+            if (App.FCU)
             {
-                BlurAmount = 8,
-                Source = new CompositionEffectSourceParameter("image")
-            };
-            var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
-            var effectBrush2 = effectFactory2.CreateBrush();
-            effectBrush2.SetSourceParameter("image", effectBrush);
+                var blurEffect = new GaussianBlurEffect
+                {
+                    BlurAmount = 8,
+                    Source = new CompositionEffectSourceParameter("image")
+                };
+                var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
+                effectBrush2 = effectFactory2.CreateBrush();
+                effectBrush2.SetSourceParameter("image", effectBrush);
+            } else
+            {
+                BackgroundGrid.Blur(8, 0).Start();
+            }
 
             _imageVisual = _compositor.CreateSpriteVisual();
-            _imageVisual.Brush = effectBrush2;
+            _imageVisual.Brush = App.FCU ? effectBrush2 : effectBrush;
             _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
             
             ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
