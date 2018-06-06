@@ -41,7 +41,7 @@ namespace Discord_UWP.Colors
             await Analyse(str.AsStreamForRead(), width, height);
             str.Dispose();
         }
-        public async Task Analyse(Stream str, int width =96, int height=66)
+        public async Task Analyse(Stream str, int width = 96, int height=66)
         {
             WriteableBitmap wbm = new WriteableBitmap(width, height);
             await wbm.SetSourceAsync(str.AsRandomAccessStream());
@@ -105,13 +105,6 @@ namespace Discord_UWP.Colors
 
             Debug.WriteLine("Secondary color HSL.L = " + color2.hsl.L.ToString());
             Debug.WriteLine("Secondary color HSL.S = " + color2.hsl.S.ToString());
-
-            Application.Current.Resources["SystemControlForegroundAccentBrush"] = new SolidColorBrush(color.Color);
-            Application.Current.Resources["SystemControlHighlightAccentBrush"] = new SolidColorBrush(newcolor2);
-
-            Application.Current.Resources["HyperlinkButtonForeground"] = new SolidColorBrush(color2.Color);
-            Application.Current.Resources["HyperlinkButtonForegroundPointerOver"] = new SolidColorBrush(Color.FromArgb(180, color2.Color.R, color2.Color.G, color2.Color.B));
-            Application.Current.Resources["HyperlinkButtonForegroundPointerPressed"] = new SolidColorBrush(Color.FromArgb(120, color2.Color.R, color2.Color.G, color2.Color.B));
             //Analysed(null, IsLight);
         }
 
