@@ -243,10 +243,9 @@ namespace Discord_UWP.Controls
             borderColor.BorderBrush = color;
         }
         SpriteVisual _imageVisual;
-        private async void SetupComposition(Uri imageURL, Color color)
+        private void SetupComposition(Uri imageURL, Color color)
         {
             Compositor _compositor;
-            ContainerVisual _container;
             
             CompositionSurfaceBrush _imageBrush;
 
@@ -275,7 +274,7 @@ namespace Discord_UWP.Controls
             };
             var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
             var effectBrush2 = effectFactory2.CreateBrush();
-            effectBrush2.SetSourceParameter("image", effectBrush);
+            effectBrush2.SetSourceParameter("image", _imageBrush);
 
             _imageVisual = _compositor.CreateSpriteVisual();
             _imageVisual.Brush = effectBrush2;
