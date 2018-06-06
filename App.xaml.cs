@@ -871,18 +871,30 @@ namespace Discord_UWP
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
 
         #region DerivedColors
+        internal const bool derivedColorDebug = false; //Fix images with a lack of colors first
+
         internal static Dictionary<string, Color> userAccents = new Dictionary<string, Color>();
         public async static Task<Nullable<Color>> getUserColor(SharedModels.User user)
         {
+            if (String.IsNullOrEmpty(user.Avatar))
+            {
+                return (Color?)App.Current.Resources["BlurpleColor"];
+            }
+
             if (userAccents.ContainsKey(user.Id))
             {
                 return userAccents[user.Id];
-            } else
+            }
+            else
             {
                 Colors.PictureAnalysis analysis = new Colors.PictureAnalysis();
-                await analysis.Analyse(new BitmapImage(new Uri(user.Avatar)));
-                userAccents.Add(user.Id, analysis.ColorList[0].Color);
-                return userAccents[user.Id];
+                await analysis.Analyse(new BitmapImage(Common.AvatarUri(user.Avatar, user.Id, "?size=64")), 64, 64);
+                if (analysis.ColorList.Count > 0)
+                {
+                    userAccents.Add(user.Id, analysis.ColorList[0].Color);
+                    return userAccents[user.Id];
+                }
+                return (Color?)App.Current.Resources["BlurpleColor"];
             }
         }
         #endregion

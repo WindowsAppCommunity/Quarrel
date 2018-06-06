@@ -23,7 +23,7 @@ echo "Wrote build details to CommitInfo.txt"
 
 exit 0
 }
-catch{exit 0}
+catch{exit 1}
 
 
 

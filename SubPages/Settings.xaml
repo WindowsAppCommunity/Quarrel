@@ -28,6 +28,24 @@
             </DoubleAnimation>
         </Storyboard>
 
+        <LinearGradientBrush x:Key="DarkThemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="Red"/>
+            <GradientStop Color="Orange" Offset="0.5"/>
+            <GradientStop Color="Yellow" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="LightTHemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="Green" Offset="0"/>
+            <GradientStop Color="Blue" Offset="0.5"/>
+            <GradientStop Color="Purple" Offset="1"/>
+        </LinearGradientBrush>
+
         <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
             <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}"/>
             <Setter Property="Foreground" Value="{ThemeResource CheckBoxForegroundUnchecked}"/>
@@ -568,6 +586,259 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="RadioCheckBox" TargetType="CheckBox">
+            <Setter Property="Background" Value="{ThemeResource RadioButtonBackground}"/>
+            <Setter Property="Foreground" Value="{ThemeResource RadioButtonForeground}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource RadioButtonBorderBrush}"/>
+            <Setter Property="Padding" Value="8,6,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CombinedStates">
+                                    <VisualState x:Name="UncheckedNormal">
+                                        <Storyboard Duration="0:0:0.2">
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph2" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="UncheckedPointerOver">
+                                        <Storyboard Duration="0:0:0.2">
+                                            <DoubleAnimation To="0.4" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="UncheckedPressed">
+                                        <Storyboard Duration="0:0:0.2">
+                                            <DoubleAnimation To="0.75" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.6" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.6" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.6" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.6" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="UncheckedDisabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Stroke">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalRectangle" Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundUncheckedDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedNormal">
+                                        <Storyboard Duration="0:0:0.2">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPointerOver">
+                                        <Storyboard Duration="0:0:0.2">
+                                            <DoubleAnimation To="0.4" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform2" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedPressed">
+                                        <Storyboard/>
+                                    </VisualState>
+                                    <VisualState x:Name="CheckedDisabled">
+                                        <Storyboard/>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid Height="32" VerticalAlignment="Top">
+                                <Ellipse x:Name="OuterEllipse" Fill="{StaticResource RadioButtonOuterEllipseFill}" Height="18" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" UseLayoutRounding="False" Width="18">
+                                    <Ellipse.RenderTransform>
+                                        <ScaleTransform CenterX="9" CenterY="9" x:Name="OuterTransform"/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <Ellipse x:Name="CheckOuterEllipse" Fill="{ThemeResource RadioButtonOuterEllipseCheckedFill}" Height="18" Opacity="0" Stroke="{ThemeResource RadioButtonOuterEllipseCheckedStroke}" StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" UseLayoutRounding="False" Width="18"/>
+                                <Ellipse x:Name="CheckGlyph" Fill="{TemplateBinding Foreground}" Height="12" Opacity="0" Stroke="{ThemeResource RadioButtonCheckGlyphStroke}" UseLayoutRounding="False" Width="12">
+                                    <Ellipse.RenderTransform>
+                                        <ScaleTransform ScaleX="1" ScaleY="1" CenterX="6" CenterY="6" x:Name="GlyphTransform"/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                                <Ellipse x:Name="CheckGlyph2" Fill="{TemplateBinding Foreground}" Height="12" Opacity="0" Stroke="{ThemeResource RadioButtonCheckGlyphStroke}" UseLayoutRounding="False" Width="12">
+                                    <Ellipse.RenderTransform>
+                                        <ScaleTransform ScaleX="0.6" ScaleY="0.6" CenterX="6" CenterY="6" x:Name="GlyphTransform2"/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Grid>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="10,0,6,0" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -634,7 +905,7 @@
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel x:Name="UI_Menu">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                   <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
+                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
                                     <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
@@ -643,16 +914,19 @@
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/DiscordRadio" x:Name="radio_Discord" Style="{StaticResource DiscordRadioButton}" Content="Discord" GroupName="Theme"/>
                                     <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
-                                    
+
                                     <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
-                                 
-                                    
+
+                                    <!--<CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource RadioCheckBox}" Content="Derived Color" Foreground="{ThemeResource DarkThemeAccentGradient}" IsChecked="True"/>-->
+
+
+
                                     <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                     <CheckBox x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Content="Glow the left side of the screen when you are mentioned" Margin="0,0,0,6"/>
-                                    
+
                                     <!--<CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
                                     <!--<CheckBox x:Name="AutoChannel" Content="Auto Select Channel (On server select)" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"/>-->
@@ -683,30 +957,6 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <!--<PivotItem x:Uid="/Settings/UiPI" Header="Background" Margin="12,0,0,0">
-                            <ScrollViewer Padding="0,0,24,0">
-                                <StackPanel x:Name="CustomBG" Margin="0,0,24,32">
-                                    <ToggleSwitch x:Name="CustomBGToggle" OffContent="Default Background" OnContent="Custom Background"/>
-                                    <StackPanel x:Name="ImageBG">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Content="Select File" Click="SelectFile"/>
-                                            <TextBlock x:Name="FilePath" Text="File" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel x:Name="AcrylicBG">
-                                        <TextBlock Text="Acrylic options" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        --><!--<Slider x:Name="MainPanelOpacity" Header="Main Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
-                                        <Slider x:Name="MainPanelBlur" Header="Main Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                        --><!--<Slider x:Name="SecondaryPanelOpacity" Header="Secondary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
-                                        <Slider x:Name="SecondaryPanelBlur" Header="Secondary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                        --><!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
-                                        <Slider x:Name="TertiaryPanelBlur" Header="Tertiary Panel Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                        --><!--<Slider x:Name="TertiaryPanelOpacity" Header="Tertiary Panel Opacity" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>--><!--
-                                        <Slider x:Name="CommandBarBlur" Header="Command Bar Blur" Margin="0,6,0,-4" Maximum="1" SmallChange="0.05" StepFrequency="0.05"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </ScrollViewer>
-                        </PivotItem>-->
                         <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications" Margin="0,0,12,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
@@ -748,7 +998,7 @@
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything everywhere</RadioButton>-->
 
                                     </StackPanel>
-                                  </StackPanel>
+                                </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
                         <PivotItem x:Uid="/Settings/AudioPI" Header="Audio" Margin="12,0,0,0">
@@ -756,7 +1006,8 @@
                                 <StackPanel>
                                     <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>
                                     <ComboBox x:Name="OutputDevices" x:Uid="/Settings/OutputDevicesCB" Header="Output Devices"/>
-                                    <TextBlock Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/> <!--TODO: Translate-->
+                                    <TextBlock Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/>
+                                    <!--TODO: Translate-->
                                     <!--<ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>-->
                                 </StackPanel>
                             </ScrollViewer>
@@ -778,9 +1029,6 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <!--<PivotItem Header="Debug">
-                            <Button Content="Debug AudioGraph" HorizontalAlignment="Center" Click="DebugAudioGraph"/>
-                        </PivotItem>-->
                     </Pivot>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <HyperlinkButton Content="Account Settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
