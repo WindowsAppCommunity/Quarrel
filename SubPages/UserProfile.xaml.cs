@@ -507,12 +507,17 @@ namespace Discord_UWP.SubPages
                 _imageVisual.Brush = effectBrush2;
                 _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
 
+                var avatarvisual = ElementCompositionPreview.GetElementVisual(FullAvatar);
                 if (ParallaxScroll != null)
                 {
                     CompositionPropertySet scrollerViewerManipulation = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(ParallaxScroll);
                     ExpressionAnimation expression = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.4");
                     expression.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
                     _imageVisual.StartAnimation("Offset.Y", expression);
+
+                    ExpressionAnimation expression2 = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.12");
+                    expression2.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
+                    avatarvisual.StartAnimation("Offset.Y", expression2);
                 }
 
                 BackgroundGrid.Clip = new RectangleGeometry() { Rect = new Rect(new Point(0, 0), new Point(AvatarContainer.ActualWidth, AvatarContainer.ActualHeight)) };
