@@ -85,7 +85,7 @@
         </Rectangle>
         <Ellipse x:Name="status" Width="12" Height="12" HorizontalAlignment="Right" Margin="0,24,6,0"/>
         <local:TypingIndicator IsWhite="True" x:Name="typingIndicator" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,24,9,0" Visibility="Collapsed" Opacity="0"/>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="4,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                 <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">

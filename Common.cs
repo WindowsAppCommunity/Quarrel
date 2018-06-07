@@ -120,10 +120,10 @@ namespace Discord_UWP
                 if (dtPrevious != null && dtPrevious.Value.DayOfYear == dt.DayOfYear && dtPrevious.Value.Year == dt.Year)
                 { result = ""; }
                 else
-                { result = App.GetString("/Main/Today") + " "; }
+                { result = App.GetString("/Main/Today"); }
             }
             else if (IsYesterday(dt))
-            { result = App.GetString("/Main/Yesterday") + " "; }
+            { result = App.GetString("/Main/Yesterday"); }
             else
             {
                 result += dt.ToString(Storage.Settings.DateFormat);

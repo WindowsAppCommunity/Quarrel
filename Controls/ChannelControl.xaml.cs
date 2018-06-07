@@ -260,11 +260,11 @@ namespace Discord_UWP.Controls
             }
             else if (prop == UserStatusProperty)
             {
-                if (UserStatus.Status != null && UserStatus.Status != "invisible")
+                if (UserStatus!= null && UserStatus.Status != null && UserStatus.Status != "invisible")
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources[UserStatus.Status];
                 else
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-                if (UserStatus.Game != null)
+                if (UserStatus != null && UserStatus.Game != null)
                 {
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
