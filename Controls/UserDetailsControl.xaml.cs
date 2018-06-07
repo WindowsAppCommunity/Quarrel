@@ -412,7 +412,7 @@ namespace Discord_UWP.Controls
                 ((Parent as FlyoutPresenter).Parent as Popup).IsOpen = false;
             }
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", FullAvatar);
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("richpresence", richPresence);
+      //      ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("richpresence", richPresence);
             App.navImageCache = Avatar.ImageSource;
             App.NavigateToProfile(DisplayedMember.User);
         }
@@ -420,7 +420,11 @@ namespace Discord_UWP.Controls
         private async void Note_LostFocus(object sender, RoutedEventArgs e)
         {
             var userid = DisplayedMember.User.Id;
-            var note = Note.Text;
+            var note = Note.Text.Trim();
+            if (LocalState.Notes.ContainsKey(userid) && note == LocalState.Notes[userid].Trim())
+                return;
+            if (!LocalState.Notes.ContainsKey(userid) && string.IsNullOrEmpty(note))
+                return;
             await Task.Run(async () =>
             {
                 await RESTCalls.AddNote(userid, note);
