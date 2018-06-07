@@ -34,6 +34,11 @@ namespace Discord_UWP.SubPages
                     creds = cred;
             creds.RetrievePassword();
             token.Text = creds.Password;
+            if (version.Build != 0 || App.isDebug)
+            {
+                buildNumber.Visibility = Visibility.Visible;
+                buildId.Visibility = Visibility.Visible;
+            }
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
