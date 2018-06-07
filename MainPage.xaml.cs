@@ -378,7 +378,7 @@ namespace Discord_UWP
             });
         }
 
-        private async void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
+        private void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<GuildMemberAdd> e)
         {
             if (App.CurrentGuildId != e.EventData.guildId) return;
             var member = e.EventData;
@@ -394,18 +394,18 @@ namespace Discord_UWP
 
             AddToMembersCvs(m);
         }
-        private async void AddToMembersCvs(Member m)
+        private async void AddToMembersCvs(Member m, bool dm = false)
         {
             if (m.Raw.Roles != null)
             {
                 m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
             }
+
             //Set it to first Hoist Role or everyone if null
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-            () =>
-            {
+            if (dm)
+                m.MemberHoistRole = new HoistRole("MEMBERS", 0, "MEMBERS", 0, -1);
+            else
                 m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
-            });
 
             if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
             {
@@ -422,8 +422,8 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (memberscvs != null) ;
-                    memberscvs.Add(m);
+                    if (memberscvs != null)
+                        memberscvs.Add(m);
                 });
         }
         private Member FindMember(string id)
@@ -431,7 +431,9 @@ namespace Discord_UWP
             if (memberscvs != null && memberscvs.RoleIndexer.ContainsKey(id))
             {
                 var key = memberscvs.RoleIndexer[id];
-                var group = memberscvs.FirstOrDefault(x => x.Key == key);
+                Grouping<HoistRole, Member> group = null;
+                foreach (var g in memberscvs)
+                    if (key.Id == g.Key.Id) group = g;
                 if (group != null)
                 {
                     return (group.FirstOrDefault(x => x.Raw.User.Id == id));
@@ -476,11 +478,21 @@ namespace Discord_UWP
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                if (App.CurrentGuildId != null && memberscvs != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId))
+                if (App.CurrentGuildIsDM)
+                {
+                    foreach(ChannelManager.SimpleChannel channel in ChannelList.Items)
+                    {
+                        if (channel.UserId != null && channel.UserId == e.UserId)
+                            channel.UserStatus = e.Presence;
+                    }
+                }
+                //if the memberscvs isn't null, and either the current guild is DMs or the currentguild isn't null and contains the member
+                if (memberscvs != null && (App.CurrentGuildIsDM || (App.CurrentGuildId != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId))))
                 {
                     var member = FindMember(e.UserId);
                     if (member == null)
                     {
+                        if (App.CurrentGuildId == null) return;
                         if (e.Presence.Status == "offline") return;
                         member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
                         member.MemberHoistRole = MemberManager.GetRole(member.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
@@ -1961,6 +1973,44 @@ namespace Discord_UWP
         
         public void RenderGroupMembers()
         {
+            if(memberscvs != null)
+                memberscvs.Clean();
+            List<Member> tempMembers = new List<Member>();
+            foreach(var user in LocalState.DMs[App.CurrentChannelId].Users)
+            {
+                Member m = new Member(new GuildMember() {
+                    User = user
+                });
+                m.DisplayName = user.Username;
+                m.MemberHoistRole = new HoistRole("MEMBERS", 0, "MEMBERS", 0, -1);
+                if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
+                {
+                    m.status = LocalState.PresenceDict[m.Raw.User.Id];
+                }
+                else
+                {
+                    m.status = new Presence() { Status = "offline", Game = null };
+                }
+                tempMembers.Add(m);
+            }
+            Member cm = new Member(new GuildMember()
+            {
+                User = LocalState.CurrentUser
+            });
+            cm.DisplayName = LocalState.CurrentUser.Username;
+            cm.MemberHoistRole = new HoistRole("MEMBERS", 0, "MEMBERS", 0, -1);
+            if (LocalState.PresenceDict.ContainsKey(cm.Raw.User.Id))
+            {
+                cm.status = LocalState.PresenceDict[cm.Raw.User.Id];
+            }
+            else
+            {
+                cm.status = new Presence() { Status = "offline", Game = null };
+            }
+            tempMembers.Add(cm);
+            
+            memberscvs = new GroupedObservableCollection<HoistRole, Managers.Member>(c => c.MemberHoistRole, tempMembers);
+            MembersCvs.Source = memberscvs;
           //  memberscvs.Clear();
             //MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
             //MembersCvs.Source = memberscvs.OrderBy(m => m.Value.Raw.User.Username).GroupBy(m => m.Value.status);
@@ -2326,6 +2376,8 @@ namespace Discord_UWP
             GatewayManager.Gateway.GuildMemberRemoved += Gateway_GuildMemberRemoved;
             GatewayManager.Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
+            GatewayManager.Gateway.ChannelRecipientAdded += Gateway_ChannelRecipientAdded;
+            GatewayManager.Gateway.ChannelRecipientRemoved += Gateway_ChannelRecipientRemoved;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
@@ -2402,7 +2454,55 @@ namespace Discord_UWP
             }
         }
 
+        private async void Gateway_ChannelRecipientRemoved(object sender, Gateway.GatewayEventArgs<ChannelRecipientUpdate> e)
+        {
+            if (LocalState.DMs.ContainsKey(e.EventData.channel_id) && LocalState.DMs[e.EventData.channel_id].Users.FirstOrDefault(x => x.Id == e.EventData.user.Id) != null)
+                LocalState.DMs[e.EventData.channel_id].Users.Remove(LocalState.DMs[e.EventData.channel_id].Users.FirstOrDefault(x => x.Id == e.EventData.user.Id));
+            if (App.CurrentGuildIsDM)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                    {
+                        if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
+                            sc.Subtitle = (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+                    }
+                });
+                
+            if (App.CurrentChannelId == e.EventData.channel_id || !App.CurrentGuildIsDM)
+            {
+                if (App.CurrentChannelId == e.EventData.channel_id)
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        memberscvs.Remove(FindMember(e.EventData.user.Id));
+                    });
+            }
+        }
+       
 
+        private async void Gateway_ChannelRecipientAdded(object sender, Gateway.GatewayEventArgs<ChannelRecipientUpdate> e)
+        {
+            if (LocalState.DMs.ContainsKey(e.EventData.channel_id))
+                LocalState.DMs[e.EventData.channel_id].Users.Add(e.EventData.user);
+            if (App.CurrentGuildIsDM)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                    {
+                        if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
+
+                            sc.Subtitle = (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+
+                    }
+                });
+            if (App.CurrentChannelId == e.EventData.channel_id)
+            {
+                Member m = new Member(new GuildMember()
+                {
+                    User = e.EventData.user
+                });
+                AddToMembersCvs(m, true);
+            }
+        }
 
         private void VideoAd_AdReady(object sender, object e)
         {
@@ -2483,6 +2583,7 @@ namespace Discord_UWP
                                     break;
                             }
                         var member = FindMember(LocalState.CurrentUser.Id);
+                        if (member == null) return;
                         member.status = new Presence() { Game = member.status.Game, GuildId = member.status.GuildId, Roles = member.status.Roles, Status = e.Settings.Status, User = member.status.User };
                         if (LocalState.PresenceDict.ContainsKey(LocalState.CurrentUser.Id))
                             LocalState.PresenceDict[LocalState.CurrentUser.Id] = member.status;

@@ -72,6 +72,10 @@ namespace Discord_UWP.Classes
                 this.Add(item);
             }
         }
+
+        /// <summary>
+        /// This FULLY clears and resets the member list, including the optimization-related objects
+        /// </summary>
         public void Clean()
         {
             Clear();

@@ -50,6 +50,8 @@ namespace Discord_UWP.Gateway
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelCreated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelUpdated;
         public event EventHandler<GatewayEventArgs<GuildChannel>> GuildChannelDeleted;
+        public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientAdded;
+        public event EventHandler<GatewayEventArgs<ChannelRecipientUpdate>> ChannelRecipientRemoved;
 
         public event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelCreated;
         public event EventHandler<GatewayEventArgs<DirectMessageChannel>> DirectMessageChannelDeleted;
@@ -154,7 +156,9 @@ namespace Discord_UWP.Gateway
                 { EventNames.USER_SETTINGS_UPDATED, OnUserSettingsUpdated },
                 { EventNames.VOICE_STATE_UPDATED,  OnVoiceStatusUpdated },
                 { EventNames.VOICE_SERVER_UPDATED, OnVoiceServerUpdated },
-                {EventNames.SESSIONS_REPLACE, OnSessionReplaced }
+                { EventNames.SESSIONS_REPLACE, OnSessionReplaced },
+                { EventNames.CHANNEL_RECIPIENT_ADD, OnChannelRecipientAdded },
+                { EventNames.CHANNEL_RECIPIENT_REMOVE, OnChannelRecipientRemoved }
             };
         }
 
@@ -440,6 +444,16 @@ namespace Discord_UWP.Gateway
         {
             FireEventOnDelegate(gatewayEvent, GuildMemberChunk);
         }
+
+        private void OnChannelRecipientAdded(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, ChannelRecipientAdded);
+        }
+        private void OnChannelRecipientRemoved(SocketFrame gatewayEvent)
+        {
+            FireEventOnDelegate(gatewayEvent, ChannelRecipientRemoved);
+        }
+
 
         private void OnPresenceUpdated(SocketFrame gatewayEvent)
         {

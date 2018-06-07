@@ -65,14 +65,14 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public string UserStatus
+        public Presence UserStatus
         {
-            get { return (string)GetValue(UserStatusProperty); }
+            get { return (Presence)GetValue(UserStatusProperty); }
             set { SetValue(UserStatusProperty, value); }
         }
         public static readonly DependencyProperty UserStatusProperty = DependencyProperty.Register(
             nameof(UserStatus),
-            typeof(string),
+            typeof(Presence),
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
@@ -258,12 +258,47 @@ namespace Discord_UWP.Controls
                 }
                 UpdateHidden();
             }
-
-            if (prop == UserStatusProperty)
+            else if (prop == UserStatusProperty)
             {
-                if (UserStatus != "" && UserStatus != null)
+                if (UserStatus.Status != null && UserStatus.Status != "invisible")
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources[UserStatus.Status];
+                else
+                    rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                if (UserStatus.Game != null)
                 {
-                    Status.Fill = (SolidColorBrush)App.Current.Resources[UserStatus];
+                    playing.Visibility = Visibility.Visible;
+                    game.Visibility = Visibility.Visible;
+                    game.Text = UserStatus.Game.Value.Name;
+                    if (UserStatus.Game.Value.State != null || UserStatus.Game.Value.Details != null || UserStatus.Game.Value.SessionId != null)
+                    {
+                        game.Opacity = 1;
+                        rich.Visibility = Visibility.Visible;
+                        switch (UserStatus.Game.Value.Type)
+                        {
+                            case -1:
+                                playing.Visibility = Visibility.Collapsed; break;
+                            case 0:
+                                playing.Visibility = Visibility.Visible;
+                                playing.Text = "Playing"; break;
+                            case 1:
+                                playing.Visibility = Visibility.Visible;
+                                playing.Text = "Streaming"; break;
+                            case 2:
+                                playing.Visibility = Visibility.Visible;
+                                playing.Text = "Listening to"; break;
+                        }
+                    }
+                    else
+                    {
+                        game.Opacity = 0.6;
+                        rich.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    playing.Visibility = Visibility.Collapsed;
+                    rich.Visibility = Visibility.Collapsed;
+                    game.Visibility = Visibility.Collapsed;
                 }
             }
             if (prop == SubtitleProperty)
@@ -276,26 +311,6 @@ namespace Discord_UWP.Controls
                 else
                 {
                     SubTitle.Visibility = Visibility.Collapsed;
-                }
-            }
-            if (prop == PlayingProperty)
-            {
-                if (Playing.HasValue)
-                {
-                    PlayingBlock.Visibility = Visibility.Visible;
-                    switch (Playing.Value.Type)
-                    {
-                        case 0:
-                            PlayingType.Text = App.GetString("/Controls/Playing");
-                            break;
-                        case 1:
-                            PlayingType.Text = App.GetString("/Controls/Streaming");
-                            break;
-                    }
-                    PlayingText.Text = Playing.Value.Name;
-                } else
-                {
-                    PlayingBlock.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -434,7 +449,7 @@ namespace Discord_UWP.Controls
                         ChannelImageBackdrop.Visibility = Visibility.Visible;
                     }
                     ChannelImage.Visibility = Visibility.Visible;
-                    Status.Visibility = Visibility.Visible;
+                    rectangle.Visibility = Visibility.Visible;
                     grid.Height = 48;
                     ChannelImage.Margin = new Thickness(0, 6, 6, 6);
                     ChannelImageBackdrop.Fill = Common.DiscriminatorColor(LocalState.DMs[Id].Users.FirstOrDefault().Discriminator);
@@ -448,7 +463,7 @@ namespace Discord_UWP.Controls
                     HashtagIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Visible;
                     ChannelImage.Visibility = Visibility.Visible;
-                    Status.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                     grid.Height = 48;
                     //ChannelImageBrush.ImageSource = new SvgImageSource(new Uri("ms-appx:///Assets/DiscordAssets/groupchat.svg"));
 
@@ -471,7 +486,7 @@ namespace Discord_UWP.Controls
                     VoiceIcon.Visibility = Visibility.Collapsed;
                     ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Collapsed;
-                    Status.Visibility = Visibility.Collapsed;
+                    rectangle.Visibility = Visibility.Collapsed;
                     ChannelName.FontWeight = FontWeights.Light;
                     ChannelName.Opacity = 1;
                     ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];

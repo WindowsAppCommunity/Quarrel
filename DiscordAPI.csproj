@@ -156,6 +156,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedModels\Attachment.cs" />
     <Compile Include="SharedModels\Ban.cs" />
+    <Compile Include="SharedModels\ChannelRecipientUpdate.cs" />
     <Compile Include="SharedModels\ConnectedAccount.cs" />
     <Compile Include="SharedModels\Connection.cs" />
     <Compile Include="SharedModels\DirectMessageChannel.cs" />
