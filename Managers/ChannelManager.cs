@@ -97,7 +97,7 @@ namespace Discord_UWP.Managers
 
                     if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                     {
-                        sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Status;
+                        sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
                         sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
                         if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.HasValue)
                         {
@@ -112,7 +112,7 @@ namespace Discord_UWP.Managers
                     }
                     else
                     {
-                        sc.UserStatus = "offline";
+                        sc.UserStatus = new Presence() { Status = "offline" };
                     }
                     //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
                     if (LocalState.RPC.ContainsKey(sc.Id))
@@ -187,6 +187,14 @@ namespace Discord_UWP.Managers
                 get { return _id; }
                 set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
             }
+
+            private string _userid;
+            public string UserId
+            {
+                get { return _userid; }
+                set { if (_userid == value) return; _userid = value; OnPropertyChanged("UserId"); }
+            }
+
             private string _lastmessageid;
             public string LastMessageId
             {
@@ -208,11 +216,11 @@ namespace Discord_UWP.Managers
                 set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
             }
 
-            private string _userstatus;
-            public string UserStatus
+            private Presence _userstatus;
+            public Presence UserStatus
             {
                 get { return _userstatus; }
-                set { if (_userstatus == value) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
+                set { if (_userstatus.Equals(value)) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
             }
 
             private string _subtitle;
@@ -410,6 +418,7 @@ namespace Discord_UWP.Managers
                 {
                     case 1: //DM
                         sc.Name = "@" + channel.Users.FirstOrDefault().Username;
+                        sc.UserId = channel.Users.FirstOrDefault().Id;
                         sc.LastMessageId = channel.LastMessageId;
                         sc.ImageURL = "https://cdn.discordapp.com/avatars/" + channel.Users.FirstOrDefault().Id + "/" + channel.Users.FirstOrDefault().Avatar + ".png?size=64";
 
@@ -421,7 +430,7 @@ namespace Discord_UWP.Managers
 
                         if (LocalState.PresenceDict.ContainsKey(channel.Users.FirstOrDefault().Id))
                         {
-                            sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Status;
+                            sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
                             sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
                             if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.HasValue)
                             {
@@ -436,7 +445,7 @@ namespace Discord_UWP.Managers
                         }
                         else
                         {
-                            sc.UserStatus = "offline";
+                            sc.UserStatus = new Presence() { Status = "offline" };
                         }
                         //sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
                         if (LocalState.RPC.ContainsKey(sc.Id))

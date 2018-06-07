@@ -35,6 +35,9 @@ namespace Discord_UWP.Managers
             Gateway.GuildChannelCreated += Gateway_GuildChannelCreated;
             Gateway.GuildChannelDeleted += Gateway_GuildChannelDeleted;
             Gateway.GuildChannelUpdated += Gateway_GuildChannelUpdated;
+            //ChannelRecipientAdded is handled exclusively by MainPage
+            //ChannelRecipientRemoved is handled exclusively by MainPage
+
             //Guild
             Gateway.GuildCreated += Gateway_GuildCreated;
             Gateway.GuildDeleted += Gateway_GuildDeleted;
@@ -63,11 +66,11 @@ namespace Discord_UWP.Managers
             //Voice
             Gateway.VoiceServerUpdated += Gateway_VoiceServerUpdated;
             Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
-
             //Other
             Gateway.SessionReplaced += Gateway_SessionReplaced;
             await Gateway.ConnectAsync();
         }
+
 
         private static void Gateway_SessionReplaced(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.SessionReplace> e)
         {
