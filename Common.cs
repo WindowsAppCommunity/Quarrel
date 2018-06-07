@@ -19,9 +19,25 @@ using System.Xml;
 
 using Discord_UWP.LocalModels;
 using System.Collections;
+using Windows.UI.Xaml.Data;
 
 namespace Discord_UWP
 {
+    public class IntToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string culture)
+        {
+            int color = (int)value;
+            if (color == -1)
+                return App.Current.Resources["Foreground"];
+            else
+                return  Common.IntToColor((int)value);
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, string culture)
+        {
+            return value; //ignore conversion, there's no need to convert from solidcolorbrush to int
+        }
+    }
     class Common
     {
         public static SolidColorBrush IntToColor(int color)

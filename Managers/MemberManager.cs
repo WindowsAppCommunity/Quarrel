@@ -13,25 +13,25 @@ namespace Discord_UWP.Managers
 {
     class MemberManager
     {
-        private static List<HoistRole> TempRoleCache = new List<HoistRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
+        private static Dictionary<string, HoistRole> TempRoleCache = new Dictionary<string, HoistRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
         public static HoistRole GetRole(string roleid, string guildid)
         {
-            var cachedRole = TempRoleCache.FirstOrDefault(x => x.Id == roleid);
-            if (cachedRole != null) return cachedRole;
+            string dicrole = roleid == null ? "0" : roleid;
+            if (TempRoleCache.ContainsKey(dicrole))
+                return TempRoleCache[dicrole];
             else
             {
                 HoistRole role;
                 if (roleid == null || !LocalState.Guilds[guildid].roles[roleid].Hoist)
                 {
-
-                    role = new HoistRole(null, 0, App.GetString("/Main/Everyone"), 0, (SolidColorBrush)App.Current.Resources["Foreground"]);
-                    TempRoleCache.Add(role);
+                    role = new HoistRole(null, 0, App.GetString("/Main/Everyone"), 0, -1);
+                    TempRoleCache.Add(dicrole, role);
                 }
                 else
                 {
                     var storageRole = LocalState.Guilds[guildid].roles[roleid];
-                    role = new HoistRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, Common.IntToColor(storageRole.Color));
-                    TempRoleCache.Add(role);
+                    role = new HoistRole(roleid, storageRole.Position, storageRole.Name.ToUpper(), storageRole.MemberCount, storageRole.Color);
+                    TempRoleCache.Add(dicrole, role);
                 }
                 return role;
             }
@@ -120,14 +120,14 @@ namespace Discord_UWP.Managers
             set { if (_membercount.Equals(value)) return; _membercount = value; OnPropertyChanged("Membercount"); }
         }
 
-        public SolidColorBrush _brush;
-        public SolidColorBrush Brush
+        public int _brush;
+        public int Brush
         {
             get { return _brush; }
-            set { if (_brush!=null && _brush.Equals(value)) return; _brush = value; OnPropertyChanged("Brush"); }
+            set { if (_brush.Equals(value)) return; _brush = value; OnPropertyChanged("Brush"); }
         }
 
-        public HoistRole(string id, int position, string name, int membercount, SolidColorBrush brush)
+        public HoistRole(string id, int position, string name, int membercount, int brush)
         { Id = id; Position = position; Name = name; Membercount = membercount; Brush = brush; }
 
         public int CompareTo(HoistRole obj)
