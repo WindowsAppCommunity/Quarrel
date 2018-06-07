@@ -2827,6 +2827,8 @@ namespace Discord_UWP
                         for (int i = 0; keys.Count() > i; i++)
                         {
                             var member = LocalState.Guilds[App.CurrentGuildId].members[keys[i]];
+                      //foreach(var member in LocalState.Guilds[App.CurrentGuildId].members)
+                       // {
                             if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(keys[i]))
                             {
                                 Member m = new Member(member);
@@ -2836,11 +2838,12 @@ namespace Discord_UWP
                                 }
 
                                 //Set it to first Hoist Role or everyone if null
-                                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                () =>
-                                {
+                             //   await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                              //  () =>
+                               // {
                                     m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
-                                });
+                               // });
+
 
                                 if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                                 {

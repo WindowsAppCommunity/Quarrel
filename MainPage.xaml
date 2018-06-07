@@ -1016,6 +1016,7 @@
 
 
         <CollectionViewSource x:Name="MembersCvs" IsSourceGrouped="True"/>
+        <local:IntToColorConverter x:Key="IntToColor"/>
         <CollectionViewSource x:Name="ChannelsCVS" IsSourceGrouped="True"/>
     </Page.Resources>
 
@@ -1467,7 +1468,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
                                                 <Grid>
-                                                    <controls:MemberControl RawMember="{Binding Raw}" IsTyping="{Binding IsTyping}" Role="{Binding MemberHoistRole}"  Status="{Binding status}" Text="{Binding DisplayName}"/>
+                                                    <controls:MemberControl RawMember="{Binding Raw}" IsTyping="{Binding IsTyping}" Role="{Binding MemberHoistRole}" Status="{Binding status}" Text="{Binding DisplayName}"/>
                                                 </Grid>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
@@ -1516,7 +1517,7 @@
                                                         <ColumnDefinition/>
                                                         <ColumnDefinition Width="Auto"/>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush}" Opacity="0.75"/>
+                                                    <TextBlock Text="{Binding Group.Key.Name}" FontSize="13" FontWeight="SemiBold" Foreground="{Binding Group.Key.Brush, Converter={StaticResource IntToColor}}" Opacity="0.75"/>
                                                     <TextBlock Grid.Column="1" Margin="6,0,0,0" Text="{Binding Group.Key.Membercount}" FontSize="13" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Opacity="0.35"/>
                                                 </Grid>
                                             </DataTemplate>
