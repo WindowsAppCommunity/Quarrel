@@ -74,7 +74,7 @@ namespace Discord_UWP.Controls
             nameof(UserStatus),
             typeof(Presence),
             typeof(ChannelControl),
-            new PropertyMetadata("", OnPropertyChangedStatic));
+            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         public string Subtitle
         {

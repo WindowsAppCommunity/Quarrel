@@ -272,9 +272,7 @@ namespace Discord_UWP.Controls
                             {
                                 try
                                 {
-                                    Debug.WriteLine("Got to stage 1");
                                     var list = App.MemberListDawg.MatchPrefix(query).Take(12);
-                                    Debug.WriteLine("Got to stage 2");
                                     if (list.Count() == 0)
                                     {
                                         SuggestionBlock.ItemsSource = null;
@@ -290,7 +288,7 @@ namespace Discord_UWP.Controls
                             }
                         }
                     }
-                    else if (word.StartsWith("#"))
+                    else if (!App.CurrentGuildIsDM && word.StartsWith("#"))
                     {
                         mentionPrefix = "";
                         string query = word.Remove(0, 1);
@@ -304,26 +302,20 @@ namespace Discord_UWP.Controls
                     }
                     else
                     {
-                        Debug.WriteLine("Trying to set as null 296");
                         SuggestionBlock.ItemsSource = null;
                         SuggestionPopup.IsOpen = false;
-                        Debug.WriteLine("Trying to set as null 299");
                     }
                 }
                 else
                 {
-                    Debug.WriteLine("Trying to set as null 304");
                     SuggestionBlock.ItemsSource = null;
                     SuggestionPopup.IsOpen = false;
-                    Debug.WriteLine("Trying to set as null 307");
                 }
             }
             else
             {
-                Debug.WriteLine("Trying to set as null 308");
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
-                Debug.WriteLine("Trying to set as null 315");
             }
             
             TextChanged?.Invoke(sender, e);
