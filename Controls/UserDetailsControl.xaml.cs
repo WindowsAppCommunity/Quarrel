@@ -278,7 +278,7 @@ namespace Discord_UWP.Controls
                 effectBrush2.SetSourceParameter("image", effectBrush);
 
                 _imageVisual = _compositor.CreateSpriteVisual();
-                _imageVisual.Brush = effectBrush;
+                _imageVisual.Brush = effectBrush2;
                 _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
 
                 ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
