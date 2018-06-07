@@ -86,29 +86,96 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 8.1" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                    <StackPanel>
-                        <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
+                    <TextBlock x:Name="header" Text="Version 9.0" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <StackPanel Margin="0,12,0,0">
+                        <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
-                                <Run Text="• The widths at which elements of the UI appear and disappear have changed"/>
+                                <Run Text="• Rewritten member list, which now supports real time server activity (people changing presence, joining, leaving, etc...). Group DMs also show the member list now!"/>
                             </Paragraph>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
                                 <Run Text="• You can now share images, links, or text to discord from any 'Share' button in Windows!"/>
                             </Paragraph>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Buggy role colors are no longer buggy"/>
+                                <Run Text="• Tons of bug fixes"/>
                             </Paragraph>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Muting/Unmuting has been vastly fixed"/>
+                                <Run Text="• Partial voice channels are back"/>
                             </Paragraph>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• The most recent pinned messages will now be at the top of the list"/>
+                                <Run Text="• Quite a few UI updates and redesigns"/>
                             </Paragraph>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• The member list has been completely re-written and should now react to members joining/leaving the server, changing a user's role, etc..."/>
+                                <Run Text="• Change your account details in Quarrel!"/>
                             </Paragraph>
                         </RichTextBlock>
-                        <TextBlock Text="If you have any questions, please ask in Quarrel's Discord server" FontSize="12" TextWrapping="Wrap" Opacity="0.5" Margin="0,0,0,12"/>
+                        <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
+                            <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">
+                                <Paragraph>
+                                    <Run Text="• Fixed share target functionality"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Fixed inaccurate role colors"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Fixed mute/unmute functionality"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Fixed notification times" FontFamily="Segoe UI"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Changed default breakpoints for the responsive UI"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Added member list to group DMs"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Member lists now update in real time to members leaving/joining the server, and changing roles/presences/nicknames..."/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Showing connections on profiles is back"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Voice channel receive is partially back"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Added confirmation popup before deleting a message"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Completely redesigned the flyout when you click on a user"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Added ability to change user account details"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Fixed too little permissions occasionally being given"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Changed the styling of all textboxes"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Made text color more pleasing, and inline code darker"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Improved rendering of strikethrough text"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Fixed mentions in DMs"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Vastly improved member list performance: 2.3x faster on massive servers (75K+ members), 17x faster on large ones (9K members), and over 50x faster on smaller ones (500 members)"/>
+                                </Paragraph>
+                                
+                                <Paragraph>
+                                    <Run Text="• DMs also now show real-time user status"/>
+                                </Paragraph>
+                            </RichTextBlock>
+                        </ScrollViewer>
+                        <HyperlinkButton x:Name="detailsBtn" Click="HyperlinkButton_Click" Foreground="{ThemeResource Blurple}" Content="+ Show more details" Style="{StaticResource PlainHyperlinkStyle}" Margin="0,0,0,12"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
