@@ -422,6 +422,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
+                    if (memberscvs != null) ;
                     memberscvs.Add(m);
                 });
         }
@@ -2817,15 +2818,18 @@ namespace Discord_UWP
                             LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
                         }
                     }
-
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
                     List<Managers.Member> tempMembers = new List<Managers.Member>();
                     try
                     {
-                        foreach (var member in LocalState.Guilds[App.CurrentGuildId].members)
+                        var keys = LocalState.Guilds[App.CurrentGuildId].members.Keys.ToArray();
+                        for (int i = 0; keys.Count() > i; i++)
                         {
-                            if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(member.Key))
+                            var member = LocalState.Guilds[App.CurrentGuildId].members[keys[i]];
+                            if (!e.IsLarge || LocalState.PresenceDict.ContainsKey(keys[i]))
                             {
-                                Member m = new Member(member.Value);
+                                Member m = new Member(member);
                                 if (m.Raw.Roles != null)
                                 {
                                     m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
@@ -2846,10 +2850,10 @@ namespace Discord_UWP
                                 {
                                     m.status = new Presence() { Status = "offline", Game = null };
                                 }
-                                if (member.Value.Nick != null)
-                                    m.DisplayName = member.Value.Nick;
+                                if (member.Nick != null)
+                                    m.DisplayName = member.Nick;
                                 else
-                                    m.DisplayName = member.Value.User.Username;
+                                    m.DisplayName = member.User.Username;
                                 // if (memberscvs(m.Raw.User.Id))
                                 //{
                                 //   memberscvs.Remove(m.Raw.User.Id);
@@ -2862,13 +2866,13 @@ namespace Discord_UWP
                         {
                             MembersCvs.Source = memberscvs;
                         });
-                        
                     }
                     catch (Exception er)
                     {
                         Console.WriteLine(er.HResult + ": " + er.Message);
                     }
-
+                    sw.Stop();
+                    Debug.WriteLine("Itterating over all members took " + sw.ElapsedMilliseconds + "ms");
                     try
                     {
                        // var sortedMembers = memberscvs.I.OrderBy(m => (m)Raw.User.Username).GroupBy(m => ((Member)m.Value).MemberHoistRole).OrderByDescending(x => x.Key.Position);
