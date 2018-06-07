@@ -245,42 +245,48 @@ namespace Discord_UWP.Controls
         SpriteVisual _imageVisual;
         private void SetupComposition(Uri imageURL)
         {
-            Compositor _compositor;
-            
-            CompositionSurfaceBrush _imageBrush;
-
-            _compositor = Window.Current.Compositor;
-            _imageBrush = _compositor.CreateSurfaceBrush();
-            _imageBrush.Stretch = CompositionStretch.UniformToFill;
-
-
-            LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
-            _imageBrush.Surface = _loadedSurface;
-
-
-            var saturationEffect = new SaturationEffect
+            try
             {
-                Saturation = 0.0f,
-                Source = new CompositionEffectSourceParameter("image")
-            };
-            var effectFactory = _compositor.CreateEffectFactory(saturationEffect);
-            var effectBrush = effectFactory.CreateBrush();
-            effectBrush.SetSourceParameter("image", _imageBrush);
+                CompositionSurfaceBrush _imageBrush;
 
-            var blurEffect = new GaussianBlurEffect
+                Compositor _compositor = Window.Current.Compositor;
+
+                _imageBrush = _compositor.CreateSurfaceBrush();
+                _imageBrush.Stretch = CompositionStretch.UniformToFill;
+
+
+                LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+                _imageBrush.Surface = _loadedSurface;
+
+
+                var saturationEffect = new SaturationEffect
+                {
+                    Saturation = 0.0f,
+                    Source = new CompositionEffectSourceParameter("image")
+                };
+                var effectFactory = _compositor.CreateEffectFactory(saturationEffect);
+                var effectBrush = effectFactory.CreateBrush();
+                effectBrush.SetSourceParameter("image", _imageBrush);
+
+                var blurEffect = new GaussianBlurEffect
+                {
+                    BlurAmount = 8,
+                    Source = new CompositionEffectSourceParameter("image")
+                };
+                var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
+                var effectBrush2 = effectFactory2.CreateBrush();
+                effectBrush2.SetSourceParameter("image", effectBrush);
+
+                _imageVisual = _compositor.CreateSpriteVisual();
+                _imageVisual.Brush = effectBrush;
+                _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
+
+                ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
+            }
+            catch
             {
-                BlurAmount = 8,
-                Source = new CompositionEffectSourceParameter("image")
-            };
-            var effectFactory2 = _compositor.CreateEffectFactory(blurEffect);
-            var effectBrush2 = effectFactory2.CreateBrush();
-            effectBrush2.SetSourceParameter("image", effectBrush);
-
-            _imageVisual = _compositor.CreateSpriteVisual();
-            _imageVisual.Brush = effectBrush2;
-            _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
-            
-            ElementCompositionPreview.SetElementChildVisual(AvatarContainer, _imageVisual);
+                //Fuck this shit
+            }
         }
 
         public UserDetailsControl()

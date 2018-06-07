@@ -63,8 +63,6 @@ namespace Discord_UWP
         }
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
-        BackgroundAccessStatus bgAccess;
-        static ApplicationTrigger bgTrigger = null;
         string setupArgs = "";
 
         public async void Setup(object o, EventArgs args)
