@@ -79,7 +79,7 @@ namespace Discord_UWP.Managers
         public SharedModels.Presence status
         {
             get { return _status; }
-            set { if (_status.Equals(value)) return; _status = value; OnPropertyChanged("status"); }
+            set { if (_status == value) return; _status = value; OnPropertyChanged("status"); }
         }
 
         public SharedModels.VoiceState _voicestate;

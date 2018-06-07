@@ -220,7 +220,7 @@ namespace Discord_UWP.Managers
             public Presence UserStatus
             {
                 get { return _userstatus; }
-                set { if (_userstatus.Equals(value)) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
+                set { if (_userstatus == value) return; _userstatus = value; OnPropertyChanged("UserStatus"); }
             }
 
             private string _subtitle;
