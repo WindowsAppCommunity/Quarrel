@@ -107,7 +107,7 @@ namespace Discord_UWP
         public static event EventHandler<MenuArgs> MenuHandler;
         public static async void ShowMenuFlyout(object sender, FlyoutManager.Type type, string Id, string parentId, Point point)
         {
-            MenuHandler?.Invoke(sender, new MenuArgs() {Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point});
+            MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point });
         }
 
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
@@ -245,7 +245,7 @@ namespace Discord_UWP
         public static event EventHandler<string> NavigateToJoinServerHandler;
         public static void NavigateToJoinServer(string code = null)
         {
-            if(App.FullyLoaded)
+            if (App.FullyLoaded)
                 NavigateToJoinServerHandler?.Invoke(typeof(App), code);
             else
             {
@@ -432,7 +432,7 @@ namespace Discord_UWP
         public static event EventHandler<MessageCreatedArgs> MessageCreatedHandler;
         public static void MessageCreated(SharedModels.Message message)
         {
-            MessageCreatedHandler?.Invoke(typeof(App), new MessageCreatedArgs() { Message = message});
+            MessageCreatedHandler?.Invoke(typeof(App), new MessageCreatedArgs() { Message = message });
         }
 
         public class MessageDeletedArgs
@@ -460,12 +460,12 @@ namespace Discord_UWP
 
         public class DMCreatedArgs
         {
-           public SharedModels.DirectMessageChannel DMChannel;
+            public SharedModels.DirectMessageChannel DMChannel;
         }
         public static event EventHandler<DMCreatedArgs> DMCreatedHandler;
         public static void DMCreated(SharedModels.DirectMessageChannel DM)
         {
-            DMCreatedHandler?.Invoke(typeof(App), new DMCreatedArgs() { DMChannel = DM});
+            DMCreatedHandler?.Invoke(typeof(App), new DMCreatedArgs() { DMChannel = DM });
         }
 
         public class DMDeletedArgs
@@ -486,7 +486,7 @@ namespace Discord_UWP
         public static event EventHandler<DMUpdatePosArgs> DMUpdatePosHandler;
         public static void DMUpdate(string id, string lmId)
         {
-            DMUpdatePosHandler?.Invoke(typeof(App), new DMUpdatePosArgs() { Id = id, LastMsgId = lmId});
+            DMUpdatePosHandler?.Invoke(typeof(App), new DMUpdatePosArgs() { Id = id, LastMsgId = lmId });
         }
 
         #endregion
@@ -601,7 +601,7 @@ namespace Discord_UWP
         public static event EventHandler FlashMentionHandler;
         public static void FlashMention()
         {
-            FlashMentionHandler?.Invoke(null,null);
+            FlashMentionHandler?.Invoke(null, null);
         }
 
         #endregion
@@ -613,7 +613,7 @@ namespace Discord_UWP
         public static event EventHandler<StartTypingArgs> StartTypingHandler;
         public static void StartTyping(string channelId)
         {
-            StartTypingHandler?.Invoke(typeof(App), new StartTypingArgs() { ChannelId = channelId});
+            StartTypingHandler?.Invoke(typeof(App), new StartTypingArgs() { ChannelId = channelId });
         }
 
         public class UpdatePresenceArgs
@@ -643,7 +643,7 @@ namespace Discord_UWP
         public static event EventHandler<VoiceConnectArgs> VoiceConnectHandler;
         public static void ConnectToVoice(string channelId, string guildId, string ChannelName, string GuildName)
         {
-            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName, GuildName=GuildName});
+            VoiceConnectHandler?.Invoke(typeof(App), new VoiceConnectArgs() { ChannelId = channelId, GuildId = guildId, ChannelName = ChannelName, GuildName = GuildName });
         }
 
         public static event EventHandler UpdateVoiceStateHandler;
@@ -652,7 +652,7 @@ namespace Discord_UWP
             LocalModels.LocalState.VoiceState.SelfMute = muted;
             UpdateVoiceState();
         }
-        
+
         public static void UpdateLocalDeaf(bool deaf)
         {
             LocalModels.LocalState.VoiceState.SelfDeaf = deaf;
@@ -781,7 +781,7 @@ namespace Discord_UWP
             return null;
         }
         #endregion
-        
+
         #region Other
 
         #region Attachment
@@ -1007,8 +1007,20 @@ namespace Discord_UWP
             }
         }
 
-        #endregion
-        #endregion
+        public static bool isDebug
+        {
+            get
+            {
+                #if DEBUG
+                return true;
+                #endif
+                return false;
+            }
+        }
+
+#endregion
+
+#endregion
 
         private static void ResetSettings()
         {
@@ -1247,7 +1259,7 @@ namespace Discord_UWP
             string launchArgs = "";
             switch (args.Kind)
             {
-                #region Protocol
+#region Protocol
                 case ActivationKind.Protocol:
 
                     ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
@@ -1284,14 +1296,14 @@ namespace Discord_UWP
                         }
                     };
                     break;
-                #endregion
+#endregion
 
                    
-                #region ShartTarget
+#region ShartTarget
                 case ActivationKind.ShareTarget:
                     
                     break;
-                    #endregion
+#endregion
             }
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
                 LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, launchArgs);
