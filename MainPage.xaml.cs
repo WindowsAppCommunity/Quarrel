@@ -2168,7 +2168,9 @@ namespace Discord_UWP
                                 gclone.IsMuted = false;
                             }
                             //TODO replace with a for() loop
-                            foreach (var chn in LocalState.Guilds[gclone.Id].channels.Values)
+                            for (int i = 0; i < LocalState.Guilds[gclone.Id].channels.Count; i++)
+                            {
+                                var chn = LocalState.Guilds[gclone.Id].channels.ElementAt(i).Value; //TODO use stopwatch to see if this shit can be optimized
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
@@ -2187,6 +2189,7 @@ namespace Discord_UWP
                                     ) //if channel is unread and not muted
                                         gclone.IsUnread = true;
                                 }
+                            }
                         }
 
                         guild.Id = gclone.Id;

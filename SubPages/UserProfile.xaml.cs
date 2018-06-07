@@ -70,21 +70,16 @@ namespace Discord_UWP.SubPages
 
             ConnectedAnimation imageAnimation =
         ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
-            ConnectedAnimation animation2 =
-            ConnectedAnimationService.GetForCurrentView().GetAnimation("richpresence");
             if (App.navImageCache != null)
             {
                 AvatarFull.ImageSource = App.navImageCache;
                 App.navImageCache = null;
                 navFromFlyout = true;
             }
+            
             if (imageAnimation != null)
             {
                 imageAnimation.TryStart(FullAvatar);
-            }
-            if(animation2 != null)
-            {
-                animation2.TryStart(richPresence);
             }
 
             //Windows.UI.Color? color = (await App.getUserColor((e.Parameter as User)));
@@ -101,8 +96,8 @@ namespace Discord_UWP.SubPages
                 {
                     profile = new SharedModels.UserProfile();
                     profile.user = (User)e.Parameter;
+                    grid.VerticalAlignment = VerticalAlignment.Center;
                 }
-
                 userid = profile.user.Id;
             }
             else if(e.Parameter is string)
@@ -137,13 +132,12 @@ namespace Discord_UWP.SubPages
                 rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
             }
 
-            if (userid == LocalState.CurrentUser.Id)
-            {
+            if (userid == LocalState.CurrentUser.Id) {
                 AccountSettings.Visibility = Visibility.Visible;
-            } else
-            {
+            } else {
                 AccountSettings.Visibility = Visibility.Collapsed;
             }
+
 
             if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
             {
@@ -173,12 +167,14 @@ namespace Discord_UWP.SubPages
                 SendMessageLink.Visibility = Visibility.Visible;
                 Block.Visibility = Visibility.Visible;
                 loadviaRest = false;
+                BotIndicator.Visibility = Visibility.Visible;
             }
             else
             {
                 sendFriendRequest.Visibility = Visibility.Visible;
                 SendMessageLink.Visibility = Visibility.Visible;
                 Block.Visibility = Visibility.Visible;
+                BotIndicator.Visibility = Visibility.Collapsed;
             }
 
 
@@ -283,7 +279,10 @@ namespace Discord_UWP.SubPages
                     break;
                 }
             }
-
+            if(profile.user.Id == "109338686889476096")
+            {
+                ViewStats.Visibility = Visibility.Visible;
+            }
             if (profile.PremiumSince.HasValue)
             {
                 var img = new Image()
@@ -312,14 +311,6 @@ namespace Discord_UWP.SubPages
             } else
             {
                 AvatarBG.Fill = Common.DiscriminatorColor(profile.user.Discriminator);
-            }
-
-            if (profile.user.Bot)
-            {
-                //CommonSrvspivot.Visibility = Visibility.Collapsed;
-                //CommonFrdspivot.Visibility = Visibility.Collapsed;
-                //pivotHeaders.Visibility = Visibility.Collapsed;
-                BotIndicator.Visibility = Visibility.Visible;
             }
 
 
@@ -363,7 +354,7 @@ namespace Discord_UWP.SubPages
                             break;
                         }
                 }
-                if (LocalState.PresenceDict[profile.user.Id].Game.Value.ApplicationId == "438122941302046720")
+                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue && LocalState.PresenceDict[profile.user.Id].Game.Value.ApplicationId == "438122941302046720")
                 {
                     //xbox
                     color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
@@ -507,7 +498,7 @@ namespace Discord_UWP.SubPages
                 _imageVisual.Brush = effectBrush2;
                 _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
 
-                var avatarvisual = ElementCompositionPreview.GetElementVisual(FullAvatar);
+                
                 if (ParallaxScroll != null)
                 {
                     CompositionPropertySet scrollerViewerManipulation = ElementCompositionPreview.GetScrollViewerManipulationPropertySet(ParallaxScroll);
@@ -515,9 +506,17 @@ namespace Discord_UWP.SubPages
                     expression.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
                     _imageVisual.StartAnimation("Offset.Y", expression);
 
-                    ExpressionAnimation expression2 = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.12");
+                    var avatarvisual = ElementCompositionPreview.GetElementVisual(FullAvatar);
+
+                    ExpressionAnimation expression2 = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.14");
                     expression2.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
                     avatarvisual.StartAnimation("Offset.Y", expression2);
+
+                    var usernameVisual = ElementCompositionPreview.GetElementVisual(usernamestacker);
+                    ElementCompositionPreview.SetIsTranslationEnabled(usernamestacker, true);
+                    ExpressionAnimation expression3 = _compositor.CreateExpressionAnimation("ScrollManipulation.Translation.Y * 0.06");
+                    expression3.SetReferenceParameter("ScrollManipulation", scrollerViewerManipulation);
+                    usernameVisual.StartAnimation("Translation.Y", expression3);
                 }
 
                 BackgroundGrid.Clip = new RectangleGeometry() { Rect = new Rect(new Point(0, 0), new Point(AvatarContainer.ActualWidth, AvatarContainer.ActualHeight)) };
@@ -561,6 +560,12 @@ namespace Discord_UWP.SubPages
 
         private async void NoteBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            var userid = profile.user.Id;
+            var note = NoteBox.Text.Trim();
+            if (LocalState.Notes.ContainsKey(userid) && note == LocalState.Notes[userid].Trim())
+                return;
+            if (!LocalState.Notes.ContainsKey(userid) && string.IsNullOrEmpty(note))
+                return;
             await RESTCalls.AddNote(profile.user.Id, NoteBox.Text); //TODO: Rig to App.Events
         }
 
@@ -651,6 +656,16 @@ namespace Discord_UWP.SubPages
                 _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
                 BackgroundGrid.Clip = new RectangleGeometry() { Rect = new Rect(new Point(0, 0), new Point(AvatarContainer.ActualWidth, AvatarContainer.ActualHeight)) };
             }
+        }
+
+        private void AccountSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SubPages.UserProfileCU));
+        }
+
+        private async void ViewStats_Click(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.carbonitex.net/discord/server?s=" + App.CurrentGuildId));
         }
     }
 
