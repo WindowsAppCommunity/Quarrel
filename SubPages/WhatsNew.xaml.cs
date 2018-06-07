@@ -77,5 +77,21 @@ namespace Discord_UWP.SubPages
             JoinServer.IsHitTestVisible = true;
             JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServer");
         }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(detailsBtn.Content.ToString() == "+ Show more details")
+            {
+                detailsBtn.Content = "- Show less details";
+                notDetailed.Visibility = Visibility.Collapsed;
+                Detailed.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                detailsBtn.Content = "+ Show more details";
+                notDetailed.Visibility = Visibility.Visible;
+                Detailed.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }
