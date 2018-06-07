@@ -94,19 +94,22 @@ namespace Discord_UWP.SubPages
             bool loadviaRest = true;
             if (e.Parameter is User)
             {
-                profile = new SharedModels.UserProfile();
-                profile.user = (User)e.Parameter;
-                
+                if (!(e.Parameter as User).Bot)
+                {
+                    profile = await RESTCalls.GetUserProfile((e.Parameter as User).Id);
+                } else
+                {
+                    profile = new SharedModels.UserProfile();
+                    profile.user = (User)e.Parameter;
+                }
+
                 userid = profile.user.Id;
             }
             else if(e.Parameter is string)
             {
                 userid = (e.Parameter as string);
-             //   profile = new SharedModels.UserProfile();
-              //  profile.user = new User() { Id = id}
-                var otherprofile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
+                profile = await RESTCalls.GetUserProfile(e.Parameter as string); //TODO: Rig to App.Events (maybe, probably not actually)
                 loadviaRest = false;
-                profile = otherprofile;
             }
             else
             {
