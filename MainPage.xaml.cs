@@ -241,7 +241,6 @@ namespace Discord_UWP
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            
             if (SubFrame.Visibility == Visibility.Visible && App.shareop == null) //if the app was opened as a share target, disable back navigation
             {
                 App.SubpageClose();
@@ -265,8 +264,8 @@ namespace Discord_UWP
                         }
                     }
                 }
-                e.Handled = true;
             }
+            e.Handled = true;
         }
 
         bool DisableLoadingMessages;
