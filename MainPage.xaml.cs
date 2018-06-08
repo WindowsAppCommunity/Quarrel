@@ -1868,6 +1868,8 @@ namespace Discord_UWP
         public enum Position { Before, After };
         public async void AddMessages(Position position, bool scroll, List<MessageManager.MessageContainer> messages, bool showNewMessageIndicator)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             if (messages != null && messages.Count > 0)
@@ -1959,6 +1961,8 @@ namespace Discord_UWP
             {
                 ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
             }
+            sw.Stop();
+            Debug.WriteLine("Messages took " + sw.ElapsedMilliseconds + "to load");
         }
         
         public void RenderGroupMembers()

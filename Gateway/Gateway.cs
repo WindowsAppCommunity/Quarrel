@@ -182,15 +182,14 @@ namespace Discord_UWP.Gateway
         // TODO: good chance the socket will be disposed when attempting to resume so yah
         public async Task ResumeAsync()
         {
+           
             var token = _authenticator.GetToken();
-
             var resume = new GatewayResume
             {
                 Token = token,
                 SessionId = lastReady?.SessionId,
                 LastSequenceNumberReceived = lastGatewayEvent?.SequenceNumber.Value ?? 0
             };
-
             await _webMessageSocket.SendJsonObjectAsync(resume);
         }
 
