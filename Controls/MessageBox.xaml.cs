@@ -682,11 +682,6 @@ namespace Discord_UWP.Controls
             OpenAdvanced?.Invoke(null, null);
         }
 
-        private void SendEncryption_Click(object sender, RoutedEventArgs e)
-        {
-            App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeRequest());
-        }
-
         private void AboutEncryption_Click(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout(sender as MenuFlyoutItem);

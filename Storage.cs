@@ -42,12 +42,10 @@ namespace Discord_UWP
         }
         public static void UNSclear()
         {
-            return;
             nrs2 = new Dictionary<string, string>();
         }
         public static void UNSdeferralStart()
         {
-            return;
             deferralling = false;
             var ls = ApplicationData.Current.LocalSettings.Values;
             if (!ls.ContainsKey("NotificationStates"))
@@ -57,42 +55,10 @@ namespace Discord_UWP
         }
         public static void UNSdeferralEnd()
         {
-            return;
             deferralling = false;
             ApplicationData.Current.LocalSettings.Values["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
         }
-        public static void SaveEncryptionKeys()
-        {
-            Dictionary<string, string> SerializableEncryptionKeys = new Dictionary<string, string>();
-            foreach(var key in EncryptionKeys)
-            {
-                SerializableEncryptionKeys.Add(key.Key, Convert.ToBase64String(key.Value));
-            }
-            string keys = JsonConvert.SerializeObject(SerializableEncryptionKeys);
-            var eks = Storage.PasswordVault.RetrieveAll().Where(x => x.Resource == "encryptionKeys");
-            foreach (var ek in eks)
-                Storage.PasswordVault.Remove(ek);
-            PasswordVault.Add(new PasswordCredential("encryptionKeys", "encryptionKeys", keys));
-        }
-        public static void RetrieveEncryptionKeys()
-        {
-            var ek = Storage.PasswordVault.RetrieveAll().FirstOrDefault(x => x.Resource == "encryptionKeys");
-            if (ek != null)
-            {
-                ek.RetrievePassword();
-                var SerializedKeys = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(ek.Password);
-                foreach (var key in SerializedKeys)
-                {
-                    EncryptionKeys.Add(key.Key, Convert.FromBase64String(key.Value));
-                }
-            }
-        }
-        public static void ClearEncryptionKeys()
-        {
-            var ek = Storage.PasswordVault.RetrieveAll().FirstOrDefault(x => x.Resource == "encryptionKeys");
-            if(ek!=null)
-            Storage.PasswordVault.Remove(ek);
-        }
+
         public static event EventHandler SettingsChangedHandler;
 
         public static void SettingsChanged()

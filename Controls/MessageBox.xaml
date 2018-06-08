@@ -638,35 +638,6 @@
             </Grid>
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                    
-                    
-                    <!--<MenuFlyoutSubItem Text="E2E Encryption">
-                        <MenuFlyoutItem Click="SendEncryption_Click" Text="Send encryption request">
-                            <MenuFlyoutItem.Icon>
-                                <SymbolIcon Symbol="Send"/>
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <ToggleMenuFlyoutItem x:Name="EnableEncryption" Text="Enable encryption" Click="ToggleEncryption_Click">
-
-                        </ToggleMenuFlyoutItem>
-                        <MenuFlyoutItem Text="About" Click="AboutEncryption_Click">
-                            <MenuFlyoutItem.Icon>
-                                <SymbolIcon Symbol="Help"/>
-                            </MenuFlyoutItem.Icon>
-                            <FlyoutBase.AttachedFlyout>
-                                <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
-                                    <TextBlock TextWrapping="Wrap" FontSize="12" MaxWidth="224" Padding="12" Text="With Quarrel, it is possible to have end-to-end encrypted discussions that nobody but you and your friend are able to read, and only using Quarrel on this specific device.
-                                               \nFirst you must send a request, and, if your friend is also using Quarrel, they will have the option to accept it. 
-                                               Once they do, any discussion you have here will be end-to-end encrypted. This can be useful, for example, if you need to exchange sensitive information (such as passwords).
-                                               \nFor the technical side, we use a Diffie-Hellman key exchange to initially start the conversation, and after that each message is encrypted using ultra-secure 256-bit AES."/>
-                                </Flyout>
-                            </FlyoutBase.AttachedFlyout>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon Glyph=""/>
-                        </MenuFlyoutSubItem.Icon>
-                    </MenuFlyoutSubItem>
-                    <MenuFlyoutSeparator/>-->
                     <MenuFlyoutItem Text="Search giphy" Click="AddGiphy_Click">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="BrowsePhotos"/>
