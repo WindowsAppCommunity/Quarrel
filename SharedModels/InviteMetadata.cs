@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct InviteMetadata
+    public class InviteMetadata
     {
         [JsonProperty("inviter")]
         public User Inviter { get; set; }

@@ -36,8 +36,8 @@ namespace Discord_UWP.Voice
         private IDictionary<int, VoiceConnectionEventHandler> operationHandlers;
         private IDictionary<string, VoiceConnectionEventHandler> eventHandlers;
 
-        private Ready? lastReady;
-        private SocketFrame? lastEvent;
+        private Ready lastReady;
+        private SocketFrame lastEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly UDPSocket _udpSocket;
@@ -128,12 +128,12 @@ namespace Discord_UWP.Voice
         private async void SendSelectProtocol()
         {
             _udpSocket.MessageReceived += IpDiscover;
-            await _udpSocket.SendDiscovery(lastReady.Value.SSRC);
+            await _udpSocket.SendDiscovery(lastReady.SSRC);
         }
 
         public async void SendSilence()
         {
-            if (lastReady.HasValue)
+            if (lastReady != null)
             {
                 byte[] opus = new byte[31];
                 byte[] nonce = makeHeader();
@@ -160,7 +160,7 @@ namespace Discord_UWP.Voice
                 {
                     Speaking = speaking,
                     Delay = 0,
-                    SSRC = lastReady.HasValue ? lastReady.Value.SSRC : 0
+                    SSRC = lastReady != null ? lastReady.SSRC : 0
                 }
             };
             await _webMessageSocket.SendJsonObjectAsync(speakingPacket);
@@ -169,7 +169,7 @@ namespace Discord_UWP.Voice
         byte[] makeHeader()
         {
             byte[] header = new byte[24];
-            if (lastReady.HasValue)
+            if (lastReady != null)
             {
                 header[0] = 0x80; //No extension
                 header[1] = 0x78;
@@ -192,7 +192,7 @@ namespace Discord_UWP.Voice
                 header[6] = time[2];
                 header[7] = time[3];
 
-                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.Value.SSRC));
+                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.SSRC));
                 header[8] = ssrc[0];
                 header[9] = ssrc[1];
                 header[10] = ssrc[2];
@@ -203,7 +203,7 @@ namespace Discord_UWP.Voice
 
         public async void SendVoiceData(float[] frame)
         {
-            if (lastReady.HasValue && frame.Length == 1920)
+            if (lastReady != null && frame.Length == 1920)
             {
                 int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
 

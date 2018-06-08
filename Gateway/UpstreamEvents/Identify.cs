@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.UpstreamEvents
 {
-    public struct Identify
+    public class Identify
     {
         [JsonProperty("token")]
         public string Token { get; set; }
@@ -19,7 +19,7 @@ namespace Discord_UWP.Gateway.UpstreamEvents
         public int LargeThreshold { get; set; }
     }
 
-    public struct Properties
+    public class Properties
     {
         [JsonProperty("$os")]
         public string OS { get; set; }

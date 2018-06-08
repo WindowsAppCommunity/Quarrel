@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct Resumed
+    public class Resumed
     {
         [JsonProperty("_trace")]
         public IEnumerable<string> Trace { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.User.Models
 {
-    public struct CreateDM
+    public class CreateDM
     {
         [JsonProperty("recipients")]
         public IEnumerable<string> Recipients { get; set; }

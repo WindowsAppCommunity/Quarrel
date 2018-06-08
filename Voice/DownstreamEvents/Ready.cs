@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct Ready
+    public class Ready
     {
         [JsonProperty("ssrc")]
         public uint SSRC { get; set; }

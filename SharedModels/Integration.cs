@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Integration
+    public class Integration
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -33,7 +33,7 @@ namespace Discord_UWP.SharedModels
         public DateTime SyncedAt { get; set; }
     }
 
-    public struct IntegrationAccount
+    public class IntegrationAccount
     {
         [JsonProperty("id")]
         public string Id { get; set; }

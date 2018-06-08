@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct ReadState
+    public class ReadState
     {
         [JsonProperty("last_pin_timestamp")]
         public string LastPinTimestamp { get; set; }

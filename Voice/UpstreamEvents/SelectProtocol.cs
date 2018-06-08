@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.UpstreamEvents
 {
-    public struct SelectProtocol
+    public class SelectProtocol
     {
         [JsonProperty("protocol")]
         public string Protocol { get; set; }
@@ -15,7 +15,7 @@ namespace Discord_UWP.Voice.UpstreamEvents
         public UdpProtocolInfo Data { get; set; }
     }
 
-    public struct Codec
+    public class Codec
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace Discord_UWP.Voice.UpstreamEvents
         public string Type { get; set; }
     }
 
-    public struct UdpProtocolInfo
+    public class UdpProtocolInfo
     {
         [JsonProperty("address")]
         public string Address { get; set; }

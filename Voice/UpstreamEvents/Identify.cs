@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.UpstreamEvents
 {
-    public struct Identify
+    public class Identify
     {
         [JsonProperty("server_id")]
         public string GuildId { get; set; }

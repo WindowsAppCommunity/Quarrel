@@ -18,6 +18,6 @@ namespace Discord_UWP.Gateway.UpstreamEvents
         [JsonProperty("afk")]
         public bool IsAFK { get; set; }
         [JsonProperty("game")]
-        public Game? Game { get; set; }
+        public Game Game { get; set; }
     }
 }

@@ -168,7 +168,7 @@ namespace Discord_UWP.SubPages
                     {
                         for (int x = 0; x < BanView.Items.Count; x++)
                         {
-                            if ((BanView.Items[x] as Ban?).Value.User.Id == e.EventData.User.Id)
+                            if ((BanView.Items[x] as Ban).User.Id == e.EventData.User.Id)
                             {
                                 BanView.Items.RemoveAt(x);
                             }

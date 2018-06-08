@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.UpstreamEvents
 {
-    public struct GatewayResume
+    public class GatewayResume
     {
         [JsonProperty("token")]
         public string Token { get; set; }

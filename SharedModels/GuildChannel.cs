@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct GuildChannel
+    public class GuildChannel
     {
         [JsonProperty("id")]
         public string Id { get; set; }

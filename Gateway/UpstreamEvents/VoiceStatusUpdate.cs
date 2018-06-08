@@ -9,7 +9,7 @@ using Discord_UWP.SharedModels;
 namespace Discord_UWP.Gateway.UpstreamEvents
 {
 
-    public struct VoiceStatusUpdate
+    public class VoiceStatusUpdate
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }

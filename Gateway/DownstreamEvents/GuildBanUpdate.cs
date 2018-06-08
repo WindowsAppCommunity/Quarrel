@@ -8,7 +8,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct GuildBanUpdate
+    public class GuildBanUpdate
     {
         [JsonProperty("user")]
         public User User { get; set; }

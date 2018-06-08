@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Login.Models
 {
-    public struct LoginResult
+    public class LoginResult
     {
         [JsonProperty("token")]
         public string Token { get; set; }

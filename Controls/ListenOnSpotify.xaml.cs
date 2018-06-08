@@ -29,12 +29,12 @@ namespace Discord_UWP.Controls
         public void Setup(string user_id, string party_id)
         {
             userid = user_id;
-            if (LocalState.PresenceDict.ContainsKey(user_id) && LocalState.PresenceDict[user_id].Game.HasValue)
+            if (LocalState.PresenceDict.ContainsKey(user_id) && LocalState.PresenceDict[user_id].Game != null)
             {
-                var presence = LocalState.PresenceDict[user_id].Game.Value;
-                if (presence.Party.HasValue && presence.Party.Value.Id == party_id)
+                var presence = LocalState.PresenceDict[user_id].Game;
+                if (presence.Party != null && presence.Party.Id == party_id)
                 {
-                    UpdateUI(true, presence.State, presence.Details, GetSpotifyImageLink(presence.Assets.Value.LargeImage));
+                    UpdateUI(true, presence.State, presence.Details, GetSpotifyImageLink(presence.Assets.LargeImage));
                 }
                 else
                     UpdateUI(false);
@@ -51,8 +51,8 @@ namespace Discord_UWP.Controls
             {
                 if (e.EventData.User.Id == userid)
                 {
-                    if (e.EventData.Game.HasValue && e.EventData.Game.Value.Type == 3 && e.EventData.Game.Value.Party.HasValue && e.EventData.Game.Value.Party.Value.Id == partyid)
-                        UpdateUI(true, e.EventData.Game.Value.State, e.EventData.Game.Value.Details, GetSpotifyImageLink(e.EventData.Game.Value.Assets.Value.LargeImage));
+                    if (e.EventData.Game != null && e.EventData.Game.Type == 3 && e.EventData.Game.Party != null && e.EventData.Game.Party.Id == partyid)
+                        UpdateUI(true, e.EventData.Game.State, e.EventData.Game.Details, GetSpotifyImageLink(e.EventData.Game.Assets.LargeImage));
                     else
                         UpdateUI(false);
                 }

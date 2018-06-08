@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP
 {
-    public struct SocketFrame
+    public class SocketFrame
     {
         [JsonProperty("op")]
         public int? Operation { get; set; }
