@@ -255,71 +255,6 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
                         content.Text = "**"+Message.Value.User.Username + "**" + " joined the server!";
                     }
-
-                    
-                    else if (MessageType == MessageTypes.FailedEncryption)
-                    {
-                        if (rootGrid.Children.Contains(reactionView))
-                            rootGrid.Children.Remove(reactionView);
-                        VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.FontSize = 18;
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
-                        content.Text = "There was an error while decrypting this message";
-                    }
-                    else if (MessageType == MessageTypes.StartEncryption)
-                    {
-                        if (rootGrid.Children.Contains(reactionView))
-                            rootGrid.Children.Remove(reactionView);
-                        VisualStateManager.GoToState(this, "Alternative2", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["idle"];
-                        content.Text = "**" + Message.Value.User.Username + "** " + " wants this conversation to be encrypted";
-                        var acceptButton = new HyperlinkButton()
-                        {
-                            Content = "Accept",
-                            Foreground = (SolidColorBrush)App.Current.Resources["idle"],
-                            Style = (Style)App.Current.Resources["PlainHyperlinkStyle"],
-                        };
-                        acceptButton.Click += AcceptButton_Click;
-                        moreButton.Click += MoreButton_Click;
-                        var moreinfoButton = new HyperlinkButton()
-                        {
-                            Content = "More info",
-                            Foreground = (SolidColorBrush)App.Current.Resources["Greyple"],
-                            Style = (Style)App.Current.Resources["PlainHyperlinkStyle"],
-                            Margin = new Thickness(6, 0, 0, 0)
-                        };
-                        EmbedViewer.Children.Add(new StackPanel()
-                        {
-                            Orientation = Orientation.Horizontal,
-                            Margin = new Thickness(44, 0, 0, 0),
-                            Children = { acceptButton, moreinfoButton }
-                        });
-                        EmbedViewer.Visibility = Visibility.Visible;
-                    }
-                    else if (MessageType == MessageTypes.AcceptEncryption)
-                    {
-                        if (rootGrid.Children.Contains(reactionView))
-                            rootGrid.Children.Remove(reactionView);
-                        VisualStateManager.GoToState(this, "Alternative2", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
-                        content.Text = "*This conversation is now end-to-end encrypted*";
-                    }
-                    else if (MessageType == MessageTypes.EncryptedMessage)
-                    {
-                        encrypted.Visibility = Visibility.Visible;
-                        content.Text = EncryptionManager.DecryptMessage(content.Text);
-                        if (IsContinuation)
-                            VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
-                        else
-                            VisualStateManager.GoToState(((MessageControl)d), "VisualState", false);
-                    }
-                    else if(MessageType == MessageTypes.ChannelIconChanged)
-                    {
-
-                    }
                     else if (MessageType == MessageTypes.Default)
                     {
                         encrypted.Visibility = Visibility.Collapsed;
@@ -382,14 +317,6 @@ namespace Discord_UWP.Controls
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private void AcceptButton_Click(object sender, RoutedEventArgs e)
-        {
-            var content = Message.Value.Content;
-            content = content.Remove(0, 31);
-            content = content.Remove(content.Length - 2);
-            App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeResponse(content));
         }
 
         public MessageControl()

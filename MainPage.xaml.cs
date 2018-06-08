@@ -73,12 +73,6 @@ namespace Discord_UWP
                    {
                        //Reset everything, for when accounts are being switched
                        ServerList.Items.Clear();
-
-                       if (!App.e2e)
-                       {
-                           encryptionToggle.Visibility = Visibility.Collapsed;
-                           encryptSend.Visibility = Visibility.Collapsed;
-                       }
                        //Setup UI
                        MediumTrigger.MinWindowWidth = Storage.Settings.RespUiM;
                        LargeTrigger.MinWindowWidth = Storage.Settings.RespUiL;
@@ -585,24 +579,27 @@ namespace Discord_UWP
         }
 
         string autoselectchannel = "";
+        string autoselectchannelcontent = null;
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
             string guildid = e.GuildId;
             string channelid = e.ChannelId;
+            autoselectchannelcontent = e.MessageContent;
             if (guildid == "friendrequests")
             {
                 friendPanel.NavigateToFriendRequests();
             }
             else
             {
-                
                 foreach (GuildManager.SimpleGuild g in ServerList.Items)
                 {
                     if (g.Id == guildid)
                     {
-                        ServerSelectionWasClicked = true; //It wasn't actually, hehe. Let me teach you a lesson in trickery, this is going down in history...
-                        ServerList.SelectedItem = g;
+                        autoselectchannelcontent = e.MessageContent;
                         autoselectchannel = channelid;
+                        ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
+                        ServerList.SelectedItem = g;
+                       
                     }   
                 }
             }
@@ -1025,24 +1022,10 @@ namespace Discord_UWP
             UpdateTyping();
             LoadDraft();
         }
-        private async void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
+        private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
+            autoselectchannelcontent = null;
             SaveDraft();
-
-            if (e.UserId != null)
-            {
-                var channel = await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() });
-                if (!LocalState.DMs.ContainsKey(channel.Id))
-                {
-                    LocalState.DMs.Add(channel.Id, channel);
-                }
-                e.ChannelId = channel.Id;
-            }
-
-            if (App.e2e)
-            {
-                EncryptionManager.UpdateKey(e.ChannelId);
-            }
 
             if (!e.OnBack)
             {
@@ -1052,7 +1035,10 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
             {
                 App.CurrentChannelId = e.ChannelId;
-                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                else
+                    App.LastReadMsgId = null;
             }
             else
             {
@@ -1060,7 +1046,10 @@ namespace Discord_UWP
                 App.CurrentChannelId = e.ChannelId;
                 App.CurrentGuildIsDM = true;
                 App.CurrentGuildId = null;
-                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                else
+                    App.LastReadMsgId = null;
                 RenderDMChannels();
             }
 
@@ -2790,7 +2779,7 @@ namespace Discord_UWP
                      {
                          var chn = ChannelManager.MakeChannel(LocalState.Guilds[App.CurrentGuildId].channels[e.Channel.Id]);
                          if (chn != null)
-                             ChannelList.Items.Insert(findLocation(chn), chn);
+                             ChannelList.Items.Insert(0, chn);
                      }
                  });
         }
@@ -3042,11 +3031,7 @@ namespace Discord_UWP
                     m.Raw.Roles = m.Raw.Roles.TakeWhile(x => LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position);
 
                     //Set it to first Hoist Role or everyone if null
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                    () =>
-                    {
-                        m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
-                    });
+                    m.MemberHoistRole = MemberManager.GetRole(m.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
 
                     if (LocalState.PresenceDict.ContainsKey(m.Raw.User.Id))
                     {
@@ -3211,7 +3196,10 @@ namespace Discord_UWP
                                 if (App.CurrentGuildIsDM)
                                 {
                                     var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
-                                    App.NavigateToDMChannel(cid);
+                                    if (!string.IsNullOrEmpty(autoselectchannelcontent))
+                                        App.NavigateToDMChannel(cid, autoselectchannelcontent);
+                                    else
+                                        App.NavigateToDMChannel(cid);
                                     Task.Run(() =>
                                     {
                                         UserActivityManager.SwitchSession(cid);
@@ -3428,14 +3416,6 @@ namespace Discord_UWP
             //ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (App.CurrentGuildIsDM)
-            {
-                App.CreateMessage(App.CurrentChannelId, EncryptionManager.GetHandshakeRequest());
-            }
-        }
-
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
         {
             //Delete account
@@ -3573,7 +3553,8 @@ namespace Discord_UWP
         private bool IsParentFrame(DependencyObject child)
         {
             //recursion recursion recursion recursion recursion recursion to figure out if one of the DependencyObject's parents is the SubFrame
-            if (child == null) return true;
+            if (child == null || child.GetType() != typeof(Control)) return true;
+            
             var childc = ((Control)child);
             if (childc.BaseUri == null) return true;
             if (childc.BaseUri.ToString().EndsWith("MainPage.xaml"))
