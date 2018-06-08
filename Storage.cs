@@ -28,7 +28,6 @@ namespace Discord_UWP
         private static bool deferralling = false; //"Deferalling", I'm basically shakespeare, right?
         public static void UpdateNotificationState(string id, string timestamp)
         {
-            return;
             if (!deferralling)
                 UNSdeferralStart();
             

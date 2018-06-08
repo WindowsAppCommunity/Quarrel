@@ -599,7 +599,6 @@ namespace Discord_UWP
                         autoselectchannel = channelid;
                         ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
                         ServerList.SelectedItem = g;
-                       
                     }   
                 }
             }
