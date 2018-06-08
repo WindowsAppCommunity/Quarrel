@@ -178,7 +178,7 @@
                         </StackPanel>
                         
                         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">
-                            <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel 8.0.0"/>
+                            <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
                             <TextBlock x:Name="buildNumber" Visibility="Collapsed" Text="Build 0000" FontSize="13.333" Margin="0,4,0,0"/>
                             <TextBlock x:Name="buildId" Visibility="Collapsed" Opacity="0.5" FontSize="12" Margin="0" Text="Commit ##### from ######" />
                             <TextBlock x:Name="token" Visibility="Collapsed" Text="test" FontSize="9" IsTextSelectionEnabled="True" Opacity="0.5" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0,12,0,0" />
