@@ -257,7 +257,6 @@ namespace Discord_UWP.Controls
                     }
                     else if (MessageType == MessageTypes.Default)
                     {
-                        encrypted.Visibility = Visibility.Collapsed;
                         if (IsContinuation)
                             VisualStateManager.GoToState(((MessageControl)d), "Continuation", false);
                         else
