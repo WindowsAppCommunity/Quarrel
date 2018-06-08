@@ -211,7 +211,7 @@ namespace Discord_UWP.Voice
                 byte[] nonce = makeHeader();
                 Buffer.BlockCopy(nonce, 0, opus, 0, 12);
                 Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
-                Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
+                //Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
                 await _udpSocket.SendBytesAsync(opus);
             }
         }
