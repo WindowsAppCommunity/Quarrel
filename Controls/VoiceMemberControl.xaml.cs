@@ -174,7 +174,7 @@ namespace Discord_UWP.Controls
         public VoiceState VoiceState
         {
             get { return voiceState; }
-            set { if (voiceState.Equals(value)) return; voiceState = value; OnPropertyChanged("VoiceState"); }
+            set { if (voiceState != null && voiceState.Equals(value)) return; voiceState = value; OnPropertyChanged("VoiceState"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
