@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="8.0.3.0" />
+  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="9.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="94fb1848-ed9e-44ba-86e3-f3c67a9900c6" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Quarrel (Unofficial Discord Client)</DisplayName>
+    <DisplayName>Quarrel</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
