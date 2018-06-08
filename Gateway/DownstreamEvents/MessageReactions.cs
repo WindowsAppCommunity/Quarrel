@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct MessageReactionUpdate
+    public class MessageReactionUpdate
     {
         [JsonProperty("user_id")]
         public string UserId { get; set; }
@@ -20,7 +20,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         public Emoji Emoji { get; set; }
     }
 
-    public struct MessageReactionRemoveAll
+    public class MessageReactionRemoveAll
     {
         [JsonProperty("channel_id")]
         public string ChannelId { get; set; }

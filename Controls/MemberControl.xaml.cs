@@ -137,13 +137,13 @@ namespace Discord_UWP.Controls
                 {
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
-                    game.Text = Status.Game.Value.Name;
+                    game.Text = Status.Game.Name;
                     UpdateColor();
-                    if (Status.Game.Value.State != null || Status.Game.Value.Details != null || Status.Game.Value.SessionId != null)
+                    if (Status.Game.State != null || Status.Game.Details != null || Status.Game.SessionId != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
-                        switch (Status.Game.Value.Type)
+                        switch (Status.Game.Type)
                         {
                             case 0:
                                 playing.Text = "Playing"; break;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Login.Models
 {
-    public struct LoginRequest
+    public class LoginRequest
     {
         [JsonProperty("email")]
         public string Email { get; set; }
@@ -16,7 +16,7 @@ namespace Discord_UWP.API.Login.Models
         [JsonProperty("captcha_key")]
         public string[] CaptchaKey { get; set; }
     }
-    public struct LoginMFARequest
+    public class LoginMFARequest
     {
         [JsonProperty("code")]
         public string Code { get; set; }

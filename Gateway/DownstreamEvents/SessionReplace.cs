@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct SessionReplace
+    public class SessionReplace
     {
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -18,7 +18,7 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         [JsonProperty("client_info")]
         public ClientInfo clientInfo { get; set; }
 
-        public struct ClientInfo
+        public class ClientInfo
         {
             [JsonProperty("version")]
             public int Version { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Reactions
+    public class Reactions
     {
         [JsonProperty("count")]
         public int Count { get; set; }

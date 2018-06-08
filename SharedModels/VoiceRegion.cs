@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct VoiceRegion
+    public class VoiceRegion
     {
         [JsonProperty("id")]
         public string Id { get; set; }

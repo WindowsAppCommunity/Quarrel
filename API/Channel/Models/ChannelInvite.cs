@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct ChannelInvite
+    public class ChannelInvite
     {
         [JsonProperty("max_age")]
         public int MaxAge { get; set; }

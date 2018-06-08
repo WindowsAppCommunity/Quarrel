@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct GuildEmbed
+    public class GuildEmbed
     {
         [JsonProperty("enabled")]
         public bool Enabled { get; set; }

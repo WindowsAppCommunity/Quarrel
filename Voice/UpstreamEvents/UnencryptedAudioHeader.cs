@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct UnencryptedAudioHeader
+    public class UnencryptedAudioHeader
     {
         public UnencryptedAudioHeader(byte[] input)
         {

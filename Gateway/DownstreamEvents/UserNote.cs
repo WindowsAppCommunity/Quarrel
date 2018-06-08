@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct UserNote
+    public class UserNote
     {
         [JsonProperty("id")]
         public string UserId { get; set; }

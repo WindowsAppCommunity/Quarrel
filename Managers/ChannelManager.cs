@@ -99,14 +99,14 @@ namespace Discord_UWP.Managers
                     {
                         sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
                         sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
-                        if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.HasValue)
+                        if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
                         {
                             sc.Playing = new Game()
                             {
                                 Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
-                                .Value.Name,
-                                Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Type,
-                                Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Url
+                                .Name,
+                                Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
+                                Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
                             };
                         }
                     }
@@ -230,11 +230,11 @@ namespace Discord_UWP.Managers
                 set { if (_subtitle == value) return; _subtitle = value; OnPropertyChanged("Subtitle"); }
             }
 
-            private Game? _playing;
-            public Game? Playing
+            private Game _playing;
+            public Game Playing
             {
                 get { return _playing; }
-                set { if (_playing.HasValue && value.HasValue && _playing.Value.Name == value.Value.Name) return; _playing = value; OnPropertyChanged("Playing"); }
+                set { if (_playing != null && value != null && _playing.Name == value.Name) return; _playing = value; OnPropertyChanged("Playing"); }
             }
 
             private string _imageurl;
@@ -432,14 +432,14 @@ namespace Discord_UWP.Managers
                         {
                             sc.UserStatus = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id];
                             sc.Playing = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game;
-                            if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.HasValue)
+                            if (LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game != null)
                             {
                                 sc.Playing = new Game()
                                 {
                                     Name = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game
-                                    .Value.Name,
-                                    Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Type,
-                                    Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Value.Url
+                                    .Name,
+                                    Type = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Type,
+                                    Url = LocalState.PresenceDict[channel.Users.FirstOrDefault().Id].Game.Url
                                 };
                             }
                         }

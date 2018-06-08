@@ -14,7 +14,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("roles")]
         public IEnumerable<string> Roles { get; set;}
         [JsonProperty("game")]
-        public Game? Game { get; set; }
+        public Game Game { get; set; }
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
         [JsonProperty("status")]

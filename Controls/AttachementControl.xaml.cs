@@ -22,14 +22,14 @@ namespace Discord_UWP.Controls
     public sealed partial class AttachementControl : UserControl
     {
 
-        public SharedModels.Attachment? DisplayedAttachement
+        public SharedModels.Attachment DisplayedAttachement
         {
-            get { return (SharedModels.Attachment?)GetValue(AttachementProperty); }
+            get { return (SharedModels.Attachment)GetValue(AttachementProperty); }
             set { SetValue(AttachementProperty, value); }
         }
         public static readonly DependencyProperty AttachementProperty = DependencyProperty.Register(
             nameof(DisplayedAttachement),
-            typeof(SharedModels.Attachment?),
+            typeof(SharedModels.Attachment),
             typeof(AttachementControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -63,7 +63,7 @@ namespace Discord_UWP.Controls
 
         private void AttachedImageViewer_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            App.OpenAttachement(DisplayedAttachement.Value);
+            App.OpenAttachement(DisplayedAttachement);
         }
 
         private void LoadAttachement(bool images)
@@ -78,23 +78,23 @@ namespace Discord_UWP.Controls
             ClearButton.Visibility = Visibility.Collapsed;
             if (IsFake) ClearButton.Visibility = Visibility.Visible;
 
-            if (!DisplayedAttachement.HasValue) return;
+            if (DisplayedAttachement == null) return;
 
             bool IsImage = false;
             if (images)
             {
                 foreach (string ext in ImageFiletypes)
-                    if (DisplayedAttachement.Value.Filename.ToLower().EndsWith(ext))
+                    if (DisplayedAttachement.Filename.ToLower().EndsWith(ext))
                     {
                         IsImage = true;
-                        if (DisplayedAttachement.Value.Filename.EndsWith(".svg"))
+                        if (DisplayedAttachement.Filename.EndsWith(".svg"))
                         {
-                            AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Value.Url));
+                            AttachedImageViewer.Source = new SvgImageSource(new Uri(DisplayedAttachement.Url));
                         }
 
                         else
                         {
-                            AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Value.Url));
+                            AttachedImageViewer.Source = new BitmapImage(new Uri(DisplayedAttachement.Url));
                         }
                         break;
                     }
@@ -110,9 +110,9 @@ namespace Discord_UWP.Controls
             else
             {
                 if(!IsFake)
-                    FileName.NavigateUri = new Uri(DisplayedAttachement.Value.Url);
-                FileName.Content = DisplayedAttachement.Value.Filename;
-                FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Value.Size);
+                    FileName.NavigateUri = new Uri(DisplayedAttachement.Url);
+                FileName.Content = DisplayedAttachement.Filename;
+                FileSize.Text = Common.HumanizeFileSize(DisplayedAttachement.Size);
                 AttachedFileViewer.Visibility = Visibility.Visible;
             }
         }
@@ -149,7 +149,7 @@ namespace Discord_UWP.Controls
         {
             if (IsFake)
             {
-                await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Value.Url.Replace('\\','/'))));
+                await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Url.Replace('\\','/'))));
             }
         }
     }

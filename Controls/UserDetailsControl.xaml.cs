@@ -184,13 +184,13 @@ namespace Discord_UWP.Controls
                 
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
-                    if(LocalState.PresenceDict[DisplayedMember.User.Id].Game.HasValue)
+                    if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
                     {
                        // PlayingHeader.Visibility = Visibility.Visible;
-                        richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value;
+                        richPresence.GameContent = LocalState.PresenceDict[DisplayedMember.User.Id].Game;
                         richPresence.Visibility = Visibility.Visible;
                         SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                        switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.Type)
+                        switch (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Type)
                         {
                             case 1:
                                 {
@@ -205,7 +205,7 @@ namespace Discord_UWP.Controls
                                     break;
                                 }
                         }
-                        if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.Value.ApplicationId == "438122941302046720")
+                        if (LocalState.PresenceDict[DisplayedMember.User.Id].Game.ApplicationId == "438122941302046720")
                         {
                             //xbox
                             color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
@@ -316,10 +316,10 @@ namespace Discord_UWP.Controls
                 {
                     if (e.EventData.User.Id == DisplayedMember.User.Id)
                     {
-                        if (e.EventData.Game.HasValue)
+                        if (e.EventData.Game != null)
                         {
                            // PlayingHeader.Visibility = Visibility.Visible;
-                            var game = e.EventData.Game.Value;
+                            var game = e.EventData.Game;
                             richPresence.GameContent = game;
                             richPresence.Visibility = Visibility.Visible;
                         }

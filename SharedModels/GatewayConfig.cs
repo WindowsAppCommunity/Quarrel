@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct GatewayConfig
+    public class GatewayConfig
     {
         [JsonProperty("url")]
         public string BaseUrl { get; set; }

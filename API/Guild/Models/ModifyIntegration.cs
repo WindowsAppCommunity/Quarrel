@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct ModifyIntegration
+    public class ModifyIntegration
     {
         [JsonProperty("expire_behavior")]
         public int ExpireBehaviour { get; set; }

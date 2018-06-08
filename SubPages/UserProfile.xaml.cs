@@ -141,9 +141,9 @@ namespace Discord_UWP.SubPages
 
             if (LocalState.PresenceDict.ContainsKey(profile.user.Id))
             {
-                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue)
+                if (LocalState.PresenceDict[profile.user.Id].Game != null)
                 {
-                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game.Value;
+                    richPresence.GameContent = LocalState.PresenceDict[profile.user.Id].Game;
                 }
                 else
                     richPresence.Visibility = Visibility.Collapsed;
@@ -157,9 +157,9 @@ namespace Discord_UWP.SubPages
             discriminator.Text = "#" + profile.user.Discriminator;
             discriminator.Fade(0.4f, 800);
 
-            if (profile.Friend.HasValue)
+            if (profile.Friend != null)
             {
-                SwitchFriendValues(profile.Friend.Value.Type);
+                SwitchFriendValues(profile.Friend.Type);
             }
             else if (profile.user.Id == LocalState.CurrentUser.Id) { }
             else if (profile.user.Bot)
@@ -335,11 +335,11 @@ namespace Discord_UWP.SubPages
         }
         private void UpdateBorderColor()
         {
-            if (richPresence.GameContent.HasValue)
+            if (richPresence.GameContent != null)
             {
                 richPresence.Visibility = Visibility.Visible;
                 SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                switch (richPresence.GameContent.Value.Type)
+                switch (richPresence.GameContent.Type)
                 {
                     case 1:
                         {
@@ -354,7 +354,7 @@ namespace Discord_UWP.SubPages
                             break;
                         }
                 }
-                if (LocalState.PresenceDict[profile.user.Id].Game.HasValue && LocalState.PresenceDict[profile.user.Id].Game.Value.ApplicationId == "438122941302046720")
+                if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
                 {
                     //xbox
                     color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
@@ -371,9 +371,9 @@ namespace Discord_UWP.SubPages
                     {
                         if (e.EventData.User.Id == profile.user.Id)
                         {
-                            if (e.EventData.Game.HasValue)
+                            if (e.EventData.Game != null)
                             {
-                                var game = e.EventData.Game.Value;
+                                var game = e.EventData.Game;
                                 richPresence.GameContent = game;
                                 richPresence.Visibility = Visibility.Visible;
                             }

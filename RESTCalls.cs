@@ -674,7 +674,7 @@ namespace Discord_UWP
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                return await guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember() { Nick = nickname });
+                return await guildservice.ModifyCurrentUserNickname(guildId, new ModifyGuildMember(nickname));
             }
             catch /*(Exception exception)*/
             {
@@ -688,7 +688,7 @@ namespace Discord_UWP
             {
                 List<object> listArgs = (args as List<object>);
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                return await guildservice.ModifyCurrentUserNickname((string)listArgs[0], new ModifyGuildMember() { Nick = (string)listArgs[1] });
+                return await guildservice.ModifyCurrentUserNickname((string)listArgs[0], new ModifyGuildMember((string)listArgs[1]));
             }
             catch /*(Exception exception)*/
             {
@@ -715,7 +715,7 @@ namespace Discord_UWP
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                await guildservice.ModifyGuildMemberNickname(guildId, userId, new ModifyGuildMember() { Nick = nickname });
+                await guildservice.ModifyGuildMemberNickname(guildId, userId, new ModifyGuildMember(nickname));
             }
             catch /*(Exception exception)*/
             {
@@ -728,7 +728,7 @@ namespace Discord_UWP
             {
                 List<object> listArgs = (args as List<object>);
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                await guildservice.ModifyGuildMemberNickname((string)listArgs[0], (string)listArgs[1], new ModifyGuildMember() { Nick = (string)listArgs[2]});
+                await guildservice.ModifyGuildMemberNickname((string)listArgs[0], (string)listArgs[1], new ModifyGuildMember((string)listArgs[2]));
             }
             catch /*(Exception exception)*/
             {

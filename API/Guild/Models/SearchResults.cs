@@ -9,7 +9,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct SearchResults
+    public class SearchResults
     {
         [JsonProperty("total_results")]
         public int TotalResults { get; set; }

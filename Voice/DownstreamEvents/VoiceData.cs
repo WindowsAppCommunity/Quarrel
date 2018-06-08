@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct VoiceData
+    public class VoiceData
     {
         public float[] data { get; set; }
         public uint samples { get; set; }

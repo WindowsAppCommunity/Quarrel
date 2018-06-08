@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct SessionDescription
+    public class SessionDescription
     {
         [JsonProperty("secret_key")]
         public byte[] SecretKey { get; set; }

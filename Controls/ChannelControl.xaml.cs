@@ -87,14 +87,14 @@ namespace Discord_UWP.Controls
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
-        public Game? Playing
+        public Game Playing
         {
-            get { try { return (Game?)GetValue(PlayingProperty); } catch { return null; } }
+            get { try { return (Game)GetValue(PlayingProperty); } catch { return null; } }
             set { SetValue(PlayingProperty, value); }
         }
         public static readonly DependencyProperty PlayingProperty = DependencyProperty.Register(
             nameof(Playing),
-            typeof(Game?),
+            typeof(Game),
             typeof(ChannelControl),
             new PropertyMetadata("", OnPropertyChangedStatic));
 
@@ -268,12 +268,12 @@ namespace Discord_UWP.Controls
                 {
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
-                    game.Text = UserStatus.Game.Value.Name;
-                    if (UserStatus.Game.Value.State != null || UserStatus.Game.Value.Details != null || UserStatus.Game.Value.SessionId != null)
+                    game.Text = UserStatus.Game.Name;
+                    if (UserStatus.Game.State != null || UserStatus.Game.Details != null || UserStatus.Game.SessionId != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
-                        switch (UserStatus.Game.Value.Type)
+                        switch (UserStatus.Game.Type)
                         {
                             case -1:
                                 playing.Visibility = Visibility.Collapsed; break;
