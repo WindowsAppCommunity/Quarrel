@@ -1647,8 +1647,6 @@
                         <AppBarButton x:Name="MemberToggle" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
-                        <AppBarButton x:Name="encryptSend" Label="Encrypt conversation" Click="AppBarButton_Click"/>
-                        <AppBarToggleButton x:Name="encryptionToggle" Label="Conversation is encrypted"/>
                         <AppBarButton Label="About" Click="NavToAbout"/>
                         <AppBarButton Label="What's New?" Click="WhatsNewClick"/>
                         <AppBarButton Label="Remove Ads" Click="NavToIAPs"/>

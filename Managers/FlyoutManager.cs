@@ -130,9 +130,16 @@ namespace Discord_UWP.Managers
 
         #region Navigation
 
-        public static void MessageUser(object sender, RoutedEventArgs e)
+        public static async void MessageUser(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel((sender as MenuFlyoutItem).Tag.ToString(), null, false, false, true);
+            string channelid = null;
+            foreach (var dm in LocalState.DMs)
+                if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == (sender as MenuFlyoutItem).Tag.ToString())
+                    channelid = dm.Value.Id;
+            if(channelid == null)
+                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+            if (string.IsNullOrEmpty(channelid)) return;
+            App.SelectGuildChannel("@me", channelid);
         }
 
         public static async void KickMember(object sender, RoutedEventArgs e)

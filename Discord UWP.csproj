@@ -267,7 +267,6 @@
     <Compile Include="Managers\ColorDetector\ColorDetection.cs" />
     <Compile Include="Managers\ColorDetector\ColorExtractor.cs" />
     <Compile Include="Managers\ColorDetector\ColorUtility.cs" />
-    <Compile Include="Managers\EncryptionManager.cs" />
     <Compile Include="Managers\FlyoutManager.cs" />
     <Compile Include="Managers\GatewayManager.cs" />
     <Compile Include="Managers\GuildManager.cs" />
