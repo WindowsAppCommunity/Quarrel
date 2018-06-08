@@ -177,9 +177,6 @@
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock x:Uid="BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
             </Border>
-            
-            <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.5"/>
-            <FontIcon x:Name="encrypted" Glyph="" FontSize="11" Margin="4,0,0,-2" Visibility="Collapsed"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
