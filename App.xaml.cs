@@ -1507,6 +1507,16 @@ namespace Discord_UWP
             titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
 
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                    statusBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["MessageForeground"]).Color;
+                }
+            }
             //var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             //view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             //view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
