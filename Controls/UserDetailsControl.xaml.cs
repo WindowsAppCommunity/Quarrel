@@ -345,9 +345,16 @@ namespace Discord_UWP.Controls
                     });
         }
 
-        private void SendDirectMessage(object sender, RoutedEventArgs e)
+        private async void SendDirectMessage(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(DisplayedMember.User.Id, SendDM.Text, true, false, true);
+            string channelid = null;
+            foreach (var dm in LocalState.DMs)
+                if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == DisplayedMember.User.Id.ToString())
+                    channelid = dm.Value.Id;
+            if (channelid == null)
+                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id.ToString() }.AsEnumerable() })).Id;
+            if (string.IsNullOrEmpty(channelid)) return;
+            App.SelectGuildChannel("@me", channelid);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)

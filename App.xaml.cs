@@ -761,18 +761,19 @@ namespace Discord_UWP
         {
             public string GuildId { get; set; }
             public string ChannelId { get; set; }
+            public string MessageContent { get; set; }
         }
         public static event EventHandler<GuildChannelSelectArgs> SelectGuildChannelHandler;
-        public static void SelectGuildChannel(string guildId, string channelId)
+        public static void SelectGuildChannel(string guildId, string channelId, string messagecontent = null)
         {
             if (!App.FullyLoaded)
             {
                 PostLoadTask = "SelectGuildChannelTask";
-                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId };
+                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent };
             }
             else
             {
-                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId });
+                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent });
             }
         }
         public static Task SelectGuildChannelTask(string guildId, string channelId)
@@ -867,7 +868,6 @@ namespace Discord_UWP
         internal const string ClientSecret = "kwZr7BzE-8uRKgXcNcaAsy4vau20xLNX"; //It is inoptimal to store this here, maybe at some point I can justify using azure to send the secret
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
-        internal const bool e2e = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
 
         #region DerivedColors
@@ -1058,12 +1058,6 @@ namespace Discord_UWP
         }
         private void LoadSettings()
         {
-            try
-            {
-                Storage.ClearEncryptionKeys();
-                Storage.RetrieveEncryptionKeys();
-            }
-            catch { }
             if (Storage.SavedSettings.Containers.ContainsKey("settings"))
             {
                 try
@@ -1507,6 +1501,16 @@ namespace Discord_UWP
             titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
 
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = StatusBar.GetForCurrentView();
+                if (statusBar != null)
+                {
+                    statusBar.BackgroundOpacity = 1;
+                    statusBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["AcrylicCommandBarBackground"]).Color;
+                    statusBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["MessageForeground"]).Color;
+                }
+            }
             //var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             //view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             //view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;

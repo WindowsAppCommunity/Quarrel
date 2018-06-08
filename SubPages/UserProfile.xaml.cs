@@ -633,10 +633,17 @@ namespace Discord_UWP.SubPages
             });
         }
 
-        private void SendMessageLink_Click(object sender, RoutedEventArgs e)
+        private async void SendMessageLink_Click(object sender, RoutedEventArgs e)
         {
-            App.NavigateToDMChannel(profile.user.Id, null, false, false, true); //TODO: Allow userId DM navigation
-            CloseButton_Click(null,null);
+            CloseButton_Click(null, null);
+            string channelid = null;
+            foreach (var dm in LocalState.DMs)
+                if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == (sender as MenuFlyoutItem).Tag.ToString())
+                    channelid = dm.Value.Id;
+            if (channelid == null)
+                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+            if (string.IsNullOrEmpty(channelid)) return;
+            App.SelectGuildChannel("@me", channelid);
         }
 
         private void Block_Click(object sender, RoutedEventArgs e)

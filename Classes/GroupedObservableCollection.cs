@@ -102,12 +102,14 @@ namespace Discord_UWP.Classes
         public void Add(TElement item)
         {
             var key = this.readKey(item);
+            var member = (item as Managers.Member);
             var ogroup = this.FindOrCreateGroup(key);
             Grouping<Managers.HoistRole, Managers.Member> group = ogroup as Grouping<Managers.HoistRole, Managers.Member>;
             (ogroup.Key as HoistRole).Membercount++;
-            string DisplayName = (item as Managers.Member).DisplayName;
+            string DisplayName = member.DisplayName;
             
-            RoleIndexer.Add((item as Managers.Member).Raw.User.Id, key);
+            if(!RoleIndexer.ContainsKey(member.Raw.User.Id))
+                RoleIndexer.Add(member.Raw.User.Id, key);
             //try to insert logically
             for(var i = 0; i < group.Count; i++)
             {
