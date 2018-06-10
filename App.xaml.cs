@@ -59,7 +59,7 @@ namespace Discord_UWP
 
         #region Startup
         public static event EventHandler LoggingInHandler;
-        public static void LoggingIn()
+        public static void LogIn()
         {
             App.AddToEventList("Logging in...");
             LoggingInHandler?.Invoke(typeof(App), new EventArgs());
