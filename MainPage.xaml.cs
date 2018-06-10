@@ -65,9 +65,10 @@ namespace Discord_UWP
         ItemsStackPanel messageStacker;
         string setupArgs = "";
 
+
+
         public async void Setup(object o, EventArgs args)
         {
-
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                    () =>
                    {
@@ -784,11 +785,17 @@ namespace Discord_UWP
             if (App.LoggedIn())
             {
                 SetupEvents();
-                GatewayManager.StartGateway();
-                //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
-                BeginExtendedExecution();
-                BackgroundTaskManager.TryRegisterBackgroundTask();
-                SubFrame.Visibility = Visibility.Collapsed;
+                if (Managers.GatewayManager.Gateway != null && App.IsOnline())
+                {
+                    GatewayManager.StartGateway();
+                    //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
+                    BeginExtendedExecution();
+                    BackgroundTaskManager.TryRegisterBackgroundTask();
+                    SubFrame.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    SubFrameNavigator(typeof(Offline));
+                }
 
             } else
             {

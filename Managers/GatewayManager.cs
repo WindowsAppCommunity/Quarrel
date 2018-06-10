@@ -17,6 +17,10 @@ namespace Discord_UWP.Managers
     {
         public async static void StartGateway()
         {
+            if (Gateway == null)
+            {
+                return;
+            }
             //Ready
             Gateway.Ready += Gateway_Ready;
             //Message
