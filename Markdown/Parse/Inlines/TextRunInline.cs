@@ -339,6 +339,12 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                         continue;
                     }
 
+                    if (decodedChar == '_' && (markdown.Length - sequenceStartIndex) >= 7 && markdown[sequenceStartIndex + 2] == '(' && markdown[sequenceStartIndex + 3] == 'ツ' && markdown[sequenceStartIndex + 4] == ')' && markdown[sequenceStartIndex + 5] == '_' && markdown[sequenceStartIndex + 6] == '/' && markdown[sequenceStartIndex + 7] == '¯')
+                    {
+                        //Do nothing, because the underscore was part of ¯\_(ツ)_/¯
+                        continue;
+                    }
+
                     // This here's an escape sequence!
                     if (result == null)
                     {
@@ -415,7 +421,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                 {
                     break;
                 }
-
+                
                 searchPos = sequenceStartIndex + 1;
 
                 // This is an escape sequence, with one more character expected.
@@ -429,6 +435,11 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                 if (Array.IndexOf(_escapeCharacters, decodedChar) < 0)
                 {
                     // This character cannot be escaped.
+                    continue;
+                }
+                if (decodedChar == '_' && (markdown.Length - sequenceStartIndex) >= 7 && markdown[sequenceStartIndex + 2] == '(' && markdown[sequenceStartIndex + 3] == 'ツ' && markdown[sequenceStartIndex + 4] == ')' && markdown[sequenceStartIndex + 5] == '_' && markdown[sequenceStartIndex + 6] == '/' && markdown[sequenceStartIndex + 7] == '¯')
+                {
+                    //Do nothing, because the underscore was part of ¯\_(ツ)_/¯
                     continue;
                 }
 

@@ -1848,7 +1848,7 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-                
+               
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
                 AddMessages(Position.After, true, messages, true);
             } else

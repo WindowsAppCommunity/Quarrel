@@ -213,6 +213,7 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                         // Don't match if the previous character was a backslash.
                         if (pos > start && markdown[pos - 1] == '\\')
                         {
+                            
                             continue;
                         }
 
@@ -281,9 +282,9 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                             case InlineParseMethod.Code:
                                 parseResult = CodeInline.Parse(markdown, pos, end);
                                 break;
-                            case InlineParseMethod.Image:
+                          /*  case InlineParseMethod.Image:
                                 parseResult = ImageInline.Parse(markdown, pos, end);
-                                break;
+                                break;*/
                         }
 
                         if (parseResult != null)
