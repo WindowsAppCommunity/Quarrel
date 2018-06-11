@@ -527,5 +527,12 @@ namespace Discord_UWP.Controls
         {
             SecondaryLeftFocused?.Invoke(null, null);
         }
+
+        public void Dispose()
+        {
+            Storage.SettingsChangedHandler -= App_LocalSettingsUpdatedHandler;
+            App.UniversalPointerDownHandler -= Content_PointerPressed;
+            GC.Collect();
+        }
     }
 }

@@ -166,6 +166,15 @@ namespace Discord_UWP.Controls
         {
             App.ShowMemberFlyout(this, member.User);
         }
+
+        public void Dispose()
+        {
+            Tapped -= OpenMemberFlyout;
+            RightTapped -= OpenVoiceFlyout;
+            Holding -= OpenVoiceFlyout;
+            Managers.GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
+            Managers.VoiceManager.ConnectoToVoiceHandler -= VoiceManager_ConnectoToVoiceHandler;
+        }
     }
 
     public class VoiceMemberContainer : INotifyPropertyChanged

@@ -640,5 +640,14 @@ namespace Discord_UWP.Controls
         {
             App.UniversalPointerDown(e);
         }
+
+        public void Dispose()
+        {
+            GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
+            Tapped -= JoinVoiceChannel;
+            this.Holding -= OpenMenuFlyout;
+            this.RightTapped -= OpenMenuFlyout;
+            GC.Collect();
+        }
     }
 }

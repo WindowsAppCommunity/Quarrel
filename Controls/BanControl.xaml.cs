@@ -63,5 +63,11 @@ namespace Discord_UWP.Controls
         {
             await RESTCalls.RemoveBan(App.CurrentGuildId,DisplayedBan.User.Id);
         }
+
+        public void Dispose()
+        {
+            //Nothing to dispose
+            GC.Collect();
+        }
     }
 }
