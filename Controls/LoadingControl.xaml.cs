@@ -164,5 +164,12 @@ namespace Discord_UWP.Controls
         {
             await App.RequestReset();
         }
+
+        public void Dipose()
+        {
+            App.Splash.Dismissed -= Splash_Dismissed;
+            App.StatusChangedHandler -= App_StatusChangedHandler;
+            GC.Collect();
+        }
     }
 }

@@ -261,5 +261,12 @@ namespace Discord_UWP.Controls
         {
             App.UniversalPointerDown(e);
         }
+
+        public void Dipose()
+        {
+            this.Holding -= OpenMenuFlyout;
+            this.RightTapped -= OpenMenuFlyout;
+            GC.Collect();
+        }
     }
 }

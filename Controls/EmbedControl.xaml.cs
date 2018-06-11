@@ -284,7 +284,7 @@ namespace Discord_UWP.Controls
         private void ShareEmbed(object sender, RoutedEventArgs e)
         {
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
-            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested; ;
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested;
         }
 
         private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
@@ -298,6 +298,12 @@ namespace Discord_UWP.Controls
             {
                 args.Request.FailWithDisplayText("Nothing to share");
             }
+        }
+
+        public void Dispose()
+        {
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
+            GC.Collect();
         }
     }
 }

@@ -1081,5 +1081,15 @@ namespace Discord_UWP.Controls
         //        Storage.Settings.savedMessages.Add(messageid, Message.Value);
         //    }
         //}
+
+        public void Dispose()
+        {
+            GatewayManager.Gateway.MessageReactionAdded -= GatewayOnMessageReactionAdded;
+            GatewayManager.Gateway.MessageReactionRemoved -= GatewayOnMessageReactionRemoved;
+            editBox.Send -= EditBox_Send;
+            editBox.Cancel -= EditBox_Cancel;
+            editBox.TextChanged -= EditBox_TextChanged;
+            GC.Collect();
+        }
     }
 }

@@ -388,5 +388,14 @@ namespace Discord_UWP.Controls
         {
             AudioManager.UpdateOutputDeviceID((sender as MenuFlyoutItem).Tag.ToString());
         }
+
+        public void Dispose()
+        {
+            App.VoiceConnectHandler -= App_VoiceConnectHandler;
+            App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
+            App.UpdateVoiceStateHandler -= App_UpdateVoiceStateHandler;
+            App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
+            GC.Collect();
+        }
     }
 }

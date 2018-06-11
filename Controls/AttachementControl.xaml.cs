@@ -152,5 +152,12 @@ namespace Discord_UWP.Controls
                 await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Url.Replace('\\','/'))));
             }
         }
+
+        public void Dispose()
+        {
+            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
+            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
+            GC.Collect();
+        }
     }
 }

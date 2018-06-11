@@ -303,10 +303,9 @@ namespace Discord_UWP.Controls
 
         private void UserDetailsControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
-            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-            Unloaded -= UserDetailsControl_Unloaded;
+            Dispose();
         }
+
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -444,7 +443,15 @@ namespace Discord_UWP.Controls
             {
                 _imageVisual.Size = new Vector2(Convert.ToSingle(AvatarContainer.ActualWidth), Convert.ToSingle(AvatarContainer.ActualHeight));
             }
-            
+        }
+
+        public void Dispose()
+        {
+            SendDM.Send -= SendDirectMessage;
+            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+            Unloaded -= UserDetailsControl_Unloaded;
+            GC.Collect();
         }
     }
 }

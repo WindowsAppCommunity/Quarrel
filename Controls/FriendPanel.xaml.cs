@@ -270,7 +270,14 @@ namespace Discord_UWP.Controls
             ToastNotification notification = new ToastNotification(toastContent.GetXml());
             // And then send the toast
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
 
+        public void Dispose()
+        {
+            GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationShipAdded;
+            GatewayManager.Gateway.RelationShipRemoved -= Gateway_RelationShipRemoved;
+            GatewayManager.Gateway.RelationShipUpdated -= Gateway_RelationShipUpdated;
+            GC.Collect();
         }
     }
 }

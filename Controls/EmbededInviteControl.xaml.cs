@@ -165,5 +165,12 @@ namespace Discord_UWP.Controls
                 LoadInvite(true);
             }
         }
+
+        public void Dispose()
+        {
+            GatewayManager.Gateway.GuildDeleted -= Gateway_GuildDeleted;
+            GatewayManager.Gateway.GuildCreated -= Gateway_GuildCreated;
+            GC.Collect();
+        }
     }
 }
