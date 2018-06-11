@@ -1033,6 +1033,16 @@
                                 <Thickness>12,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
+                        <Setter Target="ToggleSplitView.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Visible</Visibility>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MemberToggle.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Visible</Visibility>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Medium">
@@ -1043,6 +1053,16 @@
                         <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
                                 <Thickness>12,4,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="ToggleSplitView.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MemberToggle.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Visible</Visibility>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -1057,6 +1077,16 @@
                                 <Thickness>240,4,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
+                        <Setter Target="ToggleSplitView.(Visibility)" >
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MemberToggle.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </Setter.Value>
+                        </Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="ExtraLarge">
@@ -1067,6 +1097,16 @@
                         <Setter Target="ChannelHeader.(Margin)">
                             <Setter.Value>
                                 <Thickness>240,4,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="ToggleSplitView.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="MemberToggle.(Visibility)">
+                            <Setter.Value>
+                                <Visibility>Collapsed</Visibility>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>

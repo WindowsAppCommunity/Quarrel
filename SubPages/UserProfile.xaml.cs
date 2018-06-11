@@ -89,15 +89,11 @@ namespace Discord_UWP.SubPages
             bool loadviaRest = true;
             if (e.Parameter is User)
             {
-                if (!(e.Parameter as User).Bot)
-                {
-                    profile = await RESTCalls.GetUserProfile((e.Parameter as User).Id);
-                } else
-                {
                     profile = new SharedModels.UserProfile();
                     profile.user = (User)e.Parameter;
+                if(profile.user.Bot)
                     grid.VerticalAlignment = VerticalAlignment.Center;
-                }
+
                 userid = profile.user.Id;
             }
             else if(e.Parameter is string)
@@ -189,52 +185,7 @@ namespace Discord_UWP.SubPages
 
           //  BackgroundGrid.Blur(8, 0).Start();
             base.OnNavigatedTo(e);
-            if(loadviaRest)
-                profile = await RESTCalls.GetUserProfile(profile.user.Id);
-            try
-            {
-                if (profile.connected_accounts != null)
-                {
-                    for (int i = 0; i < profile.connected_accounts.Count(); i++)
-                    {
-                        var element = profile.connected_accounts.ElementAt(i);
-                        string themeExt = "";
-                        if (element.Type.ToLower() == "steam")
-                        {
-                            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
-                                themeExt = "_light";
-                            else
-                                themeExt = "_dark";
-                        }
-                        element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
-                        Connections.Items.Add(element);
-                    }
-                }
 
-                if (profile.MutualGuilds != null)
-                {
-                    for (int i = 0; i < profile.MutualGuilds.Count(); i++)
-                    {
-                        var element = profile.MutualGuilds.ElementAt(i);
-                        element.Name = LocalState.Guilds[element.Id].Raw.Name;
-                        element.ImagePath = "https://discordapp.com/api/guilds/" + LocalState.Guilds[element.Id].Raw.Id + "/icons/" + LocalState.Guilds[element.Id].Raw.Icon + ".jpg";
-
-                        if (element.Nick != null) element.NickVisibility = Visibility.Visible;
-                        else element.NickVisibility = Visibility.Collapsed;
-
-                        MutualGuilds.Items.Add(element);
-                    }
-                    if (MutualGuilds.Items.Count > 0)
-                    {
-                        commonServerPanel.Visibility = Visibility.Visible;
-                        commonserverHeader.Fade(1, 300, 0).Start();
-                    }
-                }
-            }
-            catch
-            {
-
-            }
             
 
             switch (profile.user.Flags)
@@ -283,18 +234,8 @@ namespace Discord_UWP.SubPages
             {
                 ViewStats.Visibility = Visibility.Visible;
             }
-            if (profile.PremiumSince.HasValue)
-            {
-                var img = new Image()
-                {
-                    MaxHeight = 28,
-                    Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/nitro.png")),
-                    Opacity = 0
-                };
-                ToolTipService.SetToolTip(img, App.GetString("/Main/PremiumMemberSince") + " " + Common.HumanizeDate(profile.PremiumSince.Value,null));
-                BadgePanel.Children.Add(img);
-                img.Fade(1.2f);
-            }
+
+
 
             var imageurl = Common.AvatarUri(profile.user.Avatar, profile.user.Id);
             SetupComposition(imageurl);
@@ -303,18 +244,80 @@ namespace Discord_UWP.SubPages
             {
                 AvatarFull.ImageSource = image;
             }
-          //  AvatarBlurred.Source = image;
+            //  AvatarBlurred.Source = image;
 
             if (profile.user.Avatar != null)
             {
                 AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
-            } else
+            }
+            else
             {
                 AvatarBG.Fill = Common.DiscriminatorColor(profile.user.Discriminator);
             }
 
 
-            if (profile.user.Bot) return; 
+            if (profile.user.Bot) return;
+            if (loadviaRest)
+                profile = await RESTCalls.GetUserProfile(profile.user.Id);
+            try
+            {
+                if (profile.PremiumSince.HasValue)
+                {
+                    var img = new Image()
+                    {
+                        MaxHeight = 28,
+                        Source = new BitmapImage(new Uri("ms-appx:///Assets/DiscordBadges/nitro.png")),
+                        Opacity = 0
+                    };
+                    ToolTipService.SetToolTip(img, App.GetString("/Main/PremiumMemberSince") + " " + Common.HumanizeDate(profile.PremiumSince.Value, null));
+                    BadgePanel.Children.Add(img);
+                    img.Fade(1.2f);
+                }
+
+                if (profile.connected_accounts != null)
+                {
+                    for (int i = 0; i < profile.connected_accounts.Count(); i++)
+                    {
+                        var element = profile.connected_accounts.ElementAt(i);
+                        string themeExt = "";
+                        if (element.Type.ToLower() == "steam")
+                        {
+                            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+                                themeExt = "_light";
+                            else
+                                themeExt = "_dark";
+                        }
+                        element.ImagePath = "/Assets/ConnectionLogos/" + element.Type.ToLower() + themeExt + ".png";
+                        Connections.Items.Add(element);
+                    }
+                }
+
+                if (profile.MutualGuilds != null)
+                {
+                    for (int i = 0; i < profile.MutualGuilds.Count(); i++)
+                    {
+                        var element = profile.MutualGuilds.ElementAt(i);
+                        if (!LocalState.Guilds.ContainsKey(element.Id)) continue;
+                        element.Name = LocalState.Guilds[element.Id].Raw.Name;
+                        element.ImagePath = "https://discordapp.com/api/guilds/" + LocalState.Guilds[element.Id].Raw.Id + "/icons/" + LocalState.Guilds[element.Id].Raw.Icon + ".jpg";
+
+                        if (element.Nick != null) element.NickVisibility = Visibility.Visible;
+                        else element.NickVisibility = Visibility.Collapsed;
+
+                        MutualGuilds.Items.Add(element);
+                    }
+                    if (MutualGuilds.Items.Count > 0)
+                    {
+                        commonServerPanel.Visibility = Visibility.Visible;
+                        commonserverHeader.Fade(1, 300, 0).Start();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+
             var relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
             int relationshipcount = relationships.Count();
 
