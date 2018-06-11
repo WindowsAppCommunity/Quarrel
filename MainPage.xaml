@@ -1336,7 +1336,7 @@
                         </Grid>
                     </controls:SideDrawer.ContentLeftSecondary>
                     <controls:SideDrawer.ContentMain>
-                        <Grid x:Name="MessageArea" Margin="12,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid x:Name="MessageArea" Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition/>
@@ -1385,7 +1385,7 @@
                                     <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
                                 </StackPanel>
                             </Grid>
-                            <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}">
+                            <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <ItemsStackPanel  Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
