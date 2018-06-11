@@ -171,6 +171,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -185,6 +186,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return LocalState.CurrentUser;
@@ -199,6 +201,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -213,6 +216,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -229,6 +233,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return LocalState.GuildSettings[guildId].raw;
@@ -248,6 +253,7 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                 });
@@ -255,6 +261,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -272,12 +279,14 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -291,6 +300,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 return null;
                 //App.NavigateToBugReport(exception);
             }
@@ -305,6 +315,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -318,6 +329,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -335,6 +347,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new User();
@@ -349,6 +362,7 @@ namespace Discord_UWP
             }
             catch (Exception exception)
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.UserProfile();
@@ -363,6 +377,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -377,6 +392,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -420,6 +436,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -433,6 +450,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -446,6 +464,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new DirectMessageChannel();
@@ -466,6 +485,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -479,6 +499,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -493,6 +514,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -507,6 +529,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -521,6 +544,7 @@ namespace Discord_UWP
             }
             catch (Exception exception)
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.GuildMember();
@@ -535,6 +559,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -549,6 +574,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SearchResults();
@@ -565,6 +591,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -578,6 +605,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new Role();
@@ -594,6 +622,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -609,6 +638,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -623,6 +653,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -637,6 +668,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -650,6 +682,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Guild();
@@ -664,6 +697,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -678,6 +712,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new GuildMember();
@@ -692,6 +727,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new GuildMember();
@@ -706,6 +742,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -719,6 +756,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -732,6 +770,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -745,6 +784,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -758,6 +798,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -770,6 +811,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -783,6 +825,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -802,6 +845,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.GuildChannel();
@@ -816,6 +860,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -830,6 +875,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -844,6 +890,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -858,6 +905,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -872,6 +920,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -886,6 +935,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.Message();
@@ -900,6 +950,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return null;
@@ -917,6 +968,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -930,6 +982,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new Message();
@@ -970,6 +1023,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -987,12 +1041,14 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1010,12 +1066,14 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1033,12 +1091,14 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                 });
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1056,6 +1116,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new SharedModels.GuildChannel();
@@ -1070,6 +1131,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1082,6 +1144,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1101,6 +1164,7 @@ namespace Discord_UWP
                     }
                     catch /*(Exception exception)*/
                     {
+                        App.CheckOnline();
                         //App.NavigateToBugReport(exception);
                     }
                     return new Message();
@@ -1108,6 +1172,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new Message();
@@ -1122,6 +1187,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1135,6 +1201,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1148,6 +1215,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1161,6 +1229,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1174,6 +1243,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1187,6 +1257,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
         }
@@ -1268,6 +1339,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return "";
@@ -1284,6 +1356,7 @@ namespace Discord_UWP
             }
             catch /*(Exception exception)*/
             {
+                App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
             return new List<GameList>();
@@ -1293,14 +1366,30 @@ namespace Discord_UWP
         #region Giphy
         public async Task<SearchResult> SearchGiphy(string query, int limit = 20, int offset = 0)
         {
-            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
-            return await giphyService.Search(query, limit, offset);
+            try
+            {
+                IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+                return await giphyService.Search(query, limit, offset);
+            }
+            catch
+            {
+                App.CheckOnline();
+            }
+            return new SearchResult();
         }
 
         public async Task<SearchResult> GetTrendingGiphy(int limit = 20, int offset = 0)
         {
-            IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
-            return await giphyService.Trending(limit, offset);
+            try
+            {
+                IGiphyService giphyService = GiphyAPI.GiphyAPI.GetGiphyService();
+                return await giphyService.Trending(limit, offset);
+            }
+            catch
+            {
+                App.CheckOnline();
+            }
+            return new SearchResult();
         }
         #endregion
 
