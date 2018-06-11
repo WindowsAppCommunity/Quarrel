@@ -8,7 +8,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct GuildSync
+    public class GuildSync
     {
         [JsonProperty("id")]
         public string GuildId { get; set; }

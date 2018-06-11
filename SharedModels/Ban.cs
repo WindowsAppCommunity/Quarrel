@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Ban
+    public class Ban
     {
         [JsonProperty("User")]
         public User User { get; set; }

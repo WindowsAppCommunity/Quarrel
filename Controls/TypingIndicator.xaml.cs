@@ -38,5 +38,10 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             Typing.Begin();
         }
+
+        public void Dispose()
+        {
+            GC.Collect();
+        }
     }
 }

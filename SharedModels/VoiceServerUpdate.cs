@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct VoiceServerUpdate
+    public class VoiceServerUpdate
     {
         [JsonProperty("token")]
         public string Token { get; set; }

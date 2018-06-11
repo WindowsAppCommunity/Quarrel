@@ -88,7 +88,7 @@ namespace Discord_UWP
                 }
                 else if (result.Token != null)
                 {
-                    App.LoggingIn();
+                    App.LogIn();
                     App.SubpageClosed();
                 }
             }
@@ -124,7 +124,7 @@ namespace Discord_UWP
                 }
                 else if (result.Token != null)
                 {
-                    App.LoggingIn();
+                    App.LogIn();
                     App.SubpageClosed();
                 }
             }
@@ -139,7 +139,7 @@ namespace Discord_UWP
                     {
                         PasswordCredential credentials = new PasswordCredential("Token", "logintoken", Token.Password);
                         Storage.PasswordVault.Add(credentials);
-                        App.LoggingIn();
+                        App.LogIn();
                         App.SubpageClosed();
                     }
                     else

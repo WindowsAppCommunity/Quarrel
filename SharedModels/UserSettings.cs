@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct UserSettings
+    public class UserSettings
     {
         [JsonProperty("theme")]
         public string Theme { get; set; }
@@ -61,7 +61,7 @@ namespace Discord_UWP.SharedModels
         public int AfkTimeout { get; set; }
     }
 
-    public struct GuildSetting
+    public class GuildSetting
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
@@ -83,7 +83,7 @@ namespace Discord_UWP.SharedModels
 
     }
 
-    public struct GuildSettingModify
+    public class GuildSettingModify
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
@@ -105,7 +105,7 @@ namespace Discord_UWP.SharedModels
 
     }
 
-    public struct ChannelOverride
+    public class ChannelOverride
     {
         [JsonProperty("channel_id")]
         public string Channel_Id { get; set; }

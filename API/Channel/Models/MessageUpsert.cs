@@ -7,13 +7,13 @@ using Newtonsoft.Json;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct MessageActivity
+    public class MessageActivity
     {
         public string session_id { get; set; }
         public int type { get; set; }
         public string party_id { get; set; }
     }
-    public struct MessageUpsert
+    public class MessageUpsert
     {
         [JsonProperty("content")]
         public string Content { get; set; }

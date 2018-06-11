@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct MutualGuild
+    public class MutualGuild
     {
         [JsonProperty("nick")]
         public string Nick { get; set; }

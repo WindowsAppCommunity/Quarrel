@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct GuildEmojiUpdate
+    public class GuildEmojiUpdate
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }

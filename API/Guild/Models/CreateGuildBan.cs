@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct CreateGuildBan
+    public class CreateGuildBan
     {
         [JsonProperty("delete-message-days")]
         public int DeleteMessageDays { get; set; }

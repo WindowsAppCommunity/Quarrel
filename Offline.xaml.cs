@@ -30,6 +30,11 @@ namespace Discord_UWP
             //loadMessages();
         }
 
+        private void TryLogin(object sender, RoutedEventArgs e)
+        {
+            App.LogIn();
+        }
+
         //public async void loadMessages()
         //{
         //    foreach (var message in await MessageManager.ConvertMessage(Storage.Settings.savedMessages.Values.ToList()))

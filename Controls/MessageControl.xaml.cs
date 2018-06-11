@@ -120,14 +120,14 @@ namespace Discord_UWP.Controls
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
         //The message to be displayed
-        public SharedModels.Message? Message
+        public SharedModels.Message Message
         {
-            get { return (SharedModels.Message?)GetValue(MessageProperty); }
+            get { return (SharedModels.Message)GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
         }
         public static readonly DependencyProperty MessageProperty = DependencyProperty.Register(
             nameof(Message),
-            typeof(SharedModels.Message?),
+            typeof(SharedModels.Message),
             typeof(MessageControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -188,7 +188,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
-                        content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/AddedUser") + " **" + Message.Value.Mentions.First().Username + "** " + App.GetString("/Controls/ToTheConversation");
+                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/AddedUser") + " **" + Message.Mentions.First().Username + "** " + App.GetString("/Controls/ToTheConversation");
                     }
                     else if (MessageType == MessageTypes.RecipientRemoved)
                     {
@@ -197,7 +197,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
-                        content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/RemovedUser") + " **" + Message.Value.Mentions.First().Username + "** " + App.GetString("/Controls/FromTheConversation");
+                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/RemovedUser") + " **" + Message.Mentions.First().Username + "** " + App.GetString("/Controls/FromTheConversation");
                     }
                     else if(MessageType == MessageTypes.ChannelIconChanged)
                     {
@@ -206,7 +206,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
-                        content.Text = "**" + Message.Value.User.Username + "** changed the channel's icon"; 
+                        content.Text = "**" + Message.User.Username + "** changed the channel's icon"; 
                     }
                     else if (MessageType == MessageTypes.ChannelNameChanged)
                     {
@@ -215,7 +215,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
-                        content.Text = "**" + Message.Value.User.Username + "** changed the channel's name";
+                        content.Text = "**" + Message.User.Username + "** changed the channel's name";
                     }
                     else if (MessageType == MessageTypes.Call)
                     {
@@ -226,10 +226,10 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.FontSize = 18;
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
                         //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
-                        if (Message.Value.User.Id == LocalState.CurrentUser.Id)
+                        if (Message.User.Id == LocalState.CurrentUser.Id)
                             content.Text = App.GetString("/Controls/You") + " " + App.GetString("/Controls/StartedACall");
                         else
-                            content.Text = App.GetString("/Controls/CallStartedBy") + " **" + Message.Value.User.Username + "**";
+                            content.Text = App.GetString("/Controls/CallStartedBy") + " **" + Message.User.Username + "**";
                     }
                     else if (MessageType == MessageTypes.PinnedMessage)
                     {
@@ -242,7 +242,7 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.FontSize = 18;
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
-                        content.Text = "**" + Message.Value.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
+                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                     }
 
                     else if (MessageType == MessageTypes.GuildMemberJoined)
@@ -253,7 +253,11 @@ namespace Discord_UWP.Controls
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.FontSize = 18;
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
-                        content.Text = "**"+Message.Value.User.Username + "**" + " joined the server!";
+                        content.Text = "**"+Message.User.Username + "**" + " joined the server!";
+                    }
+                    else if(MessageType == MessageTypes.ChannelIconChanged)
+                    {
+
                     }
                     else if (MessageType == MessageTypes.Default)
                     {
@@ -491,10 +495,10 @@ namespace Discord_UWP.Controls
             advert = null;
             if (rootGrid.Children.Contains(reactionView))
                 rootGrid.Children.Remove(reactionView);
-            if (Message.HasValue)
+            if (Message != null)
             {
-                messageid = Message.Value.Id;
-                if (Message.Value.MentionEveryone || (Message.Value.Mentions != null &&  Message.Value.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id)))
+                messageid = Message.Id;
+                if (Message.MentionEveryone || (Message.Mentions != null &&  Message.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id)))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
@@ -508,21 +512,21 @@ namespace Discord_UWP.Controls
                 }
 
 
-                if (Message.Value.User.Username != null)
-                    username.Content = Message.Value.User.Username;
+                if (Message.User.Username != null)
+                    username.Content = Message.User.Username;
                 else
                     username.Content = "";
                 GuildMember member;
-                if (Message.Value.User.Id != null) userid = Message.Value.User.Id;
+                if (Message.User.Id != null) userid = Message.User.Id;
                 else userid = "";
-                if (App.CurrentGuildId != null && Message.Value.User.Id != null)
+                if (App.CurrentGuildId != null && Message.User.Id != null)
                 {
-                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.Value.User.Id))
+                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(Message.User.Id))
                     {
-                        member = LocalState.Guilds[App.CurrentGuildId].members[Message.Value.User.Id];
+                        member = LocalState.Guilds[App.CurrentGuildId].members[Message.User.Id];
                     } else
                     {
-                        member = new GuildMember() { User = Message.Value.User };
+                        member = new GuildMember() { User = Message.User };
                     }
                 }
                 else
@@ -535,9 +539,9 @@ namespace Discord_UWP.Controls
                     username.Content = member.Nick;
                 }
 
-                if (Message.Value.Activity.HasValue)
+                if (Message.Activity != null)
                 {
-                    if(Message.Value.Activity.Value.Type == 3)
+                    if(Message.Activity.Type == 3)
                     {
                         //Spotify
                         
@@ -576,11 +580,11 @@ namespace Discord_UWP.Controls
                     username.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 }
 
-                if (Message.Value.User.Bot == true)
+                if (Message.User.Bot == true)
                     BotIndicator.Visibility = Visibility.Visible;
                 else
                     BotIndicator.Visibility = Visibility.Collapsed;
-                if (Message.Value.Pinned)
+                if (Message.Pinned)
                     MorePin.Text = App.GetString("/Controls/Unpin");
                 else
                     MorePin.Text = App.GetString("/Controls/Pin") + " ";
@@ -588,22 +592,22 @@ namespace Discord_UWP.Controls
                 if (!Storage.Settings.DevMode)
                     MoreCopyId.Visibility = Visibility.Collapsed;
 
-                AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(Message.Value.User.Avatar, Message.Value.User.Id));
+                AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(Message.User.Avatar, Message.User.Id));
 
-                if (Message.Value.User.Avatar == null)
-                    AvatarBG.Fill = Common.DiscriminatorColor(Message.Value.User.Discriminator);
+                if (Message.User.Avatar == null)
+                    AvatarBG.Fill = Common.DiscriminatorColor(Message.User.Discriminator);
                 else
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
 
-                timestamp.Text = Common.HumanizeDate(Message.Value.Timestamp, null);
-                if (Message.Value.EditedTimestamp.HasValue)
-                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + Common.HumanizeDate(Message.Value.EditedTimestamp.Value,
-                                          Message.Value.Timestamp) + ")";
+                timestamp.Text = Common.HumanizeDate(Message.Timestamp, null);
+                if (Message.EditedTimestamp.HasValue)
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + Common.HumanizeDate(Message.EditedTimestamp.Value,
+                                          Message.Timestamp) + ")";
 
-                if (Message.Value.Reactions != null)
+                if (Message.Reactions != null)
                 {
                     reactionView = GenerateWrapGrid();
-                    foreach (Reactions reaction in Message.Value.Reactions.Where(x => x.Count > 0))
+                    foreach (Reactions reaction in Message.Reactions.Where(x => x.Count > 0))
                     {
                         reactionView.Children.Add(GenerateReactionToggle(reaction));
                     }
@@ -619,7 +623,7 @@ namespace Discord_UWP.Controls
                 }
                 LoadEmbedsAndAttachements();
 
-              //  content.Users = Message.Value.Mentions;
+                content.Users = Message.Mentions;
                 if (Message?.Content == "")
                 {
                     content.Visibility = Visibility.Collapsed;
@@ -630,8 +634,8 @@ namespace Discord_UWP.Controls
                     content.Visibility = Visibility.Visible;
                     Grid.SetRow(moreButton, 2);
                 }
-                content.Text = Message.Value.Content;
-                string text = Message.Value.Content;
+                content.Text = Message.Content;
+                string text = Message.Content;
                 //string startLink = "";
                 string[] Searcheables = new string[] { "https://discord.gg/", "http://discord.gg/", "https://discordapp.com/invite/", "http://discordapp.com/invite/" };
                 
@@ -695,7 +699,7 @@ namespace Discord_UWP.Controls
             ToggleButton reactionToggle = new ToggleButton();
             reactionToggle.IsChecked = reaction.Me;
             reactionToggle.Tag =
-                new Tuple<string, string, Reactions>(Message.Value.ChannelId, Message.Value.Id, reaction);
+                new Tuple<string, string, Reactions>(Message.ChannelId, Message.Id, reaction);
             reactionToggle.Click += ToggleReaction;
             if (reaction.Me)
             {
@@ -766,13 +770,13 @@ namespace Discord_UWP.Controls
             EmbedViewer.Visibility = Visibility.Collapsed;
             EmbedViewer.Children.Clear();
 
-            if (!Message.HasValue) return;
-            if (Message.Value.Embeds.Any() || Message.Value.Attachments.Any() || Message.Value.Activity.HasValue)
+            if (Message == null) return;
+            if (Message.Embeds.Any() || Message.Attachments.Any() || Message.Activity != null)
                 EmbedViewer.Visibility = Visibility.Visible;
             
-            if (Message.Value.Embeds != null)
+            if (Message.Embeds != null)
             {
-                foreach (Embed embed in Message.Value.Embeds)
+                foreach (Embed embed in Message.Embeds)
                 {
                     if (embed.Type == "gifv")
                     {
@@ -810,20 +814,20 @@ namespace Discord_UWP.Controls
                     
                 }
             }
-            if (Message.Value.Attachments != null)
+            if (Message.Attachments != null)
             {
-                foreach (Attachment attach in Message.Value.Attachments)
+                foreach (Attachment attach in Message.Attachments)
                 {
                     EmbedViewer.Children.Add(new AttachementControl() { DisplayedAttachement = attach });
                 }
             }
-            if (Message.Value.Activity.HasValue)
+            if (Message.Activity != null)
             {
-                if(Message.Value.Activity.Value.Type == 3)
+                if(Message.Activity.Type == 3)
                 {
                     var spotifylisten = new ListenOnSpotify();
                     EmbedViewer.Children.Add(spotifylisten);
-                    spotifylisten.Setup(Message.Value.User.Id, Message.Value.Activity.Value.PartyId);
+                    spotifylisten.Setup(Message.User.Id, Message.Activity.PartyId);
                 }
             }
         }
@@ -836,7 +840,7 @@ namespace Discord_UWP.Controls
         {
             if (App.CurrentGuildId != null)
             {
-                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
+                if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                 }
@@ -858,7 +862,7 @@ namespace Discord_UWP.Controls
             {
                 if (App.CurrentGuildId != null)
                 {
-                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
                         MoreEdit.Visibility = Visibility.Collapsed;
@@ -878,11 +882,11 @@ namespace Discord_UWP.Controls
             {
                 if (App.CurrentGuildId != null)
                 {
-                    if (Message?.User.Id == Message.Value.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.Value.ChannelId].permissions.SendMessages)
+                    if (Message?.User.Id == Message.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.ChannelId].permissions.SendMessages)
                     {
                         MoreReply.Visibility = Visibility.Collapsed;
                     }
-                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.Value.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
                         MoreEdit.Visibility = Visibility.Collapsed;
@@ -947,7 +951,7 @@ namespace Discord_UWP.Controls
         private async void EditBox_Send(object sender, RoutedEventArgs e)
         {
             editBox.IsEnabled = false;
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.Value.ChannelId, Message.Value.Id, editBox.Text));
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await RESTCalls.EditMessageAsync(Message.ChannelId, Message.Id, editBox.Text));
             editBox.Send -= EditBox_Send;
             editBox.Cancel -= EditBox_Cancel;
             editBox.TextChanged -= EditBox_TextChanged;
@@ -958,30 +962,30 @@ namespace Discord_UWP.Controls
 
         private async void MorePin_Click(object sender, RoutedEventArgs e)
         {
-            if (Message.Value.Pinned)
+            if (Message.Pinned)
             {
-                await RESTCalls.UnpinMessage(Message.Value.ChannelId, Message.Value.Id);
+                await RESTCalls.UnpinMessage(Message.ChannelId, Message.Id);
             } else
             {
-                await RESTCalls.PinMesage(Message.Value.ChannelId, Message.Value.Id);
+                await RESTCalls.PinMesage(Message.ChannelId, Message.Id);
             }
         }
 
         private void MenuFlyoutItem_Click_1(object sender, RoutedEventArgs e)
         {
-            App.DeleteMessage(Message.Value.ChannelId, Message.Value.Id);
+            App.DeleteMessage(Message.ChannelId, Message.Id);
         }
 
         private void MoreCopyId_Click(object sender, RoutedEventArgs e)
         {
             var dataPackage = new DataPackage();
-            dataPackage.SetText(Message.Value.Id);
+            dataPackage.SetText(Message.Id);
             Clipboard.SetContent(dataPackage);
         }
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(username, Message.Value.User);
+            App.ShowMemberFlyout(username, Message.User);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -989,7 +993,7 @@ namespace Discord_UWP.Controls
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 if (!App.CurrentGuildIsDM)
-                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
@@ -998,7 +1002,7 @@ namespace Discord_UWP.Controls
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {
                 if (!App.CurrentGuildIsDM)
-                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.Value.User.Id, App.CurrentGuildId, e.GetPosition(this));
+                    App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, Message.User.Id, App.CurrentGuildId, e.GetPosition(this));
             }
         }
 
@@ -1022,12 +1026,12 @@ namespace Discord_UWP.Controls
                 var emoji = (EmojiControl.GuildSide)e;
                 emojiStr = emoji.names[0] + ":" + emoji.id;
             }
-            await RESTCalls.CreateReactionAsync(Message.Value.ChannelId, messageid, emojiStr);
+            await RESTCalls.CreateReactionAsync(Message.ChannelId, messageid, emojiStr);
         }
 
         private void MoreReply_Click(object sender, RoutedEventArgs e)
         {
-            App.MentionUser(Message.Value.User.Username, Message.Value.User.Discriminator);
+            App.MentionUser(Message.User.Username, Message.User.Discriminator);
         }
 
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -1071,5 +1075,15 @@ namespace Discord_UWP.Controls
         //        Storage.Settings.savedMessages.Add(messageid, Message.Value);
         //    }
         //}
+
+        public void Dispose()
+        {
+            GatewayManager.Gateway.MessageReactionAdded -= GatewayOnMessageReactionAdded;
+            GatewayManager.Gateway.MessageReactionRemoved -= GatewayOnMessageReactionRemoved;
+            editBox.Send -= EditBox_Send;
+            editBox.Cancel -= EditBox_Cancel;
+            editBox.TextChanged -= EditBox_TextChanged;
+            GC.Collect();
+        }
     }
 }

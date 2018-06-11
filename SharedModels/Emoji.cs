@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Emoji
+    public class Emoji
     {
         [JsonProperty("id")]
         public string Id { get; set; }

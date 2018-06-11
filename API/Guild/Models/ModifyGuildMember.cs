@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct ModifyGuildMember
+    public class ModifyGuildMember
     {
+        public ModifyGuildMember(string nickname)
+        {
+            Nick = nickname;
+        }
+
         public ModifyGuildMember(GuildMember member)
         {
             Nick = member.Nick;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct CreateIntegration
+    public class CreateIntegration
     {
         [JsonProperty("type")]
         public string Type { get; set; }

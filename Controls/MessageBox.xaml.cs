@@ -711,5 +711,11 @@ namespace Discord_UWP.Controls
         {
             OpenSpotify?.Invoke(null, null);
         }
+
+        public void Dispose()
+        {
+            SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
+            GC.Collect();
+        }
     }
 }

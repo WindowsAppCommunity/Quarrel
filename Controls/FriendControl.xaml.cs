@@ -186,5 +186,11 @@ namespace Discord_UWP.Controls
             }
         }
 
+        public void Dispose()
+        {
+            SharedGuildContainer.Children.Clear();
+            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+            GC.Collect();
+        }
     }
 }

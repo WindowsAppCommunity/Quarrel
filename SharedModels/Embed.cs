@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Embed
+    public class Embed
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -37,7 +37,7 @@ namespace Discord_UWP.SharedModels
         public EmbedField[] Fields { get; set; }
     }
 
-    public struct EmbedThumbnail
+    public class EmbedThumbnail
     {
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -49,7 +49,7 @@ namespace Discord_UWP.SharedModels
         public int Width { get; set; }
     }
 
-    public struct EmbedImage
+    public class EmbedImage
     {
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -61,7 +61,7 @@ namespace Discord_UWP.SharedModels
         public int Width { get; set; }
     }
 
-    public struct EmbedVideo
+    public class EmbedVideo
     {
         [JsonProperty("url")]
         public string Url { get; set; }
@@ -71,7 +71,7 @@ namespace Discord_UWP.SharedModels
         public int Width { get; set; }
     }
 
-    public struct EmbedProvider
+    public class EmbedProvider
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -79,7 +79,7 @@ namespace Discord_UWP.SharedModels
         public string Url { get; set; }
     }
 
-    public struct EmbedFooter
+    public class EmbedFooter
     {
         [JsonProperty("text")]
         public string Text { get; set; }
@@ -89,7 +89,7 @@ namespace Discord_UWP.SharedModels
         public string ProxyIconUrl { get; set; }
     }
 
-    public struct EmbedAuthor
+    public class EmbedAuthor
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -101,7 +101,7 @@ namespace Discord_UWP.SharedModels
         public string ProxyIconUrl { get; set; }
     }
 
-    public struct EmbedField
+    public class EmbedField
     {
         [JsonProperty("name")]
         public string Name { get; set; }

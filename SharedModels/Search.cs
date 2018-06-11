@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DiscordAPI.SharedModels
 {
-    struct Search
+    public class Search
     {
         [JsonProperty("guild_id")]
         public List<string> guild_id { get; set; }

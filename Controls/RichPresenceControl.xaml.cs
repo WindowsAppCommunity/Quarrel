@@ -22,14 +22,14 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class RichPresenceControl : UserControl
     {
-        public Game? GameContent
+        public Game GameContent
         {
-            get { return (Game?)GetValue(GameContentProperty); }
+            get { return (Game)GetValue(GameContentProperty); }
             set { SetValue(GameContentProperty, value); }
         }
         public static readonly DependencyProperty GameContentProperty = DependencyProperty.Register(
             nameof(GameContent),
-            typeof(Game?),
+            typeof(Game),
             typeof(RichPresenceControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
@@ -67,7 +67,7 @@ namespace Discord_UWP.Controls
         DispatcherTimer timer;
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == GameContentProperty && GameContent.HasValue)
+            if (prop == GameContentProperty && GameContent != null)
             {
                 SmallimgRect.RadiusX = 10;
                 SmallimgRect.RadiusY = 10;
@@ -75,37 +75,37 @@ namespace Discord_UWP.Controls
                 SmallimgRect.Height = 20;
                 SmallimgRect.Margin = new Thickness(0, 0, 5, -5);
 
-                Game? game = GameContent;
+                Game game = GameContent;
 
-                if (game.Value.ApplicationId == "438122941302046720")
+                if (game.ApplicationId == "438122941302046720")
                     xboxlogo.Visibility = Visibility.Visible;
                 else
                     xboxlogo.Visibility = Visibility.Collapsed;
-                if (game.Value.Type != 2)
+                if (game.Type != 2)
                 {
                     //Game title
 
-                    if (game.Value.Name != null)
-                        GameTB.Text = game.Value.Name;
+                    if (game.Name != null)
+                        GameTB.Text = game.Name;
                     else
                         GameTB.Visibility = Visibility.Collapsed;
                     //State
-                    if (game.Value.State != null)
-                        StateTB.Text = game.Value.State;
+                    if (game.State != null)
+                        StateTB.Text = game.State;
                     else
                         StateTB.Visibility = Visibility.Collapsed;
                     //Details
-                    if (game.Value.Details != null)
-                        DetailsTB.Text = game.Value.Details;
+                    if (game.Details != null)
+                        DetailsTB.Text = game.Details;
                     else
                         DetailsTB.Visibility = Visibility.Collapsed;
 
-                    if (game.Value.Party.HasValue)
+                    if (game.Party != null)
                     {
-                        if (game.Value.Party.Value.Size != null)
-                            StateTB.Text += " (" + game.Value.Party.Value.Size[0] + "/" + game.Value.Party.Value.Size[1] + ")";
+                        if (game.Party.Size != null)
+                            StateTB.Text += " (" + game.Party.Size[0] + "/" + game.Party.Size[1] + ")";
                     }
-                    if (game.Value.TimeStamps.HasValue && (game.Value.State != "" || game.Value.Details != "") && (game.Value.TimeStamps.Value.Start.HasValue || game.Value.TimeStamps.Value.End.HasValue))
+                    if (game.TimeStamps != null && (game.State != "" || game.Details != "") && (game.TimeStamps.Start.HasValue || game.TimeStamps.End.HasValue))
                     {
                         timer = new DispatcherTimer();
                         timer.Interval = TimeSpan.FromSeconds(1);
@@ -118,23 +118,23 @@ namespace Discord_UWP.Controls
                         TimeTB.Visibility = Visibility.Collapsed;
                     }
                     //Assets
-                    if (game.Value.Assets.HasValue)
+                    if (game.Assets != null)
                     {
                         //Large image
-                        if (game.Value.Assets.Value.LargeImage != null)
-                            Largeimg.ImageSource = new BitmapImage(GetImageLink(game.Value.Assets.Value.LargeImage, game.Value.ApplicationId));
+                        if (game.Assets.LargeImage != null)
+                            Largeimg.ImageSource = new BitmapImage(GetImageLink(game.Assets.LargeImage, game.ApplicationId));
                         else
                             LargeImgRect.Visibility = Visibility.Collapsed;
                         //Small image
-                        if (game.Value.Assets.Value.SmallImage != null)
-                            Smallimg.ImageSource = new BitmapImage(GetImageLink(game.Value.Assets.Value.SmallImage, game.Value.ApplicationId));
+                        if (game.Assets.SmallImage != null)
+                            Smallimg.ImageSource = new BitmapImage(GetImageLink(game.Assets.SmallImage, game.ApplicationId));
                         else
                             SmallimgRect.Visibility = Visibility.Collapsed;
                         //Image tooltips
-                        if (game.Value.Assets.Value.LargeText != null)
-                            ToolTipService.SetToolTip(LargeImgRect, game.Value.Assets.Value.LargeText);
-                        if (game.Value.Assets.Value.SmallImage != null)
-                            ToolTipService.SetToolTip(SmallimgRect, game.Value.Assets.Value.SmallText);
+                        if (game.Assets.LargeText != null)
+                            ToolTipService.SetToolTip(LargeImgRect, game.Assets.LargeText);
+                        if (game.Assets.SmallImage != null)
+                            ToolTipService.SetToolTip(SmallimgRect, game.Assets.SmallText);
                     }
                     else
                     {
@@ -144,10 +144,10 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    if (game.Value.Assets.HasValue)
+                    if (game.Assets != null)
                     {
-                        if (game.Value.Assets.Value.LargeImage != null)
-                            Largeimg.ImageSource = new BitmapImage(GetSpotifyImageLink(game.Value.Assets.Value.LargeImage));
+                        if (game.Assets.LargeImage != null)
+                            Largeimg.ImageSource = new BitmapImage(GetSpotifyImageLink(game.Assets.LargeImage));
                     }
                     else
                     {
@@ -157,12 +157,12 @@ namespace Discord_UWP.Controls
                     //Artist = state
                     //Album = large_text
                     //Song = details
-                    if (game.Value.Details != null)
-                        GameTB.Text = game.Value.Details;
-                    if (game.Value.State != null)
-                        DetailsTB.Text = "by " + game.Value.State;
-                    if (game.Value.Assets != null && game.Value.Assets.Value.LargeText != null)
-                        StateTB.Text =  game.Value.Assets.Value.LargeText;
+                    if (game.Details != null)
+                        GameTB.Text = game.Details;
+                    if (game.State != null)
+                        DetailsTB.Text = "by " + game.State;
+                    if (game.Assets != null && game.Assets.LargeText != null)
+                        StateTB.Text =  game.Assets.LargeText;
                     TimeTB.Visibility = Visibility.Collapsed;
 
                     timer = new DispatcherTimer();
@@ -241,24 +241,24 @@ namespace Discord_UWP.Controls
 
         private void UpdateTimer(object sender, object e)
         {
-            if (GameContent.Value.TimeStamps.Value.End.HasValue)
+            if (GameContent.TimeStamps.End.HasValue)
             {
-                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.End.Value);
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
                 var timeleft = t.Subtract(DateTimeOffset.Now);
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " left";
             }
-            else if (GameContent.Value.TimeStamps.Value.Start.HasValue)
+            else if (GameContent.TimeStamps.Start.HasValue)
             {
-                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.Start.Value);
+                var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
                 var timeleft = DateTimeOffset.Now.Subtract(t);
                 TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
             }
         }
         private void UpdateProgressBar(object sender, object e)
         {
-            var st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.Start.Value);
-            var et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.Value.TimeStamps.Value.End.Value);
+            var st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
+            var et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
             //full length
             var length = et.Subtract(st);
@@ -305,6 +305,12 @@ namespace Discord_UWP.Controls
         private void AskToJoin_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void Dispose()
+        {
+            Unloaded -= RichPresenceControl_Unloaded;
+            GC.Collect();
         }
     }
 }

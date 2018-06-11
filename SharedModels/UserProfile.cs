@@ -15,6 +15,6 @@ namespace Discord_UWP.SharedModels
         public IEnumerable<MutualGuild> MutualGuilds { get; set; }
         public User user { get; set; }
         public IEnumerable<ConnectedAccount> connected_accounts { get; set; }
-        public Friend? Friend { get; set; }
+        public Friend Friend { get; set; }
     }
 }
