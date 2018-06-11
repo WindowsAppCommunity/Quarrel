@@ -697,9 +697,13 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
 
-
+            App.WentOffline += App_WentOffline;
         }
 
+        private void App_WentOffline(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(Offline));
+        }
 
         private ExtendedExecutionSession session = null;
         private async void BeginExtendedExecution()

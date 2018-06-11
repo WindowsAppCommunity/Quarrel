@@ -794,6 +794,15 @@ namespace Discord_UWP
         }
         #endregion
 
+        public static event EventHandler WentOffline;
+        public static void CheckOnline()
+        {
+            if (!App.IsOnline())
+            {
+                WentOffline?.Invoke(typeof(App), null);
+            }
+        }
+
         public class MentionArgs : EventArgs
         {
             public string Username { get; set; }
