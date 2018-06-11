@@ -27,6 +27,9 @@ using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
 using System.Collections.Generic;
+using ColorSyntax.Styling;
+using ColorSyntax.Common;
+using Discord_UWP.MarkdownTextBlock;
 
 namespace Discord_UWP
 {
@@ -121,8 +124,8 @@ namespace Discord_UWP
         /// <summary>
         /// Fired when a link element in the markdown was tapped.
         /// </summary>
-        public static event EventHandler<MarkdownTextBlock.LinkClickedEventArgs> LinkClicked;
-        public static void FireLinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs LinkeventArgs)
+        public static event EventHandler<LinkClickedEventArgs> LinkClicked;
+        public static void FireLinkClicked(object sender, LinkClickedEventArgs LinkeventArgs)
         {
             LinkClicked?.Invoke(sender, LinkeventArgs);
         }
@@ -1017,10 +1020,12 @@ namespace Discord_UWP
                 return false;
             }
         }
+        
 
-#endregion
 
-#endregion
+        #endregion
+
+        #endregion
 
         private static void ResetSettings()
         {

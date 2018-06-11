@@ -5,7 +5,7 @@
     xmlns:local="using:Discord_UWP.SubPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:markdowntextblock="using:Discord_UWP.MarkdownTextBlock"
+    xmlns:md="using:Discord_UWP.MarkdownTextBlock"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
@@ -89,7 +89,7 @@
                     <StackPanel Margin="0,0,0,24">
                         <TextBlock x:Name="Message" Text="Message" FontWeight="Bold" FontSize="20" Margin="0,0,0,12" TextWrapping="WrapWholeWords"/>
                         <TextBox x:Name="StringArg" Margin="0,0,0,12" Style="{ThemeResource TextBoxStyle1}" Visibility="Collapsed"/>
-                        <markdowntextblock:MarkdownTextBlock x:Name="SubMessage" Text="Topic" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
+                        <md:MarkdownTextBlock x:Name="SubMessage" Text="Topic" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,0">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >

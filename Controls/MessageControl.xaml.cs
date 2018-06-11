@@ -619,7 +619,7 @@ namespace Discord_UWP.Controls
                 }
                 LoadEmbedsAndAttachements();
 
-                content.Users = Message.Value.Mentions;
+              //  content.Users = Message.Value.Mentions;
                 if (Message?.Content == "")
                 {
                     content.Visibility = Visibility.Collapsed;
@@ -954,12 +954,6 @@ namespace Discord_UWP.Controls
             editBox.LostFocus -= EditBox_Cancel;
             rootGrid.Children.Remove(editBox);
             content.Visibility = Visibility.Visible;
-        }
-
-        private async void content_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
-        {
-            //LinkClicked(sender, e);
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
         private async void MorePin_Click(object sender, RoutedEventArgs e)

@@ -16,6 +16,7 @@ using Windows.Security.Credentials;
 using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
+using Windows.UI.Xaml;
 
 namespace Discord_UWP
 {
@@ -85,8 +86,6 @@ namespace Discord_UWP
         public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
     }
-
-
 
 
     public enum Theme { Dark, Light, Windows, Discord }
