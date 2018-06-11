@@ -362,6 +362,7 @@ namespace Discord_UWP
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
 
+            App.WentOffline += App_WentOffline;
         }
 
         private async void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
@@ -654,6 +655,7 @@ namespace Discord_UWP
             App.LinkClicked -= App_LinkClicked;
             //API
             App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.DeleteMessageHandler -= App_DeleteMessageHandler;
             App.FlashMentionHandler -= App_FlashMentionHandler;
             typingCooldown.Tick -= TypingCooldown_Tick;
             App.StartTypingHandler -= App_StartTypingHandler;
@@ -668,6 +670,7 @@ namespace Discord_UWP
             App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
             App.VoiceConnectHandler -= App_VoiceConnectHandler;
             App.GuildSyncedHandler -= App_GuildSyncedHandler;
+            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
             //DM
             App.DMCreatedHandler -= App_DMCreatedHandler;
             App.DMDeletedHandler -= App_DMDeletedHandler;
@@ -697,7 +700,8 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
 
-            App.WentOffline += App_WentOffline;
+
+            App.WentOffline -= App_WentOffline;
         }
 
         private void App_WentOffline(object sender, EventArgs e)
