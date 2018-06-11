@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.UpstreamEvents
 {
-    public struct GuildMembersRequest
+    public class GuildMembersRequest
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }

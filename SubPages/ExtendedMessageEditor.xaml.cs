@@ -263,13 +263,13 @@ namespace Discord_UWP.SubPages
             var attachement = new Controls.AttachementControl()
             {
                 IsFake = true,
-                DisplayedAttachement =
-                    new SharedModels.Attachment()
-                    {
-                        Filename = file.Name,
-                        Url = file.Path,
-                        Size = props.Size
-                    },
+                DisplayedAttachement = 
+                new SharedModels.Attachment()
+                {
+                    Filename = file.Name,
+                    Url = file.Path,
+                    Size = props.Size
+                },
                 
                 Tag = guid
             };

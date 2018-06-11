@@ -267,6 +267,12 @@ namespace Discord_UWP.Controls
            
             EmojiCVS.Source = grouped;
         }
+
+        public void Dispose()
+        {
+            //Nothing to dispose
+            GC.Collect();
+        }
     }
 
     static class EmojiSkinToneManager

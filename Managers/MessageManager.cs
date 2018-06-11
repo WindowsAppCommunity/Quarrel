@@ -16,7 +16,7 @@ namespace Discord_UWP.Managers
         {
             if (messages != null)
             {
-                Message? prev = null;
+                Message prev = null;
                 List<MessageContainer> returnMessages = new List<MessageContainer>();
                 messages.Reverse();
                 foreach (var message in messages)
@@ -36,10 +36,10 @@ namespace Discord_UWP.Managers
             }
             return null; //else
         }
-        public static bool ShouldContinuate(Message current, Message? previous)
+        public static bool ShouldContinuate(Message current, Message previous)
         {
             //If the previous message exists, is a normal message, and was published than 2 minutes ago, the current one should continuate it
-            if (previous.HasValue && previous.Value.Type == 0 && current.Timestamp.Subtract(previous.Value.Timestamp).Minutes < 2 && previous.Value.User.Id == current.User.Id)
+            if (previous != null && previous.Type == 0 && current.Timestamp.Subtract(previous.Timestamp).Minutes < 2 && previous.User.Id == current.User.Id)
                 return true;
             else
                 return false;
@@ -74,7 +74,7 @@ namespace Discord_UWP.Managers
         public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert }
         public class MessageContainer : INotifyPropertyChanged
         {
-            public MessageContainer(Message? message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
+            public MessageContainer(Message message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
             {
                 LastRead = false; // this is false, we decided if it should be marked as "last read" later on
                 Message = message;
@@ -85,11 +85,11 @@ namespace Discord_UWP.Managers
                     IsContinuation = isContinuation;
                 Header = header;
                 Pending = pending;
-                Blocked = messageType != MessageTypes.Advert && LocalState.Blocked.ContainsKey(message.Value.Id);
+                Blocked = messageType != MessageTypes.Advert && LocalState.Blocked.ContainsKey(message.Id);
             }
 
-            private Message? _message;
-            public Message? Message
+            private Message _message;
+            public Message Message
             {
                 get => _message;
                 set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct EditMessage
+    public class EditMessage
     {
         [JsonProperty("content")]
         public string Content { get; set; }

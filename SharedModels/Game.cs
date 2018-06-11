@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Game
+    public class Game
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("timestamps")]
-        public timestamps? TimeStamps{get;set;}
+        public timestamps TimeStamps{get;set;}
         [JsonProperty("state")]
         public string State { get; set; }
         [JsonProperty("details")]
@@ -24,29 +24,29 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("session_id")]
         public string SessionId { get; set; }
         [JsonProperty("party")]
-        public party? Party { get; set; }
+        public party Party { get; set; }
         [JsonProperty("flags")]
         public int Flags { get; set; }
         [JsonProperty("assets")]
-        public assets? Assets { get; set; }
+        public assets Assets { get; set; }
         [JsonProperty("application_id")]
         public string ApplicationId { get; set; }
     }
-    public struct timestamps
+    public class timestamps
     {
         [JsonProperty("start")]
         public long? Start;
         [JsonProperty("end")]
         public long? End;
     }
-    public struct party
+    public class party
     {
         [JsonProperty("size")]
         public int?[] Size { get; set; }
         [JsonProperty("id")]
         public string Id { get; set; }
     }
-    public struct assets
+    public class assets
     {
         [JsonProperty("small_image")]
         public string SmallImage { get; set; }

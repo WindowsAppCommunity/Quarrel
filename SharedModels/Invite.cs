@@ -22,7 +22,7 @@ namespace Discord_UWP.SharedModels
         { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
     }
 
-    public struct Invite
+    public class Invite
     {
         /// <summary>
         /// Current use count
@@ -59,7 +59,7 @@ namespace Discord_UWP.SharedModels
         public InviteChannel Channel { get; set; }
     }
 
-    public struct InviteGuild
+    public class InviteGuild
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -69,7 +69,7 @@ namespace Discord_UWP.SharedModels
         public string SplashHash { get; set; }
     }
 
-    public struct CreateInvite
+    public class CreateInvite
     {
         [JsonProperty("max_age")]
         public int MaxAge { get; set; }
@@ -81,7 +81,7 @@ namespace Discord_UWP.SharedModels
         public bool Unique { get; set; }
     }
 
-    public struct InviteChannel
+    public class InviteChannel
     {
         [JsonProperty("id")]
         public string Id { get; set; }

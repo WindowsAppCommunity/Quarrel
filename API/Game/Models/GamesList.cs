@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace Discord_UWP.API.Game
 {
 
-    public struct Executable
+    public class Executable
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace Discord_UWP.API.Game
         public string Os { get; set; }
     }
 
-    public struct DistributorGame
+    public class DistributorGame
     {
         [JsonProperty("distributor")]
         public string Distributor { get; set; }
@@ -24,7 +24,7 @@ namespace Discord_UWP.API.Game
         public string Sku { get; set; }
     }
 
-    public struct GameList
+    public class GameList
     {
         [JsonProperty("executables")]
         public List<Executable> Executables { get; set; }

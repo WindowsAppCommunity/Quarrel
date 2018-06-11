@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct Ready
+    public class Ready
     {
         [JsonProperty("v")]
         public int GatewayVersion { get; set; }

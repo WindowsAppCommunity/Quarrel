@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct MessageDelete
+    public class MessageDelete
     {
         [JsonProperty("id")]
         public string MessageId { get; set; }

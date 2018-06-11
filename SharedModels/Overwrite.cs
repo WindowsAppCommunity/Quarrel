@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Overwrite
+    public class Overwrite
     {
         [JsonProperty("id")]
         public string Id { get; set; }

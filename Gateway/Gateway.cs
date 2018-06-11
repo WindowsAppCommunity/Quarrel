@@ -29,8 +29,8 @@ namespace Discord_UWP.Gateway
         private IDictionary<int, GatewayEventHandler> operationHandlers;
         private IDictionary<string, GatewayEventHandler> eventHandlers;
 
-        private Ready? lastReady;
-        private SocketFrame? lastGatewayEvent;
+        private Ready lastReady;
+        private SocketFrame lastGatewayEvent;
 
         private readonly IWebMessageSocket _webMessageSocket;
         private readonly IAuthenticator _authenticator;
@@ -193,7 +193,7 @@ namespace Discord_UWP.Gateway
             await _webMessageSocket.SendJsonObjectAsync(resume);
         }
 
-        public async void UpdateStatus(string onlinestatus, int? idleSince, Game? game)
+        public async void UpdateStatus(string onlinestatus, int? idleSince, Game game)
         {
             await UpdateStatus(new StatusUpdate()
                 {

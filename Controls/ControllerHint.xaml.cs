@@ -98,5 +98,11 @@ namespace Discord_UWP.Controls
             foreach (var animation in animations)
                 animation.Start();
         }
+
+        public void Dispose()
+        {
+            //Nothing to dispose
+            GC.Collect();
+        }
     }
 }

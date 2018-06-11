@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct PruneStatus
+    public class PruneStatus
     {
         [JsonProperty("pruned")]
         public int PrunedCount { get; set; }

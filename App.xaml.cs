@@ -62,7 +62,7 @@ namespace Discord_UWP
 
         #region Startup
         public static event EventHandler LoggingInHandler;
-        public static void LoggingIn()
+        public static void LogIn()
         {
             App.AddToEventList("Logging in...");
             LoggingInHandler?.Invoke(typeof(App), new EventArgs());
@@ -796,6 +796,15 @@ namespace Discord_UWP
             OpenAttachementHandler?.Invoke(typeof(App), args);
         }
         #endregion
+
+        public static event EventHandler WentOffline;
+        public static void CheckOnline()
+        {
+            if (!App.IsOnline())
+            {
+                WentOffline?.Invoke(typeof(App), null);
+            }
+        }
 
         public class MentionArgs : EventArgs
         {

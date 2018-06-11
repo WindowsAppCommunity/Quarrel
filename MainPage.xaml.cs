@@ -66,9 +66,10 @@ namespace Discord_UWP
         ItemsStackPanel messageStacker;
         string setupArgs = "";
 
+
+
         public async void Setup(object o, EventArgs args)
         {
-
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                    () =>
                    {
@@ -362,6 +363,7 @@ namespace Discord_UWP
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
 
+            App.WentOffline += App_WentOffline;
         }
 
         private async void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
@@ -654,6 +656,7 @@ namespace Discord_UWP
             App.LinkClicked -= App_LinkClicked;
             //API
             App.CreateMessageHandler -= App_CreateMessageHandler;
+            App.DeleteMessageHandler -= App_DeleteMessageHandler;
             App.FlashMentionHandler -= App_FlashMentionHandler;
             typingCooldown.Tick -= TypingCooldown_Tick;
             App.StartTypingHandler -= App_StartTypingHandler;
@@ -668,6 +671,7 @@ namespace Discord_UWP
             App.UpdatePresenceHandler -= App_UpdatePresenceHandler;
             App.VoiceConnectHandler -= App_VoiceConnectHandler;
             App.GuildSyncedHandler -= App_GuildSyncedHandler;
+            App.PresenceUpdatedHandler -= App_PresenceUpdatedHandler;
             //DM
             App.DMCreatedHandler -= App_DMCreatedHandler;
             App.DMDeletedHandler -= App_DMDeletedHandler;
@@ -698,8 +702,13 @@ namespace Discord_UWP
             App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
 
 
+            App.WentOffline -= App_WentOffline;
         }
 
+        private void App_WentOffline(object sender, EventArgs e)
+        {
+            SubFrameNavigator(typeof(Offline));
+        }
 
         private ExtendedExecutionSession session = null;
         private async void BeginExtendedExecution()
@@ -785,11 +794,17 @@ namespace Discord_UWP
             if (App.LoggedIn())
             {
                 SetupEvents();
-                GatewayManager.StartGateway();
-                //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
-                BeginExtendedExecution();
-                BackgroundTaskManager.TryRegisterBackgroundTask();
-                SubFrame.Visibility = Visibility.Collapsed;
+                if (Managers.GatewayManager.Gateway != null && App.IsOnline())
+                {
+                    GatewayManager.StartGateway();
+                    //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
+                    BeginExtendedExecution();
+                    BackgroundTaskManager.TryRegisterBackgroundTask();
+                    SubFrame.Visibility = Visibility.Collapsed;
+                } else
+                {
+                    SubFrameNavigator(typeof(Offline));
+                }
 
             } else
             {
@@ -1879,8 +1894,8 @@ namespace Discord_UWP
                 if (showNewMessageIndicator)
                 {
                     //(MAYBE) SHOW NEW MESSAGE INDICATOR
-                    var FirstMessageTime = Common.SnowflakeToTime(messages.First().Message.Value.Id);
-                    var LastMessageTime = Common.SnowflakeToTime(messages.Last().Message.Value.Id);
+                    var FirstMessageTime = Common.SnowflakeToTime(messages.First().Message.Id);
+                    var LastMessageTime = Common.SnowflakeToTime(messages.Last().Message.Id);
                     var LastReadTime = Common.SnowflakeToTime(App.LastReadMsgId);
 
                     if (FirstMessageTime < LastReadTime)
@@ -1896,7 +1911,7 @@ namespace Discord_UWP
                                 if (CanBeLastRead)
                                 {
                                     //the first one with a larger timestamp gets the "NEW MESSAGES" header
-                                    var CurrentMessageTime = Common.SnowflakeToTime(messages[i].Message.Value.Id);
+                                    var CurrentMessageTime = Common.SnowflakeToTime(messages[i].Message.Id);
                                     if (CurrentMessageTime > LastReadTime)
                                     {
                                         messages[i].LastRead = true;
@@ -1951,8 +1966,8 @@ namespace Discord_UWP
                 }
             }
 
-            Message? last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
-            if (last.HasValue && App.CurrentGuildId != null && App.CurrentChannelId != null && last.Value.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+            Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
+            if (last != null && App.CurrentGuildId != null && App.CurrentChannelId != null && last.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
                 ReturnToPresentIndicator.Visibility = Visibility.Visible;
@@ -2285,7 +2300,7 @@ namespace Discord_UWP
         {
             DisableLoadingMessages = true;
             MessagesLoadingTop.Visibility = Visibility.Visible;
-            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
             AddMessages(Position.Before, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
             MessagesLoadingTop.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
@@ -2297,9 +2312,9 @@ namespace Discord_UWP
             {
                 for (int i = MessageList.Items.Count; i < 0; i--)
                 {
-                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message != null)
                     {
-                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
                             return true;
                         else return false;
                     }
@@ -2310,9 +2325,9 @@ namespace Discord_UWP
             {
                 for (int i = MessageList.Items.Count; i < 0; i--)
                 {
-                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.HasValue)
+                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message != null)
                     {
-                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Value.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
                             return true;
                         else return false;
                     }
@@ -2324,13 +2339,13 @@ namespace Discord_UWP
         {
             try
             {
-                Message? last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
-                if (last.HasValue && last.Value.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
+                Message last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+                if (last != null && last.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
                 {
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
                     DisableLoadingMessages = true;
-                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message.HasValue) as MessageManager.MessageContainer).Message.Value.Id)).ToList());
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
                     messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
                     AddMessages(Position.After, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -2609,11 +2624,11 @@ namespace Discord_UWP
                      //    }
                      //} else
                      //{
-                     Message? last = null;
+                     Message last = null;
                      if (MessageList.Items.Count > 0)
                      {
                          last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
-                         if(last.HasValue && last.Value.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
+                         if(last != null && last.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
 }
                             //Only add a message if the last one is functional
                             MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
@@ -2683,7 +2698,7 @@ namespace Discord_UWP
                      for (int i = 0; i < MessageList.Items.Count; i++)
                      {
                          MessageManager.MessageContainer message = (MessageManager.MessageContainer)MessageList.Items[i];
-                         if (message.Message.HasValue && message.Message.Value.Id == e.MessageId)
+                         if (message.Message != null && message.Message.Id == e.MessageId)
                          {
                              MessageList.Items.Remove(message);
                              if (LocalState.RPC[App.CurrentChannelId].LastMessageId == e.MessageId)
@@ -2692,7 +2707,7 @@ namespace Discord_UWP
                                  if (last != null)
                                  {
                                      var temp = LocalState.RPC[App.CurrentChannelId];
-                                     temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Value.Id;
+                                     temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Id;
                                      LocalState.RPC[App.CurrentChannelId] = temp;
                                      LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId = temp.LastMessageId;
                                  }
@@ -2712,7 +2727,7 @@ namespace Discord_UWP
                      {
                          foreach (MessageManager.MessageContainer message in MessageList.Items)
                          {
-                             if (message.Message.HasValue && message.Message.Value.Id == e.Message.Id)
+                             if (message.Message != null && message.Message.Id == e.Message.Id)
                              {
                                  message.Message = e.Message;
                              }

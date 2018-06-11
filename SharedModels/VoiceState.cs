@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct VoiceState
+    public class VoiceState
     {
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }

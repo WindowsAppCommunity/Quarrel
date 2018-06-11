@@ -17,6 +17,10 @@ namespace Discord_UWP.Managers
     {
         public async static void StartGateway()
         {
+            if (Gateway == null)
+            {
+                return;
+            }
             //Ready
             Gateway.Ready += Gateway_Ready;
             //Message
@@ -74,7 +78,10 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_SessionReplaced(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.SessionReplace> e)
         {
-            session = e.EventData.SessionId;
+            if (e.EventData != null)
+            {
+                session = e.EventData.SessionId;
+            }
         }
 
         #region Ready

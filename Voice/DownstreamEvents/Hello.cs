@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct Hello
+    public class Hello
     {
         [JsonProperty("heartbeat_interval")]
         public int Heartbeatinterval { get; set; }

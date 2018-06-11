@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public struct SearchArgs
+    public class SearchArgs
     {
         public enum HasType
         {

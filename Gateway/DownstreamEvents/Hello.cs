@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Gateway.DownstreamEvents
 {
-    public struct Hello
+    public class Hello
     {
         [JsonProperty("heartbeat_interval")]
         public int HeartbeatInterval { get; set; }

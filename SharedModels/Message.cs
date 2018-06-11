@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct Message
+    public class Message
     {
         public Message MergePending(Message gatewayData)
         {
@@ -42,7 +42,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("channel_id")]
         public string ChannelId { get; set; }
         [JsonProperty("activity")]
-        public Activity? Activity { get; set; }
+        public Activity Activity { get; set; }
         [JsonProperty("author")]
         public User User { get; set; }
         [JsonProperty("content")]
@@ -74,14 +74,14 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("hits")]
         public bool Hit { get; set; }
     }
-    public struct Activity
+    public class Activity
     {
         [JsonProperty("party_id")]
         public string PartyId { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
     }
-    public struct MessageAck
+    public class MessageAck
     {
         [JsonProperty("message_id")]
         public string Id { get; set; }

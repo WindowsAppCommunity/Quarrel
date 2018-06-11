@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public struct DirectMessageChannel
+    public class DirectMessageChannel
     {
         [JsonProperty("id")]
         public string Id { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct BulkDelete
+    public class BulkDelete
     {
         [JsonProperty("messages")]
         public IEnumerable<string> Messages { get; set; }

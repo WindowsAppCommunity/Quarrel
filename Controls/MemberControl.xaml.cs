@@ -137,13 +137,13 @@ namespace Discord_UWP.Controls
                 {
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
-                    game.Text = Status.Game.Value.Name;
+                    game.Text = Status.Game.Name;
                     UpdateColor();
-                    if (Status.Game.Value.State != null || Status.Game.Value.Details != null || Status.Game.Value.SessionId != null)
+                    if (Status.Game.State != null || Status.Game.Details != null || Status.Game.SessionId != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
-                        switch (Status.Game.Value.Type)
+                        switch (Status.Game.Type)
                         {
                             case 0:
                                 playing.Text = "Playing"; break;
@@ -204,11 +204,7 @@ namespace Discord_UWP.Controls
 
         private void Dispose(object sender, EventArgs e)
         {
-            App.DisposeMemberListHandler -= Dispose;
-        //    App.TypingHandler -= App_TypingHandler;
-         //   RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
-            RightTapped -= OpenMenuFlyout;
-            Holding -= OpenMenuFlyout;
+            Dipose();
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
@@ -222,6 +218,14 @@ namespace Discord_UWP.Controls
         {
             if (e.PointerDeviceType != PointerDeviceType.Touch)
                 App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, RawMember.User.Id, App.CurrentGuildId, e.GetPosition(this));
+        }
+
+        public void Dipose()
+        {
+            App.DisposeMemberListHandler -= Dispose;
+            RightTapped -= OpenMenuFlyout;
+            Holding -= OpenMenuFlyout;
+            GC.Collect();
         }
     }
 }

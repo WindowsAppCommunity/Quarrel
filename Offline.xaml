@@ -15,55 +15,44 @@
     </Page.Resources>-->
 
     <Grid Background="{ThemeResource AcrylicMessageBackground}">
-        <!--<ListView x:Name="SavedMessages">
-            <ListView.Header>
+        <StackPanel VerticalAlignment="Center" Margin="16,0" MaxWidth="650">
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <RepositionThemeTransition/>
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+
+            <Image Source="Assets/DiscordBlurpleIcon.png" MaxWidth="64" VerticalAlignment="Center" Margin="0,0,0,12">
+                <Image.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="-800"/>
+                    </TransitionCollection>
+                </Image.Transitions>
+            </Image>
+            <TextBlock Text="Q U A R R E L" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource Blurple}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
+                <TextBlock.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="-600"/>
+                    </TransitionCollection>
+                </TextBlock.Transitions>
+            </TextBlock>
+
+
+            <TextBlock Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+
+            <TextBlock Text="You're either offline or on too slow a connection to start the Gateway" TextWrapping="WrapWholeWords" Foreground="{ThemeResource Blurple}" FontSize="20" TextAlignment="Center" Margin="0,0,0,12"/>
+
+            <Button x:Name="loginButton" MaxWidth="500" HorizontalAlignment="Stretch" Click="TryLogin" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
+                <Button.Transitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition FromVerticalOffset="250"/>
+                    </TransitionCollection>
+                </Button.Transitions>
                 <Grid>
-                    <TextBlock Text="You're offline, but you can still view saved messages" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="LoginText" Text="Retry Login" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <controls:MessageControl Message="{Binding Message}"
-                                                 IsContinuation="{Binding IsContinuation}"
-                                                 MessageType="{Binding MessageType}"
-                                                 Header="{Binding Header}"
-                                                 IsPending="{Binding Pending}"
-                                                 IsBlocked="{Binding Blocked}"
-                                             MoreButtonVisibility="Collapsed"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-        <Viewbox x:Name="viewbox" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0">
-            <Viewbox.RenderTransform>
-                <CompositeTransform/>
-            </Viewbox.RenderTransform>
-            <Canvas x:Name="canvas" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" Margin="132,52,132,49">
-                <Canvas.RenderTransform>
-                    <CompositeTransform/>
-                </Canvas.RenderTransform>
-                <Canvas x:Name="SidesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
-                    <Canvas.RenderTransform>
-                        <CompositeTransform/>
-                    </Canvas.RenderTransform>
-                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M32.4,36.1l2.8,3.9c1.9-0.1,9.3-1.5,11.8-6c0-9.6-4.2-20.8-6-22.5C37.2,8.5,31,8,31,8s-0.5,1.1-0.6,2.5"/>
-                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M19.6,10.5C19,8,19,8,19,8s-6.2,0.5-10,3.5C7.2,13.2,3,24.4,3,34c2.6,4.5,9.9,5.9,11.8,6l2.8-3.9"/>
-                </Canvas>
-                <Canvas x:Name="PolesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
-                    <Canvas.RenderTransform>
-                        <CompositeTransform/>
-                    </Canvas.RenderTransform>
-                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M10.5,32.8c0,0,4.8,4.2,14.5,4.2s14.5-4.2,14.5-4.2"/>
-                    <Path StrokeThickness="2" Width="50" Height="50" Stroke="{ThemeResource Foreground}" Data="M38.1,13.4c-5-3-11-3.4-13.1-3.4s-8.1,0.4-13.1,3.4"/>
-                </Canvas>
-                <Canvas x:Name="EyesLayer" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
-                    <Canvas.RenderTransform>
-                        <CompositeTransform/>
-                    </Canvas.RenderTransform>
-                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="14.1" Canvas.Top="20.8"/>
-                    <Ellipse StrokeThickness="2" Stroke="{ThemeResource Foreground}" Width="8.8" Height="9.2" Canvas.Left="27.1" Canvas.Top="20.8"/>
-                </Canvas>
-            </Canvas>
-        </Viewbox>
-        <TextBlock Text="You're offline :(" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,150,0,0" FontSize="20"/>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

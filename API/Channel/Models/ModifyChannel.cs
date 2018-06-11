@@ -9,7 +9,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct ModifyChannel
+    public class ModifyChannel
     {
         [JsonProperty("name")]
         public string Name { get; set; }

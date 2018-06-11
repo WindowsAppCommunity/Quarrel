@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.Voice.DownstreamEvents
 {
-    public struct Speak
+    public class Speak
     {
         [JsonProperty("speaking")]
         public bool Speaking { get; set; }

@@ -52,7 +52,7 @@ namespace Discord_UWP.Controls
                 SideBorder.Background = (SolidColorBrush)App.Current.Resources["LightBG"];
 
             //Author
-            if (EmbedContent.Author.Name != null)
+            if (EmbedContent.Author != null)
             {
                 everythingisnull = false;
                 AuthorSP.Visibility=Visibility.Visible;
@@ -146,7 +146,7 @@ namespace Discord_UWP.Controls
             }
 
             //Image
-            if (EmbedContent.Image.Url != null)
+            if (EmbedContent.Image != null)
             {
                 everythingisnull = false;
                 ImageViewbox.Visibility = Visibility.Visible;
@@ -166,7 +166,7 @@ namespace Discord_UWP.Controls
             }
 
             //Footer
-            if (EmbedContent.Footer.Text == null && EmbedContent.Timestamp == null)
+            if (EmbedContent.Footer == null && EmbedContent.Timestamp == null)
                 FooterSP.Visibility = Visibility.Collapsed;
             else
             {
@@ -184,7 +184,7 @@ namespace Discord_UWP.Controls
                 {
                     FooterText.Text = footertext;
                 }
-                if (EmbedContent.Footer.IconUrl != null)
+                if (EmbedContent.Footer != null)
                 {
                     FooterImage.Visibility = Visibility.Visible;
                     FooterImage.Source = new BitmapImage(new Uri(EmbedContent.Footer.IconUrl));
@@ -196,7 +196,7 @@ namespace Discord_UWP.Controls
             }
 
             //Provider
-            if (EmbedContent.Provider.Name != null)
+            if (EmbedContent.Provider != null)
             {
                 everythingisnull = false;
                 ProviderHyperlink.Visibility = Visibility.Visible;
@@ -209,7 +209,7 @@ namespace Discord_UWP.Controls
                 ProviderHyperlink.Visibility = Visibility.Collapsed;
             }
             //Thumbnail
-            if (EmbedContent.Thumbnail.Url != null)
+            if (EmbedContent.Thumbnail != null)
             {
                 if (EmbedContent.Type == "article")
                 {
@@ -293,7 +293,7 @@ namespace Discord_UWP.Controls
         private void ShareEmbed(object sender, RoutedEventArgs e)
         {
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
-            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested; ;
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested;
         }
 
         private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
@@ -337,6 +337,12 @@ namespace Discord_UWP.Controls
 
             var uri = new Uri(@"rykentube:Video?ID=" + videoID);
             await Windows.System.Launcher.LaunchUriAsync(uri);
+        }
+
+        public void Dispose()
+        {
+            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
+            GC.Collect();
         }
     }
 }

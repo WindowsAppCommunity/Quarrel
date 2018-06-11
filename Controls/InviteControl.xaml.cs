@@ -144,5 +144,11 @@ namespace Discord_UWP.Controls
             };
             DataTransferManager.ShowShareUI();
         }
+
+        public void Dipose()
+        {
+            //Nothing to dispose
+            GC.Collect();
+        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Channel.Models
 {
-    public struct EditChannel
+    public class EditChannel
     {
         [JsonProperty("allow")]
         public int Allow { get; set; }

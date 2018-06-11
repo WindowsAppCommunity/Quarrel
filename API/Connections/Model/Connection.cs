@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Connections
 {
-    public struct Connection
+    public class Connection
     {
         [JsonProperty("url")]
         public string Url { get; set; }
