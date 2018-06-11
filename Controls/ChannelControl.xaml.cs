@@ -444,10 +444,9 @@ namespace Discord_UWP.Controls
                 {
                     //DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
-                    if (LocalState.DMs[Id].Users.FirstOrDefault().Avatar == null)
-                    {
-                        ChannelImageBackdrop.Visibility = Visibility.Visible;
-                    }
+                    ChannelImageBackdrop.Visibility =
+                             LocalState.DMs[Id].Users.FirstOrDefault().Avatar == null ?
+                             Visibility.Visible : Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Visible;
                     rectangle.Visibility = Visibility.Visible;
                     grid.Height = 48;
@@ -461,7 +460,7 @@ namespace Discord_UWP.Controls
                 {
                     //GROUP DM
                     HashtagIcon.Visibility = Visibility.Collapsed;
-                    ChannelImageBackdrop.Visibility = Visibility.Visible;
+                    ChannelImageBackdrop.Visibility = Visibility.Collapsed;
                     ChannelImage.Visibility = Visibility.Visible;
                     rectangle.Visibility = Visibility.Collapsed;
                     grid.Height = 48;
