@@ -15,7 +15,6 @@ namespace Discord_UWP.Managers
     {
         public static SimpleChannel MakeChannel(LocalModels.GuildChannel channel)
         {
-            channel.GetPermissions();
             SimpleChannel sc = new SimpleChannel();
             sc.Id = channel.raw.Id;
             sc.Name = channel.raw.Name;
@@ -346,7 +345,6 @@ namespace Discord_UWP.Managers
             List<SimpleChannel> returnChannels = new List<SimpleChannel>();
             foreach (var channel in channels)
             {
-                channel.GetPermissions();
                 SimpleChannel sc = new SimpleChannel();
                 sc.Id = channel.raw.Id;
                 sc.Name = channel.raw.Name;

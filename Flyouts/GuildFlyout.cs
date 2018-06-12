@@ -95,8 +95,7 @@ namespace Discord_UWP.Flyouts
                  changeNick.Click += FlyoutManager.ChangeNickname;
                  menu.Items.Add(changeNick);
              }*/
-
-            guild.GetPermissions();
+             
             return menu;
         }
     }
