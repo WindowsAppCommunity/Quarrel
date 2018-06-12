@@ -798,6 +798,7 @@ namespace Discord_UWP
                 if (Managers.GatewayManager.Gateway != null && App.IsOnline())
                 {
                     GatewayManager.StartGateway();
+                    Common.LoadEmojiDawg();
                     //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
                     BeginExtendedExecution();
                     BackgroundTaskManager.TryRegisterBackgroundTask();
