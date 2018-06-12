@@ -17,6 +17,14 @@ namespace Discord_UWP.SharedModels
         public string ParentId { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// 0 = Text,
+        /// 1 = DM,
+        /// 2 = Voice,
+        /// 3 = Group DM,
+        /// 4 = Category
+        /// </summary>
         [JsonProperty("type")]
         public int Type { get; set; }
         [JsonProperty("position")]
