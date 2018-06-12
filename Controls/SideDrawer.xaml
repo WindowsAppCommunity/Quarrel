@@ -73,7 +73,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <ContentControl x:Name="ContentControl1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,0,12,0" FocusEngaged="ContentControl1_FocusEngaged" IsTabStop="False">
+            <ContentControl x:Name="ContentControl1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,0,0,0" FocusEngaged="ContentControl1_FocusEngaged" IsTabStop="False">
 
             </ContentControl>
         </Grid>
