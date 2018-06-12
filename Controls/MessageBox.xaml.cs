@@ -222,6 +222,10 @@ namespace Discord_UWP.Controls
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(MessageEditor.Text))
+                SendBox.IsEnabled = true;
+            else
+                IsEnabled = false;
             TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -678,7 +682,8 @@ namespace Discord_UWP.Controls
                     //This is possibly a user mention
                     string query = text.Remove(0, i);
                     querylength = query.Length;
-                    DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
+                    if(App.MemberListDawg != null)
+                        DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
                     return;
                 }
             }
