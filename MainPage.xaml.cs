@@ -447,6 +447,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 var member = FindMember(e.EventData.User.Id);
+                if (member == null) return;
                 member.Raw.Nick = e.EventData.Nick;
                 if (e.EventData.Nick != null)
                 {
@@ -2031,36 +2032,21 @@ namespace Discord_UWP
             string typingString = "";
             int DisplayedTyperCounter = 0;
             List<string> NamesTyping = new List<string>();
-            foreach (var channel in ChannelList.Items)
-                (channel as ChannelManager.SimpleChannel).IsTyping = false;
-            for (int i = 0; i < LocalState.Typers.Count; i++)
-            {
-                //Go through every "typer"
-                var typer = LocalState.Typers.ElementAt(i);
-                for (int channelNb = 0; i < ChannelList.Items.Count; i++)
-                {
-                    if(((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).Id == typer.Key.channelId)
-                    {
-                        ((ChannelManager.SimpleChannel)ChannelList.Items[channelNb]).IsTyping = true;
-                        break;
-                    }
-                }
+            foreach (ChannelManager.SimpleChannel channel in ChannelList.Items)
+                channel.IsTyping = LocalState.Typers.ContainsKey(channel.Id);
 
-                if (App.CurrentChannelId != null)
+            if (App.CurrentChannelId != null)
+            {
+                if (LocalState.Typers.ContainsKey(App.CurrentChannelId))
                 {
-                    if (App.CurrentGuildIsDM)
+                    foreach (var typer in LocalState.Typers[App.CurrentChannelId])
                     {
-                        if (App.CurrentChannelId == typer.Key.channelId)
+                        if (App.CurrentGuildIsDM)
                         {
-                            NamesTyping.Add(LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(m => m.Id == typer.Key.userId).Username);
-                        }
-                    }
-                    else
-                    {
-                        if (App.CurrentChannelId == typer.Key.channelId &&
-                            LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(typer.Key.userId))
+                            NamesTyping.Add(LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(m => m.Id == typer.Key).Username);
+                        } else
                         {
-                            var member = LocalState.Guilds[App.CurrentGuildId].members[typer.Key.userId];
+                            var member = LocalState.Guilds[App.CurrentGuildId].members[typer.Key];
                             string DisplayedName = member.User.Username;
                             if (member.Nick != null) DisplayedName = member.Nick;
                             NamesTyping.Add(DisplayedName);
