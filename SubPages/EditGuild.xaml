@@ -325,7 +325,6 @@
                                     </Grid>
                                     <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" Style="{StaticResource TextBoxStyle1}" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
-                                   
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -404,11 +403,7 @@
                                 </ListView>
                                 <ScrollViewer Margin="0, 50, 0, 0">
                                     <StackPanel>
-                                        <TextBox x:Name="RoleName" Margin="10" LostFocus="UpdateRole">
-                                            <TextBox.Header>
-                                                <TextBlock x:Uid="/Dialogs/RoleNameTB" Text="ROLE NAME" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
-                                            </TextBox.Header>
-                                        </TextBox>
+                                        <TextBox x:Name="RoleName" Header="Name" Margin="10" LostFocus="UpdateRole" Style="{ThemeResource TextBoxStyle1}"/>
                                         <StackPanel Margin="10">
                                             <TextBlock x:Uid="/Dialogs/RoleSettingsTB" Text="ROLE SETTINGS" FontWeight="Bold" Opacity="0.4" Margin="10, 5"/>
                                             <ToggleSwitch x:Uid="/Dialogs/RoleHoistToggle" x:Name="Hoist" Header="Display role seperatly (Hoist)" Margin="20, 5"/>
