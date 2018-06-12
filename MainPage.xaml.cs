@@ -2021,6 +2021,7 @@ namespace Discord_UWP
             tempMembers.Add(cm);
             
             memberscvs = new GroupedObservableCollection<HoistRole, Managers.Member>(c => c.MemberHoistRole, tempMembers);
+
             MembersCvs.Source = memberscvs;
           //  memberscvs.Clear();
             //MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();
