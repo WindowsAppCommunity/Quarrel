@@ -224,8 +224,8 @@ namespace Discord_UWP.LocalModels
 
         public static bool CanChangeNickname(string userId, string guildId)
         {
-            if ((new Permissions(guildId)).ChangeNickname &&
-                (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]).Position > (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()]).Position)
+            if (((new Permissions(guildId)).ChangeNickname && userId == LocalState.CurrentUser.Id) ||
+               ((new Permissions(guildId)).ManageNicknames && (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]).Position > (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()]).Position))
             {
                 return true;
             }
