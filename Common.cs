@@ -223,13 +223,12 @@ namespace Discord_UWP
             {
                 if (inMention)
                 {
-                    if (c == '#')
+                    if (c == '#' && !inDesc)
                     {
                         inDesc = true;
                     }
-                    else if (c == ' ')
+                    else if (c == '@')
                     {
-                        inMention = false;
                         inDesc = false;
                         cache = "";
                         descCache = "";
@@ -253,11 +252,11 @@ namespace Discord_UWP
                             if (App.CurrentGuildIsDM)
                             {
                                 mention = LocalState.DMs[App.CurrentChannelId].Users
-                               .Where(x => x.Username == cache && x.Username + "#" + x.Discriminator == descCache).FirstOrDefault();
+                               .Where(x => x.Username == cache && x.Discriminator == descCache).FirstOrDefault();
                             } else
                             {
                                 GuildMember member = LocalState.Guilds[App.CurrentGuildId].members
-                               .Where(x => x.Value.User.Username == cache && x.Value.User.Username + "#" + x.Value.User.Discriminator == descCache).FirstOrDefault().Value;
+                               .Where(x => x.Value.User.Username == cache && x.Value.User.Discriminator == descCache).FirstOrDefault().Value;
                                 if (member != null)
                                 {
                                     mention = member.User;
@@ -289,7 +288,10 @@ namespace Discord_UWP
                         chnCache += c;
                         if (!App.CurrentGuildIsDM)
                         {
-                            mentions.Add("#" + chnCache);
+                            if (LocalState.Guilds[App.CurrentGuildId].channels.Values.FirstOrDefault(x => x.raw.Type != 4 && x.raw.Name == chnCache) != null)
+                            {
+                                mentions.Add("#" + chnCache);
+                            }
                         }
                     }
                 }
