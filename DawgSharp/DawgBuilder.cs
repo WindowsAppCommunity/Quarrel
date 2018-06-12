@@ -20,7 +20,6 @@ namespace DawgSharp
         public void Insert (IEnumerable<char> key, TPayload value)
         {
             var strKey = key as string;
-
             if (strKey != null)
             {
                 InsertLastPath(strKey, value);

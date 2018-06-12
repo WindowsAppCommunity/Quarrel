@@ -868,6 +868,7 @@ namespace Discord_UWP
         internal static string CurrentChannelId;
         internal static string LastReadMsgId;
         internal static DawgSharp.Dawg<DawgSharp.DawgItem> MemberListDawg;
+        internal static DawgSharp.Dawg<string> EmojiDawg;
         internal static int FriendNotifications;
         internal static int AllNotifications;
         internal static bool HasFocus = true;

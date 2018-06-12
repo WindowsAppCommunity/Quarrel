@@ -20,6 +20,8 @@ using System.Xml;
 using Discord_UWP.LocalModels;
 using System.Collections;
 using Windows.UI.Xaml.Data;
+using Windows.Storage;
+using Newtonsoft.Json;
 
 namespace Discord_UWP
 {
@@ -209,6 +211,43 @@ namespace Discord_UWP
                     return result;
             }
             return null;
+        }
+        public static async void LoadEmojiDawg()
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/emojis.json"));
+            string json = await FileIO.ReadTextAsync(file);
+            Controls.EmojiControl.RootObject root = JsonConvert.DeserializeObject<Controls.EmojiControl.RootObject>(json);
+            DawgSharp.DawgBuilder<string> emojis = new DawgSharp.DawgBuilder<string>();
+            //Lord, forgive me for my sins:
+            foreach(var emoji in root.activity)
+                foreach(var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.flags)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.food)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.nature)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.objects)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.people)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.symbols)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.travel)
+                foreach (var name in emoji.names)
+                    emojis.Insert(name, emoji.surrogates);
+            App.EmojiDawg = emojis.BuildDawg();
+            sw.Stop();
+            Debug.WriteLine("Emoji Dawg took " + sw.ElapsedMilliseconds + "ms to build");
         }
         public static List<string> FindMentions(string message)
         {

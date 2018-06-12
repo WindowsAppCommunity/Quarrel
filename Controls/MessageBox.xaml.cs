@@ -223,9 +223,9 @@ namespace Discord_UWP.Controls
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(MessageEditor.Text))
-                SendBox.IsEnabled = true;
+                SendBox.IsEnabled = false;
             else
-                IsEnabled = false;
+                SendBox.IsEnabled = true;
             TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -233,13 +233,24 @@ namespace Discord_UWP.Controls
             PopupTransform.Y = -e.NewSize.Height;
         }
 
-        private void SelectSuggestion(KeyValuePair<string, DawgSharp.DawgItem> item)
+        private void SelectSuggestion(object unknownitem)
         {
-            string suggestion;
-            if (item.Value.InsertText == "")
-                suggestion = mentionPrefix + item.Key;
-            else
-                suggestion = mentionPrefix + item.Value.InsertText;
+            string suggestion = "";
+            var type = unknownitem.GetType();
+            
+            if (type == typeof(KeyValuePair<string, DawgSharp.DawgItem>))
+            {
+                var item = (KeyValuePair<string, DawgSharp.DawgItem>)unknownitem;
+                if (item.Value.InsertText == "")
+                    suggestion = mentionPrefix + item.Key;
+                else
+                    suggestion = mentionPrefix + item.Value.InsertText;
+            }
+            else if(type == typeof(KeyValuePair<string, string>))
+            {
+                suggestion = ((KeyValuePair<string, string>)unknownitem).Value;
+            }
+            
 
             //EnableChanges = false;
             var text = MessageEditor.Text;
@@ -330,7 +341,7 @@ namespace Discord_UWP.Controls
                 //SelectSuggestion(e.ClickedItem);
             } else
             {
-                SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)e.ClickedItem);
+                SelectSuggestion(e.ClickedItem);
             }
         }
 
@@ -676,6 +687,9 @@ namespace Discord_UWP.Controls
                     //This is possibly an emoji
                     string query = text.Remove(0, i);
                     querylength = query.Length;
+                    if (App.EmojiDawg != null)
+                        DisplayList(App.EmojiDawg.MatchPrefix(query).Take(12));
+                    return;
                 }
                 else if (character == '@' && i != loopsize)
                 {
@@ -711,6 +725,19 @@ namespace Discord_UWP.Controls
             }
         }
         private void DisplayList(IEnumerable<KeyValuePair<string, DawgSharp.DawgItem>> list)
+        {
+            if (list.Count() == 0)
+            {
+                SuggestionBlock.ItemsSource = null;
+                SuggestionPopup.IsOpen = false;
+            }
+            else
+            {
+                SuggestionBlock.ItemsSource = list;
+                SuggestionPopup.IsOpen = true;
+            }
+        }
+        private void DisplayList(IEnumerable<KeyValuePair<string, string>> list)
         {
             if (list.Count() == 0)
             {
