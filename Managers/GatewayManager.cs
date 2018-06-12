@@ -490,19 +490,19 @@ namespace Discord_UWP.Managers
             await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     var initialTypercount = LocalState.Typers.Count;
-                     for (int i = 0; i < initialTypercount; i++)
+                     if (LocalState.Typers.ContainsKey(e.EventData.ChannelId))
                      {
-                         KeyValuePair<TypingStart, DispatcherTimer> typer = LocalState.Typers.ElementAtOrDefault(i);
-                         if (typer.Key != null)
-                             if (typer.Key.channelId == e.EventData.ChannelId && typer.Key.userId == e.EventData.User.Id)
+                         if (LocalState.Typers[e.EventData.ChannelId].ContainsKey(e.EventData.User.Id))
+                         {
+                             LocalState.Typers[e.EventData.ChannelId].Remove(e.EventData.User.Id);
+                             if (LocalState.Typers[e.EventData.ChannelId].Count == 0)
                              {
-                                 LocalState.Typers.Remove(typer.Key);
+                                 LocalState.Typers.Remove(e.EventData.ChannelId);
                              }
+                         }
                      }
 
-                     if (LocalState.Typers.Count != initialTypercount)
-                         App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
+                     App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
                  });
             NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
@@ -820,32 +820,37 @@ namespace Discord_UWP.Managers
             await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     DispatcherTimer timer = new DispatcherTimer();
                      /*If the user was already typing in that channel before...*/
-                     if (LocalState.Typers.Count > 0 && LocalState.Typers.Any(x => x.Key.userId == e.EventData.userId && 
-                                                                                   x.Key.channelId == e.EventData.channelId))
+                     if (LocalState.Typers.ContainsKey(e.EventData.channelId) && LocalState.Typers[e.EventData.channelId].ContainsKey(e.EventData.userId))
                      {
                          /*...Reset the timer by calling Start again*/
-                         LocalState.Typers.First(x => x.Key.userId == e.EventData.userId && x.Key.channelId == e.EventData.channelId)
-                             .Value.Start();
+                         LocalState.Typers[e.EventData.channelId][e.EventData.userId].Start();
                      }
                      else
                      {
                          /*...Otherwise, create a new timer and add it, with the EventData, to "Typers" */
+                         DispatcherTimer timer = new DispatcherTimer();
                          timer.Interval = TimeSpan.FromSeconds(8);
                          timer.Tick += (sender2, o1) =>
                          {
                              timer.Stop();
-                             var typer = LocalState.Typers.FirstOrDefault(t => t.Value == timer);
-                             if (typer.Key != null)
+                             if (LocalState.Typers.ContainsKey(e.EventData.channelId) && LocalState.Typers[e.EventData.channelId].ContainsKey(e.EventData.userId))
                              {
-                                 App.UpdateTyping(LocalState.Typers.FirstOrDefault(t => t.Value == timer).Key.userId, false, e.EventData.channelId);
-                                 LocalState.Typers.Remove(typer.Key);
+                                 App.UpdateTyping(e.EventData.userId, false, e.EventData.channelId);
+                                 LocalState.Typers[e.EventData.channelId].Remove(e.EventData.userId);
+                                 if (LocalState.Typers[e.EventData.channelId].Count == 0)
+                                 {
+                                     LocalState.Typers.Remove(e.EventData.channelId);
+                                 }
                                  App.UpdateTyping("", false, "");
                              }
                          };
                          timer.Start();
-                         LocalState.Typers.Add(e.EventData, timer);
+                         if (!LocalState.Typers.ContainsKey(e.EventData.channelId))
+                         {
+                             LocalState.Typers.Add(e.EventData.channelId, new Dictionary<string, DispatcherTimer>());
+                         }
+                         LocalState.Typers[e.EventData.channelId].Add(e.EventData.userId, timer);
                          App.UpdateTyping(e.EventData.userId, true, e.EventData.channelId);
                      }
                  });
