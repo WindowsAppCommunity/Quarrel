@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Discord_UWP.SharedModels;
 
@@ -13,7 +14,7 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, Friend> Blocked = new Dictionary<string, Friend>();
         public static Dictionary<string, string> Notes = new Dictionary<string, string>();
 
-        public static Dictionary<TypingStart, DispatcherTimer> Typers = new Dictionary<TypingStart, DispatcherTimer>();
+        public static Dictionary<string, Dictionary<string, DispatcherTimer>> Typers = new Dictionary<string, Dictionary<string, DispatcherTimer>>();
         public static List<DispatcherTimer> TyperTimers = new List<DispatcherTimer>();
         public static Dictionary<string, Presence> PresenceDict = new Dictionary<string, Presence>();
         public static Dictionary<string, VoiceState> VoiceDict = new Dictionary<string, VoiceState>();
