@@ -34,6 +34,13 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
         public string Text { get; set; }
 
         /// <summary>
+        /// Gets or sets the Language specified in prefix, e.g. ```c# (Github Style Parsing).<para/>
+        /// This does not guarantee that the Code Block has a language, or no language, some valid code might not have been prefixed, and this will still return null. <para/>
+        /// To ensure all Code is Highlighted (If desired), you might have to determine the language from the provided string, such as looking for key words.
+        /// </summary>
+        public string CodeLanguage { get; set; }
+
+        /// <summary>
         /// Parses a code block.
         /// </summary>
         /// <param name="markdown"> The markdown text. </param>
@@ -44,9 +51,10 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
         /// <returns> A parsed code block, or <c>null</c> if this is not a code block. </returns>
         internal static CodeBlock Parse(string markdown, int start, int maxEnd, int quoteDepth, out int actualEnd)
         {
-            StringBuilder code = null;
+             StringBuilder code = null;
             actualEnd = start;
             bool insideCodeBlock = false;
+            string codeLanguage = string.Empty;
 
             /*
                 Two options here:
@@ -82,6 +90,15 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
                         {
                             actualEnd = lineInfo.StartOfNextLine;
                             break;
+                        }
+                        else
+                        {
+                            // Collects the Programming Language from the end of the starting ticks.
+                            while (pos < lineInfo.EndOfLine)
+                            {
+                                codeLanguage += markdown[pos];
+                                pos++;
+                            }
                         }
                     }
                 }
@@ -167,7 +184,12 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Blocks
             }
 
             // Blank lines should be trimmed from the start and end.
-            return new CodeBlock() { Text = code.ToString().Trim('\r', '\n') };
+            return new CodeBlock()
+            {
+                Text = code.ToString().Trim('\r', '\n'),
+                CodeLanguage = !string.IsNullOrWhiteSpace(codeLanguage) ? codeLanguage.Trim() : null
+            };
+
         }
 
         /// <summary>

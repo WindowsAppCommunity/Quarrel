@@ -31,6 +31,7 @@ using Windows.Security.Credentials;
 using System.Diagnostics;
 using Midgard.Collections;
 using Discord_UWP.Classes;
+using Discord_UWP.MarkdownTextBlock;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -1361,7 +1362,7 @@ namespace Discord_UWP
         #endregion
 
         #region Link
-        private async void App_LinkClicked(object sender, MarkdownTextBlock.LinkClickedEventArgs e)
+        private async void App_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             if (e.Link.StartsWith("#"))
             {
@@ -1847,7 +1848,7 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-                
+               
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
                 AddMessages(Position.After, true, messages, true);
             } else
@@ -1977,7 +1978,7 @@ namespace Discord_UWP
                 ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
             }
             sw.Stop();
-            Debug.WriteLine("Messages took " + sw.ElapsedMilliseconds + "to load");
+            Debug.WriteLine("Messages took " + sw.ElapsedMilliseconds + "ms to load");
         }
         
         public void RenderGroupMembers()

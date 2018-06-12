@@ -159,7 +159,7 @@ namespace Discord_UWP
                 case 68: return kvp("I have the power of God and Anime");
                 case 69: return kvp("I ain't got no sleep");
                 case 70: return kvp("No ketchup, just sauce, raw sauce");
-                case 71: return kvp("(Image)HypnoToad.gif", "@Civiled#1713");
+                case 71: return kvp("Building friendships since MMCXVII");
                 case 72: return kvp("The ting goes skrrraah");
                 case 73: return kvp("Tacos incoming, prepare for pure joy", "@LuketheDuke424#2556");
                 case 74: return kvp("Waiting for Senpai", "@LuketheDuke424#2556");

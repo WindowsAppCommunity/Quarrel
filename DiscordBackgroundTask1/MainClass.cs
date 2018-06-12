@@ -165,6 +165,7 @@ namespace DiscordBackgroundTask1
                         }
 
                         _compressed.Position = 0;
+                        if (decompressed == null) return;
                         _decompressor.CopyTo(decompressed);
                         _compressed.Position = 0;
                         decompressed.Position = 0;

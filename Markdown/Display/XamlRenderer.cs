@@ -27,6 +27,8 @@ using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
 using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
 using NeoSmart.Unicode;
 using Windows.Foundation.Metadata;
+using System.Reflection;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
 {
@@ -44,11 +46,13 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
         private string _messageid;
 
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId)
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border)
         {
             _document = document;
             _linkRegister = linkRegister;
             _messageid = MessageId;
+            CodeBlockResolver = codeBlockResolver;
+            _root = border;
         }
         
 
@@ -382,6 +386,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// </summary>
         public Brush LinkForeground { get; set; }
 
+        public Border _root;
         /// <summary>
         /// Called externally to render markdown to a text block.
         /// </summary>
@@ -511,63 +516,63 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <summary>
         /// Renders a header element.
         /// </summary>
-   /*     private void RenderHeader(HeaderBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
-        {
-            var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
+        /*     private void RenderHeader(HeaderBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
+             {
+                 var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
 
-            var paragraph = new Paragraph();
-            var childInlines = paragraph.Inlines;
-            switch (element.HeaderLevel)
-            {
-                case 1:
-                    paragraph.Margin = Header1Margin;
-                    paragraph.FontSize = Header1FontSize;
-                    paragraph.FontWeight = Header1FontWeight;
-                    paragraph.Foreground = Header1Foreground;
-                    break;
-                case 2:
-                    paragraph.Margin = Header2Margin;
-                    paragraph.FontSize = Header2FontSize;
-                    paragraph.FontWeight = Header2FontWeight;
-                    paragraph.Foreground = Header2Foreground;
-                    break;
-                case 3:
-                    paragraph.Margin = Header3Margin;
-                    paragraph.FontSize = Header3FontSize;
-                    paragraph.FontWeight = Header3FontWeight;
-                    paragraph.Foreground = Header3Foreground;
-                    break;
-                case 4:
-                    paragraph.Margin = Header4Margin;
-                    paragraph.FontSize = Header4FontSize;
-                    paragraph.FontWeight = Header4FontWeight;
-                    paragraph.Foreground = Header4Foreground;
-                    break;
-                case 5:
-                    paragraph.Margin = Header5Margin;
-                    paragraph.FontSize = Header5FontSize;
-                    paragraph.FontWeight = Header5FontWeight;
-                    paragraph.Foreground = Header5Foreground;
-                    break;
-                case 6:
-                    paragraph.Margin = Header6Margin;
-                    paragraph.FontSize = Header6FontSize;
-                    paragraph.FontWeight = Header6FontWeight;
-                    paragraph.Foreground = Header6Foreground;
+                 var paragraph = new Paragraph();
+                 var childInlines = paragraph.Inlines;
+                 switch (element.HeaderLevel)
+                 {
+                     case 1:
+                         paragraph.Margin = Header1Margin;
+                         paragraph.FontSize = Header1FontSize;
+                         paragraph.FontWeight = Header1FontWeight;
+                         paragraph.Foreground = Header1Foreground;
+                         break;
+                     case 2:
+                         paragraph.Margin = Header2Margin;
+                         paragraph.FontSize = Header2FontSize;
+                         paragraph.FontWeight = Header2FontWeight;
+                         paragraph.Foreground = Header2Foreground;
+                         break;
+                     case 3:
+                         paragraph.Margin = Header3Margin;
+                         paragraph.FontSize = Header3FontSize;
+                         paragraph.FontWeight = Header3FontWeight;
+                         paragraph.Foreground = Header3Foreground;
+                         break;
+                     case 4:
+                         paragraph.Margin = Header4Margin;
+                         paragraph.FontSize = Header4FontSize;
+                         paragraph.FontWeight = Header4FontWeight;
+                         paragraph.Foreground = Header4Foreground;
+                         break;
+                     case 5:
+                         paragraph.Margin = Header5Margin;
+                         paragraph.FontSize = Header5FontSize;
+                         paragraph.FontWeight = Header5FontWeight;
+                         paragraph.Foreground = Header5Foreground;
+                         break;
+                     case 6:
+                         paragraph.Margin = Header6Margin;
+                         paragraph.FontSize = Header6FontSize;
+                         paragraph.FontWeight = Header6FontWeight;
+                         paragraph.Foreground = Header6Foreground;
 
-                    var underline = new Underline();
-                    childInlines = underline.Inlines;
-                    paragraph.Inlines.Add(underline);
-                    break;
-            }
+                         var underline = new Underline();
+                         childInlines = underline.Inlines;
+                         paragraph.Inlines.Add(underline);
+                         break;
+                 }
 
-            // Render the children into the para inline.
-            context.TrimLeadingWhitespace = true;
-            RenderInlineChildren(childInlines, element.Inlines, paragraph, context);
+                 // Render the children into the para inline.
+                 context.TrimLeadingWhitespace = true;
+                 RenderInlineChildren(childInlines, element.Inlines, paragraph, context);
 
-            // Add it to the blocks
-            textBlock.Blocks.Add(paragraph);
-        }*/
+                 // Add it to the blocks
+                 textBlock.Blocks.Add(paragraph);
+             }*/
 
         /// <summary>
         /// Renders a list element.
@@ -666,29 +671,73 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <summary>
         /// Renders a code element.
         /// </summary>
+        protected ICodeBlockResolver CodeBlockResolver { get; }
         private void RenderCode(CodeBlock element, UIElementCollection blockUIElementCollection, RenderContext context)
         {
-            var textBlock = CreateTextBlock(context);
-            textBlock.FontFamily = CodeFontFamily ?? FontFamily;
-            textBlock.Foreground = CodeForeground ?? context.Foreground;
-            textBlock.LineHeight = FontSize * 1.4;
-            textBlock.Text = element.Text;
 
-            var border = new Border
+            var brush = context.Foreground;
+            if (CodeForeground != null)
+            {
+                brush = CodeForeground;
+            }
+
+            var textBlock = new RichTextBlock
+            {
+                FontFamily = CodeFontFamily ?? FontFamily,
+                Foreground = brush,
+                LineHeight = FontSize * 1
+            };
+
+            textBlock.PointerWheelChanged += Preventative_PointerWheelChanged;
+
+            var paragraph = new Paragraph();
+            textBlock.Blocks.Add(paragraph);
+
+            // Allows external Syntax Highlighting
+            var hasCustomSyntax = CodeBlockResolver.ParseSyntax(paragraph.Inlines, element.Text, element.CodeLanguage);
+            if (!hasCustomSyntax)
+            {
+                paragraph.Inlines.Add(new Run { Text = element.Text });
+            }
+
+            // Ensures that Code has Horizontal Scroll and doesn't wrap.
+
+            var viewer = new ScrollViewer
             {
                 Background = CodeBackground,
                 BorderBrush = CodeBorderBrush,
                 BorderThickness = CodeBorderThickness,
                 Padding = CodePadding,
                 Margin = CodeMargin,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Child = textBlock
+                Content = textBlock
             };
 
+            viewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+            viewer.HorizontalScrollMode = ScrollMode.Auto;
+            viewer.VerticalScrollMode = ScrollMode.Disabled;
+            viewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             // Add it to the blocks
-            blockUIElementCollection.Add(border);
+            blockUIElementCollection.Add(viewer);
         }
 
+        //This is super hacky, but it's a way of keeping intertia and passing scroll data to the parent;
+        private static MethodInfo pointerWheelChanged = typeof(ScrollViewer).GetMethod("OnPointerWheelChanged", BindingFlags.NonPublic | BindingFlags.Instance);
+        private void Preventative_PointerWheelChanged(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            var pointerPoint = e.GetCurrentPoint((UIElement)sender);
+            if (pointerPoint.Properties.IsHorizontalMouseWheel)
+            {
+                e.Handled = false;
+                return;
+            }
+
+            var rootViewer = VisualTree.FindAscendant<ScrollViewer>(_root);
+            if (rootViewer != null)
+            {
+                pointerWheelChanged?.Invoke(rootViewer, new object[] { e });
+                e.Handled = true;
+            }
+        }
         /// <summary>
         /// Renders a table element.
         /// </summary>

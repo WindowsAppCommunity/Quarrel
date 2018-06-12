@@ -23,13 +23,14 @@ using Windows.UI.Xaml.Media;
 using Discord_UWP.MarkdownTextBlock.Display;
 using Discord_UWP.MarkdownTextBlock.Helpers;
 using Discord_UWP.MarkdownTextBlock.Parse;
+using ColorSyntax;
 
 namespace Discord_UWP.MarkdownTextBlock
 {
     /// <summary>
     /// An efficient and extensible control that can parse and render markdown.
     /// </summary>
-    public sealed class MarkdownTextBlock : Control, ILinkRegister
+    public sealed class MarkdownTextBlock : Control, ILinkRegister, ICodeBlockResolver
     {
         
         /// <summary>
@@ -1150,7 +1151,7 @@ namespace Discord_UWP.MarkdownTextBlock
                 MarkdownDocument markdown = new MarkdownDocument();
                 markdown.Parse(Text, EnableHiddenLinks);
                 // Now try to display it
-                var renderer = new XamlRenderer(markdown, this, Users, MessageId)
+                var renderer = new XamlRenderer(markdown, this, Users, MessageId, this, ref _rootElement)
                 {
                     Background = Background,
                     BorderBrush = BorderBrush,
@@ -1324,7 +1325,41 @@ namespace Discord_UWP.MarkdownTextBlock
             var eventArgs = new LinkClickedEventArgs(url);
             App.FireLinkClicked(this, eventArgs);
         }
+        public event EventHandler<CodeBlockResolvingEventArgs> CodeBlockResolving;
 
-        
+        public bool ParseSyntax(InlineCollection inlineCollection, string text, string codeLanguage)
+        {  
+            var eventArgs = new CodeBlockResolvingEventArgs(inlineCollection, text, codeLanguage);
+            CodeBlockResolving?.Invoke(this, eventArgs);
+            try
+            {
+                var result = eventArgs.Handled;
+                if (!result && codeLanguage != null)
+                {
+                    var language = Languages.FindById(codeLanguage);
+                    if (language != null)
+                    {
+                        ElementTheme theme = ElementTheme.Dark;
+                        if (Application.Current.RequestedTheme == ApplicationTheme.Light)
+                            theme = ElementTheme.Light;
+
+                        RichTextBlockFormatter formatter = new RichTextBlockFormatter(theme);
+                        /*var theme = themeListener.CurrentTheme == ApplicationTheme.Dark ? ElementTheme.Dark : ElementTheme.Light;
+                        if (RequestedTheme != ElementTheme.Default)
+                        {
+                            theme = RequestedTheme;
+                        }
+                        formatter = new RichTextBlockFormatter(theme);*/
+                        formatter.FormatInlines(text, language, inlineCollection);
+                        return true;
+                    }
+                }
+                return result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
