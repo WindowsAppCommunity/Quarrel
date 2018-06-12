@@ -447,6 +447,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
                 var member = FindMember(e.EventData.User.Id);
+                if (member == null) return;
                 member.Raw.Nick = e.EventData.Nick;
                 if (e.EventData.Nick != null)
                 {
