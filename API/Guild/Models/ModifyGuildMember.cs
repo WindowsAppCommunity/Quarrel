@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.API.Guild.Models
 {
-    public class ModifyGuildMember
+    public class IModifyGuildMember
+    {
+        [JsonProperty("nick")]
+        public string Nick { get; set; }
+    }
+    public class ModifyGuildMember : IModifyGuildMember
     {
         public ModifyGuildMember(string nickname)
         {
             Nick = nickname;
         }
-
         public ModifyGuildMember(GuildMember member)
         {
             Nick = member.Nick;
@@ -61,8 +65,7 @@ namespace Discord_UWP.API.Guild.Models
             Roles = roles.AsEnumerable();
         }
 
-        [JsonProperty("nick")]
-        public string Nick { get; set; }
+
         [JsonProperty("roles")]
         public IEnumerable<string> Roles { get; set; }
         [JsonProperty("mute")]
