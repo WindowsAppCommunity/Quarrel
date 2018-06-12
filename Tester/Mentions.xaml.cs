@@ -38,12 +38,11 @@ namespace Tester
             {
                 if (inMention)
                 {
-                    if (c == '#')
+                    if (c == '#' && !inDesc)
                     {
                         inDesc = true;
-                    } else if (c == ' ')
+                    } else if (c == '@')
                     {
-                        inMention = false;
                         inDesc = false;
                         cache = "";
                         descCache = "";

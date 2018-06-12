@@ -202,7 +202,7 @@ namespace Discord_UWP.Controls
                 {
                     if (!App.CurrentGuildIsDM)
                     {
-                        var channel = LocalState.Guilds[App.CurrentGuildId].channels.FirstOrDefault(x => x.Value.raw.Name == mention.Substring(1)).Value;
+                        var channel = LocalState.Guilds[App.CurrentGuildId].channels.FirstOrDefault(x => x.Value.raw.Type != 4 && x.Value.raw.Name == mention.Substring(1)).Value;
                         if (channel != null)
                         {
                             Text = Text.Replace("#" + channel.raw.Name, "<#" + channel.raw.Id + ">");
@@ -362,7 +362,7 @@ namespace Discord_UWP.Controls
                     {
                         InsertNewLine();
                     }
-                    else if (HandleSuggestions)
+                    else if (HandleSuggestions && SuggestionBlock.SelectedItem != null)
                         SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
                     else
                         SendBox_OnClick(null, null);
