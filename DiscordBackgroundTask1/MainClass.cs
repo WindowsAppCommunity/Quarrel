@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
+using Windows.Foundation.Collections;
 
 namespace DiscordBackgroundTask1
 {
@@ -216,7 +217,8 @@ namespace DiscordBackgroundTask1
                                     if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
                                     {
                                         //Unfortunately the channel must be sent as a string parameter, because windowsruntime
-                                        if (ShouldShowNotification("c" + channel.id, readstates[channel.id].mention_count.ToString()))
+                                        int notificationcount = GetNotificatinoCount("c" + channel.id, readstates[channel.id].mention_count);
+                                        if (notificationcount > 0)
                                         {
                                             SendToast.UnreadDM(Newtonsoft.Json.JsonConvert.SerializeObject(channel), readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                                             UpdateNotificationState("c" + channel.id, readstates[channel.id].mention_count.ToString());
@@ -245,7 +247,8 @@ namespace DiscordBackgroundTask1
                                     {
                                         if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
                                         {
-                                            if (ShouldShowNotification("c" + channel.id, readstates[channel.id].mention_count.ToString()))
+                                            int notificationcount = GetNotificatinoCount("c" + channel.id, readstates[channel.id].mention_count);
+                                            if (notificationcount>0)
                                             {
                                                 SendToast.NewMention(guild.icon, guild.id, guild.name, channel.name, channel.id, readstates[channel.id].mention_count, readstates[channel.id].last_message_id);
                                                 UpdateNotificationState("c" + channel.id, readstates[channel.id].mention_count.ToString());
@@ -257,7 +260,7 @@ namespace DiscordBackgroundTask1
                         }
                         catch(Exception ex)
                         {
-                            UpdateLastRunStatus("There was an issue while processing the \"READY\" gateway event on the last run (" + ex.Message+")");
+                            UpdateLastRunStatus("There was an issue while processing the \"READY\" gateway event on the last run (" + ex.Source + ": "+ ex.Message+")");
                         }
                         webSocket.Close(1000, "");
                     }
@@ -284,7 +287,8 @@ namespace DiscordBackgroundTask1
 
         private void UpdateLastRunStatus(string message)
         {
-
+            if(!string.IsNullOrWhiteSpace(message))
+                message = message + " (" + DateTime.Now.ToString() + ")";
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
                 Windows.Storage.ApplicationData.Current.LocalSettings.Values.Add("bgTaskLastrunStatus", message);
             Windows.Storage.ApplicationData.Current.LocalSettings.Values["bgTaskLastrunStatus"] = message;
@@ -305,10 +309,9 @@ namespace DiscordBackgroundTask1
 
         public void UpdateNotificationState(string id, string timestamp)
         {
-            var ls = ApplicationData.Current.LocalSettings.Values;
-            if (!ls.ContainsKey("NotificationStates"))
-                ls.Add("NotificationStates", "{}");
-            var nrs = ls["NotificationStates"];
+            if (!localset.ContainsKey("NotificationStates"))
+                localset.Add("NotificationStates", "{}");
+            var nrs = localset["NotificationStates"];
             var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
             if (nrs2.ContainsKey(id))
             {
@@ -318,18 +321,42 @@ namespace DiscordBackgroundTask1
             {
                 nrs2.Add(id, timestamp);
             }
-            ls["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
+            localset["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
         }
-        public bool ShouldShowNotification(string id, string timestamp)
+        IPropertySet localset = ApplicationData.Current.LocalSettings.Values;
+
+        /// <summary>
+        /// Returns the notification count which should be displayed
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="notificationcount"></param>
+        /// <returns></returns>
+        public int GetNotificatinoCount(string id, int notificationcount)
         {
-            var ls = ApplicationData.Current.LocalSettings.Values;
-            if (!ls.ContainsKey("NotificationStates"))
-                ls.Add("NotificationStates", "{}");
-            var nrs = ls["NotificationStates"];
+            if (!localset.ContainsKey("NotificationStates"))
+                localset.Add("NotificationStates", "{}");
+            var nrs = localset["NotificationStates"];
             var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
             if (nrs2.ContainsKey(id))
             {
-                if (nrs2[id] != timestamp)
+                int storednotificationcount;
+                if (Int32.TryParse(nrs2[id], out storednotificationcount) && notificationcount > storednotificationcount)
+                    return storednotificationcount-notificationcount;
+                else
+                    return 0;
+            }
+            else
+                return notificationcount;
+        }
+        public bool ShouldShowNotification(string id, string notificationcount)
+        {
+            if (!localset.ContainsKey("NotificationStates"))
+                localset.Add("NotificationStates", "{}");
+            var nrs = localset["NotificationStates"];
+            var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+            if (nrs2.ContainsKey(id))
+            {
+                if (nrs2[id] != notificationcount)
                     return true;
                 else
                     return false;
