@@ -82,7 +82,7 @@ namespace Discord_UWP.SubPages
         {
             if (!loadingRoles)
             {
-                Permissions perms = new Permissions(Convert.ToInt32(LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Permissions));
+                Permissions perms = new Permissions(LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Permissions);
                 perms.Administrator = Administrator.IsOn;
                 perms.ViewAuditLog = ViewAuditLog.IsOn;
                 perms.ManangeGuild = ManageServer.IsOn;

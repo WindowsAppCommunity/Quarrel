@@ -12,13 +12,64 @@ namespace Discord_UWP.LocalModels
         {
             Perms = perms;
         }
+
+        public Permissions(string guildId, string channelId = "", string userId = "")
+        {
+            if (userId == "")
+            {
+                userId = LocalState.CurrentUser.Id;
+            }
+
+            Perms = 0;
+            foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
+            {
+                AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
+            }
+
+            if (channelId != "" && LocalState.Guilds[guildId].channels.ContainsKey(channelId))
+            {
+                //Order:
+                //  Denies of @everyone
+                //  Allows of @everyone
+                //  All Role Denies
+                //  All Role Allows
+                //  Member denies
+                //  Member allows
+
+                int roleDenies = 0;
+                int roleAllows = 0;
+                int memberDenies = 0;
+                int memberAllows = 0;
+
+                foreach (var overwrite in LocalState.Guilds[guildId].channels[channelId].raw.PermissionOverwrites)
+                {
+                    if (overwrite.Id == guildId)
+                    {
+                        AddDenies(overwrite.Deny);
+                        AddDenies(overwrite.Allow);
+                    } else if (overwrite.Type == "role" && LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
+                    {
+                        roleDenies &= ~overwrite.Deny;
+                        roleAllows &= ~overwrite.Allow;
+                    } else if (overwrite.Type == "member" && overwrite.Id == userId)
+                    {
+                        memberDenies = overwrite.Deny;
+                        memberAllows = overwrite.Allow;
+                    }
+                }
+                AddDenies(roleDenies);
+                AddAllows(roleAllows);
+                AddDenies(memberDenies);
+                AddAllows(memberAllows);
+            }
+        }
         
-        public void AddAllows(int set)
+        private void AddAllows(int set)
         {
             Perms |= set;
         }
 
-        public void AddDenies(int set)
+        private void AddDenies(int set)
         {
             Perms &= ~set;
         }

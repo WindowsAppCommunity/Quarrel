@@ -20,29 +20,13 @@ namespace Discord_UWP.LocalModels
         {
             raw = channel;
             raw.GuildId = guildId;
-            //GetPermissions(); Called too early
         }
 
-        public void GetPermissions()
+        public Permissions permissions
         {
-            permissions = LocalState.Guilds[raw.GuildId].permissions;
-            if (raw.ParentId != null)
-            {
-                foreach (Overwrite overwrite in LocalState.Guilds[raw.GuildId].channels[raw.Id].raw.PermissionOverwrites.Where(x => x.Type == "role" ? LocalState.Guilds[raw.GuildId].members[LocalState.CurrentUser.Id].Roles.Contains(x.Id) : x.Id == LocalState.CurrentUser.Id).OrderBy(x => LocalState.Guilds[raw.GuildId].roles.ContainsKey(x.Id) && LocalState.Guilds[raw.GuildId].roles[x.Id].Name == "@everyone").ThenBy(x => x.Type == "role"))
-                {
-                    permissions.AddAllows(overwrite.Allow);
-                    permissions.AddDenies(overwrite.Deny);
-                }
-            }
-
-            foreach (Overwrite overwrite in raw.PermissionOverwrites.Where(x => x.Type == "role" ? LocalState.Guilds[raw.GuildId].members[LocalState.CurrentUser.Id].Roles.Contains(x.Id) : x.Id == LocalState.CurrentUser.Id).OrderBy(x => LocalState.Guilds[raw.GuildId].roles.ContainsKey(x.Id) ? LocalState.Guilds[raw.GuildId].roles[x.Id].Name == "@everyone" : true).ThenBy(x => x.Type == "role"))
-            {
-                permissions.AddAllows(overwrite.Allow);
-                permissions.AddDenies(overwrite.Deny);
-            }
+            get { return new Permissions(raw.GuildId, raw.Id); }
         }
 
         public SharedModels.GuildChannel raw;
-        public Permissions permissions;
     }
 }
