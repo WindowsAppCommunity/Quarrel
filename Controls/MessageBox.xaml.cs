@@ -216,108 +216,16 @@ namespace Discord_UWP.Controls
         }
 
         string PureText = "";
-        int selectionstart = 0;
+        int caretposition = 0;
         //bool EnableChanges = true;
         string mentionPrefix = "";
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            //TODO Optimize the hell out of this
-            SendBox.IsEnabled = !String.IsNullOrWhiteSpace(MessageEditor.Text.Trim());
-            //WHY THE FUCK IS THIS FIRING EVEN WHEN THE TEXT IS CHANGED PROGRAMATICALLY
-            SuggestionBlock.ItemsSource = null;
-            string str = MessageEditor.Text;
-            if (MessageEditor.SelectionStart < str.Length)
-            {
-                selectionstart = MessageEditor.SelectionStart;
-                str = str.Remove(MessageEditor.SelectionStart);
-            }
+            if (string.IsNullOrWhiteSpace(MessageEditor.Text))
+                SendBox.IsEnabled = true;
             else
-            {
-                selectionstart = MessageEditor.Text.Length;
-            }
-
-            if (!String.IsNullOrWhiteSpace(str))
-            {
-                if (str.Last() != ' ' || str.Count() < 2) 
-                //cancel if the last letter is a space or there are less than 2 chars
-                {
-                    str = str.Trim();
-                    string word = "";
-                    //if the letter contains a space, get the last word, otherwise the string is a single word
-                    if (str.Contains(' '))
-                        word = str.Split(' ').Last();
-                    else if (str.Contains('\r'))
-                        word = str.Split('\r').Last();
-                    else word = str;
-
-                    if (word.StartsWith("@"))
-                    {
-                        mentionPrefix = "@";
-                        string query = word.Remove(0, 1);
-                        selectionstart = selectionstart - word.Length;
-                        PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
-
-                        if (query != "")
-                        {
-                            Debug.WriteLine("Query=\"" + query + "\"");
-                            Debug.WriteLine("PureText=\"" + PureText + "\"");
-                            if (App.MemberListDawg == null)
-                            {
-                                Debug.WriteLine("Cancelled");
-                                SuggestionBlock.ItemsSource = null;
-                                SuggestionPopup.IsOpen = false;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    var list = App.MemberListDawg.MatchPrefix(query).Take(12);
-                                    if (list.Count() == 0)
-                                    {
-                                        SuggestionBlock.ItemsSource = null;
-                                        SuggestionPopup.IsOpen = false;
-                                    }
-                                    else
-                                    {
-                                        SuggestionBlock.ItemsSource = list;
-                                        SuggestionPopup.IsOpen = true;
-                                    }
-                                }
-                                catch { }
-                            }
-                        }
-                    }
-                    else if (!App.CurrentGuildIsDM && word.StartsWith("#"))
-                    {
-                        mentionPrefix = "";
-                        string query = word.Remove(0, 1);
-                        selectionstart = selectionstart - word.Length;
-                        PureText = MessageEditor.Text.Remove(selectionstart, word.Length);
-
-                        SuggestionBlock.ItemsSource = LocalState.Guilds[App.CurrentGuildId].channels
-                            .Where(x => x.Value.raw.Type == 0 && x.Value.raw.Name.StartsWith(query))
-                            .Select(x => "#" + x.Value.raw.Name);
-                        SuggestionPopup.IsOpen = true;
-                    }
-                    else
-                    {
-                        SuggestionBlock.ItemsSource = null;
-                        SuggestionPopup.IsOpen = false;
-                    }
-                }
-                else
-                {
-                    SuggestionBlock.ItemsSource = null;
-                    SuggestionPopup.IsOpen = false;
-                }
-            }
-            else
-            {
-                SuggestionBlock.ItemsSource = null;
-                SuggestionPopup.IsOpen = false;
-            }
-            
+                IsEnabled = false;
             TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -332,12 +240,29 @@ namespace Discord_UWP.Controls
                 suggestion = mentionPrefix + item.Key;
             else
                 suggestion = mentionPrefix + item.Value.InsertText;
-            
+
             //EnableChanges = false;
-            var str = MessageEditor.Text;
-            MessageEditor.Text = PureText.Insert(selectionstart, suggestion);
+            var text = MessageEditor.Text;
+            text = text.Remove(caretposition - querylength, querylength);
+            MessageEditor.Text = text.Insert(caretposition - querylength, suggestion);
+
+            int afterposition = caretposition - querylength + suggestion.Length;
+            int extrapadding = 0;
+            if (MessageEditor.Text.Length > afterposition)
+            {
+                if (MessageEditor.Text[afterposition] != ' ')
+                {
+                    extrapadding = 1;
+                    MessageEditor.Text = MessageEditor.Text.Insert(caretposition - querylength + suggestion.Length, " ");
+                }
+            }
+            else
+            {
+                extrapadding = 1;
+                MessageEditor.Text += ' ';
+            }     
             MessageEditor.Focus(FocusState.Pointer);
-            MessageEditor.SelectionStart = selectionstart + suggestion.Length;
+            MessageEditor.SelectionStart = caretposition - querylength + suggestion.Length +extrapadding;
             SuggestionBlock.ItemsSource = null;
             SuggestionPopup.IsOpen = false;
             //EnableChanges = true;
@@ -371,6 +296,7 @@ namespace Discord_UWP.Controls
                     SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
                 else
                     InsertNewLine();
+                return;
             }
             if (SuggestionPopup.IsOpen)
             {
@@ -382,6 +308,7 @@ namespace Discord_UWP.Controls
                         SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
                     else
                         SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
+                    return;
                 }
                 else if (e.Key == VirtualKey.Down)
                 {
@@ -391,6 +318,7 @@ namespace Discord_UWP.Controls
                         SuggestionBlock.SelectedIndex = 0;
                     else
                         SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
+                    return;
                 }
             }
         }
@@ -717,5 +645,84 @@ namespace Discord_UWP.Controls
             SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
             GC.Collect();
         }
+        int querylength = 0;
+        private void MessageEditor_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            string text = MessageEditor.Text;
+            caretposition = MessageEditor.SelectionStart;
+            if (text.Length > caretposition)
+                text = text.Remove(caretposition);
+            int loopsize = text.Length;
+            int counter = 0;
+            bool ranintospace = false;
+            for (var i = loopsize; i > 0; i--)
+            {
+                counter++;
+                if (counter == 32) break; //maximum username length is 32 characters, so after 32, just ignore.
+                var character = text[i-1];
+                if (character == '\n') break; //you systematically want to break on new lines
+                else if (character == ' ') ranintospace = true;
+                else if (!ranintospace && character == '#' && i != loopsize && !App.CurrentGuildIsDM)
+                {
+                    //This is possibly a channel
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                    SearchAndDisplayChannels(query);
+                    //match the channel against the last query
+                    return;
+                }
+                else if(!ranintospace && character == ':' && i != loopsize)
+                {
+                    //This is possibly an emoji
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                }
+                else if (character == '@' && i != loopsize)
+                {
+                    //This is possibly a user mention
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                    if(App.MemberListDawg != null)
+                        DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
+                    return;
+                }
+            }
+            //If the code reaches this far, there have been no matches
+            SuggestionBlock.ItemsSource = null;
+            SuggestionPopup.IsOpen = false;
+        }
+        private void SearchAndDisplayEmojis(string query)
+        {
+            //todo
+        }
+        private void SearchAndDisplayChannels(string query)
+        {
+            if (App.CurrentGuildId != null)
+            {
+                List<KeyValuePair<string, DawgSharp.DawgItem>> list = new List<KeyValuePair<string, DawgSharp.DawgItem>>();
+                int counter = 0;
+                foreach (var channel in LocalState.Guilds[App.CurrentGuildId].channels)
+                {
+                    if (counter > 12) break;
+                    if (channel.Value.raw.Type == 0 && channel.Value.raw.Name.ToLower().StartsWith(query.ToLower()))
+                        list.Add(new KeyValuePair<string, DawgSharp.DawgItem>(channel.Value.raw.Name, new DawgSharp.DawgItem() { InsertText = channel.Value.raw.Name }));
+                }
+                DisplayList(list);
+            }
+        }
+        private void DisplayList(IEnumerable<KeyValuePair<string, DawgSharp.DawgItem>> list)
+        {
+            if (list.Count() == 0)
+            {
+                SuggestionBlock.ItemsSource = null;
+                SuggestionPopup.IsOpen = false;
+            }
+            else
+            {
+                SuggestionBlock.ItemsSource = list;
+                SuggestionPopup.IsOpen = true;
+            }
+        }
     }
+
 }

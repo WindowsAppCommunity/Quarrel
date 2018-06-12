@@ -128,20 +128,20 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (e.EventData.Id == DisplayedInvite.Guild.Id)
+            if (DisplayedInvite != null && e.EventData.Id == DisplayedInvite.Guild.Id)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     LoadInvite(false);
-            });
+                });
         }
 
         private async void Gateway_GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                if (e.EventData.GuildId == DisplayedInvite.Guild.Id)
+            if (DisplayedInvite != null && e.EventData.GuildId == DisplayedInvite.Guild.Id)
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
                     LoadInvite(false);
-            });
+                });
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
