@@ -602,7 +602,7 @@ namespace Discord_UWP
                         autoselectchannel = channelid;
                         ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
                         ServerList.SelectedItem = g;
-                    }   
+                    }
                 }
             }
         }
@@ -3153,6 +3153,11 @@ namespace Discord_UWP
         object previousSelection;
         private void ChannelList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (ChannelList.SelectedIndex != -1)
+            {
+                Ad.Visibility = Visibility.Collapsed;
+            }
+           
             //Verify if the last selection was navigated to (with a keyboard/controller) or actually clicked on
 
             //When selecting a category, we want to simulate ListView's Mode = Click, 
