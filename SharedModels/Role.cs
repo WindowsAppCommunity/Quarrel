@@ -20,7 +20,7 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("position")]
         public int Position { get; set; }
         [JsonProperty("permissions")]
-        public string Permissions { get; set; }
+        public int Permissions { get; set; }
         [JsonProperty("managed")]
         public bool Managed { get; set; }
         [JsonProperty("mentionable")]

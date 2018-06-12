@@ -209,8 +209,7 @@ namespace Discord_UWP.Managers
                 }
                 if (App.AslansBullshit)
                     await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully added roles of guild with id" + guild.Id + "(ln 151-167)"); });
-
-                LocalState.Guilds[guild.Id].GetPermissions();
+                
 
                 if (guild.Channels != null)
                 {
@@ -224,7 +223,6 @@ namespace Discord_UWP.Managers
                         {
                             LocalState.Guilds[guild.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
                         }
-                        LocalState.Guilds[guild.Id].channels[channel.Id].GetPermissions();
                     }
                 } else
                 {
@@ -649,8 +647,6 @@ namespace Discord_UWP.Managers
                 {
                     LocalState.Guilds[e.EventData.Id].roles.Add(role.Id, role);
                 }
-
-                LocalState.Guilds[e.EventData.Id].GetPermissions();
 
                 foreach (var channel in e.EventData.Channels)
                 {

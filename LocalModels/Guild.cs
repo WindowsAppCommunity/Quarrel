@@ -22,18 +22,6 @@ namespace Discord_UWP.LocalModels
             Position = 0;
         }
 
-        public void GetPermissions()
-        {
-            permissions = new Permissions(0);
-            if (Raw.Roles != null)
-            {
-                foreach (Role role in Raw.Roles.TakeWhile(x => members[LocalState.CurrentUser.Id].Roles.Contains(x.Id) || x.Name == "@everyone").OrderBy(x => x.Name == "@everyone"))
-                {
-                    permissions.AddAllows(Convert.ToInt32(role.Permissions));
-                }
-            }
-        }
-
         public Role GetHighestRole(IEnumerable<string> inputRoles)
         {
             Role returnRole = new Role() { Position = 1000 }; //TODO: this could be better
@@ -47,13 +35,16 @@ namespace Discord_UWP.LocalModels
             return returnRole;
         }
 
+        public Permissions permissions
+        {
+            get { return new Permissions(Raw.Id); }
+        }
+
         public SharedModels.Guild Raw { get; set; }
         public Dictionary<string, GuildMember> members = new Dictionary<string, GuildMember>();
         public Dictionary<string, GuildChannel> channels = new Dictionary<string, GuildChannel>();
         public Dictionary<string, Role> roles = new Dictionary<string, Role>();
         public bool valid = true;
-
-        public Permissions permissions;
 
         public int Position { get; set; }
     }
