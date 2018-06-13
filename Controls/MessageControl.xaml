@@ -191,7 +191,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
                     <MenuFlyoutItem x:Uid="PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
                     <!--<MenuFlyoutItem x:Uid="SaveItem" x:Name="MoreSave" Padding="12,4" Text="Save" Click="MoreSave_Click"/>-->
                     <MenuFlyoutItem x:Uid="AddReacItem" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
-                    <MenuFlyoutItem x:Uid="EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
+                    <MenuFlyoutItem x:Uid="EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click" Visibility="Collapsed"/>
                     <MenuFlyoutItem x:Uid="DeleteItem" x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
                     <MenuFlyoutItem x:Uid="CopyIdItem" x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
                 </MenuFlyout>
