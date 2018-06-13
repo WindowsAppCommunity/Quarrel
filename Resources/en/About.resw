@@ -159,9 +159,11 @@
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
     <value>Email</value>
+    <comment>Placeholder text for the email login</comment>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
     <value>Join the app's Discord server</value>
+    <comment>Text "Join the app's discord server"</comment>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value>Join the app's Discord server</value>
@@ -185,11 +187,14 @@
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Authentication code</value>
+    <comment>Placeholder text for the authentication code login box</comment>
   </data>
   <data name="MFATB.Text" xml:space="preserve">
     <value>Two-factor authentication:</value>
+    <comment>Label for "Two-factor authentication:"</comment>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Password</value>
+    <comment>Placeholder text for the password login box</comment>
   </data>
 </root>
