@@ -291,4 +291,7 @@
   <data name="DirectMessageTB.Text" xml:space="preserve">
     <value>DIRECT MESSAGES</value>
   </data>
+  <data name="FriendsButtonText.Text" xml:space="preserve">
+    <value>Friends</value>
+  </data>
 </root>
