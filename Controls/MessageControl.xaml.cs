@@ -601,7 +601,7 @@ namespace Discord_UWP.Controls
 
                 timestamp.Text = Common.HumanizeDate(Message.Timestamp, null);
                 if (Message.EditedTimestamp.HasValue)
-                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + Common.HumanizeDate(Message.EditedTimestamp.Value,
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " + Common.HumanizeDate(Message.EditedTimestamp.Value,
                                           Message.Timestamp) + ")";
 
                 if (Message.Reactions != null)
@@ -844,10 +844,12 @@ namespace Discord_UWP.Controls
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                 }
-                if (Message?.User.Id == LocalState.CurrentUser.Id)
-                {
-                    MoreEdit.Visibility = Visibility.Visible;
-                }
+            }
+
+            if (Message?.User.Id == LocalState.CurrentUser.Id)
+            {
+                MoreEdit.Visibility = Visibility.Visible;
+                MoreReply.Visibility = Visibility.Collapsed;
             }
             //if (Storage.Settings.savedMessages.ContainsKey(messageid))
             //{

@@ -187,13 +187,13 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                    <MenuFlyoutItem x:Uid="ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
+                    <MenuFlyoutItem x:Uid="/Controls/ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
                     <MenuFlyoutItem x:Uid="PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
                     <!--<MenuFlyoutItem x:Uid="SaveItem" x:Name="MoreSave" Padding="12,4" Text="Save" Click="MoreSave_Click"/>-->
-                    <MenuFlyoutItem x:Uid="AddReacItem" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
-                    <MenuFlyoutItem x:Uid="EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click"/>
-                    <MenuFlyoutItem x:Uid="DeleteItem" x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
-                    <MenuFlyoutItem x:Uid="CopyIdItem" x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
+                    <MenuFlyoutItem x:Uid="/Controls/AddReacItem" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
+                    <MenuFlyoutItem x:Uid="/Controls/EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click" Visibility="Collapsed"/>
+                    <MenuFlyoutItem x:Uid="/Controls/DeleteItem" x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
+                    <MenuFlyoutItem x:Uid="/Controls/CopyIdItem" x:Name="MoreCopyId" Padding="12,4" Text="Copy ID" Click="MoreCopyId_Click"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Visible"/>

@@ -285,7 +285,7 @@
   <data name="TimeFormat.Header" xml:space="preserve">
     <value>Format de l'heure</value>
   </data>
-  <data name="ExpVoiceChannels" xml:space="preserve">
-    <value>(Recevoir seulement)</value>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(EXPERIMENTAL) Voix Voix (Recevoir seulement)</value>
   </data>
 </root>

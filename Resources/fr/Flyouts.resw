@@ -132,6 +132,9 @@
   <data name="ChangeNickname" xml:space="preserve">
     <value>Changer de pseudo</value>
   </data>
+  <data name="CloseDM" xml:space="preserve">
+    <value>Fermer DM</value>
+  </data>
   <data name="Deafen" xml:space="preserve">
     <value>Assourdir</value>
   </data>

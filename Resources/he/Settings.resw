@@ -117,181 +117,175 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>¿Aceptar solicitud de amistad?</value>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>צבע הדגשה</value>
   </data>
-  <data name="ACTIVITIES" xml:space="preserve">
-    <value>ACTIVIDADES</value>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>מִתקַדֵם</value>
   </data>
-  <data name="AddReacItem.Text" xml:space="preserve">
-    <value>Agregar Reacción</value>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>יישור שורת הפקודה בתחתית</value>
   </data>
-  <data name="AllLI.Content" xml:space="preserve">
-    <value>TODOS</value>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>מצב קומפקטי</value>
   </data>
-  <data name="BlockedLI.Content" xml:space="preserve">
-    <value>BLOQUEADO</value>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>צבעי נוכחות מותאמים אישית</value>
   </data>
-  <data name="BotTB.Text" xml:space="preserve">
-    <value>BOT</value>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>אפל</value>
   </data>
-  <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>Copia ID</value>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
   </data>
-  <data name="DeleteItem.Text" xml:space="preserve">
-    <value>Eliminar</value>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
   </data>
-  <data name="EditItem.Text" xml:space="preserve">
-    <value>Editar</value>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>אל תפריע</value>
   </data>
-  <data name="FLAGS" xml:space="preserve">
-    <value>BANDERAS</value>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>יקר טיוח (לטשטש אפקטים וכו ')</value>
   </data>
-  <data name="FOOD" xml:space="preserve">
-    <value>COMIDA</value>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>מה מוסיף להודעות של חברים?</value>
   </data>
-  <data name="FriendRequestSent" xml:space="preserve">
-    <value>Solicitud de amigo enviada</value>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>הדגש @everyone</value>
   </data>
-  <data name="InviteExpired" xml:space="preserve">
-    <value>Invitación caducada</value>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>לְהֵבָטֵל</value>
   </data>
-  <data name="InviteInvalid" xml:space="preserve">
-    <value>Invitación caducada o inválida</value>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>בקשות לחברים נכנסים</value>
   </data>
-  <data name="InviteJoin" xml:space="preserve">
-    <value>A</value>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>אוֹר</value>
   </data>
-  <data name="InviteJoined" xml:space="preserve">
-    <value>Te has unido a</value>
+  <data name="LogoutBTN" xml:space="preserve">
+    <value>להתנתק</value>
   </data>
-  <data name="InviteMaxUses" xml:space="preserve">
-    <value>Cantidad máxima de usos alcanzados</value>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Alerts</value>
   </data>
-  <data name="InviteTempDesc" xml:space="preserve">
-    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecte, a menos que se les asigne un rol.</value>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>באינטרנט</value>
   </data>
-  <data name="NATURE" xml:space="preserve">
-    <value>NATURALEZA</value>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>בקשות חברות יוצאות</value>
   </data>
-  <data name="OBJECTS" xml:space="preserve">
-    <value>OBJETOS</value>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>איפוס נקודות עצירה לברירת המחדל</value>
   </data>
-  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>Sólo mostrar amigos en línea</value>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>אלה הם רוחב ההדק שבו ממשק המשתמש מציג מידע פחות או יותר על המסך, בהתאם לרוחב המסך.</value>
   </data>
-  <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDIENTE</value>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>נקודות ממשק משתמש</value>
   </data>
-  <data name="PEOPLE" xml:space="preserve">
-    <value>GENTE</value>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>ממשק משתמש בעל יכולת תגובה</value>
   </data>
-  <data name="PinItem.Text" xml:space="preserve">
-    <value>Alfiler</value>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(יהיה עליך להפעיל מחדש את האפליקציה)</value>
   </data>
-  <data name="Playing" xml:space="preserve">
-    <value>Jugando</value>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>הגדרות</value>
   </data>
-  <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>Revocar la prohibición</value>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>הצג הודעות בתוך האפליקציה</value>
   </data>
-  <data name="RoleTB.Text" xml:space="preserve">
-    <value>Papel</value>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (שרתים וערוצים גלויים)</value>
   </data>
-  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar...</value>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (שרתים גלויים)</value>
   </data>
-  <data name="SendMessagePlaceholderText" xml:space="preserve">
-    <value>Enviar mensaje</value>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (שרתים, ערוצים וחברים גלויים)</value>
   </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>Transmisión</value>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>צבע מבטא המערכת</value>
   </data>
-  <data name="SYMBOLS" xml:space="preserve">
-    <value>SÍMBOLOS</value>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>תֵמָה</value>
   </data>
-  <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value>Invitación temporal</value>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>ממשק משתמש</value>
   </data>
-  <data name="TRAVEL" xml:space="preserve">
-    <value>VIAJE</value>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>רטט בקבלת הודעות</value>
   </data>
-  <data name="UsePlural" xml:space="preserve">
-    <value>usos</value>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
   </data>
-  <data name="UseSingular" xml:space="preserve">
-    <value>uso</value>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לצאת?</value>
   </data>
-  <data name="Edited" xml:space="preserve">
-    <value>Editado</value>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>בקשות חברות</value>
   </data>
-  <data name="ExpiredLink" xml:space="preserve">
-    <value>Vínculo vencido</value>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>ערוצים מושתקים משפיעים על מצב השרת שלא נקרא?</value>
   </data>
-  <data name="expiresIn" xml:space="preserve">
-    <value>caduca en</value>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>צבע מבטא המערכת</value>
   </data>
-  <data name="expiresNever" xml:space="preserve">
-    <value>nunca caduca</value>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blurple</value>
   </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>Invitar a</value>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>אַחֵר</value>
   </data>
-  <data name="Pin" xml:space="preserve">
-    <value>Alfiler</value>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>הצג הודעות טעינה</value>
   </data>
-  <data name="Unpin" xml:space="preserve">
-    <value>Liberar</value>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>הפעל אפקטים אקריליים (רקע מטושטש)</value>
   </data>
-  <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>¿Aceptar solicitud de amistad?</value>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>מושתק ערוץ ערוצי אפקט לא נקרא?</value>
   </data>
-  <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>Quitar de los amigos</value>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>הפעלת דחיסת נתונים (מהירה יותר)</value>
   </data>
-  <data name="SendMessage.Text" xml:space="preserve">
-    <value>Enviar mensaje</value>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>השתמש במודעות וידאו במקום באנרים</value>
   </data>
-  <data name="Call.Text" xml:space="preserve">
-    <value>Llamada</value>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>הודעות</value>
   </data>
-  <data name="FriendsLI.Content" xml:space="preserve">
-    <value>AMIGOS</value>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>רק לשחק GIFs עם העכבר מעל העכבר או לחץ על</value>
   </data>
-  <data name="AddedUser" xml:space="preserve">
-    <value>añadido</value>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>אפשר דחיסת נתונים</value>
   </data>
-  <data name="RemovedUser" xml:space="preserve">
-    <value>quitado</value>
+  <data name="Mentions" xml:space="preserve">
+    <value>אִזְכּוּר</value>
   </data>
-  <data name="ToTheConversation" xml:space="preserve">
-    <value>a la conversación</value>
+  <data name="None" xml:space="preserve">
+    <value>אין</value>
   </data>
-  <data name="FromTheConversation" xml:space="preserve">
-    <value>de la conversación</value>
+  <data name="Unread" xml:space="preserve">
+    <value>לא נקרא</value>
   </data>
-  <data name="YouMissedACall" xml:space="preserve">
-    <value>Te perdiste una llamada de</value>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>תרגומים</value>
   </data>
-  <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>ha fijado un mensaje en este canal.</value>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>פורמט זמן מותאם אישית</value>
   </data>
-  <data name="CallStartedBy" xml:space="preserve">
-    <value>Llamada iniciada por</value>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>תבנית תאריך מותאמת אישית</value>
   </data>
-  <data name="StartedACall" xml:space="preserve">
-    <value>inició una llamada</value>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>פורמט תאריך</value>
   </data>
-  <data name="You" xml:space="preserve">
-    <value>Tu</value>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>פורמט זמן</value>
   </data>
-  <data name="PlayingTB.Text" xml:space="preserve">
-    <value>JUGANDO</value>
-  </data>
-  <data name="JoinedTheServer" xml:space="preserve">
-    <value>se unió al servidor!</value>
-  </data>
-  <data name="EditedAt" xml:space="preserve">
-    <value>Editado en</value>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(ניסיוני) ערוצים קוליים (קבלה בלבד)</value>
   </data>
 </root>
