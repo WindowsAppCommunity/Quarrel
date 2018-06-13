@@ -70,7 +70,10 @@ namespace ColorSyntax.Styling
             new Style(ScopeName.XmlDelimiter){ Foreground=Grey5 },
             new Style(ScopeName.XmlDocComment){ Foreground=DarkGreen },
             new Style(ScopeName.XmlDocTag){ Foreground=Grey4 },
-            new Style(ScopeName.XmlName){ Foreground=Blue }
+            new Style(ScopeName.XmlName){ Foreground=Blue },
+            new Style(ScopeName.DiffAddition){Foreground=Olive},
+            new Style(ScopeName.DiffDeletion){Foreground=SolarizeRed},
+            new Style(ScopeName.DiffMeta){Foreground=RealOrange}
         };
     }
 }

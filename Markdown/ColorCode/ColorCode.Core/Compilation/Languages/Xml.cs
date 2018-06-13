@@ -134,9 +134,15 @@ namespace ColorSyntax.Compilation.Languages
             switch (lang.ToLower())
             {
                 case "xaml":
-                case "axml":
+                case "xhtml":
+                case "rss":
+                case "atom":
+                case "xjb":
+                case "xsd":
+                case "xsl":
+                case "plist":
                     return true;
-
+                
                 default:
                     return false;
             }

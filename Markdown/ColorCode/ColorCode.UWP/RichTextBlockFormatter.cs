@@ -61,6 +61,7 @@ namespace ColorSyntax
 
         protected override void Write(string parsedSourceCode, IList<Scope> scopes)
         {
+           // if (parsedSourceCode == "\n" || parsedSourceCode == "\r\n") return;
             var styleInsertions = new List<TextInsertion>();
 
             foreach (Scope scope in scopes)
@@ -81,7 +82,6 @@ namespace ColorSyntax
                     CreateSpan(text, PreviousScope);
                 }
                 offset = styleinsertion.Index;
-
                 PreviousScope = styleinsertion.Scope;
             }
 

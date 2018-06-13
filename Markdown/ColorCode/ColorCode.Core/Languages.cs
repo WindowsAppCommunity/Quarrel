@@ -44,6 +44,7 @@ namespace ColorSyntax
             Load<Haskell>();
             Load<Markdown>();
             Load<Fortran>();
+            Load<Diff>();
         }
 
         /// <summary>

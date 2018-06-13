@@ -20,6 +20,7 @@ namespace ColorSyntax.Styling
         }
         private const string Black = "#000000";
         private const string Mustard = "#b58900";
+        private const string RealOrange = "#cb4b16";
         private const string MustardLight = "#D7BA7D";
         private const string MustardVeryLight = "#FFFFB3";
         private const string Orange = "#E9D585";
@@ -36,11 +37,13 @@ namespace ColorSyntax.Styling
         private const string Green = "#57A64A";
         private const string GreenLight = "#b5cea8";
         private const string DarkGreen = "#006400";
+        private const string Olive = "#859900";
         private const string Blue = "#569CD6";
         private const string BrightBlue = "#0000FF";
         private const string BlueLight = "#9CDCFE";
         private const string LightOrange = "#D69D85";
         private const string DarkOrange = "#A31515";
+        private const string SolarizeRed = "#dc322f";
         private const string BrightRed = "#ff0000";
 
     }
