@@ -291,4 +291,7 @@
   <data name="JoinedTheServer" xml:space="preserve">
     <value>a rejoins le serveur!</value>
   </data>
+  <data name="EditedAt" xml:space="preserve">
+    <value>Edité à</value>
+  </data>
 </root>

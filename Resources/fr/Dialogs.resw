@@ -325,13 +325,13 @@
     <value>Lire des messages</value>
   </data>
   <data name="RemoveAdsBTN.Content" xml:space="preserve">
-    <value>Suprimmer les publicités 1.29€</value>
+    <value>Suprimmer les publicités $1.29</value>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
     <value>Enlever de mes amis</value>
   </data>
   <data name="RidiculousDonationBTN.Content" xml:space="preserve">
-    <value>Donation ridicule 4.99€</value>
+    <value>Donation ridicule $4.99</value>
   </data>
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
     <value>Autoriser le mentionement</value>
@@ -494,5 +494,14 @@
   </data>
   <data name="Ban" xml:space="preserve">
     <value>Bannir</value>
+  </data>
+  <data name="CreateServer" xml:space="preserve">
+    <value>Créer un serveur</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>Nom du serveur</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Créer</value>
   </data>
 </root>

@@ -132,6 +132,9 @@
   <data name="ChangeNickname" xml:space="preserve">
     <value>Change nickname</value>
   </data>
+  <data name="CloseDM" xml:space="preserve">
+    <value>Close DM</value>
+  </data>
   <data name="Deafen" xml:space="preserve">
     <value>Deafen</value>
   </data>

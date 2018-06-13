@@ -124,7 +124,7 @@
     <value>Add channel</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>at</value>
+    <value>at </value>
   </data>
   <data name="Connected" xml:space="preserve">
     <value>CONNECTED</value>
@@ -253,7 +253,7 @@
     <value>You had no cache, the app will now start caching data to improve loading times.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>and</value>
+    <value>and </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
     <value>are typing...</value>
@@ -290,5 +290,8 @@
   </data>
   <data name="DirectMessageTB.Text" xml:space="preserve">
     <value>DIRECT MESSAGES</value>
+  </data>
+  <data name="FriendsButtonText.Text" xml:space="preserve">
+    <value>Friends</value>
   </data>
 </root>
