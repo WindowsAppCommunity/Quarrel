@@ -601,7 +601,7 @@ namespace Discord_UWP.Controls
 
                 timestamp.Text = Common.HumanizeDate(Message.Timestamp, null);
                 if (Message.EditedTimestamp.HasValue)
-                    timestamp.Text += " (" + App.GetString("/Controls/EditedAt") + " " + Common.HumanizeDate(Message.EditedTimestamp.Value,
+                    timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " + Common.HumanizeDate(Message.EditedTimestamp.Value,
                                           Message.Timestamp) + ")";
 
                 if (Message.Reactions != null)
