@@ -270,9 +270,6 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
-  <data name="TranslatorPI" xml:space="preserve">
-    <value>Traduction</value>
-  </data>
   <data name="CustomTimeF.Header" xml:space="preserve">
     <value>Format de temps personnalisé</value>
   </data>
@@ -290,5 +287,8 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Se déconnecter</value>
+  </data>
+  <data name="TranslatorPI.Header" xml:space="preserve">
+    <value>Traduction</value>
   </data>
 </root>
