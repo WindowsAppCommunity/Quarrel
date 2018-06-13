@@ -117,20 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Iconic" xml:space="preserve">
-    <value>&lt;tile&gt;
-  &lt;visual&gt;
-
-    &lt;binding template='TileSquare150x150IconWithBadge'&gt;
-      &lt;image id='1' src='Assets/DiscordIcon.png' alt='New messages'/&gt;
-    &lt;/binding&gt;
-
-    &lt;binding template='TileSquare71x71IconWithBadge'&gt;
-      &lt;image id='1' src='Assets/DiscordIcon.png' alt='New messages'/&gt;
-    &lt;/binding&gt;
-
-  &lt;/visual&gt;
-&lt;/tile&gt;</value>
-    <comment>Iconic tile template, used for badge tile updates</comment>
-  </data>
 </root>

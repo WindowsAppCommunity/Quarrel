@@ -118,390 +118,390 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
-    <value>Accepter la demande d'ami</value>
+    <value>קבל בקשת חברות</value>
   </data>
   <data name="AddReactionsToggle.Header" xml:space="preserve">
-    <value>Ajouter des réactions</value>
+    <value>הוסף הֲגָבָה</value>
   </data>
   <data name="AdministratorToggle.Header" xml:space="preserve">
-    <value>Administrateur</value>
+    <value>מנהל</value>
   </data>
   <data name="AdvancedMessageEditorTB" xml:space="preserve">
-    <value>EDITEUR DE MESSAGE AVANCÉ</value>
+    <value>עורך הודעות מתקדם</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Pièces jointes</value>
+    <value>קבצים מצורפים</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
-    <value>Pièces jointes</value>
+    <value>צרף קבצים</value>
   </data>
   <data name="BadChannelNameDesc1.Text" xml:space="preserve">
-    <value>Les noms de salon ne doivent contenir que des caractères alphanumériques, avec l'exception des tirets et sous-tirets</value>
+    <value>שמות ערוצים יכולים להכיל תווים אלפאנומריים בלבד, למעט מקפים וקווים תחתונים.</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
-    <value>Réparer automatiquement?</value>
+    <value>לתקן באופן אוטומטי?</value>
   </data>
   <data name="BanBTN.Content" xml:space="preserve">
-    <value>Bannir</value>
+    <value>באן</value>
   </data>
   <data name="BanMembersToggle.Header" xml:space="preserve">
-    <value>Bannir des membres</value>
+    <value>באן חברים</value>
   </data>
   <data name="BansPI.Header" xml:space="preserve">
-    <value>Bans</value>
+    <value>באנים</value>
   </data>
   <data name="BlockTB.Text" xml:space="preserve">
-    <value>Bloquer</value>
+    <value>לַחסוֹם</value>
   </data>
   <data name="BodyTB.Text" xml:space="preserve">
-    <value>CORPS</value>
+    <value>גוּף</value>
   </data>
   <data name="CancelBTN" xml:space="preserve">
-    <value>Annuler</value>
+    <value>לְבַטֵל</value>
   </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">
-    <value>Changer de pseudo</value>
+    <value>שינוי כינוי</value>
   </data>
   <data name="CommonFriendsLI.Content" xml:space="preserve">
-    <value>AMIS EN COMMUN</value>
+    <value>חברים משותפים</value>
   </data>
   <data name="CommonServersLI.Content" xml:space="preserve">
-    <value>SERVEURS EN COMMUN</value>
+    <value>שרתים משותפים</value>
   </data>
   <data name="ConnectToggle.Header" xml:space="preserve">
-    <value>Se connecter</value>
+    <value>לְחַבֵּר</value>
   </data>
   <data name="CopyLinkABB.Label" xml:space="preserve">
-    <value>Copier le lien</value>
+    <value>העתק קישור</value>
   </data>
   <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
-    <value>Créer des invitations</value>
+    <value>צור הזמנות מיידיות</value>
   </data>
   <data name="CreateServerTB.Text" xml:space="preserve">
-    <value>Créer un serveur</value>
+    <value>צור שרת</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
-    <value>Assourdir des membres</value>
+    <value>חברי חירש</value>
   </data>
   <data name="DeleteBTN" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>לִמְחוֹק</value>
   </data>
   <data name="DetailsLI.Content" xml:space="preserve">
-    <value>DETAILS</value>
+    <value>פרטים</value>
   </data>
   <data name="EditChannelNameTBox.Header" xml:space="preserve">
-    <value>NOM</value>
+    <value>שֵׁם</value>
   </data>
   <data name="EditChannelTB.Text" xml:space="preserve">
-    <value>MODIFIER LE SALON</value>
+    <value>עריכת ערוצים</value>
   </data>
   <data name="EditNicknameTB.Text" xml:space="preserve">
-    <value>PSEUDO</value>
+    <value>כינוי</value>
   </data>
   <data name="EditServerNameTBox.Header" xml:space="preserve">
-    <value>NOM</value>
+    <value>שֵׁם</value>
   </data>
   <data name="EditServerTB.Text" xml:space="preserve">
-    <value>MODIFIER LE SERVEUR</value>
+    <value>שרת עריכה</value>
   </data>
   <data name="EmbedLinksToggle.Header" xml:space="preserve">
-    <value>Intégrer des liens</value>
+    <value>הטמע קישורים</value>
   </data>
   <data name="FileNameTB.Text" xml:space="preserve">
-    <value>Nom de fichier:</value>
+    <value>שם קובץ:</value>
   </data>
   <data name="FileSizeTB.Text" xml:space="preserve">
-    <value>Taille du fichier:</value>
+    <value>גודל הקובץ:</value>
   </data>
   <data name="FriendReqSentBTN.Text" xml:space="preserve">
-    <value>Demande d'ami envoyée</value>
+    <value>בקשת חברות נשלחו</value>
   </data>
   <data name="GeneralPermissionsTB.Text" xml:space="preserve">
-    <value>PERMISSIONS GÉNÉRALES</value>
+    <value>הרשאות כלליות</value>
   </data>
   <data name="HeightTB.Text" xml:space="preserve">
-    <value>Hauteur:</value>
+    <value>גוֹבַה:</value>
   </data>
   <data name="IAPsTB.Text" xml:space="preserve">
-    <value>ACHATS IN-APP</value>
+    <value>רכש</value>
   </data>
   <data name="InvitesPI.Header" xml:space="preserve">
-    <value>Invitations</value>
+    <value>הזמנות</value>
   </data>
   <data name="JoinAServerTB.Text" xml:space="preserve">
-    <value>REJOINDRE UN SERVEUR</value>
+    <value>הצטרף לשרת</value>
   </data>
   <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Rejoindre</value>
+    <value>לְהִצְטַרֵף</value>
   </data>
   <data name="JoinServerDescTB.Text" xml:space="preserve">
-    <value>Veuillez entrer un lien ou un code d'invitation Discord</value>
+    <value>נא להזין את ההזמנה של קישור או קוד:</value>
   </data>
   <data name="JoinServerErrorTB.Text" xml:space="preserve">
-    <value>Désolé, mais l'invitation est périmée ou invalide.</value>
+    <value>מצטערים, אך קוד ההזמנה אינו חוקי או שפג תוקפו.</value>
   </data>
   <data name="JoinServerTB.Text" xml:space="preserve">
-    <value>Rejoindre un serveur</value>
+    <value>הצטרף לסרבר</value>
   </data>
   <data name="KickMembersToggle.Header" xml:space="preserve">
-    <value>Expulser des membres</value>
+    <value>בעיטה חברים</value>
   </data>
   <data name="LeaveServerBTN.Content" xml:space="preserve">
-    <value>Quitter le serveur</value>
+    <value>השאר שרת</value>
   </data>
   <data name="ManageChannelsToggle.Header" xml:space="preserve">
-    <value>Gérer les salons</value>
+    <value>ניהול ערוצים</value>
   </data>
   <data name="ManageEmojisToggle.Header" xml:space="preserve">
-    <value>Gérer les emojis</value>
+    <value>ניהול ימוגי</value>
   </data>
   <data name="ManageMessagesToggle.Header" xml:space="preserve">
-    <value>Gérer les messages</value>
+    <value>ניהול הודעות</value>
   </data>
   <data name="ManageNicknamesToggle.Header" xml:space="preserve">
-    <value>Gérer les pseudos</value>
+    <value>ניהול כינויים</value>
   </data>
   <data name="ManageRolesToggle.Header" xml:space="preserve">
-    <value>Gérer les rôles</value>
+    <value>ניהול תפקידים</value>
   </data>
   <data name="ManageServerToggle.Header" xml:space="preserve">
-    <value>Gérer le serveur</value>
+    <value>ניהול שרת</value>
   </data>
   <data name="ManageWebhooksToggle.Header" xml:space="preserve">
-    <value>Gérer les webhooks</value>
+    <value>ניהול בעבהוקס</value>
   </data>
   <data name="MentionEveryoneToggle.Header" xml:space="preserve">
-    <value>Mentionner @everyone</value>
+    <value>נהל את כולם</value>
   </data>
   <data name="MoveMembersToggle.Header" xml:space="preserve">
-    <value>Déplacer les membres</value>
+    <value>העבר חברים</value>
   </data>
   <data name="MuteMembersToggle.Header" xml:space="preserve">
-    <value>Rendre des membres muets</value>
+    <value>להשתיק חברים</value>
   </data>
   <data name="NameTB.Text" xml:space="preserve">
-    <value>NOM</value>
+    <value>שֵׁם</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
-    <value>AUCUN BANS (POUR LE MOMENT)</value>
+    <value>אין באנים</value>
   </data>
   <data name="NoCommonFriendsTB.Text" xml:space="preserve">
-    <value>AUCUN AMI EN COMMUN</value>
+    <value>אין חברים משותפים</value>
   </data>
   <data name="NoCommonServersTB.Text" xml:space="preserve">
-    <value>AUCUN SERVEUR EN COMMUN</value>
+    <value>אין שרתים משותפים</value>
   </data>
   <data name="NoInvitesTB.Text" xml:space="preserve">
-    <value>AUCUNE INVITATIONS</value>
+    <value>אין הזמנות</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>Notes</value>
+    <value>פֶּתֶק</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
-    <value>Les utilisateurs devront confirmer leur âge pour utiliser ce salon. Il sera egalement exempt de tout filtrage d'éventuel contenu explicite. It will also be exempt from explicit content filtering.</value>
+    <value>המשתמשים יצטרכו לאשר שהם מעל גיל החוק כדי להציג תוכן בערוץ זה. זה יהיה גם פטור סינון תוכן מפורש.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
-    <value>Salon NSFW</value>
+    <value>ערוץ NSFW</value>
   </data>
   <data name="NsfwSwitch.OnContent" xml:space="preserve">
-    <value>Salon NSFW</value>
+    <value>ערוץ NSFW</value>
   </data>
   <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
-    <value>OMG Merci! donation $2.99</value>
+    <value>תודה! תרומה $2.99</value>
   </data>
   <data name="OpenInBrowserABB.Label" xml:space="preserve">
-    <value>Ouvrir dans le navigateur</value>
+    <value>פתוח בדפדפן</value>
   </data>
   <data name="OverviewPI.Header" xml:space="preserve">
-    <value>Vue d'ensemble</value>
+    <value>סקירה כללית</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>Donation polie $1.29</value>
+    <value>תרומה מנומסת $1.29</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
-    <value>Consulter l'historique des message</value>
+    <value>קרא את היסטוריית ההודעות</value>
   </data>
   <data name="ReadMessagesToggle.Header" xml:space="preserve">
-    <value>Lire des messages</value>
+    <value>קרא הודעות</value>
   </data>
   <data name="RemoveAdsBTN.Content" xml:space="preserve">
-    <value>Suprimmer les publicités $1.29</value>
+    <value>הסר מודעות $1.29</value>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
-    <value>Enlever de mes amis</value>
+    <value>הסר חבר</value>
   </data>
   <data name="RidiculousDonationBTN.Content" xml:space="preserve">
-    <value>Donation ridicule $4.99</value>
+    <value>תרומה מגוחכת $4.99</value>
   </data>
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
-    <value>Autoriser le mentionement</value>
+    <value>אפשר להזכיר</value>
   </data>
   <data name="RoleHoistToggle.Header" xml:space="preserve">
-    <value>Hoist</value>
+    <value>לְהַנִיף</value>
   </data>
   <data name="RoleNameTB.Text" xml:space="preserve">
-    <value>NOM</value>
+    <value>שֵׁם</value>
   </data>
   <data name="RoleSettingsTB.Text" xml:space="preserve">
-    <value>PARAMETRES</value>
+    <value>הגדורות</value>
   </data>
   <data name="RolesPI.Header" xml:space="preserve">
-    <value>Rôles</value>
+    <value>תפקידים</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
-    <value>Entergistrer</value>
+    <value>לשמור</value>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>Enregistrer</value>
+    <value>לשמור</value>
   </data>
   <data name="SendFriendReqBTN.Text" xml:space="preserve">
-    <value>Envoyer une demande d'ami</value>
+    <value>שלח בקשת חברות</value>
   </data>
   <data name="SendMessagesToggle.Header" xml:space="preserve">
-    <value>Envoyer des message</value>
+    <value>לשלוח הודעות</value>
   </data>
   <data name="SendMessageTB.Text" xml:space="preserve">
-    <value>Envoyer un message</value>
+    <value>לשלוח הודעה</value>
   </data>
   <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
-    <value>Envoyer des messages TTS</value>
+    <value>שלח הודעות TTS</value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
-    <value>En créant un serveur vous acceptez les</value>
+    <value>על ידי יצירת שרת, אתה מסכים ל</value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
-    <value>conditions d'utilisation communautaires de Discord</value>
+    <value>הנחיות הקהילה של Discord</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
-    <value>Partager</value>
+    <value>חֲלוֹק</value>
   </data>
   <data name="SignificantDonationBTN.Content" xml:space="preserve">
-    <value>Donation significative 0.99€</value>
+    <value>תרומה משמעותית $1.99</value>
   </data>
   <data name="SpeakToggle.Header" xml:space="preserve">
-    <value>Parler</value>
+    <value>לְדַבֵּר</value>
   </data>
   <data name="TextPermissionsTB.Text" xml:space="preserve">
-    <value>PERMISSIONS TEXTUELLES</value>
+    <value>הרשאות טקסט</value>
   </data>
   <data name="UnblockBTN.Text" xml:space="preserve">
-    <value>Débloquer</value>
+    <value>בטל חסימה</value>
   </data>
   <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
-    <value>Utiliser les emojis externes</value>
+    <value>השתמש ימוגי חיצוני</value>
   </data>
   <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
-    <value>Utiliser la détection de voix</value>
+    <value>השתמש בפעילות קולית</value>
   </data>
   <data name="ViewAuditLogToggle.Header" xml:space="preserve">
-    <value>Voir l'Audit log</value>
+    <value>הצג יומן ביקורת</value>
   </data>
   <data name="VoicePermissionsTB.Text" xml:space="preserve">
-    <value>PERMISSIONS DE VOIX</value>
+    <value>הרשאות קוליות</value>
   </data>
   <data name="WidthTB.Text" xml:space="preserve">
-    <value>Largeur:</value>
+    <value>רוֹחַב:</value>
   </data>
   <data name="EditChannelTopicTBox.Header" xml:space="preserve">
-    <value>SUJET</value>
+    <value>נוֹשֵׂא</value>
   </data>
   <data name="AddOnError" xml:space="preserve">
-    <value>Il y a eu une erreur, merci de réessayer plus tard.</value>
+    <value>אירעה שגיאה, נסה שוב מאוחר יותר.</value>
   </data>
   <data name="AddOnNotPurchased" xml:space="preserve">
-    <value>L'achat n'à pas été fait</value>
+    <value>התוספת לא נרכשה.</value>
   </data>
   <data name="AddOnPurchased" xml:space="preserve">
-    <value>Merci beaucoup pour la donation!</value>
+    <value>תודה רבה על התרומה!</value>
   </data>
   <data name="EDIT" xml:space="preserve">
-    <value>MODIFIER</value>
+    <value>לַעֲרוֹך</value>
   </data>
   <data name="FlagDiscordPartner" xml:space="preserve">
-    <value>PARTENAIRE DISCORD</value>
+    <value>בת זוג DISCORD</value>
   </data>
   <data name="FlagDiscordStaff" xml:space="preserve">
-    <value>EMPLOYÉ DISCORD</value>
+    <value>צוות DISCORD</value>
   </data>
   <data name="FlagHypesquad" xml:space="preserve">
-    <value>HYPESQUAD</value>
+    <value>אנשים אקסטטיים</value>
   </data>
   <data name="PremiumSince" xml:space="preserve">
-    <value>Membre premium depuis</value>
+    <value>חבר פרמיום מאז</value>
   </data>
   <data name="VerifyBan" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir bannir @</value>
+    <value>האם אתה בטוח שאתה רוצה לאסור @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir supprimer</value>
+    <value>אתה בטוח שאתה רוצה למחוק</value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir quitter</value>
+    <value>אתה בטוח שאתה רוצה לעזוב</value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir vous déconnecter?</value>
+    <value>האם אתה בטוח שברצונך לצאת?</value>
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
-    <value>NOUVEAU SALON</value>
+    <value>צור ערוץ</value>
   </data>
   <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
-    <value>Ouvrir un fichier</value>
+    <value>קובץ פתוח</value>
   </data>
   <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
-    <value>Enregistrer un son</value>
+    <value>הקלט צליל</value>
   </data>
   <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
-    <value>Prendre une photo</value>
+    <value>לצלם</value>
   </data>
   <data name="on" xml:space="preserve">
-    <value>sur</value>
+    <value>עַל</value>
   </data>
   <data name="SavingAudio" xml:space="preserve">
-    <value>Création du fichier...</value>
+    <value>יוצר קובץ ..</value>
   </data>
   <data name="RecordingAudio" xml:space="preserve">
-    <value>Enregistrement...</value>
+    <value>הקלטה...</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>Fichier</value>
+    <value>קוֹבֶץ</value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
-    <value>Compris!</value>
+    <value>הבנתי!</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
-    <value>DONS</value>
+    <value>תרומות</value>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
-    <value>AMIS EN COMMUN</value>
+    <value>חברים משותפים</value>
   </data>
   <data name="CommonServersTB.Text" xml:space="preserve">
-    <value>SERVEURS EN COMMUN</value>
+    <value>שרת משותף</value>
   </data>
   <data name="TextChannel" xml:space="preserve">
-    <value>Canal de texte</value>
+    <value>ערוץ טקסט</value>
   </data>
   <data name="VoiceChannel" xml:space="preserve">
-    <value>Canal vocal</value>
+    <value>ערוץ קול</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Catégorie</value>
+    <value>קטגוריה</value>
   </data>
   <data name="LeaveServer" xml:space="preserve">
-    <value>Quitter le serveur</value>
+    <value>השאר את השרת</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>לִמְחוֹק</value>
   </data>
   <data name="Ban" xml:space="preserve">
-    <value>Bannir</value>
+    <value>באן</value>
   </data>
   <data name="CreateServer" xml:space="preserve">
-    <value>Créer un serveur</value>
+    <value>צור שרת</value>
   </data>
   <data name="ServerName" xml:space="preserve">
-    <value>Nom du serveur</value>
+    <value>שם שרת</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Créer</value>
+    <value>לִיצוֹר</value>
   </data>
 </root>

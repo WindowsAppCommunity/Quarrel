@@ -2066,8 +2066,7 @@ namespace Discord_UWP
                     typingString += " " + App.GetString("/Main/TypingAnd") + " " + " " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
                 else if (i == DisplayedTyperCounter)
                     typingString +=
-                        ", " + App.GetString("/Main/TypingAnd") + " " +
-                        NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
+                        ", " + App.GetString("/Main/TypingAnd") + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
                 else
                     typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
             }
