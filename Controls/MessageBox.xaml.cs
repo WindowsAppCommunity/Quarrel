@@ -108,6 +108,63 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
             MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessagePlaceholderText"); //TODO: Check if can be done with x:Uid
             SpotifyManager.SpotifyStateUpdated += SpotifyManager_SpotifyStateUpdated;
+            Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+        }
+
+        private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
+        {
+            if (MessageEditor.FocusState == FocusState.Unfocused)
+            {
+                args.Handled = false;
+                return;
+            }
+            else
+            {
+                bool HandleSuggestions = (SuggestionBlock.Items.Count != 0);
+                if (args.VirtualKey == VirtualKey.Enter)
+                {
+                    args.Handled = true;
+                    Windows.Devices.Input.KeyboardCapabilities keyboardCapabilities = new Windows.Devices.Input.KeyboardCapabilities();
+                    if (keyboardCapabilities.KeyboardPresent > 0)
+                    {
+                        if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+                        {
+                            InsertNewLine();
+                        }
+                        else if (HandleSuggestions && SuggestionBlock.SelectedItem != null)
+                            SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
+                        else
+                            SendBox_OnClick(null, null);
+                    }
+                    else if (HandleSuggestions)
+                        SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
+                    else
+                        InsertNewLine();
+                    return;
+                }
+                if (SuggestionPopup.IsOpen)
+                {
+                    if (args.VirtualKey == VirtualKey.Up)
+                    {
+                        args.Handled = true;
+                        if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
+                            SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
+                        else
+                            SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
+                        return;
+                    }
+                    else if (args.VirtualKey == VirtualKey.Down)
+                    {
+                        args.Handled = true;
+                        if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count - 1)
+                            SuggestionBlock.SelectedIndex = 0;
+                        else
+                            SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
+                        return;
+                    }
+                }
+            }
+            args.Handled = false;
         }
 
         private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
@@ -134,8 +191,9 @@ namespace Discord_UWP.Controls
                         spotifyActive.Opacity = 0;
                         spotifyInvite.Visibility = Visibility.Collapsed;
                     }
-                      
-            });
+
+                });
+
         }
 
         public void Clear()
@@ -286,52 +344,7 @@ namespace Discord_UWP.Controls
         }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            bool HandleSuggestions = (SuggestionBlock.Items.Count != 0);
-            if (e.Key == VirtualKey.Enter)
-            {
-                e.Handled = true;
-                
-                Windows.Devices.Input.KeyboardCapabilities keyboardCapabilities = new Windows.Devices.Input.KeyboardCapabilities();
-                if (keyboardCapabilities.KeyboardPresent > 0)
-                {
-                    if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
-                    {
-                        InsertNewLine();
-                    }
-                    else if (HandleSuggestions && SuggestionBlock.SelectedItem != null)
-                        SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
-                    else
-                        SendBox_OnClick(null, null);
-                }
-                else if (HandleSuggestions)
-                    SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
-                else
-                    InsertNewLine();
-                return;
-            }
-            if (SuggestionPopup.IsOpen)
-            {
-                if (e.Key == VirtualKey.Up)
-                {
 
-                    e.Handled = true;
-                    if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
-                        SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
-                    else
-                        SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
-                    return;
-                }
-                else if (e.Key == VirtualKey.Down)
-                {
-                    e.Handled = true;
-
-                    if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count - 1)
-                        SuggestionBlock.SelectedIndex = 0;
-                    else
-                        SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
-                    return;
-                }
-            }
         }
 
         private void SuggestionBlock_OnItemClick(object sender, ItemClickEventArgs e)
