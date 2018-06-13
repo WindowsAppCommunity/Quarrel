@@ -122,13 +122,13 @@ namespace Discord_UWP
                 if (dtPrevious != null && dtPrevious.Value.DayOfYear == dt.DayOfYear && dtPrevious.Value.Year == dt.Year)
                 { result = ""; }
                 else
-                { result = App.GetString("/Main/Today"); }
+                { result = App.GetString("/Main/Today") + " " + App.GetString("/Main/at"); }
             }
             else if (IsYesterday(dt))
-            { result = App.GetString("/Main/Yesterday"); }
+            { result = App.GetString("/Main/Yesterday") + " " + App.GetString("/Main/at"); }
             else
             {
-                result += dt.ToString(Storage.Settings.DateFormat);
+                result = dt.ToString(Storage.Settings.DateFormat);
             }
 
             result += " " + dt.ToString(Storage.Settings.TimeFormat);
