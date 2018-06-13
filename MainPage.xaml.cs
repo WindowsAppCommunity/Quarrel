@@ -1192,11 +1192,11 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
-                Message = "Create Server", //TODO: Translate
+                Message = App.GetString("/Dialogs/CreateServer"),
                 StartText = "",
-                PlaceHolderText = "Server Name",
+                PlaceHolderText = App.GetString("/Dialogs/ServerName"),
                 SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") +  " " + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
-                ConfirmMessage = "Create",
+                ConfirmMessage = App.GetString("Create"),
                 ConfirmRed = false,
                 args = new List<object>(),
                 function = RESTCalls.CreateGuild
