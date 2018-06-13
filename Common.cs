@@ -131,7 +131,7 @@ namespace Discord_UWP
                 result = dt.ToString(Storage.Settings.DateFormat);
             }
 
-            result += " " + dt.ToString(Storage.Settings.TimeFormat);
+            result += dt.ToString(Storage.Settings.TimeFormat); //Space handled by "/Main/at
 
             return result;
         }

@@ -117,181 +117,175 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutABB.Label" xml:space="preserve">
-    <value>About</value>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>צבע הדגשה</value>
   </data>
-  <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Add channel</value>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>מִתקַדֵם</value>
   </data>
-  <data name="at" xml:space="preserve">
-    <value>at </value>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>יישור שורת הפקודה בתחתית</value>
   </data>
-  <data name="Connected" xml:space="preserve">
-    <value>CONNECTED</value>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>מצב קומפקטי</value>
   </data>
-  <data name="DNDRadio.Content" xml:space="preserve">
-    <value>Do not disturb</value>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>צבעי נוכחות מותאמים אישית</value>
   </data>
-  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Email</value>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>אפל</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
   </data>
-  <data name="Error400" xml:space="preserve">
-    <value>Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
   </data>
-  <data name="Error401" xml:space="preserve">
-    <value>Error 401: There was an issue with interacting with the server, try again</value>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>אל תפריע</value>
   </data>
-  <data name="Error403" xml:space="preserve">
-    <value>Error 403: You are forbidden to perform this action, you likely just haven't signed in from this location, check your email to verify this signin location and try again</value>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>יקר טיוח (לטשטש אפקטים וכו ')</value>
   </data>
-  <data name="Error429" xml:space="preserve">
-    <value>Error 429: You've been rate limited, try again in a few nanoseconds.</value>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>מה מוסיף להודעות של חברים?</value>
   </data>
-  <data name="Error500" xml:space="preserve">
-    <value>Error 500: There's an issue interacting with the server, and it's the server's fault. Try again later, Discord tends to fix server crashes fast.</value>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>הדגש @everyone</value>
   </data>
-  <data name="ErrorGeneric" xml:space="preserve">
-    <value>Try Again after checking your email to see if you need to verify this sign-in location.</value>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>לְהֵבָטֵל</value>
   </data>
-  <data name="Everyone" xml:space="preserve">
-    <value>EVERYONE</value>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>בקשות לחברים נכנסים</value>
   </data>
-  <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value>Game</value>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>אוֹר</value>
   </data>
-  <data name="IapABB.Label" xml:space="preserve">
-    <value>In-App purchases</value>
+  <data name="LogoutBTN" xml:space="preserve">
+    <value>להתנתק</value>
   </data>
-  <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Idle</value>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Alerts</value>
   </data>
-  <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value>Invisible</value>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>באינטרנט</value>
   </data>
-  <data name="Loaded" xml:space="preserve">
-    <value>LOADED</value>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>בקשות חברות יוצאות</value>
   </data>
-  <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value>Load more messages</value>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>איפוס נקודות עצירה לברירת המחדל</value>
   </data>
-  <data name="LoggingIn" xml:space="preserve">
-    <value>LOGGING IN...</value>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>אלה הם רוחב ההדק שבו ממשק המשתמש מציג מידע פחות או יותר על המסך, בהתאם לרוחב המסך.</value>
   </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value>Login</value>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>נקודות ממשק משתמש</value>
   </data>
-  <data name="MemberListABB.Label" xml:space="preserve">
-    <value>Member list</value>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>ממשק משתמש בעל יכולת תגובה</value>
   </data>
-  <data name="MuteABB.Label" xml:space="preserve">
-    <value>Mute</value>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(יהיה עליך להפעיל מחדש את האפליקציה)</value>
   </data>
-  <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>No channels cached</value>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>הגדרות</value>
   </data>
-  <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value>No message cached</value>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>הצג הודעות בתוך האפליקציה</value>
   </data>
-  <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (שרתים וערוצים גלויים)</value>
   </data>
-  <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>Online</value>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (שרתים גלויים)</value>
   </data>
-  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (שרתים, ערוצים וחברים גלויים)</value>
   </data>
-  <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value>Pinned messages</value>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>צבע מבטא המערכת</value>
   </data>
-  <data name="PlayingTB.Text" xml:space="preserve">
-    <value>Playing</value>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>תֵמָה</value>
   </data>
-  <data name="RefreshABB.Label" xml:space="preserve">
-    <value>Refresh</value>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>ממשק משתמש</value>
   </data>
-  <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Settings</value>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>רטט בקבלת הודעות</value>
   </data>
-  <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value>TEXT CHANNELS</value>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
   </data>
-  <data name="Today" xml:space="preserve">
-    <value>Today</value>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לצאת?</value>
   </data>
-  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value>Upvote this for Voice Channels</value>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>בקשות חברות</value>
   </data>
-  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not enabling them.</value>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>ערוצים מושתקים משפיעים על מצב השרת שלא נקרא?</value>
   </data>
-  <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value>VOICE CHANNELS</value>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>צבע מבטא המערכת</value>
   </data>
-  <data name="Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blurple</value>
   </data>
-  <data name="DirectMessages" xml:space="preserve">
-    <value>Direct Messages</value>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>אַחֵר</value>
   </data>
-  <data name="members" xml:space="preserve">
-    <value>members</value>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>הצג הודעות טעינה</value>
   </data>
-  <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>sent a message on</value>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>הפעל אפקטים אקריליים (רקע מטושטש)</value>
   </data>
-  <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>There was an issue loading message history saves. History cleared so it can work in the future.</value>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>מושתק ערוץ ערוצי אפקט לא נקרא?</value>
   </data>
-  <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>There was an issue loading muted channels. Cleared so it can work in the future.</value>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>הפעלת דחיסת נתונים (מהירה יותר)</value>
   </data>
-  <data name="PromptNoCache" xml:space="preserve">
-    <value>You had no cache, the app will now start caching data to improve loading times.</value>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>השתמש במודעות וידאו במקום באנרים</value>
   </data>
-  <data name="TypingAnd" xml:space="preserve">
-    <value>and </value>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>הודעות</value>
   </data>
-  <data name="TypingPlural" xml:space="preserve">
-    <value>are typing...</value>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>רק לשחק GIFs עם העכבר מעל העכבר או לחץ על</value>
   </data>
-  <data name="TypingSingular" xml:space="preserve">
-    <value>is typing...</value>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>אפשר דחיסת נתונים</value>
   </data>
-  <data name="SubmittedBy" xml:space="preserve">
-    <value>Submitted by</value>
+  <data name="Mentions" xml:space="preserve">
+    <value>אִזְכּוּר</value>
   </data>
-  <data name="DirectMessagesTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGES</value>
+  <data name="None" xml:space="preserve">
+    <value>אין</value>
   </data>
-  <data name="FriendsTB.Text" xml:space="preserve">
-    <value>FRIENDS</value>
+  <data name="Unread" xml:space="preserve">
+    <value>לא נקרא</value>
   </data>
-  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
-    <value>sent you a friend request</value>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>תרגומים</value>
   </data>
-  <data name="Notifications_Accept" xml:space="preserve">
-    <value>Accept</value>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>פורמט זמן מותאם אישית</value>
   </data>
-  <data name="Notifications_Refuse" xml:space="preserve">
-    <value>Refuse</value>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>תבנית תאריך מותאמת אישית</value>
   </data>
-  <data name="Notifications_Reply" xml:space="preserve">
-    <value>Reply</value>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>פורמט תאריך</value>
   </data>
-  <data name="RecentMentionsABB.Label" xml:space="preserve">
-    <value>Recent mentions</value>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>פורמט זמן</value>
   </data>
-  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Authentication code</value>
-  </data>
-  <data name="DirectMessageTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGES</value>
-  </data>
-  <data name="FriendsButtonText.Text" xml:space="preserve">
-    <value>Friends</value>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(ניסיוני) ערוצים קוליים (קבלה בלבד)</value>
   </data>
 </root>
