@@ -342,13 +342,17 @@ namespace Discord_UWP.Controls
             {
                 if (IsMuted)
                 {
-                    ChannelName.Opacity = 0.5;
+                    ChannelName.Opacity = 0.4;
                     MuteIcon.Visibility = Visibility.Visible;
                     ChannelName.Fade(0.75f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
+                    if (IsUnread)
+                        ChannelName.Opacity = 1;
+                    else
+                        ChannelName.Opacity = 0.6;
                     MuteIcon.Visibility = Visibility.Collapsed;
                 }
                 UpdateHidden();
