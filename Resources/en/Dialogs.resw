@@ -495,4 +495,13 @@
   <data name="Ban" xml:space="preserve">
     <value>Ban</value>
   </data>
+  <data name="CreateServer" xml:space="preserve">
+    <value>Create server</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>Server Name</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
 </root>
