@@ -270,13 +270,13 @@
   <data name="Unread" xml:space="preserve">
     <value>Unread</value>
   </data>
-  <data name="TranslatorPI" xml:space="preserve">
+  <data name="TranslatorPI.Header" xml:space="preserve">
     <value>Translations</value>
   </data>
-  <data name="CustomTimeF.Header" xml:space="preserve">
+  <data name="CustomTimeFTB.Header" xml:space="preserve">
     <value>Custom Time Format</value>
   </data>
-  <data name="CustomDateF" xml:space="preserve">
+  <data name="CustomDateFTB.Header" xml:space="preserve">
     <value>Custom Date Format</value>
   </data>
   <data name="DateFormat.Header" xml:space="preserve">
@@ -290,5 +290,56 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Output Devices</value>
+  </data>
+  <data name="OutputDeviceOverride.Text" xml:space="preserve">
+    <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Glow the left side of the screen when you are mentioned</value>
+  </data>
+  <data name="BackgroundNotificationsTB.Text" xml:space="preserve">
+    <value>BACKGROUND NOTIFICATIONS</value>
+  </data>
+  <data name="BGNotifsSubMsgTB.Text" xml:space="preserve">
+    <value>You will receive notifications for whatever is selected below every time the background process runs</value>
+  </data>
+  <data name="BgNotifsTS.OffContent" xml:space="preserve">
+    <value>Enable background notifications</value>
+  </data>
+  <data name="BgNotifsTS.OnContent" xml:space="preserve">
+    <value>Disable background notifications</value>
+  </data>
+  <data name="bgNotifyDMCB.Content" xml:space="preserve">
+    <value>Unread DMs</value>
+  </data>
+  <data name="bgNotifyFriendCB.Content" xml:space="preserve">
+    <value>Friend requests</value>
+  </data>
+  <data name="bgNotifyMentionCB.Content" xml:space="preserve">
+    <value>New mentions</value>
+  </data>
+  <data name="CustomTimeFTB" xml:space="preserve">
+    <value>Custom Time Format</value>
+  </data>
+  <data name="DerivedRadio" xml:space="preserve">
+    <value>Derived Color</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>IN-APP NOTIFICATIONS</value>
+  </data>
+  <data name="ResetQuarrelHLBTN.Content" xml:space="preserve">
+    <value>Reset Quarrel</value>
+  </data>
+  <data name="RunProcessHeader.Text" xml:space="preserve">
+    <value>Run background process every:</value>
+  </data>
+  <data name="CustomDateFTB" xml:space="preserve">
+    <value>Custom Date Format</value>
   </data>
 </root>

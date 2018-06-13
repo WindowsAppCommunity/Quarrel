@@ -1207,8 +1207,8 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = App.CurrentGuildIsDM
-                ? "Are you sure you want to Close your DM with " + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
-                : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?", //TODO: Translate
+                ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
+                : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?",
                 SubMessage = "",
                 StartText = "",
                 PlaceHolderText = null,
@@ -1259,8 +1259,8 @@ namespace Discord_UWP
             var member = LocalState.Guilds[App.CurrentGuildId].members[e.UserId];
             var pageData = new SubPages.SubPageData()
             {
-                Message = "Edit Nickname", //TODO: Translate
-                ConfirmMessage = "Save",
+                Message = App.GetString("/Dialogs/EditNickname"),
+                ConfirmMessage = App.GetString("/Dialogs/Save"),
                 SubMessage = "",
                 StartText = member.Nick != null ? member.Nick : "",
                 ConfirmRed = false,
@@ -1458,7 +1458,7 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
-                Message = "Are you sure you want to delete this message?", //TODO: Translate
+                Message = App.GetString("/Dialogs/DeleteMessageConfirm"),
                 ConfirmMessage = App.GetString("/Dialogs/Delete"),
                 SubMessage = "", //TODO: Make this the message
                 StartText = "",
@@ -1850,7 +1850,6 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-               
                 var messages = await MessageManager.ConvertMessage(emessages.ToList());
                 AddMessages(Position.After, true, messages, true);
             } else
