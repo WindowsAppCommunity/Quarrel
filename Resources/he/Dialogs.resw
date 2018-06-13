@@ -156,9 +156,6 @@
   <data name="BodyTB.Text" xml:space="preserve">
     <value>גוּף</value>
   </data>
-  <data name="CancelBTN" xml:space="preserve">
-    <value>לְבַטֵל</value>
-  </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">
     <value>שינוי כינוי</value>
   </data>
@@ -349,10 +346,10 @@
     <value>תפקידים</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
-    <value>לשמור</value>
+    <value>שמור</value>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>לשמור</value>
+    <value>שמור</value>
   </data>
   <data name="SendFriendReqBTN.Text" xml:space="preserve">
     <value>שלח בקשת חברות</value>
@@ -457,7 +454,7 @@
     <value>עַל</value>
   </data>
   <data name="SavingAudio" xml:space="preserve">
-    <value>יוצר קובץ ..</value>
+    <value>יוצר קובץ...</value>
   </data>
   <data name="RecordingAudio" xml:space="preserve">
     <value>הקלטה...</value>
@@ -503,5 +500,11 @@
   </data>
   <data name="Create" xml:space="preserve">
     <value>לִיצוֹר</value>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ביטול</value>
   </data>
 </root>
