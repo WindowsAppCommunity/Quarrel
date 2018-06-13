@@ -270,12 +270,6 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
-  <data name="CustomTimeF.Header" xml:space="preserve">
-    <value>Format de temps personnalisé</value>
-  </data>
-  <data name="CustomDateF" xml:space="preserve">
-    <value>Format de date personnalisé</value>
-  </data>
   <data name="DateFormat.Header" xml:space="preserve">
     <value>Format de date</value>
   </data>
@@ -290,5 +284,17 @@
   </data>
   <data name="TranslatorPI.Header" xml:space="preserve">
     <value>Traduction</value>
+  </data>
+  <data name="CustomDateFTB.Header" xml:space="preserve">
+    <value>Format de date personnalisé</value>
+  </data>
+  <data name="CustomTimeFTB.Header" xml:space="preserve">
+    <value>Format de temps personnalisé</value>
+  </data>
+  <data name="CustomDateFTB" xml:space="preserve">
+    <value>Format de date personnalisé</value>
+  </data>
+  <data name="CustomTimeFTB" xml:space="preserve">
+    <value>Format de temps personnalisé</value>
   </data>
 </root>
