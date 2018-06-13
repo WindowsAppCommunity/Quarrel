@@ -89,7 +89,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                 <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
-                    <TextBlock x:Uid="BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
