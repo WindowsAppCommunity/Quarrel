@@ -844,10 +844,12 @@ namespace Discord_UWP.Controls
                 {
                     MoreDelete.Visibility = Visibility.Collapsed;
                 }
-                if (Message?.User.Id == LocalState.CurrentUser.Id)
-                {
-                    MoreEdit.Visibility = Visibility.Visible;
-                }
+            }
+
+            if (Message?.User.Id == LocalState.CurrentUser.Id)
+            {
+                MoreEdit.Visibility = Visibility.Visible;
+                MoreReply.Visibility = Visibility.Collapsed;
             }
             //if (Storage.Settings.savedMessages.ContainsKey(messageid))
             //{
