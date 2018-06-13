@@ -507,4 +507,16 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="CloseDMConfirm" xml:space="preserve">
+    <value>Êtes vous sûr de vouloir fermer vos messages privés avec </value>
+  </data>
+  <data name="DeleteMessageConfirm" xml:space="preserve">
+    <value>Êtes vous sûr de vouloir supprimer ce message?</value>
+  </data>
+  <data name="EditNickname" xml:space="preserve">
+    <value>Changer de pseudo</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
 </root>
