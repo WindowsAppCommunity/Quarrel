@@ -1,4 +1,5 @@
 ﻿using Microsoft.Advertising.WinRT.UI;
+using Microsoft.Advertising.WinRT.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -921,10 +922,14 @@ namespace Discord_UWP.Controls
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             if (EditValue.Trim() == "") EditValue = content.Text;
-            editBox = new MessageBox() { Text = EditValue.Trim(),
-                                         Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
-                                         Padding = new Thickness(6,6,12,6),
-                                         IsEdit = true };
+            editBox = new MessageBox()
+            {
+                Text = EditValue.Trim(),
+                Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
+                Padding = new Thickness(-14, 4, 0, 6),
+                FontSize=14,
+                IsEdit = true
+            };
             editBox.Send += EditBox_Send;
             editBox.Cancel += EditBox_Cancel;
             editBox.TextChanged += EditBox_TextChanged;

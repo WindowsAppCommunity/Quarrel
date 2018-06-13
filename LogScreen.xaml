@@ -41,7 +41,7 @@
                     <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
-                    <PasswordBox x:Uid="/About/MFAPasswordTBox" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
+                    <PasswordBox x:Uid="/About/MFAPasswordTBox" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
                 </StackPanel>
                 <WebView x:Name="ReCaptchaView" Visibility="Collapsed"/>
             </Grid>
