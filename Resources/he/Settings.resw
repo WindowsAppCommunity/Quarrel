@@ -162,11 +162,11 @@
   <data name="LightRadio.Content" xml:space="preserve">
     <value>אוֹר</value>
   </data>
-  <data name="LogoutBTN" xml:space="preserve">
-    <value>להתנתק</value>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>התנתק</value>
   </data>
   <data name="NotificationsPI.Header" xml:space="preserve">
-    <value>Alerts</value>
+    <value>הודעות</value>
   </data>
   <data name="OnlineColorTB.Text" xml:space="preserve">
     <value>באינטרנט</value>
@@ -287,5 +287,8 @@
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
     <value>(ניסיוני) ערוצים קוליים (קבלה בלבד)</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>התנתק</value>
   </data>
 </root>
