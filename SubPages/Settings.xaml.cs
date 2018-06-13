@@ -57,9 +57,9 @@ namespace Discord_UWP.SubPages
             RespUI_XL.Value = Storage.Settings.RespUiXl;
             //AppBarAtBottom_checkbox.IsChecked = Storage.Settings.AppBarAtBottom;
             ShowWelcome.IsChecked = Storage.Settings.ShowWelcomeMessage;
-            EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;//TODO Translate and add "Questions? Join our server!"
+            EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
-            UseCompression.IsChecked = Storage.Settings.UseCompression; //TODO: Translate
+            UseCompression.IsChecked = Storage.Settings.UseCompression;
             VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
