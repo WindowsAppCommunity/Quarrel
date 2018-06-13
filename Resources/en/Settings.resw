@@ -276,7 +276,7 @@
   <data name="CustomTimeFTB.Header" xml:space="preserve">
     <value>Custom Time Format</value>
   </data>
-  <data name="CustomTimeFTB" xml:space="preserve">
+  <data name="CustomDateFTB.Header" xml:space="preserve">
     <value>Custom Date Format</value>
   </data>
   <data name="DateFormat.Header" xml:space="preserve">
@@ -324,7 +324,7 @@
   <data name="bgNotifyMentionCB.Content" xml:space="preserve">
     <value>New mentions</value>
   </data>
-  <data name="CustomDateFTB" xml:space="preserve">
+  <data name="CustomTimeFTB" xml:space="preserve">
     <value>Custom Time Format</value>
   </data>
   <data name="DerivedRadio" xml:space="preserve">
@@ -338,5 +338,8 @@
   </data>
   <data name="RunProcessHeader.Text" xml:space="preserve">
     <value>Run background process every:</value>
+  </data>
+  <data name="CustomDateFTB" xml:space="preserve">
+    <value>Custom Date Format</value>
   </data>
 </root>
