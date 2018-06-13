@@ -26,5 +26,6 @@ namespace ColorSyntax.Common
         public const string Haskell = "haskell";
         public const string Markdown = "markdown";
         public const string Fortran = "fortran";
+        public const string Diff = "diff";
     }
 }

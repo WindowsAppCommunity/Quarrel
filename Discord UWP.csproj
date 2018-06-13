@@ -261,6 +261,7 @@
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Cpp.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\CSharp.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Css.cs" />
+    <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Diff.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Fortran.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\FSharp.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Haskell.cs" />

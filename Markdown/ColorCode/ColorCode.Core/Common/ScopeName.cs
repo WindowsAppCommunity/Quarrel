@@ -61,5 +61,8 @@ namespace ColorSyntax.Common
         public const string Brackets = "Brackets";
         public const string Continuation = "Continuation";
         public const string Warning = "Warning";
+        public const string DiffAddition = "DiffAddition";
+        public const string DiffDeletion = "DiffDeletion";
+        public const string DiffMeta = "DiffMeta";
     }
 }

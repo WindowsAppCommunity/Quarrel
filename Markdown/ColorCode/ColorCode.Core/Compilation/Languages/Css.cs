@@ -46,7 +46,6 @@ namespace ColorSyntax.Compilation.Languages
                                            { 4, ScopeName.Comment },
                                            { 1, ScopeName.Comment },
                                        })
-
                            };
             }
         }
