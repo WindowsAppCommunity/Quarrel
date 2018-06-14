@@ -85,6 +85,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
+        string[] ILanguage.Aliases => new string[] { "vb.net", "vbnet","vb","visualbasic", "visual basic" };
 
         public override string ToString()
         {

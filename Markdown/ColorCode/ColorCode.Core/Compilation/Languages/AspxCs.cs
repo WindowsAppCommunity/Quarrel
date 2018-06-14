@@ -134,6 +134,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
+        string[] ILanguage.Aliases => new string[] { "aspx-cs","aspx (cs)","aspx(cs)","aspx","aspxcs" };
 
         public override string ToString()
         {

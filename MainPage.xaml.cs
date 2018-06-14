@@ -572,8 +572,6 @@ namespace Discord_UWP
                                    }
                                });
         }
-        private DawgSharp.DawgBuilder<DawgSharp.DawgItem> MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
-
         private void App_MentionHandler(object sender, App.MentionArgs e)
         {
             if (MessageBox1.Text.Trim() == "")
@@ -904,7 +902,6 @@ namespace Discord_UWP
                                  (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
                                  MembersCvs.Source = null;
                              });
-            MemberListBuilder = new DawgSharp.DawgBuilder<DawgSharp.DawgItem>();
             App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
@@ -2868,7 +2865,7 @@ namespace Discord_UWP
 
         private async void App_GuildSyncedHandler(object sender, GuildSync e)
         {
-
+            App.MemberListTrie = new Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete>();
             if (!App.CurrentGuildIsDM && App.CurrentGuildId != null && App.CurrentGuildId == e.GuildId) //Reduntant I know
             {
                 //await GatewayManager.Gateway.RequestAllGuildMembers(App.CurrentGuildId);
@@ -2899,11 +2896,13 @@ namespace Discord_UWP
                         LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
                     }
 
-                    MemberListBuilder.Insert(member.User.Username + "#" + member.User.Discriminator, new DawgSharp.DawgItem() { InsertText = "" });
+                    
                     if (!string.IsNullOrEmpty(member.Nick))
-                        MemberListBuilder.Insert(member.Nick, new DawgSharp.DawgItem() { InsertText = member.User.Username + "#" + member.User.Discriminator });
+                        App.MemberListTrie.Add(member.User.Username.ToLower(), new Common.AutoComplete(member.Nick, member.User.Username + "#" + member.User.Discriminator, Common.AvatarString(member.User.Avatar, member.User.Id)));
+                    else
+                        App.MemberListTrie.Add(member.User.Username.ToLower(), new Common.AutoComplete(member.User.Username + "#" + member.User.Discriminator, null, Common.AvatarString(member.User.Avatar, member.User.Id)));
                 }
-                
+                Debug.WriteLine("Trie traversal: " + App.MemberListTrie.Traversal() + "/end");
                 if (LocalState.Guilds[App.CurrentGuildId].Raw.Roles != null)
                 {
                     foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
@@ -2997,7 +2996,6 @@ namespace Discord_UWP
                     }
                     //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                     //sw.Start();
-                    App.MemberListDawg = MemberListBuilder.BuildDawg();
                     //sw.Stop();
                     //else
                     //    MembersCVS.Source = memberscvs.SkipWhile(m => m.Value.status.Status == "offline").GroupBy(m => m.Value.MemberDisplayedRole).OrderBy(m => m.Key.Position).ToList();

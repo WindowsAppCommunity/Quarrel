@@ -200,6 +200,15 @@ namespace ColorSyntax
         }
 
         /// <summary>
+        /// Language support for Diff.
+        /// </summary>
+        /// <value>Language support for Diff<value>
+        public static ILanguage Diff
+        {
+            get { return LanguageRepository.FindById(LanguageId.Diff); }
+        }
+
+        /// <summary>
         /// Language support for Typescript.
         /// </summary>
         /// <value>Language support for typescript.</value>

@@ -867,8 +867,9 @@ namespace Discord_UWP
         internal static string CurrentGuildId;
         internal static string CurrentChannelId;
         internal static string LastReadMsgId;
-        internal static DawgSharp.Dawg<DawgSharp.DawgItem> MemberListDawg;
-        internal static DawgSharp.Dawg<string> EmojiDawg;
+        internal static Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete> MemberListTrie = new Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete>();
+        internal static Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete> EmojiTrie = new Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete>();
+        internal static Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete> CodingLangsTrie = new Gma.DataStructures.StringSearch.PatriciaTrie<Common.AutoComplete>();
         internal static int FriendNotifications;
         internal static int AllNotifications;
         internal static bool HasFocus = true;

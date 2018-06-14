@@ -125,6 +125,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
+        string[] ILanguage.Aliases => new string[] { "cs", "c#", "csharp", "cake", "c-sharp" };
 
         public override string ToString()
         {

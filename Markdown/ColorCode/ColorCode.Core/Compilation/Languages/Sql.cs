@@ -94,7 +94,7 @@ namespace ColorSyntax.Compilation.Languages
         {
             return false;
         }
-
+        string[] ILanguage.Aliases => new string[] { "sql" };
         public override string ToString()
         {
             return Name;

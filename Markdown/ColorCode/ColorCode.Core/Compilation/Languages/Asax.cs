@@ -17,6 +17,8 @@ namespace ColorSyntax.Compilation.Languages
             get { return "ASAX"; }
         }
 
+        string[] ILanguage.Aliases => new string[] { "asax" };
+
         public string CssClassName
         {
             get { return "asax"; }
@@ -100,6 +102,7 @@ namespace ColorSyntax.Compilation.Languages
                            };
             }
         }
+
 
         public bool HasAlias(string lang)
         {

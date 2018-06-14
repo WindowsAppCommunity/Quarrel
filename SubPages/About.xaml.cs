@@ -106,5 +106,9 @@ namespace Discord_UWP.SubPages
             JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServerTB.Text");
         }
 
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

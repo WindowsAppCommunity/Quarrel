@@ -21,7 +21,7 @@ namespace ColorSyntax.Compilation.Languages
         {
             get { return "java"; }
         }
-
+        string[] ILanguage.Aliases => new string[] { "java" };
         public string FirstLinePattern
         {
             get

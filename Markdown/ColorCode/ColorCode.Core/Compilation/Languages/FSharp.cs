@@ -120,7 +120,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "fsharp","f#","fs" };
         public override string ToString()
         {
             return Name;
