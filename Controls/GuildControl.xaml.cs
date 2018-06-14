@@ -164,6 +164,14 @@ namespace Discord_UWP.Controls
             {
                 if (IsMuted)
                 {
+                    ShowMute.Begin();
+                } else
+                {
+                    HideMute.Begin();
+                }
+
+                if (IsMuted)
+                {
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
                 else if (IsUnread)

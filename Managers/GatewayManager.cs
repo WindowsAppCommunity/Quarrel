@@ -289,19 +289,22 @@ namespace Discord_UWP.Managers
             #endregion
 
             #region ReadState (RPC)
-            
-            foreach (ReadState readstate in e.EventData.ReadStates)
+            if (e.EventData.ReadStates != null)
             {
-                if (LocalState.RPC.ContainsKey(readstate.Id))
+
+                foreach (ReadState readstate in e.EventData.ReadStates)
                 {
-                    LocalState.RPC[readstate.Id] = readstate;
+                    if (LocalState.RPC.ContainsKey(readstate.Id))
+                    {
+                        LocalState.RPC[readstate.Id] = readstate;
+                    }
+                    else
+                    {
+                        LocalState.RPC.Add(readstate.Id, readstate);
+                    }
+                    if (readstate.MentionCount > 0)
+                        Storage.UpdateNotificationState("c" + readstate.Id, readstate.MentionCount.ToString());
                 }
-                else
-                {
-                    LocalState.RPC.Add(readstate.Id, readstate);
-                }
-                if (readstate.MentionCount > 0)
-                    Storage.UpdateNotificationState("c" + readstate.Id, readstate.MentionCount.ToString());
             }
             Storage.UNSdeferralEnd();
             if (App.AslansBullshit)
