@@ -82,20 +82,21 @@
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,18,24,0" Margin="0,48,0,0">
                 <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="0,0,0,18">
-                    <TextBlock x:Uid="/Dialogs/DonationsTB" x:Name="header" Text="DONATIONS" FontWeight="SemiBold" FontSize="20"/>
-                    <TextBlock x:Uid="/Dialogs/DonationsDescTB" Text="All donations remove ads" Opacity="0.6" FontSize="16" Margin="0,0,0,16"/>
+                    <TextBlock x:Uid="/Dialogs/AddOnsTB" x:Name="header" Text="ADD-ONS" FontWeight="SemiBold" FontSize="20"/>
+                    <!--<TextBlock x:Uid="/Dialogs/DonationsTB" x:Name="header" Text="DONATIONS" FontWeight="SemiBold" FontSize="20"/>-->
+                    <!--<TextBlock x:Uid="/Dialogs/DonationsDescTB" Text="All donations remove ads" Opacity="0.6" FontSize="16" Margin="0,0,0,16"/>-->
                     <!--<TextBlock x:Uid="/Dialogs/IAPsTB" x:Name="header" Text="IN-APP PURCHASES" FontWeight="SemiBold" Margin="0,0,0,16" FontSize="20"/>-->
-                    <!--<Button x:Uid="/Dialogs/RemoveAdsBTN" x:Name="BuyAdRemovalButton" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Remove Ads $1.29" Tag="RemoveAds" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
-                    <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Margin="12" Opacity="0.5"/>-->
-                    <Button x:Uid="/Dialogs/PoliteDonationBTN" x:Name="PoliteDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Polite Donatation $1.29" Margin="0,0,0,6" Tag="Polite" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>
+                    <Button x:Uid="/Dialogs/RemoveAdsBTN" x:Name="BuyAdRemovalButton" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Remove Ads $1.29" Tag="Remove Ads" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}"/>
+                    <Rectangle Height="1" Fill="{ThemeResource InvertedBG}" Margin="12" Opacity="0.5"/>
+                    <!--<Button x:Uid="/Dialogs/PoliteDonationBTN" x:Name="PoliteDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Polite Donatation $1.29" Margin="0,0,0,6" Tag="Polite" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>
                     <Button x:Uid="/Dialogs/SignificantDonationBTN" x:Name="SignificantDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Significant Donation $1.99" Margin="0,0,0,6" Tag="Significant" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>
                     <Button x:Uid="/Dialogs/OMGTHXDonationBTN" x:Name="OMGTHXDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="OMG thank you Donation $2.99" Margin="0,0,0,6" Tag="OMGTHX" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>
-                    <Button x:Uid="/Dialogs/RidiculousDonationBTN" x:Name="RidiculousDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Ridiculous Donation $4.99" Margin="0,0,0,6" Tag="Ridiculous" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>
+                    <Button x:Uid="/Dialogs/RidiculousDonationBTN" x:Name="RidiculousDonatation" HorizontalAlignment="Stretch" MaxWidth="500" Click="MakePurchase" Content="Ridiculous Donation $4.99" Margin="0,0,0,6" Tag="Ridiculous" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" IsEnabled="False"/>-->
                 </StackPanel>
             </Border>
-            <Grid HorizontalAlignment="Center" MinHeight="300" MaxWidth="700" VerticalAlignment="Center" Background="#CC320000">
+            <!--<Grid HorizontalAlignment="Center" MinHeight="300" MaxWidth="700" VerticalAlignment="Center" Background="#CC320000">
                 <TextBlock Text="Ad Removal has been taken down by Microsoft for not meeting recently updated regulations for In App Purchases" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20"/>
-            </Grid>
+            </Grid>-->
         </Grid>
     </Grid>
 </Page>

@@ -56,208 +56,44 @@ namespace Discord_UWP.SubPages
         private async void MakePurchase(object sender, RoutedEventArgs e)
         {
             LicenseInformation licenseInformation = CurrentApp.LicenseInformation;
-            switch ((sender as Button).Tag.ToString())
+            string addon = (sender as Button).Tag.ToString();
+            if (!licenseInformation.ProductLicenses[addon].IsActive)
             {
-                //case "RemoveAds":
-                //    if (!licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                //    {
-                //        try
-                //        {
-                //            // The customer doesn't own this feature, so
-                //            // show the purchase dialog.
-                //            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RemoveAds");
+                try
+                {
+                    // The customer doesn't own this feature, so
+                    // show the purchase dialog.
+                    PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync(addon);
 
-                //            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                //            {
-                //                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                //                await msg.ShowAsync();
-                //            }
-                //            else
-                //            {
-                //                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                //                await msg.ShowAsync();
-                //            }
-
-                //            licenseInformation = CurrentApp.LicenseInformation;
-
-                //            if (licenseInformation.ProductLicenses["RemoveAds"].IsActive)
-                //            {
-                //                BuyAdRemovalButton.Visibility = Visibility.Collapsed;
-                //                App.ShowAds = false;
-                //            }
-                //            //Check the license state to determine if the in-app purchase was successful.
-                //        }
-                //        catch (Exception)
-                //        {
-                //            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                //            await msg.ShowAsync();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        // The customer already owns this feature.
-                //    }
-                //    break;
-                case "Polite":
-                    if (!licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
+                    if (licenseInformation.ProductLicenses[addon].IsActive)
                     {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("Polite Dontation");
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["Polite Dontation"].IsActive)
-                            {
-                                PoliteDonatation.Visibility = Visibility.Collapsed;
-                                App.ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                            await msg.ShowAsync();
-                        }
+                        MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
+                        await msg.ShowAsync();
                     }
                     else
                     {
-                        // The customer already owns this feature.
+                        MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
+                        await msg.ShowAsync();
                     }
-                    break;
-                case "Significant":
-                    if (!licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
+
+                    licenseInformation = CurrentApp.LicenseInformation;
+
+                    if (licenseInformation.ProductLicenses[addon].IsActive)
                     {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("SignificantDonation");
-
-                            if (licenseInformation.ProductLicenses["SignificantDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["SignificantDontation"].IsActive)
-                            {
-                                SignificantDonatation.Visibility = Visibility.Collapsed;
-                                App.ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                            await msg.ShowAsync();
-                        }
+                        BuyAdRemovalButton.Visibility = Visibility.Collapsed;
+                        App.ShowAds = false;
                     }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "OMGTHX":
-                    if (!licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("OMGTHXDonation");
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive)
-                            {
-                                OMGTHXDonatation.Visibility = Visibility.Collapsed;
-                                App.ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
-                case "Ridiculous":
-                    if (!licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                    {
-                        try
-                        {
-                            // The customer doesn't own this feature, so
-                            // show the purchase dialog.
-                            PurchaseResults purchase = await CurrentApp.RequestProductPurchaseAsync("RidiculousDonation");
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnPurchased"));
-                                await msg.ShowAsync();
-                            }
-                            else
-                            {
-                                MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnNotPurchased"));
-                                await msg.ShowAsync();
-                            }
-
-                            licenseInformation = CurrentApp.LicenseInformation;
-
-                            if (licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
-                            {
-                                RidiculousDonatation.Visibility = Visibility.Collapsed;
-                                App.ShowAds = false;
-                            }
-                            //Check the license state to determine if the in-app purchase was successful.
-                        }
-                        catch (Exception)
-                        {
-                            MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
-                            await msg.ShowAsync();
-                        }
-                    }
-                    else
-                    {
-                        // The customer already owns this feature.
-                    }
-                    break;
+                    //Check the license state to determine if the in-app purchase was successful.
+                }
+                catch (Exception)
+                {
+                    MessageDialog msg = new MessageDialog(App.GetString("/Dialogs/AddOnError"));
+                    await msg.ShowAsync();
+                }
+            }
+            else
+            {
+                // The customer already owns this feature.
             }
         }
     }
