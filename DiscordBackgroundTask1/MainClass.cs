@@ -214,6 +214,7 @@ namespace DiscordBackgroundTask1
                                 foreach (var json_channel in privatechannels)
                                 {
                                     var channel = json_channel.ToObject<PrivateChannel>();
+                                    if(channel!=null && channel.id != null)
                                     if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
                                     {
                                         //Unfortunately the channel must be sent as a string parameter, because windowsruntime
@@ -229,6 +230,7 @@ namespace DiscordBackgroundTask1
                                 foreach (var json_relationship in ready["relationships"])
                                 {
                                     var relationship = json_relationship.ToObject<Relationship>();
+                                    if(relationship != null)
                                     if (relationship.type == 3)
                                     {
                                         //incoming friend request, show notification
@@ -243,6 +245,7 @@ namespace DiscordBackgroundTask1
                                 foreach (var json_guild in ready["guilds"])
                                 {
                                     var guild = json_guild.ToObject<Guild>();
+                                    if(guild!= null && guild.channels != null)
                                     foreach (var channel in guild.channels)
                                     {
                                         if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)
@@ -309,21 +312,21 @@ namespace DiscordBackgroundTask1
 
         public void UpdateNotificationState(string id, string timestamp)
         {
-            if (!localset.ContainsKey("NotificationStates"))
-                localset.Add("NotificationStates", "{}");
-            var nrs = localset["NotificationStates"];
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("NotificationStates"))
+                ApplicationData.Current.LocalSettings.Values.Add("NotificationStates", "{}");
+            var nrs = ApplicationData.Current.LocalSettings.Values["NotificationStates"];
             var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
-            if (nrs2.ContainsKey(id))
+            if (nrs2 != null && nrs2.ContainsKey(id))
             {
                 nrs2[id] = timestamp;
             }
             else
             {
+                if (nrs2 == null) nrs2 = new Dictionary<string, string>();
                 nrs2.Add(id, timestamp);
             }
-            localset["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
+            ApplicationData.Current.LocalSettings.Values["NotificationStates"] = JsonConvert.SerializeObject(nrs2);
         }
-        IPropertySet localset = ApplicationData.Current.LocalSettings.Values;
 
         /// <summary>
         /// Returns the notification count which should be displayed
@@ -333,10 +336,11 @@ namespace DiscordBackgroundTask1
         /// <returns></returns>
         public int GetNotificatinoCount(string id, int notificationcount)
         {
-            if (!localset.ContainsKey("NotificationStates"))
-                localset.Add("NotificationStates", "{}");
-            var nrs = localset["NotificationStates"];
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("NotificationStates"))
+                ApplicationData.Current.LocalSettings.Values.Add("NotificationStates", "{}");
+            var nrs = ApplicationData.Current.LocalSettings.Values["NotificationStates"];
             var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+            if (nrs2 == null) return notificationcount;
             if (nrs2.ContainsKey(id))
             {
                 int storednotificationcount;
@@ -350,10 +354,12 @@ namespace DiscordBackgroundTask1
         }
         public bool ShouldShowNotification(string id, string notificationcount)
         {
-            if (!localset.ContainsKey("NotificationStates"))
-                localset.Add("NotificationStates", "{}");
-            var nrs = localset["NotificationStates"];
+            if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("NotificationStates"))
+                ApplicationData.Current.LocalSettings.Values.Add("NotificationStates", "{}");
+            var nrs = ApplicationData.Current.LocalSettings.Values["NotificationStates"];
+            
             var nrs2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(nrs.ToString());
+            if (nrs2 == null) return true;
             if (nrs2.ContainsKey(id))
             {
                 if (nrs2[id] != notificationcount)

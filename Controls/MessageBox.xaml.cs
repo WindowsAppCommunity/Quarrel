@@ -713,7 +713,7 @@ namespace Discord_UWP.Controls
                         DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
                     return;
                 }
-                if(!ranintospace && (loopsize-i)>3 && text[i] == '`' && text[i-1] == '`' && text[i-2] == '`')
+                if(!ranintospace && loopsize>3 && text[i-1] == '`' && text[i-2] == '`' && text[i-3] == '`')
                 {
                     string query = text.Remove(0, i);
                     querylength = query.Length;

@@ -758,8 +758,14 @@
     <PackageReference Include="Html2Markdown">
       <Version>3.2.1.341</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Advertising.XAML">
+      <Version>10.1805.7001</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.Engagement">
+      <Version>10.1711.28001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit">
       <Version>3.0.0</Version>
