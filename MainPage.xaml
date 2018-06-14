@@ -1660,7 +1660,7 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                         <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
-                        <AppBarButton x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
+                        <AppBarButton x:Uid="/Main/ShowPinned" x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                             <AppBarButton.Flyout>
                                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
                                     <Grid>
@@ -1684,13 +1684,13 @@
                                 </Flyout>
                             </AppBarButton.Flyout>
                         </AppBarButton>
-                        <AppBarButton x:Name="MemberToggle" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
+                        <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                     </CommandBar.PrimaryCommands>
                     <CommandBar.SecondaryCommands>
-                        <AppBarButton Label="About" Click="NavToAbout"/>
-                        <AppBarButton Label="What's New?" Click="WhatsNewClick"/>
-                        <AppBarButton Label="Remove Ads" Click="NavToIAPs"/>
-                        <AppBarButton Label="Settings" Click="OpenSettings"/>
+                        <AppBarButton x:Uid="/Main/About" Label="About" Click="NavToAbout"/>
+                        <AppBarButton x:Uid="/Main/WhatsNew" Label="What's New?" Click="WhatsNewClick"/>
+                        <AppBarButton x:Uid="/Main/RemoveAds" Label="Remove Ads" Click="NavToIAPs"/>
+                        <AppBarButton x:Uid="/Main/Settings" Label="Settings" Click="OpenSettings"/>
                     </CommandBar.SecondaryCommands>
                 </CommandBar>
             </StackPanel>

@@ -294,4 +294,22 @@
   <data name="FriendsButtonText.Text" xml:space="preserve">
     <value>Friends</value>
   </data>
+  <data name="About.Label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="RemoveAds.Label" xml:space="preserve">
+    <value>Remove Ads</value>
+  </data>
+  <data name="Settings.Label" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ShowPinned.Label" xml:space="preserve">
+    <value>Show Pinned Messages</value>
+  </data>
+  <data name="ToggleMember.Label" xml:space="preserve">
+    <value>Toggle Member List</value>
+  </data>
+  <data name="WhatsNew.Label" xml:space="preserve">
+    <value>What's New</value>
+  </data>
 </root>
