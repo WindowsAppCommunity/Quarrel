@@ -280,7 +280,7 @@
     <value>מסרב</value>
   </data>
   <data name="Notifications_Reply" xml:space="preserve">
-    <value>הגב</value>
+    <value>תשובה</value>
   </data>
   <data name="RecentMentionsABB.Label" xml:space="preserve">
     <value>אזכורים אחרונות</value>

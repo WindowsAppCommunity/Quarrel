@@ -270,6 +270,15 @@
   <data name="Unread" xml:space="preserve">
     <value>Leídos</value>
   </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Traducción</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Formato de hora personalizado</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Formato de fecha personalizado</value>
+  </data>
   <data name="DateFormat.Header" xml:space="preserve">
     <value>Formato de fecha</value>
   </data>
@@ -281,65 +290,5 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
-  </data>
-  <data name="TranslatorPI.Header" xml:space="preserve">
-    <value>Traducción</value>
-  </data>
-  <data name="AudioPI.Header" xml:space="preserve">
-    <value>Audio</value>
-  </data>
-  <data name="OutputDevicesCB.Header" xml:space="preserve">
-    <value>Dispositivos de salida</value>
-  </data>
-  <data name="OutputDeviceOverride.Text" xml:space="preserve">
-    <value>Puede anularse por sesión haciendo clic derecho y manteniendo presionado el botón Deafen en el Canal de voz</value>
-  </data>
-  <data name="CustomTimeFTB.Header" xml:space="preserve">
-    <value>Formato de hora personalizado</value>
-  </data>
-  <data name="CustomDateFTB.Header" xml:space="preserve">
-    <value>Formato de fecha personalizado</value>
-  </data>
-  <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>Ilumina el lado izquierdo de la pantalla cuando te mencionan</value>
-  </data>
-  <data name="BackgroundNotificationsTB.Text" xml:space="preserve">
-    <value>NOTIFICACIONES DE ANTECEDENTES</value>
-  </data>
-  <data name="BGNotifsSubMsgTB.Text" xml:space="preserve">
-    <value>Recibirá notificaciones de lo que esté seleccionado a continuación cada vez que se ejecute el proceso en segundo plano.</value>
-  </data>
-  <data name="BgNotifsTS.OffContent" xml:space="preserve">
-    <value>Habilitar notificaciones de fondo</value>
-  </data>
-  <data name="BgNotifsTS.OnContent" xml:space="preserve">
-    <value>Deshabilitar notificaciones de fondo</value>
-  </data>
-  <data name="bgNotifyDMCB.Content" xml:space="preserve">
-    <value>DM no leídos</value>
-  </data>
-  <data name="bgNotifyFriendCB.Content" xml:space="preserve">
-    <value>Peticiones de amistad</value>
-  </data>
-  <data name="bgNotifyMentionCB.Content" xml:space="preserve">
-    <value>nuevas menciones</value>
-  </data>
-  <data name="CustomTimeFTB" xml:space="preserve">
-    <value>Formato de hora personalizado</value>
-  </data>
-  <data name="CustomDateFTB" xml:space="preserve">
-    <value>Formato de fecha personalizado</value>
-  </data>
-  <data name="DerivedRadio" xml:space="preserve">
-    <value>Color derivado</value>
-  </data>
-  <data name="IAPNotifsTB.Text" xml:space="preserve">
-    <value>NOTIFICACIONES IN-APP</value>
-  </data>
-  <data name="ResetQuarrelHLBTN.Content" xml:space="preserve">
-    <value>Reiniciar Quarrel</value>
-  </data>
-  <data name="RunProcessHeader.Text" xml:space="preserve">
-    <value>Ejecute el proceso de fondo cada:</value>
   </data>
 </root>

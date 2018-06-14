@@ -519,4 +519,7 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>ADD-ONS</value>
+  </data>
 </root>
