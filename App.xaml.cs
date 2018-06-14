@@ -1161,7 +1161,7 @@ namespace Discord_UWP
             try
             {
                 var licenseInformation = CurrentApp.LicenseInformation;
-                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
+                if (licenseInformation.ProductLicenses["RemoveAds"].IsActive || licenseInformation.ProductLicenses["Remove Ads"].IsActive || licenseInformation.ProductLicenses["Polite Dontation"].IsActive || licenseInformation.ProductLicenses["SignificantDontation"].IsActive || licenseInformation.ProductLicenses["OMGTHXDonation"].IsActive || licenseInformation.ProductLicenses["RidiculousDonation"].IsActive)
                 {
                     App.ShowAds = false;
                 }

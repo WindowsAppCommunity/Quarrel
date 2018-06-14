@@ -270,6 +270,15 @@
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Traduction</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Format de temps personnalisé</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Format de date personnalisé</value>
+  </data>
   <data name="DateFormat.Header" xml:space="preserve">
     <value>Format de date</value>
   </data>
@@ -281,65 +290,5 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Se déconnecter</value>
-  </data>
-  <data name="TranslatorPI.Header" xml:space="preserve">
-    <value>Traduction</value>
-  </data>
-  <data name="CustomDateFTB.Header" xml:space="preserve">
-    <value>Format de date personnalisé</value>
-  </data>
-  <data name="CustomTimeFTB.Header" xml:space="preserve">
-    <value>Format de temps personnalisé</value>
-  </data>
-  <data name="CustomDateFTB" xml:space="preserve">
-    <value>Format de date personnalisé</value>
-  </data>
-  <data name="CustomTimeFTB" xml:space="preserve">
-    <value>Format d'heure personnalisé</value>
-  </data>
-  <data name="AudioPI.Header" xml:space="preserve">
-    <value>Son</value>
-  </data>
-  <data name="OutputDevicesCB.Header" xml:space="preserve">
-    <value>Sortie audio</value>
-  </data>
-  <data name="OutputDeviceOverride.Text" xml:space="preserve">
-    <value>Vous pouvez utiliser une autre sortie en effectuant un clic droit sur le bouton "rendre muet"</value>
-  </data>
-  <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>Illuminer le côté droit de l'écran lors d'une notification</value>
-  </data>
-  <data name="BackgroundNotificationsTB.Text" xml:space="preserve">
-    <value>NOTIFICATIONS EN ARRIERE-PLAN</value>
-  </data>
-  <data name="BGNotifsSubMsgTB.Text" xml:space="preserve">
-    <value>Vous receverez des notifications pour ce que vous avez sélectionné ci-dessous</value>
-  </data>
-  <data name="BgNotifsTS.OffContent" xml:space="preserve">
-    <value>Activer les notifications en arrière-plan</value>
-  </data>
-  <data name="BgNotifsTS.OnContent" xml:space="preserve">
-    <value>Désactiver les notifications en arrière-plan</value>
-  </data>
-  <data name="bgNotifyDMCB.Content" xml:space="preserve">
-    <value>Message privés non lus</value>
-  </data>
-  <data name="bgNotifyFriendCB.Content" xml:space="preserve">
-    <value>Demandes d'ami</value>
-  </data>
-  <data name="bgNotifyMentionCB.Content" xml:space="preserve">
-    <value>Nouvelles mentions</value>
-  </data>
-  <data name="DerivedRadio" xml:space="preserve">
-    <value>Couleur dérivée</value>
-  </data>
-  <data name="IAPNotifsTB.Text" xml:space="preserve">
-    <value>NOTIFICATIONS IN-APP</value>
-  </data>
-  <data name="ResetQuarrelHLBTN.Content" xml:space="preserve">
-    <value>Réinitialiser Quarrel</value>
-  </data>
-  <data name="RunProcessHeader.Text" xml:space="preserve">
-    <value>Exécuter la tache de fond toutes les:</value>
   </data>
 </root>

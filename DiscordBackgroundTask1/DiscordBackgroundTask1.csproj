@@ -106,6 +106,12 @@
       <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiscordAPI\DiscordAPI.csproj">
+      <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
+      <Name>DiscordAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

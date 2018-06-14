@@ -104,7 +104,7 @@ namespace Discord_UWP.Flyouts
 
             MenuFlyoutItem CloseDM = new MenuFlyoutItem()
             {
-                Text = App.GetString("/Flyout/CloseDM"),
+                Text = App.GetString("/Flyouts/CloseDM"),
                 Icon = new SymbolIcon(Symbol.LeaveChat),
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Tag = dm.Id,

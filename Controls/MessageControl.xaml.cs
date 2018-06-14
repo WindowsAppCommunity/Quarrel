@@ -1,5 +1,4 @@
 ﻿using Microsoft.Advertising.WinRT.UI;
-using Microsoft.Advertising.WinRT.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
