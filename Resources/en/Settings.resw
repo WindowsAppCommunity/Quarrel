@@ -291,4 +291,43 @@
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Enable background notifications</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Disable background notifications</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>You will receive notifications for whatever is selected below every time the background process runs</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>BACKGROUND NOTIFICATIONS</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>Unread DMs</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Friend requests</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>New mentions</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>IN-APP NOTIFICATIONS</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Glow the left side of the screen when you are mentioned</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Output Devices</value>
+  </data>
+  <data name="OutputDeviceOverrideCB.Content" xml:space="preserve">
+    <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
 </root>

@@ -291,4 +291,7 @@
   <data name="Logout" xml:space="preserve">
     <value>התנתק</value>
   </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>שמע</value>
+  </data>
 </root>
