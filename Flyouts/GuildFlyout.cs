@@ -25,7 +25,6 @@ namespace Discord_UWP.Flyouts
                 Text = App.GetString("/Flyouts/EditServer"),
                 Tag = guild.Raw.Id,
                 Icon = new SymbolIcon(Symbol.Edit),
-                Margin = new Thickness(-26, 0, 0, 0)
             };
             editServer.Click += FlyoutManager.EditServer;
             menu.Items.Add(editServer);
@@ -37,7 +36,6 @@ namespace Discord_UWP.Flyouts
                 //Text = "Mute Server",
                 Icon = new SymbolIcon(Symbol.Mute),
                 Tag = guild.Raw.Id,
-                Margin = new Thickness(-26, 0, 0, 0)
             };
             if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].raw.Muted)
                 mute.Text = App.GetString("/Flyouts/UnmuteServer");
@@ -51,7 +49,6 @@ namespace Discord_UWP.Flyouts
                 Text = App.GetString("/Flyouts/MarkAsRead"),
                 Tag = guild.Raw.Id,
                 Icon = new SymbolIcon(Symbol.View),
-                Margin = new Thickness(-26, 0, 0, 0),
                 //IsEnabled = (ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild.RawGuild.Id) as SimpleGuild).IsUnread //TODO: Disable Make as read if not unread
             };
             markasread.Click += FlyoutManager.MarkGuildasRead;
@@ -64,7 +61,6 @@ namespace Discord_UWP.Flyouts
                     Tag = guild.Raw.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Delete),
-                    Margin = new Thickness(-26, 0, 0, 0)
                 };
                 deleteServer.Click += FlyoutManager.DeleteServer;
                 menu.Items.Add(deleteServer);
@@ -77,7 +73,6 @@ namespace Discord_UWP.Flyouts
                     Tag = guild.Raw.Id,
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                     Icon = new SymbolIcon(Symbol.Remove),
-                    Margin = new Thickness(-26, 0, 0, 0)
                 };
                 leaveServer.Click += FlyoutManager.LeaveServer;
                 menu.Items.Add(leaveServer);
