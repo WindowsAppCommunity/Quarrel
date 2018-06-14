@@ -713,6 +713,12 @@ namespace Discord_UWP.Controls
                         DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
                     return;
                 }
+                if(!ranintospace && (loopsize-i)>3 && text[i] == '`' && text[i-1] == '`' && text[i-2] == '`')
+                {
+                    string query = text.Remove(0, i);
+                    querylength = query.Length;
+                    Debug.WriteLine("Codeblock query is " + query);
+                }
             }
             //If the code reaches this far, there have been no matches
             SuggestionBlock.ItemsSource = null;
