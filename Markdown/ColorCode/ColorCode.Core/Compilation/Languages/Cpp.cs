@@ -76,7 +76,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "c-vb", "c++", "c" };
         public override string ToString()
         {
             return Name;

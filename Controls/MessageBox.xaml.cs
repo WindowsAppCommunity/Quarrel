@@ -132,12 +132,12 @@ namespace Discord_UWP.Controls
                             InsertNewLine();
                         }
                         else if (HandleSuggestions && SuggestionBlock.SelectedItem != null)
-                            SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
+                            SelectSuggestion(SuggestionBlock.SelectedItem);
                         else
                             SendBox_OnClick(null, null);
                     }
                     else if (HandleSuggestions)
-                        SelectSuggestion((KeyValuePair<string, DawgSharp.DawgItem>)SuggestionBlock.SelectedItem);
+                        SelectSuggestion(SuggestionBlock.SelectedItem);
                     else
                         InsertNewLine();
                     return;
@@ -294,21 +294,12 @@ namespace Discord_UWP.Controls
         private void SelectSuggestion(object unknownitem)
         {
             string suggestion = "";
-            var type = unknownitem.GetType();
-            
-            if (type == typeof(KeyValuePair<string, DawgSharp.DawgItem>))
-            {
-                var item = (KeyValuePair<string, DawgSharp.DawgItem>)unknownitem;
-                if (item.Value.InsertText == "")
-                    suggestion = mentionPrefix + item.Key;
-                else
-                    suggestion = mentionPrefix + item.Value.InsertText;
-            }
-            else if(type == typeof(KeyValuePair<string, string>))
-            {
-                suggestion = ((KeyValuePair<string, string>)unknownitem).Value;
-            }
-            
+
+            var item = (Common.AutoComplete)unknownitem;
+            if (string.IsNullOrWhiteSpace(item.namealt))
+                suggestion = mentionPrefix + item.name;
+            else
+                suggestion = mentionPrefix + item.namealt;
 
             //EnableChanges = false;
             var text = MessageEditor.Text;
@@ -700,8 +691,8 @@ namespace Discord_UWP.Controls
                     //This is possibly an emoji
                     string query = text.Remove(0, i);
                     querylength = query.Length;
-                    if (App.EmojiDawg != null)
-                        DisplayList(App.EmojiDawg.MatchPrefix(query).Take(12));
+                    if (App.EmojiTrie != null)
+                        DisplayList(App.EmojiTrie.Retrieve(query.ToLower()));
                     return;
                 }
                 else if (character == '@' && i != loopsize)
@@ -709,14 +700,15 @@ namespace Discord_UWP.Controls
                     //This is possibly a user mention
                     string query = text.Remove(0, i);
                     querylength = query.Length;
-                    if(App.MemberListDawg != null)
-                        DisplayList(App.MemberListDawg.MatchPrefix(query).Take(12));
+                    if (App.EmojiTrie != null)
+                        DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
                     return;
                 }
                 if(!ranintospace && loopsize>3 && text[i-1] == '`' && text[i-2] == '`' && text[i-3] == '`')
                 {
                     string query = text.Remove(0, i);
                     querylength = query.Length;
+                    DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
                     Debug.WriteLine("Codeblock query is " + query);
                 }
             }
@@ -724,6 +716,7 @@ namespace Discord_UWP.Controls
             SuggestionBlock.ItemsSource = null;
             SuggestionPopup.IsOpen = false;
         }
+        
         private void SearchAndDisplayEmojis(string query)
         {
             //todo
@@ -732,32 +725,31 @@ namespace Discord_UWP.Controls
         {
             if (App.CurrentGuildId != null)
             {
-                List<KeyValuePair<string, DawgSharp.DawgItem>> list = new List<KeyValuePair<string, DawgSharp.DawgItem>>();
+                List<Common.AutoComplete> list = new List<Common.AutoComplete>();
                 int counter = 0;
                 foreach (var channel in LocalState.Guilds[App.CurrentGuildId].channels)
                 {
                     if (counter > 12) break;
                     if (channel.Value.raw.Type == 0 && channel.Value.raw.Name.ToLower().StartsWith(query.ToLower()))
-                        list.Add(new KeyValuePair<string, DawgSharp.DawgItem>(channel.Value.raw.Name, new DawgSharp.DawgItem() { InsertText = channel.Value.raw.Name }));
+                        list.Add(new Common.AutoComplete(channel.Value.raw.Name, null, null));
                 }
                 DisplayList(list);
             }
         }
-        private void DisplayList(IEnumerable<KeyValuePair<string, DawgSharp.DawgItem>> list)
+        private void DisplayList(IEnumerable<Common.AutoComplete> list)
         {
-            if (list.Count() == 0)
+            int counter = 0;
+            bool stopped = false;
+            List<Common.AutoComplete> list2 = new List<Common.AutoComplete>();
+            while (counter < 12)
             {
-                SuggestionBlock.ItemsSource = null;
-                SuggestionPopup.IsOpen = false;
+                var current = list2.ElementAtOrDefault(counter);
+                if (current == null) break;
+                foreach(var element in list2)
+                    if (element.name == current.name) continue;
+                list2.Add(current);
+                counter++;
             }
-            else
-            {
-                SuggestionBlock.ItemsSource = list;
-                SuggestionPopup.IsOpen = true;
-            }
-        }
-        private void DisplayList(IEnumerable<KeyValuePair<string, string>> list)
-        {
             if (list.Count() == 0)
             {
                 SuggestionBlock.ItemsSource = null;

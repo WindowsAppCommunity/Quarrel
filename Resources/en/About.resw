@@ -185,6 +185,9 @@
     <value>Leave feedback</value>
     <comment>Leave feedback button</comment>
   </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENSES</value>
+  </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Authentication code</value>
     <comment>Placeholder text for the authentication code login box</comment>

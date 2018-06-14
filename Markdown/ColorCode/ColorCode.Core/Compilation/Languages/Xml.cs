@@ -147,7 +147,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "xml", "xaml", "xhtml", "rss","atom","xjb","xsd","xsl","plist" };
         public override string ToString()
         {
             return Name;

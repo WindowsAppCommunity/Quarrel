@@ -260,7 +260,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "haskell", "hs" };
         public override string ToString()
         {
             return Name;
