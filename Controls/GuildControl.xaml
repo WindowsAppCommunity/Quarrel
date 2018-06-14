@@ -66,6 +66,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-
+        <SymbolIcon x:Name="MutedIcon" Symbol="Mute" Foreground="{ThemeResource ButtonBackgroundPressed}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

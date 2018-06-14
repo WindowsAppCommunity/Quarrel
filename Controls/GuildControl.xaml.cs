@@ -162,6 +162,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsMutedProperty)
             {
+                MutedIcon.Visibility = IsMuted ? Visibility.Visible : Visibility.Collapsed;
                 if (IsMuted)
                 {
                     UnreadIndicator.Visibility = Visibility.Collapsed;
