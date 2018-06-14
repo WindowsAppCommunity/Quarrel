@@ -33,6 +33,20 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <Storyboard x:Name="ShowMute">
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="HideMute" Completed="HideBadge_Completed">
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </UserControl.Resources>
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Padding="0,4" Margin="5,0,0,0">
         <Border x:Name="SelectIndicator" Opacity="0" BorderBrush="{Binding Background, ElementName=UnreadIndicator}" BorderThickness="3,0,0,0" HorizontalAlignment="Stretch" Margin="-12,-6">
@@ -66,6 +80,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-
+        <SymbolIcon x:Name="MutedIcon" Symbol="Mute" Foreground="{ThemeResource ButtonBackgroundPressed}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0"/>
     </Grid>
 </UserControl>
