@@ -567,4 +567,16 @@
   <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>No defined topic</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>We recommend you use an image which is at least 512x512px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>Cancel icon modification</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>
