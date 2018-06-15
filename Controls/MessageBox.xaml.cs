@@ -704,12 +704,13 @@ namespace Discord_UWP.Controls
                         DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
                     return;
                 }
-                if(!ranintospace && loopsize>3 && text[i-1] == '`' && text[i-2] == '`' && text[i-3] == '`')
+                if(!ranintospace && loopsize>3 && i>3 && text[i-1] == '`' && text[i-2] == '`' && text[i-3] == '`')
                 {
                     string query = text.Remove(0, i);
                     querylength = query.Length;
-                    DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
+                    DisplayList(App.CodingLangsTrie.Retrieve(query.ToLower()));
                     Debug.WriteLine("Codeblock query is " + query);
+                    return;
                 }
             }
             //If the code reaches this far, there have been no matches
@@ -743,21 +744,21 @@ namespace Discord_UWP.Controls
             List<Common.AutoComplete> list2 = new List<Common.AutoComplete>();
             while (counter < 12)
             {
-                var current = list2.ElementAtOrDefault(counter);
+                var current = list.ElementAtOrDefault(counter);
                 if (current == null) break;
                 foreach(var element in list2)
                     if (element.name == current.name) continue;
                 list2.Add(current);
                 counter++;
             }
-            if (list.Count() == 0)
+            if (list2.Count() == 0)
             {
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
             }
             else
             {
-                SuggestionBlock.ItemsSource = list;
+                SuggestionBlock.ItemsSource = list2;
                 SuggestionPopup.IsOpen = true;
             }
         }
