@@ -192,4 +192,28 @@
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Mot de passe</value>
   </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, pour avoir conçu le concept original du logo</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (le créateur de MyTube) pour toute l'aide et les conseils</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Remerciements:</value>
+  </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel utilise un peu de code externe pour fonctionner aussi bien:</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENSES</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
 </root>
