@@ -60,7 +60,7 @@ namespace Discord_UWP.Flyouts
                 {
                     Text = App.GetString("/Flyouts/AddFriend"),
                     Icon = new SymbolIcon(Symbol.AddFriend),
-                    Tag = dm.Users.ToList()[x].Id
+                    Tag = dm.Users[x].Id
                 };
                 addFriend.Click += FlyoutManager.AddFriend;
 
@@ -68,7 +68,7 @@ namespace Discord_UWP.Flyouts
                 {
                     Text = App.GetString("/Flyouts/AcceptFriendRequest"),
                     Icon = new SymbolIcon(Symbol.AddFriend),
-                    Tag = dm.Users.ToList()[x].Id
+                    Tag = dm.Users[x].Id
                 };
                 acceptFriendRequest.Click += FlyoutManager.AddFriend;
 
@@ -77,7 +77,7 @@ namespace Discord_UWP.Flyouts
                     Text = App.GetString("/Flyouts/RemoveFriend"),
                     Icon = new SymbolIcon(Symbol.ContactPresence),
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Tag = dm.Users.ToList()[x].Id
+                    Tag = dm.Users[x].Id
                 };
                 removeFriend.Click += FlyoutManager.RemoveFriend;
 
@@ -86,7 +86,7 @@ namespace Discord_UWP.Flyouts
                     Text = App.GetString("/Flyouts/Block"),
                     Icon = new SymbolIcon(Symbol.BlockContact),
                     Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
-                    Tag = dm.Users.ToList()[x].Id
+                    Tag = dm.Users[x].Id
                 };
                 block.Click += FlyoutManager.BlockUser;
 
@@ -94,7 +94,7 @@ namespace Discord_UWP.Flyouts
                 {
                     Text = App.GetString("/Flyouts/Unblock"),
                     Icon = new SymbolIcon(Symbol.ContactPresence),
-                    Tag = dm.Users.ToList()[x].Id
+                    Tag = dm.Users[x].Id
                 };
                 unBlock.Click += FlyoutManager.RemoveFriend;
 

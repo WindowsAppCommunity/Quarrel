@@ -12,7 +12,7 @@ namespace Discord_UWP.Managers
 {
     public class MessageManager
     {
-        public static async Task<List<MessageContainer>> ConvertMessage(List<Message> messages)
+        public static async Task<List<MessageContainer>> ConvertMessage(IEnumerable<Message> messages)
         {
             if (messages != null)
             {
