@@ -157,16 +157,16 @@
     <value>CUERPO</value>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
-    <value>CANCELAR</value>
+    <value>Cancelar</value>
   </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">
     <value>Cambiar apodo</value>
   </data>
   <data name="CommonFriendsLI.Content" xml:space="preserve">
-    <value>AMIGOS COMUNES</value>
+    <value>AMIGOS EN COMÚN</value>
   </data>
   <data name="CommonServersLI.Content" xml:space="preserve">
-    <value>SERVIDORES COMUNES</value>
+    <value>SERVIDORES EN COMÚN</value>
   </data>
   <data name="ConnectToggle.Header" xml:space="preserve">
     <value>Conectar</value>
@@ -187,7 +187,7 @@
     <value>Eliminar</value>
   </data>
   <data name="DetailsLI.Content" xml:space="preserve">
-    <value>Detalles</value>
+    <value>DETALLES</value>
   </data>
   <data name="EditChannelNameTBox.Header" xml:space="preserve">
     <value>NOMBRE</value>
@@ -346,7 +346,7 @@
     <value>CONFIGURACIÓN</value>
   </data>
   <data name="RolesPI.Header" xml:space="preserve">
-    <value>Papels</value>
+    <value>Papeles</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
     <value>Salvar</value>
@@ -506,5 +506,95 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
+  </data>
+  <data name="CloseDMConfirm" xml:space="preserve">
+    <value>¿Seguro de que quieres borrar tus mensajes privados con</value>
+  </data>
+  <data name="DeleteMessageConfirm" xml:space="preserve">
+    <value>¿Seguro que quieres borrar este mensaje?</value>
+  </data>
+  <data name="EditNickname" xml:space="preserve">
+    <value>Editar apodo</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>ADD-ONS</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>¿ESTAS SEGURO?</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>Reiniciar Quarrel</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>AJUSTES DE LA CUENTA</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Ajustes de la aplicación</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>Lo siento : /</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>Hubo un error desconocido mientras tratabamos de cambiar los detalles de tu cuenta, ¿estas seguro de que todo es correcto?</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Subir Imagen</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>Tema no definido</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>Recomendamos usar una imagen de al menos 512x512px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>Cancelar modificación del icono </value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>CANAL</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>Debes haber ingresado a Quarrel para usarlo como destino para compartir</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>SERVIDOR</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartir</value>
+  </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>ESCUCHAR JUNTOS EN SPOTIFY</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>Conexiones</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nueva contraseña</value>
   </data>
 </root>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>Sobre</value>
+    <value>Acerca de</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
     <value>Agregar canal</value>
@@ -139,13 +139,13 @@
     <value>Error</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Error 400: no había como problema, si usted no ha firmado desde este dispositivo que vale la pena revisar su correo electrónico para un correo electrónico de discordia y volver a intentarlo.</value>
+    <value>Error 400: Hubo un problema, si no se ha registrado desde este dispositivo, debería buscar en su correo electrónico un mensaje de Discord e intentar de nuevo.</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>Error 401: hubo un problema con la interacción con el servidor, inténtelo de nuevo</value>
+    <value>Error 401: Hubo un problema con la interacción con el servidor, inténtelo de nuevo.</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>Error 403: está prohibido realizar esta acción, es probable que no haya firmado desde esta ubicación, compruebe su correo electrónico para verificar la ubicación de este signo y vuelva a intentarlo</value>
+    <value>Error 403: Tiene prohibido realizar esta acción, probablemente no se haya registrado desde eata ubicación, revise su correo electrónico para verificar esta ubicación e intente de nuevo.</value>
   </data>
   <data name="Error429" xml:space="preserve">
     <value>Error 429: usted ha sido tasa limitada, intentarlo de nuevo en unos pocos nanosegundos.</value>
@@ -196,7 +196,7 @@
     <value>No hay ningún mensaje almacenado en caché</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Sin</value>
+    <value>Fuera de línea</value>
   </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
     <value>En línea</value>
@@ -293,5 +293,38 @@
   </data>
   <data name="FriendsButtonText.Text" xml:space="preserve">
     <value>Amigos</value>
+  </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; miembros</value>
+  </data>
+  <data name="RemoveAdsABB.Label" xml:space="preserve">
+    <value>Quitar anuncios</value>
+  </data>
+  <data name="ShowPinnedABB.Label" xml:space="preserve">
+    <value>Mostrar Mensajes Anclados</value>
+  </data>
+  <data name="ToggleMember.Label" xml:space="preserve">
+    <value> Pasar la lista de miembros</value>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Lo Nuevo</value>
+  </data>
+  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
+    <value>VOLVER AL PRESENTE</value>
+  </data>
+  <data name="AboutMFI.Text" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>¿Qué hay de nuevo?</value>
+  </data>
+  <data name="RemoveAds.Text" xml:space="preserve">
+    <value>Quitar anuncios</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="AddAttachementTB.Text" xml:space="preserve">
+    <value>AGREGAR ADJUNTO</value>
   </data>
 </root>

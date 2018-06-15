@@ -157,7 +157,7 @@
     <value>Solicitudes de Amigos Entrantes</value>
   </data>
   <data name="LightRadio.Content" xml:space="preserve">
-    <value>Luz</value>
+    <value>Claro</value>
   </data>
   <data name="LogoutBTN.Content" xml:space="preserve">
     <value>Cerrar sesión</value>
@@ -290,5 +290,17 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Permitir notificaciónes de fondo</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Apagar notificaciónes de fondo</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICACIÓNES DE FONDO</value>
   </data>
 </root>

@@ -176,7 +176,7 @@
     <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
-    <value>En cours...</value>
+    <value>Connexion en cours...</value>
     <comment>Text while the app is trying to join the server</comment>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
@@ -193,10 +193,10 @@
     <value>Mot de passe</value>
   </data>
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, pour avoir conçu le concept original du logo</value>
+    <value>Austin Andelin pour avoir conceptualisé le logo de l’application </value>
   </data>
   <data name="Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Version </value>
   </data>
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
     <value>Christopher Blackman (le créateur de MyTube) pour toute l'aide et les conseils</value>
@@ -205,7 +205,7 @@
     <value>Commit</value>
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Remerciements:</value>
+    <value>Remerciements spéciales </value>
   </data>
   <data name="QuarrelLicensesDesc" xml:space="preserve">
     <value>Quarrel utilise un peu de code externe pour fonctionner aussi bien:</value>
@@ -217,13 +217,13 @@
     <value>Licenses</value>
   </data>
   <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Pas de compte?</value>
+    <value>Vous n’avez pas de compte ?</value>
   </data>
   <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Mot de passe oublié?</value>
+    <value>Mot de passe oublié ? </value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>SE CONNECTER</value>
+    <value>Identification </value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
     <value>Soit vous n'êtes pas connecté à internet, soit votre connexion est trop lente</value>
@@ -232,6 +232,6 @@
     <value>Client Discord pour la plateforme Windows universelle</value>
   </data>
   <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Re-tenter de se connecter</value>
+    <value>Connectez vous à nouveau</value>
   </data>
 </root>

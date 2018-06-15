@@ -134,7 +134,7 @@
     <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>If something goes wrong while you are using this app (it won't), the only ones responsible are the developers of this app.</value>
+    <value>If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.</value>
     <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>ABOUT header</comment>
   </data>
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, for conecptualizing the app's icon</value>
+    <value>Austin Andelin, for conceptualizing the app's icon</value>
   </data>
   <data name="Build" xml:space="preserve">
     <value>Build</value>

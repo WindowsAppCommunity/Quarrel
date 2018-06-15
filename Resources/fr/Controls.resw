@@ -136,7 +136,7 @@
     <value>Copier l'Id</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
-    <value>Suprimmer</value>
+    <value>Supprimer</value>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
     <value>Modifier</value>
@@ -226,7 +226,7 @@
     <value>Lien périmé</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>expire dans</value>
+    <value>expire dans &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
     <value>n'expire jamais</value>
@@ -265,10 +265,10 @@
     <value>à enlevé</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>de la conversation</value>
+    <value>&lt;user&gt; de la conversation</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>de la conversation</value>
+    <value>&lt;user&gt; de la conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
     <value>Vous avez manqué un appel de</value>
@@ -280,7 +280,7 @@
     <value>Appel commencé par</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>commencé un appel</value>
+    <value>&lt;user&gt; commencé un appel</value>
   </data>
   <data name="You" xml:space="preserve">
     <value>Vous avez</value>
@@ -292,7 +292,7 @@
     <value>a rejoins le serveur!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Edité à</value>
+    <value>Edité à &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Rejoindre la session Spotify</value>

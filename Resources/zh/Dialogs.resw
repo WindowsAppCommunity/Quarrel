@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,241 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
+    <value>接受好友请求</value>
+  </data>
+  <data name="AddReactionsToggle.Header" xml:space="preserve">
+    <value>添加回应</value>
+  </data>
+  <data name="AdministratorToggle.Header" xml:space="preserve">
+    <value>管理员</value>
+  </data>
+  <data name="AdvancedMessageEditorTB" xml:space="preserve">
+    <value>高能信息编辑者</value>
+  </data>
+  <data name="AttachementsTB.Text" xml:space="preserve">
+    <value>附加文件</value>
+  </data>
+  <data name="AttachFilesToggle.Header" xml:space="preserve">
+    <value>添加文件</value>
+  </data>
+  <data name="BadChannelNameDesc1.Text" xml:space="preserve">
+    <value>频道名只能包含字母， 数字， 以及下划线与划线</value>
+  </data>
+  <data name="BadChannelNameDesc2.Text" xml:space="preserve">
+    <value>自动修改？</value>
+  </data>
+  <data name="BanBTN.Content" xml:space="preserve">
+    <value>封禁</value>
+  </data>
+  <data name="BanMembersToggle.Header" xml:space="preserve">
+    <value>封禁成员</value>
+  </data>
+  <data name="BansPI.Header" xml:space="preserve">
+    <value>黑名单</value>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>屏蔽</value>
+  </data>
+  <data name="BodyTB.Text" xml:space="preserve">
+    <value>身体</value>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="ChangeNicknameToggle.Header" xml:space="preserve">
+    <value>修改昵称</value>
+  </data>
+  <data name="CommonFriendsLI.Content" xml:space="preserve">
+    <value>共同好友</value>
+  </data>
+  <data name="CommonServersLI.Content" xml:space="preserve">
+    <value>共同服务器</value>
+  </data>
+  <data name="ConnectToggle.Header" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="CopyLinkABB.Label" xml:space="preserve">
+    <value>复制链接</value>
+  </data>
+  <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
+    <value>制造邀请</value>
+  </data>
+  <data name="CreateServerTB.Text" xml:space="preserve">
+    <value>制造一个服务器</value>
+  </data>
+  <data name="DeafenMembersToggle.Header" xml:space="preserve">
+    <value>耳机静音</value>
+  </data>
+  <data name="DeleteBTN" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DetailsLI.Content" xml:space="preserve">
+    <value>细节</value>
+  </data>
+  <data name="EditChannelNameTBox.Header" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="EditChannelTB.Text" xml:space="preserve">
+    <value>编辑频道</value>
+  </data>
+  <data name="EditNicknameTB.Text" xml:space="preserve">
+    <value>昵称</value>
+  </data>
+  <data name="EditServerNameTBox.Header" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="EditServerTB.Text" xml:space="preserve">
+    <value>编辑服务器</value>
+  </data>
+  <data name="EmbedLinksToggle.Header" xml:space="preserve">
+    <value>嵌入链接</value>
+  </data>
+  <data name="FileNameTB.Text" xml:space="preserve">
+    <value>文件名：</value>
+  </data>
+  <data name="FileSizeTB.Text" xml:space="preserve">
+    <value>文件大小</value>
+  </data>
+  <data name="FriendReqSentBTN.Text" xml:space="preserve">
+    <value>好友请求已发出</value>
+  </data>
+  <data name="GeneralPermissionsTB.Text" xml:space="preserve">
+    <value>一般权限</value>
+  </data>
+  <data name="HeightTB.Text" xml:space="preserve">
+    <value>高度：</value>
+  </data>
+  <data name="IAPsTB.Text" xml:space="preserve">
+    <value>应用内购买</value>
+  </data>
+  <data name="InvitesPI.Header" xml:space="preserve">
+    <value>邀请</value>
+  </data>
+  <data name="JoinAServerTB.Text" xml:space="preserve">
+    <value>加入服务器</value>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>加入</value>
+  </data>
+  <data name="JoinServerDescTB.Text" xml:space="preserve">
+    <value>请输入一个Discord邀请链接或代码</value>
+  </data>
+  <data name="JoinServerErrorTB.Text" xml:space="preserve">
+    <value>抱歉，此链接已过期或无效</value>
+  </data>
+  <data name="JoinServerTB.Text" xml:space="preserve">
+    <value>加入服务器</value>
+  </data>
+  <data name="KickMembersToggle.Header" xml:space="preserve">
+    <value>踢出成员</value>
+  </data>
+  <data name="LeaveServerBTN.Content" xml:space="preserve">
+    <value>离开服务器</value>
+  </data>
+  <data name="ManageChannelsToggle.Header" xml:space="preserve">
+    <value>管理频道</value>
+  </data>
+  <data name="ManageEmojisToggle.Header" xml:space="preserve">
+    <value>管理表情符号</value>
+  </data>
+  <data name="ManageMessagesToggle.Header" xml:space="preserve">
+    <value>管理信息</value>
+  </data>
+  <data name="ManageNicknamesToggle.Header" xml:space="preserve">
+    <value>管理昵称</value>
+  </data>
+  <data name="ManageRolesToggle.Header" xml:space="preserve">
+    <value>管理身份</value>
+  </data>
+  <data name="ManageServerToggle.Header" xml:space="preserve">
+    <value>管理服务器</value>
+  </data>
+  <data name="ManageWebhooksToggle.Header" xml:space="preserve">
+    <value>管理Webhooks</value>
+  </data>
+  <data name="MentionEveryoneToggle.Header" xml:space="preserve">
+    <value>管理所有人</value>
+  </data>
+  <data name="MoveMembersToggle.Header" xml:space="preserve">
+    <value>移动成员</value>
+  </data>
+  <data name="MuteMembersToggle.Header" xml:space="preserve">
+    <value>静音成员</value>
+  </data>
+  <data name="NameTB.Text" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="NoBansTB.Text" xml:space="preserve">
+    <value>暂无封禁</value>
+  </data>
+  <data name="NoCommonFriendsTB.Text" xml:space="preserve">
+    <value>无共同好友</value>
+  </data>
+  <data name="NoCommonServersTB.Text" xml:space="preserve">
+    <value>无共同服务器</value>
+  </data>
+  <data name="NoInvitesTB.Text" xml:space="preserve">
+    <value>无邀请</value>
+  </data>
+  <data name="NoteTB.Text" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="NsfwDescTB.Text" xml:space="preserve">
+    <value>用户需要确认ta们以成年以观看此频道的内容。 内容筛选在该频道无用。</value>
+  </data>
+  <data name="NsfwSwitch.OffContent" xml:space="preserve">
+    <value>18+ 频道</value>
+  </data>
+  <data name="NsfwSwitch.OnContent" xml:space="preserve">
+    <value>18+ 频道</value>
+  </data>
+  <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
+    <value>天哪谢谢！$2.99 捐赠</value>
+  </data>
+  <data name="OpenInBrowserABB.Label" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
+  <data name="OverviewPI.Header" xml:space="preserve">
+    <value>概况</value>
+  </data>
+  <data name="PoliteDonationBTN.Content" xml:space="preserve">
+    <value>礼貌捐赠$1.29</value>
+  </data>
+  <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
+    <value>阅读信息记录</value>
+  </data>
+  <data name="ReadMessagesToggle.Header" xml:space="preserve">
+    <value>阅读信息</value>
+  </data>
+  <data name="RemoveAdsBTN.Content" xml:space="preserve">
+    <value>移除广告$1.29</value>
+  </data>
+  <data name="RemoveFriendTB.Text" xml:space="preserve">
+    <value>移除好友</value>
+  </data>
+  <data name="RidiculousDonationBTN.Content" xml:space="preserve">
+    <value>荒谬捐赠-$4.99</value>
+  </data>
+  <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
+    <value>允许提及(@mention)</value>
+  </data>
+  <data name="RoleNameTB.Text" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="RoleSettingsTB.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="RolesPI.Header" xml:space="preserve">
+    <value>身份</value>
+  </data>
+  <data name="SaveABB.Label" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveBTN.Content" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SendFriendReqBTN.Text" xml:space="preserve">
+    <value>发送好友请求</value>
+  </data>
 </root>

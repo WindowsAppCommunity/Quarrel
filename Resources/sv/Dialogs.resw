@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
+    <value>Acceptera vänskapsförfrågan</value>
+  </data>
+  <data name="AttachFilesToggle.Header" xml:space="preserve">
+    <value>Bifoga filer</value>
+  </data>
+  <data name="BadChannelNameDesc2.Text" xml:space="preserve">
+    <value>Fixa automatiskt</value>
+  </data>
+  <data name="BanBTN.Content" xml:space="preserve">
+    <value>Banna</value>
+  </data>
+  <data name="BanMembersToggle.Header" xml:space="preserve">
+    <value>Banna medlem</value>
+  </data>
+  <data name="BansPI.Header" xml:space="preserve">
+    <value>Bannar</value>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>Blockerat</value>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ChangeNicknameToggle.Header" xml:space="preserve">
+    <value>Byt smeknamn</value>
+  </data>
+  <data name="ConnectToggle.Header" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="CopyLinkABB.Label" xml:space="preserve">
+    <value>kopiera länk(adress)</value>
+  </data>
+  <data name="EditChannelNameTBox.Header" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="EditNicknameTB.Text" xml:space="preserve">
+    <value>smeknamn</value>
+  </data>
+  <data name="UnblockBTN.Text" xml:space="preserve">
+    <value>Avblocka</value>
+  </data>
+  <data name="FlagHypesquad" xml:space="preserve">
+    <value>HYPESQUAD</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Ladda up bild</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Användarnamn</value>
+  </data>
 </root>
