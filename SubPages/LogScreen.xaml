@@ -31,7 +31,7 @@
             </TextBlock>
 
 
-            <TextBlock Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
@@ -57,8 +57,8 @@
                 </Grid>
             </Button>
             <Grid>
-                <HyperlinkButton Content="Forgot your password?" HorizontalAlignment="Left" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" VerticalAlignment="Top"/>
-                <HyperlinkButton Content="Don't have account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
+                <HyperlinkButton x:Uid="/About/ForgotPswrdHLBTN" Content="Forgot your password?" HorizontalAlignment="Left" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" VerticalAlignment="Top"/>
+                <HyperlinkButton x:Uid="/About/DontHaveAccountHLBTN" Content="Don't have an account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
             </Grid>
          </StackPanel>
         <HyperlinkButton Content="Privacy policy" HorizontalAlignment="Left" Foreground="{ThemeResource Blurple}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">

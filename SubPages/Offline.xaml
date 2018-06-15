@@ -38,9 +38,9 @@
             </TextBlock>
 
 
-            <TextBlock Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
 
-            <TextBlock Text="You're either offline or on too slow a connection to start the Gateway" TextWrapping="WrapWholeWords" Foreground="{ThemeResource Blurple}" FontSize="20" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/About/OfflineDescTB" Text="You're either offline or on too slow a connection to start the Gateway" TextWrapping="WrapWholeWords" Foreground="{ThemeResource Blurple}" FontSize="20" TextAlignment="Center" Margin="0,0,0,12"/>
 
             <Button x:Name="loginButton" MaxWidth="500" HorizontalAlignment="Stretch" Click="TryLogin" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
@@ -49,7 +49,7 @@
                     </TransitionCollection>
                 </Button.Transitions>
                 <Grid>
-                    <TextBlock x:Name="LoginText" Text="Retry Login" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="/About/RetryLoginTB" x:Name="LoginText" Text="Retry Login" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>

@@ -169,9 +169,15 @@
     <value>Discuss on Twitter</value>
     <comment>Button to discuss on twitter</comment>
   </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
     <value>Email</value>
     <comment>Placeholder text for the email login</comment>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Forgot your password?</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
     <value>Join the app's Discord server</value>
@@ -203,6 +209,9 @@
   <data name="LicensesTB.Text" xml:space="preserve">
     <value>LICENSES</value>
   </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>LOGIN</value>
+  </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Authentication code</value>
     <comment>Placeholder text for the authentication code login box</comment>
@@ -211,12 +220,21 @@
     <value>Two-factor authentication:</value>
     <comment>Label for "Two-factor authentication:"</comment>
   </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>You're either offline or on too slow a connection to start the Gateway</value>
+  </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Password</value>
     <comment>Placeholder text for the password login box</comment>
   </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Discord client for the Universal Windows Platform</value>
+  </data>
   <data name="QuarrelLicensesDesc" xml:space="preserve">
     <value>Quarrel uses a few external libraries to function:</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value />
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
     <value>Special Thanks:</value>

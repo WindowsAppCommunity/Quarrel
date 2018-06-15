@@ -314,7 +314,7 @@
     <Compile Include="Markdown\Parse\MarkdownDocument.cs" />
     <Compile Include="Markdown\Parse\MarkdownElement.cs" />
     <Compile Include="Markdown\Parse\MarkdownInline.cs" />
-    <Compile Include="Offline.xaml.cs">
+    <Compile Include="SubPages\Offline.xaml.cs">
       <DependentUpon>Offline.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -678,7 +678,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Offline.xaml">
+    <Page Include="SubPages\Offline.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
