@@ -21,7 +21,7 @@ namespace ColorSyntax.Compilation.Languages
         {
             get { return "aspx"; }
         }
-
+        string[] ILanguage.Aliases => new string[] { "aspx" };
         public string FirstLinePattern
         {
             get

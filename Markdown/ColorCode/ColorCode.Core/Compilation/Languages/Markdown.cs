@@ -169,7 +169,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "markdown", "md" };
         public override string ToString()
         {
             return Name;

@@ -81,6 +81,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
+        string[] ILanguage.Aliases => new string[] { "typescript", "ts" };
 
         public override string ToString()
         {

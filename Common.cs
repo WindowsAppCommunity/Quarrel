@@ -22,6 +22,7 @@ using System.Collections;
 using Windows.UI.Xaml.Data;
 using Windows.Storage;
 using Newtonsoft.Json;
+using Gma.DataStructures.StringSearch;
 
 namespace Discord_UWP
 {
@@ -174,7 +175,15 @@ namespace Discord_UWP
             else 
                 return new Uri("https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".png" + suffix);
         }
-
+        public static string AvatarString(string s, string userid = "")
+        {
+            if (String.IsNullOrEmpty(s))
+                return "ms-appx:///Assets/DiscordIcon.png";
+            else if (s.StartsWith("a_"))
+                return "https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".gif";
+            else
+                return "https://cdn.discordapp.com/avatars/" + userid + "/" + s + ".png";
+        }
         public static void RemoveScrollviewerClipping(DependencyObject o)
         {
             var sc = GetScrollContentPresenter(o);
@@ -212,6 +221,19 @@ namespace Discord_UWP
             }
             return null;
         }
+        public class AutoComplete
+        {
+            public AutoComplete(string _name, string _namealt, string _image = null)
+            {
+                name = _name;
+                namealt = _namealt;
+                image = _image;
+            }
+            public string name { get; set; }
+            public string namealt { get; set; }
+            public string image { get; set; }
+        }
+
         public static async void LoadEmojiDawg()
         {
             Stopwatch sw = new Stopwatch();
@@ -219,35 +241,47 @@ namespace Discord_UWP
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/emojis.json"));
             string json = await FileIO.ReadTextAsync(file);
             Controls.EmojiControl.RootObject root = JsonConvert.DeserializeObject<Controls.EmojiControl.RootObject>(json);
-            DawgSharp.DawgBuilder<string> emojis = new DawgSharp.DawgBuilder<string>();
             //Lord, forgive me for my sins:
-            foreach(var emoji in root.activity)
-                foreach(var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+            foreach (var emoji in root.activity)
+                foreach (var name in emoji.names)
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.flags)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.food)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.nature)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.objects)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.people)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.symbols)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             foreach (var emoji in root.travel)
                 foreach (var name in emoji.names)
-                    emojis.Insert(name, emoji.surrogates);
-            App.EmojiDawg = emojis.BuildDawg();
+                    App.EmojiTrie.Add(name, new AutoComplete(emoji.surrogates, ":" + emoji.names[0] + ":"));
             sw.Stop();
-            Debug.WriteLine("Emoji Dawg took " + sw.ElapsedMilliseconds + "ms to build");
+            Debug.WriteLine("Emoji Trie took " + sw.ElapsedMilliseconds + "ms to build");
+            sw.Reset();
+            sw.Start();
+            foreach (var lang in ColorSyntax.Languages.LanguageRepository.All)
+            {
+                foreach (var alias in lang.Aliases)
+                    App.CodingLangsTrie.Add(alias.ToLower(), new AutoComplete(lang.Name, lang.Id, "ms-appx:///Assets/CodingLanguages/" + lang.Id + ".png"));
+            }
+            Debug.WriteLine(App.CodingLangsTrie.Traversal());
+            sw.Stop();
+            Debug.WriteLine("Language Trie took " + sw.ElapsedMilliseconds + "ms to build");
+        }
+        public static async void LoadLanguageDawg()
+        {
+
         }
         public static List<string> FindMentions(string message)
         {

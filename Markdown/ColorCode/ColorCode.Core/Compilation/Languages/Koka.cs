@@ -235,7 +235,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "koka", "kk", "kki" };
         public override string ToString()
         {
             return Name;

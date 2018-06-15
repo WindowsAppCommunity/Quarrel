@@ -175,6 +175,7 @@
                             <TextBlock Text="Special Thanks:"/>
                             <TextBlock TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                             <TextBlock TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                            <HyperlinkButton Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
                         </StackPanel>
                         
                         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">

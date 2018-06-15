@@ -83,7 +83,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "diff", "patch" };
         public override string ToString()
         {
             return Name;
