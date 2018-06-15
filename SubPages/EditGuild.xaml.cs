@@ -42,11 +42,6 @@ namespace Discord_UWP.SubPages
         public EditGuild()
         {
             this.InitializeComponent();
-            header.Text = App.GetString("/Flyouts/EditServer").ToUpper();
-            GuildName.Header = App.GetString("/Flyouts/Name");
-            Roles.Header = App.GetString("/Flyouts/Roles");
-            RoleName.Header = App.GetString("/Flyouts/Name").ToUpper();
-            Bans.Header = App.GetString("/Flyouts/Bans");
             Invites.Visibility = Visibility.Collapsed;
             Bans.Visibility = Visibility.Collapsed;
             App.SubpageCloseHandler += App_SubpageCloseHandler;
@@ -134,7 +129,7 @@ namespace Discord_UWP.SubPages
             else
                 GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + guild.Raw.Id + "/" + guild.Raw.Icon + ".png"));
 
-            header.Text = App.GetString("/Flyouts/Edit").ToUpper() + " " + guild.Raw.Name.ToUpper();
+            header.Text = App.GetString("/Dialogs/EDIT") + " " + guild.Raw.Name.ToUpper();
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
                 deleteImage.IsEnabled = false;
@@ -286,7 +281,7 @@ namespace Discord_UWP.SubPages
         private bool loadingRoles = false;
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Invites" && !LoadingInvites)
+            if ((pivot.SelectedItem as PivotItem).Header.ToString() == App.GetString("/Dialogs/InvitesPI.Header") && !LoadingInvites)
             {
                 InviteView.Items.Clear();
                 NoInvites.Opacity = 0;
@@ -311,7 +306,7 @@ namespace Discord_UWP.SubPages
                     LoadingInvite.Fade(0, 200).Start();
                 }
             }
-            else if ((pivot.SelectedItem as PivotItem).Header.ToString() == "Bans" && !loadingBans)
+            else if ((pivot.SelectedItem as PivotItem).Header.ToString() == App.GetString("/Dialogs/BansPI.Header") && !loadingBans)
             {
                 BanView.Items.Clear();
                 NoBans.Opacity = 0;
@@ -476,7 +471,7 @@ namespace Discord_UWP.SubPages
 
                     GuildIcon.ImageSource = img;
                     GuildIconRect.Fade(1, 300).Start();
-                    deleteImage.Content = "Cancel icon modification";
+                    deleteImage.Content = App.GetString("/Dialogs/CancelIconMod");
                     deleteImage.Visibility = Visibility.Visible;
                 }
                 catch { }
@@ -511,21 +506,21 @@ namespace Discord_UWP.SubPages
         }
         private void deleteImage_Click(object sender, RoutedEventArgs e)
         {
-            if (deleteImage.Content.ToString() == "Cancel icon modification")
+            if (deleteImage.Content.ToString() == App.GetString("/Dialogs/CancelIconMod"))
             {
                 if (string.IsNullOrEmpty(LocalState.Guilds[guildId].Raw.Icon))
                     GuildIcon.ImageSource = null;
                 else
                     GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + LocalState.Guilds[guildId].Raw.Id + "/" + LocalState.Guilds[guildId].Raw.Icon + ".png"));
                 base64img = null;
-                deleteImage.Content = "Delete";
+                deleteImage.Content = App.GetString("/Dialogs/Delete");
                 DeletedImage = false;
             }
             else
             {
                 DeletedImage = true;
                 GuildIcon.ImageSource = null;
-                deleteImage.Content = "Cancel icon modification";
+                deleteImage.Content = App.GetString("/Dialogs/CancelIconMod");
             }
         }
     }
