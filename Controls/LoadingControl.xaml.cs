@@ -79,16 +79,14 @@ namespace Discord_UWP.Controls
 
             AdjustSize();
 
+            Animation.Begin();
+
             if (!Storage.Settings.ShowWelcomeMessage)
             {
                 MessageBlock.Visibility = Visibility.Collapsed;
-                Animation.Begin();
                 return;
             }
-            else
-            {
-                Animation.Begin();
-            }
+
             MessageBlock.Text = message.Key.ToUpper();
             if (message.Value != "")
             {
@@ -116,7 +114,6 @@ namespace Discord_UWP.Controls
         {
             try
             {
-
                 var location = App.Splash.ImageLocation;
                 viewbox.Width = location.Width;
                 viewbox.Height = location.Height;

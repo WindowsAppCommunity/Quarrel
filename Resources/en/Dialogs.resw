@@ -597,4 +597,10 @@
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
     <value>No Note</value>
   </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>New password</value>
+  </data>
 </root>

@@ -310,4 +310,37 @@
   <data name="EditedAt" xml:space="preserve">
     <value>Edited at</value>
   </data>
+  <data name="JoinListenSessionBTN.Content" xml:space="preserve">
+    <value>Join listening session</value>
+  </data>
+  <data name="SessionOverTB.Text" xml:space="preserve">
+    <value>SPOTIFY SESSION IS OVER :'(</value>
+  </data>
+  <data name="AddAttachMFI.Text" xml:space="preserve">
+    <value>Attachements</value>
+  </data>
+  <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Search with Giphy</value>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Listening to</value>
+  </data>
+  <data name="LoadingTB.Text" xml:space="preserve">
+    <value>LOADING</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Search Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Send Spotify Invite</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Blocked Message</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Add Note</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Volume</value>
+  </data>
 </root>
