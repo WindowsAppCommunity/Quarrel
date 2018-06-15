@@ -564,4 +564,7 @@
   <data name="UsernameBox.Header" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>
