@@ -273,8 +273,9 @@ namespace Discord_UWP
             foreach (var lang in ColorSyntax.Languages.LanguageRepository.All)
             {
                 foreach (var alias in lang.Aliases)
-                    App.CodingLangsTrie.Add(alias, new AutoComplete(lang.Name, lang.Id, "ms-appx:///Assets/CodingLanguages/" + lang.Id + ".png"));
+                    App.CodingLangsTrie.Add(alias.ToLower(), new AutoComplete(lang.Name, lang.Id, "ms-appx:///Assets/CodingLanguages/" + lang.Id + ".png"));
             }
+            Debug.WriteLine(App.CodingLangsTrie.Traversal());
             sw.Stop();
             Debug.WriteLine("Language Trie took " + sw.ElapsedMilliseconds + "ms to build");
         }
