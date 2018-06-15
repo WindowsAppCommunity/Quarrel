@@ -236,7 +236,7 @@
                     </TransitionCollection>
                 </StackPanel.Transitions>
                 <tk:WrapPanel x:Name="RoleWrapper" Margin="-2,0,-2,0"/>
-                <TextBox Style="{StaticResource TextBoxStyle1}" x:Name="Note" PlaceholderText="Add note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" Height="20" BorderThickness="0" LostFocus="Note_LostFocus" MinHeight="28" VerticalContentAlignment="Center"/>
+                <TextBox x:Uid="/Controls/NoteTBox"  Style="{StaticResource TextBoxStyle1}" x:Name="Note" PlaceholderText="Add Note" FontSize="12" Padding="18,6,6,6" Margin="-12,12,-12,0" Height="20" BorderThickness="0" LostFocus="Note_LostFocus" MinHeight="28" VerticalContentAlignment="Center"/>
                 <local:MessageBox x:Name="SendDM" FontSize="13.333" Margin="-6,6,-6,-6" IsCompact="True"/>
             </StackPanel>
         </Grid>

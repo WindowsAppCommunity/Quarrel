@@ -91,10 +91,10 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Uid="AccountSettingTB" x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Uid="/Dialogs/AccountSettingTB" x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <ScrollViewer Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <StackPanel Grid.Row="0" Margin="12,12,24,0" Padding="0,0,0,24">
-                            <TextBlock x:Uid="AccountTB" Text="ACCOUNT" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                            <TextBlock x:Uid="/Dialogs/AccountTB" Text="ACCOUNT" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
                             <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -108,16 +108,16 @@
                                 </Rectangle>
                                 <StackPanel Margin="0,6,0,0"  Grid.Row="1">
                                    
-                                    <HyperlinkButton x:Uid="UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
-                                    <HyperlinkButton x:Uid="DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                                    <HyperlinkButton x:Uid="/Dialogs/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                    <HyperlinkButton x:Uid="/Dialogs/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                 </StackPanel>
                             </Grid>
-                            <TextBox x:Uid="UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
-                            <TextBox x:Uid="EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
-                            <PasswordBox x:Uid="CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                            <HyperlinkButton x:Uid="ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
-                            <PasswordBox x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
-                            <TextBlock Text="Connections" Margin="0,12" Visibility="Collapsed"/>
+                            <TextBox x:Uid="/Dialogs/UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
+                            <TextBox x:Uid="/Dialogs/EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
+                            <PasswordBox x:Uid="/Dialogs/CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
+                            <HyperlinkButton x:Uid="/Dialogs/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                            <PasswordBox x:Uid="/Dialogs/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
+                            <TextBlock x:Uid="/Dialogs/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
                             <Grid Height="100" Margin="25,0" Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

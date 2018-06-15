@@ -210,7 +210,7 @@
     <Compile Include="LocalModels\GuildSetting.cs" />
     <Compile Include="LocalModels\LocalState.cs" />
     <Compile Include="LocalModels\Permissions.cs" />
-    <Compile Include="LogScreen.xaml.cs">
+    <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
@@ -670,7 +670,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LogScreen.xaml">
+    <Page Include="SubPages\LogScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

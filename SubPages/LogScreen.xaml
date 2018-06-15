@@ -52,7 +52,7 @@
                     </TransitionCollection>
                 </Button.Transitions>
                 <Grid>
-                    <TextBlock x:Uid="LoginTB" x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock x:Uid="/About/LoginTB" x:Name="LoginText" Text="LOGIN" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ProgressRing x:Name="ProgressRing" Margin="6,0,0,0" Foreground="White" Visibility="Collapsed"/>
                 </Grid>
             </Button>

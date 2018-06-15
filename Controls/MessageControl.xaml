@@ -174,22 +174,22 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
             <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
             <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
-                <TextBlock x:Uid="BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
+                <TextBlock x:Uid="/Controls/BotTB" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.5"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-10" FontSize="18" Glyph="" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" Background="#00FF0000" FontSize="14" VerticalAlignment="Top" FontFamily="Segoe MDL2 Assets" Padding="3,3,3,-2" Margin="3,3,3,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
         <StackPanel x:Name="BlockedMessage" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Message Blocked" HorizontalAlignment="Center"/>
+            <TextBlock x:Uid="/Controls/BlockedMessageTB" Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>
         </StackPanel>
         <Button x:Name="moreButton" Style="{StaticResource IntegratedButton}" Opacity="1" Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Click="moreButton_Click" PointerPressed="UserControl_PointerPressed">
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout  MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                     <MenuFlyoutItem x:Uid="/Controls/ReplyItem" x:Name="MoreReply" Padding="12,4" Text="Reply" Click="MoreReply_Click"/>
-                    <MenuFlyoutItem x:Uid="PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
-                    <!--<MenuFlyoutItem x:Uid="SaveItem" x:Name="MoreSave" Padding="12,4" Text="Save" Click="MoreSave_Click"/>-->
+                    <MenuFlyoutItem x:Uid="/Controls/PinItem" x:Name="MorePin" Padding="12,4" Text="Pin" Click="MorePin_Click"/>
+                    <!--<MenuFlyoutItem x:Uid="/Controls/SaveItem" x:Name="MoreSave" Padding="12,4" Text="Save" Click="MoreSave_Click"/>-->
                     <MenuFlyoutItem x:Uid="/Controls/AddReacItem" Text="Add reaction" Padding="12,4" Click="MenuFlyoutItem_Click_2"/>
                     <MenuFlyoutItem x:Uid="/Controls/EditItem" x:Name="MoreEdit" Padding="12,4" Text="Edit" Click="MenuFlyoutItem_Click" Visibility="Collapsed"/>
                     <MenuFlyoutItem x:Uid="/Controls/DeleteItem" x:Name="MoreDelete" Padding="12,4" Text="Delete" Click="MenuFlyoutItem_Click_1"/>
@@ -199,6 +199,5 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
             <SymbolIcon x:Name="moresymbol" Symbol="More" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0" VerticalAlignment="Top" Visibility="Visible"/>
         </Button>
         <StackPanel x:Name="EmbedViewer" Grid.Row="4" Grid.Column="1" Padding="0" Visibility="Collapsed"/>
-
     </Grid>
 </UserControl>
