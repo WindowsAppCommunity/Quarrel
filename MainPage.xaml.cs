@@ -2460,7 +2460,7 @@ namespace Discord_UWP
                     foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
-                            sc.Subtitle = (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+                            sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
                     }
                 });
                 
