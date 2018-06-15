@@ -746,8 +746,14 @@ namespace Discord_UWP.Controls
             {
                 var current = list.ElementAtOrDefault(counter);
                 if (current == null) break;
-                foreach(var element in list2)
-                    if (element.name == current.name) continue;
+                bool already = false;
+                foreach (var element in list2)
+                    if (element.name == current.name)
+                    {
+                        already = true;
+                        break;
+                    }
+                if (already) continue;
                 list2.Add(current);
                 counter++;
             }
