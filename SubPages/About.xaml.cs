@@ -108,7 +108,7 @@ namespace Discord_UWP.SubPages
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(SubPages.Licenses));
         }
     }
 }
