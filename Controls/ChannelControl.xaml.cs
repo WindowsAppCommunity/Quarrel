@@ -217,7 +217,26 @@ namespace Discord_UWP.Controls
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
-
+       private void UpdateOpacity()
+        {
+            if ((IsUnread && !IsMuted) | Type == 4)
+            {
+                ChannelName.Fade(1, 200).Start();
+            }
+            else
+            {
+                if(IsMuted)
+                {
+                    ChannelName.Fade(0.35f, 200).Start();
+                    HashtagIcon.Fade(0.35f, 200).Start();
+                }
+                else
+                {
+                    ChannelName.Fade(0.6f, 200).Start();
+                    HashtagIcon.Fade(0.6f, 200).Start();
+                }
+            }
+        }
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             //if (!App.CurrentGuildIsDM && Id != "")
@@ -234,13 +253,11 @@ namespace Discord_UWP.Controls
                 {
                     if (IsSelected)
                     {
-                        ChannelName.Fade(1, 200).Start();
                         VoiceIcon.Fade(1, 200).Start();
                         SelectIndicator.Fade(0.6f, 200).Start();
                     }
                     else
                     {
-                        ChannelName.Fade(0.6f, 200).Start();
                         VoiceIcon.Fade(0.6f, 200).Start();
                         SelectIndicator.Fade(0.6f, 200).Start();
                     }
@@ -256,6 +273,7 @@ namespace Discord_UWP.Controls
                         SelectIndicator.Fade(0, 200).Start();
                     }
                 }
+                UpdateOpacity();
                 UpdateHidden();
             }
             else if (prop == UserStatusProperty)
@@ -318,7 +336,6 @@ namespace Discord_UWP.Controls
             {
                 if (IsUnread && !IsMuted)
                 {
-                    ChannelName.Fade(1,200).Start();
                     UnreadIndicator.Visibility = Visibility.Visible;
                     if (IsHidden)
                     {
@@ -328,7 +345,6 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    ChannelName.Fade(0.6f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                     if (IsHidden)
                     {
@@ -336,25 +352,21 @@ namespace Discord_UWP.Controls
                         this.Fade(1, 200, 0).Start();
                     }
                 }
+                UpdateOpacity();
                 UpdateHidden();
             }
             if (prop == IsMutedProperty)
             {
                 if (IsMuted)
                 {
-                    ChannelName.Opacity = 0.4;
                     MuteIcon.Visibility = Visibility.Visible;
-                    ChannelName.Fade(0.75f, 200).Start();
                     UnreadIndicator.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    if (IsUnread)
-                        ChannelName.Opacity = 1;
-                    else
-                        ChannelName.Opacity = 0.6;
                     MuteIcon.Visibility = Visibility.Collapsed;
                 }
+                UpdateOpacity();
                 UpdateHidden();
             }
             if (prop == IsTypingProperty)
@@ -397,7 +409,6 @@ namespace Discord_UWP.Controls
             if (prop == TypeProperty)
             {
                 ChannelName.FontWeight = FontWeights.Normal;
-                ChannelName.Opacity = 0.75;
                 ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Foreground"];
                 Chevron.Visibility = Visibility.Collapsed;
                 HoverCache.Visibility = Visibility.Collapsed;
@@ -491,15 +502,15 @@ namespace Discord_UWP.Controls
                     ChannelImage.Visibility = Visibility.Collapsed;
                     rectangle.Visibility = Visibility.Collapsed;
                     ChannelName.FontWeight = FontWeights.Light;
-                    ChannelName.Opacity = 1;
                     ChannelName.Foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                     Chevron.Visibility = Visibility.Visible;
                     HoverCache.Visibility = Visibility.Visible;
                     this.Margin = new Thickness(0, 18, 0, 0);
                     MemberList.Visibility = Visibility.Collapsed;
                     Tapped -= JoinVoiceChannel;
+                    
                 }
-
+                UpdateOpacity();
                 if (Type != 2)
                 {
                     GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
