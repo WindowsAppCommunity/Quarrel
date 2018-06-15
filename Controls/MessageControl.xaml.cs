@@ -332,11 +332,12 @@ namespace Discord_UWP.Controls
             }
         }
 
+
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                async () =>
                 {
                     if (reactionView == null)
                         reactionView = GenerateWrapGrid();
@@ -346,13 +347,22 @@ namespace Discord_UWP.Controls
                         var tuple = toggle.Tag as Tuple<string, string, Reactions>;
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
                         {
-                            var text = ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text;
-                            var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
+                            var tb = ((toggle.Content as StackPanel).Children.Last() as TextBlock);
+                            var text = tb.Text;
+                            //var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
                             if (text == "1")
                             {
                                 toRemove = toggle;
                                 break;
                             }
+                            if (tuple.Item3.Me)
+                                toggle.IsChecked = false;
+                            await tb.Offset(0, -18, 150, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
+                            tb.Text = (Convert.ToInt32(text) - 1).ToString();
+
+                            await tb.Offset(0, 18, 0).StartAsync();
+                            await tb.Offset(0, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
+                            /*
                             Storyboard sb = new Storyboard();
                             DoubleAnimation db = new DoubleAnimation()
                             {
@@ -364,6 +374,7 @@ namespace Discord_UWP.Controls
                             Storyboard.SetTargetProperty(db, "Y");
                             sb.Children.Add(db);
                             sb.Begin();
+                           
                             sb.Completed += (o, o1) =>
                             {
                                 //set the text
@@ -382,9 +393,8 @@ namespace Discord_UWP.Controls
                                 Storyboard.SetTargetProperty(db1, "Y");
                                 sb1.Children.Add(db1);
                                 sb1.Begin();
-                            };
-                            if (tuple.Item3.Me)
-                                toggle.IsChecked = false;
+                            };*/
+                            
                         }
                     }
                     if (toRemove != null)
@@ -396,7 +406,7 @@ namespace Discord_UWP.Controls
         {
             if (gatewayEventArgs.EventData.MessageId != messageid) return;
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                async () =>
                 {
                     if (reactionView == null)
                     {
@@ -412,9 +422,18 @@ namespace Discord_UWP.Controls
                         if (tuple.Item3.Emoji.Name == gatewayEventArgs.EventData.Emoji.Name)
                         {
                             success = true;
-                            var text = ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text;
+                            var tb = ((toggle.Content as StackPanel).Children.Last() as TextBlock);
+                            var text = tb.Text;
                             //animate from the top
-                            var rt = ((toggle.Content as StackPanel).Children.Last() as TextBlock).RenderTransform = new TranslateTransform();
+                           // var rt = tb.RenderTransform = new TranslateTransform();
+                            if (tuple.Item3.Me)
+                                toggle.IsChecked = true;
+                            await tb.Offset(0, 18, 180, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
+                            tb.Text = (Convert.ToInt32(text) + 1).ToString();
+                            
+                            await tb.Offset(0, -18, 0).StartAsync();
+                            await tb.Offset(0, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
+                            /*
                             Storyboard sb = new Storyboard();
                             DoubleAnimation db = new DoubleAnimation()
                             {
@@ -444,10 +463,9 @@ namespace Discord_UWP.Controls
                                 Storyboard.SetTargetProperty(db1, "Y");
                                 sb1.Children.Add(db1);
                                 sb1.Begin();
-                            };
+                            };*/
 
-                            if (tuple.Item3.Me)
-                                toggle.IsChecked = true;
+                            
                         }
                     }
                     if (!success)
@@ -694,9 +712,10 @@ namespace Discord_UWP.Controls
                 }
             }
         }
+        ToggleButton reactionToggle;
         private ToggleButton GenerateReactionToggle(Reactions reaction)
         {
-            ToggleButton reactionToggle = new ToggleButton();
+            reactionToggle = new ToggleButton();
             reactionToggle.IsChecked = reaction.Me;
             reactionToggle.Tag =
                 new Tuple<string, string, Reactions>(Message.ChannelId, Message.Id, reaction);
@@ -1013,6 +1032,7 @@ namespace Discord_UWP.Controls
         }
 
         Flyout PickReaction;
+        EmojiControl emojiPicker;
         private void MenuFlyoutItem_Click_2(object sender, RoutedEventArgs e)
         {
             PickReaction = new Flyout();
@@ -1084,12 +1104,25 @@ namespace Discord_UWP.Controls
 
         public void Dispose()
         {
+            Debug.WriteLine("Disposed of messagecontrol");
             GatewayManager.Gateway.MessageReactionAdded -= GatewayOnMessageReactionAdded;
             GatewayManager.Gateway.MessageReactionRemoved -= GatewayOnMessageReactionRemoved;
-            editBox.Send -= EditBox_Send;
-            editBox.Cancel -= EditBox_Cancel;
-            editBox.TextChanged -= EditBox_TextChanged;
-            GC.Collect();
+            emojiPicker.PickedEmoji -= ReactionSelected;
+            if(reactionToggle!=null)
+            reactionToggle.Click -= ToggleReaction;
+            if (editBox != null)
+            {
+                editBox.Send -= EditBox_Send;
+                editBox.Cancel -= EditBox_Cancel;
+                editBox.TextChanged -= EditBox_TextChanged;
+            }
+
+           // GC.Collect(); 
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
     }
 }
