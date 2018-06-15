@@ -216,4 +216,22 @@
   <data name="LicensesHLBTN.Content" xml:space="preserve">
     <value>Licenses</value>
   </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Pas de compte?</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Mot de passe oublié?</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>SE CONNECTER</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Soit vous n'êtes pas connecté à internet, soit votre connexion est trop lente</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Client Discord pour la plateforme Windows universelle</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Re-tenter de se connecter</value>
+  </data>
 </root>
