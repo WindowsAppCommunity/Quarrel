@@ -170,7 +170,11 @@ namespace Discord_UWP.Controls
         {
             GatewayManager.Gateway.GuildDeleted -= Gateway_GuildDeleted;
             GatewayManager.Gateway.GuildCreated -= Gateway_GuildCreated;
-            GC.Collect();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
     }
 }
