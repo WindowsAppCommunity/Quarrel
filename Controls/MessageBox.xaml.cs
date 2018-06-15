@@ -742,6 +742,7 @@ namespace Discord_UWP.Controls
             int counter = 0;
             bool stopped = false;
             List<Common.AutoComplete> list2 = new List<Common.AutoComplete>();
+            int listcount = list.Count();
             while (counter < 12)
             {
                 var current = list.ElementAtOrDefault(counter);
@@ -753,9 +754,9 @@ namespace Discord_UWP.Controls
                         already = true;
                         break;
                     }
+                counter++;
                 if (already) continue;
                 list2.Add(current);
-                counter++;
             }
             if (list2.Count() == 0)
             {
