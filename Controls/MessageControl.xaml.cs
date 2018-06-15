@@ -357,44 +357,13 @@ namespace Discord_UWP.Controls
                             }
                             if (tuple.Item3.Me)
                                 toggle.IsChecked = false;
-                            await tb.Offset(0, -18, 150, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
+                            AnimationSet.UseComposition = true;
+                            await tb.Offset(22, -18, 150, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
                             tb.Text = (Convert.ToInt32(text) - 1).ToString();
 
-                            await tb.Offset(0, 18, 0).StartAsync();
-                            await tb.Offset(0, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
-                            /*
-                            Storyboard sb = new Storyboard();
-                            DoubleAnimation db = new DoubleAnimation()
-                            {
-                                To = 24,
-                                Duration = TimeSpan.FromMilliseconds(100),
-                            };
-
-                            Storyboard.SetTarget(db, rt);
-                            Storyboard.SetTargetProperty(db, "Y");
-                            sb.Children.Add(db);
-                            sb.Begin();
-                           
-                            sb.Completed += (o, o1) =>
-                            {
-                                //set the text
-                                ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text = (Convert.ToInt32(text) - 1).ToString();
-
-                                Storyboard sb1 = new Storyboard();
-                                DoubleAnimation db1 = new DoubleAnimation()
-                                {
-                                    From = -24,
-                                    To = 0,
-                                    Duration = TimeSpan.FromMilliseconds(150),
-                                    EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut },
-                                };
-
-                                Storyboard.SetTarget(db1, rt);
-                                Storyboard.SetTargetProperty(db1, "Y");
-                                sb1.Children.Add(db1);
-                                sb1.Begin();
-                            };*/
-                            
+                            await tb.Offset(22, 18, 0).StartAsync();
+                            await tb.Offset(22, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
+                            AnimationSet.UseComposition = false;
                         }
                     }
                     if (toRemove != null)
@@ -428,44 +397,13 @@ namespace Discord_UWP.Controls
                            // var rt = tb.RenderTransform = new TranslateTransform();
                             if (tuple.Item3.Me)
                                 toggle.IsChecked = true;
-                            await tb.Offset(0, 18, 180, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
+                            AnimationSet.UseComposition = true;
+                            await tb.Offset(22, 18, 180, 0, EasingType.Back, EasingMode.EaseIn).StartAsync();
                             tb.Text = (Convert.ToInt32(text) + 1).ToString();
                             
-                            await tb.Offset(0, -18, 0).StartAsync();
-                            await tb.Offset(0, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
-                            /*
-                            Storyboard sb = new Storyboard();
-                            DoubleAnimation db = new DoubleAnimation()
-                            {
-                                To = -24,
-                                Duration = TimeSpan.FromMilliseconds(100),
-                            };
-                           
-                            Storyboard.SetTarget(db, rt);
-                            Storyboard.SetTargetProperty(db,"Y");
-                            sb.Children.Add(db);
-                            sb.Begin();
-                            sb.Completed += (o, o1) =>
-                            {
-                                //set the text
-                                ((toggle.Content as StackPanel).Children.Last() as TextBlock).Text = (Convert.ToInt32(text) + 1).ToString();
-
-                                Storyboard sb1 = new Storyboard();
-                                DoubleAnimation db1 = new DoubleAnimation()
-                                {
-                                    From = 24,
-                                    To = 0,
-                                    Duration = TimeSpan.FromMilliseconds(150),
-                                    EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut },
-                                };
-
-                                Storyboard.SetTarget(db1, rt);
-                                Storyboard.SetTargetProperty(db1, "Y");
-                                sb1.Children.Add(db1);
-                                sb1.Begin();
-                            };*/
-
-                            
+                            await tb.Offset(22, -18, 0).StartAsync();
+                            await tb.Offset(22, 0, 180, 0, EasingType.Back, EasingMode.EaseOut).StartAsync();
+                            AnimationSet.UseComposition = false;
                         }
                     }
                     if (!success)
