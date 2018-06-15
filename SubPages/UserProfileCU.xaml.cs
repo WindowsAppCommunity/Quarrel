@@ -110,7 +110,7 @@ namespace Discord_UWP.SubPages
             });
             if (response == null || response?.Id == null)
             {
-                string error = "There was an unknown error while trying to change your account details, are you sure everything is correct?";
+                string error = App.GetString("ThereWasAnErrorClarify");
                 if (!string.IsNullOrEmpty(response.Username))
                     error += response.Username + "\n";
                 if (!string.IsNullOrEmpty(response.Avatar))
@@ -118,7 +118,7 @@ namespace Discord_UWP.SubPages
                 if (!string.IsNullOrEmpty(response.Email))
                     error += response.Email + "\n";
                 
-                MessageDialog md = new MessageDialog(error, "Sorry :/");
+                MessageDialog md = new MessageDialog(error, App.GetString("/Dialogs/Sorry"));
                 saveBTNtext.Opacity = 1;
                 SaveButton.IsEnabled = true;
                 saveBTNprog.Visibility = Visibility.Collapsed;

@@ -1321,10 +1321,10 @@ namespace Discord_UWP
         {
             ContentDialog AreYouSure = new ContentDialog
             {
-                Title = "ARE YOU SURE?",
-                Content = "This will fully reset Quarrel, meaning that you will be logged out of your account, all of your settings will be reset, and the application will then exit. This will NOT affect your Discord account.",
-                CloseButtonText = "Cancel",
-                PrimaryButtonText = "Reset Quarrel"
+                Title = App.GetString("/Dialogs/AreYouSure"),
+                Content = App.GetString("/Dialogs/ThisWillResetQuarrelEtc"),
+                CloseButtonText = App.GetString("/Dialogs/Cancel"),
+                PrimaryButtonText = App.GetString("/Dialogs/ResetQuarrel")
             };
             AreYouSure.PrimaryButtonClick += (a, e) =>
                                  {
