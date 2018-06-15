@@ -324,7 +324,7 @@
   <data name="OutputDevicesCB.Header" xml:space="preserve">
     <value>Output Devices</value>
   </data>
-  <data name="OutputDeviceOverrideCB.Content" xml:space="preserve">
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
     <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
