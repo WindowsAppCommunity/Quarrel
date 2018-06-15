@@ -591,4 +591,10 @@
   <data name="Share" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>LISTEN TOGETHER ON SPOTIFY</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>No Note</value>
+  </data>
 </root>

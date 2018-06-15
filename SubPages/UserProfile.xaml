@@ -125,7 +125,7 @@
                                         <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                         <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
                                         <TextBlock x:Uid="/Dialogs/NoteTB" Text="NOTE" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <TextBox BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
+                                        <TextBox x:Uid="/Dialogs/NoteTBox" BorderThickness="0" x:Name="NoteBox" Style="{StaticResource TextBoxStyle1}" PlaceholderText="No Note" Margin="0,12,0,0" LostFocus="NoteBox_LostFocus"/>
                                     </StackPanel>
 
                                     <tk:AdaptiveGridView x:Name="Connections" ItemHeight="48" DesiredWidth="200" Margin="-2,12,-7,0" Grid.Row="1" IsItemClickEnabled="True" SelectionMode="None" ItemClick="Connections_OnItemClick">
@@ -204,7 +204,7 @@
                                         </Border>
                                     </StackPanel>
                                     <tk:WrapPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
-                                        <HyperlinkButton  x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed" >
+                                        <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed" >
                                             <Grid>
                                                 <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Send friend request" Margin="28,0,0,0"/>
