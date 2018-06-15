@@ -172,10 +172,10 @@
                                 </StackPanel>
                             </HyperlinkButton>
                             <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29 and KarmaEcrivain94" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                            <TextBlock Text="Special Thanks:"/>
-                            <TextBlock TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
-                            <TextBlock TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
-                            <HyperlinkButton Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
+                            <TextBlock x:Uid="/About/SpecialThxTB" Text="Special Thanks:"/>
+                            <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                            <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                            <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
                         </StackPanel>
                         
                         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">

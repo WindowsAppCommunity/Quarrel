@@ -130,7 +130,7 @@
     <value>ADVANCED MESSAGE EDITOR</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Attachments</value>
+    <value>ATTACHEMENTS</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Attach files</value>
@@ -521,5 +521,74 @@
   </data>
   <data name="AddOnsTB.Text" xml:space="preserve">
     <value>ADD-ONS</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>ARE YOU SURE?</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>Reset Quarrel</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>This will fully reset Quarrel, meaning that you will be logged out of your account, all of your settings will be reset, and the application will then exit. This will NOT affect your Discord account.</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>ACCOUNT SETTINGS</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Application Settings</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>Sorry  : /</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>There was an unknown error while trying to change your account details, are you sure everything is correct?</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Upload Image</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>No defined topic</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>We recommend you use an image which is at least 512x512px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>Cancel icon modification</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>CHANNEL</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>You must be logged into Quarrel to use it as a share target</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>SERVER</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
   </data>
 </root>
