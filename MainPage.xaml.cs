@@ -1193,7 +1193,7 @@ namespace Discord_UWP
                 StartText = "",
                 PlaceHolderText = App.GetString("/Dialogs/ServerName"),
                 SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") +  " " + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
-                ConfirmMessage = App.GetString("Create"),
+                ConfirmMessage = App.GetString("/Dialogs/Create"),
                 ConfirmRed = false,
                 args = new List<object>(),
                 function = RESTCalls.CreateGuild

@@ -75,14 +75,14 @@ namespace Discord_UWP.SubPages
 
             if (App.shareop != null)
             {
-                header.Text = "SHARE";
+                header.Text = App.GetString("/Dialogs/Share");
                 shareTarget.Visibility = Visibility.Visible;
                 mediumTrigger.MinWindowWidth = 10000;
                 mediumTrigger.MinWindowHeight = 10000;
                 SaveButton.IsEnabled = false;
                 if (App.LoggedIn() == false)
                 {
-                    MessageDialog md = new MessageDialog("You must be logged into Quarrel to use it as a share target", "Sorry!");
+                    MessageDialog md = new MessageDialog(App.GetString("/Dialogs/MustBeLoggedIn"), App.GetString("/Dialogs/Sorry"));
                     await md.ShowAsync();
                     App.shareop.DismissUI();
                 }

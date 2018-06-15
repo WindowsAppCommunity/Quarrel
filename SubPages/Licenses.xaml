@@ -89,7 +89,7 @@
                     <Grid Margin="0,0,0,4">
                         <StackPanel Padding="0" Margin="12,0,0,0">
                             <TextBlock x:Uid="/About/LicenseTB" x:Name="header" Text="LICENSES" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                            <TextBlock Text="Quarrel uses a few external libraries to function:"/>
+                            <TextBlock x:Uid="/About/QuarrelLicensesDesc" Text="Quarrel uses a few external libraries to function:"/>
                             <TextBlock Text="MIT License" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
                             <StackPanel ToolTipService.ToolTip="Used to interact in a simple and streamlined way with Discord's API">
                                 <HyperlinkButton NavigateUri="https://github.com/reactiveui/refit" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="refit" Margin="0,6,0,0"/>
