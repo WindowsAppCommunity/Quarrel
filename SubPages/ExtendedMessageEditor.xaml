@@ -361,7 +361,7 @@
                             <TextBlock x:Name="header" x:Uid="/Dialogs/AdvancedMessageEditorTB" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                             <StackPanel x:Name="shareTarget" Visibility="Collapsed">
 
-                                <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="SERVER" Margin="0,12,0,0"/>
+                                <TextBlock x:Uid="/Dialogs/ServerSelectTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="SERVER" Margin="0,12,0,0"/>
                                 <ComboBox x:Name="serverOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="serverOption_SelectionChanged" BorderThickness="1">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -376,7 +376,7 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <TextBlock FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="CHANNEL" Margin="0,12,0,0"></TextBlock>
+                                <TextBlock x:Uid="/Dialogs/ChannelSelectTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="CHANNEL" Margin="0,12,0,0"/>
                                 <ComboBox x:Name="channelOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="channelOption_SelectionChanged" BorderThickness="1">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -391,7 +391,7 @@
                            
                             <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
                             <TextBox x:Name="Editor" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
-                            <TextBlock x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
+                            <TextBlock x:Uid="/Dialogs/AttachementsTB"  x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
                             <Grid Margin="0,6,0,0">
                                 <Grid.ChildrenTransitions>
                                     <TransitionCollection>

@@ -130,7 +130,7 @@
     <value>ADVANCED MESSAGE EDITOR</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Attachments</value>
+    <value>ATTACHEMENTS</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Attach files</value>
@@ -578,5 +578,17 @@
   </data>
   <data name="SaveBTNtext.Text" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>CHANNEL</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>You must be logged into Quarrel to use it as a share target</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>SERVER</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
   </data>
 </root>
