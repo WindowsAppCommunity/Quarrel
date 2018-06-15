@@ -74,7 +74,7 @@ namespace Discord_UWP.Controls
                 if (DisplayedInvite.Temporary)
                 {
                     TempInvite.Visibility = Visibility.Visible;
-                    ToolTipService.SetToolTip(TempInvite, App.GetString("InviteTempDesc"));
+                    ToolTipService.SetToolTip(TempInvite, App.GetString("/Controls/InviteTempDesc"));
                 }
                 else
                 {
