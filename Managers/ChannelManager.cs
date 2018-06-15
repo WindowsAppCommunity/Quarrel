@@ -129,7 +129,7 @@ namespace Discord_UWP.Managers
                 case 3: //Group
                     sc.Name = channel.Name;
                     sc.LastMessageId = channel.LastMessageId;
-                    sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+                    sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (channel.Users.Count() + 1).ToString());
                     sc.Icon = channel.Icon;
                     //sc.Members = new Dictionary<string, User>();
                     //foreach (User user in channel.Users)
@@ -462,7 +462,7 @@ namespace Discord_UWP.Managers
                     case 3: //Group
                         sc.Name = channel.Name;
                         sc.LastMessageId = channel.LastMessageId;
-                        sc.Subtitle = (channel.Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+                        sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (channel.Users.Count() + 1).ToString());
                         sc.Icon = channel.Icon;
                         //sc.Members = new Dictionary<string, User>();
                         //foreach (User user in channel.Users)
