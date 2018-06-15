@@ -1045,9 +1045,10 @@ namespace Discord_UWP.Controls
             Debug.WriteLine("Disposed of messagecontrol");
             GatewayManager.Gateway.MessageReactionAdded -= GatewayOnMessageReactionAdded;
             GatewayManager.Gateway.MessageReactionRemoved -= GatewayOnMessageReactionRemoved;
-            emojiPicker.PickedEmoji -= ReactionSelected;
+            if(emojiPicker!= null)
+                emojiPicker.PickedEmoji -= ReactionSelected;
             if(reactionToggle!=null)
-            reactionToggle.Click -= ToggleReaction;
+                reactionToggle.Click -= ToggleReaction;
             if (editBox != null)
             {
                 editBox.Send -= EditBox_Send;
