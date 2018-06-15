@@ -141,9 +141,21 @@
     <value>ABOUT</value>
     <comment>ABOUT header</comment>
   </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, for conecptualizing the app's icon</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Build</value>
+  </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
     <value>CHANGELOG</value>
     <comment>CHANGELOG header</comment>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Commit</value>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
     <value>Designed by Lightmagic Apps</value>
@@ -185,6 +197,9 @@
     <value>Leave feedback</value>
     <comment>Leave feedback button</comment>
   </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
   <data name="LicensesTB.Text" xml:space="preserve">
     <value>LICENSES</value>
   </data>
@@ -199,5 +214,8 @@
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Password</value>
     <comment>Placeholder text for the password login box</comment>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Special Thanks:</value>
   </data>
 </root>
