@@ -471,6 +471,54 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
+    <PRIResource Include="Resources\de\Settings.resw" />
+    <PRIResource Include="Resources\de\Main.resw" />
+    <PRIResource Include="Resources\de\Flyouts.resw" />
+    <PRIResource Include="Resources\de\Dialogs.resw" />
+    <PRIResource Include="Resources\de\Controls.resw" />
+    <PRIResource Include="Resources\de\About.resw" />
+    <PRIResource Include="Resources\no\Flyouts.resw" />
+    <PRIResource Include="Resources\no\Dialogs.resw" />
+    <PRIResource Include="Resources\no\Controls.resw" />
+    <PRIResource Include="Resources\no\Settings.resw" />
+    <PRIResource Include="Resources\no\About.resw" />
+    <PRIResource Include="Resources\no\Main.resw" />
+    <PRIResource Include="Resources\zh\Flyouts.resw" />
+    <PRIResource Include="Resources\zh\About.resw" />
+    <PRIResource Include="Resources\zh\Controls.resw" />
+    <PRIResource Include="Resources\zh\Main.resw" />
+    <PRIResource Include="Resources\zh\Settings.resw" />
+    <PRIResource Include="Resources\zh\Dialogs.resw" />
+    <PRIResource Include="Resources\eo\Controls.resw" />
+    <PRIResource Include="Resources\eo\Flyouts.resw" />
+    <PRIResource Include="Resources\eo\Dialogs.resw" />
+    <PRIResource Include="Resources\eo\Settings.resw" />
+    <PRIResource Include="Resources\eo\About.resw" />
+    <PRIResource Include="Resources\eo\Main.resw" />
+    <PRIResource Include="Resources\el\Main.resw" />
+    <PRIResource Include="Resources\el\About.resw" />
+    <PRIResource Include="Resources\el\Controls.resw" />
+    <PRIResource Include="Resources\el\Dialogs.resw" />
+    <PRIResource Include="Resources\el\Settings.resw" />
+    <PRIResource Include="Resources\el\Flyouts.resw" />
+    <PRIResource Include="Resources\sv\Flyouts.resw" />
+    <PRIResource Include="Resources\sv\About.resw" />
+    <PRIResource Include="Resources\sv\Settings.resw" />
+    <PRIResource Include="Resources\sv\Main.resw" />
+    <PRIResource Include="Resources\sv\Dialogs.resw" />
+    <PRIResource Include="Resources\sv\Controls.resw" />
+    <PRIResource Include="Resources\nl\About.resw" />
+    <PRIResource Include="Resources\nl\Flyouts.resw" />
+    <PRIResource Include="Resources\nl\Settings.resw" />
+    <PRIResource Include="Resources\nl\Main.resw" />
+    <PRIResource Include="Resources\nl\Controls.resw" />
+    <PRIResource Include="Resources\nl\Dialogs.resw" />
+    <PRIResource Include="Resources\ar\Controls.resw" />
+    <PRIResource Include="Resources\ar\Flyouts.resw" />
+    <PRIResource Include="Resources\ar\Dialogs.resw" />
+    <PRIResource Include="Resources\ar\Settings.resw" />
+    <PRIResource Include="Resources\ar\About.resw" />
+    <PRIResource Include="Resources\ar\Main.resw" />
     <PRIResource Include="Resources\he\Settings.resw" />
     <PRIResource Include="Resources\he\Main.resw" />
     <PRIResource Include="Resources\he\Flyouts.resw" />
@@ -870,9 +918,7 @@
       <Name>UpdateNotificationTask</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\dum\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
