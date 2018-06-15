@@ -359,7 +359,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsTypingProperty)
             {
-                if (IsTyping)
+                if (IsTyping && !IsMuted)
                 {
                     TypingIndic.Visibility = Visibility.Visible;
                     TypingIndic.Fade(1, 200).Start();
