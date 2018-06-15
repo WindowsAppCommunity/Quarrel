@@ -242,7 +242,7 @@
     <value>Expired link</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>expires in</value>
+    <value>expires in &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
     <value>never expires</value>
@@ -281,10 +281,10 @@
     <value>removed</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>to the conversation</value>
+    <value>&lt;user&gt; to the conversation</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>from the conversation</value>
+    <value>&lt;user&gt; from the conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
     <value>You missed a call from</value>
@@ -293,7 +293,7 @@
     <value>pinned a message in this channel.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Call started by</value>
+    <value>Call started by &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
     <value>started a call</value>
@@ -308,7 +308,7 @@
     <value>joined the server!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Edited at</value>
+    <value>Edited at &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Join listening session</value>
@@ -317,7 +317,7 @@
     <value>SPOTIFY SESSION IS OVER :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>Attachements</value>
+    <value>Attachments</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
     <value>Search with Giphy</value>

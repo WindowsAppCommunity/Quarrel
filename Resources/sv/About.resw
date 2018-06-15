@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutDesc1.Text" xml:space="preserve">
+    <value>Quarrel är en</value>
+  </data>
+  <data name="AboutDesc2.Text" xml:space="preserve">
+    <value>icke-officel</value>
+  </data>
+  <data name="AboutDesc3.Text" xml:space="preserve">
+    <value>klient för Discord.</value>
+  </data>
+  <data name="AboutDesc4.Text" xml:space="preserve">
+    <value>utvecklarna är inte anslutna till discord, Inc</value>
+  </data>
+  <data name="AboutDesc5.Text" xml:space="preserve">
+    <value>Om något går fel när du använder denna app, vänligen kontakta supporten via någon av metoderna nedan. Men alla frågor som vi inte kan lösa är vi inte ansvariga för.</value>
+  </data>
+  <data name="AboutTB.Text" xml:space="preserve">
+    <value>OM</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, för teorier Apps-ikonen</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="ChangelogTB.Text" xml:space="preserve">
+    <value>ändringslogg</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>begå</value>
+  </data>
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
+    <value>Designad av Lightmagic Apps</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value> utvecklad av Avid29 och KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Diskutera på Twitter</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Har du inget konto?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>E-post </value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Glömt ditt lösenord?</value>
+  </data>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>Lyckades!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>förbinder...</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Lämna respons!/Lämna feedback!/Lämna åsikter!</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>LOGGA IN</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
 </root>

@@ -187,7 +187,7 @@
     <value>פרטים</value>
   </data>
   <data name="EditChannelNameTBox.Header" xml:space="preserve">
-    <value>שֵׁם</value>
+    <value>שם קובץ:</value>
   </data>
   <data name="EditChannelTB.Text" xml:space="preserve">
     <value>עריכת ערוצים</value>
@@ -217,7 +217,7 @@
     <value>הרשאות כלליות</value>
   </data>
   <data name="HeightTB.Text" xml:space="preserve">
-    <value>גוֹבַה:</value>
+    <value>גוֹבה:</value>
   </data>
   <data name="IAPsTB.Text" xml:space="preserve">
     <value>רכש</value>
@@ -277,7 +277,7 @@
     <value>להשתיק חברים</value>
   </data>
   <data name="NameTB.Text" xml:space="preserve">
-    <value>שֵׁם</value>
+    <value>שם</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
     <value>אין באנים</value>

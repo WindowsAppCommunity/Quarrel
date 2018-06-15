@@ -160,7 +160,7 @@
     <value>Invitación caducada o inválida</value>
   </data>
   <data name="InviteJoin" xml:space="preserve">
-    <value>A</value>
+    <value>Unirse</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
     <value>Te has unido a</value>
@@ -169,7 +169,7 @@
     <value>Cantidad máxima de usos alcanzados</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecte, a menos que se les asigne un rol.</value>
+    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecten, a menos que se les asigne un rol.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>NATURALEZA</value>
@@ -187,7 +187,7 @@
     <value>GENTE</value>
   </data>
   <data name="PinItem.Text" xml:space="preserve">
-    <value>Alfiler</value>
+    <value>Anclar</value>
   </data>
   <data name="Playing" xml:space="preserve">
     <value>Jugando</value>
@@ -229,7 +229,7 @@
     <value>Vínculo vencido</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>caduca en</value>
+    <value>caduca en &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
     <value>nunca caduca</value>
@@ -265,10 +265,10 @@
     <value>quitado</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>a la conversación</value>
+    <value>&lt;user&gt; a la conversación</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>de la conversación</value>
+    <value>&lt;user&gt; de la conversación</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
     <value>Te perdiste una llamada de</value>
@@ -277,7 +277,7 @@
     <value>ha fijado un mensaje en este canal.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Llamada iniciada por</value>
+    <value>Llamada iniciada por &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
     <value>inició una llamada</value>
@@ -292,6 +292,39 @@
     <value>se unió al servidor!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Editado en</value>
+    <value>Editado en &lt;time&gt;</value>
+  </data>
+  <data name="JoinListenSessionBTN.Content" xml:space="preserve">
+    <value>Unirse a la sesión de escucha</value>
+  </data>
+  <data name="SessionOverTB.Text" xml:space="preserve">
+    <value> la sesión de Spotify ha terminado :'(</value>
+  </data>
+  <data name="AddAttachMFI.Text" xml:space="preserve">
+    <value>Adjuntos</value>
+  </data>
+  <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar con Giphy</value>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Escuchando a</value>
+  </data>
+  <data name="LoadingTB.Text" xml:space="preserve">
+    <value>CARGANDO</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Buscar Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Mandar una invitación de Spotify</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Mensahe Bloqueado</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Agregar una nota</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Volumen</value>
   </data>
 </root>

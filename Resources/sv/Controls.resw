@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACTIVITIES" xml:space="preserve">
+    <value>AKTIVITETER</value>
+  </data>
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>BLOCKERAS</value>
+  </data>
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Kopiera ID</value>
+  </data>
+  <data name="EditItem.Text" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="FLAGS" xml:space="preserve">
+    <value>FLAGGOR</value>
+  </data>
+  <data name="FOOD" xml:space="preserve">
+    <value>MAT</value>
+  </data>
+  <data name="InviteJoin" xml:space="preserve">
+    <value>gå</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>FOLK</value>
+  </data>
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value>uppgift</value>
+  </data>
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value>sök</value>
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>Användningar</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>Använd</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Skicka medelande</value>
+  </data>
+  <data name="Call.Text" xml:space="preserve">
+    <value>Ring</value>
+  </data>
+  <data name="FriendsLI.Content" xml:space="preserve">
+    <value>Vänner</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>&lt;user&gt; samtal har påbörjat</value>
+  </data>
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>SPELAR</value>
+  </data>
+  <data name="LoadingTB.Text" xml:space="preserve">
+    <value>LADDAR IN</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Sök Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Skicka Spotify Invitation</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Blockerat medelande</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Lägg till anteckning</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Volym</value>
+  </data>
 </root>

@@ -306,4 +306,32 @@
   <data name="WhatsNewABB.Label" xml:space="preserve">
     <value>What's New</value>
   </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; members</value>
+  </data>
+  <data name="NewMessageHLBTN.Content" xml:space="preserve">
+    <value>NEW MESSAGES</value>
+    <comment>Iconic tile template, used for badge tile updates</comment>
+  </data>
+  <data name="IgnoreHLBTN.Content" xml:space="preserve">
+    <value>IGNORE</value>
+  </data>
+  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
+    <value>RETURN TO PRESENT</value>
+  </data>
+  <data name="AboutMFI.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>What's New?</value>
+  </data>
+  <data name="RemoveAds.Text" xml:space="preserve">
+    <value>Remove Ads</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AddAttachementTB.Text" xml:space="preserve">
+    <value>ADD ATTACHEMENT</value>
+  </data>
 </root>
