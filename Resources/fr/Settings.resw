@@ -291,4 +291,43 @@
   <data name="Logout" xml:space="preserve">
     <value>Se déconnecter</value>
   </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Son</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Activer les notifications en arrière-plan</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Désactiver les notifications en arrière-plan</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>Vous recevrez des notifications pour ce qui est sélectionné ci-dessous chaque fois que la tache est executée</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICATIONS EN ARRIÈRE-PLAN</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>Messages Directs non lus</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Demandes d'ami</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>Nouvelles mentions</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICATIONS IN-APP</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Illuminer le côté gauche de l'écran lorsque vous êtes mentionné</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Sortie audio</value>
+  </data>
+  <data name="OutputDeviceOverrideCB.Content" xml:space="preserve">
+    <value>Vous pouvez choisir une autre sortie en effectuant un clic droit sur le bouton "Assourdir"</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Paramètres du compte</value>
+  </data>
 </root>

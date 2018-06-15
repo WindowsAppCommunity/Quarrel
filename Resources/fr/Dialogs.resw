@@ -519,4 +519,88 @@
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>ADD-ONS</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>ÊTES VOUS SÛR?</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>Réinitialiser Quarrel</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>PARAMÈTRES DU COMPTE</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Paramètres de l'application</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Changer de mot de passe</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Mot de passe actuel</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>Désolé :/</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>Nous n'avons pas réussi à modifier les détails de votre compte, vous êtes sûr que tout est correct?</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Ajouter une image</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>Aucun sujet défini</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>Quarrel sera complètement réinitialisé, donc vous serez déconnecté et tous les paramètres seront réinitialisés. Votre compte discord ne sera pas affecté.</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>Nous recommandons une image d'au moins 512x512px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>Annuler la modification d'icone</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>SALON</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>Vous devez vous être connecté à Quarrel</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>SERVEUR</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Partager</value>
+  </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>ÉCOUTER ENSEMBLE SUR SPOTIFY</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Aucune note</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>Connexions</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
 </root>

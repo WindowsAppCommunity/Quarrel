@@ -294,4 +294,16 @@
   <data name="FriendsButtonText.Text" xml:space="preserve">
     <value>Amis</value>
   </data>
+  <data name="RemoveAdsABB.Label" xml:space="preserve">
+    <value>Supprimer les publicités</value>
+  </data>
+  <data name="ShowPinnedABB.Label" xml:space="preserve">
+    <value>Afficher les messages épinglés</value>
+  </data>
+  <data name="ToggleMember.Label" xml:space="preserve">
+    <value>Afficher la liste des membres</value>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Quoi de neuf?</value>
+  </data>
 </root>
