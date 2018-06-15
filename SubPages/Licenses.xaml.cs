@@ -53,5 +53,44 @@ namespace Discord_UWP.SubPages
             NavAway.Begin();
             App.SubpageClosed();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (mitlicense.Visibility == Visibility.Visible)
+                mitlicense.Visibility = Visibility.Collapsed;
+            else
+                mitlicense.Visibility = Visibility.Visible;
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (mspllicense.Visibility == Visibility.Visible)
+                mspllicense.Visibility = Visibility.Collapsed;
+            else
+                mspllicense.Visibility = Visibility.Visible;
+            
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (concentuslicense.Visibility == Visibility.Visible)
+                concentuslicense.Visibility = Visibility.Collapsed;
+            else
+                concentuslicense.Visibility = Visibility.Visible;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            if (apachelicense.Visibility == Visibility.Visible)
+                apachelicense.Visibility = Visibility.Collapsed;
+            else
+                apachelicense.Visibility = Visibility.Visible;
+        }
     }
 }

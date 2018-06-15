@@ -70,8 +70,6 @@ namespace Discord_UWP.Controls
         {
             AttachedImageViewer.Source = null;
             AttachedImageViewbox.Visibility = Visibility.Collapsed;
-            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
-            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
             LoadingImage.IsActive = false;
             LoadingImage.Visibility = Visibility.Collapsed;
             AttachedFileViewer.Visibility = Visibility.Collapsed;
@@ -104,8 +102,6 @@ namespace Discord_UWP.Controls
                 AttachedImageViewbox.Visibility = Visibility.Visible;
                 LoadingImage.Visibility = Visibility.Visible;
                 LoadingImage.IsActive = true;
-                AttachedImageViewer.ImageOpened += AttachedImageViewer_ImageLoaded;
-                AttachedImageViewer.ImageFailed += AttachementImageViewer_ImageFailed;
             }
             else
             {
@@ -151,13 +147,6 @@ namespace Discord_UWP.Controls
             {
                 await Launcher.LaunchUriAsync(new Uri("file:///" + Uri.EscapeUriString(DisplayedAttachement.Url.Replace('\\','/'))));
             }
-        }
-
-        public void Dispose()
-        {
-            AttachedImageViewer.ImageOpened -= AttachedImageViewer_ImageLoaded;
-            AttachedImageViewer.ImageFailed -= AttachementImageViewer_ImageFailed;
-            GC.Collect();
         }
     }
 }

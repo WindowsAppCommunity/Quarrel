@@ -12,7 +12,7 @@
 
     <Grid>
         <Viewbox x:Name="AttachedImageViewbox" extensions:Mouse.Cursor="Hand" HorizontalAlignment="Left" Visibility="Visible" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
-            <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped"/>
+            <Image x:Name="AttachedImageViewer" Tapped="AttachedImageViewer_Tapped" ImageOpened="AttachedImageViewer_ImageLoaded" ImageFailed="AttachementImageViewer_ImageFailed"/>
         </Viewbox>
         <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
         <Grid x:Name="AttachedFileViewer" Margin="0" Padding="6" Grid.Row="4" Grid.Column="1" Visibility="Visible" VerticalAlignment="Top">
