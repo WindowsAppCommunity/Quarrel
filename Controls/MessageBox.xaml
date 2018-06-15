@@ -647,22 +647,22 @@
                     <ScaleTransform x:Name="attachButtonScale" CenterX="10" CenterY="10"/>
                 </Grid.RenderTransform>
                 <SymbolIcon x:Name="moreSymbol" Symbol="More" Visibility="Visible"/>
-                <SymbolIcon x:Name="attachSymbol" Symbol="Attach" Visibility="Collapsed"></SymbolIcon>
-                
+                <SymbolIcon x:Name="attachSymbol" Symbol="Attach" Visibility="Collapsed"/>
+
             </Grid>
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                    <MenuFlyoutItem Text="Search giphy" Click="AddGiphy_Click">
+                    <MenuFlyoutItem x:Uid="/Controls/SearchGiphyMFI" Text="Search giphy" Click="AddGiphy_Click">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="BrowsePhotos"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem Text="Add attachement" Click="AddAttachement_Click">
+                    <MenuFlyoutItem x:Uid="/Controls/AddAttachMFI"  Text="Add attachement" Click="AddAttachement_Click">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Attach"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutItem x:Name="spotifyInvite"  Visibility="Collapsed" Text="Send Spotify invite" Click="SpotifyInvite" Foreground="#1DB954">
+                    <MenuFlyoutItem x:Uid="/Controls/SendSpotifyInvMFI" x:Name="spotifyInvite" Visibility="Collapsed" Text="Send Spotify invite" Click="SpotifyInvite" Foreground="#1DB954">
                         <MenuFlyoutItem.Icon>
                             <SymbolIcon Symbol="Play" Foreground="#1DB954"/>
                         </MenuFlyoutItem.Icon>
@@ -699,7 +699,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <TextBox x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle1}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
+            <TextBox x:Uid="/Controls/GiphySearchTBox" x:Name="giphySearch" PlaceholderText="Search with Giphy" Style="{StaticResource TextBoxStyle1}" VerticalAlignment="Bottom" Margin="0,0,0,6" TextChanged="TextBox_TextChanged" Grid.Row="1"/>
         </Grid>
     </Grid>
 </UserControl>

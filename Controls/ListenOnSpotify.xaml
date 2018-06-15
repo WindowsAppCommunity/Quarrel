@@ -18,9 +18,8 @@
                 <TextBlock x:Name="trackTitle" Text="" FontWeight="Bold" TextWrapping="Wrap" MaxLines="2" HorizontalAlignment="Left"/>
                 <TextBlock x:Name="artistTitle" Opacity="0.75" Text="" TextWrapping="Wrap" MaxLines="2" FontSize="12" Margin="0,4,0,0"/>
             </StackPanel>
-            <Button HorizontalAlignment="Left" Padding="12,8" VerticalAlignment="Bottom" Background="White" Content="Join listening session" Style="{StaticResource DiscordButton}" Margin="112,12,0,0"/>
-
+            <Button x:Uid="/Controls/JoinListenSessionBTN" HorizontalAlignment="Left" Padding="12,8" VerticalAlignment="Bottom" Background="White" Content="Join listening session" Style="{StaticResource DiscordButton}" Margin="112,12,0,0"/>
         </Grid>
-        <TextBlock x:Name="sessionOver" Visibility="Collapsed" Text="SPOTIFY SESSION IS OVER :'(" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Opacity="0.75" Margin="64,0,64,0"/>
+        <TextBlock x:Uid="/Controls/SessionOverTB" x:Name="sessionOver" Visibility="Collapsed" Text="SPOTIFY SESSION IS OVER :'(" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Opacity="0.75" Margin="64,0,64,0"/>
     </Grid>
 </UserControl>
