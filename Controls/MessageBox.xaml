@@ -605,7 +605,7 @@
                 <TranslateTransform x:Name="PopupTransform"/>
             </Popup.RenderTransform>
             <Border CornerRadius="4,4,0,0" SizeChanged="FrameworkElement_OnSizeChanged" BorderBrush="{ThemeResource Blurple}" BorderThickness="1,1,1,0" Background="{ThemeResource DeepBG}">
-                <ListView x:Name="SuggestionBlock" Width="{Binding ActualWidth, ElementName=MessageEditor}" IsItemClickEnabled="True" ItemClick="SuggestionBlock_OnItemClick">
+                <ListView x:Name="SuggestionBlock" Width="{Binding ActualWidth, ElementName=MessageEditor}" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource ChannelItemStyle}" ItemClick="SuggestionBlock_OnItemClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel VerticalAlignment="Bottom"/>
@@ -613,7 +613,21 @@
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Key}"/>
+                            <Grid VerticalAlignment="Top" Padding="0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Height="24" Width="24" RadiusX="10" RadiusY="20" HorizontalAlignment="Left" Margin="0,0,8,0">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="{Binding image}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <TextBlock TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontSize="13.333"  Text="{Binding name}" Grid.Column="1" Margin="0,0,6,0"/>
+
+                                <TextBlock TextTrimming="CharacterEllipsis" VerticalAlignment="Center" TextAlignment="Right" FontSize="11" Opacity="0.5" Text="{Binding namealt}" Grid.Column="2" HorizontalAlignment="Right" Margin="6,0,0,0"/>
+                            </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

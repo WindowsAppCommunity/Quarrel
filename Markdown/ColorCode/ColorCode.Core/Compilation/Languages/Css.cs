@@ -16,7 +16,7 @@ namespace ColorSyntax.Compilation.Languages
         {
             get { return "CSS"; }
         }
-
+        string[] ILanguage.Aliases => new string[] { "css" };
         public string CssClassName
         {
             get { return "css"; }

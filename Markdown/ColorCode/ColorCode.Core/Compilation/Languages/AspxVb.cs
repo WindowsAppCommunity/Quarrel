@@ -146,7 +146,7 @@ namespace ColorSyntax.Compilation.Languages
                     return false;
             }
         }
-
+        string[] ILanguage.Aliases => new string[] { "aspx-vb", "aspx (vb.net)", "aspx(vb.net)", "aspxvb" };
         public override string ToString()
         {
             return Name;

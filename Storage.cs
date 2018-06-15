@@ -29,6 +29,7 @@ namespace Discord_UWP
         private static bool deferralling = false; //"Deferalling", I'm basically shakespeare, right?
         public static void UpdateNotificationState(string id, string timestamp)
         {
+            //return;
             if (!deferralling)
                 UNSdeferralStart();
             
@@ -42,10 +43,12 @@ namespace Discord_UWP
         }
         public static void UNSclear()
         {
+           // return;
             nrs2 = new Dictionary<string, string>();
         }
         public static void UNSdeferralStart()
         {
+           // return;
             deferralling = false;
             var ls = ApplicationData.Current.LocalSettings.Values;
             if (!ls.ContainsKey("NotificationStates"))
