@@ -46,8 +46,8 @@ namespace Discord_UWP.SubPages
             base.OnNavigatedTo(e);
             StorageFile commitinfo = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/CommitInfo.txt"));
             IList<string> details = await FileIO.ReadLinesAsync(commitinfo);
-            buildId.Text = "Commit " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
-            buildNumber.Text = "Build " + details[2];
+            buildId.Text = App.GetString("/About/Commit") + " " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
+            buildNumber.Text = App.GetString("/About/Build") + " " + details[2];
         }
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
