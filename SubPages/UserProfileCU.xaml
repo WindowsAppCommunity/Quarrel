@@ -91,10 +91,10 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Uid="AccountSettingTB" x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <ScrollViewer Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <StackPanel Grid.Row="0" Margin="12,12,24,0" Padding="0,0,0,24">
-                            <TextBlock Text="ACCOUNT" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                            <TextBlock x:Uid="AccountTB" Text="ACCOUNT" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
                             <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -108,14 +108,14 @@
                                 </Rectangle>
                                 <StackPanel Margin="0,6,0,0"  Grid.Row="1">
                                    
-                                    <HyperlinkButton x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
-                                    <HyperlinkButton x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                                    <HyperlinkButton x:Uid="UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                    <HyperlinkButton x:Uid="DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                 </StackPanel>
                             </Grid>
-                            <TextBox x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
-                            <TextBox x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
-                            <PasswordBox x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                            <HyperlinkButton x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                            <TextBox x:Uid="UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
+                            <TextBox x:Uid="EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
+                            <PasswordBox x:Uid="CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
+                            <HyperlinkButton x:Uid="ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                             <PasswordBox x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
                             <TextBlock Text="Connections" Margin="0,12" Visibility="Collapsed"/>
                             <Grid Height="100" Margin="25,0" Visibility="Collapsed">
@@ -181,14 +181,14 @@
                         </StackPanel>
                     </ScrollViewer>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
-                        <HyperlinkButton Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
+                        <HyperlinkButton x:Uid="AppSettingsHLBTN" Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
+                            <Button x:Uid="SaveBTN" x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
                                 <Button.Content>
                                         <Grid>
                                             <TextBlock x:Name="saveBTNtext" Text="Save"/>
