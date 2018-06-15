@@ -324,10 +324,10 @@
   <data name="OutputDevicesCB.Header" xml:space="preserve">
     <value>Sortie audio</value>
   </data>
-  <data name="OutputDeviceOverrideCB.Content" xml:space="preserve">
-    <value>Vous pouvez choisir une autre sortie en effectuant un clic droit sur le bouton "Assourdir"</value>
-  </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
     <value>Paramètres du compte</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Vous pouvez choisir une autre sortie en effectuant un clic droit sur le bouton "Assourdir"</value>
   </data>
 </root>
