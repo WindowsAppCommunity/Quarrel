@@ -1401,8 +1401,8 @@
                                 </Rectangle>
                                 <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
                                     <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
+                                    <HyperlinkButton x:Uid="/Main/NewMessageHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
+                                    <HyperlinkButton x:Uid="/Main/IgnoreHLBTN" FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
                                 </StackPanel>
                             </Grid>
                             <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Collapsed" Opacity="0" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
@@ -1422,7 +1422,7 @@
                                 </Rectangle>
                                 <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" VerticalAlignment="Bottom"  Margin="12,8,24,8" >
                                     <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top" Foreground="{ThemeResource Blurple}"/>
-                                    <HyperlinkButton FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
+                                    <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
                                 </StackPanel>
                             </Grid>
                             <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
@@ -1488,10 +1488,10 @@
                                         <controls:ControllerHint.ContextFlyout>
                                             <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                                                <!-- <MenuFlyoutSeparator/>-->
-                                                <MenuFlyoutItem Text="About" Click="NavToAbout" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem Text="What's New?" Click="WhatsNewClick" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem Text="Remove Ads" Click="NavToIAPs" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem Text="Settings" Click="OpenSettings" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem x:Uid="/Main/AboutMFI" Text="About" Click="NavToAbout" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem x:Uid="/Main/WhatsNewMFI" Text="What's New?" Click="WhatsNewClick" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem x:Uid="/Main/RemoveAdsMFI" Text="Remove Ads" Click="NavToIAPs" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                <MenuFlyoutItem x:Uid="/Main/SettingsMFI" Text="Settings" Click="OpenSettings" Style="{StaticResource MenuFlyoutItemStyle1}"/>
                                             </MenuFlyout>
                                         </controls:ControllerHint.ContextFlyout>
                                     </controls:ControllerHint>
@@ -1751,7 +1751,7 @@
                     <CompositeTransform/>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <TextBlock Foreground="{ThemeResource Greyple}" FontWeight="SemiLight" FontSize="16" Text="ADD ATTACHEMENT" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="64" RenderTransformOrigin="0.5,0.5">
+            <TextBlock x:Uid="/Main/AddAttachementTB" Foreground="{ThemeResource Greyple}" FontWeight="SemiLight" FontSize="16" Text="ADD ATTACHEMENT" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="64" RenderTransformOrigin="0.5,0.5">
                 <TextBlock.RenderTransform>
                     <CompositeTransform/>
                 </TextBlock.RenderTransform>
