@@ -9,7 +9,7 @@
     MaxWidth="324"
     
     d:DesignHeight="300"
-    d:DesignWidth="400" Margin="0,4,24,4" HorizontalAlignment="Left">
+    d:DesignWidth="400" Margin="0,4,24,4" HorizontalAlignment="Left" Unloaded="UserControl_Unloaded">
 
     <Button Padding="0" Style="{StaticResource DiscordButton}" Click="Button_Click">
         <Button.Background>

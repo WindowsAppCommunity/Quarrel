@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.SharedModels;
 using Gregstoll;
 using Discord_UWP.MarkdownTextBlock;
+using Windows.ApplicationModel.DataTransfer;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -281,11 +282,12 @@ namespace Discord_UWP.Controls
             }
             
         }
-
+        DataTransferManager transfermanager;
         private void ShareEmbed(object sender, RoutedEventArgs e)
         {
+            transfermanager = Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView();
             Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
-            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested += EmbedControl_DataRequested;
+            transfermanager.DataRequested += EmbedControl_DataRequested;
         }
 
         private void EmbedControl_DataRequested(Windows.ApplicationModel.DataTransfer.DataTransferManager sender, Windows.ApplicationModel.DataTransfer.DataRequestedEventArgs args)
@@ -303,8 +305,13 @@ namespace Discord_UWP.Controls
 
         public void Dispose()
         {
-            Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
-            GC.Collect();
+            if(transfermanager != null)
+            transfermanager.DataRequested -= EmbedControl_DataRequested;
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
     }
 }

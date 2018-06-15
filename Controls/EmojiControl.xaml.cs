@@ -61,6 +61,8 @@ namespace Discord_UWP.Controls
 
             public void Emoji_ChangedDiversity(object sender, ChangedDiversityArgs e)
             {
+                if(e.skintone == -1)
+                    
                 if (names.Count > 1)
                 {
                     names[1] = "skin-tone-" + e.skintone.ToString();

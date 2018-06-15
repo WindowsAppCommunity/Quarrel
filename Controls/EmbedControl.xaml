@@ -12,7 +12,7 @@
     x:Class="Discord_UWP.Controls.EmbedControl"
     mc:Ignorable="d"
     d:DesignHeight="200"
-    d:DesignWidth="400" HorizontalAlignment="Left">
+    d:DesignWidth="400" HorizontalAlignment="Left" Unloaded="UserControl_Unloaded">
 
     <Border CornerRadius="4" Background="{ThemeResource MidBG}">
         <Grid>
