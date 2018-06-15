@@ -294,4 +294,7 @@
   <data name="FriendsButtonText.Text" xml:space="preserve">
     <value>חברים</value>
   </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; חברים</value>
+  </data>
 </root>

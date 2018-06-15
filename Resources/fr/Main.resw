@@ -306,4 +306,7 @@
   <data name="WhatsNewABB.Label" xml:space="preserve">
     <value>Quoi de neuf?</value>
   </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; membres</value>
+  </data>
 </root>
