@@ -118,23 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>La discordia UWP es un</value>
+    <value>Quarrel es un cliente</value>
     <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>no oficial</value>
+    <value>no oficial </value>
     <comment>Disclaimer pt. 2 in bold</comment>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>cliente para la discordia.</value>
+    <value>para Discord.</value>
     <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>Los desarrolladores no están de ninguna manera afiliados con Hammer &amp; cincel, Inc</value>
+    <value>Los desarrolladores no están de ninguna manera afiliados con Discord, Inc.</value>
     <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>, la compañía que construyó discordia. Si algo sale mal mientras estás usando esta aplicación (no lo hará), los únicos responsables son los desarrolladores de esta aplicación.</value>
+    <value>Si algo sale mal mientras usa esta aplicación, por favor, contacte al soporte a través de cualquiera de oos métodos debajo. Sin embargo, no somos responsables de los problemas que no podamos resolver.</value>
     <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
@@ -169,7 +169,7 @@
     <comment>Message if joining the server fails</comment>
   </data>
   <data name="JoinSucess" xml:space="preserve">
-    <value>Éxito!</value>
+    <value>¡Éxito!</value>
     <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
@@ -191,5 +191,41 @@
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
     <value>Unirse a discordia UWP servidor</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, por conceptualizó icono de Quarrel</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (Que escibió la aplicación impresionante de MyTube) por los consejos y la ayuda inestimables</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>¿No tienes una cuenta?</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licensias</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENSIAS</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>ACCESO</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Estás desconectado o en una conexión demasiado lento</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Cliente de Discord para la Plataforma Universal de Windows</value>
+  </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel usa algunas librerías externas para funcionar:</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Agradecimientos Especiales:</value>
   </data>
 </root>

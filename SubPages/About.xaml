@@ -149,7 +149,7 @@
                                         <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Discord, Inc.</Run>
                                     </Bold>
                                     <Run x:Uid="/About/AboutDesc5">
-                                        If something goes wrong while you are using this app (it won't), the only ones responsible are the developpers of this application.
+                                        If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.
                                     </Run>
                                 </Paragraph>
                             </RichTextBlock>
@@ -175,6 +175,7 @@
                             <TextBlock x:Uid="/About/SpecialThxTB" Text="Special Thanks:"/>
                             <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                             <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                            <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
                             <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
                         </StackPanel>
                         

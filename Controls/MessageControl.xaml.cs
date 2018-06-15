@@ -188,7 +188,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
-                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/AddedUser") + " **" + Message.Mentions.First().Username + "** " + App.GetString("/Controls/ToTheConversation");
+                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/AddedUser") + App.GetString("/Controls/ToTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
                     else if (MessageType == MessageTypes.RecipientRemoved)
                     {
@@ -197,7 +197,7 @@ namespace Discord_UWP.Controls
                         VisualStateManager.GoToState(this, "Alternative", false);
                         AlternativeIcon.Glyph = "";
                         AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
-                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/RemovedUser") + " **" + Message.Mentions.First().Username + "** " + App.GetString("/Controls/FromTheConversation");
+                        content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/RemovedUser") + App.GetString("/Controls/FromTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
                     else if(MessageType == MessageTypes.ChannelIconChanged)
                     {
@@ -229,7 +229,7 @@ namespace Discord_UWP.Controls
                         if (Message.User.Id == LocalState.CurrentUser.Id)
                             content.Text = App.GetString("/Controls/You") + " " + App.GetString("/Controls/StartedACall");
                         else
-                            content.Text = App.GetString("/Controls/CallStartedBy") + " **" + Message.User.Username + "**";
+                            content.Text = App.GetString("/Controls/CallStartedBy").Replace("<user>", "**" + Message.User.Username + "**");
                     }
                     else if (MessageType == MessageTypes.PinnedMessage)
                     {

@@ -127,7 +127,7 @@
     <value>Ban miembro</value>
   </data>
   <data name="Block" xml:space="preserve">
-    <value>Bloque</value>
+    <value>Bloquear</value>
   </data>
   <data name="ChangeNickname" xml:space="preserve">
     <value>Cambiar apodo</value>
@@ -151,7 +151,7 @@
     <value>Invitar al servidor</value>
   </data>
   <data name="KickMember" xml:space="preserve">
-    <value>Kick miembro</value>
+    <value>Expulsar miembro</value>
   </data>
   <data name="LeaveGroup" xml:space="preserve">
     <value>Dejar Grupo</value>
@@ -181,10 +181,10 @@
     <value>Error al anclar :' (</value>
   </data>
   <data name="PinSucess" xml:space="preserve">
-    <value>¡Sucessfuly atrapado!</value>
+    <value>¡Anclado exitosamente!</value>
   </data>
   <data name="PinToStart" xml:space="preserve">
-    <value>Desde para iniciar</value>
+    <value>Anclar al inicio</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Perfil</value>
@@ -214,6 +214,6 @@
     <value>¡Sucessfuly desanclado!</value>
   </data>
   <data name="CloseDM" xml:space="preserve">
-    <value>Cerrar DM</value>
+    <value>Cerrar MD</value>
   </data>
 </root>
