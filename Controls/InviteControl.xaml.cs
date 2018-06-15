@@ -84,7 +84,7 @@ namespace Discord_UWP.Controls
                 {
                     var timeDiff = TimeSpan.FromSeconds(DisplayedInvite.MaxAge -
                                                         DateTime.Now.Subtract(creationTime).TotalSeconds);
-                    useField += App.GetString("/Controls/expiresIn") + " " + timeDiff.ToString(@"hh\:mm\:ss");
+                    useField += App.GetString("/Controls/expiresIn").Replace("<time>", timeDiff.ToString(@"hh\:mm\:ss"));
 
                     DispatcherTimer timer = new DispatcherTimer();
                     timer.Interval = TimeSpan.FromSeconds(1);
