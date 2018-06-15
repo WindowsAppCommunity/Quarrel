@@ -947,7 +947,7 @@ namespace Discord_UWP
                          string[] channels = new string[LocalState.DMs.Count];
                          for (int x = 0; x < LocalState.DMs.Count; x++)
                          {
-                             channels[x] = LocalState.DMs.Values.ToList()[x].Id;
+                             channels[x] = LocalState.DMs.Values.ElementAt(x).Id;
                          }
                          GatewayManager.Gateway.SubscribeToGuild(channels);
                      }
@@ -957,7 +957,7 @@ namespace Discord_UWP
                          channels[0] = App.CurrentGuildId;
                          for (int x = 1; x < LocalState.Guilds[App.CurrentGuildId].channels.Count; x++)
                          {
-                             channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
+                             channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ElementAt(x).raw.Id;
                          }
 
                          GatewayManager.Gateway.SubscribeToGuild(channels);
@@ -1847,7 +1847,7 @@ namespace Discord_UWP
             });
             if (emessages != null)
             {
-                var messages = await MessageManager.ConvertMessage(emessages.ToList());
+                var messages = await MessageManager.ConvertMessage(emessages);
                 AddMessages(Position.After, true, messages, true);
             } else
             {
@@ -1861,7 +1861,7 @@ namespace Discord_UWP
             });
             if (epinnedmessages != null)
             {
-                var pinnedmessages = await MessageManager.ConvertMessage(epinnedmessages.ToList());
+                var pinnedmessages = await MessageManager.ConvertMessage(epinnedmessages);
                 pinnedmessages.Reverse();
                 if (pinnedmessages != null)
                 {
@@ -1886,7 +1886,7 @@ namespace Discord_UWP
             sw.Start();
             ReturnToPresentIndicator.Visibility = Visibility.Collapsed;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
-            if (messages != null && messages.Count > 0)
+            if (messages != null && messages.Count() > 0)
             {
                 MessageManager.MessageContainer scrollTo = null;
                 if (showNewMessageIndicator)
@@ -2283,7 +2283,7 @@ namespace Discord_UWP
         {
             DisableLoadingMessages = true;
             MessagesLoadingTop.Visibility = Visibility.Visible;
-            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
+            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)));
             AddMessages(Position.Before, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
             MessagesLoadingTop.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
@@ -2328,7 +2328,7 @@ namespace Discord_UWP
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
                     DisableLoadingMessages = true;
-                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)));
                     messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
                     AddMessages(Position.After, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -2349,7 +2349,7 @@ namespace Discord_UWP
                     MessagesLoadingTop.Visibility = Visibility.Visible;
                     MessageList.Items.Clear();
                     DisableLoadingMessages = true;
-                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAround(App.CurrentChannelId, id)).ToList());
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAround(App.CurrentChannelId, id)));
                     AddMessages(Position.After, true, messages, true);
                     MessagesLoadingTop.Visibility = Visibility.Collapsed;
                     await Task.Delay(1000);
