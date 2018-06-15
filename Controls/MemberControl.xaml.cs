@@ -146,11 +146,11 @@ namespace Discord_UWP.Controls
                         switch (Status.Game.Type)
                         {
                             case 0:
-                                playing.Text = "Playing"; break;
+                                playing.Text = App.GetString("/Controls/Playing"); break;
                             case 1:
-                                playing.Text = "Streaming"; break;
+                                playing.Text = App.GetString("/Controls/Streaming"); break;
                             case 2:
-                                playing.Text = "Listening to"; break;
+                                playing.Text = App.GetString("/Controls/ListeningTo"); break;
                         }
                     }
                     else

@@ -486,7 +486,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0"/> <!--TODO: Soundboard-->
             </Grid.ColumnDefinitions>
-            <Slider x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
+            <Slider x:Uid="/Controls/VolumeSlide" x:Name="VolumeSlider" Header="Volume" Value="100" Maximum="125" Minimum="0" ValueChanged="VolumeSlider_ValueChanged"/>
         </Grid>
         <Grid x:Name="ChannelGrid" Visibility="Collapsed" Grid.Row="2" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RenderTransform>

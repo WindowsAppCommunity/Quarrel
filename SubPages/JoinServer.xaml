@@ -96,7 +96,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBox x:Name="Invite" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" />
                         </Grid>
-                        <TextBlock x:Uid="JoinServerErrorTB" x:Name="Error" FontSize="12" Visibility="Collapsed" Foreground="Red" Text="Sorry, but the invite code is invalid or Expired" Margin="0,4,0,0"></TextBlock>
+                        <TextBlock x:Uid="/Dialogs/JoinServerErrorTB" x:Name="Error" FontSize="12" Visibility="Collapsed" Foreground="Red" Text="Sorry, but the invite code is invalid or Expired" Margin="0,4,0,0"></TextBlock>
                     </StackPanel>
                     <Grid Grid.Row="2" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" >
