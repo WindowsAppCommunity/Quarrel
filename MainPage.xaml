@@ -1128,7 +1128,7 @@
                     <ImageBrush ImageSource="{StaticResource BGImage}"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle x:Name="TitleBarHolder" Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
+            <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1"  Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
             <CommandBar x:Name="cmdBar" Grid.Row="1" Canvas.ZIndex="1"  Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0" Opening="cmdBar_Opening" Closed="cmdBar_Closing" Style="{StaticResource CommandBarStyle2}">
                 <CommandBar.Content>
                     <StackPanel Orientation="Horizontal">
