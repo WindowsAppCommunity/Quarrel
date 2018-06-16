@@ -930,24 +930,29 @@
                                     <!--<CheckBox x:Uid="/Settings/GifsOnHoverCB" x:Name="GifsOnHover" Style="{StaticResource CheckBoxStyle1}" Content="Only play gifs on hover or click" Margin="0,0,0,0"/>-->
 
                                     <!--<CheckBox x:Name="AutoChannel" Content="Auto Select Channel (On server select)" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"/>-->
-
-                                    <ComboBox x:Uid="/Settings/DateFormat" x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
-                                        <ComboBoxItem Content="M/d/yyyy"/>
-                                        <ComboBoxItem Content="M/d/yy"/>
-                                        <ComboBoxItem Content="MM/dd/yy"/>
-                                        <ComboBoxItem Content="MMM/dd/yy"/>
-                                        <ComboBoxItem Content="Custom"/>
-                                    </ComboBox>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Uid="/Settings/DateFormat" x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
+                                            <ComboBoxItem Content="M/d/yyyy"/>
+                                            <ComboBoxItem Content="M/d/yy"/>
+                                            <ComboBoxItem Content="MM/dd/yy"/>
+                                            <ComboBoxItem Content="MMM/dd/yyyy"/>
+                                            <ComboBoxItem Content="Custom"/>
+                                        </ComboBox>
+                                        <TextBlock x:Name="DateExample" VerticalAlignment="Center" Text="12/7/2001" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
+                                    </StackPanel>
 
                                     <TextBox x:Name="CustomDateF" Header="Custom Date Format"/>
 
-                                    <ComboBox x:Uid="/Settings/TimeFormat" x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
-                                        <ComboBoxItem Content="hh:mm"/>
-                                        <ComboBoxItem Content="H:mm"/>
-                                        <ComboBoxItem Content="hh:mm:ss tt"/>
-                                        <ComboBoxItem Content="HH:mm:ss"/>
-                                        <ComboBoxItem Content="Custom"/>
-                                    </ComboBox>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Uid="/Settings/TimeFormat" x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
+                                            <ComboBoxItem Content="hh:mm"/>
+                                            <ComboBoxItem Content="H:mm"/>
+                                            <ComboBoxItem Content="hh:mm:ss tt"/>
+                                            <ComboBoxItem Content="HH:mm:ss"/>
+                                            <ComboBoxItem Content="Custom"/>
+                                        </ComboBox>
+                                        <TextBlock x:Name="TimeExample" VerticalAlignment="Center" Text="04:20" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
+                                    </StackPanel>
 
                                     <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}"/>
 

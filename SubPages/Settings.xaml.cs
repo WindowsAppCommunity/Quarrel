@@ -432,13 +432,24 @@ namespace Discord_UWP.SubPages
         {
             if (CustomTimeF != null)
             {
-                if ((sender as ComboBox).SelectedIndex == 4)
+                CustomTimeF.Visibility = Visibility.Collapsed;
+                switch ((sender as ComboBox).SelectedIndex)
                 {
-                    CustomTimeF.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    CustomTimeF.Visibility = Visibility.Collapsed;
+                    case 0:
+                        TimeExample.Text = (new DateTime(1007698800000).ToString("hh:mm"));
+                        break;
+                    case 1:
+                        TimeExample.Text = (new DateTime(1007698800000).ToString("H:mm"));
+                        break;
+                    case 2:
+                        TimeExample.Text = (new DateTime(1007698800000).ToString("hh:mm:ss tt"));
+                        break;
+                    case 3:
+                        TimeExample.Text = (new DateTime(1007698800000).ToString("HH:mm:ss"));
+                        break;
+                    case 4:
+                        CustomTimeF.Visibility = Visibility.Visible;
+                        break;
                 }
             }
         }
@@ -447,13 +458,24 @@ namespace Discord_UWP.SubPages
         {
             if (CustomDateF != null)
             {
-                if ((sender as ComboBox).SelectedIndex == 4)
+                CustomDateF.Visibility = Visibility.Collapsed;
+                switch ((sender as ComboBox).SelectedIndex)
                 {
-                    CustomDateF.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    CustomDateF.Visibility = Visibility.Collapsed;
+                    case 0:
+                        DateExample.Text = (new DateTime(1007698800000).ToString("M/d/yyyy"));
+                        break;
+                    case 1:
+                        DateExample.Text = (new DateTime(1007698800000).ToString("M/d/yy"));
+                        break;
+                    case 2:
+                        DateExample.Text = (new DateTime(1007698800000).ToString("MM/dd/yy"));
+                        break;
+                    case 3:
+                        DateExample.Text = (new DateTime(1007698800000).ToString("MMM/dd/yyyy"));
+                        break;
+                    case 4:
+                        CustomDateF.Visibility = Visibility.Visible;
+                        break;
                 }
             }
         }
