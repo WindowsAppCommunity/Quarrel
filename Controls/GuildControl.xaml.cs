@@ -162,7 +162,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == IsMutedProperty)
             {
-                if (IsMuted)
+                if (IsMuted && Storage.Settings.ServerMuteIcons)
                 {
                     ShowMute.Begin();
                 } else
@@ -274,7 +274,6 @@ namespace Discord_UWP.Controls
         {
             this.Holding -= OpenMenuFlyout;
             this.RightTapped -= OpenMenuFlyout;
-            GC.Collect();
         }
     }
 }

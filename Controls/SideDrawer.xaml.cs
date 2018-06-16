@@ -532,7 +532,6 @@ namespace Discord_UWP.Controls
         {
             Storage.SettingsChangedHandler -= App_LocalSettingsUpdatedHandler;
             App.UniversalPointerDownHandler -= Content_PointerPressed;
-            GC.Collect();
         }
     }
 }

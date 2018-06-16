@@ -170,7 +170,6 @@ namespace DiffieHellman
 
             representation = null;
             GC.Collect();
-            GC.Collect();
         }
 
         #endregion

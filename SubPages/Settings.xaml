@@ -952,8 +952,9 @@
                                     <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}"/>
 
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
-                                    <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
+                                    <CheckBox x:Uid="/Settings/ShowServerMuteCB" x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Content="Show Mute icon on servers" Margin="0,0,0,0"/>
+                                    <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>

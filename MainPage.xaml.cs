@@ -152,7 +152,7 @@ namespace Discord_UWP
                            App_LoggingInHandlerAsync(null, null);
                        }
                    });
-            LocalState.SupportedGames = await RESTCalls.GetGamelist();
+            //LocalState.SupportedGames = await RESTCalls.GetGamelist();
         }
 
         private void SubFrame_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
