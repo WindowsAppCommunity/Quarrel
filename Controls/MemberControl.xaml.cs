@@ -195,16 +195,11 @@ namespace Discord_UWP.Controls
         {
             this.InitializeComponent();
 
-            App.DisposeMemberListHandler += Dispose;
+           // App.DisposeMemberListHandler += Dispose;
           //  App.TypingHandler += App_TypingHandler;
            // RegisterPropertyChangedCallback(MemberProperty, OnPropertyChanged);
             RightTapped += OpenMenuFlyout;
             Holding += OpenMenuFlyout;
-        }
-
-        private void Dispose(object sender, EventArgs e)
-        {
-            Dipose();
         }
 
         private void OpenMenuFlyout(object sender, HoldingRoutedEventArgs e)
@@ -220,12 +215,10 @@ namespace Discord_UWP.Controls
                 App.ShowMenuFlyout(this, FlyoutManager.Type.GuildMember, RawMember.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
 
-        public void Dipose()
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            App.DisposeMemberListHandler -= Dispose;
             RightTapped -= OpenMenuFlyout;
             Holding -= OpenMenuFlyout;
-            GC.Collect();
         }
     }
 }

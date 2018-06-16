@@ -3054,7 +3054,7 @@ namespace Discord_UWP
 
             try
             {
-                App.DisposeMemberList(); //Clear all existing MemberList Items (cleanly)
+               // App.DisposeMemberList(); //Clear all existing MemberList Items (cleanly)
            //     var sortedMembers =
            //         memberscvs.GroupBy(m => ((Member)m.Value).MemberHoistRole).OrderByDescending(x => x.Key.Position);
 

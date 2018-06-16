@@ -851,12 +851,6 @@ namespace Discord_UWP
         {
             ToggleCOModeHandler?.Invoke(null, null);
         }
-
-        public static event EventHandler DisposeMemberListHandler;
-        public static void DisposeMemberList()
-        {
-            DisposeMemberListHandler?.Invoke(null, null);
-        }
         #endregion
 
         #endregion

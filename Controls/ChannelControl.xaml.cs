@@ -453,7 +453,7 @@ namespace Discord_UWP.Controls
                         //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                     }
 
-                    Tapped += JoinVoiceChannel;
+                    //Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
                 {
@@ -658,10 +658,15 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;
-            Tapped -= JoinVoiceChannel;
+            //Tapped -= JoinVoiceChannel;
             this.Holding -= OpenMenuFlyout;
             this.RightTapped -= OpenMenuFlyout;
-            GC.Collect();
+            //GC.Collect();
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Dispose();
         }
     }
 }
