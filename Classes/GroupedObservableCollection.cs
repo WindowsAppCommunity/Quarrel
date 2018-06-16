@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using Discord_UWP.Managers;
+using Discord_UWP.SimpleClasses;
 
 namespace Discord_UWP.Classes
 {
@@ -31,7 +32,7 @@ namespace Discord_UWP.Classes
 
     
 
-    public class MemberComparer : IComparer<Managers.Member>
+    public class MemberComparer : IComparer<Member>
     {
         public int Compare(Member x, Member y)
         {
@@ -102,9 +103,9 @@ namespace Discord_UWP.Classes
         public void Add(TElement item)
         {
             var key = this.readKey(item);
-            var member = (item as Managers.Member);
+            var member = (item as Member);
             var ogroup = this.FindOrCreateGroup(key);
-            Grouping<Managers.HoistRole, Managers.Member> group = ogroup as Grouping<Managers.HoistRole, Managers.Member>;
+            Grouping<HoistRole, Member> group = ogroup as Grouping<HoistRole, Member>;
             (ogroup.Key as HoistRole).Membercount++;
             string DisplayName = member.DisplayName;
             
@@ -130,7 +131,7 @@ namespace Discord_UWP.Classes
             previousgroup.Remove(item);
             (previousgroup.Key as HoistRole).Membercount--;
             var newgroup = FindOrCreateGroup(newKey);
-            RoleIndexer.Remove((item as Managers.Member).Raw.User.Id);
+            RoleIndexer.Remove((item as Member).Raw.User.Id);
             if (previousgroup != null && previousgroup.Count == 0)
             {
                 this.Remove(previousgroup);
@@ -251,7 +252,7 @@ namespace Discord_UWP.Classes
             var key = this.readKey(item);
             var group = this.TryFindGroup(key);
             if(group != null)
-                RoleIndexer.Remove((item as Managers.Member).Raw.User.Id);
+                RoleIndexer.Remove((item as Member).Raw.User.Id);
             var success = group != null && group.Remove(item);
 
             if (group != null && group.Count == 0)
@@ -299,7 +300,7 @@ namespace Discord_UWP.Classes
                 for (var i = 0; i < this.Count; i++)
                 {
 
-                    if ((result.Key as Managers.HoistRole).Position > (this[i].Key as Managers.HoistRole).Position)
+                    if ((result.Key as HoistRole).Position > (this[i].Key as HoistRole).Position)
                     {
                         //Loop until a group has a position which is higher, then insert the new group just before
                         this.Insert(i, result);
