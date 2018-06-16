@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Discord_UWP.SharedModels;
 using Discord_UWP.LocalModels;
+using Discord_UWP.SimpleClasses;
 
 namespace Discord_UWP.Managers
 {
@@ -71,78 +72,6 @@ namespace Discord_UWP.Managers
             return msg;
         }
 
-        public enum MessageTypes { Default, RecipientAdded, RecipientRemoved, Call, ChannelNameChanged, ChannelIconChanged, PinnedMessage, GuildMemberJoined, Advert }
-        public class MessageContainer : INotifyPropertyChanged
-        {
-            public MessageContainer(Message message, MessageTypes messageType, bool isContinuation, string header, bool pending = false)
-            {
-                LastRead = false; // this is false, we decided if it should be marked as "last read" later on
-                Message = message;
-                MessageType = messageType;
-                if (LastRead)
-                    IsContinuation = false; //If a message has a "New messages" indicator, don't show it as a continuation message
-                else
-                    IsContinuation = isContinuation;
-                Header = header;
-                Pending = pending;
-                Blocked = messageType != MessageTypes.Advert && LocalState.Blocked.ContainsKey(message.Id);
-            }
-
-            private Message _message;
-            public Message Message
-            {
-                get => _message;
-                set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); }
-            }
-
-            private bool _iscontinuation;
-            public bool IsContinuation
-            {
-                get => _iscontinuation;
-                set { if (_iscontinuation == value) return; _iscontinuation = value; OnPropertyChanged("IsContinuation"); }
-            }
-          
-            private MessageTypes _msgtype;
-            public MessageTypes MessageType
-            {
-                get => _msgtype;
-                set { if (_msgtype == value) return; _msgtype = value; OnPropertyChanged("MessageType"); }
-            }
-
-
-            private string _header;
-            public string Header
-            {
-                get => _header;
-                set { if (_header == value) return; _header = value; OnPropertyChanged("Header"); }
-            }
-
-            private bool _lastRead;
-            public bool LastRead
-            {
-                get => _lastRead;
-                set { if (_lastRead == value) return; _lastRead = value; OnPropertyChanged("LastRead"); }
-            }
-
-            private bool _pending;
-            public bool Pending
-            {
-                get => _pending;
-                set { if (_pending == value) return; _pending = value; OnPropertyChanged("Pending"); }
-            }
-
-            private bool _blocked;
-            public bool Blocked
-            {
-                get => _blocked;
-                set { if (_blocked == value) return; _blocked = value; OnPropertyChanged("Blocked"); }
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropertyChanged(string propertyName)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
+        
+     }
 }

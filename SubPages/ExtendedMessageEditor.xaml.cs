@@ -25,6 +25,7 @@ using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
+using Discord_UWP.SimpleClasses;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -89,10 +90,10 @@ namespace Discord_UWP.SubPages
                 else
                 {
                     HandleDataPackage(App.shareop.Data, "Shared Image");
-                    List<GuildManager.SimpleGuild> guilds = new List<GuildManager.SimpleGuild>();
+                    List<SimpleGuild> guilds = new List<SimpleGuild>();
                     await RESTCalls.SetupToken(true);
                     var userguilds = await RESTCalls.GetGuilds();
-                    guilds.Add(new GuildManager.SimpleGuild() { Id = "@me", Name = App.GetString("/Main/DirectMessages"), ImageURL= "https://discordapp.com/assets/89576a4bb71f927eb20e8aef987b499b.svg" });
+                    guilds.Add(new SimpleGuild() { Id = "@me", Name = App.GetString("/Main/DirectMessages"), ImageURL= "https://discordapp.com/assets/89576a4bb71f927eb20e8aef987b499b.svg" });
                     foreach (var guild in userguilds)
                         guilds.Add(GuildManager.CreateGuild(guild));
                     serverOption.ItemsSource = guilds;
@@ -182,7 +183,7 @@ namespace Discord_UWP.SubPages
             if(App.shareop != null)
             {
                 if (channelOption.SelectedItem != null)
-                    App.CurrentChannelId = ((ChannelManager.SimpleChannel)channelOption.SelectedItem).Id;
+                    App.CurrentChannelId = ((SimpleChannel)channelOption.SelectedItem).Id;
                 else
                     return;
             }
@@ -388,14 +389,14 @@ namespace Discord_UWP.SubPages
 
         private async void serverOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var guild = (GuildManager.SimpleGuild)e.AddedItems[0];
-            List<ChannelManager.SimpleChannel> channels = new List<ChannelManager.SimpleChannel>();
+            var guild = (SimpleGuild)e.AddedItems[0];
+            List<SimpleChannel> channels = new List<SimpleChannel>();
             if(guild.Id == "@me")
             {
                 var userchannels = await RESTCalls.GetDMs();
                 foreach(var channel in userchannels)
                 {
-                    ChannelManager.SimpleChannel c = new ChannelManager.SimpleChannel();
+                    SimpleChannel c = new SimpleChannel();
                     c.Id = channel.Id;
                     if (!string.IsNullOrEmpty(channel.Name))
                         c.Name = channel.Name;
