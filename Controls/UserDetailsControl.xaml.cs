@@ -451,7 +451,6 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Unloaded -= UserDetailsControl_Unloaded;
-            GC.Collect();
         }
     }
 }

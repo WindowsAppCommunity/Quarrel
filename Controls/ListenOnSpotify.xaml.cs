@@ -137,7 +137,6 @@ namespace Discord_UWP.Controls
         {
             Managers.GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Managers.SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
-            GC.Collect();
         }
     }
 }

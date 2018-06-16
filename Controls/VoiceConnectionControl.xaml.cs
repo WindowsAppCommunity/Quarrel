@@ -36,10 +36,11 @@ namespace Discord_UWP.Controls
             {
                 miniViewColumn.Width = new GridLength(0);
             }
-            SetupVisualizer();
             App.VoiceConnectHandler += App_VoiceConnectHandler;
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
             App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
+            Loaded += fftInitialize;
+            Unloaded += fftDipose;
         }
 
         private async void App_UpdateVoiceStateHandler(object sender, EventArgs e)
@@ -165,7 +166,7 @@ namespace Discord_UWP.Controls
             App.NavigateToGuild(guildid);
         }
 
-        private void SetupVisualizer()
+        private void fftInitialize(object sender, RoutedEventArgs e)
         {
             smoother1 = new Smoother(4, 6);
             smoother2 = new Smoother(4, 12);
@@ -180,6 +181,21 @@ namespace Discord_UWP.Controls
             Blurple = (Color)App.Current.Resources["BlurpleColor"];
             TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
         }
+
+        private void fftDipose(object sender, RoutedEventArgs e)
+        {
+            smoother1 = null;
+            smoother2 = null;
+            smoother3 = null;
+            smoother4 = null;
+            smoother5 = null;
+            smoother6 = null;
+            smoother7 = null;
+            smoother8 = null;
+            smoother9 = null;
+            averageSmoother = null;
+        }
+
         Smoother smoother1;
         Smoother smoother2;
         Smoother smoother3;
@@ -395,7 +411,6 @@ namespace Discord_UWP.Controls
             App.ToggleCOModeHandler -= App_ToggleCOModeHandler;
             App.UpdateVoiceStateHandler -= App_UpdateVoiceStateHandler;
             App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
-            GC.Collect();
         }
     }
 }

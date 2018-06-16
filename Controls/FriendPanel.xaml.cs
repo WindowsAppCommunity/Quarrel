@@ -277,7 +277,6 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipAdded -= Gateway_RelationShipAdded;
             GatewayManager.Gateway.RelationShipRemoved -= Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated -= Gateway_RelationShipUpdated;
-            GC.Collect();
         }
     }
 }

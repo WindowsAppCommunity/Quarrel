@@ -67,7 +67,6 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             //Nothing to dispose
-            GC.Collect();
         }
     }
 }
