@@ -447,6 +447,9 @@ namespace Discord_UWP.Controls
         }
         public void UpdateMessage()
         {
+            content.FontSize = Storage.Settings.MSGFontSize;
+            content.Padding = new Thickness(5, 3, 3, content.FontSize / 4 + 1);
+
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
             advert = null;
@@ -820,17 +823,19 @@ namespace Discord_UWP.Controls
         {
             if (MessageType != MessageTypes.Advert)
             {
+
                 if (App.CurrentGuildId != null)
                 {
-                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
-                        MoreEdit.Visibility = Visibility.Collapsed;
                     }
-                    else if (Message?.User.Id != LocalState.CurrentUser.Id)
-                    {
-                        MoreEdit.Visibility = Visibility.Collapsed;
-                    }
+                }
+
+                if (Message?.User.Id == LocalState.CurrentUser.Id)
+                {
+                    MoreEdit.Visibility = Visibility.Visible;
+                    MoreReply.Visibility = Visibility.Collapsed;
                 }
                 FlyoutBase.ShowAttachedFlyout(moreButton);
             }
@@ -842,19 +847,15 @@ namespace Discord_UWP.Controls
             {
                 if (App.CurrentGuildId != null)
                 {
-                    if (Message?.User.Id == Message.User.Id || !LocalState.Guilds[App.CurrentChannelId].channels[Message.ChannelId].permissions.SendMessages)
-                    {
-                        MoreReply.Visibility = Visibility.Collapsed;
-                    }
-                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id)
+                    if (!LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.ManageMessages && !LocalState.Guilds[App.CurrentGuildId].channels[Message.ChannelId].permissions.Administrator && Message?.User.Id != LocalState.CurrentUser.Id && LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId != LocalState.CurrentUser.Id)
                     {
                         MoreDelete.Visibility = Visibility.Collapsed;
-                        MoreEdit.Visibility = Visibility.Collapsed;
                     }
                 }
-                if (Message?.User.Id != LocalState.CurrentUser.Id)
+                if (Message?.User.Id == LocalState.CurrentUser.Id)
                 {
-                    MoreEdit.Visibility = Visibility.Collapsed;
+                    MoreEdit.Visibility = Visibility.Visible;
+                    MoreReply.Visibility = Visibility.Collapsed;
                 }
                 FlyoutBase.ShowAttachedFlyout(moreButton);
             }
