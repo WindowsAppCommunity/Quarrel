@@ -1056,8 +1056,6 @@ namespace Discord_UWP.Controls
                 editBox.Cancel -= EditBox_Cancel;
                 editBox.TextChanged -= EditBox_TextChanged;
             }
-
-           // GC.Collect(); 
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)

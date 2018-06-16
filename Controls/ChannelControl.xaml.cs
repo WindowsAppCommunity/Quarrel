@@ -661,7 +661,6 @@ namespace Discord_UWP.Controls
             //Tapped -= JoinVoiceChannel;
             this.Holding -= OpenMenuFlyout;
             this.RightTapped -= OpenMenuFlyout;
-            //GC.Collect();
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)

@@ -342,7 +342,6 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             Windows.ApplicationModel.DataTransfer.DataTransferManager.GetForCurrentView().DataRequested -= EmbedControl_DataRequested;
-            GC.Collect();
         }
     }
 }

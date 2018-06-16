@@ -310,7 +310,6 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             Unloaded -= RichPresenceControl_Unloaded;
-            GC.Collect();
         }
     }
 }
