@@ -109,7 +109,8 @@ namespace Discord_UWP.Controls
             content.Margin = new Thickness(0, 0, 0, 0);
             rightSide.Margin = new Thickness(0, 0, -72, 0);
             contentVis.StartAnimation("Translation.X", contentAnimation);
-            contentVis2.StartAnimation("Translation.X", contentAnimation);
+            if (contentVis2 != null)
+                contentVis2.StartAnimation("Translation.X", contentAnimation);
             leftcache1.StartAnimation("Opacity", leftPanelFadeAnimation);
             Translate(leftpanel1, 0);
             leftpanel1.StartAnimation("Translation.X", leftPanelTranslateAnimation);
@@ -120,10 +121,12 @@ namespace Discord_UWP.Controls
             if (previous == Mid)
             {
                 Translate(contentVis, 0, 72);
-                Translate(contentVis2, 0, 72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, 72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
             SetSnapPoints(-width, 0, width - 72);
         }
@@ -140,7 +143,8 @@ namespace Discord_UWP.Controls
             SetSnapPoints(-width + 72, 0, width - 72);
 
             contentVis.StartAnimation("Translation.X", contentAnimation);
-            contentVis2.StartAnimation("Translation.X", contentAnimation);
+            if (contentVis2 != null)
+                contentVis2.StartAnimation("Translation.X", contentAnimation);
             leftcache1.StopAnimation("Opacity");
             leftpanel1.StopAnimation("Translation.X");
             Translate(leftpanel1, 0);
@@ -151,18 +155,22 @@ namespace Discord_UWP.Controls
             if (previous == Small)
             {
                 Translate(contentVis, 0, -72);
-                Translate(contentVis2, 0, -72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, -72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
             if (previous == Large)
             {
                 Translate(contentVis, 0, width - 72);
-                Translate(contentVis2, 0, width - 72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, width - 72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
         }
         private async void LargeInteractable(VisualState previous)
@@ -178,7 +186,8 @@ namespace Discord_UWP.Controls
             SetSnapPoints(0, 0, width - 72);
 
             contentVis.StartAnimation("Translation.X", contentAnimation);
-            contentVis2.StartAnimation("Translation.X", contentAnimation);
+            if (contentVis2 != null)
+                contentVis2.StartAnimation("Translation.X", contentAnimation);
             leftcache1.StopAnimation("Opacity");
             leftpanel1.StopAnimation("Translation.X");
             Translate(leftpanel1, 0);
@@ -188,18 +197,22 @@ namespace Discord_UWP.Controls
             if (previous == Small)
             {
                 Translate(contentVis, 0, -width + 72);
-                Translate(contentVis2, 0, -width + 72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, -width + 72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
             if (previous == Mid)
             {
                 Translate(contentVis, 0, -width + 72);
-                Translate(contentVis2, 0, -width + 72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, -width + 72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
         }
         private async void ExtraLargeInteractable(VisualState previous)
@@ -215,7 +228,8 @@ namespace Discord_UWP.Controls
             SetSnapPoints(0, 0, 0);
 
             contentVis.StartAnimation("Translation.X", contentAnimation);
-            contentVis2.StartAnimation("Translation.X", contentAnimation);
+            if(contentVis2 != null)
+                contentVis2.StartAnimation("Translation.X", contentAnimation);
             leftcache1.StopAnimation("Opacity");
             leftpanel1.StopAnimation("Translation.X");
             Translate(leftpanel1, 0);
@@ -225,10 +239,12 @@ namespace Discord_UWP.Controls
             if (previous == Large)
             {
                 Translate(contentVis, 0, width - 72);
-                Translate(contentVis2, 0, width - 72);
+                if (contentVis2 != null)
+                    Translate(contentVis2, 0, width - 72);
                 await Task.Delay(300);
                 contentVis.StartAnimation("Translation.X", contentAnimation);
-                contentVis2.StartAnimation("Translation.X", contentAnimation);
+                if (contentVis2 != null)
+                    contentVis2.StartAnimation("Translation.X", contentAnimation);
             }
         }
 
@@ -249,7 +265,7 @@ namespace Discord_UWP.Controls
             visual.StartAnimation("Translation", kfa);
 
         }
-        public void SetupInteraction(UIElement DetachedHeader)
+        public void SetupInteraction(UIElement DetachedHeader = null)
         {
 
 
@@ -257,11 +273,14 @@ namespace Discord_UWP.Controls
             //Set up tracker
             var containerVisual = compositor.CreateContainerVisual();
             contentVis = ElementCompositionPreview.GetElementVisual(content);
-            contentVis2 = ElementCompositionPreview.GetElementVisual(DetachedHeader);
+            if(DetachedHeader != null)
+                contentVis2 = ElementCompositionPreview.GetElementVisual(DetachedHeader);
             ElementCompositionPreview.SetIsTranslationEnabled(content, true);
-            ElementCompositionPreview.SetIsTranslationEnabled(DetachedHeader, true);
+            if(DetachedHeader != null)
+                ElementCompositionPreview.SetIsTranslationEnabled(DetachedHeader, true);
             contentVis.Properties.InsertVector3("Translation", Vector3.Zero);
-            contentVis2.Properties.InsertVector3("Translation", Vector3.Zero);
+            if (DetachedHeader != null)
+                contentVis2.Properties.InsertVector3("Translation", Vector3.Zero);
 
             interactionSource = VisualInteractionSource.Create(rootVisual);
             interactionSource.IsPositionXRailsEnabled = true;
@@ -282,7 +301,8 @@ namespace Discord_UWP.Controls
             contentAnimation = compositor.CreateExpressionAnimation("-tracker.Position.X");
             contentAnimation.SetReferenceParameter("tracker", tracker);
             contentVis.StartAnimation("Translation.X", contentAnimation);
-            contentVis2.StartAnimation("Translation.X", contentAnimation);
+            if (DetachedHeader != null)
+                contentVis2.StartAnimation("Translation.X", contentAnimation);
             //LEFT PANEL
             leftcache1 = ElementCompositionPreview.GetElementVisual(leftPanelCache);
             leftpanel1 = ElementCompositionPreview.GetElementVisual(leftPanel);

@@ -229,7 +229,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CommandBar">
-                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}">
+                        <Grid x:Name="LayoutRoot" >
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
@@ -328,10 +328,15 @@
                                                     <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{ThemeResource AppBarThemeCompactHeight}"/>
                                                     <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                                 </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
+                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{ThemeResource AppBarThemeCompactHeight}"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
+                                                </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OverflowContentTransform" Storyboard.TargetProperty="Y">
                                                     <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.NegativeOverflowContentHeight}"/>
                                                     <SplineDoubleKeyFrame KeyTime="0:0:0.467" KeySpline="0.1,0.9 0.2,1.0" Value="0"/>
                                                 </DoubleAnimationUsingKeyFrames>
+                                                
                                             </Storyboard>
                                         </VisualTransition>
                                         <VisualTransition From="CompactOpenDown" To="CompactClosed" GeneratedDuration="0:0:0.167">
@@ -356,6 +361,10 @@
                                                     <SplineDoubleKeyFrame KeyTime="0:0:0.167" KeySpline="0.2,0 0,1" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CompactVerticalDelta}"/>
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OverflowContentRootTransform" Storyboard.TargetProperty="Y">
+                                                    <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.167" KeySpline="0.2,0 0,1" Value="{ThemeResource AppBarThemeCompactHeight}"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
                                                     <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                                     <SplineDoubleKeyFrame KeyTime="0:0:0.167" KeySpline="0.2,0 0,1" Value="{ThemeResource AppBarThemeCompactHeight}"/>
                                                 </DoubleAnimationUsingKeyFrames>
@@ -718,6 +727,9 @@
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="OverflowContentRootTransform" Storyboard.TargetProperty="Y">
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
                                             </DoubleAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowTransform" Storyboard.TargetProperty="Y">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.ContentHeight}"/>
+                                            </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondaryItemsControl" Storyboard.TargetProperty="IsEnabled">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True"/>
                                             </ObjectAnimationUsingKeyFrames>
@@ -895,40 +907,41 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid Background="{TemplateBinding Background}">
+                                    <Grid.Clip>
+                                        <RectangleGeometry Rect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClipRect}">
+                                            <RectangleGeometry.Transform>
+                                                <TranslateTransform x:Name="ClipGeometryTransform" Y="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CompactVerticalDelta}"/>
+                                            </RectangleGeometry.Transform>
+                                        </RectangleGeometry>
+                                    </Grid.Clip>
 
-                            <Grid.Clip>
-                                <RectangleGeometry Rect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.ClipRect}">
-                                    <RectangleGeometry.Transform>
-                                        <TranslateTransform x:Name="ClipGeometryTransform" Y="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.CompactVerticalDelta}"/>
-                                    </RectangleGeometry.Transform>
-                                </RectangleGeometry>
-                            </Grid.Clip>
-
-                            <Grid x:Name="ContentRoot"
+                                    <Grid x:Name="ContentRoot"
             VerticalAlignment="Top"
             Margin="{TemplateBinding Padding}"
             Height="{TemplateBinding Height}"
             Background="{TemplateBinding Background}"
             Opacity="{TemplateBinding Opacity}">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                                <Grid.RenderTransform>
-                                    <TranslateTransform x:Name="ContentTransform"/>
-                                </Grid.RenderTransform>
+                                        <Grid.RenderTransform>
+                                            <TranslateTransform x:Name="ContentTransform"/>
+                                        </Grid.RenderTransform>
 
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                                    <!-- Use a ContentControl rather than a ContentPresenter so that IsEnabled can be set to false
+                                            <!-- Use a ContentControl rather than a ContentPresenter so that IsEnabled can be set to false
                                     in the Minimal/HiddenClosed states to remove it from being a tab-stop candidate. -->
-                                    <ContentControl
+                                            <ContentControl
                 x:Name="ContentControl"
                 Content="{TemplateBinding Content}"
                 ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -940,74 +953,88 @@
                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                 IsTabStop="False"/>
 
-                                    <ItemsControl
+                                            <ItemsControl
                 x:Name="PrimaryItemsControl"
                 HorizontalAlignment="Right"
                 MinHeight="{ThemeResource AppBarThemeMinHeight}"
                 IsTabStop="False"
                 Grid.Column="1">
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal" />
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                    </ItemsControl>
-                                </Grid>
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                            </ItemsControl>
+                                        </Grid>
 
-                                <Button
+                                        <Button
               x:Name="MoreButton"
               Foreground="{TemplateBinding Foreground}"
-                                    Background="{ThemeResource AcrylicCommandBarBackground}"
+                                    Background="Transparent"
               Style="{StaticResource EllipsisButton}"
               Padding="16,23,16,0"
               MinHeight="{ThemeResource AppBarThemeCompactHeight}"
               VerticalAlignment="Top"
               Grid.Column="1">
-                                    <FontIcon
+                                            <FontIcon
                 x:Name="EllipsisIcon"
                 VerticalAlignment="Center"
                 FontFamily="{ThemeResource SymbolThemeFontFamily}"
                 FontSize="16"
                 Glyph="&#xE10C;"
                 Height="{ThemeResource AppBarExpandButtonCircleDiameter}"/>
-                                </Button>
+                                        </Button>
 
-                                <Popup x:Name="OverflowPopup">
-                                    <Popup.RenderTransform>
-                                        <TranslateTransform x:Name="OverflowPopupOffsetTransform"/>
-                                    </Popup.RenderTransform>
+                                        <Popup x:Name="OverflowPopup">
+                                            <Popup.RenderTransform>
+                                                <TranslateTransform x:Name="OverflowPopupOffsetTransform"/>
+                                            </Popup.RenderTransform>
 
-                                    <Grid x:Name="OverflowContentRoot"
+                                            <Grid x:Name="OverflowContentRoot"
                 MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMinWidth}"
                 MaxWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxWidth}"
                 MaxHeight="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentMaxHeight}">
-                                        <Grid.Clip>
-                                            <RectangleGeometry x:Name="OverflowContentRootClip"/>
-                                        </Grid.Clip>
+                                                <Grid.Clip>
+                                                    <RectangleGeometry x:Name="OverflowContentRootClip"/>
+                                                </Grid.Clip>
 
-                                        <Grid.RenderTransform>
-                                            <TranslateTransform x:Name="OverflowContentRootTransform"
+                                                <Grid.RenderTransform>
+                                                    <TranslateTransform x:Name="OverflowContentRootTransform"
                     X="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CommandBarTemplateSettings.OverflowContentHorizontalOffset}"/>
-                                        </Grid.RenderTransform>
+                                                </Grid.RenderTransform>
 
-                                        <CommandBarOverflowPresenter x:Name="SecondaryItemsControl"
+                                                <CommandBarOverflowPresenter x:Name="SecondaryItemsControl"
                   Style="{TemplateBinding CommandBarOverflowPresenterStyle}"
                   IsEnabled="False"
                   IsTabStop="False">
-                                            <CommandBarOverflowPresenter.RenderTransform>
-                                                <TranslateTransform x:Name="OverflowContentTransform"/>
-                                            </CommandBarOverflowPresenter.RenderTransform>
-                                            <CommandBarOverflowPresenter.ItemContainerStyle>
-                                                <Style TargetType="FrameworkElement">
-                                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                                    <Setter Property="Width" Value="NaN"/>
-                                                </Style>
-                                            </CommandBarOverflowPresenter.ItemContainerStyle>
-                                        </CommandBarOverflowPresenter>
+                                                    <CommandBarOverflowPresenter.RenderTransform>
+                                                        <TranslateTransform x:Name="OverflowContentTransform"/>
+                                                    </CommandBarOverflowPresenter.RenderTransform>
+                                                    <CommandBarOverflowPresenter.ItemContainerStyle>
+                                                        <Style TargetType="FrameworkElement">
+                                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                                            <Setter Property="Width" Value="NaN"/>
+                                                        </Style>
+                                                    </CommandBarOverflowPresenter.ItemContainerStyle>
+                                                </CommandBarOverflowPresenter>
+                                            </Grid>
+                                        </Popup>
+                                        <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
                                     </Grid>
-                                </Popup>
-                                <Rectangle x:Name="HighContrastBorder" x:DeferLoadStrategy="Lazy" Grid.ColumnSpan="2"  Visibility="Collapsed" VerticalAlignment="Stretch" Stroke="{ThemeResource SystemControlForegroundTransparentBrush}" StrokeThickness="1"/>
+                                </Grid>
+                                <Rectangle x:Name="cmdBarShadow" Loaded="cmdBarShadow_Loaded" Opacity="0.15" Margin="0,0,0,0"  Visibility="Collapsed" Height="12" VerticalAlignment="Top"  IsHitTestVisible="False" Grid.RowSpan="2">
+                                    <Rectangle.RenderTransform>
+                                        <TranslateTransform x:Name="ShadowTransform" Y="{ThemeResource AppBarThemeCompactHeight}"/>
+                                    </Rectangle.RenderTransform>
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="Black"/>
+                                            <GradientStop Offset="1" Color="#00000000"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
                             </Grid>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -1028,91 +1055,21 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="SmallTrigger" MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ChannelHeader.(Margin)">
-                            <Setter.Value>
-                                <Thickness>12,4,0,0</Thickness>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="burgerButton.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Visible</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="MemberToggle.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Visible</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="MediumTrigger" MinWindowWidth="500"/>
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ChannelHeader.(Margin)">
-                            <Setter.Value>
-                                <Thickness>12,4,0,0</Thickness>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="burgerButton.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Visible</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Large">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="LargeTrigger" MinWindowWidth="700"/>
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ChannelHeader.(Margin)">
-                            <Setter.Value>
-                                <Thickness>312,4,0,0</Thickness>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="burgerButton.(Visibility)" >
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="MemberToggle.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Visible</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="ExtraLarge">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger x:Name="ExtraLargeTrigger" MinWindowWidth="1000"/>
                     </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ChannelHeader.(Margin)">
-                            <Setter.Value>
-                                <Thickness>312,4,0,0</Thickness>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="burgerButton.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="MemberToggle.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Target="MemberToggle.(Visibility)">
-                            <Setter.Value>
-                                <Visibility>Collapsed</Visibility>
-                            </Setter.Value>
-                        </Setter>
-                        
-                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
@@ -1123,16 +1080,17 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
+            
             <Rectangle x:Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill" Grid.RowSpan="3">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{StaticResource BGImage}"/>
                 </Rectangle.Fill>
             </Rectangle>
             <Rectangle x:Name="TitleBarHolder" Canvas.ZIndex="1"  Fill="{ThemeResource AcrylicCommandBarBackground}" Height="30"/>
-            <CommandBar x:Name="cmdBar" Grid.Row="1" Canvas.ZIndex="1"  Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0" Opening="cmdBar_Opening" Closed="cmdBar_Closing" Style="{StaticResource CommandBarStyle2}">
+            <CommandBar x:Name="cmdBar" Grid.Row="1" Canvas.ZIndex="1"   Background="{ThemeResource AcrylicCommandBarBackground}" Margin="0,0" Opening="cmdBar_Opening" Closed="cmdBar_Closing" Style="{StaticResource CommandBarStyle2}">
                 <CommandBar.Content>
                     <StackPanel Orientation="Horizontal">
-                        <AppBarButton Click="ToggleSplitView" x:Name="burgerButton" Canvas.ZIndex="1" Background="{ThemeResource AcrylicCommandBarBackground}" Width="72" Label="" LabelPosition="Collapsed">
+                        <AppBarButton Click="ToggleSplitView" x:Name="burgerButton" Canvas.ZIndex="1" Background="Transparent" Width="72" Label="" LabelPosition="Collapsed">
                             <AppBarButton.Content>
                                 <Grid>
                                     <FontIcon Glyph="&#xE700;"/>
@@ -1215,7 +1173,7 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                     <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
-                    <AppBarButton x:Uid="/Main/ShowPinned" x:Name="PinnedMessags" Background="{ThemeResource AcrylicCommandBarBackground}" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
+                    <AppBarButton x:Uid="/Main/ShowPinned" x:Name="PinnedMessags" Background="Transparent" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                         <AppBarButton.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
                                 <Grid>
@@ -1239,7 +1197,7 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="{ThemeResource AcrylicCommandBarBackground}"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
+                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="Transparent"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Uid="/Main/AboutABB" Label="About" Click="NavToAbout"/>
@@ -1314,7 +1272,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <ScrollViewer x:Name="ChannelScrollviewer" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False">
-                                <StackPanel Margin="0,0,0,82" Padding="0,6,0,0">
+                                <StackPanel Margin="0,0,0,82" Padding="0,0,0,0">
                                     <ListViewItem x:Name="FriendsItem" Tapped="OpenFriendPanel" Height="48"  Style="{StaticResource ChannelItemStyle}">
                                         <ListViewItem.Resources>
                                             <Storyboard x:Name="ShowFriendsBadge">
@@ -1501,127 +1459,136 @@
                         </Grid>
                     </controls:SideDrawer.ContentLeftSecondary>
                     <controls:SideDrawer.ContentMain>
-                        <Grid x:Name="MessageArea" Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid x:Name="MessageAreaContainer">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
-                               
-                                <!--<Grid.Background>
+                            <Grid x:Name="MessageAreaCMD"></Grid>
+                            <Grid x:Name="MessageArea" Grid.Row="1"  Margin="12,0,12,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid x:Name="MoreNewMessageIndicator" Canvas.ZIndex="2" Visibility="Collapsed" Opacity="0" Height="72" VerticalAlignment="Top" Margin="-12,0,-12,0" Grid.RowSpan="2">
+
+                                    <!--<Grid.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                         <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
                                 </Grid.Background>-->
-                                <Rectangle IsHitTestVisible="False">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
-                                            <GradientStop Offset="0.6" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                    <Rectangle IsHitTestVisible="False">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
+                                                <GradientStop Offset="0.6" Color="{ThemeResource BlurpleColorTransparent}"/>
                                             </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
-                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
-                                    <HyperlinkButton x:Uid="/Main/NewMessageHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
-                                    <HyperlinkButton x:Uid="/Main/IgnoreHLBTN" FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
-                                </StackPanel>
-                            </Grid>
-                            <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Collapsed" Opacity="0" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
-                                <!--<Grid.Background>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" Margin="12,8,12,0" >
+                                        <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top"/>
+                                        <HyperlinkButton x:Uid="/Main/NewMessageHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="NEW MESSAGES" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource InvertedBG}" Click="GoToLastRead_Click"/>
+                                        <HyperlinkButton x:Uid="/Main/IgnoreHLBTN" FontSize="12" VerticalAlignment="Top" Margin="12,0,0,0" Content="IGNORE" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Click="IgnoreNewMessages_Click"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid x:Name="ReturnToPresentIndicator" Canvas.ZIndex="2" Grid.Row="1"  Visibility="Collapsed" Opacity="0" Height="64" VerticalAlignment="Bottom" Margin="-12,0,-12,0">
+                                    <!--<Grid.Background>
                                     <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
                                         <GradientStop Offset="0" Color="{ThemeResource DarkBGColor}"/>
                                         <GradientStop Offset="1" Color="{ThemeResource DarkBGColorTransparent}"/>
                                     </LinearGradientBrush>
                                 </Grid.Background>-->
-                                <Rectangle IsHitTestVisible="False">
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                                            <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
-                                            <GradientStop Offset="0.5" Color="{ThemeResource BlurpleColorTransparent}"/>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" VerticalAlignment="Bottom"  Margin="12,8,24,8" >
-                                    <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top" Foreground="{ThemeResource Blurple}"/>
-                                    <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
-                                </StackPanel>
-                            </Grid>
-                            <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
-                                <ListView.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <ItemsStackPanel  Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
-                                    </ItemsPanelTemplate>
-                                </ListView.ItemsPanel>
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="simpleclass:MessageContainer">
-                                        <controls:MessageControl Message="{x:Bind Message, Mode=OneWay}"
+                                    <Rectangle IsHitTestVisible="False">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                                <GradientStop Offset="-1.5" Color="{ThemeResource BlurpleColor}"/>
+                                                <GradientStop Offset="0.5" Color="{ThemeResource BlurpleColorTransparent}"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel HorizontalAlignment="Right"  Orientation="Horizontal" VerticalAlignment="Bottom"  Margin="12,8,24,8" >
+                                        <FontIcon Glyph="" FontSize="12" Margin="0,2,0,0"  VerticalAlignment="Top" Foreground="{ThemeResource Blurple}"/>
+                                        <HyperlinkButton x:Uid="/Main/ReturnToPresentHLBTN" FontSize="12" VerticalAlignment="Top" Margin="6,0,0,0" Content="RETURN TO PRESENT" Foreground="{ThemeResource Blurple}" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" Click="ReturnToPresent_Click"/>
+                                    </StackPanel>
+                                </Grid>
+                                <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ItemsStackPanel  Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="simpleclass:MessageContainer">
+                                            <controls:MessageControl Message="{x:Bind Message, Mode=OneWay}"
                                                  IsContinuation="{x:Bind IsContinuation, Mode=OneWay}"
                                                  MessageType="{x:Bind MessageType, Mode=OneWay}"
                                                  Header="{x:Bind Header, Mode=OneWay}"
                                                  IsPending="{x:Bind Pending, Mode=OneWay}"
                                                  IsBlocked="{x:Bind Blocked, Mode=OneWay}"
                                                  LastRead="{x:Bind LastRead, Mode=OneWay}"/>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                                <ListView.Footer>
-                                    <Grid Height="22" Margin="0,0,0,0">
-                                        <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoMessage" Text="No messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                    </Grid>
-                                </ListView.Footer>
-                            </ListView>
-                            <ProgressBar x:Name="MessagesLoadingTop" Grid.Row="0" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Top" Visibility="Collapsed"/>
-                            <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                            <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
-                                <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
-                                <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
-                                <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
-                                    <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
-                                    <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.Footer>
+                                        <Grid Height="22" Margin="0,0,0,0">
+                                            <TextBlock x:Uid="/Main/NoMessagesTB" Margin="12,-12.1,12,0" x:Name="NoMessage" Text="No messages" TextWrapping="Wrap" Foreground="{ThemeResource SystemControlBackgroundBaseMediumBrush}" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        </Grid>
+                                    </ListView.Footer>
+                                </ListView>
+                                <ProgressBar x:Name="MessagesLoadingTop" Grid.Row="0" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Top" Visibility="Collapsed"/>
+                                <ProgressBar x:Name="MessagesLoading" Grid.Row="1" Foreground="{ThemeResource Blurple}" Margin="0" IsIndeterminate="True" Background="#00000000" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                                <StackPanel x:Name="SendMessage" Grid.Row="2" Padding="0,16,12,0">
+                                    <Rectangle x:Name="rectangle" Fill="White" Height="1" Grid.ColumnSpan="3" VerticalAlignment="Top" Margin="24,-16,24,0" Opacity="0.5"/>
+                                    <controls:MessageBox x:Name="MessageBox1" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" Send="CreateMessage" TextChanged="TypingStarted" OpenAdvanced="MessageBox1_OpenAdvanced" OpenSpotify="MessageBox1_OpenSpotify"/>
+                                    <StackPanel x:Name="TypingStackPanel" Opacity="0" Grid.Row="1"  Grid.ColumnSpan="3" Orientation="Horizontal" Height="32" VerticalAlignment="Bottom">
+                                        <controls:TypingIndicator x:Name="typingIndicator" VerticalAlignment="Center"/>
+                                        <TextBlock x:Name="TypingIndicator" Grid.Row="1" Grid.ColumnSpan="3" FontSize="12" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <ads:AdControl x:Name="MobileAd" HorizontalAlignment="Center"
                                                Visibility="Collapsed" Background="Red"
                                                Height="50" Width="320"
                                                ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
-                            </StackPanel>
-                            <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
+                                </StackPanel>
+                                <controls:FriendPanel x:Name="friendPanel" Grid.RowSpan="3" Visibility="Collapsed"/>
 
-                            <ads:AdControl x:Name="Ad" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                <ads:AdControl x:Name="Ad" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                Visibility="Collapsed" Background="Red"
                                                Height="250" Width="300"
                                                ApplicationId="9nbrwj777c8r"
                                                AdUnitId="336795"/>
 
-                            <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF222326" Offset="0.75"/>
-                                        <GradientStop Color="#00222326" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
-                            <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
-                            <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
-                                <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
-                                    <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
-                                    <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
-                                    <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
-                                        <controls:ControllerHint.ContextFlyout>
-                                            <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                                               <!-- <MenuFlyoutSeparator/>-->
-                                                <MenuFlyoutItem x:Uid="/Main/AboutMFI" Text="About" Click="NavToAbout" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem x:Uid="/Main/WhatsNewMFI" Text="What's New?" Click="WhatsNewClick" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem x:Uid="/Main/RemoveAdsMFI" Text="Remove Ads" Click="NavToIAPs" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                                <MenuFlyoutItem x:Uid="/Main/SettingsMFI" Text="Settings" Click="OpenSettings" Style="{StaticResource MenuFlyoutItemStyle1}"/>
-                                            </MenuFlyout>
-                                        </controls:ControllerHint.ContextFlyout>
-                                    </controls:ControllerHint>
-                                </StackPanel>
+                                <Rectangle x:Name="CinematicMask2" Visibility="Collapsed" Height="112" VerticalAlignment="Top" Width="Auto" Grid.RowSpan="12">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF222326" Offset="0.75"/>
+                                            <GradientStop Color="#00222326" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
+                                <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
+                                    <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
+                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
+                                        <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
+                                        <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
+                                            <controls:ControllerHint.ContextFlyout>
+                                                <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
+                                                    <!-- <MenuFlyoutSeparator/>-->
+                                                    <MenuFlyoutItem x:Uid="/Main/AboutMFI" Text="About" Click="NavToAbout" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                    <MenuFlyoutItem x:Uid="/Main/WhatsNewMFI" Text="What's New?" Click="WhatsNewClick" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                    <MenuFlyoutItem x:Uid="/Main/RemoveAdsMFI" Text="Remove Ads" Click="NavToIAPs" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                    <MenuFlyoutItem x:Uid="/Main/SettingsMFI" Text="Settings" Click="OpenSettings" Style="{StaticResource MenuFlyoutItemStyle1}"/>
+                                                </MenuFlyout>
+                                            </controls:ControllerHint.ContextFlyout>
+                                        </controls:ControllerHint>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
+
                         </Grid>
                     </controls:SideDrawer.ContentMain>
                     <controls:SideDrawer.ContentRight>
