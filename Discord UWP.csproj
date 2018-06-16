@@ -212,6 +212,9 @@
     <Compile Include="LocalModels\LocalState.cs" />
     <Compile Include="LocalModels\Permissions.cs" />
     <Compile Include="Managers\SimpleClasses.cs" />
+    <Compile Include="SubPages\Reactions.xaml.cs">
+      <DependentUpon>Reactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
@@ -759,6 +762,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\VoiceMemberControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\Reactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
