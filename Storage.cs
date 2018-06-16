@@ -139,6 +139,7 @@ namespace Discord_UWP
         public string TimeFormat = "hh:mm";
         public string DefaultAccount = "";
         public string OutputDevice = "Default";
+        public int MSGFontSize = 14;
         public bool ServerMuteIcons = true;
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
         //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
