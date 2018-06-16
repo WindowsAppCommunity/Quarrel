@@ -33,6 +33,7 @@ using Midgard.Collections;
 using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 using Discord_UWP.SimpleClasses;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -54,7 +55,7 @@ namespace Discord_UWP
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            sideDrawer.SetupInteraction(ChannelHeader);
+            //sideDrawer.SetupInteraction(cmdBar);
             setupArgs = e.Parameter as string;
             App.SetupMainPage += Setup;
             //PCAd.Width = MobileAd.Width = Ad.Width = 300;
@@ -62,6 +63,8 @@ namespace Discord_UWP
             PCAd.ApplicationId = MobileAd.ApplicationId = Ad.ApplicationId = "9nbrwj777c8r";
             PCAd.AdUnitId = MobileAd.AdUnitId = Ad.AdUnitId = "1100023969";
             base.OnNavigatedTo(e);
+            sideDrawer.SetupInteraction();
+            
         }
         ScrollViewer MessageScrollviewer;
         ItemsStackPanel messageStacker;
@@ -140,7 +143,6 @@ namespace Discord_UWP
                        App.LoggingInHandler += App_LoggingInHandlerAsync;
 
                        UISize.CurrentStateChanged += UISize_CurrentStateChanged;
-
                        //Verify if a token exists, if not navigate to login page
                        if (App.LoggedIn() == false)
                        {
@@ -162,19 +164,54 @@ namespace Discord_UWP
 
         private void UISize_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
-            if (App.ShowAds)
+
+            if (e.NewState == Large || e.NewState == ExtraLarge)
             {
-                if (e.NewState == Large || e.NewState == ExtraLarge)
+                if (App.ShowAds)
                 {
                     PCAd.Visibility = Visibility.Visible;
                     MobileAd.Visibility = Visibility.Collapsed;
-                } else
+                }
+
+                if (content.Children.Contains(cmdBar))
+                {
+                    content.Children.Remove(cmdBar);
+                    MessageAreaCMD.Children.Add(cmdBar);
+                }
+                if(e.NewState == Large)
+                {
+                    MemberToggle.Visibility = Visibility.Visible;
+                    burgerButton.Visibility = Visibility.Collapsed;
+                }
+                else if(e.NewState == ExtraLarge)
+                {
+                    MemberToggle.Visibility = Visibility.Collapsed;
+                    burgerButton.Visibility = Visibility.Collapsed;
+                }
+                cmdBar.Background = (Brush)Application.Current.Resources["AcrylicMessageBackground"];
+                cmdBarShadow.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (MessageAreaCMD.Children.Contains(cmdBar))
+                {
+                    MessageAreaCMD.Children.Remove(cmdBar);
+                    content.Children.Add(cmdBar);
+                }
+                if (App.ShowAds)
                 {
                     PCAd.Visibility = Visibility.Collapsed;
                     MobileAd.Visibility = Visibility.Visible;
                 }
-            }  else
+                MemberToggle.Visibility = Visibility.Visible;
+                burgerButton.Visibility = Visibility.Visible;
+               
+                cmdBar.Background = (Brush)Application.Current.Resources["AcrylicCommandBarBackground"];
+                cmdBarShadow.Visibility = Visibility.Collapsed;
+            }
+            if(!App.ShowAds)
             {
+                
                 PCAd.Visibility = Visibility.Collapsed;
                 MobileAd.Visibility = Visibility.Collapsed;
             }
@@ -2161,9 +2198,9 @@ namespace Discord_UWP
                             {
                                 gclone.IsMuted = false;
                             }
-                            //TODO replace with a for() loop
                             for (int i = 0; i < LocalState.Guilds[gclone.Id].channels.Count; i++)
                             {
+                                //TODO fix "collection was modified" by making this shit thread-safe
                                 var chn = LocalState.Guilds[gclone.Id].channels.ElementAt(i).Value; //TODO use stopwatch to see if this shit can be optimized
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
@@ -3562,5 +3599,16 @@ namespace Discord_UWP
                 return true;
         }
 
+        private void UISize_CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
+        {
+
+        }
+        Rectangle cmdBarShadow;
+        private void cmdBarShadow_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmdBarShadow = (Rectangle)sender;
+
+            UISize_CurrentStateChanged(null, new VisualStateChangedEventArgs() { NewState = UISize.CurrentState });
+        }
     }
 }
