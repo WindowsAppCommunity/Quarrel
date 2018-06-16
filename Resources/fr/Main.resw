@@ -238,7 +238,7 @@
     <value>Messages privés</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>membres</value>
+    <value>&lt;count&gt; membres</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
     <value>à envoyé un message sur</value>

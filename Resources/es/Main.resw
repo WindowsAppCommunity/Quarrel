@@ -238,7 +238,7 @@
     <value>Mensajes directos</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>miembros</value>
+    <value>&lt;count&gt; miembros</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
     <value>envió un mensaje en</value>
