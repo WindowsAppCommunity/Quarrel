@@ -47,7 +47,8 @@ namespace Discord_UWP.Managers
             userActivity.VisualElements.DisplayText = "Hello Activities";
 
             userActivity.ActivationUri = new Uri("discorduwp://channels/"+ GuildId+ "/"+ChannelId);
-            userActivity.ContentUri = new Uri(GuildImage);
+            if(GuildImage != null)
+                userActivity.ContentUri = new Uri(GuildImage);
             userActivity.ContentInfo = UserActivityContentInfo.FromJson("{\"@context\":\"~~http~~://schema.org\",\"@type\": \"CommunicateAction\",\"subjectOf\": \""+ChannelName+"\"}");
             userActivity.FallbackUri = new Uri("http://discordapp.com/channels/" + GuildId + "/" + ChannelId);
 
