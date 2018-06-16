@@ -1192,7 +1192,7 @@ namespace Discord_UWP
                 Message = App.GetString("/Dialogs/CreateServer"),
                 StartText = "",
                 PlaceHolderText = App.GetString("/Dialogs/ServerName"),
-                SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") +  " " + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
+                SubMessage = App.GetString("/Dialogs/ServerGuidelinesDesc1") + App.GetString("/Dialogs/ServerGuidelinesDesc2"),
                 ConfirmMessage = App.GetString("/Dialogs/Create"),
                 ConfirmRed = false,
                 args = new List<object>(),
@@ -1205,7 +1205,7 @@ namespace Discord_UWP
             {
                 Message = App.CurrentGuildIsDM
                 ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
-                : App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?",
+                : App.GetString("/Dialogs/VerifyDelete") + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?",
                 SubMessage = "",
                 StartText = "",
                 PlaceHolderText = null,
@@ -1219,7 +1219,7 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
-                Message = App.GetString("/Dialogs/VerifyDelete") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                Message = App.GetString("/Dialogs/VerifyDelete") + LocalState.Guilds[e.GuildId].Raw.Name + "?",
                 ConfirmMessage = App.GetString("/Dialogs/Delete"),
                 SubMessage = "",
                 StartText = "",
@@ -1241,7 +1241,7 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
-                Message = App.GetString("/Dialogs/VerifyLeave") + " " + LocalState.Guilds[e.GuildId].Raw.Name + "?",
+                Message = App.GetString("/Dialogs/VerifyLeave") + LocalState.Guilds[e.GuildId].Raw.Name + "?",
                 ConfirmMessage = App.GetString("/Dialogs/LeaveServer"),
                 SubMessage = "",
                 StartText = "",
@@ -2055,7 +2055,7 @@ namespace Discord_UWP
 
             DisplayedTyperCounter = NamesTyping.Count();
             for (int i = 0; i < DisplayedTyperCounter; i++)
-            {
+            { //TODO: Fix translate
                 if (i == 0)
                     typingString += NamesTyping.ElementAt(i); //first element, no prefix
                 else if (i == 2 && i == DisplayedTyperCounter)
@@ -2486,7 +2486,7 @@ namespace Discord_UWP
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
 
-                            sc.Subtitle = (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString() + " " + App.GetString("/Main/members");
+                            sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
 
                     }
                 });

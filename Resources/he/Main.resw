@@ -238,7 +238,7 @@
     <value>הודעות ישירות</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>חברים</value>
+    <value>&lt;count&gt; חברים</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
     <value>שלח הודעה</value>
