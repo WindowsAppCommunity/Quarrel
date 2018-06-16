@@ -8,114 +8,13 @@ using Windows.UI.Xaml.Controls;
 using Discord_UWP.SharedModels;
 
 using Discord_UWP.LocalModels;
+using Discord_UWP.SimpleClasses;
 
 namespace Discord_UWP.Managers
 {
     class GuildManager
     {
-        public class SimpleGuild : INotifyPropertyChanged
-        {
-            /* This is a really ugly class, but it's necessary to have the values update correctly */
 
-            //id = channel id
-            //name = the displayed name of the channel
-            //imageurl = the URL of the image displayed for DMs
-            //notificationcount = the amount of pending notifications in this channel
-            //isunread = is the unread messages indicator visible?
-            //ismuted = is the channel muted?
-            //isdm = if it is the DM control
-
-            private string _id;
-            public string Id
-            {
-                get { return _id; }
-                set { if (_id == value) return; _id = value; OnPropertyChanged("Id"); }
-            }
-
-
-            private string _name;
-            public string Name
-            {
-                get { return _name; }
-                set { if (_name == value) return; _name = value; OnPropertyChanged("Name"); }
-            }
-
-            private string _lastmessageId;
-            public string TempLastMessageId
-            {
-                get { return _lastmessageId; }
-                set { if (_lastmessageId == value) return; _lastmessageId = value; OnPropertyChanged("TempLastMessageId"); }
-            }
-
-            private string _imageurl;
-            public string ImageURL
-            {
-                get { return _imageurl; }
-                set { if (_imageurl == value) return; _imageurl = value; OnPropertyChanged("ImageURL"); }
-            }
-
-            private int _notificationcount;
-            public int NotificationCount
-            {
-                get { return _notificationcount; }
-                set { if (_notificationcount == value) return; _notificationcount = value; OnPropertyChanged("NotificationCount"); }
-            }
-
-            private bool _isunread;
-            public bool IsUnread
-            {
-                get { return _isunread; }
-                set { if (_isunread == value) return; _isunread = value; OnPropertyChanged("IsUnread"); }
-            }
-
-            private bool _ismuted;
-            public bool IsMuted
-            {
-                get { return _ismuted; }
-                set { if (_ismuted == value) return; _ismuted = value; OnPropertyChanged("IsMuted"); }
-            }
-
-            private bool _isdm;
-            public bool IsDM
-            {
-                get { return _isdm; }
-                set { if (_isdm == value) return; _isdm = value; OnPropertyChanged("IsDM"); }
-            }
-
-            private bool _isvalid;
-            public bool IsValid
-            {
-                get { return _isvalid; }
-                set { if (_isvalid == value) return; _isvalid = value; OnPropertyChanged("IsValid"); }
-            }
-
-            private bool _isselected;
-            public bool IsSelected
-            {
-                get { return _isselected; }
-                set { if (_isselected == value) return; _isselected = value; OnPropertyChanged("IsSelected"); }
-            }
-
-            public SimpleGuild Clone()
-            {
-                SimpleGuild sg = new SimpleGuild();
-                sg.Id = Id;
-                sg.ImageURL = ImageURL;
-                sg.IsDM = IsDM;
-                sg.IsMuted = IsMuted;
-                sg.IsUnread = IsUnread;
-                sg.Name = Name;
-                sg.NotificationCount = NotificationCount;
-                sg.IsValid = IsValid;
-                sg.IsSelected = IsSelected;
-                sg.TempLastMessageId = TempLastMessageId;
-                return sg;
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-            public void OnPropertyChanged(string propertyName)
-            { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
-        }
         public static SimpleGuild CreateGuild(SharedModels.Guild guild)
         {
             var sg = new SimpleGuild()

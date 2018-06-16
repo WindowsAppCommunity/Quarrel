@@ -36,6 +36,7 @@ using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using static Discord_UWP.Managers.MessageManager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using Discord_UWP.SimpleClasses;
 
 namespace Discord_UWP.Controls
 {
@@ -51,9 +52,9 @@ namespace Discord_UWP.Controls
 
         //Is the message an advert?
         
-        public MessageManager.MessageTypes MessageType
+        public MessageTypes MessageType
         {
-            get { return (MessageManager.MessageTypes)GetValue(MessageTypeProperty); }
+            get { return (MessageTypes)GetValue(MessageTypeProperty); }
             set { SetValue(MessageTypeProperty, value); }
         }
         public static readonly DependencyProperty MessageTypeProperty = DependencyProperty.Register(
