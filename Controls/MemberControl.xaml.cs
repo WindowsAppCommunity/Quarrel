@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 
 using Discord_UWP.Managers;
 using Windows.UI.Text;
+using Discord_UWP.SimpleClasses;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 

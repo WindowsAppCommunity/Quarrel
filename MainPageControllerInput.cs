@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Discord_UWP.SimpleClasses;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -119,7 +120,7 @@ namespace Discord_UWP
                     if (focused.GetType() == typeof(ListViewItem))
                     {
                         var type = ((ListViewItem)focused).Content.GetType();
-                        if (type == typeof(Managers.ChannelManager.SimpleChannel) || type == typeof(Managers.GuildManager.SimpleGuild))
+                        if (type == typeof(SimpleChannel) || type == typeof(SimpleGuild))
                         {
                             userButton.Flyout.ShowAt(userButton);
                         }
@@ -144,14 +145,14 @@ namespace Discord_UWP
                         var type = ((ListViewItem)focused).Content.GetType();
                         Point position = new Point(0, 0);
 
-                        if (type == typeof(Managers.GuildManager.SimpleGuild))
+                        if (type == typeof(SimpleGuild))
                         {
-                            var guild = ((Managers.GuildManager.SimpleGuild)((ListViewItem)focused).Content);
+                            var guild = ((SimpleGuild)((ListViewItem)focused).Content);
                             App.ShowMenuFlyout(focused, Managers.FlyoutManager.Type.Guild, guild.Id, null, position);
                         }
-                        else if (type == typeof(Managers.ChannelManager.SimpleChannel))
+                        else if (type == typeof(SimpleChannel))
                         {
-                            var channel = ((Managers.ChannelManager.SimpleChannel)((ListViewItem)focused).Content);
+                            var channel = ((SimpleChannel)((ListViewItem)focused).Content);
                             Managers.FlyoutManager.Type flyouttype = Managers.FlyoutManager.Type.TextChn;
                             if (channel.Type == 1)
                                 flyouttype = Managers.FlyoutManager.Type.DMChn;
@@ -160,9 +161,9 @@ namespace Discord_UWP
                             else return;
                             App.ShowMenuFlyout(focused, flyouttype, channel.Id, null, position);
                         }
-                        else if (type == typeof(KeyValuePair<string, Managers.Member>))
+                        else if (type == typeof(KeyValuePair<string, Member>))
                         {
-                            var member = ((KeyValuePair<string, Managers.Member>)((ListViewItem)focused).Content).Value;
+                            var member = ((KeyValuePair<string, Member>)((ListViewItem)focused).Content).Value;
                             App.ShowMenuFlyout(focused, Managers.FlyoutManager.Type.GuildMember, member.Raw.User.Id, App.CurrentGuildId, position);
                         }
                     }

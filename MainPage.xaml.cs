@@ -32,6 +32,7 @@ using System.Diagnostics;
 using Midgard.Collections;
 using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
+using Discord_UWP.SimpleClasses;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -191,7 +192,7 @@ namespace Discord_UWP
             bool showabove = false;
             bool showbelow = false;
 
-            foreach (GuildManager.SimpleGuild sg in ServerList.Items)
+            foreach (SimpleGuild sg in ServerList.Items)
             {
                 if (sg.NotificationCount > 0)
                 {
@@ -478,7 +479,7 @@ namespace Discord_UWP
             {
                 if (App.CurrentGuildIsDM)
                 {
-                    foreach(ChannelManager.SimpleChannel channel in ChannelList.Items)
+                    foreach(SimpleChannel channel in ChannelList.Items)
                     {
                         if (channel.UserId != null && channel.UserId == e.UserId)
                             channel.UserStatus = e.Presence;
@@ -526,7 +527,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
-                                   foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                                   foreach (SimpleGuild guild in ServerList.Items)
                                    {
                                        if (guild.Id == e.Id)
                                        {
@@ -557,7 +558,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                                () =>
                                {
-                                   foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                                   foreach (SimpleGuild guild in ServerList.Items)
                                    {
                                        if (guild.Id == e.GuildId)
                                        {
@@ -593,7 +594,7 @@ namespace Discord_UWP
             }
             else
             {
-                foreach (GuildManager.SimpleGuild g in ServerList.Items)
+                foreach (SimpleGuild g in ServerList.Items)
                 {
                     if (g.Id == guildid)
                     {
@@ -899,14 +900,14 @@ namespace Discord_UWP
                              () =>
                              {
 
-                                 (ServerList.SelectedItem as GuildManager.SimpleGuild).IsSelected = true;
+                                 (ServerList.SelectedItem as SimpleGuild).IsSelected = true;
                                  MembersCvs.Source = null;
                              });
             App.CurrentGuildIsDM = e.GuildId == "@me"; //Could combine...
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                     foreach (SimpleGuild guild in ServerList.Items)
                      {
                          if (guild.Id == e.GuildId)
                          {
@@ -984,7 +985,7 @@ namespace Discord_UWP
 
                 if (e.OnBack)
                 {
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in ChannelList.Items)
                     {
                         if (chn.Id == e.ChannelId)
                         {
@@ -1001,14 +1002,14 @@ namespace Discord_UWP
                     navigationHistory.Push(currentPage);
                 }
 
-                foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                foreach (SimpleGuild guild in ServerList.Items)
                 {
                     if (guild.Id == e.GuildId)
                     {
                         ServerList.SelectedItem = guild;
                     }
                 }
-                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in ChannelList.Items)
                 {
                     if (chn.Id == e.ChannelId)
                     {
@@ -1028,7 +1029,7 @@ namespace Discord_UWP
                 App.MarkChannelAsRead(e.ChannelId);
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
-            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            foreach (SimpleChannel chn in ChannelList.Items)
                 if (chn.Id == e.ChannelId)
                     chn.IsSelected = true;
                 else if(chn.Type != 2)
@@ -1094,7 +1095,7 @@ namespace Discord_UWP
 
             if (e.OnBack)
             {
-                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in ChannelList.Items)
                 {
                     if (chn.Id == e.ChannelId)
                     {
@@ -1104,7 +1105,7 @@ namespace Discord_UWP
                 }
             }
 
-            foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+            foreach (SimpleChannel chn in ChannelList.Items)
             {
                 if (chn.Id == e.ChannelId)
                 {
@@ -1605,7 +1606,7 @@ namespace Discord_UWP
             {
                 VoiceController.Hide();
             }
-            foreach(ChannelManager.SimpleChannel chn in ChannelList.Items)
+            foreach(SimpleChannel chn in ChannelList.Items)
             {
                 if(chn.Type == 2)
                 {
@@ -1663,7 +1664,7 @@ namespace Discord_UWP
         public void RenderGuilds()
         {
             ServerList.Items.Clear();
-            GuildManager.SimpleGuild DM = new GuildManager.SimpleGuild();
+            SimpleGuild DM = new SimpleGuild();
             DM.Id = "@me";
             DM.Name = App.GetString("/Main/DirectMessages");
             DM.IsDM = false;
@@ -1681,7 +1682,7 @@ namespace Discord_UWP
 
             foreach (var guild in LocalState.Guilds.OrderBy(x => x.Value.Position))
             {
-                var sg = new GuildManager.SimpleGuild();
+                var sg = new SimpleGuild();
                 sg.Id = guild.Value.Raw.Id;
                 if (guild.Value.Raw.Icon != null && guild.Value.Raw.Icon != "")
                 {
@@ -1733,7 +1734,7 @@ namespace Discord_UWP
 
             ChannelList.Items.Clear();
 
-            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
+            foreach (SimpleChannel channel in ChannelManager.OrderChannels(LocalState.DMs.Values.ToList()))
             {
                 if (App.CurrentGuildIsDM)
                 {
@@ -1783,7 +1784,7 @@ namespace Discord_UWP
 
             ChannelList.Items.Clear();
 
-            foreach (ChannelManager.SimpleChannel channel in ChannelManager.OrderChannels(LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()))
+            foreach (SimpleChannel channel in ChannelManager.OrderChannels(LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()))
             {
                 if (VoiceController.channelid == channel.Id)
                     channel.IsSelected = true;
@@ -1824,9 +1825,9 @@ namespace Discord_UWP
                 sideDrawer.CloseLeft();
             }
 
-            ChannelName.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name : (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Name;
+            ChannelName.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel).Name : (ChannelList.SelectedItem as SimpleChannel).Name;
             //CompChannelName.Text = ChannelName.Text;
-            ChannelTopic.Text = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id].raw.Topic : "";
+            ChannelTopic.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel).Id].raw.Topic : "";
             //CompChannelTopic.Text = ChannelTopic.Text;
             if (ChannelTopic.Text == null || ChannelTopic.Text.Trim() == "")
             {
@@ -1880,7 +1881,7 @@ namespace Discord_UWP
         }
 
         public enum Position { Before, After };
-        public async void AddMessages(Position position, bool scroll, List<MessageManager.MessageContainer> messages, bool showNewMessageIndicator)
+        public async void AddMessages(Position position, bool scroll, List<MessageContainer> messages, bool showNewMessageIndicator)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -1888,7 +1889,7 @@ namespace Discord_UWP
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             if (messages != null && messages.Count > 0)
             {
-                MessageManager.MessageContainer scrollTo = null;
+                MessageContainer scrollTo = null;
                 if (showNewMessageIndicator)
                 {
                     //(MAYBE) SHOW NEW MESSAGE INDICATOR
@@ -1964,7 +1965,7 @@ namespace Discord_UWP
                 }
             }
 
-            Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageManager.MessageContainer).Message : null;
+            Message last = MessageList.Items.Count > 0 ? (MessageList.Items.Last() as MessageContainer).Message : null;
             if (last != null && App.CurrentGuildId != null && App.CurrentChannelId != null && last.Id != LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
             {
                 ReturnToPresentIndicator.Opacity = 1;
@@ -2017,7 +2018,7 @@ namespace Discord_UWP
             }
             tempMembers.Add(cm);
             
-            memberscvs = new GroupedObservableCollection<HoistRole, Managers.Member>(c => c.MemberHoistRole, tempMembers);
+            memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
 
             MembersCvs.Source = memberscvs;
           //  memberscvs.Clear();
@@ -2030,7 +2031,7 @@ namespace Discord_UWP
             string typingString = "";
             int DisplayedTyperCounter = 0;
             List<string> NamesTyping = new List<string>();
-            foreach (ChannelManager.SimpleChannel channel in ChannelList.Items)
+            foreach (SimpleChannel channel in ChannelList.Items)
                 channel.IsTyping = LocalState.Typers.ContainsKey(channel.Id);
 
             if (App.CurrentChannelId != null)
@@ -2083,7 +2084,7 @@ namespace Discord_UWP
         }
 
         int TempGuildCount = 0;
-        List<GuildManager.SimpleGuild> oldTempGuilds;
+        List<SimpleGuild> oldTempGuilds;
         private async void UpdateGuildAndChannelUnread()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -2099,9 +2100,9 @@ namespace Discord_UWP
                     }
                     int Fullcount = 0;
 
-                    foreach (GuildManager.SimpleGuild guild in ServerList.Items)
+                    foreach (SimpleGuild guild in ServerList.Items)
                     {
-                        GuildManager.SimpleGuild gclone = guild.Clone();
+                        SimpleGuild gclone = guild.Clone();
                         gclone.NotificationCount = 0; //Will Change if true
                         gclone.IsUnread = false; //Will change if true
                         if (gclone.Id == "@me")
@@ -2110,7 +2111,7 @@ namespace Discord_UWP
                             {
                                 gclone.NotificationCount += App.FriendNotifications;
                             }
-                            List<GuildManager.SimpleGuild> TempGuilds = new List<GuildManager.SimpleGuild>();
+                            List<SimpleGuild> TempGuilds = new List<SimpleGuild>();
                             foreach (var chn in LocalState.DMs.Values)
                                 if (LocalState.RPC.ContainsKey(chn.Id))
                                 {
@@ -2125,7 +2126,7 @@ namespace Discord_UWP
                                     //     gclone.NotificationCount += 1;
                                 /*    if (readstate.MentionCount > 0)
                                     {
-                                        GuildManager.SimpleGuild tempguild = new GuildManager.SimpleGuild()
+                                        SimpleGuild tempguild = new SimpleGuild()
                                         {
                                             Name = chn.Name,
                                             IsDM = true,
@@ -2141,7 +2142,7 @@ namespace Discord_UWP
                             /*bool TempGuildZone = true;
                             while (TempGuildZone)
                             {
-                                if (((GuildManager.SimpleGuild)ServerList.Items[1]).IsDM)
+                                if (((SimpleGuild)ServerList.Items[1]).IsDM)
                                     ServerList.Items.RemoveAt(1);
                                 else
                                     TempGuildZone = false;
@@ -2195,7 +2196,7 @@ namespace Discord_UWP
                     }
                     if (App.CurrentGuildIsDM)
                     {
-                        foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                        foreach (SimpleChannel sc in ChannelList.Items)
                         {
                             if (LocalState.RPC.ContainsKey(sc.Id))
                             {
@@ -2218,7 +2219,7 @@ namespace Discord_UWP
                     {
                         if (App.CurrentGuildId != null) //Incase called before intiialization
                         {
-                            foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                            foreach (SimpleChannel sc in ChannelList.Items)
                                 if (LocalState.RPC.ContainsKey(sc.Id) && LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(sc.Id))
                                 {
                                     ReadState readstate = LocalState.RPC[sc.Id];
@@ -2283,7 +2284,7 @@ namespace Discord_UWP
         {
             DisableLoadingMessages = true;
             MessagesLoadingTop.Visibility = Visibility.Visible;
-            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
+            var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageContainer).Message != null) as MessageContainer).Message.Id)).ToList());
             AddMessages(Position.Before, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
             MessagesLoadingTop.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
@@ -2295,9 +2296,9 @@ namespace Discord_UWP
             {
                 for (int i = MessageList.Items.Count; i < 0; i--)
                 {
-                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message != null)
+                    if (((MessageContainer)MessageList.Items[i]).Message != null)
                     {
-                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
+                        if (((MessageContainer)MessageList.Items[i]).Message.Id == LocalState.DMs[App.CurrentChannelId].LastMessageId)
                             return true;
                         else return false;
                     }
@@ -2308,9 +2309,9 @@ namespace Discord_UWP
             {
                 for (int i = MessageList.Items.Count; i < 0; i--)
                 {
-                    if (((MessageManager.MessageContainer)MessageList.Items[i]).Message != null)
+                    if (((MessageContainer)MessageList.Items[i]).Message != null)
                     {
-                        if (((MessageManager.MessageContainer)MessageList.Items[i]).Message.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
+                        if (((MessageContainer)MessageList.Items[i]).Message.Id == LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId)
                             return true;
                         else return false;
                     }
@@ -2322,13 +2323,13 @@ namespace Discord_UWP
         {
             try
             {
-                Message last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+                Message last = (MessageList.Items.Last() as MessageContainer).Message;
                 if (last != null && last.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
                 {
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
                     DisableLoadingMessages = true;
-                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageManager.MessageContainer).Message != null) as MessageManager.MessageContainer).Message.Id)).ToList());
+                    var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageContainer).Message != null) as MessageContainer).Message.Id)).ToList());
                     messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
                     AddMessages(Position.After, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
                     MessagesLoading.Visibility = Visibility.Collapsed;
@@ -2457,7 +2458,7 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                    foreach (SimpleChannel sc in ChannelList.Items)
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
                             sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
@@ -2482,7 +2483,7 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (ChannelManager.SimpleChannel sc in ChannelList.Items)
+                    foreach (SimpleChannel sc in ChannelList.Items)
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
 
@@ -2543,7 +2544,7 @@ namespace Discord_UWP
                         int position = 1;
                         foreach (var guild in e.Settings.GuildOrder)
                         {
-                            var item = ServerList.Items.FirstOrDefault(x => (x as GuildManager.SimpleGuild).Id == guild);
+                            var item = ServerList.Items.FirstOrDefault(x => (x as SimpleGuild).Id == guild);
                             if (item == null) return;
                             if (ServerList.Items.IndexOf(item) != position)
                             {
@@ -2593,7 +2594,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
-                     //var lastMsg = MessageList.Items.LastOrDefault() as MessageManager.MessageContainer;
+                     //var lastMsg = MessageList.Items.LastOrDefault() as MessageContainer;
                      //if (e.Message.User.Id == LocalState.CurrentUser.Id)
                      //{
                      //    if (lastMsg.Pending)
@@ -2610,7 +2611,7 @@ namespace Discord_UWP
                      Message last = null;
                      if (MessageList.Items.Count > 0)
                      {
-                         last = (MessageList.Items.Last() as MessageManager.MessageContainer).Message;
+                         last = (MessageList.Items.Last() as MessageContainer).Message;
                          if(last != null && last.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
 }
                             //Only add a message if the last one is functional
@@ -2680,17 +2681,17 @@ namespace Discord_UWP
                  {
                      for (int i = 0; i < MessageList.Items.Count; i++)
                      {
-                         MessageManager.MessageContainer message = (MessageManager.MessageContainer)MessageList.Items[i];
+                         MessageContainer message = (MessageContainer)MessageList.Items[i];
                          if (message.Message != null && message.Message.Id == e.MessageId)
                          {
                              MessageList.Items.Remove(message);
                              if (LocalState.RPC[App.CurrentChannelId].LastMessageId == e.MessageId)
                              {
-                                 MessageManager.MessageContainer last = (MessageManager.MessageContainer)MessageList.Items.LastOrDefault();
+                                 MessageContainer last = (MessageContainer)MessageList.Items.LastOrDefault();
                                  if (last != null)
                                  {
                                      var temp = LocalState.RPC[App.CurrentChannelId];
-                                     temp.LastMessageId = ((MessageManager.MessageContainer)MessageList.Items.Last()).Message.Id;
+                                     temp.LastMessageId = ((MessageContainer)MessageList.Items.Last()).Message.Id;
                                      LocalState.RPC[App.CurrentChannelId] = temp;
                                      LocalState.Guilds[App.CurrentGuildId].channels[App.CurrentChannelId].raw.LastMessageId = temp.LastMessageId;
                                  }
@@ -2708,7 +2709,7 @@ namespace Discord_UWP
                  {
                      if (MessageList.Items.Count > 0)
                      {
-                         foreach (MessageManager.MessageContainer message in MessageList.Items)
+                         foreach (MessageContainer message in MessageList.Items)
                          {
                              if (message.Message != null && message.Message.Id == e.Message.Id)
                              {
@@ -2742,7 +2743,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        foreach (SimpleChannel chn in ChannelList.Items)
                         {
                             if (chn.Id == e.DMId)
                             {
@@ -2758,7 +2759,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                        foreach (SimpleChannel chn in ChannelList.Items)
                         {
                             if (chn.Id == e.Id)
                             {
@@ -2793,7 +2794,7 @@ namespace Discord_UWP
                  {
                      if (ChannelList.Items.Count > 0)
                      {
-                         foreach (ChannelManager.SimpleChannel channel in ChannelList.Items)
+                         foreach (SimpleChannel channel in ChannelList.Items)
                          {
                              if (channel.Id == e.ChannelId)
                              {
@@ -2810,14 +2811,14 @@ namespace Discord_UWP
             App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
         }
 
-        private int findLocation(ChannelManager.SimpleChannel c)
+        private int findLocation(SimpleChannel c)
         {
             if (c.Type == 0 || c.Type == 2 || c.Type == 4)
             {
                 if (c.Type != 4)
                 {
                     int pos = 0;
-                    foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                    foreach (SimpleChannel chn in ChannelList.Items)
                     {
                         if (chn.Id == c.ParentId)
                         {
@@ -2839,7 +2840,7 @@ namespace Discord_UWP
             } else // type == 1 or 3
             {
                 int pos = 0;
-                foreach (ChannelManager.SimpleChannel chn in ChannelList.Items)
+                foreach (SimpleChannel chn in ChannelList.Items)
                 {
                     if (Common.SnowflakeToTime(c.LastMessageId) > Common.SnowflakeToTime(chn.LastMessageId))
                     {
@@ -2919,7 +2920,7 @@ namespace Discord_UWP
                     }
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
-                    List<Managers.Member> tempMembers = new List<Managers.Member>();
+                    List<Member> tempMembers = new List<Member>();
                     try
                     {
                         var keys = LocalState.Guilds[App.CurrentGuildId].members.Keys.ToArray();
@@ -2963,7 +2964,7 @@ namespace Discord_UWP
                                 tempMembers.Add(m);
                             }
                         }
-                        memberscvs = new GroupedObservableCollection<HoistRole, Managers.Member>(c => c.MemberHoistRole, tempMembers);
+                        memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
                         await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             MembersCvs.Source = memberscvs;
@@ -3119,7 +3120,7 @@ namespace Discord_UWP
             {
                 ServerSelectionWasClicked = false;
                 
-                var guildid = (ServerList.SelectedItem as GuildManager.SimpleGuild).Id;
+                var guildid = (ServerList.SelectedItem as SimpleGuild).Id;
                 App.NavigateToGuild(guildid);
                 
                 sideDrawer.OpenLeft();
@@ -3171,10 +3172,10 @@ namespace Discord_UWP
 
                         if (ChannelList.SelectedItem != null) //Called on clear
                         {
-                            var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;
+                            var channel = ChannelList.SelectedItem as SimpleChannel;
                             if (channel.Type == 4) //CATEGORY
                             {
-                                foreach (ChannelManager.SimpleChannel item in ChannelList.Items.Where(x => (x as ChannelManager.SimpleChannel).ParentId == channel.Id))
+                                foreach (SimpleChannel item in ChannelList.Items.Where(x => (x as SimpleChannel).ParentId == channel.Id))
                                 {
                                     if (item.Hidden)
                                         item.Hidden = false;
@@ -3203,7 +3204,7 @@ namespace Discord_UWP
                                
                                 if (App.CurrentGuildIsDM)
                                 {
-                                    var cid = (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id;
+                                    var cid = (ChannelList.SelectedItem as SimpleChannel).Id;
                                     if (!string.IsNullOrEmpty(autoselectchannelcontent))
                                         App.NavigateToDMChannel(cid, autoselectchannelcontent);
                                     else
@@ -3215,7 +3216,7 @@ namespace Discord_UWP
                                 }
                                 else
                                 {
-                                    App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as ChannelManager.SimpleChannel).Id);
+                                    App.NavigateToGuildChannel(App.CurrentGuildId, (ChannelList.SelectedItem as SimpleChannel).Id);
                                 }
                             }
                         }
@@ -3274,8 +3275,8 @@ namespace Discord_UWP
 
             //Add a user activity for this channel:
             
-            var guild = ServerList.SelectedItem as GuildManager.SimpleGuild;
-            var channel = ChannelList.SelectedItem as ChannelManager.SimpleChannel;      
+            var guild = ServerList.SelectedItem as SimpleGuild;
+            var channel = ChannelList.SelectedItem as SimpleChannel;      
             Task.Run(async ()=>{
                 if (App.CurrentGuildIsDM)
                 {
@@ -3332,7 +3333,7 @@ namespace Discord_UWP
         }
         #endregion
 
-        public GroupedObservableCollection<HoistRole, Managers.Member> memberscvs;
+        public GroupedObservableCollection<HoistRole, Member> memberscvs;
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
@@ -3349,9 +3350,9 @@ namespace Discord_UWP
             App.CurrentChannelId = null;
             ClearMessageArea();
             FriendsItem.IsSelected = true;
-            if (ChannelList.SelectedItem != null && ChannelList.SelectedItem is ChannelManager.SimpleChannel)
+            if (ChannelList.SelectedItem != null && ChannelList.SelectedItem is SimpleChannel)
             {
-                (ChannelList.SelectedItem as ChannelManager.SimpleChannel).IsSelected = false;
+                (ChannelList.SelectedItem as SimpleChannel).IsSelected = false;
             }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
@@ -3396,7 +3397,7 @@ namespace Discord_UWP
 
         private void ServerList_LostFocus(object sender, RoutedEventArgs e)
         {
-           // ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((ChannelManager.SimpleChannel)x).Id == App.CurrentChannelId);
+           // ChannelList.SelectedItem = ChannelList.Items.FirstOrDefault(x => ((SimpleChannel)x).Id == App.CurrentChannelId);
         }
 
         private void sideDrawer_SecondaryLeftFocused_1(object sender, EventArgs e)
@@ -3421,7 +3422,7 @@ namespace Discord_UWP
 
         private void ChannelList_LostFocus(object sender, RoutedEventArgs e)
         {
-            //ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((GuildManager.SimpleGuild)x).Id == App.CurrentGuildId);    
+            //ServerList.SelectedItem = ServerList.Items.FirstOrDefault(x => ((SimpleGuild)x).Id == App.CurrentGuildId);    
         }
 
         private void AppBarButton_Click_1(object sender, RoutedEventArgs e)
