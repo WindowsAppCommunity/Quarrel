@@ -309,4 +309,28 @@
   <data name="&lt;count&gt; members" xml:space="preserve">
     <value>&lt;count&gt; membres</value>
   </data>
+  <data name="NewMessageHLBTN.Content" xml:space="preserve">
+    <value>NOUVEAUX MESSAGES</value>
+  </data>
+  <data name="IgnoreHLBTN.Content" xml:space="preserve">
+    <value>IGNORER</value>
+  </data>
+  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
+    <value>RETOURNER AU PRESENT</value>
+  </data>
+  <data name="AboutMFI.Text" xml:space="preserve">
+    <value>À Propos</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>Quoi de neuf?</value>
+  </data>
+  <data name="RemoveAds.Text" xml:space="preserve">
+    <value>Supprimer les pubs</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="AddAttachementTB.Text" xml:space="preserve">
+    <value>Ajouter une pièce jointe</value>
+  </data>
 </root>
