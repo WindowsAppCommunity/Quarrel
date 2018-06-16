@@ -1136,8 +1136,7 @@ namespace Discord_UWP
                      {
                          content.Blur(2, 300).Start();
                      }
-                     SubFrame.CacheSize = 0;
-                     
+                     SubFrame.BackStack.Clear();
                      SubFrame.Navigate(page, args);
                      SubFrameMask.Fade(0.6f, 500, 0, 0).Start();
                      SubFrame.Visibility = Visibility.Visible;
@@ -1148,7 +1147,7 @@ namespace Discord_UWP
                     
                  });
         }
-        private void App_SubpageClosedHandler(object sender, EventArgs e)
+        private async void App_SubpageClosedHandler(object sender, EventArgs e)
         {
             if (Storage.Settings.ExpensiveRender)
             {
@@ -1158,9 +1157,10 @@ namespace Discord_UWP
             {
                 content.Blur(0, 0).Start();
             }
-            SubFrameMask.Fade(0f, 300, 0, 0).Start();
+            await SubFrameMask.Fade(0f, 300, 0, 0).StartAsync();
             SubFrame.IsFocusEngagementEnabled = false;
             SubFrame.IsFocusEngaged = false;
+            SubFrame.Content = null;
         }
 
         private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
@@ -3534,20 +3534,10 @@ namespace Discord_UWP
 
         private void SubFrame_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (SubFrame.Opacity == 1)
-            {
-                //NOPE, FUCK OFF, YOU'RE NOT ALLOWED TO LOSE FOCUS YOU USELESS INBRED CUMSTAIN
-                var el = FocusManager.GetFocusedElement();
-                if (el != null)
-                {
-                    Debug.WriteLine("It lost focus. Shit.");
-                }
-            }
         }
 
         private void SubFrame_GotFocus(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void SubFrame_LosingFocus(UIElement sender, LosingFocusEventArgs args)
