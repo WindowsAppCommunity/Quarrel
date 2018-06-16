@@ -185,7 +185,7 @@ namespace Discord_UWP.Controls
                 {
                     FooterText.Text = footertext;
                 }
-                if (EmbedContent.Footer != null)
+                if (EmbedContent.Footer != null && EmbedContent.Footer.IconUrl != null)
                 {
                     FooterImage.Visibility = Visibility.Visible;
                     FooterImage.Source = new BitmapImage(new Uri(EmbedContent.Footer.IconUrl));

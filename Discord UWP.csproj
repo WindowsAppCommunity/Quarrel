@@ -141,6 +141,7 @@
     <Compile Include="DiffieHellman\BigInt.cs" />
     <Compile Include="DiffieHellman\DiffieHellman.cs" />
     <Compile Include="DiffieHellman\StrongNumberProvider.cs" />
+    <Compile Include="Flyouts\VoiceMember.cs" />
     <Compile Include="MainPageControllerInput.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
       <DependentUpon>AttachementControl.xaml</DependentUpon>
