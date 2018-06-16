@@ -1,5 +1,5 @@
-﻿<Page
-    x:Class="Discord_UWP.SubPages.EditGuild"
+﻿<!--<Page
+    x:Class="Discord_UWP.SubPages.Reactions"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP.SubPages"
@@ -335,4 +335,4 @@
         </Grid>
 
     </Grid>
-</Page>
+</Page>-->
