@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Accent colour</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
     <value>Advanced</value>
@@ -205,7 +205,7 @@
     <value>XL (Servers, channels, and members are visible)</value>
   </data>
   <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>System accent color</value>
+    <value>System accent colour</value>
   </data>
   <data name="ThemeTB.Text" xml:space="preserve">
     <value>THEME</value>
@@ -229,7 +229,7 @@
     <value>Muted channels affect server unread status?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
-    <value>System accent color</value>
+    <value>System accent colour</value>
   </data>
   <data name="BlurpleRadio.Content" xml:space="preserve">
     <value>Discord Blurple</value>

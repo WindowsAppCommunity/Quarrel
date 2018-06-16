@@ -471,6 +471,12 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
+    <PRIResource Include="Resources\pt\Settings.resw" />
+    <PRIResource Include="Resources\pt\Main.resw" />
+    <PRIResource Include="Resources\pt\Flyouts.resw" />
+    <PRIResource Include="Resources\pt\Dialogs.resw" />
+    <PRIResource Include="Resources\pt\Controls.resw" />
+    <PRIResource Include="Resources\pt\About.resw" />
     <PRIResource Include="Resources\it\Main.resw" />
     <PRIResource Include="Resources\it\Flyouts.resw" />
     <PRIResource Include="Resources\it\Dialogs.resw" />

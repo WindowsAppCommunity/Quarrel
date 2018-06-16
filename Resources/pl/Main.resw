@@ -318,4 +318,7 @@
   <data name="Settings.Text" xml:space="preserve">
     <value>Ustawienia</value>
   </data>
+  <data name="members" xml:space="preserve">
+    <value>&lt;count&gt; członków</value>
+  </data>
 </root>

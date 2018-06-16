@@ -238,7 +238,7 @@
     <value>Direct Messages</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>members</value>
+    <value>&lt;count&gt; members</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
     <value>sent a message on</value>
@@ -332,6 +332,6 @@
     <value>Settings</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>ADD ATTACHEMENT</value>
+    <value>ADD ATTACHMENT</value>
   </data>
 </root>
