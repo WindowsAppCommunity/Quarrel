@@ -190,7 +190,6 @@ namespace Discord_UWP.Controls
         {
             SharedGuildContainer.Children.Clear();
             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-            GC.Collect();
         }
     }
 }

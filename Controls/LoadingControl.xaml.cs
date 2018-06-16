@@ -166,7 +166,6 @@ namespace Discord_UWP.Controls
         {
             App.Splash.Dismissed -= Splash_Dismissed;
             App.StatusChangedHandler -= App_StatusChangedHandler;
-            GC.Collect();
         }
     }
 }

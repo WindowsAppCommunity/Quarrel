@@ -64,6 +64,7 @@ namespace Discord_UWP.SubPages
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
+            ShowServerMute.IsChecked = Storage.Settings.ServerMuteIcons;
 
             if (Storage.Settings.BackgroundTaskTime == 0)
             {
@@ -276,6 +277,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
             Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
+            Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
 
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
 

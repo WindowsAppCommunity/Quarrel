@@ -658,7 +658,6 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
-            GC.Collect();
         }
         int querylength = 0;
         private void MessageEditor_KeyUp(object sender, KeyRoutedEventArgs e)
