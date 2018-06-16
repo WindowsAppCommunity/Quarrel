@@ -47,6 +47,7 @@ namespace Discord_UWP.SubPages
             LiveTile.IsChecked = Storage.Settings.LiveTile;
             Badge.IsChecked = Storage.Settings.Badge;
             Vibrate.IsChecked = Storage.Settings.Vibrate;
+            FontSizeSlider.Value = Storage.Settings.MSGFontSize;
             CompactMode.IsChecked = Storage.Settings.CompactMode;
             FriendsNotifyDMs.IsChecked = Storage.Settings.FriendsNotifyDMs;
             FriendsNotifyFriendRequests.IsChecked = Storage.Settings.FriendsNotifyFriendRequest;
@@ -264,6 +265,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.RespUiL = RespUI_L.Value;
             Storage.Settings.RespUiXl = RespUI_XL.Value;
             //Storage.Settings.AppBarAtBottom = (bool)AppBarAtBottom_checkbox.IsChecked;
+            Storage.Settings.MSGFontSize = (int)FontSizeSlider.Value;
             Storage.Settings.CompactMode = (bool)CompactMode.IsChecked;
             Storage.Settings.FriendsNotifyDMs = (bool)FriendsNotifyDMs.IsChecked;
             Storage.Settings.FriendsNotifyFriendRequest = (bool)FriendsNotifyFriendRequests.IsChecked;
