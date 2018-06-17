@@ -349,7 +349,7 @@ namespace Discord_UWP.Controls
                     if (IsHidden)
                     {
                         this.Visibility = Visibility.Visible;
-                        this.Fade(1, 200, 0).Start();
+                        //this.Fade(1, 200, 0).Start();
                     }
                 }
                 UpdateOpacity();
@@ -365,6 +365,8 @@ namespace Discord_UWP.Controls
                 else
                 {
                     MuteIcon.Visibility = Visibility.Collapsed;
+                    if(IsUnread)
+                        UnreadIndicator.Visibility = Visibility.Visible;
                 }
                 UpdateOpacity();
                 UpdateHidden();

@@ -55,7 +55,7 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Name="HideMute" Completed="HideBadge_Completed">
+        <Storyboard x:Name="HideMute" Completed="HideMute_Completed">
             <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
@@ -110,6 +110,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-        <SymbolIcon x:Name="MutedIcon" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="1"/>
+        <SymbolIcon x:Name="MutedIcon" Visibility="Collapsed" Opacity="0" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="1"/>
     </Grid>
 </UserControl>
