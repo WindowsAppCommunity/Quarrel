@@ -2936,7 +2936,7 @@ namespace Discord_UWP
 
                     
                     if (!string.IsNullOrEmpty(member.Nick))
-                        App.MemberListTrie.Add(member.User.Username.ToLower(), new Common.AutoComplete(member.Nick, member.User.Username + "#" + member.User.Discriminator, Common.AvatarString(member.User.Avatar, member.User.Id)));
+                        App.MemberListTrie.Add(member.Nick.ToLower(), new Common.AutoComplete(member.Nick, member.User.Username + "#" + member.User.Discriminator, Common.AvatarString(member.User.Avatar, member.User.Id)));
                     
                      App.MemberListTrie.Add(member.User.Username.ToLower(), new Common.AutoComplete(member.User.Username + "#" + member.User.Discriminator, null, Common.AvatarString(member.User.Avatar, member.User.Id)));
                 }
