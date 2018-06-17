@@ -164,6 +164,7 @@ namespace Discord_UWP.Controls
             {
                 if (IsMuted && Storage.Settings.ServerMuteIcons)
                 {
+                    MutedIcon.Visibility = Visibility.Visible;
                     ShowMute.Begin();
                 } else
                 {
@@ -274,6 +275,11 @@ namespace Discord_UWP.Controls
         {
             this.Holding -= OpenMenuFlyout;
             this.RightTapped -= OpenMenuFlyout;
+        }
+
+        private void HideMute_Completed(object sender, object e)
+        {
+            MutedIcon.Visibility = Visibility.Collapsed;
         }
     }
 }
