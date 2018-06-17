@@ -110,6 +110,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-        <SymbolIcon x:Name="MutedIcon" Visibility="Collapsed" Opacity="0" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="1"/>
+        <SymbolIcon x:Name="MutedIcon" Visibility="Collapsed" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="0"/>
     </Grid>
 </UserControl>
