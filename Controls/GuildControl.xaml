@@ -39,11 +39,41 @@
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.5" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImage" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.25" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TextIcon" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Name="HideMute" Completed="HideBadge_Completed">
             <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MutedIcon" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0.6" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImage" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TextIcon" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
@@ -80,6 +110,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Border>
-        <SymbolIcon x:Name="MutedIcon" Symbol="Mute" Foreground="{ThemeResource ButtonBackgroundPressed}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0"/>
+        <SymbolIcon x:Name="MutedIcon" Canvas.ZIndex="20" Symbol="Mute" Foreground="{ThemeResource Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,2,0,0" Opacity="1"/>
     </Grid>
 </UserControl>
