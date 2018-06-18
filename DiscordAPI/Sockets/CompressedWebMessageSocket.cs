@@ -11,7 +11,7 @@ using Windows.Storage.Streams;
 
 
 namespace Discord_UWP.Sockets
-{
+{/*
     public class CompressedWebMessageSocket : IWebMessageSocket
     {
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
@@ -59,14 +59,13 @@ namespace Discord_UWP.Sockets
                 _dataWriter.WriteString(message);
                 await _dataWriter.StoreAsync();
             }
-            catch /*(Exception exception)*/
+            catch (Exception exception)
             {
                 //App.NavigateToBugReport(exception);
             }
         }
         private MemoryStream _compressed;
         private DeflateStream _decompressor;
-
         private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
             using (var datastr = e.GetDataStream().AsStreamForRead())
@@ -96,7 +95,15 @@ namespace Discord_UWP.Sockets
                     _compressed.Position = 0;
                     decompressed.Position = 0;
                     using (var reader = new StreamReader(decompressed))
-                        OnMessageReceived(reader.ReadToEnd());
+                    {
+                        Debug.WriteLine(message);
+                        var messageReceivedEvent = new MessageReceivedEventArgs
+                        {
+                            Message = message
+                        };
+
+                        MessageReceived?.Invoke(this, messageReceivedEvent);
+                    }
                 }
             }
         }
@@ -107,16 +114,7 @@ namespace Discord_UWP.Sockets
             stream.Read(inArray, 0, (int)stream.Length);
             Debug.WriteLine("before= " + Convert.ToBase64String(inArray));
         }
-        private void OnMessageReceived(string message)
-        {
-            Debug.WriteLine(message);
-            var messageReceivedEvent = new MessageReceivedEventArgs
-            {
-                Message = message
-            };
 
-            MessageReceived?.Invoke(this, messageReceivedEvent);
-        }
 
         private void HandleClosed(object sender, WebSocketClosedEventArgs args)
         {
@@ -135,5 +133,5 @@ namespace Discord_UWP.Sockets
             _socket.Dispose();
             _dataWriter.Dispose();
         }
-    }
+    }*/
 }
