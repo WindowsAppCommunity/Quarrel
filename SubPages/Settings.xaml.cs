@@ -438,16 +438,16 @@ namespace Discord_UWP.SubPages
                 switch ((sender as ComboBox).SelectedIndex)
                 {
                     case 0:
-                        TimeExample.Text = (new DateTime(1007698800000).ToString("hh:mm"));
+                        TimeExample.Text = (DateTime.Now.ToString("hh:mm"));
                         break;
                     case 1:
-                        TimeExample.Text = (new DateTime(1007698800000).ToString("H:mm"));
+                        TimeExample.Text = (DateTime.Now.ToString("H:mm"));
                         break;
                     case 2:
-                        TimeExample.Text = (new DateTime(1007698800000).ToString("hh:mm:ss tt"));
+                        TimeExample.Text = (DateTime.Now.ToString("hh:mm:ss tt"));
                         break;
                     case 3:
-                        TimeExample.Text = (new DateTime(1007698800000).ToString("HH:mm:ss"));
+                        TimeExample.Text = (DateTime.Now.ToString("HH:mm:ss"));
                         break;
                     case 4:
                         CustomTimeF.Visibility = Visibility.Visible;
@@ -464,16 +464,16 @@ namespace Discord_UWP.SubPages
                 switch ((sender as ComboBox).SelectedIndex)
                 {
                     case 0:
-                        DateExample.Text = (new DateTime(1007698800000).ToString("M/d/yyyy"));
+                        DateExample.Text = (DateTime.Now.ToString("M/d/yyyy"));
                         break;
                     case 1:
-                        DateExample.Text = (new DateTime(1007698800000).ToString("M/d/yy"));
+                        DateExample.Text = (DateTime.Now.ToString("M/d/yy"));
                         break;
                     case 2:
-                        DateExample.Text = (new DateTime(1007698800000).ToString("MM/dd/yy"));
+                        DateExample.Text = (DateTime.Now.ToString("MM/dd/yy"));
                         break;
                     case 3:
-                        DateExample.Text = (new DateTime(1007698800000).ToString("MMM/dd/yyyy"));
+                        DateExample.Text = (DateTime.Now.ToString("MMM/dd/yyyy"));
                         break;
                     case 4:
                         CustomDateF.Visibility = Visibility.Visible;
