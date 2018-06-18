@@ -9,6 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Networking.Sockets;
+using System.IO;
+using System.IO.Compression;
+using Windows.Storage.Streams;
 
 namespace Discord_UWP.Gateway
 {
@@ -30,9 +34,9 @@ namespace Discord_UWP.Gateway
         private IDictionary<string, GatewayEventHandler> eventHandlers;
 
         private Ready lastReady;
-        private SocketFrame lastGatewayEvent;
+        private int? lastGatewayEventSeq;
 
-        private readonly IWebMessageSocket _webMessageSocket;
+        //private readonly IWebMessageSocket _webMessageSocket;
         private readonly IAuthenticator _authenticator;
         private readonly GatewayConfig _gatewayConfig;
 
@@ -83,22 +87,123 @@ namespace Discord_UWP.Gateway
 
         public event EventHandler<GatewayEventArgs<SessionReplace>> SessionReplaced;
 
+        MessageWebSocket _socket;
+        private MemoryStream _compressed;
+        private DeflateStream _decompressor;
         public Gateway(GatewayConfig config, IAuthenticator authenticator)
         {
+            _socket = new MessageWebSocket();
+            _socket.Control.MessageType = SocketMessageType.Utf8;
+            _compressed = new MemoryStream();
+            _dataWriter = new DataWriter(_socket.OutputStream);
             if (UseCompression)
-            {
-                _webMessageSocket = new CompressedWebMessageSocket();
-            } else
-            {
-                _webMessageSocket = new WebMessageSocket();
-            }
+                _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
+            _socket.MessageReceived += HandleMessage;
+            _socket.Closed += HandleClosed;
             _authenticator = authenticator;
             _gatewayConfig = config;
             eventHandlers = GetEventHandlers();
             operationHandlers = GetOperationHandlers();
           
-            PrepareSocket();
+     //       PrepareSocket();
         }
+        private void HandleClosed(object sender, WebSocketClosedEventArgs args)
+        {
+           // OnClosed();
+        }
+        private void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
+        {
+            if (UseCompression)
+            {
+                //TODO what happens when e==null?
+                using (var datastr = e.GetDataStream().AsStreamForRead())
+                using (var ms = new MemoryStream())
+                {
+                    datastr.CopyTo(ms);
+                    ms.Position = 0;
+                    byte[] data = new byte[ms.Length];
+                    ms.Read(data, 0, (int)ms.Length);
+                    int index = 0;
+                    int count = data.Length;
+                    using (var decompressed = new MemoryStream())
+                    {
+                        if (data[0] == 0x78)
+                        {
+                            _compressed.Write(data, index + 2, count - 2);
+                            _compressed.SetLength(count - 2);
+                        }
+                        else
+                        {
+                            _compressed.Write(data, index, count);
+                            _compressed.SetLength(count);
+                        }
+
+                        _compressed.Position = 0;
+                        _decompressor.CopyTo(decompressed);
+                        _compressed.Position = 0;
+                        decompressed.Position = 0;
+
+                        using (var reader = new StreamReader(decompressed))
+                        using (JsonReader jsreader = new JsonTextReader(reader))
+                        {
+                            JsonSerializer serializer = new JsonSerializer();
+                            SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
+                            lastGatewayEventSeq = frame.SequenceNumber;
+                            if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
+                            {
+                                operationHandlers[frame.Operation.GetValueOrDefault()](frame);
+                            }
+
+                            if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
+                            {
+                                eventHandlers[frame.Type](frame);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                using (var reader = new StreamReader(e.GetDataStream().AsStreamForRead()))
+                using (JsonReader jsreader = new JsonTextReader(reader))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    SocketFrame frame = serializer.Deserialize<SocketFrame>(jsreader);
+                    lastGatewayEventSeq = frame.SequenceNumber;
+                    if (operationHandlers.ContainsKey(frame.Operation.GetValueOrDefault()))
+                    {
+                        operationHandlers[frame.Operation.GetValueOrDefault()](frame);
+                    }
+
+                    if (frame.Type != null && eventHandlers.ContainsKey(frame.Type))
+                    {
+                        eventHandlers[frame.Type](frame);
+                    }
+                }
+            }
+        }
+        public async Task ConnectAsync(string connectionUrl)
+        {
+            try
+            {
+                await _socket.ConnectAsync(new Uri(connectionUrl));
+            }
+            catch { }
+        }
+        private readonly DataWriter _dataWriter;
+        public async Task SendMessageAsync(string message)
+        {
+            try
+            {
+                _dataWriter.WriteString(message);
+                await _dataWriter.StoreAsync();
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
         public async Task Search(string query, List<string> guilds, int limit)
         {
             var frame = new SocketFrame()
@@ -111,7 +216,9 @@ namespace Discord_UWP.Gateway
                     guild_id = guilds
                 }
             };
-            await _webMessageSocket.SendJsonObjectAsync(frame);
+            await SendMessageAsync(JsonConvert.SerializeObject(frame));
+           // var serialzedObject = ;
+           // await _webMessageSocket.SendJsonObjectAsync(frame);
         }
         private IDictionary<int, GatewayEventHandler> GetOperationHandlers()
         {
@@ -164,10 +271,10 @@ namespace Discord_UWP.Gateway
 
 
 
-        private void PrepareSocket()
+       /* private void PrepareSocket()
         {
             _webMessageSocket.MessageReceived += OnSocketMessageReceived;
-        }
+        }*/
         public static bool UseCompression;
         public async Task ConnectAsync()
         {
@@ -176,7 +283,8 @@ namespace Discord_UWP.Gateway
             {
                 append = "&compress=zlib-stream";
             }
-            await _webMessageSocket.ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
+            
+            await ConnectAsync(_gatewayConfig.GetFullGatewayUrl("json", "6", append));
         }
 
         // TODO: good chance the socket will be disposed when attempting to resume so yah
@@ -188,9 +296,10 @@ namespace Discord_UWP.Gateway
             {
                 Token = token,
                 SessionId = lastReady?.SessionId,
-                LastSequenceNumberReceived = lastGatewayEvent?.SequenceNumber.Value ?? 0
+                LastSequenceNumberReceived = lastGatewayEventSeq ?? 0
             };
-            await _webMessageSocket.SendJsonObjectAsync(resume);
+            await SendMessageAsync(JsonConvert.SerializeObject(resume));
+           // await _webMessageSocket.SendJsonObjectAsync(resume);
         }
 
         public async void UpdateStatus(string onlinestatus, int? idleSince, Game game)
@@ -218,7 +327,8 @@ namespace Discord_UWP.Gateway
                 Operation = 8,
                 Payload = payload
             };
-            await _webMessageSocket.SendJsonObjectAsync(request);
+            await SendMessageAsync(JsonConvert.SerializeObject(request));
+            //await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
         public async Task VoiceStatusUpdate(string guildId, string channelId, bool selfMute, bool selfDeaf)
@@ -236,7 +346,8 @@ namespace Discord_UWP.Gateway
                 Operation = 4,
                 Payload = payload
             };
-            await _webMessageSocket.SendJsonObjectAsync(request);
+            await SendMessageAsync(JsonConvert.SerializeObject(request));
+            //await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
         public async void SubscribeToGuild(string[] guildIDs)
@@ -246,23 +357,8 @@ namespace Discord_UWP.Gateway
                 Operation = OperationCode.SubscribeToGuild.ToInt(),
                 Payload = guildIDs
             };
-            await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
-        }
-
-        private void OnSocketMessageReceived(object sender, MessageReceivedEventArgs args)
-        {
-            var gatewayEvent = JsonConvert.DeserializeObject<SocketFrame>(args.Message);
-            lastGatewayEvent = gatewayEvent;
-            if (operationHandlers.ContainsKey(gatewayEvent.Operation.GetValueOrDefault()))
-            {
-                operationHandlers[gatewayEvent.Operation.GetValueOrDefault()](gatewayEvent);
-            }
-           
-            if (gatewayEvent.Type != null && eventHandlers.ContainsKey(gatewayEvent.Type))
-            {
-                eventHandlers[gatewayEvent.Type](gatewayEvent);
-            }
-           
+            await SendMessageAsync(JsonConvert.SerializeObject(identifyEvent));
+            //await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
         
         private void OnHelloReceived(SocketFrame gatewayEvent)
@@ -279,8 +375,8 @@ namespace Discord_UWP.Gateway
                 Operation = OperationCode.Identify.ToInt(),
                 Payload = GetIdentityAsync()
             };
-
-            await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
+            await SendMessageAsync(JsonConvert.SerializeObject(identifyEvent));
+           // await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
         }
 
         private Identify GetIdentityAsync()
@@ -305,6 +401,9 @@ namespace Discord_UWP.Gateway
                 ReferringDomain = ""
             };
         }
+
+
+        #region OnEvents
 
         private void OnResumeReceived(SocketFrame gatewayEvent)
         {
@@ -536,15 +635,15 @@ namespace Discord_UWP.Gateway
                 var heartbeatEvent = new SocketFrame
                 {
                     Operation = OperationCode.Heartbeat.ToInt(),
-                    Payload = lastGatewayEvent?.SequenceNumber ?? 0
+                    Payload = lastGatewayEventSeq ?? 0
                 };
 
                 if (DateTime.Now.Day == 1 && DateTime.Now.Month == 4) //April 1st
                 {
                     //App.PlayHeartBeat();
                 }
-
-                await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
+                await SendMessageAsync(JsonConvert.SerializeObject(heartbeatEvent));
+                //await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);
             }
             catch /*(Exception exception)*/
             {
@@ -559,8 +658,10 @@ namespace Discord_UWP.Gateway
                 Operation = 3,
                 Payload = status
             };
-            await _webMessageSocket.SendJsonObjectAsync(statusevent);
+            await SendMessageAsync(JsonConvert.SerializeObject(statusevent));
+           // await _webMessageSocket.SendJsonObjectAsync(statusevent);
         }
 
+        #endregion
     }
 }
