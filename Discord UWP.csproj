@@ -984,6 +984,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)PreBuild.ps1  -PlatformName:$(PlatformName) -ProjectDir:$(ProjectDir)</PreBuildEvent>
-    <PreBuildEvent>copy /y $(SolutionDir)$(PlatformName)\SodiumC.dll $(ProjectDir)</PreBuildEvent>
+    <PreBuildEvent>copy /y $(SolutionDir)$(PlatformName)\SodiumC.dll $(ProjectDir) &amp; powershell $(ProjectDir)\PreBuild.ps1</PreBuildEvent>
   </PropertyGroup>
 </Project>

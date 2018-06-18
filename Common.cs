@@ -129,7 +129,7 @@ namespace Discord_UWP
             { result = App.GetString("/Main/Yesterday") + " " + App.GetString("/Main/at"); }
             else
             {
-                result = dt.ToString(Storage.Settings.DateFormat);
+                result = dt.ToString(Storage.Settings.DateFormat) + " " + App.GetString("/Main/at");
             }
 
             result += dt.ToString(Storage.Settings.TimeFormat); //Space handled by "/Main/at
