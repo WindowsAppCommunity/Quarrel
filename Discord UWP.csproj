@@ -473,6 +473,18 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
+    <PRIResource Include="Resources\hu\Settings.resw" />
+    <PRIResource Include="Resources\th\Settings.resw" />
+    <PRIResource Include="Resources\hu\Main.resw" />
+    <PRIResource Include="Resources\th\Main.resw" />
+    <PRIResource Include="Resources\hu\Flyouts.resw" />
+    <PRIResource Include="Resources\th\Flyouts.resw" />
+    <PRIResource Include="Resources\hu\Dialogs.resw" />
+    <PRIResource Include="Resources\th\Dialogs.resw" />
+    <PRIResource Include="Resources\hu\Controls.resw" />
+    <PRIResource Include="Resources\th\Controls.resw" />
+    <PRIResource Include="Resources\hu\About.resw" />
+    <PRIResource Include="Resources\th\About.resw" />
     <PRIResource Include="Resources\pt\Settings.resw" />
     <PRIResource Include="Resources\pt\Main.resw" />
     <PRIResource Include="Resources\pt\Flyouts.resw" />

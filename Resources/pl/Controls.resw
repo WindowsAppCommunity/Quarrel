@@ -163,10 +163,10 @@
     <value>Dołączono</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
-    <value>Osiągnięto maksymalną liczbę użytkkowników</value>
+    <value>Osiągnięto maksymalną liczbę użytkowników</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>Użytkownicy, którzy użyją tego linku zostaną automatycznie wyrzuceni z kanału przy rozłączeniu, chyba, że otrzymają rolę.</value>
+    <value>Użytkownicy, którzy użyją tego linku zostaną automatycznie wyrzuceni z kanału przy rozłączeniu, chyba że otrzymają rolę.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>NATURA</value>
@@ -247,7 +247,7 @@
     <value>Wyślij wiadomość</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
-    <value>Zadzwoń (context)?</value>
+    <value>Zadzwoń</value>
   </data>
   <data name="FriendsLI.Content" xml:space="preserve">
     <value>ZNAJOMI</value>
@@ -280,7 +280,7 @@
     <value>Rozmowa zaczęta przez &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>&lt;user&gt; rozpoczą rozmowę</value>
+    <value>&lt;user&gt; rozpoczął rozmowę</value>
   </data>
   <data name="You" xml:space="preserve">
     <value>Ty</value>
@@ -326,5 +326,8 @@
   </data>
   <data name="VolumeSlide.Header" xml:space="preserve">
     <value>Głośność</value>
+  </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>Masz problemy? Spróbuj zrestartować Quarrel'a</value>
   </data>
 </root>

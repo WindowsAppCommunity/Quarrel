@@ -327,4 +327,7 @@
   <data name="VolumeSlide.Header" xml:space="preserve">
     <value>音量</value>
   </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>出现问题？试试充值Quarrel</value>
+  </data>
 </root>

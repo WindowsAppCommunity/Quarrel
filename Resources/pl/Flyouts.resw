@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequest" xml:space="preserve">
-    <value>Zaakceputj prośbę o przyjęcie do znajomych</value>
+    <value>Zaakceptuj prośbę o przyjęcie do znajomych</value>
   </data>
   <data name="AddFriend" xml:space="preserve">
     <value>Dodaj znajomego</value>
@@ -181,7 +181,7 @@
     <value>Wycisz serwer</value>
   </data>
   <data name="PinFailed" xml:space="preserve">
-    <value>Przypinanie nie udane :'(</value>
+    <value>Przypinanie nieudane :'(</value>
   </data>
   <data name="PinSucess" xml:space="preserve">
     <value>Pomyślnie przypięto!</value>
@@ -214,6 +214,6 @@
     <value>Odepnij od menu Start</value>
   </data>
   <data name="UnpinSucess" xml:space="preserve">
-    <value>Sucessfuly unpinned!</value>
+    <value>Pomyślnie odpięto!</value>
   </data>
 </root>

@@ -430,10 +430,10 @@
     <value>האם אתה בטוח שאתה רוצה לאסור @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>אתה בטוח שאתה רוצה למחוק</value>
+    <value>אתה בטוח שאתה רוצה למחוק  </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>אתה בטוח שאתה רוצה לעזוב</value>
+    <value>אתה בטוח שאתה רוצה לעזוב </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
     <value>האם אתה בטוח שברצונך לצאת?</value>

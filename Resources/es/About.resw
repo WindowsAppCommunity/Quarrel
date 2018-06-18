@@ -138,7 +138,7 @@
     <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>SOBRE</value>
+    <value>ACERCA DE</value>
     <comment>ABOUT header</comment>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
