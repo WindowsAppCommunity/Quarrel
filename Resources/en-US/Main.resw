@@ -253,7 +253,7 @@
     <value>You had no cache, the app will now start caching data to improve loading times.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>and </value>
+    <value>and </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
     <value>are typing...</value>

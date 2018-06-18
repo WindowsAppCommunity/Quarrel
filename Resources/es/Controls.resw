@@ -327,4 +327,7 @@
   <data name="VolumeSlide.Header" xml:space="preserve">
     <value>Volumen</value>
   </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>Tienes problemas? Intenta reajustar Quarrel</value>
+  </data>
 </root>

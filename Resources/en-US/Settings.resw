@@ -122,6 +122,7 @@
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
     <value>Advanced</value>
+    <comment>Iconic tile template, used for badge tile updates</comment>
   </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
     <value>Align command bar at the bottom</value>
@@ -329,5 +330,8 @@
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
     <value>Account Settings</value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Show Mute icon on servers</value>
   </data>
 </root>

@@ -124,7 +124,7 @@
     <value>Bifoga filer</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
-    <value>Fixa automatiskt</value>
+    <value>Fixa automatiskt?</value>
   </data>
   <data name="BanBTN.Content" xml:space="preserve">
     <value>Banna</value>
@@ -167,5 +167,86 @@
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
     <value>Användarnamn</value>
+  </data>
+  <data name="AddReactionsToggle.Header" xml:space="preserve">
+    <value>Lägg till reaktioner</value>
+  </data>
+  <data name="AdministratorToggle.Header" xml:space="preserve">
+    <value>Admin/Administratör</value>
+  </data>
+  <data name="AdvancedMessageEditorTB" xml:space="preserve">
+    <value>AVANCERAD MEDDELANDE ÄNDRARE</value>
+  </data>
+  <data name="AttachementsTB.Text" xml:space="preserve">
+    <value>Tillägg</value>
+  </data>
+  <data name="BadChannelNameDesc1.Text" xml:space="preserve">
+    <value>Kanal namn får endast innehålla bokstäver och siffor med undantaget för bindestreck och understräck </value>
+  </data>
+  <data name="CommonFriendsLI.Content" xml:space="preserve">
+    <value>Vänner (ofta i kontakt med)</value>
+  </data>
+  <data name="CommonServersLI.Content" xml:space="preserve">
+    <value>Servrar (ofta inne på)</value>
+  </data>
+  <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
+    <value>Skapa  snabb-inbjudningslänk</value>
+  </data>
+  <data name="CreateServerTB.Text" xml:space="preserve">
+    <value>Skapa server</value>
+  </data>
+  <data name="DeafenMembersToggle.Header" xml:space="preserve">
+    <value>Tysta medlemmar</value>
+  </data>
+  <data name="DeleteBTN" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DetailsLI.Content" xml:space="preserve">
+    <value>Detaljer </value>
+  </data>
+  <data name="EditChannelTB.Text" xml:space="preserve">
+    <value>Ändra (i en kanal)</value>
+  </data>
+  <data name="EditServerNameTBox.Header" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="EditServerTB.Text" xml:space="preserve">
+    <value>Ändra (i server)</value>
+  </data>
+  <data name="EmbedLinksToggle.Header" xml:space="preserve">
+    <value>Inbäddade länkar</value>
+  </data>
+  <data name="FileNameTB.Text" xml:space="preserve">
+    <value>Filnamn</value>
+  </data>
+  <data name="FileSizeTB.Text" xml:space="preserve">
+    <value>Filstorlek</value>
+  </data>
+  <data name="FriendReqSentBTN.Text" xml:space="preserve">
+    <value>Vänförfrågan skickad</value>
+  </data>
+  <data name="GeneralPermissionsTB.Text" xml:space="preserve">
+    <value>GENERELLA BEHÖRIGHETER</value>
+  </data>
+  <data name="HeightTB.Text" xml:space="preserve">
+    <value>Höjd:</value>
+  </data>
+  <data name="IAPsTB.Text" xml:space="preserve">
+    <value>Köp inuti app</value>
+  </data>
+  <data name="InvitesPI.Header" xml:space="preserve">
+    <value>Inbjudningar</value>
+  </data>
+  <data name="JoinAServerTB.Text" xml:space="preserve">
+    <value>Gå med i en server</value>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>Gå med</value>
+  </data>
+  <data name="JoinServerDescTB.Text" xml:space="preserve">
+    <value>Ange </value>
+  </data>
+  <data name="JoinServerErrorTB.Text" xml:space="preserve">
+    <value>Tyvärr, koden du angav är ogiltig eller har gått ut.</value>
   </data>
 </root>

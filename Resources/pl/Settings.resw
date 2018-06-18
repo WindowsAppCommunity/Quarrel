@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>Dominujący kolor ???</value>
+    <value>Dominujący kolor</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
     <value>Zaawansowane</value>
@@ -154,7 +154,7 @@
     <value>Podświetl @everyone</value>
   </data>
   <data name="IdleColorTB.Text" xml:space="preserve">
-    <value> Jałowy ???</value>
+    <value>Zaraz wracam</value>
   </data>
   <data name="IncomingFriendsCB" xml:space="preserve">
     <value>Przychodząca prośba o dodanie do znajomych</value>
@@ -226,7 +226,7 @@
     <value>Prośby o dodanie do znajomych</value>
   </data>
   <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Wyciszone kanały mają wpływ na nieprzeczyany status serwera</value>
+    <value>Wyciszone kanały mają wpływ na nieprzeczytany status serwera</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Systemowy kolor dominujący</value>
@@ -244,7 +244,7 @@
     <value>Zezwól na akrylowe efekty (rozmyte tło)</value>
   </data>
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Wyciszone kanały mają efekt na nieprzeczyany status serwera</value>
+    <value>Wyciszone kanały mają efekt na nieprzeczytany status serwera</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Zezwól na kompresowanie danych</value>
@@ -286,7 +286,7 @@
     <value>Format czasu</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>(EXPERYMENTALNE) Kanały głosowe (tylko dla odbioru)</value>
+    <value>(EXPERYMENTALNE) Kanały głosowe (tylko do odbioru)</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Wyloguj się</value>
@@ -307,7 +307,7 @@
     <value>POWIADOMIENIA W TLE</value>
   </data>
   <data name="BGNotifyDMCB.Content" xml:space="preserve">
-    <value>Nieprzeczywane PW</value>
+    <value>Nieprzeczytane PW</value>
   </data>
   <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
     <value>Proźba o dodanie do znajomych</value>
@@ -319,12 +319,18 @@
     <value>POWIADOMIENIA WEWNĄTRZ APLIKACJI</value>
   </data>
   <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>POWIADOMIENIA WEWNĄTRZ APLIKACJI</value>
+    <value>Rozjaśnij lewą stronę ekranu, gdy zostałeś wspomniany</value>
   </data>
   <data name="OutputDevicesCB.Header" xml:space="preserve">
     <value>Urządzenia odtwarzające</value>
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
     <value>Ustawienia konta</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Może zostać nadpisane poprzez napiśnięcie prawym przyciskiem myszy lub przytrzymanie przycisku "wycisz" w kanale głosowym</value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Pokaż ikonę wyciszenia na serwerach</value>
   </data>
 </root>

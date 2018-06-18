@@ -118,105 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Quarrel är en</value>
+    <value>Quarrel เป็นแอพ</value>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>icke-officiel</value>
+    <value>Discord</value>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>klient för Discord.</value>
+    <value>อย่างไม่เป็นทางการ</value>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>Utvecklarna är inte anslutna till Discord, Inc</value>
+    <value>ผู้สร้างไม่มีส่วนเกี่ยวข้องใด ๆ กับบริษัท Discord, Inc.</value>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>Om något går fel när du använder denna app, vänligen kontakta supporten via någon av metoderna nedan. Men alla frågor som vi inte kan lösa är vi inte ansvariga för.</value>
+    <value>หากเกิดปัญหาขึ้นในระหว่างที่ใช้แอพกรุณาติดต่อโดยวิธีใด วิธีหนึ่ง ด้านล่าง. แต่เราก็ไม่การันตีว่าจะช่วยได้เสมอ. (โดยเฉพาะคนที่ไม่รู้ภาษาอังกฤษ)</value>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>OM</value>
+    <value>เกี่ยวกับแอพ</value>
   </data>
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, för teorier Apps-ikonen</value>
+    <value>Austin Andelin, (อัสติน แอนเดลิน) ออกแบบไอคอนแอพ</value>
   </data>
   <data name="Build" xml:space="preserve">
-    <value>Version</value>
+    <value>เวอร์ชั่น</value>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>Ändringslogg</value>
-  </data>
-  <data name="Commit" xml:space="preserve">
-    <value>begå</value>
-  </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designad av Lightmagic Apps</value>
-  </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value> Utvecklad av Avid29 och KarmaEcrivain94</value>
-  </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Diskutera på Twitter</value>
-  </data>
-  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Har du inget konto?</value>
-  </data>
-  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>E-post </value>
-  </data>
-  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Glömt ditt lösenord?</value>
-  </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Lyckades!</value>
-  </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Förbinder...</value>
-  </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Lämna respons!/Lämna feedback!/Lämna åsikter!</value>
-  </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value>LOGGA IN</value>
-  </data>
-  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Lösenord</value>
-  </data>
-  <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Försök igen</value>
+    <value>ประวัติการเปลี่ยนแปลง</value>
   </data>
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman</value>
+    <value>Christopher Blackman, (คริสโตเฟอร์ แบล็คแมน: นักพัฒนาแอพ MyTube) สำหรับคำแนะนำและความช่วยเหลือ </value>
+  </data>
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
+    <value>ออกแบบโดย Lightmagic Apps</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value>พัฒนาโดย Avid29 และ KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>ติดต่อทางทวิตเตอร์</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>ไม่มีบัญชี?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>อีเมล</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>ลืมรหัสผ่าน?</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
-    <value>Gå med i appens discord server</value>
+    <value>เข้าร่วมเซิฟเวอร์ Discord ของแอพนี้</value>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Gå med i appens discord server</value>
+    <value>เข้าร่วมเซิฟเวอร์ Discord ของแอพนี้</value>
   </data>
   <data name="JoinFail" xml:space="preserve">
-    <value>Kunde inte gå med i server</value>
+    <value>ผิดพลาด, ไม่สามารถเข้าร่วมเซิฟเวอร์ได้</value>
+  </data>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>เรียบร้อย!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>กำลังเข้าร่วม</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>เสนอแนะเกี่ยวกับแอพ</value>
   </data>
   <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>Licenser</value>
+    <value>ลิขสิทธิ์</value>
   </data>
   <data name="LicensesTB.Text" xml:space="preserve">
-    <value>LICENSER</value>
+    <value>ลิขสิทธิ์</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>เข้าสู่ระบบ</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Autentiseringskod </value>
+    <value>รหัสยืนยัน</value>
   </data>
   <data name="MFATB.Text" xml:space="preserve">
-    <value>Två faktor autentisering</value>
+    <value>ยืนยันตัวตน ๒ ขั้น</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>Du är antingen offline eller på en för långsam anslutning för att ansluta till servern</value>
+    <value>เกิดปัญหาในการเชื่อมต่อหรืออินเตอร์เน็ตช้าเกินไป ไม่สามารถติดต่อเซิฟเวอร์ได้</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>รหัสผ่าน</value>
   </data>
   <data name="QuarrelDescTB.Text" xml:space="preserve">
-    <value>Discord klient för Universal Windows Platform</value>
+    <value>แอพ Discord สำหรับ Universal Windows Platform</value>
   </data>
   <data name="QuarrelLicensesDesc" xml:space="preserve">
-    <value>Quarrel använder några externa biblotek för att fungera</value>
+    <value>Quarrel ใช้ส่วนเสริมภายนอกเพื่อให้แอพทำงานได้</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>พยายามเข้าสู่ระบบอีกครั้ง</value>
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Extra mycket tack:</value>
+    <value>ขอขอบคุณ:</value>
   </data>
 </root>
