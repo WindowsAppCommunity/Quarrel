@@ -207,7 +207,7 @@ namespace Discord_UWP
                 burgerButton.Visibility = Visibility.Visible;
                
                 cmdBar.Background = (Brush)Application.Current.Resources["AcrylicCommandBarBackground"];
-                cmdBarShadow.Visibility = Visibility.Collapsed;
+              //  cmdBarShadow.Visibility = Visibility.Collapsed;
             }
             if(!App.ShowAds)
             {
@@ -1383,10 +1383,10 @@ namespace Discord_UWP
                 {
                     member = await RESTCalls.GetGuildMember(App.CurrentGuildId, e.User.Id);
                 }
-                if (member.User.Id != null)
+                if (member.User?.Id != null)
                 {
                     FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
-                } else
+                } else if(member.User != null)
                 {
                     FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
                 }

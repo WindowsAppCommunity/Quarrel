@@ -210,6 +210,22 @@ namespace Discord_UWP.Flyouts
                 banMember.Click += FlyoutManager.BanMember;
                 menu.Items.Add(banMember);
             }
+            if (member.User.Bot)
+            {
+                menu.Items.Add(new MenuFlyoutSeparator());
+                foreach(var feature in BotExtrasManager.GetBotFeatures(member.User.Id))
+                {
+                    MenuFlyoutItem link = new MenuFlyoutItem()
+                    {
+                        Text = feature.Name,
+                        Tag = feature.Url,
+                        //Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
+                        Icon = new FontIcon() { Glyph=feature.Icon }
+                    };
+                    link.Click += FlyoutManager.OpenURL;
+                    menu.Items.Add(link);
+                }
+            }
             //if (false)
             //{
             //    //TODO: style ToggleMenuFlyoutItem to have a checkbox on the right side

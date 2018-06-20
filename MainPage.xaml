@@ -1518,7 +1518,11 @@
                                 <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <ItemsStackPanel  Loaded="ItemsStackPanel_Loaded" ItemsUpdatingScrollMode="KeepLastItemInView"/>
+                                            <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" Margin="0,0,0,-12" ItemsUpdatingScrollMode="KeepLastItemInView">
+                                                <ItemsStackPanel.ChildrenTransitions>
+                                                    <TransitionCollection/>
+                                                </ItemsStackPanel.ChildrenTransitions>
+                                            </ItemsStackPanel>
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>

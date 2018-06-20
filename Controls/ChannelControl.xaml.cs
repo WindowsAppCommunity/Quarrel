@@ -443,8 +443,9 @@ namespace Discord_UWP.Controls
                         }
                     }
 
-                    if (VoiceMembers != null)
+                    if (VoiceMembers != null && VoiceMembers.Count>0)
                     {
+                        MemberList.Visibility = Visibility.Visible;
                         foreach (VoiceMemberContainer member in VoiceMembers.Values)
                         {
                             if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.VoiceState.UserId))
@@ -454,7 +455,10 @@ namespace Discord_UWP.Controls
                         }
                         //Debug MemberList.Items.Add(new VoiceMemberControl.SimpleMember() { Member = Storage.Cache.Guilds[App.CurrentGuildId].Members[Storage.Cache.CurrentUser.Raw.Id] });
                     }
-
+                    else
+                    {
+                        MemberList.Visibility = Visibility.Visible;
+                    }
                     //Tapped += JoinVoiceChannel;
                 }
                 else if (Type == 1)
@@ -552,12 +556,16 @@ namespace Discord_UWP.Controls
                          {
                              VoiceMembers.Add(e.EventData.UserId, new VoiceMemberContainer() { VoiceState = e.EventData });
                              MemberList.Items.Add(VoiceMembers[e.EventData.UserId]);
+                             if (VoiceMembers.Count> 0)
+                                 MemberList.Visibility = Visibility.Visible;
                          }
                      }
                      else if (VoiceMembers.ContainsKey(e.EventData.UserId))
                      {
                          MemberList.Items.Remove(VoiceMembers[e.EventData.UserId]);
                          VoiceMembers.Remove(e.EventData.UserId);
+                         if (VoiceMembers.Count == 0)
+                             MemberList.Visibility = Visibility.Collapsed;
                      }
                  });
         }
@@ -668,6 +676,12 @@ namespace Discord_UWP.Controls
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
+        }
+
+        private void MemberList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var memberItem = (ListViewItem)MemberList.ContainerFromItem(e.ClickedItem);
+            App.ShowMemberFlyout(memberItem, LocalState.Guilds[App.CurrentGuildId].members[(e.ClickedItem as VoiceState).UserId].User);
         }
     }
 }

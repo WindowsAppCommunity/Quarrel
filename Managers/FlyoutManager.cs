@@ -167,6 +167,11 @@ namespace Discord_UWP.Managers
         {
             App.NavigateToNicknameEdit((sender as MenuFlyoutItem).Tag.ToString());
         }
+
+        public static async void OpenURL(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri((sender as MenuFlyoutItem).Tag.ToString()));
+        }
         #endregion
 
         #region RPC

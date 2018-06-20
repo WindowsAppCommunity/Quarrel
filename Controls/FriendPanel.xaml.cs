@@ -159,7 +159,7 @@ namespace Discord_UWP.Controls
                     friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
                     {
                         Id = guild.Value.Raw.Id,
-                        ImageUrl = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg",
+                        ImageUrl = guild.Value.Raw.Icon,
                         Name = guild.Value.Raw.Name
                     });
             }
