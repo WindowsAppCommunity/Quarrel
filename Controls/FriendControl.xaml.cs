@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Shapes;
 
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using System.Text.RegularExpressions;
 
 namespace Discord_UWP.Controls
 {
@@ -66,22 +67,37 @@ namespace Discord_UWP.Controls
                 if(DisplayedFriend.SharedGuilds != null)
                 foreach (var guild in DisplayedFriend.SharedGuilds)
                 {
+                        Border content = new Border();
+                        content.Width = 32;
+                        content.Height = 32;
+                        content.CornerRadius = new CornerRadius(16);
+                        if (string.IsNullOrEmpty(guild.ImageUrl))
+                        {
+                            var blurplecolor = ((Color)App.Current.Resources["BlurpleColor"]);
+                            content.Background = new SolidColorBrush(Color.FromArgb(153, blurplecolor.R, blurplecolor.G, blurplecolor.B));
+                            content.Child = new TextBlock()
+                            {
+                                Text = String.Join("", Regex.Matches(guild.Name, @"(?<=^|[ \-_|+=~])\w")
+                                                            .Cast<Match>()
+                                                            .Select(m => m.Value)
+                                                            .ToArray()),
+                                FontSize=12,
+                                Opacity=1,
+                                HorizontalAlignment=HorizontalAlignment.Center,
+                                VerticalAlignment = VerticalAlignment.Center
+                            };
+                        }
+                        else
+                        {
+                            content.Background = new ImageBrush(){ ImageSource = new BitmapImage(new Uri("https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.ImageUrl + ".jpg")) };
+                        }
+                        
                     Button b = new Button()
                     {
                         Padding = new Thickness(0),
                         Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
                         Margin = new Thickness(2,0,2,0),
-                        Content = new Rectangle()
-                        {
-                            Height=36,
-                            Width=36,
-                            RadiusX=36,
-                            RadiusY=36,
-                            Fill=new ImageBrush()
-                            {
-                                ImageSource = new BitmapImage(new Uri(guild.ImageUrl))
-                            }
-                        },
+                        Content = content,
                         Tag = guild.Id
                     };
                         ToolTipService.SetToolTip(b, guild.Name);

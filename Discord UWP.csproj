@@ -211,6 +211,7 @@
     <Compile Include="LocalModels\GuildSetting.cs" />
     <Compile Include="LocalModels\LocalState.cs" />
     <Compile Include="LocalModels\Permissions.cs" />
+    <Compile Include="Managers\BotExtrasManager.cs" />
     <Compile Include="Managers\SimpleClasses.cs" />
     <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>

@@ -97,7 +97,6 @@ namespace Discord_UWP.Controls
         public VoiceMemberControl()
         {
             this.InitializeComponent();
-            Tapped += OpenMemberFlyout;
             RightTapped += OpenVoiceFlyout;
             Holding += OpenVoiceFlyout;
             Managers.GatewayManager.Gateway.VoiceStateUpdated += Gateway_VoiceStateUpdated;
@@ -162,14 +161,8 @@ namespace Discord_UWP.Controls
                  });
         }
 
-        private void OpenMemberFlyout(object sender, TappedRoutedEventArgs e)
-        {
-            App.ShowMemberFlyout(this, member.User);
-        }
-
         public void Dispose()
         {
-            Tapped -= OpenMemberFlyout;
             RightTapped -= OpenVoiceFlyout;
             Holding -= OpenVoiceFlyout;
             Managers.GatewayManager.Gateway.VoiceStateUpdated -= Gateway_VoiceStateUpdated;

@@ -100,98 +100,10 @@
             <local:TypingIndicator Visibility="Collapsed" x:Name="TypingIndic" HorizontalAlignment="Right" Grid.Column="1" Margin="6,0"/>
         </StackPanel>
 
-        <ListView x:Name="MemberList" SelectionMode="None" Grid.Row="1" Grid.ColumnSpan="2" Margin="18,-6,0,8">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="MinHeight" Value="0"/>
-                    <Setter Property="Margin" Value="0"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListViewItem">
-                                <Grid x:Name="ContentBorder">
-                                    <Grid x:Name="ContentPresenterGrid"
-              Background="Transparent"
-              Margin="0,0,0,0">
-                                        <Grid.RenderTransform>
-                                            <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
-                                        </Grid.RenderTransform>
-                                        <ContentPresenter x:Name="ContentPresenter"
-                            ContentTransitions="{TemplateBinding ContentTransitions}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Content="{TemplateBinding Content}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Margin="{TemplateBinding Padding}" Control.IsTemplateFocusTarget="True"/>
-                                    </Grid>
-                                    <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
-                          In the DataPlaceholder state, the Content is not loaded yet so we
-                          approximate the size of the item using placeholder text. -->
-                                    <TextBlock x:Name="PlaceholderTextBlock"
-                    Opacity="0"
-                    Text="Xg"
-                    Foreground="{x:Null}"
-                    Margin="{TemplateBinding Padding}"
-                                           Visibility="Collapsed"
-                    IsHitTestVisible="False"
-                    AutomationProperties.AccessibilityView="Raw"/>
-                                    <Rectangle x:Name="PlaceholderRect"
-                    Visibility="Collapsed"
-                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>
-                                    <Rectangle x:Name="MultiArrangeOverlayBackground"
-                                           Visibility="Collapsed"
-                    IsHitTestVisible="False"
-                    Opacity="0"
-                    Grid.ColumnSpan="2"/>
-                                    <Border x:Name="MultiSelectSquare"
-                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                BorderThickness="2"
-                Width="20"
-                Height="20"
-                Margin="12,0,0,0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Visibility="Collapsed" >
-                                        <Border.Clip>
-                                            <RectangleGeometry Rect="0,0,20,20">
-                                                <RectangleGeometry.Transform>
-                                                    <TranslateTransform x:Name="MultiSelectClipTransform"/>
-                                                </RectangleGeometry.Transform>
-                                            </RectangleGeometry>
-                                        </Border.Clip>
-                                        <Border.RenderTransform>
-                                            <TranslateTransform x:Name="MultiSelectCheckBoxTransform"/>
-                                        </Border.RenderTransform>
-                                        <FontIcon x:Name="MultiSelectCheck"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Glyph="&#xE73E;"
-                    FontSize="16"
-                    Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                    Visibility="Collapsed"
-                    Opacity="0"/>
-                                    </Border>
-                                    <TextBlock x:Name="MultiArrangeOverlayText" Visibility="Collapsed"
-                    Text="{Binding TemplateSettings.DragItemsCount, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                    Foreground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
-                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
-                    FontSize="26.667"
-                    IsHitTestVisible="False"
-                    Opacity="0"
-                    TextWrapping="Wrap"
-                    TextTrimming="WordEllipsis"
-                    Margin="18,9,0,0"
-                    AutomationProperties.AccessibilityView="Raw"
-                    Grid.ColumnSpan="2"/>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
+        <ListView x:Name="MemberList" ItemClick="MemberList_ItemClick" Visibility="Collapsed" SelectionMode="None" IsItemClickEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" Margin="-24,0,-24,12" ItemContainerStyle="{StaticResource ChannelItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:VoiceMemberControl DisplayedUser="{Binding VoiceState}"/>
+                    <local:VoiceMemberControl DisplayedUser="{Binding VoiceState}" Margin="18,-2,0,0"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

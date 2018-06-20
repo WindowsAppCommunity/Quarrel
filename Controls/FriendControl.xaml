@@ -15,26 +15,26 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="AvatarBG" Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top"/>
-        <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,0,12,0" VerticalAlignment="Top">
+        <Rectangle x:Name="AvatarBG" Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,4,12,0" VerticalAlignment="Top"/>
+        <Rectangle Height="48" Width="48" RadiusX="24" RadiusY="24" Margin="0,4,12,0" VerticalAlignment="Top">
                 <Rectangle.Fill>
                     <ImageBrush x:Name="Avatar"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Ellipse x:Name="status" Fill="{ThemeResource online}" Width="12" Height="12" HorizontalAlignment="Right" Margin="0,32,10,0" VerticalAlignment="Top"/>
+            <Ellipse x:Name="status" Fill="{ThemeResource online}" Width="12" Height="12" HorizontalAlignment="Right" Margin="0,36,10,0" VerticalAlignment="Top"/>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,12,0,0">
-            <HyperlinkButton Foreground="{ThemeResource Foreground}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding">
+            <HyperlinkButton Foreground="{ThemeResource Foreground}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" Padding="0,0,0,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
                     <TextBlock x:Name="discriminator" Text="#0002" FontSize="13" Margin="4,0,0,0" Opacity="0.25" VerticalAlignment="Bottom"/>
                 </StackPanel>
             </HyperlinkButton>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Visibility="Collapsed">
                 <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiBold" Opacity="0.4" Foreground="{ThemeResource Foreground}"/>
                 <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" FontSize="11" FontWeight="Bold" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
             <TextBlock x:Name="RelationshipStatus" Visibility="Collapsed" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
-            <StackPanel x:Name="SharedGuildContainer" Orientation="Horizontal" VerticalAlignment="center" Grid.Column="2" Padding="0,6">
+            <StackPanel x:Name="SharedGuildContainer" Orientation="Horizontal" VerticalAlignment="center" Grid.Column="2" Padding="0,6" Margin="-2,0,0,0">
 
             </StackPanel>
         </StackPanel>
