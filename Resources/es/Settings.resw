@@ -303,4 +303,7 @@
   <data name="BGNotifsTB.Text" xml:space="preserve">
     <value>NOTIFICACIÓNES DE FONDO</value>
   </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>Notificaciónes en la aplicación</value>
+  </data>
 </root>

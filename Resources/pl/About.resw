@@ -130,7 +130,7 @@
     <value>Deweloperzy nie są w żaden sposób powiązani z Discord, Inc.</value>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>Jeżeli wystąpi jakokolwiek błąd, przy używaniu aplikacji,zgłoś go za pomocą dowolnej dostępnej metody poniżej. Nie jesteśmy jednak odpowiedzialni, za blędy których nie możemy rozwiązać.</value>
+    <value>Jeżeli wystąpi jakikolwiek błąd, przy używaniu aplikacji,zgłoś go za pomocą dowolnej dostępnej metody poniżej. Nie jesteśmy jednak odpowiedzialni, za błędy których nie możemy rozwiązać. Oświadczenia prawne dostępne wyłącznie w języku angielskim.</value>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
     <value>O APLIKACJI</value>
@@ -151,7 +151,7 @@
     <value>Zaprojektowane przez Lightmagic Apps</value>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Wyprodukowane przez Avid29 and KarmaEcrivain94</value>
+    <value>Opracowane przez Avid29 i KarmaEcrivain94</value>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
     <value>Podyskutuj na Twitterze</value>
@@ -215,5 +215,8 @@
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
     <value>Specjalne podziękowania:</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Zatwierdź</value>
   </data>
 </root>

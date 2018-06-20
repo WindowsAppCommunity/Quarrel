@@ -175,7 +175,7 @@
     <value>Stwórz natychmiastowe zaproszenie</value>
   </data>
   <data name="CreateServerTB.Text" xml:space="preserve">
-    <value>Strórz serwer</value>
+    <value>Stwórz serwer</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
     <value>Wyciszeni członkowie</value>
@@ -268,7 +268,7 @@
     <value>Zarządzaj wehbookami</value>
   </data>
   <data name="MentionEveryoneToggle.Header" xml:space="preserve">
-    <value>Zarządzaj wszyskimi</value>
+    <value>Zarządzaj wszystkimi</value>
   </data>
   <data name="MoveMembersToggle.Header" xml:space="preserve">
     <value>Przenieś członków</value>
@@ -295,7 +295,7 @@
     <value>Notatki</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
-    <value>Użytkownicy będą musieli potwierdzić, że są dorośli, aby uzyskać dostęp do tego kanału. Będzie także zwolniolny z konieczności filtrowania treści.</value>
+    <value>Użytkownicy będą musieli potwierdzić, że są dorośli, aby uzyskać dostęp do tego kanału. Kanał będzie także zwolniolny z konieczności filtrowania treści.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
     <value>Kanał NSFW</value>
@@ -358,10 +358,10 @@
     <value>Wyślij wiadomość</value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
-    <value>Wyślij wiadomość TTS</value>
+    <value>Tworząc serwer zgadzasz się na</value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
-    <value>Discord's Community Guidelines</value>
+    <value>Poradniki społeczności Discord'a</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
     <value>Udostępnij</value>
@@ -418,10 +418,10 @@
     <value>Czy jesteś pewny, że chcesz zbanować @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Czy jesteś pewny, że chcesz usunąć</value>
+    <value>Czy jesteś pewny, że chcesz usunąć </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Czy jesteś pewny, że chcesz odejść?</value>
+    <value>Czy jesteś pewny, że chcesz odejść? </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
     <value>Czy jesteś pewny, że chcesz się wylogować?</value>
@@ -493,13 +493,13 @@
     <value>Anuluj</value>
   </data>
   <data name="CloseDMConfirm" xml:space="preserve">
-    <value>Czy jesteś pewnie, że chcesz zakończyć swoją rozmowę z </value>
+    <value>Czy jesteś pewien, że chcesz zakończyć swoją rozmowę z </value>
   </data>
   <data name="DeleteMessageConfirm" xml:space="preserve">
     <value>Jesteś pewien, że chcesz usunąć tą wiadomość?</value>
   </data>
   <data name="EditNickname" xml:space="preserve">
-    <value>Edytuj Nick</value>
+    <value>Edytuj nick</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
@@ -514,7 +514,7 @@
     <value>Zresetuj Quarrel'a</value>
   </data>
   <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
-    <value>Ta akcja całkowicie zresetuje Quarrel'a, oznacz to, że zostaniesz wylogowany, wszystkie ustawienia zostaną zresetowane i aplkacja zostanie zamknięta. Ta kacja NIE będzie miała wpływu na Twoje konta Discord.</value>
+    <value>Ta akcja całkowicie zresetuje Quarrel'a, oznacza to, że zostaniesz wylogowany, wszystkie ustawienia zostaną zresetowane i aplkacja zostanie zamknięta. Ta akcja NIE będzie miała wpływu na Twoje konto Discord.</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
     <value>USTAWIENIA KONTA</value>
@@ -583,9 +583,24 @@
     <value>Brak notatek</value>
   </data>
   <data name="ConnectionsTB.Text" xml:space="preserve">
-    <value>Połączenia</value>
+    <value>Połączone konta</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
     <value>Nowe hasło</value>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>Zablokuj</value>
+  </data>
+  <data name="RoleHoistToggle.Header" xml:space="preserve">
+    <value>Wyświetlaj osobno</value>
+  </data>
+  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
+    <value>Wyślij wiadomość TTS </value>
+  </data>
+  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
+    <value>Pokaż dane konta</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>PERSONEL DISCORDA</value>
   </data>
 </root>

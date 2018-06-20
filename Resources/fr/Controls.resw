@@ -327,4 +327,7 @@
   <data name="VolumeSlide.Header" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>AJOUTER UNE PIÈCE JOINTE</value>
+  </data>
 </root>

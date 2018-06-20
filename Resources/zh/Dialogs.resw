@@ -354,4 +354,247 @@
   <data name="SendFriendReqBTN.Text" xml:space="preserve">
     <value>发送好友请求</value>
   </data>
+  <data name="SendMessagesToggle.Header" xml:space="preserve">
+    <value>发送信息</value>
+  </data>
+  <data name="SendMessageTB.Text" xml:space="preserve">
+    <value>发送信息</value>
+  </data>
+  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
+    <value>发送TTS信息</value>
+  </data>
+  <data name="ServerGuidelinesDesc1" xml:space="preserve">
+    <value>通过创建一个服务器，</value>
+  </data>
+  <data name="ServerGuidelinesDesc2" xml:space="preserve">
+    <value>意味着您同意Discord的社区指南</value>
+  </data>
+  <data name="ShareABB.Label" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="SignificantDonationBTN.Content" xml:space="preserve">
+    <value>重大捐赠$1.99</value>
+  </data>
+  <data name="SpeakToggle.Header" xml:space="preserve">
+    <value>说话</value>
+  </data>
+  <data name="TextPermissionsTB.Text" xml:space="preserve">
+    <value>信息权限</value>
+  </data>
+  <data name="UnblockBTN.Text" xml:space="preserve">
+    <value>撤销屏蔽</value>
+  </data>
+  <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
+    <value>使用外部表情符号</value>
+  </data>
+  <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
+    <value>使用语音激活模式</value>
+  </data>
+  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
+    <value>查看审核日志</value>
+  </data>
+  <data name="VoicePermissionsTB.Text" xml:space="preserve">
+    <value>语音权限</value>
+  </data>
+  <data name="WidthTB.Text" xml:space="preserve">
+    <value>宽度</value>
+  </data>
+  <data name="EditChannelTopicTBox.Header" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="AddOnError" xml:space="preserve">
+    <value>发生错误，请稍后重试</value>
+  </data>
+  <data name="AddOnNotPurchased" xml:space="preserve">
+    <value>插件并未购买</value>
+  </data>
+  <data name="AddOnPurchased" xml:space="preserve">
+    <value>非常感谢您的捐赠！</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="FlagDiscordPartner" xml:space="preserve">
+    <value>Discord伙伴</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>Discord职工</value>
+  </data>
+  <data name="FlagHypesquad" xml:space="preserve">
+    <value>HYPESQUAD</value>
+  </data>
+  <data name="PremiumSince" xml:space="preserve">
+    <value>会员于...</value>
+  </data>
+  <data name="VerifyBan" xml:space="preserve">
+    <value>您确定封禁...？</value>
+  </data>
+  <data name="VerifyDelete" xml:space="preserve">
+    <value>您确定删除...？</value>
+  </data>
+  <data name="VerifyLeave" xml:space="preserve">
+    <value>您确定要离开...？</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>您确定要注销？</value>
+  </data>
+  <data name="CreateChannelTB.Text" xml:space="preserve">
+    <value>创建频道</value>
+  </data>
+  <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
+    <value>录制音频</value>
+  </data>
+  <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
+    <value>拍照</value>
+  </data>
+  <data name="SavingAudio" xml:space="preserve">
+    <value>创建文件中</value>
+  </data>
+  <data name="RecordingAudio" xml:space="preserve">
+    <value>录制中...</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="GotIt.Content" xml:space="preserve">
+    <value>完成！</value>
+  </data>
+  <data name="DonationsTB" xml:space="preserve">
+    <value>捐赠</value>
+  </data>
+  <data name="CommonFriendsTB.Text" xml:space="preserve">
+    <value>共同好友</value>
+  </data>
+  <data name="CommonServersTB.Text" xml:space="preserve">
+    <value>共同服务器</value>
+  </data>
+  <data name="TextChannel" xml:space="preserve">
+    <value>文字频道</value>
+  </data>
+  <data name="VoiceChannel" xml:space="preserve">
+    <value>语音频道</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>创建分类</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>离开服务器</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>封禁</value>
+  </data>
+  <data name="CreateServer" xml:space="preserve">
+    <value>创建服务器</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>服务器名称</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CloseDMConfirm" xml:space="preserve">
+    <value>您确定要关闭您与...的私信？</value>
+  </data>
+  <data name="DeleteMessageConfirm" xml:space="preserve">
+    <value>您确定要删除这条信息吗？</value>
+  </data>
+  <data name="EditNickname" xml:space="preserve">
+    <value>修改昵称</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>插件</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>您确定吗？</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>重设Quarrel</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>这将完全重置Quarrel, 这意味着您将注销您的帐户, 您的所有设置将被重置, 然后应用将退出。这&lt;capitalized letters&gt;不会&lt;/capitalized letters&gt;影响您的Discord帐户</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>账户设置</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>应用设置</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>更变密码</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>当时密码</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>电子邮箱</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>对不起:/</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>试图更改您的帐户详情时出现未知错误, 您确定所有内容都正确吗？</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>上传图像</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>没有定义主题</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>我们建议您使用一个至少512x512px 的图像</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>撤销图标改动</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>频道</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>您必须登录Quarrel以使用它为一个共享目标</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>分享</value>
+  </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>在Spotify上一起听</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>无备注</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>新密码</value>
+  </data>
 </root>

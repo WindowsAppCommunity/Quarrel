@@ -124,7 +124,7 @@
     <value>Agregar canal</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>en </value>
+    <value>en </value>
   </data>
   <data name="Connected" xml:space="preserve">
     <value>CONECTADO</value>
@@ -253,7 +253,7 @@
     <value>No tenía caché, la aplicación ahora comenzará a almacenar datos para mejorar los tiempos de carga.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>y </value>
+    <value>y </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
     <value>están escribiendo ...</value>

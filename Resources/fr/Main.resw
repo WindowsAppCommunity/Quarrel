@@ -310,27 +310,27 @@
     <value>&lt;count&gt; membres</value>
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>NOUVEAUX MESSAGES</value>
+    <value>NOTIFICATIONS EN ARRIÈRE-PLAN</value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>IGNORER</value>
+    <value>Messages Directs non lus</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>RETOURNER AU PRESENT</value>
+    <value>Demandes d'ami</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>À Propos</value>
+    <value>Nouvelles mentions</value>
   </data>
   <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>Quoi de neuf?</value>
+    <value>NOTIFICATIONS IN-APP</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>Supprimer les pubs</value>
+    <value>Illuminer le côté gauche de l'écran lorsque vous êtes mentionné</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>Paramètres</value>
+    <value>Sortie audio</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>Ajouter une pièce jointe</value>
+    <value>Vous pouvez choisir une autre sortie en effectuant un clic droit sur le bouton "Assourdir"</value>
   </data>
 </root>

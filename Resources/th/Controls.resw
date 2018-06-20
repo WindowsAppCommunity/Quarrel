@@ -118,213 +118,216 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>Freundschaftsanfrage akzeptieren?</value>
+    <value>รับคำขอจากเพื่อน?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
-    <value>AKTIVITÄTEN</value>
+    <value>กิจกรรม</value>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
-    <value>Reaktion hinzufügen</value>
+    <value>แสดงอารมณ์โต้ตอบ</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>BLOCKIERT</value>
+    <value>บล็อค</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
-    <value>BOT</value>
+    <value>บอท</value>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>ID kopieren</value>
+    <value>คัดลอก ID</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
-    <value>Löschen</value>
+    <value>ลบ</value>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
-    <value>Bearbeiten</value>
+    <value>แก้ไข</value>
   </data>
   <data name="FLAGS" xml:space="preserve">
-    <value>FLAGGE</value>
+    <value>ธง</value>
   </data>
   <data name="FOOD" xml:space="preserve">
-    <value>ESSEN</value>
+    <value>อาหาร</value>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
-    <value>Freundschaftsanfrage gesendet</value>
+    <value>ส่งคำขอเป็นเพื่อนแล้ว</value>
   </data>
   <data name="InviteExpired" xml:space="preserve">
-    <value>Einladung abgelaufen</value>
+    <value>คำเชิญหมดอายุ</value>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
-    <value>Einladung abgelaufen oder ungültig</value>
+    <value>คำเชิญไม่ถูกต้องหรือหมดอายุแล้ว</value>
   </data>
   <data name="InviteJoin" xml:space="preserve">
-    <value>Beitreten</value>
+    <value>เข้าร่วม</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
-    <value>Du bist beigetreten</value>
+    <value>คุณเข้าร่วมเซิฟเวอร์นี้แล้ว</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
-    <value>Maximale Anzahl Nutzer erreicht</value>
+    <value>คำเชิญชวนเกินขีดจำกัดแล้ว</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>Nutzer dieses Links werden beim Verlassen automatisch rausgeschmissen, es sei denn, ihnen wurde eine Rolle zugewiesen.</value>
+    <value>คนที่ใช้ลิ้งค์นี้จะถูกไล่ออกจากเซิฟเวอร์เมื่อตัดการเชื่อมต่อ, ยกเว้นว่าได้รับบทบาทใดจากเซิฟเวอร์</value>
   </data>
   <data name="NATURE" xml:space="preserve">
-    <value>NATUR</value>
+    <value>ธรรมชาติ</value>
   </data>
   <data name="OBJECTS" xml:space="preserve">
-    <value>OBJEKTE</value>
+    <value>สิ่งของ</value>
   </data>
   <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>Nur angemeldete Nutzer anzeigen</value>
+    <value>แสดงเฉพาะคนที่ออนไลน์</value>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>AUSSTEHEND</value>
+    <value>รอการตอบรับ</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
-    <value>LEUTE</value>
+    <value>ผู้คน</value>
   </data>
   <data name="PinItem.Text" xml:space="preserve">
-    <value>Angeheftet</value>
+    <value>ปักหมุด</value>
   </data>
   <data name="Playing" xml:space="preserve">
-    <value>Spielt</value>
+    <value>กำลังเล่น</value>
   </data>
   <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>Bann zurückziehen</value>
+    <value>ยกเลิกแบน</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
-    <value>Rolle</value>
+    <value>บทบาท</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Suche...</value>
+    <value>ค้นหา...</value>
   </data>
   <data name="SendMessagePlaceholderText" xml:space="preserve">
-    <value>Nachricht senden</value>
+    <value>ส่งข้อความ</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>Überträgt</value>
+    <value>กำลังถ่ายทอดสด</value>
   </data>
   <data name="SYMBOLS" xml:space="preserve">
-    <value>SYMBOLE</value>
+    <value>สัญลักษณ์</value>
   </data>
   <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value>Temporäre Einladung</value>
+    <value>คำเชิญชั่วคราว</value>
   </data>
   <data name="TRAVEL" xml:space="preserve">
-    <value>REISEN</value>
+    <value>ท่องเที่ยว</value>
   </data>
   <data name="UsePlural" xml:space="preserve">
-    <value>nutzt</value>
+    <value>ใช้</value>
   </data>
   <data name="UseSingular" xml:space="preserve">
-    <value>nutzen</value>
+    <value>ใช้</value>
   </data>
   <data name="Edited" xml:space="preserve">
-    <value>Bearbeitet</value>
+    <value>มีการแก้ไข</value>
   </data>
   <data name="ExpiredLink" xml:space="preserve">
-    <value>Abgelaufener Link</value>
+    <value>ลิ้งค์แบบจำกัดเวลา</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>läuft ab in &lt;time&gt;</value>
+    <value>หมดอายุใน &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
-    <value>läuft nie ab</value>
+    <value>ไม่มีวันหมดอายุ</value>
   </data>
   <data name="InviteTo" xml:space="preserve">
-    <value>Einladen zu</value>
+    <value>เชิญไปยัง</value>
   </data>
   <data name="Pin" xml:space="preserve">
-    <value>Anheften</value>
+    <value>ปักหมุด</value>
   </data>
   <data name="Unpin" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>ถอนหมุด</value>
   </data>
   <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>Aus der Freundesliste entfernen</value>
+    <value>ลบจากรายชื่อเพื่อน</value>
   </data>
   <data name="SendMessage.Text" xml:space="preserve">
-    <value>Nachricht senden</value>
+    <value>ส่งข้อความ</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
-    <value>Anrufen</value>
+    <value>โทร</value>
   </data>
   <data name="FriendsLI.Content" xml:space="preserve">
-    <value>FREUNDE</value>
+    <value>เพื่อน</value>
   </data>
   <data name="AllLI.Content" xml:space="preserve">
-    <value>ALLE</value>
+    <value>ทั้งหมด</value>
   </data>
   <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>Freundschaftsanfrage annehmen?</value>
+    <value>รับคำขอเป็นเพื่อน</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>hat</value>
+    <value>เพิ่ม</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>entfernte</value>
+    <value>ลบ</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; zur Konversation hinzugefügt</value>
+    <value>&lt;user&gt; เข้าสู่บทสนทนาแล้ว</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; aus der Konversation</value>
+    <value>&lt;user&gt; เข้าสู่บทสนทนาแล้ว</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Du hast einen anruf von &lt;user&gt; verpasst</value>
+    <value>คุณไม่ได้รับสายจาก</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>hat eine Nachricht in diesem Channel angeheftet.</value>
+    <value>ปักหมุดข้อความในแชนเนลนี้</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Anruf gestartet von &lt;user&gt;</value>
+    <value>&lt;user&gt; เริ่มการโทร</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>Anruf gestartet</value>
+    <value>เริ่มการโทรแล้ว</value>
   </data>
   <data name="You" xml:space="preserve">
-    <value>Du</value>
+    <value>คุณ</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>SPIELEN</value>
+    <value>กำลังเล่น</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>hat den Server betreten!</value>
+    <value>เข้าร่วมเซิฟเวอร์แล้ว</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Bearbeitet am &lt;time&gt;</value>
+    <value>แก้ไขเมื่อ &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
-    <value>Trete einer Hörsitzung bei</value>
+    <value>เข้าร่วมฟังด้วย</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value>SPOTIFY-SITZUNG IST ZU ENDE</value>
+    <value>เซสชั่น Spotify จบลงแล้ว :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>Anhang</value>
+    <value>แนบไฟล์</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Mit Giphy suchen</value>
+    <value>ค้นหาด้วย Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>Hört</value>
+    <value>กำลังฟัง</value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
-    <value>LÄDT</value>
+    <value>กำลังโหลด</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>Suche Giphy</value>
+    <value>ค้น Giphy</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
-    <value>Einladung zu Spotify versenden</value>
+    <value>ส่งคำชวน Spotify</value>
   </data>
   <data name="BlockedMessageTB.Text" xml:space="preserve">
-    <value>Ausgeblendete Nachricht</value>
+    <value>ข้อความถูกบล็อค</value>
   </data>
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
-    <value>Notiz hinzufügen</value>
+    <value>เพิ่มหมายเหตุ</value>
   </data>
   <data name="VolumeSlide.Header" xml:space="preserve">
-    <value>Lautstärke</value>
+    <value>ความดัง</value>
+  </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>แอพมีปัญหา? ลองรีเซทแอพดู.</value>
   </data>
 </root>
