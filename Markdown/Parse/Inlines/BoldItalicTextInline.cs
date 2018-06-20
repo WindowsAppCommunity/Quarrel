@@ -50,7 +50,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// <returns> A parsed bold text span, or <c>null</c> if this is not a bold text span. </returns>
         internal static Helpers.Common.InlineParseResult Parse(string markdown, int start, int maxEnd)
         {
-            if (start >= maxEnd - 1)
+            if (start >= maxEnd - 3)
             {
                 return null;
             }

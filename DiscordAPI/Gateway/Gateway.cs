@@ -116,7 +116,8 @@ namespace Discord_UWP.Gateway
             if (UseCompression)
             {
                 //TODO what happens when e==null?
-                using (var datastr = e.GetDataStream().AsStreamForRead())
+               
+                using (var datastr = e.GetDataStream()?.AsStreamForRead())
                 using (var ms = new MemoryStream())
                 {
                     datastr.CopyTo(ms);
