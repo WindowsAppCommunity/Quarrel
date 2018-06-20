@@ -118,219 +118,219 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>&lt;count&gt; membres</value>
+    <value>สีประจำแอพ</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
-    <value>NOUVEAUX MESSAGES</value>
+    <value>ขั้นสูง</value>
   </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
-    <value>IGNORER</value>
+    <value>แสดงแถบคำสั่งไว้ด้านล่าง</value>
   </data>
   <data name="CompactModeCB.Content" xml:space="preserve">
-    <value>RETOURNER AU PRESENT</value>
+    <value>โหมดกระทัดรัด</value>
   </data>
   <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value>À Propos</value>
+    <value>Custom presence colors</value>
   </data>
   <data name="DarkRadio.Content" xml:space="preserve">
-    <value>Quoi de neuf?</value>
+    <value>มืด</value>
   </data>
   <data name="DiscordRadio.Content" xml:space="preserve">
-    <value>Supprimer les pubs</value>
-  </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>Paramètres</value>
-  </data>
-  <data name="DndColorTB.Text" xml:space="preserve">
-    <value>Ajouter une pièce jointe</value>
-  </data>
-  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
-    <value>Couleur d'accent</value>
-  </data>
-  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value>Aligner la barre de commande en bas</value>
-  </data>
-  <data name="IdleColorTB.Text" xml:space="preserve">
-    <value>Mode compact</value>
-  </data>
-  <data name="IncomingFriendsCB" xml:space="preserve">
-    <value>Couleur de présence personalisés</value>
-  </data>
-  <data name="LightRadio.Content" xml:space="preserve">
-    <value>Sombre</value>
-  </data>
-  <data name="LogoutBTN.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="NotificationsPI.Header" xml:space="preserve">
-    <value>DMs</value>
+  <data name="DMsCB" xml:space="preserve">
+    <value>ข้อความส่วนตัว</value>
   </data>
-  <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value>Ne pas déranger</value>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>ห้ามรบกวน</value>
   </data>
-  <data name="OutgoingFriendsCB" xml:space="preserve">
-    <value>Rendu plus exigeant (effets de flou, etc...)</value>
-  </data>
-  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis?</value>
-  </data>
-  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>Surligner @everyone</value>
-  </data>
-  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value>Inactif</value>
-  </data>
-  <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value>Demandes d'amis Entrantes</value>
-  </data>
-  <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value>Clair</value>
-  </data>
-  <data name="SettingsTB.Text" xml:space="preserve">
-    <value>Se déconnecter</value>
-  </data>
-  <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value>Notifications</value>
-  </data>
-  <data name="SliderL.Header" xml:space="preserve">
-    <value>En ligne</value>
-  </data>
-  <data name="SliderM.Header" xml:space="preserve">
-    <value>Demandes d'amis sortantes</value>
-  </data>
-  <data name="SliderXL.Header" xml:space="preserve">
-    <value>Réinitialiser les points d'arrêts aux valeurs par défault</value>
-  </data>
-  <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>Ces valeurs sont les largeurs de la fenêtre d'application auxquelles plus ou moins de l'interface sera visible</value>
-  </data>
-  <data name="ThemeTB.Text" xml:space="preserve">
-    <value>POINTS D'ARRÊTS DE L'INTERFACE ADAPTIVE</value>
-  </data>
-  <data name="UiPI.Header" xml:space="preserve">
-    <value>INTERFACE ADAPTIVE</value>
-  </data>
-  <data name="VerifyLogout" xml:space="preserve">
-    <value>(Vous devrez redémarrer l'app)</value>
-  </data>
-  <data name="VibrateCB.Content" xml:space="preserve">
-    <value>PARAMÈTRES</value>
-  </data>
-  <data name="WindowsRadio.Content" xml:space="preserve">
-    <value>Afficher les notifications au sein de l'app</value>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>ใช้เอฟเฟคเพิ่มเติม (เช่น การเบลอ)</value>
   </data>
   <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>Avancé</value>
+    <value>ต้องการรับการแจ้งเตือนใดบ้างเกี่ยวกับเพื่อน?</value>
+  </data>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>เน้นข้อความที่กล่าวถึง @everyone</value>
+  </data>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>ว่าง</value>
+  </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>คำขอเป็นเพื่อนที่ได้รับ</value>
+  </data>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>สว่าง</value>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>ออกจากระบบ</value>
+  </data>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>การแจ้งเตือน</value>
+  </data>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>ออนไลน์</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>คำขอเป็นเพื่อนที่ส่งไป</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>รีเซทจุดเปลี่ยนเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>นี่เป็นจุดที่แอพจะตัดสินใจว่าจะแสดงหรือซ่อนส่วนใดของแอพเมื่อความกว้างของแอพเปลี่ยนไป.</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>จุดเปลี่ยน</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>หน้าตาแอพ</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value> (จะมีผลหลังจากปิด-เปิด แอพใหม่)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>แสดงการแจ้งเตือนในแอพ</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>ขนาดกลาง (แสดงรายชื่อเซิฟเวอร์และแชนเนล)</value>
+  </data>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>ขนาดเล็ก (แสดงเฉพาะรายชื่อเซิฟเวอร์)</value>
+  </data>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>ขนาดใหญ่ (แสดงรายชื่อเซิฟเวอร์, แชนเนล, และสมาชิก)</value>
+  </data>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>สีประจำจากระบบ</value>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>ธีม</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>หน้าตาแอพ</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>คุณแน่ใจแล้วหรือว่าต้องการออกจากระบบ</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>สั่นเมื่อได้รับข้อความ</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>ระบบ</value>
   </data>
   <data name="FriendRequestsCB" xml:space="preserve">
-    <value>L (Les serveurs sont visibles)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Vibration lors de la réception des messages</value>
-  </data>
-  <data name="AccentRadio.Content" xml:space="preserve">
-    <value>XL (Les serveurs, salons, et membres sont visible)</value>
-  </data>
-  <data name="BlurpleRadio.Content" xml:space="preserve">
-    <value>Couleur d'accent système</value>
-  </data>
-  <data name="OTHERTB.Text" xml:space="preserve">
-    <value>THEME</value>
-  </data>
-  <data name="ShowWelcomeCB.Content" xml:space="preserve">
-    <value>Interface</value>
-  </data>
-  <data name="EnableAcrylic.Content" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir vous déconnecter?</value>
+    <value>คำขอเป็นเพื่อน</value>
   </data>
   <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>M (Les serveurs et salons sont visibles)</value>
+    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
   </data>
-  <data name="Enable compression (Faster)" xml:space="preserve">
-    <value>Blurple Discord</value>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>สีประจำจากระบบ</value>
   </data>
-  <data name="VideoAds.Content" xml:space="preserve">
-    <value>Demandes d'amis</value>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord ฟ้าอมม่วง</value>
   </data>
-  <data name="MESSAGESTB.Text" xml:space="preserve">
-    <value>Les salons muets affectent le statut "lu" du serveur?</value>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>อื่นๆ</value>
   </data>
-  <data name="GifsOnHoverCB.Content" xml:space="preserve">
-    <value>Couleur d'accentuation système</value>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>แสดงข้อความที่โหลดไว้</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>ใช้เอฟเฟคสีน้ำ (แถบสี+เบลอภาพพื้นหลัง)</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
-    <value>Windows</value>
+    <value>เปิดใช้งานการบีบอัดข้อความ (ทำให้ข้อความโหลดเร็วขึ้น)</value>
   </data>
-  <data name="Unread" xml:space="preserve">
-    <value>Activer les effects Acrylic (arrière-plan flouté)</value>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>ใช้โฆษณาวีดีโอแทนแบนเนอร์</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>ข้อความ</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>เล่นภาพเคลื่อนไหว (GIF) เฉพาะตอนเมาส์อยู่ใกล้</value>
+  </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>เปิดใช้งานการบีบอัดข้อความ</value>
   </data>
   <data name="Mentions" xml:space="preserve">
-    <value>AUTRE</value>
+    <value>พูดถึง</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>Afficher les phrases de chargement</value>
+    <value>ไม่มี</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>ไม่ได้อ่าน</value>
   </data>
   <data name="TranslatorPI" xml:space="preserve">
-    <value>Les serveurs muets effectent l'indicateur "lu" du serveur?</value>
+    <value>ภาษา</value>
   </data>
   <data name="CustomTimeF.Header" xml:space="preserve">
-    <value>Activer la compression des données (plus rapide)</value>
+    <value>รูปแบบเวลาแบบกำหนดเอง</value>
   </data>
   <data name="CustomDateF" xml:space="preserve">
-    <value>Afficher des pubs videos plutôt que des bannières</value>
+    <value>รูปแบบวันที่แบบกำหนดเอง</value>
   </data>
   <data name="DateFormat.Header" xml:space="preserve">
-    <value>MESSAGES</value>
+    <value>รูปแบบวันที่</value>
   </data>
   <data name="TimeFormat.Header" xml:space="preserve">
-    <value>Jouer les gifs lors d'un clic ou survolement</value>
+    <value>รูปแบบเวลา</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>Activer la compression de données</value>
+    <value>(ยังอยู่ระหว่างการทดสอบ) แชนเนลเสียง (ฟังอย่างเดียว)</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Mentionne</value>
+    <value>ออกจากระบบ</value>
   </data>
   <data name="AudioPI.Header" xml:space="preserve">
-    <value>Aucun</value>
+    <value>เสียง</value>
   </data>
   <data name="BGEnableTS.OffContent" xml:space="preserve">
-    <value>Non</value>
+    <value>เปิดการแจ้งเตือนแม้แอพปิดไปแล้ว</value>
   </data>
   <data name="BGEnableTS.OnContent" xml:space="preserve">
-    <value>Traduction</value>
+    <value>ปิดการแจ้งเตือนแม้แอพปิดไปแล้ว</value>
   </data>
   <data name="BGNotifInfoTB.Text" xml:space="preserve">
-    <value>Format de temps personnalisé</value>
+    <value>คุณจะได้รับการแจ้งเตือนตามที่คุณเลือก ในระยะเวลาที่กำหนดไว้</value>
   </data>
   <data name="BGNotifsTB.Text" xml:space="preserve">
-    <value>Format de date personnalisé</value>
+    <value>การแจ้งเตือนพื้นหลัง</value>
   </data>
   <data name="BGNotifyDMCB.Content" xml:space="preserve">
-    <value>Format de date</value>
+    <value>ข้อความส่วนตัวที่ไม่ได้อ่าน</value>
   </data>
   <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
-    <value>Format de l'heure</value>
+    <value>คำขอเป็นเพื่อน</value>
   </data>
   <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
-    <value>(EXPERIMENTAL) Voix Voix (Recevoir seulement)</value>
+    <value>การถูกกล่าวถึง</value>
   </data>
   <data name="IAPNotifsTB.Text" xml:space="preserve">
-    <value>Se déconnecter</value>
+    <value>การแจ้งเตือนในแอพ</value>
   </data>
   <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>Son</value>
+    <value>เปล่งแสงที่แถบด้านซ้ายของจอเมื่อถูกกล่าวถึง</value>
   </data>
   <data name="OutputDevicesCB.Header" xml:space="preserve">
-    <value>Activer les notifications en arrière-plan</value>
-  </data>
-  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
-    <value>Vous recevrez des notifications pour ce qui est sélectionné ci-dessous chaque fois que la tache est executée</value>
+    <value>เล่นเสียงผ่านอุปกรณ์นี้</value>
   </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
-    <value>Désactiver les notifications en arrière-plan</value>
+    <value>สามารถเปลี่ยนได้โดยคลิกขวาที่ปุ่มปิดเสียงในแชนเนลเสียง</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>ตั้งค่าบัญชี</value>
   </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
-    <value>Paramètres du compte</value>
+    <value>แสดงไอคอนปิดเสียงบนเซิฟเวอร์</value>
   </data>
 </root>

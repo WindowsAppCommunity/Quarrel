@@ -138,4 +138,77 @@
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
     <value>Austin Andelin, por conceituar o ícone do aplicativo</value>
   </data>
+  <data name="Build" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="ChangelogTB.Text" xml:space="preserve">
+    <value>MUDANÇAS</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>
+Christopher Blackman (que fez o incrível aplicativo MyTube) pelas dicas e ajuda inestimáveis.</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>cometer</value>
+  </data>
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
+    <value> Projetado pela Lightmagic Apps</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value>Desenvolvido Avid29 e KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Discutir no Twitter</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Não tem uma conta?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Esqueceu a senha?</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Entre no nosso servidor do Discord</value>
+  </data>
+  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
+    <value>Entre no nosso servidor do Discord</value>
+  </data>
+  <data name="JoinFail" xml:space="preserve">
+    <value>Falha ao entra no servidor!</value>
+  </data>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>Sucesso!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>Entrando</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Deixe um comentário</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenças </value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENÇAS</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>LOGIN</value>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Código de autenticação</value>
+  </data>
+  <data name="MFATB.Text" xml:space="preserve">
+    <value>Autenticação de duas etapas</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Você está off-line ou em uma conexão muito lenta para iniciar o Gateway</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Cliente Discord para o Universal Windows Platform</value>
+  </data>
 </root>
