@@ -54,12 +54,12 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
                         </Setter>
                         <Setter Target="content.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,0,0,0</Thickness>
+                                <Thickness>0,8,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="moresymbol.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,-2,0,0</Thickness>
+                                <Thickness>0,5,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <!--
@@ -178,8 +178,8 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         <Canvas x:Name="imgCanvas" Height="0" Grid.Row="1" Margin="0,-18,0,0">
             <Rectangle x:Name="AvatarBG" RadiusX="100" RadiusY="100" Height="44" Width="44" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.RowSpan="2" Grid.Row="1"/>
             <Button Height="44" Width="44" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Center" Grid.Row="1" Click="Username_OnClick" RightTapped="username_RightTapped" Style="{StaticResource DimButton}">
-            <Rectangle x:Name="Avatar" extensions:Mouse.Cursor="Hand" RadiusX="100" RadiusY="100" Height="44" Width="44" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Rectangle.Fill>
+                <Rectangle x:Name="Avatar" extensions:Mouse.Cursor="Hand" RadiusX="100" RadiusY="100" Height="44" Width="44" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Rectangle.Fill>
                     <ImageBrush x:Name="AvatarBrush"/>
                 </Rectangle.Fill>
             </Rectangle>
@@ -193,7 +193,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.3"/>
         </StackPanel>
         <FontIcon x:Name="AlternativeIcon" Visibility="Collapsed" Margin="8,0,0,-40" FontSize="18" Glyph="" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <md:MarkdownTextBlock MinHeight="0" LineHeight="14" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,0,3,-5" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
+        <md:MarkdownTextBlock MinHeight="0" x:Name="content" Grid.Row="2" Grid.Column="1" FontSize="14" VerticalAlignment="Top" LineHeight="17" Background="Red" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Padding="3,0,3,0" Margin="0,4,0,0" PointerPressed="UserControl_PointerPressed" Foreground="{ThemeResource MessageForeground}"/>
         <StackPanel x:Name="BlockedMessage" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock x:Uid="/Controls/BlockedMessageTB" Text="Message Blocked" HorizontalAlignment="Center"/>
             <HyperlinkButton Foreground="{ThemeResource Greyple}" Content="View" FontSize="10" HorizontalAlignment="Center" Click="HyperlinkButton_Click"/>

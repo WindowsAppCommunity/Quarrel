@@ -24,9 +24,9 @@ namespace Discord_UWP.Managers
                 {
                     foreach (var user in message.Mentions)
                     {
-                        if (!App.CurrentGuildIsDM && !LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(user.Id))
+                        if (!App.CurrentGuildIsDM)
                         {
-                            LocalState.Guilds[App.CurrentGuildId].members.Add(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
+                            LocalState.Guilds[App.CurrentGuildId].members.TryAdd(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
                         }
                     }
 
@@ -60,7 +60,7 @@ namespace Discord_UWP.Managers
                 default: return MessageTypes.Default;
             }
         }
-        public static MessageContainer MakeMessage(Message message, bool isContinuation = false) //TODO: IsContinuous
+        public static MessageContainer MakeMessage(Message message, bool isContinuation = false)
         {
             MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), isContinuation, null, false);
             return msg;
