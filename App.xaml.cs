@@ -765,18 +765,19 @@ namespace Discord_UWP
             public string GuildId { get; set; }
             public string ChannelId { get; set; }
             public string MessageContent { get; set; }
+            public bool Send { get; set; }
         }
         public static event EventHandler<GuildChannelSelectArgs> SelectGuildChannelHandler;
-        public static void SelectGuildChannel(string guildId, string channelId, string messagecontent = null)
+        public static void SelectGuildChannel(string guildId, string channelId, string messagecontent = null, bool send = false)
         {
             if (!App.FullyLoaded)
             {
                 PostLoadTask = "SelectGuildChannelTask";
-                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent };
+                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send};
             }
             else
             {
-                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent });
+                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send });
             }
         }
         public static Task SelectGuildChannelTask(string guildId, string channelId)
