@@ -114,7 +114,7 @@
                     <SolidColorBrush x:Key="MidBG_focus" Color="#303238"/>
                     <SolidColorBrush x:Key="LightBG" Color="#2e3136"/>
                     <SolidColorBrush x:Key="InvertedBG" Color="#e2e7f7"/>
-                    <SolidColorBrush x:Key="MessageForeground" Color="#CCFFFFFF"/>
+                    <SolidColorBrush x:Key="MessageForeground" Color="#BBFFFFFF"/>
                     <SolidColorBrush x:Key="LinkColor" Color="#0096cf"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
