@@ -25,7 +25,7 @@ namespace Discord_UWP.LocalModels
 
         public Role GetHighestRole(IEnumerable<string> inputRoles)
         {
-            Role returnRole = new Role() { Position = 1000 }; //TODO: this could be better
+            Role returnRole = new Role() { Position = 1000 }; //HACK: this could be better
             foreach (var role in roles.Values)
             {
                 if (role.Position < returnRole.Position)
