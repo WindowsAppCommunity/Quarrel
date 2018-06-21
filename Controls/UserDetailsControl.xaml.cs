@@ -353,7 +353,7 @@ namespace Discord_UWP.Controls
             if (channelid == null)
                 channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id.ToString() }.AsEnumerable() })).Id;
             if (string.IsNullOrEmpty(channelid)) return;
-            App.SelectGuildChannel("@me", channelid);
+            App.SelectGuildChannel("@me", channelid, SendDM.Text, true);
         }
 
         private void FadeIn_ImageOpened(object sender, RoutedEventArgs e)

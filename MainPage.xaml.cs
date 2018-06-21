@@ -620,11 +620,13 @@ namespace Discord_UWP
 
         string autoselectchannel = "";
         string autoselectchannelcontent = null;
+        bool autoselectchannelcontentsend = false;
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
             string guildid = e.GuildId;
             string channelid = e.ChannelId;
             autoselectchannelcontent = e.MessageContent;
+            autoselectchannelcontentsend = e.Send;
             if (guildid == "friendrequests")
             {
                 friendPanel.NavigateToFriendRequests();
@@ -1044,19 +1046,6 @@ namespace Discord_UWP
                     if (guild.Id == e.GuildId)
                     {
                         ServerList.SelectedItem = guild;
-                    }
-                }
-                foreach (SimpleChannel chn in ChannelList.Items)
-                {
-                    if (chn.Id == e.ChannelId)
-                    {
-                        lastChangeProgrammatic = true;
-                        ChannelList.SelectedItem = chn;
-                        chn.IsSelected = true;
-                    }
-                    else if(chn.Type != 2)
-                    {
-                        chn.IsSelected = false;
                     }
                 }
 
@@ -3247,7 +3236,7 @@ namespace Discord_UWP
                                 {
                                     var cid = (ChannelList.SelectedItem as SimpleChannel).Id;
                                     if (!string.IsNullOrEmpty(autoselectchannelcontent))
-                                        App.NavigateToDMChannel(cid, autoselectchannelcontent);
+                                        App.NavigateToDMChannel(cid, autoselectchannelcontent, autoselectchannelcontentsend);
                                     else
                                         App.NavigateToDMChannel(cid);
                                     Task.Run(() =>
