@@ -1415,9 +1415,15 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@&"))
             {
                 string val = e.Link.Remove(0, 2);
-                //TODO Fix this shit
-               // MembersListView.ScrollIntoView(memberscvs.FirstOrDefault(x => ((Member)x.Value).MemberHoistRole.Id == val));
-                sideDrawer.OpenRight();
+                foreach(var group in memberscvs)
+                {
+                    if(group.Key.Id == val)
+                    {
+                        sideDrawer.OpenRight();
+                        MembersListView.ScrollIntoView(group);
+                        return;
+                    }
+                }
             }
             else if (e.Link.StartsWith("@"))
             {
