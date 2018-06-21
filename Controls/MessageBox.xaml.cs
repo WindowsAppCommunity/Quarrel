@@ -495,14 +495,6 @@ namespace Discord_UWP.Controls
                         output = builder.ToString();
                     }
                 }
-
-                //TODO: Improve channel mention algo
-                //var possibleChannelMenetions = AllIndexesOf('#', output);
-                //addedLength = 0;
-                //foreach (int i in possibleChannelMenetions)
-                //{
-
-                //}
             }
 
             return output;
@@ -716,11 +708,7 @@ namespace Discord_UWP.Controls
             SuggestionBlock.ItemsSource = null;
             SuggestionPopup.IsOpen = false;
         }
-        
-        private void SearchAndDisplayEmojis(string query)
-        {
-            //todo
-        }
+
         private void SearchAndDisplayChannels(string query)
         {
             if (App.CurrentGuildId != null)

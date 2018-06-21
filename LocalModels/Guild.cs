@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Discord_UWP.LocalModels
 
         public Role GetHighestRole(IEnumerable<string> inputRoles)
         {
-            Role returnRole = new Role() { Position = 1000 }; //TODO: this could be better
+            Role returnRole = new Role() { Position = 1000 }; //HACK: this could be better
             foreach (var role in roles.Values)
             {
                 if (role.Position < returnRole.Position)
@@ -41,9 +42,9 @@ namespace Discord_UWP.LocalModels
         }
 
         public SharedModels.Guild Raw { get; set; }
-        public Dictionary<string, GuildMember> members = new Dictionary<string, GuildMember>();
-        public Dictionary<string, GuildChannel> channels = new Dictionary<string, GuildChannel>();
-        public Dictionary<string, Role> roles = new Dictionary<string, Role>();
+        public ConcurrentDictionary<string, GuildMember> members = new ConcurrentDictionary<string, GuildMember>();
+        public ConcurrentDictionary<string, GuildChannel> channels = new ConcurrentDictionary<string, GuildChannel>();
+        public ConcurrentDictionary<string, Role> roles = new ConcurrentDictionary<string, Role>();
         public bool valid = true;
 
         public int Position { get; set; }

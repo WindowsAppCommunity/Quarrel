@@ -616,6 +616,10 @@ namespace Discord_UWP.SubPages
 
         private void MutualGuilds_ItemClick(object sender, ItemClickEventArgs e)
         {
+            var mg = (MutualGuild)e.ClickedItem;
+            App.SelectGuildChannel(mg.Id, null);
+            CloseButton_Click(null, null);
+           // App.NavigateToGuildChannel(mg.Id, null);
             //TODO: Open guild
         }
 

@@ -141,7 +141,7 @@
                                     </tk:AdaptiveGridView>
                                     <StackPanel x:Name="commonServerPanel">
                                         <TextBlock x:Name="commonserverHeader" Opacity="0" x:Uid="/Dialogs/CommonServersTB" Text="COMMON SERVERS" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                        <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="0,0" Padding="0,12,0,0">
+                                        <ListView x:Name="MutualGuilds" SelectionMode="None" Margin="0,0" Padding="0,12,0,0" IsItemClickEnabled="True" ItemClick="MutualGuilds_ItemClick">
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0, 10" VerticalAlignment="Top">
