@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="256"
-    d:DesignWidth="448">
+    d:DesignWidth="448" Unloaded="UserControl_Unloaded">
 
     <Grid x:Name="rootgrid" MaxWidth="400" Height="124" Padding="12" VerticalAlignment="Top" HorizontalAlignment="Stretch">
         <Image x:Name="bgArtwork" Source="ms-appx:///Assets/ConnectionLogos/spotify.png" HorizontalAlignment="Stretch" Margin="-12" Stretch="UniformToFill" VerticalAlignment="Center" Opacity="1"/>

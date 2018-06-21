@@ -41,8 +41,6 @@ namespace Discord_UWP.Controls
             }
             else
                 UpdateUI(false);
-            //TODO fix this memory leak
-            Managers.GatewayManager.Gateway.PresenceUpdated += Gateway_PresenceUpdated;
         }
 
         private void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.Presence> e)
@@ -133,7 +131,7 @@ namespace Discord_UWP.Controls
             this.InitializeComponent();
         }
 
-        public void Dipose()
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Managers.GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Managers.SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;

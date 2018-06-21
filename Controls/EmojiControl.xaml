@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Discord_UWP.Controls"
+    xmlns:t="using:Discord_UWP.Controls.EmojiControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -210,7 +211,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <DataTemplate x:Name="PlainEmoji">
+        <DataTemplate x:Name="PlainEmoji" x:DataType="local:EmojiControl">
             <FontIcon Glyph="{Binding surrogates}" ToolTipService.ToolTip="{Binding names[0]}" Width="32" Height="32" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" PointerEntered="Emoji_PointerEntered"/>
         </DataTemplate>
         <DataTemplate x:Name="GuildEmoji">
