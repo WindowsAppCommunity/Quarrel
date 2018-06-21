@@ -178,8 +178,8 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         <Canvas x:Name="imgCanvas" Height="0" Grid.Row="1" Margin="0,-18,0,0">
             <Rectangle x:Name="AvatarBG" RadiusX="100" RadiusY="100" Height="44" Width="44" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.RowSpan="2" Grid.Row="1"/>
             <Button Height="44" Width="44" VerticalAlignment="Top" Grid.RowSpan="2" HorizontalAlignment="Center" Grid.Row="1" Click="Username_OnClick" RightTapped="username_RightTapped" Style="{StaticResource DimButton}">
-            <Rectangle x:Name="Avatar" extensions:Mouse.Cursor="Hand" RadiusX="100" RadiusY="100" Height="44" Width="44" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Rectangle.Fill>
+                <Rectangle x:Name="Avatar" extensions:Mouse.Cursor="Hand" RadiusX="100" RadiusY="100" Height="44" Width="44" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Rectangle.Fill>
                     <ImageBrush x:Name="AvatarBrush"/>
                 </Rectangle.Fill>
             </Rectangle>
