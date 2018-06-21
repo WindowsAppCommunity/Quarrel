@@ -681,7 +681,7 @@ namespace Discord_UWP.Controls
         private void MemberList_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MemberList.ContainerFromItem(e.ClickedItem);
-            App.ShowMemberFlyout(memberItem, LocalState.Guilds[App.CurrentGuildId].members[(e.ClickedItem as VoiceState).UserId].User);
+            App.ShowMemberFlyout(memberItem, LocalState.Guilds[App.CurrentGuildId].members[(e.ClickedItem as VoiceMemberContainer).VoiceState.UserId].User);
         }
     }
 }

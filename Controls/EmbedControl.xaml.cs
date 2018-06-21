@@ -173,7 +173,7 @@ namespace Discord_UWP.Controls
             {
                 FooterSP.Visibility = Visibility.Visible;
                 string footertext = "";
-                if (EmbedContent.Footer.Text != null)
+                if (EmbedContent.Footer?.Text != null)
                     footertext = EmbedContent.Footer.Text;
                 if (EmbedContent.Timestamp != null)
                 {

@@ -257,8 +257,13 @@ namespace Discord_UWP.Controls
         }
         private void UpdateProgressBar(object sender, object e)
         {
-            var st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
-            var et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
+            DateTimeOffset st, et;
+            if (!GameContent.TimeStamps.Start.HasValue)
+                return;
+            if (!GameContent.TimeStamps.End.HasValue)
+                return;
+            st = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
+            et = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
             //full length
             var length = et.Subtract(st);

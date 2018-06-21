@@ -471,7 +471,7 @@ namespace Discord_UWP.Controls
                     content.BorderThickness = new Thickness(0);
                 }
 
-
+                if (Message.User == null) return;
                 if (Message.User.Username != null)
                     username.Content = Message.User.Username;
                 else
