@@ -2925,15 +2925,10 @@ namespace Discord_UWP
                 foreach (var member in members)
                 {
                     member.setRoles(member.Roles.TakeWhile(x => App.CurrentGuildId != null && LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(x)).OrderByDescending(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Position));
-                    if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(member.User.Id))
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].members.Add(member.User.Id, member);
-                    }
-                    else
-                    {
-                        LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
-                    }
 
+                    bool added = LocalState.Guilds[App.CurrentGuildId].members.TryAdd(member.User.Id, member);
+                    if(!added)
+                        LocalState.Guilds[App.CurrentGuildId].members[member.User.Id] = member;
                     
                     if (!string.IsNullOrEmpty(member.Nick))
                         App.MemberListTrie.Add(member.Nick.ToLower(), new Common.AutoComplete(member.Nick, member.User.Username + "#" + member.User.Discriminator, Common.AvatarString(member.User.Avatar, member.User.Id)));
@@ -2946,13 +2941,14 @@ namespace Discord_UWP
                     foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                     {
                         Role roleAlt = role;
+                        //TODO Optimize the ConcurrentDictionary, because right now the .ContainsKey is running twice
                         if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
                         {
                             LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
                         }
                         else
                         {
-                            LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
+                            LocalState.Guilds[App.CurrentGuildId].roles.TryAdd(role.Id, roleAlt);
                         }
                     }
                     Stopwatch sw = new Stopwatch();
@@ -3053,13 +3049,14 @@ namespace Discord_UWP
                 foreach (Role role in LocalState.Guilds[App.CurrentGuildId].Raw.Roles)
                 {
                     Role roleAlt = role;
+                    //TODO Optimize this, .ContainsKey is currently running twice
                     if (LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(role.Id))
                     {
                         LocalState.Guilds[App.CurrentGuildId].roles[role.Id] = roleAlt;
                     }
                     else
                     {
-                        LocalState.Guilds[App.CurrentGuildId].roles.Add(role.Id, roleAlt);
+                        LocalState.Guilds[App.CurrentGuildId].roles.TryAdd(role.Id, roleAlt);
                     }
                 }
             }

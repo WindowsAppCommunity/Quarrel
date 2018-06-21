@@ -474,6 +474,7 @@ namespace Discord_UWP.SimpleClasses
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
+            //TODO Why is this called from another thread???
         { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
     }
 }
