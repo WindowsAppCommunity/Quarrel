@@ -2997,9 +2997,10 @@ namespace Discord_UWP
                                 tempMembers.Add(m);
                             }
                         }
-                        memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
+                        
                         await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
+                            memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
                             MembersCvs.Source = memberscvs;
                         });
                     }
