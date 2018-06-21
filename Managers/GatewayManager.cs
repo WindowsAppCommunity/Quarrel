@@ -172,17 +172,7 @@ namespace Discord_UWP.Managers
                 if (guild.Members != null)
                 {
                     foreach (var member in guild.Members)
-                    {
-                        if (LocalState.Guilds[guild.Id].members.ContainsKey(member.User.Id))
-                        {
-                            
-                            LocalState.Guilds[guild.Id].members[member.User.Id] = member;
-                        }
-                        else
-                        {
-                            LocalState.Guilds[guild.Id].members.Add(member.User.Id, member);
-                        }
-                    }
+                        LocalState.Guilds[guild.Id].members.TryAdd(member.User.Id, member);
                 } else
                 {
                     LocalState.Guilds[guild.Id].valid = false;
@@ -193,16 +183,7 @@ namespace Discord_UWP.Managers
                 if (guild.Roles != null)
                 {
                     foreach (var role in guild.Roles)
-                    {
-                        if (LocalState.Guilds[guild.Id].roles.ContainsKey(role.Id))
-                        {
-                            LocalState.Guilds[guild.Id].roles[role.Id] = role;
-                        }
-                        else
-                        {
-                            LocalState.Guilds[guild.Id].roles.Add(role.Id, role);
-                        }
-                    }
+                            LocalState.Guilds[guild.Id].roles.TryAdd(role.Id, role);
                 } else
                 {
                     LocalState.Guilds[guild.Id].valid = false;
@@ -214,16 +195,7 @@ namespace Discord_UWP.Managers
                 if (guild.Channels != null)
                 {
                     foreach (var channel in guild.Channels)
-                    {
-                        if (LocalState.Guilds[guild.Id].channels.ContainsKey(channel.Id))
-                        {
-                            LocalState.Guilds[guild.Id].channels[channel.Id] = new LocalModels.GuildChannel(channel, guild.Id);
-                        }
-                        else
-                        {
-                            LocalState.Guilds[guild.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
-                        }
-                    }
+                            LocalState.Guilds[guild.Id].channels.TryAdd(channel.Id, new LocalModels.GuildChannel(channel, guild.Id));
                 } else
                 {
                     LocalState.Guilds[guild.Id].valid = false;
@@ -590,10 +562,7 @@ namespace Discord_UWP.Managers
         #region GuildChannel
         private static void Gateway_GuildChannelCreated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
-            if (!LocalState.Guilds[e.EventData.GuildId].channels.ContainsKey(e.EventData.Id))
-            {
-                LocalState.Guilds[e.EventData.GuildId].channels.Add(e.EventData.Id, new LocalModels.GuildChannel(e.EventData));
-            }
+            LocalState.Guilds[e.EventData.GuildId].channels.TryAdd(e.EventData.Id, new LocalModels.GuildChannel(e.EventData));
 
             if (e.EventData.GuildId == App.CurrentGuildId)
             {
@@ -603,11 +572,9 @@ namespace Discord_UWP.Managers
 
         private static void Gateway_GuildChannelDeleted(object sender, Gateway.GatewayEventArgs<SharedModels.GuildChannel> e)
         {
-            if (LocalState.Guilds[e.EventData.GuildId].channels.ContainsKey(e.EventData.Id))
-            {
-                LocalState.Guilds[e.EventData.GuildId].channels.Remove(e.EventData.Id);
-            }
-
+            LocalModels.GuildChannel channel;
+            LocalState.Guilds[e.EventData.GuildId].channels.TryRemove(e.EventData.Id, out channel);
+            channel = null;
             if (e.EventData.GuildId == App.CurrentGuildId)
             {
                 App.GuildChannelDeleted(e.EventData.GuildId, e.EventData.Id);
@@ -635,35 +602,18 @@ namespace Discord_UWP.Managers
             {
                 LocalState.Guilds.Add(e.EventData.Id, new LocalModels.Guild(e.EventData));
                 foreach (var member in e.EventData.Members)
-                {
-                    if (LocalState.Guilds[e.EventData.Id].members.ContainsKey(member.User.Id))
-                    {
-                        LocalState.Guilds[e.EventData.Id].members[member.User.Id] = member;
-                    }
-                    else
-                    {
-                        LocalState.Guilds[e.EventData.Id].members.Add(member.User.Id, member);
-                    }
-                }
+                    LocalState.Guilds[e.EventData.Id].members.TryAdd(member.User.Id, member);
 
                 foreach (var role in e.EventData.Roles)
-                {
-                    LocalState.Guilds[e.EventData.Id].roles.Add(role.Id, role);
-                }
+                    LocalState.Guilds[e.EventData.Id].roles.TryAdd(role.Id, role);
+                
 
                 foreach (var channel in e.EventData.Channels)
-                {
-                    if (LocalState.Guilds[e.EventData.Id].channels.ContainsKey(channel.Id))
-                    {
-                        LocalState.Guilds[e.EventData.Id].channels[channel.Id] = new LocalModels.GuildChannel(channel, e.EventData.Id);
-                    }
-                    else
-                    {
-                        LocalState.Guilds[e.EventData.Id].channels.Add(channel.Id, new LocalModels.GuildChannel(channel, e.EventData.Id));
-                    }
-                }
+                    LocalState.Guilds[e.EventData.Id].channels.TryAdd(channel.Id, new LocalModels.GuildChannel(channel, e.EventData.Id));
+                
                 foreach (var presence in e.EventData.Presences)
                 {
+                    //TODO Optimize this, ContainsKey is running twice
                     if (LocalState.PresenceDict.ContainsKey(presence.User.Id))
                     {
                         LocalState.PresenceDict[presence.User.Id] = presence;
@@ -675,6 +625,7 @@ namespace Discord_UWP.Managers
                 }
                 foreach (var voiceState in e.EventData.VoiceStates)
                 {
+                    //TODO Optimize this, ContainsKey is running twice
                     if (LocalState.VoiceDict.ContainsKey(voiceState.UserId))
                     {
                         LocalState.VoiceDict[voiceState.UserId] = voiceState;
@@ -712,21 +663,20 @@ namespace Discord_UWP.Managers
         #region GuildMember
         private static void Gateway_GuildMemberAdded(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberAdd> e)
         {
+            //TODO Optimize this, ContainsKey is running twice
             if (LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
             {
                 LocalState.Guilds[e.EventData.guildId].members[e.EventData.User.Id] = new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User };
             } else
             {
-                LocalState.Guilds[e.EventData.guildId].members.Add(e.EventData.User.Id, new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User });
+                LocalState.Guilds[e.EventData.guildId].members.TryAdd(e.EventData.User.Id, new GuildMember() { Deaf = e.EventData.Deaf, JoinedAt = e.EventData.JoinedAt, Mute = e.EventData.Mute, Nick = e.EventData.Nick, Roles = e.EventData.Roles, User = e.EventData.User });
             }
         }
 
         private static void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberRemove> e)
         {
-            if (LocalState.Guilds.ContainsKey(e.EventData.guildId) && LocalState.Guilds[e.EventData.guildId].members.ContainsKey(e.EventData.User.Id))
-            {
-                LocalState.Guilds[e.EventData.guildId].members.Remove(e.EventData.User.Id);
-            }
+            LocalState.Guilds[e.EventData.guildId].members.TryRemove(e.EventData.User.Id, out GuildMember member);
+            member = null;
         }
 
         private static void Gateway_GuildMemberUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.GuildMemberUpdate> e)
@@ -744,14 +694,9 @@ namespace Discord_UWP.Managers
         {
             foreach (var member in e.EventData.Members)
             {
-                if (!LocalState.Guilds[e.EventData.GuildId].members.ContainsKey(member.User.Id))
-                {
-                    LocalState.Guilds[e.EventData.GuildId].members.Add(member.User.Id, new GuildMember() { Deaf = member.Deaf, JoinedAt = member.JoinedAt, Mute = member.Mute, Nick = member.Nick, Roles = member.Roles, User = member.User });
-                }
-                else
-                {
+                var added = LocalState.Guilds[e.EventData.GuildId].members.TryAdd(member.User.Id, new GuildMember() { Deaf = member.Deaf, JoinedAt = member.JoinedAt, Mute = member.Mute, Nick = member.Nick, Roles = member.Roles, User = member.User });
+                if(!added)
                     LocalState.Guilds[e.EventData.GuildId].members[member.User.Id] = new GuildMember() { Deaf = member.Deaf, JoinedAt = member.JoinedAt, Mute = member.Mute, Nick = member.Nick, Roles = member.Roles, User = member.User };
-                }
             }
             App.MembersUpdated();
         }
