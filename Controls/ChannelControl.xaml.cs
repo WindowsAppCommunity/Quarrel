@@ -440,7 +440,6 @@ namespace Discord_UWP.Controls
                         if (user.ChannelId == Id)
                         {
                             VoiceMembers.Add(user.UserId, new VoiceMemberContainer() { VoiceState = LocalState.VoiceDict[user.UserId]});
-                            break;
                         }
                     }
 

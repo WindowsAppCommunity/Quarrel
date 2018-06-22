@@ -348,21 +348,11 @@ namespace Discord_UWP.Controls
         {
             string channelid = null;
             foreach (var dm in LocalState.DMs)
-            {
                 if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == DisplayedMember.User.Id.ToString())
-                {
                     channelid = dm.Value.Id;
-                    break;
-                }
-            }
-
             if (channelid == null)
-            {
                 channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id.ToString() }.AsEnumerable() })).Id;
-            }
-
             if (string.IsNullOrEmpty(channelid)) return;
-
             App.SelectGuildChannel("@me", channelid, SendDM.Text, true);
         }
 
