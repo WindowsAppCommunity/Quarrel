@@ -468,13 +468,7 @@ namespace Discord_UWP
                 var key = memberscvs.RoleIndexer[id];
                 Grouping<HoistRole, Member> group = null;
                 foreach (var g in memberscvs)
-                {
-                    if (key.Id == g.Key.Id)
-                    {
-                        group = g;
-                        break;
-                    }
-                }
+                    if (key.Id == g.Key.Id) group = g;
                 if (group != null)
                 {
                     return (group.FirstOrDefault(x => x.Raw.User.Id == id));
@@ -525,10 +519,7 @@ namespace Discord_UWP
                     foreach(SimpleChannel channel in ChannelList.Items)
                     {
                         if (channel.UserId != null && channel.UserId == e.UserId)
-                        {
                             channel.UserStatus = e.Presence;
-                            break;
-                        }
                     }
                 }
                 //if the memberscvs isn't null, and either the current guild is DMs or the currentguild isn't null and contains the member
@@ -582,8 +573,6 @@ namespace Discord_UWP
 
                                            else
                                                guild.ImageURL = "empty";
-
-                                           break;
                                        }
                                    }
                                });
@@ -652,7 +641,6 @@ namespace Discord_UWP
                         autoselectchannel = channelid;
                         ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
                         ServerList.SelectedItem = g;
-                        break;
                     }
                 }
             }
@@ -835,11 +823,8 @@ namespace Discord_UWP
             AccountView.Items.Clear();
             foreach(var cred in credentials)
             {
-                if (cred.UserName != Storage.Settings.DefaultAccount)
-                {
-                    AccountView.Items.Add(cred);
-                    break;
-                }
+                if(cred.UserName != Storage.Settings.DefaultAccount)
+                AccountView.Items.Add(cred);
             }
             if (App.IsMobile)
             {
@@ -1045,7 +1030,6 @@ namespace Discord_UWP
                         {
                             lastChangeProgrammatic = true;
                             ChannelList.SelectedItem = chn;
-                            break;
                         }
                     }
                 }
@@ -1062,7 +1046,6 @@ namespace Discord_UWP
                     if (guild.Id == e.GuildId)
                     {
                         ServerList.SelectedItem = guild;
-                        break;
                     }
                 }
 
@@ -1073,17 +1056,10 @@ namespace Discord_UWP
                 currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
             foreach (SimpleChannel chn in ChannelList.Items)
-            {
                 if (chn.Id == e.ChannelId)
-                {
                     chn.IsSelected = true;
-                    break;
-                }
-                else if (chn.Type != 2)
-                {
+                else if(chn.Type != 2)
                     chn.IsSelected = false;
-                }
-            }
             UpdateTyping();
             LoadDraft();
         }
@@ -1151,7 +1127,6 @@ namespace Discord_UWP
                     {
                         lastChangeProgrammatic = true;
                         ChannelList.SelectedItem = chn;
-                        break;
                     }
                 }
             }
@@ -1630,7 +1605,6 @@ namespace Discord_UWP
                 if (chn.Channel_Id == e.ChannelId)
                 {
                     LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId] = chn;
-                    break;
                 }
             }
             App.UpdateUnreadIndicators();
@@ -2219,11 +2193,10 @@ namespace Discord_UWP
                             {
                                 gclone.IsMuted = false;
                             }
-                            var channelkeys = LocalState.Guilds[gclone.Id].channels.Keys;
-                            int keycount = channelkeys.Count;
-                             foreach (var key in channelkeys)
-                             {
-                                var chn = LocalState.Guilds[gclone.Id].channels[key];
+                            for (int i = 0; i < LocalState.Guilds[gclone.Id].channels.Count; i++)
+                            {
+                                //TODO fix "collection was modified" by making this shit thread-safe
+                                var chn = LocalState.Guilds[gclone.Id].channels.ElementAt(i).Value; //TODO use stopwatch to see if this shit can be optimized
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
@@ -2520,10 +2493,7 @@ namespace Discord_UWP
                     foreach (SimpleChannel sc in ChannelList.Items)
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
-                        {
                             sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
-                            break;
-                        }
                     }
                 });
                 
@@ -2548,10 +2518,9 @@ namespace Discord_UWP
                     foreach (SimpleChannel sc in ChannelList.Items)
                     {
                         if (sc.Id == e.EventData.channel_id && LocalState.DMs.ContainsKey(e.EventData.channel_id))
-                        {
+
                             sc.Subtitle = App.GetString("/Main/members").Replace("<count>", (LocalState.DMs[e.EventData.channel_id].Users.Count() + 1).ToString());
-                            break;
-                        }
+
                     }
                 });
             if (App.CurrentChannelId == e.EventData.channel_id)
@@ -2777,7 +2746,6 @@ namespace Discord_UWP
                              if (message.Message != null && message.Message.Id == e.Message.Id)
                              {
                                  message.Message = e.Message;
-                                 break;
                              }
                          }
                      }
@@ -2812,7 +2780,6 @@ namespace Discord_UWP
                             if (chn.Id == e.DMId)
                             {
                                 ChannelList.Items.Remove(chn);
-                                break;
                             }
                         }
                     });
@@ -2830,7 +2797,6 @@ namespace Discord_UWP
                             {
                                 ChannelList.Items.Remove(chn);
                                 ChannelList.Items.Insert(0, chn);
-                                break;
                             }
                         }
                     });
