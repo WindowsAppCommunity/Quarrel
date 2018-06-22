@@ -1079,6 +1079,10 @@ namespace Discord_UWP
                     chn.IsSelected = true;
                     break;
                 }
+                else if (chn.Type != 2)
+                {
+                    chn.IsSelected = false;
+                }
             }
             UpdateTyping();
             LoadDraft();
