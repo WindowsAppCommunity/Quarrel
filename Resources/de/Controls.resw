@@ -160,7 +160,7 @@
     <value>Beitreten</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
-    <value>Du bist beigetreten</value>
+    <value>Sie sind beigetreten</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
     <value>Maximale Anzahl Nutzer erreicht</value>
@@ -271,7 +271,7 @@
     <value>&lt;user&gt; aus der Konversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Du hast einen anruf von &lt;user&gt; verpasst</value>
+    <value>Sie haben einen Anruf von &lt;user&gt; verpasst</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>hat eine Nachricht in diesem Channel angeheftet.</value>
@@ -280,16 +280,16 @@
     <value>Anruf gestartet von &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>Anruf gestartet</value>
+    <value>haben einen Anruf gestartet</value>
   </data>
   <data name="You" xml:space="preserve">
-    <value>Du</value>
+    <value>Sie</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
     <value>SPIELEN</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>hat den Server betreten!</value>
+    <value>trat dem Server bei!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
     <value>Bearbeitet am &lt;time&gt;</value>

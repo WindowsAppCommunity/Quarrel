@@ -228,4 +228,7 @@
   <data name="SpecialThxTB.Text" xml:space="preserve">
     <value>Agradecimientos Especiales:</value>
   </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
 </root>

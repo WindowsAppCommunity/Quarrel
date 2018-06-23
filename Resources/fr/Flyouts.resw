@@ -133,7 +133,7 @@
     <value>Changer de pseudo</value>
   </data>
   <data name="CloseDM" xml:space="preserve">
-    <value>Fermer DM</value>
+    <value>Fermer le MP</value>
   </data>
   <data name="Deafen" xml:space="preserve">
     <value>Assourdir</value>
@@ -151,7 +151,7 @@
     <value>Modifier le serveur</value>
   </data>
   <data name="InviteToServer" xml:space="preserve">
-    <value>Inviter au serveur</value>
+    <value>Inviter sur le serveur</value>
   </data>
   <data name="KickMember" xml:space="preserve">
     <value>Expulser le membre</value>
@@ -184,19 +184,19 @@
     <value>Échec de l'épinglement</value>
   </data>
   <data name="PinSucess" xml:space="preserve">
-    <value>Succés!</value>
+    <value>Épinglé avec succès !</value>
   </data>
   <data name="PinToStart" xml:space="preserve">
-    <value>Épingler à l'écran d'acceuil</value>
+    <value>Épingler à l'écran de démarrage</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
   <data name="RemoveFriend" xml:space="preserve">
-    <value>Enlever des amis</value>
+    <value>Retirer des amis</value>
   </data>
   <data name="RemoveFromGroup" xml:space="preserve">
-    <value>Enlever du groupe</value>
+    <value>Retirer du groupe</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Rôles</value>
@@ -214,6 +214,6 @@
     <value>Désépingler de l'écran d'acceuil</value>
   </data>
   <data name="UnpinSucess" xml:space="preserve">
-    <value>Succés!</value>
+    <value>Déséspinglé avec succès !</value>
   </data>
 </root>

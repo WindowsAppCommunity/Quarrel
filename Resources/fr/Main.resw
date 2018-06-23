@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>À Propos</value>
+    <value>À propos</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
     <value>Ajouter un salon</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>à </value>
+    <value>à </value>
   </data>
   <data name="Connected" xml:space="preserve">
     <value>CONNECTÉ</value>
@@ -139,19 +139,19 @@
     <value>Erreur</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Erreur 400: Il y a eu un problème lors de la connexion. Si vous ne vous êtes pas encore connectés depuis cet appareil, cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
+    <value>Erreur 400 : Il y a eu un problème lors de la connexion. Si vous ne vous êtes pas encore connecté depuis cet appareil, cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>Erreur 401: Il y a eu un problème d'interaction avec le serveur.</value>
+    <value>Erreur 401 : Il y a eu un problème d'interaction avec le serveur.</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>Error 403: Vous n'avez pas le droit de vous connecter depuis ici. Si vous ne vous êtes pas encore connectés depuis cet endroit cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
+    <value>Erreur 403 : Vous n'avez pas le droit de vous connecter depuis ici. Si vous ne vous êtes pas encore connecté depuis cet endroit cherchez un éventuel courriel de vérification de Discord et tentez de vous reconnecter</value>
   </data>
   <data name="Error429" xml:space="preserve">
-    <value>Error 429: Vous avez été limités suite à trop d'appels au serveurs Discord. Ré-essayez dans quelques nano-secondes.</value>
+    <value>Erreur 429 : Vous avez été limité suite à un excès d'appels aux serveurs Discord. Ré-essayez dans quelques nano-secondes.</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>Error 500:  Il y a eu un problème d'interaction avec le serveur, et c'est sa faute. Essayez de vous reconnecter dans quelques instants, Discord réparent généralement leurs serveurs rapidement.</value>
+    <value>Erreur 500:  Il y a eu un problème d'interaction avec le serveur, et c'est de sa faute. Essayez de vous reconnecter dans quelques instants, Discord répare généralement leurs serveurs rapidement.</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
     <value>Réessayez après avoir vérifié vos courriels pour savoir s'il est nécessaire de vérifier cet endroit de connexion.</value>
@@ -163,7 +163,7 @@
     <value>Jeu</value>
   </data>
   <data name="IapABB.Label" xml:space="preserve">
-    <value>Achats In-App</value>
+    <value>Achats dans l'application</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
     <value>Inactif</value>
@@ -190,7 +190,7 @@
     <value>Mettre en sourdine</value>
   </data>
   <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>Aucun salons dans le cache</value>
+    <value>Aucun salon dans le cache</value>
   </data>
   <data name="NoMessagesCachedTB.Text" xml:space="preserve">
     <value>Aucun message dans le cache</value>
@@ -211,7 +211,7 @@
     <value>Joue à</value>
   </data>
   <data name="RefreshABB.Label" xml:space="preserve">
-    <value>Rafraichir</value>
+    <value>Rafraîchir</value>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
     <value>Paramètres</value>
@@ -241,19 +241,19 @@
     <value>&lt;count&gt; membres</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>à envoyé un message sur</value>
+    <value>a envoyé un message sur</value>
   </data>
   <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>Il y a eu un probleme lors du chargement de l'historique des messages. Celui-ci à été nettoyé.</value>
+    <value>Il y a eu un probleme lors du chargement de l'historique des messages. Celui-ci a été nettoyé.</value>
   </data>
   <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>Il y a eu un probleme lors du chargement de l'historique des salons muets. Celui-ci à été nettoyé.</value>
+    <value>Il y a eu un probleme lors du chargement de l'historique des salons muets. Celui-ci a été nettoyé.</value>
   </data>
   <data name="PromptNoCache" xml:space="preserve">
     <value>Le cache de l'application était vide, il va être utilisé pour améliorer les temps de chargement.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>et </value>
+    <value>et </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
     <value>sont en train d'écrire...</value>
@@ -295,7 +295,7 @@
     <value>Amis</value>
   </data>
   <data name="RemoveAdsABB.Label" xml:space="preserve">
-    <value>Supprimer les publicités</value>
+    <value>Retirer les publicités</value>
   </data>
   <data name="ShowPinnedABB.Label" xml:space="preserve">
     <value>Afficher les messages épinglés</value>
@@ -304,33 +304,33 @@
     <value>Afficher la liste des membres</value>
   </data>
   <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>Quoi de neuf?</value>
+    <value>Quoi de neuf</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
     <value>&lt;count&gt; membres</value>
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>NOTIFICATIONS EN ARRIÈRE-PLAN</value>
+    <value>Nouveaux messages</value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>Messages Directs non lus</value>
+    <value>Ignorer</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>Demandes d'ami</value>
+    <value>REVENIR AU PRÉSENT</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>Nouvelles mentions</value>
+    <value>À propos</value>
   </data>
   <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>NOTIFICATIONS IN-APP</value>
+    <value>Quoi de neuf ?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>Illuminer le côté gauche de l'écran lorsque vous êtes mentionné</value>
+    <value>Retirer les publicités</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>Sortie audio</value>
+    <value>Paramètres</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>Vous pouvez choisir une autre sortie en effectuant un clic droit sur le bouton "Assourdir"</value>
+    <value>AJOUTER UNE PIÈCE JOINTE</value>
   </data>
 </root>

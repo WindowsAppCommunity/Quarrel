@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
+    <value>Aceitar solicitação de amizade?</value>
+  </data>
+  <data name="ACTIVITIES" xml:space="preserve">
+    <value>ATIVIDADES</value>
+  </data>
+  <data name="AddReacItem.Text" xml:space="preserve">
+    <value>Adicionar reação</value>
+  </data>
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>BLOQUEADO</value>
+  </data>
+  <data name="BotTB.Text" xml:space="preserve">
+    <value>BOT</value>
+  </data>
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Copiar ID</value>
+  </data>
 </root>
