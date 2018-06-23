@@ -321,4 +321,16 @@
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>เพิ่มไฟล์</value>
   </data>
+  <data name="at" xml:space="preserve">
+    <value>ที่</value>
+  </data>
+  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
+    <value>กดให้คะแนนเพื่อให้ได้แชนเนลเสียง</value>
+  </data>
+  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
+    <value>วันนี้</value>
+  </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; คน</value>
+  </data>
 </root>
