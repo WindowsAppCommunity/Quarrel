@@ -601,4 +601,7 @@
   <data name="NewPswrdPBox.Header" xml:space="preserve">
     <value>รหัสผ่านใหม่</value>
   </data>
+  <data name="on" xml:space="preserve">
+    <value>ใน</value>
+  </data>
 </root>
