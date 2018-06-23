@@ -175,7 +175,7 @@
     <value>Fehler beim Betreten des Discord Server!</value>
   </data>
   <data name="JoinSucess" xml:space="preserve">
-    <value>Startklar!</value>
+    <value>Fertig!</value>
   </data>
   <data name="JoinWait" xml:space="preserve">
     <value>Tritt bei...</value>
@@ -199,7 +199,7 @@
     <value>Zwei-Faktor-Authentifizierung</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>Keine oder zu langsame Verbindung zum Internet, um einen Gateway zu starten</value>
+    <value>Es besteht keine oder eine zu langsame Verbindung zum Internet, um einen Gateway zu starten</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Passwort</value>

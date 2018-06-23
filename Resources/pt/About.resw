@@ -211,4 +211,10 @@ Christopher Blackman (que fez o incrível aplicativo MyTube) pelas dicas e ajuda
   <data name="QuarrelDescTB.Text" xml:space="preserve">
     <value>Cliente Discord para o Universal Windows Platform</value>
   </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel usa algumas e</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Agradecimentos especiais:</value>
+  </data>
 </root>

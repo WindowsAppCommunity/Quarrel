@@ -330,4 +330,7 @@
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
     <value>Account Settings</value>
   </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Show Mute icon on servers</value>
+  </data>
 </root>

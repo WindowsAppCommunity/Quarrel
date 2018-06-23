@@ -133,7 +133,7 @@
     <value>BOT</value>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>Copier l'Id</value>
+    <value>Copier l'ID</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
     <value>Supprimer</value>
@@ -145,13 +145,13 @@
     <value>DRAPEAUX</value>
   </data>
   <data name="FOOD" xml:space="preserve">
-    <value>NOURITURE</value>
+    <value>NOURRITURE</value>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
     <value>Demande d'ami envoyée</value>
   </data>
   <data name="InviteExpired" xml:space="preserve">
-    <value>Invitation périmée</value>
+    <value>Invitation expirée</value>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
     <value>Invitation invalide ou périmée</value>
@@ -166,7 +166,7 @@
     <value>Nombre max. d'utilisations atteint</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>Tous ceux utilisant ce lien n'auront plus accés au serveur lors de leur déconnexion, sauf si un rôle leur à été assigné.</value>
+    <value>Tous ceux utilisant ce lien n'auront plus accès au serveur lors de leur déconnexion, sauf si un rôle leur a été assigné.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>NATURE</value>
@@ -256,13 +256,13 @@
     <value>TOUS</value>
   </data>
   <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>Accepter la demande d'ami?</value>
+    <value>Accepter la demande d'ami ?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>à ajouté</value>
+    <value>ajouté</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>à enlevé</value>
+    <value>enlevé</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
     <value>&lt;user&gt; de la conversation</value>
@@ -289,10 +289,10 @@
     <value>JOUE À</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>a rejoins le serveur!</value>
+    <value>a rejoint le serveur!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Edité à &lt;time&gt;</value>
+    <value>Édité à &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Rejoindre la session Spotify</value>
@@ -304,19 +304,19 @@
     <value>Pièces jointes</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Rechercher avec Giphy</value>
+    <value>Rechercher sur Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>Écoute</value>
+    <value>En train d'écouter</value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
     <value>CHARGEMENT</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>Rechercher sur Giphy</value>
+    <value>Recheche Giphy</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
-    <value>Écouter ensemble</value>
+    <value>Envoyer une invitation Spotify</value>
   </data>
   <data name="BlockedMessageTB.Text" xml:space="preserve">
     <value>Message bloqué</value>

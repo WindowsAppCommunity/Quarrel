@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutABB.Label" xml:space="preserve">
+    <value>Über</value>
+  </data>
+  <data name="AddChannelTB.Text" xml:space="preserve">
+    <value>Raum hinzufügen</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>an</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>VEBUNDEN</value>
+  </data>
+  <data name="DNDRadio.Content" xml:space="preserve">
+    <value>Nicht Stören</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Error400" xml:space="preserve">
+    <value>Fehler 400</value>
+  </data>
+  <data name="Error401" xml:space="preserve">
+    <value>Fehler 401</value>
+  </data>
+  <data name="Error403" xml:space="preserve">
+    <value>Fehler 403</value>
+  </data>
+  <data name="Error429" xml:space="preserve">
+    <value>Fehler 429</value>
+  </data>
+  <data name="Error500" xml:space="preserve">
+    <value>Fehler 500</value>
+  </data>
 </root>

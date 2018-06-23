@@ -118,205 +118,205 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>&lt;count&gt; membres</value>
+    <value>Couleur d'accentuation</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
-    <value>NOUVEAUX MESSAGES</value>
-  </data>
-  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
-    <value>IGNORER</value>
-  </data>
-  <data name="CompactModeCB.Content" xml:space="preserve">
-    <value>RETOURNER AU PRESENT</value>
-  </data>
-  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value>À Propos</value>
-  </data>
-  <data name="DarkRadio.Content" xml:space="preserve">
-    <value>Quoi de neuf?</value>
-  </data>
-  <data name="DiscordRadio.Content" xml:space="preserve">
-    <value>Supprimer les pubs</value>
-  </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>Paramètres</value>
-  </data>
-  <data name="DndColorTB.Text" xml:space="preserve">
-    <value>Ajouter une pièce jointe</value>
-  </data>
-  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
-    <value>Couleur d'accent</value>
-  </data>
-  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value>Aligner la barre de commande en bas</value>
-  </data>
-  <data name="IdleColorTB.Text" xml:space="preserve">
-    <value>Mode compact</value>
-  </data>
-  <data name="IncomingFriendsCB" xml:space="preserve">
-    <value>Couleur de présence personalisés</value>
-  </data>
-  <data name="LightRadio.Content" xml:space="preserve">
-    <value>Sombre</value>
-  </data>
-  <data name="LogoutBTN.Content" xml:space="preserve">
-    <value>Discord</value>
-  </data>
-  <data name="NotificationsPI.Header" xml:space="preserve">
-    <value>DMs</value>
-  </data>
-  <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value>Ne pas déranger</value>
-  </data>
-  <data name="OutgoingFriendsCB" xml:space="preserve">
-    <value>Rendu plus exigeant (effets de flou, etc...)</value>
-  </data>
-  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis?</value>
-  </data>
-  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>Surligner @everyone</value>
-  </data>
-  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value>Inactif</value>
-  </data>
-  <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value>Demandes d'amis Entrantes</value>
-  </data>
-  <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value>Clair</value>
-  </data>
-  <data name="SettingsTB.Text" xml:space="preserve">
-    <value>Se déconnecter</value>
-  </data>
-  <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value>Notifications</value>
-  </data>
-  <data name="SliderL.Header" xml:space="preserve">
-    <value>En ligne</value>
-  </data>
-  <data name="SliderM.Header" xml:space="preserve">
-    <value>Demandes d'amis sortantes</value>
-  </data>
-  <data name="SliderXL.Header" xml:space="preserve">
-    <value>Réinitialiser les points d'arrêts aux valeurs par défault</value>
-  </data>
-  <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>Ces valeurs sont les largeurs de la fenêtre d'application auxquelles plus ou moins de l'interface sera visible</value>
-  </data>
-  <data name="ThemeTB.Text" xml:space="preserve">
-    <value>POINTS D'ARRÊTS DE L'INTERFACE ADAPTIVE</value>
-  </data>
-  <data name="UiPI.Header" xml:space="preserve">
-    <value>INTERFACE ADAPTIVE</value>
-  </data>
-  <data name="VerifyLogout" xml:space="preserve">
-    <value>(Vous devrez redémarrer l'app)</value>
-  </data>
-  <data name="VibrateCB.Content" xml:space="preserve">
-    <value>PARAMÈTRES</value>
-  </data>
-  <data name="WindowsRadio.Content" xml:space="preserve">
-    <value>Afficher les notifications au sein de l'app</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
     <value>Avancé</value>
   </data>
-  <data name="FriendRequestsCB" xml:space="preserve">
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Aligner la barre de commande en bas</value>
+  </data>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Mode compact</value>
+  </data>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Personnaliser la couleur de présence</value>
+  </data>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
+  </data>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>Ne pas déranger</value>
+  </data>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Rendu plus exigeant (effets de flou, etc...)</value>
+  </data>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Surligner @everyone</value>
+  </data>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Inactif</value>
+  </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>Demandes d'amis en attente</value>
+  </data>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Clair</value>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>En ligne</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>Demandes d'amis sortantes</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Réinitialiser les points d'arrêts aux valeurs par défaut</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>Ces valeurs sont les largeurs de la fenêtre d'application auxquelles plus ou moins de l'interface sera visible</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>POINTS D'ARRÊTS DE L'INTERFACE RÉACTIVE</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>INTERFACE RÉACTIVE</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(Vous devrez redémarrer l'application)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>PARAMÈTRES</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Afficher les notifications au sein de l'app</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
     <value>L (Les serveurs sont visibles)</value>
   </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Vibration lors de la réception des messages</value>
-  </data>
-  <data name="AccentRadio.Content" xml:space="preserve">
-    <value>XL (Les serveurs, salons, et membres sont visible)</value>
-  </data>
-  <data name="BlurpleRadio.Content" xml:space="preserve">
-    <value>Couleur d'accent système</value>
-  </data>
-  <data name="OTHERTB.Text" xml:space="preserve">
-    <value>THEME</value>
-  </data>
-  <data name="ShowWelcomeCB.Content" xml:space="preserve">
-    <value>Interface</value>
-  </data>
-  <data name="EnableAcrylic.Content" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir vous déconnecter?</value>
-  </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+  <data name="SliderM.Header" xml:space="preserve">
     <value>M (Les serveurs et salons sont visibles)</value>
   </data>
-  <data name="Enable compression (Faster)" xml:space="preserve">
-    <value>Blurple Discord</value>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (Les serveurs, salons, et membres sont visibles)</value>
   </data>
-  <data name="VideoAds.Content" xml:space="preserve">
-    <value>Demandes d'amis</value>
-  </data>
-  <data name="MESSAGESTB.Text" xml:space="preserve">
-    <value>Les salons muets affectent le statut "lu" du serveur?</value>
-  </data>
-  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
     <value>Couleur d'accentuation système</value>
   </data>
-  <data name="UseCompression.Content" xml:space="preserve">
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>THÈME</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vous déconnecter ?</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibration lors de la réception des messages</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="Unread" xml:space="preserve">
-    <value>Activer les effects Acrylic (arrière-plan flouté)</value>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis ?</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>Demandes d'amis</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
+  </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>Couleur d'accentuation système</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Blurple Discord</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
     <value>AUTRE</value>
   </data>
-  <data name="None" xml:space="preserve">
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
     <value>Afficher les phrases de chargement</value>
   </data>
-  <data name="TranslatorPI" xml:space="preserve">
-    <value>Les serveurs muets effectent l'indicateur "lu" du serveur?</value>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Activer les effets Acrylic (arrière-plan flouté)</value>
   </data>
-  <data name="CustomTimeF.Header" xml:space="preserve">
-    <value>Activer la compression des données (plus rapide)</value>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Les salons muets affectent le statut "lu" du serveur?</value>
   </data>
-  <data name="CustomDateF" xml:space="preserve">
-    <value>Afficher des pubs videos plutôt que des bannières</value>
-  </data>
-  <data name="DateFormat.Header" xml:space="preserve">
-    <value>MESSAGES</value>
-  </data>
-  <data name="TimeFormat.Header" xml:space="preserve">
-    <value>Jouer les gifs lors d'un clic ou survolement</value>
-  </data>
-  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+  <data name="Enable compression (Faster)" xml:space="preserve">
     <value>Activer la compression de données</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Mentionne</value>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Afficher des pubs vidéos plutôt que des bannières</value>
   </data>
-  <data name="AudioPI.Header" xml:space="preserve">
-    <value>Aucun</value>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MESSAGES</value>
   </data>
-  <data name="BGEnableTS.OffContent" xml:space="preserve">
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Jouer les gifs lors d'un clic ou survolement</value>
+  </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Activer la compression des données (plus rapide)</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
     <value>Non</value>
   </data>
-  <data name="BGEnableTS.OnContent" xml:space="preserve">
+  <data name="Mentions" xml:space="preserve">
+    <value>Mentionne</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="TranslatorPI" xml:space="preserve">
     <value>Traduction</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Format de l'heure personnalisé</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Format de date personnalisé</value>
+  </data>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>Format de date</value>
+  </data>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>Format de l'heure</value>
+  </data>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(EXPÉRIMENTAL) Salon vocal (Recevoir seulement)</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Activer les notifications en arrière-plan</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Désactiver les notifications en arrière-plan</value>
   </data>
   <data name="BGNotifInfoTB.Text" xml:space="preserve">
     <value>Format de temps personnalisé</value>
   </data>
   <data name="BGNotifsTB.Text" xml:space="preserve">
-    <value>Format de date personnalisé</value>
+    <value>Notifications en arrière-plan</value>
   </data>
   <data name="BGNotifyDMCB.Content" xml:space="preserve">
-    <value>Format de date</value>
+    <value>MP non lus</value>
   </data>
   <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
-    <value>Format de l'heure</value>
+    <value>Demandes d'ami</value>
   </data>
   <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
-    <value>(EXPERIMENTAL) Voix Voix (Recevoir seulement)</value>
+    <value>Nouvelles mentions</value>
   </data>
   <data name="IAPNotifsTB.Text" xml:space="preserve">
-    <value>Se déconnecter</value>
+    <value>Notifications dans l'application</value>
   </data>
   <data name="MentionGlowCB.Content" xml:space="preserve">
     <value>Son</value>
@@ -325,7 +325,7 @@
     <value>Activer les notifications en arrière-plan</value>
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
-    <value>Vous recevrez des notifications pour ce qui est sélectionné ci-dessous chaque fois que la tache est executée</value>
+    <value>Paramètres de compte</value>
   </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
     <value>Désactiver les notifications en arrière-plan</value>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutDesc1.Text" xml:space="preserve">
+    <value>Quarrel è un</value>
+  </data>
+  <data name="AboutDesc2.Text" xml:space="preserve">
+    <value>unofficial</value>
+  </data>
+  <data name="AboutDesc3.Text" xml:space="preserve">
+    <value>client per Discord</value>
+  </data>
+  <data name="AboutDesc4.Text" xml:space="preserve">
+    <value>Gli sviluppatori non sono in alcun modo affiliati con Discord, Inc.</value>
+  </data>
+  <data name="AboutDesc5.Text" xml:space="preserve">
+    <value>Se qualcosa va storto usando quest'app, contatta il supporto tramite i metodi sottostanti. In ogni caso, qualunque problema che non possiamo risolvere non è una nostra responsabilità.</value>
+  </data>
+  <data name="AboutTB.Text" xml:space="preserve">
+    <value>INFORMAZIONI</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, per aver concettualizzato l'icona dell'app</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="ChangelogTB.Text" xml:space="preserve">
+    <value>CHANGELOG</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (creatore della fantastica app  MyTube) per gli inestimabili suggerimenti e aiuti</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value>Sviluppato da Avid29 e KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Discuti su Twitter</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Non hai un account?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Password dimenticata?</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Unisciti al server Discord dell'app</value>
+  </data>
+  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
+    <value>Unisciti al server Discord dell'app</value>
+  </data>
+  <data name="JoinFail" xml:space="preserve">
+    <value>Connessione al server fallita!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>Unisciti...</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Lascia un feedback</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenze</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENZE</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>ACCESSO</value>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Codice di autenticazione</value>
+  </data>
+  <data name="MFATB.Text" xml:space="preserve">
+    <value>Verifica in due passaggi:</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Sei offline o sei su una connessione troppo lenta per poter connetterti</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Client per Discord per Universal Windows Platform</value>
+  </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel usa alcune librerie esterne per funzionare:</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Riprova il Login</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Ringraziamenti speciali:</value>
+  </data>
 </root>

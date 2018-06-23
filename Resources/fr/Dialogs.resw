@@ -127,7 +127,7 @@
     <value>Administrateur</value>
   </data>
   <data name="AdvancedMessageEditorTB" xml:space="preserve">
-    <value>EDITEUR DE MESSAGE AVANCÉ</value>
+    <value>ÉDITEUR DE MESSAGE AVANCÉ</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
     <value>Pièces jointes</value>
@@ -136,7 +136,7 @@
     <value>Pièces jointes</value>
   </data>
   <data name="BadChannelNameDesc1.Text" xml:space="preserve">
-    <value>Les noms de salon ne doivent contenir que des caractères alphanumériques, avec l'exception des tirets et sous-tirets</value>
+    <value>Les noms de salon ne doivent contenir que des caractères alphanumériques, à l'exception des tirets et tirets du bas</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
     <value>Réparer automatiquement?</value>
@@ -187,7 +187,7 @@
     <value>Supprimer</value>
   </data>
   <data name="DetailsLI.Content" xml:space="preserve">
-    <value>DETAILS</value>
+    <value>DÉTAILS</value>
   </data>
   <data name="EditChannelNameTBox.Header" xml:space="preserve">
     <value>NOM</value>
@@ -208,10 +208,10 @@
     <value>Intégrer des liens</value>
   </data>
   <data name="FileNameTB.Text" xml:space="preserve">
-    <value>Nom de fichier:</value>
+    <value>Nom de fichier :</value>
   </data>
   <data name="FileSizeTB.Text" xml:space="preserve">
-    <value>Taille du fichier:</value>
+    <value>Taille du fichier :</value>
   </data>
   <data name="FriendReqSentBTN.Text" xml:space="preserve">
     <value>Demande d'ami envoyée</value>
@@ -220,7 +220,7 @@
     <value>PERMISSIONS GÉNÉRALES</value>
   </data>
   <data name="HeightTB.Text" xml:space="preserve">
-    <value>Hauteur:</value>
+    <value>Hauteur :</value>
   </data>
   <data name="IAPsTB.Text" xml:space="preserve">
     <value>ACHATS IN-APP</value>
@@ -283,7 +283,7 @@
     <value>NOM</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
-    <value>AUCUN BANS (POUR LE MOMENT)</value>
+    <value>AUCUN BANNISSEMENT (POUR LE MOMENT)</value>
   </data>
   <data name="NoCommonFriendsTB.Text" xml:space="preserve">
     <value>AUCUN AMI EN COMMUN</value>
@@ -292,7 +292,7 @@
     <value>AUCUN SERVEUR EN COMMUN</value>
   </data>
   <data name="NoInvitesTB.Text" xml:space="preserve">
-    <value>AUCUNE INVITATIONS</value>
+    <value>AUCUNE INVITATION</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
     <value>Notes</value>
@@ -307,7 +307,7 @@
     <value>Salon NSFW</value>
   </data>
   <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
-    <value>OMG Merci! donation $2.99</value>
+    <value>OMG Merci ! Don de $2.99</value>
   </data>
   <data name="OpenInBrowserABB.Label" xml:space="preserve">
     <value>Ouvrir dans le navigateur</value>
@@ -316,10 +316,10 @@
     <value>Vue d'ensemble</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>Donation polie $1.29</value>
+    <value>Don poli $1.29</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
-    <value>Consulter l'historique des message</value>
+    <value>Consulter l'historique des messages</value>
   </data>
   <data name="ReadMessagesToggle.Header" xml:space="preserve">
     <value>Lire des messages</value>
@@ -328,13 +328,13 @@
     <value>Suprimmer les publicités $1.29</value>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
-    <value>Enlever de mes amis</value>
+    <value>Retirer de mes amis</value>
   </data>
   <data name="RidiculousDonationBTN.Content" xml:space="preserve">
-    <value>Donation ridicule $4.99</value>
+    <value>Don ridicule $4.99</value>
   </data>
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
-    <value>Autoriser le mentionement</value>
+    <value>Autoriser les mentions</value>
   </data>
   <data name="RoleHoistToggle.Header" xml:space="preserve">
     <value>Hoist</value>
@@ -343,13 +343,13 @@
     <value>NOM</value>
   </data>
   <data name="RoleSettingsTB.Text" xml:space="preserve">
-    <value>PARAMETRES</value>
+    <value>PARAMÈTRES</value>
   </data>
   <data name="RolesPI.Header" xml:space="preserve">
     <value>Rôles</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
-    <value>Entergistrer</value>
+    <value>Enregistrer</value>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
     <value>Enregistrer</value>
@@ -358,7 +358,7 @@
     <value>Envoyer une demande d'ami</value>
   </data>
   <data name="SendMessagesToggle.Header" xml:space="preserve">
-    <value>Envoyer des message</value>
+    <value>Envoyer des messages</value>
   </data>
   <data name="SendMessageTB.Text" xml:space="preserve">
     <value>Envoyer un message</value>
@@ -367,16 +367,16 @@
     <value>Envoyer des messages TTS</value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
-    <value>En créant un serveur vous acceptez les</value>
+    <value>En créant un serveur vous acceptez les </value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
-    <value>conditions d'utilisation communautaires de Discord</value>
+    <value>Conditions d'utilisation communautaires de Discord</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
     <value>Partager</value>
   </data>
   <data name="SignificantDonationBTN.Content" xml:space="preserve">
-    <value>Donation significative 0.99€</value>
+    <value>Don significative 0.99€</value>
   </data>
   <data name="SpeakToggle.Header" xml:space="preserve">
     <value>Parler</value>
@@ -400,7 +400,7 @@
     <value>PERMISSIONS DE VOIX</value>
   </data>
   <data name="WidthTB.Text" xml:space="preserve">
-    <value>Largeur:</value>
+    <value>Largeur :</value>
   </data>
   <data name="EditChannelTopicTBox.Header" xml:space="preserve">
     <value>SUJET</value>
@@ -409,10 +409,10 @@
     <value>Il y a eu une erreur, merci de réessayer plus tard.</value>
   </data>
   <data name="AddOnNotPurchased" xml:space="preserve">
-    <value>L'achat n'à pas été fait</value>
+    <value>L'achat n'a pas été fait</value>
   </data>
   <data name="AddOnPurchased" xml:space="preserve">
-    <value>Merci beaucoup pour la donation!</value>
+    <value>Merci beaucoup pour le don !</value>
   </data>
   <data name="EDIT" xml:space="preserve">
     <value>MODIFIER</value>
@@ -430,16 +430,16 @@
     <value>Membre premium depuis</value>
   </data>
   <data name="VerifyBan" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir bannir @</value>
+    <value>Êtes-vous sûr de vouloir bannir @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir supprimer</value>
+    <value>Êtes-vous sûr de vouloir supprimer </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir quitter</value>
+    <value>Êtes-vous sûr de vouloir quitter </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir vous déconnecter?</value>
+    <value>Êtes-vous sûr de vouloir vous déconnecter?</value>
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
     <value>NOUVEAU SALON</value>
@@ -466,7 +466,7 @@
     <value>Fichier</value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
-    <value>Compris!</value>
+    <value>Compris !</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
     <value>DONS</value>
@@ -478,10 +478,10 @@
     <value>SERVEURS EN COMMUN</value>
   </data>
   <data name="TextChannel" xml:space="preserve">
-    <value>Canal de texte</value>
+    <value>Salon textuel</value>
   </data>
   <data name="VoiceChannel" xml:space="preserve">
-    <value>Canal vocal</value>
+    <value>Salon vocal</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Catégorie</value>
@@ -508,10 +508,10 @@
     <value>Annuler</value>
   </data>
   <data name="CloseDMConfirm" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir fermer vos messages privés avec </value>
+    <value>Êtes-vous sûr de vouloir fermer vos messages privés avec </value>
   </data>
   <data name="DeleteMessageConfirm" xml:space="preserve">
-    <value>Êtes vous sûr de vouloir supprimer ce message?</value>
+    <value>Êtes-vous sûr de vouloir supprimer ce message ?</value>
   </data>
   <data name="EditNickname" xml:space="preserve">
     <value>Changer de pseudo</value>
@@ -523,7 +523,7 @@
     <value>ADD-ONS</value>
   </data>
   <data name="AreYouSure" xml:space="preserve">
-    <value>ÊTES VOUS SÛR?</value>
+    <value>ÊTES-VOUS SÛR ?</value>
   </data>
   <data name="ResetQuarrel" xml:space="preserve">
     <value>Réinitialiser Quarrel</value>
@@ -538,7 +538,7 @@
     <value>Paramètres de l'application</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>Changer de mot de passe</value>
+    <value>Modifier le mot de passe</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
     <value>Mot de passe actuel</value>
@@ -547,16 +547,16 @@
     <value>Supprimer</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
-    <value>Email</value>
+    <value>Courriel</value>
   </data>
   <data name="Sorry" xml:space="preserve">
-    <value>Désolé :/</value>
+    <value>Désolé : /</value>
   </data>
   <data name="ThereWasAnErrorClarify" xml:space="preserve">
-    <value>Nous n'avons pas réussi à modifier les détails de votre compte, vous êtes sûr que tout est correct?</value>
+    <value>Il y a eu une erreur lors du chargement des détails de votre compte, êtes-vous sûr que tout est correct ?</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>Ajouter une image</value>
+    <value>Importer une image</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
     <value>Nom d'utilisateur</value>
@@ -565,16 +565,16 @@
     <value>Nom</value>
   </data>
   <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
-    <value>Aucun sujet défini</value>
+    <value>Sujet non défini</value>
   </data>
   <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
     <value>Quarrel sera complètement réinitialisé, donc vous serez déconnecté et tous les paramètres seront réinitialisés. Votre compte discord ne sera pas affecté.</value>
   </data>
   <data name="ImageRecommendationTB.Text" xml:space="preserve">
-    <value>Nous recommandons une image d'au moins 512x512px</value>
+    <value>Nous vous recommandons d'utiliser une image qui mesure au moins 512x512px</value>
   </data>
   <data name="CancelIconMod" xml:space="preserve">
-    <value>Annuler la modification d'icone</value>
+    <value>Fermer la modification d'icône</value>
   </data>
   <data name="SaveBTNtext.Text" xml:space="preserve">
     <value>Enregistrer</value>

@@ -433,10 +433,10 @@
     <value>Are you sure you want to ban @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Are you sure you want to delete </value>
+    <value>Are you sure you want to delete </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Are you sure you want to leave </value>
+    <value>Are you sure you want to leave </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
     <value>Are you sure you want to log out?</value>
@@ -508,7 +508,7 @@
     <value>Cancel</value>
   </data>
   <data name="CloseDMConfirm" xml:space="preserve">
-    <value>Are you sure you want to Close your DM with </value>
+    <value>Are you sure you want to Close your DM with </value>
   </data>
   <data name="DeleteMessageConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this message?</value>

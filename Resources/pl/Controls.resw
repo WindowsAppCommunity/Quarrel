@@ -271,7 +271,7 @@
     <value>&lt;user&gt; z kowersacji</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Nie odebrałeś połączenia od </value>
+    <value>Nie odebrałeś połączenia od </value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>przypięto wiadomość do tego kanału.</value>
@@ -307,7 +307,7 @@
     <value>Wyszukaj na Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>Słucha </value>
+    <value>Słucha </value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
     <value>ŁADOWANIE</value>

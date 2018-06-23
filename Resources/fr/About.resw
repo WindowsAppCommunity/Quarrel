@@ -130,7 +130,7 @@
     <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>Les developpeurs ne sont d'aucune manière liés à Discord, inc.</value>
+    <value>Les développeurs ne sont d'aucune manière liés à Discord, inc.</value>
     <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>ABOUT header</comment>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>NOUVEAUTÉES</value>
+    <value>NOUVEAUTÉS</value>
     <comment>CHANGELOG header</comment>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
@@ -150,7 +150,7 @@
     <comment>The designer</comment>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>App developpée par Avid29 et KarmaEcrivain94</value>
+    <value>Application développée par Avid29 et KarmaEcrivain94</value>
     <comment>The developper</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
@@ -158,7 +158,7 @@
     <comment>Button to discuss on twitter</comment>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Email</value>
+    <value>Courriel</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
     <value>Rejoindre le serveur de l'application</value>
@@ -168,11 +168,11 @@
     <comment>Button to join the Discord UWP server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
-    <value>Échec de l'operation!</value>
+    <value>Échec de l'opération !</value>
     <comment>Message if joining the server fails</comment>
   </data>
   <data name="JoinSucess" xml:space="preserve">
-    <value>Succés!</value>
+    <value>Succès !</value>
     <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
@@ -199,7 +199,7 @@
     <value>Version </value>
   </data>
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman (le créateur de MyTube) pour toute l'aide et les conseils</value>
+    <value>Christopher Blackman (qui a codé l'incroyable application MyTube) pour ses inestimables conseils et aides</value>
   </data>
   <data name="Commit" xml:space="preserve">
     <value>Commit</value>
@@ -220,10 +220,10 @@
     <value>Vous n’avez pas de compte ?</value>
   </data>
   <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Mot de passe oublié ? </value>
+    <value>Mot de passe oublié ?</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>Identification </value>
+    <value>CONNEXION</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
     <value>Soit vous n'êtes pas connecté à internet, soit votre connexion est trop lente</value>

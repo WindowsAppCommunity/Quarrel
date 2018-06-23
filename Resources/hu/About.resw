@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,4 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutDesc1.Text" xml:space="preserve">
+    <value>Quarrel egy</value>
+  </data>
+  <data name="AboutDesc2.Text" xml:space="preserve">
+    <value>nem hivatalos</value>
+  </data>
+  <data name="AboutDesc3.Text" xml:space="preserve">
+    <value>Discord kliens.</value>
+  </data>
+  <data name="AboutDesc4.Text" xml:space="preserve">
+    <value>A fejlesztők nem kapcsolódnak a Discord, Inc vállalathoz.</value>
+  </data>
+  <data name="AboutDesc5.Text" xml:space="preserve">
+    <value>Ha valami hiba történik az alkalmazás használata során, kérjük forduljon a támogatáshoz az alábbi módszerek bármelyikén keresztül. Azonban, minden olyan hiba, melyet nem áll módunkban megoldani, nem tartozik a felelősségi köreinkbe.</value>
+  </data>
+  <data name="AboutTB.Text" xml:space="preserve">
+    <value>NÉVJEGY</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin-nak, az alkalmazás ikonjának konceptualizálásáért</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Verzió</value>
+  </data>
+  <data name="ChangelogTB.Text" xml:space="preserve">
+    <value>ÚJDONSÁGOK</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman-nek (aki a fantasztikus MyTube alkalmazást készítette) a felbecsülhetetlen segítségéért és tippjeiért</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Véglegesít</value>
+  </data>
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
+    <value>Tervezte Lightmagic Apps</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value>Fejlesztette Avid29 és KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Beszéljünk Twitteren</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Még nincs fiókod?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Elfelejtett jelszó?</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Csatlakozz az alkalmazás Discord szerveréhez</value>
+  </data>
+  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
+    <value>Csatlakozz az alkalmazás Discord szerveréhez</value>
+  </data>
+  <data name="JoinFail" xml:space="preserve">
+    <value>Sikertelen csatlakozás a szerverhez!</value>
+  </data>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>Sikerült!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>Csatlakozás...</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Hagyj visszajelzést</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenszek</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENSZEK</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>BEJELENTKEZÉS</value>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Autentikációs kód</value>
+  </data>
+  <data name="MFATB.Text" xml:space="preserve">
+    <value>Kétlépéses autentikáció:</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Ön offline módban van vagy a hálózati kapcsolata túl lassú az Átjáró indításához</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Discord kliens Universal Windows Platform-hoz</value>
+  </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel használ néhány külső könyvtárat a működéséhez:</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Bejelentkezés újra</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Külön köszönet:</value>
+  </data>
 </root>
