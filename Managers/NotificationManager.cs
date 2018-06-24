@@ -19,44 +19,46 @@ namespace Discord_UWP.Managers
     {
         public static void CreateMessageCreatedNotifcation(Message message)
         {
-            TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
-            bool muted = false;
-            string ChnGldName = String.Empty;
-            string ChnName = String.Empty;
-
-            foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
+            if (Storage.Settings.Toasts)
             {
-                if (guild.channels.ContainsKey(message.ChannelId))
+                TimeSpan VibrationDuration = TimeSpan.FromMilliseconds(100);
+                bool muted = false;
+                string ChnGldName = String.Empty;
+                string ChnName = String.Empty;
+
+                foreach (var guild in LocalState.Guilds.Values) //LocalState.GuildSettings wouldn't contain every channel
                 {
-                    ChnName = guild.channels[message.ChannelId].raw.Name;
-                    ChnGldName = guild.Raw.Name + " - #" + ChnName;
-                    if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                    if (guild.channels.ContainsKey(message.ChannelId))
                     {
-                        muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
+                        ChnName = guild.channels[message.ChannelId].raw.Name;
+                        ChnGldName = guild.Raw.Name + " - #" + ChnName;
+                        if (LocalState.GuildSettings.ContainsKey(guild.Raw.Id) && LocalState.GuildSettings[guild.Raw.Id].channelOverrides.ContainsKey(message.ChannelId))
+                        {
+                            muted = LocalState.GuildSettings[guild.Raw.Id].raw.Muted || LocalState.GuildSettings[guild.Raw.Id].channelOverrides[message.ChannelId].Muted;
+                        }
+                        break;
                     }
-                    break;
                 }
-            }
 
-            foreach (var dm in LocalState.DMs.Values)
-            {
-                if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
+                foreach (var dm in LocalState.DMs.Values)
                 {
-                    ChnGldName = dm.Name;
-                    break;
+                    if (dm.Id == message.ChannelId && ChnGldName == String.Empty)
+                    {
+                        ChnGldName = dm.Name;
+                        break;
+                    }
                 }
-            }
 
-            if (message.User.Id != LocalState.CurrentUser.Id && !muted)
-            {
-                #region CreateContent
-                string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
-                string content = message.Content;
-                string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
-                string conversationId = message.ChannelId;
-                #endregion
+                if (message.User.Id != LocalState.CurrentUser.Id && !muted)
+                {
+                    #region CreateContent
+                    string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
+                    string content = message.Content;
+                    string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
+                    string conversationId = message.ChannelId;
+                    #endregion
 
-                if (Storage.Settings.Toasts)
+                    if (Storage.Settings.Toasts)
                     {
                         ToastVisual visual = new ToastVisual()
                         {
@@ -128,11 +130,13 @@ namespace Discord_UWP.Managers
                         ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                         ToastNotificationManager.CreateToastNotifier().Show(notification);
-                }
+                    }
 
-                if (Storage.Settings.LiveTile)
-                {
-                    NotificationManager.UpdateDetailedStatus(message, ChnGldName);
+                    if (Storage.Settings.LiveTile)
+                    {
+                        //TODO find a better way of doing this
+                        NotificationManager.UpdateDetailedStatus(message, ChnGldName);
+                    }
                 }
             }
         }
