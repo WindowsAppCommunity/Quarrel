@@ -111,7 +111,7 @@ namespace Discord_UWP.Controls
                 if (RawMember == null) return;
 
 
-                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(RawMember.User.Avatar, RawMember.User.Id));
+                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(RawMember.User.Avatar, RawMember.User.Id, "?size=64"));
                 if (RawMember.User.Avatar != null)
                     AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
                 else

@@ -136,7 +136,17 @@ namespace Discord_UWP
 
             return result;
         }
-
+        public static string HumanizeEditedDate(DateTime editedTime, DateTime previousTime)
+        {
+            if (previousTime.Date == editedTime.Date)
+            {
+                return App.GetString("/Main/at") +editedTime.ToString((Storage.Settings.TimeFormat));
+            }
+            else
+            {
+                return HumanizeDate(editedTime,null);
+            }
+        }
         public static string HumanizeFileSize(ulong l)
         {
             long i = Convert.ToInt64(l);
