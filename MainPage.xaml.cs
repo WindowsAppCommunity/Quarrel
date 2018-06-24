@@ -2193,10 +2193,11 @@ namespace Discord_UWP
                             {
                                 gclone.IsMuted = false;
                             }
-                            for (int i = 0; i < LocalState.Guilds[gclone.Id].channels.Count; i++)
+                            var channelkeys = LocalState.Guilds[gclone.Id].channels.Keys;
+                            int keycount = channelkeys.Count;
+                            foreach (var key in channelkeys)
                             {
-                                //TODO fix "collection was modified" by making this shit thread-safe
-                                var chn = LocalState.Guilds[gclone.Id].channels.ElementAt(i).Value; //TODO use stopwatch to see if this shit can be optimized
+                                var chn = LocalState.Guilds[gclone.Id].channels[key];
                                 if (LocalState.RPC.ContainsKey(chn.raw.Id))
                                 {
                                     var chan = LocalState.Guilds[gclone.Id].channels[chn.raw.Id];
