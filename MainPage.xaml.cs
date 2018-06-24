@@ -56,7 +56,7 @@ namespace Discord_UWP
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //sideDrawer.SetupInteraction(cmdBar);
-            setupArgs = e.Parameter as string;
+            _setupArgs = e.Parameter as string;
             App.SetupMainPage += Setup;
             //PCAd.Width = MobileAd.Width = Ad.Width = 300;
             //PCAd.Height = MobileAd.Height = Ad.Height = 50;
@@ -66,9 +66,9 @@ namespace Discord_UWP
             sideDrawer.SetupInteraction();
             
         }
-        ScrollViewer MessageScrollviewer;
-        ItemsStackPanel messageStacker;
-        string setupArgs = "";
+        ScrollViewer _messageScrollviewer;
+        ItemsStackPanel _messageStacker;
+        private string _setupArgs = "";
 
 
 
@@ -222,8 +222,8 @@ namespace Discord_UWP
             RefreshVisibilityIndicators();
         }
 
-        bool prevshowabove = false;
-        bool prevshowbelow = false;
+        bool _prevshowabove = false;
+        bool _prevshowbelow = false;
         private void RefreshVisibilityIndicators()
         {
             bool showabove = false;
@@ -240,17 +240,17 @@ namespace Discord_UWP
                         showbelow = true;
                 }
             }
-            if (showabove && !prevshowabove)
+            if (showabove && !_prevshowabove)
                 NewAboveIndicator.Fade(0.8f, 200).Start();
-            else if (prevshowabove != showabove)
+            else if (_prevshowabove != showabove)
                 NewAboveIndicator.Fade(0, 200).Start();
-            if (showbelow && !prevshowbelow)
+            if (showbelow && !_prevshowbelow)
                 NewBelowIndicator.Fade(0.8f, 200).Start();
-            else if (prevshowbelow != showbelow)
+            else if (_prevshowbelow != showbelow)
                 NewBelowIndicator.Fade(0, 200).Start();
 
-            prevshowbelow = showbelow;
-            prevshowabove = showabove;
+            _prevshowbelow = showbelow;
+            _prevshowabove = showabove;
         }
         enum VisibilityPosition { Visible, Above, Below, Hidden };
         private VisibilityPosition GetVisibilityPosition(FrameworkElement element, FrameworkElement container)
@@ -271,7 +271,7 @@ namespace Discord_UWP
         }
 
         Stack<Tuple<string, string>> navigationHistory = new Stack<Tuple<string, string>>();
-        Tuple<string, string> currentPage = new Tuple<string, string>(null, null);
+        Tuple<string, string> _currentPage = new Tuple<string, string>(null, null);
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
@@ -309,8 +309,8 @@ namespace Discord_UWP
         {
             if (MessageList.Items.Count > 0)
             {
-                double fromTop = MessageScrollviewer.VerticalOffset;
-                double fromBottom = MessageScrollviewer.ScrollableHeight - fromTop;
+                double fromTop = _messageScrollviewer.VerticalOffset;
+                double fromBottom = _messageScrollviewer.ScrollableHeight - fromTop;
                 if (fromTop < 100 && !DisableLoadingMessages)
                     LoadOlderMessages();
                 if (fromBottom < 200 && !DisableLoadingMessages)
@@ -457,8 +457,8 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    if (memberscvs != null)
-                        memberscvs.Add(m);
+                    if (memberscvs == null) return;
+                    memberscvs.Add(m);
                 });
         }
         private Member FindMember(string id)
@@ -618,15 +618,15 @@ namespace Discord_UWP
                 MessageBox1.Text = MessageBox1.Text + " @" + e.Username + "#" + e.Discriminator;
         }
 
-        string autoselectchannel = "";
-        string autoselectchannelcontent = null;
-        bool autoselectchannelcontentsend = false;
+        string _autoselectchannel = "";
+        string _autoselectchannelcontent = null;
+        bool _autoselectchannelcontentsend = false;
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
             string guildid = e.GuildId;
             string channelid = e.ChannelId;
-            autoselectchannelcontent = e.MessageContent;
-            autoselectchannelcontentsend = e.Send;
+            _autoselectchannelcontent = e.MessageContent;
+            _autoselectchannelcontentsend = e.Send;
             if (guildid == "friendrequests")
             {
                 friendPanel.NavigateToFriendRequests();
@@ -637,8 +637,8 @@ namespace Discord_UWP
                 {
                     if (g.Id == guildid)
                     {
-                        autoselectchannelcontent = e.MessageContent;
-                        autoselectchannel = channelid;
+                        _autoselectchannelcontent = e.MessageContent;
+                        _autoselectchannel = channelid;
                         ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
                         ServerList.SelectedItem = g;
                     }
@@ -1013,14 +1013,14 @@ namespace Discord_UWP
                 Ad.Visibility = Visibility.Collapsed;
                 if (!e.OnBack)
                 {
-                    navigationHistory.Push(currentPage);
+                    navigationHistory.Push(_currentPage);
                 }
 
                 App.CurrentChannelId = e.ChannelId;
                 App.LastReadMsgId = LocalState.RPC.ContainsKey(e.ChannelId) ? LocalState.RPC[e.ChannelId].LastMessageId : null;
                 RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
-                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+                _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
 
                 if (e.OnBack)
                 {
@@ -1038,7 +1038,7 @@ namespace Discord_UWP
             {
                 if (!e.OnBack)
                 {
-                    navigationHistory.Push(currentPage);
+                    navigationHistory.Push(_currentPage);
                 }
 
                 foreach (SimpleGuild guild in ServerList.Items)
@@ -1053,7 +1053,7 @@ namespace Discord_UWP
                 App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 //RenderMessages();
                 App.MarkChannelAsRead(e.ChannelId);
-                currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+                _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
             foreach (SimpleChannel chn in ChannelList.Items)
                 if (chn.Id == e.ChannelId)
@@ -1065,12 +1065,12 @@ namespace Discord_UWP
         }
         private void App_NavigateToDMChannelHandler(object sender, App.DMChannelNavigationArgs e)
         {
-            autoselectchannelcontent = null;
+            _autoselectchannelcontent = null;
             SaveDraft();
 
             if (!e.OnBack)
             {
-                navigationHistory.Push(currentPage);
+                navigationHistory.Push(_currentPage);
             }
 
             if (App.CurrentGuildIsDM)
@@ -1108,7 +1108,7 @@ namespace Discord_UWP
             }
 
             App.MarkChannelAsRead(e.ChannelId);
-            currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+            _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
 
             if (e.Message != null && !e.Send)
             {
@@ -1716,7 +1716,7 @@ namespace Discord_UWP
             {
                 var sg = new SimpleGuild();
                 sg.Id = guild.Value.Raw.Id;
-                if (guild.Value.Raw.Icon != null && guild.Value.Raw.Icon != "")
+                if (!string.IsNullOrEmpty(guild.Value.Raw.Icon))
                 {
                     sg.ImageURL = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg";
                 }
@@ -1726,15 +1726,15 @@ namespace Discord_UWP
                 }
                 sg.Name = guild.Value.Raw.Name;
 
-                sg.IsMuted = LocalState.GuildSettings.ContainsKey(guild.Key) ? LocalState.GuildSettings[guild.Key].raw.Muted : false;
+                sg.IsMuted = LocalState.GuildSettings.ContainsKey(guild.Key) && LocalState.GuildSettings[guild.Key].raw.Muted;
                 sg.IsUnread = false; //Will change if true
                 foreach (var chn in guild.Value.channels.Values)
                     if (LocalState.RPC.ContainsKey(chn.raw.Id))
                     {
                         ReadState readstate = LocalState.RPC[chn.raw.Id];
                         sg.NotificationCount += readstate.MentionCount;
-                        var StorageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
-                        if (readstate.LastMessageId != StorageChannel.LastMessageId && !sg.IsMuted)
+                        var storageChannel = LocalState.Guilds[sg.Id].channels[chn.raw.Id].raw;
+                        if (readstate.LastMessageId != storageChannel.LastMessageId && !sg.IsMuted)
                             sg.IsUnread = true;
                     }
                 sg.IsValid = guild.Value.valid;
@@ -1777,9 +1777,9 @@ namespace Discord_UWP
                         App.CurrentChannelId = id;
                     }
 
-                    if (!string.IsNullOrEmpty(autoselectchannel))
+                    if (!string.IsNullOrEmpty(_autoselectchannel))
                     {
-                        if (channel.Id == autoselectchannel)
+                        if (channel.Id == _autoselectchannel)
                         {
                             ChannelSelectionWasClicked = true; //hehe, not actually true
                             ChannelList.SelectedItem = channel;
@@ -1821,9 +1821,9 @@ namespace Discord_UWP
                 if (VoiceController.channelid == channel.Id)
                     channel.IsSelected = true;
                 ChannelList.Items.Add(channel);
-                if (!string.IsNullOrEmpty(autoselectchannel))
+                if (!string.IsNullOrEmpty(_autoselectchannel))
                 {
-                    if (channel.Id == autoselectchannel)
+                    if (channel.Id == _autoselectchannel)
                     {
                         ChannelSelectionWasClicked = true; //hehe, not actually true
                         ChannelList.SelectedItem = channel;
@@ -1842,10 +1842,10 @@ namespace Discord_UWP
         }
 
         //bool MessageRange_LastMessage = false;
-        bool outofboundsNewMessage = false;
+        bool _outofboundsNewMessage = false;
         public async void RenderMessages() //App.CurrentChannelId is set
         {
-            outofboundsNewMessage = false; //assume this for the moment
+            _outofboundsNewMessage = false; //assume this for the moment
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             MessagesLoading.Visibility = Visibility.Visible;
             FriendsItem.IsSelected = false;
@@ -1925,29 +1925,29 @@ namespace Discord_UWP
                 if (showNewMessageIndicator)
                 {
                     //(MAYBE) SHOW NEW MESSAGE INDICATOR
-                    var FirstMessageTime = Common.SnowflakeToTime(messages.First().Message.Id);
-                    var LastMessageTime = Common.SnowflakeToTime(messages.Last().Message.Id);
-                    var LastReadTime = Common.SnowflakeToTime(App.LastReadMsgId);
+                    var firstMessageTime = Common.SnowflakeToTime(messages.First().Message.Id);
+                    var lastMessageTime = Common.SnowflakeToTime(messages.Last().Message.Id);
+                    var lastReadTime = Common.SnowflakeToTime(App.LastReadMsgId);
 
-                    if (FirstMessageTime < LastReadTime)
+                    if (firstMessageTime < lastReadTime)
                     {
                         //the last read message is after the first one in the list
-                        if (LastMessageTime > LastReadTime)
+                        if (lastMessageTime > lastReadTime)
                         {
-                            outofboundsNewMessage = false;
+                            _outofboundsNewMessage = false;
                             //the last read message is before the last one in the list
-                            bool CanBeLastRead = true;
+                            bool canBeLastRead = true;
                             for (int i = 0; i < messages.Count(); i++)
                             {
-                                if (CanBeLastRead)
+                                if (canBeLastRead)
                                 {
                                     //the first one with a larger timestamp gets the "NEW MESSAGES" header
-                                    var CurrentMessageTime = Common.SnowflakeToTime(messages[i].Message.Id);
-                                    if (CurrentMessageTime > LastReadTime)
+                                    var currentMessageTime = Common.SnowflakeToTime(messages[i].Message.Id);
+                                    if (currentMessageTime > lastReadTime)
                                     {
                                         messages[i].LastRead = true;
                                         scrollTo = messages[i];
-                                        CanBeLastRead = false;
+                                        canBeLastRead = false;
                                     }
                                 }
                                 if (position == Position.After)
@@ -1959,7 +1959,7 @@ namespace Discord_UWP
                         else
                         {
                             //The last read message is after the span of currently displayed messages
-                            outofboundsNewMessage = true;
+                            _outofboundsNewMessage = true;
                             for (int i = 0; i < messages.Count(); i++)
                                 if (position == Position.After)
                                     MessageList.Items.Add(messages[i]);
@@ -1967,10 +1967,10 @@ namespace Discord_UWP
                                     MessageList.Items.Insert(i, messages[i]);
                         }
                     }
-                    else if(LastReadTime != 0)
+                    else if(lastReadTime != 0)
                     {
                         //the last read message is before the first one in the list
-                        outofboundsNewMessage = true;
+                        _outofboundsNewMessage = true;
                         for (int i = 0; i < messages.Count(); i++)
                             if (position == Position.After)
                                 MessageList.Items.Add(messages[i]);
@@ -2061,7 +2061,7 @@ namespace Discord_UWP
         public void UpdateTyping()
         {
             string typingString = "";
-            int DisplayedTyperCounter = 0;
+            int displayedTyperCounter = 0;
             List<string> NamesTyping = new List<string>();
             foreach (SimpleChannel channel in ChannelList.Items)
                 channel.IsTyping = LocalState.Typers.ContainsKey(channel.Id);
@@ -2078,33 +2078,33 @@ namespace Discord_UWP
                         } else
                         {
                             var member = LocalState.Guilds[App.CurrentGuildId].members[typer.Key];
-                            string DisplayedName = member.User.Username;
-                            if (member.Nick != null) DisplayedName = member.Nick;
-                            NamesTyping.Add(DisplayedName);
+                            string displayedName = member.User.Username;
+                            if (member.Nick != null) displayedName = member.Nick;
+                            NamesTyping.Add(displayedName);
                         }
                     }
                 }
             }
 
-            DisplayedTyperCounter = NamesTyping.Count();
-            for (int i = 0; i < DisplayedTyperCounter; i++)
+            displayedTyperCounter = NamesTyping.Count();
+            for (int i = 0; i < displayedTyperCounter; i++)
             { //TODO: Fix translate
                 if (i == 0)
                     typingString += NamesTyping.ElementAt(i); //first element, no prefix
-                else if (i == 2 && i == DisplayedTyperCounter)
+                else if (i == 2 && i == displayedTyperCounter)
                     typingString += " " + App.GetString("/Main/TypingAnd") + " " + " " + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and"
-                else if (i == DisplayedTyperCounter)
+                else if (i == displayedTyperCounter)
                     typingString +=
                         ", " + App.GetString("/Main/TypingAnd") + NamesTyping.ElementAt(i); //last element out of 2, prefix = "and" WITH OXFORD COMMA
                 else
                     typingString += ", " + NamesTyping.ElementAt(i); //intermediary element, prefix = comma
             }
-            if (DisplayedTyperCounter > 1)
+            if (displayedTyperCounter > 1)
                 typingString += " " + App.GetString("/Main/TypingPlural");
             else
                 typingString += " " + App.GetString("/Main/TypingSingular");
 
-            if (DisplayedTyperCounter == 0)
+            if (displayedTyperCounter == 0)
             {
                 TypingStackPanel.Fade(0, 200).Start();
             }
@@ -2257,9 +2257,9 @@ namespace Discord_UWP
                                 {
                                     ReadState readstate = LocalState.RPC[sc.Id];
                                     sc.NotificationCount = readstate.MentionCount;
-                                    var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
-                                    if (StorageChannel != null && StorageChannel.raw.LastMessageId != null &&
-                                        readstate.LastMessageId != StorageChannel.raw.LastMessageId)
+                                    var storageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
+                                    if (storageChannel != null && storageChannel.raw.LastMessageId != null &&
+                                        readstate.LastMessageId != storageChannel.raw.LastMessageId)
                                         sc.IsUnread = true;
                                     else
                                         sc.IsUnread = false;
@@ -2318,7 +2318,7 @@ namespace Discord_UWP
             DisableLoadingMessages = true;
             MessagesLoadingTop.Visibility = Visibility.Visible;
             var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesBefore(App.CurrentChannelId, (MessageList.Items.FirstOrDefault(x => (x as MessageContainer).Message != null) as MessageContainer).Message.Id)).ToList());
-            AddMessages(Position.Before, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
+            AddMessages(Position.Before, false, messages, _outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
             MessagesLoadingTop.Visibility = Visibility.Collapsed;
             await Task.Delay(1000);
             DisableLoadingMessages = false;
@@ -2356,22 +2356,25 @@ namespace Discord_UWP
         {
             try
             {
-                Message last = (MessageList.Items.Last() as MessageContainer).Message;
+                Message last = (MessageList.Items.Last() as MessageContainer)?.Message;
                 if (last != null && last.Id != LocalState.RPC[App.CurrentChannelId].LastMessageId)
                 {
                     // var offset = MessageScrollviewer.VerticalOffset;
                     MessagesLoading.Visibility = Visibility.Visible;
                     DisableLoadingMessages = true;
                     var messages = await MessageManager.ConvertMessage((await RESTCalls.GetChannelMessagesAfter(App.CurrentChannelId, (MessageList.Items.LastOrDefault(x => (x as MessageContainer).Message != null) as MessageContainer).Message.Id)).ToList());
-                    messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
-                    AddMessages(Position.After, false, messages, outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
+                    _messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepScrollOffset;
+                    AddMessages(Position.After, false, messages, _outofboundsNewMessage); //if there is an out of bounds new message, show the indicator. Otherwise, don't.
                     MessagesLoading.Visibility = Visibility.Collapsed;
                     await Task.Delay(1000);
-                    messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
+                    _messageStacker.ItemsUpdatingScrollMode = ItemsUpdatingScrollMode.KeepLastItemInView;
                     DisableLoadingMessages = false;
                 }
             }
-            catch {}
+            catch
+            {
+                // ignored
+            }
         }
 
         private async void LoadMessagesAround(string id)
@@ -2455,11 +2458,11 @@ namespace Discord_UWP
                          videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
                      }
                  });
-            if (setupArgs != "")
+            if (_setupArgs != "")
             {
-                if (setupArgs.StartsWith("quarrel://"))
+                if (_setupArgs.StartsWith("quarrel://"))
                 {
-                    string[] segments = setupArgs.Replace("quarrel://", "").Split('/');
+                    string[] segments = _setupArgs.Replace("quarrel://", "").Split('/');
                     var count = segments.Count();
                     if (count > 0)
                     {
@@ -2476,7 +2479,7 @@ namespace Discord_UWP
                         }
                     }
                 }
-                else if (setupArgs == "SHARETARGET")
+                else if (_setupArgs == "SHARETARGET")
                 {
                     SubFrameNavigator(typeof(SubPages.ExtendedMessageEditor));
                     navigationHistory.Clear();
@@ -2551,20 +2554,14 @@ namespace Discord_UWP
 
         private async void App_TypingHandler(object sender, App.TypingArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    UpdateTyping();
-                });
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+                UpdateTyping);
         }
 
         private async void App_UpdateUnreadIndicatorsHandler(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 () =>
-                 {
-                     UpdateGuildAndChannelUnread();
-                 });
+                 UpdateGuildAndChannelUnread);
         }
 
         private async void App_UserStatusChangedHandler(object sender, App.UserStatusChangedArgs e)
@@ -2641,10 +2638,9 @@ namespace Discord_UWP
                      //    }
                      //} else
                      //{
-                     Message last = null;
                      if (MessageList.Items.Count > 0)
                      {
-                         last = (MessageList.Items.Last() as MessageContainer).Message;
+                         var last = (MessageList.Items.Last() as MessageContainer).Message;
                          if(last != null && last.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
 }
                             //Only add a message if the last one is functional
@@ -3236,8 +3232,8 @@ namespace Discord_UWP
                                 if (App.CurrentGuildIsDM)
                                 {
                                     var cid = (ChannelList.SelectedItem as SimpleChannel).Id;
-                                    if (!string.IsNullOrEmpty(autoselectchannelcontent))
-                                        App.NavigateToDMChannel(cid, autoselectchannelcontent, autoselectchannelcontentsend);
+                                    if (!string.IsNullOrEmpty(_autoselectchannelcontent))
+                                        App.NavigateToDMChannel(cid, _autoselectchannelcontent, _autoselectchannelcontentsend);
                                     else
                                         App.NavigateToDMChannel(cid);
                                     Task.Run(() =>
@@ -3266,7 +3262,7 @@ namespace Discord_UWP
         }
         private void ChannelList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            autoselectchannel = null;
+            _autoselectchannel = null;
             ChannelSelectionWasClicked = true;
             if (e.ClickedItem == ChannelList.SelectedItem)
                 //This is for xbox one, because when "clicking" on a channel, it is already selected
@@ -3274,7 +3270,7 @@ namespace Discord_UWP
         }
         private void ServerList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            autoselectchannel = null;
+            _autoselectchannel = null;
             ServerSelectionWasClicked = true;
             if (e.ClickedItem == ServerList.SelectedItem)
                 //This if for xbox one, because when clicking on a channel it is already selected
@@ -3368,7 +3364,7 @@ namespace Discord_UWP
 
         private void ItemsStackPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            messageStacker = sender as ItemsStackPanel;
+            _messageStacker = sender as ItemsStackPanel;
         }
 
         private void WhatsNewClick(object sender, RoutedEventArgs e)
@@ -3409,10 +3405,10 @@ namespace Discord_UWP
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageScrollviewer = Common.GetScrollViewer(MessageList);
-            if (MessageScrollviewer != null)
+            _messageScrollviewer = Common.GetScrollViewer(MessageList);
+            if (_messageScrollviewer != null)
             {
-                MessageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
+                _messageScrollviewer.ViewChanged += MessageScrollviewer_ViewChanged;
             }
         }
 
