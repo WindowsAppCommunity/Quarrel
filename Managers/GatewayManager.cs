@@ -460,9 +460,9 @@ namespace Discord_UWP.Managers
                 Storage.UpdateNotificationState("c" + e.EventData.ChannelId, "0");
             }
 
-            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 () =>
-                 {
+//            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+  //               () =>
+    //             {
                      if (LocalState.Typers.ContainsKey(e.EventData.ChannelId))
                      {
                          if (LocalState.Typers[e.EventData.ChannelId].ContainsKey(e.EventData.User.Id))
@@ -476,7 +476,7 @@ namespace Discord_UWP.Managers
                      }
 
                      App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
-                 });
+      //           });
             NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
         }
 
