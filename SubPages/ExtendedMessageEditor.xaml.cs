@@ -25,6 +25,7 @@ using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
+using Windows.Web.Http;
 using Discord_UWP.SimpleClasses;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
@@ -197,7 +198,6 @@ namespace Discord_UWP.SubPages
                 FullUploadSize = FullUploadSize + props.Size + 444;
             }
             FullUploadSize += Convert.ToUInt64(System.Text.Encoding.Unicode.GetByteCount(Editor.Text));
-            bool first = true;
             int attachCount = attachements.Count();
             if (attachCount > 1)
                 FileNB.Visibility = Visibility.Visible;
@@ -206,41 +206,75 @@ namespace Discord_UWP.SubPages
             {
                 FileNB.Text = FileStr + " " + (i+1).ToString() + "/" + attachCount;
                 var file = attachements.ElementAt(i).Value;
-                if (first)
-                {
-                    await RESTCalls.CreateMessage(App.CurrentChannelId, Editor.Text, file); //TODO: Rig to App.Events
-                    first = false;
-                }
-                else
-                {
-                    await RESTCalls.CreateMessage(App.CurrentChannelId, Editor.Text, file); //TODO: Rig to App.Events
-                }
                 var props = await file.GetBasicPropertiesAsync();
                 //444 is an approximation of the http request overhead
                 ulong overheadsize = 444;
-                if(first)
+                if (i == 0)
                     overheadsize += Convert.ToUInt64(System.Text.Encoding.Unicode.GetByteCount(Editor.Text));
-                FullBytesSentBuffer = FullBytesSentBuffer + props.Size + overheadsize;
+                _fullBytesSentBuffer = _fullBytesSentBuffer + props.Size + overheadsize;
+                _lockWaitState = false;
+                progressBar.Value = 0;
+                if (i==0)
+                {
+                    await RESTCalls.CreateMessage(App.CurrentChannelId, Editor.Text, file);
+                }
+                else
+                {
+                    await RESTCalls.CreateMessage(App.CurrentChannelId, "", file);
+                }
+                
             }
-            RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
+            RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress;
             if (App.shareop == null)
                 CloseButton_Click(null, null);
             else
                 App.shareop.DismissUI();
         }
 
-        ulong FullBytesSentBuffer = 0;
+        private ulong _fullBytesSentBuffer;
+
+        private bool _lockWaitState = false;
         private async void Session_MessageUploadProgress(IAsyncOperationWithProgress<Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress> asyncInfo, Windows.Web.Http.HttpProgress progressInfo)
         {
-            double percentage = Convert.ToDouble((100 * (FullBytesSentBuffer + progressInfo.BytesSent)) / FullUploadSize);
-            if (percentage > 100) percentage = 100;
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            float dest = Convert.ToSingle((100 * (_fullBytesSentBuffer + progressInfo.BytesSent))/ _fullBytesSentBuffer);
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
-                progressVal.Text = percentage.ToString() + "%";
-                progressBar.Value = percentage;
+                while (progressBar.Value < dest)
+                {
+                    progressVal.Text = progressBar.Value + "%";
+                    progressBar.Value++;
+                    await Task.Delay(10);
+                }
+                if (_lockWaitState || progressInfo.Stage == HttpProgressStage.WaitingForResponse || progressInfo.Stage == HttpProgressStage.ReceivingHeaders || progressInfo.Stage == HttpProgressStage.ReceivingContent)
+                {
+                    _lockWaitState = true;
+                    progressVal.Visibility = Visibility.Collapsed;
+                    Waiting.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    progressVal.Visibility = Visibility.Visible;
+                    Waiting.Visibility = Visibility.Collapsed;
+                }
             });
         }
 
+        
+        public static class MathHelper
+        {
+            public const float Pi = (float)Math.PI;
+            public const float HalfPi = (float)(Math.PI / 2);
+
+            public static float Lerp(double from, double to, double step)
+            {
+                return (float)((to - from) * step + from);
+            }
+        }
+        public static float EaseOut(double s, int power)
+        {
+            var sign = power % 2 == 0 ? -1 : 1;
+            return (float)(sign * (Math.Pow(s - 1, power) + sign));
+        }
         private void Grid_DragOver(object sender, DragEventArgs e)
         {
             e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
