@@ -1238,7 +1238,7 @@
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>
-                                    <!--<VisualStateGroup x:Name="MultiSelectStates">
+                                    <VisualStateGroup x:Name="MultiSelectStates">
                                         <VisualState x:Name="MultiSelectDisabled">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectCheckBoxTransform"
@@ -1290,8 +1290,8 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>-->
-                                    <!--<VisualStateGroup x:Name="DataVirtualizationStates">
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="DataVirtualizationStates">
                                         <VisualState x:Name="DataAvailable"/>
                                         <VisualState x:Name="DataPlaceholder">
                                             <Storyboard>
@@ -1303,7 +1303,7 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>-->
+                                    </VisualStateGroup>
                                     <VisualStateGroup x:Name="ReorderHintStates">
                                         <VisualStateGroup.Transitions>
                                             <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
@@ -1349,7 +1349,10 @@
                                                 <DropTargetItemThemeAnimation TargetName="ContentBorder" />
                                             </Storyboard>
                                         </VisualState>
-                                        <!--<VisualState x:Name="MultipleDraggingPrimary">
+                                        <VisualState x:Name="MultipleDraggingPrimary">
+                                            <Storyboard>
+                                                <!-- These two Opacity animations are required - the FadeInThemeAnimations
+                                         on the same elements animate an internal Opacity. -->
                                                 <DoubleAnimation Storyboard.TargetName="MultiArrangeOverlayBackground"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
@@ -1376,7 +1379,7 @@
                                             <Storyboard>
                                                 <FadeOutThemeAnimation TargetName="ContentBorder" />
                                             </Storyboard>
-                                        </VisualState>-->
+                                        </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <Rectangle x:Name="BorderBackground"
@@ -1404,7 +1407,7 @@
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
                           approximate the size of the item using placeholder text. -->
-                                <!--<TextBlock x:Name="PlaceholderTextBlock"
+                                <TextBlock x:Name="PlaceholderTextBlock"
                     Opacity="0"
                     Text="Xg"
                     Foreground="{x:Null}"
@@ -1457,7 +1460,7 @@
                     TextTrimming="WordEllipsis"
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
-                    Grid.ColumnSpan="2"/>-->
+                    Grid.ColumnSpan="2"/>
                                 <Rectangle x:Name="bgIndic" Fill="{ThemeResource InvertedBG}" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 <Border x:Name="Indic" Background="{ThemeResource InvertedBG}" Width="2" Opacity="0" HorizontalAlignment="Left" >
                                     <Border.RenderTransform>
@@ -1632,7 +1635,7 @@
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>
-                                    <!--<VisualStateGroup x:Name="MultiSelectStates">
+                                    <VisualStateGroup x:Name="MultiSelectStates">
                                         <VisualState x:Name="MultiSelectDisabled">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MultiSelectCheckBoxTransform"
@@ -1684,12 +1687,11 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>-->
-                                    <!---<VisualStateGroup x:Name="DataVirtualizationStates">
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="DataVirtualizationStates">
                                         <VisualState x:Name="DataAvailable"/>
                                         <VisualState x:Name="DataPlaceholder">
                                             <Storyboard>
-
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextBlock" Storyboard.TargetProperty="Visibility">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                                                 </ObjectAnimationUsingKeyFrames>
@@ -1698,7 +1700,7 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>-->
+                                    </VisualStateGroup>
                                     <VisualStateGroup x:Name="ReorderHintStates">
                                         <VisualStateGroup.Transitions>
                                             <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
@@ -1744,9 +1746,10 @@
                                                 <DropTargetItemThemeAnimation TargetName="ContentBorder" />
                                             </Storyboard>
                                         </VisualState>
-                                        <!--
                                         <VisualState x:Name="MultipleDraggingPrimary">
                                             <Storyboard>
+                                                <!-- These two Opacity animations are required - the FadeInThemeAnimations
+                                         on the same elements animate an internal Opacity. -->
                                                 <DoubleAnimation Storyboard.TargetName="MultiArrangeOverlayBackground"
                                  Storyboard.TargetProperty="Opacity"
                                  Duration="0"
@@ -1773,7 +1776,7 @@
                                             <Storyboard>
                                                 <FadeOutThemeAnimation TargetName="ContentBorder" />
                                             </Storyboard>
-                                        </VisualState>-->
+                                        </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
                                 <Rectangle x:Name="BorderBackground"
@@ -1803,103 +1806,7 @@
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
                           approximate the size of the item using placeholder text. -->
-                                <!--<TextBlock x:Name="PlaceholderTextBlock"
-                    Opacity="0"
-                    Text="Xg"
-                    Foreground="{x:Null}"
-                    Margin="{TemplateBinding Padding}"
-                                           Visibility="Collapsed"
-                    IsHitTestVisible="False"
-                    AutomationProperties.AccessibilityView="Raw"/>
-                                <Rectangle x:Name="PlaceholderRect"
-                    Visibility="Collapsed"
-                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>-->
-                                <!--<Rectangle x:Name="MultiArrangeOverlayBackground"
-                                           Visibility="Collapsed"
-                    IsHitTestVisible="False"
-                    Opacity="0"
-                    Grid.ColumnSpan="2"/>
-                                <Border x:Name="MultiSelectSquare"
-                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                BorderThickness="2"
-                Width="20"
-                Height="20"
-                Margin="12,0,0,0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Visibility="Collapsed" >
-                                    <Border.Clip>
-                                        <RectangleGeometry Rect="0,0,20,20">
-                                            <RectangleGeometry.Transform>
-                                                <TranslateTransform x:Name="MultiSelectClipTransform"/>
-                                            </RectangleGeometry.Transform>
-                                        </RectangleGeometry>
-                                    </Border.Clip>
-                                    <Border.RenderTransform>
-                                        <TranslateTransform x:Name="MultiSelectCheckBoxTransform"/>
-                                    </Border.RenderTransform>
-                                    <FontIcon x:Name="MultiSelectCheck"
-                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                    Glyph="&#xE73E;"
-                    FontSize="16"
-                    Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-                    Visibility="Collapsed"
-                    Opacity="0"/>
-                                </Border>
-                                <TextBlock x:Name="MultiArrangeOverlayText" Visibility="Collapsed"
-                    Text="{Binding TemplateSettings.DragItemsCount, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                    Foreground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
-                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
-                    FontSize="26.667"
-                    IsHitTestVisible="False"
-                    Opacity="0"
-                    TextWrapping="Wrap"
-                    TextTrimming="WordEllipsis"
-                    Margin="18,9,0,0"
-                    AutomationProperties.AccessibilityView="Raw"
-                    Grid.ColumnSpan="2"/>-->
-
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="MessageItemStyle" TargetType="ListViewItem" >
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
-                <Setter Property="MinHeight" Value="0"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListViewItem">
-                            <Grid x:Name="ContentBorder"
-              BorderBrush="{TemplateBinding BorderBrush}"
-              BorderThickness="{TemplateBinding BorderThickness}">
-                                <Rectangle x:Name="BorderBackground"
-                    IsHitTestVisible="False"
-                    Opacity="0"
-                    Control.IsTemplateFocusTarget="True"/>
-                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBG}" Opacity="0" CornerRadius="0"/>
-                                <Grid x:Name="ContentPresenterGrid"
-              Background="Transparent"
-              Margin="0,0,0,0">
-                                    <Grid.RenderTransform>
-                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
-                                    </Grid.RenderTransform>
-                                    <ContentPresenter x:Name="ContentPresenter"
-                            ContentTransitions="{TemplateBinding ContentTransitions}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Content="{TemplateBinding Content}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Margin="{TemplateBinding Padding}"/>
-                                </Grid>
-                                <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
-                          In the DataPlaceholder state, the Content is not loaded yet so we
-                          approximate the size of the item using placeholder text. -->
-                                <!--<TextBlock x:Name="PlaceholderTextBlock"
+                                <TextBlock x:Name="PlaceholderTextBlock"
                     Opacity="0"
                     Text="Xg"
                     Foreground="{x:Null}"
@@ -1953,7 +1860,103 @@
                     TextTrimming="WordEllipsis"
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
-                    Grid.ColumnSpan="2"/>-->
+                    Grid.ColumnSpan="2"/>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MessageItemStyle" TargetType="ListViewItem" >
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Grid x:Name="ContentBorder"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}">
+                                <Rectangle x:Name="BorderBackground"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    Control.IsTemplateFocusTarget="True"/>
+                                <Border x:Name="Indic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource InvertedBG}" Opacity="0" CornerRadius="0"/>
+                                <Grid x:Name="ContentPresenterGrid"
+              Background="Transparent"
+              Margin="0,0,0,0">
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="ContentPresenterTranslateTransform"/>
+                                    </Grid.RenderTransform>
+                                    <ContentPresenter x:Name="ContentPresenter"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                                <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
+                          In the DataPlaceholder state, the Content is not loaded yet so we
+                          approximate the size of the item using placeholder text. -->
+                                <TextBlock x:Name="PlaceholderTextBlock"
+                    Opacity="0"
+                    Text="Xg"
+                    Foreground="{x:Null}"
+                    Margin="{TemplateBinding Padding}"
+                                           Visibility="Collapsed"
+                    IsHitTestVisible="False"
+                    AutomationProperties.AccessibilityView="Raw"/>
+                                <Rectangle x:Name="PlaceholderRect"
+                    Visibility="Collapsed"
+                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>
+                                <Rectangle x:Name="MultiArrangeOverlayBackground"
+                                           Visibility="Collapsed"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    Grid.ColumnSpan="2"/>
+                                <Border x:Name="MultiSelectSquare"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                BorderThickness="2"
+                Width="20"
+                Height="20"
+                Margin="12,0,0,0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed" >
+                                    <Border.Clip>
+                                        <RectangleGeometry Rect="0,0,20,20">
+                                            <RectangleGeometry.Transform>
+                                                <TranslateTransform x:Name="MultiSelectClipTransform"/>
+                                            </RectangleGeometry.Transform>
+                                        </RectangleGeometry>
+                                    </Border.Clip>
+                                    <Border.RenderTransform>
+                                        <TranslateTransform x:Name="MultiSelectCheckBoxTransform"/>
+                                    </Border.RenderTransform>
+                                    <FontIcon x:Name="MultiSelectCheck"
+                    FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                    Glyph="&#xE73E;"
+                    FontSize="16"
+                    Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                    Visibility="Collapsed"
+                    Opacity="0"/>
+                                </Border>
+                                <TextBlock x:Name="MultiArrangeOverlayText" Visibility="Collapsed"
+                    Text="{Binding TemplateSettings.DragItemsCount, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                    Foreground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                    FontFamily="{ThemeResource ContentControlThemeFontFamily}"
+                    FontSize="26.667"
+                    IsHitTestVisible="False"
+                    Opacity="0"
+                    TextWrapping="Wrap"
+                    TextTrimming="WordEllipsis"
+                    Margin="18,9,0,0"
+                    AutomationProperties.AccessibilityView="Raw"
+                    Grid.ColumnSpan="2"/>
 
                             </Grid>
                         </ControlTemplate>
