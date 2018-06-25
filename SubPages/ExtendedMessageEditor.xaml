@@ -456,10 +456,11 @@
                             <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.75"/>
                         </Grid.Background>
                         <Grid Width="250" Height="250" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="48,0">
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-6">
-                                <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}"/>
-                                <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="12" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Right" Margin="0"/>
-                            </StackPanel>
+                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="Waiting" Visibility="Collapsed" Text="PROCESSING..." FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="13.33" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,48"/>
+
                             <control:RadialProgressBar x:Name="progressBar" Value="0" Maximum="100" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                         </Grid>
                     </Grid>
