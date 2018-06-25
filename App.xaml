@@ -1685,20 +1685,20 @@
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>-->
-                                    <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <!---<VisualStateGroup x:Name="DataVirtualizationStates">
                                         <VisualState x:Name="DataAvailable"/>
                                         <VisualState x:Name="DataPlaceholder">
-                                            <!--<Storyboard>
-                                               
+                                            <Storyboard>
+
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextBlock" Storyboard.TargetProperty="Visibility">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderRect" Storyboard.TargetProperty="Visibility">
                                                     <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
                                                 </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>-->
+                                            </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>
+                                    </VisualStateGroup>-->
                                     <VisualStateGroup x:Name="ReorderHintStates">
                                         <VisualStateGroup.Transitions>
                                             <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
@@ -1899,7 +1899,7 @@
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
                           approximate the size of the item using placeholder text. -->
-                                <TextBlock x:Name="PlaceholderTextBlock"
+                                <!--<TextBlock x:Name="PlaceholderTextBlock"
                     Opacity="0"
                     Text="Xg"
                     Foreground="{x:Null}"
@@ -1953,7 +1953,7 @@
                     TextTrimming="WordEllipsis"
                     Margin="18,9,0,0"
                     AutomationProperties.AccessibilityView="Raw"
-                    Grid.ColumnSpan="2"/>
+                    Grid.ColumnSpan="2"/>-->
 
                             </Grid>
                         </ControlTemplate>
