@@ -1175,7 +1175,7 @@ namespace Discord_UWP
                     
                  });
         }
-        private void App_SubpageClosedHandler(object sender, EventArgs e)
+        private async void App_SubpageClosedHandler(object sender, EventArgs e)
         {
             if (Storage.Settings.ExpensiveRender)
             {
@@ -1185,9 +1185,13 @@ namespace Discord_UWP
             {
                 content.Blur(0, 0).Start();
             }
-            SubFrameMask.Fade(0f, 300, 0, 0).Start();
+            await SubFrameMask.Fade(0f, 300, 0, 0).StartAsync();
             SubFrame.IsFocusEngagementEnabled = false;
             SubFrame.IsFocusEngaged = false;
+            if (App.FCU) //idk why but it's neccessary
+            {
+                SubFrame.Content = null;
+            }
         }
 
         private void App_NavigateToBugReportHandler(object sender, App.BugReportNavigationArgs e)
