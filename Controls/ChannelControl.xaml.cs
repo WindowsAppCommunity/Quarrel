@@ -291,25 +291,23 @@ namespace Discord_UWP.Controls
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
-                        switch (UserStatus.Game.Type)
-                        {
-                            case -1:
-                                playing.Visibility = Visibility.Collapsed; break;
-                            case 0:
-                                playing.Visibility = Visibility.Visible;
-                                playing.Text = "Playing"; break;
-                            case 1:
-                                playing.Visibility = Visibility.Visible;
-                                playing.Text = "Streaming"; break;
-                            case 2:
-                                playing.Visibility = Visibility.Visible;
-                                playing.Text = "Listening to"; break;
-                        }
                     }
                     else
                     {
                         game.Opacity = 0.6;
                         rich.Visibility = Visibility.Collapsed;
+                    }
+                    switch (UserStatus.Game.Type)
+                    {
+                        case 0:
+                            playing.Text = App.GetString("/Controls/Playing");
+                            break;
+                        case 1:
+                            playing.Text = App.GetString("/Controls/Streaming");
+                            break;
+                        case 2:
+                            playing.Text = App.GetString("/Controls/ListeningTo");
+                            break;
                     }
                 }
                 else

@@ -54,7 +54,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
                         </Setter>
                         <Setter Target="content.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>0,8,0,0</Thickness>
+                                <Thickness>0,0,0,0</Thickness>
                             </Setter.Value>
                         </Setter>
                         <Setter Target="moresymbol.(FrameworkElement.Margin)">
