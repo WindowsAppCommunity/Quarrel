@@ -280,7 +280,7 @@
     <value>Appel commencé par</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>&lt;user&gt; commencé un appel</value>
+    <value>&lt;user&gt; a commencé un appel</value>
   </data>
   <data name="You" xml:space="preserve">
     <value>Vous avez</value>
@@ -292,7 +292,7 @@
     <value>a rejoint le serveur!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Édité à &lt;time&gt;</value>
+    <value>Modifié à &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Rejoindre la session Spotify</value>
