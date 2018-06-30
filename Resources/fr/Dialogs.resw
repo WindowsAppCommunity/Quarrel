@@ -130,7 +130,7 @@
     <value>ÉDITEUR DE MESSAGE AVANCÉ</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Pièces jointes</value>
+    <value>PIÈCES JOINTES</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Pièces jointes</value>
@@ -154,7 +154,7 @@
     <value>Bloquer</value>
   </data>
   <data name="BodyTB.Text" xml:space="preserve">
-    <value>CORPS</value>
+    <value>MESSAGE</value>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
     <value>Annuler</value>
@@ -298,7 +298,7 @@
     <value>Notes</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
-    <value>Les utilisateurs devront confirmer leur âge pour utiliser ce salon. Il sera egalement exempt de tout filtrage d'éventuel contenu explicite. It will also be exempt from explicit content filtering.</value>
+    <value>Les utilisateurs devront confirmer leur âge pour utiliser ce salon. Il sera egalement exempt de tout filtrage d'éventuel contenu explicite.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
     <value>Salon NSFW</value>
@@ -445,7 +445,7 @@
     <value>NOUVEAU SALON</value>
   </data>
   <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
-    <value>Ouvrir un fichier</value>
+    <value>Ajouter un fichier</value>
   </data>
   <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
     <value>Enregistrer un son</value>
