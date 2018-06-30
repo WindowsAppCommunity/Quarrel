@@ -127,7 +127,7 @@
     <value>Réagir</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>BLOQUÉES</value>
+    <value>BLOQUÉ</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
@@ -328,6 +328,6 @@
     <value>Volume</value>
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
-    <value>AJOUTER UNE PIÈCE JOINTE</value>
+    <value>Essayer de réinitialiser l'application</value>
   </data>
 </root>
