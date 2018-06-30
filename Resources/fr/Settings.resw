@@ -319,7 +319,7 @@
     <value>Notifications dans l'application</value>
   </data>
   <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>Son</value>
+    <value>Illuminer le côté gauche de l'écran lors d'une mention</value>
   </data>
   <data name="OutputDevicesCB.Header" xml:space="preserve">
     <value>Activer les notifications en arrière-plan</value>
@@ -331,6 +331,6 @@
     <value>Désactiver les notifications en arrière-plan</value>
   </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
-    <value>Paramètres du compte</value>
+    <value>Afficher une icone sur les serveurs muets</value>
   </data>
 </root>
