@@ -476,8 +476,11 @@ namespace Discord_UWP.Managers
                      }
 
                      App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
-      //           });
-            NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
+            //           });
+            if (Storage.Settings.Toasts)
+            {
+                NotificationManager.CreateMessageCreatedNotifcation(e.EventData);
+            }
         }
 
         private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
