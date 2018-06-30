@@ -144,15 +144,6 @@ namespace Discord_UWP.Controls
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
-                        switch (Status.Game.Type)
-                        {
-                            case 0:
-                                playing.Text = App.GetString("/Controls/Playing"); break;
-                            case 1:
-                                playing.Text = App.GetString("/Controls/Streaming"); break;
-                            case 2:
-                                playing.Text = App.GetString("/Controls/ListeningTo"); break;
-                        }
                     }
                     else
                     {
@@ -160,6 +151,18 @@ namespace Discord_UWP.Controls
                         rich.Visibility = Visibility.Collapsed;
                     }
 
+                    switch (Status.Game.Type)
+                    {
+                        case 0:
+                            playing.Text = App.GetString("/Controls/Playing");
+                            break;
+                        case 1:
+                            playing.Text = App.GetString("/Controls/Streaming");
+                            break;
+                        case 2:
+                            playing.Text = App.GetString("/Controls/ListeningTo");
+                            break;
+                    }
                 }
                 else
                 {
