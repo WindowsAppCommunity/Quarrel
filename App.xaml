@@ -1635,6 +1635,7 @@
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>
+                                    <!--
                                     <VisualStateGroup x:Name="MultiSelectStates">
                                         <VisualState x:Name="MultiSelectDisabled">
                                             <Storyboard>
@@ -1700,7 +1701,7 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
-                                    </VisualStateGroup>
+                                    </VisualStateGroup>-->
                                     <VisualStateGroup x:Name="ReorderHintStates">
                                         <VisualStateGroup.Transitions>
                                             <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
@@ -1806,6 +1807,7 @@
                                 <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
                           approximate the size of the item using placeholder text. -->
+                                <!--
                                 <TextBlock x:Name="PlaceholderTextBlock"
                     Opacity="0"
                     Text="Xg"
@@ -1816,7 +1818,7 @@
                     AutomationProperties.AccessibilityView="Raw"/>
                                 <Rectangle x:Name="PlaceholderRect"
                     Visibility="Collapsed"
-                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>
+                    Fill="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"/>-->
                                 <Rectangle x:Name="MultiArrangeOverlayBackground"
                                            Visibility="Collapsed"
                     IsHitTestVisible="False"
