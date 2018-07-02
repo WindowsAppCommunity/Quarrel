@@ -50,15 +50,9 @@ namespace Discord_UWP.Managers
 
             if (message.User.Id != LocalState.CurrentUser.Id && !muted)
             {
-                #region CreateContent
-                string toastTitle = message.User.Username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + ChnName;
-                string content = message.Content;
-                string userPhoto = "https://cdn.discordapp.com/avatars/" + message.User.Id + "/" + message.User.Avatar + ".jpg";
-                string conversationId = message.ChannelId;
-                #endregion
 
-                //if (Storage.Settings.Toasts)
-                //{
+                if (Storage.Settings.Toasts)
+                {
                     ToastVisual visual = new ToastVisual()
                     {
                         BindingGeneric = new ToastBindingGeneric()
@@ -71,7 +65,7 @@ namespace Discord_UWP.Managers
                             },
                             new AdaptiveText()
                             {
-                                Text = content
+                                Text = body
                             },
                             /*new AdaptiveImage()
                             {
@@ -80,56 +74,47 @@ namespace Discord_UWP.Managers
                         },
                             AppLogoOverride = new ToastGenericAppLogo()
                             {
-                                Source = userPhoto,
+                                Source = avatar,
                                 HintCrop = ToastGenericAppLogoCrop.Circle
                             }
                         }
                     };
 
-                    ToastTextBox replyContent = new ToastTextBox("Reply")
-                    {
-                        PlaceholderContent = App.GetString("/Main/Notifications_Reply"),
-                    };
+        ToastTextBox replyContent = new ToastTextBox("Reply")
+        {
+            PlaceholderContent = App.GetString("/Main/Notifications_Reply"),
+        };
 
-                    ToastActionsCustom actions = new ToastActionsCustom()
-                    {
-                        Inputs =
+        ToastActionsCustom actions = new ToastActionsCustom()
+        {
+            Inputs =
                     {
                         replyContent
                     },
-                        Buttons =
+            Buttons =
                     {
-                        new ToastButton("Send",  new QueryString()
-                    {
-                        { "action", "SendMessage" },
-                        { "channelid", conversationId },
-                        { "content", replyContent.Id }
-                    }.ToString())
+                        new ToastButton("Send", "quarrel://send/"+guildid+"/"+channelid)
                         {
                             ActivationType = ToastActivationType.Foreground,
                             TextBoxId = replyContent.Id,
-                            ImageUri = "Assets/sendicon.png"
+                            ImageUri = "Assets/sendicon.png",
                         }
                     }
-                    };
+        };
 
-                    ToastContent toastContent = new ToastContent()
-                    {
-                        Visual = visual,
-                        //Actions = actions, //TODO: Actions
-                        // Arguments when the user taps body of toast
-                        Launch = new QueryString()
-                    {
-                        { "action", "Navigate" },
-                        { "page", "Channel" },
-                        { "channelid", replyContent.Id }
-                    }.ToString()
-                    };
+        ToastContent toastContent = new ToastContent()
+        {
+            Visual = visual,
+            Actions = actions, //TODO: Actions
+            // Arguments when the user taps body of toast
+            Launch = "quarrel://channels/"+guildid+"/"+channelid,
+            ActivationType= ToastActivationType.Protocol
+        };
 
-                    ToastNotification notification = new ToastNotification(toastContent.GetXml());
+        ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                     ToastNotificationManager.CreateToastNotifier().Show(notification);
-                //}
+                }
 
                 if (Storage.Settings.LiveTile)
                 {
