@@ -623,6 +623,7 @@ namespace Discord_UWP
         bool _autoselectchannelcontentsend = false;
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
+            Ad.Visibility = Visibility.Collapsed;
             string guildid = e.GuildId;
             string channelid = e.ChannelId;
             if (e.Navigate)
@@ -1168,7 +1169,6 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-
                      if (Storage.Settings.ExpensiveRender)
                      {
                          content.Blur(2, 300).Start();
