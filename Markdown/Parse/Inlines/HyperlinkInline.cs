@@ -40,17 +40,17 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         Email,
 
         /// <summary>
-        /// A discord user mention link (e.g. "@User").
+        /// A discord user mention link (e.g. "@UserId").
         /// </summary>
         DiscordUserMention,
 
         /// <summary>
-        /// A discord nick mention link (e.g. "@UserNickname").
+        /// A discord nick mention link (e.g. "@!UserId").
         /// </summary>
         DiscordNickMention,
 
         /// <summary>
-        /// A discord role mention link (e.g. "@!Admins").
+        /// A discord role mention link (e.g. "@&amp;RoleId").
         /// </summary>
         DiscordRoleMention,
 
