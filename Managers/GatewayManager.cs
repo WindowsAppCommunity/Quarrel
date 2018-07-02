@@ -426,15 +426,6 @@ namespace Discord_UWP.Managers
                                         {
                                             App.FlashMention();  
                                         }
-                                        if (Storage.Settings.Toasts)
-                                        {
-                                            NotificationManager.CreateMentionNotification(e.EventData.User.Username,
-                                                Common.AvatarString(e.EventData.User.Avatar, e.EventData.User.Id),
-                                                guild.Value.Raw.Name,
-                                                guild.Value.channels[e.EventData.ChannelId].raw.Name,
-                                                e.EventData.Content, e.EventData.ChannelId, guild.Key);
-                                        }
-
                                     }
                                 }
                             }
