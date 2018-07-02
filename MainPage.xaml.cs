@@ -625,25 +625,35 @@ namespace Discord_UWP
         {
             string guildid = e.GuildId;
             string channelid = e.ChannelId;
-            _autoselectchannelcontent = e.MessageContent;
-            _autoselectchannelcontentsend = e.Send;
-            if (guildid == "friendrequests")
+            if (e.Navigate)
             {
-                friendPanel.NavigateToFriendRequests();
-            }
-            else
-            {
-                foreach (SimpleGuild g in ServerList.Items)
+                _autoselectchannelcontent = e.MessageContent;
+                _autoselectchannelcontentsend = e.Send;
+            
+                if (guildid == "friendrequests")
                 {
-                    if (g.Id == guildid)
+                    friendPanel.NavigateToFriendRequests();
+                }
+                else
+                {
+                    foreach (SimpleGuild g in ServerList.Items)
                     {
-                        _autoselectchannelcontent = e.MessageContent;
-                        _autoselectchannel = channelid;
-                        ServerSelectionWasClicked = true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
-                        ServerList.SelectedItem = g;
+                        if (g.Id == guildid)
+                        {
+                            _autoselectchannelcontent = e.MessageContent;
+                            _autoselectchannel = channelid;
+                            ServerSelectionWasClicked =
+                                true; //It wasn't actually, hehehe. Let me teach you a lesson in trickery, this is going down in history...
+                            ServerList.SelectedItem = g;
+                        }
                     }
                 }
             }
+            else if (e.Send)
+            {
+                App.CreateMessage(e.ChannelId, e.MessageContent);
+            }
+            
         }
 
         public void ClearData()
