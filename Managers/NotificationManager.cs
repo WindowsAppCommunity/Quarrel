@@ -57,8 +57,8 @@ namespace Discord_UWP.Managers
                 string conversationId = message.ChannelId;
                 #endregion
 
-                if (Storage.Settings.Toasts)
-                {
+                //if (Storage.Settings.Toasts)
+                //{
                     ToastVisual visual = new ToastVisual()
                     {
                         BindingGeneric = new ToastBindingGeneric()
@@ -129,7 +129,7 @@ namespace Discord_UWP.Managers
                     ToastNotification notification = new ToastNotification(toastContent.GetXml());
 
                     ToastNotificationManager.CreateToastNotifier().Show(notification);
-                }
+                //}
 
                 if (Storage.Settings.LiveTile)
                 {
