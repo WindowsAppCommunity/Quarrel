@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutABB.Label" xml:space="preserve">
+    <value>O aplikacji</value>
+  </data>
+  <data name="AddChannelTB.Text" xml:space="preserve">
+    <value>Dodaj kanał</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>POŁĄCZONY</value>
+  </data>
+  <data name="DNDRadio.Content" xml:space="preserve">
+    <value>Nie przeszkadzać</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Błąd</value>
+  </data>
+  <data name="Error400" xml:space="preserve">
+    <value>Błąd 400: Wystąpił błąd, jeżeli nie logowałeś się wcześniej na tym urządeniu, spradź emaila od Discorda i spróbuj ponownie.</value>
+  </data>
+  <data name="Error401" xml:space="preserve">
+    <value>Błąd 401: Wystąpił problem przy łączeniu z serwerem. Spróbuj ponownie.</value>
+  </data>
+  <data name="Error403" xml:space="preserve">
+    <value>Błąd 403: Nie jesteś w stanie wykonać tej akcji. Prawdopodobnie nie zalogowałeś się z tej loaklizacji, sprawdź emaila w celu weryfikacji tej lokalizacji i spróbuj ponownie.</value>
+  </data>
+  <data name="Error429" xml:space="preserve">
+    <value>Błąd 429: Zostałeś czasowo zablokowany, spróbuj ponownie za momencik.</value>
+  </data>
+  <data name="Error500" xml:space="preserve">
+    <value>Błąd 500: Wystąpił problem przy łączeniu z serwerem i jest to wina serwera, spróbuj ponownie później. Discord przeważnie naprawia takie problemy szybko.</value>
+  </data>
+  <data name="ErrorGeneric" xml:space="preserve">
+    <value>Spróbuj ponownie po sprawdzeniu emaila, w celu zweryfikowania tej lokacji logowania.</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>WSZYSCY</value>
+  </data>
+  <data name="GameTBox.PlaceholderText" xml:space="preserve">
+    <value>Gra</value>
+  </data>
+  <data name="IapABB.Label" xml:space="preserve">
+    <value>Zakupy w aplikacji</value>
+  </data>
+  <data name="IdleRadio.Content" xml:space="preserve">
+    <value>Zaraz wracam</value>
+  </data>
+  <data name="InvisibleRadio.Content" xml:space="preserve">
+    <value>Niewidoczny</value>
+  </data>
+  <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
+    <value>Załaduj więcej wiadomości</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>LOGOWANIE...</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>Nazwa użytkownika</value>
+  </data>
+  <data name="MemberListABB.Label" xml:space="preserve">
+    <value>Członkowie</value>
+  </data>
+  <data name="MuteABB.Label" xml:space="preserve">
+    <value>Wycisz</value>
+  </data>
+  <data name="NoChannelsCachedTB.Text" xml:space="preserve">
+    <value>Brak zapisanych kanałów</value>
+  </data>
+  <data name="NoMessagesCachedTB.Text" xml:space="preserve">
+    <value>Brak zapisanych wiadomości</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineRadio.Content" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="PinnedMessagesABB.Label" xml:space="preserve">
+    <value>Przypięte wiadomości</value>
+  </data>
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>W grze</value>
+  </data>
+  <data name="RefreshABB.Label" xml:space="preserve">
+    <value>Odśwież</value>
+  </data>
+  <data name="SettingsABB.Label" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="TextChannelsTB.Text" xml:space="preserve">
+    <value>KANAŁY TEKSTOWE</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
+    <value>Zagłosuj, aby pojawiły się kanały głosowe.</value>
+  </data>
+  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
+    <value>To jest prośba do Microsoft'u o potrzebne narzędzia dla deweloperów, aby dodać kanały głosowe. To uniemożliwia im dodanie ich.</value>
+  </data>
+  <data name="VoiceChannelsTB.Text" xml:space="preserve">
+    <value>KANAŁY GŁOSOWE</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Wczoraj</value>
+  </data>
+  <data name="DirectMessages" xml:space="preserve">
+    <value>Prywatne Wiadomości</value>
+  </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; członków</value>
+  </data>
+  <data name="Notifications_sentMessageOn" xml:space="preserve">
+    <value>wyślij wiadomość</value>
+  </data>
+  <data name="PromptMessageSaveError" xml:space="preserve">
+    <value>Wystąpił problem przy ładowaniu historii wiadomości.</value>
+  </data>
+  <data name="PromptMutedCacheError" xml:space="preserve">
+    <value>Wystapił błąd podczas ładowania wyciszonych kanałów.</value>
+  </data>
+  <data name="PromptNoCache" xml:space="preserve">
+    <value>Nie masz pamięci, aplikacja zacznie zapisywać dane w celu przyśpieszenia ładowania.</value>
+  </data>
+  <data name="TypingAnd" xml:space="preserve">
+    <value>i </value>
+  </data>
+  <data name="TypingPlural" xml:space="preserve">
+    <value>piszą...</value>
+  </data>
+  <data name="TypingSingular" xml:space="preserve">
+    <value>pisze...</value>
+  </data>
+  <data name="DirectMessagesTB.Text" xml:space="preserve">
+    <value>PRYWATNE WIADOMOŚCI</value>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>ZNAJOMI</value>
+  </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>dodaj do znajomych</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Akcepuj</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Odrzuć</value>
+  </data>
+  <data name="Notifications_Reply" xml:space="preserve">
+    <value>Odpowiedz</value>
+  </data>
+  <data name="RecentMentionsABB.Label" xml:space="preserve">
+    <value>Ostatnie wzmianki</value>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Kod autoryzacyjny</value>
+  </data>
+  <data name="DirectMessageTB.Text" xml:space="preserve">
+    <value>PRYWATNE WIADOMOŚCI</value>
+  </data>
+  <data name="FriendsButtonText.Text" xml:space="preserve">
+    <value>Znajomi</value>
+  </data>
+  <data name="RemoveAdsABB.Label" xml:space="preserve">
+    <value>Usuń reklamy</value>
+  </data>
+  <data name="ShowPinnedABB.Label" xml:space="preserve">
+    <value>Pokaż przypięte wiadomości</value>
+  </data>
+  <data name="ToggleMember.Label" xml:space="preserve">
+    <value>Ukryj/Pokaż listę członków</value>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Co nowego?</value>
+  </data>
+  <data name="NewMessageHLBTN.Content" xml:space="preserve">
+    <value>NOWE WIADOMOŚCI</value>
+  </data>
+  <data name="IgnoreHLBTN.Content" xml:space="preserve">
+    <value>IGNOROWANI</value>
+  </data>
+  <data name="AboutMFI.Text" xml:space="preserve">
+    <value>O Aplikacji</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>Co nowego?</value>
+  </data>
+  <data name="RemoveAds.Text" xml:space="preserve">
+    <value>Usuń reklamy</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="members" xml:space="preserve">
+    <value>&lt;count&gt; członków</value>
+  </data>
+  <data name="Loaded" xml:space="preserve">
+    <value>ZAŁADOWANY</value>
+  </data>
+  <data name="SubmittedBy" xml:space="preserve">
+    <value>Przedłożone przez</value>
+  </data>
+  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
+    <value>POWRÓT DO NAJNOWSZYCH</value>
+  </data>
+  <data name="AddAttachementTB.Text" xml:space="preserve">
+    <value>DODAJ UPRAWNIENIA</value>
+  </data>
+</root>

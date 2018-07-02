@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
+    <value>Zaakceptować prośbę dodania do przyjaciół?</value>
+  </data>
+  <data name="ACTIVITIES" xml:space="preserve">
+    <value>AKTYWNOŚĆ</value>
+  </data>
+  <data name="AddReacItem.Text" xml:space="preserve">
+    <value>Dodaj reakcję</value>
+  </data>
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>ZABLOKOWANI</value>
+  </data>
+  <data name="BotTB.Text" xml:space="preserve">
+    <value>BOTY</value>
+  </data>
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Skopiuj ID</value>
+  </data>
+  <data name="DeleteItem.Text" xml:space="preserve">
+    <value>Usuń</value>
+  </data>
+  <data name="EditItem.Text" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="FLAGS" xml:space="preserve">
+    <value>FLAGI</value>
+  </data>
+  <data name="FOOD" xml:space="preserve">
+    <value>JEDZENIE</value>
+  </data>
+  <data name="FriendRequestSent" xml:space="preserve">
+    <value>Wysłano zaproszenie do znajomych</value>
+  </data>
+  <data name="InviteExpired" xml:space="preserve">
+    <value>Wygasłe zaproszenie</value>
+  </data>
+  <data name="InviteInvalid" xml:space="preserve">
+    <value>Wygasłe lub błędne zaproszenie</value>
+  </data>
+  <data name="InviteJoin" xml:space="preserve">
+    <value>Dołącz</value>
+  </data>
+  <data name="InviteJoined" xml:space="preserve">
+    <value>Dołączono</value>
+  </data>
+  <data name="InviteMaxUses" xml:space="preserve">
+    <value>Osiągnięto maksymalną liczbę użytkowników</value>
+  </data>
+  <data name="InviteTempDesc" xml:space="preserve">
+    <value>Użytkownicy, którzy użyją tego linku zostaną automatycznie wyrzuceni z kanału przy rozłączeniu, chyba że otrzymają rolę.</value>
+  </data>
+  <data name="NATURE" xml:space="preserve">
+    <value>NATURA</value>
+  </data>
+  <data name="OBJECTS" xml:space="preserve">
+    <value>OBIEKTY</value>
+  </data>
+  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+    <value>Pokazuj tylko znajomych online</value>
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>OCZEKUJĄCY</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>LUDZIE</value>
+  </data>
+  <data name="PinItem.Text" xml:space="preserve">
+    <value>Przypnij</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>W grze</value>
+  </data>
+  <data name="RevokeBanTB.Text" xml:space="preserve">
+    <value>Odwołaj bana</value>
+  </data>
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value>Rola</value>
+  </data>
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Wyszukaj...</value>
+  </data>
+  <data name="SendMessagePlaceholderText" xml:space="preserve">
+    <value>Wyślij wiadomość</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Streamuje</value>
+  </data>
+  <data name="SYMBOLS" xml:space="preserve">
+    <value>SYMBOLE</value>
+  </data>
+  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+    <value>Chwilowe zaproszenie</value>
+  </data>
+  <data name="TRAVEL" xml:space="preserve">
+    <value>PODRÓŻ</value>
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>używają</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>używa</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Edytowany</value>
+  </data>
+  <data name="ExpiredLink" xml:space="preserve">
+    <value>Wygasły link</value>
+  </data>
+  <data name="expiresIn" xml:space="preserve">
+    <value>wygasa za &lt;time&gt;</value>
+  </data>
+  <data name="expiresNever" xml:space="preserve">
+    <value>nigdy nie wygasa</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Zaproś do</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>Przypnij</value>
+  </data>
+  <data name="Unpin" xml:space="preserve">
+    <value>Odepnij</value>
+  </data>
+  <data name="RemoveFromFriends.Text" xml:space="preserve">
+    <value>Usuń ze znajomych</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Wyślij wiadomość</value>
+  </data>
+  <data name="Call.Text" xml:space="preserve">
+    <value>Zadzwoń</value>
+  </data>
+  <data name="FriendsLI.Content" xml:space="preserve">
+    <value>ZNAJOMI</value>
+  </data>
+  <data name="AllLI.Content" xml:space="preserve">
+    <value>WSZYSCY</value>
+  </data>
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>Zaakceptować prośbę dodania do przyjaciół?</value>
+  </data>
+  <data name="AddedUser" xml:space="preserve">
+    <value>dodano</value>
+  </data>
+  <data name="RemovedUser" xml:space="preserve">
+    <value>usunieto</value>
+  </data>
+  <data name="ToTheConversation" xml:space="preserve">
+    <value>&lt;user&gt; do konwersacji</value>
+  </data>
+  <data name="FromTheConversation" xml:space="preserve">
+    <value>&lt;user&gt; z kowersacji</value>
+  </data>
+  <data name="YouMissedACall" xml:space="preserve">
+    <value>Nie odebrałeś połączenia od </value>
+  </data>
+  <data name="PinnedAMessageInThisChannel" xml:space="preserve">
+    <value>przypięto wiadomość do tego kanału.</value>
+  </data>
+  <data name="CallStartedBy" xml:space="preserve">
+    <value>Rozmowa zaczęta przez &lt;user&gt;</value>
+  </data>
+  <data name="StartedACall" xml:space="preserve">
+    <value>&lt;user&gt; rozpoczął rozmowę</value>
+  </data>
+  <data name="You" xml:space="preserve">
+    <value>Ty</value>
+  </data>
+  <data name="PlayingTB.Text" xml:space="preserve">
+    <value>GRA</value>
+  </data>
+  <data name="JoinedTheServer" xml:space="preserve">
+    <value>dołączono do serwera!</value>
+  </data>
+  <data name="EditedAt" xml:space="preserve">
+    <value>Edytowany o &lt;time&gt;</value>
+  </data>
+  <data name="JoinListenSessionBTN.Content" xml:space="preserve">
+    <value>Dołączono do słuchanej sesji</value>
+  </data>
+  <data name="SessionOverTB.Text" xml:space="preserve">
+    <value>SESJA NA SPOTIFY'u ZAKOŃCZONA :'(</value>
+  </data>
+  <data name="AddAttachMFI.Text" xml:space="preserve">
+    <value>Załączniki</value>
+  </data>
+  <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Wyszukaj na Giphy</value>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Słucha </value>
+  </data>
+  <data name="LoadingTB.Text" xml:space="preserve">
+    <value>ŁADOWANIE</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Przeszukaj Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Wyślij zaproszenie na Spotify</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Wiadomość zablokowana</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Dodaj notatkę</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Głośność</value>
+  </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>Masz problemy? Spróbuj zrestartować Quarrel'a</value>
+  </data>
+</root>
