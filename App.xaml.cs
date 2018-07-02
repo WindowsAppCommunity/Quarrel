@@ -766,18 +766,19 @@ namespace Discord_UWP
             public string ChannelId { get; set; }
             public string MessageContent { get; set; }
             public bool Send { get; set; }
+            public bool Navigate { get; set; }
         }
         public static event EventHandler<GuildChannelSelectArgs> SelectGuildChannelHandler;
-        public static void SelectGuildChannel(string guildId, string channelId, string messagecontent = null, bool send = false)
+        public static void SelectGuildChannel(string guildId, string channelId, string messagecontent = null, bool send = false, bool navigate = true)
         {
             if (!App.FullyLoaded)
             {
                 PostLoadTask = "SelectGuildChannelTask";
-                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send};
+                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send, Navigate=navigate};
             }
             else
             {
-                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send });
+                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send,Navigate=navigate });
             }
         }
         public static Task SelectGuildChannelTask(string guildId, string channelId)
@@ -1264,10 +1265,12 @@ namespace Discord_UWP
             switch (args.Kind)
             {
 #region Protocol
-                case ActivationKind.Protocol:
 
+                case ActivationKind.Protocol:
+                {
                     ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                    string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "").Replace("discorduwp://", "").Split('/');
+                    string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
+                        .Replace("discorduwp://", "").Split('/');
                     var count = segments.Count();
                     if (count > 0)
                     {
@@ -1294,16 +1297,41 @@ namespace Discord_UWP
                         {
                             App.SelectGuildChannel("friendrequests", null);
                         }
-                        else if(segments[0] == "cinematic")
+                        else if (segments[0] == "cinematic")
                         {
                             App.CinematicMode = true;
                         }
-                    };
-                    break;
-#endregion
 
-                   
-#region ShartTarget
+                    }
+
+                    ;
+                    break;
+                }
+
+                #endregion
+
+                #region Notification
+
+                case ActivationKind.ToastNotification:
+                {
+                    ToastNotificationActivatedEventArgs eventArgs = args as ToastNotificationActivatedEventArgs;
+                    string[] segments = eventArgs.Argument.ToString().Replace("quarrel://", "")
+                        .Replace("discorduwp://", "").Split('/');
+                    int count = segments.Count();
+                    if (segments[0] == "send")
+                    {
+                        if (count == 3)
+                            SelectGuildChannel(segments[1], segments[2], (string)eventArgs.UserInput["Reply"],true,false);
+                        else if (count == 2)
+                            SelectGuildChannel(segments[1], null, (string)eventArgs.UserInput["Reply"], true, false);
+                    }
+
+                    break;
+                }
+                #endregion
+
+
+                #region ShareTarget
                 case ActivationKind.ShareTarget:
                     
                     break;

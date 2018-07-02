@@ -15,7 +15,7 @@ namespace Discord_UWP.Managers
 {
     public class GatewayManager
     {
-        public async static void StartGateway()
+        public static async void StartGateway()
         {
             if (Gateway == null)
             {
@@ -350,7 +350,7 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region Message
-        private async static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private static async void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             if (App.CurrentGuildIsDM)
             {
@@ -422,8 +422,19 @@ namespace Discord_UWP.Managers
                                         var editReadState = LocalState.RPC[e.EventData.ChannelId];
                                         editReadState.MentionCount++;
                                         LocalState.RPC[e.EventData.ChannelId] = editReadState;
-                                        if(Storage.Settings.GlowOnMention)
-                                            App.FlashMention();
+                                        if (Storage.Settings.GlowOnMention)
+                                        {
+                                            App.FlashMention();  
+                                        }
+                                        if (Storage.Settings.Toasts)
+                                        {
+                                            NotificationManager.CreateMentionNotification(e.EventData.User.Username,
+                                                Common.AvatarString(e.EventData.User.Avatar, e.EventData.User.Id),
+                                                guild.Value.Raw.Name,
+                                                guild.Value.channels[e.EventData.ChannelId].raw.Name,
+                                                e.EventData.Content, e.EventData.ChannelId, guild.Key);
+                                        }
+
                                     }
                                 }
                             }
@@ -477,6 +488,7 @@ namespace Discord_UWP.Managers
 
                      App.UpdateTyping(e.EventData.User.Id, false, e.EventData.ChannelId);
             //           });
+            
         }
 
         private static void Gateway_MessageDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.MessageDelete> e)
