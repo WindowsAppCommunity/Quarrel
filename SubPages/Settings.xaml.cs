@@ -43,7 +43,7 @@ namespace Discord_UWP.SubPages
 
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
-            Toasts.IsChecked = Storage.Settings.Toasts;
+            //Toasts.IsChecked = Storage.Settings.Toasts;
             LiveTile.IsChecked = Storage.Settings.LiveTile;
             Badge.IsChecked = Storage.Settings.Badge;
             Vibrate.IsChecked = Storage.Settings.Vibrate;
@@ -257,7 +257,7 @@ namespace Discord_UWP.SubPages
         {
             //TODO: Settings
             Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
-            Storage.Settings.Toasts = (bool)Toasts.IsChecked;
+            //Storage.Settings.Toasts = (bool)Toasts.IsChecked;
             Storage.Settings.LiveTile = (bool)LiveTile.IsChecked;
             Storage.Settings.Badge = (bool)Badge.IsChecked;
             Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
