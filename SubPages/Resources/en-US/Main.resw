@@ -139,7 +139,7 @@
     <value>Error</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
+    <value>Error 400: There was an issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
   </data>
   <data name="Error401" xml:space="preserve">
     <value>Error 401: There was an issue with interacting with the server, try again</value>
@@ -253,7 +253,7 @@
     <value>You had no cache, the app will now start caching data to improve loading times.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>and </value>
+    <value>and </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
     <value>are typing...</value>
@@ -311,6 +311,7 @@
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
     <value>NEW MESSAGES</value>
+    <comment>Iconic tile template, used for badge tile updates</comment>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
     <value>IGNORE</value>
@@ -318,11 +319,11 @@
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
     <value>RETURN TO PRESENT</value>
   </data>
-  <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>What's New?</value>
-  </data>
   <data name="AboutMFI.Text" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>What's New?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
     <value>Remove Ads</value>
@@ -331,6 +332,6 @@
     <value>Settings</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>ADD ATTACHEMENT</value>
+    <value>ADD ATTACHMENT</value>
   </data>
 </root>

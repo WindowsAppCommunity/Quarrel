@@ -118,219 +118,219 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>About</value>
+    <value>เกี่ยวกับ</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Add channel</value>
-  </data>
-  <data name="at" xml:space="preserve">
-    <value>at </value>
+    <value>เพิ่มแชนเนล</value>
   </data>
   <data name="Connected" xml:space="preserve">
-    <value>CONNECTED</value>
+    <value>เชื่อมต่อแล้ว</value>
   </data>
   <data name="DNDRadio.Content" xml:space="preserve">
-    <value>Do not disturb</value>
+    <value>ห้ามรบกวน</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Email</value>
+    <value>อีเมล</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>ผิดพลาด</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>Error 400: There was as issue, if you haven't signed in from this device it's worth checking your email for an email from Discord and trying again.</value>
+    <value>ผิดพลาด ๔๐๐: เกิดปัญหา, หากคุณไม่เคยเข้าสู่ระบบ Discord ในอุปกรณ์นี้, ลองเช็คอีเมลดูว่ามีอีเมลจาก Discord หรือไม่ แล้วกลับมาลองใหม่อีกครั้ง.</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>Error 401: There was an issue with interacting with the server, try again</value>
+    <value>ผิดพลาด ๔๐๑: เกิดบัญหาในการติดต่อกับเซิฟเวอร์, กรุณาลองใหม่อีกครั้ง.</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>Error 403: You are forbidden to perform this action, you likely just haven't signed in from this location, check your email to verify this signin location and try again</value>
+    <value>ผิดพลาด ๔๐๓: คุณไม่ได้รับอนุญาตให้เข้าสู่ระบบ, มีความเป็นไปได้ว่าคุณไม่เคยเข้าสู่ระบบผ่านอินเตอร์เน็ตของที่นี่ กรุณาเช็คอีเมลเพื่อยืนยันแล้วลองใหม่อีกครั้ง</value>
   </data>
   <data name="Error429" xml:space="preserve">
-    <value>Error 429: You've been rate limited, try again in a few nanoseconds.</value>
+    <value>ผิดพลาด ๔๒๙: คุณถูกจำกัดการใช้งานชั่วคราว, กรุณานับ ๑ - ๑๐ แล้วลองใหม่</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>Error 500: There's an issue interacting with the server, and it's the server's fault. Try again later, Discord tends to fix server crashes fast.</value>
+    <value>ผิดพลาด ๕๐๐: เกิดปัญหาในการติดต่อ Discord, มีความเป็นไปได้ว่านี่เป็นปัญหาของ Discord, กรุณารอสักพักแล้วลองใหม่</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
-    <value>Try Again after checking your email to see if you need to verify this sign-in location.</value>
+    <value>กรุณาลองใหม่อีกครั้งหลังจากเช็คอีเมล์ ลองดูว่าต้องยืนยันอะไรไหม.</value>
   </data>
   <data name="Everyone" xml:space="preserve">
-    <value>EVERYONE</value>
+    <value>ทุกคน</value>
   </data>
   <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value>Game</value>
+    <value>เกม</value>
   </data>
   <data name="IapABB.Label" xml:space="preserve">
-    <value>In-App purchases</value>
+    <value>การซื้อภายในแอพ</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>Idle</value>
+    <value>ว่าง</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value>Invisible</value>
+    <value>ไม่อยู่</value>
   </data>
   <data name="Loaded" xml:space="preserve">
-    <value>LOADED</value>
+    <value>โหลดเสร็จสิ้น</value>
   </data>
   <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value>Load more messages</value>
+    <value>กำลังโหลดข้อความเพิ่มเติม</value>
   </data>
   <data name="LoggingIn" xml:space="preserve">
-    <value>LOGGING IN...</value>
+    <value>กำลังเข้าสู่ระบบ</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>Login</value>
+    <value>เข้าสู่ระบบ</value>
   </data>
   <data name="MemberListABB.Label" xml:space="preserve">
-    <value>Member list</value>
+    <value>รายชื่อสมาชิก</value>
   </data>
   <data name="MuteABB.Label" xml:space="preserve">
-    <value>Mute</value>
+    <value>ปิดเสียง</value>
   </data>
   <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>No channels cached</value>
+    <value>ไม่มีแชนเนลที่โหลดไว้</value>
   </data>
   <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value>No message cached</value>
+    <value>ไม่มีข้อความที่โหลดไว้</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
+    <value>ออฟไลน์</value>
   </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>Online</value>
+    <value>ออนไลน์</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value>Pinned messages</value>
+    <value>ข้อความที่ปักหมุด</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>Playing</value>
+    <value>กำลังเล่น</value>
   </data>
   <data name="RefreshABB.Label" xml:space="preserve">
-    <value>Refresh</value>
+    <value>รีเฟรช</value>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
-    <value>Settings</value>
+    <value>ตั้งค่า</value>
   </data>
   <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value>TEXT CHANNELS</value>
+    <value>แชนเนลข้อความ</value>
   </data>
   <data name="Today" xml:space="preserve">
-    <value>Today</value>
-  </data>
-  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value>Upvote this for Voice Channels</value>
-  </data>
-  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>This is requesting from Microsoft the required resources for the Developer to add Voice Channels. This is not enabling them.</value>
+    <value>วันนี้</value>
   </data>
   <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value>VOICE CHANNELS</value>
+    <value>แชนเนลเสียง</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
+    <value>ข้อความส่วนตัว</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>Direct Messages</value>
+    <value>เมื่อวาน</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>&lt;count&gt; members</value>
+    <value>&lt;count&gt; คน</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>sent a message on</value>
+    <value>&lt;user&gt; ได้ส่งข้อความใน &lt;server&gt;</value>
   </data>
   <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>There was an issue loading message history saves. History cleared so it can work in the future.</value>
+    <value>เกิดปัญหาในการโหลดประวัติข้อความที่บันทึกไว้, ประวัติข้อความจึงจำเป็นต้องรีเซทเพื่อตัดปัญหาที่จะเกิดขึ้นในภายหลัง</value>
   </data>
   <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>There was an issue loading muted channels. Cleared so it can work in the future.</value>
+    <value>เกิดปัญหาในการโหลดแชนเนลที่ปิดการแจ้งเตือนไว้, เพื่อตัดปัญหาที่อาจเกิดขึ้นในภายหลัง การตั้งค่านี้ได้รีเซทแล้ว</value>
   </data>
   <data name="PromptNoCache" xml:space="preserve">
-    <value>You had no cache, the app will now start caching data to improve loading times.</value>
+    <value>แอพไม่ได้บันทึกข้อความไว้, แอพจะเริ่มบันทึกข้อความไว้เพื่อให้แอพโหลดเร็วขึ้น</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>and </value>
+    <value>และ</value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
-    <value>are typing...</value>
+    <value>กำลังพิมพ์...</value>
   </data>
   <data name="TypingSingular" xml:space="preserve">
-    <value>is typing...</value>
+    <value>กำลังพิมพ์...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Submitted by</value>
+    <value>ส่งโดย</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGES</value>
+    <value>ข้อความส่วนตัว</value>
   </data>
   <data name="FriendsTB.Text" xml:space="preserve">
-    <value>FRIENDS</value>
+    <value>เพื่อน</value>
   </data>
   <data name="Notifications_SentAFriendRequest" xml:space="preserve">
-    <value>sent you a friend request</value>
+    <value>ส่งคำขอเป็นเพื่อนกับคุณ</value>
   </data>
   <data name="Notifications_Accept" xml:space="preserve">
-    <value>Accept</value>
+    <value>รับ</value>
   </data>
   <data name="Notifications_Refuse" xml:space="preserve">
-    <value>Refuse</value>
+    <value>ไม่รับ</value>
   </data>
   <data name="Notifications_Reply" xml:space="preserve">
-    <value>Reply</value>
+    <value>ตอบกลับ</value>
   </data>
   <data name="RecentMentionsABB.Label" xml:space="preserve">
-    <value>Recent mentions</value>
+    <value>ถูกพูดถึงเมื่อเร็วๆ นี้</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Authentication code</value>
+    <value>รหัสยืนยันตัวตน</value>
   </data>
   <data name="DirectMessageTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGES</value>
+    <value>ข้อความส่วนตัว</value>
   </data>
   <data name="FriendsButtonText.Text" xml:space="preserve">
-    <value>Friends</value>
+    <value>เพื่อน</value>
   </data>
   <data name="RemoveAdsABB.Label" xml:space="preserve">
-    <value>Remove Ads</value>
+    <value>ลบโฆษณา</value>
   </data>
   <data name="ShowPinnedABB.Label" xml:space="preserve">
-    <value>Show Pinned Messages</value>
+    <value>แสดงข้อความที่ปักหมุด</value>
   </data>
   <data name="ToggleMember.Label" xml:space="preserve">
-    <value>Toggle Member List</value>
+    <value>แสดงรายชื่อสมาชิก</value>
   </data>
   <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>What's New</value>
-  </data>
-  <data name="&lt;count&gt; members" xml:space="preserve">
-    <value>&lt;count&gt; members</value>
+    <value>มีอะไรใหม่</value>
   </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>NEW MESSAGES</value>
+    <value>ข้อความใหม่</value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>IGNORE</value>
+    <value>ละเลย</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>RETURN TO PRESENT</value>
-  </data>
-  <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>What's New?</value>
+    <value>กลับไปล่าสุด</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>About</value>
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>มีอะไรใหม่</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>Remove Ads</value>
+    <value>ลบโฆษณา</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>ตั้งค่า</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>ADD ATTACHEMENT</value>
+    <value>เพิ่มไฟล์</value>
+  </data>
+  <data name="at" xml:space="preserve">
+    <value>ที่</value>
+  </data>
+  <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
+    <value>กดให้คะแนนเพื่อให้ได้แชนเนลเสียง</value>
+  </data>
+  <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
+    <value>วันนี้</value>
+  </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; คน</value>
   </data>
 </root>

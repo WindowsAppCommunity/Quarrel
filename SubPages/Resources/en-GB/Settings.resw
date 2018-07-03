@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Accent colour</value>
+  </data>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Align command bar at the bottom</value>
+  </data>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Compact mode</value>
+  </data>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Custom presence colors</value>
+  </data>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
+  </data>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>Do not disturb</value>
+  </data>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Expensive rendering (blur effects etc...)</value>
+  </data>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>What adds to Friends list notifications?</value>
+  </data>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Highlight @everyone</value>
+  </data>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Idle</value>
+  </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>Incoming Friend Requests</value>
+  </data>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>Outgoing Friend Requests</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Reset breakpoints to default</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width.</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI BREAKPOINTS</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>RESPONSIVE UI</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(You'll need to restart the app)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Show in-app toast notifications</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (Servers and channels are visible)</value>
+  </data>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (Servers are visible)</value>
+  </data>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (Servers, channels, and members are visible)</value>
+  </data>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>System accent colour</value>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>THEME</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibration on message reception</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>Friend Requests</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Muted channels affect server unread status?</value>
+  </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>System accent colour</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blurple</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>OTHER</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Show loading messages</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Enable Acrylic effects (blurred background)</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Muted channels effect server unread status?</value>
+  </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Enable data compression (Faster)</value>
+  </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Use video ads instead of banners</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>MESSAGES</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Only play gifs on hover or click</value>
+  </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Enable data compression</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Mentions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Unread</value>
+  </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Translations</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Custom Time Format</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Custom Date Format</value>
+  </data>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>Date Format</value>
+  </data>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>Time Format</value>
+  </data>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(EXPERIMENTAL) Voice Channels (Recieve only)</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Enable background notifications</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Disable background notifications</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>You will receive notifications for whatever is selected below every time the background process runs</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>BACKGROUND NOTIFICATIONS</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>Unread DMs</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Friend requests</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>New mentions</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>IN-APP NOTIFICATIONS</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Glow the left side of the screen when you are mentioned</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Output Devices</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Show Mute icon on servers</value>
+  </data>
+</root>
