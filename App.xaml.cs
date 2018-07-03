@@ -1311,26 +1311,6 @@ namespace Discord_UWP
 
                 #endregion
 
-                #region Notification
-
-                case ActivationKind.ToastNotification:
-                {
-                    ToastNotificationActivatedEventArgs eventArgs = args as ToastNotificationActivatedEventArgs;
-                    string[] segments = eventArgs.Argument.ToString().Replace("quarrel://", "")
-                        .Replace("discorduwp://", "").Split('/');
-                    int count = segments.Count();
-                    if (segments[0] == "send")
-                    {
-                        if (count == 3)
-                            SelectGuildChannel(segments[1], segments[2], (string)eventArgs.UserInput["Reply"],true,false);
-                        else if (count == 2)
-                            SelectGuildChannel(segments[1], null, (string)eventArgs.UserInput["Reply"], true, false);
-                    }
-
-                    break;
-                }
-                #endregion
-
 
                 #region ShareTarget
                 case ActivationKind.ShareTarget:

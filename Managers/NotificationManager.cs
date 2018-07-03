@@ -59,7 +59,7 @@ namespace Discord_UWP.Managers
             }
         }
 
-        public static void CreateMentionNotification(string username, string avatar, string guildname, string channelname, string body, string channelid, string guildid)
+        public static void CreateMentionNotification(string username, string avatar, string guildname, string channelname, string body, string channelid, string guildid, string messageid)
         {
             string toastTitle = username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + channelname;
             if (LocalState.Guilds[guildid].members.ContainsKey(LocalState.CurrentUser.Id))
@@ -106,9 +106,9 @@ namespace Discord_UWP.Managers
                     },
             Buttons =
                     {
-                        new ToastButton("Send", "quarrel://send/"+guildid+"/"+channelid)
+                        new ToastButton("Send", "send/" + channelid + "/"+messageid)
                         {
-                            ActivationType = ToastActivationType.Foreground,
+                            ActivationType = ToastActivationType.Background,
                             TextBoxId = replyContent.Id,
                             ImageUri = "Assets/sendicon.png",
                         }
@@ -118,14 +118,17 @@ namespace Discord_UWP.Managers
         ToastContent toastContent = new ToastContent()
         {
             Visual = visual,
-            Actions = actions, //TODO: Actions
+            Actions = actions,
             // Arguments when the user taps body of toast
             Launch = "quarrel://channels/"+guildid+"/"+channelid,
-            ActivationType= ToastActivationType.Protocol
+            ActivationType= ToastActivationType.Protocol,
+            HintToastId="Mention"
         };
 
         ToastNotification notification = new ToastNotification(toastContent.GetXml());
-
+            notification.RemoteId = "Mention"+messageid;
+            notification.Group = "Mention";
+            notification.Tag = messageid;
         ToastNotificationManager.CreateToastNotifier().Show(notification);
     }
         static int previousvalue = -1;

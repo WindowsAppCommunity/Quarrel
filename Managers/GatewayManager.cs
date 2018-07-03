@@ -432,7 +432,8 @@ namespace Discord_UWP.Managers
                                                 Common.AvatarString(e.EventData.User.Avatar, e.EventData.User.Id),
                                                 guild.Value.Raw.Name,
                                                 guild.Value.channels[e.EventData.ChannelId].raw.Name,
-                                                e.EventData.Content, e.EventData.ChannelId, guild.Key);
+                                                e.EventData.Content, e.EventData.ChannelId, guild.Key,
+                                                e.EventData.Id);
                                         }
 
                                     }
