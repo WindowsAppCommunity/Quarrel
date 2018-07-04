@@ -834,7 +834,6 @@ namespace Discord_UWP.Managers
         private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
             await AudioManager.CreateAudioGraphs();
-            VoiceManager.VoiceConnection = new Voice.VoiceConnection(e.EventData, LocalState.VoiceState);
             VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 

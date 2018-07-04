@@ -1270,6 +1270,7 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <ScrollViewer x:Name="ChannelScrollviewer" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" IsHorizontalScrollChainingEnabled="False">
                                 <StackPanel Margin="0,0,0,82" Padding="0,0,0,0">
@@ -1394,9 +1395,21 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                             <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
-                            <controls:VoiceConnectionControl
-                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="2" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                            <Grid x:Name="AcceptCallUI"  Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.ColumnSpan="2" Text="Call from <user>"/>
+                                <Button Content="Accept" Grid.Row="1" Style="{ThemeResource DiscordButton}"/>
+                                <Button Content="Decline" Grid.Row="1" Grid.Column="1"  Style="{ThemeResource DiscordButton}"/>
+                            </Grid>
+                            <controls:VoiceConnectionControl x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="3" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
