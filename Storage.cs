@@ -107,7 +107,7 @@ namespace Discord_UWP
         public bool GlowOnMention = true;
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
-        //public bool Toasts = false;
+        public bool Toasts = false;
         public bool Badge = true;
         public bool LiveTile = true;
         public double RespUiM = 400;
