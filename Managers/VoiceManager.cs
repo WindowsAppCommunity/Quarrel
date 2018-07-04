@@ -21,13 +21,13 @@ namespace Discord_UWP.Managers
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
             App.UpdateLocalDeaf(false);
-            App.UpdateLocalMute(true); //LocalState.Muted);
+            //App.UpdateLocalMute(true); //LocalState.Muted);
             VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
             VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
             await VoiceConnection.ConnectAsync();
 
             ConnectoToVoiceHandler?.Invoke(typeof(App), new ConnectToVoiceArgs() { ChannelId = LocalState.VoiceState.ChannelId, GuildId = data.GuildId });
-
+            
             AudioManager.InputRecieved += AudioManager_InputRecieved;
         }
 
@@ -35,7 +35,10 @@ namespace Discord_UWP.Managers
         {
             //TODO: Sending voice
             //TODO: silence detection
-            VoiceConnection.SendSpeaking(true);
+            if (!speaking)
+            {
+                VoiceConnection.SendSpeaking(true);
+            }
             VoiceConnection.SendVoiceData(e);
         }
 
@@ -45,5 +48,6 @@ namespace Discord_UWP.Managers
         }
 
         public static VoiceConnection VoiceConnection;
+        public static bool speaking = false;
     }
 }
