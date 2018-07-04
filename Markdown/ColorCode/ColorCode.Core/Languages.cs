@@ -45,6 +45,7 @@ namespace ColorSyntax
             Load<Markdown>();
             Load<Fortran>();
             Load<Diff>();
+            Load<Python>();
         }
 
         /// <summary>
@@ -260,6 +261,15 @@ namespace ColorSyntax
         public static ILanguage Fortran
         {
             get { return LanguageRepository.FindById(LanguageId.Fortran); }
+        }
+
+        /// <summary>
+        /// Language support for Python.
+        /// </summary>
+        /// <value>Language support for Python</value>
+        public static ILanguage Python
+        {
+            get { return LanguageRepository.FindById(LanguageId.Python); }
         }
 
         /// <summary>

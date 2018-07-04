@@ -213,6 +213,7 @@
     <Compile Include="LocalModels\Permissions.cs" />
     <Compile Include="Managers\BotExtrasManager.cs" />
     <Compile Include="Managers\SimpleClasses.cs" />
+    <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
     <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
@@ -419,11 +420,12 @@
     <Content Include="Assets\CodingLanguages\asax.png" />
     <Content Include="Assets\CodingLanguages\ashx.png" />
     <Content Include="Assets\CodingLanguages\aspx.png" />
-    <Content Include="Assets\CodingLanguages\c#.png" />
+    <Content Include="Assets\CodingLanguages\csharp.png" />
     <Content Include="Assets\CodingLanguages\cpp.png" />
     <Content Include="Assets\CodingLanguages\css.png" />
     <Content Include="Assets\CodingLanguages\diff.png" />
-    <Content Include="Assets\CodingLanguages\f#.png" />
+    <Content Include="Assets\CodingLanguages\fsharp.png" />
+    <Content Include="Assets\CodingLanguages\python.png" />
     <Content Include="Assets\CodingLanguages\fortran.png" />
     <Content Include="Assets\CodingLanguages\haskell.png" />
     <Content Include="Assets\CodingLanguages\html.png" />
