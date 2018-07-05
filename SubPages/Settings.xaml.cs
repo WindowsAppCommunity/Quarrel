@@ -83,7 +83,8 @@ namespace Discord_UWP.SubPages
 
             bgNotifyFriend.IsChecked = GetSetting("bgNotifyFriend");
             bgNotifyDM.IsChecked = GetSetting("bgNotifyDM");
-            bgNotifyMention.IsChecked = GetSetting("bgNotifyMention");
+            bgNotifyMention.IsChecked = bgNotifyMutedMention.IsEnabled = GetSetting("bgNotifyMention");
+            bgNotifyMutedMention.IsChecked = GetSetting("bgNotifyMutedMention");
 
             if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
             {
@@ -295,6 +296,7 @@ namespace Discord_UWP.SubPages
             ChangeSetting("bgNotifyFriend", (bool)bgNotifyFriend.IsChecked);
             ChangeSetting("bgNotifyDM", (bool)bgNotifyDM.IsChecked);
             ChangeSetting("bgNotifyMention", (bool)bgNotifyMention.IsChecked);
+            ChangeSetting("bgNotifyMutedMention", (bool)bgNotifyMutedMention.IsChecked);
 
             switch (TimeFormat.SelectedIndex)
             {
@@ -529,6 +531,7 @@ namespace Discord_UWP.SubPages
                 bgNotifyDM.IsEnabled = true;
                 bgNotifyFriend.IsEnabled = true;
                 bgNotifyMention.IsEnabled = true;
+                bgNotifyMutedMention.IsEnabled = true;
                 RunEveryLabel.Opacity = 1;
                 sliderTime.Opacity = 1;
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
@@ -539,6 +542,7 @@ namespace Discord_UWP.SubPages
                 bgNotifyDM.IsEnabled = false;
                 bgNotifyFriend.IsEnabled = false;
                 bgNotifyMention.IsEnabled = false;
+                bgNotifyMutedMention.IsEnabled = false;
                 timeSlider.Value = 9;
                 RunEveryLabel.Opacity = 0.4;
                 sliderTime.Opacity = 0.2;
