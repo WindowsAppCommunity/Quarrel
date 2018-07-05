@@ -37,12 +37,15 @@ namespace ColorSyntax.Compilation.Languages
                 return new List<LanguageRule>
                            {
                                new LanguageRule(
-                                  @"(?msi)(?:(\s*/\*.*?\*/)|(([a-z0-9#. \[\]=\"":_-]+)\s*(?:,\s*|{))+(?:(\s*/\*.*?\*/)|(?:\s*([a-z0-9 -]+\s*):\s*([a-z0-9#,<>\?%. \(\)\\\/\*\{\}:'\""!_=-]+);?))*\s*})",
+                                  @"(?msi)(?:(\s*/\*.*?\*/)|(([a-z0-9#. \[\]=\"":_-]+)\s*(?:,\s*|{))+(?:(\s*/\*.*?\*/)|(?:\s*([a-z0-9 -]+\s*):\s*([a-z0-9#,<>\?%. \(\)\\\/\*\{\}:'\""!_=-]+?)(!important(;)|(;))?))*\s*})",
                                    new Dictionary<int, string>
                                        {
                                            { 3, ScopeName.CssSelector },
                                            { 5, ScopeName.CssPropertyName },
                                            { 6, ScopeName.CssPropertyValue },
+                                           { 7, ScopeName.Warning },
+                                           { 8, ScopeName.CssPropertyValue },
+                                           { 9, ScopeName.CssPropertyValue },
                                            { 4, ScopeName.Comment },
                                            { 1, ScopeName.Comment },
                                        })

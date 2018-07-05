@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using ColorSyntax.Common;
 
 namespace ColorSyntax.Compilation.Languages
@@ -40,7 +41,7 @@ namespace ColorSyntax.Compilation.Languages
                                    @"(?s)^(>>>|\.\.\.)",
                                    new Dictionary<int, string>
                                    {
-                                       { 1, ScopeName.DiffMeta },
+                                       { 1, ScopeName.Brackets },
                                    }),
                                new LanguageRule(
                                    @"(# .*?)\r?$",
@@ -49,11 +50,21 @@ namespace ColorSyntax.Compilation.Languages
                                            { 1, ScopeName.Comment }
                                        }),
                                new LanguageRule(
-                                   @"(?s)((""""""|''')(.|\n|\r)*?(?<!\\)(""""""|'''))",
+                                   @"((""""""|''')((\n(>>>|\.\.\.))|.)*?(?<!\\)(""""""|'''))",
                                    new Dictionary<int, string>
                                        {
-                                           { 1, ScopeName.Comment }
+                                           { 1, ScopeName.Comment },
+                                           { 2, ScopeName.Comment },
+                                           { 3, ScopeName.Comment },
+                                           { 4, ScopeName.Brackets },
+                                           { 6, ScopeName.Comment },
                                        }),
+                               new LanguageRule(
+                                   @"(?m)(^@.*)$",
+                                   new Dictionary<int, string>
+                                   {
+                                       { 1, ScopeName.PreprocessorKeyword }
+                                   }),
                                new LanguageRule(
                                    @"(?s)('[^\n]*?(?<!\\)')",
                                    new Dictionary<int, string>
@@ -107,12 +118,15 @@ namespace ColorSyntax.Compilation.Languages
             {
                 case "python":
                     return true;
-
+                case "py":
+                    return true;
+                case "gyp":
+                    return true;
                 default:
                     return false;
             }
         }
-        string[] ILanguage.Aliases => new string[] { "python" };
+        string[] ILanguage.Aliases => new string[] { "python", "py", "gyp" };
         public override string ToString()
         {
             return Name;

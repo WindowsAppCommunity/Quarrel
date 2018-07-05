@@ -46,6 +46,7 @@ namespace ColorSyntax
             Load<Fortran>();
             Load<Diff>();
             Load<Python>();
+            Load<Arduino>();
         }
 
         /// <summary>
@@ -270,6 +271,15 @@ namespace ColorSyntax
         public static ILanguage Python
         {
             get { return LanguageRepository.FindById(LanguageId.Python); }
+        }
+
+        /// <summary>
+        /// Language support for Arduino.
+        /// </summary>
+        /// <value>Language support for Arduino.</value>
+        public static ILanguage Arduino
+        {
+            get { return LanguageRepository.FindById(LanguageId.Arduino); }
         }
 
         /// <summary>
