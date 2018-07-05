@@ -419,6 +419,7 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\call.png" />
     <Content Include="Assets\CodingLanguages\asax.png" />
     <Content Include="Assets\CodingLanguages\ashx.png" />
     <Content Include="Assets\CodingLanguages\aspx.png" />
@@ -453,6 +454,8 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
+    <Content Include="Assets\hangup.png" />
+    <Content Include="Assets\message.png" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Assets\ConnectionLogos\spotify.png" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
