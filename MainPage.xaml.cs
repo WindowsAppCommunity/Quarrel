@@ -2641,7 +2641,8 @@ namespace Discord_UWP
                      if (e.Message.Type == 3)
                      {
                          //TODO: Pretty up this shit (animations)
-                         AcceptCallUI.Visibility = Visibility.Visible;
+                         //AcceptCallUI.Visibility = Visibility.Visible;
+                         NotificationManager.CreateCallNotification(e.Message);
                      }
 
                      //var lastMsg = MessageList.Items.LastOrDefault() as MessageContainer;

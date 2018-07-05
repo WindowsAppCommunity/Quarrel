@@ -1301,7 +1301,17 @@ namespace Discord_UWP
                         {
                             App.CinematicMode = true;
                         }
-
+                        else if (segments[0] == "call")
+                        {
+                            if (segments[1] == "accept")
+                            {
+                                RESTCalls.StartCall(segments[1]);
+                            }
+                            else if (segments[1] == "decline")
+                            {
+                                RESTCalls.DeclineCall(segments[1]);
+                            }
+                        }
                     }
 
                     ;

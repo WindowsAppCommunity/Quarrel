@@ -59,6 +59,66 @@ namespace Discord_UWP.Managers
             }
         }
 
+        public static void CreateCallNotification(Message message)
+        {
+            var toastContent = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = message.User.Username
+                            },
+                            new AdaptiveText()
+                            {
+                                Text = "Incoming Call"
+                            },
+                            new AdaptiveImage()
+                            {
+                                HintCrop = AdaptiveImageCrop.Circle,
+                                Source = Common.AvatarString(message.User.Avatar, message.User.Id)
+                            }
+                        }
+                    }
+                },
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
+                    {
+                        new ToastButton("Direct Message", "quarrel://channels/@me/"+message.User.Id)
+                        {
+                            ActivationType = ToastActivationType.Protocol,
+                            ImageUri = "Assets/message.png"
+                        },
+                        new ToastButton("Ignore", "quarrel://call/decline/"+message.ChannelId)
+                        {
+                            ActivationType = ToastActivationType.Protocol,
+                            ImageUri = "Assets/hangup.png"
+                        },
+                        new ToastButton("Answer", "quarrel://call/answer/"+message.ChannelId)
+                        {
+                            ActivationType = ToastActivationType.Protocol,
+                            ImageUri = "Assets/call.png"
+                        }
+                    }
+                },
+                Launch = "quarrel://answercall/" + message.Id,
+                ActivationType = ToastActivationType.Protocol,
+                Scenario = ToastScenario.IncomingCall,
+                HintToastId = "IncomingCall"
+            };
+
+            // Create the toast notification
+            var toastNotif = new ToastNotification(toastContent.GetXml());
+
+            // And send the notification
+            ToastNotificationManager.CreateToastNotifier().Show(toastNotif);
+        }
+
         public static void CreateMentionNotification(string username, string avatar, string guildname, string channelname, string body, string channelid, string guildid, string messageid)
         {
             string toastTitle = username + " " + App.GetString("/Main/Notifications_sentMessageOn") + " #" + channelname;
