@@ -1404,7 +1404,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="2" Text="Call from <user>"/>
+                                <TextBlock Grid.ColumnSpan="2" Text="Call from &lt;user&gt;"/>
                                 <Button Content="Accept" Grid.Row="1" Style="{ThemeResource DiscordButton}"/>
                                 <Button Content="Decline" Grid.Row="1" Grid.Column="1"  Style="{ThemeResource DiscordButton}"/>
                             </Grid>
