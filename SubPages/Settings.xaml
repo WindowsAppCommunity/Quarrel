@@ -989,6 +989,7 @@
                                     <CheckBox x:Uid="/Settings/BGNotifyFriendsCB" x:Name="bgNotifyFriend" Margin="12,4,0,0" Content="Friend requests" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/BGNotifyDMCB" x:Name="bgNotifyDM" Margin="12,0,0,0" Content="Unread DMs" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/BGNotifyMentionsCB" x:Name="bgNotifyMention" Margin="12,0,0,0" Content="New mentions" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Uid="/Settings/BGNotifyMutedMentionsCB" x:Name="bgNotifyMutedMention" Margin="12,0,0,0" Content="New mentions in Muted Servers" Style="{StaticResource CheckBoxStyle1}"/>
                                     <StackPanel Margin="12,0,0,0">
                                         <TextBlock x:Uid="/Settings/IAPNotifsTB" Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                         <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
