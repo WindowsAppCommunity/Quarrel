@@ -1234,6 +1234,34 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task StartCall(string channelId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.StartCall(channelId, new CallDetails() { Recipients = null });
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
+        public static async Task DeclineCall(string channelId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeclineCall(channelId);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
         public static async Task TriggerTypingIndicator(string channelId)
         {
             try
