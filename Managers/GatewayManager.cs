@@ -359,7 +359,7 @@ namespace Discord_UWP.Managers
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
-                if (App.CurrentChannelId == e.EventData.ChannelId)
+                if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
                 {
                     App.MessageCreated(e.EventData);
                     App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
@@ -370,10 +370,10 @@ namespace Discord_UWP.Managers
                     if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
                         IsDM = true;
-                        if (e.EventData.Type == 3)
-                        {
-                            //TODO: Handle calls
-                        }
+                        //if (e.EventData.Type == 3)
+                        //{
+                        //    //TODO: Handle calls
+                        //}
                         if (e.EventData.User.Id != LocalState.CurrentUser.Id)
                         {
                             LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
