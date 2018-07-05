@@ -2638,6 +2638,12 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
+                     if (e.Message.Type == 3)
+                     {
+                         //TODO: Pretty up this shit (animations)
+                         AcceptCallUI.Visibility = Visibility.Visible;
+                     }
+
                      //var lastMsg = MessageList.Items.LastOrDefault() as MessageContainer;
                      //if (e.Message.User.Id == LocalState.CurrentUser.Id)
                      //{
@@ -3623,6 +3629,16 @@ namespace Discord_UWP
             cmdBarShadow = (Rectangle)sender;
 
             UISize_CurrentStateChanged(null, new VisualStateChangedEventArgs() { NewState = UISize.CurrentState });
+        }
+
+        private void AcceptCall(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeclineCall(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
