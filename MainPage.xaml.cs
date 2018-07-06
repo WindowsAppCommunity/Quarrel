@@ -3634,12 +3634,12 @@ namespace Discord_UWP
 
         private void AcceptCall(object sender, RoutedEventArgs e)
         {
-
+            App.ConnectToVoice(AcceptCallUI.Tag.ToString(), null, "@User", "");
         }
 
-        private void DeclineCall(object sender, RoutedEventArgs e)
+        private async void DeclineCall(object sender, RoutedEventArgs e)
         {
-
+            await RESTCalls.DeclineCall(AcceptCallUI.Tag.ToString());
         }
     }
 }
