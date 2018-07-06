@@ -1020,7 +1020,24 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Settings/AudioPI" Header="Audio" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Settings/SoundsPI" Header="Sounds" Margin="12,0,0,0">
+                            <ScrollViewer Padding="0,0,12,0">
+                                <StackPanel>
+                                    <CheckBox x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <RadioButton x:Name="radio_DiscordSounds" x:Uid="/Settings/DiscordRB" Content="Discord" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
+                                    <RadioButton x:Name="radio_WindowsSounds" x:Uid="/Settings/WindowsRB" Content="Windows" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
+                                    <TextBlock x:Uid="/Settings/SoundsTB" Text="Sounds" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <StackPanel Orientation="Horizontal" Margin="12,-4,12,0">
+                                        <CheckBox Content="Message" MinWidth="30"/>
+                                        <Button Background="Transparent" Tag="message" Click="PlaySound">
+                                            <SymbolIcon Symbol="Play"/>
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </PivotItem>
+                        <PivotItem x:Uid="/Settings/VoicePI" Header="Voice" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Recieve only)" Margin="0,6,0,0"/>

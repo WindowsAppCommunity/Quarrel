@@ -2638,6 +2638,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
+
                      if (e.Message.Type == 3)
                      {
                          //TODO: Pretty up this shit (animations)
@@ -2681,6 +2682,10 @@ namespace Discord_UWP
                      }
                      else
                      {
+                         if (Storage.Settings.SoundNotifications)
+                         {
+                             AudioManager.PlaySoundEffect("message");
+                         }
                          App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
                      }
                      

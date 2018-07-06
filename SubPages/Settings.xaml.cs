@@ -549,5 +549,10 @@ namespace Discord_UWP.SubPages
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["InvertedBG"];
             }
         }
+
+        private void PlaySound(object sender, RoutedEventArgs e)
+        {
+            AudioManager.PlaySoundEffect((sender as Button).Tag.ToString(), (radio_DiscordSounds.IsChecked.Value) ? "discord" : "windows");
+        }
     }
 }
