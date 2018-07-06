@@ -105,6 +105,8 @@ namespace Discord_UWP
         public bool FriendsNotifyDMs = true;
         public bool FriendsNotifyFriendRequest = false;
         public bool GlowOnMention = true;
+        public bool SoundNotifications = true;
+        public bool DiscordSounds = true;
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;
