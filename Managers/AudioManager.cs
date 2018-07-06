@@ -534,7 +534,7 @@ namespace Discord_UWP
         {
             MediaElement element = new MediaElement();
             element.AudioCategory = AudioCategory.Alerts;
-            element.Source = new Uri("ms-appx:///Assets/SoundEffects/" + (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3");
+            element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
             element.MediaEnded += Element_MediaEnded;
             element.Play();
         }
@@ -543,7 +543,7 @@ namespace Discord_UWP
         {
             MediaElement element = new MediaElement();
             element.AudioCategory = AudioCategory.Alerts;
-            element.Source = new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3");
+            element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3")));
             element.MediaEnded += Element_MediaEnded;
             element.Play();
         }
