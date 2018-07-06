@@ -599,7 +599,7 @@
 
                                     <!--<CheckBox x:Name="AutoChannel" Content="Auto Select Channel (On server select)" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,6"/>-->
                                     <StackPanel Orientation="Horizontal">
-                                        <ComboBox x:Uid="/Settings/DateFormat" x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged">
+                                        <ComboBox x:Uid="/Settings/DateFormat" FontSize="13.333"  x:Name="DateFormat" Header="Date Format" SelectedIndex="0" SelectionChanged="DateFormat_SelectionChanged" Margin="0,6,0,0">
                                             <ComboBoxItem Content="M/d/yyyy"/>
                                             <ComboBoxItem Content="M/d/yy"/>
                                             <ComboBoxItem Content="MM/dd/yy"/>
@@ -609,10 +609,10 @@
                                         <TextBlock x:Name="DateExample" VerticalAlignment="Center" Text="12/7/2001" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                                     </StackPanel>
 
-                                    <TextBox x:Name="CustomDateF" Header="Custom Date Format"/>
+                                    <TextBox x:Name="CustomDateF" Header="Custom Date Format" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <ComboBox x:Uid="/Settings/TimeFormat" x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
+                                    <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                        <ComboBox x:Uid="/Settings/TimeFormat" FontSize="13.333"  x:Name="TimeFormat" Header="Time Format" SelectedIndex="0" SelectionChanged="TimeFormat_SelectionChanged">
                                             <ComboBoxItem Content="hh:mm"/>
                                             <ComboBoxItem Content="H:mm"/>
                                             <ComboBoxItem Content="hh:mm:ss tt"/>
@@ -622,12 +622,15 @@
                                         <TextBlock x:Name="TimeExample" VerticalAlignment="Center" Text="04:20" Margin="5,25,0,0" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                                     </StackPanel>
 
-                                    <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF" Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}"/>
+                                    <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF"  Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
 
                                     <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowServerMuteCB" x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Content="Show Mute icon on servers" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
+                                    <ComboBox FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,48">
+                                        <ComboBoxItem Content="Default" Tag=" "/>
+                                    </ComboBox>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
