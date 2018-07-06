@@ -455,6 +455,19 @@
     <None Include="Javascript sources\SourceEmbedStuff.js" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Assets\ConnectionLogos\spotify.png" />
+    <Content Include="Assets\SoundEffects\discord_deafen.mp3" />
+    <Content Include="Assets\SoundEffects\discord_inring.mp3" />
+    <Content Include="Assets\SoundEffects\discord_message.mp3" />
+    <Content Include="Assets\SoundEffects\discord_mute.mp3" />
+    <Content Include="Assets\SoundEffects\discord_outring.mp3" />
+    <Content Include="Assets\SoundEffects\discord_pttdisabled.mp3" />
+    <Content Include="Assets\SoundEffects\discord_pttenabled.mp3" />
+    <Content Include="Assets\SoundEffects\discord_undeafen.mp3" />
+    <Content Include="Assets\SoundEffects\discord_unmute.mp3" />
+    <Content Include="Assets\SoundEffects\discord_userjoin.mp3" />
+    <Content Include="Assets\SoundEffects\discord_userleave.mp3" />
+    <Content Include="Assets\SoundEffects\discord_usermove.mp3" />
+    <Content Include="Assets\SoundEffects\discord_voicedc.mp3" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-125.png" />
     <Content Include="Assets\StoreLogo.scale-150.png" />
@@ -512,7 +525,7 @@
     <PRIResource Include="Resources\fr\About.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Audio\Heartbeat.wav" />
+    <Content Include="Assets\SoundEffects\Heartbeat.wav" />
     <Content Include="Assets\ConnectionLogos\battlenet.png" />
     <Content Include="Assets\ConnectionLogos\facebook.png" />
     <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />
