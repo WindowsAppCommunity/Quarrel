@@ -1023,7 +1023,7 @@
                         <PivotItem x:Uid="/Settings/SoundsPI" Header="Sounds" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
-                                    <CheckBox x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
                                     <TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
                                     <RadioButton x:Name="radio_DiscordSounds" x:Uid="/Settings/DiscordRB" Content="Discord" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
                                     <RadioButton x:Name="radio_WindowsSounds" x:Uid="/Settings/WindowsRB" Content="Windows" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>

@@ -1045,7 +1045,6 @@ namespace Discord_UWP
             Storage.Settings.Badge = true;
             Storage.Settings.HighlightEveryone = true;
             Storage.Settings.CompactMode = false;
-            Storage.Settings.LiveTile = true;
             Storage.Settings.Badge = true;
             Storage.Settings.RespUiM = 400;
             Storage.Settings.RespUiL = 720;
@@ -1127,7 +1126,6 @@ namespace Discord_UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             LaunchProcedure(e.SplashScreen, e.PreviousExecutionState, e.PrelaunchActivated, e.Arguments);
-            
         }
 
         public static Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation shareop = null;
@@ -1264,7 +1262,7 @@ namespace Discord_UWP
             string launchArgs = "";
             switch (args.Kind)
             {
-#region Protocol
+                #region Protocol
 
                 case ActivationKind.Protocol:
                 {
