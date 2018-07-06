@@ -47,6 +47,8 @@ namespace Discord_UWP.SharedModels
         public User User { get; set; }
         [JsonProperty("content")]
         public string Content { get; set; }
+        [JsonProperty("call")]
+        public Call Call { get; set; }
         [JsonProperty("timestamp")]
         public DateTime Timestamp { get; set; }
         [JsonProperty("edited_timestamp")]
@@ -87,5 +89,13 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("channel_id")]
         public string ChannelId { get; set; }
+    }
+
+    public class Call
+    {
+        [JsonProperty("participants")]
+        public IEnumerable<string> Participants { get; set; }
+        [JsonProperty("ended_timestamp")]
+        public string EndedTimestamp { get; set; }
     }
 }
