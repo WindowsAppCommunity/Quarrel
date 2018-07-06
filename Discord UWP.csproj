@@ -471,6 +471,14 @@
     <Content Include="Assets\SoundEffects\discord_userleave.mp3" />
     <Content Include="Assets\SoundEffects\discord_usermove.mp3" />
     <Content Include="Assets\SoundEffects\discord_voicedc.mp3" />
+    <Content Include="Assets\SoundEffects\windows_inring.mp3" />
+    <Content Include="Assets\SoundEffects\windows_message.mp3" />
+    <Content Include="Assets\SoundEffects\windows_mute.mp3" />
+    <Content Include="Assets\SoundEffects\windows_outring.mp3" />
+    <Content Include="Assets\SoundEffects\windows_unmute.mp3" />
+    <Content Include="Assets\SoundEffects\windows_userjoin.mp3" />
+    <Content Include="Assets\SoundEffects\windows_userleave.mp3" />
+    <Content Include="Assets\SoundEffects\windows_usermove.mp3" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-125.png" />
     <Content Include="Assets\StoreLogo.scale-150.png" />

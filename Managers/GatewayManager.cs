@@ -359,6 +359,11 @@ namespace Discord_UWP.Managers
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
+                if (Storage.Settings.SoundNotifications)
+                {
+                    AudioManager.PlaySoundEffect("message");
+                }
+
                 if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
                 {
                     App.MessageCreated(e.EventData);
