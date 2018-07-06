@@ -64,6 +64,15 @@ namespace Discord_UWP.SubPages
             VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
+            NotificationSounds.IsChecked = Storage.Settings.SoundNotifications;
+            if (Storage.Settings.DiscordSounds)
+            {
+                radio_DiscordSounds.IsChecked = true;
+            } else
+            {
+                radio_WindowsSounds.IsChecked = true;
+            }
+
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
             ShowServerMute.IsChecked = Storage.Settings.ServerMuteIcons;
 
@@ -281,8 +290,11 @@ namespace Discord_UWP.SubPages
             Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
-
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
+
+            Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
+            Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
+
 
             if (bgEnabler.IsOn)
             {
