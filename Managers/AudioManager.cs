@@ -530,22 +530,34 @@ namespace Discord_UWP
             await CreateOutputDeviceNode();
         }
 
-        public static void PlaySoundEffect(string file)
+        public static async void PlaySoundEffect(string file)
         {
-            MediaElement element = new MediaElement();
-            element.AudioCategory = AudioCategory.Alerts;
-            element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
-            element.MediaEnded += Element_MediaEnded;
-            element.Play();
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    MediaElement element = new MediaElement();
+                    element.AudioCategory = AudioCategory.Alerts;
+                    element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(
+                        new Uri("ms-appx:///Assets/SoundEffects/" +
+                                (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
+                    element.MediaEnded += Element_MediaEnded;
+                    element.Play();
+                });
         }
 
-        public static void PlaySoundEffect(string file, string type)
+        public static async void PlaySoundEffect(string file, string type)
         {
-            MediaElement element = new MediaElement();
-            element.AudioCategory = AudioCategory.Alerts;
-            element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3")));
-            element.MediaEnded += Element_MediaEnded;
-            element.Play();
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    MediaElement element = new MediaElement();
+                    element.AudioCategory = AudioCategory.Alerts;
+                    element.SetPlaybackSource(
+                        Windows.Media.Core.MediaSource.CreateFromUri(
+                            new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3")));
+                    element.MediaEnded += Element_MediaEnded;
+                    element.Play();
+                });
         }
 
         private static void Element_MediaEnded(object sender, RoutedEventArgs e)
