@@ -2682,10 +2682,6 @@ namespace Discord_UWP
                      }
                      else
                      {
-                         if (Storage.Settings.SoundNotifications)
-                         {
-                             AudioManager.PlaySoundEffect("message");
-                         }
                          App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
                      }
                      
