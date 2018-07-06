@@ -72,6 +72,11 @@ namespace Discord_UWP.Controls
             try
             {
                 DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
+                if (DisplayedInvite == null)
+                {
+                    InvalidInvite();
+                    return;
+                }
                 Loading.Fade(0, 200).Start();
                 GuildName.Visibility = Visibility.Visible;
                 TimeSpan timeDiff = TimeSpan.FromSeconds(1);
@@ -82,6 +87,11 @@ namespace Discord_UWP.Controls
                                         DateTime.Now.Subtract(creationTime).TotalSeconds);
                 }
 
+                if (DisplayedInvite.Guild == null)
+                {
+                    InvalidInvite();
+                    return;
+                }
                 GuildName.Text = DisplayedInvite.Guild.Name;
                 GuildName.Fade(1, 350).Start();
                 ChannelName.Fade(1, 200).Start();
@@ -110,15 +120,19 @@ namespace Discord_UWP.Controls
             }
             catch
             {
-                Loading.Fade(0, 200).Start();
-                GuildName.Fade(1, 350).Start();
-                ChannelName.Fade(1, 200).Start();
-                RedIcon.Fade(1, 200).Start();
-                ChannelName.Text = App.GetString("/Controls/InviteInvalid");
-                GuildName.Visibility = Visibility.Collapsed;
+                InvalidInvite();
             }
         }
 
+        private void InvalidInvite()
+        {
+            Loading.Fade(0, 200).Start();
+            GuildName.Fade(1, 350).Start();
+            ChannelName.Fade(1, 200).Start();
+            RedIcon.Fade(1, 200).Start();
+            ChannelName.Text = App.GetString("/Controls/InviteInvalid");
+            GuildName.Visibility = Visibility.Collapsed;
+        }
         public EmbededInviteControl()
         {
             this.InitializeComponent();
