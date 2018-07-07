@@ -27,6 +27,7 @@ using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Windows.Globalization;
 using ColorSyntax.Styling;
 using ColorSyntax.Common;
 using Discord_UWP.MarkdownTextBlock;

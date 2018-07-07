@@ -259,5 +259,22 @@ namespace Discord_UWP.SubPages
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri(await RESTCalls.GetConnectionUrl(((sender as Button).Tag.ToString()))));
         }
+
+        private void FriendRequest0_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (FriendRequest0.IsChecked == true)
+            {
+                FriendRequest1.IsChecked = true;
+                FriendRequest2.IsChecked = true;
+            }
+        }
+        private void FriendRequest_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (FriendRequest0.IsChecked == true)
+            {
+                FriendRequest1.IsChecked = true;
+                FriendRequest2.IsChecked = true;
+            }
+        }
     }
 }

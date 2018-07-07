@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -244,6 +245,35 @@ namespace Discord_UWP.SubPages
                 }
                 i++;
             }
+
+            foreach (var language in ApplicationLanguages.ManifestLanguages)
+            {
+               var lang = new Windows.Globalization.Language(language);
+               ComboBoxItem item = new ComboBoxItem();
+                item.Content = UppercaseFirst(lang.NativeName);
+                if(lang.NativeName != lang.DisplayName) item.Content+= " (" + lang.DisplayName + ")";
+                item.Tag = language;
+               LanguageSelection.Items.Add(item);
+            }
+
+            if(string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
+            {
+                LanguageSelection.SelectedIndex = 0;
+            }
+            else
+            {
+                foreach (var item in LanguageSelection.Items)
+                {
+                    if (((ComboBoxItem) item).Tag.ToString() == ApplicationLanguages.PrimaryLanguageOverride)
+                    {
+                        LanguageSelection.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+
+            if (LanguageSelection.SelectedIndex == -1)
+                LanguageSelection.SelectedIndex = 0;
         }
         private void ChangeSetting(string name, bool value)
         {
@@ -302,6 +332,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
             Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
 
+            ApplicationLanguages.PrimaryLanguageOverride = ((ComboBoxItem)LanguageSelection.SelectedItem).Tag.ToString().Trim();
 
             if (bgEnabler.IsOn)
             {
@@ -384,7 +415,16 @@ namespace Discord_UWP.SubPages
             Storage.SettingsChanged();
             CloseButton_Click(null, null);
         }
-
+        static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
+        }
         bool _ignoreRespUiChanges = false;
         private void RespUI_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
