@@ -93,6 +93,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="API\Activities\IActivitiesService.cs" />
     <Compile Include="API\AuthenticatedRestFactory.cs" />
     <Compile Include="API\AuthenticatingHttpClientHandler.cs" />
     <Compile Include="API\BasicRestFactory.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Gateway\UpstreamEvents\StatusUpdate.cs" />
     <Compile Include="Gateway\UpstreamEvents\VoiceStatusUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedModels\ActivityData.cs" />
     <Compile Include="SharedModels\Attachment.cs" />
     <Compile Include="SharedModels\Ban.cs" />
     <Compile Include="SharedModels\CallDetails.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="SharedModels\DirectMessageChannel.cs" />
     <Compile Include="SharedModels\Embed.cs" />
     <Compile Include="SharedModels\Emoji.cs" />
+    <Compile Include="SharedModels\Feed.cs" />
     <Compile Include="SharedModels\Friend.cs" />
     <Compile Include="SharedModels\Game.cs" />
     <Compile Include="API\Game\Models\GamesList.cs" />
@@ -244,6 +247,7 @@
       <Name>RuntimeComponent</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
