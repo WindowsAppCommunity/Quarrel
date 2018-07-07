@@ -10,7 +10,7 @@ namespace Discord_UWP.Gateway
     {
         public const string READY = "READY";
         public const string IDENTIFY = "IDENTIFY";
-
+        public const string RESUMED = "RESUMED";
         public const string CHANNEL_CREATED = "CHANNEL_CREATE";
         public const string CHANNEL_UPDATED = "CHANNEL_UPDATE";
         public const string CHANNEL_DELETED = "CHANNEL_DELETE";
