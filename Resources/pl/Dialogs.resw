@@ -519,7 +519,7 @@
   <data name="AccountSettingTB.Text" xml:space="preserve">
     <value>USTAWIENIA KONTA</value>
   </data>
-  <data name="AccountTB.Text" xml:space="preserve">
+  <data name="AccountPI.Header" xml:space="preserve">
     <value>Konto</value>
   </data>
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
