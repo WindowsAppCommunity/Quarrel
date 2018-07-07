@@ -41,6 +41,8 @@ namespace Discord_UWP.SubPages
         {
             base.OnNavigatedTo(e);
 
+            DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
+
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
             //Toasts.IsChecked = Storage.Settings.Toasts;
@@ -136,10 +138,14 @@ namespace Discord_UWP.SubPages
                     bgLastRuntime.Text += time.ToString("HH:mm");
                 }
             }
+
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
             else
                 radioAccent_Discord.IsChecked = true;
+
+            DerviedColor.IsChecked = Storage.Settings.DerivedColor;
+
 
             switch (Storage.Settings.TimeFormat)
             {
@@ -283,6 +289,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
             
             Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
+            Storage.Settings.DerivedColor = (bool)DerviedColor.IsChecked;
             Storage.Settings.EnableAcrylic = (bool)EnableAcrylic.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;

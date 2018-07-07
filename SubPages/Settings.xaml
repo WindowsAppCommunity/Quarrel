@@ -28,7 +28,7 @@
             </DoubleAnimation>
         </Storyboard>
 
-        <LinearGradientBrush x:Key="DarkThemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush x:Name="DarkThemeAccentGradient" x:Key="DarkThemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
             <LinearGradientBrush.RelativeTransform>
                 <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
             </LinearGradientBrush.RelativeTransform>
@@ -37,7 +37,7 @@
             <GradientStop Color="Yellow" Offset="1"/>
         </LinearGradientBrush>
 
-        <LinearGradientBrush x:Key="LightTHemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush x:Name="LightThemeAccentGradient" x:Key="LightThemeAccentGradient" EndPoint="0.5,1" StartPoint="0.5,0">
             <LinearGradientBrush.RelativeTransform>
                 <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="90"/>
             </LinearGradientBrush.RelativeTransform>
@@ -919,7 +919,7 @@
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
 
-                                    <!--<CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource RadioCheckBox}" Content="Derived Color" Foreground="{ThemeResource DarkThemeAccentGradient}" IsChecked="True"/>-->
+                                    <CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource RadioCheckBox}" Content="Derived Color" Foreground="{ThemeResource DarkThemeAccentGradient}" IsChecked="True"/>
 
 
 

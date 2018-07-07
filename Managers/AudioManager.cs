@@ -532,11 +532,11 @@ namespace Discord_UWP
 
         public static void PlaySoundEffect(string file)
         {
-            MediaElement element = new MediaElement();
-            element.AudioCategory = AudioCategory.Alerts;
-            element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
-            element.MediaEnded += Element_MediaEnded;
-            element.Play();
+            //MediaElement element = new MediaElement();
+            //element.AudioCategory = AudioCategory.Alerts;
+            //element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/SoundEffects/" + (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
+            //element.MediaEnded += Element_MediaEnded;
+            //element.Play();
         }
 
         public static void PlaySoundEffect(string file, string type)

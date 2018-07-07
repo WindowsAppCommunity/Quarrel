@@ -128,6 +128,7 @@ namespace Discord_UWP
         public bool CompactMode = false;
         public Theme Theme = Theme.Dark;
         public bool AccentBrush = false; //If false use Blurple if true use System.AccentColor
+        public bool DerivedColor = false;
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
