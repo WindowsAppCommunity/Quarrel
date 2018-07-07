@@ -588,9 +588,9 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock x:Uid="/Settings/AaTB" VerticalAlignment="Center" FontSize="8" Text="Aa"/>
+                                        <TextBlock x:Uid="/Settings/AaTB" VerticalAlignment="Center" FontSize="8" Text="Aa" Margin="0,-8,0,0"/>
                                         <Slider x:Name="FontSizeSlider" Minimum="6" Value="14" Maximum="40" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" Style="{ThemeResource DiscordSlider}"/>
-                                        <TextBlock x:Uid="/Settings/AaTB"  Grid.Column="2" VerticalAlignment="Center" FontSize="40" Text="Aa"/>
+                                        <TextBlock x:Uid="/Settings/AaTB"  Grid.Column="2" VerticalAlignment="Center" FontSize="40" Text="Aa" Margin="0,-8,0,0"/>
                                     </Grid>
                                     <CheckBox x:Uid="/Settings/CompactModeCB" x:Name="CompactMode" Style="{StaticResource CheckBoxStyle1}" Content="Compact messages" Margin="0,6,0,0"/>
                                     <CheckBox x:Uid="/Settings/MentionGlowCB"  x:Name="MentionGlow" Style="{StaticResource CheckBoxStyle1}" Content="Glow the left side of the screen when you are mentioned" Margin="0,0,0,6"/>

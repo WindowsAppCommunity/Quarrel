@@ -29,6 +29,7 @@ using System.Threading;
 
 using Windows.Security.Credentials;
 using System.Diagnostics;
+using Windows.Networking.Connectivity;
 using Midgard.Collections;
 using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
@@ -402,6 +403,46 @@ namespace Discord_UWP
 
 
             App.WentOffline += App_WentOffline;
+
+            GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
+            GatewayManager.Gateway.Resumed += Gateway_Resumed;
+            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+        }
+
+        private async void Gateway_Resumed(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Resumed> e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                async () =>
+                {
+                    await DisconnectedMask.Fade(0, 300).StartAsync();
+                    DisconnectedMask.Visibility = Visibility.Collapsed;
+                });
+        }
+
+        private async void NetworkInformation_NetworkStatusChanged(object sender)
+        {
+            if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+            {
+                if (GatewayManager.Gateway.ConnectedSocket == false)
+                {
+                    await GatewayManager.Gateway.ResumeAsync();
+                }
+            }
+        }
+
+        private async void Gateway_GatewayClosed(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (DisconnectedMask.Opacity != 1)
+                    {
+                        DisconnectedMask.Opacity = 0;
+                        DisconnectedMask.Visibility = Visibility.Visible;
+                        DisconnectedMask.Fade(1, 300).Start();
+                    }
+                    
+                });
         }
 
         private async void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
@@ -2420,6 +2461,7 @@ namespace Discord_UWP
         }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
+            
             GatewayManager.Gateway.GuildMemberRemoved += Gateway_GuildMemberRemoved;
             GatewayManager.Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
@@ -2428,6 +2470,7 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
+                     DisconnectedMask.Visibility = Visibility.Collapsed;
                      SetupUI();
                  RenderCurrentUser();
                  RenderGuilds();
