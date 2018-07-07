@@ -64,7 +64,7 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == DisplayedMemberProperty)
             {
@@ -210,8 +210,23 @@ namespace Discord_UWP.Controls
                             //xbox
                             color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                         }
-                        PresenceColor.Fill = color;
-                        ChangeFlyoutBorder(color);
+                        ChangeAccentColor(color);
+                    }
+                    else if (Storage.Settings.DerivedColor)
+                    {
+                        Color? color = await App.getUserColor(user);
+                        if (color.HasValue)
+                        {
+                            ChangeAccentColor(new SolidColorBrush(color.Value));
+                        }
+                    }
+                }
+                else if (Storage.Settings.DerivedColor)
+                {
+                    Color? color = await App.getUserColor(user);
+                    if (color.HasValue)
+                    {
+                        ChangeAccentColor(new SolidColorBrush(color.Value));
                     }
                 }
             }
@@ -238,8 +253,9 @@ namespace Discord_UWP.Controls
                 }
             }
         }
-        private void ChangeFlyoutBorder(SolidColorBrush color)
+        private void ChangeAccentColor(SolidColorBrush color)
         {
+            PresenceColor.Fill = color;
             borderColor.BorderBrush = color;
         }
         SpriteVisual _imageVisual;
