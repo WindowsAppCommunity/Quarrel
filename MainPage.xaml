@@ -1730,9 +1730,9 @@
         <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" SizeChanged="COVoice_SizeChanged" VerticalAlignment="Stretch"/>
         <Grid x:Name="DisconnectedMask" Visibility="Collapsed" Opacity="0">
             <Grid.Background>
-                <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.5"/>
+                <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.65"/>
             </Grid.Background>
-            <FontIcon FontSize="48" Glyph="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <FontIcon FontSize="48" Glyph="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
 
