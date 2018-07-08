@@ -1423,9 +1423,6 @@ namespace Discord_UWP
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
                     member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
-                } else
-                {
-                    member = await RESTCalls.GetGuildMember(App.CurrentGuildId, e.User.Id);
                 }
                 if (member.User?.Id != null)
                 {
@@ -1453,7 +1450,6 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
-               
                 App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
             }
             else if (e.Link.StartsWith("@&"))
@@ -1477,7 +1473,11 @@ namespace Discord_UWP
                     App.ShowMemberFlyout(sender, LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Id == val));
                 } else
                 {
-                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                    if(LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
+                        App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                    else if(e.User != null)
+                        App.ShowMemberFlyout(sender, e.User);
+                        //App.ShowMemberFlyout(sender, val);
                 }
             }
             else

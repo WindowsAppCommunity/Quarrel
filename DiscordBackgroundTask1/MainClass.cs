@@ -97,7 +97,8 @@ namespace DiscordBackgroundTask1
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            
+            _compressed = new MemoryStream();
+            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
             _dataWriter = new DataWriter(webSocket.OutputStream);
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
             _deferral = taskInstance.GetDeferral();
@@ -129,8 +130,7 @@ namespace DiscordBackgroundTask1
                 UpdateLastRunStatus("On the last run, the task failed to connect to the gateway (" + ex.Message + ")");
                 return;
             }
-            _compressed = new MemoryStream();
-            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
+            
                 
             
             //WAIT FOR THE READY EVENT TO BE RECEIVED
