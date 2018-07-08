@@ -3361,15 +3361,26 @@
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
                                             <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonForegroundDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBackgroundDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBorderBrushDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>
