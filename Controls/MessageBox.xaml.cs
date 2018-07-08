@@ -291,29 +291,32 @@ namespace Discord_UWP.Controls
             PopupTransform.Y = -e.NewSize.Height;
         }
 
+        private bool ReplacePrefix = false;
         private void SelectSuggestion(object unknownitem)
         {
             string suggestion = "";
 
             var item = (Common.AutoComplete)unknownitem;
             if (string.IsNullOrWhiteSpace(item.namealt))
-                suggestion = mentionPrefix + item.name;
+                suggestion = item.name;
             else
-                suggestion = mentionPrefix + item.namealt;
+                suggestion = item.namealt;
 
+            int prefixsize = 0;
+            if (ReplacePrefix) prefixsize = 1;
             //EnableChanges = false;
             var text = MessageEditor.Text;
-            text = text.Remove(caretposition - querylength, querylength);
-            MessageEditor.Text = text.Insert(caretposition - querylength, suggestion);
+            text = text.Remove(caretposition - querylength - prefixsize, querylength);
+            MessageEditor.Text = text.Insert(caretposition - querylength - prefixsize, suggestion);
 
-            int afterposition = caretposition - querylength + suggestion.Length;
+            int afterposition = caretposition - querylength - prefixsize + suggestion.Length;
             int extrapadding = 0;
             if (MessageEditor.Text.Length > afterposition)
             {
                 if (MessageEditor.Text[afterposition] != ' ')
                 {
                     extrapadding = 1;
-                    MessageEditor.Text = MessageEditor.Text.Insert(caretposition - querylength + suggestion.Length, " ");
+                    MessageEditor.Text = MessageEditor.Text.Insert(caretposition - querylength - prefixsize + suggestion.Length, " ");
                 }
             }
             else
@@ -322,7 +325,7 @@ namespace Discord_UWP.Controls
                 MessageEditor.Text += ' ';
             }     
             MessageEditor.Focus(FocusState.Pointer);
-            MessageEditor.SelectionStart = caretposition - querylength + suggestion.Length +extrapadding;
+            MessageEditor.SelectionStart = caretposition - querylength - prefixsize + suggestion.Length +extrapadding;
             SuggestionBlock.ItemsSource = null;
             SuggestionPopup.IsOpen = false;
             //EnableChanges = true;
@@ -672,6 +675,7 @@ namespace Discord_UWP.Controls
                 {
                     //This is possibly a channel
                     string query = text.Remove(0, i);
+                    ReplacePrefix = false;
                     querylength = query.Length;
                     SearchAndDisplayChannels(query);
                     //match the channel against the last query
@@ -682,6 +686,7 @@ namespace Discord_UWP.Controls
                     //This is possibly an emoji
                     string query = text.Remove(0, i);
                     querylength = query.Length;
+                    ReplacePrefix = true;
                     if (App.EmojiTrie != null)
                         DisplayList(App.EmojiTrie.Retrieve(query.ToLower()));
                     return;
@@ -691,6 +696,7 @@ namespace Discord_UWP.Controls
                     //This is possibly a user mention
                     string query = text.Remove(0, i);
                     querylength = query.Length;
+                    ReplacePrefix = false;
                     if (App.EmojiTrie != null)
                         DisplayList(App.MemberListTrie.Retrieve(query.ToLower()));
                     return;
@@ -699,6 +705,7 @@ namespace Discord_UWP.Controls
                 {
                     string query = text.Remove(0, i);
                     querylength = query.Length;
+                    ReplacePrefix = false;
                     DisplayList(App.CodingLangsTrie.Retrieve(query.ToLower()));
                     Debug.WriteLine("Codeblock query is " + query);
                     return;
