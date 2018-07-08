@@ -1293,8 +1293,8 @@ namespace Discord_UWP.MarkdownTextBlock
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
             string val=  null;
-            if (url.StartsWith("@")) val = url.Remove(0, 1);
-            else if (url.StartsWith("@!")) val = url.Remove(0, 2);
+            if (url.StartsWith("@!")) val = url.Remove(0, 2);
+            else if (url.StartsWith("@")) val = url.Remove(0, 1);
 
 
             foreach (var user in Users)
