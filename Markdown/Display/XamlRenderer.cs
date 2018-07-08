@@ -1101,9 +1101,17 @@ namespace Discord_UWP.MarkdownTextBlock.Display
 
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
-                        var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
-                        content = "@" + role.Name;
-                        foreground = Common.IntToColor(role.Color);
+                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(element.Text.Remove(0, 2)))
+                        {
+                            var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
+                            content = "@" + role.Name;
+                            foreground = Common.IntToColor(role.Color);
+                        }
+                        else
+                        {
+                            enabled = false;
+                            content = "@deleted-role";
+                        }
                     }
                 }
                 catch (Exception) { content = "<Invalid Mention>";}
