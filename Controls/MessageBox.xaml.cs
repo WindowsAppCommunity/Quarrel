@@ -306,10 +306,10 @@ namespace Discord_UWP.Controls
             if (ReplacePrefix) prefixsize = 1;
             //EnableChanges = false;
             var text = MessageEditor.Text;
-            text = text.Remove(caretposition - querylength - prefixsize, querylength);
+            text = text.Remove(caretposition - querylength - prefixsize, querylength + prefixsize);
             MessageEditor.Text = text.Insert(caretposition - querylength - prefixsize, suggestion);
 
-            int afterposition = caretposition - querylength - prefixsize + suggestion.Length;
+            int afterposition = caretposition - querylength -prefixsize + suggestion.Length;
             int extrapadding = 0;
             if (MessageEditor.Text.Length > afterposition)
             {
