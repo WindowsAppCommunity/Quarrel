@@ -1283,7 +1283,6 @@ namespace Discord_UWP.MarkdownTextBlock
 
         private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-
             // Get the hyperlink URL.
             var url = (string)(sender as HyperlinkButton).GetValue(HyperlinkUrlProperty);
             if (url == null)
@@ -1293,6 +1292,19 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
+            string val=  null;
+            if (url.StartsWith("@")) val = url.Remove(0, 1);
+            else if (url.StartsWith("@!")) val = url.Remove(0, 2);
+
+
+            foreach (var user in Users)
+            {
+                if (user.Id == val)
+                {
+                    eventArgs.User = user;
+                    break;
+                }
+            }
             App.FireLinkClicked(this, eventArgs);
         }
 
