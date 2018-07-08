@@ -113,7 +113,10 @@ namespace Discord_UWP
         {
             MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point });
         }
-
+        public static async void ShowMenuFlyout(object sender, SharedModels.User user, Point point)
+        {
+            MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(user), Point = point });
+        }
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
         public static void ShowMemberFlyout(object sender, SharedModels.User user)
         {

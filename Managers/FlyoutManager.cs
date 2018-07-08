@@ -16,6 +16,24 @@ namespace Discord_UWP.Managers
     public class FlyoutManager
     {
         public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn, VoiceMember}
+
+        public static async Task<MenuFlyout> ShowMenu(User user)
+        {
+            MenuFlyout flyout = new MenuFlyout();
+            if (App.CinematicMode)
+                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+            flyout = FlyoutCreator.MakeGuildMemberMenu(new GuildMember()
+            {
+                User = user
+            });
+            foreach (var item in flyout.Items)
+            {
+                if (item.GetType() == typeof(MenuFlyoutItem))
+                    item.Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"];
+            }
+            return flyout;
+        }
+
         public static async Task<MenuFlyout> ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
@@ -44,9 +62,6 @@ namespace Discord_UWP.Managers
                         if (LocalState.Guilds[parentId].members.ContainsKey(id))
                         {
                             flyout = FlyoutCreator.MakeGuildMemberMenu(LocalState.Guilds[parentId].members[id]);
-                        } else
-                        {
-                            flyout = FlyoutCreator.MakeGuildMemberMenu(await RESTCalls.GetGuildMember(parentId, id));
                         }
                     }
                     break;
