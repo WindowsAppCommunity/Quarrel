@@ -359,13 +359,12 @@ namespace Discord_UWP.Managers
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
-                if (Storage.Settings.SoundNotifications)
-                {
-                    AudioManager.PlaySoundEffect("message");
-                }
-
                 if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
                 {
+                    if (Storage.Settings.SoundNotifications)
+                    {
+                        AudioManager.PlaySoundEffect(e.EventData.Type == 3 ? /*"inring"*/ "" :"message");
+                    }
                     App.MessageCreated(e.EventData);
                     App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
                     App.UpdateUnreadIndicators();
