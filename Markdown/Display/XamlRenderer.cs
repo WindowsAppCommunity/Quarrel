@@ -1053,19 +1053,36 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention)
             {
                 var content = element.Text;
+                bool enabled = true;
                 SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                 try
                 {
                     if (element.LinkType == HyperlinkType.DiscordUserMention)
-                        content = "@" + (App.CurrentGuildIsDM ? LocalModels.LocalState.DMs[App.CurrentChannelId].Users.TakeWhile(x => x.Id == element.Text.Remove(0,1)).FirstOrDefault().Username : LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username);
+                    {
+                        content = "@" + (App.CurrentGuildIsDM ? LocalModels.LocalState.DMs[App.CurrentChannelId].Users.TakeWhile(x => x.Id == element.Text.Remove(0, 1)).FirstOrDefault().Username : LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username);
+                    }
 
                     else if (element.LinkType == HyperlinkType.DiscordNickMention)
+                    {
                         content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 2)].Nick;
+                    }
+                        
 
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
-                        content = "#" + LocalModels.LocalState.Guilds[App.CurrentGuildId]
-                                      .channels[element.Text.Remove(0, 1)]
-                                      .raw.Name;
+                    {
+                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(element.Text.Remove(0, 1)))
+                        {
+                            content = "#" + LocalModels.LocalState.Guilds[App.CurrentGuildId]
+                                          .channels[element.Text.Remove(0, 1)]
+                                          .raw.Name;
+                        }
+                        else
+                        {
+                            content = "#" + "";
+                            enabled = false;
+                        }
+                    }
+                        
 
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
@@ -1082,6 +1099,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
                 link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                link.IsEnabled = enabled;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
                 inlineCollection.Add(linkContainer);
