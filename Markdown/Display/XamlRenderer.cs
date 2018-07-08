@@ -28,6 +28,7 @@ using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
 using NeoSmart.Unicode;
 using Windows.Foundation.Metadata;
 using System.Reflection;
+using Discord_UWP.LocalModels;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
@@ -45,7 +46,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private readonly ILinkRegister _linkRegister;
 
         private string _messageid;
-
+        private IEnumerable<SharedModels.User> _users;
         public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border)
         {
             _document = document;
@@ -53,6 +54,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             _messageid = MessageId;
             CodeBlockResolver = codeBlockResolver;
             _root = border;
+            _users = users;
         }
         
 
@@ -1057,14 +1059,27 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                 try
                 {
-                    if (element.LinkType == HyperlinkType.DiscordUserMention)
+                    if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordNickMention)
                     {
-                        content = "@" + (App.CurrentGuildIsDM ? LocalModels.LocalState.DMs[App.CurrentChannelId].Users.TakeWhile(x => x.Id == element.Text.Remove(0, 1)).FirstOrDefault().Username : LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username);
-                    }
-
-                    else if (element.LinkType == HyperlinkType.DiscordNickMention)
-                    {
-                        content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 2)].Nick;
+                        string mentionid = element.Text.Remove(0, (element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1));
+                        foreach (var user in _users)
+                        {
+                            if (user.Id == mentionid)
+                            {
+                                content = "@"+ user.Username;
+                                if (!App.CurrentGuildIsDM)
+                                {
+                                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(mentionid))
+                                    {
+                                        var member = LocalState.Guilds[App.CurrentGuildId].members[mentionid];
+                                        if (!string.IsNullOrWhiteSpace(member.Nick))
+                                            content = "@" + member.Nick;
+                                    }
+                                }
+  
+                                break;
+                            }
+                        }
                     }
                         
 
