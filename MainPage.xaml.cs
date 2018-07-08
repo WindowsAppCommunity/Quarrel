@@ -1422,12 +1422,9 @@ namespace Discord_UWP
                 var member = new GuildMember();
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
-                    member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
+                    FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id]).ShowAt(sender as FrameworkElement);
                 }
-                if (member.User?.Id != null)
-                {
-                    FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
-                } else if(member.User != null)
+                else
                 {
                     FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
                 }
@@ -1450,7 +1447,10 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
-                App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
+                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                else if (e.User != null)
+                    App.ShowMemberFlyout(sender, e.User);
             }
             else if (e.Link.StartsWith("@&"))
             {
