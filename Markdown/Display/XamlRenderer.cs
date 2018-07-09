@@ -1093,7 +1093,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                         }
                         else
                         {
-                            content = "#" + "";
+                            content = "#deleted-channel";
                             enabled = false;
                         }
                     }
