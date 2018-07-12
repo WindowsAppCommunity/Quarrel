@@ -891,7 +891,7 @@ namespace Discord_UWP
         {
             if (String.IsNullOrEmpty(user.Avatar))
             {
-                return (Color?)App.Current.Resources["BlurpleColor"];
+                return Common.DiscriminatorColor(user.Discriminator.ToString()).Color;
             }
 
             if (userAccents.ContainsKey(user.Id))
