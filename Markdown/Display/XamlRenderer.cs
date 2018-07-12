@@ -25,11 +25,12 @@ using Windows.UI.Xaml.Shapes;
 using Discord_UWP.MarkdownTextBlock.Parse;
 using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
 using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
-using NeoSmart.Unicode;
 using Windows.Foundation.Metadata;
 using System.Reflection;
 using Discord_UWP.LocalModels;
+using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
 {
@@ -509,7 +510,10 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 Margin = ParagraphMargin
             };
             context.TrimLeadingWhitespace = true;
-            RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context);
+            if (RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context))
+            {
+                paragraph.Margin = new Thickness(ParagraphMargin.Left, 0, ParagraphMargin.Right, ParagraphMargin.Bottom);
+            };
 
             var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
             textBlock.Blocks.Add(paragraph);
@@ -799,12 +803,44 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="inlineElements"> The parsed inline elements to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderInlineChildren(InlineCollection inlineCollection, IList<MarkdownInline> inlineElements, TextElement parent, RenderContext context)
+        private bool RenderInlineChildren(InlineCollection inlineCollection, IList<MarkdownInline> inlineElements, TextElement parent, RenderContext context)
         {
+            bool LargeEmojis = true;
+            bool mixedlarge = false;
+            int maxemojicount = 28;
+            foreach (MarkdownInline inline in inlineElements)
+            {
+                    if (inline.Type == MarkdownInlineType.TextRun)
+                    {
+                        string inlinecontent = ((TextRunInline)inline).Text.Replace(" ", "");
+                        if (!string.IsNullOrEmpty(inlinecontent) &&
+                            !Emoji.IsEmoji(((TextRunInline) inline).Text.Replace(" ", ""), maxemojicount))
+                        {
+                            LargeEmojis = false;
+                            maxemojicount -= inlinecontent.Length;
+                            break;
+                        }
+                        else
+                        {
+                            mixedlarge = true;
+                        }
+                    }
+                    else if (inline.Type == MarkdownInlineType.Emoji)
+                    {
+                        maxemojicount--;
+                    }
+                    else
+                    {
+                        LargeEmojis = false;
+                        break;
+                    }
+            }
             foreach (MarkdownInline element in inlineElements)
             {
-                RenderInline(inlineCollection, element, parent, context);
+                RenderInline(inlineCollection, element, parent, context, LargeEmojis, mixedlarge);
             }
+
+            return LargeEmojis;
         }
 
         /// <summary>
@@ -814,12 +850,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderInline(InlineCollection inlineCollection, MarkdownInline element, TextElement parent, RenderContext context)
+        private void RenderInline(InlineCollection inlineCollection, MarkdownInline element, TextElement parent, RenderContext context, bool largeemojis, bool mixedlarge = false)
         {
             switch (element.Type)
             {
                 case MarkdownInlineType.TextRun:
-                    RenderTextRun(inlineCollection, (TextRunInline)element, context);
+                    RenderTextRun(inlineCollection, (TextRunInline)element, context, largeemojis);
                     break;
                 case MarkdownInlineType.Italic:
                     RenderItalicRun(inlineCollection, (ItalicTextInline)element, context);
@@ -831,7 +867,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     RenderMarkdownLink(inlineCollection, (MarkdownLinkInline)element, parent, context);
                     break;
                 case MarkdownInlineType.Emoji:
-                    RenderEmoji(inlineCollection, (EmojiInline)element, parent, context);
+                    RenderEmoji(inlineCollection, (EmojiInline)element, parent, context, largeemojis, mixedlarge);
                     break;
                 case MarkdownInlineType.RawHyperlink:
                     RenderHyperlink(inlineCollection, (HyperlinkInline)element, context);
@@ -859,19 +895,22 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderEmoji(InlineCollection inlineCollection, EmojiInline element, TextElement parent, RenderContext context)
+        private void RenderEmoji(InlineCollection inlineCollection, EmojiInline element, TextElement parent, RenderContext context, bool large, bool mixedlarge = false)
         {
             //If the emoji is the only content of the message
             InlineUIContainer imageRun = new InlineUIContainer();
             string extension = ".png";
             if (element.IsAnimated) extension = ".gif";
-            if (_document.length > 0 && _document.length == (element.Id.Length + element.Name.Length + 2))
+            Thickness imagemargin = new Thickness(0, 0, 0, 0);
+            if (mixedlarge) imagemargin = new Thickness(0, 0, 0, -8);
+            else if (large) imagemargin = new Thickness(0, 0, 0, 0);
+            if (large)
             {
-                
                 imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
-                    Width = 42,
-                    Height = 42,
+                    Margin = imagemargin,
+                    Width = 32,
+                    Height = 32,
                     Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
                 };
             }
@@ -879,7 +918,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             {
                 imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
-                    Margin=new Thickness(2,0,2,-4),
+                    Margin= imagemargin,
                     Width = 20,
                     Height = 20,
                     Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
@@ -897,16 +936,19 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderTextRun(InlineCollection inlineCollection, TextRunInline element, RenderContext context)
+        private void RenderTextRun(InlineCollection inlineCollection, TextRunInline element, RenderContext context, bool large)
         {
             // Create the text run
             Run textRun = new Run
             {
-                Text = CollapseWhitespace(context, element.Text)
+                Text = element.Text
             };
 
-            if (Emoji.IsEmoji(element.Text, 27))
+            if (large)
+            {
                 textRun.FontSize = 28;
+            }
+                
             // Add it
             inlineCollection.Add(textRun);
         }
@@ -1020,7 +1062,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // if url is not absolute we have to return as local images are not supported
             if (!element.Url.StartsWith("http") && !element.Url.StartsWith("ms-app"))
             {
-                RenderTextRun(inlineCollection, new TextRunInline { Text = element.Text, Type = MarkdownInlineType.TextRun }, context);
+                RenderTextRun(inlineCollection, new TextRunInline { Text = element.Text, Type = MarkdownInlineType.TextRun }, context, false);
                 return;
             }
 
