@@ -571,6 +571,8 @@ namespace Discord_UWP
                     {
                         if (App.CurrentGuildId == null) return;
                         if (e.Presence.Status == "offline") return;
+                        if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId)) return;
+
                         member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
                         member.MemberHoistRole = MemberManager.GetRole(member.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
                         if (!string.IsNullOrEmpty(member.Raw.Nick))
@@ -1018,6 +1020,7 @@ namespace Discord_UWP
                          App.CurrentGuildId = e.GuildId;
                          UserDetails.Visibility = Visibility.Collapsed;
                          MemberListFull.Visibility = Visibility.Visible;
+                         AddFriend.Visibility = Visibility.Collapsed;
                          RenderGuildChannels();
                          if (App.ShowAds)
                          {
@@ -1031,6 +1034,7 @@ namespace Discord_UWP
 
                          App.CurrentGuildId = null;
                          MemberToggle.Visibility = Visibility.Collapsed;
+                         AddFriend.Visibility = Visibility.Visible;
                          RenderDMChannels();
                      }
 
@@ -1088,6 +1092,7 @@ namespace Discord_UWP
             }
             else //Out of guild navigation
             {
+                AddFriend.Visibility = Visibility.Collapsed;
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(_currentPage);
@@ -1135,6 +1140,7 @@ namespace Discord_UWP
             }
             else
             {
+                AddFriend.Visibility = Visibility.Visible;
                 ServerList.SelectedIndex = 0;
                 App.CurrentChannelId = e.ChannelId;
                 App.CurrentGuildIsDM = true;
@@ -3684,6 +3690,25 @@ namespace Discord_UWP
         private async void DeclineCall(object sender, RoutedEventArgs e)
         {
             await RESTCalls.DeclineCall(AcceptCallUI.Tag.ToString());
+        }
+
+        private async void SendFriendRequest(object sender, RoutedEventArgs e)
+        {
+            string[] strings = SendFriendTB.Text.Split('#');
+            if (strings.Count() == 2)
+            {
+                var result = await RESTCalls.SendFriendRequest(strings[0], Convert.ToInt32(strings[1]));
+                if (result != null && result.Message != null)
+                {
+                    SendFriendTB.Header = result.Message; //App.GetString(result.Message.Replace(' ', '\0')); //TODO: Translate
+                } else
+                {
+                    SendFriendTB.Header = "Success!"; //TODO: Translate
+                }
+            } else
+            {
+                SendFriendTB.Header = "You need a discriminator to send a friend request"; //TODO: Translate
+            }
         }
     }
 }

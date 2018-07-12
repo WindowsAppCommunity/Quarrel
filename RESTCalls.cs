@@ -414,6 +414,20 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task<SendFriendRequestResponse> SendFriendRequest(string username, int discriminator)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.SendFriendRequest(new SendFriendRequest() { Username = username, Discriminator = discriminator});
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+                return null;
+            }
+        }
+
         public static async Task RemoveFriend(string userId)
         {
             try
