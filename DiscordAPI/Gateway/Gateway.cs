@@ -108,6 +108,10 @@ namespace Discord_UWP.Gateway
      //       PrepareSocket();
         }
 
+        public BandwidthStatistics GetStats()
+        {
+            return _socket.Information.BandwidthStatistics;
+        }
         private void CreateSocket()
         {
             _socket?.Dispose();
