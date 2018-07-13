@@ -147,6 +147,16 @@ namespace Discord_UWP
                 return HumanizeDate(editedTime,null);
             }
         }
+        public static string HumanizeBandwidth(ulong value)
+        {
+            if (value >= 1000000)
+                return (value / 1000000).ToString("0.##") + "Mbps";
+            else if (value >= 1000)
+                return (value / 1000).ToString("0.##") + "Kbps";
+            else
+                return value + ("bps");
+        }
+
         public static string HumanizeFileSize(ulong l)
         {
             long i = Convert.ToInt64(l);

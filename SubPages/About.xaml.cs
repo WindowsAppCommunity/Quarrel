@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.Managers;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,6 +17,7 @@ namespace Discord_UWP.SubPages
     /// </summary>
     public sealed partial class About : Page
     {
+        private DispatcherTimer statsTimer = new DispatcherTimer();
         public About()
         {
             this.InitializeComponent();
@@ -39,8 +41,25 @@ namespace Discord_UWP.SubPages
                 buildNumber.Visibility = Visibility.Visible;
                 buildId.Visibility = Visibility.Visible;
             }
+
+            statsTimer.Tick += StatsTimer_Tick;
+            statsTimer.Interval = TimeSpan.FromSeconds(0.5);
+            statsTimer.Start();
+            UpdateStats();
         }
 
+        private void StatsTimer_Tick(object sender, object e)
+        {
+           UpdateStats();
+            statsTimer.Start();
+        }
+
+        private void UpdateStats()
+        {
+            var stats = GatewayManager.Gateway.GetStats();
+            incomingData.Text = Common.HumanizeBandwidth(stats.InboundBitsPerSecond);
+            outgoingData.Text = Common.HumanizeBandwidth(stats.OutboundBitsPerSecond);
+        }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -75,6 +94,10 @@ namespace Discord_UWP.SubPages
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
+            if(timer.IsEnabled) timer.Stop();
+            if(statsTimer.IsEnabled) statsTimer.Stop();
+            timer.Tick -= TimerOnTick;
+            statsTimer.Tick -= StatsTimer_Tick;
             App.SubpageClosed();
         }
         DispatcherTimer timer = new DispatcherTimer();
