@@ -1026,7 +1026,6 @@ namespace Discord_UWP
                          {
                              Ad.Visibility = Visibility.Visible;
                          }
-
                      }
                      else
                      {

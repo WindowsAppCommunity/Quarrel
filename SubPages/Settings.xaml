@@ -268,7 +268,27 @@
                                 <VisualStateGroup x:Name="CombinedStates">
                                     <VisualState x:Name="UncheckedNormal">
                                         <Storyboard Duration="0:0:0.2">
-                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph2" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
@@ -387,27 +407,7 @@
                                     </VisualState>
                                     <VisualState x:Name="CheckedNormal">
                                         <Storyboard Duration="0:0:0.2">
-                                            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleX">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="OuterTransform" Storyboard.TargetProperty="ScaleY">
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph2" Storyboard.TargetProperty="Opacity">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
@@ -426,17 +426,17 @@
                                     </VisualState>
                                     <VisualState x:Name="CheckedPointerOver">
                                         <Storyboard Duration="0:0:0.2">
-                                            <DoubleAnimation To="0.4" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Opacity">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
+                                            <DoubleAnimation To="0.9" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleX">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>
                                             </DoubleAnimation>
-                                            <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
+                                            <DoubleAnimation To="0.9" Duration="0:0:0.3" Storyboard.TargetName="GlyphTransform" Storyboard.TargetProperty="ScaleY">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase EasingMode="EaseOut"/>
                                                 </DoubleAnimation.EasingFunction>

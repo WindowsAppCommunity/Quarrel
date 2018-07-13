@@ -336,7 +336,7 @@ namespace Discord_UWP.SubPages
                 }
 
         }
-        private void UpdateBorderColor()
+        private async void UpdateBorderColor()
         {
             if (richPresence.GameContent != null)
             {
@@ -362,9 +362,30 @@ namespace Discord_UWP.SubPages
                     //xbox
                     color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                 }
-                PresenceColor.Fill = color;
-                border.BorderBrush = color;
+                else if (Storage.Settings.DerivedColor)
+                {
+                    if ((await App.getUserColor(profile.user)).HasValue)
+                    {
+                        color = new SolidColorBrush((await App.getUserColor(profile.user)).Value);
+                    }
+                }
+                ChangeAccentColor(color);
             }
+            else if (Storage.Settings.DerivedColor)
+            {
+                Color? color = await App.getUserColor(profile.user);
+                if ((await App.getUserColor(profile.user)).HasValue)
+                {
+                    color = (await App.getUserColor(profile.user)).Value;
+                    ChangeAccentColor(new SolidColorBrush(color.Value));
+                }
+            }
+        }
+
+        public void ChangeAccentColor(SolidColorBrush color)
+        {
+            PresenceColor.Fill = color;
+            border.BorderBrush = color;
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)
