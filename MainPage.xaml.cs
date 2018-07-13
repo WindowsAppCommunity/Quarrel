@@ -1033,7 +1033,6 @@ namespace Discord_UWP
 
                          App.CurrentGuildId = null;
                          MemberToggle.Visibility = Visibility.Collapsed;
-                         AddFriend.Visibility = Visibility.Visible;
                          RenderDMChannels();
                      }
 
@@ -1132,6 +1131,9 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
             {
                 App.CurrentChannelId = e.ChannelId;
+
+                AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
+
                 if (LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
@@ -1139,7 +1141,6 @@ namespace Discord_UWP
             }
             else
             {
-                AddFriend.Visibility = Visibility.Visible;
                 ServerList.SelectedIndex = 0;
                 App.CurrentChannelId = e.ChannelId;
                 App.CurrentGuildIsDM = true;
@@ -1541,7 +1542,6 @@ namespace Discord_UWP
                 //Just send the message
                 await RESTCalls.CreateMessage(e.ChannelId, e.Message);
             }
-            
         }
 
         private void App_DeleteMessageHandler(object sender, App.DeleteMessageArgs e)
@@ -1816,9 +1816,11 @@ namespace Discord_UWP
             //Select FriendPanel
             if (id == null)
             {
+                App.CurrentChannelId = null;
                 FriendsItem.IsSelected = true;
                 friendPanel.Visibility = Visibility.Visible;
                 MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
+                AddFriend.Visibility = Visibility.Visible;
             }
 
             AddChannelButton.Visibility = Visibility.Collapsed;
@@ -1833,6 +1835,7 @@ namespace Discord_UWP
                     ChannelList.Items.Add(channel);
                     if (id != null && channel.Id == id)
                     {
+                        AddFriend.Visibility = Visibility.Collapsed;
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
@@ -3453,9 +3456,9 @@ namespace Discord_UWP
             }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
+            AddFriend.Visibility = Visibility.Visible;
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
-            
         }
 
         private void HideBadge_Completed(object sender, object e)

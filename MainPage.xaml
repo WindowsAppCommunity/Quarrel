@@ -16,7 +16,6 @@
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
 
     <Page.Resources>
-
         <Storyboard x:Name="ChangeStatusColor">
             <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">
                 <ColorAnimation.EasingFunction>
