@@ -177,7 +177,25 @@
                             <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                             <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
                             <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
-                        </StackPanel>
+                        <RichTextBlock Margin="0,24,0,0">
+                            <Paragraph>
+                                    <Run>Inbound: </Run>
+                                    <Run x:Name="incomingData">
+                                        <Run.Foreground>
+                                            <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
+                                        </Run.Foreground>
+                                    </Run>
+                                </Paragraph>
+                            <Paragraph>
+                                <Run>Outbound</Run>
+                                    <Run x:Name="outgoingData">
+                                        <Run.Foreground>
+                                            <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
+                                        </Run.Foreground>
+                                    </Run>
+                                </Paragraph>
+                            </RichTextBlock>
+                            </StackPanel>
                         
                         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">
                             <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
