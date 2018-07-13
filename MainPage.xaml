@@ -24,6 +24,19 @@
             </ColorAnimation>
         </Storyboard>
 
+        <Storyboard x:Name="ShowMemberToggle">
+            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="(UIElement).Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visiblity.Visible"/>
+            </ObjectAnimationUsingKeyFrames>-->
+            <DoubleAnimation To="1" Duration="0:0:0.5" Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"/>
+        </Storyboard>
+        <Storyboard x:Name="HideMemberToggle" Duration="0:0:0.5">
+            <!--<ObjectAnimationUsingKeyFrames>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Visiblity.Collapsed"/>
+            </ObjectAnimationUsingKeyFrames>-->
+            <DoubleAnimation To="0" Duration="0:0:0.5" Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="UIElement.RenderTransform).(ScaleTransform.ScaleX)"/>
+        </Storyboard>
+
         <Style x:Key="SimplifiedListView" TargetType="ListView">
             <Setter Property="Template">
                 <Setter.Value>
@@ -1206,7 +1219,11 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="Transparent"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
+                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="Transparent"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane">
+                        <AppBarButton.RenderTransform>
+                            <ScaleTransform x:Name="MemberToggleTransform" ScaleX="1" ScaleY="1"/>
+                        </AppBarButton.RenderTransform>
+                    </AppBarButton>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Uid="/Main/AboutABB" Label="About" Click="NavToAbout"/>
