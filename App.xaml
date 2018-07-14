@@ -2574,6 +2574,195 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <FCU:Style x:Key="DiscordScrollView" TargetType="FCU:ScrollViewer">
+                <FCU:Setter Property="HorizontalScrollMode" Value="Auto"/>
+                <FCU:Setter Property="VerticalScrollMode" Value="Auto"/>
+                <FCU:Setter Property="IsHorizontalRailEnabled" Value="True"/>
+                <FCU:Setter Property="IsVerticalRailEnabled" Value="True"/>
+                <FCU:Setter Property="IsTabStop" Value="False"/>
+                <FCU:Setter Property="ZoomMode" Value="Disabled"/>
+                <FCU:Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <FCU:Setter Property="VerticalContentAlignment" Value="Top"/>
+                <FCU:Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+                <FCU:Setter Property="Padding" Value="0"/>
+                <FCU:Setter Property="BorderThickness" Value="0"/>
+                <FCU:Setter Property="BorderBrush" Value="Transparent"/>
+                <FCU:Setter Property="Background" Value="Transparent"/>
+                <FCU:Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <FCU:Setter Property="Template">
+                    <FCU:Setter.Value>
+                        <FCU:ControlTemplate TargetType="FCU:ScrollViewer">
+                            <FCU:Border BorderThickness="{FCU:TemplateBinding BorderThickness}" BorderBrush="{FCU:TemplateBinding BorderBrush}">
+                                <FCU:VisualStateManager.VisualStateGroups>
+                                    <FCU:VisualStateGroup x:Name="ScrollingIndicatorStates">
+                                        <FCU:VisualStateGroup.Transitions>
+                                            <FCU:VisualTransition From="MouseIndicator" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="MouseIndicatorFull" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:DoubleAnimationUsingKeyFrames FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity">
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractFinalKeyframe}" Value="0"/>
+                                                    </FCU:DoubleAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="MouseIndicatorFull" To="MouseIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:DoubleAnimationUsingKeyFrames FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity">
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractFinalKeyframe}" Value="0"/>
+                                                    </FCU:DoubleAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="TouchIndicator" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                        </FCU:VisualStateGroup.Transitions>
+                                        <FCU:VisualState x:Name="NoIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="TouchIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>TouchIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>TouchIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="MouseIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="MouseIndicatorFull">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorExpandDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="1"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                    </FCU:VisualStateGroup>
+                                </FCU:VisualStateManager.VisualStateGroups>
+                                <FCU:Grid Background="{FCU:TemplateBinding Background}">
+                                    <FCU:Grid.ColumnDefinitions>
+                                        <FCU:ColumnDefinition Width="*"/>
+                                        <FCU:ColumnDefinition Width="Auto"/>
+                                    </FCU:Grid.ColumnDefinitions>
+                                    <FCU:Grid.RowDefinitions>
+                                        <FCU:RowDefinition Height="*"/>
+                                        <FCU:RowDefinition Height="Auto"/>
+                                    </FCU:Grid.RowDefinitions>
+                                    <FCU:ScrollContentPresenter x:Name="ScrollContentPresenter" ContentTemplate="{FCU:TemplateBinding ContentTemplate}" FCU:Grid.ColumnSpan="2" Margin="{FCU:TemplateBinding Padding}" FCU:Grid.RowSpan="2"/>
+                                    <FCU:Grid FCU:Grid.ColumnSpan="2" FCU:Grid.RowSpan="2"/>
+                                    <FCU:ScrollBar x:Name="VerticalScrollBar" FCU:Grid.Column="1" HorizontalAlignment="Right" IsTabStop="False" Maximum="{FCU:TemplateBinding ScrollableHeight}" Orientation="Vertical" ViewportSize="{FCU:TemplateBinding ViewportHeight}" Value="{FCU:TemplateBinding VerticalOffset}" Visibility="{FCU:TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                    <FCU:ScrollBar x:Name="HorizontalScrollBar" IsTabStop="False" Maximum="{FCU:TemplateBinding ScrollableWidth}" Orientation="Horizontal" FCU:Grid.Row="1" ViewportSize="{FCU:TemplateBinding ViewportWidth}" Value="{FCU:TemplateBinding HorizontalOffset}" Visibility="{FCU:TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                    <FCU:Border x:Name="ScrollBarSeparator" Background="{FCU:ThemeResource ScrollViewerScrollBarSeparatorBackground}" FCU:Grid.Column="1" Opacity="0" FCU:Grid.Row="1"/>
+                                </FCU:Grid>
+                            </FCU:Border>
+                        </FCU:ControlTemplate>
+                    </FCU:Setter.Value>
+                </FCU:Setter>
+            </FCU:Style>
             <Style x:Key="EmojiButton" TargetType="ToggleButton">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
