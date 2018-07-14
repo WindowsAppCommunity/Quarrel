@@ -107,7 +107,7 @@
                             <Image Opacity="0" x:Name="CUAvatarBlurred" Stretch="UniformToFill" ImageOpened="FadeIn_ImageOpened" VerticalAlignment="Center"/>
                         </CU:Grid>-->
 
-                        <ScrollViewer x:Name="ParallaxScroll">
+                        <ScrollViewer Style="{StaticResource DiscordScrollView}" x:Name="ParallaxScroll">
                             <Grid Padding="0,180,0,0">
                                 <Rectangle Height="64" VerticalAlignment="Top" Opacity="0.5">
                                     <Rectangle.Fill>
