@@ -2823,7 +2823,9 @@ namespace Discord_UWP
                          {
                              if (message.Message != null && message.Message.Id == e.Message.Id)
                              {
+                                 message.Edit = true;
                                  message.Message = e.Message;
+                                 message.Edit = false;
                              }
                          }
                      }
