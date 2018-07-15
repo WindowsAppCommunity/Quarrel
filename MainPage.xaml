@@ -1569,7 +1569,8 @@
                                                  Header="{x:Bind Header, Mode=OneWay}"
                                                  IsPending="{x:Bind Pending, Mode=OneWay}"
                                                  IsBlocked="{x:Bind Blocked, Mode=OneWay}"
-                                                 LastRead="{x:Bind LastRead, Mode=OneWay}"/>
+                                                 LastRead="{x:Bind LastRead, Mode=OneWay}"
+                                                 Edited="{x:Bind Edit, Mode=OneWay}"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>
