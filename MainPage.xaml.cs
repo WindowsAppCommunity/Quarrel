@@ -1494,6 +1494,11 @@ namespace Discord_UWP
                         //App.ShowMemberFlyout(sender, val);
                 }
             }
+            else if (e.Link.StartsWith("https://discordapp.com/channels"))
+            {
+                var segments = e.Link.Substring(32).Split('/');
+                App.NavigateToGuildChannel(segments[0], segments[1]);
+            }
             else
             {
                 await Launcher.LaunchUriAsync(new Uri(e.Link));
