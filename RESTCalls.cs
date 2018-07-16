@@ -8,6 +8,7 @@ using Windows.Security.Credentials;
 using Windows.Web.Http;
 
 using Discord_UWP.API;
+using Discord_UWP.API.Activities;
 using Discord_UWP.API.Channel;
 using Discord_UWP.API.Channel.Models;
 using Discord_UWP.API.Gateway;
@@ -1366,6 +1367,26 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
             return new Invite();
+        }
+        #endregion
+
+        #endregion
+
+        #region IActivities
+
+        #region Get
+        public static async Task<IEnumerable<ActivityData>> GetActivites()
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetActivites();
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
         }
         #endregion
 
