@@ -11,6 +11,6 @@ namespace Discord_UWP.API.Activities
     public interface IActivitesService
     {
         [Get("/v6/activities")]
-        Task<ActivityData> GetGatewayConfig();
+        Task<IEnumerable<ActivityData>> GetActivites();
     }
 }

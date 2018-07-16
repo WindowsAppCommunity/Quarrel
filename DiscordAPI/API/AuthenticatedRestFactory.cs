@@ -5,6 +5,7 @@ using Refit;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Discord_UWP.API.Activities;
 using Discord_UWP.API.Guild;
 using Discord_UWP.API.Voice;
 using Discord_UWP.API.Invite;
@@ -26,6 +27,11 @@ namespace Discord_UWP.API
         public IConnectionsService GetConnectionService()
         {
             return RestService.For<IConnectionsService>(GetAuthenticatingHttpClient());
+        }
+
+        public IActivitesService GetActivitesService()
+        {
+            return RestService.For<IActivitesService>(GetAuthenticatingHttpClient());
         }
 
         public IGameService GetGameService()

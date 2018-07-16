@@ -566,6 +566,7 @@
                     <ItemsStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListViewItem x:Uid="/Controls/ACTIVITESLI" Content="ACTIVITES" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
             <ListViewItem x:Uid="/Controls/FRIENDSLI" Content="FRIENDS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0">
                 <StackPanel Orientation="Horizontal">
@@ -578,6 +579,27 @@
             <ListViewItem x:Uid="/Controls/BlockedLI" Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
         </ListView>
         <Pivot x:Name="pivot" Grid.Row="1">
+            <PivotItem Margin="0,-48,0,0">
+                <GridView x:Name="Activites" Padding="0" Margin="0" SelectionMode="None">
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <local:ActivitesControl/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <tk:StaggeredPanel HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+                <!--<ListView >
+                    <ListView.ItemTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Header>
+                        <CheckBox x:Uid="/Controls/OnlyOnlineFriendsCB" Style="{StaticResource CheckBoxStyle1}" Content="Only show online friends" Padding="0,5,0,0" Margin="0,0,0,12" Visibility="Collapsed"/>
+                    </ListView.Header>
+                </ListView>-->
+            </PivotItem>
             <PivotItem Margin="0,-48,0,0">
                 <ListView x:Name="AllView" Padding="0" Margin="0" SelectionMode="None" ItemContainerStyle="{StaticResource ChannelItemStyle}">
                     <ListView.ItemTemplate>

@@ -122,6 +122,9 @@
     <Compile Include="Classes\ExtensionMethods.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\ActivitesControl.xaml.cs">
+      <DependentUpon>ActivitesControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CompositionImageFactory.cs" />
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
@@ -612,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ActivitesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AttachementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
