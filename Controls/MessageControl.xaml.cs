@@ -86,6 +86,17 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool Edited
+        {
+            get { return (bool)GetValue(EditedProperty); }
+            set { SetValue(EditedProperty, value); }
+        }
+        public static readonly DependencyProperty EditedProperty = DependencyProperty.Register(
+            nameof(Edited),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public bool IsBlocked
         {
             get { return (bool)GetValue(IsBlockedProperty); }
@@ -275,7 +286,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == MessageProperty)
             {
-                UpdateMessage();
+                UpdateMessage(Edited);
             }
             if (prop == LastReadProperty)
             {
@@ -456,7 +467,7 @@ namespace Discord_UWP.Controls
             return wg;
             
         }
-        public void UpdateMessage()
+        public void UpdateMessage(bool edited = false)
         {
             content.FontSize = Storage.Settings.MSGFontSize;
             content.Padding = new Thickness(5, 3, 3, content.FontSize / 4 + 1);
@@ -464,7 +475,8 @@ namespace Discord_UWP.Controls
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
             advert = null;
-            if (rootGrid.Children.Contains(reactionView))
+            
+            if (!edited && rootGrid.Children.Contains(reactionView))
                 rootGrid.Children.Remove(reactionView);
             if (Message != null)
             {
@@ -575,24 +587,30 @@ namespace Discord_UWP.Controls
                     timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " + Common.HumanizeEditedDate(Message.EditedTimestamp.Value,
                                           Message.Timestamp) + ")";
 
-                if (Message.Reactions != null)
-                {
-                    reactionView = GenerateWrapGrid();
-                    foreach (Reactions reaction in Message.Reactions.Where(x => x.Count > 0))
-                    {
-                        reactionView.Children.Add(GenerateReactionToggle(reaction));
-                    }
-                    Grid.SetRow(reactionView, 3);
-                    Grid.SetColumn(reactionView, 1);
-                    rootGrid.Children.Add(reactionView);
-                }
-                else
-                {
-                    if (rootGrid.Children.Contains(reactionView))
-                        rootGrid.Children.Remove(reactionView);
-                    reactionView = null;
-                }
+                
                 LoadEmbedsAndAttachements();
+
+                if (!edited)
+                {
+                    if (Message.Reactions != null)
+                    {
+                        reactionView = GenerateWrapGrid();
+                        foreach (Reactions reaction in Message.Reactions.Where(x => x.Count > 0))
+                        {
+                            reactionView.Children.Add(GenerateReactionToggle(reaction));
+                        }
+
+                        Grid.SetRow(reactionView, 4);
+                        Grid.SetColumn(reactionView, 1);
+                        rootGrid.Children.Add(reactionView);
+                    }
+                    else
+                    {
+                        if (rootGrid.Children.Contains(reactionView))
+                            rootGrid.Children.Remove(reactionView);
+                        reactionView = null;
+                    }
+                }
 
                 content.Users = Message.Mentions;
                 if (Message?.Content == "")

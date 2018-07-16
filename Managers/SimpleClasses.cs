@@ -33,6 +33,13 @@ namespace Discord_UWP.SimpleClasses
             set { if (Equals(_message, value)) return; _message = value; OnPropertyChanged("Message"); }
         }
 
+        private bool _edit;
+        public bool Edit
+        {
+            get => _edit;
+            set { if (_edit == value) return; _edit = value; OnPropertyChanged("Edit"); }
+        }
+
         private bool _iscontinuation;
         public bool IsContinuation
         {
