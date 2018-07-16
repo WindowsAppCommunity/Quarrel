@@ -48,7 +48,7 @@ namespace Discord_UWP.Flyouts
             };
             //mute.IsChecked = LocalState.GuildSettings.Contains(chn.Raw.Id);
 
-            if (LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(chn.raw.Id) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[chn.raw.Id].Muted)
+            if (LocalState.GuildSettings.ContainsKey(App.CurrentGuildId) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(chn.raw.Id) && LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[chn.raw.Id].Muted)
                 mute.Text = App.GetString("/Flyouts/UnmuteChannel");
             else
                 mute.Text = App.GetString("/Flyouts/MuteChannel");
