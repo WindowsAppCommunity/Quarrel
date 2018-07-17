@@ -12,5 +12,8 @@ namespace Discord_UWP.API.Activities
     {
         [Get("/v6/activities")]
         Task<IEnumerable<ActivityData>> GetActivites();
+
+        [Get("/v6/users/@me/feed/settings?include_autosubscribed_games=true")]
+        Task<IEnumerable<ActivityData>> GetFeedSettings();
     }
 }
