@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Store;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -67,6 +68,26 @@ namespace Discord_UWP.SubPages
             IList<string> details = await FileIO.ReadLinesAsync(commitinfo);
             buildId.Text = App.GetString("/About/Commit") + " " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
             buildNumber.Text = App.GetString("/About/Build") + " " + details[2];
+
+            List<string> purchaseList = new List<string>() { "RemoveAds", "Remove Ads", "Polite Dontation" , "SignificantDontation", "OMGTHXDonation", "RidiculousDonation" };
+            var licenseInformation = CurrentApp.LicenseInformation;
+            foreach (string item in purchaseList)
+            {
+                if (licenseInformation.ProductLicenses[item].IsActive)
+                {
+                    if (PuracheList.Text == "")
+                    {
+                        PuracheList.Text += item;
+                    } else
+                    {
+                        PuracheList.Text += " ," + item;
+                    }
+                }
+            }
+            if (PuracheList.Text == "")
+            {
+                PuracheList.Text = "None";
+            }
         }
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
