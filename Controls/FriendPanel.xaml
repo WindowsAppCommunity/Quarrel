@@ -591,6 +591,11 @@
                             <tk:StaggeredPanel HorizontalAlignment="Stretch"/>
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
+                    <GridView.Header>
+                        <FlipView>
+
+                        </FlipView>
+                    </GridView.Header>
                 </GridView>
                 <!--<ListView >
                     <ListView.ItemTemplate>

@@ -18,4 +18,17 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
     }
+    public class FeedSettings
+    {
+        [JsonProperty("subscribed_games")]
+        public string[] SubscribedGames { get; set; }
+        [JsonProperty("autosubscribed_games")]
+        public string[] AutoSubscribedGames { get; set; }
+        [JsonProperty("autosubscribed_games")]
+        public string[] UnsubscribedGames { get; set; }
+        [JsonProperty("subscribed_users")]
+        public string[] SubscribedUsers { get; set; }
+        [JsonProperty("unsubscribed_users")]
+        public string[] UnsubscribedUsers { get; set; }
+    }
 }

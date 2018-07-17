@@ -194,6 +194,12 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
+
+        public void LoadActivity()
+        {
+            //Get feed settings
+            
+        }
         public void NavigateToFriendRequests()
         {
             pivot.SelectedIndex = 1;
