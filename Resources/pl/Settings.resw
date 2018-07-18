@@ -333,4 +333,10 @@
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
     <value>Pokaż ikonę wyciszenia na serwerach</value>
   </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Rozmiar czcionki wiadomości</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
 </root>
