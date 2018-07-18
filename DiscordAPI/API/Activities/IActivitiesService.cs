@@ -14,6 +14,14 @@ namespace Discord_UWP.API.Activities
         Task<IEnumerable<ActivityData>> GetActivites();
 
         [Get("/v6/users/@me/feed/settings?include_autosubscribed_games=true")]
-        Task<IEnumerable<ActivityData>> GetFeedSettings();
+        Task<FeedSettings> GetFeedSettings();
+
+        /// <summary>
+        /// Get game news
+        /// </summary>
+        /// <param name="gameIds">An array of game IDs to get news for, seperated by "%2C"</param>
+        /// <returns></returns>
+        [Get("https://discordapp.com/api/v6/game-news?game_ids={gameIds}")]
+        Task<IEnumerable<GameNews>> GetGameNews([AliasAs("gameIds")] string gameIds);
     }
 }
