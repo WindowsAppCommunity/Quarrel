@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -195,10 +196,29 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
         }
 
-        public void LoadActivity()
+        public bool ContainsString(string[] items, string search)
+        {
+            foreach (string item in items)
+                if (item == search) return true;
+            return false;
+        }
+        public async void LoadActivity()
         {
             //Get feed settings
-            
+            var feedsettings = await RESTCalls.GetFeedSettings();
+            var activities = await RESTCalls.GetActivites();
+            string GameIDs;
+            List<string> relevantIds = new List<string>();
+            List<ActivityData> relevantActivities = new List<ActivityData>();
+            foreach(var activity in activities)
+            {
+                if (!ContainsString(feedsettings.UnsubscribedUsers, activity.UserId) || !ContainsString(feedsettings.UnsubscribedGames, activity.ApplicationId))
+                {
+                    relevantIds.Add(activity.ApplicationId);
+                    relevantActivities.Add(activity);
+                }
+            }
+            var heroFeed = await RESTCalls.GetGameNews(relevantIds.ToArray());
         }
         public void NavigateToFriendRequests()
         {

@@ -1388,6 +1388,32 @@ namespace Discord_UWP
             }
             return null;
         }
+        public static async Task<FeedSettings> GetFeedSettings()
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetFeedSettings();
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+        public static async Task<IEnumerable<GameNews>> GetGameNews(string[] ids)
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetGameNews(String.Join("%2C", ids));
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
         #endregion
 
         #endregion
