@@ -271,7 +271,7 @@
     <value>&lt;user&gt; de la conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Vous avez manqué un appel de &lt;user&gt;</value>
+    <value>Vous avez manqué un appel de</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>a épinglé un message dans ce salon.</value>
@@ -328,6 +328,6 @@
     <value>Volume</value>
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
-    <value>Essayer de réinitialiser l'application</value>
+    <value>Paramètres de compte</value>
   </data>
 </root>

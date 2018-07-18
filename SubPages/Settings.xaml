@@ -628,8 +628,8 @@
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowServerMuteCB" x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Content="Show Mute icon on servers" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
-                                    <ComboBox FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,48">
-                                        <ComboBoxItem Content="Default" Tag=" "/>
+                                    <ComboBox x:Uid="/Settings/LanguageComboB" FontSize="13.333" x:Name="LanguageSelection" Header="Language (requires restart)" Margin="0,12,0,48">
+                                        <ComboBoxItem x:Uid="/Settings/DefaultComboBI" Content="Default" Tag=" "/>
                                     </ComboBox>
                                 </StackPanel>
                             </ScrollViewer>

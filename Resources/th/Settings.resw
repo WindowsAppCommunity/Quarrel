@@ -331,6 +331,12 @@
     <value>ตั้งค่าบัญชี</value>
   </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
-    <value>แสดงไอคอนปิดเสียงบนเซิฟเวอร์</value>
+    <value>แสดงไอคอนปิดเสียงที่ไอคอนเซิฟเวอร์</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>ขนาดข้อความ</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
   </data>
 </root>
