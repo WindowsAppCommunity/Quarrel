@@ -342,25 +342,28 @@ namespace Discord_UWP.SubPages
             {
                 richPresence.Visibility = Visibility.Visible;
                 SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                switch (richPresence.GameContent.Type)
+                if (LocalState.PresenceDict[userid].Game != null)
                 {
-                    case 1:
-                        {
-                            //streaming
-                            color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
-                            break;
-                        }
-                    case 2:
-                        {
-                            //spotify
-                            color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
-                            break;
-                        }
-                }
-                if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
-                {
-                    //xbox
-                    color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                    switch (richPresence.GameContent.Type)
+                    {
+                        case 1:
+                            {
+                                //streaming
+                                color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                break;
+                            }
+                        case 2:
+                            {
+                                //spotify
+                                color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                break;
+                            }
+                    }
+                    if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
+                    {
+                        //xbox
+                        color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                    }
                 }
                 else if (Storage.Settings.DerivedColor)
                 {
