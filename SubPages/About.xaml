@@ -124,87 +124,96 @@
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="512" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="0,0,0,4">
+
+                <ScrollViewer>
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
+                        <Grid Margin="0,0,0,4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <StackPanel Padding="0" Margin="12,0,0,0">
                             <TextBlock x:Uid="/About/AboutTB" x:Name="header" Text="ABOUT" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                            <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
-                                <Paragraph>
-                                    <Run x:Uid="/About/AboutDesc1">Quarrel is an</Run>
-                                    <Bold>
-                                        <Run x:Uid="/About/AboutDesc2">unofficial</Run>
-                                    </Bold>
-                                    <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
-                                    <Bold>
-                                        <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Discord, Inc.</Run>
-                                    </Bold>
-                                    <Run x:Uid="/About/AboutDesc5">
-                                        If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.
-                                    </Run>
-                                </Paragraph>
-                            </RichTextBlock>
-                            <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
-                                    <TextBlock x:Uid="/About/DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
+                            <StackPanel Padding="0" Margin="12,0,0,0" Grid.Row="1">
+                                <RichTextBlock FontSize="13" TextWrapping="Wrap" Margin="0">
+                                    <Paragraph>
+                                        <Run x:Uid="/About/AboutDesc1">Quarrel is an</Run>
+                                        <Bold>
+                                            <Run x:Uid="/About/AboutDesc2">unofficial</Run>
+                                        </Bold>
+                                        <Run x:Uid="/About/AboutDesc3">client for Discord.</Run>
+                                        <Bold>
+                                            <Run x:Uid="/About/AboutDesc4">The developers are in no way affiliated with Discord, Inc.</Run>
+                                        </Bold>
+                                        <Run x:Uid="/About/AboutDesc5">
+                                            If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.
+                                        </Run>
+                                    </Paragraph>
+                                </RichTextBlock>
+                                <HyperlinkButton NavigateUri="https://twitter.com/AvishaiDernis" Foreground="#FF4099FF" Margin="0,6,0,0" Style="{StaticResource HyperlinkButtonStyle1}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="ms-appx:///Assets/Twitter.png" Width="20" Height="20"/>
+                                        <TextBlock x:Uid="/About/DiscussOnTwitterTB" Text="Discuss on Twitter" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </HyperlinkButton>
+                                <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                                        <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </HyperlinkButton>
+                                <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
+                                        <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
+                                    </StackPanel>
+                                </HyperlinkButton>
+                                <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29 and KarmaEcrivain94" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
+                                <TextBlock x:Uid="/About/SpecialThxTB" Text="Special Thanks:"/>
+                                <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                                <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
+                                <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
+                                <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
+                                <RichTextBlock Margin="0,24,0,0">
+                                    <Paragraph>
+                                        <Run x:Uid="/About/InboundRun" Text="Inbound:"/>
+                                        <Run x:Name="incomingData">
+                                            <Run.Foreground>
+                                                <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
+                                            </Run.Foreground>
+                                        </Run>
+                                    </Paragraph>
+                                    <Paragraph>
+                                        <Run x:Uid="/About/OutboundRun" Text="Outbound:"/>
+                                        <Run x:Name="outgoingData">
+                                            <Run.Foreground>
+                                                <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
+                                            </Run.Foreground>
+                                        </Run>
+                                    </Paragraph>
+                                </RichTextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+                                    <TextBlock x:Uid="/About/AccordingToMicrosoftTB" Text="According to Microsoft's Licensing you have bought:" FontWeight="Bold"/>
+                                    <TextBlock x:Name="PuracheList"/>
                                 </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <HyperlinkButton NavigateUri="https://discord.gg/HWTEfjW" Foreground="{ThemeResource InvertedBG}" Opacity="0.75" Click="OpenFeedbackHub" Style="{StaticResource HyperlinkButtonStyle1}">
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xE939;" Width="20" Height="20" Margin="0,0,0,-2"/>
-                                    <TextBlock x:Uid="/About/LeaveFeedbackTB" Text="Leave Feedback" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
-                            <TextBlock x:Uid="/About/DevelopperCreditTB" Text="Developed by Avid29 and KarmaEcrivain94" FontWeight="SemiBold"  FontSize="13.333" Margin="0,8,0,0"/>
-                            <TextBlock x:Uid="/About/SpecialThxTB" Text="Special Thanks:"/>
-                            <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
-                            <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
-                            <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
-                            <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
-                        <RichTextBlock Margin="0,24,0,0">
-                            <Paragraph>
-                                    <Run>Inbound: </Run>
-                                    <Run x:Name="incomingData">
-                                        <Run.Foreground>
-                                            <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
-                                        </Run.Foreground>
-                                    </Run>
-                                </Paragraph>
-                            <Paragraph>
-                                <Run>Outbound</Run>
-                                    <Run x:Name="outgoingData">
-                                        <Run.Foreground>
-                                            <SolidColorBrush Color="{StaticResource SystemBaseHighColor}" Opacity="0.4"/>
-                                        </Run.Foreground>
-                                    </Run>
-                                </Paragraph>
-                            </RichTextBlock>
+                                <TextBlock x:Uid="/About/MicrosoftNoteTB" Text="If this is wrong, I have a strongly worded email to write to the Microsoft Store team" FontSize="11" FontStyle="Italic"/>
                             </StackPanel>
-                        
-                        <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">
-                            <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
-                            <TextBlock x:Name="buildNumber" Visibility="Collapsed" Text="Build 0000" FontSize="13.333" Margin="0,4,0,0"/>
-                            <TextBlock x:Name="buildId" Visibility="Collapsed" Opacity="0.5" FontSize="12" Margin="0" Text="Commit ##### from ######" />
-                            <TextBlock x:Name="token" Visibility="Collapsed" Text="test" FontSize="9" IsTextSelectionEnabled="True" Opacity="0.5" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0,12,0,0" />
-                        </StackPanel>
+
+                            <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,24,0,12">
+                                <TextBlock FontSize="16" x:Name="appVersion" Opacity="1" FontWeight="SemiBold" Text="Quarrel Magor.Minor.Build"/>
+                                <TextBlock x:Name="buildNumber" Visibility="Collapsed" Text="Build 0000" FontSize="13.333" Margin="0,4,0,0"/>
+                                <TextBlock x:Name="buildId" Visibility="Collapsed" Opacity="0.5" FontSize="12" Margin="0" Text="Commit ##### from ######" />
+                                <TextBlock x:Name="token" Visibility="Collapsed" Text="test" FontSize="9" IsTextSelectionEnabled="True" Opacity="0.5" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontFamily="Consolas" Margin="0,12,0,0" />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </ScrollViewer>
             </Border>
         </Grid>
     </Grid>

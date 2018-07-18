@@ -166,10 +166,10 @@
     <value>Zapomniałeś hasła?</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
-    <value>Dolącz do naszego kanału na Discordzie</value>
+    <value>Dołącz do naszego kanału na Discordzie</value>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Dolącz do naszego kanału na Discordzie</value>
+    <value>Dołącz do naszego kanału na Discordzie</value>
   </data>
   <data name="JoinFail" xml:space="preserve">
     <value>Nie udało się połączyć z serwerem!</value>
