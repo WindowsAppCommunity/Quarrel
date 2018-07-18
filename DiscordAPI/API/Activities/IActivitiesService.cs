@@ -21,7 +21,7 @@ namespace Discord_UWP.API.Activities
         /// </summary>
         /// <param name="gameIds">An array of game IDs to get news for, seperated by "%2C"</param>
         /// <returns></returns>
-        [Get("https://discordapp.com/api/v6/game-news?game_ids={gameIds}")]
-        Task<IEnumerable<GameNews>> GetGameNews([AliasAs("gameIds")] string gameIds);
+        [Get("/v6/game-news?game_ids={gameIds}")]
+        Task<List<GameNews>> GetGameNews([AliasAs("gameIds")] string gameIds);
     }
 }

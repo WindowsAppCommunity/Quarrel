@@ -155,7 +155,6 @@ namespace Discord_UWP
                            App_LoggingInHandlerAsync(null, null);
                        }
                    });
-            //LocalState.SupportedGames = await RESTCalls.GetGamelist();
         }
 
         private void SubFrame_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
@@ -898,6 +897,11 @@ namespace Discord_UWP
                     BeginExtendedExecution();
                     BackgroundTaskManager.TryRegisterBackgroundTask();
                     SubFrame.Visibility = Visibility.Collapsed;
+                    var games = await RESTCalls.GetGamelist();
+                    foreach (var game in games)
+                    {
+                        LocalState.SupportedGames.Add(game.Id, game);
+                    }
                 } else
                 {
                     SubFrameNavigator(typeof(Offline));
@@ -2491,12 +2495,13 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
+                     friendPanel.Load();
                      DisconnectedMask.Visibility = Visibility.Collapsed;
                      SetupUI();
                  RenderCurrentUser();
                  RenderGuilds();
                  ServerList.SelectedIndex = 0;
-                 friendPanel.Load();
+                 
                  App.UpdateUnreadIndicators();
                  App.FullyLoaded = true;
                  if (App.PostLoadTask != null)

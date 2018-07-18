@@ -33,7 +33,6 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class FriendPanel : UserControl
     {
-
         public class SimpleFriend : INotifyPropertyChanged
         {
             public class SharedGuild
@@ -194,6 +193,7 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+            LoadFeed();
         }
 
         public bool ContainsString(string[] items, string search)
@@ -202,7 +202,8 @@ namespace Discord_UWP.Controls
                 if (item == search) return true;
             return false;
         }
-        public async void LoadActivity()
+
+        public async void LoadFeed()
         {
             //Get feed settings
             var feedsettings = await RESTCalls.GetFeedSettings();
@@ -218,7 +219,38 @@ namespace Discord_UWP.Controls
                     relevantActivities.Add(activity);
                 }
             }
-            var heroFeed = await RESTCalls.GetGameNews(relevantIds.ToArray());
+            var gamenews = await RESTCalls.GetGameNews(relevantIds.ToArray());
+            Dictionary<string, GameNews> heroNews = new Dictionary<string, GameNews>();
+            var gnCount = gamenews.Count();
+
+            foreach (var news in gamenews)
+            {
+                //The GameNews list is ordered by game and then by timestamp, so the hero feed must be the last news of every game in the list
+                if (heroNews.ContainsKey(news.GameId))
+                    heroNews[news.GameId] = news;
+                else
+                    heroNews.Add(news.GameId,news);
+            }
+
+            var heroNewsList = new List<GameNews>();
+            foreach (var value in heroNews)
+                heroNewsList.Add(value.Value);
+            heroNewsList.Sort((x, y) => DateTimeOffset.Compare(y.Timestamp, x.Timestamp));
+            for (var i = 0; i < 4; i++)
+            {
+                if (LocalState.SupportedGames.ContainsKey(heroNewsList[i].GameId))
+                    heroNewsList[i].GameTitle = LocalState.SupportedGames[heroNewsList[i].GameId].Name.ToUpper();
+                HeroFeed.Items.Insert(0, heroNewsList[i]);
+            }
+                
+            if (HeroFeed.Items.Count == 0)
+            {
+                HeroFeed.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HeroFeed.SelectedIndex = 0;
+            }
         }
         public void NavigateToFriendRequests()
         {

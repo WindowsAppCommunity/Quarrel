@@ -24,7 +24,7 @@ namespace Discord_UWP.API.Game
         public string Sku { get; set; }
     }
 
-    public class GameList
+    public class GameListItem
     {
         [JsonProperty("executables")]
         public List<Executable> Executables { get; set; }

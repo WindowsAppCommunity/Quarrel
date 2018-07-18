@@ -24,7 +24,7 @@ namespace Discord_UWP.SharedModels
         public string[] SubscribedGames { get; set; }
         [JsonProperty("autosubscribed_games")]
         public string[] AutoSubscribedGames { get; set; }
-        [JsonProperty("autosubscribed_games")]
+        [JsonProperty("unsubscribed_games")]
         public string[] UnsubscribedGames { get; set; }
         [JsonProperty("subscribed_users")]
         public string[] SubscribedUsers { get; set; }
@@ -50,6 +50,7 @@ namespace Discord_UWP.SharedModels
         public string Type { get; set; }
         [JsonProperty("thumbnail")]
         public Thumbnail Thumbnail { get; set; }
+        public string GameTitle { get; set; }
     }
     public partial class Thumbnail
     {
