@@ -271,7 +271,7 @@
     <value>&lt;user&gt; z kowersacji</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Nie odebrałeś połączenia od </value>
+    <value>Nie odebrałeś połączenia od &lt;user&gt;</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>przypięto wiadomość do tego kanału.</value>
@@ -328,6 +328,6 @@
     <value>Głośność</value>
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
-    <value>Masz problemy? Spróbuj zrestartować Quarrel'a</value>
+    <value>Masz problemy? Spróbuj zresetować Quarrel'a</value>
   </data>
 </root>

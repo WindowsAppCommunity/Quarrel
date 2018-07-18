@@ -133,7 +133,7 @@
     <value>Zmień nazwę użytkownika</value>
   </data>
   <data name="CloseDM" xml:space="preserve">
-    <value>Zamknij PW</value>
+    <value>Zakończ PW</value>
   </data>
   <data name="Deafen" xml:space="preserve">
     <value>Wycisz</value>
