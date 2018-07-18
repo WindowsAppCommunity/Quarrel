@@ -184,7 +184,7 @@ namespace Discord_UWP.Controls
             /* else if (game.Value.Name != null)
              {
 
-                 GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
+                 GameListItem? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
                  if (!gli.HasValue)
                      gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
                  if (gli.HasValue)

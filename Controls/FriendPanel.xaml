@@ -578,9 +578,9 @@
             </ListViewItem>
             <ListViewItem x:Uid="/Controls/BlockedLI" Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
         </ListView>
-        <Pivot x:Name="pivot" Grid.Row="1">
+        <Pivot x:Name="pivot" Grid.Row="1" Margin="-12,0">
             <PivotItem Margin="0,-48,0,0">
-                <GridView x:Name="Activites" Padding="0" Margin="0" SelectionMode="None">
+                <GridView x:Name="Feed" Padding="0" SelectionMode="None" VerticalAlignment="Top">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <local:ActivitesControl/>
@@ -592,8 +592,27 @@
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                     <GridView.Header>
-                        <FlipView>
-
+                        <FlipView x:Name="HeroFeed" MaxHeight="300" Width="{Binding ActualWidth, ElementName=pivot}" >
+                            <FlipView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid VerticalAlignment="Stretch">
+                                        <Image Source="{Binding Thumbnail.Url}"  Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush StartPoint="0.5,0.4" EndPoint="0.5,1">
+                                                    <GradientStop Color="#00000000"/>
+                                                    <GradientStop Color="Black"  Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <StackPanel Margin="24" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <TextBlock Text="{Binding GameTitle}" FontSize="12" FontWeight="SemiBold" Opacity="0.5" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Light" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                       
+                                    </Grid>
+                                </DataTemplate>
+                            </FlipView.ItemTemplate>
                         </FlipView>
                     </GridView.Header>
                 </GridView>

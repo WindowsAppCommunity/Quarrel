@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
+using Discord_UWP.API.Game;
 using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.LocalModels
@@ -21,7 +22,7 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, ReadState> RPC = new Dictionary<string, ReadState>();
         public static Dictionary<string, GuildSetting> GuildSettings = new Dictionary<string, GuildSetting>();
         public static VoiceState VoiceState = new VoiceState();
-        //public static List<API.Game.GameList> SupportedGames;
+        public static Dictionary<string, API.Game.GameListItem> SupportedGames = new Dictionary<string, GameListItem>();
         public static Dictionary<string, string> Drafts = new Dictionary<string, string>();
     }
 }

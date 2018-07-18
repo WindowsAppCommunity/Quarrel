@@ -1401,12 +1401,12 @@ namespace Discord_UWP
             }
             return null;
         }
-        public static async Task<IEnumerable<GameNews>> GetGameNews(string[] ids)
+        public static async Task<List<GameNews>> GetGameNews(string[] ids)
         {
             try
             {
                 IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
-                return await activiteservice.GetGameNews(String.Join("%2C", ids));
+                return await activiteservice.GetGameNews(String.Join(",", ids));
             }
             catch /*(Exception exception)*/
             {
@@ -1436,7 +1436,7 @@ namespace Discord_UWP
         #endregion
 
         #region Games
-        public static async Task<List<GameList>> GetGamelist()
+        public static async Task<List<GameListItem>> GetGamelist()
         {
             try
             {
@@ -1448,7 +1448,7 @@ namespace Discord_UWP
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new List<GameList>();
+            return new List<GameListItem>();
         }
         #endregion
 
