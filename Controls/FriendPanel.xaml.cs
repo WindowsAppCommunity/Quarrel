@@ -230,6 +230,15 @@ namespace Discord_UWP.Controls
                     heroNews[news.GameId] = news;
                 else
                     heroNews.Add(news.GameId,news);
+                if (!LocalState.GameNews.ContainsKey(news.GameId))
+                {
+                    LocalState.GameNews.Add(news.GameId, new List<GameNews>());
+                    LocalState.GameNews[news.GameId].Add(news);
+                }
+                else
+                {
+                    LocalState.GameNews[news.GameId].Add(news);
+                }
             }
 
             var heroNewsList = new List<GameNews>();
@@ -251,6 +260,8 @@ namespace Discord_UWP.Controls
             {
                 HeroFeed.SelectedIndex = 0;
             }
+
+            Feed.ItemsSource = relevantActivities;
         }
         public void NavigateToFriendRequests()
         {
