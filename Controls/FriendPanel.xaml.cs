@@ -206,14 +206,14 @@ namespace Discord_UWP.Controls
         public async void LoadFeed()
         {
             //Get feed settings
-            var feedsettings = await RESTCalls.GetFeedSettings();
+            LocalState.FeedSettings = await RESTCalls.GetFeedSettings();
             var activities = await RESTCalls.GetActivites();
             string GameIDs;
             List<string> relevantIds = new List<string>();
             List<ActivityData> relevantActivities = new List<ActivityData>();
             foreach(var activity in activities)
             {
-                if (!ContainsString(feedsettings.UnsubscribedUsers, activity.UserId) || !ContainsString(feedsettings.UnsubscribedGames, activity.ApplicationId))
+                if (!ContainsString(LocalState.FeedSettings.UnsubscribedUsers, activity.UserId) || !ContainsString(LocalState.FeedSettings.UnsubscribedGames, activity.ApplicationId))
                 {
                     relevantIds.Add(activity.ApplicationId);
                     relevantActivities.Add(activity);
@@ -270,8 +270,7 @@ namespace Discord_UWP.Controls
         public void FriendNotification(User user)
         {
             string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
-            //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
-            string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
+             string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
                                user.Avatar + ".jpg";
             // Construct the visuals of the toast
             ToastVisual visual = new ToastVisual()
