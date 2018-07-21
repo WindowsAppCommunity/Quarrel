@@ -179,9 +179,12 @@ namespace Discord_UWP.Controls
                    // RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
-                if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
+
+                if (LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
-                
+                else
+                    Note.Text = "";
+
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
@@ -212,7 +215,23 @@ namespace Discord_UWP.Controls
                         }
                         ChangeAccentColor(color);
                     }
-                    else if (Storage.Settings.DerivedColor)
+                    else 
+                    {
+                        richPresence.Visibility = Visibility.Collapsed;
+                        if (Storage.Settings.DerivedColor)
+                        {
+                            Color? color = await App.getUserColor(user);
+                            if (color.HasValue)
+                            {
+                                ChangeAccentColor(new SolidColorBrush(color.Value));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    richPresence.Visibility = Visibility.Collapsed;
+                    if (Storage.Settings.DerivedColor)
                     {
                         Color? color = await App.getUserColor(user);
                         if (color.HasValue)
@@ -221,14 +240,7 @@ namespace Discord_UWP.Controls
                         }
                     }
                 }
-                else if (Storage.Settings.DerivedColor)
-                {
-                    Color? color = await App.getUserColor(user);
-                    if (color.HasValue)
-                    {
-                        ChangeAccentColor(new SolidColorBrush(color.Value));
-                    }
-                }
+                
             }
             if (prop == DMPaneProperty)
             {
