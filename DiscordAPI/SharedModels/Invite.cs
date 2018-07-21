@@ -39,6 +39,16 @@ namespace Discord_UWP.SharedModels
         /// </summary>
         [JsonProperty("max_uses")]
         public int MaxUses { get; set; }
+        /// <summary>
+        /// An approximation of the member count
+        /// </summary>
+        [JsonProperty("approximate_member_count")]
+        public int MemberCount { get; set; }
+        /// <summary>
+        /// An approximation of the presence count
+        /// </summary>
+        [JsonProperty("approximate_presence_count")]
+        public int OnlineCount { get; set; }
         [JsonProperty("temporary")]
         public bool Temporary { get; set; }
         [JsonProperty("created_at")]
@@ -65,6 +75,8 @@ namespace Discord_UWP.SharedModels
         public string Id { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
         [JsonProperty("splash_hash")]
         public string SplashHash { get; set; }
     }
