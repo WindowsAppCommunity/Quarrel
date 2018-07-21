@@ -614,7 +614,7 @@ namespace Discord_UWP
                                        if (guild.Id == e.Id)
                                        {
                                            if (!string.IsNullOrEmpty(e.Icon))
-                                               guild.ImageURL = "https://discordapp.com/api/guilds/" + e.Id + "/icons/" + e.Icon + ".jpg";
+                                               guild.ImageURL = "https://cdn.discordapp.com/icons/" + e.Id + "/" + e.Icon + ".png";
 
                                            else
                                                guild.ImageURL = "empty";
@@ -1795,7 +1795,7 @@ namespace Discord_UWP
                 sg.Id = guild.Value.Raw.Id;
                 if (!string.IsNullOrEmpty(guild.Value.Raw.Icon))
                 {
-                    sg.ImageURL = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg";
+                    sg.ImageURL = "https://cdn.discordapp.com/icons/" + guild.Value.Raw.Id + "/" + guild.Value.Raw.Icon + ".png";
                 }
                 else
                 {
