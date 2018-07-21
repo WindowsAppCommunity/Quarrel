@@ -141,11 +141,21 @@ namespace Discord_UWP.Controls
         {
             Loading.Fade(0, 200).Start();
             GuildName.Fade(1, 350).Start();
-            ChannelName.Visibility = Visibility.Collapsed;
+           
             if(reason == InvalidReason.Default) GuildName.Text = App.GetString("/Controls/InviteInvalid");
             else if (reason == InvalidReason.MaxUses) GuildName.Text = App.GetString("/Controls/InviteMaxUses");
             else if(reason== InvalidReason.Expired) GuildName.Text = App.GetString("/Controls/InviteExpired");
             GuildName.Foreground = (SolidColorBrush) Application.Current.Resources["dnd"];
+            if (DisplayedInvite?.Inviter != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(DisplayedInvite?.Inviter.Id))
+            {
+                ChannelName.Text = "Ask @" + DisplayedInvite.Inviter.Username + "#" + DisplayedInvite.Inviter.Discriminator + " for a new one";
+                ChannelName.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ChannelName.Text = "";
+                ChannelName.Visibility = Visibility.Collapsed;
+            }
             MemberCounters.Visibility = Visibility.Collapsed;
             GuildImage.Visibility = Visibility.Collapsed;
             Status = InviteStatus.Invalid;
@@ -197,6 +207,10 @@ namespace Discord_UWP.Controls
                 await RESTCalls.AcceptInvite(InviteCode);
                 DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
                 LoadInvite(true);
+            }
+            else if(Status == InviteStatus.Invalid && ChannelName.Visibility == Visibility.Visible)
+            {
+                App.SelectGuildChannel(App.CurrentGuildId,App.CurrentChannelId, "@"+DisplayedInvite.Inviter.Username+"#"+DisplayedInvite.Inviter.Discriminator);
             }
         }
 
