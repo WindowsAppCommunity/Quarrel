@@ -60,7 +60,15 @@ namespace Discord_UWP.Controls
                 {
                     var game = LocalState.SupportedGames[GameId];
                     GameName.Text = game.Name;
-                    DevName.Text = "by " + string.Join(",", game.Developers);
+                    if (game.Developers != null && game.Developers.Count>0)
+                    {
+                        DevName.Text = "by " + string.Join(",", game.Developers);
+                        DevName.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        DevName.Visibility = Visibility.Visible;
+                    }
 
                     //Icon
                     if (!string.IsNullOrEmpty(game.Icon))
