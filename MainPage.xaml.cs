@@ -354,6 +354,7 @@ namespace Discord_UWP
             App.MenuHandler += App_MenuHandler;
             App.MentionHandler += App_MentionHandler;
             App.ShowMemberFlyoutHandler += App_ShowMemberFlyoutHandler;
+            App.ShowGameFlyoutHandler += App_ShowGameFlyoutHandler;
             //Link
             App.LinkClicked += App_LinkClicked;
             //API
@@ -410,6 +411,8 @@ namespace Discord_UWP
             GatewayManager.Gateway.Resumed += Gateway_Resumed;
             NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
         }
+
+
 
         private async void Gateway_Resumed(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Resumed> e)
         {
@@ -747,6 +750,7 @@ namespace Discord_UWP
             App.MenuHandler -= App_MenuHandler;
             App.MentionHandler -= App_MentionHandler;
             App.ShowMemberFlyoutHandler -= App_ShowMemberFlyoutHandler;
+            App.ShowGameFlyoutHandler -= App_ShowGameFlyoutHandler;
             //Link
             App.LinkClicked -= App_LinkClicked;
             //API
@@ -901,6 +905,7 @@ namespace Discord_UWP
                     foreach (var game in games)
                     {
                         LocalState.SupportedGames.Add(game.Id, game);
+                        LocalState.SupportedGamesNames.Add(game.Name, game.Id);
                     }
                 } else
                 {
@@ -1451,6 +1456,11 @@ namespace Discord_UWP
             {
                 FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
             }
+        }
+
+        private void App_ShowGameFlyoutHandler(object sender, string e)
+        {
+            FlyoutManager.MakeGameFlyout(e).ShowAt(sender as FrameworkElement);
         }
         #endregion
 

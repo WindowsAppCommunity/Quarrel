@@ -38,7 +38,7 @@
         </Grid>
         <Grid Grid.Column="1" >
             <StackPanel>
-                <TextBlock x:Name="GameTB" FontSize="13.333" FontWeight="SemiBold"/>
+                <HyperlinkButton x:Name="GameTB" FontSize="13.333" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Foreground}" Content="Something" IsEnabled="False" Click="GameTB_OnClick" FontWeight="SemiBold"/>
                 <TextBlock x:Name="DetailsTB" FontSize="11" Opacity="1"/>
                 <TextBlock x:Name="StateTB" FontWeight="SemiLight" FontSize="11" Opacity="0.8"/>
                 <TextBlock x:Name="TimeTB" FontSize="11" Opacity="0.6"/>

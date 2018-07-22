@@ -129,6 +129,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GameDetailsControl.xaml.cs">
+      <DependentUpon>GameDetailsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListenOnSpotify.xaml.cs">
       <DependentUpon>ListenOnSpotify.xaml</DependentUpon>
     </Compile>
@@ -637,6 +640,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ControllerHint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GameDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

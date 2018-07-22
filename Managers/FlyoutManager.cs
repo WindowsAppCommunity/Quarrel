@@ -113,6 +113,16 @@ namespace Discord_UWP.Managers
             return flyout;
         }
 
+        public static Flyout MakeGameFlyout(string id)
+        {
+            Flyout flyout = new Flyout();
+            flyout.Content = new GameDetailsControl()
+            {
+                GameId = id
+            };
+            flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
+            return flyout;
+        }
         #region FlyoutCommands
         #region Profile
         public static void OpenProfile(object sender, RoutedEventArgs e)
