@@ -112,6 +112,10 @@ namespace Discord_UWP
                            CinematicMask1.Visibility = Visibility.Visible;
                            CinematicMask2.Visibility = Visibility.Visible;
                            ControllerHints.Visibility = Visibility.Visible;
+                           if (App.ShowAds)
+                           {
+                               XBOXAd.Visibility = Visibility.Visible;
+                           }
                            Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
                            sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
                            sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;

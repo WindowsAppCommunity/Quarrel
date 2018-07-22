@@ -1627,6 +1627,11 @@
                                             </controls:ControllerHint.ContextFlyout>
                                         </controls:ControllerHint>
                                     </StackPanel>
+                                    <ads:AdControl x:Name="XBOXAd" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                               Visibility="Collapsed" Background="Red"
+                                               Height="50" Width="320"
+                                               ApplicationId="9nbrwj777c8r"
+                                               AdUnitId="336795" Grid.RowSpan="2"/>
                                 </Grid>
                             </Grid>
 
