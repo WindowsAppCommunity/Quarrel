@@ -16,6 +16,8 @@ namespace Discord_UWP.API.Activities
         [Get("/v6/users/@me/feed/settings?include_autosubscribed_games=true")]
         Task<FeedSettings> GetFeedSettings();
 
+        [Patch("/v6/users/@me/feed/settings")]
+        Task<FeedSettings> PatchFeedSettings([Body] FeedPatch request);
         /// <summary>
         /// Get game news
         /// </summary>
@@ -23,5 +25,7 @@ namespace Discord_UWP.API.Activities
         /// <returns></returns>
         [Get("/v6/game-news?game_ids={gameIds}")]
         Task<List<GameNews>> GetGameNews([AliasAs("gameIds")] string gameIds);
+
+
     }
 }

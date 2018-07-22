@@ -583,14 +583,16 @@
                 <GridView x:Name="Feed" Padding="0" SelectionMode="None" VerticalAlignment="Top">
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <local:ActivitesControl/>
+                            <Grid>
+                                <local:ActivitesControl Activity="{Binding}"/>
+                            </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>
-                    <GridView.ItemsPanel>
+                    <!--<GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <tk:StaggeredPanel HorizontalAlignment="Stretch"/>
                         </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
+                    </GridView.ItemsPanel>-->
                     <GridView.Header>
                         <FlipView x:Name="HeroFeed" MaxHeight="300" Width="{Binding ActualWidth, ElementName=pivot}" >
                             <FlipView.ItemTemplate>

@@ -417,6 +417,11 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="assets2\BadgeLogo.scale-100.png" />
+    <Content Include="assets2\BadgeLogo.scale-125.png" />
+    <Content Include="assets2\BadgeLogo.scale-150.png" />
+    <Content Include="assets2\BadgeLogo.scale-200.png" />
+    <Content Include="assets2\BadgeLogo.scale-400.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />

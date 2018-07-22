@@ -10,7 +10,7 @@ namespace Discord_UWP.API.Invite
 {
     public interface IInviteService
     {
-        [Get("/invites/{inviteCode}")]
+        [Get("/invites/{inviteCode}?with_counts=true")]
         Task<SharedModels.Invite> GetInvite([AliasAs("inviteCode")] string inviteCode);
 
         [Delete("/invites/{inviteCode}")]

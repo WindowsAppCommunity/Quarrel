@@ -170,7 +170,11 @@ namespace Discord_UWP.Managers
 
         public static async void KickMember(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
+            try
+            {
+                await RESTCalls.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
+            }
+            catch { }
         }
 
         public static void BanMember(object sender, RoutedEventArgs e)
