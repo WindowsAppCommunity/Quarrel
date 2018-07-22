@@ -9,7 +9,7 @@ namespace Discord_UWP.API.Game
 {
     public interface IGameService
     {
-        [Get("/games")]
-        Task<List<GameList>> GetGames();
+        [Get("/v6/applications")]
+        Task<List<GameListItem>> GetGames();
     }
 }

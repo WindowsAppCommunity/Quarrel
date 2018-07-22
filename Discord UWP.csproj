@@ -129,6 +129,9 @@
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GameDetailsControl.xaml.cs">
+      <DependentUpon>GameDetailsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ListenOnSpotify.xaml.cs">
       <DependentUpon>ListenOnSpotify.xaml</DependentUpon>
     </Compile>
@@ -215,7 +218,7 @@
     <Compile Include="LocalModels\LocalState.cs" />
     <Compile Include="LocalModels\Permissions.cs" />
     <Compile Include="Managers\BotExtrasManager.cs" />
-    <Compile Include="Managers\SimpleClasses.cs" />
+    <Compile Include="Classes\SimpleClasses.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
@@ -417,6 +420,11 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="assets2\BadgeLogo.scale-100.png" />
+    <Content Include="assets2\BadgeLogo.scale-125.png" />
+    <Content Include="assets2\BadgeLogo.scale-150.png" />
+    <Content Include="assets2\BadgeLogo.scale-200.png" />
+    <Content Include="assets2\BadgeLogo.scale-400.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
@@ -632,6 +640,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ControllerHint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GameDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

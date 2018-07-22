@@ -603,4 +603,7 @@
   <data name="FlagDiscordStaff" xml:space="preserve">
     <value>PERSONEL DISCORDA</value>
   </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Konto</value>
+  </data>
 </root>

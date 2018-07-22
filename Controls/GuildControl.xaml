@@ -39,7 +39,7 @@
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
+            <DoubleAnimation Duration="0:0:0.3" To="0.12" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -61,7 +61,7 @@
                     <CircleEase EasingMode="EaseIn"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Duration="0:0:0.3" To="0.6" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
+            <DoubleAnimation Duration="0:0:0.3" To="0.1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="GuildImageBackdrop" d:IsOptimized="True">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -85,7 +85,7 @@
             </Border.Background>
         </Border>
         <Border x:Name="UnreadIndicator" Visibility="Collapsed" Height="12" Width="3" Opacity="0.75" Background="{ThemeResource InvertedBG}" Margin="-12,2,4,0" HorizontalAlignment="Left"/>
-        <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource Blurple}" Opacity="0.6"/>
+        <Rectangle x:Name="GuildImageBackdrop" Width="50" Height="50" RadiusX="25" RadiusY="25" Fill="{ThemeResource InvertedBG}" Opacity="0.1"/>
         <Rectangle x:Name="GuildImage" Width="50" Height="50" RadiusX="25" RadiusY="25">
             <Rectangle.Fill>
                 <ImageBrush x:Name="GuildImageBrush"/>
