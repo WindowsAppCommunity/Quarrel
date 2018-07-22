@@ -1276,65 +1276,64 @@ namespace Discord_UWP
                 #region Protocol
 
                 case ActivationKind.Protocol:
-                {
-                    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                    string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
-                        .Replace("discorduwp://", "").Split('/');
-                    var count = segments.Count();
-                    if (count > 0)
                     {
-                        if (segments[0] == "guild" || segments[0] == "channels")
+                        ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                        string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
+                            .Replace("discorduwp://", "").Split('/');
+                        var count = segments.Count();
+                        if (count > 0)
                         {
-                            if (count == 3)
-                                SelectGuildChannel(segments[1], segments[2]);
-                            else if (count == 2)
-                                SelectGuildChannel(segments[1], null);
-                        }
-                        else if (segments[0] == "reset")
-                        {
-                            await RequestReset();
-                        }
-                        else if (segments[0] == "nologin")
-                        {
-                            DontLogin = true;
-                        }
-                        else if (segments[0] == "invite")
-                        {
-                            NavigateToJoinServer(segments[1]);
-                        }
-                        else if (segments[0] == "friendrequests")
-                        {
-                            App.SelectGuildChannel("friendrequests", null);
-                        }
-                        else if (segments[0] == "cinematic")
-                        {
-                            App.CinematicMode = true;
-                        }
-                        else if (segments[0] == "call")
-                        {
-                            if (segments[1] == "accept")
+                            if (segments[0] == "guild" || segments[0] == "channels")
                             {
-                                RESTCalls.StartCall(segments[1]);
+                                if (count == 3)
+                                    SelectGuildChannel(segments[1], segments[2]);
+                                else if (count == 2)
+                                    SelectGuildChannel(segments[1], null);
                             }
-                            else if (segments[1] == "decline")
+                            else if (segments[0] == "reset")
                             {
-                                RESTCalls.DeclineCall(segments[1]);
+                                await RequestReset();
                             }
-                        }
+                            else if (segments[0] == "nologin")
+                            {
+                                DontLogin = true;
+                            }
+                            else if (segments[0] == "invite")
+                            {
+                                NavigateToJoinServer(segments[1]);
+                            }
+                            else if (segments[0] == "friendrequests")
+                            {
+                                App.SelectGuildChannel("friendrequests", null);
+                            }
+                            else if (segments[0] == "cinematic")
+                            {
+                                App.CinematicMode = true;
+                                //RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+                            }
+                            else if (segments[0] == "call")
+                            {
+                                if (segments[1] == "accept")
+                                {
+                                    RESTCalls.StartCall(segments[1]);
+                                }
+                                else if (segments[1] == "decline")
+                                {
+                                    RESTCalls.DeclineCall(segments[1]);
+                                }
+                            }
+                        };
+                        break;
                     }
-
-                    ;
-                    break;
-                }
 
                 #endregion
 
 
                 #region ShareTarget
                 case ActivationKind.ShareTarget:
-                    
+
                     break;
-#endregion
+                    #endregion
             }
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
                 LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, launchArgs);
