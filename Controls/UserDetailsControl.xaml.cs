@@ -284,6 +284,7 @@ namespace Discord_UWP.Controls
 
 
                 LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+                _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
 
@@ -315,6 +316,11 @@ namespace Discord_UWP.Controls
             {
                 //Fuck this shit
             }
+        }
+
+        private void _loadedSurface_LoadCompleted(LoadedImageSurface sender, LoadedImageSourceLoadCompletedEventArgs args)
+        {
+            AvatarContainer.Fade(0.35f,300,0,EasingType.Circle).Start();
         }
 
         public UserDetailsControl()
@@ -479,6 +485,11 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Unloaded -= UserDetailsControl_Unloaded;
+        }
+
+        private void Avatar_OnImageOpened(object sender, RoutedEventArgs e)
+        {
+            AvatarRectangle.Fade(1,300, 0, EasingType.Circle).Start();
         }
     }
 }
