@@ -1401,6 +1401,19 @@ namespace Discord_UWP
             }
             return null;
         }
+        public static async Task<FeedSettings> AddFeedSubscriptions(IEnumerable<string> users, IEnumerable<string> games)
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.PatchFeedSettings(new FeedPatch() { UserSubscriptions = users, GameSubscriptions = games });
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
         public static async Task<List<GameNews>> GetGameNews(string[] ids)
         {
             try

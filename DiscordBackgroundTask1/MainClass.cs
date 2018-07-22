@@ -202,14 +202,17 @@ namespace DiscordBackgroundTask1
                             var ready = JObject.Parse(message)["d"];
                             IList<JToken> json_readstates = ready["read_state"].Children().ToList();
                             Dictionary<string, ReadState> readstates = new Dictionary<string, ReadState>();
+                            int totalmentioncount = 0;
                             foreach (var readstate in json_readstates)
                             {
                                 var rs = readstate.ToObject<ReadState>();
                                 readstates.Add(rs.id, rs);
+                                totalmentioncount += rs.mention_count;
                             }
 
 
                             IList<JToken> privatechannels = ready["private_channels"].Children().ToList();
+                            
                             if (GetSetting("bgNotifyDM"))
                                 foreach (var json_channel in privatechannels)
                                 {

@@ -179,9 +179,12 @@ namespace Discord_UWP.Controls
                    // RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
-                if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
+
+                if (LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
-                
+                else
+                    Note.Text = "";
+
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
@@ -212,7 +215,23 @@ namespace Discord_UWP.Controls
                         }
                         ChangeAccentColor(color);
                     }
-                    else if (Storage.Settings.DerivedColor)
+                    else 
+                    {
+                        richPresence.Visibility = Visibility.Collapsed;
+                        if (Storage.Settings.DerivedColor)
+                        {
+                            Color? color = await App.getUserColor(user);
+                            if (color.HasValue)
+                            {
+                                ChangeAccentColor(new SolidColorBrush(color.Value));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    richPresence.Visibility = Visibility.Collapsed;
+                    if (Storage.Settings.DerivedColor)
                     {
                         Color? color = await App.getUserColor(user);
                         if (color.HasValue)
@@ -221,14 +240,7 @@ namespace Discord_UWP.Controls
                         }
                     }
                 }
-                else if (Storage.Settings.DerivedColor)
-                {
-                    Color? color = await App.getUserColor(user);
-                    if (color.HasValue)
-                    {
-                        ChangeAccentColor(new SolidColorBrush(color.Value));
-                    }
-                }
+                
             }
             if (prop == DMPaneProperty)
             {
@@ -272,6 +284,7 @@ namespace Discord_UWP.Controls
 
 
                 LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+                _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
 
@@ -303,6 +316,11 @@ namespace Discord_UWP.Controls
             {
                 //Fuck this shit
             }
+        }
+
+        private void _loadedSurface_LoadCompleted(LoadedImageSurface sender, LoadedImageSourceLoadCompletedEventArgs args)
+        {
+            AvatarContainer.Fade(0.35f,300,0,EasingType.Circle).Start();
         }
 
         public UserDetailsControl()
@@ -467,6 +485,11 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
             GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
             Unloaded -= UserDetailsControl_Unloaded;
+        }
+
+        private void Avatar_OnImageOpened(object sender, RoutedEventArgs e)
+        {
+            AvatarRectangle.Fade(1,300, 0, EasingType.Circle).Start();
         }
     }
 }

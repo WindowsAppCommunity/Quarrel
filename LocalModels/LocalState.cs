@@ -24,5 +24,7 @@ namespace Discord_UWP.LocalModels
         public static VoiceState VoiceState = new VoiceState();
         public static Dictionary<string, API.Game.GameListItem> SupportedGames = new Dictionary<string, GameListItem>();
         public static Dictionary<string, string> Drafts = new Dictionary<string, string>();
+        public static Dictionary<string, List<GameNews>> GameNews = new Dictionary<string, List<GameNews>>();
+        public static FeedSettings FeedSettings = new FeedSettings();
     }
 }
