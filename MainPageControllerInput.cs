@@ -84,30 +84,17 @@ namespace Discord_UWP
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleRight();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
-            {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
-                args.Handled = true;
-                if (args.KeyStatus.IsKeyReleased)
-                {
-                    MenuHint.Release();
-                    MenuHint.ContextFlyout.ShowAt(YHint);
-                }
-                else
-                    MenuHint.Press();
-            }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
             {
                 if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.IsKeyReleased)
                 {
-                    ViewHint.Release();
-                    sideDrawer.ToggleFullScreen();
+                    MenuHint.Release();
+                    MenuHint.ContextFlyout.ShowAt(MenuHint);
                 }
                 else
-                    ViewHint.Press();
-
+                    MenuHint.Press();
             }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadX)
             {
@@ -131,6 +118,7 @@ namespace Discord_UWP
                     XHint.Press();
                 }
             }
+            /*
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadY)
             {
                 if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
@@ -175,7 +163,7 @@ namespace Discord_UWP
 
 
                 // args.Handled = true;
-            }
+            }*/
         }
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
