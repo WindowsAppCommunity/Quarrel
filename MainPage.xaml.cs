@@ -106,12 +106,18 @@ namespace Discord_UWP
 
                            CinematicChannelName.Visibility = Visibility.Visible;
                            CinematicGuildName.Visibility = Visibility.Visible;
+                           ServerNameButton.Visibility = Visibility.Collapsed;
                            friendPanel.Margin = new Thickness(0, 84, 0, 0);
                            MessageList.Padding = new Thickness(0, 84, 0, 0);
                            MessageArea.Margin = new Thickness(0);
                            CinematicMask1.Visibility = Visibility.Visible;
                            CinematicMask2.Visibility = Visibility.Visible;
                            ControllerHints.Visibility = Visibility.Visible;
+                           if (App.ShowAds)
+                           {
+                               XBOXAd.Visibility = Visibility.Visible;
+                           }
+                           PCAd.Visibility = Visibility.Collapsed;
                            Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
                            sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
                            sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;
@@ -167,7 +173,7 @@ namespace Discord_UWP
 
             if (e.NewState == Large || e.NewState == ExtraLarge)
             {
-                if (App.ShowAds)
+                if (App.ShowAds && !App.CinematicMode)
                 {
                     PCAd.Visibility = Visibility.Visible;
                     MobileAd.Visibility = Visibility.Collapsed;
@@ -200,7 +206,7 @@ namespace Discord_UWP
                     MessageAreaCMD.Children.Remove(cmdBar);
                     content.Children.Add(cmdBar);
                 }
-                if (App.ShowAds)
+                if (App.ShowAds && !App.CinematicMode)
                 {
                     PCAd.Visibility = Visibility.Collapsed;
                     MobileAd.Visibility = Visibility.Visible;
@@ -212,7 +218,7 @@ namespace Discord_UWP
                 cmdBar.Background = (Brush)Application.Current.Resources["AcrylicCommandBarBackground"];
               //  cmdBarShadow.Visibility = Visibility.Collapsed;
             }
-            if(!App.ShowAds)
+            if(!App.ShowAds || App.CinematicMode)
             {
                 
                 PCAd.Visibility = Visibility.Collapsed;
@@ -1835,8 +1841,13 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-
-            ServerNameButton.Visibility = Visibility.Collapsed;
+            if (App.CinematicMode)
+            {
+                CinematicGuildName.Visibility = Visibility.Collapsed;
+            } else
+            {
+                ServerNameButton.Visibility = Visibility.Collapsed;
+            }
             FriendsItem.Visibility = Visibility.Visible;
             DirectMessageBlock.Visibility = Visibility.Visible;
 
@@ -1888,8 +1899,13 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-
-            ServerNameButton.Visibility = Visibility.Visible;
+            if (App.CinematicMode)
+            {
+                CinematicGuildName.Visibility = Visibility.Visible;
+            } else
+            {
+                ServerNameButton.Visibility = Visibility.Visible;
+            }
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
             if (LocalState.Guilds[App.CurrentGuildId].permissions.ManageChannels || LocalState.Guilds[App.CurrentGuildId].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
@@ -1947,7 +1963,7 @@ namespace Discord_UWP
                 sideDrawer.CloseLeft();
             }
 
-            ChannelName.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel).Name : (ChannelList.SelectedItem as SimpleChannel).Name;
+            ChannelName.Text = CinematicChannelName.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel).Name : (ChannelList.SelectedItem as SimpleChannel).Name;
             //CompChannelName.Text = ChannelName.Text;
             ChannelTopic.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel).Id].raw.Topic : "";
             //CompChannelTopic.Text = ChannelTopic.Text;
@@ -3287,7 +3303,7 @@ namespace Discord_UWP
                     {
                         ChannelSelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
 
-                        if (App.ShowAds)
+                        if (App.ShowAds && !App.CinematicMode)
                         {
                             if (UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge)
                             {
