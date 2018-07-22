@@ -69,24 +69,35 @@ namespace Discord_UWP.SubPages
             buildId.Text = App.GetString("/About/Commit") + " " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
             buildNumber.Text = App.GetString("/About/Build") + " " + details[2];
 
-            List<string> purchaseList = new List<string>() { "RemoveAds", "Remove Ads", "Polite Dontation" , "SignificantDontation", "OMGTHXDonation", "RidiculousDonation" };
-            var licenseInformation = CurrentApp.LicenseInformation;
-            foreach (string item in purchaseList)
+            try
             {
-                if (licenseInformation.ProductLicenses[item].IsActive)
+                List<string> purchaseList = new List<string>() { "RemoveAds", "Remove Ads", "Polite Dontation", "SignificantDontation", "OMGTHXDonation", "RidiculousDonation" };
+                var licenseInformation = CurrentApp.LicenseInformation;
+                foreach (string item in purchaseList)
                 {
-                    if (PuracheList.Text == "")
+                    if (licenseInformation.ProductLicenses[item].IsActive)
                     {
-                        PuracheList.Text += item;
-                    } else
-                    {
-                        PuracheList.Text += " ," + item;
+                        if (PuracheList.Text == "")
+                        {
+                            PuracheList.Text += item;
+                        }
+                        else
+                        {
+                            PuracheList.Text += " ," + item;
+                        }
                     }
                 }
+                if (PuracheList.Text == "")
+                {
+                    PuracheList.Text = "None";
+                }
             }
-            if (PuracheList.Text == "")
+            catch
             {
-                PuracheList.Text = "None";
+                if (PuracheList.Text == "")
+                {
+                    PuracheList.Text = "None (errors loading)";
+                }
             }
         }
         private void App_SubpageCloseHandler(object sender, EventArgs e)
