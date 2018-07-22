@@ -55,6 +55,14 @@ namespace Discord_UWP.Managers
                             lastfeature
                         };
                     }
+                //UNBELIEVABOT
+                case "292953664492929025":
+                {
+                    return new SpecialFeature[]{
+                        new SpecialFeature("Leaderboard", "", "https://unbelievable.pizza/leaderboard/" + App.CurrentGuildId),
+                        lastfeature
+                    };
+                    }
             }
             return new SpecialFeature[] { lastfeature };
         }

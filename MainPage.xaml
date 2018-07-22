@@ -1613,9 +1613,9 @@
                                 <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
                                 <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                     <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
-                                        <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
-                                        <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
+                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
+                                       
+                                        <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
                                             <controls:ControllerHint.ContextFlyout>
                                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                                                     <!-- <MenuFlyoutSeparator/>-->
@@ -1627,6 +1627,11 @@
                                             </controls:ControllerHint.ContextFlyout>
                                         </controls:ControllerHint>
                                     </StackPanel>
+                                    <ads:AdControl x:Name="XBOXAd" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                               Visibility="Collapsed" Background="Red"
+                                               Height="50" Width="320"
+                                               ApplicationId="9nbrwj777c8r"
+                                               AdUnitId="336795" Grid.RowSpan="2"/>
                                 </Grid>
                             </Grid>
 

@@ -93,10 +93,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock x:Uid="/Settings/AccountSettingTB" x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <Pivot Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
-                        <PivotItem x:Uid="/Dialogs/AccountPI" Header="Account">
+                        <PivotItem x:Uid="/Settings/AccountPI" Header="Account">
                             <ScrollViewer Margin="-12,0,0,0" Grid.Row="0" Padding="0">
                                 <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24">
-
                                     <Grid HorizontalAlignment="Left" Margin="0,12,0,0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition/>
@@ -110,20 +109,20 @@
                                         </Rectangle>
                                         <StackPanel Margin="0,6,0,0"  Grid.Row="1">
 
-                                            <HyperlinkButton x:Uid="/Dialogs/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
-                                            <HyperlinkButton x:Uid="/Dialogs/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
+                                            <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
+                                            <HyperlinkButton x:Uid="/Settings/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                         </StackPanel>
                                     </Grid>
-                                    <TextBox x:Uid="/Dialogs/UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
-                                    <TextBox x:Uid="/Dialogs/EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
-                                    <PasswordBox x:Uid="/Dialogs/CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                                    <HyperlinkButton x:Uid="/Dialogs/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
-                                    <PasswordBox x:Uid="/Dialogs/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
-                                    <TextBlock x:Uid="/Dialogs/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
-                                    <Button x:Uid="SaveBTN" x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="24,24,24,0" Grid.Column="2" Padding="24,12">
+                                    <TextBox x:Uid="/Settings/UsernameBox" x:Name="usernameBox" Style="{StaticResource TextBoxStyle1}" Header="Username" Margin="0,24,0,0" TextChanged="usernameBox_TextChanged"/>
+                                    <TextBox x:Uid="/Settings/EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
+                                    <PasswordBox x:Uid="/Settings/CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
+                                    <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                                    <PasswordBox x:Uid="/Settings/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
+                                    <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="24,24,24,0" Grid.Column="2" Padding="24,12">
                                         <Button.Content>
                                             <Grid>
-                                                <TextBlock x:Name="saveBTNtext" Text="Save"/>
+                                                <TextBlock x:Uid="/Settings/SaveTB" x:Name="saveBTNtext" Text="Save"/>
                                                 <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource Blurple}" IsActive="True"/>
                                             </Grid>
                                         </Button.Content>
@@ -191,37 +190,36 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Dialogs/AccountPrivacyPI" Header="Privacy">
+                        <PivotItem x:Uid="/Settings/AccountPrivacyPI" Header="Privacy">
                             <ScrollViewer Margin="-12,0,0,0" Grid.Row="0" Padding="0">
                                 <StackPanel>
-                                    <TextBlock Text="COMING SOON..." Margin="12,6,12,0"/>
-                                <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24" Opacity="0.25" IsHitTestVisible="False">
-                                    <TextBlock Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" TextWrapping="Wrap"/>
-                                    <TextBlock Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
-                                    <RadioButton x:Name="Filtering0" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource online}" Margin="0,6,0,0">
-                                        <StackPanel>
-                                            <TextBlock Text="Protect me"/>
-                                            <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs"/>
-                                        </StackPanel>
-                                    </RadioButton>
-                                    <RadioButton x:Name="Filtering1" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource idle}">
-                                        <StackPanel>
-                                            <TextBlock Text="My friends are nice"/>
-                                            <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs, except from my friends"/>
-                                        </StackPanel>
-                                    </RadioButton>
-                                    
-                                    <RadioButton x:Name="Filtering2" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource dnd}">
-                                        <StackPanel>
-                                            <TextBlock Text="I live dangerously"/>
-                                            <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
-                                        </StackPanel>
-                                    </RadioButton>
-                                    <TextBlock Text="WHO CAN SEND FRIEND REQUESTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0" TextWrapping="Wrap"/>
-                                    <CheckBox x:Name="FriendRequest0" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"  Content="Everyone" Checked="FriendRequest0_OnChecked" Unchecked="FriendRequest0_OnChecked"/>
-                                    <CheckBox x:Name="FriendRequest1" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="The friends of my friends" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
-                                    <CheckBox x:Name="FriendRequest2" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="Mutual server members" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
-                                <TextBlock Text="To access the rest of your privacy settings, please use the official Discord website or client" Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.5"/>
+                                    <TextBlock Text="COMING SOON... (but not 9.2)" Margin="12,6,12,0"/>
+                                    <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24" Opacity="0.25" IsHitTestVisible="False">
+                                        <TextBlock x:Uid="/Settings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" TextWrapping="Wrap"/>
+                                        <TextBlock x:Uid="/Settings/DMFilterExpoTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
+                                        <RadioButton x:Name="Filtering0" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource online}" Margin="0,6,0,0">
+                                            <StackPanel>
+                                                <TextBlock x:Uid="/Settings/ProtectMeTB" Text="Protect me"/>
+                                                <TextBlock x:Uid="/Settings/ProtectMeExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs"/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="Filtering1" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource idle}">
+                                            <StackPanel>
+                                                <TextBlock x:Uid="/Settings/NiceFriendsTB" Text="My friends are nice"/>
+                                                <TextBlock x:Uid="/Settings/NiceFriendsExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Analyze all DMs, except from my friends"/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="Filtering2" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource dnd}">
+                                            <StackPanel>
+                                                <TextBlock x:Uid="/Settings/DangerZoneTB" Text="I live dangerously"/>
+                                                <TextBlock x:Uid="/Settings/DangerZoneExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <TextBlock x:Uid="/Settings/FriendRequestOptionsTB" Text="WHO CAN SEND FRIEND REQUESTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0" TextWrapping="Wrap"/>
+                                        <CheckBox x:Uid="/Settings/EveryoneCB" x:Name="FriendRequest0" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"  Content="Everyone" Checked="FriendRequest0_OnChecked" Unchecked="FriendRequest0_OnChecked"/>
+                                        <CheckBox x:Uid="/Settings/MutualFriendsCB" x:Name="FriendRequest1" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="The friends of my friends" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
+                                        <CheckBox x:Uid="/Settings/MutualServerMembersCB" x:Name="FriendRequest2" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="Mutual server members" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
+                                        <TextBlock x:Uid="/Settings/FullPrivacySettingsTB" Text="To access the rest of your privacy settings, please use the official Discord website or client" Margin="0,12,0,0" TextWrapping="Wrap" FontSize="12" Opacity="0.5"/>
                                     </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>

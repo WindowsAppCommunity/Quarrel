@@ -20,4 +20,12 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("unsubscribed_games")]
         public IEnumerable<string> UnsubscribedGames { get; set; }
     }
+
+    public class FeedPatch
+    {
+        [JsonProperty("subscribe_users", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> UserSubscriptions { get; set; }
+        [JsonProperty("subscribe_games", NullValueHandling = NullValueHandling.Ignore)]
+        public IEnumerable<string> GameSubscriptions { get; set; }
+    }
 }

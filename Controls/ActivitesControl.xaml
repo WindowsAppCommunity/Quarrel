@@ -9,7 +9,28 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-
+    <Grid HorizontalAlignment="Stretch" MinWidth="340">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.5"/>
+        </Grid.Background>
+        <Grid Grid.Row="0" x:Name="GameSection">
+            <Grid.Background>
+                <ImageBrush x:Name="GameSectionBg" Opacity="0.2" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="GameIcon" Grid.Column="0" Margin="8" Width="48" Height="48"/>
+            <TextBlock x:Name="GameTitle" FontSize="15" Grid.Column="1" VerticalAlignment="Center" Margin="12,0,12,0"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="UserSection">
+            <StackPanel x:Name="Users"/>
+        </Grid>
     </Grid>
 </UserControl>

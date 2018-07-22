@@ -223,10 +223,10 @@
     <value>แชนเนลเสียง</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>ข้อความส่วนตัว</value>
+    <value>เมื่อวาน</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>เมื่อวาน</value>
+    <value>ข้อความส่วนตัว</value>
   </data>
   <data name="members" xml:space="preserve">
     <value>&lt;count&gt; คน</value>
@@ -253,7 +253,7 @@
     <value>กำลังพิมพ์...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>ส่งโดย</value>
+    <value>ไอเดียของ</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
     <value>ข้อความส่วนตัว</value>
@@ -328,7 +328,7 @@
     <value>กดให้คะแนนเพื่อให้ได้แชนเนลเสียง</value>
   </data>
   <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>วันนี้</value>
+    <value>เนื่องจากส่วนเสริมในการแชทยังไม่มีบนแพลทฟอร์มนี้ หากให้คะแนนมากพอ อาจทำให้ Microsoft เพิ่มเข้ามาในอัพเดตหน้า</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
     <value>&lt;count&gt; คน</value>

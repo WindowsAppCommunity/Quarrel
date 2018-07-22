@@ -21,7 +21,7 @@ namespace Discord_UWP.Managers
             {
                 Id = guild.Id,
                 Name = guild.Name,
-                ImageURL = "https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg",
+                ImageURL = "https://cdn.discordapp.com/icons/" + guild.Id + "/" + guild.Icon + ".png",
                 IsDM = false,
                 IsMuted = LocalState.GuildSettings.ContainsKey(guild.Id) ? LocalState.GuildSettings[guild.Id].raw.Muted : false,
                 IsUnread = false, //Will Change if true
@@ -46,7 +46,7 @@ namespace Discord_UWP.Managers
             {
                 Id = guild.Id,
                 Name = guild.Name,
-                ImageURL = "https://discordapp.com/api/guilds/" + guild.Id + "/icons/" + guild.Icon + ".jpg",
+                ImageURL = "https://cdn.discordapp.com/icons/" + guild.Id + "/" + guild.Icon + ".png",
                 IsDM = false,
                 IsMuted = LocalState.GuildSettings.ContainsKey(guild.Id) ? LocalState.GuildSettings[guild.Id].raw.Muted : false,
                 IsUnread = false, //Will Change if true

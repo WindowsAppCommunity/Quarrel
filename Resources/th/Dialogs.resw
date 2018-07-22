@@ -464,7 +464,7 @@
     <value>ไฟล์</value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
-    <value>เรียบร้อย!</value>
+    <value>ปิด</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
     <value>บริจาค</value>
@@ -603,5 +603,8 @@
   </data>
   <data name="on" xml:space="preserve">
     <value>ใน</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>บัญชี</value>
   </data>
 </root>

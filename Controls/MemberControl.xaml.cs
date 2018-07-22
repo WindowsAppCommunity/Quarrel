@@ -179,7 +179,7 @@ namespace Discord_UWP.Controls
         }
         private void UpdateColor()
         {
-            if (RawMember.Roles != null)
+            if (RawMember?.Roles != null)
             {
                 bool changed = false;
                 foreach (var role in RawMember.Roles)
