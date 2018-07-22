@@ -23,6 +23,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
@@ -999,8 +1000,7 @@ namespace Discord_UWP
         {
             get
             {
-                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Xbox";
             }
         }
 
@@ -1177,6 +1177,11 @@ namespace Discord_UWP
                 App.ShowAds = true;
             }
 
+            if (App.IsXbox)
+            {
+                App.CinematicMode = true;
+            }
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             if (PrelaunchActivated == false)
@@ -1309,7 +1314,6 @@ namespace Discord_UWP
                             else if (segments[0] == "cinematic")
                             {
                                 App.CinematicMode = true;
-                                //RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
                             }
                             else if (segments[0] == "call")
                             {
@@ -1388,7 +1392,6 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
-
             if (Storage.Settings.CustomBG)
             {
                 App.Current.Resources["BGImage"] = new BitmapImage(new Uri(Storage.Settings.BGFilePath));
@@ -1495,6 +1498,8 @@ namespace Discord_UWP
             {
                 //Remove the artificial TV-Safe area in cinematic mode:
                 ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+                //RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+                //ApplicationViewScaling.TrySetDisableLayoutScaling(true);
             }
             if (Storage.Settings.AccentBrush)
             {
