@@ -122,6 +122,11 @@ namespace Discord_UWP
         {
             ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user });
         }
+        public static event EventHandler<string> ShowGameFlyoutHandler;
+        public static void ShowGameFlyout(object sender, string id)
+        {
+            ShowGameFlyoutHandler?.Invoke(sender, id);
+        }
         #endregion
 
         #region Link

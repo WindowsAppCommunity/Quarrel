@@ -245,7 +245,7 @@ namespace Discord_UWP.Controls
             foreach (var value in heroNews)
                 heroNewsList.Add(value.Value);
             heroNewsList.Sort((x, y) => DateTimeOffset.Compare(y.Timestamp, x.Timestamp));
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < Math.Min(gamenews.Count, 4); i++)
             {
                 if (LocalState.SupportedGames.ContainsKey(heroNewsList[i].GameId))
                     heroNewsList[i].GameTitle = LocalState.SupportedGames[heroNewsList[i].GameId].Name.ToUpper();
