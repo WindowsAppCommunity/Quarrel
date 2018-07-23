@@ -1042,7 +1042,10 @@ namespace Discord_UWP
                          App.CurrentGuildId = e.GuildId;
                          UserDetails.Visibility = Visibility.Collapsed;
                          MemberListFull.Visibility = Visibility.Visible;
-                         AddFriend.Visibility = Visibility.Collapsed;
+                         if (App.Insider)
+                         {
+                             AddFriend.Visibility = Visibility.Collapsed;
+                         }
                          RenderGuildChannels();
                          if (App.ShowAds)
                          {
@@ -1113,7 +1116,10 @@ namespace Discord_UWP
             }
             else //Out of guild navigation
             {
-                AddFriend.Visibility = Visibility.Collapsed;
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = Visibility.Collapsed;
+                }
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(_currentPage);
@@ -1155,7 +1161,10 @@ namespace Discord_UWP
             {
                 App.CurrentChannelId = e.ChannelId;
 
-                AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
+                }
 
                 if (LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
@@ -1858,7 +1867,10 @@ namespace Discord_UWP
                 FriendsItem.IsSelected = true;
                 friendPanel.Visibility = Visibility.Visible;
                 MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
-                AddFriend.Visibility = Visibility.Visible;
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = Visibility.Visible;
+                }
             }
 
             AddChannelButton.Visibility = Visibility.Collapsed;
@@ -1873,7 +1885,10 @@ namespace Discord_UWP
                     ChannelList.Items.Add(channel);
                     if (id != null && channel.Id == id)
                     {
-                        AddFriend.Visibility = Visibility.Collapsed;
+                        if (App.Insider)
+                        {
+                            AddFriend.Visibility = Visibility.Collapsed;
+                        }
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
@@ -3502,7 +3517,10 @@ namespace Discord_UWP
             }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
-            AddFriend.Visibility = Visibility.Visible;
+            if (App.Insider)
+            {
+                AddFriend.Visibility = Visibility.Visible;
+            }
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
         }
