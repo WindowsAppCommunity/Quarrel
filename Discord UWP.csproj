@@ -514,13 +514,6 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
-    <PRIResource Include="Resources\th\Settings.resw" />
-    <PRIResource Include="Resources\th\Main.resw" />
-    <PRIResource Include="Resources\th\Flyouts.resw" />
-    <PRIResource Include="Resources\th\Dialogs.resw" />
-    <PRIResource Include="Resources\th\Controls.resw" />
-    <PRIResource Include="Resources\th\About.resw" />
-    <PRIResource Include="Resources\en-GB\Flyouts.resw" />
     <PRIResource Include="Resources\en-US\TileTemplates.resw" />
     <PRIResource Include="Resources\en-US\Settings.resw" />
     <PRIResource Include="Resources\en-US\Main.resw" />
@@ -528,23 +521,6 @@
     <PRIResource Include="Resources\en-US\Dialogs.resw" />
     <PRIResource Include="Resources\en-US\Controls.resw" />
     <PRIResource Include="Resources\en-US\About.resw" />
-    <PRIResource Include="Resources\en-GB\Dialogs.resw" />
-    <PRIResource Include="Resources\en-GB\Main.resw" />
-    <PRIResource Include="Resources\en-GB\Controls.resw" />
-    <PRIResource Include="Resources\en-GB\Settings.resw" />
-    <PRIResource Include="Resources\en-GB\About.resw" />
-    <PRIResource Include="Resources\pl\Settings.resw" />
-    <PRIResource Include="Resources\pl\Main.resw" />
-    <PRIResource Include="Resources\pl\Flyouts.resw" />
-    <PRIResource Include="Resources\pl\Dialogs.resw" />
-    <PRIResource Include="Resources\pl\Controls.resw" />
-    <PRIResource Include="Resources\pl\About.resw" />
-    <PRIResource Include="Resources\fr\Settings.resw" />
-    <PRIResource Include="Resources\fr\Main.resw" />
-    <PRIResource Include="Resources\fr\Flyouts.resw" />
-    <PRIResource Include="Resources\fr\Dialogs.resw" />
-    <PRIResource Include="Resources\fr\Controls.resw" />
-    <PRIResource Include="Resources\fr\About.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\SoundEffects\Heartbeat.wav" />
