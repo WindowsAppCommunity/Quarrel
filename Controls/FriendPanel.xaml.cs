@@ -76,6 +76,12 @@ namespace Discord_UWP.Controls
         public FriendPanel()
         {
             this.InitializeComponent();
+            if (!App.Insider)
+            {
+                ActivitiesLVI.Visibility = Visibility.Collapsed;
+                ActivitiesPI.Visibility = Visibility.Collapsed;
+                pivot.SelectedIndex = 1;
+            }
         }
 
         private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
