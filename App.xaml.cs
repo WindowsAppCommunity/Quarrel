@@ -880,6 +880,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
+        internal const bool Insider = false;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
@@ -889,6 +890,7 @@ namespace Discord_UWP
         internal const string GiphyKey = "erGe4TVabEDlDPOkHFc389gQPvx4ze9Z";
         internal const bool AslansBullshit = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
+
 
         #region DerivedColors
 
@@ -1182,7 +1184,7 @@ namespace Discord_UWP
                 App.ShowAds = true;
             }
 
-            if (App.IsXbox)
+            if (App.IsXbox && App.Insider)
             {
                 App.CinematicMode = true;
             }

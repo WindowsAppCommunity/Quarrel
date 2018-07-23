@@ -566,7 +566,7 @@
                     <ItemsStackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
-            <ListViewItem x:Uid="/Controls/ACTIVITESLI" Content="ACTIVITES" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
+            <ListViewItem x:Uid="/Controls/ACTIVITESLI" x:Name="ActivitiesLVI" Content="ACTIVITES" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
             <ListViewItem x:Uid="/Controls/FRIENDSLI" Content="FRIENDS" FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0"/>
             <ListViewItem FontSize="13.333" FontWeight="SemiBold" MinWidth="0" Padding="24,0">
                 <StackPanel Orientation="Horizontal">
@@ -579,7 +579,7 @@
             <ListViewItem x:Uid="/Controls/BlockedLI" Content="BLOCKED" FontSize="13.333" FontWeight="SemiBold" Padding="24,0" MinWidth="0"/>
         </ListView>
         <Pivot x:Name="pivot" Grid.Row="1" Margin="-12,0">
-            <PivotItem Margin="0,-48,0,0">
+            <PivotItem x:Name="ActivitiesPI" Margin="0,-48,0,0">
                 <GridView x:Name="Feed" Padding="0" SelectionMode="None" VerticalAlignment="Top">
                     <GridView.ItemTemplate>
                         <DataTemplate>
