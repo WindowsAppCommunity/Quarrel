@@ -2734,7 +2734,7 @@ namespace Discord_UWP
                  async () =>
                  {
 
-                     if (e.Message.Type == 3)
+                     if (e.Message.Type == 3 && App.Insider)
                      {
                          //TODO: Pretty up this shit (animations)
                          //AcceptCallUI.Visibility = Visibility.Visible;
