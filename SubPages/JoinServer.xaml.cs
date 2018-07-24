@@ -71,11 +71,8 @@ namespace Discord_UWP.SubPages
                 Error.Visibility = Visibility.Collapsed;
                 string InviteCode = Invite.Text;
                 //Filter out the invite code from the link:
-                InviteCode = InviteCode.Replace("https://discord.gg/", "");
-                InviteCode = InviteCode.Replace("http://discord.gg/", "");
-                InviteCode = InviteCode.Replace("https://discordapp.com/invite/", "");
-                InviteCode = InviteCode.Replace("http://discordapp.com/invite/", "");
-                await RESTCalls.AcceptInvite(Invite.Text); //TODO: Rig to App.Events
+                InviteCode = InviteCode.Trim('/').Split('/').Last();
+                await RESTCalls.AcceptInvite(InviteCode);
                 CloseButton_Click(null, null);
             }
             catch
