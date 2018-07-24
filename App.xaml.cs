@@ -1054,34 +1054,7 @@ namespace Discord_UWP
 
         private static void ResetSettings()
         {
-            Storage.Settings.lastVerison = "0";
-            Storage.Settings.AutoHideChannels = true;
-            Storage.Settings.AutoHidePeople = false;
-            Storage.Settings.GlowOnMention = true;
-            //Storage.Settings.Toasts = false;
-            Storage.Settings.LiveTile = true;
-            Storage.Settings.Badge = true;
-            Storage.Settings.HighlightEveryone = true;
-            Storage.Settings.CompactMode = false;
-            Storage.Settings.Badge = true;
-            Storage.Settings.RespUiM = 400;
-            Storage.Settings.RespUiL = 720;
-            Storage.Settings.RespUiXl = 1000;
-            Storage.Settings.BackgroundTaskTime = 9;
-          
-            //Storage.Settings.AppBarAtBottom = false;
-            Storage.Settings.DiscordLightTheme = false;
-            Storage.Settings.ExpensiveRender = false;
-            Storage.Settings.DevMode = false;
-            Storage.Settings.Theme = Theme.Dark;
-            Storage.Settings.AccentBrush = false;
-            Storage.Settings.mutedChnEffectServer = false;
-            Storage.Settings.Vibrate = true;
-            Storage.Settings.EnableAcrylic = false;
-            Storage.Settings.UseCompression = true;
-            Storage.Settings.DateFormat = "M/d/yyyy";
-            Storage.Settings.TimeFormat = "h:mm tt";
-            Storage.Settings.DefaultAccount = "";
+            Storage.Settings = new Settings();
             Storage.SaveAppSettings();
         }
         private void LoadSettings()
