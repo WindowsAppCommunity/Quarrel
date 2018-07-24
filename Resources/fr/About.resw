@@ -136,7 +136,7 @@
     <value>À PROPOS</value>
   </data>
   <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin pour avoir conceptualisé le logo de l’application </value>
+    <value>Austin Andelin pour avoir conçu le logo de l’application </value>
   </data>
   <data name="Build" xml:space="preserve">
     <value>Version </value>
@@ -145,7 +145,7 @@
     <value>NOUVEAUTÉS</value>
   </data>
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman (qui a codé l'incroyable application MyTube) pour ses inestimables conseils et aides</value>
+    <value>Christopher Blackman (auteur de l'incroyable MyTube) pour ses conseils et son aide</value>
   </data>
   <data name="Commit" xml:space="preserve">
     <value>Commit</value>
@@ -184,7 +184,7 @@
     <value>Connexion en cours...</value>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Laisser votre avis</value>
+    <value>Donner votre avis</value>
   </data>
   <data name="LicensesHLBTN.Content" xml:space="preserve">
     <value>Licenses</value>
@@ -202,7 +202,8 @@
     <value>Authentification à deux étapes:</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>Soit vous n'êtes pas connecté à internet, soit votre connexion est trop lente</value>
+    <value>Vous n'êtes pas connecté à internet ou votre connexion est trop lente
+</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Mot de passe</value>
@@ -220,15 +221,15 @@
     <value>Remerciements spéciales </value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Entrée:</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Sortie:</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>D'après le serveur de licenses Microsoft, vous avez acheté:</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Si c'est faux, j'ai un mail enragé à leur écrire</value>
   </data>
 </root>

@@ -283,7 +283,7 @@
     <value>NOM</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
-    <value>AUCUN BANNISSEMENT (POUR LE MOMENT)</value>
+    <value>AUCUN BANS (POUR LE MOMENT)</value>
   </data>
   <data name="NoCommonFriendsTB.Text" xml:space="preserve">
     <value>AUCUN AMI EN COMMUN</value>
@@ -394,7 +394,7 @@
     <value>Utiliser la détection de voix</value>
   </data>
   <data name="ViewAuditLogToggle.Header" xml:space="preserve">
-    <value>Voir l'Audit log</value>
+    <value>Voir le log de modération</value>
   </data>
   <data name="VoicePermissionsTB.Text" xml:space="preserve">
     <value>PERMISSIONS DE VOIX</value>
