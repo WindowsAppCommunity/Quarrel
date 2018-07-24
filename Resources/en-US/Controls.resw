@@ -346,4 +346,7 @@
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>Having issues? Try resetting Quarrel</value>
   </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>ACTIVITES</value>
+  </data>
 </root>
