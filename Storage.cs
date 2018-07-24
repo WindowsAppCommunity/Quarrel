@@ -20,7 +20,7 @@ using Windows.UI.Xaml;
 
 namespace Discord_UWP
 {
-    public static class Storage
+    public class Storage
     {
         public static Dictionary<string,byte[]> EncryptionKeys = new Dictionary<string, byte[]>();
 
@@ -84,7 +84,7 @@ namespace Discord_UWP
             });
         }
 
-        public static Settings Settings = new Settings(); //this just represents the storage
+        public static Settings Settings = new Settings();
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
         public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
