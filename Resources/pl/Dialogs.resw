@@ -118,492 +118,492 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
-    <value>Accept friend request</value>
+    <value>Zaakcepuj prośbę dodania do znajomych</value>
   </data>
   <data name="AddReactionsToggle.Header" xml:space="preserve">
-    <value>Add reactions</value>
+    <value>Dodaj reakcję</value>
   </data>
   <data name="AdministratorToggle.Header" xml:space="preserve">
     <value>Administrator</value>
   </data>
   <data name="AdvancedMessageEditorTB" xml:space="preserve">
-    <value>ADVANCED MESSAGE EDITOR</value>
+    <value>ZAAWANSOWANY EDYTOR WIADOMOŚCI</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>ATTACHMENTS</value>
+    <value>ZAŁĄCZNIKI</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
-    <value>Attach files</value>
+    <value>Załączone pliki</value>
   </data>
   <data name="BadChannelNameDesc1.Text" xml:space="preserve">
-    <value>Channel names may only contain alphanumeric characters, with the exception of dashes and underscores.</value>
+    <value>Nazwy kanałów mogą zawierać tylko znaki alfanumeryczne, z wyjątkiem myślników i podkreślników.</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
-    <value>Automatically fix?</value>
+    <value>Poprawić automatycznie?</value>
   </data>
   <data name="BanBTN.Content" xml:space="preserve">
     <value>Ban</value>
   </data>
   <data name="BanMembersToggle.Header" xml:space="preserve">
-    <value>Ban members</value>
+    <value>Zbanowani uzytkownicy</value>
   </data>
   <data name="BansPI.Header" xml:space="preserve">
-    <value>Bans</value>
+    <value>Bany</value>
   </data>
   <data name="BlockTB.Text" xml:space="preserve">
-    <value>Block</value>
+    <value>Zablokuj</value>
   </data>
   <data name="BodyTB.Text" xml:space="preserve">
-    <value>BODY</value>
+    <value>CIAŁO</value>
   </data>
   <data name="CancelBTN.Content" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anuluj</value>
   </data>
   <data name="ChangeNicknameToggle.Header" xml:space="preserve">
-    <value>Change nickname</value>
+    <value>Zmień nick</value>
   </data>
   <data name="CommonFriendsLI.Content" xml:space="preserve">
-    <value>COMMON FRIENDS</value>
+    <value>WPSÓLNI ZNAJOMI</value>
   </data>
   <data name="CommonServersLI.Content" xml:space="preserve">
-    <value>COMMON SERVERS</value>
+    <value>WPSÓLNE SERWERY</value>
   </data>
   <data name="ConnectToggle.Header" xml:space="preserve">
-    <value>Connect</value>
+    <value>Połącz</value>
   </data>
   <data name="CopyLinkABB.Label" xml:space="preserve">
-    <value>Copy link</value>
+    <value>Kopiuj link</value>
   </data>
   <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
-    <value>Create instant invites</value>
+    <value>Stwórz natychmiastowe zaproszenie</value>
   </data>
   <data name="CreateServerTB.Text" xml:space="preserve">
-    <value>Create server</value>
+    <value>Stwórz serwer</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
-    <value>Deafen members</value>
+    <value>Wyciszeni członkowie</value>
   </data>
   <data name="DeleteBTN" xml:space="preserve">
-    <value>Delete</value>
+    <value>Usuń</value>
   </data>
   <data name="DetailsLI.Content" xml:space="preserve">
-    <value>DETAILS</value>
+    <value>SZCZEGÓŁY</value>
   </data>
   <data name="EditChannelNameTBox.Header" xml:space="preserve">
-    <value>NAME</value>
+    <value>NAZWA</value>
   </data>
   <data name="EditChannelTB.Text" xml:space="preserve">
-    <value>EDIT CHANNEL</value>
+    <value>EDYTUJ KANAŁ</value>
   </data>
   <data name="EditNicknameTB.Text" xml:space="preserve">
-    <value>NICKNAME</value>
+    <value>NAZWA UŻYTKOWNIKA</value>
   </data>
   <data name="EditServerNameTBox.Header" xml:space="preserve">
-    <value>NAME</value>
+    <value>NAZWA</value>
   </data>
   <data name="EditServerTB.Text" xml:space="preserve">
-    <value>EDIT SERVER</value>
+    <value>EDYTUJ SERWER</value>
   </data>
   <data name="EmbedLinksToggle.Header" xml:space="preserve">
-    <value>Embed links</value>
+    <value>Wstawione linki</value>
   </data>
   <data name="FileNameTB.Text" xml:space="preserve">
-    <value>File name:</value>
+    <value>Nazwa pliku: </value>
   </data>
   <data name="FileSizeTB.Text" xml:space="preserve">
-    <value>File size:</value>
+    <value>Rozmiar pliku: </value>
   </data>
   <data name="FriendReqSentBTN.Text" xml:space="preserve">
-    <value>Friend request sent</value>
+    <value>Wysłano proźbę o dodanie do znajomych</value>
   </data>
   <data name="GeneralPermissionsTB.Text" xml:space="preserve">
-    <value>GENERAL PERMISSIONS</value>
+    <value>UPRAWNIENIA OGÓLNE</value>
   </data>
   <data name="HeightTB.Text" xml:space="preserve">
-    <value>Height:</value>
+    <value>Wysokość:</value>
   </data>
   <data name="IAPsTB.Text" xml:space="preserve">
-    <value>IN-APP PURCHASES</value>
+    <value>ZAKUPY W APLIKACJI</value>
   </data>
   <data name="InvitesPI.Header" xml:space="preserve">
-    <value>Invites</value>
+    <value>Zaproszenia</value>
   </data>
   <data name="JoinAServerTB.Text" xml:space="preserve">
-    <value>JOIN A SERVER</value>
+    <value>DOŁĄCZ DO SERWERA</value>
   </data>
   <data name="JoinBTN.Content" xml:space="preserve">
-    <value>Join</value>
+    <value>Dołącz</value>
   </data>
   <data name="JoinServerDescTB.Text" xml:space="preserve">
-    <value>Please enter a Discord invite link or code:</value>
+    <value>Wprowadź link zaproszeniowy, lub kod:</value>
   </data>
   <data name="JoinServerErrorTB.Text" xml:space="preserve">
-    <value>Sorry, but the invite code is invalid or expired.</value>
+    <value>Wybacz, ale kod zaproszeniowy wygasł, lub jest niepoprawny.</value>
   </data>
   <data name="JoinServerTB.Text" xml:space="preserve">
-    <value>Join server</value>
+    <value>Dołącz do serwera</value>
   </data>
   <data name="KickMembersToggle.Header" xml:space="preserve">
-    <value>Kick members</value>
+    <value>Wyrzuć członków</value>
   </data>
   <data name="LeaveServerBTN.Content" xml:space="preserve">
-    <value>Leave server</value>
+    <value>Opuść serwer</value>
   </data>
   <data name="ManageChannelsToggle.Header" xml:space="preserve">
-    <value>Manage channels</value>
+    <value>Zarządzaj kanałami</value>
   </data>
   <data name="ManageEmojisToggle.Header" xml:space="preserve">
-    <value>Manage emojis</value>
+    <value>Zarządzaj emotkami</value>
   </data>
   <data name="ManageMessagesToggle.Header" xml:space="preserve">
-    <value>Manage messages</value>
+    <value>Zarządzaj wiadomościami</value>
   </data>
   <data name="ManageNicknamesToggle.Header" xml:space="preserve">
-    <value>Manage nicknames</value>
+    <value>Zarządzaj nick'ami</value>
   </data>
   <data name="ManageRolesToggle.Header" xml:space="preserve">
-    <value>Manage roles</value>
+    <value>Zarządzaj rolami</value>
   </data>
   <data name="ManageServerToggle.Header" xml:space="preserve">
-    <value>Manage server</value>
+    <value>Zarządzaj serwerem</value>
   </data>
   <data name="ManageWebhooksToggle.Header" xml:space="preserve">
-    <value>Manage webhooks</value>
+    <value>Zarządzaj wehbookami</value>
   </data>
   <data name="MentionEveryoneToggle.Header" xml:space="preserve">
-    <value>Manage everyone</value>
+    <value>Zarządzaj wszystkimi</value>
   </data>
   <data name="MoveMembersToggle.Header" xml:space="preserve">
-    <value>Move members</value>
+    <value>Przenieś członków</value>
   </data>
   <data name="MuteMembersToggle.Header" xml:space="preserve">
-    <value>Mute members</value>
+    <value>Wycisz członków</value>
   </data>
   <data name="NameTB.Text" xml:space="preserve">
-    <value>NAME</value>
+    <value>NAZWA</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
-    <value>NO BANS (YET)</value>
+    <value>BRAK BANÓW (JESZCZE)</value>
   </data>
   <data name="NoCommonFriendsTB.Text" xml:space="preserve">
-    <value>NO FRIENDS IN COMMON</value>
+    <value>BRAK WSPÓLNYCH ZNAJOMYCH</value>
   </data>
   <data name="NoCommonServersTB.Text" xml:space="preserve">
-    <value>NO SERVERS IN COMMON</value>
+    <value>BRAK WSPÓLNYCH SERWERÓW</value>
   </data>
   <data name="NoInvitesTB.Text" xml:space="preserve">
-    <value>NO INVITES</value>
+    <value>BRAK ZAPROSZEŃ</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
-    <value>Notes</value>
+    <value>Notatki</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
-    <value>Users will need to confirm they are of over legal age to view content in this channel. It will also be exempt from explicit content filtering.</value>
+    <value>Użytkownicy będą musieli potwierdzić, że są dorośli, aby uzyskać dostęp do tego kanału. Kanał będzie także zwolniolny z konieczności filtrowania treści.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
-    <value>NSFW Channel</value>
+    <value>Kanał NSFW</value>
   </data>
   <data name="NsfwSwitch.OnContent" xml:space="preserve">
-    <value>NSFW Channel</value>
+    <value>Kanał NSFW</value>
   </data>
   <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
-    <value>OMG Thank you! donation $2.99</value>
+    <value>O JEJU Wielkie dzięki! dotacja $2.99</value>
   </data>
   <data name="OpenInBrowserABB.Label" xml:space="preserve">
-    <value>Open in browser</value>
+    <value>Otwórz w przeglądarce</value>
   </data>
   <data name="OverviewPI.Header" xml:space="preserve">
-    <value>Overview</value>
+    <value>Przegląd</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>Polite donation $1.29</value>
+    <value>Miła dotacja $1.29</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
-    <value>Read message history</value>
+    <value>Czytaj historię wiadomości</value>
   </data>
   <data name="ReadMessagesToggle.Header" xml:space="preserve">
-    <value>Read messages</value>
+    <value>Czytaj wiadomości</value>
   </data>
   <data name="RemoveAdsBTN.Content" xml:space="preserve">
-    <value>Remove ads $1.29</value>
+    <value>Usuń reklamy $1.29</value>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
-    <value>Remove friend</value>
+    <value>Usuń znajomego</value>
   </data>
   <data name="RidiculousDonationBTN.Content" xml:space="preserve">
-    <value>Ridiculous donation $4.99</value>
+    <value>Niepoważna dotacja $4.99</value>
   </data>
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
-    <value>Allow mention</value>
+    <value>Zezwól na wzmianki</value>
   </data>
   <data name="RoleHoistToggle.Header" xml:space="preserve">
-    <value>Hoist</value>
+    <value>Wyświetlaj osobno</value>
   </data>
   <data name="RoleNameTB.Text" xml:space="preserve">
-    <value>NAME</value>
+    <value>NAZWA</value>
   </data>
   <data name="RoleSettingsTB.Text" xml:space="preserve">
-    <value>SETTINGS</value>
+    <value>USTAWIENIA</value>
   </data>
   <data name="RolesPI.Header" xml:space="preserve">
-    <value>Roles</value>
+    <value>Role</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
-    <value>Save</value>
+    <value>Zapisz</value>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>Save</value>
+    <value>Zapisz</value>
   </data>
   <data name="SendFriendReqBTN.Text" xml:space="preserve">
-    <value>Send friend request</value>
+    <value>Wyślij prośbę o dodanie do znajomych</value>
   </data>
   <data name="SendMessagesToggle.Header" xml:space="preserve">
-    <value>Send messages</value>
+    <value>Wyślij wiadomości</value>
   </data>
   <data name="SendMessageTB.Text" xml:space="preserve">
-    <value>Send message</value>
+    <value>Wyślij wiadomość</value>
   </data>
   <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
-    <value>Send TTS Messages</value>
+    <value>Wyślij wiadomość TTS </value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
-    <value>By creating a server, you agree to </value>
+    <value>Tworząc serwer zgadzasz się na</value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
-    <value>Discord's Community Guidelines</value>
+    <value>Poradniki społeczności Discord'a</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
-    <value>Share</value>
+    <value>Udostępnij</value>
   </data>
   <data name="SignificantDonationBTN.Content" xml:space="preserve">
-    <value>Significant donation $1.99</value>
+    <value>Ważna dotacja $1.99</value>
   </data>
   <data name="SpeakToggle.Header" xml:space="preserve">
-    <value>Speak</value>
+    <value>Mowa</value>
   </data>
   <data name="TextPermissionsTB.Text" xml:space="preserve">
-    <value>TEXT PERMISSIONS</value>
+    <value>UPRAWNIENIA WIADOMOŚCI</value>
   </data>
   <data name="UnblockBTN.Text" xml:space="preserve">
-    <value>Unblock</value>
+    <value>Odblokuj</value>
   </data>
   <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
-    <value>Use external emojis</value>
+    <value>Używanie zewnętrznych emotek</value>
   </data>
   <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
-    <value>Use voice activity</value>
+    <value>Używanie aktywacji głosowej</value>
   </data>
   <data name="ViewAuditLogToggle.Header" xml:space="preserve">
-    <value>View audit log</value>
+    <value>Pokaż dane konta</value>
   </data>
   <data name="VoicePermissionsTB.Text" xml:space="preserve">
-    <value>VOICE PERMISSIONS</value>
+    <value>UPRAWNIENIA GŁOSOWE</value>
   </data>
   <data name="WidthTB.Text" xml:space="preserve">
-    <value>Width:</value>
+    <value>Szerokość:</value>
   </data>
   <data name="EditChannelTopicTBox.Header" xml:space="preserve">
-    <value>TOPIC</value>
+    <value>TEMAT</value>
   </data>
   <data name="AddOnError" xml:space="preserve">
-    <value>An error occured, try again later.</value>
+    <value>Wystąpił błąd, spróbuj ponownie później</value>
   </data>
   <data name="AddOnNotPurchased" xml:space="preserve">
-    <value>Add-On was not purchased.</value>
+    <value>Dodatek nie został kupiony</value>
   </data>
   <data name="AddOnPurchased" xml:space="preserve">
-    <value>Thank you so much for the donation!</value>
+    <value>Wielkie dzięki za wsparcie!</value>
   </data>
   <data name="EDIT" xml:space="preserve">
-    <value>EDIT</value>
+    <value>EDYCJA</value>
   </data>
   <data name="FlagDiscordPartner" xml:space="preserve">
-    <value>DISCORD PARTNER</value>
+    <value>PARTNER DISCORDA</value>
   </data>
   <data name="FlagDiscordStaff" xml:space="preserve">
-    <value>DISCORD STAFF</value>
+    <value>PERSONEL DISCORDA</value>
   </data>
   <data name="FlagHypesquad" xml:space="preserve">
     <value>HYPESQUAD</value>
   </data>
   <data name="PremiumSince" xml:space="preserve">
-    <value>Premium member since</value>
+    <value>Użytkownik premium od </value>
   </data>
   <data name="VerifyBan" xml:space="preserve">
-    <value>Are you sure you want to ban @</value>
+    <value>Czy jesteś pewny, że chcesz zbanować @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Are you sure you want to delete </value>
+    <value>Czy jesteś pewny, że chcesz usunąć </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Are you sure you want to leave </value>
+    <value>Czy jesteś pewny, że chcesz odejść? </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
-    <value>Are you sure you want to log out?</value>
+    <value>Czy jesteś pewny, że chcesz się wylogować?</value>
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
-    <value>CREATE CHANNEL</value>
+    <value>STWÓRZ KANAŁ</value>
   </data>
   <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
-    <value>Open file</value>
+    <value>Otwórz plik</value>
   </data>
   <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
-    <value>Record sound</value>
+    <value>Nagraj dźwięk</value>
   </data>
   <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
-    <value>Take photo</value>
+    <value>Zrób zdjęcie</value>
   </data>
   <data name="on" xml:space="preserve">
-    <value>on</value>
+    <value>na</value>
   </data>
   <data name="SavingAudio" xml:space="preserve">
-    <value>Creating file...</value>
+    <value>Tworzenie pliku...</value>
   </data>
   <data name="RecordingAudio" xml:space="preserve">
-    <value>Recording...</value>
+    <value>Nagrywanie...</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>Plik</value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
-    <value>Got it!</value>
+    <value>Załapałem!</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
-    <value>DONATIONS</value>
+    <value>DOTACJE</value>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
-    <value>COMMON FRIENDS</value>
+    <value>WPSÓLNI ZNAJOMI</value>
   </data>
   <data name="CommonServersTB.Text" xml:space="preserve">
-    <value>COMMON SERVER</value>
+    <value>WPSÓLNY SERWER</value>
   </data>
   <data name="TextChannel" xml:space="preserve">
-    <value>Text Channel</value>
+    <value>Kanał tekstowy</value>
   </data>
   <data name="VoiceChannel" xml:space="preserve">
-    <value>Voice Channel</value>
+    <value>Kanał głosowy</value>
   </data>
   <data name="Category" xml:space="preserve">
-    <value>Category</value>
+    <value>Kategoria</value>
   </data>
   <data name="LeaveServer" xml:space="preserve">
-    <value>Leave Server</value>
+    <value>Opuść serwer</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Usuń</value>
   </data>
   <data name="Ban" xml:space="preserve">
     <value>Ban</value>
   </data>
   <data name="CreateServer" xml:space="preserve">
-    <value>Create server</value>
+    <value>Strórz serwer</value>
   </data>
   <data name="ServerName" xml:space="preserve">
-    <value>Server Name</value>
+    <value>Nazwa Serwera</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create</value>
+    <value>Stwórz</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Anuluj</value>
   </data>
   <data name="CloseDMConfirm" xml:space="preserve">
-    <value>Are you sure you want to Close your DM with </value>
+    <value>Czy jesteś pewien, że chcesz zakończyć swoją rozmowę z </value>
   </data>
   <data name="DeleteMessageConfirm" xml:space="preserve">
-    <value>Are you sure you want to delete this message?</value>
+    <value>Jesteś pewien, że chcesz usunąć tą wiadomość?</value>
   </data>
   <data name="EditNickname" xml:space="preserve">
-    <value>Edit Nickname</value>
+    <value>Edytuj nick</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save</value>
+    <value>Zapisz</value>
   </data>
   <data name="AddOnsTB.Text" xml:space="preserve">
-    <value>ADD-ONS</value>
+    <value>DODATKI</value>
   </data>
   <data name="AreYouSure" xml:space="preserve">
-    <value>ARE YOU SURE?</value>
+    <value>CZY JESTEŚ PEWIEN?</value>
   </data>
   <data name="ResetQuarrel" xml:space="preserve">
-    <value>Reset Quarrel</value>
+    <value>Zresetuj Quarrel'a</value>
   </data>
   <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
-    <value>This will fully reset Quarrel, meaning that you will be logged out of your account, all of your settings will be reset, and the application will then exit. This will NOT affect your Discord account.</value>
+    <value>Ta akcja całkowicie zresetuje Quarrel'a, oznacza to, że zostaniesz wylogowany, wszystkie ustawienia zostaną zresetowane i aplkacja zostanie zamknięta. Ta akcja NIE będzie miała wpływu na Twoje konto Discord.</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
-    <value>ACCOUNT SETTINGS</value>
-  </data>
-  <data name="AccountPI.Header" xml:space="preserve">
-    <value>Account</value>
+    <value>USTAWIENIA KONTA</value>
   </data>
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
-    <value>Application Settings</value>
+    <value>Ustawienia Aplikacji</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>Change password</value>
+    <value>Zmień hasło</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
-    <value>Current password</value>
+    <value>Aktualne hasło</value>
   </data>
   <data name="DeleteImageHLBTN.Content" xml:space="preserve">
-    <value>Delete</value>
+    <value>Usuń</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="Sorry" xml:space="preserve">
-    <value>Sorry  : /</value>
+    <value>Wybacz :/</value>
   </data>
   <data name="ThereWasAnErrorClarify" xml:space="preserve">
-    <value>There was an unknown error while trying to change your account details, are you sure everything is correct?</value>
+    <value>Wystąpił nieznany problem podczas próby zmiany Twoich danych konta, upewnij się, że wszysko jest poprawne.</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>Upload Image</value>
+    <value>Załaduj obraz</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Nazwa Uzytkownika</value>
   </data>
   <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
-    <value>Name</value>
+    <value>Nazwa</value>
   </data>
   <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
-    <value>No defined topic</value>
+    <value>Brak tematu</value>
   </data>
   <data name="ImageRecommendationTB.Text" xml:space="preserve">
-    <value>We recommend you use an image which is at least 512x512px</value>
+    <value>Zalecamy, aby użyć obrazu o wymiarach co najmniej 512x512px</value>
   </data>
   <data name="CancelIconMod" xml:space="preserve">
-    <value>Cancel icon modification</value>
+    <value>Anuluj zmianę ikony</value>
   </data>
   <data name="SaveBTNtext.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>Zapisz</value>
   </data>
   <data name="ChannelSelectTB.Text" xml:space="preserve">
-    <value>CHANNEL</value>
+    <value>KANAŁ</value>
   </data>
   <data name="MustBeLoggedIn" xml:space="preserve">
-    <value>You must be logged into Quarrel to use it as a share target</value>
+    <value>Musisz być zalogowany do Quarrel'a aby udostępnić cokolwiek przez niego</value>
   </data>
   <data name="ServerSelectTB.Text" xml:space="preserve">
-    <value>SERVER</value>
+    <value>SERWER</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Share</value>
+    <value>Udostępnij</value>
   </data>
   <data name="ListenTogetherTB.Text" xml:space="preserve">
-    <value>LISTEN TOGETHER ON SPOTIFY</value>
+    <value>SŁUCHAJĄ WSPÓLNIE NA SPOTIFY'u</value>
   </data>
   <data name="NoteTBox.PlaceholderText" xml:space="preserve">
-    <value>No Note</value>
+    <value>Brak notatek</value>
   </data>
   <data name="ConnectionsTB.Text" xml:space="preserve">
-    <value>Connections</value>
+    <value>Połączone konta</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
-    <value>New password</value>
+    <value>Nowe hasło</value>
   </data>
   <data name="AccountTB.Text" xml:space="preserve">
-    <value>Account</value>
+    <value>Konto</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Konto</value>
   </data>
 </root>

@@ -130,7 +130,7 @@
     <value>ADVANCED MESSAGE EDITOR</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>ATTACHMENTS</value>
+    <value>ATTACHEMENTS</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Attach files</value>
@@ -367,7 +367,7 @@
     <value>Send TTS Messages</value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
-    <value>By creating a server, you agree to </value>
+    <value>By creating a server, you agree to</value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
     <value>Discord's Community Guidelines</value>
@@ -433,10 +433,10 @@
     <value>Are you sure you want to ban @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>Are you sure you want to delete </value>
+    <value>Are you sure you want to delete</value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>Are you sure you want to leave </value>
+    <value>Are you sure you want to leave</value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
     <value>Are you sure you want to log out?</value>
@@ -508,7 +508,7 @@
     <value>Cancel</value>
   </data>
   <data name="CloseDMConfirm" xml:space="preserve">
-    <value>Are you sure you want to Close your DM with </value>
+    <value>Are you sure you want to Close your DM with </value>
   </data>
   <data name="DeleteMessageConfirm" xml:space="preserve">
     <value>Are you sure you want to delete this message?</value>
