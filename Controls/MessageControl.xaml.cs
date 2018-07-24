@@ -624,23 +624,17 @@ namespace Discord_UWP.Controls
                     Grid.SetRow(moreButton, 2);
                 }
                 content.Text = Message.Content;
-                string text = Message.Content;
-                //string startLink = "";
-                string[] Searcheables = new string[] { "https://discord.gg/", "http://discord.gg/", "https://discordapp.com/invite/", "http://discordapp.com/invite/" };
-                
-                foreach(string link in Searcheables)
-                    foreach(int index in AllIndexesOf(text,link))
+                Regex regex = new Regex("(discord\\.(gg|io|me|li)\\/|discordapp\\.com\\/invite\\/)(([A-Za-z]|[0-9])+)");
+                foreach (Match match in regex.Matches(content.Text))
+                {
+                    if (match.Groups.Count >= 3)
                     {
-                        string text1 = text.Remove(0, index);
-                        int interrupt = text1.IndexOf(' ');
-                        if (interrupt != -1)
-                            text1 = text1.Remove(interrupt);
                         EmbedViewer.Visibility = Visibility.Visible;
-                        EmbedViewer.Children.Add(new EmbededInviteControl
-                        {
-                            InviteCode = text1
-                        });
+                        EmbedViewer.Children.Add(new EmbededInviteControl(){ InviteCode=match.Groups[3].Value });
                     }
+                }
+                //string startLink = "";
+
 
                 if (LocalState.Blocked.ContainsKey(userid))
                 {
