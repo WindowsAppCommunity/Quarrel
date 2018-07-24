@@ -330,4 +330,7 @@
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>แอพมีปัญหา? ลองรีเซทแอพดู.</value>
   </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>(not translated)</value>
+  </data>
 </root>

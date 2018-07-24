@@ -330,4 +330,7 @@
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>Essayer de réinitialiser l'application</value>
   </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>(not translated)</value>
+  </data>
 </root>
