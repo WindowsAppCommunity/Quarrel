@@ -39,7 +39,7 @@
                             <Image Source="{Binding Thumbnail.Url}"  Stretch="UniformToFill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Rectangle.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0.4" EndPoint="0.5,1">
+                                    <LinearGradientBrush StartPoint="0.5,0.2" EndPoint="0.5,0.8">
                                         <GradientStop Color="#00000000"/>
                                         <GradientStop Color="Black"  Offset="1"/>
                                     </LinearGradientBrush>
@@ -47,7 +47,7 @@
                             </Rectangle>
                             <StackPanel Margin="24" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                                 <TextBlock Text="{Binding Title}" Foreground="White" FontSize="13.33" FontWeight="Light" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding Description}" Foreground="White" FontSize="11" Opacity="0.5" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Description}" Foreground="White" FontSize="11" Opacity="0.5" TextWrapping="Wrap" MaxHeight="32" TextTrimming="WordEllipsis"/>
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
