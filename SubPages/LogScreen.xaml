@@ -34,18 +34,17 @@
             <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
-                    <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
+                    <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" TabIndex="0" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
                 </StackPanel>
                 <StackPanel x:Name="NormalAuth" Visibility="Visible">
-                    <TextBox x:Uid="/About/EmailTBox" Padding="12" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" KeyDown="Username_KeyDown"/>
-                    <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
+                    <TextBox x:Uid="/About/EmailTBox" Padding="12" TabIndex="0" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" KeyDown="Username_KeyDown"/>
+                    <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12" TabIndex="1" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
-                    <PasswordBox x:Uid="/About/MFAPasswordTBox" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
+                    <PasswordBox x:Uid="/About/MFAPasswordTBox" TabIndex="0" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
                 </StackPanel>
-                <WebView x:Name="ReCaptchaView" Visibility="Collapsed"/>
             </Grid>
-            <Button x:Name="loginButton" HorizontalAlignment="Stretch" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
+            <Button x:Name="loginButton" HorizontalAlignment="Stretch" TabIndex="2" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="250"/>
@@ -57,11 +56,11 @@
                 </Grid>
             </Button>
             <Grid>
-                <HyperlinkButton x:Uid="/About/ForgotPswrdHLBTN" Content="Forgot your password?" HorizontalAlignment="Left" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" VerticalAlignment="Top"/>
-                <HyperlinkButton x:Uid="/About/DontHaveAccountHLBTN" Content="Don't have an account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
+                <HyperlinkButton x:Uid="/About/ForgotPswrdHLBTN" TabIndex="3" Content="Forgot your password?" HorizontalAlignment="Left" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="ChangePassword" VerticalAlignment="Top"/>
+                <HyperlinkButton x:Uid="/About/DontHaveAccountHLBTN" TabIndex="4" Content="Don't have an account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
             </Grid>
          </StackPanel>
-        <HyperlinkButton Content="Privacy policy" HorizontalAlignment="Left" Foreground="{ThemeResource Blurple}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
+        <HyperlinkButton Content="Privacy policy" TabIndex="5" HorizontalAlignment="Left" Foreground="{ThemeResource Blurple}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
             <HyperlinkButton.ContextFlyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                     <Grid MaxWidth="256">
@@ -73,7 +72,7 @@
                 </Flyout>
             </HyperlinkButton.ContextFlyout>
         </HyperlinkButton>
-        <HyperlinkButton x:Name="LoginWithToken" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource Blurple}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
+        <HyperlinkButton x:Name="LoginWithToken" TabIndex="6" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource Blurple}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
 
     </Grid>
 </Page>

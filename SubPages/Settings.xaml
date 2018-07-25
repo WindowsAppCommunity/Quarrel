@@ -575,7 +575,7 @@
                                     <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
 
-                                    <CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource RadioCheckBox}" Content="Derived Color" Foreground="{ThemeResource DarkThemeAccentGradient}" IsChecked="True"/>
+                                    <CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource CheckBoxStyle1}" Content="Derived Color" Foreground="{ThemeResource InvertedBG}" IsChecked="True"/>
 
 
 

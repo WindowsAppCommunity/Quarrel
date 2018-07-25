@@ -3776,5 +3776,15 @@ namespace Discord_UWP
                 SendFriendTB.Header = "You need a discriminator to send a friend request"; //TODO: Translate
             }
         }
+        private void ItemStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_messageStacker != null && _messageStacker.ItemsUpdatingScrollMode == ItemsUpdatingScrollMode.KeepLastItemInView)
+            {
+                if (MessageList.Items.Count > 0 && _messageScrollviewer.VerticalOffset+24 > _messageScrollviewer.ExtentHeight)
+                {
+                    _messageScrollviewer.ChangeView(null, _messageScrollviewer.ExtentHeight, null, true);
+                }
+            }
+        }
     }
 }
