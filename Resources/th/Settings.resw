@@ -301,7 +301,7 @@
     <value>ปิดการแจ้งเตือนแม้แอพปิดไปแล้ว</value>
   </data>
   <data name="BGNotifInfoTB.Text" xml:space="preserve">
-    <value>คุณจะได้รับการแจ้งเตือนตามที่คุณเลือก ในระยะเวลาที่กำหนดไว้</value>
+    <value>คุณจะได้รับการแจ้งเตือนตามการตั้งค่าที่คุณเลือกไว้ด้านล่าง ในระยะเวลาที่กำหนดไว้</value>
   </data>
   <data name="BGNotifsTB.Text" xml:space="preserve">
     <value>การแจ้งเตือนพื้นหลัง</value>
@@ -334,114 +334,114 @@
     <value>แสดงไอคอนปิดเสียงบนเซิฟเวอร์</value>
   </data>
   <data name="FontSizeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ขนาดข้อความ</value>
   </data>
   <data name="AaTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Aa</value>
   </data>
   <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>แสดงการแจ้งเตือนเมื่อถูกพูดถึงจากแชนเนลที่ปิดเสียง</value>
   </data>
   <data name="SoundsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เสียง</value>
   </data>
   <data name="SoundsPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เสียง</value>
   </data>
   <data name="VoicePI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เสียงพูด</value>
   </data>
   <data name="SoundTypesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ประเภทเสียง</value>
   </data>
   <data name="DiscordRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Discord</value>
   </data>
   <data name="WindowsRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="SoundsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ตั้งค่าบัญชี</value>
   </data>
   <data name="AccountPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>บัญชี</value>
   </data>
   <data name="AccountPrivacyPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ความเป็นส่วนตัว</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>อัพโหลดภาพ</value>
   </data>
   <data name="DeleteImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ลบ</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ชื่อผู้ใช้</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>อีเมล</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>รหัสผ่านปัจจุบัน</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เปลี่ยนรหัสผ่าน</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>รหัสผ่านใหม่</value>
   </data>
   <data name="SaveTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>บันทึก</value>
   </data>
   <data name="DMFilterTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>การคัดกรองข้อความส่วนตัว</value>
   </data>
   <data name="DMFilterExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>วิเคราะห์และคัดกรองข้อความส่วนตัวที่มีเนื้อหาไม่เหมาะสม</value>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>คสช.</value>
   </data>
   <data name="ProtectMeExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ตรวจข้อความส่วนตัวทั้งหมด</value>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เพื่อนกัน ไม่เป็นไร</value>
   </data>
   <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ตรวจข้อความส่วนตัวที่ไม่ได้มาจากเพื่อน</value>
   </data>
   <data name="DangerZoneTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ไม่ต้องห่วง ดูแลตัวเองได้</value>
   </data>
   <data name="DangerZoneExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ไม่ตรวจข้อความส่วนตัวใดๆ ทั้งสิ้น</value>
   </data>
   <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ใครที่จะสามารถส่งข้อความส่วนตัวมาได้</value>
   </data>
   <data name="EveryoneCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ทุกคน</value>
   </data>
   <data name="MutualFriendsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>เพื่อนของเพื่อน</value>
   </data>
   <data name="MutualServerMembersCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>คนที่อยู่เซิฟเวอร์เดียวกัน</value>
   </data>
   <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>หากต้องการตั้งค่าความเป็นส่วนตัวอื่นๆ กรุณาเช็คที่เว็บหรือในไคลเอนต์ ของ Discord</value>
   </data>
   <data name="DerivedRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ใช้สีจากรูปโปรไฟล์</value>
   </data>
   <data name="LanguageComboB.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ภาษา (ต้องปิด-เปิด แอพใหม่)</value>
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ค่าเริ่มต้น</value>
   </data>
 </root>
