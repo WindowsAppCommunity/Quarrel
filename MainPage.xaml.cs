@@ -552,7 +552,7 @@ namespace Discord_UWP
                 member.Raw.Roles = e.EventData.Roles;
                 // member.Raw.Nick = e.EventData.Nick;
                 var previoushoistrole = new HoistRole(member.MemberHoistRole.Id, member.MemberHoistRole.Position, member.MemberHoistRole.Name, member.MemberHoistRole.Membercount, member.MemberHoistRole.Brush);
-                member.MemberHoistRole = MemberManager.GetRole(e.EventData.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+                member.MemberHoistRole = MemberManager.GetRole(LocalState.Guilds[App.CurrentGuildId].GetHighestHoistRoleId(e.EventData.Roles), App.CurrentGuildId);
                 if(!member.MemberHoistRole.Equals(previoushoistrole))
                 {
                     memberscvs.ChangeKey(member, previoushoistrole, member.MemberHoistRole);

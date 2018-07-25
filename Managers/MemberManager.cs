@@ -17,7 +17,7 @@ namespace Discord_UWP.Managers
         private static Dictionary<string, HoistRole> TempRoleCache = new Dictionary<string, HoistRole>(); //This is as a temporary cache of roles to improve performance and not call Storage for every member
         public static HoistRole GetRole(string roleid, string guildid)
         {
-            string dicrole = roleid == null ? "0" : roleid;
+            string dicrole = roleid ?? "0";
             if (TempRoleCache.ContainsKey(dicrole))
                 return TempRoleCache[dicrole];
             else
