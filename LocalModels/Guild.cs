@@ -35,6 +35,19 @@ namespace Discord_UWP.LocalModels
             }
             return returnRole;
         }
+        public string GetHighestHoistRoleId(IEnumerable<string> inputRoles)
+        {
+            Role returnRole = new Role() { Position = 1000 }; //HACK: this could be better
+            var rolelist = inputRoles.OrderBy(x => roles[x].Position).Reverse().ToList();
+            for (int i = 0; i < rolelist.Count(); i++)
+            {
+                if (roles[rolelist[i]].Hoist)
+                {
+                    return rolelist[i];
+                }
+            }
+            return null;
+        }
 
         public Permissions permissions
         {
