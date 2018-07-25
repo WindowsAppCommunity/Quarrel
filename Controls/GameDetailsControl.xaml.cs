@@ -50,6 +50,8 @@ namespace Discord_UWP.Controls
             button.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
             button.NavigateUri = new Uri(uri);
             button.Margin = new Thickness(0, 6, 0, 0);
+            button.Content = title;
+            button.FontSize = 12;
             LaunchButtons.Children.Add(button);
         }
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
@@ -63,11 +65,11 @@ namespace Discord_UWP.Controls
                     if (game.Developers != null && game.Developers.Count>0)
                     {
                         DevName.Text = "by " + string.Join(",", game.Developers);
-                        DevName.Visibility = Visibility.Collapsed;
+                        DevName.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        DevName.Visibility = Visibility.Visible;
+                        DevName.Visibility = Visibility.Collapsed;
                     }
 
                     //Icon
