@@ -117,8 +117,7 @@ namespace Discord_UWP.Controls
                 var location = App.Splash.ImageLocation;
                 viewbox.Width = location.Width;
                 viewbox.Height = location.Height;
-                Canvas.SetTop(viewbox, location.Top);
-                Canvas.SetLeft(viewbox, location.Left);
+
                 //this.Focus(FocusState.Pointer);
                 stack.Margin = new Thickness(0, location.Bottom, 0, 0);
             }
