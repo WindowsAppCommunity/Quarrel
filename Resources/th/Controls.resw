@@ -298,7 +298,7 @@
     <value>เข้าร่วมฟังด้วย</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value>เซสชั่น Spotify จบลงแล้ว :'(</value>
+    <value>เซสชั่นฟังร่วมกันของ Spotify จบไปแล้ว :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
     <value>แนบไฟล์</value>
@@ -313,7 +313,7 @@
     <value>กำลังโหลด</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>ค้น Giphy</value>
+    <value>ค้นหาใน Giphy</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
     <value>ส่งคำชวน Spotify</value>
@@ -331,6 +331,6 @@
     <value>แอพมีปัญหา? ลองรีเซทแอพดู.</value>
   </data>
   <data name="ACTIVITESLI.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>กิจกรรม</value>
   </data>
 </root>
