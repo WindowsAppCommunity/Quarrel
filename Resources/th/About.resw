@@ -199,7 +199,7 @@
     <value>รหัสยืนยัน</value>
   </data>
   <data name="MFATB.Text" xml:space="preserve">
-    <value>ยืนยันตัวตน ๒ ขั้น</value>
+    <value>ยืนยันตัวตน 2 ขั้น</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
     <value>เกิดปัญหาในการเชื่อมต่อหรืออินเตอร์เน็ตช้าเกินไป ไม่สามารถติดต่อเซิฟเวอร์ได้</value>
@@ -220,15 +220,15 @@
     <value>ขอขอบคุณ:</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ขาเข้า:</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ขาออก:</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>ข้อมูลจาก Microsoft Licensing, คุณได้ซื้อ:</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>หากข้อมูลนี้มีข้อผิดพลาดใดๆ ที่ไม่ตรงตามที่คาดคิด กรุณาติดต่อ Microsoft Store</value>
   </data>
 </root>

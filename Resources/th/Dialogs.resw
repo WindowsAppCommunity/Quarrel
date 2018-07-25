@@ -139,7 +139,7 @@
     <value>ชื่อของแชนเนลรองรับเฉพาะตัวอักษร, เครื่องหมายยัติภาค และเครื่องหมายขีดล่างเท่านั้น</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
-    <value>ซ่อมอัตโนมัติ</value>
+    <value>ซ่อมอัตโนมัติ?</value>
   </data>
   <data name="BanBTN.Content" xml:space="preserve">
     <value>แบน</value>
@@ -301,13 +301,13 @@
     <value>สมาชิกต้องยืนยันว่าอายุถึงเกณฑ์เพื่อดูเนื้อหาในแชนเนลนี้. และจะต้องได้รับการยกเว้นจากการคัดกรองเนื้อหา.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
-    <value>แชนเนล ๑๘+</value>
+    <value>แชนเนล 18+</value>
   </data>
   <data name="NsfwSwitch.OnContent" xml:space="preserve">
-    <value>แชนเนล ๑๘+</value>
+    <value>แชนเนล 18+</value>
   </data>
   <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
-    <value>บริจาค $๒.๙๙ (๙๗ บาท)</value>
+    <value>บริจาค $2.99 (~100 บาท)</value>
   </data>
   <data name="OpenInBrowserABB.Label" xml:space="preserve">
     <value>เปิดในเว็บ</value>
@@ -316,7 +316,7 @@
     <value>ภาพรวม</value>
   </data>
   <data name="PoliteDonationBTN.Content" xml:space="preserve">
-    <value>บริจาค $๑.๒๙ (๔๒ บาท)</value>
+    <value>บริจาค $1.29 (~45 บาท)</value>
   </data>
   <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
     <value>ดูประวัติข้อความ</value>
@@ -325,13 +325,13 @@
     <value>ดูข้อความ</value>
   </data>
   <data name="RemoveAdsBTN.Content" xml:space="preserve">
-    <value>ลบโฆษณา $๑.๒๙ (๔๒ บาท)</value>
+    <value>ลบโฆษณา $1.29 (~45 บาท)</value>
   </data>
   <data name="RemoveFriendTB.Text" xml:space="preserve">
     <value>ลบออกจากการเป็นเพื่อน</value>
   </data>
   <data name="RidiculousDonationBTN.Content" xml:space="preserve">
-    <value>บริจาค $๔.๙๙ (๑๖๒ บาท)</value>
+    <value>บริจาค $4.99 (~170 บาท)</value>
   </data>
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
     <value>อนุญาตการทัก (ด้วย @mention)</value>
@@ -376,7 +376,7 @@
     <value>แชร์</value>
   </data>
   <data name="SignificantDonationBTN.Content" xml:space="preserve">
-    <value>บริจาค $๑.๙๙ (๖๔ บาท)</value>
+    <value>บริจาค $1.99 (~70 บาท)</value>
   </data>
   <data name="SpeakToggle.Header" xml:space="preserve">
     <value>พูด</value>
@@ -467,7 +467,7 @@
     <value>ไฟล์</value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
-    <value>เรียบร้อย!</value>
+    <value>ปิด</value>
   </data>
   <data name="DonationsTB" xml:space="preserve">
     <value>บริจาค</value>
@@ -491,7 +491,7 @@
     <value>ออกจากเซิฟเวอร์</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>บล</value>
+    <value>ลบ</value>
   </data>
   <data name="Ban" xml:space="preserve">
     <value>แบน</value>
@@ -530,7 +530,7 @@
     <value>รีเซทแอพ Quarrel</value>
   </data>
   <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
-    <value>เมื่อยืนยันแล้ว, แอพจะถูกรีเซททุกย่าง, นั่นหมายความว่าบัญชีที่เข้าสู่ระบบอยู่จะถูกบังคับออกจากระบบ, การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้น, แล้วแอพจะปิด. การรีเซทนี้ไม่มีผลกับบัญชีของคุณ.</value>
+    <value>เมื่อยืนยันแล้ว, แอพจะถูกรีเซททุกย่าง, รวมทั้งบัญชีที่เข้าสู่ระบบอยู่จะถูกบังคับออกจากระบบ, การตั้งค่าจะกลับไปเป็นค่าเริ่มต้น, แล้วแอพจะปิด. การรีเซทนี้ไม่มีผลกับการตั้งค่าบัญชีของคุณ.</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
     <value>ตั้งค่าบัญชี</value>
@@ -554,7 +554,7 @@
     <value>ขออภัย :/</value>
   </data>
   <data name="ThereWasAnErrorClarify" xml:space="preserve">
-    <value>มีปัญาเกิดขึ้นระหว่างทำการบันทึกการตั้งค่าบัญชีของคุณ, คุณแน่ใจแล้วใช่ไหมว่าทุกอย่างถูกต้อง?</value>
+    <value>มีปัญหาเกิดขึ้นระหว่างทำการบันทึกการตั้งค่าบัญชีของคุณ, คุณแน่ใจแล้วใช่ไหมว่าทุกอย่างถูกต้อง?</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
     <value>อัพโหลดรูปภาพ</value>
@@ -569,7 +569,7 @@
     <value>กระทู้ที่ไม่ได้ระบุชื่อ</value>
   </data>
   <data name="ImageRecommendationTB.Text" xml:space="preserve">
-    <value>เราแนะนำให้ใช้รูปภาพที่มีขนาดอย่างน้อย ๕๑๒px×๕๑๒px</value>
+    <value>เราแนะนำให้ใช้รูปภาพที่มีขนาดอย่างน้อย 512px×512px</value>
   </data>
   <data name="CancelIconMod" xml:space="preserve">
     <value>ยกเลิกแก้ไขไอคอน</value>
