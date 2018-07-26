@@ -2992,8 +2992,23 @@ namespace Discord_UWP
 
         private void App_GuildChannelUpdatedHandler(object sender, App.GuildChannelUpdatedArgs e)
         {
-            App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
-            App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
+            //App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
+            //App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
+            foreach (SimpleChannel chn in ChannelList.Items)
+            {
+                if (chn.Id == e.Channel.Id)
+                {
+                    if (chn.Position == e.Channel.Position)
+                    {
+                        chn.Update(e.Channel);
+                    } else
+                    {
+                        ChannelList.Items.Remove(chn);
+                        App.GuildChannelCreated(e.Channel);
+                    }
+                    break;
+                }
+            }
         }
 
         private int findLocation(SimpleChannel c)
