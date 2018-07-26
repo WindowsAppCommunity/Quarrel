@@ -416,17 +416,37 @@ namespace Discord_UWP
             GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
             GatewayManager.Gateway.Resumed += Gateway_Resumed;
             NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+            _networkCheckTimer.Tick += _networkCheckTimer_Tick;
         }
 
-
+        private async void _networkCheckTimer_Tick(object sender, object e)
+        {
+            if (GatewayManager.Gateway.ConnectedSocket == false)
+            {
+                if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+                {
+                    await GatewayManager.Gateway.ResumeAsync();
+                    if (GatewayManager.Gateway.ConnectedSocket)
+                    {
+                        _networkCheckTimer.Stop();
+                    }
+                    else
+                    {
+                        _networkCheckTimer.Start();
+                    }
+                }
+            }
+        }
 
         private async void Gateway_Resumed(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Resumed> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
+                    if(_networkCheckTimer.IsEnabled) _networkCheckTimer.Stop();
                     await DisconnectedMask.Fade(0, 300).StartAsync();
                     DisconnectedMask.Visibility = Visibility.Collapsed;
+
                 });
         }
 
@@ -441,6 +461,7 @@ namespace Discord_UWP
             }
         }
 
+        private DispatcherTimer _networkCheckTimer = new DispatcherTimer() {Interval = TimeSpan.FromSeconds(2)};
         private async void Gateway_GatewayClosed(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -451,6 +472,7 @@ namespace Discord_UWP
                         DisconnectedMask.Opacity = 0;
                         DisconnectedMask.Visibility = Visibility.Visible;
                         DisconnectedMask.Fade(1, 300).Start();
+                        _networkCheckTimer.Start();
                     }
                     
                 });
