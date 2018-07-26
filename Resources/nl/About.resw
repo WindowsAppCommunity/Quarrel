@@ -130,7 +130,7 @@
     <value>De ontwikkelaars zijn op geen enkele manier verbonden aan Discord, Inc.</value>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>Als er iets misgaat tijdens het gebruik van deze app, neem dan contact op met de ondersteuning via een van de onderstaande methoden. Maar alle problemen die we niet kunnen oplossen, zijn niet aansprakelijk voor.</value>
+    <value>Als er iets misgaat tijdens het gebruik van deze app, neem dan contact op met de ondersteuning via een van de onderstaande methoden. We zijn echter niet verantwoordelijk voor problemen die wij niet kunnen oplossen.</value>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
     <value>OVER</value>
@@ -160,7 +160,7 @@
     <value>Bespreek op Twitter</value>
   </data>
   <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Heb je geen account?</value>
+    <value>Geen account?</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
     <value>Email</value>
@@ -218,5 +218,20 @@
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
     <value>Speciale dank:</value>
+  </data>
+  <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
+    <value>Volgens Microsofts Licenings, hebt u de volgende producten aangeschaft:</value>
+  </data>
+  <data name="MicrosoftNoteTB.Text" xml:space="preserve">
+    <value>Als dit niet klopt, moet ik een strenge mail schrijven naar Microsoft.</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Wil je meer?</value>
+  </data>
+  <data name="InboundRun.Text" xml:space="preserve">
+    <value>Binnenkomend:</value>
+  </data>
+  <data name="OutboundRun.Text" xml:space="preserve">
+    <value>Uitgaande:</value>
   </data>
 </root>

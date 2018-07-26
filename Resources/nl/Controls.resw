@@ -118,49 +118,49 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>Accepteert u het vriendenverzoek?</value>
+    <value>Vriendenverzoek accepteren?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
-    <value>ACTIVITY '</value>
+    <value>ACTIVITEITEN</value>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
     <value>Reactie toevoegen</value>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
-    <value>LOCKED</value>
+    <value>GEBLOKKEERD</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>ID kopiëren</value>
+    <value>Kopiëer ID</value>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
     <value>Verwijder</value>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
-    <value>uitgeven</value>
+    <value>Bewerken</value>
   </data>
   <data name="FLAGS" xml:space="preserve">
     <value>VLAGGEN</value>
   </data>
   <data name="FOOD" xml:space="preserve">
-    <value>FOOD</value>
+    <value>ETEN</value>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
-    <value>Uitnodiging verzonden</value>
+    <value>Vriendenverzoek verzonden</value>
   </data>
   <data name="InviteExpired" xml:space="preserve">
     <value>Uitnodiging verlopen</value>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
-    <value>Factuur verlopen of ongeldig</value>
+    <value>Uitnodiging verlopen of ongeldig</value>
   </data>
   <data name="InviteJoin" xml:space="preserve">
-    <value>omvatten</value>
+    <value>Deelnemen</value>
   </data>
   <data name="InviteJoined" xml:space="preserve">
-    <value>Geregistreerd</value>
+    <value>Verbonden</value>
   </data>
   <data name="InviteMaxUses" xml:space="preserve">
     <value>Het maximale aantal gebruikers is bereikt</value>
@@ -169,58 +169,58 @@
     <value>Gebruikers die deze link gebruiken, worden bij het verbreken automatisch uit het kanaal geschopt, tenzij ze een rol ontvangen.</value>
   </data>
   <data name="NATURE" xml:space="preserve">
-    <value>NATURE</value>
+    <value>NATUUR</value>
   </data>
   <data name="OBJECTS" xml:space="preserve">
-    <value>FACILITIES</value>
+    <value>Objecten</value>
   </data>
   <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>Toon alleen vrienden online</value>
+    <value>Enkel online vrienden tonen</value>
   </data>
   <data name="PendingTB.Text" xml:space="preserve">
-    <value>PENDING</value>
+    <value>IN AFWACHTING</value>
   </data>
   <data name="PEOPLE" xml:space="preserve">
     <value>MENSEN</value>
   </data>
   <data name="PinItem.Text" xml:space="preserve">
-    <value>pin</value>
+    <value>Vastzetten</value>
   </data>
   <data name="Playing" xml:space="preserve">
-    <value>In het spel</value>
+    <value>Speelt</value>
   </data>
   <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>Annuleer het verbod</value>
+    <value>Verwijder ban</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
     <value>rol</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Zoeken naar ...</value>
+    <value>Zoeken...</value>
   </data>
   <data name="SendMessagePlaceholderText" xml:space="preserve">
     <value>Stuur bericht</value>
   </data>
   <data name="Streaming" xml:space="preserve">
-    <value>streamen</value>
+    <value>Streamt</value>
   </data>
   <data name="SYMBOLS" xml:space="preserve">
-    <value>symbole</value>
+    <value>SYMBOLEN</value>
   </data>
   <data name="TemporaryInviteTB.Text" xml:space="preserve">
     <value>Tijdelijke uitnodiging</value>
   </data>
   <data name="TRAVEL" xml:space="preserve">
-    <value>JOURNEY</value>
+    <value>REIZEN</value>
   </data>
   <data name="UsePlural" xml:space="preserve">
     <value>gebruik</value>
   </data>
   <data name="UseSingular" xml:space="preserve">
-    <value>toepassingen</value>
+    <value>toepassing</value>
   </data>
   <data name="Edited" xml:space="preserve">
-    <value>bewerkt</value>
+    <value>gewijzigd</value>
   </data>
   <data name="ExpiredLink" xml:space="preserve">
     <value>De link is verlopen</value>
@@ -232,49 +232,49 @@
     <value>vervalt nooit</value>
   </data>
   <data name="InviteTo" xml:space="preserve">
-    <value>Nodig uit voor</value>
+    <value>Uitnodigen voor</value>
   </data>
   <data name="Pin" xml:space="preserve">
-    <value>pin</value>
+    <value>Vastzetten</value>
   </data>
   <data name="Unpin" xml:space="preserve">
     <value>losmaken</value>
   </data>
   <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>Verwijderen van vrienden</value>
+    <value>Vriend verwijderen</value>
   </data>
   <data name="SendMessage.Text" xml:space="preserve">
     <value>Stuur bericht</value>
   </data>
   <data name="Call.Text" xml:space="preserve">
-    <value>telefoontje</value>
+    <value>Bellen</value>
   </data>
   <data name="FriendsLI.Content" xml:space="preserve">
-    <value>FRIENDS</value>
+    <value>VRIENDEN</value>
   </data>
   <data name="AllLI.Content" xml:space="preserve">
-    <value>ALL</value>
+    <value>ALLES</value>
   </data>
   <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>ALLEEN om het verzoek om vrienden toe te voegen te accepteren?</value>
+    <value>Vriendenverzoek accepteren?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
     <value>toegevoegd</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>is verwijderd</value>
+    <value>verwijderd</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; voor een gesprek</value>
+    <value>&lt;user&gt; toevoegen aan privégesprek</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>&lt;user&gt; van de cowers</value>
+    <value>&lt;user&gt; van het privégesprek</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Je hebt niet beantwoord van</value>
+    <value>Je hebt een spraakoproep gemist van &lt;user&gt;</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>er is een bericht op dit kanaal vastgelegd.</value>
+    <value>heeft een bericht vastgemaakt in dit kanaal</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
     <value>Gesprek gestart door &lt;gebruiker&gt;</value>
@@ -286,13 +286,13 @@
     <value>je</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>GAME</value>
+    <value>SPEELT</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>gekoppeld aan de server!</value>
+    <value>Deelgenomen aan de server!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Bewerkt op &lt;timer&gt;</value>
+    <value>Gewijzigd op &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Lid geworden van de luistersessie</value>
@@ -301,15 +301,36 @@
     <value>SESSIE OP SPOTIFY VOLTOOID: '(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>toebehoren</value>
+    <value>Bijlagen</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>Zoek naar Giphy</value>
+    <value>Zoeken met Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
-    <value>hoort</value>
+    <value>Luistert naar</value>
   </data>
   <data name="LoadingTB.Text" xml:space="preserve">
     <value>LADEN</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Zoek Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Stuur Spotify verzoek</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Geblokkeerd bericht</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Notitie toevoegen</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>Problemen? Probeer Quarrel te resetten.</value>
+  </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>Activiteiten</value>
   </data>
 </root>

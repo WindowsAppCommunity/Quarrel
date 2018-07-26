@@ -44,6 +44,11 @@ namespace Discord_UWP.SubPages
 
             DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
 
+            if (!App.Insider)
+            {
+                pivotBase.Items.Remove(SoundsPI);
+            }
+
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
             //Toasts.IsChecked = Storage.Settings.Toasts;
