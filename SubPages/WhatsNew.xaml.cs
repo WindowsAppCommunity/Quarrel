@@ -78,20 +78,25 @@ namespace Discord_UWP.SubPages
             JoinServerText.Text = App.GetString("/About/JoinDiscordUWPServer");
         }
 
-        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        //private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if(detailsBtn.Content.ToString() == "+ Show more details")
+        //    {
+        //        detailsBtn.Content = "- Show less details"; //TODO: Translate
+        //        notDetailed.Visibility = Visibility.Collapsed;
+        //        Detailed.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        detailsBtn.Content = "+ Show more details";
+        //        notDetailed.Visibility = Visibility.Visible;
+        //        Detailed.Visibility = Visibility.Collapsed;
+        //    }
+        //}
+
+        private async void Paetron_Click(object sender, RoutedEventArgs e)
         {
-            if(detailsBtn.Content.ToString() == "+ Show more details")
-            {
-                detailsBtn.Content = "- Show less details";
-                notDetailed.Visibility = Visibility.Collapsed;
-                Detailed.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                detailsBtn.Content = "+ Show more details";
-                notDetailed.Visibility = Visibility.Visible;
-                Detailed.Visibility = Visibility.Collapsed;
-            }
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.patreon.com/QuarrelUWP"));
         }
     }
 }
