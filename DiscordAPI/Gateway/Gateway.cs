@@ -13,6 +13,7 @@ using Windows.Networking.Sockets;
 using System.IO;
 using System.IO.Compression;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 using Windows.Web;
 
 namespace Discord_UWP.Gateway
@@ -104,7 +105,7 @@ namespace Discord_UWP.Gateway
             _gatewayConfig = config;
             eventHandlers = GetEventHandlers();
             operationHandlers = GetOperationHandlers();
-          
+            
      //       PrepareSocket();
         }
 
