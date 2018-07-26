@@ -208,6 +208,36 @@ namespace Discord_UWP.SimpleClasses
         //istyping = is someone typing in that channel?
         //ismuted = is the channel muted?
 
+        public void Update(SharedModels.GuildChannel guildChannel)
+        {
+            _id = guildChannel.Id;
+            _name = guildChannel.Name;
+            if (guildChannel.Type == 0)
+            {
+                //TODO: Topic subtitle
+            }
+            _imageurl = guildChannel.Icon;
+            _type = guildChannel.Type;
+            _istyping = LocalState.Typers.ContainsKey(guildChannel.Id);
+            _ismuted = !App.CurrentGuildIsDM &&
+                LocalState.GuildSettings.ContainsKey(guildChannel.GuildId)
+                && LocalState.GuildSettings[guildChannel.GuildId].channelOverrides.ContainsKey(guildChannel.Id)
+                && LocalState.GuildSettings[guildChannel.GuildId].channelOverrides[guildChannel.Id].Muted;
+        }
+
+        public void Update(DirectMessageChannel dmChannel)
+        {
+            _id = dmChannel.Id;
+            _name = dmChannel.Name;
+            if (dmChannel.Type == 3)
+            {
+                _subtitle = App.GetString("/Main/members").Replace("<count>", dmChannel.Users.Count().ToString());
+            }
+            _imageurl = dmChannel.Icon;
+            _type = dmChannel.Type;
+            _istyping = LocalState.Typers.ContainsKey(dmChannel.Id);
+        }
+
         private string _id;
         public string Id
         {
