@@ -181,7 +181,7 @@
     <value>Stwórz serwer</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
-    <value>Wyciszeni członkowie</value>
+    <value>Wygłuszeni członkowie</value>
   </data>
   <data name="DeleteBTN" xml:space="preserve">
     <value>Usuń</value>

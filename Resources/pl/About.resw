@@ -220,15 +220,15 @@
     <value>Specjalne podziękowania:</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Przychodzące:</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Wychodzące:</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Zgodnie z Licencją Microsoft'u zakupiłeś:</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Jeżeli jest to błędne, muszę napisać solidny mail do opiekunów sklepu Microsoftu</value>
   </data>
 </root>
