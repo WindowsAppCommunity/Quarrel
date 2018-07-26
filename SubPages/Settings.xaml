@@ -556,7 +556,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Uid="/Settings/SettingsTB" x:Name="header" Text="SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                    <Pivot Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
+                    <Pivot x:Name="pivotBase" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <PivotItem x:Uid="/Settings/UiPI" Header="UI" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel x:Name="UI_Menu">
@@ -679,7 +679,7 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
-                        <PivotItem x:Uid="/Settings/SoundsPI" Header="Sounds" Margin="12,0,0,0">
+                        <PivotItem x:Uid="/Settings/SoundsPI" x:Name="SoundsPI" Header="Sounds" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
