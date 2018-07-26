@@ -325,7 +325,7 @@
     <value>Urządzenia odtwarzające</value>
   </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
-    <value>Może zostać nadpisane poprzez napiśnięcie prawym przyciskiem myszy lub przytrzymanie przycisku "wycisz" w kanale głosowym</value>
+    <value>Może zostać nadpisane poprzez napiśnięcie prawym przyciskiem myszy lub przytrzymanie przycisku "wygłusz" w kanale głosowym</value>
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
     <value>Ustawienia konta</value>
@@ -334,114 +334,114 @@
     <value>Pokaż ikonę wyciszenia na serwerach</value>
   </data>
   <data name="FontSizeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Rozmiar czcionki wiadomości</value>
   </data>
   <data name="AaTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Aa</value>
   </data>
   <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Nowe wzmianki w wyciszonych kanałach</value>
   </data>
   <data name="SoundsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Dźwięki</value>
   </data>
   <data name="SoundsPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Dźwięki</value>
   </data>
   <data name="VoicePI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Głos</value>
   </data>
   <data name="SoundTypesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Rodzaje dźwięków</value>
   </data>
   <data name="DiscordRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Discord</value>
   </data>
   <data name="WindowsRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="SoundsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>USTAWIENIA KONTA</value>
   </data>
   <data name="AccountPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Konto</value>
   </data>
   <data name="AccountPrivacyPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Prywatność</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Załaduj obraz</value>
   </data>
   <data name="DeleteImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Usuń</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Nazwa użytkownika</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Email</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Aktualne hasło</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Zmień hasło</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Nowe hasło</value>
   </data>
   <data name="SaveTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Zapisz</value>
   </data>
   <data name="DMFilterTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>FILTROWANIE PRYWATNYCH WIADOMOŚCI</value>
   </data>
   <data name="DMFilterExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Analizuje i automatycznie usuwa prywatne wiadomości zawierające nieodpowiednie treści</value>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Chroń mnie</value>
   </data>
   <data name="ProtectMeExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Analizuj wszystkie wiadomości</value>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Moi znajomi są w porządku</value>
   </data>
   <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Analizuje wszyskie wiadomości oprócz tych od znajomych</value>
   </data>
   <data name="DangerZoneTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Żyję na krawędzi</value>
   </data>
   <data name="DangerZoneExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Nie analizuj żadnych wiadomości</value>
   </data>
   <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>KTO MOŻE WYSYŁAĆ ZAPROSZENIA DO ZNAJOMYCH</value>
   </data>
   <data name="EveryoneCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Wszyscy</value>
   </data>
   <data name="MutualFriendsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Znajomi moich znajomych</value>
   </data>
   <data name="MutualServerMembersCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Wspólni członkowie serwerów</value>
   </data>
   <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Aby uzyskać dostęp do pozostałych ustawień prywatności, użyj proszę oficjalnej strony Discorda, lub oficjalnej aplikacji</value>
   </data>
   <data name="DerivedRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Kolor profilowy</value>
   </data>
   <data name="LanguageComboB.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Język (wymaga restartu)</value>
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Domyślny</value>
   </data>
 </root>
