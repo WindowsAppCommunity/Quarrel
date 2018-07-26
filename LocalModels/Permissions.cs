@@ -21,9 +21,13 @@ namespace Discord_UWP.LocalModels
             }
 
             Perms = 0;
-            foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
+            if (LocalState.Guilds[guildId].members.ContainsKey(userId))
             {
-                AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
+                foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
+                {
+                    AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
+                }
+
             }
 
             if (channelId != "" && LocalState.Guilds[guildId].channels.ContainsKey(channelId))
