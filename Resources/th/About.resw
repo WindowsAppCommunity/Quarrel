@@ -231,4 +231,7 @@
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
     <value>หากข้อมูลนี้มีข้อผิดพลาดใดๆ ที่ไม่ตรงตามที่คาดคิด กรุณาติดต่อ Microsoft Store</value>
   </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>เข้าร่วมทดสอบฟังก์ชั่นใหม่</value>
+  </data>
 </root>

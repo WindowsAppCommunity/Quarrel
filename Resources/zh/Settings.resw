@@ -232,7 +232,7 @@
     <value>系统强调色</value>
   </data>
   <data name="BlurpleRadio.Content" xml:space="preserve">
-    <value>Discord Blurple</value>
+    <value>Discord 紫蓝</value>
   </data>
   <data name="OTHERTB.Text" xml:space="preserve">
     <value>其他</value>
@@ -334,114 +334,114 @@
     <value>显示服务器静音图标</value>
   </data>
   <data name="FontSizeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>字体大小</value>
   </data>
   <data name="AaTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>字</value>
   </data>
   <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>以静音服务器中的新提及</value>
   </data>
   <data name="SoundsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>音频</value>
   </data>
   <data name="SoundsPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>音频</value>
   </data>
   <data name="VoicePI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>语音</value>
   </data>
   <data name="SoundTypesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>音频种类</value>
   </data>
   <data name="DiscordRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Discord</value>
   </data>
   <data name="WindowsRB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="SoundsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Windows</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>账户设置</value>
   </data>
   <data name="AccountPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>账户</value>
   </data>
   <data name="AccountPrivacyPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>隐私</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>上传图像</value>
   </data>
   <data name="DeleteImageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>删除</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>用户名</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>电子邮箱</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>当前密码</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>更改密码</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>新密码</value>
   </data>
   <data name="SaveTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>保存</value>
   </data>
   <data name="DMFilterTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>私信滤波</value>
   </data>
   <data name="DMFilterExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>分析并自动删除包含不宜（18+）内容的私信</value>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>保护我</value>
   </data>
   <data name="ProtectMeExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>自动分析所有私信</value>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>我的朋友们还好</value>
   </data>
   <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>分析非好友的私信</value>
   </data>
   <data name="DangerZoneTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>我活的很危险</value>
   </data>
   <data name="DangerZoneExpoTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>不要分析任何私信</value>
   </data>
   <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>谁可发来好友请求</value>
   </data>
   <data name="EveryoneCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>任何人</value>
   </data>
   <data name="MutualFriendsCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>我好友之好又</value>
   </data>
   <data name="MutualServerMembersCB.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>共同服务器成员</value>
   </data>
   <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>要访问其余的隐私设置，请使用Discord官方客户端或网站</value>
   </data>
   <data name="DerivedRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>派生颜色</value>
   </data>
   <data name="LanguageComboB.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>语言（需要重启）</value>
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>默认</value>
   </data>
 </root>
