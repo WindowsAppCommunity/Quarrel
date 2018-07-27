@@ -231,4 +231,7 @@
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
     <value>Jeżeli jest to błędne, muszę napisać solidny mail do opiekunów sklepu Microsoftu</value>
   </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Chcesz więcej?</value>
+  </data>
 </root>
