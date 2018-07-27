@@ -3825,5 +3825,10 @@ namespace Discord_UWP
                 }
             }
         }
+
+        private void NavToDiscordStatus(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DiscordStatus));
+        }
     }
 }

@@ -224,6 +224,9 @@
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
+    <Compile Include="SubPages\DiscordStatus.xaml.cs">
+      <DependentUpon>DiscordStatus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
@@ -825,6 +828,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SubPages\DiscordStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SubPages\LogScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -946,6 +953,9 @@
     </PackageReference>
     <PackageReference Include="Html2Markdown">
       <Version>3.2.1.341</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Advertising.XAML">
       <Version>10.1805.7001</Version>
