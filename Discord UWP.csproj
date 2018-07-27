@@ -121,6 +121,8 @@
     <Compile Include="AudioProcessing\HelperMethods.cs" />
     <Compile Include="Classes\ExtensionMethods.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
+    <Compile Include="Classes\StatusPage.cs" />
+    <Compile Include="Classes\StatusPageClasses.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\ActivitesControl.xaml.cs">
       <DependentUpon>ActivitesControl.xaml</DependentUpon>
