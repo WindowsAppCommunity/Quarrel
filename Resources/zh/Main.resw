@@ -331,6 +331,6 @@
     <value>(not translated)</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>&lt;count&gt;位成员</value>
   </data>
 </root>

@@ -211,24 +211,27 @@
     <value>Commit</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>音频入境</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>音频出境</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>根据微软的Licensing, 您已经购买了以下:</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>如果这里有错, 我有写信给微软商店团队的一个措辞强硬的电子邮件 ...</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>您或是离线或是连接速度太慢启以动网关</value>
   </data>
   <data name="LicensesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>执照</value>
   </data>
   <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>执照</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>想要更多？</value>
   </data>
 </root>

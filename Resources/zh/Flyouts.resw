@@ -214,6 +214,6 @@
     <value>从开始菜单拔下</value>
   </data>
   <data name="UnpinSucess" xml:space="preserve">
-    <value>拔下成功！</value>
+    <value>成功拔下！</value>
   </data>
 </root>

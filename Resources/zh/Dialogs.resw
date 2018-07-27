@@ -598,12 +598,12 @@
     <value>新密码</value>
   </data>
   <data name="RoleHoistToggle.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>与在线成员分开显示</value>
   </data>
   <data name="on" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>在</value>
   </data>
   <data name="AccountPI.Header" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>账户</value>
   </data>
 </root>
