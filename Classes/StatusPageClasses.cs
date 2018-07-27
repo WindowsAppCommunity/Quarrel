@@ -230,7 +230,7 @@ namespace Discord_UWP.Classes
         public partial class IncidentUpdate
         {
             [JsonProperty("status")]
-            public IncidentUpdateStatus Status { get; set; }
+            public string Status { get; set; }
 
             [JsonProperty("body")]
             public string Body { get; set; }
@@ -277,10 +277,10 @@ namespace Discord_UWP.Classes
             public string Name { get; set; }
 
             [JsonProperty("old_status")]
-            public Status OldStatus { get; set; }
+            public string OldStatus { get; set; }
 
             [JsonProperty("new_status")]
-            public Status NewStatus { get; set; }
+            public string NewStatus { get; set; }
         }
 
         public partial class Page
@@ -304,12 +304,5 @@ namespace Discord_UWP.Classes
             public string Description { get; set; }
         }
 
-        public enum Impact { Critical, Major, None };
-
-        public enum Status { DegradedPerformance, MajorOutage, Operational, PartialOutage };
-
-        public enum IncidentUpdateStatus { Identified, Investigating, Monitoring, Resolved };
-
-        public enum IncidentStatus { Resolved };
     }
 }

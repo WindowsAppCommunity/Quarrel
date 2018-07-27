@@ -2,32 +2,37 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 
 namespace Discord_UWP.Classes
 {
    public static class StatusPage
    {
-       public static string Url = "https://discordapp.statuspage.io/";
+       public static string Url = "https://discord.statuspage.io/";
        public static string MetricsId = "ztt4777v23lf";
+       public static string Token = null;
+       public static string Cookies = "";
 
        public static async Task<StatusPageClasses.Index> GetStatus()
        {
            using (HttpClient client = new HttpClient())
            {
-               Stream stream;
+               IInputStream stream;
                try
                {
-                   stream = await client.GetStreamAsync(Url + "index.json");
+                   stream = await client.GetInputStreamAsync(new Uri(Url + "index.json"));
                }
                catch (Exception)
                {
                    return null;
                }
-               using (StreamReader reader = new StreamReader(stream))
+               using (StreamReader reader = new StreamReader(stream.AsStreamForRead()))
                {
                    using (var jsonTextReader = new JsonTextReader(reader))
                    {
@@ -39,18 +44,18 @@ namespace Discord_UWP.Classes
        }
        public static async Task<StatusPageClasses.AllMetrics> GetMetrics()
        {
-           using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
            {
-               Stream stream;
+                IInputStream stream;
                try
                {
-                   stream = await client.GetStreamAsync(Url + "metrics-display/"+MetricsId+"/day.json");
+                   stream = await client.GetInputStreamAsync(new Uri(Url + "metrics-display/"+MetricsId+"/day.json"));
                }
                catch (Exception)
                {
                    return null;
                }
-               using (StreamReader reader = new StreamReader(stream))
+               using (StreamReader reader = new StreamReader(stream.AsStreamForRead()))
                {
                    using (var jsonTextReader = new JsonTextReader(reader))
                    {
