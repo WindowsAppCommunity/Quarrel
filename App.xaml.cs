@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using Windows.Globalization;
 using ColorSyntax.Styling;
 using ColorSyntax.Common;
+using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 
 namespace Discord_UWP
@@ -809,13 +810,30 @@ namespace Discord_UWP
         }
         #endregion
 
-        public static event EventHandler WentOffline;
-        public static void CheckOnline()
+        public static event EventHandler<StatusPageClasses.Index> WentOffline;
+        private static bool runningNetworkTest = false;
+        public static async void CheckOnline()
         {
-            if (!App.IsOnline())
+            //The runningNetworkTest serves to ensure that we ignore the CheckOnline() if we are already busy running a network test
+            if (runningNetworkTest) return;
+            runningNetworkTest = true;
+            ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
+            if (connections == null)
             {
-                WentOffline?.Invoke(typeof(App), null);
+                //Definitely not connected to the internet
+                WentOffline?.Invoke(null,null);
             }
+            else
+            {
+                //Maybe, just maybe connected?
+                var status = await StatusPage.GetStatus();
+                if (status == null || status.Status.Indicator != "operational")
+                {
+                    WentOffline?.Invoke(null, status);
+                }
+            }
+
+            runningNetworkTest = false;
         }
 
         public class MentionArgs : EventArgs
