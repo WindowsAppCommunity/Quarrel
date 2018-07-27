@@ -361,7 +361,7 @@ namespace Discord_UWP.Managers
             {
                 if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
                 {
-                    if (Storage.Settings.SoundNotifications)
+                    if (Storage.Settings.SoundNotifications && App.Insider)
                     {
                         AudioManager.PlaySoundEffect(e.EventData.Type == 3 ? /*"inring"*/ "" :"message");
                     }

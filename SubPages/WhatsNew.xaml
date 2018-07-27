@@ -104,10 +104,10 @@
                             <Paragraph>
                                 <Run Text="• Resuming after losing connection"/>
                             </Paragraph>
-                            <!--<Paragraph FontSize="8"/>
+                            <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• "/>
-                            </Paragraph>-->
+                                <Run Text="• Even better syntax highlighting"/>
+                            </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
                                 <Run Text="• Bug Fixes"/>
