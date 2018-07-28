@@ -1198,70 +1198,85 @@ namespace Discord_UWP
             else
             {
                 ServerList.SelectedIndex = 0;
+                foreach (SimpleGuild guild in ServerList.Items)
+                {
+                    if (guild.Id == "@me")
+                    {
+                        guild.IsSelected = true;
+                        ChannelList.SelectedItem = guild;
+                    }
+                    else
+                    {
+                        guild.IsSelected = false;
+                    }
+                }
                 App.CurrentChannelId = e.ChannelId;
                 App.CurrentGuildIsDM = true;
                 App.CurrentGuildId = null;
-                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                if (e.ChannelId != null && LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
                     App.LastReadMsgId = null;
                 RenderDMChannels();
             }
 
-            if (LocalState.DMs[e.ChannelId].Type == 1)
+            if (e.ChannelId != null)
             {
-                UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
-                UserDetails.Visibility = Visibility.Visible;
-                MemberListFull.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                RenderGroupMembers();
-                UserDetails.Visibility = Visibility.Collapsed;
-                MemberListFull.Visibility = Visibility.Visible;
-            }
+                if (LocalState.DMs[e.ChannelId].Type == 1)
+                {
+                    UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
+                    UserDetails.Visibility = Visibility.Visible;
+                    MemberListFull.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    RenderGroupMembers();
+                    UserDetails.Visibility = Visibility.Collapsed;
+                    MemberListFull.Visibility = Visibility.Visible;
+                }
+                App.MarkChannelAsRead(e.ChannelId);
 
-            App.MarkChannelAsRead(e.ChannelId);
-            _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+                if (e.Message != null && !e.Send)
+                {
+                    MessageBox1.Text = e.Message;
+                }
+                else if (e.Send && e.Message != null)
+                {
+                    App.CreateMessage(App.CurrentChannelId, e.Message);
+                }
 
-            if (e.Message != null && !e.Send)
-            {
-                MessageBox1.Text = e.Message;
-            }
-            else if (e.Send && e.Message != null)
-            {
-                App.CreateMessage(App.CurrentChannelId, e.Message);
-            }
+                if (e.OnBack)
+                {
+                    foreach (SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == e.ChannelId)
+                        {
+                            lastChangeProgrammatic = true;
+                            ChannelList.SelectedItem = chn;
+                        }
+                    }
+                }
 
-            if (e.OnBack)
-            {
                 foreach (SimpleChannel chn in ChannelList.Items)
                 {
                     if (chn.Id == e.ChannelId)
                     {
-                        lastChangeProgrammatic = true;
+                        chn.IsSelected = true;
                         ChannelList.SelectedItem = chn;
                     }
+                    else
+                    {
+                        chn.IsSelected = false;
+                    }
                 }
+                UpdateTyping();
+
+                RenderMessages();
+
+                LoadDraft();
             }
 
-            foreach (SimpleChannel chn in ChannelList.Items)
-            {
-                if (chn.Id == e.ChannelId)
-                {
-                    chn.IsSelected = true;
-                    ChannelList.SelectedItem = chn;
-                }
-                else
-                {
-                    chn.IsSelected = false;
-                }
-            }
-            UpdateTyping();
-
-            RenderMessages();
-
-            LoadDraft();
+            _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
         }
 
         #endregion
