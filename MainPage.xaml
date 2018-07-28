@@ -14,7 +14,6 @@
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
-
     <Page.Resources>
         <Storyboard x:Name="ChangeStatusColor">
             <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">

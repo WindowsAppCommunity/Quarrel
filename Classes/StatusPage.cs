@@ -42,14 +42,14 @@ namespace Discord_UWP.Classes
                 }
             }
        }
-       public static async Task<StatusPageClasses.AllMetrics> GetMetrics()
+       public static async Task<StatusPageClasses.AllMetrics> GetMetrics(string duration = "day")
        {
             using (HttpClient client = new HttpClient())
            {
                 IInputStream stream;
                try
                {
-                   stream = await client.GetInputStreamAsync(new Uri(Url + "metrics-display/"+MetricsId+"/day.json"));
+                   stream = await client.GetInputStreamAsync(new Uri(Url + "metrics-display/"+MetricsId+"/"+duration+".json"));
                }
                catch (Exception)
                {

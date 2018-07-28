@@ -41,7 +41,7 @@ namespace Discord_UWP.Classes
             public long Timestamp { get; set; }
 
             [JsonProperty("value")]
-            public long Value { get; set; }
+            public ushort Value { get; set; }
         }
 
         public partial class MetricMetric

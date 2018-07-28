@@ -926,7 +926,7 @@ namespace Discord_UWP
             }
             else
             {
-                Colors.PictureAnalysis analysis = new Colors.PictureAnalysis();
+                SmartColor.PictureAnalysis analysis = new SmartColor.PictureAnalysis();
                 try
                 {
                     await analysis.Analyse(new BitmapImage(Common.AvatarUri(user.Avatar, user.Id, "?size=64")), 64, 64);
