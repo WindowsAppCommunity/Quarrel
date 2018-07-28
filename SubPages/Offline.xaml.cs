@@ -30,6 +30,7 @@ namespace Discord_UWP
             //loadMessages();
         }
 
+        private StatusPageClasses.Index index = null;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter == null)
@@ -40,7 +41,7 @@ namespace Discord_UWP
             else
             {
                 statusButton.Visibility = Visibility.Visible;
-                var index = (StatusPageClasses.Index) e.Parameter;
+                index = (StatusPageClasses.Index) e.Parameter;
                 if (index.Status.Indicator == "major_outage")
                 {
                     OfflineReason.Text =
@@ -93,6 +94,19 @@ namespace Discord_UWP
         private void Offline_OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             AdjustSize();
+        }
+
+        private void StatusButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (index != null)
+            {
+                Frame.Navigate(typeof(SubPages.DiscordStatus), index);
+            }
+
+            else
+            {
+                Frame.Navigate(typeof(SubPages.DiscordStatus), 1); //Just a dummy value so that the parameter != null
+            }
         }
     }
 }
