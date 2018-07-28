@@ -6,31 +6,108 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Opacity" From="1" To="0" Storyboard.TargetName="rootgrid">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleX" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.3" Storyboard.TargetProperty="ScaleY" From="1" To="0.94" Storyboard.TargetName="scale">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </Page.Resources>
+    <Page.RenderTransform>
+            <ScaleTransform x:Name="scale"/>
+        </Page.RenderTransform>
+        <Grid x:Name="rootgrid" Background="Transparent" Margin="-100" Padding="100,112" >
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="VisualStateGroup">
+                    <VisualState x:Name="Small">
+                        <VisualState.Setters>
+                            <Setter Target="border.(Border.BorderThickness)">
+                                <Setter.Value>
+                                    <Thickness>0</Thickness>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Target="border.(Border.CornerRadius)">
+                                <Setter.Value>
+                                    <CornerRadius>0</CornerRadius>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Target="appBarButton.(UIElement.Visibility)" Value="Visible"/>
+                            <Setter Target="appBarButton.(Canvas.ZIndex)" Value="2"/>
+                            <Setter Target="border.(FrameworkElement.Margin)">
+                                <Setter.Value>
+                                    <Thickness>0</Thickness>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Target="rootgrid.(Grid.Padding)">
+                                <Setter.Value>
+                                    <Thickness>100</Thickness>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Target="grid.(FrameworkElement.MaxWidth)" Value="10000"/>
+                            <Setter Target="grid.(FrameworkElement.MaxHeight)" Value="10000"/>
+                        </VisualState.Setters>
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0"/>
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                    <VisualState x:Name="VisualState">
+                        <VisualState.Setters>
+                            <Setter Target="rootgrid.(Grid.Padding)">
+                                <Setter.Value>
+                                    <Thickness>112</Thickness>
+                                </Setter.Value>
+                            </Setter>
+                        </VisualState.Setters>
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="600"/>
+                        </VisualState.StateTriggers>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
+            <Grid x:Name="grid" MaxWidth="512" MaxHeight="512" >
+                <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
+                <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
 
-    <Grid Background="{ThemeResource AcrylicMessageBackground}">
-        <StackPanel Margin="24">
-            <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="0,12,0,0" FontSize="20"/>
-            <ItemsControl x:Name="ComponentsPanel" Margin="0,24,0,0">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="6">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Ellipse Grid.Column="0" Fill="{Binding Color}" Width="12" Height="12" Margin="4,5,4,4"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" FontSize="15" Text="{Binding Name}" Foreground="{Binding Color}"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Status}" FontSize="11" Opacity="0.5" Margin="0,-2,0,0"/>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            </StackPanel>
-        <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource Blurple}" Width="48" VerticalAlignment="Center" HorizontalAlignment="Center" Height="48"/>
-        <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
-    </Grid>
+
+                    <StackPanel>
+                        <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="0,0,0,0" FontSize="20"/>
+                        <ItemsControl x:Name="ComponentsPanel" Margin="0,24,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Ellipse Grid.Column="0" Fill="{Binding Color}" Width="12" Height="12" Margin="4,5,4,4"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" FontSize="15" Text="{Binding Name}" Foreground="{Binding Color}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Status}" FontSize="11" Opacity="0.5" Margin="0,-2,0,0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource Blurple}" Width="48" VerticalAlignment="Center" HorizontalAlignment="Center" Height="48"/>
+                        <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
 </Page>

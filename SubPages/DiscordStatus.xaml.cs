@@ -33,8 +33,33 @@ namespace Discord_UWP.SubPages
         public DiscordStatus()
         {
             this.InitializeComponent();
+            App.SubpageCloseHandler += App_SubpageCloseHandler;
+
         }
 
+        private void App_SubpageCloseHandler(object sender, EventArgs e)
+        {
+            CloseButton_Click(null, null);
+            App.SubpageCloseHandler -= App_SubpageCloseHandler;
+        }
+
+        private void NavAway_Completed(object sender, object e)
+        {
+            Frame.Visibility = Visibility.Collapsed;
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            CloseButton_Click(null, null);
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            scale.CenterY = this.ActualHeight / 2;
+            scale.CenterX = this.ActualWidth / 2;
+            NavAway.Begin();
+            App.SubpageClosed();
+        }
         public SolidColorBrush ColorFromStatus(string status)
         {
             switch (status)
