@@ -60,11 +60,20 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            scale.CenterY = this.ActualHeight / 2;
-            scale.CenterX = this.ActualWidth / 2;
-            NavAway.Begin();
-            App.SubpageClosed();
+            if (!OfflineMode)
+            {
+                scale.CenterY = this.ActualHeight / 2;
+                scale.CenterX = this.ActualWidth / 2;
+                NavAway.Begin();
+                App.SubpageClosed();
+            }
+            else
+            {
+                Frame.Navigate(typeof(Offline), status);
+            }
         }
+
+        private StatusPageClasses.Index status = null;
         public SolidColorBrush ColorFromStatus(string status)
         {
             if (status == "operational" || status == "none")
@@ -81,15 +90,23 @@ namespace Discord_UWP.SubPages
             }
             
         }
+
+        private bool OfflineMode = false;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (e.Parameter != null)
+            {
+                OfflineMode = true;
+                cache.Fill = (SolidColorBrush) Application.Current.Resources["AcrylicMessageBackground"];
+            }
             grid.Opacity = 0;
             grid.Visibility = Visibility.Collapsed;
             LoadingRing.IsActive = true;
             base.OnNavigatedTo(e);
 
             LoadingRing.Visibility = Visibility.Visible;
-            var status = await StatusPage.GetStatus();
+            status = await StatusPage.GetStatus();
+           
             if (status == null)
             {
                 FailedToLoad.Visibility = Visibility.Visible;
@@ -167,7 +184,6 @@ namespace Discord_UWP.SubPages
                 }
                 ShowChart.Begin();
             }
-            
         }
         private readonly List<double> _data = new List<double>();
         private const float DataStrokeThickness = 1;

@@ -110,7 +110,7 @@
                     </VisualState>
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
+            <Rectangle x:Name="cache" Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource Blurple}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
         <Grid x:Name="grid" MaxWidth="400" Opacity="1" MaxHeight="512" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Center">
