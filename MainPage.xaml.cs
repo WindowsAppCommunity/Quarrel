@@ -52,6 +52,8 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
+            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+            App.WentOffline += App_WentOffline;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -410,12 +412,8 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
-
-            App.WentOffline += App_WentOffline;
-
-            GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
-            GatewayManager.Gateway.Resumed += Gateway_Resumed;
-            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+            
+            
             //_networkCheckTimer.Tick += _networkCheckTimer_Tick;
         }
 
@@ -454,7 +452,7 @@ namespace Discord_UWP
         {
             if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
             {
-                if (GatewayManager.Gateway.ConnectedSocket == false)
+                if (GatewayManager.Gateway!=null && GatewayManager.Gateway.ConnectedSocket == false)
                 {
                     await GatewayManager.Gateway.ResumeAsync();
                 }
@@ -832,9 +830,10 @@ namespace Discord_UWP
             App.WentOffline -= App_WentOffline;
         }
 
-        private void App_WentOffline(object sender, EventArgs e)
+        private void App_WentOffline(object sender, StatusPageClasses.Index e)
         {
-            SubFrameNavigator(typeof(Offline));
+            Loading.Hide(false);
+            SubFrameNavigator(typeof(Offline), e);
         }
 
         private ExtendedExecutionSession session = null;
@@ -905,7 +904,8 @@ namespace Discord_UWP
             }
             catch
             {
-                Page.Frame.Navigate(typeof(Offline));
+                App.CheckOnline();
+                return;
             }
             var credentials = Storage.PasswordVault.FindAllByResource("Token");
             AccountView.Items.Clear();
@@ -921,9 +921,11 @@ namespace Discord_UWP
             if (App.LoggedIn())
             {
                 SetupEvents();
-                if (Managers.GatewayManager.Gateway != null && App.IsOnline())
+                if (Managers.GatewayManager.Gateway != null)
                 {
                     GatewayManager.StartGateway();
+                    GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
+                    GatewayManager.Gateway.Resumed += Gateway_Resumed;
                     Common.LoadEmojiDawg();
                     //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
                     BeginExtendedExecution();
@@ -937,7 +939,7 @@ namespace Discord_UWP
                     }
                 } else
                 {
-                    SubFrameNavigator(typeof(Offline));
+                    App.CheckOnline();
                 }
 
             } else
@@ -3837,6 +3839,11 @@ namespace Discord_UWP
                     _messageScrollviewer.ChangeView(null, _messageScrollviewer.ExtentHeight, null, true);
                 }
             }
+        }
+
+        private void NavToDiscordStatus(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DiscordStatus));
         }
     }
 }
