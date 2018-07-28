@@ -7,10 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Gaming.Input;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Discord_UWP.SubPages;
 
 namespace Discord_UWP
 {
@@ -53,6 +55,17 @@ namespace Discord_UWP
             if (args.VirtualKey == Windows.System.VirtualKey.Shift)
             {
                 MessageBox1.ShiftDown();
+            }
+            else if (args.VirtualKey == VirtualKey.S)
+            {
+                if (args.KeyStatus.IsKeyReleased && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
+                {
+                    SubFrameNavigator(typeof(SubPages.DiscordStatus));
+                }
+                else
+                {
+                    args.Handled = true;
+                }
             }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickLeft)
             {
@@ -188,5 +201,9 @@ namespace Discord_UWP
         }
 
 
+        private void KeyboardAccelerator_OnInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            SubFrameNavigator(typeof(DiscordStatus));
+        }
     }
 }

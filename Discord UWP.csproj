@@ -119,6 +119,7 @@
     <Compile Include="AudioProcessing\Complex.cs" />
     <Compile Include="AudioProcessing\Fft.cs" />
     <Compile Include="AudioProcessing\HelperMethods.cs" />
+    <Compile Include="Classes\ChartRenderer.cs" />
     <Compile Include="Classes\ExtensionMethods.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
     <Compile Include="Classes\StatusPage.cs" />
