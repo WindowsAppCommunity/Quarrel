@@ -9,10 +9,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <tk:Carousel>
-            <Button Content="XSalsa20 (x64 only in testing)" Click="Button_Click"/>
-            <Button Content="Voice RT (x64 only in testing)" Click="Button_Click_1"/>
-            <Button Content="Mentions" Click="Button_Click_2"/>
-        </tk:Carousel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="QUARREL FEATURE TESTING" HorizontalAlignment="Center" Margin="0,0,0,12" FontSize="20"/>
+            <Button Content="XSalsa20 (x64 only in testing)" Click="Button_Click" HorizontalAlignment="Stretch"/>
+            <Button Content="Voice RT (x64 only in testing)" Click="Button_Click_1" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
+            <Button Content="Mentions" Click="Button_Click_2" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>

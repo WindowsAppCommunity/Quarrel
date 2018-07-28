@@ -482,9 +482,13 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             SendDM.Send -= SendDirectMessage;
-            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
-            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-            Unloaded -= UserDetailsControl_Unloaded;
+            if (App.GatewayCreated)
+            {
+                GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+                GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                Unloaded -= UserDetailsControl_Unloaded;
+            }
+           
         }
 
         private void Avatar_OnImageOpened(object sender, RoutedEventArgs e)
