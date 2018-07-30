@@ -13,10 +13,12 @@ namespace Discord_UWP.LocalModels
         public GuildSetting(SharedModels.GuildSetting input)
         {
             raw = input;
-
-            foreach (var channel in raw.ChannelOverrides)
+            if (raw.ChannelOverrides != null)
             {
-                channelOverrides.Add(channel.Channel_Id, channel);
+                foreach (var channel in raw.ChannelOverrides)
+                {
+                    channelOverrides.Add(channel.Channel_Id, channel);
+                }
             }
         }
 
