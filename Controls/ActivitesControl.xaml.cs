@@ -45,7 +45,7 @@ namespace Discord_UWP.Controls
 
             if (prop == ActivityProperty)
             {
-                if (!string.IsNullOrEmpty(Activity.ApplicationId))
+                if (Activity != null && !string.IsNullOrEmpty(Activity.ApplicationId))
                 {
                     if (LocalState.SupportedGames.ContainsKey(Activity.ApplicationId))
                     {
