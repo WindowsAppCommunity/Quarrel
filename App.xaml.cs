@@ -98,6 +98,7 @@ namespace Discord_UWP
         public class ProfileNavigationArgs : EventArgs
         {
             public SharedModels.User User { get; set; }
+            public bool WebHook { get; set; }
         }
         #endregion
 
@@ -120,9 +121,9 @@ namespace Discord_UWP
             MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(user), Point = point });
         }
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
-        public static void ShowMemberFlyout(object sender, SharedModels.User user)
+        public static void ShowMemberFlyout(object sender, SharedModels.User user, bool webhook)
         {
-            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user });
+            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user, WebHook = webhook });
         }
         public static event EventHandler<string> ShowGameFlyoutHandler;
         public static void ShowGameFlyout(object sender, string id)

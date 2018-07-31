@@ -1499,16 +1499,16 @@ namespace Discord_UWP
                 var member = new GuildMember();
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
-                    FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id]).ShowAt(sender as FrameworkElement);
+                    FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id], e.WebHook).ShowAt(sender as FrameworkElement);
                 }
                 else
                 {
-                    FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+                    FlyoutManager.MakeUserDetailsFlyout(e.User, e.WebHook).ShowAt(sender as FrameworkElement);
                 }
             }
             else
             {
-                FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+                FlyoutManager.MakeUserDetailsFlyout(e.User, e.WebHook).ShowAt(sender as FrameworkElement);
             }
         }
 
@@ -1530,9 +1530,9 @@ namespace Discord_UWP
             {
                 string val = e.Link.Remove(0, 2);
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
-                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User, false);
                 else if (e.User != null)
-                    App.ShowMemberFlyout(sender, e.User);
+                    App.ShowMemberFlyout(sender, e.User, false);
             }
             else if (e.Link.StartsWith("@&"))
             {
@@ -1552,13 +1552,13 @@ namespace Discord_UWP
                 string val = e.Link.Remove(0, 1);
                 if (App.CurrentGuildIsDM)
                 {
-                    App.ShowMemberFlyout(sender, LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Id == val));
+                    App.ShowMemberFlyout(sender, LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Id == val), false);
                 } else
                 {
                     if(LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
-                        App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                        App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User, false);
                     else if(e.User != null)
-                        App.ShowMemberFlyout(sender, e.User);
+                        App.ShowMemberFlyout(sender, e.User, false);
                         //App.ShowMemberFlyout(sender, val);
                 }
             }
@@ -3747,7 +3747,7 @@ namespace Discord_UWP
         private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
-            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Member).Raw.User);
+            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Member).Raw.User, false);
         }
 
         private void MessageBox1_OpenSpotify(object sender, RoutedEventArgs e)

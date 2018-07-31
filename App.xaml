@@ -1223,7 +1223,7 @@
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.1" Duration="0:0:0.2">
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="1" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase/>
                                                     </DoubleAnimation.EasingFunction>

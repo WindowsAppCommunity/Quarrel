@@ -88,26 +88,28 @@ namespace Discord_UWP.Managers
             return flyout;
         }
 
-        public static Flyout MakeUserDetailsFlyout(GuildMember member)
+        public static Flyout MakeUserDetailsFlyout(GuildMember member, bool webhook)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
                 DisplayedMember = member,
-                DMPane = false
+                DMPane = false,
+                Webhook = webhook
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
           
             return flyout;
         }
 
-        public static Flyout MakeUserDetailsFlyout(User user)
+        public static Flyout MakeUserDetailsFlyout(User user, bool webhook)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
                 DisplayedMember = new GuildMember() { User = user },
-                DMPane = false
+                DMPane = false,
+                Webhook = webhook
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
             return flyout;

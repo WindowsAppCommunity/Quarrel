@@ -973,7 +973,7 @@ namespace Discord_UWP.Controls
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(username, Message.User);
+            App.ShowMemberFlyout(username, Message.User, Message.WebHookid!=null);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)

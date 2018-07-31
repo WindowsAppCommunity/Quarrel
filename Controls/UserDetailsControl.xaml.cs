@@ -58,6 +58,17 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public bool Webhook
+        {
+            get { return (bool)GetValue(WebhookProperty); }
+            set { SetValue(WebhookProperty, value); }
+        }
+        public static readonly DependencyProperty WebhookProperty = DependencyProperty.Register(
+            nameof(DisplayedMember),
+            typeof(bool),
+            typeof(UserDetailsControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as UserDetailsControl;
@@ -66,6 +77,19 @@ namespace Discord_UWP.Controls
 
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            if (prop == WebhookProperty)
+            {
+                if (Webhook)
+                {
+                    Row1Grid.Visibility = Visibility.Collapsed;
+                    avatarButton.IsEnabled = false;
+                }
+                else
+                {
+                    Row1Grid.Visibility = Visibility.Visible;
+                    avatarButton.IsEnabled = true;
+                }
+            }
             if (prop == DisplayedMemberProperty)
             {
                 var user = DisplayedMember.User;
