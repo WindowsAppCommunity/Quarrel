@@ -75,6 +75,8 @@ namespace Discord_UWP.SharedModels
         public int Type { get; set; }
         [JsonProperty("hits")]
         public bool Hit { get; set; }
+        [JsonProperty("webhook_id")]
+        public string WebHookid { get; set; }
     }
     public class Activity
     {

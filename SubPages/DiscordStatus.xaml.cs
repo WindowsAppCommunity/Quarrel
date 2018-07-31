@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Navigation;
 using Discord_UWP.Classes;
 using Discord_UWP.Controls;
 using Microsoft.Graphics.Canvas.UI.Xaml;
+using System.Numerics;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -228,6 +229,18 @@ namespace Discord_UWP.SubPages
             weekDuration.IsEnabled = true;
             monthDuration.IsEnabled = false;
             //Month
+        }
+
+        private float CursorPosition;
+        private void chartCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            CursorPosition = Convert.ToSingle(e.GetCurrentPoint(chartCanvas).Position.X);
+            chartIndicator.Invalidate();
+        }
+
+        private void ChartIndicator_OnDraw(CanvasControl sender, CanvasDrawEventArgs args)
+        {
+            args.DrawingSession.DrawLine(new Vector2(CursorPosition, 0), new Vector2(CursorPosition, (float)chartIndicator.ActualHeight), Colors.White);
         }
     }
 }

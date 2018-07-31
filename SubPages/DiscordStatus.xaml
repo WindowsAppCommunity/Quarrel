@@ -138,7 +138,7 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Column="1" FontSize="16" Text="{Binding Name}" />
-                                    <TextBlock Grid.Column="2" Text="{Binding Status}" Foreground="{Binding Color}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Status}" VerticalAlignment="Bottom" Foreground="{Binding Color}" FontSize="11" Opacity="1" Margin="0,-2,0,0"/>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -154,7 +154,7 @@
                         </StackPanel>
                     </Grid>
                     <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="-24,12,-24,6">
-                        <xaml:CanvasControl x:Name="chartCanvas" Height="96" Draw="CanvasControl_OnDraw">
+                        <xaml:CanvasControl x:Name="chartCanvas" Height="96" Draw="CanvasControl_OnDraw" PointerMoved="chartCanvas_PointerMoved">
                             <xaml:CanvasControl.Clip>
                                 <RectangleGeometry x:Name="chartClip">
                                     <RectangleGeometry.Transform>
@@ -163,6 +163,7 @@
                                 </RectangleGeometry>
                             </xaml:CanvasControl.Clip>
                         </xaml:CanvasControl>
+                        <xaml:CanvasControl x:Name="chartIndicator" Height="96" Draw="ChartIndicator_OnDraw"/>
                     </Grid>
                    
                 </StackPanel>
