@@ -1730,8 +1730,12 @@ namespace Discord_UWP
             
             Dictionary<string, ChannelOverride> chns = new Dictionary<string, ChannelOverride>();
             ChannelOverride chan;
+            if (!LocalState.GuildSettings.ContainsKey(App.CurrentGuildId))
+                LocalState.GuildSettings.Add(App.CurrentGuildId, new LocalModels.GuildSetting(new SharedModels.GuildSetting() { GuildId = App.CurrentGuildId }));
+
             if (!LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId))
                 LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.Add(e.ChannelId, new ChannelOverride() { Channel_Id = e.ChannelId, MessageNotifications = 0, Muted = true });
+
             chan = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId];
             chan.Channel_Id = null;
             chan.Muted = !chan.Muted;
