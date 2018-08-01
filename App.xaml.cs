@@ -828,7 +828,7 @@ namespace Discord_UWP
             {
                 //Maybe, just maybe connected?
                 var status = await StatusPage.GetStatus();
-                if (status == null || status.Status.Indicator != "operational")
+                if (status == null || status.Status.Indicator != "none" && status.Status.Indicator != "operational")
                 {
                     WentOffline?.Invoke(null, status);
                 }
