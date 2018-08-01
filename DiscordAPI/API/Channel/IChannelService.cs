@@ -46,6 +46,9 @@ namespace Discord_UWP.API.Channel
         [Get("/channels/{channelId}/invites")]
         Task<IEnumerable<SharedModels.Invite>> GetChannelInvites([AliasAs("channelId")] string channelId);
 
+        [Get("/v6/channels/{channelId}/webhooks")]
+        Task<IEnumerable<Webhook>> GetWebhooks([AliasAs("channelId")] string channelId);
+
         //PUT
 
         [Put("/channels/{channelId}/messages/{messageId}/reactions/{emoji}/@me")]
@@ -83,6 +86,9 @@ namespace Discord_UWP.API.Channel
 
         [Post("/v6/channels/{channelId}/typing")]
         Task TriggerTypingIndicator([AliasAs("channelId")] string channelId);
+
+        [Post("/v6/channels/{channelId}/webhooks")]
+        Task<Webhook> CreateWebhook([AliasAs("channelId")] string channelId, [Body] Webhook webhook);
 
         //PATCH
 

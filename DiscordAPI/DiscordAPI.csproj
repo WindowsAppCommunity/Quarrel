@@ -110,6 +110,7 @@
     <Compile Include="API\Game\IGameService.cs" />
     <Compile Include="API\Gateway\IGatewayService.cs" />
     <Compile Include="API\Guild\IGuildService.cs" />
+    <Compile Include="API\Guild\Models\AuditLog.cs" />
     <Compile Include="API\Guild\Models\SearchArgs.cs" />
     <Compile Include="API\Guild\Models\CreateGuild.cs" />
     <Compile Include="API\Guild\Models\CreateGuildBan.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="SharedModels\VoiceRegion.cs" />
     <Compile Include="SharedModels\VoiceServerUpdate.cs" />
     <Compile Include="SharedModels\VoiceState.cs" />
+    <Compile Include="SharedModels\Webhook.cs" />
     <Compile Include="Sockets\IWebMessageSocket.cs" />
     <Compile Include="Sockets\IWebSocketExtensions.cs" />
     <Compile Include="Sockets\UDPSocket.cs" />
