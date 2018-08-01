@@ -47,10 +47,13 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private readonly ILinkRegister _linkRegister;
 
         private string _messageid;
+        private bool _halfopacity;
         private IEnumerable<SharedModels.User> _users;
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border)
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
+            _halfopacity = halfopacity;
+            
             _linkRegister = linkRegister;
             _messageid = MessageId;
             CodeBlockResolver = codeBlockResolver;
@@ -116,6 +119,11 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// Gets or sets a brush that describes the foreground color.
         /// </summary>
         public Brush Foreground { get; set; }
+
+        /// <summary>
+        /// Gets or sets a brush that describes the foreground color.
+        /// </summary>
+        public Brush BoldForeground { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether text selection is enabled.
@@ -962,13 +970,18 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private void RenderBoldRun(InlineCollection inlineCollection, BoldTextInline element, RenderContext context)
         {
             // Create the text run
+            FontWeight weight = FontWeights.Bold;
+            if (_halfopacity) weight = FontWeights.SemiBold;
             Span boldSpan = new Span
             {
-                FontWeight = FontWeights.Bold
+                FontWeight = weight,
+                Foreground = BoldForeground
             };
 
             // Render the children into the bold inline.
-            RenderInlineChildren(boldSpan.Inlines, element.Inlines, boldSpan, context);
+            var newcontext = context.Clone();
+            newcontext.Foreground = BoldForeground;
+            RenderInlineChildren(boldSpan.Inlines, element.Inlines, boldSpan, newcontext);
 
             // Add it to the current inlines
             inlineCollection.Add(boldSpan);

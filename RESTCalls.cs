@@ -32,6 +32,7 @@ using Discord_UWP.API.Game;
 using GiphyAPI;
 using GiphyAPI.Models;
 using System.Threading;
+using DiscordAPI.API.Guild.Models;
 
 namespace Discord_UWP
 {
@@ -491,6 +492,28 @@ namespace Discord_UWP
         #region IGuild
 
         #region Get
+        public static async Task<AuditLog> GetAuditLog(string id, int limit = 50, string before = null)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                if (before == null)
+                {
+                    return await guildservice.GetAuditLog(id, limit);
+                }
+                else
+                {
+                    return await guildservice.GetAuditLog(id, before, limit);
+                }
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+
+            return null;
+        }
         public static async Task<SharedModels.Guild> GetGuild(string id)
         {
             try

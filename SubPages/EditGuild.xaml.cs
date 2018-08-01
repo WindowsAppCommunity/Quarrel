@@ -565,5 +565,10 @@ namespace Discord_UWP.SubPages
                 deleteImage.Content = App.GetString("/Dialogs/CancelIconMod");
             }
         }
+
+        private void NavigateToAudit_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SubPages.AuditLog), guildId);
+        }
     }
 }

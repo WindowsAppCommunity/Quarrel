@@ -20,9 +20,9 @@ namespace Discord_UWP.SharedModels
         public User User { get; set; }
         [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("name")]
+        [JsonProperty("avatar")]
         public string Avatar { get; set; }
-        [JsonProperty("name")]
+        [JsonProperty("token")]
         public string Token { get; set; }
     }
 

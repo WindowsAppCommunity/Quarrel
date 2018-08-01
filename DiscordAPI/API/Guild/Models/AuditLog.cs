@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordAPI.SharedModels;
+using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
 
 namespace DiscordAPI.API.Guild.Models
@@ -35,15 +36,45 @@ namespace DiscordAPI.API.Guild.Models
         public string Id { get; set; }
 
         [JsonProperty("action_type")]
-        public long ActionType { get; set; }
+        public int ActionType { get; set; }
 
         [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
         public Options Options { get; set; }
 
         [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
         public string Reason { get; set; }
+       
     }
-
+    
+    public enum AuditLogActionType
+    {
+        GuildUpdate =1,
+        ChannelCreate = 10,
+        ChannelUpdate = 11,
+        ChannelDelete = 12,
+        ChannelOverwriteCreate = 13,
+        ChannelOverwriteUpdate = 14,
+        ChannelOverwriteDelete = 15,
+        MemberKick = 20,
+        MemberPrune = 21,
+        MemberBanAdd = 22,
+        MemberBanRemove = 23,
+        MemberUpdate = 24,
+        MemberRoleUpdate = 25,
+        RoleCreate = 30,
+        RoleUpdate = 31,
+        RoleDelete = 32,
+        InviteCreate = 40,
+        InviteUpdate = 41,
+        InviteDelete = 42,
+        WebhookCreate = 50,
+        WebhookUpdate = 51,
+        WebhookDelete  = 52,
+        EmojiCreate = 60,
+        EmojiUpdate = 61,
+        EmojiDelete = 62,
+        MessageDelete = 72,
+    }
     public partial class Change
     {
         [JsonProperty("new_value")]
