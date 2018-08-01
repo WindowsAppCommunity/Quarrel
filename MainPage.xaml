@@ -1228,7 +1228,7 @@
                     <AppBarButton x:Uid="/Main/AboutABB" Label="About" Click="NavToAbout"/>
                     <AppBarButton x:Uid="/Main/WhatsNewABB" Label="What's New?" Click="WhatsNewClick"/>
                     <AppBarButton x:Uid="/Main/RemoveAdsABB" Label="Remove Ads" Click="NavToIAPs"/>
-                    <AppBarButton Label="Discord Status" Click="NavToDiscordStatus"/>
+                   <!-- <AppBarButton Label="Discord Status" Click="NavToDiscordStatus"/>-->
                     <AppBarButton x:Uid="/Main/SettingsABB" Label="Settings" Click="OpenSettings"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
