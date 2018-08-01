@@ -11,6 +11,7 @@ using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -126,18 +127,25 @@ namespace Discord_UWP.Controls
 
             }
         }
-        public void Show(bool animate)
+        public async void Show(bool animate)
         {
-            this.Visibility = Visibility.Visible;
-            if(animate) LoadIn.Begin();
-        }
-        public void Hide(bool animate)
-        {
-            if (animate)
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                LoadOut.Begin();
-            }
-            else this.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Visible;
+                if (animate) LoadIn.Begin();
+            });
+        }
+        public async void Hide(bool animate)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (animate)
+                {
+                    LoadOut.Begin();
+                }
+                else this.Visibility = Visibility.Collapsed;
+            });
+
         }
         private void LoadIn_Completed(object sender, object e)
         {
