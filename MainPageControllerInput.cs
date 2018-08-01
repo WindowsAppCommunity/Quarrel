@@ -56,6 +56,7 @@ namespace Discord_UWP
             {
                 MessageBox1.ShiftDown();
             }
+            /*
             else if (args.VirtualKey == VirtualKey.S)
             {
                 if (args.KeyStatus.IsKeyReleased && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
@@ -66,7 +67,7 @@ namespace Discord_UWP
                 {
                     args.Handled = true;
                 }
-            }
+            }*/
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickLeft)
             {
                 // args.Handled = true;
