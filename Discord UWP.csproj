@@ -225,6 +225,9 @@
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
+    <Compile Include="SubPages\AuditLog.xaml.cs">
+      <DependentUpon>AuditLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\DiscordStatus.xaml.cs">
       <DependentUpon>DiscordStatus.xaml</DependentUpon>
     </Compile>
@@ -828,6 +831,10 @@
     <Page Include="Controls\VoiceMemberControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\AuditLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\DiscordStatus.xaml">
       <SubType>Designer</SubType>
