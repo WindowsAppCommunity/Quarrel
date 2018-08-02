@@ -31,6 +31,28 @@ namespace Discord_UWP.SubPages
         if (str == null) return str.Replace(source, "");
         else return str.Replace(source, target);
     }
+        public static string Bold(this String str)
+        {
+            return ("**" + str + "**");
+        }
+        public static string ReplaceChannel(this String str, string guildId, string targetid)
+        {
+            if (!LocalState.Guilds[guildId].channels.ContainsKey(targetid)) return "<deleted channel>";
+            var channel = LocalState.Guilds[guildId].channels[targetid];
+            if (channel.raw.Type == 0)
+            {
+                return str.Replace("<channel>", "<#" + channel.raw.Id + ">");
+            }
+            else
+            {
+                return "**" + channel.raw.Name + "**";
+            }
+        }
+        public static string ReplaceRole(this String str, string guildId, string targetid)
+        {
+            if (!LocalState.Guilds[guildId].roles.ContainsKey(targetid)) return "<deleted role>";
+            return str.Replace("<role>", "<@&" + targetid + ">");
+        }
     }
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -46,6 +68,7 @@ namespace Discord_UWP.SubPages
             public string Avatar { get; set; }
             public string Time { get; set; }
             public string Text { get; set; }
+            public List<User> Users { get; set; }
         }
         public enum ValueType { OldValue, NewValue }
         public static object GetValue(Change[] changes, string key, ValueType type)
@@ -55,12 +78,20 @@ namespace Discord_UWP.SubPages
                 if (value.Key == key)
                 {
                     if (type == ValueType.OldValue)
+                    {
                         return value.OldValue;
+                    }
+
                     else
+                    {
                         return value.NewValue;
+                    }
+
                 }
             }
             return null;
+
+
         }
 
         public class AuditLogAction
@@ -73,7 +104,7 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                            Text = "**<user>** created the channel **<channel>**".Replace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                            Text = App.GetString("/Dialogs/AuditLogChannelCreate").ReplaceChannel(guildId, targetid);
                             //Text = App.GetString("/Dialogs/AuditLogChannelCreate").Replace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
                             break;
                     }
@@ -81,18 +112,17 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "<user> updated the channel <target>";
                         if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
-                            Text = "**<user>** updated the channel **<channel>**".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                            Text = App.GetString("/Dialogs/AuditLogChannelUpdateValid").ReplaceChannel(guildId, targetid);
                         else
-                            Text = "**<user>** updated a now deleted channel (**<channelid>**)".TryReplace("<channelid>", targetid);
+                            Text = App.GetString("/Dialogs/AuditLogChannelUpdateInvalid").TryReplace("<channelid>", targetid);
                         break;
                     }
                     case AuditLogActionType.ChannelDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted the channel **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogChannelDelete").TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.ChannelOverwriteCreate:
@@ -100,9 +130,9 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "online";
                         if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
-                            Text = "<user> created permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionCreateValid").ReplaceChannel(guildId, targetid);
                         else
-                            Text = "**<user>** created permissions for a now deleted channel";
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionCreateInvalid");
                         break;
                     }
                     case AuditLogActionType.ChannelOverwriteUpdate:
@@ -110,9 +140,9 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "idle";
                         if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
-                            Text = "<user> updated permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionUpdateValid").ReplaceChannel(guildId, targetid);
                         else
-                            Text = "**<user>** updated permissions for a now deleted channel";
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionUpdateInvalid");
                             break;
                         }
                     case AuditLogActionType.ChannelOverwriteDelete:
@@ -120,123 +150,124 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "dnd";
                         if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
-                            Text = "<user> removed permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
-                        else
-                            Text = "**<user>** removed permissions for a now deleted channel";
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionRemoveValid").ReplaceChannel(guildId, targetid);
+                            else
+                            Text = App.GetString("/Dialogs/AuditLogChannelPermissionRemoveInvalid");
                         break;
                     }
                     case AuditLogActionType.EmojiCreate:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "**<user>** created the emoji **<emojiname>**".TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogEmojiCreate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
                         break;
                     }
                     case AuditLogActionType.EmojiUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** updated the emoji **<emojiname>**".TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogEmojiUpdate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
                         break;
                     }
                     case AuditLogActionType.EmojiDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted the emoji **<emojiname>**".TryReplace("<emojiname>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogEmojiDelete").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.OldValue)?.ToString());
                         break;
                     }
                     case AuditLogActionType.GuildUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** updated the server info";
+                        Text = App.GetString("/Dialogs/AuditLogGuildUpdate");
                         break;
                     }
                     case AuditLogActionType.InviteCreate:
                     {
-                        Glyph = "";
+                        Glyph = "";
                         Color = "online";
-                        Text = "**<user>** created the invite **<code>**".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogInviteCreate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.InviteUpdate:
                     {
-                        Glyph = "";
+                        Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** updated the invite **<code>**".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogInviteUpdate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.InviteDelete:
                     {
-                        Glyph = "";
+                        Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted the invite **<code>**".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogInviteDelete").TryReplace("<code>", GetValue(changes, "code", ValueType.OldValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.MemberBanAdd:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** banned **<banneduser>**".TryReplace("<banneduser>", users[targetid].Username);
+                        Text = App.GetString("/Dialogs/AuditLogMemberBanAdd").TryReplace("<banneduser>", "<@"+targetid+">");
                         break;
                     }
                     case AuditLogActionType.MemberBanRemove:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "**<user>** revoked ban on **<banneduser>**".TryReplace("<banneduser>", users[targetid].Username);
+                        Text = App.GetString("/Dialogs/AuditLogMemberBanRemove").TryReplace("<banneduser>", "<@"+targetid+">");
                         break;
                     }
                     case AuditLogActionType.MemberKick:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** kicked **<kickeduser>**".TryReplace("<kickeduser>", users[targetid].Username);
+                        Text = App.GetString("/Dialogs/AuditLogMemberKick").TryReplace("<kickeduser>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MemberPrune:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** pruned the server";
+                        Text = App.GetString("/Dialogs/AuditLogMemberPrune");
                         break;
                     }
                     case AuditLogActionType.MemberRoleUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** updated the role of **<user2>**".TryReplace("<user2>", users[targetid].Username);
+                        Text = App.GetString("/Dialogs/AuditLogMemberRoleUpdate").TryReplace("<user2>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MemberUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = "**<user>** updated **<user2>**".TryReplace("<user2>", users[targetid].Username);
+                        Text = App.GetString("/Dialogs/AuditLogMemberUpdate").TryReplace("<user2>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MessageDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        var channelname = "<deleted channel>";
-                        if (options.ChannelId != null)
-                        {
-                            if (LocalState.Guilds[guildId].channels.ContainsKey(options.ChannelId))
-                                channelname = "#" + LocalState.Guilds[guildId].channels[options.ChannelId].raw.Name;
-                        }
-                        
-                        Text = "**<user>** deleted a message by **<user2>** in **<channel>**".TryReplace("<user2>", users[targetid].Username).Replace("<channel>", channelname);
-                        break;
+                        Text = App.GetString("/Dialogs/AuditLogMessageDelete").TryReplace("<user2>", "<@" + targetid + ">").ReplaceChannel(guildId, options.ChannelId);
+                            break;
                         }
                     case AuditLogActionType.RoleCreate:
                     {
                         Glyph = "";
                         Color = "online";
-
-                        Text = "**<user>** created the role **<role>**".TryReplace("<role>", GetValue(changes, "name", ValueType.NewValue).ToString());
-                            break;
+                        string rolename = "";
+                        if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
+                            rolename = "<@&" + targetid + ">";
+                        else
+                        {
+                            object val = GetValue(changes, "name", ValueType.NewValue);
+                            if (val != null) rolename = val.ToString().Bold();
+                            else rolename = "<deleted role>";
+                        }
+                        Text = App.GetString("/Dialogs/AuditLogRoleCreate").TryReplace("<role>", rolename);
+                        break;
                     }
                     case AuditLogActionType.RoleUpdate:
                     {
@@ -244,28 +275,28 @@ namespace Discord_UWP.SubPages
                         Color = "idle";
                         string rolename = "";
                         if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
-                            rolename = LocalState.Guilds[guildId].roles[targetid].Name;
+                            rolename = "<@&" + targetid + ">";
                         else
                         {
                             object val = GetValue(changes, "name", ValueType.NewValue);
-                            if (val != null) rolename = val.ToString();
+                            if (val != null) rolename = val.ToString().Bold();
                             else rolename = "<deleted role>";
                         }
-                         Text = "**<user>** modified the role **<role>**".TryReplace("<role>", rolename);
+                         Text = App.GetString("/Dialogs/AuditLogRoleUpdate").TryReplace("<role>", rolename);
                             break;
                     }
                     case AuditLogActionType.RoleDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted the role **<role>**".TryReplace("<role>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogRoleDelete").TryReplace("<role>", GetValue(changes, "name", ValueType.OldValue)?.ToString().Bold());
                             break;
                     }
                     case AuditLogActionType.WebhookCreate:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "**<user>** created the webhook **<webhook>**".TryReplace("<webhook>", GetValue(changes, "name", ValueType.NewValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogWebhookCreate").TryReplace("<webhook>", GetValue(changes, "name", ValueType.NewValue)?.ToString().Bold());
                             break;
                         }
                     case AuditLogActionType.WebhookUpdate:
@@ -280,20 +311,20 @@ namespace Discord_UWP.SubPages
                                 webhookname = webhook.Value.Name;
                             }
                         }
-                        Text = "**<user>** updated the webhook **<webhook>**".TryReplace("<webhook>", webhookname);
+                        Text = App.GetString("/Dialogs/AuditLogWebhookUpdate").TryReplace("<webhook>", webhookname.Bold());
                         break;
                     }
                     case AuditLogActionType.WebhookDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted the webhook **<webhook>**".TryReplace("<webhook>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        Text = App.GetString("/Dialogs/AuditLogWebhookDelete").TryReplace("<webhook>", GetValue(changes, "name", ValueType.OldValue)?.ToString().Bold());
                             break;
                     }
                     default:
                     {
                         Glyph = "";
-                        Text = "**<user>** performed an unknown action";
+                        Text = App.GetString("/Dialogs/AuditLogUnknown");
                             break;
                     }
                 }
@@ -322,11 +353,14 @@ namespace Discord_UWP.SubPages
                 {
                     Dictionary<string, AuditLogUser> users = new Dictionary<string, AuditLogUser>();
                     Dictionary<string, Webhook> webhooks = new Dictionary<string, Webhook>();
+                    List<User> usersForMD = new List<User>();
+                   
                     if (auditlog.Users != null)
                     {
                         foreach (var user in auditlog.Users)
                         {
                             users.Add(user.Id, user);
+                            usersForMD.Add(new User(){Avatar = user.Avatar, Username = user.Username, Id = user.Id, Discriminator= user.Discriminator, });
                         }
                     }
                     if (auditlog.Webhooks != null)
@@ -354,8 +388,8 @@ namespace Discord_UWP.SubPages
 
                             se.Glyph = action.Glyph;
                             se.Brush = (SolidColorBrush) Application.Current.Resources[action.Color];
-                            if(action.Text != null)
-                                se.Text = action.Text.Replace("<user>", users[entry.UserId].Username);
+                            se.Users = usersForMD;
+                            if (action.Text != null) se.Text = action.Text.Replace("<user>", "<@" + entry.UserId + ">");
                             se.Time = Common.HumanizeDate(DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(Common.SnowflakeToTime(entry.Id))).DateTime, null);
                             LogItems.Items.Add(se);
                         }
