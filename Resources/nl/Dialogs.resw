@@ -606,4 +606,79 @@
   <data name="AccountTB.Text" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; heeft het kanaal &lt;channel&gt; aangemaakt.</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; heeft het kanaal &lt;channel&gt; bijgewerkt.</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; heeft een nu-verwijderd kanaal  (&lt;channelid&gt;) bijgewerkt</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; heeft het kanaal &lt;channel&gt; verwijderd.</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de emoji &lt;emojiname&gt; aangemaakt.</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de emoji &lt;emojiname&gt; bijgewerkt.</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; heeft de emoji &lt;emojiname&gt; verwijderd.</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de server informatie bijgewerkt.</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; heeft een uitnodiging &lt;code&gt; aangemaakt.</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de uitnodiging &lt;code&gt; bijgwerkt.</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; heeft een onbekende handeling uitgevoerd.</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; heeft &lt;banneduser&gt; verbannen.</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; heeft de ban van &lt;banneduser&gt; verwijderd.</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; heeft &lt;kickeduser&gt; verwijderd.</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; heeft de server gedempt.</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de rol van &lt;user2&gt; bijgewerkt.</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>verwijderd kanaal</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; heeft een bericht van &lt;user2&gt; verwijderd in kanaal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de rol &lt;role&gt; aangemaakt.</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>verwijderde rol</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de rol &lt;role&gt; bijgewerkt.</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; heeft de rol &lt;role&gt; verwijderd.</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de webhook &lt;webhook&gt; aangemaakt.</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; heeft de webhook &lt;webhook&gt; bijgewerkt.</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; heeft de webhook &lt;webhook&gt; verwijderd.</value>
+  </data>
 </root>

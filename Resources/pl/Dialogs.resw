@@ -606,4 +606,79 @@
   <data name="AccountPI.Header" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) kanał &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) kanał &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) nie istniejący już kanał (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła kanał &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; stworzył(a) emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) informacje o serwerze</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) zaproszenie &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) zaproszenie &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; wykonał(a) nieznaną czynność</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; zbanował(a) &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; odwołał(a) bana &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; wyrzucił(a) &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; wyczyścił(a) serwer</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) rolę dla &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>usunięty kanał</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła wiadomość &lt;user2&gt; w &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>usunięta rola</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła webhook &lt;webhook&gt;</value>
+  </data>
 </root>

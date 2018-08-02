@@ -151,7 +151,7 @@
     <value>ต้องการรับการแจ้งเตือนใดบ้างเกี่ยวกับเพื่อน?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value>เน้นข้อความที่กล่าวถึง @everyone</value>
+    <value>เน้นข้อความที่กล่าวถึงทุกคน (@everyone)</value>
   </data>
   <data name="IdleColorTB.Text" xml:space="preserve">
     <value>ว่าง</value>
@@ -205,7 +205,7 @@
     <value>ขนาดใหญ่ (แสดงรายชื่อเซิฟเวอร์, แชนเนล, และสมาชิก)</value>
   </data>
   <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>สีประจำจากระบบ</value>
+    <value>สีจากระบบ</value>
   </data>
   <data name="ThemeTB.Text" xml:space="preserve">
     <value>ธีม</value>
@@ -295,10 +295,10 @@
     <value>เสียง</value>
   </data>
   <data name="BGEnableTS.OffContent" xml:space="preserve">
-    <value>เปิดการแจ้งเตือนแม้แอพปิดไปแล้ว</value>
+    <value>แจ้งเตือนแม้แอพปิดไปแล้ว</value>
   </data>
   <data name="BGEnableTS.OnContent" xml:space="preserve">
-    <value>ปิดการแจ้งเตือนแม้แอพปิดไปแล้ว</value>
+    <value>แจ้งเตือนแม้แอพปิดไปแล้ว</value>
   </data>
   <data name="BGNotifInfoTB.Text" xml:space="preserve">
     <value>คุณจะได้รับการแจ้งเตือนตามการตั้งค่าที่คุณเลือกไว้ด้านล่าง ในระยะเวลาที่กำหนดไว้</value>
@@ -343,16 +343,16 @@
     <value>แสดงการแจ้งเตือนเมื่อถูกพูดถึงจากแชนเนลที่ปิดเสียง</value>
   </data>
   <data name="SoundsCB.Content" xml:space="preserve">
-    <value>เสียง</value>
+    <value>เสียงแจ้งเตือน</value>
   </data>
   <data name="SoundsPI.Header" xml:space="preserve">
-    <value>เสียง</value>
+    <value>เสียงแจ้งเตือน</value>
   </data>
   <data name="VoicePI.Header" xml:space="preserve">
-    <value>เสียงพูด</value>
+    <value>เสียงแชท</value>
   </data>
   <data name="SoundTypesTB.Text" xml:space="preserve">
-    <value>ประเภทเสียง</value>
+    <value>รูปแบบเสียงเตือน</value>
   </data>
   <data name="DiscordRB.Content" xml:space="preserve">
     <value>Discord</value>

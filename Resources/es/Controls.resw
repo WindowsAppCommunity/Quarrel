@@ -117,181 +117,220 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptFriendRequestQ" xml:space="preserve">
-    <value>קבל בקשת חברות?</value>
+  <data name="AcceptFriendRequest?" xml:space="preserve">
+    <value>¿Aceptar solicitud de amistad?</value>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
-    <value>פעילויות</value>
+    <value>ACTIVIDADES</value>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
-    <value>הוסף הֲגָבָה</value>
-  </data>
-  <data name="BlockedLI.Content" xml:space="preserve">
-    <value>חָסוּם</value>
-  </data>
-  <data name="BotTB.Text" xml:space="preserve">
-    <value>בוט</value>
-  </data>
-  <data name="CopyIdItem.Text" xml:space="preserve">
-    <value>Copy ID</value>
-  </data>
-  <data name="DeleteItem.Text" xml:space="preserve">
-    <value>לִמְחוֹק</value>
-  </data>
-  <data name="EditItem.Text" xml:space="preserve">
-    <value>לַעֲרוֹך</value>
-  </data>
-  <data name="FLAGS" xml:space="preserve">
-    <value>דגלים</value>
-  </data>
-  <data name="FOOD" xml:space="preserve">
-    <value>אֹכֶל</value>
-  </data>
-  <data name="FriendRequestSent" xml:space="preserve">
-    <value>בקשת חברות נשלחו</value>
-  </data>
-  <data name="InviteExpired" xml:space="preserve">
-    <value>הזמנה שפג תוקפה</value>
-  </data>
-  <data name="InviteInvalid" xml:space="preserve">
-    <value>הזמנה שפג תוקפה או לא חוקית</value>
-  </data>
-  <data name="InviteJoin" xml:space="preserve">
-    <value>לְהִצְטַרֵף</value>
-  </data>
-  <data name="InviteJoined" xml:space="preserve">
-    <value>הצטרפת</value>
-  </data>
-  <data name="InviteMaxUses" xml:space="preserve">
-    <value>הגיעה כמות השימושים המקסימלית</value>
-  </data>
-  <data name="InviteTempDesc" xml:space="preserve">
-    <value>אנשים</value>
-  </data>
-  <data name="NATURE" xml:space="preserve">
-    <value>טֶבַע</value>
-  </data>
-  <data name="OBJECTS" xml:space="preserve">
-    <value>אובייקטים</value>
-  </data>
-  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
-    <value>הצג רק חברים מקוונים</value>
-  </data>
-  <data name="PendingTB.Text" xml:space="preserve">
-    <value>ממתין</value>
-  </data>
-  <data name="PEOPLE" xml:space="preserve">
-    <value>אנשים המשתמשים בקישור זה יופעלו באופן אוטומטי כשהם יתנתקו, אלא אם כן הוקצה להם תפקיד.</value>
-  </data>
-  <data name="PinItem.Text" xml:space="preserve">
-    <value>פין</value>
-  </data>
-  <data name="Playing" xml:space="preserve">
-    <value>משחק</value>
-  </data>
-  <data name="RevokeBanTB.Text" xml:space="preserve">
-    <value>ביטול האיסור</value>
-  </data>
-  <data name="RoleTB.Text" xml:space="preserve">
-    <value>תַפְקִיד</value>
-  </data>
-  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
-    <value>לחפש...</value>
-  </data>
-  <data name="SendMessagePlaceholderText" xml:space="preserve">
-    <value>לשלוח הודעה</value>
-  </data>
-  <data name="Streaming" xml:space="preserve">
-    <value>שידור</value>
-  </data>
-  <data name="SYMBOLS" xml:space="preserve">
-    <value>סימבולים</value>
-  </data>
-  <data name="TemporaryInviteTB.Text" xml:space="preserve">
-    <value>להזמין זמנית</value>
-  </data>
-  <data name="TRAVEL" xml:space="preserve">
-    <value>לִנְסוֹעַ</value>
-  </data>
-  <data name="UsePlural" xml:space="preserve">
-    <value>הִשְׁתַמֵשׁים</value>
-  </data>
-  <data name="UseSingular" xml:space="preserve">
-    <value>הִשְׁתַמֵשׁ</value>
-  </data>
-  <data name="Edited" xml:space="preserve">
-    <value>עָרוּך</value>
-  </data>
-  <data name="ExpiredLink" xml:space="preserve">
-    <value>קישור שפג תוקפו</value>
-  </data>
-  <data name="expiresIn" xml:space="preserve">
-    <value>פג תוקף ב&lt;time&gt;</value>
-  </data>
-  <data name="expiresNever" xml:space="preserve">
-    <value>לעולם לא יפוג</value>
-  </data>
-  <data name="InviteTo" xml:space="preserve">
-    <value>הזמן אל</value>
-  </data>
-  <data name="Pin" xml:space="preserve">
-    <value>פִּין</value>
-  </data>
-  <data name="Unpin" xml:space="preserve">
-    <value>בטל פין</value>
-  </data>
-  <data name="RemoveFromFriends.Text" xml:space="preserve">
-    <value>הסר מחברים</value>
-  </data>
-  <data name="SendMessage.Text" xml:space="preserve">
-    <value>לשלוח הודעה</value>
-  </data>
-  <data name="Call.Text" xml:space="preserve">
-    <value>שִׂיחָה</value>
-  </data>
-  <data name="FriendsLI.Content" xml:space="preserve">
-    <value>חברים</value>
+    <value>Agregar Reacción</value>
   </data>
   <data name="AllLI.Content" xml:space="preserve">
-    <value>כל</value>
+    <value>TODOS</value>
   </data>
-  <data name="AcceptFriendRequest?" xml:space="preserve">
-    <value>קבל בקשת חברות?</value>
+  <data name="BlockedLI.Content" xml:space="preserve">
+    <value>BLOQUEADO</value>
+  </data>
+  <data name="BotTB.Text" xml:space="preserve">
+    <value>BOT</value>
+  </data>
+  <data name="CopyIdItem.Text" xml:space="preserve">
+    <value>Copiar ID</value>
+  </data>
+  <data name="DeleteItem.Text" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="EditItem.Text" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="FLAGS" xml:space="preserve">
+    <value>BANDERAS</value>
+  </data>
+  <data name="FOOD" xml:space="preserve">
+    <value>COMIDA</value>
+  </data>
+  <data name="FriendRequestSent" xml:space="preserve">
+    <value>Solicitud de amistad enviada</value>
+  </data>
+  <data name="InviteExpired" xml:space="preserve">
+    <value>Invitación caducada</value>
+  </data>
+  <data name="InviteInvalid" xml:space="preserve">
+    <value>Invitación caducada o inválida</value>
+  </data>
+  <data name="InviteJoin" xml:space="preserve">
+    <value>Unirse</value>
+  </data>
+  <data name="InviteJoined" xml:space="preserve">
+    <value>Te has unido a</value>
+  </data>
+  <data name="InviteMaxUses" xml:space="preserve">
+    <value>Cantidad máxima de usos alcanzados</value>
+  </data>
+  <data name="InviteTempDesc" xml:space="preserve">
+    <value>Las personas que utilicen este vínculo se expulsarán automáticamente cuando se desconecten, a menos que se les asigne un rol.</value>
+  </data>
+  <data name="NATURE" xml:space="preserve">
+    <value>NATURALEZA</value>
+  </data>
+  <data name="OBJECTS" xml:space="preserve">
+    <value>OBJETOS</value>
+  </data>
+  <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
+    <value>Solo mostrar amigos en línea</value>
+  </data>
+  <data name="PendingTB.Text" xml:space="preserve">
+    <value>PENDIENTE</value>
+  </data>
+  <data name="PEOPLE" xml:space="preserve">
+    <value>GENTE</value>
+  </data>
+  <data name="PinItem.Text" xml:space="preserve">
+    <value>Anclar</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Jugando a</value>
+  </data>
+  <data name="RevokeBanTB.Text" xml:space="preserve">
+    <value>Revocar la prohibición</value>
+  </data>
+  <data name="RoleTB.Text" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="SearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar...</value>
+  </data>
+  <data name="SendMessagePlaceholderText" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
+  <data name="Streaming" xml:space="preserve">
+    <value>Transmisión</value>
+  </data>
+  <data name="SYMBOLS" xml:space="preserve">
+    <value>SÍMBOLOS</value>
+  </data>
+  <data name="TemporaryInviteTB.Text" xml:space="preserve">
+    <value>Invitación temporal</value>
+  </data>
+  <data name="TRAVEL" xml:space="preserve">
+    <value>VIAJE</value>
+  </data>
+  <data name="UsePlural" xml:space="preserve">
+    <value>usos</value>
+  </data>
+  <data name="UseSingular" xml:space="preserve">
+    <value>usar</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Editado</value>
+  </data>
+  <data name="ExpiredLink" xml:space="preserve">
+    <value>Vínculo vencido</value>
+  </data>
+  <data name="expiresIn" xml:space="preserve">
+    <value>caduca en &lt;time&gt;</value>
+  </data>
+  <data name="expiresNever" xml:space="preserve">
+    <value>nunca caduca</value>
+  </data>
+  <data name="InviteTo" xml:space="preserve">
+    <value>Invitar a</value>
+  </data>
+  <data name="Pin" xml:space="preserve">
+    <value>Anclar</value>
+  </data>
+  <data name="Unpin" xml:space="preserve">
+    <value>Liberar</value>
+  </data>
+  <data name="AcceptFriendRequestQ" xml:space="preserve">
+    <value>¿Aceptar solicitud de amistad?</value>
+  </data>
+  <data name="RemoveFromFriends.Text" xml:space="preserve">
+    <value>Quitar de los amigos</value>
+  </data>
+  <data name="SendMessage.Text" xml:space="preserve">
+    <value>Enviar mensaje</value>
+  </data>
+  <data name="Call.Text" xml:space="preserve">
+    <value>Llamada</value>
+  </data>
+  <data name="FriendsLI.Content" xml:space="preserve">
+    <value>AMIGOS</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>הוסיף</value>
+    <value>añadió a</value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>הוסר</value>
+    <value>quitó a</value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value> לשיחה &lt;user&gt;</value>
+    <value>&lt;user&gt; a la conversación</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value> משיחה &lt;user&gt;</value>
+    <value>&lt;user&gt; de la conversación</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>החמצת שיחה מ</value>
+    <value>Te perdiste una llamada de</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
-    <value>פינה הודעה לערוץ זה.</value>
+    <value>ha fijado un mensaje en este canal.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>שִׂיחָה החלה על ידי</value>
+    <value>Llamada iniciada por &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
-    <value>התחלת שיחה &lt;user&gt;</value>
+    <value>inició una llamada</value>
   </data>
   <data name="You" xml:space="preserve">
-    <value>אתה</value>
+    <value>Tu</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>לְשַׂחֵק</value>
+    <value>JUGANDO</value>
   </data>
   <data name="JoinedTheServer" xml:space="preserve">
-    <value>הצטרף לשרת!</value>
+    <value>se unió al servidor!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>נערך ב&lt;time&gt;</value>
+    <value>Editado, &lt;time&gt;</value>
+  </data>
+  <data name="JoinListenSessionBTN.Content" xml:space="preserve">
+    <value>Unirse a la sesión de escucha</value>
+  </data>
+  <data name="SessionOverTB.Text" xml:space="preserve">
+    <value> LA SESIÓN DE SPOTIFY HA TERMINADO :'(</value>
+  </data>
+  <data name="AddAttachMFI.Text" xml:space="preserve">
+    <value>Adjuntos</value>
+  </data>
+  <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar con Giphy</value>
+  </data>
+  <data name="ListeningTo" xml:space="preserve">
+    <value>Escuchando</value>
+  </data>
+  <data name="LoadingTB.Text" xml:space="preserve">
+    <value>CARGANDO</value>
+  </data>
+  <data name="SearchGiphyMFI.Text" xml:space="preserve">
+    <value>Buscar en Giphy</value>
+  </data>
+  <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
+    <value>Mandar una invitación de Spotify</value>
+  </data>
+  <data name="BlockedMessageTB.Text" xml:space="preserve">
+    <value>Mensaje Bloqueado</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Agregar una nota</value>
+  </data>
+  <data name="VolumeSlide.Header" xml:space="preserve">
+    <value>Volumen</value>
+  </data>
+  <data name="TryResetBTN.Content" xml:space="preserve">
+    <value>¿Tienes problemas? Intenta reiniciar Quarrel</value>
+  </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>ACTIVIDADES</value>
   </data>
 </root>

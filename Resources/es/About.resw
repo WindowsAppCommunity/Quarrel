@@ -118,117 +118,135 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Quarrel är en</value>
+    <value>Quarrel es un cliente</value>
+    <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>icke-officiel</value>
+    <value>no oficial </value>
+    <comment>Disclaimer pt. 2 in bold</comment>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>klient för Discord.</value>
+    <value>para Discord.</value>
+    <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>Utvecklarna är inte anslutna till Discord, Inc</value>
+    <value>Los desarrolladores no están de ninguna manera afiliados con Discord, Inc.</value>
+    <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>Om något går fel när du använder denna app, vänligen kontakta supporten via någon av metoderna nedan. Men alla frågor som vi inte kan lösa är vi inte ansvariga för.</value>
+    <value>Si algo sale mal mientras usa esta aplicación, por favor, contacte al soporte a través de cualquiera de los métodos debajo. Sin embargo, no somos responsables de los problemas que no podamos resolver.</value>
+    <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
-    <value>OM</value>
-  </data>
-  <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, för teorier Apps-ikonen</value>
-  </data>
-  <data name="Build" xml:space="preserve">
-    <value>Version</value>
+    <value>ACERCA DE</value>
+    <comment>ABOUT header</comment>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>Ändringslogg</value>
-  </data>
-  <data name="Commit" xml:space="preserve">
-    <value>begå</value>
+    <value>CAMBIOS</value>
+    <comment>CHANGELOG header</comment>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designad av Lightmagic Apps</value>
+    <value>Diseñado por Lightmagic apps</value>
+    <comment>The designer</comment>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value> Utvecklad av Avid29 och KarmaEcrivain94</value>
+    <value>Desarrollado por Avid29 y KarmaEcrivain94</value>
+    <comment>The developper</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Diskutera på Twitter</value>
-  </data>
-  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Har du inget konto?</value>
+    <value>Discutir en Twitter</value>
+    <comment>Button to discuss on twitter</comment>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>E-post </value>
-  </data>
-  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Glömt ditt lösenord?</value>
-  </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Lyckades!</value>
-  </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Förbinder...</value>
-  </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Lämna respons!/Lämna feedback!/Lämna åsikter!</value>
-  </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value>LOGGA IN</value>
-  </data>
-  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Lösenord</value>
-  </data>
-  <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Försök igen</value>
-  </data>
-  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman</value>
-  </data>
-  <data name="JoinDiscordUWPServer" xml:space="preserve">
-    <value>Gå med i appens discord server</value>
+    <value>Correo electrónico</value>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Gå med i appens discord server</value>
+    <value>Unirse al servidor Discord UWP</value>
+    <comment>Button to join the Discord UWP server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
-    <value>Kunde inte gå med i server</value>
+    <value>¡Error al unirse al servidor!</value>
+    <comment>Message if joining the server fails</comment>
   </data>
-  <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>Licenser</value>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>¡Éxito!</value>
+    <comment>Message when joining the server works</comment>
   </data>
-  <data name="LicensesTB.Text" xml:space="preserve">
-    <value>LICENSER</value>
+  <data name="JoinWait" xml:space="preserve">
+    <value>Uniendo...</value>
+    <comment>Text while the app is trying to join the server</comment>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Dejar comentarios</value>
+    <comment>Leave feedback button</comment>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Autentiseringskod </value>
+    <value>Código de autenticación</value>
   </data>
   <data name="MFATB.Text" xml:space="preserve">
-    <value>Två faktor autentisering</value>
+    <value>Autenticación de dos factores:</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Unirse al servidor Discord UWP</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, por conceptualizar el ícono de la aplicación</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (quien desarrolló la maravillosa app MyTube) por los consejos y la ayuda inestimables</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>¿No tienes una cuenta?</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>¿Olvidaste tu contraseña?</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licencias</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENCIAS</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>ACCESO</value>
   </data>
   <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>Du är antingen offline eller på en för långsam anslutning för att ansluta till servern</value>
+    <value>Estás desconectado o en una conexión demasiado lenta</value>
   </data>
   <data name="QuarrelDescTB.Text" xml:space="preserve">
-    <value>Discord klient för Universal Windows Platform</value>
+    <value>Cliente de Discord para la Plataforma Universal de Windows</value>
   </data>
   <data name="QuarrelLicensesDesc" xml:space="preserve">
-    <value>Quarrel använder några externa biblotek för att fungera</value>
+    <value>Quarrel usa algunas librerías externas para funcionar:</value>
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Extra mycket tack:</value>
+    <value>Agradecimientos Especiales:</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Reintentar Login</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Entrante:</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Saliente:</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>De acuerdo con las Licencias de Microsoft, has comprado:</value>
   </data>
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>si es incorrecto, tengo que escribir una correo muy serio para el equipo de la Microsoft Store.</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>¿Buscas más?</value>
   </data>
 </root>
