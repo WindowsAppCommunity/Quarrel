@@ -50,7 +50,7 @@
                                 <Thickness>0</Thickness>
                             </Setter.Value>
                         </Setter>
-                        <Setter Target="button.(UIElement.Visibility)" Value="Visible"/>
+
                         <Setter Target="rootgrid.(Grid.Padding)">
                             <Setter.Value>
                                 <Thickness>100</Thickness>
@@ -78,7 +78,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="800" MaxHeight="1200" >
+        <Grid x:Name="grid" MaxWidth="600" MaxHeight="1200" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -89,25 +89,25 @@
 
                     <TextBlock x:Name="header" Grid.Row="0" Text="AUDIT LOG" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                     <ProgressRing x:Name="LoadingRing" IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource Blurple}"/>
-                    <ScrollViewer Grid.Row="1">
-                        <ItemsControl x:Name="LogItems">
+                    <ScrollViewer Grid.Row="1" Margin="0,0,-24,0">
+                        <ItemsControl x:Name="LogItems" Margin="-12,0,12,24">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="64"/>
+                                            <ColumnDefinition Width="48"/>
                                             <ColumnDefinition Width="0"/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <FontIcon Glyph="{Binding Glyph}" Foreground="{Binding Brush}" Grid.Column="0" Margin="0,-12,0,0"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <FontIcon Glyph="{Binding Glyph}" Foreground="{Binding Brush}" Grid.Column="0" Margin="0,16,0,0"  VerticalAlignment="Top" HorizontalAlignment="Center"/>
                                         <Rectangle Grid.Column="1" Width="48" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <Rectangle.Fill>
                                                 <ImageBrush ImageSource="{Binding Avatar}"/>
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Grid.Column="2">
-                                            <markdownTextBlock:MarkdownTextBlock Users="{Binding Users}" Text="{Binding Text}" HalfOpacityMode="True"/>
-                                            <TextBlock FontSize="11" Opacity="0.5" Text="{Binding Time}"/>
+                                            <markdownTextBlock:MarkdownTextBlock Users="{Binding Users}" Margin="0,12,0,0"  Text="{Binding Text}" HalfOpacityMode="True"/>
+                                            <TextBlock FontSize="11" Opacity="0.4" Text="{Binding Time}"/>
                                         </StackPanel>
                                      </Grid>
                                 </DataTemplate>
