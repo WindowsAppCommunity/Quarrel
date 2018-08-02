@@ -2152,7 +2152,7 @@ namespace Discord_UWP
                                     MessageList.Items.Insert(i, messages[i]);
                         }
                     }
-                    else if(lastReadTime != 0)
+                    else
                     {
                         //the last read message is before the first one in the list
                         _outofboundsNewMessage = true;
