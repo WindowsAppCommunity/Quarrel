@@ -297,7 +297,7 @@ namespace Discord_UWP
                     var page = navigationHistory.Pop();
                     if (page.Item1 != null)
                     {
-                        App.NavigateToGuildChannel(page.Item1, page.Item2, null, false, true);
+                        App.SelectGuildChannel(page.Item1, page.Item2, null, false, true);
                     }
                     else
                     {
@@ -1137,6 +1137,11 @@ namespace Discord_UWP
                         }
                     }
                 }
+                foreach (SimpleChannel chn in ChannelList.Items)
+                    if (chn.Id == e.ChannelId)
+                        chn.IsSelected = true;
+                    else if (chn.Type != 2)
+                        chn.IsSelected = false;
             }
             else //Out of guild navigation
             {
@@ -1153,21 +1158,37 @@ namespace Discord_UWP
                 {
                     if (guild.Id == e.GuildId)
                     {
+                        guild.IsSelected = true;
                         ServerList.SelectedItem = guild;
+                    } else
+                    {
+                        guild.IsSelected = false;
                     }
                 }
+                RenderGuildChannels();
+                foreach (SimpleChannel chn in ChannelList.Items)
+                    if (chn.Id == e.ChannelId)
+                    {
+                        chn.IsSelected = true;
+                        ChannelList.SelectedItem = chn;
+                    }
+                    else if (chn.Type != 2)
+                    {
+                        chn.IsSelected = false;
+                    }
 
                 App.CurrentChannelId = e.ChannelId;
-                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                //RenderMessages();
-                App.MarkChannelAsRead(e.ChannelId);
+                if (e.ChannelId != null)
+                {
+                    //RenderMessages();
+                    App.MarkChannelAsRead(e.ChannelId);
+                }
+                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                {
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                }
                 _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
-            foreach (SimpleChannel chn in ChannelList.Items)
-                if (chn.Id == e.ChannelId)
-                    chn.IsSelected = true;
-                else if(chn.Type != 2)
-                    chn.IsSelected = false;
             UpdateTyping();
             LoadDraft();
         }
