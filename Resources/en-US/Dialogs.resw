@@ -655,7 +655,7 @@
     <value>&lt;user&gt; updated the role of &lt;user2&gt;</value>
   </data>
   <data name="AuditLogDeletedChannel" xml:space="preserve">
-    <value>&lt;user&gt; deleted channel &lt;channel&gt;</value>
+    <value>deleted channel</value>
   </data>
   <data name="AuditLogMessageDelete" xml:space="preserve">
     <value>&lt;user&gt; deleted a message by &lt;user2&gt; in &lt;channel&gt;</value>
@@ -664,7 +664,7 @@
     <value>&lt;user&gt; created the role &lt;role&gt;</value>
   </data>
   <data name="AuditLogDeletedRole" xml:space="preserve">
-    <value>&lt;user&gt; deleted role &lt;role&gt;</value>
+    <value>deleted role</value>
   </data>
   <data name="AuditLogRoleUpdate" xml:space="preserve">
     <value>&lt;user&gt; modified the role &lt;role&gt;</value>

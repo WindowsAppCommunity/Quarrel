@@ -606,4 +606,97 @@
   <data name="AccountTB.Text" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; created the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; updated the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; updated a now deleted channel (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; created the emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated the emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated the server info</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; created the invite &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated the invite &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; performed an unknown action</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; banned &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; revoked ban on &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; kicked &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; pruned the server</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated the role of &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>deleted channel</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted a message by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; created the role &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>deleted role</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; modified the role &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the role &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; created the webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated the webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; created permissions for a now deleted channel</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
+    <value>&lt;user&gt; created permissions for the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
+    <value>&lt;user&gt; removed permissions for a now deleted channel.</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
+    <value>&lt;user&gt; removed permissions for the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; updated permissions for a now deleted channel.</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt;updated the permissions for the channel &lt;channel&gt;</value>
+  </data>
 </root>

@@ -199,7 +199,7 @@
     <value>ลบจากกลุ่ม</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>บทบาท</value>
+    <value>สิทธิ์</value>
   </data>
   <data name="Unblock" xml:space="preserve">
     <value>ปลดบล็อค</value>

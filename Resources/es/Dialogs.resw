@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
-    <value>Aceptar solicitud de amigo</value>
+    <value>Aceptar solicitud de amistad</value>
   </data>
   <data name="AddReactionsToggle.Header" xml:space="preserve">
     <value>Agregar reacciones</value>
@@ -130,13 +130,13 @@
     <value>EDITOR DE MENSAJES AVANZADO</value>
   </data>
   <data name="AttachementsTB.Text" xml:space="preserve">
-    <value>Adjuntos</value>
+    <value>ADJUNTOS</value>
   </data>
   <data name="AttachFilesToggle.Header" xml:space="preserve">
     <value>Adjuntar archivos</value>
   </data>
   <data name="BadChannelNameDesc1.Text" xml:space="preserve">
-    <value>Los nombres de los canales sólo pueden contener caracteres alfanuméricos, con la excepción de guiones y subrayados.</value>
+    <value>Los nombres de los canales solo pueden contener caracteres alfanuméricos, con la excepción de guiones y guiones bajos.</value>
   </data>
   <data name="BadChannelNameDesc2.Text" xml:space="preserve">
     <value>¿Corregir automáticamente?</value>
@@ -145,13 +145,13 @@
     <value>Prohibición</value>
   </data>
   <data name="BanMembersToggle.Header" xml:space="preserve">
-    <value>Prohibición miembros</value>
+    <value>Miembros con prohibición</value>
   </data>
   <data name="BansPI.Header" xml:space="preserve">
     <value>Prohibiciones</value>
   </data>
   <data name="BlockTB.Text" xml:space="preserve">
-    <value>Bloque</value>
+    <value>Bloquear</value>
   </data>
   <data name="BodyTB.Text" xml:space="preserve">
     <value>CUERPO</value>
@@ -181,7 +181,7 @@
     <value>Crear servidor</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
-    <value>Miembros ensordecedores</value>
+    <value>Miembros ensordecidos</value>
   </data>
   <data name="DeleteBTN" xml:space="preserve">
     <value>Eliminar</value>
@@ -214,7 +214,7 @@
     <value>Tamaño del archivo:</value>
   </data>
   <data name="FriendReqSentBTN.Text" xml:space="preserve">
-    <value>Solicitud de amigo enviada</value>
+    <value>Solicitud de amistad enviada</value>
   </data>
   <data name="GeneralPermissionsTB.Text" xml:space="preserve">
     <value>PERMISOS GENERALES</value>
@@ -223,10 +223,10 @@
     <value>Altura:</value>
   </data>
   <data name="IAPsTB.Text" xml:space="preserve">
-    <value>Compras En-Aplicación</value>
+    <value>COMPRAS IN-APP</value>
   </data>
   <data name="InvitesPI.Header" xml:space="preserve">
-    <value>Invitas</value>
+    <value>Invita</value>
   </data>
   <data name="JoinAServerTB.Text" xml:space="preserve">
     <value>UNIRSE A UN SERVIDOR</value>
@@ -235,16 +235,16 @@
     <value>Unirse</value>
   </data>
   <data name="JoinServerDescTB.Text" xml:space="preserve">
-    <value>Introduzca un enlace o código de invitación de la discordia:</value>
+    <value>Por favor, introduzca un vínculo o código de invitación de Discord:</value>
   </data>
   <data name="JoinServerErrorTB.Text" xml:space="preserve">
-    <value>Lo siento, pero el código de invitación es inválido o vencido.</value>
+    <value>Lo siento, pero el código de invitación es inválido o esta vencido.</value>
   </data>
   <data name="JoinServerTB.Text" xml:space="preserve">
-    <value>Servidor de Unión</value>
+    <value>Unirse al servidor</value>
   </data>
   <data name="KickMembersToggle.Header" xml:space="preserve">
-    <value>Kick miembros</value>
+    <value>Miembros expulsados</value>
   </data>
   <data name="LeaveServerBTN.Content" xml:space="preserve">
     <value>Salir del servidor</value>
@@ -262,13 +262,13 @@
     <value>Administrar apodos</value>
   </data>
   <data name="ManageRolesToggle.Header" xml:space="preserve">
-    <value>Administrar papels</value>
+    <value>Administrar roles</value>
   </data>
   <data name="ManageServerToggle.Header" xml:space="preserve">
-    <value>ADMINISTRAR SERVIDOR</value>
+    <value>Administrar servidor</value>
   </data>
   <data name="ManageWebhooksToggle.Header" xml:space="preserve">
-    <value>Administrar webganchos</value>
+    <value>Administrar Webhooks</value>
   </data>
   <data name="MentionEveryoneToggle.Header" xml:space="preserve">
     <value>Gestionar a todos</value>
@@ -292,13 +292,13 @@
     <value>NO HAY SERVIDORES EN COMÚN</value>
   </data>
   <data name="NoInvitesTB.Text" xml:space="preserve">
-    <value>NO INVITA</value>
+    <value>SIN INVITACIONES</value>
   </data>
   <data name="NoteTB.Text" xml:space="preserve">
     <value>Notas</value>
   </data>
   <data name="NsfwDescTB.Text" xml:space="preserve">
-    <value>Los usuarios deberán confirmar que son de más de edad legal para ver el contenido en este canal. También estará exento de filtrado explícito de contenido.</value>
+    <value>Los usuarios deberán confirmar que son legalmente mayores de edad para ver el contenido en este canal. También estará exento de filtrado explícito de contenido.</value>
   </data>
   <data name="NsfwSwitch.OffContent" xml:space="preserve">
     <value>Canal NSFW</value>
@@ -322,7 +322,7 @@
     <value>Leer historial de mensajes</value>
   </data>
   <data name="ReadMessagesToggle.Header" xml:space="preserve">
-    <value>Read messages</value>
+    <value>Leer mensajes</value>
   </data>
   <data name="RemoveAdsBTN.Content" xml:space="preserve">
     <value>Quitar anuncios $1,29</value>
@@ -346,16 +346,16 @@
     <value>CONFIGURACIÓN</value>
   </data>
   <data name="RolesPI.Header" xml:space="preserve">
-    <value>Papeles</value>
+    <value>Roles</value>
   </data>
   <data name="SaveABB.Label" xml:space="preserve">
-    <value>Salvar</value>
+    <value>Guardar</value>
   </data>
   <data name="SaveBTN.Content" xml:space="preserve">
-    <value>Salvar</value>
+    <value>Guardar</value>
   </data>
   <data name="SendFriendReqBTN.Text" xml:space="preserve">
-    <value>Enviar solicitud de amigos</value>
+    <value>Enviar solicitud de amistad</value>
   </data>
   <data name="SendMessagesToggle.Header" xml:space="preserve">
     <value>Enviar mensajes</value>
@@ -370,7 +370,7 @@
     <value>Al crear un servidor, usted acepta </value>
   </data>
   <data name="ServerGuidelinesDesc2" xml:space="preserve">
-    <value>Pautas comunitarias de la Discord</value>
+    <value>las pautas comunitarias de Discord</value>
   </data>
   <data name="ShareABB.Label" xml:space="preserve">
     <value>Compartir</value>
@@ -418,10 +418,10 @@
     <value>EDITAR</value>
   </data>
   <data name="FlagDiscordPartner" xml:space="preserve">
-    <value>SOCIO DE LA DISCORD</value>
+    <value>SOCIO DE DISCORD</value>
   </data>
   <data name="FlagDiscordStaff" xml:space="preserve">
-    <value>PERSONAL DE LA DISCORD</value>
+    <value>PERSONAL DE DISCORD</value>
   </data>
   <data name="FlagHypesquad" xml:space="preserve">
     <value>HYPESQUAD</value>
@@ -430,16 +430,16 @@
     <value>Miembro Premium desde</value>
   </data>
   <data name="VerifyBan" xml:space="preserve">
-    <value>¿está seguro de que desea prohibir @</value>
+    <value>¿Está seguro de que desea poner prohibición a @</value>
   </data>
   <data name="VerifyDelete" xml:space="preserve">
-    <value>¿está seguro de que desea eliminar </value>
+    <value>¿Está seguro de que desea eliminar </value>
   </data>
   <data name="VerifyLeave" xml:space="preserve">
-    <value>¿está seguro de que desea dejar </value>
+    <value>¿Está seguro de que desea dejar </value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
-    <value>¿está seguro de que desea cerrar la sesión?</value>
+    <value>¿Está seguro de que desea cerrar la sesión?</value>
   </data>
   <data name="CreateChannelTB.Text" xml:space="preserve">
     <value>CREAR CANAL</value>
@@ -454,7 +454,7 @@
     <value>Tomar foto</value>
   </data>
   <data name="on" xml:space="preserve">
-    <value>en</value>
+    <value>on</value>
   </data>
   <data name="SavingAudio" xml:space="preserve">
     <value>Creando archivo...</value>
@@ -472,10 +472,10 @@
     <value>DONACIONES</value>
   </data>
   <data name="CommonFriendsTB.Text" xml:space="preserve">
-    <value>AMIGOS COMUNES</value>
+    <value>AMIGOS EN COMÚN</value>
   </data>
   <data name="CommonServersTB.Text" xml:space="preserve">
-    <value>SERVIDORES COMUNES</value>
+    <value>SERVIDORES EN COMÚN</value>
   </data>
   <data name="TextChannel" xml:space="preserve">
     <value>Canal de texto</value>
@@ -596,5 +596,89 @@
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
     <value>Nueva contraseña</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>Esto reiniciará Quarrel por completo, por lo cual tu sesión será cerrada, todos tus ajustes reiniciados, y luego, la app se cerrará. Esto NO afectará tu cuenta Discord.</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>Sin Notas</value>
+  </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; creó el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; actualizó el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; actualizó un canal ahora borrado (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; borró el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; creó el emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó el emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; borró el emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó la información del servidor</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; creó la invitación &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó la invitación &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; realizó una acción desconocida</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; puso prohibición a &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; eliminó la prohibición a &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; expulsó a &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; recortó el servidor</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó el rol de &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>borró el canal</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; borró un mensaje de &lt;user2&gt; en &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; creó el rol &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>rol borrado</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; modificó el rol &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; eliminó el rol &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; creó el webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó el webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; borró el webhook &lt;webhook&gt;</value>
   </data>
 </root>
