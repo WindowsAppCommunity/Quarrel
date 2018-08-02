@@ -390,7 +390,7 @@ namespace Discord_UWP.SubPages
                             se.Brush = (SolidColorBrush) Application.Current.Resources[action.Color];
                             se.Users = usersForMD;
                             if (action.Text != null) se.Text = action.Text.Replace("<user>", "<@" + entry.UserId + ">");
-                            se.Time = Common.HumanizeDate(DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(Common.SnowflakeToTime(entry.Id))).DateTime, null);
+                            se.Time = Common.HumanizeDate(Common.SnowflakeToTime(entry.Id).DateTime, null);
                             LogItems.Items.Add(se);
                         }
                     }
