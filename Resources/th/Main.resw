@@ -124,7 +124,7 @@
     <value>เพิ่มแชนเนล</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>ที่</value>
+    <value>เมื่อ </value>
   </data>
   <data name="Connected" xml:space="preserve">
     <value>เชื่อมต่อแล้ว</value>

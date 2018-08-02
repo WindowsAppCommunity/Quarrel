@@ -166,7 +166,7 @@
     <value>คำเชิญชวนเกินขีดจำกัดแล้ว</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>คนที่ใช้ลิ้งค์นี้จะถูกไล่ออกจากเซิฟเวอร์เมื่อตัดการเชื่อมต่อ, ยกเว้นว่าได้รับบทบาทใดจากเซิฟเวอร์</value>
+    <value>คนที่ใช้ลิ้งค์นี้จะถูกไล่ออกจากเซิฟเวอร์เมื่อตัดการเชื่อมต่อ, ยกเว้นว่าได้รับสิทธิ์ใดจากเซิฟเวอร์</value>
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>ธรรมชาติ</value>
@@ -193,7 +193,7 @@
     <value>ยกเลิกแบน</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
-    <value>บทบาท</value>
+    <value>สิทธิ์</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
     <value>ค้นหา...</value>
@@ -304,7 +304,7 @@
     <value>แนบไฟล์</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>ค้นหาด้วย Giphy</value>
+    <value>เขียนเพื่อค้น Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
     <value>กำลังฟัง</value>

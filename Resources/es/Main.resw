@@ -117,220 +117,220 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ToggleMember.Label" xml:space="preserve">
-    <value>Växla medlemslista</value>
-  </data>
-  <data name="WhatsNewABB.Label" xml:space="preserve">
-    <value>Vad är det senaste</value>
-  </data>
   <data name="AboutABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Acerca de</value>
   </data>
   <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Agregar canal</value>
   </data>
   <data name="at" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>en </value>
   </data>
   <data name="Connected" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>CONECTADO</value>
   </data>
   <data name="DNDRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>No molestar</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Correo electrónico</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error</value>
   </data>
   <data name="Error400" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error 400: Hubo un problema, si no se ha registrado desde este dispositivo, debería buscar en su correo electrónico un mensaje de Discord e intentar de nuevo.</value>
   </data>
   <data name="Error401" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error 401: Hubo un problema con la interacción con el servidor, inténtelo de nuevo.</value>
   </data>
   <data name="Error403" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error 403: Tiene prohibido realizar esta acción, probablemente no se haya registrado desde esta ubicación, revise su correo electrónico para verificar esta ubicación e intente de nuevo.</value>
   </data>
   <data name="Error429" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error 429: Su tasa ha sido limitada, intente de nuevo en unos pocos nanosegundos.</value>
   </data>
   <data name="Error500" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Error 500: hay un problema interactuando con el servidor, y es culpa del servidor. Inténtelo de nuevo más tarde, Discord tiende a arreglar los bloqueos del servidor rápidamente.</value>
   </data>
   <data name="ErrorGeneric" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Inténtelo de nuevo después de revisar su correo electrónico para ver si necesita verificar esta ubicación de registro.</value>
   </data>
   <data name="Everyone" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>TODOS</value>
   </data>
   <data name="GameTBox.PlaceholderText" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Juego</value>
   </data>
   <data name="IapABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Compras In-App</value>
   </data>
   <data name="IdleRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Ocupado</value>
   </data>
   <data name="InvisibleRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Invisible</value>
   </data>
   <data name="Loaded" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>CARGADO</value>
   </data>
   <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Cargar más mensajes</value>
   </data>
   <data name="LoggingIn" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>INICIANDO SESIÓN...</value>
   </data>
   <data name="LoginTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Sesión</value>
   </data>
   <data name="MemberListABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Lista de miembros</value>
   </data>
   <data name="MuteABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Silenciar</value>
   </data>
   <data name="NoChannelsCachedTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>No hay canales almacenados en caché</value>
   </data>
   <data name="NoMessagesCachedTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>No hay ningún mensaje almacenado en caché</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Fuera de línea</value>
   </data>
   <data name="OnlineRadio.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>En línea</value>
   </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Contraseña</value>
   </data>
   <data name="PinnedMessagesABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Mensajes anclados</value>
   </data>
   <data name="PlayingTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Jugando a</value>
   </data>
   <data name="RefreshABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Actualizar</value>
   </data>
   <data name="SettingsABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Configuración</value>
   </data>
   <data name="TextChannelsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>CANALES DE TEXTO</value>
   </data>
   <data name="Today" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Hoy</value>
   </data>
   <data name="UpvoteForVoiceDescTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Votar esto por canales de voz</value>
   </data>
   <data name="UpvoteForVoiceTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Se estan solicitando a Microsoft los recursos para el desarrollo de Canales de Voz. No se trata solo de habilitarlo.</value>
   </data>
   <data name="VoiceChannelsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>CANALES DE VOZ</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Ayer</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Mensajes directos</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>&lt;count&gt; miembros</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>envió un mensaje en</value>
   </data>
   <data name="PromptMessageSaveError" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Hubo un problema cargando el guardado del historial de mensajes. El historial fue limpiado para que pueda funcionar el futuro.</value>
   </data>
   <data name="PromptMutedCacheError" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Hubo un problema cargando canales silenciados. Despejado para que pueda funcionar en el futuro.</value>
   </data>
   <data name="PromptNoCache" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>No tenía caché, la aplicación ahora comenzará a almacenar datos para mejorar los tiempos de carga.</value>
   </data>
   <data name="TypingAnd" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>y </value>
   </data>
   <data name="TypingPlural" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>están escribiendo ...</value>
   </data>
   <data name="TypingSingular" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>está escribiendo ...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="DirectMessagesTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="FriendsTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="Notifications_Accept" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="Notifications_Refuse" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="Notifications_Reply" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="RecentMentionsABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Presentado por</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Código de autenticación</value>
+  </data>
+  <data name="DirectMessagesTB.Text" xml:space="preserve">
+    <value>MENSAJES DIRECTOS</value>
+  </data>
+  <data name="FriendsTB.Text" xml:space="preserve">
+    <value>AMIGOS</value>
+  </data>
+  <data name="Notifications_SentAFriendRequest" xml:space="preserve">
+    <value>te envió una solicitud de amistad</value>
+  </data>
+  <data name="Notifications_Accept" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="Notifications_Refuse" xml:space="preserve">
+    <value>Negar</value>
+  </data>
+  <data name="Notifications_Reply" xml:space="preserve">
+    <value>Contestar</value>
+  </data>
+  <data name="RecentMentionsABB.Label" xml:space="preserve">
+    <value>Menciones recientes</value>
   </data>
   <data name="DirectMessageTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>MENSAJES DIRECTOS</value>
   </data>
   <data name="FriendsButtonText.Text" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="RemoveAdsABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
-  </data>
-  <data name="ShowPinnedABB.Label" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Amigos</value>
   </data>
   <data name="&lt;count&gt; members" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>&lt;count&gt; miembros</value>
   </data>
-  <data name="NewMessageHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+  <data name="RemoveAdsABB.Label" xml:space="preserve">
+    <value>Quitar anuncios</value>
   </data>
-  <data name="IgnoreHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+  <data name="ShowPinnedABB.Label" xml:space="preserve">
+    <value>Mostrar Mensajes Anclados</value>
+  </data>
+  <data name="ToggleMember.Label" xml:space="preserve">
+    <value>Ampliar la lista de miembros</value>
+  </data>
+  <data name="WhatsNewABB.Label" xml:space="preserve">
+    <value>Lo Nuevo</value>
   </data>
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>VOLVER AL PRESENTE</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Acerca de</value>
   </data>
   <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>¿Qué hay de nuevo?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Quitar anuncios</value>
   </data>
   <data name="Settings.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>Ajustes</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
-    <value>(not translated)</value>
+    <value>AGREGAR ADJUNTO</value>
+  </data>
+  <data name="NewMessageHLBTN.Content" xml:space="preserve">
+    <value>MENSAJES NUEVOS</value>
+  </data>
+  <data name="IgnoreHLBTN.Content" xml:space="preserve">
+    <value>IGNORAR</value>
   </data>
 </root>

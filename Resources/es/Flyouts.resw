@@ -117,40 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutABB.Label" xml:space="preserve">
-    <value>Über</value>
+  <data name="AcceptFriendRequest" xml:space="preserve">
+    <value>Aceptar solicitud de amistad</value>
   </data>
-  <data name="AddChannelTB.Text" xml:space="preserve">
-    <value>Raum hinzufügen</value>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Agregar amigo</value>
   </data>
-  <data name="at" xml:space="preserve">
-    <value>an</value>
+  <data name="BanMember" xml:space="preserve">
+    <value>Ban miembro</value>
   </data>
-  <data name="Connected" xml:space="preserve">
-    <value>VEBUNDEN</value>
+  <data name="Block" xml:space="preserve">
+    <value>Bloquear</value>
   </data>
-  <data name="DNDRadio.Content" xml:space="preserve">
-    <value>Nicht Stören</value>
+  <data name="ChangeNickname" xml:space="preserve">
+    <value>Cambiar apodo</value>
   </data>
-  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>E-Mail</value>
+  <data name="Deafen" xml:space="preserve">
+    <value>Ensordecer</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Fehler</value>
+  <data name="DeleteChannel" xml:space="preserve">
+    <value>Eliminar canal</value>
   </data>
-  <data name="Error400" xml:space="preserve">
-    <value>Fehler 400</value>
+  <data name="DeleteServer" xml:space="preserve">
+    <value>Eliminar servidor</value>
   </data>
-  <data name="Error401" xml:space="preserve">
-    <value>Fehler 401</value>
+  <data name="EditChannel" xml:space="preserve">
+    <value>Editar canal</value>
   </data>
-  <data name="Error403" xml:space="preserve">
-    <value>Fehler 403</value>
+  <data name="EditServer" xml:space="preserve">
+    <value>Editar servidor</value>
   </data>
-  <data name="Error429" xml:space="preserve">
-    <value>Fehler 429</value>
+  <data name="InviteToServer" xml:space="preserve">
+    <value>Invitar al servidor</value>
   </data>
-  <data name="Error500" xml:space="preserve">
-    <value>Fehler 500</value>
+  <data name="KickMember" xml:space="preserve">
+    <value>Expulsar miembro</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Dejar Grupo</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Salir del servidor</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Marcar como leído</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="MoveChannel" xml:space="preserve">
+    <value>Mover canal</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>Silenciar</value>
+  </data>
+  <data name="MuteChannel" xml:space="preserve">
+    <value>Silenciar canal</value>
+  </data>
+  <data name="MuteServer" xml:space="preserve">
+    <value>Silenciar el servidor</value>
+  </data>
+  <data name="PinFailed" xml:space="preserve">
+    <value>Error al anclar :' (</value>
+  </data>
+  <data name="PinSucess" xml:space="preserve">
+    <value>¡Anclado exitosamente!</value>
+  </data>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Anclar al inicio</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Quitar amigo</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Quitar del grupo</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Unblock" xml:space="preserve">
+    <value>Desbloquear</value>
+  </data>
+  <data name="UnmuteChannel" xml:space="preserve">
+    <value>Dejar de silenciar canal</value>
+  </data>
+  <data name="UnmuteServer" xml:space="preserve">
+    <value>Dejar de silenciar servidor</value>
+  </data>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Liberar del inicio</value>
+  </data>
+  <data name="UnpinSucess" xml:space="preserve">
+    <value>¡Desanclado exitosamente!</value>
+  </data>
+  <data name="CloseDM" xml:space="preserve">
+    <value>Cerrar MD</value>
   </data>
 </root>

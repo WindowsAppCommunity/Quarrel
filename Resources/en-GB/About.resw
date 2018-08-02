@@ -231,4 +231,7 @@
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
     <value>(not translated)</value>
   </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Want More?</value>
+  </data>
 </root>
