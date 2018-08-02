@@ -699,4 +699,10 @@
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
     <value>&lt;user&gt;updated the permissions for the channel &lt;channel&gt;</value>
   </data>
+  <data name="AuditLogMemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; updated &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogInviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; deleted the invite &lt;code&gt;</value>
+  </data>
 </root>
