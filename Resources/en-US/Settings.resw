@@ -434,7 +434,7 @@
     <value>Mutual server members</value>
   </data>
   <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
-    <value>To access the rest of the privacy settings, use the official Discord client or Discord website</value>
+    <value>To access the rest of your privacy settings, please use the official Discord website or client</value>
   </data>
   <data name="DerivedRadio.Content" xml:space="preserve">
     <value>Derived Color</value>

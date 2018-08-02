@@ -220,10 +220,10 @@
     <value>ขอขอบคุณ:</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
-    <value>ขาเข้า:</value>
+    <value>ดาวน์โหลด:</value>
   </data>
   <data name="OutboundRun.Text" xml:space="preserve">
-    <value>ขาออก:</value>
+    <value>อัพโหลด:</value>
   </data>
   <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
     <value>ข้อมูลจาก Microsoft Licensing, คุณได้ซื้อ:</value>

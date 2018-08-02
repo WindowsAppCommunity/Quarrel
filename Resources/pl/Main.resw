@@ -262,7 +262,7 @@
     <value>pisze...</value>
   </data>
   <data name="SubmittedBy" xml:space="preserve">
-    <value>Przedłożone przez</value>
+    <value>Podesłane przez</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
     <value>PRYWATNE WIADOMOŚCI</value>

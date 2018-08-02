@@ -118,180 +118,330 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>צבע הדגשה</value>
+    <value>Color de acento</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
-    <value>מִתקַדֵם</value>
+    <value>Avanzada</value>
   </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
-    <value>יישור שורת הפקודה בתחתית</value>
+    <value>Alinee la barra de comandos en la parte inferior</value>
   </data>
   <data name="CompactModeCB.Content" xml:space="preserve">
-    <value>מצב קומפקטי</value>
+    <value>Modo compacto</value>
   </data>
   <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value>צבעי נוכחות מותאמים אישית</value>
+    <value>Colores de presencia personalizados</value>
   </data>
   <data name="DarkRadio.Content" xml:space="preserve">
-    <value>אפל</value>
+    <value>Oscuro</value>
   </data>
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="DMsCB" xml:space="preserve">
-    <value>DMs</value>
+    <value>MDs</value>
   </data>
   <data name="DndColorTB.Text" xml:space="preserve">
-    <value>אל תפריע</value>
+    <value>No molestar</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
-    <value>יקר טיוח (לטשטש אפקטים וכו ')</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>מה מוסיף להודעות של חברים?</value>
+    <value>Renderizado exigente (efectos borrosos, etc. ..)</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value>הדגש @everyone</value>
+    <value>Resalte @everyone</value>
   </data>
   <data name="IdleColorTB.Text" xml:space="preserve">
-    <value>לְהֵבָטֵל</value>
+    <value>Ocupado</value>
   </data>
   <data name="IncomingFriendsCB" xml:space="preserve">
-    <value>בקשות לחברים נכנסים</value>
+    <value>Solicitudes de Amistad Entrantes</value>
   </data>
   <data name="LightRadio.Content" xml:space="preserve">
-    <value>אוֹר</value>
+    <value>Claro</value>
   </data>
   <data name="LogoutBTN.Content" xml:space="preserve">
-    <value>התנתק</value>
+    <value>Cerrar sesión</value>
   </data>
   <data name="NotificationsPI.Header" xml:space="preserve">
-    <value>הודעות</value>
+    <value>Notificaciones</value>
   </data>
   <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value>באינטרנט</value>
+    <value>En línea</value>
   </data>
   <data name="OutgoingFriendsCB" xml:space="preserve">
-    <value>בקשות חברות יוצאות</value>
+    <value>Solicitudes de Amistad Salientes</value>
   </data>
   <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value>איפוס נקודות עצירה לברירת המחדל</value>
+    <value>Restablecer puntos de interrupción por defecto</value>
   </data>
   <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>אלה הם רוחב ההדק שבו ממשק המשתמש מציג מידע פחות או יותר על המסך, בהתאם לרוחב המסך.</value>
+    <value>Estos son los anchos de disparador en los que la IU muestra más o menos información en la pantalla, dependiendo del ancho de la pantalla.</value>
   </data>
   <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value>נקודות ממשק משתמש</value>
+    <value>PUNTOS DE INTERRUPCIÓN IU RESPONSIVOS</value>
   </data>
   <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value>ממשק משתמש בעל יכולת תגובה</value>
+    <value>INTERFAZ DE USUARIO RESPONSIVA</value>
   </data>
   <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value>(יהיה עליך להפעיל מחדש את האפליקציה)</value>
+    <value>(necesitará reiniciar la aplicación)</value>
   </data>
   <data name="SettingsTB.Text" xml:space="preserve">
-    <value>הגדרות</value>
+    <value>CONFIGURACIÓN</value>
   </data>
   <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value>הצג הודעות בתוך האפליקציה</value>
+    <value>Mostrar notificaciones toast In-App</value>
   </data>
   <data name="SliderL.Header" xml:space="preserve">
-    <value>L (שרתים וערוצים גלויים)</value>
+    <value>G (los servidores y los canales son visibles)</value>
   </data>
   <data name="SliderM.Header" xml:space="preserve">
-    <value>M (שרתים גלויים)</value>
+    <value>M (los servidores son visibles)</value>
   </data>
   <data name="SliderXL.Header" xml:space="preserve">
-    <value>XL (שרתים, ערוצים וחברים גלויים)</value>
+    <value>XG (los servidores, los canales y los miembros son visibles)</value>
   </data>
   <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>צבע מבטא המערכת</value>
+    <value>Color de acento del sistema</value>
   </data>
   <data name="ThemeTB.Text" xml:space="preserve">
-    <value>תֵמָה</value>
+    <value>Tema</value>
   </data>
   <data name="UiPI.Header" xml:space="preserve">
-    <value>ממשק משתמש</value>
+    <value>IU</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>¿Está seguro de que desea cerrar la sesión?</value>
   </data>
   <data name="VibrateCB.Content" xml:space="preserve">
-    <value>רטט בקבלת הודעות</value>
+    <value>Vibración en recepción de mensajes</value>
   </data>
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="VerifyLogout" xml:space="preserve">
-    <value>האם אתה בטוח שברצונך לצאת?</value>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>¿Qué añade a las notificaciones de lista de amigos?</value>
   </data>
   <data name="FriendRequestsCB" xml:space="preserve">
-    <value>בקשות חברות</value>
-  </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>ערוצים מושתקים משפיעים על מצב השרת שלא נקרא?</value>
-  </data>
-  <data name="AccentRadio.Content" xml:space="preserve">
-    <value>צבע מבטא המערכת</value>
-  </data>
-  <data name="BlurpleRadio.Content" xml:space="preserve">
-    <value>Discord Blurple</value>
-  </data>
-  <data name="OTHERTB.Text" xml:space="preserve">
-    <value>אַחֵר</value>
-  </data>
-  <data name="ShowWelcomeCB.Content" xml:space="preserve">
-    <value>הצג הודעות טעינה</value>
-  </data>
-  <data name="EnableAcrylic.Content" xml:space="preserve">
-    <value>הפעל אפקטים אקריליים (רקע מטושטש)</value>
+    <value>Solicitudes de Amistad</value>
   </data>
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>מושתק ערוץ ערוצי אפקט לא נקרא?</value>
+    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
+  </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>Color del acento del sistema</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Blurple Discord</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>OTROS</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Mostrar mensajes de carga</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Activar efectos acrílicos (fondo borroso)</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
-    <value>הפעלת דחיסת נתונים (מהירה יותר)</value>
+    <value>Activar la compresión de datos (más rápido)</value>
   </data>
   <data name="VideoAds.Content" xml:space="preserve">
-    <value>השתמש במודעות וידאו במקום באנרים</value>
+    <value>Utilizar anuncios de video en lugar de banners</value>
   </data>
   <data name="MESSAGESTB.Text" xml:space="preserve">
-    <value>הודעות</value>
+    <value>MENSAJES</value>
   </data>
   <data name="GifsOnHoverCB.Content" xml:space="preserve">
-    <value>רק לשחק GIFs עם העכבר מעל העכבר או לחץ על</value>
+    <value>Solo reproducir gifs al pasar el ratón o hacer clic</value>
   </data>
   <data name="Enable compression (Faster)" xml:space="preserve">
-    <value>אפשר דחיסת נתונים</value>
-  </data>
-  <data name="Mentions" xml:space="preserve">
-    <value>אִזְכּוּר</value>
+    <value>Habilitar la compresión de datos </value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>אין</value>
+    <value>Ninguno</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Menciones</value>
   </data>
   <data name="Unread" xml:space="preserve">
-    <value>לא נקרא</value>
+    <value>No leídos</value>
   </data>
   <data name="TranslatorPI" xml:space="preserve">
-    <value>תרגומים</value>
+    <value>Traducciones</value>
   </data>
   <data name="CustomTimeF.Header" xml:space="preserve">
-    <value>פורמט זמן מותאם אישית</value>
+    <value>Formato de hora personalizado</value>
   </data>
   <data name="CustomDateF" xml:space="preserve">
-    <value>תבנית תאריך מותאמת אישית</value>
+    <value>Formato de fecha personalizado</value>
   </data>
   <data name="DateFormat.Header" xml:space="preserve">
-    <value>פורמט תאריך</value>
+    <value>Formato de fecha</value>
   </data>
   <data name="TimeFormat.Header" xml:space="preserve">
-    <value>פורמט זמן</value>
+    <value>Formato de hora</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>(ניסיוני) ערוצים קוליים (קבלה בלבד)</value>
+    <value>(EXPERIMENTAL) Canales de voz (solo recepción)</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>התנתק</value>
+    <value>Cerrar sesión</value>
   </data>
   <data name="AudioPI.Header" xml:space="preserve">
-    <value>שמע</value>
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Permitir notificaciónes de fondo</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Apagar notificaciónes de fondo</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICACIÓNES DE FONDO</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>NOTIFICACIONES IN-APP</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>Recibirás notificaciones a pesar de tu selección debajo cada vez que se ejecute el proceso en segundo plano</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>MDs no leídos</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Solicitudes de amistad</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>Nuevas menciones</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Resplandor en el lado izquierdo de la pantalla cuando eres mencionado</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Dispositivos de Salida</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Puede anularse en cada sesión haciendo clic derecho o presionando el botón de Ensordecer en el Canal de voz.</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Ajustes de la Cuenta</value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Mostrar el botón Silenciar en los servidores</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Tamaño de fuente para los mensajes</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
+  <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
+    <value>Nuevas menciones en Servidores Silenciados</value>
+  </data>
+  <data name="SoundsCB.Content" xml:space="preserve">
+    <value>Sonidos</value>
+  </data>
+  <data name="SoundsPI.Header" xml:space="preserve">
+    <value>Sonidos</value>
+  </data>
+  <data name="VoicePI.Header" xml:space="preserve">
+    <value>Voz</value>
+  </data>
+  <data name="SoundTypesTB.Text" xml:space="preserve">
+    <value>Tipos de Sonido</value>
+  </data>
+  <data name="DiscordRB.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="WindowsRB.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="SoundsTB.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>AJUSTES DE LA CUENTA</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="AccountPrivacyPI.Header" xml:space="preserve">
+    <value>Privacidad</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Subir imagen</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nueva contraseña</value>
+  </data>
+  <data name="SaveTB.Text" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>FILTRADO DE MENSAJES DIRECTOS</value>
+  </data>
+  <data name="DMFilterExpoTB.Text" xml:space="preserve">
+    <value>Analizar y borrar automáticamente mensajes con contenido explícito.</value>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Protégeme</value>
+  </data>
+  <data name="ProtectMeExpoTB.Text" xml:space="preserve">
+    <value>Analizar todos los MDs</value>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>Mis amigos son agradables</value>
+  </data>
+  <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
+    <value>Analizar todos los MDs, excepto los de mis amigos.</value>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>Vivo al límite</value>
+  </data>
+  <data name="DangerZoneExpoTB.Text" xml:space="preserve">
+    <value>No analizar ningún MD</value>
+  </data>
+  <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
+    <value>QUIÉN PUEDE ENVIAR SOLICITUDES DE AMISTAD</value>
+  </data>
+  <data name="EveryoneCB.Content" xml:space="preserve">
+    <value>Todo mundo</value>
+  </data>
+  <data name="MutualFriendsCB.Content" xml:space="preserve">
+    <value>Los amigos de mis amigos</value>
+  </data>
+  <data name="MutualServerMembersCB.Content" xml:space="preserve">
+    <value>Miembros con servidores en común</value>
+  </data>
+  <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
+    <value>Para acceder al resto de tus opciones de privacidad, por favor utiliza el sitio web o el cliente oficial de Discord</value>
+  </data>
+  <data name="DerivedRadio.Content" xml:space="preserve">
+    <value>Color Derivado</value>
+  </data>
+  <data name="LanguageComboB.Header" xml:space="preserve">
+    <value>Idioma (requiere reinicio)</value>
+  </data>
+  <data name="DefaultComboBI.Content" xml:space="preserve">
+    <value>Por defecto</value>
   </data>
 </root>
