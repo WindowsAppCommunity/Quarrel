@@ -1121,14 +1121,18 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                         {
                             if (user.Id == mentionid)
                             {
-                                content = "@"+ user.Username;
+                                if (_halfopacity) content = user.Username;
+                                else content = "@" + user.Username;
                                 if (!App.CurrentGuildIsDM)
                                 {
                                     if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(mentionid))
                                     {
                                         var member = LocalState.Guilds[App.CurrentGuildId].members[mentionid];
                                         if (!string.IsNullOrWhiteSpace(member.Nick))
-                                            content = "@" + member.Nick;
+                                        {
+                                            if (_halfopacity) content = member.Nick;
+                                            else content = "@" + member.Nick;
+                                        }
                                     }
                                 }
   
@@ -1159,7 +1163,8 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                         if (LocalModels.LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(element.Text.Remove(0, 2)))
                         {
                             var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
-                            content = "@" + role.Name;
+                            if (_halfopacity) content = role.Name;
+                            else content = "@" + role.Name;
                             foreground = Common.IntToColor(role.Color);
                         }
                         else
@@ -1176,7 +1181,8 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                  
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
-                link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                if(_halfopacity) link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlinkBold"];
+                else link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
                 link.IsEnabled = enabled;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
