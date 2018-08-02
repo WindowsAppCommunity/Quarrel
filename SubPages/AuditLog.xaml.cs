@@ -99,21 +99,30 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        //Text = "**<user>** created channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                            Text = "<user> created permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                        else
+                            Text = "**<user>** created permissions for a now deleted channel";
                         break;
                     }
                     case AuditLogActionType.ChannelOverwriteUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        //Text = "**<user>** updated channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
-                        break;
+                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                            Text = "<user> updated permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                        else
+                            Text = "**<user>** updated permissions for a now deleted channel";
+                            break;
                         }
                     case AuditLogActionType.ChannelOverwriteDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        //Text = "**<user>** removed channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                            Text = "<user> removed permissions for the channel <channel>".Replace("<channel>", LocalState.Guilds[guildId].channels[targetid].raw.Name);
+                        else
+                            Text = "**<user>** removed permissions for a now deleted channel";
                         break;
                     }
                     case AuditLogActionType.EmojiCreate:

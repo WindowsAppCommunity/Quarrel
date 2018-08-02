@@ -232,4 +232,7 @@
   <data name="MicrosoftNoteTB.Text" xml:space="preserve">
     <value>Si c'est faux, j'ai un mail enragé à leur écrire</value>
   </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Vous en voulez plus?</value>
+  </data>
 </root>
