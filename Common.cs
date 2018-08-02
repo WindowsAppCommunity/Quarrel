@@ -58,12 +58,11 @@ namespace Discord_UWP
                 return (SolidColorBrush)App.Current.Resources["Foreground"];
             }
         }
-
-        public static double SnowflakeToTime(string id)
+        public static DateTimeOffset SnowflakeToTime(string id)
         {
             //returns unix time in ms
-            if (String.IsNullOrEmpty(id)) return 0;
-            return (double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)/10;
+            if (String.IsNullOrEmpty(id)) return new DateTimeOffset();
+            return DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64((double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)));
         }
 
     public static SolidColorBrush DiscriminatorColor(string desc)
