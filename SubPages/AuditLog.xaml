@@ -106,7 +106,7 @@
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Grid.Column="2">
-                                            <markdownTextBlock:MarkdownTextBlock Text="{Binding Text}" HalfOpacityMode="True"/>
+                                            <markdownTextBlock:MarkdownTextBlock Users="{Binding Users}" Text="{Binding Text}" HalfOpacityMode="True"/>
                                             <TextBlock FontSize="11" Opacity="0.5" Text="{Binding Time}"/>
                                         </StackPanel>
                                      </Grid>

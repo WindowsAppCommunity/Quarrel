@@ -2021,9 +2021,9 @@ namespace Discord_UWP
                 sideDrawer.CloseLeft();
             }
 
-            ChannelName.Text = CinematicChannelName.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel).Name : (ChannelList.SelectedItem as SimpleChannel).Name;
+            ChannelName.Text = CinematicChannelName.Text = ChannelList.SelectedItem != null && (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel)?.Name : (ChannelList.SelectedItem as SimpleChannel)?.Name;
             //CompChannelName.Text = ChannelName.Text;
-            ChannelTopic.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel).Id].raw.Topic : "";
+            ChannelTopic.Text = ChannelList.SelectedItem != null && (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel)?.Id].raw.Topic : "";
             //CompChannelTopic.Text = ChannelTopic.Text;
             if (ChannelTopic.Text == null || ChannelTopic.Text.Trim() == "")
             {
