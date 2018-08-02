@@ -73,8 +73,9 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "**<user>** created the channel **<channel>**".Replace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
-                        break;
+                            Text = "**<user>** created the channel **<channel>**".Replace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                            //Text = App.GetString("/Dialogs/AuditLogChannelCreate").Replace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
+                            break;
                     }
                     case AuditLogActionType.ChannelUpdate:
                     {
@@ -98,18 +99,21 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
+                        //Text = "**<user>** created channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
                         break;
                     }
                     case AuditLogActionType.ChannelOverwriteUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
+                        //Text = "**<user>** updated channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
                         break;
                         }
                     case AuditLogActionType.ChannelOverwriteDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
+                        //Text = "**<user>** removed channel overrides for **<channel>**".TryReplace("<channel>", GetValue(changes, "name", ValueType.OldValue).ToString());
                         break;
                     }
                     case AuditLogActionType.EmojiCreate:
@@ -144,7 +148,7 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "<user> created the invite <code>".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
+                        Text = "**<user>** created the invite **<code>**".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
                         break;
                     }
                     case AuditLogActionType.InviteUpdate:
@@ -158,20 +162,21 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = "**<user>** deleted an invite";
+                        Text = "**<user>** deleted the invite **<code>**".TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue).ToString());
                         break;
                     }
                     case AuditLogActionType.MemberBanAdd:
                     {
                         Glyph = "";
                         Color = "dnd";
+                        Text = "**<user>** banned **<banneduser>**".TryReplace("<banneduser>", users[targetid].Username);
                         break;
                     }
                     case AuditLogActionType.MemberBanRemove:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = "**<user>** banned **<banneduser>**".TryReplace("<banneduser>", users[targetid].Username);
+                        Text = "**<user>** revoked ban on **<banneduser>**".TryReplace("<banneduser>", users[targetid].Username);
                         break;
                     }
                     case AuditLogActionType.MemberKick:
@@ -253,14 +258,7 @@ namespace Discord_UWP.SubPages
                         Color = "online";
                         Text = "**<user>** created the webhook **<webhook>**".TryReplace("<webhook>", GetValue(changes, "name", ValueType.NewValue).ToString());
                             break;
-                    }
-                    case AuditLogActionType.WebhookDelete:
-                    {
-                        Glyph = "";
-                        Color = "dnd";
-                        Text = "**<user>** deleted the webhook **<webhook>**".TryReplace("<webhook>", GetValue(changes, "name", ValueType.OldValue).ToString());
-                            break;
-                    }
+                        }
                     case AuditLogActionType.WebhookUpdate:
                     {
                         Glyph = "";
@@ -274,6 +272,13 @@ namespace Discord_UWP.SubPages
                             }
                         }
                         Text = "**<user>** updated the webhook **<webhook>**".TryReplace("<webhook>", webhookname);
+                        break;
+                    }
+                    case AuditLogActionType.WebhookDelete:
+                    {
+                        Glyph = "";
+                        Color = "dnd";
+                        Text = "**<user>** deleted the webhook **<webhook>**".TryReplace("<webhook>", GetValue(changes, "name", ValueType.OldValue).ToString());
                             break;
                     }
                     default:
