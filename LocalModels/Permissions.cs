@@ -8,6 +8,39 @@ namespace Discord_UWP.LocalModels
 {
     public class Permissions
     {
+        public string GetFirstPermission()
+        {
+            if (Administrator) return App.GetString("/Dialogs/AdministratorToggle.Header");
+            if (AddReactions) return App.GetString("/Dialogs/AddReactionsToggle.Header");
+            if (AttachFiles) return App.GetString("/Dialogs/AttachFilesToggle.Header");
+            if (BanMembers) return App.GetString("/Dialogs/BanMembersToggle.Header");
+            if (ChangeNickname) return App.GetString("/Dialogs/ChangeNickname.Header");
+            if (Connect) return App.GetString("/Dialogs/ConnectToggle.Header");
+            if (CreateInstantInvite) return App.GetString("/Dialogs/CreateInstantInviteToggle.Header");
+            if (DeafenMembers) return App.GetString("/Dialogs/DeafenMembersToggle.Header");
+            if (EmbedLinks) return App.GetString("/Dialogs/EmbedLinksToggle.Header");
+            if (KickMembers) return App.GetString("/Dialogs/KickMembersToggle.Header");
+            if (ManageChannels) return App.GetString("/Dialogs/ManageChannelsToggle.Header");
+            if (ManageEmojis) return App.GetString("/Dialogs/ManageEmojisToggle.Header");
+            if (ManageMessages) return App.GetString("/Dialogs/ManageMessagesToggle.Header");
+            if (ManageNicknames) return App.GetString("/Dialogs/ManageNicknamesToggle.Header");
+            if (ManageRoles) return App.GetString("/Dialogs/ManageRolesToggle.Header");
+            if (ManageWebhooks) return App.GetString("/Dialogs/ManageWebhooksToggle.Header");
+            if (ManangeGuild) return App.GetString("/Dialogs/ManageGuildToggle.Header");
+            if (MentionEveryone) return App.GetString("/Dialogs/MentionEveryoneToggle.Header");
+            if (MoveMembers) return App.GetString("/Dialogs/MoveMembersToggle.Header");
+            if (MuteMembers) return App.GetString("/Dialogs/MuteMembersToggle.Header");
+            if (ReadMessageHistory) return App.GetString("/Dialogs/ReadMessageHistoryToggle.Header");
+            if (ReadMessages) return App.GetString("/Dialogs/ReadMessagesToggle.Header");
+            if (SendMessages) return App.GetString("/Dialogs/SendMessagesToggle.Header");
+            if (SendTtsMessages) return App.GetString("/Dialogs/SendTTSMessagesToggle.Header");
+            if (Speak) return App.GetString("/Dialogs/SpeakToggle.Header");
+            if (UseExternalEmojis) return App.GetString("/Dialogs/UseExternalEmojisToggle.Header");
+            if (UseVad) return App.GetString("/Dialogs/UseVadToggle.Header");
+            if (ViewAuditLog) return App.GetString("/Dialogs/ViewAuditLogToggle.Header");
+            else return "<unknown permission>";
+        }
+
         public Permissions(int perms)
         {
             Perms = perms;
