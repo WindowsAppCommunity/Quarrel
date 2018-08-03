@@ -108,7 +108,20 @@
                                         <StackPanel Grid.Column="2">
                                             <markdownTextBlock:MarkdownTextBlock Users="{Binding Users}" Margin="0,12,0,0"  Text="{Binding Text}" HalfOpacityMode="True"/>
                                             <TextBlock FontSize="11" Opacity="0.4" Text="{Binding Time}"/>
+                                            <ItemsControl ItemsSource="{Binding Subactions}" Margin="0,6,0,0">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <VariableSizedWrapGrid/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <markdownTextBlock:MarkdownTextBlock FontSize="12" LineHeight="12" HalfOpacityMode="True" Text="{Binding}"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
                                         </StackPanel>
+                                        
                                      </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
