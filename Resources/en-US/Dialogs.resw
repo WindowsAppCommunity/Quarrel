@@ -801,4 +801,16 @@
   <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
     <value>unrestricted</value>
   </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Are you sure leave &lt;group&gt;?</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Are you sure you want to remove &lt;user&gt; from &lt;group&gt;?</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

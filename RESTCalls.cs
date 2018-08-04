@@ -1330,6 +1330,19 @@ namespace Discord_UWP
                 //App.NavigateToBugReport(exception);
             }
         }
+        public static async Task RemoveGroupUser(object args)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.RemoveGroupUser((args as Tuple<string, string>).Item1, (args as Tuple<string, string>).Item2);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
         #endregion
 
         #endregion
