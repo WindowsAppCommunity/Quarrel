@@ -52,7 +52,7 @@ namespace Discord_UWP.Voice
         private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
         private OpusDecoder decoder = new OpusDecoder(48000, 2);
 
-        private ushort sequence = 0;
+        private ushort sequence = 1;
 
         private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
 
@@ -184,13 +184,13 @@ namespace Discord_UWP.Voice
                     header[2] = (byte)(sequence >> 0);
                     header[3] = (byte)(sequence >> 8);
                 }
-                sequence++;
 
                 byte[] time = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(sequence*20));
                 header[4] = time[0];
                 header[5] = time[1];
                 header[6] = time[2];
                 header[7] = time[3];
+                sequence++;
 
                 byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.SSRC));
                 header[8] = ssrc[0];

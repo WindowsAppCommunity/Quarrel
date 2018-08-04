@@ -64,9 +64,9 @@ namespace Discord_UWP.Controls
             ResetButton.Fade(1).Start();
         }
 
-        public void initialize()
+        public async void initialize()
         {
-            var message = EntryMessages.GetMessage();
+            var message = await EntryMessages.GetMessage();
 
             //else if (message.Key.Substring(0, 7) == "(Audio)")
             //{
@@ -88,6 +88,15 @@ namespace Discord_UWP.Controls
                 return;
             }
 
+            #region Special Shit
+            switch (message.Key)
+            {
+                case "Now with Comic Sans":
+                    MessageBlock.FontFamily = new FontFamily("Comic Sans MS");
+                    break;
+            }
+            #endregion
+
             MessageBlock.Text = message.Key.ToUpper();
             if (message.Value != "")
             {
@@ -97,7 +106,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    CreditBlock.Text = "- " + message.Value;
+                    CreditBlock.Text = "-" + message.Value;
                 }
             }
             Animation.Begin();
