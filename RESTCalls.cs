@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+//using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
@@ -1515,6 +1518,14 @@ namespace Discord_UWP
                 App.CheckOnline();
             }
             return new SearchResult();
+        }
+        #endregion
+
+        #region Random
+        public static async Task<string> GetStringFromURI(Uri uri)
+        {
+            HttpClient client = new HttpClient();
+            return await client.GetStringAsync(uri);
         }
         #endregion
 
