@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -52,6 +53,11 @@ namespace Discord_UWP.SubPages
     ///
     public sealed partial class AuditLog : Page
     {
+        public class VerySimpleRole
+        {
+            public string id { get; set; }
+            public string name { get; set; }
+        }
         public static string GetByNumber(String str, Int64 number)
         {
             switch (number)
@@ -106,6 +112,7 @@ namespace Discord_UWP.SubPages
 
         public static void SubactionFromPermissions(Change[] changes, ref List<string> SubAction, Options options, Dictionary<string, AuditLogUser> users, string guildId)
         {
+            if (changes == null) return;
             foreach (var change in changes)
             {
                 if (change.NewValue is int PermInt && PermInt != 0 && (change.Key == "deny" || change.Key == "allow"))
@@ -132,8 +139,9 @@ namespace Discord_UWP.SubPages
         /// </summary>
         /// <param name="changes">The audit log changes</param>
         /// <param name="SubAction">The SubAction list</param>
-        public static void SubactionFromChanges(Change[] changes, ref List<string> SubAction)
+        public static void SubactionFromChanges(Change[] changes, ref List<string> SubAction, Options options, Dictionary<string, AuditLogUser> users, string guildId)
         {
+            if (changes == null) return;
             foreach (var change in changes)
             {
                 switch (change.Key)
@@ -143,7 +151,8 @@ namespace Discord_UWP.SubPages
                         else SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateBitrateChange").TryReplace("<new>", (change.NewValue + "Kbps").Replace("000", "").Bold()).TryReplace("<old>", (change.OldValue + "Kbps").Replace("000", "").Bold()));
                         break;
                     case "topic":
-                        if(change.OldValue == null) SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateTopic").TryReplace("<topic>", change.NewValue.ToString().Bold()));
+                        if (change.NewValue == null) SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateTopicRemove"));
+                        else if (change.OldValue == null) SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateTopic").TryReplace("<topic>", change.NewValue.ToString().Bold()));
                         else SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateTopicChange").TryReplace("<new>", change.NewValue.ToString().Bold()).TryReplace("<old>", change.OldValue.ToString().Bold()));
                         break;
                     case "name":
@@ -152,6 +161,10 @@ namespace Discord_UWP.SubPages
                     case "nsfw":
                         if (((bool)change.NewValue)) SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateNsfwTrue"));
                         else SubAction.Add(App.GetString("/Dialogs/AuditLogChannelUpdateNsfwFalse"));
+                        break;
+                    case "widget_enabled":
+                        if (((bool)change.NewValue)) SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateWidgetTrue"));
+                        else SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateWidgetFalse"));
                         break;
                     case "afk_timeout":
                         SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateAfkTimeout").TryReplace("<time>", (((Int64)change.NewValue)/60).ToString().Bold()));
@@ -162,6 +175,18 @@ namespace Discord_UWP.SubPages
                     case "region":
                         if (change.OldValue == null) SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateRegion").TryReplace("<region>", change.NewValue.ToString().Bold()));
                         else SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateRegionChange").TryReplace("<new>", change.NewValue.ToString().Bold()).TryReplace("<old>", change.OldValue.ToString().Bold()));
+                        break;
+                    case "vanity_url_code":
+                        if (change.NewValue == null && change.OldValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateVanityUrlRemove")
+                                .TryReplace("<old>", change.OldValue.ToString().Bold()));
+                        if (change.OldValue == null && change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateVanityUrl")
+                                .TryReplace("<url>", change.NewValue.ToString().Bold()));
+                        else if (change.OldValue != null && change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateVanityUrlChange")
+                                .TryReplace("<new>", change.NewValue.ToString().Bold())
+                                .TryReplace("<old>", change.OldValue.ToString().Bold()));
                         break;
                     case "icon_hash":
                         SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateIcon"));
@@ -195,6 +220,127 @@ namespace Discord_UWP.SubPages
                         if ((Int64)change.NewValue == 1) SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateNotificationOne"));
                         else SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateNotificationZero"));
                         break;
+                    case "nick":
+                        if (change.NewValue == null && change.OldValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogMemberUpdateNickRemove")
+                                .TryReplace("<old>", change.OldValue.ToString().Bold()));
+                        if (change.OldValue == null && change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogMemberUpdateNick")
+                                .TryReplace("<nick>", change.NewValue.ToString().Bold()));
+                        else if (change.OldValue != null && change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogMemberUpdateNickChange")
+                                .TryReplace("<new>", change.NewValue.ToString().Bold())
+                                .TryReplace("<old>", change.OldValue.ToString().Bold()));
+                        break;
+                    case "$add":
+                    {
+                        if (change.NewValue is JArray roleArray)
+                        {
+                            foreach (var role in roleArray)
+                            {
+                                string roleStr = "";
+                                string roleid = role.Value<string>("id");
+                                string rolename = role.Value<string>("name");
+                                if (roleid != null && LocalState.Guilds[guildId].roles.ContainsKey(roleid))
+                                    roleStr = "<@&" + roleid + ">";
+                                else if(rolename != null)
+                                    roleStr = rolename.Bold();
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogMemberUpdateRoleAdd").TryReplace("<role>", roleStr));
+                            }
+                        }
+                        break;
+                        }
+                    case "$remove":
+                    {
+                        if (change.NewValue is Array)
+                        {
+                            VerySimpleRole[] roleArray = (VerySimpleRole[]) change.NewValue;
+                            foreach (var role in roleArray)
+                            {
+                                string roleStr = "";
+                                if (LocalState.Guilds[guildId].roles.ContainsKey(role.id))
+                                    roleStr = "<@&" + role.id + ">";
+                                else
+                                    roleStr = role.name.Bold();
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogMemberUpdateRoleRemove").TryReplace("<role>", roleStr));
+                            }
+                        }
+                        break;
+                    }
+                    case "max_age":
+                    {
+                        if (change.NewValue != null)
+                        {
+                            var duration = (Int64) change.NewValue;
+                            if(duration == 0)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogInviteMaxAgeForever"));
+                            if (duration == 86400)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogInviteMaxAge").TryReplace("<time>", App.GetString("/Dialogs/TimeDay").Bold()));
+                            else if(duration == 120 || duration == 360 || duration == 720)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogInviteMaxAge")
+                                    .TryReplace("<time>", App.GetString("/Dialogs/TimeHours").Bold())
+                                    .TryReplace("<hourcount>", (duration/60).ToString()));
+                            else if (duration == 60)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogInviteMaxAge")
+                                    .TryReplace("<time>", App.GetString("/Dialogs/TimeHour").Bold()));
+                            else
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogInviteMaxAge")
+                                    .TryReplace("<time>", App.GetString("/Dialogs/TimeMinutes").Bold())
+                                    .TryReplace("<minutecount>", (duration / 60).ToString()));
+                        }
+
+                        break;
+                    }
+                    case "max_uses":
+                    {
+                        if (change.NewValue != null)
+                        {
+                            var uses = (Int64)change.NewValue;
+                            if (uses == 0) SubAction.Add(App.GetString("/Dialogs/AuditLogMaxUseUnlimited"));
+                            else SubAction.Add(App.GetString("/Dialogs/AuditLogMaxUseLimited").Replace("<count>", uses.ToString().Bold()));
+                        }
+                        break;
+                    }
+                    case "code":
+                        if(change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogInviteCode").Replace("<code>", change.NewValue.ToString().Bold()));
+                        break;
+                    case "temporary":
+                        if (((bool)change.NewValue)) SubAction.Add(App.GetString("/Dialogs/AuditLogInviteTemporaryTrue"));
+                        else SubAction.Add(App.GetString("/Dialogs/AuditLogInviteTemporaryFalse"));
+                        break;
+                    case "channel_id":
+                        if(change.NewValue != null) App.GetString("/Dialogs/AuditLogInviteChannel").ReplaceChannel(guildId, change.NewValue.ToString());
+                        break;
+                    case "owner_id":
+                    {
+                        if (change.OldValue != null && change.NewValue != null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogServerUpdateOwnerChange")
+                                .TryReplace("<new>", "<@"+change.NewValue+">")
+                                .TryReplace("<old>", "<@" + change.OldValue + ">"));
+                            break;
+                    }
+                    case "deny": break;
+                    case "allow": break;
+                    case "uses": break;
+                    case "inviter_id": break;
+                    default:
+                    {
+                        string changeStr = "**`null`**";
+                        string newValue = "**`null`**";
+                        if (change.NewValue != null) newValue = "**`" + change.NewValue.ToString() + "`**";
+                        if (change.Key != null) changeStr = "**`" + change.Key + "`**";
+                        if (change.OldValue == null)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogUnknownSubaction")
+                                .TryReplace("<value>", newValue)
+                                .TryReplace("<change>", changeStr));
+                        else
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogUnknownSubactionChange")
+                                .TryReplace("<change>", changeStr)
+                                .TryReplace("<new>", "**`" + change.NewValue + "`**")
+                                .TryReplace("<old>", "**`" + change.OldValue + "`**"));
+                        break;
+                        }
                 }
             }
         }
@@ -206,21 +352,21 @@ namespace Discord_UWP.SubPages
                 {
                     case AuditLogActionType.ChannelCreate:
                     {
-                        Glyph = "";
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Glyph = "";
                         Color = "online";
                         Text = App.GetString("/Dialogs/AuditLogChannelCreate").ReplaceChannel(guildId, targetid);
-                        SubactionFromChanges(changes, ref SubAction);
                         break;
                     }
                     case AuditLogActionType.ChannelUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
                             Text = App.GetString("/Dialogs/AuditLogChannelUpdateValid").ReplaceChannel(guildId, targetid);
                         else
                             Text = App.GetString("/Dialogs/AuditLogChannelUpdateInvalid").TryReplace("<channelid>", targetid);
-                            SubactionFromChanges(changes, ref SubAction);
                             break;
                     }
                     case AuditLogActionType.ChannelDelete:
@@ -234,29 +380,30 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionCreateValid").ReplaceChannel(guildId, targetid);
                         else
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionCreateInvalid");
-                        SubactionFromPermissions(changes, ref SubAction, options, users, guildId);
                         break;
                     }
                     case AuditLogActionType.ChannelOverwriteUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionUpdateValid").ReplaceChannel(guildId, targetid);
                         else
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionUpdateInvalid");
-                        SubactionFromPermissions(changes, ref SubAction, options, users, guildId);
                             break;
                         }
                     case AuditLogActionType.ChannelOverwriteDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].channels.ContainsKey(targetid))
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionRemoveValid").ReplaceChannel(guildId, targetid);
                             else
                             Text = App.GetString("/Dialogs/AuditLogChannelPermissionRemoveInvalid");
@@ -266,14 +413,16 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = App.GetString("/Dialogs/AuditLogEmojiCreate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogEmojiCreate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
                         break;
                     }
                     case AuditLogActionType.EmojiUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogEmojiUpdate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogEmojiUpdate").TryReplace("<emojiname>", GetValue(changes, "name", ValueType.NewValue)?.ToString());
                         break;
                     }
                     case AuditLogActionType.EmojiDelete:
@@ -287,22 +436,24 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogGuildUpdate");
-                        SubactionFromChanges(changes, ref SubAction);
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogGuildUpdate");
                             break;
                     }
                     case AuditLogActionType.InviteCreate:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = App.GetString("/Dialogs/AuditLogInviteCreate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogInviteCreate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.InviteUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogInviteUpdate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogInviteUpdate").TryReplace("<code>", GetValue(changes, "code", ValueType.NewValue)?.ToString().Bold());
                         break;
                     }
                     case AuditLogActionType.InviteDelete:
@@ -316,49 +467,56 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = App.GetString("/Dialogs/AuditLogMemberBanAdd").TryReplace("<banneduser>", "<@"+targetid+">");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberBanAdd").TryReplace("<banneduser>", "<@"+targetid+">");
                         break;
                     }
                     case AuditLogActionType.MemberBanRemove:
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = App.GetString("/Dialogs/AuditLogMemberBanRemove").TryReplace("<banneduser>", "<@"+targetid+">");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberBanRemove").TryReplace("<banneduser>", "<@"+targetid+">");
                         break;
                     }
                     case AuditLogActionType.MemberKick:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogMemberKick").TryReplace("<kickeduser>", "<@" + targetid + ">");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberKick").TryReplace("<kickeduser>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MemberPrune:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        Text = App.GetString("/Dialogs/AuditLogMemberPrune");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberPrune");
                         break;
                     }
                     case AuditLogActionType.MemberRoleUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogMemberRoleUpdate").TryReplace("<user2>", "<@" + targetid + ">");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberRoleUpdate").TryReplace("<user2>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MemberUpdate:
                     {
                         Glyph = "";
                         Color = "idle";
-                        Text = App.GetString("/Dialogs/AuditLogMemberUpdate").TryReplace("<user2>", "<@" + targetid + ">");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogMemberUpdate").TryReplace("<user2>", "<@" + targetid + ">");
                         break;
                     }
                     case AuditLogActionType.MessageDelete:
                     {
                         Glyph = "";
                         Color = "dnd";
-                        if(!options.Count.HasValue || options.Count == 1)
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (!options.Count.HasValue || options.Count == 1)
                             Text = App.GetString("/Dialogs/AuditLogMessageDelete").TryReplace("<user2>", "<@" + targetid + ">").ReplaceChannel(guildId, options.ChannelId);
                         else
                             Text = App.GetString("/Dialogs/AuditLogMessageDeletePlural").TryReplace("<user2>", "<@" + targetid + ">").ReplaceChannel(guildId, options.ChannelId).TryReplace("<x>", options.Count.ToString().Bold());
@@ -369,7 +527,8 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "online";
                         string rolename = "";
-                        if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
                             rolename = "<@&" + targetid + ">";
                         else
                         {
@@ -385,7 +544,8 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "idle";
                         string rolename = "";
-                        if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            if (LocalState.Guilds[guildId].roles.ContainsKey(targetid))
                             rolename = "<@&" + targetid + ">";
                         else
                         {
@@ -407,7 +567,8 @@ namespace Discord_UWP.SubPages
                     {
                         Glyph = "";
                         Color = "online";
-                        Text = App.GetString("/Dialogs/AuditLogWebhookCreate").TryReplace("<webhook>", GetValue(changes, "name", ValueType.NewValue)?.ToString().Bold());
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogWebhookCreate").TryReplace("<webhook>", GetValue(changes, "name", ValueType.NewValue)?.ToString().Bold());
                             break;
                         }
                     case AuditLogActionType.WebhookUpdate:
@@ -415,7 +576,8 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "idle";
                         var webhookname = "";
-                        foreach (var webhook in webhooks)
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            foreach (var webhook in webhooks)
                         {
                             if (webhook.Key == targetid)
                             {
@@ -435,7 +597,8 @@ namespace Discord_UWP.SubPages
                     default:
                     {
                         Glyph = "";
-                        Text = App.GetString("/Dialogs/AuditLogUnknown");
+                        SubactionFromChanges(changes, ref SubAction, options, users, guildId);
+                            Text = App.GetString("/Dialogs/AuditLogUnknown");
                             break;
                     }
                 }
