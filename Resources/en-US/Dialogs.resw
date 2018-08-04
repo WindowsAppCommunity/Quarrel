@@ -756,6 +756,24 @@
   <data name="AuditLogChannelDeletePlural" xml:space="preserve">
     <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
   </data>
+  <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
+    <value>Channel topic removed</value>
+  </data>
+  <data name="AuditLogMemberUpdateNick" xml:space="preserve">
+    <value>Set nickname to &lt;nick&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
+    <value>Changed nickname from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
+    <value>Removed nickname &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
+    <value>Added role &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
+    <value>Removed role &lt;role&gt;</value>
+  </data>
   <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
     <value>Explicit content filter set to &lt;level&gt;</value>
   </data>
@@ -780,6 +798,12 @@
   <data name="AuditLogServerUpdateSplash" xml:space="preserve">
     <value>Splash screen modified</value>
   </data>
+  <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
+    <value>Vanity URL set to &lt;url&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
+    <value>Vanity URL changed from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
   <data name="AuditLogServerUpdateVerification" xml:space="preserve">
     <value>Verification level set to &lt;level&gt;</value>
   </data>
@@ -800,17 +824,5 @@
   </data>
   <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
     <value>unrestricted</value>
-  </data>
-  <data name="LeaveGroup" xml:space="preserve">
-    <value>Are you sure leave &lt;group&gt;?</value>
-  </data>
-  <data name="RemoveFromGroup" xml:space="preserve">
-    <value>Are you sure you want to remove &lt;user&gt; from &lt;group&gt;?</value>
-  </data>
-  <data name="Leave" xml:space="preserve">
-    <value>Leave</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
   </data>
 </root>
