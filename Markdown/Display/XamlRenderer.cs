@@ -1181,6 +1181,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                  
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
+                link.FontSize = FontSize;
                 if(_halfopacity) link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlinkBold"];
                 else link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
                 link.IsEnabled = enabled;

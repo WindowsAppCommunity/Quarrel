@@ -25,6 +25,9 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+        <Style x:Name="StretchContent" TargetType="ContentPresenter">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
     </Page.Resources>
     <Page.RenderTransform>
         <ScaleTransform x:Name="scale"/>
@@ -90,7 +93,7 @@
                     <TextBlock x:Name="header" Grid.Row="0" Text="AUDIT LOG" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
                     <ProgressRing x:Name="LoadingRing" IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource Blurple}"/>
                     <ScrollViewer Grid.Row="1" Margin="0,0,-24,0">
-                        <ItemsControl x:Name="LogItems" Margin="-12,0,12,24">
+                        <ItemsControl x:Name="LogItems" Margin="-12,0,12,24" ItemContainerStyle="{StaticResource StretchContent}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -108,10 +111,10 @@
                                         <StackPanel Grid.Column="2">
                                             <markdownTextBlock:MarkdownTextBlock Users="{Binding Users}" Margin="0,12,0,0"  Text="{Binding Text}" HalfOpacityMode="True"/>
                                             <TextBlock FontSize="11" Opacity="0.4" Text="{Binding Time}"/>
-                                            <ItemsControl ItemsSource="{Binding Subactions}" Margin="0,6,0,0">
+                                            <ItemsControl ItemsSource="{Binding Subactions}" Margin="0,6,0,0" ItemContainerStyle="{StaticResource StretchContent}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <VariableSizedWrapGrid/>
+                                                        <StackPanel/>
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
