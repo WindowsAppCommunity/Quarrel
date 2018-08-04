@@ -89,7 +89,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(119, 119))
+            switch (rand.Next(0, 119))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
