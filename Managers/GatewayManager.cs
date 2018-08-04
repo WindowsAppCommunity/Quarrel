@@ -350,7 +350,7 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region Message
-        private static async void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             if (App.CurrentGuildIsDM)
             {
