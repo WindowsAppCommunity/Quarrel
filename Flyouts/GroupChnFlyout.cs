@@ -141,7 +141,13 @@ namespace Discord_UWP.Flyouts
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Tag = new Tuple<string, string>(dm.Id, LocalState.CurrentUser.Id)
             };
-            leaveDm.Click += FlyoutManager.RemoveGroupUser;
+            if (dm.OwnerId == LocalState.CurrentUser.Id)
+            {
+                leaveDm.Click += FlyoutManager.RemoveGroupUser;
+            } else
+            {
+                leaveDm.Click += FlyoutManager.DeleteLeaveUnownedChannel;
+            }
             menu.Items.Add(leaveDm);
 
             return menu;

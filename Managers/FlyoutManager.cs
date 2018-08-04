@@ -262,6 +262,12 @@ namespace Discord_UWP.Managers
             await RESTCalls.ModifyGuildMember(App.CurrentGuildId, ((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2, modify);
         }
 
+        public static async void DeleteLeaveUnownedChannel(object sender, RoutedEventArgs e)
+        {
+            var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
+            await RESTCalls.DeleteChannel(senderTag.Item1);
+        }
+
         public static async void RemoveGroupUser(object sender, RoutedEventArgs e)
         {
             var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
