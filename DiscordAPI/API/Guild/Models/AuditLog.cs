@@ -121,6 +121,12 @@ namespace DiscordAPI.API.Guild.Models
 
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public string Id { get; set; }
+
+        [JsonProperty("delete_member_days", NullValueHandling = NullValueHandling.Ignore)]
+        public string DeleteMemberDays { get; set; }
+
+        [JsonProperty("members_removed", NullValueHandling = NullValueHandling.Ignore)]
+        public string MembersRemoved { get; set; }
     }
 
     public partial class AuditLogUser

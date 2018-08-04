@@ -697,12 +697,108 @@
     <value>&lt;user&gt; updated permissions for a now deleted channel.</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
-    <value>&lt;user&gt;updated the permissions for the channel &lt;channel&gt;</value>
+    <value>&lt;user&gt; updated the permissions for the channel &lt;channel&gt;</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
     <value>&lt;user&gt; updated &lt;user2&gt;</value>
   </data>
   <data name="AuditLogInviteDelete" xml:space="preserve">
     <value>&lt;user&gt; deleted the invite &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
+    <value>Bitrate defined as &lt;bitrate&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
+    <value>Changed bitrate from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateName" xml:space="preserve">
+    <value>Name set to &lt;name&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
+    <value>Made channel **SFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
+    <value>Made channel **NSFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
+    <value>Topic defined as &lt;subject&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
+    <value>Changed topic from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogPermissionGiven" xml:space="preserve">
+    <value>**Gave** permission &lt;permission&gt; to &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogPermissionRevoked" xml:space="preserve">
+    <value>**Revoked** permission &lt;permission&gt; from &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>AFK Channel set to &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
+    <value>Maximum AFK duration set to &lt;time&gt; **minutes**</value>
+  </data>
+  <data name="AuditLogServerUpdateIcon" xml:space="preserve">
+    <value>Server icon modified</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
+    <value>Default notification option set to **all messages**</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
+    <value>Default notification settings set to **mentions only**</value>
+  </data>
+  <data name="AuditLogServerUpdateRegion" xml:space="preserve">
+    <value>Region set to &lt;region&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
+    <value>Changed region from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
+    <value>Explicit content filter set to &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
+    <value>Explicit content filter changed from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
+    <value>members without roles</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
+    <value>everyone</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
+    <value>disabled</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
+    <value>Two-factor authentication **disabled**</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
+    <value>Two-factor authentication **enabled**</value>
+  </data>
+  <data name="AuditLogServerUpdateSplash" xml:space="preserve">
+    <value>Splash screen modified</value>
+  </data>
+  <data name="AuditLogServerUpdateVerification" xml:space="preserve">
+    <value>Verification level set to &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
+    <value>Verification level changed from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
+    <value>very high</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
+    <value>low</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
+    <value>medium</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
+    <value>unrestricted</value>
   </data>
 </root>
