@@ -1417,7 +1417,9 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
+                            <Button x:Name="CineGuildNameBTN" Click="ServerNameButton_Click" Visibility="Collapsed" VerticalAlignment="Top" Margin="20,48,0,0">
+                                <TextBlock x:Name="CinematicGuildName" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" />
+                            </Button>
                             <Grid x:Name="AcceptCallUI" Grid.Row="1" Visibility="Collapsed" Background="{ThemeResource AcrylicUserBackground}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
