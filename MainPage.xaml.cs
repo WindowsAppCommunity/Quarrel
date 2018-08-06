@@ -344,6 +344,7 @@ namespace Discord_UWP
             App.NavigateToCreateBanHandler += App_NavigateToCreateBanHandler;
             App.NavigateToCreateServerHandler += App_NavigateToCreateServerHandler;
             App.NavigateToDeleteChannelHandler += App_NavigateToDeleteChannelHandler;
+            App.NavigateToRemoveGroupUserHandler += App_NavigateToRemoveGroupUserHandler;
             App.NavigateToDeleteServerHandler += App_NavigateToDeleteServerHandler;
             App.NavigateToGuildEditHandler += App_NavigateToGuildEditHandler;
             App.NavigateToJoinServerHandler += App_NavigateToJoinServerHandler;
@@ -1384,15 +1385,31 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = App.CurrentGuildIsDM
-                ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
+                ? (LocalState.DMs[e.ChannelId].Type == 1 ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?" : App.GetString("/Dialogs/LeaveGroup").Replace("<group>", LocalState.DMs[e.ChannelId].Name))
                 : App.GetString("/Dialogs/VerifyDelete") + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?",
                 SubMessage = "",
                 StartText = "",
                 PlaceHolderText = null,
-                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                ConfirmMessage = App.GetString("/Dialogs/Leave"),
                 ConfirmRed = true,
                 args = e.ChannelId,
                 function = RESTCalls.DeleteChannel
+            });
+        }
+        private void App_NavigateToRemoveGroupUserHandler(object sender, App.RemoveGroupUserNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = e.UserId == LocalState.CurrentUser.Id
+                ? App.GetString("/Dialogs/LeaveGroup").Replace("<group>", LocalState.DMs[e.ChannelId].Name)
+                : App.GetString("/Dialogs/RemoveFromGroup").Replace("<user>", LocalState.DMs[e.ChannelId].Users.FirstOrDefault(x => x.Id == e.UserId).Username).Replace("<group>", LocalState.DMs[e.ChannelId].Name),
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmMessage = e.UserId == LocalState.CurrentUser.Id ? App.GetString("/Dialogs/Leave") : App.GetString("/Dialogs/Remove"),
+                ConfirmRed = true,
+                args = new Tuple<string, string> (e.ChannelId, e.UserId),
+                function = RESTCalls.RemoveGroupUser
             });
         }
         private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)

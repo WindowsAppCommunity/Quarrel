@@ -16,7 +16,12 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("type")]
         public int Type { get; set; }
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name == null ? NameFromUsers() : _name; }
+            set { _name = value; }
+        }
+        private string _name = null;
         [JsonProperty("owner_id")]
         public string OwnerId { get; set; }
         //[JsonProperty("Icon")]
@@ -26,6 +31,24 @@ namespace Discord_UWP.SharedModels
         public string LastMessageId { get; set; }
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        private string NameFromUsers()
+        {
+            string cache = "";
+            bool first = true;
+            foreach (var user in Users)
+            {
+                if (first)
+                {
+                    cache += user.Username;
+                    first = false;
+                } else
+                {
+                    cache += ", " + user.Username;
+                }
+            }
+            return cache;
+        }
 
         public void UpdateLMID(string id)
         {

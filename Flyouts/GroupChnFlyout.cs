@@ -146,7 +146,7 @@ namespace Discord_UWP.Flyouts
                 leaveDm.Click += FlyoutManager.RemoveGroupUser;
             } else
             {
-                leaveDm.Click += FlyoutManager.DeleteLeaveUnownedChannel;
+                leaveDm.Click += FlyoutManager.LeaveUnownedChannel;
             }
             menu.Items.Add(leaveDm);
 

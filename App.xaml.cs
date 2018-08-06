@@ -344,6 +344,20 @@ namespace Discord_UWP
         }
         #endregion
 
+        #region RemoveGroupUser
+        public class RemoveGroupUserNavigationArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string UserId { get; set; }
+        }
+
+        public static event EventHandler<RemoveGroupUserNavigationArgs> NavigateToRemoveGroupUserHandler;
+        public static void NavigateToRemoveGroupUser(string channelId, string userId)
+        {
+            NavigateToRemoveGroupUserHandler?.Invoke(typeof(App), new RemoveGroupUserNavigationArgs() { ChannelId = channelId, UserId = userId});
+        }
+        #endregion
+
         #region GuildEdit
         public class GuildEditNavigationArgs : EventArgs
         {
