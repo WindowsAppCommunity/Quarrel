@@ -825,4 +825,62 @@
   <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
     <value>unrestricted</value>
   </data>
+  <data name="AuditLogServerUpdateWidgetFalse" xml:space="preserve">
+    <value>Server widget **disabled**</value>
+  </data>
+  <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
+    <value>Server widget **enabled**
+</value>
+  </data>
+  <data name="AuditLogUnknownSubaction" xml:space="preserve">
+    <value>Set &lt;change&gt; property to &lt;value&gt;</value>
+  </data>
+  <data name="AuditLogUnknownSubactionChange" xml:space="preserve">
+    <value>Changed &lt;change&gt; from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogInviteChannel" xml:space="preserve">
+    <value>For the channel &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogInviteCode" xml:space="preserve">
+    <value>With the code &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAge" xml:space="preserve">
+    <value>Expires after &lt;time&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAgeForever" xml:space="preserve">
+    <value>**Never** expires</value>
+  </data>
+  <data name="AuditLogInviteTemporaryFalse" xml:space="preserve">
+    <value>Temporary membership **disabled**</value>
+  </data>
+  <data name="AuditLogInviteTemporaryTrue" xml:space="preserve">
+    <value>Temporary membership **enabled**</value>
+  </data>
+  <data name="AuditLogMaxUseLimited" xml:space="preserve">
+    <value>Maximum &lt;count&gt; uses </value>
+  </data>
+  <data name="AuditLogMaxUseUnlimited" xml:space="preserve">
+    <value>**Unlimited** uses</value>
+  </data>
+  <data name="AuditLogServerUpdateOwnerChange" xml:space="preserve">
+    <value>Owner changed from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlRemove" xml:space="preserve">
+    <value>Removed vanity URL &lt;old&gt;</value>
+  </data>
+  <data name="TimeDay" xml:space="preserve">
+    <value>one day</value>
+  </data>
+  <data name="TimeHour" xml:space="preserve">
+    <value>one hour</value>
+  </data>
+  <data name="TimeHours" xml:space="preserve">
+    <value>&lt;hourcount&gt; hours</value>
+  </data>
+  <data name="TimeMinutes" xml:space="preserve">
+    <value>&lt;minutecount&gt; minutes</value>
+  </data>
+  <data name="AuditLogMessageDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
 </root>
