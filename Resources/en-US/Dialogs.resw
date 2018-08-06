@@ -880,4 +880,7 @@
   <data name="TimeMinutes" xml:space="preserve">
     <value>&lt;minutecount&gt; minutes</value>
   </data>
+  <data name="AuditLogMessageDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
 </root>
