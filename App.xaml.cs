@@ -969,6 +969,7 @@ namespace Discord_UWP
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
         public static ResourceLoader ResDialogs = ResourceLoader.GetForCurrentView("Dialogs");
         public static ResourceLoader ResFlyouts = ResourceLoader.GetForCurrentView("Flyouts");
+        public static ResourceLoader ResPermissions = ResourceLoader.GetForCurrentView("Permissions");
         public static ResourceLoader ResMain = ResourceLoader.GetForCurrentView("Main");
         public static ResourceLoader ResSettings = ResourceLoader.GetForCurrentView("Settings");
         public static ResourceLoader ResTileTemplates = ResourceLoader.GetForCurrentView("TileTemplates");
@@ -991,6 +992,7 @@ namespace Discord_UWP
                 case "Flyouts": return ResFlyouts.GetString(str);
                 case "Main": return ResMain.GetString(str);
                 case "Settings": return ResSettings.GetString(str);
+                case "Permissions": return ResPermissions.GetString(str);
                 case "TileTemplates": return ResTileTemplates.GetString(str);
             }
             return "String";
