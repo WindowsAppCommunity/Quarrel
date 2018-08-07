@@ -883,4 +883,19 @@
   <data name="AuditLogMessageDeletePlural" xml:space="preserve">
     <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
   </data>
+  <data name="AuditLogRoleUpdateColor" xml:space="preserve">
+    <value>Set color to &lt;color&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorChange" xml:space="preserve">
+    <value>Changed color from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorRemove" xml:space="preserve">
+    <value>Removed role color &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
+    <value>Role not shown seperately in the member list</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
+    <value>Role shown seperately in the member list</value>
+  </data>
 </root>
