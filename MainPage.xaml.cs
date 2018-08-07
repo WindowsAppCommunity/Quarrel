@@ -102,12 +102,12 @@ namespace Discord_UWP
                            userButton.Height = 112;
                            //ServerList.Padding = new Thickness(0, 84, 0, 48);
                            //ChannelList.Padding = new Thickness(0, 84, 0, 48);
-                           ServerScrollviewer.Margin = new Thickness(0, 84, 0, 48);
+                           ServerScrollviewer.Margin = new Thickness(0, 42, 0, 48);
                            ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
                            MembersListView.Margin = new Thickness(0, 48, 0, 48);
 
                            CinematicChannelName.Visibility = Visibility.Visible;
-                           CinematicGuildName.Visibility = Visibility.Visible;
+                           CineGuildNameBTN.Visibility = Visibility.Visible;
                            ServerNameButton.Visibility = Visibility.Collapsed;
                            friendPanel.Margin = new Thickness(0, 84, 0, 0);
                            MessageList.Padding = new Thickness(0, 84, 0, 0);
@@ -1933,7 +1933,7 @@ namespace Discord_UWP
             ChannelLoading.Visibility = Visibility.Visible;
             if (App.CinematicMode)
             {
-                CinematicGuildName.Visibility = Visibility.Collapsed;
+                CineGuildNameBTN.Visibility = Visibility.Collapsed;
             } else
             {
                 ServerNameButton.Visibility = Visibility.Collapsed;
@@ -1997,7 +1997,7 @@ namespace Discord_UWP
             ChannelLoading.Visibility = Visibility.Visible;
             if (App.CinematicMode)
             {
-                CinematicGuildName.Visibility = Visibility.Visible;
+                CineGuildNameBTN.Visibility = Visibility.Visible;
             } else
             {
                 ServerNameButton.Visibility = Visibility.Visible;
