@@ -320,6 +320,24 @@ namespace Discord_UWP.SubPages
                                 .TryReplace("<old>", "<@" + change.OldValue + ">"));
                             break;
                     }
+                    case "color":
+                    {
+                        if ((change.NewValue == null || (Int64)change.NewValue == 0)&& change.OldValue != null && (Int64)change.OldValue != 0)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColorRemove")
+                                .TryReplace("<old>", "<@$QUARREL-color"+change.OldValue +">"));
+                        if ((change.OldValue == null || (Int64)change.OldValue == 0) && change.NewValue != null && (Int64)change.NewValue != 0)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColor")
+                                .TryReplace("<color>", "<@$QUARREL-color" + change.NewValue + ">"));
+                        else if (change.NewValue != null && (Int64)change.NewValue != 0 && change.OldValue != null && (Int64)change.OldValue != 0)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColorChange")
+                                .TryReplace("<new>", "<@$QUARREL-color" + change.NewValue + ">")
+                                .TryReplace("<old>", "<@$QUARREL-color" + change.OldValue + ">"));
+                        break;
+                    }
+                    case "hoist":
+                        if (((bool)change.NewValue)) SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateHoistTrue"));
+                        else SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateHoistFalse"));
+                        break;
                     case "deny": break;
                     case "allow": break;
                     case "uses": break;

@@ -6,39 +6,69 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.LocalModels
 {
+    public class PermissionDifference
+    {
+        public List<string> RemovedPermissions { get; set; }
+        public List<string> AddedPermissions { get; set; }
+    }
     public class Permissions
     {
-        public string GetFirstPermission()
+        public PermissionDifference GetDifference(Permissions oldPermissions)
         {
-            if (Administrator) return App.GetString("/Dialogs/AdministratorToggle.Header");
-            if (AddReactions) return App.GetString("/Dialogs/AddReactionsToggle.Header");
-            if (AttachFiles) return App.GetString("/Dialogs/AttachFilesToggle.Header");
-            if (BanMembers) return App.GetString("/Dialogs/BanMembersToggle.Header");
-            if (ChangeNickname) return App.GetString("/Dialogs/ChangeNickname.Header");
-            if (Connect) return App.GetString("/Dialogs/ConnectToggle.Header");
-            if (CreateInstantInvite) return App.GetString("/Dialogs/CreateInstantInviteToggle.Header");
-            if (DeafenMembers) return App.GetString("/Dialogs/DeafenMembersToggle.Header");
-            if (EmbedLinks) return App.GetString("/Dialogs/EmbedLinksToggle.Header");
-            if (KickMembers) return App.GetString("/Dialogs/KickMembersToggle.Header");
-            if (ManageChannels) return App.GetString("/Dialogs/ManageChannelsToggle.Header");
-            if (ManageEmojis) return App.GetString("/Dialogs/ManageEmojisToggle.Header");
-            if (ManageMessages) return App.GetString("/Dialogs/ManageMessagesToggle.Header");
-            if (ManageNicknames) return App.GetString("/Dialogs/ManageNicknamesToggle.Header");
-            if (ManageRoles) return App.GetString("/Dialogs/ManageRolesToggle.Header");
-            if (ManageWebhooks) return App.GetString("/Dialogs/ManageWebhooksToggle.Header");
-            if (ManangeGuild) return App.GetString("/Dialogs/ManageGuildToggle.Header");
-            if (MentionEveryone) return App.GetString("/Dialogs/MentionEveryoneToggle.Header");
-            if (MoveMembers) return App.GetString("/Dialogs/MoveMembersToggle.Header");
-            if (MuteMembers) return App.GetString("/Dialogs/MuteMembersToggle.Header");
-            if (ReadMessageHistory) return App.GetString("/Dialogs/ReadMessageHistoryToggle.Header");
-            if (ReadMessages) return App.GetString("/Dialogs/ReadMessagesToggle.Header");
-            if (SendMessages) return App.GetString("/Dialogs/SendMessagesToggle.Header");
-            if (SendTtsMessages) return App.GetString("/Dialogs/SendTTSMessagesToggle.Header");
-            if (Speak) return App.GetString("/Dialogs/SpeakToggle.Header");
-            if (UseExternalEmojis) return App.GetString("/Dialogs/UseExternalEmojisToggle.Header");
-            if (UseVad) return App.GetString("/Dialogs/UseVadToggle.Header");
-            if (ViewAuditLog) return App.GetString("/Dialogs/ViewAuditLogToggle.Header");
-            else return "<unknown permission>";
+            var oldperms = oldPermissions.GetPermissions();
+            var newperms = GetPermissions();
+            var diffFilter = new HashSet<string>(oldperms, EqualityComparer<string>.Default);
+            var removed = new List<string>();
+            foreach (var item in oldperms.Distinct())
+            {
+                if (diffFilter.Contains(item))
+                {
+                    diffFilter.Remove(item);
+                }
+                else
+                {
+                    removed.Add(item);
+                }
+            }
+            var added = diffFilter.ToList();
+            return new PermissionDifference()
+            {
+                AddedPermissions = added,
+                RemovedPermissions = removed
+            };
+        }
+        public List<string> GetPermissions()
+        {
+            var perms = new List<string>();
+            if (Administrator)        perms.Add(App.GetString("/Dialogs/AdministratorToggle.Header"));
+            if (AddReactions)         perms.Add(App.GetString("/Dialogs/AddReactionsToggle.Header"));
+            if (AttachFiles)          perms.Add(App.GetString("/Dialogs/AttachFilesToggle.Header"));
+            if (BanMembers)           perms.Add(App.GetString("/Dialogs/BanMembersToggle.Header"));
+            if (ChangeNickname)       perms.Add(App.GetString("/Dialogs/ChangeNickname.Header"));
+            if (Connect)              perms.Add(App.GetString("/Dialogs/ConnectToggle.Header"));
+            if (CreateInstantInvite)  perms.Add(App.GetString("/Dialogs/CreateInstantInviteToggle.Header"));
+            if (DeafenMembers)        perms.Add(App.GetString("/Dialogs/DeafenMembersToggle.Header"));
+            if (EmbedLinks)           perms.Add(App.GetString("/Dialogs/EmbedLinksToggle.Header"));
+            if (KickMembers)          perms.Add(App.GetString("/Dialogs/KickMembersToggle.Header"));
+            if (ManageChannels)       perms.Add(App.GetString("/Dialogs/ManageChannelsToggle.Header"));
+            if (ManageEmojis)         perms.Add(App.GetString("/Dialogs/ManageEmojisToggle.Header"));
+            if (ManageMessages)       perms.Add(App.GetString("/Dialogs/ManageMessagesToggle.Header"));
+            if (ManageNicknames)      perms.Add(App.GetString("/Dialogs/ManageNicknamesToggle.Header"));
+            if (ManageRoles)          perms.Add(App.GetString("/Dialogs/ManageRolesToggle.Header"));
+            if (ManageWebhooks)       perms.Add(App.GetString("/Dialogs/ManageWebhooksToggle.Header"));
+            if (ManangeGuild)         perms.Add(App.GetString("/Dialogs/ManageGuildToggle.Header"));
+            if (MentionEveryone)      perms.Add(App.GetString("/Dialogs/MentionEveryoneToggle.Header"));
+            if (MoveMembers)          perms.Add(App.GetString("/Dialogs/MoveMembersToggle.Header"));
+            if (MuteMembers)          perms.Add(App.GetString("/Dialogs/MuteMembersToggle.Header"));
+            if (ReadMessageHistory)   perms.Add(App.GetString("/Dialogs/ReadMessageHistoryToggle.Header"));
+            if (ReadMessages)         perms.Add(App.GetString("/Dialogs/ReadMessagesToggle.Header"));
+            if (SendMessages)         perms.Add(App.GetString("/Dialogs/SendMessagesToggle.Header"));
+            if (SendTtsMessages)      perms.Add(App.GetString("/Dialogs/SendTTSMessagesToggle.Header"));
+            if (Speak)                perms.Add(App.GetString("/Dialogs/SpeakToggle.Header"));
+            if (UseExternalEmojis)    perms.Add(App.GetString("/Dialogs/UseExternalEmojisToggle.Header"));
+            if (UseVad)               perms.Add(App.GetString("/Dialogs/UseVadToggle.Header"));
+            if (ViewAuditLog)         perms.Add(App.GetString("/Dialogs/ViewAuditLogToggle.Header"));
+            return perms;
         }
 
         public Permissions(int perms)
@@ -256,7 +286,11 @@ namespace Discord_UWP.LocalModels
             get { return Convert.ToBoolean(Perms & 0x40000000) || Administrator; }
             set { Perms = value ? Perms | 0x40000000 : Perms & ~0x40000000; }
         }
-
+        public bool PrioritySpeaking
+        {
+            get { return Convert.ToBoolean(Perms & 0x100) || Administrator; }
+            set { Perms = value ? Perms | 0x100 : Perms & ~0x100; }
+        }
         int Perms = 0;
 
         public static bool CanChangeNickname(string userId, string guildId)
