@@ -73,7 +73,7 @@ namespace DiscordAPI.API.Guild.Models
         EmojiCreate = 60,
         EmojiUpdate = 61,
         EmojiDelete = 62,
-        MessageDelete = 72,
+        MessageDelete = 72
     }
     public partial class Change
     {

@@ -727,10 +727,10 @@
     <value>Changed topic from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Gave** permission &lt;permission&gt; to &lt;role&gt;</value>
+    <value>**Gave** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>**Revoked** permission &lt;permission&gt; from &lt;role&gt;</value>
+    <value>**Revoked** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>AFK Channel set to &lt;channel&gt;</value>
@@ -882,5 +882,20 @@
   </data>
   <data name="AuditLogMessageDeletePlural" xml:space="preserve">
     <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColor" xml:space="preserve">
+    <value>Set color to &lt;color&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorChange" xml:space="preserve">
+    <value>Changed color from &lt;old&gt; to &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorRemove" xml:space="preserve">
+    <value>Removed role color &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
+    <value>Role not shown seperately in the member list</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
+    <value>Role shown seperately in the member list</value>
   </data>
 </root>
