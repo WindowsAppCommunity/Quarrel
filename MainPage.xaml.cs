@@ -1458,6 +1458,7 @@ namespace Discord_UWP
                 SubMessage = "",
                 StartText = member.Nick != null ? member.Nick : "",
                 ConfirmRed = false,
+                CanBeFancy = true,
                 PlaceHolderText = member.User.Username,
                 args = e.UserId == LocalState.CurrentUser.Id ? new List<object>() { App.CurrentGuildId } : new List<object>() { App.CurrentGuildId, e.UserId },
             };
