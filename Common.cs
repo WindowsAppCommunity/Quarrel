@@ -64,8 +64,22 @@ namespace Discord_UWP
             if (String.IsNullOrEmpty(id)) return new DateTimeOffset();
             return DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64((double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)));
         }
-
-    public static SolidColorBrush DiscriminatorColor(string desc)
+        public static string RemoveDiacritics(string input)
+        {
+            string stFormD = input.Normalize(NormalizationForm.FormD);
+            int len = stFormD.Length;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < len; i++)
+            {
+                System.Globalization.UnicodeCategory uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(stFormD[i]);
+                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(stFormD[i]);
+                }
+            }
+            return (sb.ToString().Normalize(NormalizationForm.FormC));
+        }
+        public static SolidColorBrush DiscriminatorColor(string desc)
         {
             switch (Convert.ToInt32(desc) % 5)
             {
