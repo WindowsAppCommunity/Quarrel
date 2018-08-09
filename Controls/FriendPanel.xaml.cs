@@ -227,23 +227,26 @@ namespace Discord_UWP.Controls
             }
             var gamenews = await RESTCalls.GetGameNews(relevantIds.ToArray());
             Dictionary<string, GameNews> heroNews = new Dictionary<string, GameNews>();
-            var gnCount = gamenews.Count();
-
-            foreach (var news in gamenews)
+            if (gamenews != null)
             {
-                //The GameNews list is ordered by game and then by timestamp, so the hero feed must be the last news of every game in the list
-                if (heroNews.ContainsKey(news.GameId))
-                    heroNews[news.GameId] = news;
-                else
-                    heroNews.Add(news.GameId,news);
-                if (!LocalState.GameNews.ContainsKey(news.GameId))
+                var gnCount = gamenews.Count();
+
+                foreach (var news in gamenews)
                 {
-                    LocalState.GameNews.Add(news.GameId, new List<GameNews>());
-                    LocalState.GameNews[news.GameId].Add(news);
-                }
-                else
-                {
-                    LocalState.GameNews[news.GameId].Add(news);
+                    //The GameNews list is ordered by game and then by timestamp, so the hero feed must be the last news of every game in the list
+                    if (heroNews.ContainsKey(news.GameId))
+                        heroNews[news.GameId] = news;
+                    else
+                        heroNews.Add(news.GameId, news);
+                    if (!LocalState.GameNews.ContainsKey(news.GameId))
+                    {
+                        LocalState.GameNews.Add(news.GameId, new List<GameNews>());
+                        LocalState.GameNews[news.GameId].Add(news);
+                    }
+                    else
+                    {
+                        LocalState.GameNews[news.GameId].Add(news);
+                    }
                 }
             }
 
