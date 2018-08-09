@@ -434,7 +434,10 @@ namespace Discord_UWP.Managers
                                                 guild.Value.channels[e.EventData.ChannelId].raw.Name,
                                                 e.EventData.Content, e.EventData.ChannelId, guild.Key);
                                         }
-
+                                        if (Storage.Settings.Badge)
+                                        {
+                                            // TODO: Update badge tile
+                                        }
                                     }
                                 }
                             }
