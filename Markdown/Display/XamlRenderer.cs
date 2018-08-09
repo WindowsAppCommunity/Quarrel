@@ -1107,7 +1107,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private void RenderHyperlink(InlineCollection inlineCollection, HyperlinkInline element, RenderContext context)
         {
 
-            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention)
+            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention || element.LinkType == HyperlinkType.QuarrelColor)
             {
                 var content = element.Text;
                 bool enabled = true;
@@ -1117,6 +1117,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordNickMention)
                     {
                         string mentionid = element.Text.Remove(0, (element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1));
+                        if(_users != null)
                         foreach (var user in _users)
                         {
                             if (user.Id == mentionid)
@@ -1172,6 +1173,33 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                             enabled = false;
                             content = "@deleted-role";
                         }
+                    }
+                    else if (element.LinkType == HyperlinkType.QuarrelColor)
+                    {
+                        string intcolor = element.Text.Replace("@$QUARREL-color", "");
+                        try
+                        {
+                            var color = Common.IntToColor(Int32.Parse(intcolor));
+                            inlineCollection.Add(new InlineUIContainer
+                            {
+                                Child = new Ellipse()
+                                {
+                                    Height = FontSize,
+                                    Width = FontSize,
+                                    Fill = color,
+                                    Margin = new Thickness(0, 0, 2, -2)
+                                }
+                            });
+                            inlineCollection.Add(new Run
+                            {
+                                FontWeight = FontWeights.SemiBold,
+                                Foreground = BoldForeground,
+                                Text = color.Color.ToString()
+                            });
+                            return;
+                        }
+                        catch
+                        { }
                     }
                 }
                 catch (Exception) { content = "<Invalid Mention>";}

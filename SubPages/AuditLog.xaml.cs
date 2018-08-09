@@ -117,7 +117,7 @@ namespace Discord_UWP.SubPages
             {
                 if (change.NewValue is int PermInt && PermInt != 0 && (change.Key == "deny" || change.Key == "allow"))
                 {
-                    string permission = "`" + new Permissions(PermInt).GetFirstPermission() + "`";
+                    string permission = "`" + string.Join(",",new Permissions(PermInt).GetPermissions() + "`");
                     string role = "";
                     if (options.Type == "member" && options.Id != null) role = "<@" + options.Id + ">";
                     else if(options.Type == "role")
@@ -320,10 +320,40 @@ namespace Discord_UWP.SubPages
                                 .TryReplace("<old>", "<@" + change.OldValue + ">"));
                             break;
                     }
+                    case "color":
+                    {
+                        if ((change.NewValue == null || (Int64)change.NewValue == 0)&& change.OldValue != null && (Int64)change.OldValue != 0)
+                            SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColorRemove")
+                                .TryReplace("<old>", "<@$QUARREL-color"+change.OldValue +">"));
+                        if ((change.OldValue == null || (Int64)change.OldValue == 0) && change.NewValue != null && (Int64)change.NewValue != 0)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColor")
+                                .TryReplace("<color>", "<@$QUARREL-color" + change.NewValue + ">"));
+                        else if (change.NewValue != null && (Int64)change.NewValue != 0 && change.OldValue != null && (Int64)change.OldValue != 0)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateColorChange")
+                                .TryReplace("<new>", "<@$QUARREL-color" + change.NewValue + ">")
+                                .TryReplace("<old>", "<@$QUARREL-color" + change.OldValue + ">"));
+                        break;
+                    }
+                    case "hoist":
+                        if (((bool)change.NewValue)) SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateHoistTrue"));
+                        else SubAction.Add(App.GetString("/Dialogs/AuditLogRoleUpdateHoistFalse"));
+                        break;
                     case "deny": break;
                     case "allow": break;
                     case "uses": break;
                     case "inviter_id": break;
+                    case "permissions":
+                    {
+                        if (change.NewValue is Int64 newPerms && change.OldValue is Int64 oldPerms)
+                        {
+                            var diffs = new Permissions(Convert.ToInt32(newPerms)).GetDifference(new Permissions(Convert.ToInt32(oldPerms)));
+                            foreach (var diff in diffs.AddedPermissions)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogPermissionGiven").TryReplace("<permission>", "`"+diff+"`"));
+                            foreach (var diff in diffs.RemovedPermissions)
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogPermissionRevoked").TryReplace("<permission>", "`"+diff+"`"));
+                            }
+                        break;
+                    }
                     default:
                     {
                         string changeStr = "**`null`**";
