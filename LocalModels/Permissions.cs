@@ -6,8 +6,60 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.LocalModels
 {
+    public class PermissionDifference
+    {
+        public IEnumerable<string> RemovedPermissions { get; set; }
+        public IEnumerable<string> AddedPermissions { get; set; }
+    }
     public class Permissions
     {
+        public PermissionDifference GetDifference(Permissions oldPermissions)
+        {
+            var oldperms = oldPermissions.GetPermissions();
+            var newperms = GetPermissions();
+            var added = oldperms.Except(newperms);
+            var removed = newperms.Except(oldperms);
+            return new PermissionDifference()
+            {
+                AddedPermissions = added,
+                RemovedPermissions = removed
+            };
+        }
+        public List<string> GetPermissions()
+        {
+            var perms = new List<string>();
+            if (Administrator)        perms.Add(App.GetString("/Permissions/ADMINISTRATOR"));
+            if (AddReactions)         perms.Add(App.GetString("/Permissions/ADD_REACTIONS"));
+            if (AttachFiles)          perms.Add(App.GetString("/Permissions/ATTACH_FILES"));
+            if (BanMembers)           perms.Add(App.GetString("/Permissions/BAN_MEMBERS"));
+            if (ChangeNickname)       perms.Add(App.GetString("/Permissions/CHANGE_NICKNAME"));
+            if (Connect)              perms.Add(App.GetString("/Permissions/CONNECT"));
+            if (CreateInstantInvite)  perms.Add(App.GetString("/Permissions/CREATE_INSTANT_INVITE"));
+            if (DeafenMembers)        perms.Add(App.GetString("/Permissions/DEAFEN_MEMBERS"));
+            if (EmbedLinks)           perms.Add(App.GetString("/Permissions/EMBED_LINKS"));
+            if (KickMembers)          perms.Add(App.GetString("/Permissions/KICK_MEMBERS"));
+            if (ManageChannels)       perms.Add(App.GetString("/Permissions/MANAGE_CHANNELS"));
+            if (ManageEmojis)         perms.Add(App.GetString("/Permissions/MANAGE_EMOJIS"));
+            if (ManageMessages)       perms.Add(App.GetString("/Permissions/MANAGE_MESSAGES"));
+            if (ManageNicknames)      perms.Add(App.GetString("/Permissions/MANAGE_NICKNAMES"));
+            if (ManageRoles)          perms.Add(App.GetString("/Permissions/MANAGE_ROLES"));
+            if (ManageWebhooks)       perms.Add(App.GetString("/Permissions/MANAGE_WEBHOOKS"));
+            if (ManangeGuild)         perms.Add(App.GetString("/Permissions/MANAGE_GUILD"));
+            if (MentionEveryone)      perms.Add(App.GetString("/Permissions/MENTION_EVERYONE"));
+            if (MoveMembers)          perms.Add(App.GetString("/Permissions/MOVE_MEMBERS"));
+            if (MuteMembers)          perms.Add(App.GetString("/Permissions/MUTE_MEMBERS"));
+            if (ReadMessageHistory)   perms.Add(App.GetString("/Permissions/READ_MESSAGE_HISTORY"));
+            if (ReadMessages)         perms.Add(App.GetString("/Permissions/READ_MESSAGES"));
+            if (SendMessages)         perms.Add(App.GetString("/Permissions/SEND_MESSAGES"));
+            if (SendTtsMessages)      perms.Add(App.GetString("/Permissions/SEND_TTS_MESSAGES"));
+            if (Speak)                perms.Add(App.GetString("/Permissions/SPEAK"));
+            if (UseExternalEmojis)    perms.Add(App.GetString("/Permissions/USE_EXTERNAL_EMOJIS"));
+            if (UseVad)               perms.Add(App.GetString("/Permissions/USE_VAD"));
+            if (ViewAuditLog)         perms.Add(App.GetString("/Permissions/VIEW_AUDIT_LOGS"));
+            if (PrioritySpeaker)      perms.Add(App.GetString("/Permissions/PRIORITY_SPEAKER"));
+            return perms;
+        }
+
         public Permissions(int perms)
         {
             Perms = perms;
@@ -21,9 +73,13 @@ namespace Discord_UWP.LocalModels
             }
 
             Perms = 0;
-            foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
+            if (LocalState.Guilds[guildId].members.ContainsKey(userId))
             {
-                AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
+                foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
+                {
+                    AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
+                }
+
             }
 
             if (channelId != "" && LocalState.Guilds[guildId].channels.ContainsKey(channelId))
@@ -219,7 +275,11 @@ namespace Discord_UWP.LocalModels
             get { return Convert.ToBoolean(Perms & 0x40000000) || Administrator; }
             set { Perms = value ? Perms | 0x40000000 : Perms & ~0x40000000; }
         }
-
+        public bool PrioritySpeaker
+        {
+            get { return Convert.ToBoolean(Perms & 0x100) || Administrator; }
+            set { Perms = value ? Perms | 0x100 : Perms & ~0x100; }
+        }
         int Perms = 0;
 
         public static bool CanChangeNickname(string userId, string guildId)

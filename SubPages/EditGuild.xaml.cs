@@ -28,6 +28,7 @@ using Discord_UWP.Managers;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Graphics.Imaging;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -55,67 +56,100 @@ namespace Discord_UWP.SubPages
 
         private async void SaveGuildSettings(object sender, RoutedEventArgs e)
         {
+
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
             saveBTNprog.Visibility = Visibility.Visible;
-            API.Guild.Models.ModifyGuild modifyguild;
-            if (string.IsNullOrEmpty(base64img))
-                modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
-            else
-                modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
-            if (DeletedImage)
-                modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
-            await Task.Run(async () =>
+            try
             {
-                await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
-            });
+                API.Guild.Models.ModifyGuild modifyguild;
+                if (string.IsNullOrEmpty(base64img))
+                    modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                else
+                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                if (DeletedImage)
+                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                await Task.Run(async () =>
+                {
+                    await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
+                });
 
-            CloseButton_Click(null, null);
+                CloseButton_Click(null, null);
+            }
+            catch (Exception)
+            {
+                MessageDialog md = new MessageDialog("Something went wrong, and we weren't able to delete the invite.",
+                    "Sorry :/");
+                saveBTNtext.Opacity = 1;
+                SaveButton.IsEnabled = true;
+                saveBTNprog.Visibility = Visibility.Collapsed;
+            }
+
+
         }
 
         private void SaveRoleSettings()
         {
-            if (!loadingRoles)
+            try
             {
-                Permissions perms = new Permissions(LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Permissions);
-                perms.Administrator = Administrator.IsOn;
-                perms.ViewAuditLog = ViewAuditLog.IsOn;
-                perms.ManangeGuild = ManageServer.IsOn;
-                perms.ManageRoles = ManageRoles.IsOn;
-                perms.ManageChannels = ManageChannels.IsOn;
-                perms.KickMembers = KickMembers.IsOn;
-                perms.BanMembers = BanMembers.IsOn;
-                perms.CreateInstantInvite = CreateInstantInvite.IsOn;
-                perms.ChangeNickname = ChangeNickname.IsOn;
-                perms.ManageNicknames = ManageNicknames.IsOn;
-                perms.ManageEmojis = ManageEmojis.IsOn;
-                perms.ManageWebhooks = ManageWebhooks.IsOn;
-
-                perms.ReadMessages = ReadMessages.IsOn;
-                perms.SendMessages = SendMessages.IsOn;
-                perms.SendTtsMessages = SendTtsMessages.IsOn;
-                perms.ManageMessages = ManageMessages.IsOn;
-                perms.EmbedLinks = EmbedLinks.IsOn;
-                perms.AttachFiles = AttachFiles.IsOn;
-                perms.ReadMessageHistory = ReadMessageHistory.IsOn;
-                perms.MentionEveryone = MentionEveryone.IsOn;
-                perms.UseExternalEmojis = UseExternalEmojis.IsOn;
-                perms.AddReactions = AddReactions.IsOn;
-
-                perms.Connect = ConnectPerm.IsOn;
-                perms.Speak = Speak.IsOn;
-                perms.MuteMembers = MuteMembers.IsOn;
-                perms.DeafenMembers = DeafenMembers.IsOn;
-                perms.MoveMembers = MoveMembers.IsOn;
-                perms.UseVad = UseVad.IsOn;
-                string roleId = (RolesView.SelectedItem as SimpleRole).Id;
-                Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole = new Discord_UWP.API.Guild.Models.ModifyGuildRole() { Name = RoleName.Text, Color = LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Color, Hoist = Hoist.IsOn, Permissions = perms.GetPermInt(), Position = LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Position };
-
-                Task.Run(async () =>
+                if (!loadingRoles)
                 {
-                    await RESTCalls.ModifyGuildRole(guildId, roleId, modifyguildrole); //TODO: Rig to App.Events
-                });
+                    Permissions perms = new Permissions(LocalState.Guilds[guildId]
+                        .roles[(RolesView.SelectedItem as SimpleRole).Id].Permissions);
+                    perms.Administrator = Administrator.IsOn;
+                    perms.ViewAuditLog = ViewAuditLog.IsOn;
+                    perms.ManangeGuild = ManageServer.IsOn;
+                    perms.ManageRoles = ManageRoles.IsOn;
+                    perms.ManageChannels = ManageChannels.IsOn;
+                    perms.KickMembers = KickMembers.IsOn;
+                    perms.BanMembers = BanMembers.IsOn;
+                    perms.CreateInstantInvite = CreateInstantInvite.IsOn;
+                    perms.ChangeNickname = ChangeNickname.IsOn;
+                    perms.ManageNicknames = ManageNicknames.IsOn;
+                    perms.ManageEmojis = ManageEmojis.IsOn;
+                    perms.ManageWebhooks = ManageWebhooks.IsOn;
+
+                    perms.ReadMessages = ReadMessages.IsOn;
+                    perms.SendMessages = SendMessages.IsOn;
+                    perms.SendTtsMessages = SendTtsMessages.IsOn;
+                    perms.ManageMessages = ManageMessages.IsOn;
+                    perms.EmbedLinks = EmbedLinks.IsOn;
+                    perms.AttachFiles = AttachFiles.IsOn;
+                    perms.ReadMessageHistory = ReadMessageHistory.IsOn;
+                    perms.MentionEveryone = MentionEveryone.IsOn;
+                    perms.UseExternalEmojis = UseExternalEmojis.IsOn;
+                    perms.AddReactions = AddReactions.IsOn;
+
+                    perms.Connect = ConnectPerm.IsOn;
+                    perms.Speak = Speak.IsOn;
+                    perms.MuteMembers = MuteMembers.IsOn;
+                    perms.DeafenMembers = DeafenMembers.IsOn;
+                    perms.MoveMembers = MoveMembers.IsOn;
+                    perms.UseVad = UseVad.IsOn;
+                    string roleId = (RolesView.SelectedItem as SimpleRole).Id;
+                    Discord_UWP.API.Guild.Models.ModifyGuildRole modifyguildrole =
+                        new Discord_UWP.API.Guild.Models.ModifyGuildRole()
+                        {
+                            Name = RoleName.Text,
+                            Color = LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id].Color,
+                            Hoist = Hoist.IsOn,
+                            Permissions = perms.GetPermInt(),
+                            Position = LocalState.Guilds[guildId].roles[(RolesView.SelectedItem as SimpleRole).Id]
+                                .Position
+                        };
+
+                    Task.Run(async () =>
+                    {
+                        await RESTCalls.ModifyGuildRole(guildId, roleId, modifyguildrole); //TODO: Rig to App.Events
+                    });
+                }
             }
+            catch (Exception)
+            {
+                MessageDialog md = new MessageDialog("Something went wrong, and we weren't able to modify the role.",
+                    "Sorry :/");
+            }
+
         }
 
         string initialiconURL = null;
@@ -336,8 +370,16 @@ namespace Discord_UWP.SubPages
         private async void InviteControl_OnDeleteInvite(object sender, EventArgs e)
         {
             string code = ((Invite)sender).String;
-            await RESTCalls.DeleteInvite(code); //TODO: Rig to App.Events
-            InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite)x).String == code));
+            try
+            {
+                await RESTCalls.DeleteInvite(code); //TODO: Rig to App.Events
+                InviteView.Items.Remove(InviteView.Items.FirstOrDefault(x => ((Invite) x).String == code));
+            }
+            catch (Exception)
+            {
+                MessageDialog md = new MessageDialog("Something went wrong, and we weren't able to delete the invite.",
+                    "Sorry :/");
+            }
         }
 
         private void RolesView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -522,6 +564,11 @@ namespace Discord_UWP.SubPages
                 GuildIcon.ImageSource = null;
                 deleteImage.Content = App.GetString("/Dialogs/CancelIconMod");
             }
+        }
+
+        private void NavigateToAudit_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SubPages.AuditLog), guildId);
         }
     }
 }

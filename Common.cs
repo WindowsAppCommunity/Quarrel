@@ -58,15 +58,28 @@ namespace Discord_UWP
                 return (SolidColorBrush)App.Current.Resources["Foreground"];
             }
         }
-
-        public static double SnowflakeToTime(string id)
+        public static DateTimeOffset SnowflakeToTime(string id)
         {
             //returns unix time in ms
-            if (String.IsNullOrEmpty(id)) return 0;
-            return (double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)/10;
+            if (String.IsNullOrEmpty(id)) return new DateTimeOffset();
+            return DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64((double)((Convert.ToInt64(id) / (4194304)) + 1420070400000)));
         }
-
-    public static SolidColorBrush DiscriminatorColor(string desc)
+        public static string RemoveDiacritics(string input)
+        {
+            string stFormD = input.Normalize(NormalizationForm.FormD);
+            int len = stFormD.Length;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < len; i++)
+            {
+                System.Globalization.UnicodeCategory uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(stFormD[i]);
+                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(stFormD[i]);
+                }
+            }
+            return (sb.ToString().Normalize(NormalizationForm.FormC));
+        }
+        public static SolidColorBrush DiscriminatorColor(string desc)
         {
             switch (Convert.ToInt32(desc) % 5)
             {
@@ -147,6 +160,16 @@ namespace Discord_UWP
                 return HumanizeDate(editedTime,null);
             }
         }
+        public static string HumanizeBandwidth(ulong value)
+        {
+            if (value >= 1000000)
+                return (value / 1000000).ToString("0.##") + "Mbps";
+            else if (value >= 1000)
+                return (value / 1000).ToString("0.##") + "Kbps";
+            else
+                return value + ("bps");
+        }
+
         public static string HumanizeFileSize(ulong l)
         {
             long i = Convert.ToInt64(l);
@@ -283,7 +306,7 @@ namespace Discord_UWP
             foreach (var lang in ColorSyntax.Languages.LanguageRepository.All)
             {
                 foreach (var alias in lang.Aliases)
-                    App.CodingLangsTrie.Add(alias.ToLower(), new AutoComplete(lang.Name, lang.Id, "ms-appx:///Assets/CodingLanguages/" + lang.Id + ".png"));
+                    App.CodingLangsTrie.Add(alias.ToLower(), new AutoComplete(lang.Name, lang.Id, "ms-appx:///Assets/CodingLanguages/" + lang.Id.Replace("#","sharp") + ".png"));
             }
             Debug.WriteLine(App.CodingLangsTrie.Traversal());
             sw.Stop();

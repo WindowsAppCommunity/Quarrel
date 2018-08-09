@@ -165,16 +165,30 @@ namespace Discord_UWP.SubPages
             picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
             picker.FileTypeFilter.Add("*");
-            StorageFile file = await picker.PickSingleFileAsync();
-            if ((await file.GetBasicPropertiesAsync()).Size > 8388608)
+            var files = await picker.PickMultipleFilesAsync();
+            List<string> FilesTooLarge = new List<string>();
+            foreach (var file in files)
             {
-                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("file must be less than 8MBs");
-                await dialog.ShowAsync();
-                return;
+                if (file == null) continue;
+                if ((await file.GetBasicPropertiesAsync()).Size > 8388608)
+                {
+                    FilesTooLarge.Add(file.DisplayName);
+                }
+                else
+                {
+                    AddAttachement(file);
+                }
             }
-            if (file != null)
+
+            if (FilesTooLarge.Count == 1)
             {
-                AddAttachement(file);
+                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("The file " + FilesTooLarge[0] + " is too big to attach (>8MB)");
+                await dialog.ShowAsync();
+            }
+            else if (FilesTooLarge.Count > 1)
+            {
+                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("The files " + string.Join(",", FilesTooLarge) + " are too big to attach (>8MB)");
+                await dialog.ShowAsync();
             }
         }
 

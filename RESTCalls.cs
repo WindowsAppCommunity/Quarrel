@@ -1,13 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+//using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Web.Http;
 
 using Discord_UWP.API;
+using Discord_UWP.API.Activities;
 using Discord_UWP.API.Channel;
 using Discord_UWP.API.Channel.Models;
 using Discord_UWP.API.Gateway;
@@ -31,6 +35,7 @@ using Discord_UWP.API.Game;
 using GiphyAPI;
 using GiphyAPI.Models;
 using System.Threading;
+using DiscordAPI.API.Guild.Models;
 
 namespace Discord_UWP
 {
@@ -414,6 +419,20 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task<SendFriendRequestResponse> SendFriendRequest(string username, int discriminator)
+        {
+            try
+            {
+                IUserService userservice = AuthenticatedRestFactory.GetUserService();
+                return await userservice.SendFriendRequest(new SendFriendRequest() { Username = username, Discriminator = discriminator});
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+                return null;
+            }
+        }
+
         public static async Task RemoveFriend(string userId)
         {
             try
@@ -476,6 +495,28 @@ namespace Discord_UWP
         #region IGuild
 
         #region Get
+        public static async Task<AuditLog> GetAuditLog(string id, int limit = 50, string before = null)
+        {
+            try
+            {
+                IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
+                if (before == null)
+                {
+                    return await guildservice.GetAuditLog(id, limit);
+                }
+                else
+                {
+                    return await guildservice.GetAuditLog(id, before, limit);
+                }
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+
+            return null;
+        }
         public static async Task<SharedModels.Guild> GetGuild(string id)
         {
             try
@@ -1234,6 +1275,34 @@ namespace Discord_UWP
             }
         }
 
+        public static async Task StartCall(string channelId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.StartCall(channelId, new CallDetails() { Recipients = null });
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
+        public static async Task DeclineCall(string channelId)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.DeclineCall(channelId);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
+
         public static async Task TriggerTypingIndicator(string channelId)
         {
             try
@@ -1254,6 +1323,19 @@ namespace Discord_UWP
             {
                 IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
                 await channelservice.RemoveGroupUser(channelId, userId);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+        }
+        public static async Task RemoveGroupUser(object args)
+        {
+            try
+            {
+                IChannelService channelservice = AuthenticatedRestFactory.GetChannelService();
+                await channelservice.RemoveGroupUser((args as Tuple<string, string>).Item1, (args as Tuple<string, string>).Item2);
             }
             catch /*(Exception exception)*/
             {
@@ -1329,6 +1411,65 @@ namespace Discord_UWP
 
         #endregion
 
+        #region IActivities
+
+        #region Get
+        public static async Task<IEnumerable<ActivityData>> GetActivites()
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetActivites();
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+        public static async Task<FeedSettings> GetFeedSettings()
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetFeedSettings();
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+        public static async Task<FeedSettings> AddFeedSubscriptions(IEnumerable<string> users, IEnumerable<string> games)
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.PatchFeedSettings(new FeedPatch() { UserSubscriptions = users, GameSubscriptions = games });
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+        public static async Task<List<GameNews>> GetGameNews(string[] ids)
+        {
+            try
+            {
+                IActivitesService activiteservice = AuthenticatedRestFactory.GetActivitesService();
+                return await activiteservice.GetGameNews(String.Join(",", ids));
+            }
+            catch /*(Exception exception)*/
+            {
+                //App.NavigateToBugReport(exception);
+            }
+            return null;
+        }
+        #endregion
+
+        #endregion
+
         #region Connections
         public static async Task<string> GetConnectionUrl(string service)
         {
@@ -1347,7 +1488,7 @@ namespace Discord_UWP
         #endregion
 
         #region Games
-        public static async Task<List<GameList>> GetGamelist()
+        public static async Task<List<GameListItem>> GetGamelist()
         {
             try
             {
@@ -1359,7 +1500,7 @@ namespace Discord_UWP
                 App.CheckOnline();
                 //App.NavigateToBugReport(exception);
             }
-            return new List<GameList>();
+            return new List<GameListItem>();
         }
         #endregion
 
@@ -1390,6 +1531,14 @@ namespace Discord_UWP
                 App.CheckOnline();
             }
             return new SearchResult();
+        }
+        #endregion
+
+        #region Random
+        public static async Task<string> GetStringFromURI(Uri uri)
+        {
+            HttpClient client = new HttpClient();
+            return await client.GetStringAsync(uri);
         }
         #endregion
 

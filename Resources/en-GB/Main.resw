@@ -238,7 +238,7 @@
     <value>Direct Messages</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value>members</value>
+    <value>&lt;count&gt; members</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
     <value>sent a message on</value>
@@ -318,11 +318,11 @@
   <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
     <value>RETURN TO PRESENT</value>
   </data>
-  <data name="WhatsNewMFI.Text" xml:space="preserve">
-    <value>What's New?</value>
-  </data>
   <data name="AboutMFI.Text" xml:space="preserve">
     <value>About</value>
+  </data>
+  <data name="WhatsNewMFI.Text" xml:space="preserve">
+    <value>What's New?</value>
   </data>
   <data name="RemoveAds.Text" xml:space="preserve">
     <value>Remove Ads</value>

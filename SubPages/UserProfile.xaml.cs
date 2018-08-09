@@ -336,35 +336,59 @@ namespace Discord_UWP.SubPages
                 }
 
         }
-        private void UpdateBorderColor()
+        private async void UpdateBorderColor()
         {
             if (richPresence.GameContent != null)
             {
                 richPresence.Visibility = Visibility.Visible;
                 SolidColorBrush color = (SolidColorBrush)Application.Current.Resources["Blurple"];
-                switch (richPresence.GameContent.Type)
+                if (LocalState.PresenceDict[userid].Game != null)
                 {
-                    case 1:
-                        {
-                            //streaming
-                            color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
-                            break;
-                        }
-                    case 2:
-                        {
-                            //spotify
-                            color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
-                            break;
-                        }
+                    switch (richPresence.GameContent.Type)
+                    {
+                        case 1:
+                            {
+                                //streaming
+                                color = new SolidColorBrush(Color.FromArgb(255, 100, 65, 164));
+                                break;
+                            }
+                        case 2:
+                            {
+                                //spotify
+                                color = new SolidColorBrush(Color.FromArgb(255, 30, 215, 96));
+                                break;
+                            }
+                    }
+                    if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
+                    {
+                        //xbox
+                        color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                    }
                 }
-                if (LocalState.PresenceDict[profile.user.Id].Game != null && LocalState.PresenceDict[profile.user.Id].Game.ApplicationId == "438122941302046720")
+                else if (Storage.Settings.DerivedColor)
                 {
-                    //xbox
-                    color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
+                    if ((await App.getUserColor(profile.user)).HasValue)
+                    {
+                        color = new SolidColorBrush((await App.getUserColor(profile.user)).Value);
+                    }
                 }
-                PresenceColor.Fill = color;
-                border.BorderBrush = color;
+                ChangeAccentColor(color);
             }
+            else if (Storage.Settings.DerivedColor)
+            {
+                Color? color = await App.getUserColor(profile.user);
+                if ((await App.getUserColor(profile.user)).HasValue)
+                {
+                    color = (await App.getUserColor(profile.user)).Value;
+                    ChangeAccentColor(new SolidColorBrush(color.Value));
+                }
+            }
+        }
+
+        public void ChangeAccentColor(SolidColorBrush color)
+        {
+            PresenceColor.Fill = color;
+            border.BorderBrush = color;
         }
 
         private async void Gateway_PresenceUpdated(object sender, GatewayEventArgs<Presence> e)

@@ -27,5 +27,7 @@ namespace ColorSyntax.Common
         public const string Markdown = "markdown";
         public const string Fortran = "fortran";
         public const string Diff = "diff";
+        public const string Python = "python";
+        public const string Arduino = "arduino";
     }
 }

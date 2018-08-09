@@ -81,7 +81,7 @@ namespace Discord_UWP
                     mfaTicket = result.Ticket;
                     NormalAuth.Visibility = Visibility.Collapsed;
                     MFAuth.Visibility = Visibility.Visible;
-                    (sender as Button).IsEnabled = true;
+                    loginButton.IsEnabled = true;
                     ProgressRing.Visibility = Visibility.Collapsed;
                     ProgressRing.IsActive = false;
                     LoginText.Visibility = Visibility.Visible;

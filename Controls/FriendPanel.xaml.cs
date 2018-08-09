@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -32,7 +33,6 @@ namespace Discord_UWP.Controls
 {
     public sealed partial class FriendPanel : UserControl
     {
-
         public class SimpleFriend : INotifyPropertyChanged
         {
             public class SharedGuild
@@ -76,6 +76,12 @@ namespace Discord_UWP.Controls
         public FriendPanel()
         {
             this.InitializeComponent();
+            if (!App.Insider)
+            {
+                ActivitiesLVI.Visibility = Visibility.Collapsed;
+                ActivitiesPI.Visibility = Visibility.Collapsed;
+                pivot.SelectedIndex = 1;
+            }
         }
 
         private async void Gateway_RelationShipUpdated(object sender, Gateway.GatewayEventArgs<Friend> e)
@@ -193,6 +199,78 @@ namespace Discord_UWP.Controls
             GatewayManager.Gateway.RelationShipAdded += Gateway_RelationShipAdded;
             GatewayManager.Gateway.RelationShipRemoved += Gateway_RelationShipRemoved;
             GatewayManager.Gateway.RelationShipUpdated += Gateway_RelationShipUpdated;
+            LoadFeed();
+        }
+
+        public bool ContainsString(string[] items, string search)
+        {
+            foreach (string item in items)
+                if (item == search) return true;
+            return false;
+        }
+
+        public async void LoadFeed()
+        {
+            //Get feed settings
+            LocalState.FeedSettings = await RESTCalls.GetFeedSettings();
+            var activities = await RESTCalls.GetActivites();
+            string GameIDs;
+            List<string> relevantIds = new List<string>();
+            List<ActivityData> relevantActivities = new List<ActivityData>();
+            foreach(var activity in activities)
+            {
+                if (!ContainsString(LocalState.FeedSettings.UnsubscribedUsers, activity.UserId) || !ContainsString(LocalState.FeedSettings.UnsubscribedGames, activity.ApplicationId))
+                {
+                    relevantIds.Add(activity.ApplicationId);
+                    relevantActivities.Add(activity);
+                }
+            }
+            var gamenews = await RESTCalls.GetGameNews(relevantIds.ToArray());
+            Dictionary<string, GameNews> heroNews = new Dictionary<string, GameNews>();
+            if (gamenews != null)
+            {
+                var gnCount = gamenews.Count();
+
+                foreach (var news in gamenews)
+                {
+                    //The GameNews list is ordered by game and then by timestamp, so the hero feed must be the last news of every game in the list
+                    if (heroNews.ContainsKey(news.GameId))
+                        heroNews[news.GameId] = news;
+                    else
+                        heroNews.Add(news.GameId, news);
+                    if (!LocalState.GameNews.ContainsKey(news.GameId))
+                    {
+                        LocalState.GameNews.Add(news.GameId, new List<GameNews>());
+                        LocalState.GameNews[news.GameId].Add(news);
+                    }
+                    else
+                    {
+                        LocalState.GameNews[news.GameId].Add(news);
+                    }
+                }
+            }
+
+            var heroNewsList = new List<GameNews>();
+            foreach (var value in heroNews)
+                heroNewsList.Add(value.Value);
+            heroNewsList.Sort((x, y) => DateTimeOffset.Compare(y.Timestamp, x.Timestamp));
+            for (var i = 0; i < Math.Min(heroNewsList.Count, 4); i++)
+            {
+                if (LocalState.SupportedGames.ContainsKey(heroNewsList[i].GameId))
+                    heroNewsList[i].GameTitle = LocalState.SupportedGames[heroNewsList[i].GameId].Name.ToUpper();
+                HeroFeed.Items.Insert(0, heroNewsList[i]);
+            }
+                
+            if (HeroFeed.Items.Count == 0)
+            {
+                HeroFeed.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HeroFeed.SelectedIndex = 0;
+            }
+
+            Feed.ItemsSource = relevantActivities;
         }
         public void NavigateToFriendRequests()
         {
@@ -201,8 +279,7 @@ namespace Discord_UWP.Controls
         public void FriendNotification(User user)
         {
             string toastTitle = user.Username + " " + App.GetString("/Main/Notifications_SentAfriendRequest");
-            //string imageurl = "http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-71-81-permanent/2727.happycanyon1_5B00_1_5D00_.jpg";
-            string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
+             string userPhoto = "https://cdn.discordapp.com/avatars/" + user.Id + "/" +
                                user.Avatar + ".jpg";
             // Construct the visuals of the toast
             ToastVisual visual = new ToastVisual()

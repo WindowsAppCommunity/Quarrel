@@ -11,6 +11,7 @@ using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -63,9 +64,9 @@ namespace Discord_UWP.Controls
             ResetButton.Fade(1).Start();
         }
 
-        public void initialize()
+        public async void initialize()
         {
-            var message = EntryMessages.GetMessage();
+            var message = await EntryMessages.GetMessage();
 
             //else if (message.Key.Substring(0, 7) == "(Audio)")
             //{
@@ -87,6 +88,15 @@ namespace Discord_UWP.Controls
                 return;
             }
 
+            #region Special Shit
+            switch (message.Key)
+            {
+                case "Now with Comic Sans":
+                    MessageBlock.FontFamily = new FontFamily("Comic Sans MS");
+                    break;
+            }
+            #endregion
+
             MessageBlock.Text = message.Key.ToUpper();
             if (message.Value != "")
             {
@@ -96,7 +106,7 @@ namespace Discord_UWP.Controls
                 }
                 else
                 {
-                    CreditBlock.Text = "- " + message.Value;
+                    CreditBlock.Text = "-" + message.Value;
                 }
             }
             Animation.Begin();
@@ -117,8 +127,7 @@ namespace Discord_UWP.Controls
                 var location = App.Splash.ImageLocation;
                 viewbox.Width = location.Width;
                 viewbox.Height = location.Height;
-                Canvas.SetTop(viewbox, location.Top);
-                Canvas.SetLeft(viewbox, location.Left);
+
                 //this.Focus(FocusState.Pointer);
                 stack.Margin = new Thickness(0, location.Bottom, 0, 0);
             }
@@ -127,18 +136,25 @@ namespace Discord_UWP.Controls
 
             }
         }
-        public void Show(bool animate)
+        public async void Show(bool animate)
         {
-            this.Visibility = Visibility.Visible;
-            if(animate) LoadIn.Begin();
-        }
-        public void Hide(bool animate)
-        {
-            if (animate)
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                LoadOut.Begin();
-            }
-            else this.Visibility = Visibility.Collapsed;
+                this.Visibility = Visibility.Visible;
+                if (animate) LoadIn.Begin();
+            });
+        }
+        public async void Hide(bool animate)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (animate)
+                {
+                    LoadOut.Begin();
+                }
+                else this.Visibility = Visibility.Collapsed;
+            });
+
         }
         private void LoadIn_Completed(object sender, object e)
         {

@@ -181,7 +181,7 @@ namespace Discord_UWP.Controls
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(username, DisplayedFriend.User);
+            App.ShowMemberFlyout(username, DisplayedFriend.User, false);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)

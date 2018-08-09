@@ -29,6 +29,8 @@ namespace Discord_UWP.MarkdownTextBlock
         /// Gets the link that was tapped.
         /// </summary>
         public string Link { get; }
+
+        public SharedModels.User User { get; set; }
     }
     public class CodeBlockResolvingEventArgs : EventArgs
     {

@@ -119,12 +119,22 @@
     <Compile Include="AudioProcessing\Complex.cs" />
     <Compile Include="AudioProcessing\Fft.cs" />
     <Compile Include="AudioProcessing\HelperMethods.cs" />
+    <Compile Include="Classes\ChartRenderer.cs" />
     <Compile Include="Classes\ExtensionMethods.cs" />
+    <Compile Include="Classes\FancyTextGenerator.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
+    <Compile Include="Classes\StatusPage.cs" />
+    <Compile Include="Classes\StatusPageClasses.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Controls\ActivitesControl.xaml.cs">
+      <DependentUpon>ActivitesControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\CompositionImageFactory.cs" />
     <Compile Include="Controls\ControllerHint.xaml.cs">
       <DependentUpon>ControllerHint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GameDetailsControl.xaml.cs">
+      <DependentUpon>GameDetailsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListenOnSpotify.xaml.cs">
       <DependentUpon>ListenOnSpotify.xaml</DependentUpon>
@@ -212,7 +222,16 @@
     <Compile Include="LocalModels\LocalState.cs" />
     <Compile Include="LocalModels\Permissions.cs" />
     <Compile Include="Managers\BotExtrasManager.cs" />
-    <Compile Include="Managers\SimpleClasses.cs" />
+    <Compile Include="Classes\SimpleClasses.cs" />
+    <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
+    <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
+    <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
+    <Compile Include="SubPages\AuditLog.xaml.cs">
+      <DependentUpon>AuditLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubPages\DiscordStatus.xaml.cs">
+      <DependentUpon>DiscordStatus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\LogScreen.xaml.cs">
       <DependentUpon>LogScreen.xaml</DependentUpon>
     </Compile>
@@ -411,19 +430,27 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="assets2\BadgeLogo.scale-100.png" />
+    <Content Include="assets2\BadgeLogo.scale-125.png" />
+    <Content Include="assets2\BadgeLogo.scale-150.png" />
+    <Content Include="assets2\BadgeLogo.scale-200.png" />
+    <Content Include="assets2\BadgeLogo.scale-400.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\call.png" />
     <Content Include="Assets\CodingLanguages\asax.png" />
     <Content Include="Assets\CodingLanguages\ashx.png" />
     <Content Include="Assets\CodingLanguages\aspx.png" />
-    <Content Include="Assets\CodingLanguages\c#.png" />
+    <Content Include="Assets\CodingLanguages\csharp.png" />
     <Content Include="Assets\CodingLanguages\cpp.png" />
     <Content Include="Assets\CodingLanguages\css.png" />
     <Content Include="Assets\CodingLanguages\diff.png" />
-    <Content Include="Assets\CodingLanguages\f#.png" />
+    <Content Include="Assets\CodingLanguages\arduino.png" />
+    <Content Include="Assets\CodingLanguages\fsharp.png" />
+    <Content Include="Assets\CodingLanguages\python.png" />
     <Content Include="Assets\CodingLanguages\fortran.png" />
     <Content Include="Assets\CodingLanguages\haskell.png" />
     <Content Include="Assets\CodingLanguages\html.png" />
@@ -448,8 +475,31 @@
     <None Include="Javascript sources\READY.json" />
     <None Include="Javascript sources\Source1.js" />
     <None Include="Javascript sources\SourceEmbedStuff.js" />
+    <Content Include="Assets\hangup.png" />
+    <Content Include="Assets\message.png" />
     <Content Include="Assets\MyTubeSmall.png" />
     <Content Include="Assets\ConnectionLogos\spotify.png" />
+    <Content Include="Assets\SoundEffects\discord_deafen.mp3" />
+    <Content Include="Assets\SoundEffects\discord_inring.mp3" />
+    <Content Include="Assets\SoundEffects\discord_message.mp3" />
+    <Content Include="Assets\SoundEffects\discord_mute.mp3" />
+    <Content Include="Assets\SoundEffects\discord_outring.mp3" />
+    <Content Include="Assets\SoundEffects\discord_pttdisabled.mp3" />
+    <Content Include="Assets\SoundEffects\discord_pttenabled.mp3" />
+    <Content Include="Assets\SoundEffects\discord_undeafen.mp3" />
+    <Content Include="Assets\SoundEffects\discord_unmute.mp3" />
+    <Content Include="Assets\SoundEffects\discord_userjoin.mp3" />
+    <Content Include="Assets\SoundEffects\discord_userleave.mp3" />
+    <Content Include="Assets\SoundEffects\discord_usermove.mp3" />
+    <Content Include="Assets\SoundEffects\discord_voicedc.mp3" />
+    <Content Include="Assets\SoundEffects\windows_inring.mp3" />
+    <Content Include="Assets\SoundEffects\windows_message.mp3" />
+    <Content Include="Assets\SoundEffects\windows_mute.mp3" />
+    <Content Include="Assets\SoundEffects\windows_outring.mp3" />
+    <Content Include="Assets\SoundEffects\windows_unmute.mp3" />
+    <Content Include="Assets\SoundEffects\windows_userjoin.mp3" />
+    <Content Include="Assets\SoundEffects\windows_userleave.mp3" />
+    <Content Include="Assets\SoundEffects\windows_usermove.mp3" />
     <Content Include="Assets\StoreLogo.scale-100.png" />
     <Content Include="Assets\StoreLogo.scale-125.png" />
     <Content Include="Assets\StoreLogo.scale-150.png" />
@@ -474,13 +524,49 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
-    <PRIResource Include="Resources\th\Settings.resw" />
-    <PRIResource Include="Resources\th\Main.resw" />
-    <PRIResource Include="Resources\th\Flyouts.resw" />
-    <PRIResource Include="Resources\th\Dialogs.resw" />
-    <PRIResource Include="Resources\th\Controls.resw" />
+    <PRIResource Include="Resources\en-US\Permissions.resw" />
+    <PRIResource Include="Resources\es\Settings.resw" />
+    <PRIResource Include="Resources\es\Main.resw" />
+    <PRIResource Include="Resources\es\Flyouts.resw" />
+    <PRIResource Include="Resources\es\Dialogs.resw" />
+    <PRIResource Include="Resources\es\Controls.resw" />
+    <PRIResource Include="Resources\es\About.resw" />
+    <PRIResource Include="Resources\nl\Settings.resw" />
+    <PRIResource Include="Resources\nl\Main.resw" />
+    <PRIResource Include="Resources\nl\Flyouts.resw" />
+    <PRIResource Include="Resources\nl\Dialogs.resw" />
+    <PRIResource Include="Resources\nl\Controls.resw" />
+    <PRIResource Include="Resources\nl\About.resw" />
+    <PRIResource Include="Resources\zh\Settings.resw" />
+    <PRIResource Include="Resources\zh\Main.resw" />
+    <PRIResource Include="Resources\zh\Flyouts.resw" />
+    <PRIResource Include="Resources\zh\Dialogs.resw" />
+    <PRIResource Include="Resources\zh\Controls.resw" />
+    <PRIResource Include="Resources\zh\About.resw" />
     <PRIResource Include="Resources\th\About.resw" />
+    <PRIResource Include="Resources\pl\About.resw" />
+    <PRIResource Include="Resources\fr\About.resw" />
+    <PRIResource Include="Resources\en-GB\About.resw" />
+    <PRIResource Include="Resources\th\Flyouts.resw" />
+    <PRIResource Include="Resources\pl\Flyouts.resw" />
+    <PRIResource Include="Resources\fr\Flyouts.resw" />
     <PRIResource Include="Resources\en-GB\Flyouts.resw" />
+    <PRIResource Include="Resources\th\Main.resw" />
+    <PRIResource Include="Resources\pl\Main.resw" />
+    <PRIResource Include="Resources\fr\Main.resw" />
+    <PRIResource Include="Resources\en-GB\Main.resw" />
+    <PRIResource Include="Resources\th\Settings.resw" />
+    <PRIResource Include="Resources\pl\Settings.resw" />
+    <PRIResource Include="Resources\fr\Settings.resw" />
+    <PRIResource Include="Resources\en-GB\Settings.resw" />
+    <PRIResource Include="Resources\th\Dialogs.resw" />
+    <PRIResource Include="Resources\pl\Dialogs.resw" />
+    <PRIResource Include="Resources\fr\Dialogs.resw" />
+    <PRIResource Include="Resources\en-GB\Dialogs.resw" />
+    <PRIResource Include="Resources\th\Controls.resw" />
+    <PRIResource Include="Resources\pl\Controls.resw" />
+    <PRIResource Include="Resources\fr\Controls.resw" />
+    <PRIResource Include="Resources\en-GB\Controls.resw" />
     <PRIResource Include="Resources\en-US\TileTemplates.resw" />
     <PRIResource Include="Resources\en-US\Settings.resw" />
     <PRIResource Include="Resources\en-US\Main.resw" />
@@ -488,26 +574,9 @@
     <PRIResource Include="Resources\en-US\Dialogs.resw" />
     <PRIResource Include="Resources\en-US\Controls.resw" />
     <PRIResource Include="Resources\en-US\About.resw" />
-    <PRIResource Include="Resources\en-GB\Dialogs.resw" />
-    <PRIResource Include="Resources\en-GB\Main.resw" />
-    <PRIResource Include="Resources\en-GB\Controls.resw" />
-    <PRIResource Include="Resources\en-GB\Settings.resw" />
-    <PRIResource Include="Resources\en-GB\About.resw" />
-    <PRIResource Include="Resources\pl\Settings.resw" />
-    <PRIResource Include="Resources\pl\Main.resw" />
-    <PRIResource Include="Resources\pl\Flyouts.resw" />
-    <PRIResource Include="Resources\pl\Dialogs.resw" />
-    <PRIResource Include="Resources\pl\Controls.resw" />
-    <PRIResource Include="Resources\pl\About.resw" />
-    <PRIResource Include="Resources\fr\Settings.resw" />
-    <PRIResource Include="Resources\fr\Main.resw" />
-    <PRIResource Include="Resources\fr\Flyouts.resw" />
-    <PRIResource Include="Resources\fr\Dialogs.resw" />
-    <PRIResource Include="Resources\fr\Controls.resw" />
-    <PRIResource Include="Resources\fr\About.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Audio\Heartbeat.wav" />
+    <Content Include="Assets\SoundEffects\Heartbeat.wav" />
     <Content Include="Assets\ConnectionLogos\battlenet.png" />
     <Content Include="Assets\ConnectionLogos\facebook.png" />
     <Content Include="Assets\ConnectionLogos\leagueoflegends.png" />
@@ -583,6 +652,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ActivitesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AttachementControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -596,6 +669,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ControllerHint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GameDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -678,6 +755,14 @@
     <Page Include="Controls\VoiceMemberControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SubPages\AuditLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\DiscordStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubPages\LogScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -801,11 +886,14 @@
     <PackageReference Include="Html2Markdown">
       <Version>3.2.1.341</Version>
     </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.5</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Advertising.XAML">
       <Version>10.1805.7001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
+      <Version>6.1.7</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.Engagement">
       <Version>10.1711.28001</Version>

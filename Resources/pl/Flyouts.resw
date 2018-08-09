@@ -136,7 +136,7 @@
     <value>Zamknij PW</value>
   </data>
   <data name="Deafen" xml:space="preserve">
-    <value>Wycisz</value>
+    <value>Wygłusz</value>
   </data>
   <data name="DeleteChannel" xml:space="preserve">
     <value>Usuń kanał</value>

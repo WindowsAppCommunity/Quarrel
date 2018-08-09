@@ -8,8 +8,9 @@ namespace Discord_UWP
 {
     class EntryMessages
     {
-        public static KeyValuePair<string,string> GetMessage()
+        public async static Task<KeyValuePair<string,string>> GetMessage()
         {
+
             if (App.AslansBullshit)
             {
                 return kvp("Past og splash - waitng for Ready packet");
@@ -88,7 +89,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 103))
+            switch (rand.Next(0, 119))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -97,7 +98,7 @@ namespace Discord_UWP
                 case 6:  return kvp("Generating stuff");
                 case 7:  return kvp("Cutting ribbons");
                 case 8:  return kvp("Passing the vacuum cleaner");
-                case 9:  return kvp("I'm afraid I can load that, Dave");
+                case 9:  return kvp("I'm afraid I can't load that, Dave");
                 case 10: return kvp("Squashing bugs");
                 case 11: return kvp("It's alive!!");
                 case 12: return kvp("Thanking the producers");
@@ -149,7 +150,7 @@ namespace Discord_UWP
                 case 58: return kvp("100 % sugar free", "@Aslan#9846");
                 case 59: return kvp("Searching for the meaning of life");
                 case 60: return kvp("You got a license for that?", "@Aslan#9846");
-                case 61: return kvp("Did you bring snacks?", "Chestbeard#9806");
+                case 61: return kvp("Did you bring snacks?", "@Chestbeard#9806");
                 case 62: return kvp("Suitable for Vegans", "@SamCraftRecon#9075");
                 case 63: return kvp("I can't believe you've done this");
                 case 64: return kvp("Better than iOS 11!", "@Abaan404#9892");
@@ -168,9 +169,9 @@ namespace Discord_UWP
                 case 77: return kvp("Preparing the Men", "@Civiled#1713");
                 case 78: return kvp("Picking Tide Pods off the vine", "@Darth4212#5735");
                 case 79: return kvp("\"And also with you\"", "John Mulaney");
-                case 80: return kvp("Did you forget about Dre?", "Darth4212#5735");
-                case 81: return kvp("Hope this becomes a Splash text...", "Darth4212#5735");
-                case 82: return kvp("Will the real Slim Shady please stand up?", "Darth4212#5735");
+                case 80: return kvp("Did you forget about Dre?", "@Darth4212#5735");
+                case 81: return kvp("Hope this becomes a Splash text...", "@Darth4212#5735");
+                case 82: return kvp("Will the real Slim Shady please stand up?", "@Darth4212#5735");
                 case 83: return kvp("Turning bugs into features");
                 case 84: return kvp("Deats dy Boctor Bre");
                 case 85: return kvp("Tragdor the Dragon");
@@ -192,6 +193,22 @@ namespace Discord_UWP
                 case 101: return kvp("Is Mayonnaise an instrument?", "@Shakenbacon#1769");
                 case 102: return kvp("Riding a train", "@Aslan#9846");
                 case 103: return kvp("Inconceivable!", "@austinception#8911");
+                case 104: return kvp(await RESTCalls.GetStringFromURI(new Uri("http://itsthisforthat.com/api.php?text")));
+                case 105: return kvp("Always on Xbox!", "@THΞGRΞΛTTUΠΛ#3015");
+                case 106: return kvp("Now with Comic Sans", "@iDrinkArmour#9450");
+                case 107: return kvp("dabs unironically", "@iDrinkArmour#9450");
+                case 108: return kvp("only naturally occurring lag", "@iDrinkArmour#9450");
+                case 109: return kvp("Just bing it!", "@austinception#5634");
+                case 110: return kvp("Googling Bing", "@SamCraftRecon#9075");
+                case 111: return kvp("Removing pen from Pineapple", "@Pineapple#9225");
+                case 112: return kvp("Entering cheat codes", "@Pineapple#9225");
+                case 113: return kvp("MOM GET THE CAMERA", "@Pineapple#9225");
+                case 114: return kvp("\"The universe is monstrously indifferent to the presense of man\"", "Werner Herzog");
+                case 115: return kvp("\"I don't trust or love anyone because people are so creepy...\"", "Vincent Gallo");
+                case 116: return kvp("\"I like watercolours. I like acrylic paint... a little bit. I like house paint. I like oil based paint and I love oil-paint. I love the smell of turpentine and I like that world of oil paint very, very, very much.\"", "David Lynch");
+                case 117: return kvp("\"I despise formal restaurants. I find all that formality to be very base and vile. I would much rather eat potato chips in the sidewalk.\"", "Werner Herzog");
+                case 118: return kvp(striptoquote(await RESTCalls.GetStringFromURI(new Uri("https://ron-swanson-quotes.herokuapp.com/v2/quotes"))), "Ron Swanson");
+                case 119: return kvp(cuttosentence(await RESTCalls.GetStringFromURI(new Uri("http://skateipsum.com/get/1/0/text"))));
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
@@ -199,6 +216,16 @@ namespace Discord_UWP
         private static KeyValuePair<string, string> kvp(string key, string val = "")
         {
             return new KeyValuePair<string, string>(key, val);
+        }
+
+        private static string striptoquote(string quote)
+        {
+            return quote.Trim(new char[] {'[', ']' });
+        }
+
+        private static string cuttosentence(string text)
+        {
+            return text.Substring(3, text.IndexOf('.')-3);
         }
     }
 }

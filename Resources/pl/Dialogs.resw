@@ -150,6 +150,9 @@
   <data name="BansPI.Header" xml:space="preserve">
     <value>Bany</value>
   </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>Zablokuj</value>
+  </data>
   <data name="BodyTB.Text" xml:space="preserve">
     <value>CIAŁO</value>
   </data>
@@ -178,7 +181,7 @@
     <value>Stwórz serwer</value>
   </data>
   <data name="DeafenMembersToggle.Header" xml:space="preserve">
-    <value>Wyciszeni członkowie</value>
+    <value>Wygłuszeni członkowie</value>
   </data>
   <data name="DeleteBTN" xml:space="preserve">
     <value>Usuń</value>
@@ -333,6 +336,9 @@
   <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
     <value>Zezwól na wzmianki</value>
   </data>
+  <data name="RoleHoistToggle.Header" xml:space="preserve">
+    <value>Wyświetlaj osobno</value>
+  </data>
   <data name="RoleNameTB.Text" xml:space="preserve">
     <value>NAZWA</value>
   </data>
@@ -356,6 +362,9 @@
   </data>
   <data name="SendMessageTB.Text" xml:space="preserve">
     <value>Wyślij wiadomość</value>
+  </data>
+  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
+    <value>Wyślij wiadomość TTS </value>
   </data>
   <data name="ServerGuidelinesDesc1" xml:space="preserve">
     <value>Tworząc serwer zgadzasz się na</value>
@@ -384,6 +393,9 @@
   <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
     <value>Używanie aktywacji głosowej</value>
   </data>
+  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
+    <value>Pokaż dane konta</value>
+  </data>
   <data name="VoicePermissionsTB.Text" xml:space="preserve">
     <value>UPRAWNIENIA GŁOSOWE</value>
   </data>
@@ -407,6 +419,9 @@
   </data>
   <data name="FlagDiscordPartner" xml:space="preserve">
     <value>PARTNER DISCORDA</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>PERSONEL DISCORDA</value>
   </data>
   <data name="FlagHypesquad" xml:space="preserve">
     <value>HYPESQUAD</value>
@@ -519,9 +534,6 @@
   <data name="AccountSettingTB.Text" xml:space="preserve">
     <value>USTAWIENIA KONTA</value>
   </data>
-  <data name="AccountTB.Text" xml:space="preserve">
-    <value>Konto</value>
-  </data>
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
     <value>Ustawienia Aplikacji</value>
   </data>
@@ -588,19 +600,85 @@
   <data name="NewPswrdPBox.Header" xml:space="preserve">
     <value>Nowe hasło</value>
   </data>
-  <data name="BlockTB.Text" xml:space="preserve">
-    <value>Zablokuj</value>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Konto</value>
   </data>
-  <data name="RoleHoistToggle.Header" xml:space="preserve">
-    <value>Wyświetlaj osobno</value>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Konto</value>
   </data>
-  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
-    <value>Wyślij wiadomość TTS </value>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) kanał &lt;channel&gt;</value>
   </data>
-  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
-    <value>Pokaż dane konta</value>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) kanał &lt;channel&gt;</value>
   </data>
-  <data name="FlagDiscordStaff" xml:space="preserve">
-    <value>PERSONEL DISCORDA</value>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) nie istniejący już kanał (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła kanał &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; stworzył(a) emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) informacje o serwerze</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) zaproszenie &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) zaproszenie &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; wykonał(a) nieznaną czynność</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; zbanował(a) &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; odwołał(a) bana &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; wyrzucił(a) &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; wyczyścił(a) serwer</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktalizował(a) rolę dla &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>usunięty kanał</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła wiadomość &lt;user2&gt; w &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>usunięta rola</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła rolę &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; utworzył(a) webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; zaktualizował(a) webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; usunął/ęła webhook &lt;webhook&gt;</value>
   </data>
 </root>

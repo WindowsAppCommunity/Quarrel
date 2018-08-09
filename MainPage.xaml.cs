@@ -29,6 +29,7 @@ using System.Threading;
 
 using Windows.Security.Credentials;
 using System.Diagnostics;
+using Windows.Networking.Connectivity;
 using Midgard.Collections;
 using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
@@ -51,6 +52,8 @@ namespace Discord_UWP
             {
                 TitleBarHolder.Visibility = Visibility.Collapsed;
             }
+            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+            App.WentOffline += App_WentOffline;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -99,18 +102,24 @@ namespace Discord_UWP
                            userButton.Height = 112;
                            //ServerList.Padding = new Thickness(0, 84, 0, 48);
                            //ChannelList.Padding = new Thickness(0, 84, 0, 48);
-                           ServerScrollviewer.Margin = new Thickness(0, 84, 0, 48);
+                           ServerScrollviewer.Margin = new Thickness(0, 42, 0, 48);
                            ChannelScrollviewer.Margin = new Thickness(0, 84, 0, 0);
                            MembersListView.Margin = new Thickness(0, 48, 0, 48);
 
                            CinematicChannelName.Visibility = Visibility.Visible;
-                           CinematicGuildName.Visibility = Visibility.Visible;
+                           CineGuildNameBTN.Visibility = Visibility.Visible;
+                           ServerNameButton.Visibility = Visibility.Collapsed;
                            friendPanel.Margin = new Thickness(0, 84, 0, 0);
                            MessageList.Padding = new Thickness(0, 84, 0, 0);
                            MessageArea.Margin = new Thickness(0);
                            CinematicMask1.Visibility = Visibility.Visible;
                            CinematicMask2.Visibility = Visibility.Visible;
                            ControllerHints.Visibility = Visibility.Visible;
+                           if (App.ShowAds)
+                           {
+                               XBOXAd.Visibility = Visibility.Visible;
+                           }
+                           PCAd.Visibility = Visibility.Collapsed;
                            Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
                            sideDrawer.DrawOpenedLeft += SideDrawer_DrawOpenedLeft;
                            sideDrawer.DrawOpenedRight += SideDrawer_DrawOpenedRight;
@@ -154,7 +163,6 @@ namespace Discord_UWP
                            App_LoggingInHandlerAsync(null, null);
                        }
                    });
-            //LocalState.SupportedGames = await RESTCalls.GetGamelist();
         }
 
         private void SubFrame_FocusDisengaged(Control sender, FocusDisengagedEventArgs args)
@@ -167,7 +175,7 @@ namespace Discord_UWP
 
             if (e.NewState == Large || e.NewState == ExtraLarge)
             {
-                if (App.ShowAds)
+                if (App.ShowAds && !App.CinematicMode)
                 {
                     PCAd.Visibility = Visibility.Visible;
                     MobileAd.Visibility = Visibility.Collapsed;
@@ -181,11 +189,13 @@ namespace Discord_UWP
                 if(e.NewState == Large)
                 {
                     MemberToggle.Visibility = Visibility.Visible;
+                    //ShowMemberToggle.Begin();
                     burgerButton.Visibility = Visibility.Collapsed;
                 }
                 else if(e.NewState == ExtraLarge)
                 {
                     MemberToggle.Visibility = Visibility.Collapsed;
+                    //HideMemberToggle.Begin();
                     burgerButton.Visibility = Visibility.Collapsed;
                 }
                 cmdBar.Background = (Brush)Application.Current.Resources["AcrylicMessageBackground"];
@@ -198,18 +208,19 @@ namespace Discord_UWP
                     MessageAreaCMD.Children.Remove(cmdBar);
                     content.Children.Add(cmdBar);
                 }
-                if (App.ShowAds)
+                if (App.ShowAds && !App.CinematicMode)
                 {
                     PCAd.Visibility = Visibility.Collapsed;
                     MobileAd.Visibility = Visibility.Visible;
                 }
                 MemberToggle.Visibility = Visibility.Visible;
+                //ShowMemberToggle.Begin();
                 burgerButton.Visibility = Visibility.Visible;
                
                 cmdBar.Background = (Brush)Application.Current.Resources["AcrylicCommandBarBackground"];
               //  cmdBarShadow.Visibility = Visibility.Collapsed;
             }
-            if(!App.ShowAds)
+            if(!App.ShowAds || App.CinematicMode)
             {
                 
                 PCAd.Visibility = Visibility.Collapsed;
@@ -286,7 +297,7 @@ namespace Discord_UWP
                     var page = navigationHistory.Pop();
                     if (page.Item1 != null)
                     {
-                        App.NavigateToGuildChannel(page.Item1, page.Item2, null, false, true);
+                        App.SelectGuildChannel(page.Item1, page.Item2, null, false, true);
                     }
                     else
                     {
@@ -333,6 +344,7 @@ namespace Discord_UWP
             App.NavigateToCreateBanHandler += App_NavigateToCreateBanHandler;
             App.NavigateToCreateServerHandler += App_NavigateToCreateServerHandler;
             App.NavigateToDeleteChannelHandler += App_NavigateToDeleteChannelHandler;
+            App.NavigateToRemoveGroupUserHandler += App_NavigateToRemoveGroupUserHandler;
             App.NavigateToDeleteServerHandler += App_NavigateToDeleteServerHandler;
             App.NavigateToGuildEditHandler += App_NavigateToGuildEditHandler;
             App.NavigateToJoinServerHandler += App_NavigateToJoinServerHandler;
@@ -351,6 +363,7 @@ namespace Discord_UWP
             App.MenuHandler += App_MenuHandler;
             App.MentionHandler += App_MentionHandler;
             App.ShowMemberFlyoutHandler += App_ShowMemberFlyoutHandler;
+            App.ShowGameFlyoutHandler += App_ShowGameFlyoutHandler;
             //Link
             App.LinkClicked += App_LinkClicked;
             //API
@@ -400,8 +413,68 @@ namespace Discord_UWP
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
+            
+            
+            //_networkCheckTimer.Tick += _networkCheckTimer_Tick;
+        }
 
-            App.WentOffline += App_WentOffline;
+        //private async void _networkCheckTimer_Tick(object sender, object e)
+        //{
+        //    if (GatewayManager.Gateway.ConnectedSocket == false)
+        //    {
+        //        if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+        //        {
+        //            await GatewayManager.Gateway.ResumeAsync();
+        //            if (GatewayManager.Gateway.ConnectedSocket)
+        //            {
+        //                _networkCheckTimer.Stop();
+        //            }
+        //            else
+        //            {
+        //                _networkCheckTimer.Start();
+        //            }
+        //        }
+        //    }
+        //}
+
+        private async void Gateway_Resumed(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Resumed> e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                async () =>
+                {
+                    //if(_networkCheckTimer.IsEnabled) _networkCheckTimer.Stop();
+                    await DisconnectedMask.Fade(0, 300).StartAsync();
+                    DisconnectedMask.Visibility = Visibility.Collapsed;
+
+                });
+        }
+
+        private async void NetworkInformation_NetworkStatusChanged(object sender)
+        {
+            if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+            {
+                if (GatewayManager.Gateway!=null && GatewayManager.Gateway.ConnectedSocket == false)
+                {
+                    await GatewayManager.Gateway.ResumeAsync();
+                }
+            }
+        }
+
+        //private DispatcherTimer _networkCheckTimer = new DispatcherTimer() {Interval = TimeSpan.FromSeconds(2)};
+        private async void Gateway_GatewayClosed(object sender, EventArgs e)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (DisconnectedMask.Opacity != 1)
+                    {
+                        DisconnectedMask.Opacity = 0;
+                        DisconnectedMask.Visibility = Visibility.Visible;
+                        DisconnectedMask.Fade(1, 300).Start();
+                        //_networkCheckTimer.Start();
+                    }
+                    
+                });
         }
 
         private async void Gateway_GuildMemberRemoved(object sender, Gateway.GatewayEventArgs<GuildMemberRemove> e)
@@ -500,7 +573,7 @@ namespace Discord_UWP
                 member.Raw.Roles = e.EventData.Roles;
                 // member.Raw.Nick = e.EventData.Nick;
                 var previoushoistrole = new HoistRole(member.MemberHoistRole.Id, member.MemberHoistRole.Position, member.MemberHoistRole.Name, member.MemberHoistRole.Membercount, member.MemberHoistRole.Brush);
-                member.MemberHoistRole = MemberManager.GetRole(e.EventData.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
+                member.MemberHoistRole = MemberManager.GetRole(LocalState.Guilds[App.CurrentGuildId].GetHighestHoistRoleId(e.EventData.Roles), App.CurrentGuildId);
                 if(!member.MemberHoistRole.Equals(previoushoistrole))
                 {
                     memberscvs.ChangeKey(member, previoushoistrole, member.MemberHoistRole);
@@ -530,6 +603,8 @@ namespace Discord_UWP
                     {
                         if (App.CurrentGuildId == null) return;
                         if (e.Presence.Status == "offline") return;
+                        if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId)) return;
+
                         member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
                         member.MemberHoistRole = MemberManager.GetRole(member.Raw.Roles.FirstOrDefault(x => LocalState.Guilds[App.CurrentGuildId].roles[x].Hoist), App.CurrentGuildId);
                         if (!string.IsNullOrEmpty(member.Raw.Nick))
@@ -569,7 +644,7 @@ namespace Discord_UWP
                                        if (guild.Id == e.Id)
                                        {
                                            if (!string.IsNullOrEmpty(e.Icon))
-                                               guild.ImageURL = "https://discordapp.com/api/guilds/" + e.Id + "/icons/" + e.Icon + ".jpg";
+                                               guild.ImageURL = "https://cdn.discordapp.com/icons/" + e.Id + "/" + e.Icon + ".png";
 
                                            else
                                                guild.ImageURL = "empty";
@@ -702,6 +777,7 @@ namespace Discord_UWP
             App.MenuHandler -= App_MenuHandler;
             App.MentionHandler -= App_MentionHandler;
             App.ShowMemberFlyoutHandler -= App_ShowMemberFlyoutHandler;
+            App.ShowGameFlyoutHandler -= App_ShowGameFlyoutHandler;
             //Link
             App.LinkClicked -= App_LinkClicked;
             //API
@@ -755,9 +831,10 @@ namespace Discord_UWP
             App.WentOffline -= App_WentOffline;
         }
 
-        private void App_WentOffline(object sender, EventArgs e)
+        private void App_WentOffline(object sender, StatusPageClasses.Index e)
         {
-            SubFrameNavigator(typeof(Offline));
+            Loading.Hide(false);
+            SubFrameNavigator(typeof(Offline), e);
         }
 
         private ExtendedExecutionSession session = null;
@@ -828,7 +905,8 @@ namespace Discord_UWP
             }
             catch
             {
-                Page.Frame.Navigate(typeof(Offline));
+                App.CheckOnline();
+                return;
             }
             var credentials = Storage.PasswordVault.FindAllByResource("Token");
             AccountView.Items.Clear();
@@ -844,17 +922,25 @@ namespace Discord_UWP
             if (App.LoggedIn())
             {
                 SetupEvents();
-                if (Managers.GatewayManager.Gateway != null && App.IsOnline())
+                if (Managers.GatewayManager.Gateway != null)
                 {
                     GatewayManager.StartGateway();
+                    GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
+                    GatewayManager.Gateway.Resumed += Gateway_Resumed;
                     Common.LoadEmojiDawg();
                     //Debug.Write(Windows.UI.Notifications.BadgeUpdateManager.GetTemplateContent(Windows.UI.Notifications.BadgeTemplateType.BadgeNumber).GetXml());
                     BeginExtendedExecution();
                     BackgroundTaskManager.TryRegisterBackgroundTask();
                     SubFrame.Visibility = Visibility.Collapsed;
+                    var games = await RESTCalls.GetGamelist();
+                    foreach (var game in games)
+                    {
+                        LocalState.SupportedGames.Add(game.Id, game);
+                        LocalState.SupportedGamesNames.Add(game.Name, game.Id);
+                    }
                 } else
                 {
-                    SubFrameNavigator(typeof(Offline));
+                    App.CheckOnline();
                 }
 
             } else
@@ -972,17 +1058,24 @@ namespace Discord_UWP
 
                      if (e.GuildId != "@me")
                      {
-                         MemberToggle.Visibility = Visibility.Visible;
+                         if (UISize.CurrentState.Name != "ExtraLarge")
+                         {
+                             MemberToggle.Visibility = Visibility.Visible;
+                             //ShowMemberToggle.Begin();
+                         }
 
                          App.CurrentGuildId = e.GuildId;
                          UserDetails.Visibility = Visibility.Collapsed;
                          MemberListFull.Visibility = Visibility.Visible;
+                         if (App.Insider)
+                         {
+                             AddFriend.Visibility = Visibility.Collapsed;
+                         }
                          RenderGuildChannels();
                          if (App.ShowAds)
                          {
                              Ad.Visibility = Visibility.Visible;
                          }
-
                      }
                      else
                      {
@@ -990,6 +1083,7 @@ namespace Discord_UWP
 
                          App.CurrentGuildId = null;
                          MemberToggle.Visibility = Visibility.Collapsed;
+                         //HideMemberToggle.Begin();
                          RenderDMChannels();
                      }
 
@@ -1044,9 +1138,18 @@ namespace Discord_UWP
                         }
                     }
                 }
+                foreach (SimpleChannel chn in ChannelList.Items)
+                    if (chn.Id == e.ChannelId)
+                        chn.IsSelected = true;
+                    else if (chn.Type != 2)
+                        chn.IsSelected = false;
             }
             else //Out of guild navigation
             {
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = Visibility.Collapsed;
+                }
                 if (!e.OnBack)
                 {
                     navigationHistory.Push(_currentPage);
@@ -1056,21 +1159,37 @@ namespace Discord_UWP
                 {
                     if (guild.Id == e.GuildId)
                     {
+                        guild.IsSelected = true;
                         ServerList.SelectedItem = guild;
+                    } else
+                    {
+                        guild.IsSelected = false;
                     }
                 }
+                RenderGuildChannels();
+                foreach (SimpleChannel chn in ChannelList.Items)
+                    if (chn.Id == e.ChannelId)
+                    {
+                        chn.IsSelected = true;
+                        ChannelList.SelectedItem = chn;
+                    }
+                    else if (chn.Type != 2)
+                    {
+                        chn.IsSelected = false;
+                    }
 
                 App.CurrentChannelId = e.ChannelId;
-                App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
-                //RenderMessages();
-                App.MarkChannelAsRead(e.ChannelId);
+                if (e.ChannelId != null)
+                {
+                    //RenderMessages();
+                    App.MarkChannelAsRead(e.ChannelId);
+                }
+                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                {
+                    App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
+                }
                 _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
-            foreach (SimpleChannel chn in ChannelList.Items)
-                if (chn.Id == e.ChannelId)
-                    chn.IsSelected = true;
-                else if(chn.Type != 2)
-                    chn.IsSelected = false;
             UpdateTyping();
             LoadDraft();
         }
@@ -1087,6 +1206,12 @@ namespace Discord_UWP
             if (App.CurrentGuildIsDM)
             {
                 App.CurrentChannelId = e.ChannelId;
+
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
+                }
+
                 if (LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
@@ -1095,70 +1220,85 @@ namespace Discord_UWP
             else
             {
                 ServerList.SelectedIndex = 0;
+                foreach (SimpleGuild guild in ServerList.Items)
+                {
+                    if (guild.Id == "@me")
+                    {
+                        guild.IsSelected = true;
+                        ChannelList.SelectedItem = guild;
+                    }
+                    else
+                    {
+                        guild.IsSelected = false;
+                    }
+                }
                 App.CurrentChannelId = e.ChannelId;
                 App.CurrentGuildIsDM = true;
                 App.CurrentGuildId = null;
-                if (LocalState.RPC.ContainsKey(e.ChannelId))
+                if (e.ChannelId != null && LocalState.RPC.ContainsKey(e.ChannelId))
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
                     App.LastReadMsgId = null;
                 RenderDMChannels();
             }
 
-            if (LocalState.DMs[e.ChannelId].Type == 1)
+            if (e.ChannelId != null)
             {
-                UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
-                UserDetails.Visibility = Visibility.Visible;
-                MemberListFull.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                RenderGroupMembers();
-                UserDetails.Visibility = Visibility.Collapsed;
-                MemberListFull.Visibility = Visibility.Visible;
-            }
+                if (LocalState.DMs[e.ChannelId].Type == 1)
+                {
+                    UserDetails.DisplayedMember = new GuildMember() { User = LocalState.DMs[e.ChannelId].Users.FirstOrDefault() };
+                    UserDetails.Visibility = Visibility.Visible;
+                    MemberListFull.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    RenderGroupMembers();
+                    UserDetails.Visibility = Visibility.Collapsed;
+                    MemberListFull.Visibility = Visibility.Visible;
+                }
+                App.MarkChannelAsRead(e.ChannelId);
 
-            App.MarkChannelAsRead(e.ChannelId);
-            _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
+                if (e.Message != null && !e.Send)
+                {
+                    MessageBox1.Text = e.Message;
+                }
+                else if (e.Send && e.Message != null)
+                {
+                    App.CreateMessage(App.CurrentChannelId, e.Message);
+                }
 
-            if (e.Message != null && !e.Send)
-            {
-                MessageBox1.Text = e.Message;
-            }
-            else if (e.Send && e.Message != null)
-            {
-                App.CreateMessage(App.CurrentChannelId, e.Message);
-            }
+                if (e.OnBack)
+                {
+                    foreach (SimpleChannel chn in ChannelList.Items)
+                    {
+                        if (chn.Id == e.ChannelId)
+                        {
+                            lastChangeProgrammatic = true;
+                            ChannelList.SelectedItem = chn;
+                        }
+                    }
+                }
 
-            if (e.OnBack)
-            {
                 foreach (SimpleChannel chn in ChannelList.Items)
                 {
                     if (chn.Id == e.ChannelId)
                     {
-                        lastChangeProgrammatic = true;
+                        chn.IsSelected = true;
                         ChannelList.SelectedItem = chn;
                     }
+                    else
+                    {
+                        chn.IsSelected = false;
+                    }
                 }
+                UpdateTyping();
+
+                RenderMessages();
+
+                LoadDraft();
             }
 
-            foreach (SimpleChannel chn in ChannelList.Items)
-            {
-                if (chn.Id == e.ChannelId)
-                {
-                    chn.IsSelected = true;
-                    ChannelList.SelectedItem = chn;
-                }
-                else
-                {
-                    chn.IsSelected = false;
-                }
-            }
-            UpdateTyping();
-
-            RenderMessages();
-
-            LoadDraft();
+            _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
         }
 
         #endregion
@@ -1245,15 +1385,31 @@ namespace Discord_UWP
             SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
             {
                 Message = App.CurrentGuildIsDM
-                ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?"
+                ? (LocalState.DMs[e.ChannelId].Type == 1 ? App.GetString("/Dialogs/CloseDMConfirm") + LocalState.DMs[e.ChannelId].Users.FirstOrDefault().Username + "?" : App.GetString("/Dialogs/LeaveGroup").Replace("<group>", LocalState.DMs[e.ChannelId].Name))
                 : App.GetString("/Dialogs/VerifyDelete") + LocalState.Guilds[App.CurrentGuildId].channels[e.ChannelId].raw.Name + "?",
                 SubMessage = "",
                 StartText = "",
                 PlaceHolderText = null,
-                ConfirmMessage = App.GetString("/Dialogs/Delete"),
+                ConfirmMessage = App.GetString("/Dialogs/Leave"),
                 ConfirmRed = true,
                 args = e.ChannelId,
                 function = RESTCalls.DeleteChannel
+            });
+        }
+        private void App_NavigateToRemoveGroupUserHandler(object sender, App.RemoveGroupUserNavigationArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = e.UserId == LocalState.CurrentUser.Id
+                ? App.GetString("/Dialogs/LeaveGroup").Replace("<group>", LocalState.DMs[e.ChannelId].Name)
+                : App.GetString("/Dialogs/RemoveFromGroup").Replace("<user>", LocalState.DMs[e.ChannelId].Users.FirstOrDefault(x => x.Id == e.UserId).Username).Replace("<group>", LocalState.DMs[e.ChannelId].Name),
+                SubMessage = "",
+                StartText = "",
+                PlaceHolderText = null,
+                ConfirmMessage = e.UserId == LocalState.CurrentUser.Id ? App.GetString("/Dialogs/Leave") : App.GetString("/Dialogs/Remove"),
+                ConfirmRed = true,
+                args = new Tuple<string, string> (e.ChannelId, e.UserId),
+                function = RESTCalls.RemoveGroupUser
             });
         }
         private void App_NavigateToDeleteServerHandler(object sender, App.DeleteServerNavigationArgs e)
@@ -1302,6 +1458,7 @@ namespace Discord_UWP
                 SubMessage = "",
                 StartText = member.Nick != null ? member.Nick : "",
                 ConfirmRed = false,
+                CanBeFancy = true,
                 PlaceHolderText = member.User.Username,
                 args = e.UserId == LocalState.CurrentUser.Id ? new List<object>() { App.CurrentGuildId } : new List<object>() { App.CurrentGuildId, e.UserId },
             };
@@ -1381,23 +1538,22 @@ namespace Discord_UWP
                 var member = new GuildMember();
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
-                    member = LocalState.Guilds[App.CurrentGuildId].members[e.User.Id];
-                } else
-                {
-                    member = await RESTCalls.GetGuildMember(App.CurrentGuildId, e.User.Id);
+                    FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id], e.WebHook).ShowAt(sender as FrameworkElement);
                 }
-                if (member.User?.Id != null)
+                else
                 {
-                    FlyoutManager.MakeUserDetailsFlyout(member).ShowAt(sender as FrameworkElement);
-                } else if(member.User != null)
-                {
-                    FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+                    FlyoutManager.MakeUserDetailsFlyout(e.User, e.WebHook).ShowAt(sender as FrameworkElement);
                 }
             }
             else
             {
-                FlyoutManager.MakeUserDetailsFlyout(e.User).ShowAt(sender as FrameworkElement);
+                FlyoutManager.MakeUserDetailsFlyout(e.User, e.WebHook).ShowAt(sender as FrameworkElement);
             }
+        }
+
+        private void App_ShowGameFlyoutHandler(object sender, string e)
+        {
+            FlyoutManager.MakeGameFlyout(e).ShowAt(sender as FrameworkElement);
         }
         #endregion
 
@@ -1412,8 +1568,10 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
-               
-                App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
+                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User, false);
+                else if (e.User != null)
+                    App.ShowMemberFlyout(sender, e.User, false);
             }
             else if (e.Link.StartsWith("@&"))
             {
@@ -1433,11 +1591,20 @@ namespace Discord_UWP
                 string val = e.Link.Remove(0, 1);
                 if (App.CurrentGuildIsDM)
                 {
-                    App.ShowMemberFlyout(sender, LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Id == val));
+                    App.ShowMemberFlyout(sender, LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Id == val), false);
                 } else
                 {
-                    App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User);
+                    if(LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
+                        App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User, false);
+                    else if(e.User != null)
+                        App.ShowMemberFlyout(sender, e.User, false);
+                        //App.ShowMemberFlyout(sender, val);
                 }
+            }
+            else if (e.Link.StartsWith("https://discordapp.com/channels"))
+            {
+                var segments = e.Link.Substring(32).Split('/');
+                App.NavigateToGuildChannel(segments[0], segments[1]);
             }
             else
             {
@@ -1495,7 +1662,6 @@ namespace Discord_UWP
                 //Just send the message
                 await RESTCalls.CreateMessage(e.ChannelId, e.Message);
             }
-            
         }
 
         private void App_DeleteMessageHandler(object sender, App.DeleteMessageArgs e)
@@ -1603,8 +1769,12 @@ namespace Discord_UWP
             
             Dictionary<string, ChannelOverride> chns = new Dictionary<string, ChannelOverride>();
             ChannelOverride chan;
+            if (!LocalState.GuildSettings.ContainsKey(App.CurrentGuildId))
+                LocalState.GuildSettings.Add(App.CurrentGuildId, new LocalModels.GuildSetting(new SharedModels.GuildSetting() { GuildId = App.CurrentGuildId }));
+
             if (!LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.ContainsKey(e.ChannelId))
                 LocalState.GuildSettings[App.CurrentGuildId].channelOverrides.Add(e.ChannelId, new ChannelOverride() { Channel_Id = e.ChannelId, MessageNotifications = 0, Muted = true });
+
             chan = LocalState.GuildSettings[App.CurrentGuildId].channelOverrides[e.ChannelId];
             chan.Channel_Id = null;
             chan.Muted = !chan.Muted;
@@ -1732,7 +1902,7 @@ namespace Discord_UWP
                 sg.Id = guild.Value.Raw.Id;
                 if (!string.IsNullOrEmpty(guild.Value.Raw.Icon))
                 {
-                    sg.ImageURL = "https://discordapp.com/api/guilds/" + guild.Value.Raw.Id + "/icons/" + guild.Value.Raw.Icon + ".jpg";
+                    sg.ImageURL = "https://cdn.discordapp.com/icons/" + guild.Value.Raw.Id + "/" + guild.Value.Raw.Icon + ".png";
                 }
                 else
                 {
@@ -1762,17 +1932,27 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-
-            ServerNameButton.Visibility = Visibility.Collapsed;
+            if (App.CinematicMode)
+            {
+                CineGuildNameBTN.Visibility = Visibility.Collapsed;
+            } else
+            {
+                ServerNameButton.Visibility = Visibility.Collapsed;
+            }
             FriendsItem.Visibility = Visibility.Visible;
             DirectMessageBlock.Visibility = Visibility.Visible;
 
             //Select FriendPanel
             if (id == null)
             {
+                App.CurrentChannelId = null;
                 FriendsItem.IsSelected = true;
                 friendPanel.Visibility = Visibility.Visible;
                 MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
+                if (App.Insider)
+                {
+                    AddFriend.Visibility = Visibility.Visible;
+                }
             }
 
             AddChannelButton.Visibility = Visibility.Collapsed;
@@ -1787,6 +1967,10 @@ namespace Discord_UWP
                     ChannelList.Items.Add(channel);
                     if (id != null && channel.Id == id)
                     {
+                        if (App.Insider)
+                        {
+                            AddFriend.Visibility = Visibility.Collapsed;
+                        }
                         ChannelList.SelectedItem = channel;
                         App.CurrentChannelId = id;
                     }
@@ -1812,8 +1996,13 @@ namespace Discord_UWP
 
             ChannelLoading.IsActive = true;
             ChannelLoading.Visibility = Visibility.Visible;
-
-            ServerNameButton.Visibility = Visibility.Visible;
+            if (App.CinematicMode)
+            {
+                CineGuildNameBTN.Visibility = Visibility.Visible;
+            } else
+            {
+                ServerNameButton.Visibility = Visibility.Visible;
+            }
             FriendsItem.Visibility = Visibility.Collapsed;
             DirectMessageBlock.Visibility = Visibility.Collapsed;
             if (LocalState.Guilds[App.CurrentGuildId].permissions.ManageChannels || LocalState.Guilds[App.CurrentGuildId].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId == LocalState.CurrentUser.Id)
@@ -1871,9 +2060,9 @@ namespace Discord_UWP
                 sideDrawer.CloseLeft();
             }
 
-            ChannelName.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel).Name : (ChannelList.SelectedItem as SimpleChannel).Name;
+            ChannelName.Text = CinematicChannelName.Text = ChannelList.SelectedItem != null && (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? "#" + (ChannelList.SelectedItem as SimpleChannel)?.Name : (ChannelList.SelectedItem as SimpleChannel)?.Name;
             //CompChannelName.Text = ChannelName.Text;
-            ChannelTopic.Text = (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel).Id].raw.Topic : "";
+            ChannelTopic.Text = ChannelList.SelectedItem != null && (ChannelList.SelectedItem as SimpleChannel).Type == 0 ? LocalState.Guilds[App.CurrentGuildId].channels[(ChannelList.SelectedItem as SimpleChannel)?.Id].raw.Topic : "";
             //CompChannelTopic.Text = ChannelTopic.Text;
             if (ChannelTopic.Text == null || ChannelTopic.Text.Trim() == "")
             {
@@ -1981,7 +2170,7 @@ namespace Discord_UWP
                                     MessageList.Items.Insert(i, messages[i]);
                         }
                     }
-                    else if(lastReadTime != 0)
+                    else
                     {
                         //the last read message is before the first one in the list
                         _outofboundsNewMessage = true;
@@ -2420,6 +2609,7 @@ namespace Discord_UWP
         }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
+            
             GatewayManager.Gateway.GuildMemberRemoved += Gateway_GuildMemberRemoved;
             GatewayManager.Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
@@ -2428,11 +2618,13 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
+                     friendPanel.Load();
+                     DisconnectedMask.Visibility = Visibility.Collapsed;
                      SetupUI();
                  RenderCurrentUser();
                  RenderGuilds();
                  ServerList.SelectedIndex = 0;
-                 friendPanel.Load();
+                 
                  App.UpdateUnreadIndicators();
                  App.FullyLoaded = true;
                  if (App.PostLoadTask != null)
@@ -2638,6 +2830,14 @@ namespace Discord_UWP
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  async () =>
                  {
+
+                     if (e.Message.Type == 3 && App.Insider)
+                     {
+                         //TODO: Pretty up this shit (animations)
+                         //AcceptCallUI.Visibility = Visibility.Visible;
+                         NotificationManager.CreateCallNotification(e.Message);
+                     }
+
                      //var lastMsg = MessageList.Items.LastOrDefault() as MessageContainer;
                      //if (e.Message.User.Id == LocalState.CurrentUser.Id)
                      //{
@@ -2756,7 +2956,9 @@ namespace Discord_UWP
                          {
                              if (message.Message != null && message.Message.Id == e.Message.Id)
                              {
+                                 message.Edit = true;
                                  message.Message = e.Message;
+                                 message.Edit = false;
                              }
                          }
                      }
@@ -2850,8 +3052,23 @@ namespace Discord_UWP
 
         private void App_GuildChannelUpdatedHandler(object sender, App.GuildChannelUpdatedArgs e)
         {
-            App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
-            App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
+            //App_GuildChannelDeletedHandler(sender, new App.GuildChannelDeletedArgs() { ChannelId = e.Channel.Id, GuildId = e.Channel.GuildId});
+            //App_GuildChannelCreatedHandler(sender, new App.GuildChannelCreatedArgs() { Channel = e.Channel});
+            foreach (SimpleChannel chn in ChannelList.Items)
+            {
+                if (chn.Id == e.Channel.Id)
+                {
+                    if (chn.Position == e.Channel.Position)
+                    {
+                        chn.Update(e.Channel);
+                    } else
+                    {
+                        ChannelList.Items.Remove(chn);
+                        App.GuildChannelCreated(e.Channel);
+                    }
+                    break;
+                }
+            }
         }
 
         private int findLocation(SimpleChannel c)
@@ -3198,7 +3415,7 @@ namespace Discord_UWP
                     {
                         ChannelSelectionWasClicked = false; //clearly it was, but the next one will not necessarily be clicked. So set to false.
 
-                        if (App.ShowAds)
+                        if (App.ShowAds && !App.CinematicMode)
                         {
                             if (UISize.CurrentState == Large || UISize.CurrentState == ExtraLarge)
                             {
@@ -3397,9 +3614,12 @@ namespace Discord_UWP
             }
             ChannelList.SelectedIndex = -1;
             friendPanel.Visibility = Visibility.Visible;
+            if (App.Insider)
+            {
+                AddFriend.Visibility = Visibility.Visible;
+            }
             MoreNewMessageIndicator.Visibility = Visibility.Collapsed;
             sideDrawer.CloseLeft();
-            
         }
 
         private void HideBadge_Completed(object sender, object e)
@@ -3566,7 +3786,7 @@ namespace Discord_UWP
         private void MembersListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var memberItem = (ListViewItem)MembersListView.ContainerFromItem(e.ClickedItem);
-            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Member).Raw.User);
+            App.ShowMemberFlyout(memberItem, (e.ClickedItem as Member).Raw.User, false);
         }
 
         private void MessageBox1_OpenSpotify(object sender, RoutedEventArgs e)
@@ -3623,6 +3843,50 @@ namespace Discord_UWP
             cmdBarShadow = (Rectangle)sender;
 
             UISize_CurrentStateChanged(null, new VisualStateChangedEventArgs() { NewState = UISize.CurrentState });
+        }
+
+        private void AcceptCall(object sender, RoutedEventArgs e)
+        {
+            App.ConnectToVoice(AcceptCallUI.Tag.ToString(), null, "@User", "");
+        }
+
+        private async void DeclineCall(object sender, RoutedEventArgs e)
+        {
+            await RESTCalls.DeclineCall(AcceptCallUI.Tag.ToString());
+        }
+
+        private async void SendFriendRequest(object sender, RoutedEventArgs e)
+        {
+            string[] strings = SendFriendTB.Text.Split('#');
+            if (strings.Count() == 2)
+            {
+                var result = await RESTCalls.SendFriendRequest(strings[0], Convert.ToInt32(strings[1]));
+                if (result != null && result.Message != null)
+                {
+                    SendFriendTB.Header = result.Message; //App.GetString(result.Message.Replace(' ', '\0')); //TODO: Translate
+                } else
+                {
+                    SendFriendTB.Header = "Success!"; //TODO: Translate
+                }
+            } else
+            {
+                SendFriendTB.Header = "You need a discriminator to send a friend request"; //TODO: Translate
+            }
+        }
+        private void ItemStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_messageStacker != null && _messageStacker.ItemsUpdatingScrollMode == ItemsUpdatingScrollMode.KeepLastItemInView)
+            {
+                if (MessageList.Items.Count > 0 && _messageScrollviewer.VerticalOffset+24 > _messageScrollviewer.ExtentHeight)
+                {
+                    _messageScrollviewer.ChangeView(null, _messageScrollviewer.ExtentHeight, null, true);
+                }
+            }
+        }
+
+        private void NavToDiscordStatus(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.DiscordStatus));
         }
     }
 }

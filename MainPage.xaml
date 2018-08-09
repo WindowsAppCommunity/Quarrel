@@ -14,15 +14,26 @@
     xmlns:FCU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:CU="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" x:Name="Page" Loaded="Page_Loaded">
-
     <Page.Resources>
-
         <Storyboard x:Name="ChangeStatusColor">
             <ColorAnimation x:Name="StatusColorAnimation" Duration="0:0:0.4" Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="UserStatusIndicator" d:IsOptimized="True">
                 <ColorAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut"/>
                 </ColorAnimation.EasingFunction>
             </ColorAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="ShowMemberToggle">
+            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="(UIElement).Visibility">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visiblity.Visible"/>
+            </ObjectAnimationUsingKeyFrames>-->
+            <DoubleAnimation To="1" Duration="0:0:0.5" Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"/>
+        </Storyboard>
+        <Storyboard x:Name="HideMemberToggle" Duration="0:0:0.5">
+            <!--<ObjectAnimationUsingKeyFrames>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="Visiblity.Collapsed"/>
+            </ObjectAnimationUsingKeyFrames>-->
+            <DoubleAnimation To="0" Duration="0:0:0.5" Storyboard.TargetName="MemberToggle" Storyboard.TargetProperty="UIElement.RenderTransform).(ScaleTransform.ScaleX)"/>
         </Storyboard>
 
         <Style x:Key="SimplifiedListView" TargetType="ListView">
@@ -1173,6 +1184,16 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                     <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
+                    <AppBarButton x:Name="AddFriend" x:Uid="/Main/AddFriendABB" Icon="AddFriend" Label="Add Friend">
+                        <AppBarButton.Flyout>
+                            <Flyout>
+                                <StackPanel>
+                                    <TextBox x:Name="SendFriendTB" x:Uid="/Main/AddFriendTB" PlaceholderText="Enter DiscordTag#0000" Style="{ThemeResource TextBoxStyle1}" Width="400"/>
+                                    <Button x:Uid="/Main/SendFriendRequestBTN" Content="Send Friend Request" Click="SendFriendRequest" Style="{ThemeResource DiscordButton}" Width="400"/>
+                                </StackPanel>
+                            </Flyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
                     <AppBarButton x:Uid="/Main/ShowPinned" x:Name="PinnedMessags" Background="Transparent" Icon="Pin" HorizontalAlignment="Right" Label="Show Pinned Messages">
                         <AppBarButton.Flyout>
                             <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1NOLISTVIEW}">
@@ -1197,12 +1218,17 @@
                             </Flyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
-                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="Transparent"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane"/>
+                    <AppBarButton x:Uid="/Main/MemberToggle" x:Name="MemberToggle" Background="Transparent"  Icon="People" Label="Toggle Member List" Click="ToggleMemberPane">
+                        <AppBarButton.RenderTransform>
+                            <ScaleTransform x:Name="MemberToggleTransform" ScaleX="1" ScaleY="1"/>
+                        </AppBarButton.RenderTransform>
+                    </AppBarButton>
                 </CommandBar.PrimaryCommands>
                 <CommandBar.SecondaryCommands>
                     <AppBarButton x:Uid="/Main/AboutABB" Label="About" Click="NavToAbout"/>
                     <AppBarButton x:Uid="/Main/WhatsNewABB" Label="What's New?" Click="WhatsNewClick"/>
                     <AppBarButton x:Uid="/Main/RemoveAdsABB" Label="Remove Ads" Click="NavToIAPs"/>
+                   <!-- <AppBarButton Label="Discord Status" Click="NavToDiscordStatus"/>-->
                     <AppBarButton x:Uid="/Main/SettingsABB" Label="Settings" Click="OpenSettings"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
@@ -1227,12 +1253,9 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>
-                                        <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButton}" HorizontalAlignment="Center">
+                                        <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButtonAdd}" HorizontalAlignment="Center">
                                             <Button.Content>
-                                                <Grid>
-                                                    <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
-                                                    <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
-                                                </Grid>
+
                                             </Button.Content>
                                         </Button>
                                     </ListView.Footer>
@@ -1268,6 +1291,7 @@
                         <Grid Grid.Column="1" BorderBrush="#00000000">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -1393,10 +1417,24 @@
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <TextBlock x:Name="CinematicGuildName" Visibility="Collapsed" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Top" Margin="20,48,0,0"/>
-                            <controls:VoiceConnectionControl
-                                x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed"/>
-                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="2" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
+                            <Button x:Name="CineGuildNameBTN" Click="ServerNameButton_Click" Visibility="Collapsed" VerticalAlignment="Top" Margin="20,48,0,0">
+                                <TextBlock x:Name="CinematicGuildName" Text="{Binding Text, ElementName=ServerName}" FontSize="20" FontWeight="SemiBold" />
+                            </Button>
+                            <Grid x:Name="AcceptCallUI" Grid.Row="1" Visibility="Collapsed" Background="{ThemeResource AcrylicUserBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.ColumnSpan="2" Text="Call from user"/>
+                                <Button Content="Accept" Grid.Row="1" Style="{ThemeResource DiscordButton}" Click="AcceptCall"/>
+                                <Button Content="Decline" Grid.Row="1" Grid.Column="1" Style="{ThemeResource DiscordButton}" Click="DeclineCall"/>
+                            </Grid>
+                            <controls:VoiceConnectionControl x:Name="VoiceController" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                            <Button x:Name="userButton" Grid.ColumnSpan="2" Style="{StaticResource DiscordOpaqueButton}" Background="{ThemeResource AcrylicUserBackground}" BorderThickness="0" Grid.Row="3" Height="64" VerticalAlignment="Bottom" Padding="0" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch">
                                 <Button.Flyout>
                                     <Flyout x:Name="userFlyout" FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle2}">
                                         <StackPanel Padding="12" Width="280">
@@ -1518,7 +1556,7 @@
                                 <ListView x:Name="MessageList" Grid.Row="1" VerticalAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}" Margin="0,0,-12,0" Padding="0,0,12,0">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
+                                            <ItemsStackPanel Loaded="ItemsStackPanel_Loaded" SizeChanged="ItemStackPanel_SizeChanged" Margin="0,0,0,-4" ItemsUpdatingScrollMode="KeepLastItemInView">
                                                 <ItemsStackPanel.ChildrenTransitions>
                                                     <TransitionCollection/>
                                                 </ItemsStackPanel.ChildrenTransitions>
@@ -1533,7 +1571,8 @@
                                                  Header="{x:Bind Header, Mode=OneWay}"
                                                  IsPending="{x:Bind Pending, Mode=OneWay}"
                                                  IsBlocked="{x:Bind Blocked, Mode=OneWay}"
-                                                 LastRead="{x:Bind LastRead, Mode=OneWay}"/>
+                                                 LastRead="{x:Bind LastRead, Mode=OneWay}"
+                                                 Edited="{x:Bind Edit, Mode=OneWay}"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>
@@ -1576,9 +1615,9 @@
                                 <TextBlock x:Name="CinematicChannelName" Visibility="Collapsed" Text="#general" FontSize="20" FontWeight="SemiLight" VerticalAlignment="Top" Margin="18,48,0,0" Grid.RowSpan="12"/>
                                 <Grid x:Name="ControllerHints" Visibility="Collapsed" Grid.Row="3">
                                     <StackPanel Margin="0,2,12,48" HorizontalAlignment="Right" Orientation="Horizontal">
-                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
-                                        <controls:ControllerHint x:Name="ViewHint" ButtonGlyph="" Label="Full screen" Margin="0,0,24,0"/>
-                                        <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
+                                        <controls:ControllerHint x:Name="YHint" ButtonGlyph="" Label="Context Menu" Margin="0,0,24,0" Opacity="0"/>
+                                       
+                                        <controls:ControllerHint x:Name="MenuHint" ButtonGlyph="" Label="Menu">
                                             <controls:ControllerHint.ContextFlyout>
                                                 <MenuFlyout MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
                                                     <!-- <MenuFlyoutSeparator/>-->
@@ -1590,6 +1629,11 @@
                                             </controls:ControllerHint.ContextFlyout>
                                         </controls:ControllerHint>
                                     </StackPanel>
+                                    <ads:AdControl x:Name="XBOXAd" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                               Visibility="Collapsed" Background="Red"
+                                               Height="50" Width="320"
+                                               ApplicationId="9nbrwj777c8r"
+                                               AdUnitId="336795" Grid.RowSpan="2"/>
                                 </Grid>
                             </Grid>
 
@@ -1715,7 +1759,12 @@
                                      HorizontalAlignment="Center"/>-->
 
         <controls:VoiceConnectionControl x:Name="COVoice" Visibility="Collapsed" FullScreen="True" HorizontalAlignment="Stretch" SizeChanged="COVoice_SizeChanged" VerticalAlignment="Stretch"/>
-
+        <Grid x:Name="DisconnectedMask" Visibility="Collapsed" Opacity="0">
+            <Grid.Background>
+                <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.65"/>
+            </Grid.Background>
+            <FontIcon FontSize="48" Glyph="" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
         <controls:LoadingControl x:Name="Loading" Grid.RowSpan="3" Visibility="Collapsed"/>
 
         <Grid x:Name="DroppingRectangle" Opacity="0" IsHitTestVisible="False" Visibility="Collapsed">
@@ -1735,6 +1784,6 @@
                 </TextBlock.RenderTransform>
             </TextBlock>
         </Grid>
-        
+
     </Grid>
 </Page>

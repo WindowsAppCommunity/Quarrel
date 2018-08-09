@@ -287,7 +287,7 @@
     <value>&lt;user&gt; from the conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>You missed a call from</value>
+    <value>You missed a call from &lt;user&gt;</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>pinned a message in this channel.</value>
@@ -345,5 +345,8 @@
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>Having issues? Try resetting Quarrel</value>
+  </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>ACTIVITES</value>
   </data>
 </root>

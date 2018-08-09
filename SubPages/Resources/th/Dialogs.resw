@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptFriendReqBTN.Text" xml:space="preserve">
+    <value>รับคำขอเป็นเพื่อน</value>
+  </data>
+  <data name="AddReactionsToggle.Header" xml:space="preserve">
+    <value>แสดงอารมณ์โต้ตอบ</value>
+  </data>
+  <data name="AdministratorToggle.Header" xml:space="preserve">
+    <value>แอดมิน</value>
+  </data>
+  <data name="AdvancedMessageEditorTB" xml:space="preserve">
+    <value>แก้ไขข้อความ</value>
+  </data>
+  <data name="AttachementsTB.Text" xml:space="preserve">
+    <value>แนบไฟล์</value>
+  </data>
+  <data name="AttachFilesToggle.Header" xml:space="preserve">
+    <value>แนบหลายไฟล์</value>
+  </data>
+  <data name="BadChannelNameDesc1.Text" xml:space="preserve">
+    <value>ชื่อของแชนเนลรองรับเฉพาะตัวอักษร, เครื่องหมายยัติภาค และเครื่องหมายขีดล่างเท่านั้น</value>
+  </data>
+  <data name="BadChannelNameDesc2.Text" xml:space="preserve">
+    <value>ซ่อมอัตโนมัติ</value>
+  </data>
+  <data name="BanBTN.Content" xml:space="preserve">
+    <value>แบน</value>
+  </data>
+  <data name="BanMembersToggle.Header" xml:space="preserve">
+    <value>แบนสมาชิก</value>
+  </data>
+  <data name="BansPI.Header" xml:space="preserve">
+    <value>แบน</value>
+  </data>
+  <data name="BlockTB.Text" xml:space="preserve">
+    <value>บล็อค</value>
+  </data>
+  <data name="BodyTB.Text" xml:space="preserve">
+    <value>ตัวตน</value>
+  </data>
+  <data name="CancelBTN.Content" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="ChangeNicknameToggle.Header" xml:space="preserve">
+    <value>เปลี่ยนชื่อเล่น</value>
+  </data>
+  <data name="CommonFriendsLI.Content" xml:space="preserve">
+    <value>เพื่อนร่วมกัน</value>
+  </data>
+  <data name="CommonServersLI.Content" xml:space="preserve">
+    <value>เซิฟเวอร์ร่วมกัน</value>
+  </data>
+  <data name="ConnectToggle.Header" xml:space="preserve">
+    <value>เชื่อมต่อ</value>
+  </data>
+  <data name="CopyLinkABB.Label" xml:space="preserve">
+    <value>คัดลอกลิ้งค์</value>
+  </data>
+  <data name="CreateInstantInviteToggle.Header" xml:space="preserve">
+    <value>สร้างคำชวน</value>
+  </data>
+  <data name="CreateServerTB.Text" xml:space="preserve">
+    <value>สร้างเซิฟเวอร์</value>
+  </data>
+  <data name="DeafenMembersToggle.Header" xml:space="preserve">
+    <value>ปิดเสียงสมาชิก</value>
+  </data>
+  <data name="DeleteBTN" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="DetailsLI.Content" xml:space="preserve">
+    <value>รายละเอียด</value>
+  </data>
+  <data name="EditChannelNameTBox.Header" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="EditChannelTB.Text" xml:space="preserve">
+    <value>แก้ไขแชนเนล</value>
+  </data>
+  <data name="EditNicknameTB.Text" xml:space="preserve">
+    <value>ชื่อเล่น</value>
+  </data>
+  <data name="EditServerNameTBox.Header" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="EditServerTB.Text" xml:space="preserve">
+    <value>แก้ไขเซิฟเวอร์</value>
+  </data>
+  <data name="EmbedLinksToggle.Header" xml:space="preserve">
+    <value>ลิ้งค์ภายนอก</value>
+  </data>
+  <data name="FileNameTB.Text" xml:space="preserve">
+    <value>ชื่อไฟล์:</value>
+  </data>
+  <data name="FileSizeTB.Text" xml:space="preserve">
+    <value>ขนาดไฟล์:</value>
+  </data>
+  <data name="FriendReqSentBTN.Text" xml:space="preserve">
+    <value>ส่งคำขอเป็นเพื่อนแล้ว</value>
+  </data>
+  <data name="GeneralPermissionsTB.Text" xml:space="preserve">
+    <value>สิทธิ์ทั่วไป</value>
+  </data>
+  <data name="HeightTB.Text" xml:space="preserve">
+    <value>ความสูง:</value>
+  </data>
+  <data name="IAPsTB.Text" xml:space="preserve">
+    <value>การซื้อในแอพ</value>
+  </data>
+  <data name="InvitesPI.Header" xml:space="preserve">
+    <value>คำชวน</value>
+  </data>
+  <data name="JoinAServerTB.Text" xml:space="preserve">
+    <value>เข้าร่วมเซิฟเวอร์</value>
+  </data>
+  <data name="JoinBTN.Content" xml:space="preserve">
+    <value>เข้าร่วม</value>
+  </data>
+  <data name="JoinServerDescTB.Text" xml:space="preserve">
+    <value>กรุณากรอกรหัสหรือลิ้งค์เชิญชวน</value>
+  </data>
+  <data name="JoinServerErrorTB.Text" xml:space="preserve">
+    <value>ขออภัย, รหัสไม่ถูกต้องหรือหมดอายุไปแล้ว</value>
+  </data>
+  <data name="JoinServerTB.Text" xml:space="preserve">
+    <value>เข้าร่วมเซิฟเวอร์</value>
+  </data>
+  <data name="KickMembersToggle.Header" xml:space="preserve">
+    <value>ไล่สมาชิกออก</value>
+  </data>
+  <data name="LeaveServerBTN.Content" xml:space="preserve">
+    <value>ออกจากเซิฟเวอร์</value>
+  </data>
+  <data name="ManageChannelsToggle.Header" xml:space="preserve">
+    <value>จัดการชาแนล</value>
+  </data>
+  <data name="ManageEmojisToggle.Header" xml:space="preserve">
+    <value>จัดการอีโมจิ</value>
+  </data>
+  <data name="ManageMessagesToggle.Header" xml:space="preserve">
+    <value>จัดการข้อความ</value>
+  </data>
+  <data name="ManageNicknamesToggle.Header" xml:space="preserve">
+    <value>จัดการชื่อเล่น</value>
+  </data>
+  <data name="ManageRolesToggle.Header" xml:space="preserve">
+    <value>จัดการบทบาท</value>
+  </data>
+  <data name="ManageServerToggle.Header" xml:space="preserve">
+    <value>จัดการเซิฟเวอร์</value>
+  </data>
+  <data name="ManageWebhooksToggle.Header" xml:space="preserve">
+    <value>จัดการ Webhooks</value>
+  </data>
+  <data name="MentionEveryoneToggle.Header" xml:space="preserve">
+    <value>จัดการทุกคน</value>
+  </data>
+  <data name="MoveMembersToggle.Header" xml:space="preserve">
+    <value>ย้ายสมาชิก</value>
+  </data>
+  <data name="MuteMembersToggle.Header" xml:space="preserve">
+    <value>ปิดเสียงสมาชิก</value>
+  </data>
+  <data name="NameTB.Text" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="NoBansTB.Text" xml:space="preserve">
+    <value>ยังไม่มีการแบน</value>
+  </data>
+  <data name="NoCommonFriendsTB.Text" xml:space="preserve">
+    <value>ไม่มีเพื่อนที่คล้ายกัน</value>
+  </data>
+  <data name="NoCommonServersTB.Text" xml:space="preserve">
+    <value>ไม่มีเซิฟเวอร์ที่คล้ายกัน</value>
+  </data>
+  <data name="NoInvitesTB.Text" xml:space="preserve">
+    <value>ไม่มีคำชวน</value>
+  </data>
+  <data name="NoteTB.Text" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="NsfwDescTB.Text" xml:space="preserve">
+    <value>สมาชิกต้องยืนยันว่าอายุถึงเกณฑ์เพื่อดูเนื้อหาในแชนเนลนี้. และจะต้องได้รับการยกเว้นจากการคัดกรองเนื้อหา.</value>
+  </data>
+  <data name="NsfwSwitch.OffContent" xml:space="preserve">
+    <value>แชนเนล ๑๘+</value>
+  </data>
+  <data name="NsfwSwitch.OnContent" xml:space="preserve">
+    <value>แชนเนล ๑๘+</value>
+  </data>
+  <data name="OMGTHXDonationBTN.Content" xml:space="preserve">
+    <value>บริจาค $๒.๙๙ (๙๗ บาท)</value>
+  </data>
+  <data name="OpenInBrowserABB.Label" xml:space="preserve">
+    <value>เปิดในเว็บ</value>
+  </data>
+  <data name="OverviewPI.Header" xml:space="preserve">
+    <value>ภาพรวม</value>
+  </data>
+  <data name="PoliteDonationBTN.Content" xml:space="preserve">
+    <value>บริจาค $๑.๒๙ (๔๒ บาท)</value>
+  </data>
+  <data name="ReadMessageHistoryToggle.Header" xml:space="preserve">
+    <value>ดูประวัติข้อความ</value>
+  </data>
+  <data name="ReadMessagesToggle.Header" xml:space="preserve">
+    <value>ดูข้อความ</value>
+  </data>
+  <data name="RemoveAdsBTN.Content" xml:space="preserve">
+    <value>ลบโฆษณา $๑.๒๙ (๔๒ บาท)</value>
+  </data>
+  <data name="RemoveFriendTB.Text" xml:space="preserve">
+    <value>ลบออกจากการเป็นเพื่อน</value>
+  </data>
+  <data name="RidiculousDonationBTN.Content" xml:space="preserve">
+    <value>บริจาค $๔.๙๙ (๑๖๒ บาท)</value>
+  </data>
+  <data name="RoleAllowMentionToggle.Header" xml:space="preserve">
+    <value>อนุญาตการทัก (ด้วย @mention)</value>
+  </data>
+  <data name="RoleHoistToggle.Header" xml:space="preserve">
+    <value>แสดงในกลุ่มรายชื่อ</value>
+  </data>
+  <data name="RoleNameTB.Text" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="RoleSettingsTB.Text" xml:space="preserve">
+    <value>ตั้งค่า</value>
+  </data>
+  <data name="RolesPI.Header" xml:space="preserve">
+    <value>บทบาท</value>
+  </data>
+  <data name="SaveABB.Label" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="SaveBTN.Content" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="SendFriendReqBTN.Text" xml:space="preserve">
+    <value>ส่งคำขอเป็นเพื่อน</value>
+  </data>
+  <data name="SendMessagesToggle.Header" xml:space="preserve">
+    <value>ส่งข้อความ</value>
+  </data>
+  <data name="SendMessageTB.Text" xml:space="preserve">
+    <value>ส่งข้อความ</value>
+  </data>
+  <data name="SendTTSMessagesToggle.Header" xml:space="preserve">
+    <value>ส่งข้อความแบบ TTS</value>
+  </data>
+  <data name="ServerGuidelinesDesc1" xml:space="preserve">
+    <value>สร้างเซิฟเวอร์แล้ว, แสดงว่าคุณยอมรับ</value>
+  </data>
+  <data name="ServerGuidelinesDesc2" xml:space="preserve">
+    <value>ข้อตกลงของ Discord</value>
+  </data>
+  <data name="ShareABB.Label" xml:space="preserve">
+    <value>แชร์</value>
+  </data>
+  <data name="SignificantDonationBTN.Content" xml:space="preserve">
+    <value>บริจาค $๑.๙๙ (๖๔ บาท)</value>
+  </data>
+  <data name="SpeakToggle.Header" xml:space="preserve">
+    <value>พูด</value>
+  </data>
+  <data name="TextPermissionsTB.Text" xml:space="preserve">
+    <value>สิทธิ์ในข้อความ</value>
+  </data>
+  <data name="UnblockBTN.Text" xml:space="preserve">
+    <value>ปลดบล็อค</value>
+  </data>
+  <data name="UseExternalEmojisToggle.Header" xml:space="preserve">
+    <value>ใช้อีโมจิจากเซิฟเวอร์อื่น</value>
+  </data>
+  <data name="UseVoiceActivityToggle.Header" xml:space="preserve">
+    <value>ใช้ห้องแชทเสียง</value>
+  </data>
+  <data name="ViewAuditLogToggle.Header" xml:space="preserve">
+    <value>ดูรายชื่อบทบาท</value>
+  </data>
+  <data name="VoicePermissionsTB.Text" xml:space="preserve">
+    <value>สิทธิ์ในการใช้เสียง</value>
+  </data>
+  <data name="WidthTB.Text" xml:space="preserve">
+    <value>ความกว้าง:</value>
+  </data>
+  <data name="EditChannelTopicTBox.Header" xml:space="preserve">
+    <value>กระทู้</value>
+  </data>
+  <data name="AddOnError" xml:space="preserve">
+    <value>ผิดพลาด กรุณาลองใหม่ในภายหลัง</value>
+  </data>
+  <data name="AddOnNotPurchased" xml:space="preserve">
+    <value>การบริจาคถูกยกเลิก</value>
+  </data>
+  <data name="AddOnPurchased" xml:space="preserve">
+    <value>ขอบคุณสำหรับการบริจาค.
+การบริจาคนี้จะช่วยในการพัฒนาแอพได้ไม่มากก็น้อย.</value>
+  </data>
+  <data name="EDIT" xml:space="preserve">
+    <value>แก้ไข</value>
+  </data>
+  <data name="FlagDiscordPartner" xml:space="preserve">
+    <value>พันธมิตร Discord</value>
+  </data>
+  <data name="FlagDiscordStaff" xml:space="preserve">
+    <value>เจ้าหน้าที่ Discord</value>
+  </data>
+  <data name="FlagHypesquad" xml:space="preserve">
+    <value>HYPESQUAD</value>
+  </data>
+  <data name="PremiumSince" xml:space="preserve">
+    <value>เป็นสมาชิกพรีเมี่ยมตั้งแต่</value>
+  </data>
+  <data name="VerifyBan" xml:space="preserve">
+    <value>คุณแน่ใจแล้วหรือไม่ที่จะแบน @</value>
+  </data>
+  <data name="VerifyDelete" xml:space="preserve">
+    <value>คุณแน่ใจแล้วหรือไม่ที่จะลบ</value>
+  </data>
+  <data name="VerifyLeave" xml:space="preserve">
+    <value>คุณแน่ใจแล้วหรือไม่ที่จะออก</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>คุณแน่ใจแล้วหรือไม่ที่จะออกจากระบบ</value>
+  </data>
+  <data name="CreateChannelTB.Text" xml:space="preserve">
+    <value>สร้างแชนเนล</value>
+  </data>
+  <data name="AdvancedOpenFileTB.Text" xml:space="preserve">
+    <value>เปิดไฟล์</value>
+  </data>
+  <data name="AdvancedRecordSoundTB.Text" xml:space="preserve">
+    <value>บันทึกเสียง</value>
+  </data>
+  <data name="AdvancedTakePhotoTB.Text" xml:space="preserve">
+    <value>ถ่ายภาพ</value>
+  </data>
+  <data name="SavingAudio" xml:space="preserve">
+    <value>กำลังสร้างไฟล์</value>
+  </data>
+  <data name="RecordingAudio" xml:space="preserve">
+    <value>กำลังบันทึก</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ไฟล์</value>
+  </data>
+  <data name="GotIt.Content" xml:space="preserve">
+    <value>เรียบร้อย!</value>
+  </data>
+  <data name="DonationsTB" xml:space="preserve">
+    <value>บริจาค</value>
+  </data>
+  <data name="CommonFriendsTB.Text" xml:space="preserve">
+    <value>เพื่อนร่วมกัน</value>
+  </data>
+  <data name="CommonServersTB.Text" xml:space="preserve">
+    <value>เซิฟเวอร์ร่วมกัน</value>
+  </data>
+  <data name="TextChannel" xml:space="preserve">
+    <value>แชนเนลข้อความ</value>
+  </data>
+  <data name="VoiceChannel" xml:space="preserve">
+    <value>แชนเนลเสียง</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>กลุ่ม</value>
+  </data>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>ออกจากเซิฟเวอร์</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>บล</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>แบน</value>
+  </data>
+  <data name="CreateServer" xml:space="preserve">
+    <value>สร้างเซิฟเวอร์</value>
+  </data>
+  <data name="ServerName" xml:space="preserve">
+    <value>ชื่อเซิฟเวอร์</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="CloseDMConfirm" xml:space="preserve">
+    <value>คุณแน่ใจแล้วใช่ไหมว่าคุณต้องการหยุดคุยแบบส่วนตัวกับ </value>
+  </data>
+  <data name="DeleteMessageConfirm" xml:space="preserve">
+    <value>คุณแน่ใจแล้วใช่ไหมว่าคุณต้องการลบข้อความนี้?</value>
+  </data>
+  <data name="EditNickname" xml:space="preserve">
+    <value>แก้ไขชื่อเล่น</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="AddOnsTB.Text" xml:space="preserve">
+    <value>ส่วนเสริม</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>คุณแน่ใจแล้วใช่ไหม?</value>
+  </data>
+  <data name="ResetQuarrel" xml:space="preserve">
+    <value>รีเซทแอพ Quarrel</value>
+  </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>เมื่อยืนยันแล้ว, แอพจะถูกรีเซททุกย่าง, นั่นหมายความว่าบัญชีที่เข้าสู่ระบบอยู่จะถูกบังคับออกจากระบบ, การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้น, แล้วแอพจะปิด. การรีเซทนี้ไม่มีผลกับบัญชีของคุณ.</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>ตั้งค่าบัญชี</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>ตั้งค่าแอพ</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>เปลี่ยนรหัสผ่าน</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>รหัสผ่านปัจจุบัน</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>อีเมล</value>
+  </data>
+  <data name="Sorry" xml:space="preserve">
+    <value>ขออภัย :/</value>
+  </data>
+  <data name="ThereWasAnErrorClarify" xml:space="preserve">
+    <value>มีปัญาเกิดขึ้นระหว่างทำการบันทึกการตั้งค่าบัญชีของคุณ, คุณแน่ใจแล้วใช่ไหมว่าทุกอย่างถูกต้อง?</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>อัพโหลดรูปภาพ</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>ชื่อผู้ใช้</value>
+  </data>
+  <data name="GuildNameBox.PlaceholderText" xml:space="preserve">
+    <value>ชื่อ</value>
+  </data>
+  <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
+    <value>กระทู้ที่ไม่ได้ระบุชื่อ</value>
+  </data>
+  <data name="ImageRecommendationTB.Text" xml:space="preserve">
+    <value>เราแนะนำให้ใช้รูปภาพที่มีขนาดอย่างน้อย ๕๑๒px×๕๑๒px</value>
+  </data>
+  <data name="CancelIconMod" xml:space="preserve">
+    <value>ยกเลิกแก้ไขไอคอน</value>
+  </data>
+  <data name="SaveBTNtext.Text" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="ChannelSelectTB.Text" xml:space="preserve">
+    <value>แชนเนล</value>
+  </data>
+  <data name="MustBeLoggedIn" xml:space="preserve">
+    <value>คุณต้องเข้าสู่ระบบเพื่อใช้การแชร์</value>
+  </data>
+  <data name="ServerSelectTB.Text" xml:space="preserve">
+    <value>เซิฟเวอร์</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>แชร์</value>
+  </data>
+  <data name="ListenTogetherTB.Text" xml:space="preserve">
+    <value>ฟังด้วยกันบน Spotify</value>
+  </data>
+  <data name="NoteTBox.PlaceholderText" xml:space="preserve">
+    <value>ไม่มีหมายเหตุ</value>
+  </data>
+  <data name="ConnectionsTB.Text" xml:space="preserve">
+    <value>การเชื่อมต่อ</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>รหัสผ่านใหม่</value>
+  </data>
+  <data name="on" xml:space="preserve">
+    <value>ใน</value>
+  </data>
+</root>

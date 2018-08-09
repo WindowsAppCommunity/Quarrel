@@ -16,6 +16,24 @@ namespace Discord_UWP.Managers
     public class FlyoutManager
     {
         public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn, VoiceMember}
+
+        public static async Task<MenuFlyout> ShowMenu(User user)
+        {
+            MenuFlyout flyout = new MenuFlyout();
+            if (App.CinematicMode)
+                flyout.LightDismissOverlayMode = LightDismissOverlayMode.On;
+            flyout = FlyoutCreator.MakeGuildMemberMenu(new GuildMember()
+            {
+                User = user
+            });
+            foreach (var item in flyout.Items)
+            {
+                if (item.GetType() == typeof(MenuFlyoutItem))
+                    item.Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"];
+            }
+            return flyout;
+        }
+
         public static async Task<MenuFlyout> ShowMenu(Type type, string id, string parentId)
         {
             MenuFlyout flyout = new MenuFlyout();
@@ -44,9 +62,6 @@ namespace Discord_UWP.Managers
                         if (LocalState.Guilds[parentId].members.ContainsKey(id))
                         {
                             flyout = FlyoutCreator.MakeGuildMemberMenu(LocalState.Guilds[parentId].members[id]);
-                        } else
-                        {
-                            flyout = FlyoutCreator.MakeGuildMemberMenu(await RESTCalls.GetGuildMember(parentId, id));
                         }
                     }
                     break;
@@ -73,31 +88,43 @@ namespace Discord_UWP.Managers
             return flyout;
         }
 
-        public static Flyout MakeUserDetailsFlyout(GuildMember member)
+        public static Flyout MakeUserDetailsFlyout(GuildMember member, bool webhook)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
                 DisplayedMember = member,
-                DMPane = false
+                DMPane = false,
+                Webhook = webhook
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
           
             return flyout;
         }
 
-        public static Flyout MakeUserDetailsFlyout(User user)
+        public static Flyout MakeUserDetailsFlyout(User user, bool webhook)
         {
             Flyout flyout = new Flyout();
             flyout.Content = new UserDetailsControl()
             {
                 DisplayedMember = new GuildMember() { User = user },
-                DMPane = false
+                DMPane = false,
+                Webhook = webhook
             };
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
             return flyout;
         }
 
+        public static Flyout MakeGameFlyout(string id)
+        {
+            Flyout flyout = new Flyout();
+            flyout.Content = new GameDetailsControl()
+            {
+                GameId = id
+            };
+            flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
+            return flyout;
+        }
         #region FlyoutCommands
         #region Profile
         public static void OpenProfile(object sender, RoutedEventArgs e)
@@ -155,7 +182,11 @@ namespace Discord_UWP.Managers
 
         public static async void KickMember(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
+            try
+            {
+                await RESTCalls.RemoveGuildMember(App.CurrentGuildId, (sender as MenuFlyoutItem).Tag.ToString());
+            }
+            catch { }
         }
 
         public static void BanMember(object sender, RoutedEventArgs e)
@@ -231,10 +262,18 @@ namespace Discord_UWP.Managers
             await RESTCalls.ModifyGuildMember(App.CurrentGuildId, ((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2, modify);
         }
 
-        public static async void RemoveGroupUser(object sender, RoutedEventArgs e)
+        public static void LeaveUnownedChannel(object sender, RoutedEventArgs e)
         {
-            var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
-            await RESTCalls.RemoveGroupUser(senderTag.Item1, senderTag.Item2);
+            App.NavigateToDeleteChannel(((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item1);
+            //var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
+            //await RESTCalls.DeleteChannel(senderTag.Item1);
+        }
+
+        public static void RemoveGroupUser(object sender, RoutedEventArgs e)
+        {
+            App.NavigateToRemoveGroupUser(((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item1, ((sender as MenuFlyoutItem).Tag as Tuple<string, string>).Item2);
+            //var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
+            //await RESTCalls.RemoveGroupUser(senderTag.Item1, senderTag.Item2);
         }
         #endregion
 

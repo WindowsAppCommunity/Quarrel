@@ -271,13 +271,13 @@
     <value>&lt;user&gt; de la conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>Vous avez manqué un appel de</value>
+    <value>Vous avez manqué un appel de &lt;user&gt;</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>a épinglé un message dans ce salon.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Appel commencé par</value>
+    <value>Appel commencé par &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
     <value>&lt;user&gt; a commencé un appel</value>
@@ -329,5 +329,8 @@
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>Essayer de réinitialiser l'application</value>
+  </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>ACTIVITÉ</value>
   </data>
 </root>

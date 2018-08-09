@@ -23,12 +23,15 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store;
 
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Discord_UWP.Managers;
 using Windows.Foundation.Metadata;
 using System.Diagnostics;
 using System.Collections.Generic;
+using Windows.Globalization;
 using ColorSyntax.Styling;
 using ColorSyntax.Common;
+using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 
 namespace Discord_UWP
@@ -95,6 +98,7 @@ namespace Discord_UWP
         public class ProfileNavigationArgs : EventArgs
         {
             public SharedModels.User User { get; set; }
+            public bool WebHook { get; set; }
         }
         #endregion
 
@@ -112,11 +116,19 @@ namespace Discord_UWP
         {
             MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(type, Id, parentId), Point = point });
         }
-
-        public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
-        public static void ShowMemberFlyout(object sender, SharedModels.User user)
+        public static async void ShowMenuFlyout(object sender, SharedModels.User user, Point point)
         {
-            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user });
+            MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(user), Point = point });
+        }
+        public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
+        public static void ShowMemberFlyout(object sender, SharedModels.User user, bool webhook)
+        {
+            ShowMemberFlyoutHandler?.Invoke(sender, new ProfileNavigationArgs() { User = user, WebHook = webhook });
+        }
+        public static event EventHandler<string> ShowGameFlyoutHandler;
+        public static void ShowGameFlyout(object sender, string id)
+        {
+            ShowGameFlyoutHandler?.Invoke(sender, id);
         }
         #endregion
 
@@ -329,6 +341,20 @@ namespace Discord_UWP
         public static void NavigateToDeleteChannel(string channelId)
         {
             NavigateToDeleteChannelHandler?.Invoke(typeof(App), new DeleteChannelNavigationArgs() { ChannelId = channelId });
+        }
+        #endregion
+
+        #region RemoveGroupUser
+        public class RemoveGroupUserNavigationArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string UserId { get; set; }
+        }
+
+        public static event EventHandler<RemoveGroupUserNavigationArgs> NavigateToRemoveGroupUserHandler;
+        public static void NavigateToRemoveGroupUser(string channelId, string userId)
+        {
+            NavigateToRemoveGroupUserHandler?.Invoke(typeof(App), new RemoveGroupUserNavigationArgs() { ChannelId = channelId, UserId = userId});
         }
         #endregion
 
@@ -799,13 +825,30 @@ namespace Discord_UWP
         }
         #endregion
 
-        public static event EventHandler WentOffline;
-        public static void CheckOnline()
+        public static event EventHandler<StatusPageClasses.Index> WentOffline;
+        private static bool runningNetworkTest = false;
+        public static async void CheckOnline()
         {
-            if (!App.IsOnline())
+            //The runningNetworkTest serves to ensure that we ignore the CheckOnline() if we are already busy running a network test
+            if (runningNetworkTest) return;
+            runningNetworkTest = true;
+            ConnectionProfile connections = NetworkInformation.GetInternetConnectionProfile();
+            if (connections == null)
             {
-                WentOffline?.Invoke(typeof(App), null);
+                //Definitely not connected to the internet
+                WentOffline?.Invoke(null,null);
             }
+            else
+            {
+                //Maybe, just maybe connected?
+                var status = await StatusPage.GetStatus();
+                if (status == null || status.Status.Indicator != "none" && status.Status.Indicator != "operational")
+                {
+                    WentOffline?.Invoke(null, status);
+                }
+            }
+
+            runningNetworkTest = false;
         }
 
         public class MentionArgs : EventArgs
@@ -870,6 +913,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
+        internal const bool Insider = false;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
@@ -880,15 +924,15 @@ namespace Discord_UWP
         internal const bool AslansBullshit = false;
         internal static bool FCU = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
 
+
         #region DerivedColors
-        internal const bool derivedColorDebug = false; //Fix images with a lack of colors first
 
         internal static Dictionary<string, Color> userAccents = new Dictionary<string, Color>();
         public async static Task<Nullable<Color>> getUserColor(SharedModels.User user)
         {
             if (String.IsNullOrEmpty(user.Avatar))
             {
-                return (Color?)App.Current.Resources["BlurpleColor"];
+                return Common.DiscriminatorColor(user.Discriminator.ToString()).Color;
             }
 
             if (userAccents.ContainsKey(user.Id))
@@ -897,11 +941,19 @@ namespace Discord_UWP
             }
             else
             {
-                Colors.PictureAnalysis analysis = new Colors.PictureAnalysis();
-                await analysis.Analyse(new BitmapImage(Common.AvatarUri(user.Avatar, user.Id, "?size=64")), 64, 64);
-                if (analysis.ColorList.Count > 0)
+                SmartColor.PictureAnalysis analysis = new SmartColor.PictureAnalysis();
+                try
                 {
-                    userAccents.Add(user.Id, analysis.ColorList[0].Color);
+                    await analysis.Analyse(new BitmapImage(Common.AvatarUri(user.Avatar, user.Id, "?size=64")), 64, 64);
+                    if (analysis.ColorList.Count > 0)
+                    {
+                        userAccents.Add(user.Id, analysis.ColorList[0].Color);
+                        return userAccents[user.Id];
+                    }
+                }
+                catch
+                {
+                    userAccents.Add(user.Id, (Color)App.Current.Resources["BlurpleColor"]);
                     return userAccents[user.Id];
                 }
                 return (Color?)App.Current.Resources["BlurpleColor"];
@@ -917,6 +969,7 @@ namespace Discord_UWP
         public static ResourceLoader ResControls = ResourceLoader.GetForCurrentView("Controls");
         public static ResourceLoader ResDialogs = ResourceLoader.GetForCurrentView("Dialogs");
         public static ResourceLoader ResFlyouts = ResourceLoader.GetForCurrentView("Flyouts");
+        public static ResourceLoader ResPermissions = ResourceLoader.GetForCurrentView("Permissions");
         public static ResourceLoader ResMain = ResourceLoader.GetForCurrentView("Main");
         public static ResourceLoader ResSettings = ResourceLoader.GetForCurrentView("Settings");
         public static ResourceLoader ResTileTemplates = ResourceLoader.GetForCurrentView("TileTemplates");
@@ -939,6 +992,7 @@ namespace Discord_UWP
                 case "Flyouts": return ResFlyouts.GetString(str);
                 case "Main": return ResMain.GetString(str);
                 case "Settings": return ResSettings.GetString(str);
+                case "Permissions": return ResPermissions.GetString(str);
                 case "TileTemplates": return ResTileTemplates.GetString(str);
             }
             return "String";
@@ -988,8 +1042,7 @@ namespace Discord_UWP
         {
             get
             {
-                var qualifiers = ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Console");
+                return Microsoft.Toolkit.Uwp.Helpers.SystemInformation.DeviceFamily == "Windows.Xbox";
             }
         }
 
@@ -1036,36 +1089,7 @@ namespace Discord_UWP
 
         private static void ResetSettings()
         {
-            Storage.Settings.lastVerison = "0";
-            Storage.Settings.AutoHideChannels = true;
-            Storage.Settings.AutoHidePeople = false;
-            Storage.Settings.GlowOnMention = true;
-            Storage.Settings.Toasts = false;
-            Storage.Settings.LiveTile = true;
-            Storage.Settings.Badge = true;
-            Storage.Settings.HighlightEveryone = true;
-            Storage.Settings.CompactMode = false;
-            Storage.Settings.Toasts = false;
-            Storage.Settings.LiveTile = true;
-            Storage.Settings.Badge = true;
-            Storage.Settings.RespUiM = 400;
-            Storage.Settings.RespUiL = 720;
-            Storage.Settings.RespUiXl = 1000;
-            Storage.Settings.BackgroundTaskTime = 9;
-          
-            //Storage.Settings.AppBarAtBottom = false;
-            Storage.Settings.DiscordLightTheme = false;
-            Storage.Settings.ExpensiveRender = false;
-            Storage.Settings.DevMode = false;
-            Storage.Settings.Theme = Theme.Dark;
-            Storage.Settings.AccentBrush = false;
-            Storage.Settings.mutedChnEffectServer = false;
-            Storage.Settings.Vibrate = true;
-            Storage.Settings.EnableAcrylic = false;
-            Storage.Settings.UseCompression = true;
-            Storage.Settings.DateFormat = "M/d/yyyy";
-            Storage.Settings.TimeFormat = "h:mm tt";
-            Storage.Settings.DefaultAccount = "";
+            Storage.Settings = new Settings();
             Storage.SaveAppSettings();
         }
         private void LoadSettings()
@@ -1128,7 +1152,6 @@ namespace Discord_UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             LaunchProcedure(e.SplashScreen, e.PreviousExecutionState, e.PrelaunchActivated, e.Arguments);
-            
         }
 
         public static Windows.ApplicationModel.DataTransfer.ShareTarget.ShareOperation shareop = null;
@@ -1167,6 +1190,11 @@ namespace Discord_UWP
             {
                 //Debug mode
                 App.ShowAds = true;
+            }
+
+            if (App.IsXbox && App.Insider)
+            {
+                App.CinematicMode = true;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -1265,78 +1293,66 @@ namespace Discord_UWP
             string launchArgs = "";
             switch (args.Kind)
             {
-#region Protocol
+                #region Protocol
 
                 case ActivationKind.Protocol:
-                {
-                    ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                    string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
-                        .Replace("discorduwp://", "").Split('/');
-                    var count = segments.Count();
-                    if (count > 0)
                     {
-                        if (segments[0] == "guild" || segments[0] == "channels")
+                        ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                        string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
+                            .Replace("discorduwp://", "").Split('/');
+                        var count = segments.Count();
+                        if (count > 0)
                         {
-                            if (count == 3)
-                                SelectGuildChannel(segments[1], segments[2]);
-                            else if (count == 2)
-                                SelectGuildChannel(segments[1], null);
-                        }
-                        else if (segments[0] == "reset")
-                        {
-                            await RequestReset();
-                        }
-                        else if (segments[0] == "nologin")
-                        {
-                            DontLogin = true;
-                        }
-                        else if (segments[0] == "invite")
-                        {
-                            NavigateToJoinServer(segments[1]);
-                        }
-                        else if (segments[0] == "friendrequests")
-                        {
-                            App.SelectGuildChannel("friendrequests", null);
-                        }
-                        else if (segments[0] == "cinematic")
-                        {
-                            App.CinematicMode = true;
-                        }
-
+                            if (segments[0] == "guild" || segments[0] == "channels")
+                            {
+                                if (count == 3)
+                                    SelectGuildChannel(segments[1], segments[2]);
+                                else if (count == 2)
+                                    SelectGuildChannel(segments[1], null);
+                            }
+                            else if (segments[0] == "reset")
+                            {
+                                await RequestReset();
+                            }
+                            else if (segments[0] == "nologin")
+                            {
+                                DontLogin = true;
+                            }
+                            else if (segments[0] == "invite")
+                            {
+                                NavigateToJoinServer(segments[1]);
+                            }
+                            else if (segments[0] == "friendrequests")
+                            {
+                                App.SelectGuildChannel("friendrequests", null);
+                            }
+                            else if (segments[0] == "cinematic")
+                            {
+                                App.CinematicMode = true;
+                            }
+                            else if (segments[0] == "call")
+                            {
+                                if (segments[1] == "accept")
+                                {
+                                    RESTCalls.StartCall(segments[1]);
+                                }
+                                else if (segments[1] == "decline")
+                                {
+                                    RESTCalls.DeclineCall(segments[1]);
+                                }
+                            }
+                        };
+                        break;
                     }
 
-                    ;
-                    break;
-                }
-
-                #endregion
-
-                #region Notification
-
-                case ActivationKind.ToastNotification:
-                {
-                    ToastNotificationActivatedEventArgs eventArgs = args as ToastNotificationActivatedEventArgs;
-                    string[] segments = eventArgs.Argument.ToString().Replace("quarrel://", "")
-                        .Replace("discorduwp://", "").Split('/');
-                    int count = segments.Count();
-                    if (segments[0] == "send")
-                    {
-                        if (count == 3)
-                            SelectGuildChannel(segments[1], segments[2], (string)eventArgs.UserInput["Reply"],true,false);
-                        else if (count == 2)
-                            SelectGuildChannel(segments[1], null, (string)eventArgs.UserInput["Reply"], true, false);
-                    }
-
-                    break;
-                }
                 #endregion
 
 
                 #region ShareTarget
                 case ActivationKind.ShareTarget:
-                    
+
                     break;
-#endregion
+                    #endregion
             }
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
                 LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, launchArgs);
@@ -1391,7 +1407,6 @@ namespace Discord_UWP
 
         public void InitializeResources()
         {
-
             if (Storage.Settings.CustomBG)
             {
                 App.Current.Resources["BGImage"] = new BitmapImage(new Uri(Storage.Settings.BGFilePath));
@@ -1498,6 +1513,8 @@ namespace Discord_UWP
             {
                 //Remove the artificial TV-Safe area in cinematic mode:
                 ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+                //RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
+                //ApplicationViewScaling.TrySetDisableLayoutScaling(true);
             }
             if (Storage.Settings.AccentBrush)
             {

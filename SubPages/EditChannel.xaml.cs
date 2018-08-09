@@ -198,26 +198,12 @@ namespace Discord_UWP.SubPages
         }
         private void Hyperlink_Click(Windows.UI.Xaml.Documents.Hyperlink sender, Windows.UI.Xaml.Documents.HyperlinkClickEventArgs args)
         {
-            string filtered = RemoveDiacritics(ChannelName.Text.Replace(' ', '_').Replace("@","-at-"));
+            string filtered = Common.RemoveDiacritics(ChannelName.Text.Replace(' ', '_').Replace("@","-at-"));
             string filtered2 = new Regex(@"[(){}|~=+:;.,?!%&[\]]").Replace(filtered, "-");
             ChannelName.Text = new Regex("[^a-zA-Z0-9%_]").Replace(filtered2, "");
         }
 
-        public string RemoveDiacritics(string input)
-        {
-            string stFormD = input.Normalize(NormalizationForm.FormD);
-            int len = stFormD.Length;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < len; i++)
-            {
-                System.Globalization.UnicodeCategory uc = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(stFormD[i]);
-                if (uc != System.Globalization.UnicodeCategory.NonSpacingMark)
-                {
-                    sb.Append(stFormD[i]);
-                }
-            }
-            return (sb.ToString().Normalize(NormalizationForm.FormC));
-        }
+        
 
         private void ChannelTopic_OnTextChanged(object sender, TextChangedEventArgs e)
         {

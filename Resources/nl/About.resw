@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutDesc1.Text" xml:space="preserve">
+    <value>Quarrel is een</value>
+  </data>
+  <data name="AboutDesc2.Text" xml:space="preserve">
+    <value>onofficieel</value>
+  </data>
+  <data name="AboutDesc3.Text" xml:space="preserve">
+    <value>client voor Discord.</value>
+  </data>
+  <data name="AboutDesc4.Text" xml:space="preserve">
+    <value>De ontwikkelaars zijn op geen enkele manier verbonden aan Discord, Inc.</value>
+  </data>
+  <data name="AboutDesc5.Text" xml:space="preserve">
+    <value>Als er iets misgaat tijdens het gebruik van deze app, neem dan contact op met de ondersteuning via een van de onderstaande methoden. We zijn echter niet verantwoordelijk voor problemen die wij niet kunnen oplossen.</value>
+  </data>
+  <data name="AboutTB.Text" xml:space="preserve">
+    <value>OVER</value>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin, voor het conceptualiseren van het pictogram van de app</value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Bouwen</value>
+  </data>
+  <data name="ChangelogTB.Text" xml:space="preserve">
+    <value>CHANGELOG</value>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (maker van de fantastische MyTube-app) voor waardevolle suggesties en hulp</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>voorleggen</value>
+  </data>
+  <data name="DesignerCreditTB.Text" xml:space="preserve">
+    <value>Ontworpen door Lightmagic Apps</value>
+  </data>
+  <data name="DevelopperCreditTB.Text" xml:space="preserve">
+    <value>Ontwikkeld door Avid29 en KarmaEcrivain94</value>
+  </data>
+  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
+    <value>Bespreek op Twitter</value>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Geen account?</value>
+  </data>
+  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Wachtwoord vergeten?</value>
+  </data>
+  <data name="JoinDiscordUWPServer" xml:space="preserve">
+    <value>Word lid van de Discord-server van de app</value>
+  </data>
+  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
+    <value>Voeg toe aan ons kanaal op Discord</value>
+  </data>
+  <data name="JoinFail" xml:space="preserve">
+    <value>Verbinding met de server is mislukt!</value>
+  </data>
+  <data name="JoinSucess" xml:space="preserve">
+    <value>Succes!</value>
+  </data>
+  <data name="JoinWait" xml:space="preserve">
+    <value>Join...</value>
+  </data>
+  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
+    <value>Laat feedback achter</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>licentie</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>VERGUNNINGEN</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>ACCESS</value>
+  </data>
+  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>Authenticatiecode</value>
+  </data>
+  <data name="MFATB.Text" xml:space="preserve">
+    <value>Verificatie in twee stappen:</value>
+  </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Je bent offline of je hebt een verbinding die te traag is om verbinding te maken</value>
+  </data>
+  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
+    <value>wachtwoord</value>
+  </data>
+  <data name="QuarrelDescTB.Text" xml:space="preserve">
+    <value>Client voor Discord voor Universal Windows Platform</value>
+  </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel gebruikt een aantal externe bibliotheken om te werken:</value>
+  </data>
+  <data name="RetryLoginTB.Text" xml:space="preserve">
+    <value>Probeer het opnieuw</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Speciale dank:</value>
+  </data>
+  <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
+    <value>Volgens Microsofts Licenings, hebt u de volgende producten aangeschaft:</value>
+  </data>
+  <data name="MicrosoftNoteTB.Text" xml:space="preserve">
+    <value>Als dit niet klopt, moet ik een strenge mail schrijven naar Microsoft.</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Wil je meer?</value>
+  </data>
+  <data name="InboundRun.Text" xml:space="preserve">
+    <value>Binnenkomend:</value>
+  </data>
+  <data name="OutboundRun.Text" xml:space="preserve">
+    <value>Uitgaande:</value>
+  </data>
+</root>

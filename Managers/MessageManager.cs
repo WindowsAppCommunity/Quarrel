@@ -22,13 +22,13 @@ namespace Discord_UWP.Managers
                 messages.Reverse();
                 foreach (var message in messages)
                 {
-                    foreach (var user in message.Mentions)
+                    /*foreach (var user in message.Mentions)
                     {
                         if (!App.CurrentGuildIsDM)
                         {
                             LocalState.Guilds[App.CurrentGuildId].members.TryAdd(user.Id, await RESTCalls.GetGuildMember(App.CurrentGuildId, user.Id));
                         }
-                    }
+                    }*/
 
                     returnMessages.Add(new MessageContainer(message, GetMessageType(message.Type), ShouldContinuate(message, prev), null));
                     prev = message;

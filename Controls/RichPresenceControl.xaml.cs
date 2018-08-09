@@ -86,7 +86,7 @@ namespace Discord_UWP.Controls
                     //Game title
 
                     if (game.Name != null)
-                        GameTB.Text = game.Name;
+                        GameTB.Content = game.Name;
                     else
                         GameTB.Visibility = Visibility.Collapsed;
                     //State
@@ -158,7 +158,7 @@ namespace Discord_UWP.Controls
                     //Album = large_text
                     //Song = details
                     if (game.Details != null)
-                        GameTB.Text = game.Details;
+                        GameTB.Content = game.Details;
                     if (game.State != null)
                         DetailsTB.Text = "by " + game.State;
                     if (game.Assets != null && game.Assets.LargeText != null)
@@ -179,12 +179,25 @@ namespace Discord_UWP.Controls
                 SmallimgRect.Visibility = Visibility.Collapsed;
             }
 
-           
+            if (GameContent?.ApplicationId != null && LocalModels.LocalState.SupportedGames.ContainsKey(GameContent.ApplicationId))
+            {
+                GameTB.IsEnabled = true;
+            }
+            else if (GameContent?.Name != null &&
+                     LocalModels.LocalState.SupportedGamesNames.ContainsKey(GameContent.Name))
+            {
+                GameTB.IsEnabled = true;
+                GameContent.ApplicationId = LocalModels.LocalState.SupportedGamesNames[GameContent.Name];
+            }
+            else
+            {
+                GameTB.IsEnabled = false;
+            }
 
             /* else if (game.Value.Name != null)
              {
 
-                 GameList? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
+                 GameListItem? gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Name == game.Value.Name);
                  if (!gli.HasValue)
                      gli = LocalModels.LocalState.SupportedGames.FirstOrDefault(x => x.Id == game.Value.ApplicationId);
                  if (gli.HasValue)
@@ -315,6 +328,14 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             Unloaded -= RichPresenceControl_Unloaded;
+        }
+
+        private void GameTB_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(GameContent?.ApplicationId))
+            {
+                App.ShowGameFlyout(sender, GameContent.ApplicationId);
+            }
         }
     }
 }

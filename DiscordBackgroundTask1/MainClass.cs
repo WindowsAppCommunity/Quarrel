@@ -97,7 +97,8 @@ namespace DiscordBackgroundTask1
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            
+            _compressed = new MemoryStream();
+            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
             _dataWriter = new DataWriter(webSocket.OutputStream);
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
             _deferral = taskInstance.GetDeferral();
@@ -129,8 +130,7 @@ namespace DiscordBackgroundTask1
                 UpdateLastRunStatus("On the last run, the task failed to connect to the gateway (" + ex.Message + ")");
                 return;
             }
-            _compressed = new MemoryStream();
-            _decompressor = new DeflateStream(_compressed, CompressionMode.Decompress);
+            
                 
             
             //WAIT FOR THE READY EVENT TO BE RECEIVED
@@ -202,14 +202,17 @@ namespace DiscordBackgroundTask1
                             var ready = JObject.Parse(message)["d"];
                             IList<JToken> json_readstates = ready["read_state"].Children().ToList();
                             Dictionary<string, ReadState> readstates = new Dictionary<string, ReadState>();
+                            int totalmentioncount = 0;
                             foreach (var readstate in json_readstates)
                             {
                                 var rs = readstate.ToObject<ReadState>();
                                 readstates.Add(rs.id, rs);
+                                totalmentioncount += rs.mention_count;
                             }
 
 
                             IList<JToken> privatechannels = ready["private_channels"].Children().ToList();
+                            
                             if (GetSetting("bgNotifyDM"))
                                 foreach (var json_channel in privatechannels)
                                 {
@@ -245,7 +248,7 @@ namespace DiscordBackgroundTask1
                                 foreach (var json_guild in ready["guilds"])
                                 {
                                     var guild = json_guild.ToObject<Guild>();
-                                    if(guild!= null && guild.channels != null)
+                                    if(guild != null && guild.channels != null && (GetSetting("bgNotifyMutedMention") || !ready["user_guild_settings"].ToObject<IEnumerable<Discord_UWP.SharedModels.GuildSetting>>().FirstOrDefault(x => x.GuildId == guild.id).Muted))
                                     foreach (var channel in guild.channels)
                                     {
                                         if (readstates.ContainsKey(channel.id) && readstates[channel.id].mention_count > 0)

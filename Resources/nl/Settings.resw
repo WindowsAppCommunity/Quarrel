@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccentColorTB.Text" xml:space="preserve">
+    <value>Accentkleur</value>
+  </data>
+  <data name="AdvancedPI.Header" xml:space="preserve">
+    <value>Geavanceerd</value>
+  </data>
+  <data name="AppBarAtBottomCB.Content" xml:space="preserve">
+    <value>Commando-balk beneden plaatsen</value>
+  </data>
+  <data name="CompactModeCB.Content" xml:space="preserve">
+    <value>Compacte modus</value>
+  </data>
+  <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
+    <value>Gepersonaliseerde statuskleuren</value>
+  </data>
+  <data name="DarkRadio.Content" xml:space="preserve">
+    <value>Donker</value>
+  </data>
+  <data name="DiscordRadio.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="DMsCB" xml:space="preserve">
+    <value>PBs</value>
+  </data>
+  <data name="DndColorTB.Text" xml:space="preserve">
+    <value>Niet storen</value>
+  </data>
+  <data name="ExpensiveRenderCB.Content" xml:space="preserve">
+    <value>Hevige rendering (vervagingen, etc...)</value>
+  </data>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>Wat toevoegen aan vriendenlijst notificaties?</value>
+  </data>
+  <data name="HighlightEveryoneCB.Content" xml:space="preserve">
+    <value>Benoemingen markeren</value>
+  </data>
+  <data name="IdleColorTB.Text" xml:space="preserve">
+    <value>Afwezig</value>
+  </data>
+  <data name="IncomingFriendsCB" xml:space="preserve">
+    <value>Binnenkomende vriendenverzoeken</value>
+  </data>
+  <data name="LightRadio.Content" xml:space="preserve">
+    <value>Licht</value>
+  </data>
+  <data name="LogoutBTN.Content" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="NotificationsPI.Header" xml:space="preserve">
+    <value>Notificaties</value>
+  </data>
+  <data name="OnlineColorTB.Text" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OutgoingFriendsCB" xml:space="preserve">
+    <value>Uitgaande vriendenverzoeken</value>
+  </data>
+  <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
+    <value>Breekpunten resetten naar standaard</value>
+  </data>
+  <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
+    <value>Dit zijn de breekpunten waarop de UI meer of minder informatie toont op het scherm</value>
+  </data>
+  <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
+    <value>REAGERENDE UI BREEKPUNTEN</value>
+  </data>
+  <data name="ResponsiveUiTB.Text" xml:space="preserve">
+    <value>REAGERENDE UI</value>
+  </data>
+  <data name="RestartRequiredTB.Text" xml:space="preserve">
+    <value>(Herstarten vereist)</value>
+  </data>
+  <data name="SettingsTB.Text" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="ShowToastsCB.Content" xml:space="preserve">
+    <value>Toon in-app toastnotificaties</value>
+  </data>
+  <data name="SliderL.Header" xml:space="preserve">
+    <value>L (servers en kanalen zijn zichtbaar)</value>
+  </data>
+  <data name="SliderM.Header" xml:space="preserve">
+    <value>M (servers zijn zichtbaar)</value>
+  </data>
+  <data name="SliderXL.Header" xml:space="preserve">
+    <value>XL (servers, kanalen en leden zijn zichtbaar)</value>
+  </data>
+  <data name="SystemAccentColorTB.Text" xml:space="preserve">
+    <value>Systeem accentkleur</value>
+  </data>
+  <data name="ThemeTB.Text" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="UiPI.Header" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="VerifyLogout" xml:space="preserve">
+    <value>Weet je zeker dat je wil uitloggen?</value>
+  </data>
+  <data name="VibrateCB.Content" xml:space="preserve">
+    <value>Vibratie bij ontvangst bericht</value>
+  </data>
+  <data name="WindowsRadio.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>Vriendenverzoeken</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Gedempte kanalen hebben effect op ongelezen berichten?</value>
+  </data>
+  <data name="AccentRadio.Content" xml:space="preserve">
+    <value>Systeem accentkleur</value>
+  </data>
+  <data name="BlurpleRadio.Content" xml:space="preserve">
+    <value>Discord Blaars</value>
+  </data>
+  <data name="OTHERTB.Text" xml:space="preserve">
+    <value>OVERIGE</value>
+  </data>
+  <data name="ShowWelcomeCB.Content" xml:space="preserve">
+    <value>Toon ladende berichten</value>
+  </data>
+  <data name="EnableAcrylic.Content" xml:space="preserve">
+    <value>Acrylic effecten inschakelen (vervaagde achtergrond)</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Gedempte kanalen hebben effect op ongelezen berichten?</value>
+  </data>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Data compressie inschakelen (Sneller)</value>
+  </data>
+  <data name="VideoAds.Content" xml:space="preserve">
+    <value>Gebruik video advertenties in plaats van banners</value>
+  </data>
+  <data name="MESSAGESTB.Text" xml:space="preserve">
+    <value>BERICHTEN</value>
+  </data>
+  <data name="GifsOnHoverCB.Content" xml:space="preserve">
+    <value>Gifs enkel afspelen na klikken of boven hangen</value>
+  </data>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Data compressie inschakelen</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Benoemingen</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Ongelezen</value>
+  </data>
+  <data name="TranslatorPI" xml:space="preserve">
+    <value>Vertalingen</value>
+  </data>
+  <data name="CustomTimeF.Header" xml:space="preserve">
+    <value>Gepersonaliseerde tijdsformat</value>
+  </data>
+  <data name="CustomDateF" xml:space="preserve">
+    <value>Gepersonaliseerde datumformat</value>
+  </data>
+  <data name="DateFormat.Header" xml:space="preserve">
+    <value>Datumformat</value>
+  </data>
+  <data name="TimeFormat.Header" xml:space="preserve">
+    <value>Tijdsformat</value>
+  </data>
+  <data name="ExpVoiceChannels.Content" xml:space="preserve">
+    <value>(EXPERIMENTELE) spraakkanalen (enkel luisteren)</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="AudioPI.Header" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="BGEnableTS.OffContent" xml:space="preserve">
+    <value>Schakel achtergrondnotificaties in</value>
+  </data>
+  <data name="BGEnableTS.OnContent" xml:space="preserve">
+    <value>Schakel achtergrondnotificaties uit</value>
+  </data>
+  <data name="BGNotifInfoTB.Text" xml:space="preserve">
+    <value>Je ontvangt achtergrond notificaties voor de geselecteerde opties</value>
+  </data>
+  <data name="BGNotifsTB.Text" xml:space="preserve">
+    <value>Achtergrondnotificaties</value>
+  </data>
+  <data name="BGNotifyDMCB.Content" xml:space="preserve">
+    <value>Ongelezen PB</value>
+  </data>
+  <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
+    <value>Vriendenverzoeken</value>
+  </data>
+  <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
+    <value>Nieuwe benoemingen</value>
+  </data>
+  <data name="IAPNotifsTB.Text" xml:space="preserve">
+    <value>IN-APP NOTIFICATIES</value>
+  </data>
+  <data name="MentionGlowCB.Content" xml:space="preserve">
+    <value>Benoemingen links oplichten</value>
+  </data>
+  <data name="OutputDevicesCB.Header" xml:space="preserve">
+    <value>Afspeelapparaat</value>
+  </data>
+  <data name="DeviceOverrideCB.Content" xml:space="preserve">
+    <value>Kan overschrijven worden door sessie via recht-klikken of de demp-knop in te houden in Discord</value>
+  </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Gebruikersinstellingen</value>
+  </data>
+  <data name="ShowServerMuteCB.Content" xml:space="preserve">
+    <value>Toon Demp icoon op servers</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Bericht lettertype</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
+  <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
+    <value>Nieuwe benoemingen in gedempte servers</value>
+  </data>
+  <data name="SoundsCB.Content" xml:space="preserve">
+    <value>Geluiden</value>
+  </data>
+  <data name="SoundsPI.Header" xml:space="preserve">
+    <value>Geluiden</value>
+  </data>
+  <data name="VoicePI.Header" xml:space="preserve">
+    <value>Spraak</value>
+  </data>
+  <data name="SoundTypesTB.Text" xml:space="preserve">
+    <value>Geluidstypen</value>
+  </data>
+  <data name="DiscordRB.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="WindowsRB.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="SoundsTB.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>GEBRUIKER</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="AccountPrivacyPI.Header" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Afbeelding uploaden</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Huidig wachtwoord</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Wijzig wachtwoord</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nieuw wachtwoord</value>
+  </data>
+  <data name="SaveTB.Text" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>PERSOONLIJK BERICHT FILTER</value>
+  </data>
+  <data name="DMFilterExpoTB.Text" xml:space="preserve">
+    <value>Controleer en verwijder direct alle PB met expliciete inhoud</value>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Bescherm mij</value>
+  </data>
+  <data name="ProtectMeExpoTB.Text" xml:space="preserve">
+    <value>Controleer alle PB</value>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>Mijn vrienden zijn aardig</value>
+  </data>
+  <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
+    <value>Controleer alle PB, behalve van mijn vrienden</value>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>Ik leef op het randje</value>
+  </data>
+  <data name="DangerZoneExpoTB.Text" xml:space="preserve">
+    <value>Geen PB controleren</value>
+  </data>
+  <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
+    <value>Wie kan mij een vriendenverzoek sturen</value>
+  </data>
+  <data name="EveryoneCB.Content" xml:space="preserve">
+    <value>Iedereen</value>
+  </data>
+  <data name="MutualFriendsCB.Content" xml:space="preserve">
+    <value>Vrienden van mijn vrienden</value>
+  </data>
+  <data name="MutualServerMembersCB.Content" xml:space="preserve">
+    <value>Gemeenschappelijke serverleden</value>
+  </data>
+  <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
+    <value>Om bij de andere privacy-instellingen te komen, moet u de officiële Discord client of website gebruiken</value>
+  </data>
+  <data name="DerivedRadio.Content" xml:space="preserve">
+    <value>Afgeleidde kleuren</value>
+  </data>
+  <data name="LanguageComboB.Header" xml:space="preserve">
+    <value>Taal (opnieuw opstarten vereist)</value>
+  </data>
+  <data name="DefaultComboBI.Content" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+</root>

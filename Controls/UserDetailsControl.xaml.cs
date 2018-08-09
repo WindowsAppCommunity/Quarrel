@@ -58,14 +58,38 @@ namespace Discord_UWP.Controls
             typeof(UserDetailsControl),
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
+        public bool Webhook
+        {
+            get { return (bool)GetValue(WebhookProperty); }
+            set { SetValue(WebhookProperty, value); }
+        }
+        public static readonly DependencyProperty WebhookProperty = DependencyProperty.Register(
+            nameof(DisplayedMember),
+            typeof(bool),
+            typeof(UserDetailsControl),
+            new PropertyMetadata(null, OnPropertyChangedStatic));
+
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = d as UserDetailsControl;
             instance?.OnPropertyChanged(d, e.Property);
         }
 
-        private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
+        private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
+            if (prop == WebhookProperty)
+            {
+                if (Webhook)
+                {
+                    Row1Grid.Visibility = Visibility.Collapsed;
+                    avatarButton.IsEnabled = false;
+                }
+                else
+                {
+                    Row1Grid.Visibility = Visibility.Visible;
+                    avatarButton.IsEnabled = true;
+                }
+            }
             if (prop == DisplayedMemberProperty)
             {
                 var user = DisplayedMember.User;
@@ -179,9 +203,12 @@ namespace Discord_UWP.Controls
                    // RoleHeader.Visibility = Visibility.Collapsed;
                     RoleWrapper.Visibility = Visibility.Collapsed;
                 }
-                if(LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
+
+                if (LocalState.Notes.ContainsKey(DisplayedMember.User.Id))
                     Note.Text = LocalState.Notes[DisplayedMember.User.Id];
-                
+                else
+                    Note.Text = "";
+
                 if (LocalState.PresenceDict.ContainsKey(DisplayedMember.User.Id))
                 {
                     if(LocalState.PresenceDict[DisplayedMember.User.Id].Game != null)
@@ -210,10 +237,34 @@ namespace Discord_UWP.Controls
                             //xbox
                             color = new SolidColorBrush(Color.FromArgb(255, 16, 124, 16));
                         }
-                        PresenceColor.Fill = color;
-                        ChangeFlyoutBorder(color);
+                        ChangeAccentColor(color);
+                    }
+                    else 
+                    {
+                        richPresence.Visibility = Visibility.Collapsed;
+                        if (Storage.Settings.DerivedColor)
+                        {
+                            Color? color = await App.getUserColor(user);
+                            if (color.HasValue)
+                            {
+                                ChangeAccentColor(new SolidColorBrush(color.Value));
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    richPresence.Visibility = Visibility.Collapsed;
+                    if (Storage.Settings.DerivedColor)
+                    {
+                        Color? color = await App.getUserColor(user);
+                        if (color.HasValue)
+                        {
+                            ChangeAccentColor(new SolidColorBrush(color.Value));
+                        }
+                    }
+                }
+                
             }
             if (prop == DMPaneProperty)
             {
@@ -238,8 +289,9 @@ namespace Discord_UWP.Controls
                 }
             }
         }
-        private void ChangeFlyoutBorder(SolidColorBrush color)
+        private void ChangeAccentColor(SolidColorBrush color)
         {
+            PresenceColor.Fill = color;
             borderColor.BorderBrush = color;
         }
         SpriteVisual _imageVisual;
@@ -256,6 +308,7 @@ namespace Discord_UWP.Controls
 
 
                 LoadedImageSurface _loadedSurface = LoadedImageSurface.StartLoadFromUri(imageURL);
+                _loadedSurface.LoadCompleted += _loadedSurface_LoadCompleted;
                 _imageBrush.Surface = _loadedSurface;
 
 
@@ -287,6 +340,11 @@ namespace Discord_UWP.Controls
             {
                 //Fuck this shit
             }
+        }
+
+        private void _loadedSurface_LoadCompleted(LoadedImageSurface sender, LoadedImageSourceLoadCompletedEventArgs args)
+        {
+            AvatarContainer.Fade(0.35f,300,0,EasingType.Circle).Start();
         }
 
         public UserDetailsControl()
@@ -448,9 +506,18 @@ namespace Discord_UWP.Controls
         public void Dispose()
         {
             SendDM.Send -= SendDirectMessage;
-            GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
-            GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
-            Unloaded -= UserDetailsControl_Unloaded;
+            if (App.GatewayCreated)
+            {
+                GatewayManager.Gateway.UserNoteUpdated -= Gateway_UserNoteUpdated;
+                GatewayManager.Gateway.PresenceUpdated -= Gateway_PresenceUpdated;
+                Unloaded -= UserDetailsControl_Unloaded;
+            }
+           
+        }
+
+        private void Avatar_OnImageOpened(object sender, RoutedEventArgs e)
+        {
+            AvatarRectangle.Fade(1,300, 0, EasingType.Circle).Start();
         }
     }
 }

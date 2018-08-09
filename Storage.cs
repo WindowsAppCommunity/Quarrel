@@ -20,7 +20,7 @@ using Windows.UI.Xaml;
 
 namespace Discord_UWP
 {
-    public static class Storage
+    public class Storage
     {
         public static Dictionary<string,byte[]> EncryptionKeys = new Dictionary<string, byte[]>();
 
@@ -84,7 +84,7 @@ namespace Discord_UWP
             });
         }
 
-        public static Settings Settings = new Settings(); //this just represents the storage
+        public static Settings Settings = new Settings();
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
         public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
@@ -105,6 +105,8 @@ namespace Discord_UWP
         public bool FriendsNotifyDMs = true;
         public bool FriendsNotifyFriendRequest = false;
         public bool GlowOnMention = true;
+        public bool SoundNotifications = true;
+        public bool DiscordSounds = true;
         //public bool FriendsNotifyIncoming = true;
         //public bool FriendsNotifyOutgoing = false;
         public bool Toasts = false;
@@ -126,6 +128,7 @@ namespace Discord_UWP
         public bool CompactMode = false;
         public Theme Theme = Theme.Dark;
         public bool AccentBrush = false; //If false use Blurple if true use System.AccentColor
+        public bool DerivedColor = false;
         public bool Vibrate = false;
         public bool mutedChnEffectServer = false;
         public bool ShowWelcomeMessage = true;
