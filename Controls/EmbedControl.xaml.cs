@@ -152,7 +152,7 @@ namespace Discord_UWP.Controls
                 //everythingisnull = false;
                 ImageViewbox.Visibility = Visibility.Visible;
                 ImageViewer.Source = new BitmapImage(new Uri(EmbedContent.Image.Url));
-                if(EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null
+                if((EmbedContent.Author == null || (EmbedContent.Author.Name == null && EmbedContent.Author.IconUrl == null))
                     && EmbedContent.Description == null && EmbedContent.Fields != null
                     && EmbedContent.Fields.Count() == 0  && EmbedContent.Footer.Text == null
                     && EmbedContent.Footer.IconUrl == null && EmbedContent.Title == null)

@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI;
 
-namespace Discord_UWP.Colors
+namespace Discord_UWP.SmartColor
 {
     public static class ColorUtility
     {

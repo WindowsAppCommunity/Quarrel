@@ -86,96 +86,113 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 9.0" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 9.2.2 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel Margin="0,12,0,0">
                         <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
-                                <Run Text="• Rewritten member list, which now supports real time server activity (people changing presence, joining, leaving, etc...). Group DMs also show the member list now!"/>
+                                <Run Text="• AuditLogs"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• You can now share images, links, or text to discord from any 'Share' button in Windows!"/>
+                                <Run Text="• Fixed leaving groups"/>
+                            </Paragraph>
+                            <!--<Paragraph FontSize="8"/>
+                            <Paragraph>
+                                <Run Text="• Change language without changing Windows region"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Tons of bug fixes"/>
+                                <Run Text="• Resuming after losing connection"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Partial voice channels are back"/>
+                                <Run Text="• Even better syntax highlighting"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Quite a few UI updates and redesigns"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Change your account details in Quarrel!"/>
-                            </Paragraph>
+                                <Run Text="• Bug Fixes"/>
+                            </Paragraph>-->
                         </RichTextBlock>
                         <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
                             <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">
                                 <Paragraph>
-                                    <Run Text="• Fixed share target functionality"/>
+                                    <Run Text="• Snappier than ever (less processor intensive and significantly cut RAM usage)"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Fixed inaccurate role colors"/>
+                                    <Run Text="• Fixed status bar on mobile"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Fixed mute/unmute functionality"/>
+                                    <Run Text="• Support for code syntax highlighting"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Fixed notification times" FontFamily="Segoe UI"/>
+                                    <Run Text="• Overall slightly improved performance and reduced memory usage" FontFamily="Segoe UI"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Changed default breakpoints for the responsive UI"/>
+                                    <Run Text="• (Very) basic offline mode support"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Added member list to group DMs"/>
+                                    <Run Text="• Fixed message scrollbar padding"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Member lists now update in real time to members leaving/joining the server, and changing roles/presences/nicknames..."/>
+                                    <Run Text="• Fixed mentions"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Showing connections on profiles is back"/>
+                                    <Run Text="• Fixed bug where ads might show over messages"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Voice channel receive is partially back"/>
+                                    <Run Text="• Fixed mention suggestions (no more crashes from typing @) "/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Added confirmation popup before deleting a message"/>
+                                    <Run Text="• Fixed permissions, which means you can actually change your nickname (or other people's nickname if your role allows it), delete other people's messages (if you're allowed), kick/ban people (if you're allowed), assign roles (if you're allowed) etc...."/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Completely redesigned the flyout when you click on a user"/>
+                                    <Run Text="• Added Polish and Thai language support"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Added ability to change user account details"/>
+                                    <Run Text="• Added faint muted icon on muted servers"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Fixed too little permissions occasionally being given"/>
+                                    <Run Text="• More thorough translations around the app"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Changed the styling of all textboxes"/>
+                                    <Run Text="• Completely revamped autosuggest, including autosuggest for emojis and syntax highlighting (after ```)"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Made text color more pleasing, and inline code darker"/>
+                                    <Run Text="• Redesigned Large and Extra Large UI modes to remove burger button and better use the space"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Improved rendering of strikethrough text"/>
+                                    <Run Text="• Adjustable font size"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Fixed mentions in DMs"/>
+                                    <Run Text="• Improved the style of Messages, Channels, and Friends (in the friend list)"/>
                                 </Paragraph>
                                 <Paragraph>
-                                    <Run Text="• Vastly improved member list performance: 2.3x faster on massive servers (75K+ members), 17x faster on large ones (9K members), and over 50x faster on smaller ones (500 members)"/>
+                                    <Run Text="• Removed default new message animations (makes it feel snappier)"/>
                                 </Paragraph>
-                                
                                 <Paragraph>
-                                    <Run Text="• DMs also now show real-time user status"/>
+                                    <Run Text="• Way cleaner and better message styling"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• More compact compact mode"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Major bug fixes (member list loading issues, seemingly random crashes)"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Clicking on a role mention scrolls it into view in the member list"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Reduced CPU usage"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• Removed broken in-app notifications (may return with better functionality in 9.2)"/>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="• "/>
                                 </Paragraph>
                             </RichTextBlock>
                         </ScrollViewer>
-                        <HyperlinkButton x:Name="detailsBtn" Click="HyperlinkButton_Click" Foreground="{ThemeResource Blurple}" Content="+ Show more details" Style="{StaticResource PlainHyperlinkStyle}" Margin="0,0,0,12"/>
+                        <!--<HyperlinkButton x:Name="detailsBtn" Click="HyperlinkButton_Click" Foreground="{ThemeResource Blurple}" Content="+ Show more details" Style="{StaticResource PlainHyperlinkStyle}" Margin="0,0,0,12"/>-->
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
@@ -183,12 +200,20 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
-                                    <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="12,0,0,0"/>
-                                </StackPanel>
-                            </HyperlinkButton>
+                            <StackPanel Orientation="Horizontal">
+                                <HyperlinkButton x:Name="JoinServer" Foreground="#FF738BD7" Background="Transparent" Click="joinDiscordUWPServer" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="ms-appx:///Assets/DiscordBlurpleIcon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                                        <TextBlock x:Uid="/About/JoinDiscordUWPServerTB" x:Name="JoinServerText" Text="Join Quarrel server" Margin="6,0,0,0"/>
+                                    </StackPanel>
+                                </HyperlinkButton>
+                                <HyperlinkButton x:Name="Paetron" Foreground="#fa7664" Background="Transparent" Click="Paetron_Click" Style="{StaticResource HyperlinkButtonStyle1}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="ms-appx:///Assets/ConnectionLogos/patreon.png" Width="20" Height="20" Margin="0,0,0,0"/>
+                                        <TextBlock x:Uid="/About/WantMore" Text="Want More?" Margin="6,0,0,0"/>
+                                    </StackPanel>
+                                </HyperlinkButton>
+                            </StackPanel>
                             <Button x:Uid="/Dialogs/GotIt" x:Name="CloseButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Got it!" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="1" Padding="24,12" Click="CloseButton_Click"/>
                         </Grid>
                     </Grid>

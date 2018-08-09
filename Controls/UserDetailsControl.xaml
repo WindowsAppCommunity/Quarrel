@@ -187,19 +187,19 @@
         
         <Grid x:Name="BackgroundGrid" Height="{Binding ElementName=Stacker, Path=ActualHeight, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2" Opacity="1" VerticalAlignment="Top">
             <Rectangle x:Name="PresenceColor" Opacity="0.5"/>
-            <Grid x:Name="AvatarContainer" SizeChanged="AvatarContainer_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.35"/>
+            <Grid x:Name="AvatarContainer" SizeChanged="AvatarContainer_SizeChanged" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0"/>
         </Grid>
         
         <StackPanel x:Name="Stacker">
             <Grid x:Name="profileGrid" Margin="0,24,0,0">
                 <Button Height="96" Width="96"  Padding="0" Style="{StaticResource ButtonStyle2}" HorizontalAlignment="Center" BorderThickness="0" PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" PointerCaptureLost="Button_PointerCaptureLost" PointerPressed="Button_PointerPressed" LostFocus="Button_LostFocus" GotFocus="Button_GotFocus" Click="Button_Click" >
                     <Grid>
-                        <Button Width="96" Height="96" Style="{StaticResource DimButton}" Click="Button_Click">
+                        <Button x:Name="avatarButton" Width="96" Height="96" Style="{StaticResource DimButton}" Click="Button_Click">
                             <Grid x:Name="FullAvatar">
                                 <Rectangle x:Name="AvatarBG" Height="96" Width="96" RadiusX="48" RadiusY="48"/>
-                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48">
+                                <Rectangle x:Name="AvatarRectangle" Height="96" Width="96" RadiusX="48" RadiusY="48" Opacity="0">
                                     <Rectangle.Fill>
-                                        <ImageBrush x:Name="Avatar"/>
+                                        <ImageBrush x:Name="Avatar" ImageOpened="Avatar_OnImageOpened"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Grid>
@@ -228,7 +228,7 @@
                 <local:RichPresenceControl Foreground="White" Margin="12,8" Visibility="Collapsed" x:Name="richPresence"/>
             </Grid>
         </StackPanel>
-        <Grid x:Name="Row1Grid" Grid.Row="1" Background="{ThemeResource Background}">
+        <Grid x:Name="Row1Grid"  Grid.Row="1" Background="{ThemeResource Background}">
             <StackPanel Margin="12">
                 <StackPanel.Transitions>
                     <TransitionCollection>

@@ -25,10 +25,12 @@ using Windows.UI.Xaml.Shapes;
 using Discord_UWP.MarkdownTextBlock.Parse;
 using Discord_UWP.MarkdownTextBlock.Parse.Blocks;
 using Discord_UWP.MarkdownTextBlock.Parse.Inlines;
-using NeoSmart.Unicode;
 using Windows.Foundation.Metadata;
 using System.Reflection;
+using Discord_UWP.LocalModels;
+using Discord_UWP.SharedModels;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
+using Emoji = NeoSmart.Unicode.Emoji;
 
 namespace Discord_UWP.MarkdownTextBlock.Display
 {
@@ -45,14 +47,18 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private readonly ILinkRegister _linkRegister;
 
         private string _messageid;
-
-        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border)
+        private bool _halfopacity;
+        private IEnumerable<SharedModels.User> _users;
+        public XamlRenderer(MarkdownDocument document, ILinkRegister linkRegister, IEnumerable<SharedModels.User> users, string MessageId, ICodeBlockResolver codeBlockResolver, ref Border border, bool halfopacity)
         {
             _document = document;
+            _halfopacity = halfopacity;
+            
             _linkRegister = linkRegister;
             _messageid = MessageId;
             CodeBlockResolver = codeBlockResolver;
             _root = border;
+            _users = users;
         }
         
 
@@ -113,6 +119,11 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// Gets or sets a brush that describes the foreground color.
         /// </summary>
         public Brush Foreground { get; set; }
+
+        /// <summary>
+        /// Gets or sets a brush that describes the foreground color.
+        /// </summary>
+        public Brush BoldForeground { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether text selection is enabled.
@@ -507,7 +518,10 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 Margin = ParagraphMargin
             };
             context.TrimLeadingWhitespace = true;
-            RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context);
+            if (RenderInlineChildren(paragraph.Inlines, element.Inlines, paragraph, context))
+            {
+                paragraph.Margin = new Thickness(ParagraphMargin.Left, 0, ParagraphMargin.Right, ParagraphMargin.Bottom);
+            };
 
             var textBlock = CreateOrReuseRichTextBlock(blockUIElementCollection, context);
             textBlock.Blocks.Add(paragraph);
@@ -797,12 +811,44 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="inlineElements"> The parsed inline elements to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderInlineChildren(InlineCollection inlineCollection, IList<MarkdownInline> inlineElements, TextElement parent, RenderContext context)
+        private bool RenderInlineChildren(InlineCollection inlineCollection, IList<MarkdownInline> inlineElements, TextElement parent, RenderContext context)
         {
+            bool LargeEmojis = true;
+            bool mixedlarge = false;
+            int maxemojicount = 28;
+            foreach (MarkdownInline inline in inlineElements)
+            {
+                    if (inline.Type == MarkdownInlineType.TextRun)
+                    {
+                        string inlinecontent = ((TextRunInline)inline).Text.Replace(" ", "");
+                        if (!string.IsNullOrEmpty(inlinecontent) &&
+                            !Emoji.IsEmoji(((TextRunInline) inline).Text.Replace(" ", ""), maxemojicount))
+                        {
+                            LargeEmojis = false;
+                            maxemojicount -= inlinecontent.Length;
+                            break;
+                        }
+                        else
+                        {
+                            mixedlarge = true;
+                        }
+                    }
+                    else if (inline.Type == MarkdownInlineType.Emoji)
+                    {
+                        maxemojicount--;
+                    }
+                    else
+                    {
+                        LargeEmojis = false;
+                        break;
+                    }
+            }
             foreach (MarkdownInline element in inlineElements)
             {
-                RenderInline(inlineCollection, element, parent, context);
+                RenderInline(inlineCollection, element, parent, context, LargeEmojis, mixedlarge);
             }
+
+            return LargeEmojis;
         }
 
         /// <summary>
@@ -812,12 +858,12 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderInline(InlineCollection inlineCollection, MarkdownInline element, TextElement parent, RenderContext context)
+        private void RenderInline(InlineCollection inlineCollection, MarkdownInline element, TextElement parent, RenderContext context, bool largeemojis, bool mixedlarge = false)
         {
             switch (element.Type)
             {
                 case MarkdownInlineType.TextRun:
-                    RenderTextRun(inlineCollection, (TextRunInline)element, context);
+                    RenderTextRun(inlineCollection, (TextRunInline)element, context, largeemojis);
                     break;
                 case MarkdownInlineType.Italic:
                     RenderItalicRun(inlineCollection, (ItalicTextInline)element, context);
@@ -829,7 +875,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                     RenderMarkdownLink(inlineCollection, (MarkdownLinkInline)element, parent, context);
                     break;
                 case MarkdownInlineType.Emoji:
-                    RenderEmoji(inlineCollection, (EmojiInline)element, parent, context);
+                    RenderEmoji(inlineCollection, (EmojiInline)element, parent, context, largeemojis, mixedlarge);
                     break;
                 case MarkdownInlineType.RawHyperlink:
                     RenderHyperlink(inlineCollection, (HyperlinkInline)element, context);
@@ -857,19 +903,22 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="parent"> The container element. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderEmoji(InlineCollection inlineCollection, EmojiInline element, TextElement parent, RenderContext context)
+        private void RenderEmoji(InlineCollection inlineCollection, EmojiInline element, TextElement parent, RenderContext context, bool large, bool mixedlarge = false)
         {
             //If the emoji is the only content of the message
             InlineUIContainer imageRun = new InlineUIContainer();
             string extension = ".png";
             if (element.IsAnimated) extension = ".gif";
-            if (_document.length > 0 && _document.length == (element.Id.Length + element.Name.Length + 2))
+            Thickness imagemargin = new Thickness(0, 0, 0, 0);
+            if (mixedlarge) imagemargin = new Thickness(0, 0, 0, -8);
+            else if (large) imagemargin = new Thickness(0, 0, 0, 0);
+            if (large)
             {
-                
                 imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
-                    Width = 42,
-                    Height = 42,
+                    Margin = imagemargin,
+                    Width = 32,
+                    Height = 32,
                     Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
                 };
             }
@@ -877,7 +926,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             {
                 imageRun.Child = new Windows.UI.Xaml.Controls.Image()
                 {
-                    Margin=new Thickness(2,0,2,-4),
+                    Margin= imagemargin,
                     Width = 20,
                     Height = 20,
                     Source = new BitmapImage(new Uri("https://cdn.discordapp.com/emojis/" + element.Id + extension))
@@ -895,16 +944,19 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         /// <param name="inlineCollection"> The list to add to. </param>
         /// <param name="element"> The parsed inline element to render. </param>
         /// <param name="context"> Persistent state. </param>
-        private void RenderTextRun(InlineCollection inlineCollection, TextRunInline element, RenderContext context)
+        private void RenderTextRun(InlineCollection inlineCollection, TextRunInline element, RenderContext context, bool large)
         {
             // Create the text run
             Run textRun = new Run
             {
-                Text = CollapseWhitespace(context, element.Text)
+                Text = element.Text
             };
 
-            if (Emoji.IsEmoji(element.Text, 27))
+            if (large)
+            {
                 textRun.FontSize = 28;
+            }
+                
             // Add it
             inlineCollection.Add(textRun);
         }
@@ -918,13 +970,18 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private void RenderBoldRun(InlineCollection inlineCollection, BoldTextInline element, RenderContext context)
         {
             // Create the text run
+            FontWeight weight = FontWeights.Bold;
+            if (_halfopacity) weight = FontWeights.SemiBold;
             Span boldSpan = new Span
             {
-                FontWeight = FontWeights.Bold
+                FontWeight = weight,
+                Foreground = BoldForeground
             };
 
             // Render the children into the bold inline.
-            RenderInlineChildren(boldSpan.Inlines, element.Inlines, boldSpan, context);
+            var newcontext = context.Clone();
+            newcontext.Foreground = BoldForeground;
+            RenderInlineChildren(boldSpan.Inlines, element.Inlines, boldSpan, newcontext);
 
             // Add it to the current inlines
             inlineCollection.Add(boldSpan);
@@ -1018,7 +1075,7 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // if url is not absolute we have to return as local images are not supported
             if (!element.Url.StartsWith("http") && !element.Url.StartsWith("ms-app"))
             {
-                RenderTextRun(inlineCollection, new TextRunInline { Text = element.Text, Type = MarkdownInlineType.TextRun }, context);
+                RenderTextRun(inlineCollection, new TextRunInline { Text = element.Text, Type = MarkdownInlineType.TextRun }, context, false);
                 return;
             }
 
@@ -1050,28 +1107,99 @@ namespace Discord_UWP.MarkdownTextBlock.Display
         private void RenderHyperlink(InlineCollection inlineCollection, HyperlinkInline element, RenderContext context)
         {
 
-            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention)
+            if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordChannelMention || element.LinkType == HyperlinkType.DiscordRoleMention || element.LinkType == HyperlinkType.DiscordNickMention || element.LinkType == HyperlinkType.QuarrelColor)
             {
                 var content = element.Text;
+                bool enabled = true;
                 SolidColorBrush foreground = (SolidColorBrush)App.Current.Resources["Blurple"];
                 try
                 {
-                    if (element.LinkType == HyperlinkType.DiscordUserMention)
-                        content = "@" + (App.CurrentGuildIsDM ? LocalModels.LocalState.DMs[App.CurrentChannelId].Users.TakeWhile(x => x.Id == element.Text.Remove(0,1)).FirstOrDefault().Username : LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 1)].User.Username);
-
-                    else if (element.LinkType == HyperlinkType.DiscordNickMention)
-                        content = "@" + LocalModels.LocalState.Guilds[App.CurrentGuildId].members[element.Text.Remove(0, 2)].Nick;
+                    if (element.LinkType == HyperlinkType.DiscordUserMention || element.LinkType == HyperlinkType.DiscordNickMention)
+                    {
+                        string mentionid = element.Text.Remove(0, (element.LinkType == HyperlinkType.DiscordNickMention ? 2 : 1));
+                        if(_users != null)
+                        foreach (var user in _users)
+                        {
+                            if (user.Id == mentionid)
+                            {
+                                if (_halfopacity) content = user.Username;
+                                else content = "@" + user.Username;
+                                if (!App.CurrentGuildIsDM)
+                                {
+                                    if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(mentionid))
+                                    {
+                                        var member = LocalState.Guilds[App.CurrentGuildId].members[mentionid];
+                                        if (!string.IsNullOrWhiteSpace(member.Nick))
+                                        {
+                                            if (_halfopacity) content = member.Nick;
+                                            else content = "@" + member.Nick;
+                                        }
+                                    }
+                                }
+  
+                                break;
+                            }
+                        }
+                    }
+                        
 
                     else if (element.LinkType == HyperlinkType.DiscordChannelMention)
-                        content = "#" + LocalModels.LocalState.Guilds[App.CurrentGuildId]
-                                      .channels[element.Text.Remove(0, 1)]
-                                      .raw.Name;
+                    {
+                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].channels.ContainsKey(element.Text.Remove(0, 1)))
+                        {
+                            content = "#" + LocalModels.LocalState.Guilds[App.CurrentGuildId]
+                                          .channels[element.Text.Remove(0, 1)]
+                                          .raw.Name;
+                        }
+                        else
+                        {
+                            content = "#deleted-channel";
+                            enabled = false;
+                        }
+                    }
+                        
 
                     else if (element.LinkType == HyperlinkType.DiscordRoleMention)
                     {
-                        var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
-                        content = "@" + role.Name;
-                        foreground = Common.IntToColor(role.Color);
+                        if (LocalModels.LocalState.Guilds[App.CurrentGuildId].roles.ContainsKey(element.Text.Remove(0, 2)))
+                        {
+                            var role = LocalModels.LocalState.Guilds[App.CurrentGuildId].roles[element.Text.Remove(0, 2)];
+                            if (_halfopacity) content = role.Name;
+                            else content = "@" + role.Name;
+                            foreground = Common.IntToColor(role.Color);
+                        }
+                        else
+                        {
+                            enabled = false;
+                            content = "@deleted-role";
+                        }
+                    }
+                    else if (element.LinkType == HyperlinkType.QuarrelColor)
+                    {
+                        string intcolor = element.Text.Replace("@$QUARREL-color", "");
+                        try
+                        {
+                            var color = Common.IntToColor(Int32.Parse(intcolor));
+                            inlineCollection.Add(new InlineUIContainer
+                            {
+                                Child = new Ellipse()
+                                {
+                                    Height = FontSize,
+                                    Width = FontSize,
+                                    Fill = color,
+                                    Margin = new Thickness(0, 0, 2, -2)
+                                }
+                            });
+                            inlineCollection.Add(new Run
+                            {
+                                FontWeight = FontWeights.SemiBold,
+                                Foreground = BoldForeground,
+                                Text = color.Color.ToString()
+                            });
+                            return;
+                        }
+                        catch
+                        { }
                     }
                 }
                 catch (Exception) { content = "<Invalid Mention>";}
@@ -1081,7 +1209,10 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                  
                 link.Content = CollapseWhitespace(context, content);
                 link.Foreground = foreground;
-                link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                link.FontSize = FontSize;
+                if(_halfopacity) link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlinkBold"];
+                else link.Style = (Style)Application.Current.Resources["DiscordMentionHyperlink"];
+                link.IsEnabled = enabled;
                 _linkRegister.RegisterNewHyperLink(link, element.Url);
                 InlineUIContainer linkContainer = new InlineUIContainer {Child = link};
                 inlineCollection.Add(linkContainer);

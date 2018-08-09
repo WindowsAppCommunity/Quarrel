@@ -134,6 +134,351 @@
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
 
             <BitmapImage x:Key="BGImage"/>
+            <Style x:Key="CheckBoxStyle1" TargetType="CheckBox">
+                <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundUnchecked}"/>
+                <Setter Property="Foreground" Value="{ThemeResource CheckBoxForegroundUnchecked}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource CheckBoxBorderBrushUnchecked}"/>
+                <Setter Property="Padding" Value="8,6,0,0"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="MinWidth" Value="120"/>
+                <Setter Property="MinHeight" Value="32"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <Grid x:Name="RootGrid" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CombinedStates">
+                                        <VisualState x:Name="UncheckedNormal">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2" To="-20" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UncheckedPointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2" To="-20" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.2" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UncheckedPressed">
+                                            <Storyboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Duration="0:0:0.2" To="-20" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseInOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <DoubleAnimation To="0.4" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="UncheckedDisabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundUncheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedNormal">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.75" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedPointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Duration="0:0:0.3" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1.12" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.75" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedPressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetName="GlyphMask" Storyboard.TargetProperty="TranslateX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleX">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.88" Duration="0:0:0.3" Storyboard.TargetName="RectangleScale" Storyboard.TargetProperty="ScaleY">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.5" Duration="0:0:0.3" Storyboard.TargetName="RectangleFill" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedDisabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundCheckedDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="IndeterminateNormal">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundIndeterminate}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Glyph" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="&#xE73C;"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="IndeterminatePointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundIndeterminatePointerOver}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Glyph" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="&#xE73C;"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="IndeterminatePressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundIndeterminatePressed}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Glyph" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="&#xE73C;"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="IndeterminateDisabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxForegroundIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBackgroundIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="RootGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxBorderBrushIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundStrokeIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="NormalRectangle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckBackgroundFillIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CheckBoxCheckGlyphForegroundIndeterminateDisabled}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Glyph" Storyboard.TargetName="CheckGlyph">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="&#xE73C;"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckGlyph"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid Height="32" VerticalAlignment="Top" Margin="0">
+                                    <Rectangle x:Name="RectangleFill" RadiusX="0" RadiusY="0" StrokeThickness="2" Fill="{ThemeResource Blurple}" Width="18" Height="18" Opacity="0"/>
+                                    <Rectangle x:Name="NormalRectangle" RadiusX="0" RadiusY="0" Height="18" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="2" UseLayoutRounding="False" Width="18">
+                                        <Rectangle.RenderTransform>
+                                            <ScaleTransform x:Name="RectangleScale" CenterX="9" CenterY="9"/>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                    <FontIcon x:Name="CheckGlyph"  Foreground="{ThemeResource CheckBoxCheckGlyphForegroundUnchecked}" FontSize="18" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE001;" Opacity="1">
+                                        <FontIcon.Clip>
+                                            <RectangleGeometry Rect="0,10,20,20">
+                                                <RectangleGeometry.Transform>
+                                                    <CompositeTransform x:Name="GlyphMask" TranslateX="-20"/>
+                                                </RectangleGeometry.Transform>
+                                            </RectangleGeometry>
+                                        </FontIcon.Clip>
+                                    </FontIcon>
+                                </Grid>
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,0,6,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <Style x:Key="TextBoxStyle1" TargetType="TextBox">
                 <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
@@ -878,7 +1223,7 @@
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="0.1" Duration="0:0:0.2">
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentPresenter" To="1" Duration="0:0:0.2">
                                                     <DoubleAnimation.EasingFunction>
                                                         <CircleEase/>
                                                     </DoubleAnimation.EasingFunction>
@@ -2044,6 +2389,94 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="DiscordButtonAdd" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="12"/>
+                <Setter Property="UseSystemFocusVisuals" Value="False"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid" BorderBrush="{TemplateBinding Background}" BorderThickness="1">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor2" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unfocused">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor2" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+    
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+
+                                                <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="bgColor" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid>
+                                    <Rectangle x:Name="bgColor2"  Opacity="0"  Height="48" Width="48" RadiusX="30" RadiusY="30" Fill="{ThemeResource Blurple}"/>
+                                    <Rectangle x:Name="bgColor"  Opacity="0"  Height="48" Width="48" RadiusX="30" RadiusY="30" Fill="{ThemeResource Blurple}"/>
+                                    <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource Blurple}"/>
+                                    <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
+                                </Grid>
+                               
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="DiscordOpaqueButton" TargetType="Button">
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Padding" Value="12"/>
@@ -2142,6 +2575,195 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <FCU:Style x:Key="DiscordScrollView" TargetType="FCU:ScrollViewer">
+                <FCU:Setter Property="HorizontalScrollMode" Value="Auto"/>
+                <FCU:Setter Property="VerticalScrollMode" Value="Auto"/>
+                <FCU:Setter Property="IsHorizontalRailEnabled" Value="True"/>
+                <FCU:Setter Property="IsVerticalRailEnabled" Value="True"/>
+                <FCU:Setter Property="IsTabStop" Value="False"/>
+                <FCU:Setter Property="ZoomMode" Value="Disabled"/>
+                <FCU:Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <FCU:Setter Property="VerticalContentAlignment" Value="Top"/>
+                <FCU:Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+                <FCU:Setter Property="Padding" Value="0"/>
+                <FCU:Setter Property="BorderThickness" Value="0"/>
+                <FCU:Setter Property="BorderBrush" Value="Transparent"/>
+                <FCU:Setter Property="Background" Value="Transparent"/>
+                <FCU:Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <FCU:Setter Property="Template">
+                    <FCU:Setter.Value>
+                        <FCU:ControlTemplate TargetType="FCU:ScrollViewer">
+                            <FCU:Border BorderThickness="{FCU:TemplateBinding BorderThickness}" BorderBrush="{FCU:TemplateBinding BorderBrush}">
+                                <FCU:VisualStateManager.VisualStateGroups>
+                                    <FCU:VisualStateGroup x:Name="ScrollingIndicatorStates">
+                                        <FCU:VisualStateGroup.Transitions>
+                                            <FCU:VisualTransition From="MouseIndicator" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="MouseIndicatorFull" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:DoubleAnimationUsingKeyFrames FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity">
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractFinalKeyframe}" Value="0"/>
+                                                    </FCU:DoubleAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="MouseIndicatorFull" To="MouseIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:DoubleAnimationUsingKeyFrames FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity">
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}" Value="1"/>
+                                                        <FCU:LinearDoubleKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractFinalKeyframe}" Value="0"/>
+                                                    </FCU:DoubleAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="{FCU:ThemeResource ScrollViewerSeparatorContractDelay}">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                            <FCU:VisualTransition From="TouchIndicator" To="NoIndicator">
+                                                <FCU:Storyboard>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                    <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                        <FCU:DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                                                            <FCU:DiscreteObjectKeyFrame.Value>
+                                                                <FCU:ScrollingIndicatorMode>None</FCU:ScrollingIndicatorMode>
+                                                            </FCU:DiscreteObjectKeyFrame.Value>
+                                                        </FCU:DiscreteObjectKeyFrame>
+                                                    </FCU:ObjectAnimationUsingKeyFrames>
+                                                </FCU:Storyboard>
+                                            </FCU:VisualTransition>
+                                        </FCU:VisualStateGroup.Transitions>
+                                        <FCU:VisualState x:Name="NoIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="TouchIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>TouchIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>TouchIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="MouseIndicator">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorContractDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="0"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                        <FCU:VisualState x:Name="MouseIndicatorFull">
+                                            <FCU:Storyboard>
+                                                <FCU:DoubleAnimation Duration="{FCU:ThemeResource ScrollViewerSeparatorExpandDuration}" FCU:Storyboard.TargetName="ScrollBarSeparator" FCU:Storyboard.TargetProperty="Opacity" To="1"/>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="VerticalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                                <FCU:ObjectAnimationUsingKeyFrames FCU:Storyboard.TargetName="HorizontalScrollBar" FCU:Storyboard.TargetProperty="IndicatorMode">
+                                                    <FCU:DiscreteObjectKeyFrame KeyTime="0">
+                                                        <FCU:DiscreteObjectKeyFrame.Value>
+                                                            <FCU:ScrollingIndicatorMode>MouseIndicator</FCU:ScrollingIndicatorMode>
+                                                        </FCU:DiscreteObjectKeyFrame.Value>
+                                                    </FCU:DiscreteObjectKeyFrame>
+                                                </FCU:ObjectAnimationUsingKeyFrames>
+                                            </FCU:Storyboard>
+                                        </FCU:VisualState>
+                                    </FCU:VisualStateGroup>
+                                </FCU:VisualStateManager.VisualStateGroups>
+                                <FCU:Grid Background="{FCU:TemplateBinding Background}">
+                                    <FCU:Grid.ColumnDefinitions>
+                                        <FCU:ColumnDefinition Width="*"/>
+                                        <FCU:ColumnDefinition Width="Auto"/>
+                                    </FCU:Grid.ColumnDefinitions>
+                                    <FCU:Grid.RowDefinitions>
+                                        <FCU:RowDefinition Height="*"/>
+                                        <FCU:RowDefinition Height="Auto"/>
+                                    </FCU:Grid.RowDefinitions>
+                                    <FCU:ScrollContentPresenter x:Name="ScrollContentPresenter" ContentTemplate="{FCU:TemplateBinding ContentTemplate}" FCU:Grid.ColumnSpan="2" Margin="{FCU:TemplateBinding Padding}" FCU:Grid.RowSpan="2"/>
+                                    <FCU:Grid FCU:Grid.ColumnSpan="2" FCU:Grid.RowSpan="2"/>
+                                    <FCU:ScrollBar x:Name="VerticalScrollBar" FCU:Grid.Column="1" HorizontalAlignment="Right" IsTabStop="False" Maximum="{FCU:TemplateBinding ScrollableHeight}" Orientation="Vertical" ViewportSize="{FCU:TemplateBinding ViewportHeight}" Value="{FCU:TemplateBinding VerticalOffset}" Visibility="{FCU:TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                    <FCU:ScrollBar x:Name="HorizontalScrollBar" IsTabStop="False" Maximum="{FCU:TemplateBinding ScrollableWidth}" Orientation="Horizontal" FCU:Grid.Row="1" ViewportSize="{FCU:TemplateBinding ViewportWidth}" Value="{FCU:TemplateBinding HorizontalOffset}" Visibility="{FCU:TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                    <FCU:Border x:Name="ScrollBarSeparator" Background="{FCU:ThemeResource ScrollViewerScrollBarSeparatorBackground}" FCU:Grid.Column="1" Opacity="0" FCU:Grid.Row="1"/>
+                                </FCU:Grid>
+                            </FCU:Border>
+                        </FCU:ControlTemplate>
+                    </FCU:Setter.Value>
+                </FCU:Setter>
+            </FCU:Style>
             <Style x:Key="EmojiButton" TargetType="ToggleButton">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -3016,15 +3638,26 @@
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
                                             <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonForegroundDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBackgroundDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonBorderBrushDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>
@@ -3034,6 +3667,134 @@
 
                                 <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                                 <TextBlock x:Name="whiteContentPresenter" Foreground="White"  Opacity="0" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DiscordMentionHyperlinkBold" TargetType="HyperlinkButton">
+                <Setter Property="Foreground" Value="{ThemeResource Blurple}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
+                <Setter Property="Margin" Value="0,0,0,-2"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="HyperlinkButton">
+                            <Grid x:Name="RootGrid">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                </Grid.Background>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.2" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="1" Storyboard.TargetName="whiteContentPresenter" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0" Storyboard.TargetName="background" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation To="0.1" Storyboard.TargetName="whitebackground" Storyboard.TargetProperty="Opacity" Duration="0:0:0.3">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" FontWeight="SemiBold" AutomationProperties.AccessibilityView="Raw" Foreground="White"  Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="whiteContentPresenter" Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold" Opacity="0" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>

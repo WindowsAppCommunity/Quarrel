@@ -147,6 +147,9 @@
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Rendu plus exigeant (effets de flou, etc...)</value>
   </data>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis ?</value>
+  </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>Surligner @everyone</value>
   </data>
@@ -219,14 +222,11 @@
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis ?</value>
-  </data>
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Demandes d'amis</value>
   </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Les salons muets affectent le statut "lu" du serveur?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Couleur d'accentuation système</value>
@@ -243,11 +243,11 @@
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Activer les effets Acrylic (arrière-plan flouté)</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Les salons muets affectent le statut "lu" du serveur?</value>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
   </data>
-  <data name="Enable compression (Faster)" xml:space="preserve">
-    <value>Activer la compression de données</value>
+  <data name="UseCompression.Content" xml:space="preserve">
+    <value>Activer la compression des données (plus rapide)</value>
   </data>
   <data name="VideoAds.Content" xml:space="preserve">
     <value>Afficher des pubs vidéos plutôt que des bannières</value>
@@ -258,17 +258,17 @@
   <data name="GifsOnHoverCB.Content" xml:space="preserve">
     <value>Jouer les gifs lors d'un clic ou survolement</value>
   </data>
-  <data name="UseCompression.Content" xml:space="preserve">
-    <value>Activer la compression des données (plus rapide)</value>
-  </data>
-  <data name="Unread" xml:space="preserve">
-    <value>Non-lu</value>
+  <data name="Enable compression (Faster)" xml:space="preserve">
+    <value>Activer la compression de données</value>
   </data>
   <data name="Mentions" xml:space="preserve">
     <value>Mentionne</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Non-lu</value>
   </data>
   <data name="TranslatorPI" xml:space="preserve">
     <value>Traduction</value>
@@ -324,13 +324,124 @@
   <data name="OutputDevicesCB.Header" xml:space="preserve">
     <value>Activer les notifications en arrière-plan</value>
   </data>
-  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
-    <value>Paramètres de compte</value>
-  </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
     <value>Désactiver les notifications en arrière-plan</value>
   </data>
+  <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
+    <value>Paramètres de compte</value>
+  </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
     <value>Afficher une icone sur les serveurs muets</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Taille de police</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
+  <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
+    <value>Nouvelles mentions dans les serveurs muets</value>
+  </data>
+  <data name="SoundsCB.Content" xml:space="preserve">
+    <value>Sons</value>
+  </data>
+  <data name="SoundsPI.Header" xml:space="preserve">
+    <value>Sons</value>
+  </data>
+  <data name="VoicePI.Header" xml:space="preserve">
+    <value>Voix</value>
+  </data>
+  <data name="SoundTypesTB.Text" xml:space="preserve">
+    <value>Types de son</value>
+  </data>
+  <data name="DiscordRB.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="WindowsRB.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="SoundsTB.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>PARAMÈTRES DU COMPTE</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="AccountPrivacyPI.Header" xml:space="preserve">
+    <value>Sécurité/Confidentialité</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Ajouter une image</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Suprimmer</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Mot de passe actuel</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Changer le mot de passe</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="SaveTB.Text" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>FILTRAGE DES MESSAGES PRIVÉS</value>
+  </data>
+  <data name="DMFilterExpoTB.Text" xml:space="preserve">
+    <value>Analyser et automatiquement supprimer les messages privés explicits</value>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Me protéger</value>
+  </data>
+  <data name="ProtectMeExpoTB.Text" xml:space="preserve">
+    <value>Tout analyser</value>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>Mes amis sont sympas</value>
+  </data>
+  <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
+    <value>Tout analyser, sauf de mes amis</value>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>Je vis dangereusement</value>
+  </data>
+  <data name="DangerZoneExpoTB.Text" xml:space="preserve">
+    <value>Ne rien analyser</value>
+  </data>
+  <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
+    <value>QUI PEUT M'ENVOYER DES DEMANDES D'AMI</value>
+  </data>
+  <data name="EveryoneCB.Content" xml:space="preserve">
+    <value>Tout les monde</value>
+  </data>
+  <data name="MutualFriendsCB.Content" xml:space="preserve">
+    <value>Les amis de mes amis</value>
+  </data>
+  <data name="MutualServerMembersCB.Content" xml:space="preserve">
+    <value>Les membres des serveurs en commun</value>
+  </data>
+  <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
+    <value>Pour accéder aux restes des paramètres sensibles, veuiller utiliser le site internet ou le client Discord officiel</value>
+  </data>
+  <data name="DerivedRadio.Content" xml:space="preserve">
+    <value>Couleur dérivée</value>
+  </data>
+  <data name="LanguageComboB.Header" xml:space="preserve">
+    <value>Langue (redémarrage nécessaire)</value>
+  </data>
+  <data name="DefaultComboBI.Content" xml:space="preserve">
+    <value>Default</value>
   </data>
 </root>

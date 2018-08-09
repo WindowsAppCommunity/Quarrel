@@ -13,14 +13,14 @@ namespace InvisibleBackgroundTask
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
-                    var details = taskInstance.TriggerDetails as Windows.UI.Notifications.ToastNotificationActionTriggerDetail;
-                    if (details != null)
+            if (taskInstance.TriggerDetails is ToastNotificationActionTriggerDetail details)
                     {
                         string[] segments = details.Argument.Split('/');
                         var count = segments.Count();
                 if (count > 0)
                 {
                     var creds = (new Windows.Security.Credentials.PasswordVault()).FindAllByResource("Token").FirstOrDefault();
+                    if (creds == null) return;
                     creds.RetrievePassword();
                     var token = creds.Password;
 
@@ -52,10 +52,82 @@ namespace InvisibleBackgroundTask
                             }
                         }
                     }
+                    else if (segments[0] == "send")
+                    {
+                        using (var http = new System.Net.Http.HttpClient())
+                        {
+                            string response = CleanForJson(details.UserInput["Reply"].ToString());
+                            if (response == null) return;
+                            System.Net.Http.HttpContent content = new System.Net.Http.StringContent("{\"content\":\""+ response +"\"}");
+                            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(token);
+                            await http.PostAsync("https://discordapp.com/api/v6/channels/" + segments[1] + "/messages", content);
+                            
+                            ToastNotificationManager.History.Remove(segments[2], "Mention");
+                        }
+                    }
                 }         
             }
-            ;
             deferral.Complete();
+        }
+
+        public static string CleanForJson(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return "";
+            }
+
+            char c = '\0';
+            int i;
+            int len = s.Length;
+            StringBuilder sb = new StringBuilder(len + 4);
+            String t;
+
+            for (i = 0; i < len; i += 1)
+            {
+                c = s[i];
+                switch (c)
+                {
+                    case '\\':
+                    case '"':
+                        sb.Append('\\');
+                        sb.Append(c);
+                        break;
+                    case '/':
+                        sb.Append('\\');
+                        sb.Append(c);
+                        break;
+                    case '\b':
+                        sb.Append("\\b");
+                        break;
+                    case '\t':
+                        sb.Append("\\t");
+                        break;
+                    case '\n':
+                        sb.Append("\\n");
+                        break;
+                    case '\f':
+                        sb.Append("\\f");
+                        break;
+                    case '\r':
+                        sb.Append("\\r");
+                        break;
+                    default:
+                        if (c < ' ')
+                        {
+                            t = "000" + String.Format("X", c);
+                            sb.Append("\\u" + t.Substring(t.Length - 4));
+                        }
+                        else
+                        {
+                            sb.Append(c);
+                        }
+
+                        break;
+                }
+            }
+            return sb.ToString();
         }
     }
 }

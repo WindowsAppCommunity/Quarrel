@@ -166,7 +166,7 @@
     <value>คำเชิญชวนเกินขีดจำกัดแล้ว</value>
   </data>
   <data name="InviteTempDesc" xml:space="preserve">
-    <value>คนที่ใช้ลิ้งค์นี้จะถูกไล่ออกจากเซิฟเวอร์เมื่อตัดการเชื่อมต่อ, ยกเว้นว่าได้รับบทบาทใดจากเซิฟเวอร์</value>
+    <value>คนที่ใช้ลิ้งค์นี้จะถูกไล่ออกจากเซิฟเวอร์เมื่อตัดการเชื่อมต่อ, ยกเว้นว่าได้รับสิทธิ์ใดจากเซิฟเวอร์</value>
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>ธรรมชาติ</value>
@@ -193,7 +193,7 @@
     <value>ยกเลิกแบน</value>
   </data>
   <data name="RoleTB.Text" xml:space="preserve">
-    <value>บทบาท</value>
+    <value>สิทธิ์</value>
   </data>
   <data name="SearchTBox.PlaceholderText" xml:space="preserve">
     <value>ค้นหา...</value>
@@ -298,13 +298,13 @@
     <value>เข้าร่วมฟังด้วย</value>
   </data>
   <data name="SessionOverTB.Text" xml:space="preserve">
-    <value>เซสชั่น Spotify จบลงแล้ว :'(</value>
+    <value>เซสชั่นฟังร่วมกันของ Spotify จบไปแล้ว :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
     <value>แนบไฟล์</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
-    <value>ค้นหาด้วย Giphy</value>
+    <value>เขียนเพื่อค้น Giphy</value>
   </data>
   <data name="ListeningTo" xml:space="preserve">
     <value>กำลังฟัง</value>
@@ -313,7 +313,7 @@
     <value>กำลังโหลด</value>
   </data>
   <data name="SearchGiphyMFI.Text" xml:space="preserve">
-    <value>ค้น Giphy</value>
+    <value>ค้นหาใน Giphy</value>
   </data>
   <data name="SendSpotifyInvMFI.Text" xml:space="preserve">
     <value>ส่งคำชวน Spotify</value>
@@ -329,5 +329,8 @@
   </data>
   <data name="TryResetBTN.Content" xml:space="preserve">
     <value>แอพมีปัญหา? ลองรีเซทแอพดู.</value>
+  </data>
+  <data name="ACTIVITESLI.Content" xml:space="preserve">
+    <value>กิจกรรม</value>
   </data>
 </root>

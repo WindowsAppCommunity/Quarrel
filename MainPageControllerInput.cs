@@ -7,9 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Gaming.Input;
+using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Discord_UWP.SubPages;
 
 namespace Discord_UWP
 {
@@ -53,6 +56,18 @@ namespace Discord_UWP
             {
                 MessageBox1.ShiftDown();
             }
+            /*
+            else if (args.VirtualKey == VirtualKey.S)
+            {
+                if (args.KeyStatus.IsKeyReleased && CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control) != CoreVirtualKeyStates.None)
+                {
+                    SubFrameNavigator(typeof(SubPages.DiscordStatus));
+                }
+                else
+                {
+                    args.Handled = true;
+                }
+            }*/
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadLeftThumbstickLeft)
             {
                 // args.Handled = true;
@@ -84,30 +99,17 @@ namespace Discord_UWP
                 if (args.KeyStatus.RepeatCount == 1 && !args.KeyStatus.IsKeyReleased)
                     sideDrawer.ToggleRight();
             }
-            else if (args.VirtualKey == Windows.System.VirtualKey.GamepadMenu)
-            {
-                if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
-                args.Handled = true;
-                if (args.KeyStatus.IsKeyReleased)
-                {
-                    MenuHint.Release();
-                    MenuHint.ContextFlyout.ShowAt(YHint);
-                }
-                else
-                    MenuHint.Press();
-            }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadView)
             {
                 if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
                 args.Handled = true;
                 if (args.KeyStatus.IsKeyReleased)
                 {
-                    ViewHint.Release();
-                    sideDrawer.ToggleFullScreen();
+                    MenuHint.Release();
+                    MenuHint.ContextFlyout.ShowAt(MenuHint);
                 }
                 else
-                    ViewHint.Press();
-
+                    MenuHint.Press();
             }
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadX)
             {
@@ -131,6 +133,7 @@ namespace Discord_UWP
                     XHint.Press();
                 }
             }
+            /*
             else if (args.VirtualKey == Windows.System.VirtualKey.GamepadY)
             {
                 if (SubFrame.Visibility == Windows.UI.Xaml.Visibility.Visible) return;
@@ -175,7 +178,7 @@ namespace Discord_UWP
 
 
                 // args.Handled = true;
-            }
+            }*/
         }
         private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
         {
@@ -196,6 +199,12 @@ namespace Discord_UWP
             {
                 YHint.Release();
             }
+        }
+
+
+        private void KeyboardAccelerator_OnInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            SubFrameNavigator(typeof(DiscordStatus));
         }
     }
 }

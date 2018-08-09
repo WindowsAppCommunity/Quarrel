@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 using Discord_UWP.LocalModels;
@@ -54,6 +55,7 @@ namespace Discord_UWP.Controls
         }
         private async void LoadInvite(bool ForceJoin)
         {
+            GuildName.Foreground = (SolidColorBrush)Application.Current.Resources["InvertedBG"];
             InviteCode = InviteCode.Replace(">\n", "");
             InviteCode = InviteCode.Replace("http://discord.me/","");
             InviteCode = InviteCode.Replace("https://discord.me/", "");
@@ -62,16 +64,17 @@ namespace Discord_UWP.Controls
             InviteCode = InviteCode.Replace("https://discordapp.com/invite/", "");
             InviteCode = InviteCode.Replace("http://discordapp.com/invite/", "");
 
-            GreenIcon.Opacity = 0;
-            RedIcon.Opacity = 0;
-            JoinIcon.Opacity = 0;
-            ChannelName.Opacity = 0;
             GuildName.Opacity = 0;
             Loading.Opacity = 1;
 
             try
             {
                 DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
+                if (DisplayedInvite == null)
+                {
+                    InvalidInvite(InvalidReason.Default);
+                    return;
+                }
                 Loading.Fade(0, 200).Start();
                 GuildName.Visibility = Visibility.Visible;
                 TimeSpan timeDiff = TimeSpan.FromSeconds(1);
@@ -82,43 +85,82 @@ namespace Discord_UWP.Controls
                                         DateTime.Now.Subtract(creationTime).TotalSeconds);
                 }
 
-                GuildName.Text = DisplayedInvite.Guild.Name;
-                GuildName.Fade(1, 350).Start();
-                ChannelName.Fade(1, 200).Start();
+                if (DisplayedInvite.Guild == null)
+                {
+                    InvalidInvite(InvalidReason.Default);
+                    return;
+                }
+
+                if (DisplayedInvite.Guild?.Icon != null)
+                {
+                    GuildImage.Visibility = Visibility.Visible;
+                    GuildImageBrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/"+DisplayedInvite.Guild.Id+"/"+DisplayedInvite.Guild.Icon+".png"));
+                }
+                else
+                {
+                    GuildImage.Visibility = Visibility.Collapsed;
+                }
+
+                ChannelName.Text = "#"+DisplayedInvite.Channel.Name;
+                ChannelName.Fade(0.6f, 200).Start();
+                GuildName.Fade(1,100).Start();
+                GuildImage.Fade(1,300).Start();
+                MemberCounters.Visibility = Visibility.Visible;
+                MemberCounters.Fade(1, 400).Start();
+                onlineCounter.Text = DisplayedInvite.OnlineCount + " online";
+                offlineCounter.Text = DisplayedInvite.MemberCount + " members";
                 if (LocalState.Guilds.ContainsKey(DisplayedInvite.Guild.Id) || ForceJoin)
                 {
-                    GreenIcon.Fade(1, 200).Start();
-                    ChannelName.Text = App.GetString("/Controls/InviteJoined") + " " + DisplayedInvite.Channel.Name;
+                    GuildName.Text = App.GetString("/Controls/InviteJoined") + " " + DisplayedInvite.Guild.Name;
+                    Status = InviteStatus.AlreadyJoined;
                     return;
                 }
                 if (DisplayedInvite.MaxUses != 0 && DisplayedInvite.MaxUses <= DisplayedInvite.Uses)
                 {
-                    ChannelName.Text = App.GetString("/Controls/InviteMaxUses");
-                    RedIcon.Fade(1, 200).Start();
+                    InvalidInvite(InvalidReason.MaxUses);
                     return;
                 }
                 if (timeDiff.TotalSeconds > 0)
                 {
-                    JoinIcon.Fade(1, 200).Start();
-                    ChannelName.Text = App.GetString("/Controls/InviteJoin") + " " + DisplayedInvite.Channel.Name;
+                    GuildName.Text = App.GetString("/Controls/InviteJoin") + " " + DisplayedInvite.Guild.Name;
+                    Status = InviteStatus.Canjoin;
                 }
                 else
                 {
-                    RedIcon.Fade(1, 200).Start();
-                    ChannelName.Text = App.GetString("/Controls/InviteExpired");
+                    InvalidInvite(InvalidReason.Default);
                 }
             }
             catch
             {
-                Loading.Fade(0, 200).Start();
-                GuildName.Fade(1, 350).Start();
-                ChannelName.Fade(1, 200).Start();
-                RedIcon.Fade(1, 200).Start();
-                ChannelName.Text = App.GetString("/Controls/InviteInvalid");
-                GuildName.Visibility = Visibility.Collapsed;
+                InvalidInvite(InvalidReason.Default);
             }
         }
 
+        enum InvalidReason { Default, MaxUses, Expired }
+        private void InvalidInvite(InvalidReason reason)
+        {
+            Loading.Fade(0, 200).Start();
+            GuildName.Fade(1, 350).Start();
+           
+            if(reason == InvalidReason.Default) GuildName.Text = App.GetString("/Controls/InviteInvalid");
+            else if (reason == InvalidReason.MaxUses) GuildName.Text = App.GetString("/Controls/InviteMaxUses");
+            else if(reason== InvalidReason.Expired) GuildName.Text = App.GetString("/Controls/InviteExpired");
+            GuildName.Foreground = (SolidColorBrush) Application.Current.Resources["dnd"];
+            if (DisplayedInvite?.Inviter != null && LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(DisplayedInvite?.Inviter.Id))
+            {
+                ChannelName.Text = "Ask @" + DisplayedInvite.Inviter.Username + "#" + DisplayedInvite.Inviter.Discriminator + " for a new one";
+                ChannelName.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ChannelName.Text = "";
+                ChannelName.Visibility = Visibility.Collapsed;
+            }
+            MemberCounters.Visibility = Visibility.Collapsed;
+            GuildImage.Visibility = Visibility.Collapsed;
+            Status = InviteStatus.Invalid;
+
+        }
         public EmbededInviteControl()
         {
             this.InitializeComponent();
@@ -128,7 +170,7 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Guild> e)
         {
-            if (DisplayedInvite != null && e.EventData.Id == DisplayedInvite.Guild.Id)
+            if (DisplayedInvite?.Guild != null && e.EventData.Id == DisplayedInvite.Guild.Id)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     LoadInvite(false);
@@ -137,32 +179,38 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_GuildDeleted(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.GuildDelete> e)
         {
-            if (DisplayedInvite != null && e.EventData.GuildId == DisplayedInvite.Guild.Id)
+            if (DisplayedInvite?.Guild != null && e.EventData.GuildId == DisplayedInvite.Guild.Id)
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     LoadInvite(false);
                 });
         }
 
+        public enum InviteStatus
+        {
+            Canjoin,
+            AlreadyJoined,
+            Invalid
+        };
+
+        public InviteStatus Status = InviteStatus.Invalid;
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (RedIcon.Opacity == 1) return;
-            if (GreenIcon.Opacity == 1)
-                App.NavigateToGuild(DisplayedInvite.Guild.Id);
-            if(JoinIcon.Opacity == 1)
+            if (Status == InviteStatus.AlreadyJoined)
             {
-                GreenIcon.Opacity = 0;
-                RedIcon.Opacity = 0;
-                JoinIcon.Opacity = 0;
-                ChannelName.Opacity = 0;
-                GuildName.Opacity = 0;
-                Loading.Opacity = 1;
-
-                //DisplayedInvite = await RESTCalls.AcceptInvite(InviteCode); I guess this doesn't work or something...
+                App.SelectGuildChannel(DisplayedInvite.Guild.Id, DisplayedInvite.Channel.Id);
+            }
+            else if (Status == InviteStatus.Canjoin)
+            {
+                Loading.Fade(1,200).Start();
+                GuildImage.Fade(0.4f).Start();
                 await RESTCalls.AcceptInvite(InviteCode);
                 DisplayedInvite = await RESTCalls.GetInvite(InviteCode);
-                DisplayedInvite.Uses++;
                 LoadInvite(true);
+            }
+            else if(Status == InviteStatus.Invalid && ChannelName.Visibility == Visibility.Visible)
+            {
+                App.SelectGuildChannel(App.CurrentGuildId,App.CurrentChannelId, "@"+DisplayedInvite.Inviter.Username+"#"+DisplayedInvite.Inviter.Discriminator);
             }
         }
 

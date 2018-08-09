@@ -283,7 +283,7 @@
     <value>NOM</value>
   </data>
   <data name="NoBansTB.Text" xml:space="preserve">
-    <value>AUCUN BANNISSEMENT (POUR LE MOMENT)</value>
+    <value>AUCUN BANS (POUR LE MOMENT)</value>
   </data>
   <data name="NoCommonFriendsTB.Text" xml:space="preserve">
     <value>AUCUN AMI EN COMMUN</value>
@@ -394,7 +394,7 @@
     <value>Utiliser la détection de voix</value>
   </data>
   <data name="ViewAuditLogToggle.Header" xml:space="preserve">
-    <value>Voir l'Audit log</value>
+    <value>Voir le log de modération</value>
   </data>
   <data name="VoicePermissionsTB.Text" xml:space="preserve">
     <value>PERMISSIONS DE VOIX</value>
@@ -528,11 +528,11 @@
   <data name="ResetQuarrel" xml:space="preserve">
     <value>Réinitialiser Quarrel</value>
   </data>
+  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
+    <value>Quarrel sera complètement réinitialisé, donc vous serez déconnecté et tous les paramètres seront réinitialisés. Votre compte discord ne sera pas affecté.</value>
+  </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
     <value>PARAMÈTRES DU COMPTE</value>
-  </data>
-  <data name="AccountTB.Text" xml:space="preserve">
-    <value>Compte</value>
   </data>
   <data name="AppSettingsHLBTN.Content" xml:space="preserve">
     <value>Paramètres de l'application</value>
@@ -567,9 +567,6 @@
   <data name="EditChannelTopicTBox.PlaceholderText" xml:space="preserve">
     <value>Sujet non défini</value>
   </data>
-  <data name="ThisWillResetQuarrelEtc" xml:space="preserve">
-    <value>Quarrel sera complètement réinitialisé, donc vous serez déconnecté et tous les paramètres seront réinitialisés. Votre compte discord ne sera pas affecté.</value>
-  </data>
   <data name="ImageRecommendationTB.Text" xml:space="preserve">
     <value>Nous vous recommandons d'utiliser une image qui mesure au moins 512x512px</value>
   </data>
@@ -602,5 +599,110 @@
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
     <value>Nouveau mot de passe</value>
+  </data>
+  <data name="AccountTB.Text" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+  <data name="AuditLogChannelCreate" xml:space="preserve">
+    <value>&lt;user&gt; a crée le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour un salon désormais supprimé (&lt;channelid&gt;)</value>
+  </data>
+  <data name="AuditLogChannelDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogEmojiCreate" xml:space="preserve">
+    <value>&lt;user&gt; a crée l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogEmojiDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé l'emoji &lt;emojiname&gt;</value>
+  </data>
+  <data name="AuditLogGuildUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour le serveur</value>
+  </data>
+  <data name="AuditLogInviteCreate" xml:space="preserve">
+    <value>&lt;user&gt; a crée le lien d'invitation &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour le lien d'invitation &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogUnknown" xml:space="preserve">
+    <value>&lt;user&gt; a effectué une action inconnue</value>
+  </data>
+  <data name="AuditLogMemberBanAdd" xml:space="preserve">
+    <value>&lt;user&gt; a banni &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberBanRemove" xml:space="preserve">
+    <value>&lt;user&gt; a révoqué le bannissement de &lt;banneduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberKick" xml:space="preserve">
+    <value>&lt;user&gt; a expulsé &lt;kickeduser&gt;</value>
+  </data>
+  <data name="AuditLogMemberPrune" xml:space="preserve">
+    <value>&lt;user&gt; a purgé le serveur</value>
+  </data>
+  <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour les rôles de &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogDeletedChannel" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogMessageDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé un message de &lt;user2&gt; dans &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogRoleCreate" xml:space="preserve">
+    <value>&lt;user&gt; a crée le rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogDeletedRole" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé le rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour le rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogRoleDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé le rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogWebhookCreate" xml:space="preserve">
+    <value>&lt;user&gt; a crée le webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour le webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogWebhookDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé le webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; a crée des permissions pour un salon désormais supprimé</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
+    <value>&lt;user&gt; a crée des permissions pour le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé des permissions d'un salon désormais supprimé</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé des permissions du salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour les permissions d'un salon désormais supprimé</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour les permissions du salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogInviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé l'invitation &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; a mis à jour &lt;user2&gt;</value>
   </data>
 </root>

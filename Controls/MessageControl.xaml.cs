@@ -86,6 +86,17 @@ namespace Discord_UWP.Controls
             typeof(MessageControl),
             new PropertyMetadata(false, OnPropertyChangedStatic));
 
+        public bool Edited
+        {
+            get { return (bool)GetValue(EditedProperty); }
+            set { SetValue(EditedProperty, value); }
+        }
+        public static readonly DependencyProperty EditedProperty = DependencyProperty.Register(
+            nameof(Edited),
+            typeof(bool),
+            typeof(MessageControl),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
         public bool IsBlocked
         {
             get { return (bool)GetValue(IsBlockedProperty); }
@@ -187,8 +198,7 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["online"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/AddedUser") + App.GetString("/Controls/ToTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
                     else if (MessageType == MessageTypes.RecipientRemoved)
@@ -196,8 +206,7 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["dnd"];
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["dnd"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/RemovedUser") + App.GetString("/Controls/FromTheConversation").Replace("<user>", "**" + Message.Mentions.First().Username + "**");
                     }
                     else if(MessageType == MessageTypes.ChannelIconChanged)
@@ -205,8 +214,7 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
                         content.Text = "**" + Message.User.Username + "** changed the channel's icon"; 
                     }
                     else if (MessageType == MessageTypes.ChannelNameChanged)
@@ -214,8 +222,7 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
                         content.Text = "**" + Message.User.Username + "** changed the channel's name";
                     }
                     else if (MessageType == MessageTypes.Call)
@@ -223,14 +230,26 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.FontSize = 18;
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
-                        //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
-                        if (Message.User.Id == LocalState.CurrentUser.Id)
-                            content.Text = App.GetString("/Controls/You") + " " + App.GetString("/Controls/StartedACall");
+                        if (Message.Call == null || !Message.Call.Participants.Contains(LocalState.CurrentUser.Id))
+                        {
+                            //Missed call
+                            SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"], 18, true);
+                            AlternativeIcon.Glyph = "";
+                            AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                            content.Text = App.GetString("/Controls/YouMissedACall").Replace("<user>", "**" + Message.User.Username + "**");
+                        }
                         else
-                            content.Text = App.GetString("/Controls/CallStartedBy").Replace("<user>", "**" + Message.User.Username + "**");
+                        {
+                            //Answered call
+                            SetAltIcon("", (SolidColorBrush)App.Current.Resources["online"]);
+                            if (Message.User.Id == LocalState.CurrentUser.Id)
+                                content.Text = App.GetString("/Controls/You") + " " + App.GetString("/Controls/StartedACall");
+                            else
+                                content.Text = App.GetString("/Controls/CallStartedBy").Replace("<user>", "**" + Message.User.Username + "**");
+                        }
+                        AlternativeIcon.FontSize = 18;
+                        
+                        //content.Text = App.GetString("/Controls/YouMissedACall") + " **" + Message.Value.User.Username + "**";
                     }
                     else if (MessageType == MessageTypes.PinnedMessage)
                     {
@@ -240,9 +259,7 @@ namespace Discord_UWP.Controls
                             rootGrid.Children.Remove(advert);
                         advert = null;
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.FontSize = 18;
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["InvertedBG"];
+                        SetAltIcon("", (SolidColorBrush)App.Current.Resources["InvertedBG"]);
                         content.Text = "**" + Message.User.Username + "** " + App.GetString("/Controls/PinnedAMessageInThisChannel");
                     }
 
@@ -251,9 +268,7 @@ namespace Discord_UWP.Controls
                         if (rootGrid.Children.Contains(reactionView))
                             rootGrid.Children.Remove(reactionView);
                         VisualStateManager.GoToState(this, "Alternative", false);
-                        AlternativeIcon.Glyph = "";
-                        AlternativeIcon.FontSize = 18;
-                        AlternativeIcon.Foreground = (SolidColorBrush)App.Current.Resources["online"];
+                        SetAltIcon("", (SolidColorBrush) App.Current.Resources["online"]);
                         content.Text = "**"+Message.User.Username + "**" + " joined the server!";
                     }
                     else if(MessageType == MessageTypes.ChannelIconChanged)
@@ -271,7 +286,7 @@ namespace Discord_UWP.Controls
             }
             if (prop == MessageProperty)
             {
-                UpdateMessage();
+                UpdateMessage(Edited);
             }
             if (prop == LastReadProperty)
             {
@@ -333,6 +348,13 @@ namespace Discord_UWP.Controls
             }
         }
 
+        private void SetAltIcon(string glyph, SolidColorBrush color, int fontsize = 18, bool mirrored = false)
+        {
+            AlternativeIcon.Glyph = glyph;
+            AlternativeIcon.FontSize = fontsize;
+            AlternativeIcon.Foreground = color;
+            AlternativeIcon.RenderTransform = mirrored ? new ScaleTransform(){ ScaleX = -1, CenterX = 9} : new ScaleTransform() { ScaleX = 1 };
+        }
 
         private async void GatewayOnMessageReactionRemoved(object sender, GatewayEventArgs<MessageReactionUpdate> gatewayEventArgs)
         {
@@ -445,7 +467,7 @@ namespace Discord_UWP.Controls
             return wg;
             
         }
-        public void UpdateMessage()
+        public void UpdateMessage(bool edited = false)
         {
             content.FontSize = Storage.Settings.MSGFontSize;
             content.Padding = new Thickness(5, 3, 3, content.FontSize / 4 + 1);
@@ -453,12 +475,13 @@ namespace Discord_UWP.Controls
             if (rootGrid.Children.Contains(advert))
                 rootGrid.Children.Remove(advert);
             advert = null;
-            if (rootGrid.Children.Contains(reactionView))
+            
+            if (!edited && rootGrid.Children.Contains(reactionView))
                 rootGrid.Children.Remove(reactionView);
             if (Message != null)
             {
                 messageid = Message.Id;
-                if (Message.MentionEveryone || (Message.Mentions != null &&  Message.Mentions.Any(x => x.Id == LocalState.CurrentUser.Id)))
+                if (MessageType == MessageTypes.Default && (Message.MentionEveryone || Message.Mentions?.FirstOrDefault(x => x.Id == LocalState.CurrentUser.Id) != null))
                 {
                     content.Background = GetSolidColorBrush("#14FAA61A");
                     content.BorderBrush = GetSolidColorBrush("#FFFAA61A");
@@ -564,24 +587,30 @@ namespace Discord_UWP.Controls
                     timestamp.Text += " (" + App.GetString("/Controls/Edited") + " " + Common.HumanizeEditedDate(Message.EditedTimestamp.Value,
                                           Message.Timestamp) + ")";
 
-                if (Message.Reactions != null)
-                {
-                    reactionView = GenerateWrapGrid();
-                    foreach (Reactions reaction in Message.Reactions.Where(x => x.Count > 0))
-                    {
-                        reactionView.Children.Add(GenerateReactionToggle(reaction));
-                    }
-                    Grid.SetRow(reactionView, 3);
-                    Grid.SetColumn(reactionView, 1);
-                    rootGrid.Children.Add(reactionView);
-                }
-                else
-                {
-                    if (rootGrid.Children.Contains(reactionView))
-                        rootGrid.Children.Remove(reactionView);
-                    reactionView = null;
-                }
+                
                 LoadEmbedsAndAttachements();
+
+                if (!edited)
+                {
+                    if (Message.Reactions != null)
+                    {
+                        reactionView = GenerateWrapGrid();
+                        foreach (Reactions reaction in Message.Reactions.Where(x => x.Count > 0))
+                        {
+                            reactionView.Children.Add(GenerateReactionToggle(reaction));
+                        }
+
+                        Grid.SetRow(reactionView, 4);
+                        Grid.SetColumn(reactionView, 1);
+                        rootGrid.Children.Add(reactionView);
+                    }
+                    else
+                    {
+                        if (rootGrid.Children.Contains(reactionView))
+                            rootGrid.Children.Remove(reactionView);
+                        reactionView = null;
+                    }
+                }
 
                 content.Users = Message.Mentions;
                 if (Message?.Content == "")
@@ -595,23 +624,17 @@ namespace Discord_UWP.Controls
                     Grid.SetRow(moreButton, 2);
                 }
                 content.Text = Message.Content;
-                string text = Message.Content;
-                //string startLink = "";
-                string[] Searcheables = new string[] { "https://discord.gg/", "http://discord.gg/", "https://discordapp.com/invite/", "http://discordapp.com/invite/" };
-                
-                foreach(string link in Searcheables)
-                    foreach(int index in AllIndexesOf(text,link))
+                Regex regex = new Regex("(discord\\.(gg|io|me|li)\\/|discordapp\\.com\\/invite\\/)(([A-Za-z]|[0-9])+)");
+                foreach (Match match in regex.Matches(content.Text))
+                {
+                    if (match.Groups.Count >= 3)
                     {
-                        string text1 = text.Remove(0, index);
-                        int interrupt = text1.IndexOf(' ');
-                        if (interrupt != -1)
-                            text1 = text1.Remove(interrupt);
                         EmbedViewer.Visibility = Visibility.Visible;
-                        EmbedViewer.Children.Add(new EmbededInviteControl
-                        {
-                            InviteCode = text1
-                        });
+                        EmbedViewer.Children.Add(new EmbededInviteControl(){ InviteCode=match.Groups[3].Value });
                     }
+                }
+                //string startLink = "";
+
 
                 if (LocalState.Blocked.ContainsKey(userid))
                 {
@@ -950,7 +973,7 @@ namespace Discord_UWP.Controls
 
         private void Username_OnClick(object sender, RoutedEventArgs e)
         {
-            App.ShowMemberFlyout(username, Message.User);
+            App.ShowMemberFlyout(username, Message.User, Message.WebHookid!=null);
         }
 
         private void username_RightTapped(object sender, RightTappedRoutedEventArgs e)

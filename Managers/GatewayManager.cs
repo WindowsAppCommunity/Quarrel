@@ -350,7 +350,7 @@ namespace Discord_UWP.Managers
         #endregion
 
         #region Message
-        private static async void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
+        private static void Gateway_MessageCreated(object sender, Gateway.GatewayEventArgs<SharedModels.Message> e)
         {
             if (App.CurrentGuildIsDM)
             {
@@ -359,8 +359,12 @@ namespace Discord_UWP.Managers
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
-                if (App.CurrentChannelId == e.EventData.ChannelId)
+                if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
                 {
+                    if (Storage.Settings.SoundNotifications && App.Insider)
+                    {
+                        AudioManager.PlaySoundEffect(e.EventData.Type == 3 ? /*"inring"*/ "" :"message");
+                    }
                     App.MessageCreated(e.EventData);
                     App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
                     App.UpdateUnreadIndicators();
@@ -370,10 +374,10 @@ namespace Discord_UWP.Managers
                     if (LocalState.DMs.ContainsKey(e.EventData.ChannelId))
                     {
                         IsDM = true;
-                        if (e.EventData.Type == 3)
-                        {
-                            //TODO: Handle calls
-                        }
+                        //if (e.EventData.Type == 3)
+                        //{
+                        //    //TODO: Handle calls
+                        //}
                         if (e.EventData.User.Id != LocalState.CurrentUser.Id)
                         {
                             LocalState.DMs[e.EventData.ChannelId].UpdateLMID(e.EventData.Id);
@@ -432,7 +436,8 @@ namespace Discord_UWP.Managers
                                                 Common.AvatarString(e.EventData.User.Avatar, e.EventData.User.Id),
                                                 guild.Value.Raw.Name,
                                                 guild.Value.channels[e.EventData.ChannelId].raw.Name,
-                                                e.EventData.Content, e.EventData.ChannelId, guild.Key);
+                                                e.EventData.Content, e.EventData.ChannelId, guild.Key,
+                                                e.EventData.Id);
                                         }
                                         if (Storage.Settings.Badge)
                                         {
@@ -836,7 +841,6 @@ namespace Discord_UWP.Managers
         private static async void Gateway_VoiceServerUpdated(object sender, Gateway.GatewayEventArgs<SharedModels.VoiceServerUpdate> e)
         {
             await AudioManager.CreateAudioGraphs();
-            VoiceManager.VoiceConnection = new Voice.VoiceConnection(e.EventData, LocalState.VoiceState);
             VoiceManager.ConnectToVoiceChannel(e.EventData);
         }
 

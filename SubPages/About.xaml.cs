@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Store;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Discord_UWP.Managers;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -16,6 +18,7 @@ namespace Discord_UWP.SubPages
     /// </summary>
     public sealed partial class About : Page
     {
+        private DispatcherTimer statsTimer = new DispatcherTimer();
         public About()
         {
             this.InitializeComponent();
@@ -39,8 +42,25 @@ namespace Discord_UWP.SubPages
                 buildNumber.Visibility = Visibility.Visible;
                 buildId.Visibility = Visibility.Visible;
             }
+
+            statsTimer.Tick += StatsTimer_Tick;
+            statsTimer.Interval = TimeSpan.FromSeconds(0.5);
+            statsTimer.Start();
+            UpdateStats();
         }
 
+        private void StatsTimer_Tick(object sender, object e)
+        {
+           UpdateStats();
+            statsTimer.Start();
+        }
+
+        private void UpdateStats()
+        {
+            var stats = GatewayManager.Gateway.GetStats();
+            incomingData.Text = Common.HumanizeBandwidth(stats.InboundBitsPerSecond);
+            outgoingData.Text = Common.HumanizeBandwidth(stats.OutboundBitsPerSecond);
+        }
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -48,6 +68,37 @@ namespace Discord_UWP.SubPages
             IList<string> details = await FileIO.ReadLinesAsync(commitinfo);
             buildId.Text = App.GetString("/About/Commit") + " " + details[0] + ", " + Common.HumanizeDate(DateTime.Parse(details[1]), null);
             buildNumber.Text = App.GetString("/About/Build") + " " + details[2];
+
+            try
+            {
+                List<string> purchaseList = new List<string>() { "RemoveAds", "Remove Ads", "Polite Dontation", "SignificantDontation", "OMGTHXDonation", "RidiculousDonation" };
+                var licenseInformation = CurrentApp.LicenseInformation;
+                foreach (string item in purchaseList)
+                {
+                    if (licenseInformation.ProductLicenses[item].IsActive)
+                    {
+                        if (PuracheList.Text == "")
+                        {
+                            PuracheList.Text += item;
+                        }
+                        else
+                        {
+                            PuracheList.Text += " ," + item;
+                        }
+                    }
+                }
+                if (PuracheList.Text == "")
+                {
+                    PuracheList.Text = "None";
+                }
+            }
+            catch
+            {
+                if (PuracheList.Text == "")
+                {
+                    PuracheList.Text = "None (errors loading)";
+                }
+            }
         }
         private void App_SubpageCloseHandler(object sender, EventArgs e)
         {
@@ -75,6 +126,10 @@ namespace Discord_UWP.SubPages
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
+            if(timer.IsEnabled) timer.Stop();
+            if(statsTimer.IsEnabled) statsTimer.Stop();
+            timer.Tick -= TimerOnTick;
+            statsTimer.Tick -= StatsTimer_Tick;
             App.SubpageClosed();
         }
         DispatcherTimer timer = new DispatcherTimer();

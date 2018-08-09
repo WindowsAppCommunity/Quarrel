@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,9 +42,16 @@ namespace Discord_UWP.SubPages
         {
             base.OnNavigatedTo(e);
 
+            DerviedColor.Foreground = App.Current.RequestedTheme == ApplicationTheme.Dark ? DarkThemeAccentGradient : LightThemeAccentGradient;
+
+            if (!App.Insider)
+            {
+                pivotBase.Items.Remove(SoundsPI);
+            }
+
             //TODO: Settings
             HighlightEveryone.IsChecked = Storage.Settings.HighlightEveryone;
-            Toasts.IsChecked = Storage.Settings.Toasts;
+            //Toasts.IsChecked = Storage.Settings.Toasts;
             LiveTile.IsChecked = Storage.Settings.LiveTile;
             Badge.IsChecked = Storage.Settings.Badge;
             Vibrate.IsChecked = Storage.Settings.Vibrate;
@@ -64,6 +72,15 @@ namespace Discord_UWP.SubPages
             VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
+            NotificationSounds.IsChecked = Storage.Settings.SoundNotifications;
+            if (Storage.Settings.DiscordSounds)
+            {
+                radio_DiscordSounds.IsChecked = true;
+            } else
+            {
+                radio_WindowsSounds.IsChecked = true;
+            }
+
             MentionGlow.IsChecked = Storage.Settings.GlowOnMention;
             ShowServerMute.IsChecked = Storage.Settings.ServerMuteIcons;
 
@@ -83,7 +100,8 @@ namespace Discord_UWP.SubPages
 
             bgNotifyFriend.IsChecked = GetSetting("bgNotifyFriend");
             bgNotifyDM.IsChecked = GetSetting("bgNotifyDM");
-            bgNotifyMention.IsChecked = GetSetting("bgNotifyMention");
+            bgNotifyMention.IsChecked = bgNotifyMutedMention.IsEnabled = GetSetting("bgNotifyMention");
+            bgNotifyMutedMention.IsChecked = GetSetting("bgNotifyMutedMention");
 
             if (Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("bgTaskLastrunStatus"))
             {
@@ -126,10 +144,14 @@ namespace Discord_UWP.SubPages
                     bgLastRuntime.Text += time.ToString("HH:mm");
                 }
             }
+
             if (Storage.Settings.AccentBrush)
                 radioAccent_Windows.IsChecked = true;
             else
                 radioAccent_Discord.IsChecked = true;
+
+            DerviedColor.IsChecked = Storage.Settings.DerivedColor;
+
 
             switch (Storage.Settings.TimeFormat)
             {
@@ -228,6 +250,35 @@ namespace Discord_UWP.SubPages
                 }
                 i++;
             }
+
+            foreach (var language in ApplicationLanguages.ManifestLanguages)
+            {
+               var lang = new Windows.Globalization.Language(language);
+               ComboBoxItem item = new ComboBoxItem();
+                item.Content = UppercaseFirst(lang.NativeName);
+                if(lang.NativeName != lang.DisplayName) item.Content+= " (" + lang.DisplayName + ")";
+                item.Tag = language;
+               LanguageSelection.Items.Add(item);
+            }
+
+            if(string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
+            {
+                LanguageSelection.SelectedIndex = 0;
+            }
+            else
+            {
+                foreach (var item in LanguageSelection.Items)
+                {
+                    if (((ComboBoxItem) item).Tag.ToString() == ApplicationLanguages.PrimaryLanguageOverride)
+                    {
+                        LanguageSelection.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+
+            if (LanguageSelection.SelectedIndex == -1)
+                LanguageSelection.SelectedIndex = 0;
         }
         private void ChangeSetting(string name, bool value)
         {
@@ -257,7 +308,7 @@ namespace Discord_UWP.SubPages
         {
             //TODO: Settings
             Storage.Settings.HighlightEveryone = (bool)HighlightEveryone.IsChecked;
-            Storage.Settings.Toasts = (bool)Toasts.IsChecked;
+            //Storage.Settings.Toasts = (bool)Toasts.IsChecked;
             Storage.Settings.LiveTile = (bool)LiveTile.IsChecked;
             Storage.Settings.Badge = (bool)Badge.IsChecked;
             Storage.Settings.Vibrate = (bool)Vibrate.IsChecked;
@@ -273,6 +324,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.FriendsNotifyOutgoing = (bool)FriendsNotifyOutgoingFriendRequests.IsChecked;
             
             Storage.Settings.AccentBrush = (bool)radioAccent_Windows.IsChecked;
+            Storage.Settings.DerivedColor = (bool)DerviedColor.IsChecked;
             Storage.Settings.EnableAcrylic = (bool)EnableAcrylic.IsChecked;
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
@@ -280,8 +332,12 @@ namespace Discord_UWP.SubPages
             Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
-
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
+
+            Storage.Settings.SoundNotifications = (bool)NotificationSounds.IsChecked;
+            Storage.Settings.DiscordSounds = (bool)radio_DiscordSounds.IsChecked;
+
+            ApplicationLanguages.PrimaryLanguageOverride = ((ComboBoxItem)LanguageSelection.SelectedItem).Tag.ToString().Trim();
 
             if (bgEnabler.IsOn)
             {
@@ -295,6 +351,7 @@ namespace Discord_UWP.SubPages
             ChangeSetting("bgNotifyFriend", (bool)bgNotifyFriend.IsChecked);
             ChangeSetting("bgNotifyDM", (bool)bgNotifyDM.IsChecked);
             ChangeSetting("bgNotifyMention", (bool)bgNotifyMention.IsChecked);
+            ChangeSetting("bgNotifyMutedMention", (bool)bgNotifyMutedMention.IsChecked);
 
             switch (TimeFormat.SelectedIndex)
             {
@@ -363,7 +420,16 @@ namespace Discord_UWP.SubPages
             Storage.SettingsChanged();
             CloseButton_Click(null, null);
         }
-
+        static string UppercaseFirst(string s)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpper(s[0]) + s.Substring(1);
+        }
         bool _ignoreRespUiChanges = false;
         private void RespUI_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
@@ -529,6 +595,7 @@ namespace Discord_UWP.SubPages
                 bgNotifyDM.IsEnabled = true;
                 bgNotifyFriend.IsEnabled = true;
                 bgNotifyMention.IsEnabled = true;
+                bgNotifyMutedMention.IsEnabled = true;
                 RunEveryLabel.Opacity = 1;
                 sliderTime.Opacity = 1;
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
@@ -539,11 +606,17 @@ namespace Discord_UWP.SubPages
                 bgNotifyDM.IsEnabled = false;
                 bgNotifyFriend.IsEnabled = false;
                 bgNotifyMention.IsEnabled = false;
+                bgNotifyMutedMention.IsEnabled = false;
                 timeSlider.Value = 9;
                 RunEveryLabel.Opacity = 0.4;
                 sliderTime.Opacity = 0.2;
                 sliderTime.Foreground = (SolidColorBrush)Application.Current.Resources["InvertedBG"];
             }
+        }
+
+        private void PlaySound(object sender, RoutedEventArgs e)
+        {
+            AudioManager.PlaySoundEffect((sender as Button).Tag.ToString(), (radio_DiscordSounds.IsChecked.Value) ? "discord" : "windows");
         }
     }
 }

@@ -61,11 +61,29 @@ namespace ColorSyntax.Compilation.Languages
                                            { 0, ScopeName.String },
                                        }),
                                new LanguageRule(
-                                   @"\b(abstract|boolean|break|byte|case|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|for|function|goto|if|implements|import|in|instanceof|int|interface|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|typeof|var|void|volatile|while|with)\b",
+                                   Regexes.CNumber,
+                                   new Dictionary<int, string>
+                                   {
+                                       { 0, ScopeName.Number },
+                                   }),
+                               new LanguageRule(
+                                   @"\b(0[bB][01]+)|\b(0[oO][0-7]+)",
+                                   new Dictionary<int, string>
+                                   {
+                                       { 0, ScopeName.Number },
+                                   }),
+                               new LanguageRule(
+                                   @"\b(abstract|boolean|break|byte|case|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|for|function|goto|if|implements|import|in|instanceof|int|interface|long|native|new|null|package|private|protected|public|return|short|static|super|switch|synchronized|this|throw|throws|transient|true|try|typeof|var|void|volatile|while|with|yield)\b",
                                    new Dictionary<int, string>
                                        {
                                            { 1, ScopeName.Keyword },
                                        }),
+                               new LanguageRule(
+                                   @"\b(eval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|unescape|Object|Function|Boolean|Error|EvalError|InternalError|RangeError|ReferenceError|StopIteration|SyntaxError|TypeError|URIError|Number|Math|Date|String|RegExp|Array|Float32Array|Float64Array|Int16Array|Int32Array|Int8Array|Uint16Array|Uint32Array|Uint8Array|Uint8ClampedArray|ArrayBuffer|DataView|JSON|Intl|arguments|require|module|console|window|document|Symbol|Set|Map|WeakSet|WeakMap|Proxy|Reflect|Promise)\b",
+                                   new Dictionary<int, string>
+                                   {
+                                       { 1, ScopeName.BuiltinFunction },
+                                   })
                            };
             }
         }

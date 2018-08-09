@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DiscordAPI.API.Guild.Models;
 
 namespace Discord_UWP.API.Guild
 {
@@ -115,5 +116,20 @@ namespace Discord_UWP.API.Guild
 
         [Get("/v6/guilds/{guildId}/messages/search?{args}&{offset}")]
         Task<SearchResults> SearchGuildMessages([AliasAs("guildId")] string guildId, [AliasAs("args")] string args, [AliasAs("offset")] int offset);
+
+        [Get("/v6/guilds/{guildId}/audit-logs?limit={limit}&before={beforeId}")]
+        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("beforeId")] string beforeId, [AliasAs("limit")] int limit = 50);
+
+        [Get("/v6/guilds/{guildId}/audit-logs?limit={limit}")]
+        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("limit")] int limit = 50);
+
+        [Get("/v6/guilds/{guildId}/webhooks")]
+        Task<List<Webhook>> GetWebhooks([AliasAs("guildId")] string guildId);
+
+
+        [Patch("/v6/webhooks/{webhookId}")]
+        Task<Webhook> ModifyWebhook ([AliasAs("webhookId")] string webhookId, [Body] ModifyWebhook webhook);
+        [Delete("/v6/webhooks/{webhookId}")]
+        Task DeleteWebhook([AliasAs("webhookId")] string webhookId);
     }
 }

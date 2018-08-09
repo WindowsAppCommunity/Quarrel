@@ -147,6 +147,9 @@
   <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
     <value>Christopher Blackman (który napisał wspaniałą aplikację MyTube) za bezcenne wskazówki i pomoc</value>
   </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
     <value>Zaprojektowane przez Lightmagic Apps</value>
   </data>
@@ -216,7 +219,19 @@
   <data name="SpecialThxTB.Text" xml:space="preserve">
     <value>Specjalne podziękowania:</value>
   </data>
-  <data name="Commit" xml:space="preserve">
-    <value>Zatwierdź</value>
+  <data name="InboundRun.Text" xml:space="preserve">
+    <value>Przychodzące:</value>
+  </data>
+  <data name="OutboundRun.Text" xml:space="preserve">
+    <value>Wychodzące:</value>
+  </data>
+  <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
+    <value>Zgodnie z Licencją Microsoft'u zakupiłeś:</value>
+  </data>
+  <data name="MicrosoftNoteTB.Text" xml:space="preserve">
+    <value>Jeżeli jest to błędne, muszę napisać solidny mail do opiekunów sklepu Microsoftu</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Chcesz więcej?</value>
   </data>
 </root>

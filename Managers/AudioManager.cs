@@ -529,5 +529,40 @@ namespace Discord_UWP
             OutputDeviceID = outID;
             await CreateOutputDeviceNode();
         }
+
+        public static async void PlaySoundEffect(string file)
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    MediaElement element = new MediaElement();
+                    element.AudioCategory = AudioCategory.Alerts;
+                    element.SetPlaybackSource(Windows.Media.Core.MediaSource.CreateFromUri(
+                        new Uri("ms-appx:///Assets/SoundEffects/" +
+                                (Storage.Settings.DiscordSounds ? "discord" : "windows") + "_" + file + ".mp3")));
+                    element.MediaEnded += Element_MediaEnded;
+                    element.Play();
+                });
+        }
+
+        public static async void PlaySoundEffect(string file, string type)
+        {
+            await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    MediaElement element = new MediaElement();
+                    element.AudioCategory = AudioCategory.Alerts;
+                    element.SetPlaybackSource(
+                        Windows.Media.Core.MediaSource.CreateFromUri(
+                            new Uri("ms-appx:///Assets/SoundEffects/" + type + "_" + file + ".mp3")));
+                    element.MediaEnded += Element_MediaEnded;
+                    element.Play();
+                });
+        }
+
+        private static void Element_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            //Dispose?
+        }
     }
 }

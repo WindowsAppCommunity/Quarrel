@@ -59,6 +59,11 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// </summary>
         DiscordChannelMention,
 
+        /// <summary>
+        /// A color tag for the audit log (e.g. "@$Quarrel-color")
+        /// </summary>
+        QuarrelColor,
+
     }
 
     /// <summary>
@@ -163,14 +168,16 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                 {
                     // URL scheme found.
                     pos = innerStart + scheme.Length;
-
+                    string bigsubtr = markdown.Substring(innerStart + 1, 14);
                     //Channel mention
-                    if(scheme == "#") type=HyperlinkType.DiscordChannelMention;
+                    if (scheme == "#") type=HyperlinkType.DiscordChannelMention;
                     //Role mention
                     else if(scheme == "@" && markdown.ElementAt(innerStart + 1) == '&') type= HyperlinkType.DiscordRoleMention;
                     //Nick mention
                     else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '!') type = HyperlinkType.DiscordNickMention;
                     //User mention
+                    else if (scheme == "@" && markdown.ElementAt(innerStart + 1) == '$' &&  markdown.Substring(innerStart+1, 14) == "$QUARREL-color")
+                        type = HyperlinkType.QuarrelColor;
                     else if (scheme == "@") type = HyperlinkType.DiscordUserMention;
                     break;
                 }

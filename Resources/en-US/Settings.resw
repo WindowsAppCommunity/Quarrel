@@ -287,7 +287,7 @@
     <value>Time Format</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>(EXPERIMENTAL) Voice Channels (Recieve only)</value>
+    <value>(EXPERIMENTAL) Voice Channels (Receive only)</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
@@ -333,5 +333,116 @@
   </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
     <value>Show Mute icon on servers</value>
+  </data>
+  <data name="FontSizeTB.Text" xml:space="preserve">
+    <value>Message font size</value>
+  </data>
+  <data name="AaTB.Text" xml:space="preserve">
+    <value>Aa</value>
+  </data>
+  <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
+    <value>New mentions in Muted Servers</value>
+  </data>
+  <data name="SoundsCB.Content" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="SoundsPI.Header" xml:space="preserve">
+    <value>Sounds</value>
+  </data>
+  <data name="VoicePI.Header" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="SoundTypesTB.Text" xml:space="preserve">
+    <value>Sound Types</value>
+  </data>
+  <data name="DiscordRB.Content" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="WindowsRB.Content" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="SoundsTB.Text" xml:space="preserve">
+    <value>Windows</value>
+  </data>
+  <data name="AccountSettingTB.Text" xml:space="preserve">
+    <value>ACCOUNT SETTINGS</value>
+  </data>
+  <data name="AccountPI.Header" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AccountPrivacyPI.Header" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="UploadImageHLBTN.Content" xml:space="preserve">
+    <value>Upload image</value>
+  </data>
+  <data name="DeleteImageHLBTN.Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="UsernameBox.Header" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="EmailBox.Header" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CurrentPswrdPBox.Header" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="NewPswrdPBox.Header" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="SaveTB.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="DMFilterTB.Text" xml:space="preserve">
+    <value>DIRECT MESSAGE FILTERING</value>
+  </data>
+  <data name="DMFilterExpoTB.Text" xml:space="preserve">
+    <value>Analyze and automatically delete direct messages containing explicit content</value>
+  </data>
+  <data name="ProtectMeTB.Text" xml:space="preserve">
+    <value>Protect me</value>
+  </data>
+  <data name="ProtectMeExpoTB.Text" xml:space="preserve">
+    <value>Analyze all DMs</value>
+  </data>
+  <data name="NiceFriendsTB.Text" xml:space="preserve">
+    <value>My friends are nice</value>
+  </data>
+  <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
+    <value>Analyze all DMs, except from my friends</value>
+  </data>
+  <data name="DangerZoneTB.Text" xml:space="preserve">
+    <value>I live dangerously</value>
+  </data>
+  <data name="DangerZoneExpoTB.Text" xml:space="preserve">
+    <value>Don't analyze any DMs</value>
+  </data>
+  <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
+    <value>WHO CAN SEND FRIEND REQUESTS</value>
+  </data>
+  <data name="EveryoneCB.Content" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="MutualFriendsCB.Content" xml:space="preserve">
+    <value>The friends of my friends</value>
+  </data>
+  <data name="MutualServerMembersCB.Content" xml:space="preserve">
+    <value>Mutual server members</value>
+  </data>
+  <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
+    <value>To access the rest of your privacy settings, please use the official Discord website or client</value>
+  </data>
+  <data name="DerivedRadio.Content" xml:space="preserve">
+    <value>Derived Color</value>
+  </data>
+  <data name="LanguageComboB.Header" xml:space="preserve">
+    <value>Language (requires restart)</value>
+  </data>
+  <data name="DefaultComboBI.Content" xml:space="preserve">
+    <value>Default</value>
   </data>
 </root>

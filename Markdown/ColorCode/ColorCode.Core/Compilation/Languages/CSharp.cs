@@ -95,7 +95,7 @@ namespace ColorSyntax.Compilation.Languages
                                            { 1, ScopeName.Keyword }
                                        }),
                                    new LanguageRule(
-                                   @"\b[0-9]{1,}\b",
+                                   Regexes.CNumber + "(u|U|l|L|ul|UL|f|F|b|B|ll|LL)?",
                                    new Dictionary<int, string>
                                        {
                                            { 0, ScopeName.Number }

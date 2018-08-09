@@ -1073,6 +1073,24 @@ namespace Discord_UWP.MarkdownTextBlock
             new PropertyMetadata(null, OnPropertyChangedStatic));
 
         /// <summary>
+        /// Gets or sets if the half opacity mode is active
+        /// </summary>
+        public bool HalfOpacityMode
+        {
+            get { return (bool)GetValue(HalfOpacityProperty); }
+            set { SetValue(HalfOpacityProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets the dependency property for <see cref="LineHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty HalfOpacityProperty = DependencyProperty.Register(
+            nameof(HalfOpacityMode),
+            typeof(bool),
+            typeof(MarkdownTextBlock),
+            new PropertyMetadata(false, OnPropertyChangedStatic));
+
+        /// <summary>
         /// Calls OnPropertyChanged.
         /// </summary>
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1151,7 +1169,21 @@ namespace Discord_UWP.MarkdownTextBlock
                 MarkdownDocument markdown = new MarkdownDocument();
                 markdown.Parse(Text, EnableHiddenLinks);
                 // Now try to display it
-                var renderer = new XamlRenderer(markdown, this, Users, MessageId, this, ref _rootElement)
+                Brush ActualForeground;
+                if (HalfOpacityMode)
+                {
+                    ActualForeground = new SolidColorBrush
+                    {
+                        Color = ((SolidColorBrush)Foreground).Color,
+                        Opacity = 0.6
+                    };
+                }
+                else
+                {
+                    ActualForeground = Foreground;
+                }
+                    
+                var renderer = new XamlRenderer(markdown, this, Users, MessageId, this, ref _rootElement, HalfOpacityMode)
                 {
                     Background = Background,
                     BorderBrush = BorderBrush,
@@ -1162,7 +1194,8 @@ namespace Discord_UWP.MarkdownTextBlock
                     FontStretch = FontStretch,
                     FontStyle = FontStyle,
                     FontWeight = FontWeight,
-                    Foreground = Foreground,
+                    Foreground = ActualForeground,
+                    BoldForeground = Foreground,
                     IsTextSelectionEnabled = IsTextSelectionEnabled,
                     Padding = Padding,
                     CodeBackground = CodeBackground,
@@ -1283,7 +1316,6 @@ namespace Discord_UWP.MarkdownTextBlock
 
         private void NewHyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-
             // Get the hyperlink URL.
             var url = (string)(sender as HyperlinkButton).GetValue(HyperlinkUrlProperty);
             if (url == null)
@@ -1293,6 +1325,19 @@ namespace Discord_UWP.MarkdownTextBlock
 
             // Fire off the event.
             var eventArgs = new LinkClickedEventArgs(url);
+            string val=  null;
+            if (url.StartsWith("@!")) val = url.Remove(0, 2);
+            else if (url.StartsWith("@")) val = url.Remove(0, 1);
+
+
+            foreach (var user in Users)
+            {
+                if (user.Id == val)
+                {
+                    eventArgs.User = user;
+                    break;
+                }
+            }
             App.FireLinkClicked(this, eventArgs);
         }
 

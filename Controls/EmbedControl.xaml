@@ -35,7 +35,7 @@
                         </StackPanel>
                         <TextBlock x:Name="PlainTitleBlock"  FontSize="13" Text="title" FontWeight="SemiBold" Margin="0,4,0,0"/>
                         <HyperlinkButton x:Name="UrlTitleBlock" Content="Title" FontSize="13" FontWeight="SemiBold" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource LinkColor}" Margin="0,4,0,0"/>
-                        <mtb:MarkdownTextBlock x:Name="DescriptionBlock" Opacity="0.75" FontSize="13" Margin="0,8,0,0" EnableHiddenLinks="True"/>
+                        <mtb:MarkdownTextBlock x:Name="DescriptionBlock" Opacity="0.75" FontSize="13" Margin="0,0,0,0" EnableHiddenLinks="True"/>
                         <StackPanel x:Name="FieldsStacker"/>
                     </StackPanel>
                     <Image x:Name="ThumbnailImage" Height="80" Stretch="Uniform" Grid.Column="1" VerticalAlignment="Top"/>
@@ -43,7 +43,7 @@
                 <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
                     <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped"/>
                 </Viewbox>
-                <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Visible"/>
+                <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

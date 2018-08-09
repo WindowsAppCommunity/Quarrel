@@ -119,69 +119,81 @@
   </resheader>
   <data name="AboutDesc1.Text" xml:space="preserve">
     <value>Quarrel est un client</value>
-    <comment>Disclaimer</comment>
   </data>
   <data name="AboutDesc2.Text" xml:space="preserve">
     <value>non-officiel</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
   </data>
   <data name="AboutDesc3.Text" xml:space="preserve">
     <value>pour Discord.</value>
-    <comment>Discaimer pt. 3</comment>
   </data>
   <data name="AboutDesc4.Text" xml:space="preserve">
     <value>Les développeurs ne sont d'aucune manière liés à Discord, inc.</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
   </data>
   <data name="AboutDesc5.Text" xml:space="preserve">
     <value>Si il y a un problème pendant que vous utilisez cette application; c'est purement notre faute:</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
   </data>
   <data name="AboutTB.Text" xml:space="preserve">
     <value>À PROPOS</value>
-    <comment>ABOUT header</comment>
+  </data>
+  <data name="AustinAndelinCredit.Text" xml:space="preserve">
+    <value>Austin Andelin pour avoir conçu le logo de l’application </value>
+  </data>
+  <data name="Build" xml:space="preserve">
+    <value>Version </value>
   </data>
   <data name="ChangelogTB.Text" xml:space="preserve">
     <value>NOUVEAUTÉS</value>
-    <comment>CHANGELOG header</comment>
+  </data>
+  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
+    <value>Christopher Blackman (auteur de l'incroyable MyTube) pour ses conseils et son aide</value>
+  </data>
+  <data name="Commit" xml:space="preserve">
+    <value>Commit</value>
   </data>
   <data name="DesignerCreditTB.Text" xml:space="preserve">
     <value>Design et co-développement par Lightmagic Apps</value>
-    <comment>The designer</comment>
   </data>
   <data name="DevelopperCreditTB.Text" xml:space="preserve">
     <value>Application développée par Avid29 et KarmaEcrivain94</value>
-    <comment>The developper</comment>
   </data>
   <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
     <value>En parler sur Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+  </data>
+  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
+    <value>Vous n’avez pas de compte ?</value>
   </data>
   <data name="EmailTBox.PlaceholderText" xml:space="preserve">
     <value>Courriel</value>
+  </data>
+  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
+    <value>Mot de passe oublié ?</value>
   </data>
   <data name="JoinDiscordUWPServer" xml:space="preserve">
     <value>Rejoindre le serveur de l'application</value>
   </data>
   <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
     <value>Rejoindre le serveur de l'application</value>
-    <comment>Button to join the Discord UWP server</comment>
   </data>
   <data name="JoinFail" xml:space="preserve">
     <value>Échec de l'opération !</value>
-    <comment>Message if joining the server fails</comment>
   </data>
   <data name="JoinSucess" xml:space="preserve">
     <value>Succès !</value>
-    <comment>Message when joining the server works</comment>
   </data>
   <data name="JoinWait" xml:space="preserve">
     <value>Connexion en cours...</value>
-    <comment>Text while the app is trying to join the server</comment>
   </data>
   <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Laisser votre avis</value>
-    <comment>Leave feedback button</comment>
+    <value>Donner votre avis</value>
+  </data>
+  <data name="LicensesHLBTN.Content" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="LicensesTB.Text" xml:space="preserve">
+    <value>LICENSES</value>
+  </data>
+  <data name="LoginTB.Text" xml:space="preserve">
+    <value>CONNEXION</value>
   </data>
   <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Code d'authentification</value>
@@ -189,49 +201,38 @@
   <data name="MFATB.Text" xml:space="preserve">
     <value>Authentification à deux étapes:</value>
   </data>
+  <data name="OfflineDescTB.Text" xml:space="preserve">
+    <value>Vous n'êtes pas connecté à internet ou votre connexion est trop lente
+</value>
+  </data>
   <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
     <value>Mot de passe</value>
-  </data>
-  <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin pour avoir conceptualisé le logo de l’application </value>
-  </data>
-  <data name="Build" xml:space="preserve">
-    <value>Version </value>
-  </data>
-  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman (qui a codé l'incroyable application MyTube) pour ses inestimables conseils et aides</value>
-  </data>
-  <data name="Commit" xml:space="preserve">
-    <value>Commit</value>
-  </data>
-  <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Remerciements spéciales </value>
-  </data>
-  <data name="QuarrelLicensesDesc" xml:space="preserve">
-    <value>Quarrel utilise un peu de code externe pour fonctionner aussi bien:</value>
-  </data>
-  <data name="LicensesTB.Text" xml:space="preserve">
-    <value>LICENSES</value>
-  </data>
-  <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>Licenses</value>
-  </data>
-  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Vous n’avez pas de compte ?</value>
-  </data>
-  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Mot de passe oublié ?</value>
-  </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value>CONNEXION</value>
-  </data>
-  <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>Soit vous n'êtes pas connecté à internet, soit votre connexion est trop lente</value>
   </data>
   <data name="QuarrelDescTB.Text" xml:space="preserve">
     <value>Client Discord pour la plateforme Windows universelle</value>
   </data>
+  <data name="QuarrelLicensesDesc" xml:space="preserve">
+    <value>Quarrel utilise un peu de code externe pour fonctionner aussi bien:</value>
+  </data>
   <data name="RetryLoginTB.Text" xml:space="preserve">
     <value>Connectez vous à nouveau</value>
+  </data>
+  <data name="SpecialThxTB.Text" xml:space="preserve">
+    <value>Remerciements spéciales </value>
+  </data>
+  <data name="InboundRun.Text" xml:space="preserve">
+    <value>Entrée:</value>
+  </data>
+  <data name="OutboundRun.Text" xml:space="preserve">
+    <value>Sortie:</value>
+  </data>
+  <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
+    <value>D'après le serveur de licenses Microsoft, vous avez acheté:</value>
+  </data>
+  <data name="MicrosoftNoteTB.Text" xml:space="preserve">
+    <value>Si c'est faux, j'ai un mail enragé à leur écrire</value>
+  </data>
+  <data name="WantMoreHLBTN.Content" xml:space="preserve">
+    <value>Vous en voulez plus?</value>
   </data>
 </root>

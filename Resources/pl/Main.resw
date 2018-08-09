@@ -171,6 +171,9 @@
   <data name="InvisibleRadio.Content" xml:space="preserve">
     <value>Niewidoczny</value>
   </data>
+  <data name="Loaded" xml:space="preserve">
+    <value>ZAŁADOWANY</value>
+  </data>
   <data name="LoadMoreMessagesTB.Text" xml:space="preserve">
     <value>Załaduj więcej wiadomości</value>
   </data>
@@ -234,7 +237,7 @@
   <data name="DirectMessages" xml:space="preserve">
     <value>Prywatne Wiadomości</value>
   </data>
-  <data name="&lt;count&gt; members" xml:space="preserve">
+  <data name="members" xml:space="preserve">
     <value>&lt;count&gt; członków</value>
   </data>
   <data name="Notifications_sentMessageOn" xml:space="preserve">
@@ -257,6 +260,9 @@
   </data>
   <data name="TypingSingular" xml:space="preserve">
     <value>pisze...</value>
+  </data>
+  <data name="SubmittedBy" xml:space="preserve">
+    <value>Podesłane przez</value>
   </data>
   <data name="DirectMessagesTB.Text" xml:space="preserve">
     <value>PRYWATNE WIADOMOŚCI</value>
@@ -300,11 +306,17 @@
   <data name="WhatsNewABB.Label" xml:space="preserve">
     <value>Co nowego?</value>
   </data>
+  <data name="&lt;count&gt; members" xml:space="preserve">
+    <value>&lt;count&gt; członków</value>
+  </data>
   <data name="NewMessageHLBTN.Content" xml:space="preserve">
     <value>NOWE WIADOMOŚCI</value>
   </data>
   <data name="IgnoreHLBTN.Content" xml:space="preserve">
     <value>IGNOROWANI</value>
+  </data>
+  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
+    <value>POWRÓT DO NAJNOWSZYCH</value>
   </data>
   <data name="AboutMFI.Text" xml:space="preserve">
     <value>O Aplikacji</value>
@@ -317,18 +329,6 @@
   </data>
   <data name="Settings.Text" xml:space="preserve">
     <value>Ustawienia</value>
-  </data>
-  <data name="members" xml:space="preserve">
-    <value>&lt;count&gt; członków</value>
-  </data>
-  <data name="Loaded" xml:space="preserve">
-    <value>ZAŁADOWANY</value>
-  </data>
-  <data name="SubmittedBy" xml:space="preserve">
-    <value>Przedłożone przez</value>
-  </data>
-  <data name="ReturnToPresentHLBTN.Content" xml:space="preserve">
-    <value>POWRÓT DO NAJNOWSZYCH</value>
   </data>
   <data name="AddAttachementTB.Text" xml:space="preserve">
     <value>DODAJ UPRAWNIENIA</value>

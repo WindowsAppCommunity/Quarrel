@@ -13,9 +13,9 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using static Discord_UWP.Colors.ColorDetection;
+using static Discord_UWP.SmartColor.ColorDetection;
 
-namespace Discord_UWP.Colors
+namespace Discord_UWP.SmartColor
 {
     public class PictureAnalysis
     {
