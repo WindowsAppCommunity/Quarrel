@@ -465,7 +465,7 @@ namespace Discord_UWP.Classes
                         {'I', "I"},
                         {'J', "J"},
                         {'K', "K"},
-                        {'L', "v"},
+                        {'L', "L"},
                         {'M', "Ϻ"},
                         {'N', "Π"},
                         {'O', "ϴ"},
