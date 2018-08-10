@@ -75,6 +75,7 @@ namespace DiscordAPI.API.Guild.Models
         EmojiDelete = 62,
         MessageDelete = 72
     }
+
     public partial class Change
     {
         [JsonProperty("new_value")]

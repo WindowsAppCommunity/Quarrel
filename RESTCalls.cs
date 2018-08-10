@@ -495,19 +495,35 @@ namespace Discord_UWP
         #region IGuild
 
         #region Get
-        public static async Task<AuditLog> GetAuditLog(string id, int limit = 50, string before = null)
+        public static async Task<AuditLog> GetAuditLog(string id, string userId = null, int type = -1, int limit = 50, string before = null)
         {
+            string args = "";
+
+            if (userId != null)
+            {
+                args += args == "" ? "?" : "&";
+                args += "user_id={" + userId + "}";
+            }
+
+            if (type != -1)
+            {
+                args += args == "" ? "?" : "&";
+                args += "type={" + type.ToString() + "}";
+            }
+
+            args += args == "" ? "?" : "&";
+            args += "limit={" + limit.ToString() + "}";
+
+            if (before != null)
+            {
+                args += args == "" ? "?" : "&";
+                args += "before={" + before.ToString() + "}";
+            }
+
             try
             {
                 IGuildService guildservice = AuthenticatedRestFactory.GetGuildService();
-                if (before == null)
-                {
-                    return await guildservice.GetAuditLog(id, limit);
-                }
-                else
-                {
-                    return await guildservice.GetAuditLog(id, before, limit);
-                }
+                return await guildservice.GetAuditLog(id, args);
             }
             catch /*(Exception exception)*/
             {

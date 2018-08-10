@@ -466,6 +466,24 @@
                                 <TextBlock x:Uid="/Dialogs/NoInvitesTB" x:Name="NoInvites" Visibility="Visible" Text="NO INVITES FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>
                             </Grid>
                         </PivotItem>
+                        <!--<PivotItem x:Uid="/Dialogs/MembersPI" x:Name="Members" Header="Members">
+                            <Grid>
+                                <ListView x:Name="MemberView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:BanControl DisplayedBan="{Binding}"/>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <ProgressRing x:Name="LoadingMembers" Foreground="{ThemeResource Blurple}" IsActive="True" IsHitTestVisible="False"/>
+                                --><!--<TextBlock x:Uid="/Dialogs/NoBansTB" x:Name="NoBans" Visibility="Visible" Text="NO BANS FOR THE MOMENT" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13.333" FontWeight="SemiBold"/>--><!--
+                            </Grid>
+                        </PivotItem>-->
                         <PivotItem x:Uid="/Dialogs/BansPI" x:Name="Bans" Header="Bans">
                             <Grid>
                                 <ListView x:Name="BanView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
