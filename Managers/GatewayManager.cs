@@ -439,7 +439,10 @@ namespace Discord_UWP.Managers
                                                 e.EventData.Content, e.EventData.ChannelId, guild.Key,
                                                 e.EventData.Id);
                                         }
-
+                                        if (Storage.Settings.Badge)
+                                        {
+                                            // TODO: Update badge tile
+                                        }
                                     }
                                 }
                             }

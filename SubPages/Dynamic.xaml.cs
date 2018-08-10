@@ -12,9 +12,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using Discord_UWP.Classes;
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
+using MenuFlyoutItem = Windows.UI.Xaml.Controls.MenuFlyoutItem;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -32,6 +33,7 @@ namespace Discord_UWP.SubPages
         public string StartText { get; set; }
         public string PlaceHolderText { get; set; }
         public bool ConfirmRed { get; set; }
+        public bool CanBeFancy { get; set; }
         public object args { get; set; }
         public Func<object, object> function { get; set; }
     }
@@ -63,12 +65,14 @@ namespace Discord_UWP.SubPages
                 StringArg.Text = data.StartText;
                 StringArg.PlaceholderText = data.PlaceHolderText;
             }
-            SubMessage.Text = data.SubMessage;
 
+            if (data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
+            else MakeFancy.Visibility = Visibility.Collapsed;
+
+            SubMessage.Text = data.SubMessage;
             if (data.ConfirmMessage == "") { ConfirmButton.Visibility = Visibility.Collapsed; }
             else { ConfirmButton.Content = data.ConfirmMessage; }
             if (data.ConfirmRed) { ConfirmButton.Background = (Brush)App.Current.Resources["dnd"]; }
-
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -97,6 +101,37 @@ namespace Discord_UWP.SubPages
             }
             data.function(data.args);
             CloseButton_Click(null, null);
+        }
+
+        private void MakeFancy_OnClick(object sender, RoutedEventArgs e)
+        {
+            FancyText fancy = new FancyText();
+            MenuFlyout flyout = new MenuFlyout();
+            flyout.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
+            string toconvert = StringArg.PlaceholderText;
+            if (!string.IsNullOrWhiteSpace(StringArg.Text))
+                toconvert = StringArg.Text;
+            foreach (var value in fancy.ConvertAll(toconvert))
+            {
+                var item = new MenuFlyoutItem()
+                {
+                    Text = value,
+                    Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"],
+                };
+                flyout.Items.Add(item);
+                item.Click += Item_Click;
+            }
+                flyout.Items.Add(new MenuFlyoutItem()
+                {
+                    Text = toconvert,
+                    Style = (Style)Application.Current.Resources["MenuFlyoutItemStyle1"],
+        });
+             flyout.ShowAt(sender as HyperlinkButton);
+        }
+
+        private void Item_Click(object sender, RoutedEventArgs e)
+        {
+            StringArg.Text = ((MenuFlyoutItem)sender).Text;
         }
     }
 }
