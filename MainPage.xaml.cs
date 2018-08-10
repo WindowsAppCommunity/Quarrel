@@ -3888,5 +3888,18 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.DiscordStatus));
         }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((HyperlinkButton)sender).ContextFlyout.ShowAt((HyperlinkButton)sender);
+        }
+
+        private void Flyout_Closed(object sender, object e)
+        {
+            if(string.IsNullOrWhiteSpace(PlayingBox.Text))
+                GatewayManager.Gateway.UpdateStatus(null, 0, null);
+            else
+                GatewayManager.Gateway.UpdateStatus(null, 0, new GameBase() { Type = 0, Name = PlayingBox.Text});
+        }
     }
 }

@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 namespace Discord_UWP.SharedModels
 {
-    public class Game
+    public class GameBase
     {
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("type")]
         public int Type { get; set; }
+    }
+
+    public class Game : GameBase
+    {
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("timestamps")]
