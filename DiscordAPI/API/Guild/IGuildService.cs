@@ -117,11 +117,18 @@ namespace Discord_UWP.API.Guild
         [Get("/v6/guilds/{guildId}/messages/search?{args}&{offset}")]
         Task<SearchResults> SearchGuildMessages([AliasAs("guildId")] string guildId, [AliasAs("args")] string args, [AliasAs("offset")] int offset);
 
-        [Get("/v6/guilds/{guildId}/audit-logs?limit={limit}&before={beforeId}")]
-        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("beforeId")] string beforeId, [AliasAs("limit")] int limit = 50);
+        //[Get("/v6/guilds/{guildId}/audit-logs?limit={limit}&before={beforeId}")]
+        //Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("beforeId")] string beforeId, [AliasAs("limit")] int limit = 50);
 
-        [Get("/v6/guilds/{guildId}/audit-logs?limit={limit}")]
-        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("limit")] int limit = 50);
+        //[Get("/v6/guilds/{guildId}/audit-logs?limit={limit}")]
+        //Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("limit")] int limit = 50);
+
+        //[Get("/v6/guilds/{guildId}/audit-logs?user_id={userId")]
+        //Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("userId")] string userId);
+
+
+        [Get("/v6/guilds/{guildId}/audit-logs{args}")]
+        Task<AuditLog> GetAuditLog([AliasAs("guildId")] string guildId, [AliasAs("userId")] string allArgs);
 
         [Get("/v6/guilds/{guildId}/webhooks")]
         Task<List<Webhook>> GetWebhooks([AliasAs("guildId")] string guildId);
