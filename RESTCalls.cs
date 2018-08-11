@@ -501,22 +501,22 @@ namespace Discord_UWP
 
             if (userId != null)
             {
-                args += args == "" ? "?" : "&";
+                args += args == "" ? "" : "&";
                 args += "user_id={" + userId + "}";
             }
 
             if (type != -1)
             {
-                args += args == "" ? "?" : "&";
+                args += args == "" ? "" : "&";
                 args += "type={" + type.ToString() + "}";
             }
 
-            args += args == "" ? "?" : "&";
+            args += args == "" ? "" : "&";
             args += "limit={" + limit.ToString() + "}";
 
             if (before != null)
             {
-                args += args == "" ? "?" : "&";
+                args += args == "" ? "" : "&";
                 args += "before={" + before.ToString() + "}";
             }
 
