@@ -105,12 +105,12 @@ namespace Discord_UWP.SubPages
 
         private void MakeFancy_OnClick(object sender, RoutedEventArgs e)
         {
-            FancyText fancy = new FancyText(FancyText.FindFancy(StringArg.Text));
             MenuFlyout flyout = new MenuFlyout();
             flyout.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             string toconvert = StringArg.Text;
-            if (!string.IsNullOrWhiteSpace(StringArg.Text))
-                toconvert = StringArg.Text;
+            if (string.IsNullOrWhiteSpace(StringArg.Text))
+                toconvert = StringArg.PlaceholderText;
+            FancyText fancy = new FancyText(FancyText.FindFancy(toconvert));
             foreach (var value in fancy.ConvertAll(toconvert))
             {
                 var item = new MenuFlyoutItem()
