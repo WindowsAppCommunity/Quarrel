@@ -59,7 +59,7 @@ namespace Discord_UWP.SubPages
             data = (e.Parameter as SubPageData);
 
             Message.Text = data.Message;
-            if (data.PlaceHolderText != null)
+            if (!String.IsNullOrEmpty(data.PlaceHolderText))
             {
                 StringArg.Visibility = Visibility.Visible;
                 StringArg.Text = data.StartText;
