@@ -79,6 +79,7 @@ namespace Discord_UWP
             }
             return (sb.ToString().Normalize(NormalizationForm.FormC));
         }
+
         public static SolidColorBrush DiscriminatorColor(string desc)
         {
             switch (Convert.ToInt32(desc) % 5)
@@ -119,6 +120,15 @@ namespace Discord_UWP
         public static string Capitalize(string entry)
         {
             return entry.Substring(0, 1).ToUpper() + entry.Substring(1);
+        }
+
+        public static bool IsEnLetter(char c)
+        {
+            if ((c > 'a' && c < 'z') || (c > 'A' && c < 'Z'))
+            {
+                return true;
+            }
+            return false;
         }
 
         public static bool IsYesterday(DateTime dt)

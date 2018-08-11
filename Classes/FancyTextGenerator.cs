@@ -9,15 +9,77 @@ namespace Discord_UWP.Classes
 {
     public class FancyText
     {
+        public FancyText(Converters baseType)
+        {
+            foreach (Converters type in ConverterValues)
+            {
+                FancyConverters.Add(type, new FancyGenerator(baseType, type));
+            }
+        }
+
         public class FancyGenerator
         {
-            public Dictionary<char, string> CharacterConversions { get; set; }
+            public FancyGenerator(Converters from, Converters to)
+            {
+                CharacterConversions = new Dictionary<string, string>();
+                ReplaceDiacritics = true;
+                if (from == Converters.Reversed || to == Converters.Reversed)
+                {
+                    PreProcess = input => ReverseString(input.ToLower());
+                }
+
+                var fromList = GetListFromConverter(from);
+                var toList = GetListFromConverter(to);
+                for (int i = 0; i < fromList.Count-1; i++)
+                {
+                    if (CharacterConversions.ContainsKey(fromList[i]))
+                    {
+                        CharacterConversions.Remove(fromList[i]); //Default to capitals
+                    }
+                    CharacterConversions.Add(fromList[i], toList[i]);
+                }
+            }
+
+            public Dictionary<string, string> CharacterConversions { get; set; }
             public Func<string, string> PreProcess { get; set; }
             public Func<string, string> PostProcess { get; set; }
             public bool IgnoreMissingChars { get; set; }
             public bool ReplaceDiacritics { get; set; }
             public bool Random { get; set; }
         }
+
+        public static List<string> GetListFromConverter(Converters converter)
+        {
+            switch (converter)
+            {
+                case Converters.Standard:
+                    return Standard;
+                case Converters.Circled:
+                    return Circled;
+                case Converters.Script:
+                    return Script;
+                case Converters.ScriptBold:
+                    return ScriptBold;
+                case Converters.Gothic:
+                    return Gothic;
+                case Converters.GothicBold:
+                    return GothicBold;
+                case Converters.Hollow:
+                    return Hollow;
+                case Converters.Money:
+                    return Money;
+                case Converters.TheGreatTuna:
+                    return TheGreatTuna;
+                case Converters.Reversed:
+                    return Reversed;
+                case Converters.Typewriter:
+                    return Typewriter;
+                case Converters.Spacious:
+                    return Spacious;
+            }
+            return Standard;
+        }
+
         public static string ReverseString(string s)
         {
             if (s == null) return null;
@@ -33,10 +95,25 @@ namespace Discord_UWP.Classes
 
             return new string(charArray);
         }
-        public enum Converters { Circled, Script, ScriptBold, Gothic, GothicBold, Hollow, Money, TheGreatTuna, Reversed, Typewriter, Random, Spacious }
+        public enum Converters { Standard, Circled, Script, ScriptBold, Gothic, GothicBold, Hollow, Money, TheGreatTuna, Reversed, Typewriter, Random, Spacious }
+
+        public static List<string> Standard = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        public static List<string> Circled = new List<string> { "0", "\u2460", "\u2461", "\u2462", "\u2463", "\u2464", "\u2465", "\u2466", "\u2467", "\u2468", "\u24d0", "\u24d1", "\u24d2", "\u24d3", "\u24d4", "\u24d5", "\u24d6", "\u24d7", "\u24d8", "\u24d9", "\u24da", "\u24db", "\u24dc", "\u24dd", "\u24de", "\u24df", "\u24e0", "\u24e1", "\u24e2", "\u24e3", "\u24e4", "\u24e5", "\u24e6", "\u24e7", "\u24e8", "\u24e9", "\u24b6", "\u24b7", "\u24b8", "\u24b9", "\u24ba", "\u24bb", "\u24bc", "\u24bd", "\u24be", "\u24bf", "\u24c0", "\u24c1", "\u24c2", "\u24c3", "\u24c4", "\u24c5", "\u24c6", "\u24c7", "\u24c8", "\u24c9", "\u24ca", "\u24cb", "\u24cc", "\u24cd", "\u24ce", "\u24cf" };
+        public static List<string> Script = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝒶", "𝒷", "𝒸", "𝒹", "𝑒", "𝒻", "𝑔", "𝒽", "𝒾", "𝒿", "𝓀", "𝓁", "𝓂", "𝓃", "𝑜", "𝓅", "𝓆", "𝓇", "𝓈", "𝓉", "𝓊", "𝓋", "𝓌", "𝓍", "𝓎", "𝓏", "𝓐", "𝓑", "𝓒", "𝓓", "𝓔", "𝓕", "𝓖", "𝓗", "𝓘", "𝓙", "𝓚", "𝓛", "𝓜", "𝓝", "𝓞", "𝓟", "𝓠", "𝓡", "𝓢", "𝓣", "𝓤", "𝓥", "𝓦", "𝓧", "𝓨", "𝓩" };
+        public static List<string> ScriptBold = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝓪", "𝓫", "𝓬", "𝓭", "𝓮", "𝓯", "𝓰", "𝓱", "𝓲", "𝓳", "𝓴", "𝓵", "𝓶", "𝓷", "𝓸", "𝓹", "𝓺", "𝓻", "𝓼", "𝓽", "𝓾", "𝓿", "𝔀", "𝔁", "𝔂", "𝔃", "𝓐", "𝓑", "𝓒", "𝓓", "𝓔", "𝓕", "𝓖", "𝓗", "𝓘", "𝓙", "𝓚", "𝓛", "𝓜", "𝓝", "𝓞", "𝓟", "𝓠", "𝓡", "𝓢", "𝓣", "𝓤", "𝓥", "𝓦", "𝓧", "𝓨", "𝓩" };
+        public static List<string> Gothic = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝔞", "𝔟", "𝔠", "𝔡", "𝔢", "𝔣", "𝔤", "𝔥", "𝔦", "𝔧", "𝔨", "𝔩", "𝔪", "𝔫", "𝔬", "𝔭", "𝔮", "𝔯", "𝔰", "𝔱", "𝔲", "𝔳", "𝔴", "𝔵", "𝔶", "𝔷", "𝔄", "𝔅", "ℭ", "𝔇", "𝔈", "𝔉", "𝔊", "ℌ", "ℑ", "𝔍", "𝔎", "𝔏", "𝔐", "𝔑", "𝔒", "𝔓", "𝔔", "ℜ", "𝔖", "𝔗", "𝔘", "𝔙", "𝔚", "𝔛", "𝔜", "ℨ" };
+        public static List<string> GothicBold = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝖆", "𝖇", "𝖈", "𝖉", "𝖊", "𝖋", "𝖌", "𝖍", "𝖎", "𝖏", "𝖐", "𝖑", "𝖒", "𝖓", "𝖔", "𝖕", "𝖖", "𝖗", "𝖘", "𝖙", "𝖚", "𝖛", "𝖜", "𝖝", "𝖞", "𝖟", "𝕬", "𝕭", "𝕮", "𝕯", "𝕰", "𝕱", "𝕲", "𝕳", "𝕴", "𝕵", "𝕶", "𝕷", "𝕸", "𝕹", "𝕺", "𝕻", "𝕼", "𝕽", "𝕾", "𝕿", "𝖀", "𝖁", "𝖂", "𝖃", "𝖄", "𝖅" };
+        public static List<string> Hollow = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝕒", "𝕓", "𝕔", "𝕕", "𝕖", "𝕗","𝕘", "𝕙", "𝕚", "𝕛", "𝕜", "𝕝", "𝕞", "𝕟", "𝕠", "𝕡", "𝕢", "𝕣", "𝕤", "𝕥", "𝕦", "𝕧", "𝕨", "𝕩", "𝕪", "𝕫", "𝔸", "𝔹", "ℂ", "𝔻", "𝔼", "𝔽", "𝔾", "ℍ", "𝕀", "𝕁", "𝕂", "𝕃", "𝕄", "ℕ", "𝕆", "ℙ", "ℚ", "ℝ", "𝕊", "𝕋", "𝕌", "𝕍", "𝕎", "𝕏", "𝕐", "ℤ" };
+        public static List<string> Money = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "₳", "฿", "₵", "Đ", "Ɇ", "₣", "₲", "Ⱨ", "ł", "J", "₭", "Ⱡ", "₥", "₦", "Ø", "₱", "Q", "Ɽ", "₴", "₮", "Ʉ", "V", "₩", "Ӿ", "Ɏ", "₴", "₳", "฿", "₵", "Đ", "Ɇ", "₣", "₲", "Ⱨ", "ł", "J", "₭", "Ⱡ", "₥", "₦", "Ø", "₱", "Q", "Ɽ", "₴", "₮", "Ʉ", "V", "₩", "Ӿ", "Ɏ", "₴" };
+        public static List<string> TheGreatTuna = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Λ", "B", "₵", "Đ", "Ξ", "Ϝ", "G", "H", "I", "J", "K", "L", "Ϻ", "Π", "ϴ", "Ρ", "Ϙ", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Λ", "B", "₵", "Đ", "Ξ", "Ϝ", "G", "H", "I", "J", "K", "L", "Ϻ", "Π", "ϴ", "Ρ", "Ϙ", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        public static List<string> Reversed = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "ɐ", "q", "ɔ","p", "ǝ","ɟ", "ɓ", "ɥ", "ı", "ɾ", "ʞ", "l", "ɯ", "u", "o", "p", "q", "ɹ", "s", "ʇ", "u", "ʌ", "ʍ", "x", "ʎ", "z", "ɐ", "q", "ɔ", "p", "ǝ", "ɟ", "ɓ", "ɥ", "ı", "ɾ", "ʞ", "l", "ɯ", "u", "o", "p", "q", "ɹ", "s", "ʇ", "u", "ʌ", "ʍ", "x", "ʎ", "z" };
+        public static List<string> Typewriter = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "𝚊", "𝚋", "𝚌", "𝚍", "𝚎", "𝚏", "𝚐", "𝚑", "𝚒", "𝚓", "𝚔", "𝚕", "𝚖", "𝚗", "𝚘", "𝚙", "𝚚", "𝚛", "𝚜", "𝚝", "𝚞", "𝚟", "𝚠", "𝚡", "𝚢", "𝚣", "𝙰", "𝙱", "𝙲", "𝙳", "𝙴", "𝙵", "𝙶", "𝙷", "𝙸", "𝙹", "𝙺", "𝙻", "𝙼", "𝙽", "𝙾", "𝙿", "𝚀", "𝚁", "𝚂", "𝚃", "𝚄", "𝚅", "𝚆", "𝚇", "𝚈", "𝚉"};
+        public static List<string> Spacious = new List<string> { "０", "１", "２", "３", "４", "５", "６", "７", "８", "９", "ａ", "ｂ", "ｃ", "ｄ", "ｅ", "ｆ", "ｇ", "ｈ", "ｉ", "ｊ", "ｋ", "ｌ", "ｍ", "ｎ", "ｏ", "ｐ", "ｑ", "ｒ", "ｓ", "ｔ", "ｕ", "ｖ", "ｗ", "ｘ", "ｙ", "ｚ", "Ａ", "Ｂ", "Ｃ", "Ｄ", "Ｅ", "Ｆ", "Ｇ", "Ｈ", "Ｉ", "Ｊ", "Ｋ", "Ｌ", "Ｍ", "Ｎ", "Ｏ", "Ｐ", "Ｑ", "Ｒ", "Ｓ", "Ｔ", "Ｕ", "Ｖ", "Ｗ", "Ｘ", "Ｙ", "Ｚ"};
+
 
         public Converters[] ConverterValues = new Converters[]
         {
+            Converters.Standard,
             Converters.Circled,
             Converters.Script,
             Converters.ScriptBold,
@@ -47,611 +124,13 @@ namespace Discord_UWP.Classes
             Converters.TheGreatTuna,
             Converters.Reversed,
             Converters.Typewriter,
-            Converters.Random,
-            Converters.Spacious
+            Converters.Spacious,
+            Converters.Random
         };
-        public Dictionary<Converters, FancyGenerator> FancyConverters =
-            new Dictionary<Converters, FancyGenerator>()
-            {
-                {Converters.Circled, new FancyGenerator()
-                    {
-                        ReplaceDiacritics = true,
-                        CharacterConversions = new Dictionary<char, string>()
-                        {{'1', "\u2460"},
-                            {'2', "\u2461"},
-                            {'3', "\u2462"},
-                            {'4', "\u2463"},
-                            {'5', "\u2464"},
-                            {'6', "\u2465"},
-                            {'7', "\u2466"},
-                            {'8', "\u2467"},
-                            {'9', "\u2468"},
-                            {'a', "\u24d0"},
-                            {'b', "\u24d1"},
-                            {'c', "\u24d2"},
-                            {'d', "\u24d3"},
-                            {'e', "\u24d4"},
-                            {'f', "\u24d5"},
-                            {'g', "\u24d6"},
-                            {'h', "\u24d7"},
-                            {'i', "\u24d8"},
-                            {'j', "\u24d9"},
-                            {'k', "\u24da"},
-                            {'l', "\u24db"},
-                            {'m', "\u24dc"},
-                            {'n', "\u24dd"},
-                            {'o', "\u24de"},
-                            {'p', "\u24df"},
-                            {'q', "\u24e0"},
-                            {'r', "\u24e1"},
-                            {'s', "\u24e2"},
-                            {'t', "\u24e3"},
-                            {'u', "\u24e4"},
-                            {'v', "\u24e5"},
-                            {'w', "\u24e6"},
-                            {'x', "\u24e7"},
-                            {'y', "\u24e8"},
-                            {'z', "\u24e9"},
-                            {'A', "\u24b6"},
-                            {'B', "\u24b7"},
-                            {'C', "\u24b8"},
-                            {'D', "\u24b9"},
-                            {'E', "\u24ba"},
-                            {'F', "\u24bb"},
-                            {'G', "\u24bc"},
-                            {'H', "\u24bd"},
-                            {'I', "\u24be"},
-                            {'J', "\u24bf"},
-                            {'K', "\u24c0"},
-                            {'L', "\u24c1"},
-                            {'M', "\u24c2"},
-                            {'N', "\u24c3"},
-                            {'O', "\u24c4"},
-                            {'P', "\u24c5"},
-                            {'Q', "\u24c6"},
-                            {'R', "\u24c7"},
-                            {'S', "\u24c8"},
-                            {'T', "\u24c9"},
-                            {'U', "\u24ca"},
-                            {'V', "\u24cb"},
-                            {'W', "\u24cc"},
-                            {'X', "\u24cd"},
-                            {'Y', "\u24ce"},
-                            {'Z', "\u24cf"}
-                        }
-                    }},
-                {Converters.Script, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    CharacterConversions = new Dictionary<char, string>()
-                    {
-                        {'a', "𝒶" },
-                        {'b', "𝒷" },
-                        {'c', "𝒸" },
-                        {'d', "𝒹" },
-                        {'e', "𝑒" },
-                        {'f', "𝒻" },
-                        {'g', "𝑔" },
-                        {'h', "𝒽" },
-                        {'i', "𝒾" },
-                        {'j', "𝒿" },
-                        {'k', "𝓀" },
-                        {'l', "𝓁" },
-                        {'m', "𝓂" },
-                        {'n', "𝓃" },
-                        {'o', "𝑜" },
-                        {'p', "𝓅" },
-                        {'q', "𝓆" },
-                        {'r', "𝓇" },
-                        {'s', "𝓈" },
-                        {'t', "𝓉" },
-                        {'u', "𝓊" },
-                        {'v', "𝓋" },
-                        {'w', "𝓌" },
-                        {'x', "𝓍" },
-                        {'y', "𝓎" },
-                        {'z', "𝓏" },
-                        {'A', "𝓐" },
-                        {'B', "𝓑" },
-                        {'C', "𝓒" },
-                        {'D', "𝓓" },
-                        {'E', "𝓔" },
-                        {'F', "𝓕" },
-                        {'G', "𝓖" },
-                        {'H', "𝓗" },
-                        {'I', "𝓘" },
-                        {'J', "𝓙" },
-                        {'K', "𝓚" },
-                        {'L', "𝓛" },
-                        {'M', "𝓜" },
-                        {'N', "𝓝" },
-                        {'O', "𝓞" },
-                        {'P', "𝓟" },
-                        {'Q', "𝓠" },
-                        {'R', "𝓡" },
-                        {'S', "𝓢" },
-                        {'T', "𝓣" },
-                        {'U', "𝓤" },
-                        {'V', "𝓥" },
-                        {'W', "𝓦" },
-                        {'X', "𝓧" },
-                        {'Y', "𝓨" },
-                        {'Z', "𝓩" }
-                    }
-                }},
-                {Converters.ScriptBold, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    CharacterConversions = new Dictionary<char, string>()
-                    {
-                        {'a', "𝓪"},
-                        {'b', "𝓫"},
-                        {'c', "𝓬"},
-                        {'d', "𝓭"},
-                        {'e', "𝓮"},
-                        {'f', "𝓯"},
-                        {'g', "𝓰"},
-                        {'h', "𝓱"},
-                        {'i', "𝓲"},
-                        {'j', "𝓳"},
-                        {'k', "𝓴"},
-                        {'l', "𝓵"},
-                        {'m', "𝓶"},
-                        {'n', "𝓷"},
-                        {'o', "𝓸"},
-                        {'p', "𝓹"},
-                        {'q', "𝓺"},
-                        {'r', "𝓻"},
-                        {'s', "𝓼"},
-                        {'t', "𝓽"},
-                        {'u', "𝓾"},
-                        {'v', "𝓿"},
-                        {'w', "𝔀"},
-                        {'x', "𝔁"},
-                        {'y', "𝔂"},
-                        {'z', "𝔃"},
-                        {'A', "𝓐"},
-                        {'B', "𝓑"},
-                        {'C', "𝓒"},
-                        {'D', "𝓓"},
-                        {'E', "𝓔"},
-                        {'F', "𝓕"},
-                        {'G', "𝓖"},
-                        {'H', "𝓗"},
-                        {'I', "𝓘"},
-                        {'J', "𝓙"},
-                        {'K', "𝓚"},
-                        {'L', "𝓛"},
-                        {'M', "𝓜"},
-                        {'N', "𝓝"},
-                        {'O', "𝓞"},
-                        {'P', "𝓟"},
-                        {'Q', "𝓠"},
-                        {'R', "𝓡"},
-                        {'S', "𝓢"},
-                        {'T', "𝓣"},
-                        {'U', "𝓤"},
-                        {'V', "𝓥"},
-                        {'W', "𝓦"},
-                        {'X', "𝓧"},
-                        {'Y', "𝓨"},
-                        {'Z', "𝓩"},
-                    }
-                }},
-                {Converters.Gothic, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    CharacterConversions = new Dictionary<char, string>()
-                    {
-                        {'a', "𝔞"},
-                        {'b', "𝔟"},
-                        {'c', "𝔠"},
-                        {'d', "𝔡"},
-                        {'e', "𝔢"},
-                        {'f', "𝔣"},
-                        {'g', "𝔤"},
-                        {'h', "𝔥"},
-                        {'i', "𝔦"},
-                        {'j', "𝔧"},
-                        {'k', "𝔨"},
-                        {'l', "𝔩"},
-                        {'m', "𝔪"},
-                        {'n', "𝔫"},
-                        {'o', "𝔬"},
-                        {'p', "𝔭"},
-                        {'q', "𝔮"},
-                        {'r', "𝔯"},
-                        {'s', "𝔰"},
-                        {'t', "𝔱"},
-                        {'u', "𝔲"},
-                        {'v', "𝔳"},
-                        {'w', "𝔴"},
-                        {'x', "𝔵"},
-                        {'y', "𝔶"},
-                        {'z', "𝔷"},
-                        {'A', "𝔄"},
-                        {'B', "𝔅"},
-                        {'C', "ℭ"},
-                        {'D', "𝔇"},
-                        {'E', "𝔈"},
-                        {'F', "𝔉"},
-                        {'G', "𝔊"},
-                        {'H', "ℌ"},
-                        {'I', "ℑ"},
-                        {'J', "𝔍"},
-                        {'K', "𝔎"},
-                        {'L', "𝔏"},
-                        {'M', "𝔐"},
-                        {'N', "𝔑"},
-                        {'O', "𝔒"},
-                        {'P', "𝔓"},
-                        {'Q', "𝔔"},
-                        {'R', "ℜ"},
-                        {'S', "𝔖"},
-                        {'T', "𝔗"},
-                        {'U', "𝔘"},
-                        {'V', "𝔙"},
-                        {'W', "𝔚"},
-                        {'X', "𝔛"},
-                        {'Y', "𝔜"},
-                        {'Z', "ℨ"}
-                    }
-                }},
-                {Converters.GothicBold, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    CharacterConversions = new Dictionary<char, string>()
-                    {
-                        {'a', "𝖆"},
-                        {'b', "𝖇"},
-                        {'c', "𝖈"},
-                        {'d', "𝖉"},
-                        {'e', "𝖊"},
-                        {'f', "𝖋"},
-                        {'g', "𝖌"},
-                        {'h', "𝖍"},
-                        {'i', "𝖎"},
-                        {'j', "𝖏"},
-                        {'k', "𝖐"},
-                        {'l', "𝖑"},
-                        {'m', "𝖒"},
-                        {'n', "𝖓"},
-                        {'o', "𝖔"},
-                        {'p', "𝖕"},
-                        {'q', "𝖖"},
-                        {'r', "𝖗"},
-                        {'s', "𝖘"},
-                        {'t', "𝖙"},
-                        {'u', "𝖚"},
-                        {'v', "𝖛"},
-                        {'w', "𝖜"},
-                        {'x', "𝖝"},
-                        {'y', "𝖞"},
-                        {'z', "𝖟"},
-                        {'A', "𝕬"},
-                        {'B', "𝕭"},
-                        {'C', "𝕮"},
-                        {'D', "𝕯"},
-                        {'E', "𝕰"},
-                        {'F', "𝕱"},
-                        {'G', "𝕲"},
-                        {'H', "𝕳"},
-                        {'I', "𝕴"},
-                        {'J', "𝕵"},
-                        {'K', "𝕶"},
-                        {'L', "𝕷"},
-                        {'M', "𝕸"},
-                        {'N', "𝕹"},
-                        {'O', "𝕺"},
-                        {'P', "𝕻"},
-                        {'Q', "𝕼"},
-                        {'R', "𝕽"},
-                        {'S', "𝕾"},
-                        {'T', "𝕿"},
-                        {'U', "𝖀"},
-                        {'V', "𝖁"},
-                        {'W', "𝖂"},
-                        {'X', "𝖃"},
-                        {'Y', "𝖄"},
-                        {'Z', "𝖅"}
-                        }
-                        }},
-                {Converters.Hollow, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    CharacterConversions = new Dictionary<char, string>()
-                    {{'a', "𝕒"},
-                        {'b', "𝕓"},
-                        {'c', "𝕔"},
-                        {'d', "𝕕"},
-                        {'e', "𝕖"},
-                        {'f', "𝕗"},
-                        {'g', "𝕘"},
-                        {'h', "𝕙"},
-                        {'i', "𝕚"},
-                        {'j', "𝕛"},
-                        {'k', "𝕜"},
-                        {'l', "𝕝"},
-                        {'m', "𝕞"},
-                        {'n', "𝕟"},
-                        {'o', "𝕠"},
-                        {'p', "𝕡"},
-                        {'q', "𝕢"},
-                        {'r', "𝕣"},
-                        {'s', "𝕤"},
-                        {'t', "𝕥"},
-                        {'u', "𝕦"},
-                        {'v', "𝕧"},
-                        {'w', "𝕨"},
-                        {'x', "𝕩"},
-                        {'y', "𝕪"},
-                        {'z', "𝕫"},
-                        {'A', "𝔸"},
-                        {'B', "𝔹"},
-                        {'C', "ℂ"},
-                        {'D', "𝔻"},
-                        {'E', "𝔼"},
-                        {'F', "𝔽"},
-                        {'G', "𝔾"},
-                        {'H', "ℍ"},
-                        {'I', "𝕀"},
-                        {'J', "𝕁"},
-                        {'K', "𝕂"},
-                        {'L', "𝕃"},
-                        {'M', "𝕄"},
-                        {'N', "ℕ"},
-                        {'O', "𝕆"},
-                        {'P', "ℙ"},
-                        {'Q', "ℚ"},
-                        {'R', "ℝ"},
-                        {'S', "𝕊"},
-                        {'T', "𝕋"},
-                        {'U', "𝕌"},
-                        {'V', "𝕍"},
-                        {'W', "𝕎"},
-                        {'X', "𝕏"},
-                        {'Y', "𝕐"},
-                        {'Z', "ℤ"}
-                        }
-                }},
-                {Converters.Money, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    PreProcess = input => input.ToUpper(),
-                    CharacterConversions= new Dictionary<char, string>()
-                    {
-                        {'A', "₳"},
-                        {'B', "฿"},
-                        {'C', "₵"},
-                        {'D', "Đ"},
-                        {'E', "Ɇ"},
-                        {'F', "₣"},
-                        {'G', "₲"},
-                        {'H', "Ⱨ"},
-                        {'I', "ł"},
-                        {'J', "J"},
-                        {'K', "₭"},
-                        {'L', "Ⱡ"},
-                        {'M', "₥"},
-                        {'N', "₦"},
-                        {'O', "Ø"},
-                        {'P', "₱"},
-                        {'Q', "Q"},
-                        {'R', "Ɽ"},
-                        {'S', "₴"},
-                        {'T', "₮"},
-                        {'U', "Ʉ"},
-                        {'V', "V"},
-                        {'W', "₩"},
-                        {'X', "Ӿ"},
-                        {'Y', "Ɏ"},
-                        {'Z', "₴"}
-                    }
-                }},
-                {Converters.TheGreatTuna, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    PreProcess = input => input.ToUpper(),
-                    CharacterConversions= new Dictionary<char, string>()
-                    {
-                        {'A', "Λ"},
-                        {'B', "B"},
-                        {'C', "₵"},
-                        {'D', "Đ"},
-                        {'E', "Ξ"},
-                        {'F', "Ϝ"},
-                        {'G', "G"},
-                        {'H', "H"},
-                        {'I', "I"},
-                        {'J', "J"},
-                        {'K', "K"},
-                        {'L', "L"},
-                        {'M', "Ϻ"},
-                        {'N', "Π"},
-                        {'O', "ϴ"},
-                        {'P', "Ρ"},
-                        {'Q', "Ϙ"},
-                        {'R', "R"},
-                        {'S', "S"},
-                        {'T', "T"},
-                        {'U', "U"},
-                        {'V', "V"},
-                        {'W', "W"},
-                        {'X', "X"},
-                        {'Y', "Y"},
-                        {'Z', "Z"}
-                    }
-                }},
-                {Converters.Reversed, new FancyGenerator()
-                {
-                    ReplaceDiacritics = true,
-                    PreProcess = input => ReverseString(input.ToLower()),
-                    CharacterConversions= new Dictionary<char, string>()
-                    {
-                        {'a', "ɐ"},
-                        {'b', "q"},
-                        {'c', "ɔ"},
-                        {'d', "p"},
-                        {'e', "ǝ"},
-                        {'f', "ɟ"},
-                        {'g', "ɓ"},
-                        {'h', "ɥ"},
-                        {'i', "ı"},
-                        {'j', "ɾ"},
-                        {'k', "ʞ"},
-                        {'l', "l"},
-                        {'m', "ɯ"},
-                        {'n', "u"},
-                        {'o', "o"},
-                        {'p', "p"},
-                        {'q', "q"},
-                        {'r', "ɹ"},
-                        {'s', "s"},
-                        {'t', "ʇ"},
-                        {'u', "u"},
-                        {'v', "ʌ"},
-                        {'w', "ʍ"},
-                        {'x', "x"},
-                        {'y', "ʎ"},
-                        {'z', "z"}
-                    }
-                }},
-                {Converters.Typewriter, new FancyGenerator()
-                {
-                    ReplaceDiacritics=true,
-                    CharacterConversions=new Dictionary<char, string>()
-                    {
-                        {'a', "𝚊"},
-                        {'b', "𝚋"},
-                        {'c', "𝚌"},
-                        {'d', "𝚍"},
-                        {'e', "𝚎"},
-                        {'f', "𝚏"},
-                        {'g', "𝚐"},
-                        {'h', "𝚑"},
-                        {'i', "𝚒"},
-                        {'j', "𝚓"},
-                        {'k', "𝚔"},
-                        {'l', "𝚕"},
-                        {'m', "𝚖"},
-                        {'n', "𝚗"},
-                        {'o', "𝚘"},
-                        {'p', "𝚙"},
-                        {'q', "𝚚"},
-                        {'r', "𝚛"},
-                        {'s', "𝚜"},
-                        {'t', "𝚝"},
-                        {'u', "𝚞"},
-                        {'v', "𝚟"},
-                        {'w', "𝚠"},
-                        {'x', "𝚡"},
-                        {'y', "𝚢"},
-                        {'z', "𝚣"},
-                        {'A', "𝙰"},
-                        {'B', "𝙱"},
-                        {'C', "𝙲"},
-                        {'D', "𝙳"},
-                        {'E', "𝙴"},
-                        {'F', "𝙵"},
-                        {'G', "𝙶"},
-                        {'H', "𝙷"},
-                        {'I', "𝙸"},
-                        {'J', "𝙹"},
-                        {'K', "𝙺"},
-                        {'L', "𝙻"},
-                        {'M', "𝙼"},
-                        {'N', "𝙽"},
-                        {'O', "𝙾"},
-                        {'P', "𝙿"},
-                        {'Q', "𝚀"},
-                        {'R', "𝚁"},
-                        {'S', "𝚂"},
-                        {'T', "𝚃"},
-                        {'U', "𝚄"},
-                        {'V', "𝚅"},
-                        {'W', "𝚆"},
-                        {'X', "𝚇"},
-                        {'Y', "𝚈"},
-                        {'Z', "𝚉"}
-                    }
-                }},
-                {Converters.Spacious, new FancyGenerator()
-                {
-                    ReplaceDiacritics=true,
-                    CharacterConversions=new Dictionary<char, string>()
-                    {
 
-                        {'a', "ａ"},
-                        {'b', "ｂ"},
-                        {'c', "ｃ"},
-                        {'d', "ｄ"},
-                        {'e', "ｅ"},
-                        {'f', "ｆ"},
-                        {'g', "ｇ"},
-                        {'h', "ｈ"},
-                        {'i', "ｉ"},
-                        {'j', "ｊ"},
-                        {'k', "ｋ"},
-                        {'l', "ｌ"},
-                        {'m', "ｍ"},
-                        {'n', "ｎ"},
-                        {'o', "ｏ"},
-                        {'p', "ｐ"},
-                        {'q', "ｑ"},
-                        {'r', "ｒ"},
-                        {'s', "ｓ"},
-                        {'t', "ｔ"},
-                        {'u', "ｕ"},
-                        {'v', "ｖ"},
-                        {'w', "ｗ"},
-                        {'x', "ｘ"},
-                        {'y', "ｙ"},
-                        {'z', "ｚ"},
-                        {'A', "Ａ"},
-                        {'B', "Ｂ"},
-                        {'C', "Ｃ"},
-                        {'D', "Ｄ"},
-                        {'E', "Ｅ"},
-                        {'F', "Ｆ"},
-                        {'G', "Ｇ"},
-                        {'H', "Ｈ"},
-                        {'I', "Ｉ"},
-                        {'J', "Ｊ"},
-                        {'K', "Ｋ"},
-                        {'L', "Ｌ"},
-                        {'M', "Ｍ"},
-                        {'N', "Ｎ"},
-                        {'O', "Ｏ"},
-                        {'P', "Ｐ"},
-                        {'Q', "Ｑ"},
-                        {'R', "Ｒ"},
-                        {'S', "Ｓ"},
-                        {'T', "Ｔ"},
-                        {'U', "Ｕ"},
-                        {'V', "Ｖ"},
-                        {'W', "Ｗ"},
-                        {'X', "Ｘ"},
-                        {'Y', "Ｙ"},
-                        {'Z', "Ｚ"},
-                        {'0', "０"},
-                        {'1', "１"},
-                        {'2', "２"},
-                        {'3', "３"},
-                        {'4', "４"},
-                        {'5', "５"},
-                        {'6', "６"},
-                        {'7', "７"},
-                        {'8', "８"},
-                        {'9', "９"}
-
-                    }
-                }},
-                {Converters.Random, new FancyGenerator()
-                {
-                    Random = true
-                } }
-            };
-                    
+        #region Depricated
+        public Dictionary<Converters, FancyGenerator> FancyConverters = new Dictionary<Converters, FancyGenerator>();
+        #endregion
 
         /// <summary>
         /// Convert the input using all available converters
@@ -663,13 +142,13 @@ namespace Discord_UWP.Classes
             Stopwatch sw = new Stopwatch();
             List<string> results = new List<string>();
             int counter = 0;
-            foreach(Converters converter in ConverterValues)
+            foreach (Converters converter in ConverterValues)
             {
                 results.Add(MakeFancy(converter, input));
                 counter++;
             }
             sw.Stop();
-            Debug.WriteLine(counter + " FancyTextGenerators converted " + input.Length + " characters in " + sw.ElapsedMilliseconds + "ms");
+            //Debug.WriteLine(counter + " FancyTextGenerators converted " + input.Length + " characters in " + sw.ElapsedMilliseconds + "ms");
             return results;
         }
 
@@ -696,25 +175,109 @@ namespace Discord_UWP.Classes
                     var randomconverter = FancyConverters[ConverterValues[rnd.Next(0, ConverterValues.Length-1)]];
                     if (!randomconverter.Random)
                     {
-                        if (randomconverter.CharacterConversions.ContainsKey(input[i]))
-                            output += randomconverter.CharacterConversions[input[i]];
+                        string character = input[i].ToString();
+                        if (Char.IsSurrogate(input[i]))
+                        {
+                            character = new string(new[] { input[i], input[++i] });
+                        }
+                        if (randomconverter.CharacterConversions.ContainsKey(character))
+                            output += randomconverter.CharacterConversions[character];
                         else if (!randomconverter.IgnoreMissingChars)
-                            output += input[i];
+                            output += character;
                         i++;
                     }
                 }
                 else
                 {
-                    if (convert.CharacterConversions.ContainsKey(input[i]))
-                        output += convert.CharacterConversions[input[i]];
+                    string character = input[i].ToString();
+                    if (Char.IsSurrogate(input[i]))
+                    {
+                        character = new string(new[] { input[i], input[++i] });
+                    }
+                    if (convert.CharacterConversions.ContainsKey(character))
+                        output += convert.CharacterConversions[character];
                     else if (!convert.IgnoreMissingChars)
-                        output += input[i];
+                        output += character;
                     i++;
                 }
-
             }
 
-            return output;
+            return output;  
+        }
+
+        public static Converters FindFancy(string input)
+        {
+            string c = input[0].ToString();
+            int i = 0;
+            while (i < input.Length && Common.IsEnLetter(input[i]) && !Char.IsSurrogate(input[i]))
+            {
+                i++;
+            }
+
+            if (i >= input.Length)
+            {
+                return Converters.Standard;
+            }
+
+            if (Char.IsSurrogate(input[i]))
+            {
+                c = new string(new[] { input[i], input[i++] });
+            } else
+            {
+                c = input[i].ToString();
+            }
+
+            if (Standard.Contains(c))
+            {
+                return Converters.Standard;
+            }
+            else if (Circled.Contains(c))
+            {
+                return Converters.Circled;
+            }
+            else if (Script.Contains(c))
+            {
+                return Converters.Script;
+            }
+            else if (ScriptBold.Contains(c))
+            {
+                return Converters.ScriptBold;
+            }
+            else if (Gothic.Contains(c))
+            {
+                return Converters.Gothic;
+            }
+            else if (GothicBold.Contains(c))
+            {
+                return Converters.GothicBold;
+            }
+            else if (Hollow.Contains(c))
+            {
+                return Converters.Hollow;
+            }
+            else if (Money.Contains(c))
+            {
+                return Converters.Money;
+            }
+            else if (TheGreatTuna.Contains(c))
+            {
+                return Converters.TheGreatTuna;
+            }
+            else if (Reversed.Contains(c))
+            {
+                return Converters.Reversed;
+            }
+            else if (Typewriter.Contains(c))
+            {
+                return Converters.Typewriter;
+            }
+            else if (Spacious.Contains(c))
+            {
+                return Converters.Spacious;
+            } else
+            {
+                return Converters.Standard;
+            }
         }
     }
 }
