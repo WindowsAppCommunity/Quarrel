@@ -372,7 +372,7 @@ namespace Discord_UWP.Gateway
             await SendMessageAsync("{\"op\":6,\"d\":" + JsonConvert.SerializeObject(payload) + "}");
             // await _webMessageSocket.SendJsonObjectAsync(resume);
         }
-        public async void UpdateStatus(string onlinestatus, int? idleSince, Game game)
+        public async void UpdateStatus(string onlinestatus, int? idleSince, GameBase game)
         {
             await UpdateStatus(new StatusUpdate()
                 {
