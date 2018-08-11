@@ -2621,22 +2621,24 @@ namespace Discord_UWP
                      friendPanel.Load();
                      DisconnectedMask.Visibility = Visibility.Collapsed;
                      SetupUI();
-                 RenderCurrentUser();
-                 RenderGuilds();
-                 ServerList.SelectedIndex = 0;
-                 
-                 App.UpdateUnreadIndicators();
-                 App.FullyLoaded = true;
-                 if (App.PostLoadTask != null)
-                 {
-                     switch (App.PostLoadTask)
+                     RenderCurrentUser();
+                     RenderGuilds();
+                     ServerList.SelectedIndex = 0;
+
+                     UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
+
+                     App.UpdateUnreadIndicators();
+                     App.FullyLoaded = true;
+                     if (App.PostLoadTask != null)
                      {
-                         case "SelectGuildChannelTask":
-                             App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
-                             break;
-                         case "invite":
-                             App.NavigateToJoinServer(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId);
-                             break;
+                         switch (App.PostLoadTask)
+                         {
+                             case "SelectGuildChannelTask":
+                                 App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
+                                 break;
+                             case "invite":
+                                 App.NavigateToJoinServer(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId);
+                                 break;
                          }
                      }
                      //Check version number, and if it's different from before, open the what's new page
