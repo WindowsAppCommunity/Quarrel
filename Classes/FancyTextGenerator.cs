@@ -23,9 +23,13 @@ namespace Discord_UWP.Classes
             {
                 CharacterConversions = new Dictionary<string, string>();
                 ReplaceDiacritics = true;
-                if (from == Converters.Reversed || to == Converters.Reversed)
+                if (to == Converters.Reversed)
                 {
-                    PreProcess = input => ReverseString(input.ToLower());
+                    PostProcess = input => ReverseString(input.ToLower());
+                }
+                if (from == Converters.Reversed)
+                {
+                    PreProcess = input => ReverseString(Common.CapitalizeMulti(input));
                 }
 
                 var fromList = GetListFromConverter(from);
@@ -124,8 +128,8 @@ namespace Discord_UWP.Classes
             Converters.TheGreatTuna,
             Converters.Reversed,
             Converters.Typewriter,
-            Converters.Spacious,
-            Converters.Random
+            Converters.Spacious
+            //Converters.Random
         };
 
         #region Depricated
@@ -202,6 +206,9 @@ namespace Discord_UWP.Classes
                 }
             }
 
+            if (convert.PostProcess != null)
+                output = convert.PostProcess(output);
+
             return output;  
         }
 
@@ -221,7 +228,7 @@ namespace Discord_UWP.Classes
 
             if (Char.IsSurrogate(input[i]))
             {
-                c = new string(new[] { input[i], input[i++] });
+                c = new string(new[] { input[i], input[++i] });
             } else
             {
                 c = input[i].ToString();
