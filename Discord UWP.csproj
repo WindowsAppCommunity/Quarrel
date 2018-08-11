@@ -148,9 +148,9 @@
     <Compile Include="Controls\RichPresenceControl.xaml.cs">
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DiffieHellman\BigInt.cs" />
-    <Compile Include="DiffieHellman\DiffieHellman.cs" />
-    <Compile Include="DiffieHellman\StrongNumberProvider.cs" />
+    <Compile Include="Javascript sources\DiffieHellman\BigInt.cs" />
+    <Compile Include="Javascript sources\DiffieHellman\DiffieHellman.cs" />
+    <Compile Include="Javascript sources\DiffieHellman\StrongNumberProvider.cs" />
     <Compile Include="Flyouts\VoiceMember.cs" />
     <Compile Include="MainPageControllerInput.cs" />
     <Compile Include="Controls\AttachementControl.xaml.cs">
