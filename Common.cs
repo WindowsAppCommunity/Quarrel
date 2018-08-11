@@ -122,6 +122,17 @@ namespace Discord_UWP
             return entry.Substring(0, 1).ToUpper() + entry.Substring(1);
         }
 
+        public static string CapitalizeMulti(string entry)
+        {
+            string returnValue = entry.Substring(0, 1).ToUpper() + entry.Substring(1);
+            while (returnValue.Contains(' '))
+            {
+                int i = returnValue.LastIndexOf(' ') + 1;
+                returnValue = returnValue.Substring(i, 1) + returnValue.Substring(i);
+            }
+            return returnValue;
+        }
+
         public static bool IsEnLetter(char c)
         {
             if ((c > 'a' && c < 'z') || (c > 'A' && c < 'Z'))
