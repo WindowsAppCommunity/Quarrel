@@ -66,7 +66,7 @@ namespace Discord_UWP.SubPages
                 StringArg.PlaceholderText = data.PlaceHolderText;
             }
 
-            if (data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
+            if (App.Insider && data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
             else MakeFancy.Visibility = Visibility.Collapsed;
 
             SubMessage.Text = data.SubMessage;

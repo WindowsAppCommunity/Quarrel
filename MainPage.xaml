@@ -1184,7 +1184,7 @@
                             </AppBarButton.Flyout>
                         </AppBarButton>-->
                     <!--<AppBarButton Icon="Find" Click="Search_Click"/>-->
-                    <AppBarButton x:Name="AddFriend" x:Uid="/Main/AddFriendABB" Icon="AddFriend" Label="Add Friend">
+                    <AppBarButton x:Name="AddFriend" x:Uid="/Main/AddFriendABB" Icon="AddFriend" Label="Add Friend" Visibility="Collapsed">
                         <AppBarButton.Flyout>
                             <Flyout>
                                 <StackPanel>
