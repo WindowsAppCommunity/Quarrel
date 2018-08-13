@@ -370,7 +370,8 @@ namespace Discord_UWP.Controls
             };
             emojiPicker.PickedEmoji += (o, args) =>
             {
-                emojis.Hide();
+                if (!CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+                    emojis.Hide();
                 //if (args.names.Count > 1)
                 //{
                 //    int newSelectionStart = MessageEditor.SelectionStart + args.names[0].Length + args.names[1].Length + 4;

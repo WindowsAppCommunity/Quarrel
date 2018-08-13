@@ -37,6 +37,7 @@ using Discord_UWP.Managers;
 using static Discord_UWP.Managers.MessageManager;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using Discord_UWP.SimpleClasses;
+using Windows.System;
 
 namespace Discord_UWP.Controls
 {
@@ -1008,7 +1009,8 @@ namespace Discord_UWP.Controls
 
         private async void ReactionSelected(object sender, EmojiControl.ISimpleEmoji e)
         {
-            PickReaction.Hide();
+            if(!CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+                PickReaction.Hide();
             string emojiStr = e.surrogates;
             if(e.GetType() == typeof(EmojiControl.GuildSide))
             {
