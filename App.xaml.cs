@@ -33,6 +33,8 @@ using ColorSyntax.Styling;
 using ColorSyntax.Common;
 using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
+using Windows.ApplicationModel.AppService;
+using Windows.ApplicationModel.Background;
 
 namespace Discord_UWP
 {
@@ -52,6 +54,21 @@ namespace Discord_UWP
             this.Suspending += OnSuspending;
             this.Resuming += App_Resuming;
             CoreApplication.EnablePrelaunch(false);
+             Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+        }
+
+        public static AppServiceTriggerDetails AppServiceDetails = null;
+        public static event EventHandler ConnectedToAppService;
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+
+            base.OnBackgroundActivated(args);
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
+                AppServiceDetails =  args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                ConnectedToAppService?.Invoke(null, null);
+            }
         }
 
         /// <summary>

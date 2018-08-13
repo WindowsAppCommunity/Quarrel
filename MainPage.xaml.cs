@@ -35,6 +35,8 @@ using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 using Discord_UWP.SimpleClasses;
 using Windows.UI.Xaml.Shapes;
+using Windows.ApplicationModel.AppService;
+using Windows.Foundation.Collections;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -67,8 +69,55 @@ namespace Discord_UWP
             PCAd.AdUnitId = MobileAd.AdUnitId = Ad.AdUnitId = "1100023969";
             base.OnNavigatedTo(e);
             sideDrawer.SetupInteraction();
-            
+            ConnectToAppService();
+            App.ConnectedToAppService += App_ConnectedToAppService;
         }
+
+        private async void App_ConnectedToAppService(object sender, EventArgs e)
+        {
+            if (App.AppServiceDetails != null)
+            {
+                App.AppServiceDetails.AppServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+            }
+            else
+            {
+                await (new MessageDialog("AppServiceDetails is null")).ShowAsync();
+            }
+        }
+
+        public async void ConnectToAppService()
+        {
+            if (App.AppServiceDetails != null)
+            {
+                App.AppServiceDetails.AppServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
+            }
+            else
+            {
+                await (new MessageDialog("AppServiceDetails is null")).ShowAsync();
+            }
+
+        }
+
+        private async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+        {
+            var deferral = args.GetDeferral();
+            string content = "";
+            if(args.Request.Message.ContainsKey("ConnectionUpdate"))
+            {
+                content = args.Request.Message["ConnectionUpdate"].ToString();
+            }
+            else if (args.Request.Message.ContainsKey("Message"))
+            {
+                content = args.Request.Message["Message"].ToString();
+            }
+            MessageDialog md = new MessageDialog(content);
+            await md.ShowAsync();
+            ValueSet valueSet = new ValueSet();
+            valueSet.Add("response", "success");
+            await args.Request.SendResponseAsync(valueSet);
+            deferral.Complete();
+        }
+
         ScrollViewer _messageScrollviewer;
         ItemsStackPanel _messageStacker;
         private string _setupArgs = "";

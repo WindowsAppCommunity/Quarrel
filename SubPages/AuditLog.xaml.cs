@@ -346,6 +346,7 @@ namespace Discord_UWP.SubPages
                     {
                         if (change.NewValue is Int64 newPerms && change.OldValue is Int64 oldPerms)
                         {
+   
                             var diffs = new Permissions(Convert.ToInt32(newPerms)).GetDifference(new Permissions(Convert.ToInt32(oldPerms)));
                             foreach (var diff in diffs.AddedPermissions)
                                 SubAction.Add(App.GetString("/Dialogs/AuditLogPermissionGiven").TryReplace("<permission>", "`"+diff+"`"));
