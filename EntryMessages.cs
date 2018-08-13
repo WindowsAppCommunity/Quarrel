@@ -89,7 +89,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 119))
+            switch (rand.Next(0, 120))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -209,10 +209,11 @@ namespace Discord_UWP
                 case 117: return kvp("\"I despise formal restaurants. I find all that formality to be very base and vile. I would much rather eat potato chips in the sidewalk.\"", "Werner Herzog");
                 case 118: return kvp(striptoquote(await RESTCalls.GetStringFromURI(new Uri("https://ron-swanson-quotes.herokuapp.com/v2/quotes"))), "Ron Swanson");
                 case 119: return kvp(cuttosentence(await RESTCalls.GetStringFromURI(new Uri("http://skateipsum.com/get/1/0/text"))));
+                case 120: return kvp("¡ǝldoǝd uɐᴉlɐɹʇsn∀ 'ǝɯoɔlǝM", "@ToonWK#7692");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
-
+        
         private static KeyValuePair<string, string> kvp(string key, string val = "")
         {
             return new KeyValuePair<string, string>(key, val);

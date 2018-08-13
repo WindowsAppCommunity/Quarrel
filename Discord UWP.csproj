@@ -890,7 +890,7 @@
       <Version>3.2.1.341</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.5</Version>
+      <Version>1.8.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Advertising.XAML">
       <Version>10.1805.7001</Version>

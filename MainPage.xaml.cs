@@ -1256,7 +1256,7 @@ namespace Discord_UWP
             {
                 App.CurrentChannelId = e.ChannelId;
 
-                if (App.Insider)
+                if (!App.Insider)
                 {
                     AddFriend.Visibility = e.ChannelId == null ? Visibility.Visible : Visibility.Collapsed;
                 }
@@ -2675,6 +2675,22 @@ namespace Discord_UWP
                      ServerList.SelectedIndex = 0;
 
                      UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[LocalState.PresenceDict[LocalState.CurrentUser.Id].Status];
+                     switch (LocalState.PresenceDict[LocalState.CurrentUser.Id].Status)
+                     {
+                         case "online":
+                             UserStatusOnline.IsChecked = true;
+                             break;
+                         case "idle":
+                             UserStatusIdle.IsChecked = true;
+                             break;
+                         case "dnd":
+                             UserStatusDND.IsChecked = true;
+                             break;
+                         case "invisible":
+                         case "offline":
+                             UserStatusInvisible.IsChecked = true;
+                             break;
+                     }
 
                      App.UpdateUnreadIndicators();
                      App.FullyLoaded = true;
@@ -2842,30 +2858,31 @@ namespace Discord_UWP
                         }
                         position = 0;
                     }
-                        if (e.Settings.Status != null)
+                    if (e.Settings.Status != null)
+                    {
+                        if (e.Settings.Status != "invisible")
                         {
-                            if (e.Settings.Status != "invisible")
-                            {
-                                UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Settings.Status];
-                            } else
-                            {
-                                UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
-                            }
-                            switch (e.Settings.Status)
-                            {
-                                case "online":
-                                    UserStatusOnline.IsChecked = true;
-                                    break;
-                                case "idle":
-                                    UserStatusIdle.IsChecked = true;
-                                    break;
-                                case "dnd":
-                                    UserStatusDND.IsChecked = true;
-                                    break;
-                                case "invisible":
-                                    UserStatusInvisible.IsChecked = true;
-                                    break;
-                            }
+                            UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources[e.Settings.Status];
+                        } else
+                        {
+                            UserStatusIndicator.Fill = (SolidColorBrush)App.Current.Resources["offline"];
+                        }
+                        switch (e.Settings.Status)
+                        {
+                            case "online":
+                                UserStatusOnline.IsChecked = true;
+                                break;
+                            case "idle":
+                                UserStatusIdle.IsChecked = true;
+                                break;
+                            case "dnd":
+                                UserStatusDND.IsChecked = true;
+                                break;
+                            case "invisible":
+                            case "offline":
+                                UserStatusInvisible.IsChecked = true;
+                                break;
+                        }
                         var member = FindMember(LocalState.CurrentUser.Id);
                         if (member == null) return;
                         member.status = new Presence() { Game = member.status.Game, GuildId = member.status.GuildId, Roles = member.status.Roles, Status = e.Settings.Status, User = member.status.User };
