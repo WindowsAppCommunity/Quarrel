@@ -448,7 +448,7 @@ namespace Discord_UWP.SubPages
                     c.Id = channel.Id;
                     if (!string.IsNullOrEmpty(channel.Name))
                         c.Name = channel.Name;
-                    else
+                    else if(channel.Users != null && channel.Users.Any())
                         c.Name = channel.Users.First().Username;
                     c.LastMessageId = "@";
                     channels.Add(c);
