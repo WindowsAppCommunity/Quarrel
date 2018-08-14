@@ -48,7 +48,7 @@
             <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
-        <uap:Extension Category="windows.appService" EntryPoint="Quarrel.App">
+        <uap:Extension Category="windows.appService">
           <uap:AppService Name="PresenceService" />
         </uap:Extension>
       </Extensions>

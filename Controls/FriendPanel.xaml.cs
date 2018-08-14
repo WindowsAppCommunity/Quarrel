@@ -26,6 +26,7 @@ using Microsoft.QueryStringDotNET;
 
 using Discord_UWP.Managers;
 using Discord_UWP.LocalModels;
+using Windows.ApplicationModel.Contacts;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -175,7 +176,7 @@ namespace Discord_UWP.Controls
                 friend.UserStatus = "offline";
             return friend;
         }
-        public void Load()
+        public async void Load()
         {
             AllView.Items.Clear();
             PendingView.Items.Clear();
@@ -190,7 +191,23 @@ namespace Discord_UWP.Controls
                     PendingView.Items.Add(friend);
                 }
                 else if (friend.RelationshipStatus == 1)
+                {
+                    /*
+                    ContactAnnotation annotation = new ContactAnnotation();
+                    annotation.ContactId = myContact.Id;
+
+                    // Add appId and contact panel support to the annotation
+                    String appId = "MyApp_vqvv5s4y3scbg!App";
+                    annotation.ProviderProperties.Add("UserId", appId);
+                    annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message;
+
+                    // Save annotation to contact annotation list
+                    // Windows.ApplicationModel.Contacts.ContactAnnotationList 
+                    await contactAnnotationList.TrySaveAnnotationAsync(annotation));*/
+
                     AllView.Items.Add(friend);
+                }
+                    
                 else if (friend.RelationshipStatus == 2)
                     BlockedView.Items.Add(friend);
             }
