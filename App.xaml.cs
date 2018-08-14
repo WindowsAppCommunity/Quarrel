@@ -35,6 +35,7 @@ using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+using Windows.Foundation.Collections;
 
 namespace Discord_UWP
 {
@@ -54,14 +55,14 @@ namespace Discord_UWP
             this.Suspending += OnSuspending;
             this.Resuming += App_Resuming;
             CoreApplication.EnablePrelaunch(false);
-             Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+
         }
 
         public static AppServiceTriggerDetails AppServiceDetails = null;
+        public static AppServiceConnection AppServiceConnection = null;
         public static event EventHandler ConnectedToAppService;
         protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
         {
-
             base.OnBackgroundActivated(args);
             if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
@@ -70,7 +71,14 @@ namespace Discord_UWP
                 ConnectedToAppService?.Invoke(null, null);
             }
         }
-
+        private async Task SendRequest()
+        {
+            ValueSet request = new ValueSet();
+            request.Add("Connect", "");
+            AppServiceResponse response = null;
+            response = await AppServiceDetails.AppServiceConnection.SendMessageAsync(request);
+            string serialNumber = response.Message["serialNumber"] as string;
+        }
         /// <summary>
         /// This is a task that is executed after the gateway is loaded, and so the app fully loaded and ready to go
         /// </summary>
