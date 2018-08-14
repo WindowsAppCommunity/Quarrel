@@ -524,6 +524,14 @@
     </Content>
     <None Include="Discord UWP_StoreKey.pfx" />
     <None Include="PreBuild.ps1" />
+    <PRIResource Include="Resources\th\AuditLog.resw" />
+    <PRIResource Include="Resources\pl\AuditLog.resw" />
+    <PRIResource Include="Resources\es\AuditLog.resw" />
+    <PRIResource Include="Resources\en-US\AuditLog.resw" />
+    <PRIResource Include="Resources\fr\AuditLog.resw" />
+    <PRIResource Include="Resources\nl\AuditLog.resw" />
+    <PRIResource Include="Resources\en-GB\AuditLog.resw" />
+    <PRIResource Include="Resources\zh\AuditLog.resw" />
     <PRIResource Include="Resources\fr\Permissions.resw" />
     <PRIResource Include="Resources\en-US\Permissions.resw" />
     <PRIResource Include="Resources\es\Settings.resw" />
@@ -891,7 +899,7 @@
       <Version>3.2.1.341</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.5</Version>
+      <Version>1.8.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Advertising.XAML">
       <Version>10.1805.7001</Version>

@@ -130,6 +130,8 @@
             <Color x:Key="DndColor">#fff04747</Color>
             <SolidColorBrush x:Key="offline" Color="#747f8d"/>
             <Color x:Key="OfflineColor">#747f8d</Color>
+            <SolidColorBrush x:Key="invisible" Color="#747f8d"/>
+            <Color x:Key="InvisibleColor">#747f8d</Color>
             <x:Double x:Key="ShadowOpacity">0.1</x:Double>
             <x:Boolean x:Key="ShowFocusVisuals">True</x:Boolean>
 
