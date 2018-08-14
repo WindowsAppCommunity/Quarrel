@@ -162,6 +162,9 @@ namespace Discord_UWP.Controls
                         case 2:
                             playing.Text = App.GetString("/Controls/ListeningTo");
                             break;
+                        case 3:
+                            playing.Text = App.GetString("/Controls/Watching");
+                            break;
                     }
                 }
                 else

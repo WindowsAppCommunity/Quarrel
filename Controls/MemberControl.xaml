@@ -94,7 +94,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Visibility="Collapsed" x:Name="playing" Text="Playing" VerticalAlignment="Center" FontSize="11" FontWeight="SemiLight" Opacity="0.6" Foreground="{ThemeResource Foreground}"/>
-                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="4,0,0,0" Foreground="{ThemeResource Foreground}"/>
+                <TextBlock Visibility="Collapsed" x:Name="game" VerticalAlignment="Center" Opacity="0.8" FontSize="11" FontWeight="Normal" Margin="3,0,0,0" Foreground="{ThemeResource Foreground}"/>
                 <FontIcon Visibility="Collapsed" x:Name="rich" Glyph="" FontSize="11" Margin="4,0,0,-2" Foreground="{ThemeResource Foreground}"/>
             </StackPanel>
         </StackPanel>
