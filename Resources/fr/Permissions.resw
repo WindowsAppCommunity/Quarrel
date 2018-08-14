@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ADD_REACTIONS" xml:space="preserve">
+    <value>Ajouter des réactions</value>
+  </data>
+  <data name="ADMINISTRATOR" xml:space="preserve">
+    <value>Administrateur</value>
+  </data>
+  <data name="ATTACH_FILES" xml:space="preserve">
+    <value>Envoyer des pièces jointes</value>
+  </data>
+  <data name="BAN_MEMBERS" xml:space="preserve">
+    <value>Bannir des membres</value>
+  </data>
+  <data name="CHANGE_NICKNAME" xml:space="preserve">
+    <value>Changer de pseudo</value>
+  </data>
+  <data name="CONNECT" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="CREATE_INSTANT_INVITE" xml:space="preserve">
+    <value>Créer des invitations</value>
+  </data>
+  <data name="DEAFEN_MEMBERS" xml:space="preserve">
+    <value>Rendre des membres sourds</value>
+  </data>
+  <data name="EMBED_LINKS" xml:space="preserve">
+    <value>Intégrer des liens</value>
+  </data>
+  <data name="KICK_MEMBERS" xml:space="preserve">
+    <value>Expulser des membres</value>
+  </data>
+  <data name="MANAGE_CHANNELS" xml:space="preserve">
+    <value>Gérer les salons</value>
+  </data>
+  <data name="MANAGE_EMOJIS" xml:space="preserve">
+    <value>Gérer les emojis</value>
+  </data>
+  <data name="MANAGE_GUILD" xml:space="preserve">
+    <value>Gérer le serveur</value>
+  </data>
+  <data name="MANAGE_MESSAGES" xml:space="preserve">
+    <value>Gérer les messages</value>
+  </data>
+  <data name="MANAGE_NICKNAMES" xml:space="preserve">
+    <value>Gérer les pseudos</value>
+  </data>
+  <data name="MANAGE_ROLES" xml:space="preserve">
+    <value>Gérer les rôles</value>
+  </data>
+  <data name="MANAGE_WEBHOOKS" xml:space="preserve">
+    <value>Gérer les webhooks</value>
+  </data>
+  <data name="MENTION_EVERYONE" xml:space="preserve">
+    <value>Mentionner @everyone</value>
+  </data>
+  <data name="MOVE_MEMBERS" xml:space="preserve">
+    <value>Déplacer des membres</value>
+  </data>
+  <data name="MUTE_MEMBERS" xml:space="preserve">
+    <value>Rendre des membres muets</value>
+  </data>
+  <data name="PRIORITY_SPEAKER" xml:space="preserve">
+    <value>Priority speaker</value>
+  </data>
+  <data name="READ_MESSAGE_HISTORY" xml:space="preserve">
+    <value>Voir les anciens messages</value>
+  </data>
+  <data name="SEND_MESSAGES" xml:space="preserve">
+    <value>Envoyer des messages</value>
+  </data>
+  <data name="SEND_TTS_MESSAGES" xml:space="preserve">
+    <value>Envoyer des messages TTS</value>
+  </data>
+  <data name="SPEAK" xml:space="preserve">
+    <value>Parler</value>
+  </data>
+  <data name="USE_EXTERNAL_EMOJIS" xml:space="preserve">
+    <value>Utiliser des emojis externes</value>
+  </data>
+  <data name="USE_VAD" xml:space="preserve">
+    <value>Utiliser la détection de voix</value>
+  </data>
+  <data name="VIEW_AUDIT_LOG" xml:space="preserve">
+    <value>Voir les logs du serveur</value>
+  </data>
+  <data name="VIEW_CHANNEL" xml:space="preserve">
+    <value>Voir les salons</value>
+  </data>
+</root>
