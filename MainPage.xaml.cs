@@ -3592,7 +3592,6 @@ namespace Discord_UWP
                     await UserActivityManager.GenerateActivityAsync(guild.Id, guild.Name, guild.ImageURL, channel.Id, "#"+channel.Name);
                 }
             });
-            
         }
 
         private void TypingStarted(object sender, TextChangedEventArgs e)

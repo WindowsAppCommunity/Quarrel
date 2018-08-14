@@ -153,11 +153,16 @@ namespace Discord_UWP.SubPages
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            scale.CenterY = this.ActualHeight / 2;
-            scale.CenterX = this.ActualWidth / 2;
-            NavAway.Begin();
-            App.SubpageClosed();
-            RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
+            if (App.shareop != null)
+                App.shareop.DismissUI();
+            else
+            {
+                scale.CenterY = this.ActualHeight / 2;
+                scale.CenterX = this.ActualWidth / 2;
+                NavAway.Begin();
+                App.SubpageClosed();
+                RESTCalls.MessageUploadProgress -= Session_MessageUploadProgress; //TODO: Rig to App.Events
+            }
         }
         private async void OpenFile(object sender, RoutedEventArgs e)
         {
