@@ -359,14 +359,21 @@ namespace Discord_UWP.Managers
             bool IsDM = false;
             if(e.EventData.User.Id != LocalState.CurrentUser.Id)
             {
-                if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3)
+                if (App.CurrentChannelId == e.EventData.ChannelId || e.EventData.Type == 3 && App.IsFocused)
                 {
                     if (Storage.Settings.SoundNotifications && App.Insider)
                     {
                         AudioManager.PlaySoundEffect(e.EventData.Type == 3 ? /*"inring"*/ "" :"message");
                     }
                     App.MessageCreated(e.EventData);
-                    App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
+                   /* if (App.IsFocused)
+                    {
+                        App.MarkMessageAsRead(e.EventData.Id, e.EventData.ChannelId);
+                    }
+                    else
+                    {
+                        App.ReadWhenFocused(e.EventData.Id, e.EventData.ChannelId);
+                    }*/
                     App.UpdateUnreadIndicators();
                 }
                 else

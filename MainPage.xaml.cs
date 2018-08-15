@@ -2921,7 +2921,14 @@ namespace Discord_UWP
                      }
                      else
                      {
-                         App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                         if (App.IsFocused)
+                         {
+                             App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                         }
+                         else
+                         {
+                             App.ReadWhenFocused(e.Message.Id, App.CurrentChannelId, App.CurrentGuildId);
+                         } 
                      }
                      
 
