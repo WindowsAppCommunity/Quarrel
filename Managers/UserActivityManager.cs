@@ -39,14 +39,15 @@ namespace Discord_UWP.Managers
                 userActivity = await channel.GetOrCreateUserActivityAsync(GuildId);
 
             //Populate required properties
-                timelinecard = timelinecard.Replace("$TITLE", GuildName);
-                timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
+            timelinecard = timelinecard.Replace("$TITLE", GuildName);
+            timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
+            if(GuildImage != null)
                 timelinecard = timelinecard.Replace("$IMAGE", GuildImage);
 
-             // userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
-            userActivity.VisualElements.DisplayText = "Hello Activities";
+             userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
+            //userActivity.VisualElements.DisplayText = "Hello Activities";
 
-            userActivity.ActivationUri = new Uri("discorduwp://channels/"+ GuildId+ "/"+ChannelId);
+            userActivity.ActivationUri = new Uri("quarrel://channels/"+ GuildId+ "/"+ChannelId);
             if(GuildImage != null)
                 userActivity.ContentUri = new Uri(GuildImage);
             userActivity.ContentInfo = UserActivityContentInfo.FromJson("{\"@context\":\"~~http~~://schema.org\",\"@type\": \"CommunicateAction\",\"subjectOf\": \""+ChannelName+"\"}");

@@ -140,7 +140,7 @@ namespace Discord_UWP.Controls
                     game.Visibility = Visibility.Visible;
                     game.Text = Status.Game.Name;
                     UpdateColor();
-                    if (Status.Game.State != null || Status.Game.Details != null || Status.Game.SessionId != null)
+                    if (Status.Game.State != null || Status.Game.Details != null || Status.Game.Assets != null)
                     {
                         game.Opacity = 1;
                         rich.Visibility = Visibility.Visible;
@@ -161,6 +161,9 @@ namespace Discord_UWP.Controls
                             break;
                         case 2:
                             playing.Text = App.GetString("/Controls/ListeningTo");
+                            break;
+                        case 3:
+                            playing.Text = App.GetString("/Controls/Watching");
                             break;
                     }
                 }
