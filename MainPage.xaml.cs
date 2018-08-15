@@ -2899,13 +2899,48 @@ namespace Discord_UWP
                      //    }
                      //} else
                      //{
+
+                     bool showheader = false;
+                     bool nextIsUnread = false;
+                     List<int> ItemsWithHeader = new List<int>();
+                     string lastmessageid = LocalState.RPC[App.CurrentChannelId].LastMessageId;
                      if (MessageList.Items.Count > 0)
                      {
-                         var last = (MessageList.Items.Last() as MessageContainer).Message;
-                         if(last != null && last.Id == LocalState.RPC[App.CurrentChannelId].LastMessageId) { 
-}
+                         Message last = null;
+                         for (var i = 0; i < MessageList.Items.Count; i++)
+                         {
+                             var container = (MessageContainer)MessageList.Items[i];
+                             if (nextIsUnread)
+                             {
+                                 container.LastRead = true;
+                                 nextIsUnread = false;
+                             }
+                             else
+                             {
+                                 container.LastRead = false;
+                                 if (container.Message.Id == lastmessageid)
+                                 {
+                                     nextIsUnread = true;
+                                     if (i == MessageList.Items.Count-1) showheader = true;
+                                 }
+                             }
+                             if (i == MessageList.Items.Count - 1) last = container.Message;
+                         }
+                         /*
+                         if(LocalState.RPC[App.CurrentChannelId].LastMessageId != App.LastReadMsgId)
+                         {
+                             foreach (var index in ItemsWithHeader)
+                             {
+                                 ((MessageContainer)MessageList.Items[index]).LastRead = false;
+                             }
+                             showheader = true;
+                         }
+                         else
+                         {
+                             
+                         }*/
                             //Only add a message if the last one is functional
-                            MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last)));
+                            MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last), showheader));
                      }
                      else
                      {
