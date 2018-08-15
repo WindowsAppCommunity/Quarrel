@@ -60,9 +60,10 @@ namespace Discord_UWP.Managers
                 default: return MessageTypes.Default;
             }
         }
-        public static MessageContainer MakeMessage(Message message, bool isContinuation = false)
+        public static MessageContainer MakeMessage(Message message, bool isContinuation = false, bool lastread = false)
         {
             MessageContainer msg = new MessageContainer(message, GetMessageType(message.Type), isContinuation, null, false);
+            if (lastread) msg.LastRead = true;
             return msg;
         }
         public static MessageContainer MakeMessage(string chnId, Discord_UWP.API.Channel.Models.MessageUpsert upsert)
