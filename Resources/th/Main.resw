@@ -232,10 +232,10 @@
     <value>แชนเนลเสียง</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>ข้อความส่วนตัว</value>
+    <value>เมื่อวาน</value>
   </data>
   <data name="DirectMessages" xml:space="preserve">
-    <value>เมื่อวาน</value>
+    <value>ข้อความส่วนตัว</value>
   </data>
   <data name="members" xml:space="preserve">
     <value>&lt;count&gt; คน</value>
