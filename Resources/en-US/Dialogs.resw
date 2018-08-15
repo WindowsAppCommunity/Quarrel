@@ -908,6 +908,6 @@
     <value>Are you sure you want to remove &lt;user&gt; from &lt;group&gt;?</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value></value>
+    <value>Remove</value>
   </data>
 </root>
