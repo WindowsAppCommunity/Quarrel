@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
-         xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-         xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-         IgnorableNamespaces="uap mp rescap desktop">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
   <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="9.2.0.0" />
   <mp:PhoneIdentity PhoneProductId="72aa4b1e-65cf-4925-894f-f4347955ffac" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -52,7 +49,7 @@
           </BackgroundTasks>
         </Extension>
         <uap:Extension Category="windows.appService">
-          <uap:AppService Name="PresenceService" ></uap:AppService>
+          <uap:AppService Name="PresenceService" />
         </uap:Extension>
       </Extensions>
       <uap:VisualElements DisplayName="Quarrel" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
@@ -69,10 +66,10 @@
     </Application>
   </Applications>
   <Capabilities>
-    <rescap:Capability Name="runFullTrust"/>
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
+    <rescap:Capability Name="runFullTrust" />
     <DeviceCapability Name="microphone" />
   </Capabilities>
   <!--<Extensions>

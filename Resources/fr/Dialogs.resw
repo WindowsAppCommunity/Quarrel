@@ -705,4 +705,197 @@
   <data name="AuditLogMemberUpdate" xml:space="preserve">
     <value>&lt;user&gt; a mis à jour &lt;user2&gt;</value>
   </data>
+  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
+    <value>Bitrate définit en &lt;bitrate&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
+    <value>Bitrate changé de &lt;old&gt; à &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateName" xml:space="preserve">
+    <value>Nom définit en tant que &lt;name&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
+    <value>Salon rendu **SFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
+    <value>Salon rendu **NSFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
+    <value>Sujet définit en tant que &lt;subject&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
+    <value>Sujet changé de &lt;old&gt; à &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogPermissionGiven" xml:space="preserve">
+    <value>A **donné** la permission &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogPermissionRevoked" xml:space="preserve">
+    <value>A **refusé** la permission &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>&lt;channel&gt; définit comme salon AFK</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
+    <value>Duré maximale d'inactivité définie en &lt;time&gt; minutes</value>
+  </data>
+  <data name="AuditLogServerUpdateIcon" xml:space="preserve">
+    <value>Icône du serveur modifiée</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
+    <value>Paramètre de notification par défaut définie en **tous les messages**</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
+    <value>Paramètre de notification par défaut définie en **mentions seulement
+**</value>
+  </data>
+  <data name="AuditLogServerUpdateRegion" xml:space="preserve">
+    <value>Région définie sur &lt;region&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
+    <value>Région changée de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé &lt;x&gt; messages de &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
+    <value>Sujet du salon supprimé</value>
+  </data>
+  <data name="AuditLogMemberUpdateNick" xml:space="preserve">
+    <value>Pseudo défini en &lt;nick&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
+    <value>Pseudo changé de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
+    <value>Pseudo &lt;old&gt; supprimé</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
+    <value>Ajout du rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
+    <value>Suppression du rôle &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
+    <value>Filtre de contenu explicite défini en tant que &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
+    <value>Filtre de contenu explicite changé de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
+    <value>membres sans roles</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
+    <value>tout le monde</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
+    <value>désactivé</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
+    <value>Authentification à deux facteurs **activée**</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
+    <value>Authentification à deux facteurs **désactivée**</value>
+  </data>
+  <data name="AuditLogServerUpdateSplash" xml:space="preserve">
+    <value>Écran de bienvenue modifié</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
+    <value>URL personnalisée définie en tant que &lt;url&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
+    <value>URL personnalisée changée de &lt;old&gt; à &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerification" xml:space="preserve">
+    <value>Niveau de vérification défini en &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
+    <value>Niveau de vérification changé de &lt;old&gt; à &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
+    <value>très important</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
+    <value>faible</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
+    <value>important</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
+    <value>moyen</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
+    <value>aucun</value>
+  </data>
+  <data name="AuditLogServerUpdateWidgetFalse" xml:space="preserve">
+    <value>Widget du serveur **activé**</value>
+  </data>
+  <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
+    <value>Widget du serveur **désactivé**</value>
+  </data>
+  <data name="AuditLogUnknownSubaction" xml:space="preserve">
+    <value>&lt;change&gt; définit en tant que &lt;value&gt;</value>
+  </data>
+  <data name="AuditLogUnknownSubactionChange" xml:space="preserve">
+    <value>&lt;change&gt; changé de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogInviteChannel" xml:space="preserve">
+    <value>Pour le salon &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogInviteCode" xml:space="preserve">
+    <value>Avec le code &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAge" xml:space="preserve">
+    <value>Expire après &lt;time&gt;</value>
+  </data>
+  <data name="AuditLogInviteMaxAgeForever" xml:space="preserve">
+    <value>N'expire **jamais**</value>
+  </data>
+  <data name="AuditLogInviteTemporaryFalse" xml:space="preserve">
+    <value>Membre temporaire **activé**</value>
+  </data>
+  <data name="AuditLogInviteTemporaryTrue" xml:space="preserve">
+    <value>Membre temporaire **désactivé**</value>
+  </data>
+  <data name="AuditLogMaxUseLimited" xml:space="preserve">
+    <value>&lt;count&gt; utilisations maximums</value>
+  </data>
+  <data name="AuditLogMaxUseUnlimited" xml:space="preserve">
+    <value>Utilisations **illimitées**</value>
+  </data>
+  <data name="AuditLogServerUpdateOwnerChange" xml:space="preserve">
+    <value>Propriétaire changé de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlRemove" xml:space="preserve">
+    <value>URL personnalisée supprimée</value>
+  </data>
+  <data name="TimeDay" xml:space="preserve">
+    <value>un jour</value>
+  </data>
+  <data name="TimeHour" xml:space="preserve">
+    <value>une heure</value>
+  </data>
+  <data name="TimeHours" xml:space="preserve">
+    <value>&lt;hourcount&gt; heures</value>
+  </data>
+  <data name="TimeMinutes" xml:space="preserve">
+    <value>&lt;minutecount&gt; minutes</value>
+  </data>
+  <data name="AuditLogMessageDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; a supprimé &lt;x&gt; messages de &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColor" xml:space="preserve">
+    <value>Couleur définie en tant que &lt;color&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorChange" xml:space="preserve">
+    <value>Couleur modifiée de &lt;old&gt; en &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogRoleUpdateColorRemove" xml:space="preserve">
+    <value>Couleur &lt;old&gt; supprimée du rôle</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
+    <value>Rôle affiché **conjointement** avec les autres dans la liste des membres</value>
+  </data>
+  <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
+    <value>Rôle affiché **séparément** des autres dans la liste des membres</value>
+  </data>
 </root>

@@ -69,34 +69,8 @@ namespace Discord_UWP
             PCAd.AdUnitId = MobileAd.AdUnitId = Ad.AdUnitId = "1100023969";
             base.OnNavigatedTo(e);
             sideDrawer.SetupInteraction();
-            ConnectToAppService();
-            App.ConnectedToAppService += App_ConnectedToAppService;
         }
 
-        private async void App_ConnectedToAppService(object sender, EventArgs e)
-        {
-            if (App.AppServiceDetails != null)
-            {
-                App.AppServiceDetails.AppServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
-            }
-            else
-            {
-                await (new MessageDialog("AppServiceDetails is null")).ShowAsync();
-            }
-        }
-
-        public async void ConnectToAppService()
-        {
-            if (App.AppServiceDetails != null)
-            {
-                App.AppServiceDetails.AppServiceConnection.RequestReceived += AppServiceConnection_RequestReceived;
-            }
-            else
-            {
-                await (new MessageDialog("AppServiceDetails is null")).ShowAsync();
-            }
-
-        }
 
         private async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
@@ -2656,6 +2630,10 @@ namespace Discord_UWP
             Common.RemoveScrollviewerClipping(MembersListView);
 
         }
+        private async void StartAppService()
+        {
+            Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+        }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             
@@ -2664,6 +2642,7 @@ namespace Discord_UWP
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             GatewayManager.Gateway.ChannelRecipientAdded += Gateway_ChannelRecipientAdded;
             GatewayManager.Gateway.ChannelRecipientRemoved += Gateway_ChannelRecipientRemoved;
+            StartAppService();
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
@@ -2942,7 +2921,14 @@ namespace Discord_UWP
                      }
                      else
                      {
-                         App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                         if (App.IsFocused)
+                         {
+                             App.MarkMessageAsRead(e.Message.Id, App.CurrentChannelId);
+                         }
+                         else
+                         {
+                             App.ReadWhenFocused(e.Message.Id, App.CurrentChannelId, App.CurrentGuildId);
+                         } 
                      }
                      
 
@@ -3613,7 +3599,6 @@ namespace Discord_UWP
                     await UserActivityManager.GenerateActivityAsync(guild.Id, guild.Name, guild.ImageURL, channel.Id, "#"+channel.Name);
                 }
             });
-            
         }
 
         private void TypingStarted(object sender, TextChangedEventArgs e)
