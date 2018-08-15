@@ -130,7 +130,7 @@
     <value>โหมดกระทัดรัด</value>
   </data>
   <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value>Custom presence colors</value>
+    <value>กำหนดสีเอง</value>
   </data>
   <data name="DarkRadio.Content" xml:space="preserve">
     <value>มืด</value>
