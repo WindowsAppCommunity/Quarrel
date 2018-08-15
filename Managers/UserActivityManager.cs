@@ -39,8 +39,9 @@ namespace Discord_UWP.Managers
                 userActivity = await channel.GetOrCreateUserActivityAsync(GuildId);
 
             //Populate required properties
-                timelinecard = timelinecard.Replace("$TITLE", GuildName);
-                timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
+            timelinecard = timelinecard.Replace("$TITLE", GuildName);
+            timelinecard = timelinecard.Replace("$SUBTITLE", ChannelName);
+            if(GuildImage != null)
                 timelinecard = timelinecard.Replace("$IMAGE", GuildImage);
 
              userActivity.VisualElements.Content = AdaptiveCardBuilder.CreateAdaptiveCardFromJson(timelinecard);
