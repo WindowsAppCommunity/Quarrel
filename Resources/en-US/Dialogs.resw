@@ -715,10 +715,10 @@
     <value>Name set to &lt;name&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
-    <value>Made channel **SFW**</value>
+    <value>Made channel SFW</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
-    <value>Made channel **NSFW**</value>
+    <value>Made channel NSFW</value>
   </data>
   <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
     <value>Topic defined as &lt;subject&gt;</value>
@@ -727,16 +727,16 @@
     <value>Changed topic from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Gave** permission &lt;permission&gt;</value>
+    <value>Gave permission &lt;permission&gt; to &lt;role&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>**Revoked** permission &lt;permission&gt;</value>
+    <value>Revoked permission &lt;permission&gt; from &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>AFK Channel set to &lt;channel&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
-    <value>Maximum AFK duration set to &lt;time&gt; **minutes**</value>
+    <value>Maximum AFK duration set to &lt;time&gt; minutes</value>
   </data>
   <data name="AuditLogServerUpdateIcon" xml:space="preserve">
     <value>Server icon modified</value>
@@ -745,7 +745,7 @@
     <value>Default notification option set to **all messages**</value>
   </data>
   <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
-    <value>Default notification settings set to **mentions only**</value>
+    <value>Default notification settings set to **mentions only** </value>
   </data>
   <data name="AuditLogServerUpdateRegion" xml:space="preserve">
     <value>Region set to &lt;region&gt;</value>
@@ -790,10 +790,10 @@
     <value>disabled</value>
   </data>
   <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
-    <value>Two-factor authentication **disabled**</value>
+    <value>Two-factor authentication **disabled** </value>
   </data>
   <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
-    <value>Two-factor authentication **enabled**</value>
+    <value>Two-factor authentication **enabled** </value>
   </data>
   <data name="AuditLogServerUpdateSplash" xml:space="preserve">
     <value>Splash screen modified</value>
@@ -829,8 +829,7 @@
     <value>Server widget **disabled**</value>
   </data>
   <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
-    <value>Server widget **enabled**
-</value>
+    <value>Server widget **enabled**</value>
   </data>
   <data name="AuditLogUnknownSubaction" xml:space="preserve">
     <value>Set &lt;change&gt; property to &lt;value&gt;</value>

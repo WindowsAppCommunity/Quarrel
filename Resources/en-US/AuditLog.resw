@@ -340,8 +340,7 @@
     <value>Server widget **disabled**</value>
   </data>
   <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
-    <value>Server widget **enabled**
-</value>
+    <value>Server widget **enabled**</value>
   </data>
   <data name="AuditLogUnknownSubaction" xml:space="preserve">
     <value>Set &lt;change&gt; property to &lt;value&gt;</value>
