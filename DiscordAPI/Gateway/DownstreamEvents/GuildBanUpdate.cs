@@ -14,5 +14,8 @@ namespace Discord_UWP.Gateway.DownstreamEvents
         public User User { get; set; }
         [JsonProperty("guild_id")]
         public string GuildId { get; set; }
+        [JsonProperty("reason")]
+        public string Reason { get; set; }
+
     }
 }

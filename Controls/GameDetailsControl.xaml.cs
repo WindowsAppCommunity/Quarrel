@@ -43,21 +43,25 @@ namespace Discord_UWP.Controls
             instance?.OnPropertyChanged(d, e.Property);
         }
 
+        bool firstbutton = true;
         private void AddDistributorButton(string title, string uri)
         {
             var button = new HyperlinkButton();
             button.Style = (Style)Application.Current.Resources["PlainHyperlinkStyle"];
             button.Foreground = (SolidColorBrush)Application.Current.Resources["Blurple"];
             button.NavigateUri = new Uri(uri);
-            button.Margin = new Thickness(0, 6, 0, 0);
+            if(firstbutton) button.Margin = new Thickness(0, 6, 0, 0);
             button.Content = title;
             button.FontSize = 12;
             LaunchButtons.Children.Add(button);
+            firstbutton = false;
         }
+
         private async void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
             if (prop == GameIdProperty)
             {
+                firstbutton = true; //Just to be safe if ever the control is recycled
                 if (LocalState.SupportedGames.ContainsKey(GameId))
                 {
                     var game = LocalState.SupportedGames[GameId];

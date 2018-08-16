@@ -37,7 +37,7 @@ namespace Discord_UWP.Controls
             nameof(DisplayedBan),
             typeof(Ban),
             typeof(BanControl),
-            new PropertyMetadata("", OnPropertyChangedStatic));
+            new PropertyMetadata(null, OnPropertyChangedStatic));
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -49,8 +49,17 @@ namespace Discord_UWP.Controls
             if (prop == DisplayedBanProperty)
             {
                 username.Text = DisplayedBan.User.Username;
-                discriminator.Text = DisplayedBan.User.Discriminator;
-                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedBan.User.Avatar));
+                discriminator.Text = "#"+DisplayedBan.User.Discriminator;
+                Avatar.ImageSource = new BitmapImage(Common.AvatarUri(DisplayedBan.User.Avatar, DisplayedBan.User.Id));
+                if (!string.IsNullOrWhiteSpace(DisplayedBan.Reason))
+                {
+                    reason.Visibility = Visibility.Visible;
+                    reason.Text = DisplayedBan.Reason;
+                }
+                else
+                {
+                    reason.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
@@ -61,7 +70,7 @@ namespace Discord_UWP.Controls
 
         private async void RevokeBan(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.RemoveBan(App.CurrentGuildId,DisplayedBan.User.Id);
+            await RESTCalls.RemoveBan(DisplayedBan.GuildId, DisplayedBan.User.Id);
         }
 
         public void Dispose()

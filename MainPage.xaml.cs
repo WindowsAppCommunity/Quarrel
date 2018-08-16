@@ -438,34 +438,42 @@ namespace Discord_UWP
 
             
             
-            //_networkCheckTimer.Tick += _networkCheckTimer_Tick;
+            _networkCheckTimer.Tick += _networkCheckTimer_Tick;
         }
 
-        //private async void _networkCheckTimer_Tick(object sender, object e)
-        //{
-        //    if (GatewayManager.Gateway.ConnectedSocket == false)
-        //    {
-        //        if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
-        //        {
-        //            await GatewayManager.Gateway.ResumeAsync();
-        //            if (GatewayManager.Gateway.ConnectedSocket)
-        //            {
-        //                _networkCheckTimer.Stop();
-        //            }
-        //            else
-        //            {
-        //                _networkCheckTimer.Start();
-        //            }
-        //        }
-        //    }
-        //}
+        private async void _networkCheckTimer_Tick(object sender, object e)
+        {
+            if (GatewayManager.Gateway.ConnectedSocket == false)
+            {
+                if (NetworkInformation.GetInternetConnectionProfile()?.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
+                {
+                    try
+                    {
+                        await GatewayManager.Gateway.ResumeAsync();
+                    }
+                    catch
+                    {
+                        App.CheckOnline();
+                    }
+                    if (GatewayManager.Gateway.ConnectedSocket)
+                    {
+                        _networkCheckTimer.Stop();
+                    }
+                    else
+                    {
+                        App.CheckOnline();
+                       // _networkCheckTimer.Start();
+                    }
+                }
+            }
+        }
 
         private async void Gateway_Resumed(object sender, Gateway.GatewayEventArgs<Gateway.DownstreamEvents.Resumed> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                 {
-                    //if(_networkCheckTimer.IsEnabled) _networkCheckTimer.Stop();
+                    if(_networkCheckTimer.IsEnabled) _networkCheckTimer.Stop();
                     await DisconnectedMask.Fade(0, 300).StartAsync();
                     DisconnectedMask.Visibility = Visibility.Collapsed;
 
@@ -483,7 +491,7 @@ namespace Discord_UWP
             }
         }
 
-        //private DispatcherTimer _networkCheckTimer = new DispatcherTimer() {Interval = TimeSpan.FromSeconds(2)};
+        private DispatcherTimer _networkCheckTimer = new DispatcherTimer() {Interval = TimeSpan.FromSeconds(2)};
         private async void Gateway_GatewayClosed(object sender, EventArgs e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -494,7 +502,7 @@ namespace Discord_UWP
                         DisconnectedMask.Opacity = 0;
                         DisconnectedMask.Visibility = Visibility.Visible;
                         DisconnectedMask.Fade(1, 300).Start();
-                        //_networkCheckTimer.Start();
+                        _networkCheckTimer.Start();
                     }
                     
                 });
@@ -2902,7 +2910,6 @@ namespace Discord_UWP
 
                      bool showheader = false;
                      bool nextIsUnread = false;
-                     List<int> ItemsWithHeader = new List<int>();
                      string lastmessageid = LocalState.RPC[App.CurrentChannelId].LastMessageId;
                      if (MessageList.Items.Count > 0)
                      {
@@ -2926,21 +2933,7 @@ namespace Discord_UWP
                              }
                              if (i == MessageList.Items.Count - 1) last = container.Message;
                          }
-                         /*
-                         if(LocalState.RPC[App.CurrentChannelId].LastMessageId != App.LastReadMsgId)
-                         {
-                             foreach (var index in ItemsWithHeader)
-                             {
-                                 ((MessageContainer)MessageList.Items[index]).LastRead = false;
-                             }
-                             showheader = true;
-                         }
-                         else
-                         {
-                             
-                         }*/
-                            //Only add a message if the last one is functional
-                            MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last), showheader));
+                         MessageList.Items.Add(MessageManager.MakeMessage(e.Message, MessageManager.ShouldContinuate(e.Message, last), showheader));
                      }
                      else
                      {

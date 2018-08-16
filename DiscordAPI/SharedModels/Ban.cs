@@ -13,5 +13,6 @@ namespace Discord_UWP.SharedModels
         public User User { get; set; }
         [JsonProperty("reason")]
         public string Reason { get; set; }
+        public string GuildId { get; set; }
     }
 }

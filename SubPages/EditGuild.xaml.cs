@@ -43,8 +43,8 @@ namespace Discord_UWP.SubPages
         public EditGuild()
         {
             this.InitializeComponent();
-            Invites.Visibility = Visibility.Collapsed;
-            Bans.Visibility = Visibility.Collapsed;
+            Invites.Visibility = Visibility.Visible;
+            Bans.Visibility = Visibility.Visible;
             App.SubpageCloseHandler += App_SubpageCloseHandler;
         }
 
@@ -56,7 +56,6 @@ namespace Discord_UWP.SubPages
 
         private async void SaveGuildSettings(object sender, RoutedEventArgs e)
         {
-
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
             saveBTNprog.Visibility = Visibility.Visible;
@@ -190,7 +189,7 @@ namespace Discord_UWP.SubPages
 
         private async void BanRemoved(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
         {
-            if (e.EventData.GuildId == App.CurrentGuildId)
+            if (e.EventData.GuildId == guildId)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
@@ -202,7 +201,6 @@ namespace Discord_UWP.SubPages
                                 BanView.Items.RemoveAt(x);
                             }
                         }
-
                         if (BanView.Items.Count == 0)
                         {
                             NoBans.Fade(0.2f, 200).Start();
@@ -213,7 +211,7 @@ namespace Discord_UWP.SubPages
 
         private async void BanAdded(object sender, GatewayEventArgs<Gateway.DownstreamEvents.GuildBanUpdate> e)
         {
-            if (e.EventData.GuildId == App.CurrentGuildId)
+            if (e.EventData.GuildId == guildId)
             {
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                        () =>
@@ -222,7 +220,7 @@ namespace Discord_UWP.SubPages
                            {
                                NoBans.Fade(0.0f, 200).Start();
                            }
-                           BanView.Items.Add(new Ban() { User = e.EventData.User });
+                           BanView.Items.Insert(0, new Ban() { User = e.EventData.User, Reason = e.EventData.Reason, GuildId = guildId });
                        });
             }
         }
@@ -355,6 +353,7 @@ namespace Discord_UWP.SubPages
                 {
                     foreach (var ban in bans)
                     {
+                        ban.GuildId = guildId;
                         BanView.Items.Add(ban);
                     }
                     LoadingBans.Fade(0, 200).Start();

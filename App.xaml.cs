@@ -882,7 +882,6 @@ namespace Discord_UWP
                     WentOffline?.Invoke(null, status);
                 }
             }
-
             runningNetworkTest = false;
         }
 
