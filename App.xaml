@@ -3848,9 +3848,11 @@
                                         </VisualState>
                                         <VisualState x:Name="Disabled">
                                             <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource HyperlinkButtonForegroundDisabled}"/>
-                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation To="0.6" Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
                                             </Storyboard>
                                         </VisualState>
                                     </VisualStateGroup>

@@ -532,6 +532,7 @@ namespace Discord_UWP.Managers
         {
             try
             {
+                if (!LocalState.RPC.ContainsKey(e.EventData.ChannelId)) return;
                 ReadState prevState = LocalState.RPC[e.EventData.ChannelId];
                 LocalState.RPC[e.EventData.ChannelId] = new ReadState() { Id = e.EventData.ChannelId, LastMessageId = e.EventData.Id, LastPinTimestamp = prevState.LastPinTimestamp, MentionCount = 0 };
             }
