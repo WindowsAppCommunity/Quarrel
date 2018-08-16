@@ -2917,18 +2917,21 @@ namespace Discord_UWP
                          for (var i = 0; i < MessageList.Items.Count; i++)
                          {
                              var container = (MessageContainer)MessageList.Items[i];
-                             if (nextIsUnread)
+                             if (!App.IsFocused)
                              {
-                                 container.LastRead = true;
-                                 nextIsUnread = false;
-                             }
-                             else
-                             {
-                                 container.LastRead = false;
-                                 if (container.Message.Id == lastmessageid)
+                                 if (nextIsUnread)
                                  {
-                                     nextIsUnread = true;
-                                     if (i == MessageList.Items.Count-1) showheader = true;
+                                     container.LastRead = true;
+                                     nextIsUnread = false;
+                                 }
+                                 else
+                                 {
+                                     container.LastRead = false;
+                                     if (container.Message.Id == lastmessageid)
+                                     {
+                                         nextIsUnread = true;
+                                         if (i == MessageList.Items.Count - 1) showheader = true;
+                                     }
                                  }
                              }
                              if (i == MessageList.Items.Count - 1) last = container.Message;
