@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Discord_UWP.Controls"
+    xmlns:models="using:Discord_UWP.SharedModels"
     mc:Ignorable="d">
     <Page.Resources>
         <Storyboard x:Name="NavAway" Completed="NavAway_Completed">
@@ -493,8 +494,8 @@
                                         </Style>
                                     </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <controls:BanControl DisplayedBan="{Binding}"/>
+                                        <DataTemplate x:DataType="models:Ban">
+                                            <controls:BanControl DisplayedBan="{x:Bind}"/>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>

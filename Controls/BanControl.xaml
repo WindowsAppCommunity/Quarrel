@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Margin="-12,6,0,6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -22,13 +22,14 @@
         </Rectangle>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold"/>
-                <TextBlock x:Name="discriminator" Text="#0002" FontSize="13" Margin="4,0,0,0" Opacity="0.25" VerticalAlignment="Bottom"/>
+                <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
+                <TextBlock x:Name="discriminator" Text="#0002" FontSize="12" Margin="2,0,0,0" Opacity="0.4" VerticalAlignment="Bottom"/>
             </StackPanel>
+            <TextBlock x:Name="reason" Text="Causing chaos" Opacity="0.6" Visibility="Collapsed" FontSize="12"/>
         </StackPanel>
-        <Button x:Name="RemoveButton" Style="{StaticResource DiscordButton}" Padding="8" Click="RevokeBan" Margin="2,0" Grid.Column="2">
+        <Button x:Name="RemoveButton" Style="{StaticResource DiscordButton}" Background="{ThemeResource dnd}" Padding="8" Click="RevokeBan" Margin="2,0" Grid.Column="2">
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Uid="/Controls/RevokeBanTB" Text=" Revoke Ban" Foreground="Red"/>
+                <TextBlock x:Uid="/Controls/RevokeBanTB" Text=" Revoke Ban" Foreground="{ThemeResource dnd}"/>
             </StackPanel>
         </Button>
     </Grid>

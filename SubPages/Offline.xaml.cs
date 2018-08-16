@@ -35,7 +35,7 @@ namespace Discord_UWP
         {
             if (e.Parameter == null)
             {
-                statusButton.Visibility = Visibility.Collapsed;
+                //statusButton.Visibility = Visibility.Collapsed;
                 OfflineReason.Text = "You aren't connected to the internet";
             }
             else

@@ -77,7 +77,7 @@ namespace Discord_UWP.Controls
 
                 Game game = GameContent;
 
-                if (game.ApplicationId == "438122941302046720")
+                if (game.ApplicationId != null && game.ApplicationId == "438122941302046720")
                     xboxlogo.Visibility = Visibility.Visible;
                 else
                     xboxlogo.Visibility = Visibility.Collapsed;
