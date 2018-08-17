@@ -127,6 +127,7 @@ namespace Discord_UWP.Gateway
         {
             ConnectedSocket = false;
             GatewayClosed?.Invoke(null,null);
+            Debug.WriteLine("Gateway closed with code " + args.Code + " and reason \"" + args.Reason + "\"");
         }
         private async void HandleMessage(object sender, MessageWebSocketMessageReceivedEventArgs e)
         {
@@ -420,12 +421,21 @@ namespace Discord_UWP.Gateway
             //await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
-        public async void SubscribeToGuild(string[] guildIDs)
+        const int maxChannelCount = 199;
+        public async void SubscribeToGuild(string[] channelIds)
         {
+            var payload = channelIds;
+            if(channelIds.Length > maxChannelCount)
+            {
+                payload = new string[maxChannelCount];
+                for (int i = 0; i < maxChannelCount; i++){
+                    payload[i] = channelIds[i];
+                }
+            }
             var identifyEvent = new SocketFrame
             {
                 Operation = OperationCode.SubscribeToGuild.ToInt(),
-                Payload = guildIDs
+                Payload = payload
             };
             await SendMessageAsync(JsonConvert.SerializeObject(identifyEvent));
             //await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
