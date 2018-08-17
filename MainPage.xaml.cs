@@ -57,7 +57,7 @@ namespace Discord_UWP
             NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
             App.WentOffline += App_WentOffline;
         }
-
+        LoadingStack loadingStack = new LoadingStack();
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //sideDrawer.SetupInteraction(cmdBar);
@@ -69,8 +69,19 @@ namespace Discord_UWP
             PCAd.AdUnitId = MobileAd.AdUnitId = Ad.AdUnitId = "1100023969";
             base.OnNavigatedTo(e);
             sideDrawer.SetupInteraction();
+            loadingStack.FinishedLoading += LoadingStack_FinishedLoading;
+            loadingStack.LoaderChanged += LoadingStack_LoaderChanged;
         }
 
+        private void LoadingStack_LoaderChanged(object sender, LoadingStack.Loader e)
+        {
+            Loading.Status = e.Status;
+        }
+
+        private void LoadingStack_FinishedLoading(object sender, EventArgs e)
+        {
+            Loading.Hide(true);
+        }
 
         private async void AppServiceConnection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
@@ -864,7 +875,7 @@ namespace Discord_UWP
 
         private void App_WentOffline(object sender, StatusPageClasses.Index e)
         {
-            Loading.Hide(false);
+            loadingStack.Clear();
             SubFrameNavigator(typeof(Offline), e);
         }
 
@@ -930,6 +941,7 @@ namespace Discord_UWP
         {
             Loading.Show(false);
             SubFrameMask.Opacity = 0;
+            loadingStack.Loading("LoggingIn", "LOGGING IN");
             try
             {
                 await RESTCalls.SetupToken();
@@ -952,9 +964,12 @@ namespace Discord_UWP
             }
             if (App.LoggedIn())
             {
+                loadingStack.Loading("GatewayConnecting", "CONNECTING");
+                loadingStack.Loaded("LoggingIn");
                 SetupEvents();
                 if (Managers.GatewayManager.Gateway != null)
                 {
+                    
                     GatewayManager.StartGateway();
                     GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                     GatewayManager.Gateway.Resumed += Gateway_Resumed;
@@ -2644,7 +2659,8 @@ namespace Discord_UWP
         }
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
-            
+            loadingStack.Loading("Finished", "CONNECTED");
+            loadingStack.Loaded("GatewayConnecting");
             GatewayManager.Gateway.GuildMemberRemoved += Gateway_GuildMemberRemoved;
             GatewayManager.Gateway.GuildMemberAdded += Gateway_GuildMemberAdded;
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
@@ -2709,7 +2725,7 @@ namespace Discord_UWP
                          Storage.SaveAppSettings();
                          App.NavigateToAbout(true);
                      }
-                     Loading.Hide(true);
+                     loadingStack.Loaded("Finished");
                      if (Storage.Settings.VideoAd)
                      {
                          InterstitialAd videoAd = new InterstitialAd();
@@ -3308,7 +3324,7 @@ namespace Discord_UWP
                         
                         await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
-                            memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c.MemberHoistRole, tempMembers);
+                            memberscvs = new GroupedObservableCollection<HoistRole, Member>(c => c?.MemberHoistRole, tempMembers);
                             MembersCvs.Source = memberscvs;
                         });
                     }
@@ -3984,6 +4000,11 @@ namespace Discord_UWP
                 GatewayManager.Gateway.UpdateStatus(null, 0, null);
             else
                 GatewayManager.Gateway.UpdateStatus(null, 0, new GameBase() { Type = 0, Name = PlayingBox.Text});
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.AuditLog), App.CurrentGuildId);
         }
     }
 }
