@@ -377,7 +377,7 @@ namespace Discord_UWP.SubPages
         }
         public class AuditLogAction
         {
-            public AuditLogAction(AuditLogActionType type, string guildId, string targetid, Dictionary<string, AuditLogUser> users, Dictionary<string, Webhook> webhooks, Change[] changes, Options options)
+            public AuditLogAction(AuditLogActionType type, string guildId, string targetid, Dictionary<string, AuditLogUser> users, Dictionary<string, Webhook> webhooks, Change[] changes, Options options, string banreason)
             {
                 switch (type)
                 {
@@ -499,7 +499,9 @@ namespace Discord_UWP.SubPages
                         Glyph = "";
                         Color = "dnd";
                         SubactionFromChanges(changes, ref SubAction, options, users, guildId);
-                            Text = App.GetString("/Dialogs/AuditLogMemberBanAdd").TryReplace("<banneduser>", "<@"+targetid+">");
+                            if (!string.IsNullOrWhiteSpace(banreason))
+                                SubAction.Add(App.GetString("/Dialogs/AuditLogBanReason").TryReplace("<reason>", "**"+banreason+"**"));
+                        Text = App.GetString("/Dialogs/AuditLogMemberBanAdd").TryReplace("<banneduser>", "<@"+targetid+">");
                         break;
                     }
                     case AuditLogActionType.MemberBanRemove:
@@ -683,7 +685,7 @@ namespace Discord_UWP.SubPages
                         {
                             SimpleAuditLogEntry se = new SimpleAuditLogEntry();
                             se.Action = (AuditLogActionType) entry.ActionType;
-                            AuditLogAction action = new AuditLogAction(se.Action, e.Parameter.ToString(), entry.TargetId, users, webhooks, entry.Changes, entry.Options);
+                            AuditLogAction action = new AuditLogAction(se.Action, e.Parameter.ToString(), entry.TargetId, users, webhooks, entry.Changes, entry.Options, entry.Reason);
                             string avatar = "";
                             if (entry.UserId != null)
                             {

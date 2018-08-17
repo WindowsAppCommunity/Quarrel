@@ -451,12 +451,7 @@
                         </PivotItem>
                         <PivotItem x:Uid="/Dialogs/InvitesPI" x:Name="Invites" Header="Invites">
                             <Grid>
-                                <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
+                                <ListView x:Name="InviteView" ItemContainerStyle="{StaticResource MessageItemStyle}" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <controls:InviteControl DisplayedInvite="{Binding}" DeleteInvite="InviteControl_OnDeleteInvite"/>
@@ -487,12 +482,7 @@
                         </PivotItem>-->
                         <PivotItem x:Uid="/Dialogs/BansPI" x:Name="Bans" Header="Bans">
                             <Grid>
-                                <ListView x:Name="BanView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
+                                <ListView x:Name="BanView" HorizontalContentAlignment="Stretch" SelectionMode="None" ItemContainerStyle="{StaticResource MessageItemStyle}"  IsItemClickEnabled="False">
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="models:Ban">
                                             <controls:BanControl DisplayedBan="{x:Bind}"/>
