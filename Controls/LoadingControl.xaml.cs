@@ -31,8 +31,13 @@ namespace Discord_UWP.Controls
         { get => MessageBlock.Text; set => MessageBlock.Text = value; }
 
         public string Status
-        { get => StatusBlock.Text; set => StatusBlock.Text = value; }
-
+        { get => StatusBlock.Text; set =>UpdateStatus(value); }
+        private async void UpdateStatus(string val)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+                StatusBlock.Text = val;
+            });
+       }
         public LoadingControl()
         {
             this.InitializeComponent();
