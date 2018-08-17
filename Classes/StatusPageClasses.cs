@@ -161,16 +161,16 @@ namespace Discord_UWP.Classes
             public string Status { get; set; }
 
             [JsonProperty("created_at")]
-            public DateTimeOffset CreatedAt { get; set; }
+            public DateTimeOffset? CreatedAt { get; set; }
 
             [JsonProperty("updated_at")]
-            public DateTimeOffset UpdatedAt { get; set; }
+            public DateTimeOffset? UpdatedAt { get; set; }
 
             [JsonProperty("monitoring_at")]
             public DateTimeOffset? MonitoringAt { get; set; }
 
             [JsonProperty("resolved_at")]
-            public DateTimeOffset ResolvedAt { get; set; }
+            public DateTimeOffset? ResolvedAt { get; set; }
 
             [JsonProperty("impact")]
             public string Impact { get; set; }
