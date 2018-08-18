@@ -318,13 +318,15 @@ namespace Discord_UWP.SubPages
 
             }
 
-            var relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
-            int relationshipcount = relationships.Count();
+            if (profile?.user?.Id != null)
+            {
+                IEnumerable<SharedFriend> relationships = await RESTCalls.GetUserRelationShips(profile.user.Id); //TODO: Rig to App.Events (maybe, probably not actually)
+                int relationshipcount = relationships.Count();
 
-            if (relationshipcount == 0) return;
+                if (relationshipcount == 0) return;
 
-            commonFriendPanel.Visibility = Visibility.Visible;
-            commonfriendHeader.Fade(1, 300, 0).Start();
+                commonFriendPanel.Visibility = Visibility.Visible;
+                commonfriendHeader.Fade(1, 300, 0).Start();
                 for (int i = 0; i < relationshipcount; i++)
                 {
                     var relationship = relationships.ElementAt(i);
@@ -334,6 +336,8 @@ namespace Discord_UWP.SubPages
 
                     MutualFriends.Items.Add(relationship);
                 }
+            }
+
 
         }
         private async void UpdateBorderColor()

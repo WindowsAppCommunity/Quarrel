@@ -140,6 +140,9 @@
     <Compile Include="Controls\ListenOnSpotify.xaml.cs">
       <DependentUpon>ListenOnSpotify.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MiniWarning.xaml.cs">
+      <DependentUpon>MiniWarning.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VideoEmbedControl.xaml.cs">
       <DependentUpon>VideoEmbedControl.xaml</DependentUpon>
     </Compile>
@@ -693,6 +696,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ListenOnSpotify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MiniWarning.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

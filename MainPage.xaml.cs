@@ -1075,6 +1075,8 @@ namespace Discord_UWP
 
         private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
+            SubscribeToIndividualChannels = false;
+            ServerWarnings.Children.Clear();
             SaveDraft();
             if(memberscvs != null)
                 memberscvs.Clean();
@@ -1140,7 +1142,7 @@ namespace Discord_UWP
                          {
                              channels[x] = LocalState.DMs.Values.ToList()[x].Id;
                          }
-                         GatewayManager.Gateway.SubscribeToGuild(channels);
+                         SubscribeToGuild(channels);
                      }
                      else
                      {
@@ -1150,11 +1152,24 @@ namespace Discord_UWP
                          {
                              channels[x] = LocalState.Guilds[App.CurrentGuildId].channels.Values.ToList()[x].raw.Id;
                          }
-
-                         GatewayManager.Gateway.SubscribeToGuild(channels);
+                         SubscribeToGuild(channels);
                      }
                  });
             App.UpdateUnreadIndicators();
+        }
+        bool SubscribeToIndividualChannels = false;
+        private async void SubscribeToGuild(string[] channels)
+        {
+            if(!await GatewayManager.Gateway.SubscribeToGuild(channels))
+            {
+                //Too many channels, they need to be subscribed to individually
+                SubscribeToIndividualChannels = true;
+                ServerWarnings.Children.Add(new Controls.MiniWarning("Typing indicators", "This server has too many channels to show typing indicators in the channel list. You will however still see who is typing in the channel you are in."));
+            }
+            else
+            {
+                SubscribeToIndividualChannels = false;
+            }
         }
         private void App_NavigateToGuildChannelHandler(object sender, App.GuildChannelNavigationArgs e)
         {
@@ -1236,6 +1251,7 @@ namespace Discord_UWP
                 }
                 _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
             }
+            if (SubscribeToIndividualChannels) SubscribeToGuild(new string[] { App.CurrentChannelId });
             UpdateTyping();
             LoadDraft();
         }
