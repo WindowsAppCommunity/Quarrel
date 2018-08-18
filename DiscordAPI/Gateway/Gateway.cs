@@ -421,24 +421,24 @@ namespace Discord_UWP.Gateway
             //await _webMessageSocket.SendJsonObjectAsync(request);
         }
 
-        const int maxChannelCount = 199;
-        public async void SubscribeToGuild(string[] channelIds)
+        /// <summary>
+        /// Subscribe to various channel-specific events (most notably "Typing")
+        /// </summary>
+        /// <param name="channelIds"></param>
+        /// <returns>True if the payload was valid, false if it wasn't</returns>
+        public async Task<bool> SubscribeToGuild(string[] channelIds)
         {
-            var payload = channelIds;
-            if(channelIds.Length > maxChannelCount)
+            if(channelIds.Length > 193) //This is really, really random, but it's apparently the maximum array size for the op12 event.
             {
-                payload = new string[maxChannelCount];
-                for (int i = 0; i < maxChannelCount; i++){
-                    payload[i] = channelIds[i];
-                }
+                return false;
             }
             var identifyEvent = new SocketFrame
             {
                 Operation = OperationCode.SubscribeToGuild.ToInt(),
-                Payload = payload
+                Payload = channelIds
             };
             await SendMessageAsync(JsonConvert.SerializeObject(identifyEvent));
-            //await _webMessageSocket.SendJsonObjectAsync(identifyEvent);
+            return true;
         }
 
         private bool TryResume = false;
