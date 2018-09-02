@@ -649,13 +649,13 @@
     <value>&lt;user&gt; expulsó a &lt;kickeduser&gt;</value>
   </data>
   <data name="AuditLogMemberPrune" xml:space="preserve">
-    <value>&lt;user&gt; recortó el servidor</value>
+    <value>&lt;user&gt; purgó el servidor</value>
   </data>
   <data name="AuditLogMemberRoleUpdate" xml:space="preserve">
     <value>&lt;user&gt; actualizó el rol de &lt;user2&gt;</value>
   </data>
   <data name="AuditLogDeletedChannel" xml:space="preserve">
-    <value>borró el canal</value>
+    <value>canal borrado</value>
   </data>
   <data name="AuditLogMessageDelete" xml:space="preserve">
     <value>&lt;user&gt; borró un mensaje de &lt;user2&gt; en &lt;channel&gt;</value>
@@ -680,5 +680,149 @@
   </data>
   <data name="AuditLogWebhookDelete" xml:space="preserve">
     <value>&lt;user&gt; borró el webhook &lt;webhook&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; creó permisos para un canal ahora borrado</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
+    <value>&lt;user&gt; creó permisos para el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
+    <value>&lt;user&gt; eliminó permisos para un canal ahora borrado.</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
+    <value>&lt;user&gt; eliminó permisos para el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; actualizó permisos para un canal ahora borrado</value>
+  </data>
+  <data name="AuditLogChannelPermissionUpdateValid" xml:space="preserve">
+    <value>&lt;user&gt; actualizó permisos para el canal &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdate" xml:space="preserve">
+    <value>&lt;user&gt; actualizó &lt;user2&gt;</value>
+  </data>
+  <data name="AuditLogInviteDelete" xml:space="preserve">
+    <value>&lt;user&gt; borró la invitación &lt;code&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
+    <value>Bitrate definido como &lt;bitrate&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
+    <value>Cambió el bitrate de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateName" xml:space="preserve">
+    <value>Nombre establecido como &lt;name&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
+    <value>Hizo el canal **SFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
+    <value>Hizo el canal **NSFW**</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
+    <value>Tópico del canal definido como &lt;subject&gt;</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
+    <value>Cambió el tópico de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogPermissionGiven" xml:space="preserve">
+    <value>**Otorgó** el permiso &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogPermissionRevoked" xml:space="preserve">
+    <value>**Revocó** el permiso &lt;permission&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
+    <value>Canal AFK establecido en &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
+    <value>Máxima duración de AFK establecida como &lt;time&gt; **minutos**</value>
+  </data>
+  <data name="AuditLogServerUpdateIcon" xml:space="preserve">
+    <value>Ícono del servidor modificado</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
+    <value>Opción por defecto para notificaciones establecida como **todos los mensajes**</value>
+  </data>
+  <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
+    <value>Ajustes por defecto para las notificaciones establecidos como **solo menciones**</value>
+  </data>
+  <data name="AuditLogServerUpdateRegion" xml:space="preserve">
+    <value>Región establecida como &lt;region&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
+    <value>Region cambiada de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogChannelDeletePlural" xml:space="preserve">
+    <value>&lt;user&gt; borró &lt;x&gt; mensajes de &lt;user2&gt; en &lt;channel&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
+    <value>Filtrado de contenido explícito establecido como &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
+    <value>Filtrado de contenido explícito cambiado de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
+    <value>miembros sin roles</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
+    <value>todos</value>
+  </data>
+  <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
+    <value>deshabilitado</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
+    <value>Autenticación de dos factores **desahabilitada**</value>
+  </data>
+  <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
+    <value>Autenticación de dos factores **habilitada**</value>
+  </data>
+  <data name="AuditLogServerUpdateSplash" xml:space="preserve">
+    <value>Splash screen modificada</value>
+  </data>
+  <data name="AuditLogServerUpdateVerification" xml:space="preserve">
+    <value>Nivel de verificación establecido como &lt;level&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
+    <value>Nivel de verificación cambiado de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
+    <value>muy alto</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
+    <value>bajo</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
+    <value>alto</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
+    <value>medio</value>
+  </data>
+  <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
+    <value>sin restricción</value>
+  </data>
+  <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
+    <value>Borrado tópico del canal</value>
+  </data>
+  <data name="AuditLogMemberUpdateNick" xml:space="preserve">
+    <value>Mote establecido como &lt;nick&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
+    <value>Cambió el mote de &lt;old&gt; a &lt;new&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
+    <value>Eliminó el mote &lt;old&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
+    <value>Añadió el rol &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
+    <value>Eliminó el rol &lt;role&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
+    <value>Vanity URL establecida como &lt;url&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
+    <value>Vanity URL cambiada de &lt;old&gt; a &lt;new&gt;</value>
   </data>
 </root>

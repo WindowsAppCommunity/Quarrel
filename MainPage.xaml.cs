@@ -644,7 +644,7 @@ namespace Discord_UWP
                     if (member == null)
                     {
                         if (App.CurrentGuildId == null) return;
-                        if (e.Presence.Status == "offline") return;
+                        if (e.Presence.Status == "offline" || e.Presence.Status == "invisible") return;
                         if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId)) return;
 
                         member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
@@ -656,9 +656,12 @@ namespace Discord_UWP
                         member.status = e.Presence;
                         memberscvs.Add(member);
                     }
-                    else
+                    else if (e.Presence.Status != "offline" && e.Presence.Status != "invisible")
                     {
                         member.status = e.Presence;
+                    } else
+                    {
+                        memberscvs.Remove(member);
                     }
                 }
             });
@@ -2669,10 +2672,12 @@ namespace Discord_UWP
             Common.RemoveScrollviewerClipping(MembersListView);
 
         }
+
         private async void StartAppService()
         {
-            Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+            await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
         }
+
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             loadingStack.Loading("Finished", "CONNECTED");
@@ -2682,7 +2687,12 @@ namespace Discord_UWP
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             GatewayManager.Gateway.ChannelRecipientAdded += Gateway_ChannelRecipientAdded;
             GatewayManager.Gateway.ChannelRecipientRemoved += Gateway_ChannelRecipientRemoved;
-            StartAppService();
+
+            if (App.Insider && App.IsDesktop)
+            {
+                StartAppService();
+            }
+
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {

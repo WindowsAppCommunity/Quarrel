@@ -125,7 +125,7 @@
                                         <TextBlock x:Uid="/Controls/PlayingTB" Visibility="{Binding Visibility, ElementName=richPresence}" Text="PLAYING" FontWeight="SemiBold" Margin="0,12,0,6"/>
                                         <Border Margin="-48,0" Padding="48,12">
                                             <Border.Background>
-                                                <SolidColorBrush Color="{Binding BorderBrush.Color, ElementName=border}" Opacity="0.5"/>
+                                                <SolidColorBrush Opacity="0.5"/>
                                             </Border.Background>
                                             <c:RichPresenceControl x:Name="richPresence" IsLarge="True"/>
                                         </Border>
@@ -188,7 +188,7 @@
                                 <Grid>
                                     <Grid x:Name="FullAvatar" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Rectangle x:Name="AvatarBG" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                                        <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Rectangle x:Name="Avatar" Width="128" Height="128" RadiusX="64" RadiusY="64" Margin="40,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" RightTapped="Avatar_RightTapped">
                                             <Rectangle.Fill>
                                                 <ImageBrush x:Name="AvatarFull" Stretch="Uniform" ImageSource="ms-appx:///Assets/DiscordResources/default_avatar_2.jpg" ImageOpened="AvatarFull_OnImageOpened"/>
                                             </Rectangle.Fill>
@@ -209,7 +209,7 @@
                                         </Border>
                                     </StackPanel>
                                     <tk:WrapPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="188,58,24,0" HorizontalAlignment="Left">
-                                        <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed" >
+                                        <HyperlinkButton x:Name="sendFriendRequest" Margin="0,0,24,0" Foreground="#43b581" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE8FA;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/SendFriendReqBTN" Text="Send friend request" Margin="28,0,0,0"/>

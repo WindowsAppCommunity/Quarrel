@@ -727,10 +727,10 @@
     <value>Changed topic from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>Gave permission &lt;permission&gt; to &lt;role&gt;</value>
+    <value>**Gave** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>Revoked permission &lt;permission&gt; from &lt;role&gt;</value>
+    <value>**Revoked** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>AFK Channel set to &lt;channel&gt;</value>

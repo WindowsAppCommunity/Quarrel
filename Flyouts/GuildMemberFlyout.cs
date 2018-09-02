@@ -18,7 +18,6 @@ namespace Discord_UWP.Flyouts
     {
         public static MenuFlyout MakeGuildMemberMenu(GuildMember member)
         {
-
             MenuFlyout menu = new MenuFlyout();
             menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
             MenuFlyoutItem profile = new MenuFlyoutItem()

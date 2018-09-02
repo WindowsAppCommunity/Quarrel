@@ -130,7 +130,7 @@
     <value>ZABLOKOWANI</value>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
-    <value>BOTY</value>
+    <value>BOT</value>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
     <value>Skopiuj ID</value>
