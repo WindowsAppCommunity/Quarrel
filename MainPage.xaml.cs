@@ -644,7 +644,7 @@ namespace Discord_UWP
                     if (member == null)
                     {
                         if (App.CurrentGuildId == null) return;
-                        if (e.Presence.Status == "offline") return;
+                        if (e.Presence.Status == "offline" || e.Presence.Status == "invisible") return;
                         if (!LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.UserId)) return;
 
                         member = new Member(LocalState.Guilds[App.CurrentGuildId].members[e.UserId]);
@@ -656,9 +656,12 @@ namespace Discord_UWP
                         member.status = e.Presence;
                         memberscvs.Add(member);
                     }
-                    else
+                    else if (e.Presence.Status != "offline" && e.Presence.Status != "invisible")
                     {
                         member.status = e.Presence;
+                    } else
+                    {
+                        memberscvs.Remove(member);
                     }
                 }
             });
