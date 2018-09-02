@@ -898,4 +898,16 @@
   <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
     <value>Rôle affiché **séparément** des autres dans la liste des membres</value>
   </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Partir</value>
+  </data>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Êtes vous sûr de vouloir quitter le groupe &lt;group&gt;?</value>
+  </data>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Êtes vous sûr de vouloir enlever &lt;user&gt; de &lt;group&gt;?</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Enlever</value>
+  </data>
 </root>
