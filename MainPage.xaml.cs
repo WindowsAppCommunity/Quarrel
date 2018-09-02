@@ -2669,10 +2669,12 @@ namespace Discord_UWP
             Common.RemoveScrollviewerClipping(MembersListView);
 
         }
+
         private async void StartAppService()
         {
-            Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+            await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
         }
+
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
         {
             loadingStack.Loading("Finished", "CONNECTED");
@@ -2682,7 +2684,12 @@ namespace Discord_UWP
             GatewayManager.Gateway.GuildMemberUpdated += Gateway_GuildMemberUpdated;
             GatewayManager.Gateway.ChannelRecipientAdded += Gateway_ChannelRecipientAdded;
             GatewayManager.Gateway.ChannelRecipientRemoved += Gateway_ChannelRecipientRemoved;
-            StartAppService();
+
+            if (App.Insider && App.IsDesktop)
+            {
+                StartAppService();
+            }
+
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
