@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Foundation.Metadata;
 using Windows.Foundation;
+using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.ExtendedExecution;
 using System.Threading;
 
