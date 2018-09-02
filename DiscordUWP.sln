@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordAPI", "DiscordAPI\Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamedPipeServer", "NamedPipeServer\NamedPipeServer.csproj", "{1D0FE2AB-1288-40EB-9408-9AA73F30D264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuarrelPresenceAPI", "..\QuarrelPresenceAPI\QuarrelPresenceAPI.csproj", "{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,12 +200,28 @@ Global
 		{1D0FE2AB-1288-40EB-9408-9AA73F30D264}.Release|x64.Build.0 = Release|Any CPU
 		{1D0FE2AB-1288-40EB-9408-9AA73F30D264}.Release|x86.ActiveCfg = Release|Any CPU
 		{1D0FE2AB-1288-40EB-9408-9AA73F30D264}.Release|x86.Build.0 = Release|Any CPU
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|ARM.ActiveCfg = Debug|ARM
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|ARM.Build.0 = Debug|ARM
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|x64.ActiveCfg = Debug|x64
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|x64.Build.0 = Debug|x64
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|x86.ActiveCfg = Debug|x86
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Debug|x86.Build.0 = Debug|x86
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|ARM.ActiveCfg = Release|ARM
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|ARM.Build.0 = Release|ARM
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x64.ActiveCfg = Release|x64
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x64.Build.0 = Release|x64
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x86.ActiveCfg = Release|x86
+		{FD3CEAFE-AD69-43E3-9D26-80F2E2ABD2B8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
 		SolutionGuid = {793268B2-B709-4010-BEE5-D4C758C84E61}
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"<%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%>","Extensions":".aspx,.ascx","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"x:Uid=\"$Key\"","Extensions":".xaml","IsCaseSensitive":false,"SingleLineComment":null}]}
 	EndGlobalSection
 EndGlobal

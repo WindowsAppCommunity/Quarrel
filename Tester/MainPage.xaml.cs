@@ -41,5 +41,10 @@ namespace Tester
         {
             this.Frame.Navigate(typeof(Mentions));
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(QuarrelPresence));
+        }
     }
 }

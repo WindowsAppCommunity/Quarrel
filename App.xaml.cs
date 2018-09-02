@@ -155,6 +155,10 @@ namespace Discord_UWP
         {
             MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = await FlyoutManager.ShowMenu(user), Point = point });
         }
+        public static void ShowMenuFlyout(object sender, ImageBrush Image, Point point)
+        {
+            MenuHandler?.Invoke(sender, new MenuArgs() { Flyout = FlyoutManager.ShowMenu(Image), Point = point });
+        }
         public static event EventHandler<ProfileNavigationArgs> ShowMemberFlyoutHandler;
         public static void ShowMemberFlyout(object sender, SharedModels.User user, bool webhook)
         {
@@ -947,7 +951,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal const bool Insider = true;
+        internal const bool Insider = false;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;

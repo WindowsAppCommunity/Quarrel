@@ -211,201 +211,204 @@
     <value>&lt;user&gt;updated the permissions for the channel &lt;channel&gt;</value>
   </data>
   <data name="AuditLogMemberUpdate" xml:space="preserve">
-    <value></value>
+    <value>&lt;user&gt; updated &lt;user2&gt;</value>
   </data>
   <data name="AuditLogInviteDelete" xml:space="preserve">
-    <value></value>
+    <value>&lt;user&gt; deleted the invite &lt;code&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrate" xml:space="preserve">
-    <value></value>
+    <value>Bitrate defined as &lt;bitrate&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value></value>
+    <value>Changed bitrate from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateName" xml:space="preserve">
-    <value></value>
+    <value>Name set to &lt;name&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
-    <value></value>
+    <value>Made channel **SFW**</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
-    <value></value>
+    <value>Made channel **NSFW**</value>
   </data>
   <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
-    <value></value>
+    <value>Topic defined as &lt;subject&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
-    <value></value>
+    <value>Changed topic from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value></value>
+    <value>**Gave** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value></value>
+    <value>**Revoked** permission &lt;permission&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
-    <value></value>
+    <value>AFK Channel set to &lt;channel&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
-    <value></value>
+    <value>Maximum AFK duration set to &lt;time&gt; **minutes**</value>
   </data>
   <data name="AuditLogServerUpdateIcon" xml:space="preserve">
-    <value></value>
+    <value>Server icon modified</value>
   </data>
   <data name="AuditLogServerUpdateNotificationZero" xml:space="preserve">
-    <value></value>
+    <value>Default notification option set to **all messages**</value>
   </data>
   <data name="AuditLogServerUpdateNotificationOne" xml:space="preserve">
-    <value></value>
+    <value>Default notification settings set to **mentions only**</value>
   </data>
   <data name="AuditLogServerUpdateRegion" xml:space="preserve">
-    <value></value>
+    <value>Region set to &lt;region&gt;</value>
   </data>
   <data name="AuditLogServerUpdateRegionChange" xml:space="preserve">
-    <value></value>
+    <value>Changed region from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogChannelDeletePlural" xml:space="preserve">
-    <value></value>
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateTopicRemove" xml:space="preserve">
-    <value></value>
+    <value>Channel topic removed</value>
   </data>
   <data name="AuditLogMemberUpdateNick" xml:space="preserve">
-    <value></value>
+    <value>Set nickname to &lt;nick&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateNickChange" xml:space="preserve">
-    <value></value>
+    <value>Changed nickname from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateNickRemove" xml:space="preserve">
-    <value></value>
+    <value>Removed nickname &lt;old&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleAdd" xml:space="preserve">
-    <value></value>
+    <value>Added role &lt;role&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
-    <value></value>
+    <value>Removed role &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilter" xml:space="preserve">
-    <value></value>
+    <value>Explicit content filter set to &lt;level&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterChange" xml:space="preserve">
-    <value></value>
+    <value>Explicit content filter changed from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterOne" xml:space="preserve">
-    <value></value>
+    <value>members without roles</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterTwo" xml:space="preserve">
-    <value></value>
+    <value>everyone</value>
   </data>
   <data name="AuditLogServerUpdateExplicitFilterZero" xml:space="preserve">
-    <value></value>
+    <value>disabled</value>
   </data>
   <data name="AuditLogServerUpdateMfaDisabled" xml:space="preserve">
-    <value></value>
+    <value>Two-factor authentication **disabled**</value>
   </data>
   <data name="AuditLogServerUpdateMfaEnabled" xml:space="preserve">
-    <value></value>
+    <value>Two-factor authentication **enabled**</value>
   </data>
   <data name="AuditLogServerUpdateSplash" xml:space="preserve">
-    <value></value>
+    <value>Splash screen modified</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
-    <value></value>
+    <value>Vanity URL set to &lt;url&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
-    <value></value>
+    <value>Vanity URL changed from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVerification" xml:space="preserve">
-    <value></value>
+    <value>Verification level set to &lt;level&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVerificationChange" xml:space="preserve">
-    <value></value>
+    <value>Verification level changed from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVerificationFour" xml:space="preserve">
-    <value></value>
+    <value>very high</value>
   </data>
   <data name="AuditLogServerUpdateVerificationOne" xml:space="preserve">
-    <value></value>
+    <value>low</value>
   </data>
   <data name="AuditLogServerUpdateVerificationThree" xml:space="preserve">
-    <value></value>
+    <value>high</value>
   </data>
   <data name="AuditLogServerUpdateVerificationTwo" xml:space="preserve">
-    <value></value>
+    <value>medium</value>
   </data>
   <data name="AuditLogServerUpdateVerificationZero" xml:space="preserve">
-    <value></value>
+    <value>unrestricted</value>
   </data>
   <data name="AuditLogServerUpdateWidgetFalse" xml:space="preserve">
-    <value></value>
+    <value>Server widget **disabled**</value>
   </data>
   <data name="AuditLogServerUpdateWidgetTrue" xml:space="preserve">
-    <value></value>
+    <value>Server widget **enabled**</value>
   </data>
   <data name="AuditLogUnknownSubaction" xml:space="preserve">
-    <value></value>
+    <value>Set &lt;change&gt; property to &lt;value&gt;</value>
   </data>
   <data name="AuditLogUnknownSubactionChange" xml:space="preserve">
-    <value></value>
+    <value>Changed &lt;change&gt; from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogInviteChannel" xml:space="preserve">
-    <value></value>
+    <value>For the channel &lt;channel&gt;</value>
   </data>
   <data name="AuditLogInviteCode" xml:space="preserve">
-    <value></value>
+    <value>With the code &lt;code&gt;</value>
   </data>
   <data name="AuditLogInviteMaxAge" xml:space="preserve">
-    <value></value>
+    <value>Expires after &lt;time&gt;</value>
   </data>
   <data name="AuditLogInviteMaxAgeForever" xml:space="preserve">
-    <value></value>
+    <value>**Never** expires</value>
   </data>
   <data name="AuditLogInviteTemporaryFalse" xml:space="preserve">
-    <value></value>
+    <value>Temporary membership **disabled**</value>
   </data>
   <data name="AuditLogInviteTemporaryTrue" xml:space="preserve">
-    <value></value>
+    <value>Temporary membership **enabled**</value>
   </data>
   <data name="AuditLogMaxUseLimited" xml:space="preserve">
-    <value></value>
+    <value>Maximum &lt;count&gt; uses </value>
   </data>
   <data name="AuditLogMaxUseUnlimited" xml:space="preserve">
-    <value></value>
+    <value>**Unlimited** uses</value>
   </data>
   <data name="AuditLogServerUpdateOwnerChange" xml:space="preserve">
-    <value></value>
+    <value>Owner changed from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrlRemove" xml:space="preserve">
-    <value></value>
+    <value>Removed vanity URL &lt;old&gt;</value>
   </data>
   <data name="AuditLogMessageDeletePlural" xml:space="preserve">
-    <value></value>
+    <value>&lt;user&gt; deleted &lt;x&gt; messages by &lt;user2&gt; in &lt;channel&gt;</value>
   </data>
   <data name="AuditLogRoleUpdateColor" xml:space="preserve">
-    <value></value>
+    <value>Set colour to &lt;color&gt;</value>
   </data>
   <data name="AuditLogRoleUpdateColorChange" xml:space="preserve">
-    <value></value>
+    <value>Changed colour from &lt;old&gt; to &lt;new&gt;</value>
   </data>
   <data name="AuditLogRoleUpdateColorRemove" xml:space="preserve">
-    <value></value>
+    <value>Removed role colour &lt;old&gt;</value>
   </data>
   <data name="AuditLogRoleUpdateHoistFalse" xml:space="preserve">
-    <value></value>
+    <value>Role not shown separately in the member list</value>
   </data>
   <data name="AuditLogRoleUpdateHoistTrue" xml:space="preserve">
-    <value></value>
+    <value>Role shown separately in the member list</value>
   </data>
   <data name="Leave" xml:space="preserve">
-    <value></value>
+    <value>Leave</value>
   </data>
   <data name="LeaveGroup" xml:space="preserve">
-    <value></value>
+    <value>Are you sure you want to leave &lt;group&gt;?</value>
   </data>
   <data name="RemoveFromGroup" xml:space="preserve">
-    <value></value>
+    <value>Are you sure you want to remove &lt;user&gt; from &lt;group&gt;?</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value></value>
+    <value>Remove</value>
+  </data>
+  <data name="AuditLogBanReason" xml:space="preserve">
+    <value>With reason: &lt;reason&gt;</value>
   </data>
 </root>

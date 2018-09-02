@@ -216,4 +216,7 @@
   <data name="UnpinSucess" xml:space="preserve">
     <value>ถอนหมุดเรียบร้อยแล้ว!</value>
   </data>
+  <data name="SavePicture" xml:space="preserve">
+    <value>บันทึกภาพ</value>
+  </data>
 </root>

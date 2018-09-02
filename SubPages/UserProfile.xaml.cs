@@ -452,7 +452,6 @@ namespace Discord_UWP.SubPages
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-
                 RemoveFriendLink.Visibility = Visibility.Collapsed;
                 Block.Visibility = Visibility.Collapsed;
                 SendMessageLink.Visibility = Visibility.Visible;
@@ -464,11 +463,17 @@ namespace Discord_UWP.SubPages
                     case 0:
                         //No relationship
                         Block.Visibility = Visibility.Visible;
-                        sendFriendRequest.Visibility = Visibility.Visible;
+                        if (!profile.user.Bot)
+                        {
+                            sendFriendRequest.Visibility = Visibility.Visible;
+                        }
                         break;
                     case 1:
                         //Friend
-                        RemoveFriendLink.Visibility = Visibility.Visible;
+                        if (!profile.user.Bot)
+                        {
+                            RemoveFriendLink.Visibility = Visibility.Visible;
+                        }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
                         break;
@@ -479,13 +484,19 @@ namespace Discord_UWP.SubPages
                         break;
                     case 3:
                         //Pending incoming friend request
-                        acceptFriend.Visibility = Visibility.Visible;
+                        if (!profile.user.Bot)
+                        {
+                            acceptFriend.Visibility = Visibility.Visible;
+                        }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
                         break;
                     case 4:
                         //Pending outgoing friend request
-                        pendingFriend.Visibility = Visibility.Visible;
+                        if (!profile.user.Bot)
+                        {
+                            pendingFriend.Visibility = Visibility.Visible;
+                        }
                         SendMessageLink.Visibility = Visibility.Visible;
                         Block.Visibility = Visibility.Visible;
                         break;
@@ -708,6 +719,11 @@ namespace Discord_UWP.SubPages
         private async void ViewStats_Click(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.carbonitex.net/discord/server?s=" + App.CurrentGuildId));
+        }
+
+        private void Avatar_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            //App.ShowMenuFlyout(this, AvatarFull, e.GetPosition(this));
         }
     }
 
