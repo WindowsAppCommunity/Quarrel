@@ -113,6 +113,9 @@
       <DependentUpon>Mentions.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuarrelPresence.xaml.cs">
+      <DependentUpon>QuarrelPresence.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoundTrip.xaml.cs">
       <DependentUpon>RoundTrip.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="QuarrelPresence.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RoundTrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +180,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\QuarrelPresenceAPI\QuarrelPresenceAPI.csproj">
+      <Project>{fd3ceafe-ad69-43e3-9d26-80f2e2abd2b8}</Project>
+      <Name>QuarrelPresenceAPI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiscordAPI\DiscordAPI.csproj">
       <Project>{03c1fc3a-410f-46d9-802b-316c7280e180}</Project>
       <Name>DiscordAPI</Name>
