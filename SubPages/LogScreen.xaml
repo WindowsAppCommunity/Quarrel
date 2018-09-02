@@ -36,12 +36,13 @@
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" TabIndex="0" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
                 </StackPanel>
-                <StackPanel x:Name="NormalAuth" Visibility="Visible">
+                <StackPanel x:Name="NormalAuth" Visibility="Collapsed">
                     <TextBox x:Uid="/About/EmailTBox" Padding="12" TabIndex="0" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" KeyDown="Username_KeyDown"/>
                     <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12" TabIndex="1" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
                     <PasswordBox x:Uid="/About/MFAPasswordTBox" TabIndex="0" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
+                    <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource Blurple}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
                 </StackPanel>
             </Grid>
             <Button x:Name="loginButton" HorizontalAlignment="Stretch" TabIndex="2" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">

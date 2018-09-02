@@ -85,6 +85,10 @@ namespace Discord_UWP
                     ProgressRing.Visibility = Visibility.Collapsed;
                     ProgressRing.IsActive = false;
                     LoginText.Visibility = Visibility.Visible;
+                    if (result.SmsSupported)
+                        MFAsms.Visibility = Visibility.Visible;
+                    else
+                        MFAsms.Visibility = Visibility.Collapsed;
                 }
                 else if (result.Token != null)
                 {
@@ -214,6 +218,25 @@ namespace Discord_UWP
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
                 LogIn(null, null);
+        }
+
+        private async void MFAsms_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as HyperlinkButton).IsEnabled = false;
+            (sender as HyperlinkButton).Content = "Sending sms...";
+            var result = await RESTCalls.SendLoginSms(mfaTicket);
+            (sender as HyperlinkButton).Content = "Re-send SMS?";
+            (sender as HyperlinkButton).IsEnabled = true;
+            if (result.PhoneNumber == null)
+            {
+                MessageDialog md = new MessageDialog("Failed to send sms!");
+                await md.ShowAsync();
+            }
+            else
+            {
+                MFAPassword.Header = "Code sent to " + result.PhoneNumber+":";
+            }
+            
         }
     }
 }
