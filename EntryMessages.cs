@@ -210,6 +210,7 @@ namespace Discord_UWP
                 case 118: return kvp(striptoquote(await RESTCalls.GetStringFromURI(new Uri("https://ron-swanson-quotes.herokuapp.com/v2/quotes"))), "Ron Swanson");
                 case 119: return kvp(cuttosentence(await RESTCalls.GetStringFromURI(new Uri("http://skateipsum.com/get/1/0/text"))));
                 case 120: return kvp("¡ǝldoǝd uɐᴉlɐɹʇsn∀ 'ǝɯoɔlǝM", "@ToonWK#7692");
+                case 121: return kvp("^ Not a pigeon", "@austinception#5634");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
