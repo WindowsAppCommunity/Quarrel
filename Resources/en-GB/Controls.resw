@@ -333,4 +333,7 @@
   <data name="ACTIVITESLI.Content" xml:space="preserve">
     <value>(not translated)</value>
   </data>
+  <data name="Watching" xml:space="preserve">
+    <value>Watching</value>
+  </data>
 </root>

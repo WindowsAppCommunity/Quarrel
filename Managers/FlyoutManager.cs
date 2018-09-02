@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Graphics.Display;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 using Discord_UWP.Controls;
 using Discord_UWP.Flyouts;
@@ -15,7 +24,7 @@ namespace Discord_UWP.Managers
 {
     public class FlyoutManager
     {
-        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn, VoiceMember}
+        public enum Type { Guild, GuildMember, GroupMember, TextChn, DMChn, GroupChn, VoiceMember, SavePicture }
 
         public static async Task<MenuFlyout> ShowMenu(User user)
         {
@@ -88,6 +97,11 @@ namespace Discord_UWP.Managers
             return flyout;
         }
 
+        public static MenuFlyout ShowMenu(ImageBrush Image)
+        {
+            return FlyoutCreator.MakeSavePictureFlyout(Image);
+        }
+
         public static Flyout MakeUserDetailsFlyout(GuildMember member, bool webhook)
         {
             Flyout flyout = new Flyout();
@@ -125,7 +139,9 @@ namespace Discord_UWP.Managers
             flyout.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyleUserControl"];
             return flyout;
         }
+
         #region FlyoutCommands
+
         #region Profile
         public static void OpenProfile(object sender, RoutedEventArgs e)
         {
@@ -275,6 +291,25 @@ namespace Discord_UWP.Managers
             //var senderTag = ((sender as MenuFlyoutItem).Tag as Tuple<string, string>);
             //await RESTCalls.RemoveGroupUser(senderTag.Item1, senderTag.Item2);
         }
+        #endregion
+
+        #region Other
+
+        public static void SavePictrue(object sender, RoutedEventArgs e)
+        {
+            SavePictureAsync(((sender as MenuFlyoutItem).Tag as ImageBrush));
+        }
+
+        public static async void SavePictureAsync(ImageBrush bitimage)
+        {
+            var savePicker = new FileSavePicker();
+            savePicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            savePicker.FileTypeChoices.Add("Photo", new List<string>() { ".png" });
+            savePicker.SuggestedFileName = "Avatar";
+            var file = await savePicker.PickSaveFileAsync();
+            
+        }
+
         #endregion
 
         #endregion
