@@ -14,6 +14,7 @@
             <Button Content="XSalsa20 (x64 only in testing)" Click="Button_Click" HorizontalAlignment="Stretch"/>
             <Button Content="Voice RT (x64 only in testing)" Click="Button_Click_1" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
             <Button Content="Mentions" Click="Button_Click_2" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
+            <Button Content="Quarrel Presence" Click="Button_Click_3" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
         </StackPanel>
     </Grid>
 </Page>
