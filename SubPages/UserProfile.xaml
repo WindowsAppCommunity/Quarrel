@@ -202,6 +202,8 @@
                                     </Grid>
 
                                     <StackPanel x:Name="usernamestacker" Orientation="Horizontal" Margin="188,6,0,0" VerticalAlignment="Top">
+                                        <TextBlock x:Name="Name" FontSize="26" FontWeight="SemiBold"/>
+                                        <Rectangle x:Name="Seperate" Fill="White" Width="5" Margin="10,0" Visibility="Collapsed"/>
                                         <TextBlock x:Name="username" Text="" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
                                         <TextBlock x:Name="discriminator" Foreground="White" Text="" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
                                         <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="6,2,0,0" Padding="8,4" CornerRadius="2" Visibility="Collapsed">
