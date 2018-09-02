@@ -16,6 +16,11 @@ namespace Discord_UWP.API.Login.Models
         [JsonProperty("captcha_key")]
         public string[] CaptchaKey { get; set; }
     }
+    public class SendSmsRequest
+    {
+        [JsonProperty("ticket")]
+        public string Ticket { get; set; }
+    }
     public class LoginMFARequest
     {
         [JsonProperty("code")]

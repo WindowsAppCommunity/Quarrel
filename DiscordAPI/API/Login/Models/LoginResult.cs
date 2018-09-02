@@ -15,6 +15,9 @@ namespace Discord_UWP.API.Login.Models
         [JsonProperty("mfa")]
         public bool MFA { get; set; }
 
+        [JsonProperty("sms")]
+        public bool SmsSupported { get; set; }
+
         [JsonProperty("ticket")]
         public string Ticket { get; set; }
 
@@ -22,5 +25,10 @@ namespace Discord_UWP.API.Login.Models
         public List<string> CaptchaKey { get; set; }
 
         public Exception exception { get; set; }
+    }
+    public class SendSmsResult
+    {
+        [JsonProperty("phone")]
+        public string PhoneNumber { get; set; }
     }
 }
