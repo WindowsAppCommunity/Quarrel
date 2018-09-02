@@ -9,7 +9,6 @@ namespace Discord_UWP.Managers
 {
     public class ContactManager
     {
-
         private static async Task<ContactList> GetContactList()
         {
             ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
@@ -25,7 +24,7 @@ namespace Discord_UWP.Managers
 
             if (0 == contactLists.Count)
             {
-                contactList = await store.CreateContactListAsync("QuarrelList");
+                contactList = await store.CreateContactListAsync("Discord");
             }
             else
             {
@@ -58,6 +57,26 @@ namespace Discord_UWP.Managers
             return annotationList;
         }
 
+        public static async Task<Contact> GetContact(string id)
+        {
+            ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+
+            ContactList contactList;
+
+            IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
+
+            if (contactLists.Count == 0)
+            {
+                contactList = await store.CreateContactListAsync("Discord");
+            }
+            else
+            {
+                contactList = contactLists[0];
+            }
+
+            return await contactList.GetContactFromRemoteIdAsync(id);
+        }
+
         private static async Task<bool> CheckContact(SharedModels.User user)
         {
             ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
@@ -68,13 +87,14 @@ namespace Discord_UWP.Managers
 
             if (contactLists.Count == 0)
             {
-                contactList = await store.CreateContactListAsync("QuarrelList");
+                contactList = await store.CreateContactListAsync("Discord");
             }
             else
             {
                 contactList = contactLists[0];
             }
-            return (await contactList.GetContactFromRemoteIdAsync(user.Id)) != null;
+            var returnval = await contactList.GetContactFromRemoteIdAsync(user.Id);
+            return returnval != null;
         }
 
         private async void CreateTestContacts()
@@ -164,10 +184,11 @@ namespace Discord_UWP.Managers
 
         public static async void AddContact(SharedModels.User user)
         {
-            if (await CheckContact(user))
+            if (!await CheckContact(user))
             {
                 Contact contact = new Contact();
                 contact.Name = user.Username + "#" + user.Discriminator;
+                contact.RemoteId = user.Id;
 
                 //ContactEmail email1 = new ContactEmail();
                 //email1.Address = "TestContact1@contoso.com";
