@@ -110,7 +110,23 @@ namespace Discord_UWP
             }
 
         }
-
+        public static async Task<SendSmsResult> SendLoginSms(string ticket)
+        {
+            try
+            {
+                config = new DiscordApiConfiguration
+                {
+                    BaseUrl = "https://discordapp.com/api"
+                };
+                BasicRestFactory basicRestFactory = new BasicRestFactory(config);
+                ILoginService loginService = basicRestFactory.GetLoginService();
+                return await loginService.SendSMS(new SendSmsRequest() { Ticket = ticket });
+            }
+            catch
+            {
+                return new SendSmsResult() { PhoneNumber = null };
+            }
+        }
         public static async Task<LoginResult> LoginMFA(string code, string ticket)
         {
             try
