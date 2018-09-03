@@ -262,6 +262,7 @@ namespace Discord_UWP.Managers
                 // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
                 annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
+                annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
 
                 bool save = await annotationList.TrySaveAnnotationAsync(annotation);
                 Debug.WriteLine("saved contact " + user.Username + " save");
