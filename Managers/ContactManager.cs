@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
+using Windows.Storage.Streams;
 
 namespace Discord_UWP.Managers
 {
@@ -189,6 +192,8 @@ namespace Discord_UWP.Managers
                 Contact contact = new Contact();
                 contact.Name = user.Username + "#" + user.Discriminator;
                 contact.RemoteId = user.Id;
+
+                contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.Avatar, user.Id));
 
                 //ContactEmail email1 = new ContactEmail();
                 //email1.Address = "TestContact1@contoso.com";
