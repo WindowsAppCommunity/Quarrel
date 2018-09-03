@@ -103,7 +103,10 @@ namespace Discord_UWP
                 var mfapass = MFAPassword.Password;
                 await Task.Run(async () =>
                 {
-                    result = await RESTCalls.LoginMFA(mfapass, mfaTicket);
+                    if(sms)
+                        result = await RESTCalls.LoginSMS(mfapass, mfaTicket);
+                    else
+                        result = await RESTCalls.LoginMFA(mfapass, mfaTicket);
                 });
                 if (result.exception != null)
                 {
@@ -220,6 +223,7 @@ namespace Discord_UWP
                 LogIn(null, null);
         }
 
+        bool sms = false;
         private async void MFAsms_Click(object sender, RoutedEventArgs e)
         {
             (sender as HyperlinkButton).IsEnabled = false;
@@ -235,6 +239,7 @@ namespace Discord_UWP
             else
             {
                 MFAPassword.Header = "Code sent to " + result.PhoneNumber+":";
+                sms = true;
             }
             
         }
