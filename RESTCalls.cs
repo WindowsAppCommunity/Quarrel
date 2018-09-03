@@ -127,6 +127,43 @@ namespace Discord_UWP
                 return new SendSmsResult() { PhoneNumber = null };
             }
         }
+        public static async Task<LoginResult> LoginSMS(string code, string ticket)
+        {
+            try
+            {
+                LoginResult LoginResult;
+                LoginMFARequest loginRequest = new LoginMFARequest();
+                config = new DiscordApiConfiguration
+                {
+                    BaseUrl = "https://discordapp.com/api"
+                };
+                BasicRestFactory basicRestFactory = new BasicRestFactory(config);
+
+
+                ILoginService loginService = basicRestFactory.GetLoginService();
+
+                loginRequest.Code = code;
+                loginRequest.Ticket = ticket;
+
+                LoginResult = await loginService.LoginSMS(loginRequest);
+
+                if (LoginResult.Token != null)
+                {
+                    Token = LoginResult.Token;
+                    PasswordCredential credentials = new PasswordCredential("Token", EmailInUse, LoginResult.Token);
+                    Storage.PasswordVault.Add(credentials);
+                }
+                else
+                {
+                    return new LoginResult() { exception = new Exception("There was a problem authenticating you!") };
+                }
+                return LoginResult;
+            }
+            catch (Exception e)
+            {
+                return new LoginResult() { exception = e };
+            }
+        }
         public static async Task<LoginResult> LoginMFA(string code, string ticket)
         {
             try

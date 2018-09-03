@@ -36,7 +36,7 @@
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" TabIndex="0" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
                 </StackPanel>
-                <StackPanel x:Name="NormalAuth" Visibility="Collapsed">
+                <StackPanel x:Name="NormalAuth" Visibility="Visible">
                     <TextBox x:Uid="/About/EmailTBox" Padding="12" TabIndex="0" x:Name="Username" VerticalAlignment="Center" InputScope="EmailSmtpAddress" PlaceholderText="Email" Margin="0,6,0,0" Style="{StaticResource TextBoxStyle1}" KeyDown="Username_KeyDown"/>
                     <PasswordBox x:Uid="/About/PasswordTBox"  Padding="12" TabIndex="1" x:Name="Password" VerticalAlignment="Center" InputScope="Password" PlaceholderText="Password" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Password_KeyDown"/>
                 </StackPanel>
