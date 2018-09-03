@@ -206,6 +206,7 @@ namespace Discord_UWP.Managers
             {
                 Contact contact = new Contact();
                 contact.Name = user.Username + "#" + user.Discriminator;
+               
                 contact.RemoteId = user.Id;
 
                 contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.Avatar, user.Id));

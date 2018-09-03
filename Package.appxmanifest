@@ -47,6 +47,8 @@
             <uap:DataFormat>Text</uap:DataFormat>
             <uap:DataFormat>URI</uap:DataFormat>
             <uap:DataFormat>Bitmap</uap:DataFormat>
+            <uap:DataFormat>StorageItems</uap:DataFormat>
+            <uap:DataFormat>HTML</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">

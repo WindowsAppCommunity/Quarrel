@@ -223,7 +223,7 @@ namespace Discord_UWP.SubPages
                 if(shareContact != null)
                 {
                     if (shareContact.Id != null)
-                        App.CurrentChannelId = shareContact.Id;
+                        App.CurrentChannelId = shareContact.RemoteId;
                 }
                 else
                 {
