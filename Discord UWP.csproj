@@ -228,6 +228,7 @@
     <Compile Include="LocalModels\Permissions.cs" />
     <Compile Include="Managers\BotExtrasManager.cs" />
     <Compile Include="Classes\SimpleClasses.cs" />
+    <Compile Include="Managers\ContactManager.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />

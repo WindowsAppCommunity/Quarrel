@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -110,7 +111,8 @@ namespace Discord_UWP.Managers
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,() => { App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");});
 
             #region Friends
-             //This improves performance, because we aren't saving the settings on every loop
+            //This improves performance, because we aren't saving the settings on every loop
+
             foreach (var friend in e.EventData.Friends)
             {
                 if (LocalState.Friends.ContainsKey(friend.Id))
@@ -119,6 +121,7 @@ namespace Discord_UWP.Managers
                 } else
                 {
                     LocalState.Friends.Add(friend.Id, friend);
+                    ContactManager.AddContact(friend.user);
                 }
                 if (friend.Type == 2)
                 {
@@ -321,6 +324,7 @@ namespace Discord_UWP.Managers
             #endregion
 
             #region CurrentUserPresence
+
             if (LocalState.PresenceDict.ContainsKey(e.EventData.User.Id))
             {
                 LocalState.PresenceDict[e.EventData.User.Id] = new Presence() { User = e.EventData.User, Status = e.EventData.Settings.Status };

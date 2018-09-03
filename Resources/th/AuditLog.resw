@@ -408,4 +408,7 @@
   <data name="Remove" xml:space="preserve">
     <value>ลบ</value>
   </data>
+  <data name="AuditLogBanReason" xml:space="preserve">
+    <value>ด้วยเหตุผล: &lt;reason&gt;</value>
+  </data>
 </root>
