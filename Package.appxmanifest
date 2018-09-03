@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Quarrel.App">
       <Extensions>
-        <desktop:Extension Category="windows.fullTrustProcess" Executable="NamedPipeService\NamedPipeServer.exe" />
+        <!--<desktop:Extension Category="windows.fullTrustProcess" Executable="NamedPipeService\NamedPipeServer.exe" />-->
         <!--<uap3:Extension Category="windows.appUriHandler">
           <uap3:AppUriHandler>
             <uap3:Host Name="discordapp.com"/>
@@ -86,7 +86,7 @@
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="contacts" />
-    <rescap:Capability Name="runFullTrust" />
+    <!--<rescap:Capability Name="runFullTrust" />-->
     <DeviceCapability Name="microphone" />
   </Capabilities>
   <!--<Extensions>
