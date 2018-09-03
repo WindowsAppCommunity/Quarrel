@@ -1354,6 +1354,23 @@ namespace Discord_UWP
             string launchArgs = "";
             switch (args.Kind)
             {
+                #region Contacts
+                case ActivationKind.ContactPanel:
+                    {
+                        var rootFrame = new Frame();
+
+                        // Place the frame in the current Window
+                        Window.Current.Content = rootFrame;
+
+                        // Navigate to the page that shows the Contact UI.
+                        rootFrame.Navigate(typeof(SubPages.ContactPanePage), args);
+
+                        // Ensure the current window is active
+                        Window.Current.Activate();
+                        break;
+                    }
+                #endregion
+
                 #region Protocol
 
                 case ActivationKind.Protocol:
