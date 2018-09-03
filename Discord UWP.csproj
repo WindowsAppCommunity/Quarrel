@@ -235,6 +235,9 @@
     <Compile Include="SubPages\AuditLog.xaml.cs">
       <DependentUpon>AuditLog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SubPages\ContactPanePage.xaml.cs">
+      <DependentUpon>ContactPanePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubPages\DiscordStatus.xaml.cs">
       <DependentUpon>DiscordStatus.xaml</DependentUpon>
     </Compile>
@@ -782,6 +785,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SubPages\AuditLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubPages\ContactPanePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
