@@ -13,11 +13,14 @@ namespace Discord_UWP.Managers
 {
     public class ContactManager
     {
+        static ContactStore store;
+        static ContactAnnotationStore annotationStore;
+
         private static async Task<ContactList> GetContactList()
         {
-            ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
 
-            if (null == store)
+            if (store == null)
             {
                 return null;
             }
@@ -26,7 +29,7 @@ namespace Discord_UWP.Managers
 
             IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
 
-            if (0 == contactLists.Count)
+            if (contactLists.Count == 0)
             {
                 contactList = await store.CreateContactListAsync("Discord");
             }
@@ -36,11 +39,12 @@ namespace Discord_UWP.Managers
             }
             return contactList;
         }
+
         private static async Task<ContactAnnotationList> GetContactAnnotationList()
         {
-            ContactAnnotationStore annotationStore = await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite);
+            annotationStore = await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite);
 
-            if (null == annotationStore)
+            if (annotationStore == null)
             {
                 return null;
             }
@@ -49,7 +53,7 @@ namespace Discord_UWP.Managers
 
             IReadOnlyList<ContactAnnotationList> annotationLists = await annotationStore.FindAnnotationListsAsync();
 
-            if (0 == annotationLists.Count)
+            if (annotationLists.Count == 0)
             {
                 annotationList = await annotationStore.CreateAnnotationListAsync();
             }
@@ -63,7 +67,12 @@ namespace Discord_UWP.Managers
 
         public static async Task<Contact> GetContact(string id)
         {
-            ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+
+            if (store == null)
+            {
+                return null;
+            }
 
             ContactList contactList;
 
@@ -83,7 +92,12 @@ namespace Discord_UWP.Managers
 
         private static async Task<bool> CheckContact(SharedModels.User user)
         {
-            ContactStore store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+
+            if (store == null)
+            {
+                return true;
+            }
 
             ContactList contactList;
 
@@ -186,7 +200,7 @@ namespace Discord_UWP.Managers
 
         }
 
-            public static async void AddContact(SharedModels.User user)
+        public static async void AddContact(SharedModels.User user)
         {
             if (!await CheckContact(user))
             {
@@ -212,7 +226,14 @@ namespace Discord_UWP.Managers
                     return;
                 }
 
-                await contactList.SaveContactAsync(contact);
+                try
+                {
+                    await contactList.SaveContactAsync(contact);
+                }
+                catch
+                {
+
+                }
 
                 //
                 // Create annotations for those test contacts.
