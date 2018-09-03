@@ -681,4 +681,16 @@
   <data name="AuditLogWebhookDelete" xml:space="preserve">
     <value>&lt;user&gt; heeft de webhook &lt;webhook&gt; verwijderd.</value>
   </data>
+  <data name="AuditLogChannelPermissionCreateInvalid" xml:space="preserve">
+    <value>&lt;user&gt; heeft rechten aangemaakt voor een nu verwijderd kanaal.</value>
+  </data>
+  <data name="AuditLogChannelPermissionCreateValid" xml:space="preserve">
+    <value>&lt;user&gt; heeft rechten aangemaakt voor het kanaal &lt;channel&gt;.</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
+    <value>&lt;user&gt; heeft rechten verwijderd van een nu verwijderd kanaal.</value>
+  </data>
+  <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
+    <value>&lt;user&gt; heeft rechten verwijderd van het kanaal &lt;channel&gt;.</value>
+  </data>
 </root>
