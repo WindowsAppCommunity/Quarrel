@@ -15,51 +15,57 @@ namespace Discord_UWP.Managers
     {
         static ContactStore store;
         static ContactAnnotationStore annotationStore;
+        static ContactList contactList;
+        static ContactAnnotationList annotationList;
 
         private static async Task<ContactList> GetContactList()
         {
-            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
-
-            if (store == null)
+            if (contactList == null)
             {
-                return null;
-            }
+                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
 
-            ContactList contactList;
+                if (store == null)
+                {
+                    return null;
+                }
 
-            IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
+                IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
 
-            if (contactLists.Count == 0)
-            {
-                contactList = await store.CreateContactListAsync("Discord");
+                if (contactLists.Count == 0)
+                {
+                    contactList = await store.CreateContactListAsync("Discord");
+                }
+                else
+                {
+                    contactList = contactLists[0];
+                }
             }
-            else
-            {
-                contactList = contactLists[0];
-            }
+            
             return contactList;
         }
 
         private static async Task<ContactAnnotationList> GetContactAnnotationList()
         {
-            annotationStore = await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite);
-
-            if (annotationStore == null)
+            if (annotationList == null)
             {
-                return null;
-            }
+                annotationStore = await Windows.ApplicationModel.Contacts.ContactManager.RequestAnnotationStoreAsync(ContactAnnotationStoreAccessType.AppAnnotationsReadWrite);
 
-            ContactAnnotationList annotationList;
+                if (annotationStore == null)
+                {
+                    return null;
+                }
 
-            IReadOnlyList<ContactAnnotationList> annotationLists = await annotationStore.FindAnnotationListsAsync();
 
-            if (annotationLists.Count == 0)
-            {
-                annotationList = await annotationStore.CreateAnnotationListAsync();
-            }
-            else
-            {
-                annotationList = annotationLists[0];
+                IReadOnlyList<ContactAnnotationList> annotationLists = await annotationStore.FindAnnotationListsAsync();
+
+                if (annotationLists.Count == 0)
+                {
+                    annotationList = await annotationStore.CreateAnnotationListAsync();
+                }
+                else
+                {
+                    annotationList = annotationLists[0];
+                }
             }
 
             return annotationList;
@@ -67,24 +73,25 @@ namespace Discord_UWP.Managers
 
         public static async Task<Contact> GetContact(string id)
         {
-            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
-
-            if (store == null)
+            if (contactList == null)
             {
-                return null;
-            }
+                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
 
-            ContactList contactList;
+                if (store == null)
+                {
+                    return null;
+                }
 
-            IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
+                IReadOnlyList<ContactList> contactLists = await store.FindContactListsAsync();
 
-            if (contactLists.Count == 0)
-            {
-                contactList = await store.CreateContactListAsync("Discord");
-            }
-            else
-            {
-                contactList = contactLists[0];
+                if (contactLists.Count == 0)
+                {
+                    contactList = await store.CreateContactListAsync("Discord");
+                }
+                else
+                {
+                    contactList = contactLists[0];
+                }
             }
 
             return await contactList.GetContactFromRemoteIdAsync(id);
@@ -92,7 +99,10 @@ namespace Discord_UWP.Managers
 
         private static async Task<bool> CheckContact(SharedModels.User user)
         {
-            store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            if (store == null)
+            {
+                store = await Windows.ApplicationModel.Contacts.ContactManager.RequestStoreAsync(ContactStoreAccessType.AppContactsReadWrite);
+            }
 
             if (store == null)
             {
@@ -206,7 +216,7 @@ namespace Discord_UWP.Managers
             {
                 Contact contact = new Contact();
                 contact.Name = user.Username + "#" + user.Discriminator;
-               
+                
                 contact.RemoteId = user.Id;
 
                 contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.Avatar, user.Id));
@@ -250,7 +260,8 @@ namespace Discord_UWP.Managers
                 }
 
                 ContactAnnotation annotation = new ContactAnnotation();
-                annotation.ContactId = contact.Id;
+                //annotation.ContactId = contact.Id;
+                //annotation.ContactListId = "Discord";
 
                 // Remote ID: The identifier of the user relevant for this app. When this app is
                 // launched into from the People App, this id will be provided as context on which user
@@ -263,10 +274,10 @@ namespace Discord_UWP.Managers
                 // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
                 annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
-                annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
+                //annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
 
                 bool save = await annotationList.TrySaveAnnotationAsync(annotation);
-                Debug.WriteLine("saved contact " + user.Username + " save");
+                //Debug.WriteLine("saved contact " + user.Username + " save");
             }
         }
 
