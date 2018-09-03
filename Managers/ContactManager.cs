@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -185,7 +186,7 @@ namespace Discord_UWP.Managers
 
         }
 
-        public static async void AddContact(SharedModels.User user)
+            public static async void AddContact(SharedModels.User user)
         {
             if (!await CheckContact(user))
             {
@@ -238,12 +239,11 @@ namespace Discord_UWP.Managers
                 // for this contact. These flags are read by apps such as the People App to create deep
                 // links back into this app. This app must also be registered for the relevant
                 // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
-                annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message;
+                annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
-                if (!await annotationList.TrySaveAnnotationAsync(annotation))
-                {
-                    return;
-                }
+
+                bool save = await annotationList.TrySaveAnnotationAsync(annotation);
+                Debug.WriteLine("saved contact " + user.Username + " save");
             }
         }
 
@@ -251,7 +251,7 @@ namespace Discord_UWP.Managers
         {
             Contact contact = new Contact();
             contact.FirstName = user.user.Username;
-
+            contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.user.Avatar, user.Id));
             //ContactEmail email1 = new ContactEmail();
             //email1.Address = "TestContact1@contoso.com";
             //contact1.Emails.Add(email1);
@@ -295,7 +295,7 @@ namespace Discord_UWP.Managers
             // for this contact. These flags are read by apps such as the People App to create deep
             // links back into this app. This app must also be registered for the relevant
             // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
-            annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message;
+            annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
             if (!await annotationList.TrySaveAnnotationAsync(annotation))
             {

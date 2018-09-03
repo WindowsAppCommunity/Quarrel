@@ -1215,7 +1215,15 @@ namespace Discord_UWP
             Frame rootFrame = new Frame();
             SetupTitleBar();
             InitializeResources();
-            rootFrame.Navigate(typeof(SubPages.ExtendedMessageEditor));
+
+            if (args.ShareOperation.Contacts.Count > 0)
+            {
+                rootFrame.Navigate(typeof(SubPages.ExtendedMessageEditor), args.ShareOperation.Contacts[0]);
+            }
+            else
+            {
+                rootFrame.Navigate(typeof(SubPages.ExtendedMessageEditor));
+            }
             Window.Current.Content = rootFrame;
 
             ApplicationView.PreferredLaunchViewSize = new Size(350, 512);

@@ -27,6 +27,7 @@ using Windows.Graphics.Imaging;
 using Windows.UI.Popups;
 using Windows.Web.Http;
 using Discord_UWP.SimpleClasses;
+using Windows.ApplicationModel.Contacts;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -48,10 +49,11 @@ namespace Discord_UWP.SubPages
             CloseButton_Click(null, null);
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
-
+        Contact shareContact = null;
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
             if (e.Parameter != null)
             {
                 if(e.Parameter.GetType() == typeof(DataPackageView))
@@ -69,6 +71,10 @@ namespace Discord_UWP.SubPages
                         HandleDataPackage(dataPackageView, "Clipboard");
                     }
                 }
+                else if(e.Parameter.GetType() == typeof(Windows.ApplicationModel.Contacts.Contact))
+                {
+                    shareContact = (Windows.ApplicationModel.Contacts.Contact)e.Parameter;
+                }
                 else
                 {
                     Editor.Text = e.Parameter.ToString();
@@ -78,10 +84,14 @@ namespace Discord_UWP.SubPages
             if (App.shareop != null)
             {
                 header.Text = App.GetString("/Dialogs/Share");
-                shareTarget.Visibility = Visibility.Visible;
+                if(shareContact == null)
+                {
+                    shareTarget.Visibility = Visibility.Visible;
+                    SaveButton.IsEnabled = false;
+                }
+                    
                 mediumTrigger.MinWindowWidth = 10000;
                 mediumTrigger.MinWindowHeight = 10000;
-                SaveButton.IsEnabled = false;
                 if (App.LoggedIn() == false)
                 {
                     MessageDialog md = new MessageDialog(App.GetString("/Dialogs/MustBeLoggedIn"), App.GetString("/Dialogs/Sorry"));
@@ -91,13 +101,21 @@ namespace Discord_UWP.SubPages
                 else
                 {
                     HandleDataPackage(App.shareop.Data, "Shared Image");
-                    List<SimpleGuild> guilds = new List<SimpleGuild>();
                     await RESTCalls.SetupToken(true);
-                    var userguilds = await RESTCalls.GetGuilds();
-                    guilds.Add(new SimpleGuild() { Id = "@me", Name = App.GetString("/Main/DirectMessages"), ImageURL= "https://discordapp.com/assets/89576a4bb71f927eb20e8aef987b499b.svg" });
-                    foreach (var guild in userguilds)
-                        guilds.Add(GuildManager.CreateGuild(guild));
-                    serverOption.ItemsSource = guilds;
+                    
+                    if (shareContact == null)
+                    {
+                        List<SimpleGuild> guilds = new List<SimpleGuild>();
+                        var userguilds = await RESTCalls.GetGuilds();
+                        guilds.Add(new SimpleGuild() { Id = "@me", Name = App.GetString("/Main/DirectMessages"), ImageURL = "https://discordapp.com/assets/89576a4bb71f927eb20e8aef987b499b.svg" });
+                        foreach (var guild in userguilds)
+                            guilds.Add(GuildManager.CreateGuild(guild));
+                        serverOption.ItemsSource = guilds;
+                    }
+                    else
+                    {
+                       
+                    }
                 }
             }
             
@@ -202,10 +220,19 @@ namespace Discord_UWP.SubPages
         {
             if(App.shareop != null)
             {
-                if (channelOption.SelectedItem != null)
-                    App.CurrentChannelId = ((SimpleChannel)channelOption.SelectedItem).Id;
+                if(shareContact != null)
+                {
+                    if (shareContact.Id != null)
+                        App.CurrentChannelId = shareContact.Id;
+                }
                 else
-                    return;
+                {
+                    if (channelOption.SelectedItem != null)
+                        App.CurrentChannelId = ((SimpleChannel)channelOption.SelectedItem).Id;
+                    else
+                        return;
+                }
+
             }
             ProgressViewer.Visibility = Visibility.Visible;
             RESTCalls.MessageUploadProgress += Session_MessageUploadProgress; //TODO: Rig to App.Events
