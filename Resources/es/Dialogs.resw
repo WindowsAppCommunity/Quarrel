@@ -688,10 +688,10 @@
     <value>&lt;user&gt; creó permisos para el canal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveInvalid" xml:space="preserve">
-    <value>&lt;user&gt; eliminó permisos para un canal ahora borrado.</value>
+    <value>&lt;user&gt; removió permisos para un canal ahora borrado</value>
   </data>
   <data name="AuditLogChannelPermissionRemoveValid" xml:space="preserve">
-    <value>&lt;user&gt; eliminó permisos para el canal &lt;channel&gt;</value>
+    <value>&lt;user&gt; removió permisos para el canal &lt;channel&gt;</value>
   </data>
   <data name="AuditLogChannelPermissionUpdateInvalid" xml:space="preserve">
     <value>&lt;user&gt; actualizó permisos para un canal ahora borrado</value>
@@ -709,7 +709,7 @@
     <value>Bitrate definido como &lt;bitrate&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateBitrateChange" xml:space="preserve">
-    <value>Cambió el bitrate de &lt;old&gt; a &lt;new&gt;</value>
+    <value>Bitrate cambiado de &lt;old&gt; a &lt;new&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateName" xml:space="preserve">
     <value>Nombre establecido como &lt;name&gt;</value>
@@ -721,16 +721,16 @@
     <value>Hizo el canal **NSFW**</value>
   </data>
   <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
-    <value>Tópico del canal definido como &lt;subject&gt;</value>
+    <value>Topico definido como &lt;subject&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateTopicChange" xml:space="preserve">
     <value>Cambió el tópico de &lt;old&gt; a &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**Otorgó** el permiso &lt;permission&gt;</value>
+    <value>**Otorgó** el permiso &lt;permission&gt; al rol &lt;role&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>**Revocó** el permiso &lt;permission&gt;</value>
+    <value>**Revocó** el permiso &lt;permission&gt; al rol &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>Canal AFK establecido en &lt;channel&gt;</value>

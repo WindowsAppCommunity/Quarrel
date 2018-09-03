@@ -408,4 +408,7 @@
   <data name="Remove" xml:space="preserve">
     <value>Usuń</value>
   </data>
+  <data name="AuditLogBanReason" xml:space="preserve">
+    <value>Z powodu: &lt;reason&gt;</value>
+  </data>
 </root>
