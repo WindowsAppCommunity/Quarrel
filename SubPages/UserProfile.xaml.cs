@@ -336,10 +336,20 @@ namespace Discord_UWP.SubPages
 
                     MutualFriends.Items.Add(relationship);
                 }
+
+
+                //var contact = await Managers.ContactManager.GetContact(profile.user.Id);
+                //if (contact != null)
+                //{
+                //    if (contact.FullName != profile.user.Username + "#" + profile.user.Discriminator)
+                //    {
+                //        Name.Text = contact.FullName;
+                //        Seperate.Visibility = Visibility.Visible;
+                //    }
+                //}
             }
-
-
         }
+
         private async void UpdateBorderColor()
         {
             if (richPresence.GameContent != null)

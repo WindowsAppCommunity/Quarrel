@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" IgnorableNamespaces="uap mp rescap desktop">
   <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="9.2.0.0" />
   <mp:PhoneIdentity PhoneProductId="72aa4b1e-65cf-4925-894f-f4347955ffac" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Discord UWP</DisplayName>
+    <DisplayName>Quarrel</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -17,6 +17,12 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Quarrel.App">
       <Extensions>
         <desktop:Extension Category="windows.fullTrustProcess" Executable="NamedPipeService\NamedPipeServer.exe" />
+        <!--<uap3:Extension Category="windows.appUriHandler">
+          <uap3:AppUriHandler>
+            <uap3:Host Name="discordapp.com"/>
+          </uap3:AppUriHandler>
+        </uap3:Extension>-->
+        <uap4:Extension Category="windows.contactPanel" />
         <Extension Category="windows.backgroundTasks" EntryPoint="InvisibleBackgroundTask.Main">
           <BackgroundTasks>
             <Task Type="systemEvent" />
@@ -42,6 +48,16 @@
             <uap:DataFormat>URI</uap:DataFormat>
             <uap:DataFormat>Bitmap</uap:DataFormat>
           </uap:ShareTarget>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="ms-contact-profile">
+            <uap:DisplayName>TestProfileApp</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="ms-ipmessaging">
+            <uap:DisplayName>TestMsgApp</uap:DisplayName>
+          </uap:Protocol>
         </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="DiscordBackgroundTask1.MainClass">
           <BackgroundTasks>
@@ -69,6 +85,7 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
+    <uap:Capability Name="contacts" />
     <rescap:Capability Name="runFullTrust" />
     <DeviceCapability Name="microphone" />
   </Capabilities>

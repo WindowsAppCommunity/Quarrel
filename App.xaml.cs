@@ -35,6 +35,7 @@ using Discord_UWP.Classes;
 using Discord_UWP.MarkdownTextBlock;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
+using Windows.ApplicationModel.Contacts;
 using Windows.Foundation.Collections;
 
 namespace Discord_UWP
