@@ -49,7 +49,15 @@ namespace Discord_UWP.Managers
             if (Storage.Settings.BackgroundTaskTime != 0)
             {
                 var trigger = new TimeTrigger(Convert.ToUInt32(Storage.Settings.BackgroundTaskTime*5), false);
-                var access = await BackgroundExecutionManager.RequestAccessAsync();
+                BackgroundAccessStatus access = BackgroundAccessStatus.Unspecified;
+                try
+                {
+                    await BackgroundExecutionManager.RequestAccessAsync();
+                }
+                catch(Exception ex)
+                {
+                    if (ex.Message != "More data is available.") return;
+                }
                 if (access == BackgroundAccessStatus.DeniedBySystemPolicy || access == BackgroundAccessStatus.DeniedByUser)
                     return;
                 var builder = new BackgroundTaskBuilder();

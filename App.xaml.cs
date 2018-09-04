@@ -1503,7 +1503,7 @@ namespace Discord_UWP
             //if the acrylic brushes exist AND the app is not running in cinematic mode, replace the app resources with them:
             if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Media.AcrylicBrush"))
             {
-                Brush brush = ((Brush)App.Current.Resources["AcrylicChannelPaneBackground"]);
+                Brush brush = ((Brush)App.Current.Resources["AcrylicUserBackground"]);
                 if (brush.GetType() == typeof(AcrylicBrush))
                     return; // this means that resources have already been initialized (=app pelaunched)
                 var UserBackground = ((SolidColorBrush)App.Current.Resources["AcrylicUserBackground"]).Color;

@@ -110,39 +110,6 @@ namespace Discord_UWP.Managers
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal,() => { App.StatusChanged("Succesfully set Storage.Settings.DevMode (ln 84)");});
 
-            #region Friends
-            //This improves performance, because we aren't saving the settings on every loop
-
-            foreach (var friend in e.EventData.Friends)
-            {
-                if (LocalState.Friends.ContainsKey(friend.Id))
-                {
-                    LocalState.Friends[friend.Id] = friend;
-                } else
-                {
-                    LocalState.Friends.Add(friend.Id, friend);
-                    ContactManager.AddContact(friend.user);
-                }
-                if (friend.Type == 2)
-                {
-                    if (LocalState.Blocked.ContainsKey(friend.Id))
-                    {
-                        LocalState.Blocked[friend.Id] = friend;
-                    }
-                    else
-                    {
-                        LocalState.Blocked.Add(friend.Id, friend);
-                    }
-                }
-                else if(friend.Type == 3)
-                {
-                    Storage.UpdateNotificationState("r" + friend.user.Id, friend.Id);
-                }
-            }
-            if (App.AslansBullshit)
-                await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
-            #endregion
-
             #region DMs
             foreach (var dm in e.EventData.PrivateChannels)
             {
@@ -350,6 +317,41 @@ namespace Discord_UWP.Managers
             App.ReadyRecieved();
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully recieved Ready Packet (ln 309)"); });
+            
+            #region Friends
+            //This improves performance, because we aren't saving the settings on every loop
+
+            foreach (var friend in e.EventData.Friends)
+            {
+                if (LocalState.Friends.ContainsKey(friend.Id))
+                {
+                    LocalState.Friends[friend.Id] = friend;
+                }
+                else
+                {
+                    LocalState.Friends.Add(friend.Id, friend);
+                    await ContactManager.AddContact(friend.user);
+                }
+                if (friend.Type == 2)
+                {
+                    if (LocalState.Blocked.ContainsKey(friend.Id))
+                    {
+                        LocalState.Blocked[friend.Id] = friend;
+                    }
+                    else
+                    {
+                        LocalState.Blocked.Add(friend.Id, friend);
+                    }
+                }
+                else if (friend.Type == 3)
+                {
+                    Storage.UpdateNotificationState("r" + friend.user.Id, friend.Id);
+                }
+            }
+            if (App.AslansBullshit)
+                await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set AllFriends (ln 89-98)"); });
+            #endregion
+            //DON'T ADD ANYTHING HERE, THE FRIENDS REGION MUST BE THE LAST
         }
         #endregion
 
