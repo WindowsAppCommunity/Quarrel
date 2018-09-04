@@ -210,7 +210,7 @@ namespace Discord_UWP.Managers
 
         }
 
-        public static async void AddContact(SharedModels.User user)
+        public static async Task AddContact(SharedModels.User user)
         {
             if (!await CheckContact(user))
             {
@@ -218,6 +218,8 @@ namespace Discord_UWP.Managers
                 contact.Name = user.Username + "#" + user.Discriminator;
                 
                 contact.RemoteId = user.Id;
+               // string contactid = Guid.NewGuid().ToString();
+               // contact.Id = contactid;
 
                 contact.SourceDisplayPicture = RandomAccessStreamReference.CreateFromUri(Common.AvatarUri(user.Avatar, user.Id));
 
@@ -267,6 +269,7 @@ namespace Discord_UWP.Managers
                 // launched into from the People App, this id will be provided as context on which user
                 // the operation (e.g. ContactProfile) is for.
                 annotation.RemoteId = user.Id;
+                annotation.ContactId = contact.Id;
 
                 // The supported operations flags indicate that this app can fulfill these operations
                 // for this contact. These flags are read by apps such as the People App to create deep
@@ -274,10 +277,13 @@ namespace Discord_UWP.Managers
                 // protocols in the Package.appxmanifest (in this case, ms-contact-profile).
                 annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message | ContactAnnotationOperations.Share;
 
-                //annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
+                annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
 
-                bool save = await annotationList.TrySaveAnnotationAsync(annotation);
-                //Debug.WriteLine("saved contact " + user.Username + " save");
+                if(!await annotationList.TrySaveAnnotationAsync(annotation))
+                    {
+                    Debug.WriteLine("Failed to save contact " + user.Username);
+                }
+
             }
         }
 
