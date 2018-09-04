@@ -13,12 +13,21 @@ namespace Discord_UWP.Managers
 {
     public class ContactManager
     {
-        static ContactStore store;
-        static ContactAnnotationStore annotationStore;
-        static ContactList contactList;
-        static ContactAnnotationList annotationList;
+        public ContactManager()
+        {
+            Setup();
+        }
+        public async void Setup()
+        {
+            contactList = await GetContactList();
+            annotationList = await GetContactAnnotationList();
+        }
+         ContactStore store;
+         ContactAnnotationStore annotationStore;
+         ContactList contactList;
+         ContactAnnotationList annotationList;
 
-        private static async Task<ContactList> GetContactList()
+        private  async Task<ContactList> GetContactList()
         {
             if (contactList == null)
             {
@@ -44,7 +53,7 @@ namespace Discord_UWP.Managers
             return contactList;
         }
 
-        private static async Task<ContactAnnotationList> GetContactAnnotationList()
+        private  async Task<ContactAnnotationList> GetContactAnnotationList()
         {
             if (annotationList == null)
             {
@@ -71,7 +80,7 @@ namespace Discord_UWP.Managers
             return annotationList;
         }
 
-        public static async Task<Contact> GetContact(string id)
+        public  async Task<Contact> GetContact(string id)
         {
             if (contactList == null)
             {
@@ -97,7 +106,7 @@ namespace Discord_UWP.Managers
             return await contactList.GetContactFromRemoteIdAsync(id);
         }
 
-        private static async Task<bool> CheckContact(SharedModels.User user)
+        private  async Task<bool> CheckContact(SharedModels.User user)
         {
             if (store == null)
             {
@@ -209,8 +218,7 @@ namespace Discord_UWP.Managers
             }
 
         }
-
-        public static async Task AddContact(SharedModels.User user)
+        public async Task AddContact(SharedModels.User user)
         {
             if (!await CheckContact(user))
             {
@@ -254,10 +262,10 @@ namespace Discord_UWP.Managers
                 // in the contact card that takes the user back into this app.
                 //
 
-                ContactAnnotationList annotationList = await GetContactAnnotationList();
-
-                if (null == annotationList)
+                
+                if (annotationList == null)
                 {
+                    
                     return;
                 }
 
@@ -287,7 +295,7 @@ namespace Discord_UWP.Managers
             }
         }
 
-        public static async void AddContact(SharedModels.Friend user)
+        public async void AddContact(SharedModels.Friend user)
         {
             Contact contact = new Contact();
             contact.FirstName = user.user.Username;
@@ -301,7 +309,7 @@ namespace Discord_UWP.Managers
             //contact1.Phones.Add(phone1);
 
             // Save the contacts
-            ContactList contactList = await GetContactList();
+            
 
             if (contactList == null)
             {

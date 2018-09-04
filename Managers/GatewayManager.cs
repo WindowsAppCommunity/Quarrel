@@ -317,10 +317,11 @@ namespace Discord_UWP.Managers
             App.ReadyRecieved();
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully recieved Ready Packet (ln 309)"); });
-            
+
             #region Friends
             //This improves performance, because we aren't saving the settings on every loop
 
+            ContactManager contactManager = new ContactManager();
             foreach (var friend in e.EventData.Friends)
             {
                 if (LocalState.Friends.ContainsKey(friend.Id))
@@ -330,7 +331,7 @@ namespace Discord_UWP.Managers
                 else
                 {
                     LocalState.Friends.Add(friend.Id, friend);
-                    await ContactManager.AddContact(friend.user);
+                    await contactManager.AddContact(friend.user);
                 }
                 if (friend.Type == 2)
                 {
