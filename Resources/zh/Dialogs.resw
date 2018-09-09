@@ -817,9 +817,12 @@
     <value>创建了身分组&lt;role&gt;</value>
   </data>
   <data name="AuditLogMemberUpdateRoleRemove" xml:space="preserve">
-    <value>Vanity URL 设为&lt;url&gt;</value>
+    <value>移除了&lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateVanityUrl" xml:space="preserve">
+    <value> Vanity URL 设为&lt;url&gt;</value>
+  </data>
+  <data name="AuditLogServerUpdateVanityUrlChange" xml:space="preserve">
     <value>VAnity URL 由&lt;old&gt;改为&lt;new&gt;</value>
   </data>
 </root>
