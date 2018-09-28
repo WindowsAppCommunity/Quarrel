@@ -245,6 +245,12 @@ namespace Discord_UWP.Controls
             ToolTipService.SetToolTip(this, GuildName);
             this.Holding += OpenMenuFlyout;
             this.RightTapped += OpenMenuFlyout;
+            Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
+        }
+
+        private void Storage_SettingsChangedHandler(object sender, EventArgs e)
+        {
+            OnPropertyChanged(null, IsMutedProperty);
         }
 
         private void OpenMenuFlyout(object sender, RightTappedRoutedEventArgs e)
@@ -275,6 +281,7 @@ namespace Discord_UWP.Controls
         {
             this.Holding -= OpenMenuFlyout;
             this.RightTapped -= OpenMenuFlyout;
+            Storage.SettingsChangedHandler -= Storage_SettingsChangedHandler;
         }
 
         private void HideMute_Completed(object sender, object e)
