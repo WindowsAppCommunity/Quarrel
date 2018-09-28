@@ -875,6 +875,11 @@ namespace Discord_UWP
 
 
             App.WentOffline -= App_WentOffline;
+
+
+            ServerList.Items.Clear();
+            ChannelList.Items.Clear();
+            MembersListView.Items.Clear();
         }
 
         private void App_WentOffline(object sender, StatusPageClasses.Index e)
@@ -973,7 +978,6 @@ namespace Discord_UWP
                 SetupEvents();
                 if (Managers.GatewayManager.Gateway != null)
                 {
-                    
                     GatewayManager.StartGateway();
                     GatewayManager.Gateway.GatewayClosed += Gateway_GatewayClosed;
                     GatewayManager.Gateway.Resumed += Gateway_Resumed;
@@ -982,11 +986,14 @@ namespace Discord_UWP
                     BeginExtendedExecution();
                     BackgroundTaskManager.TryRegisterBackgroundTask();
                     SubFrame.Visibility = Visibility.Collapsed;
-                    var games = await RESTCalls.GetGamelist();
-                    foreach (var game in games)
+                    if (LocalState.SupportedGames == null || LocalState.SupportedGames.Count == 0)
                     {
-                        LocalState.SupportedGames.Add(game.Id, game);
-                        LocalState.SupportedGamesNames.Add(game.Name, game.Id);
+                        var games = await RESTCalls.GetGamelist();
+                        foreach (var game in games)
+                        {
+                            LocalState.SupportedGames.Add(game.Id, game);
+                            LocalState.SupportedGamesNames.Add(game.Name, game.Id);
+                        }
                     }
                 } else
                 {

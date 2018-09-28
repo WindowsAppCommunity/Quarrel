@@ -207,7 +207,7 @@ namespace Discord_UWP
 
         private void Username_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == Windows.System.VirtualKey.Enter && Password.Visibility == Visibility.Visible)
+            if ((e.Key == Windows.System.VirtualKey.Enter || e.Key == Windows.System.VirtualKey.Tab) && Password.Visibility == Visibility.Visible)
                 Password.Focus(FocusState.Keyboard);
         }
 
