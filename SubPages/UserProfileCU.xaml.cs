@@ -93,43 +93,54 @@ namespace Discord_UWP.SubPages
             SaveButton.IsEnabled = false;
             saveBTNprog.Visibility = Visibility.Visible;
             API.User.Models.ModifyUser modifyuser;
-            string newpass = null;
-            if (string.IsNullOrWhiteSpace(newpassword.Password))
-                newpass = null;
-            if (string.IsNullOrEmpty(base64img))
-                modifyuser = new API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
-            else
-                modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
-            if (DeletedImage)
-                modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
-            User response = null;
-            await Task.Run(async () =>
+            if (!String.IsNullOrEmpty(password.Password))
             {
-                response = await RESTCalls.ModifyCurrentUser(modifyuser); //TODO: Rig to App.Events
+                string newpass = null;
+                if (string.IsNullOrWhiteSpace(newpassword.Password))
+                    newpass = null;
+                if (string.IsNullOrEmpty(base64img))
+                    modifyuser = new API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
+                else
+                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
+                if (DeletedImage)
+                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
+                User response = null;
 
-            });
-            if (response == null || response?.Id == null)
+                await Task.Run(async () =>
+                {
+                    response = await RESTCalls.ModifyCurrentUser(modifyuser); //TODO: Rig to App.Events
+                });
+                if (response == null || response?.Id == null)
+                {
+                    string error = App.GetString("ThereWasAnErrorClarify");
+                    if (!string.IsNullOrEmpty(response.Username))
+                        error += response.Username + "\n";
+                    if (!string.IsNullOrEmpty(response.Avatar))
+                        error += response.Username + "\n";
+                    if (!string.IsNullOrEmpty(response.Email))
+                        error += response.Email + "\n";
+
+                    MessageDialog md = new MessageDialog(error, App.GetString("/Dialogs/Sorry"));
+                    saveBTNtext.Opacity = 1;
+                    SaveButton.IsEnabled = true;
+                    saveBTNprog.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    CloseButton_Click(null, null);
+                    LocalState.CurrentUser = response;
+                }
+            }
+            else
             {
-                string error = App.GetString("ThereWasAnErrorClarify");
-                if (!string.IsNullOrEmpty(response.Username))
-                    error += response.Username + "\n";
-                if (!string.IsNullOrEmpty(response.Avatar))
-                    error += response.Username + "\n";
-                if (!string.IsNullOrEmpty(response.Email))
-                    error += response.Email + "\n";
-                
-                MessageDialog md = new MessageDialog(error, App.GetString("/Dialogs/Sorry"));
+                //TODO: Highlight Current Password
+                MustFill.Visibility = Visibility.Visible;
                 saveBTNtext.Opacity = 1;
                 SaveButton.IsEnabled = true;
                 saveBTNprog.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                CloseButton_Click(null, null);
-                LocalState.CurrentUser = response;
-            }
-                
         }
+
         string base64img = "";
         bool DeletedImage = false;
         private async void HyperlinkButton_Click(object sender, RoutedEventArgs e)
@@ -140,7 +151,7 @@ namespace Discord_UWP.SubPages
             picker.FileTypeFilter.Add(".jpg");
             picker.FileTypeFilter.Add(".jpeg");
             picker.FileTypeFilter.Add(".png");
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            StorageFile file = await picker.PickSingleFileAsync();
             if (file != null)
             {
                 try
