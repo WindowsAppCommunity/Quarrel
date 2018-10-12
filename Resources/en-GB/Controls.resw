@@ -119,45 +119,59 @@
   </resheader>
   <data name="AcceptFriendRequestQ" xml:space="preserve">
     <value>Accept friend request?</value>
+    <comment>Accept friend request?</comment>
   </data>
   <data name="ACTIVITIES" xml:space="preserve">
     <value>ACTIVITIES</value>
+    <comment>Emoji category "Activities"</comment>
   </data>
   <data name="AddReacItem.Text" xml:space="preserve">
     <value>Add Reaction</value>
+    <comment>Add reaction text</comment>
   </data>
   <data name="BlockedLI.Content" xml:space="preserve">
     <value>BLOCKED</value>
+    <comment>Pivot header for blocked people (in friends pivot)</comment>
   </data>
   <data name="BotTB.Text" xml:space="preserve">
     <value>BOT</value>
+    <comment>"BOT", in all caps</comment>
   </data>
   <data name="CopyIdItem.Text" xml:space="preserve">
     <value>Copy Id</value>
+    <comment>Copy ID text</comment>
   </data>
   <data name="DeleteItem.Text" xml:space="preserve">
     <value>Delete</value>
+    <comment>Delete text</comment>
   </data>
   <data name="EditItem.Text" xml:space="preserve">
     <value>Edit</value>
+    <comment>Edit text</comment>
   </data>
   <data name="FLAGS" xml:space="preserve">
     <value>FLAGS</value>
+    <comment>Emoji category "Flags"</comment>
   </data>
   <data name="FOOD" xml:space="preserve">
     <value>FOOD</value>
+    <comment>Emoji category "Food"</comment>
   </data>
   <data name="FriendRequestSent" xml:space="preserve">
     <value>Friend request sent</value>
+    <comment>Friend request sent text</comment>
   </data>
   <data name="InviteExpired" xml:space="preserve">
     <value>Expired invite</value>
+    <comment>Expired invite</comment>
   </data>
   <data name="InviteInvalid" xml:space="preserve">
     <value>Expired or invalid invite</value>
+    <comment>Expired or invalid invite</comment>
   </data>
   <data name="InviteJoin" xml:space="preserve">
     <value>Join</value>
+    <comment>Join an invite</comment>
   </data>
   <data name="InviteJoined" xml:space="preserve">
     <value>You have joined</value>
@@ -170,9 +184,11 @@
   </data>
   <data name="NATURE" xml:space="preserve">
     <value>NATURE</value>
+    <comment>Emoji category "Nature"</comment>
   </data>
   <data name="OBJECTS" xml:space="preserve">
     <value>OBJECTS</value>
+    <comment>Emoji category "Objects"</comment>
   </data>
   <data name="OnlyOnlineFriendsCB.Content" xml:space="preserve">
     <value>Only show online friends</value>
@@ -226,7 +242,7 @@
     <value>Expired link</value>
   </data>
   <data name="expiresIn" xml:space="preserve">
-    <value>expires in</value>
+    <value>expires in &lt;time&gt;</value>
   </data>
   <data name="expiresNever" xml:space="preserve">
     <value>never expires</value>
@@ -259,25 +275,25 @@
     <value>Accept friend request?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>added</value>
+    <value>added </value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>removed</value>
+    <value>removed </value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
-    <value>to the conversation</value>
+    <value>&lt;user&gt; to the conversation</value>
   </data>
   <data name="FromTheConversation" xml:space="preserve">
-    <value>from the conversation</value>
+    <value>&lt;user&gt; from the conversation</value>
   </data>
   <data name="YouMissedACall" xml:space="preserve">
-    <value>You missed a call from</value>
+    <value>You missed a call from &lt;user&gt;</value>
   </data>
   <data name="PinnedAMessageInThisChannel" xml:space="preserve">
     <value>pinned a message in this channel.</value>
   </data>
   <data name="CallStartedBy" xml:space="preserve">
-    <value>Call started by</value>
+    <value>Call started by &lt;user&gt;</value>
   </data>
   <data name="StartedACall" xml:space="preserve">
     <value>started a call</value>
@@ -292,7 +308,7 @@
     <value>joined the server!</value>
   </data>
   <data name="EditedAt" xml:space="preserve">
-    <value>Edited at</value>
+    <value>Edited at &lt;time&gt;</value>
   </data>
   <data name="JoinListenSessionBTN.Content" xml:space="preserve">
     <value>Join listening session</value>
@@ -301,7 +317,7 @@
     <value>SPOTIFY SESSION IS OVER :'(</value>
   </data>
   <data name="AddAttachMFI.Text" xml:space="preserve">
-    <value>Attachements</value>
+    <value>Attachments</value>
   </data>
   <data name="GiphySearchTBox.PlaceholderText" xml:space="preserve">
     <value>Search with Giphy</value>

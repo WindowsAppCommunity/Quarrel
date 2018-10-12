@@ -275,10 +275,10 @@
     <value>Accept friend request?</value>
   </data>
   <data name="AddedUser" xml:space="preserve">
-    <value>added</value>
+    <value>added </value>
   </data>
   <data name="RemovedUser" xml:space="preserve">
-    <value>removed</value>
+    <value>removed </value>
   </data>
   <data name="ToTheConversation" xml:space="preserve">
     <value>&lt;user&gt; to the conversation</value>
