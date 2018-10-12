@@ -34,6 +34,7 @@ namespace Discord_UWP.SubPages
         public string PlaceHolderText { get; set; }
         public bool ConfirmRed { get; set; }
         public bool CanBeFancy { get; set; }
+        public bool ReadOnly { get; set; }
         public object args { get; set; }
         public Func<object, object> function { get; set; }
     }
@@ -59,11 +60,12 @@ namespace Discord_UWP.SubPages
             data = (e.Parameter as SubPageData);
 
             Message.Text = data.Message;
-            if (!String.IsNullOrEmpty(data.PlaceHolderText))
+            if (!String.IsNullOrEmpty(data.PlaceHolderText) || !String.IsNullOrEmpty(data.StartText))
             {
                 StringArg.Visibility = Visibility.Visible;
-                StringArg.Text = data.StartText;
-                StringArg.PlaceholderText = data.PlaceHolderText;
+                StringArg.Text = data.StartText == null ? "" : data.StartText;
+                StringArg.PlaceholderText = data.PlaceHolderText == null ? "" : data.PlaceHolderText;
+                StringArg.IsReadOnly = data.ReadOnly;
             }
 
             if (App.Insider && data.CanBeFancy) MakeFancy.Visibility = Visibility.Visible;
