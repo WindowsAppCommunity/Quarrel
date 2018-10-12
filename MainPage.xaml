@@ -1375,7 +1375,7 @@
                                                     </MenuFlyoutItem.Icon>
                                                 </MenuFlyoutItem>
                                                 <MenuFlyoutSeparator/>
-                                                <MenuFlyoutItem FontWeight="SemiLight" MinHeight="36" Width="224" Text="Add channel">
+                                                <MenuFlyoutItem FontWeight="SemiLight" MinHeight="36" Width="224" Text="Add channel" Click="AddChannelFlyout">
                                                     <MenuFlyoutItem.Icon>
                                                         <SymbolIcon Symbol="Add"/>
                                                     </MenuFlyoutItem.Icon>

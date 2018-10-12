@@ -4058,5 +4058,10 @@ namespace Discord_UWP
                 //function = //TODO: Copy to Clipboard
             });
         }
+
+        private void AddChannelFlyout(object sender, RoutedEventArgs e)
+        {
+            SubFrameNavigator(typeof(SubPages.CreateChannel));
+        }
     }
 }
