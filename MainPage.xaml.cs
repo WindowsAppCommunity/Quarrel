@@ -4040,5 +4040,23 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.AuditLog), App.CurrentGuildId);
         }
+
+        private async  void CreateInvite(object sender, RoutedEventArgs e)
+        {
+            var invite = await RESTCalls.CreateInvite(App.CurrentGuildId, new CreateInvite());
+            SubFrameNavigator(typeof(SubPages.DynamicSubPage), new SubPages.SubPageData()
+            {
+                Message = "Invite Link",
+                ConfirmMessage = "",//App.GetString("/Dialogs/Clipboard"),
+                SubMessage = "",
+                StartText = invite.String,
+                PlaceHolderText = null,
+                ConfirmRed = false,
+                ReadOnly = true,
+                CanBeFancy = false,
+                //args = App.CurrentGuildId,
+                //function = //TODO: Copy to Clipboard
+            });
+        }
     }
 }

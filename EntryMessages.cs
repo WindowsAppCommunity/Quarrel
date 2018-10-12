@@ -22,24 +22,24 @@ namespace Discord_UWP
                 DateTime now = DateTime.Now;
                 if (now.Month == 12 && (now.Day == 25 || now.Day == 24))
                 {
-                    switch (rand.Next(0, 4))
+                    //Christmas eve or day
+                    switch (rand.Next(0, 3))
                     {
-                        //Christmas eve or day
                         case 0: return kvp("Ho ho ho");
                         case 1: return kvp("Merry Christmas!");
                         case 2: return kvp("What a beautiful christmas day...");
-                        case 3: return kvp("All I want for christmas is a loading screen");
-                        case 4: return kvp("Making Christmas bells");
+                        case 3: return kvp("Making Christmas bells");
                     }
                 }
                 else
                 if (now.Month == 10 && now.Day == 31)
                 {
                     //Halloween
-                    switch (rand.Next(0, 1))
+                    switch (rand.Next(0, 2))
                     {
                         case 0: return kvp("Boo", "@Satan#666");
                         case 1: return kvp("Cutting pumpkins", "@Satan#666");
+                        case 2: return kvp("Spooky scary skeletons...", "@austinception#5634");
                     }
                 }
                 else
@@ -81,7 +81,7 @@ namespace Discord_UWP
                 else
                 if (now.Month == 7 && now.Day == 4)
                 {
-                    //July 4th (American indepence day
+                    //July 4th (American indepence day)
                     switch (rand.Next(0, 0))
                     {
                         case 0: return kvp("*Eagle screech*", "@austinception#8911");
@@ -89,7 +89,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 120))
+            switch (rand.Next(0, 124))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -211,6 +211,9 @@ namespace Discord_UWP
                 case 119: return kvp(cuttosentence(await RESTCalls.GetStringFromURI(new Uri("http://skateipsum.com/get/1/0/text"))));
                 case 120: return kvp("¡ǝldoǝd uɐᴉlɐɹʇsn∀ 'ǝɯoɔlǝM", "@ToonWK#7692");
                 case 121: return kvp("^ Not a pigeon", "@austinception#5634");
+                case 122: return kvp("The FitnessGram Pacer Test is a multistage...", "@melon#3569");
+                case 123: return kvp("Shrimp of an ex husband", "#psat2017");
+                case 124: return kvp("One miserable star", "#psat2018");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }

@@ -1358,7 +1358,7 @@
                                         <TextBlock x:Name="ServerName" MaxWidth="180" HorizontalAlignment="Left" Text="test" Opacity="1" FontSize="18" Margin="24,12,0,12"  TextTrimming="CharacterEllipsis"/>
                                         <Button.Flyout>
                                             <MenuFlyout Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutPresenterStyle1}">
-                                                <MenuFlyoutItem Text="Create Invite" FontWeight="SemiLight" MinHeight="36" Foreground="{ThemeResource Blurple}" Width="224" Style="{ThemeResource MenuFlyoutItemStyle1}">
+                                                <MenuFlyoutItem Text="Create Invite" FontWeight="SemiLight" MinHeight="36" Foreground="{ThemeResource Blurple}" Width="224" Style="{ThemeResource MenuFlyoutItemStyle1}" Click="CreateInvite">
                                                     <MenuFlyoutItem.Icon>
                                                         <SymbolIcon Symbol="AddFriend"/>
                                                     </MenuFlyoutItem.Icon>
