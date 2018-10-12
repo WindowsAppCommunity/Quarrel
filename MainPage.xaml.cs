@@ -1641,7 +1641,10 @@ namespace Discord_UWP
             else if (e.Link.StartsWith("@!"))
             {
                 string val = e.Link.Remove(0, 2);
-                if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
+                if (App.CurrentGuildId == null)
+                    if(e.User != null)
+                        App.ShowMemberFlyout(sender, e.User, false);
+                else if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(val))
                     App.ShowMemberFlyout(sender, LocalState.Guilds[App.CurrentGuildId].members[val].User, false);
                 else if (e.User != null)
                     App.ShowMemberFlyout(sender, e.User, false);
