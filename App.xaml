@@ -5580,9 +5580,10 @@
                 </Setter>
             </Style>
             <Style x:Key="MenuFlyoutPresenterStyle1" TargetType="MenuFlyoutPresenter">
-                <Setter Property="Background" Value="{ThemeResource DarkBG}"/>
+                <Setter Property="Background" Value="{ThemeResource AcrylicMessageBackground}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource MenuFlyoutPresenterBorderBrush}"/>
-                <Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>
+                <!--<Setter Property="BorderThickness" Value="{ThemeResource FlyoutBorderThemeThickness}"/>-->
+                <Setter Property="BorderThickness" Value="0,2,0,0"/>
                 <Setter Property="Padding" Value="{ThemeResource MenuFlyoutPresenterThemePadding}"/>
                 <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
