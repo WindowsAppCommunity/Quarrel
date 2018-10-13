@@ -574,7 +574,7 @@ namespace Discord_UWP.Controls
                     MorePin.Text = App.GetString("/Controls/Pin") + " ";
 
                 if (!Storage.Settings.DevMode)
-                    MoreCopyId.Visibility = Visibility.Collapsed;
+                    MoreCopyId.Visibility = MoreDevSplit.Visibility = Visibility.Collapsed;
 
                 AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(Message.User.Avatar, Message.User.Id));
 
@@ -1090,6 +1090,11 @@ namespace Discord_UWP.Controls
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
         {
             Dispose();
+        }
+
+        private void MoreReply_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
