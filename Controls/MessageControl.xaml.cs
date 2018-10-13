@@ -861,7 +861,10 @@ namespace Discord_UWP.Controls
                     MoreEdit.Visibility = Visibility.Visible;
                     MoreReply.Visibility = Visibility.Collapsed;
                 }
-                FlyoutBase.ShowAttachedFlyout(moreButton);
+                
+                UIElement tappedItem = (UIElement)e.OriginalSource;
+                MenuFlyout attachedFlyout = (MenuFlyout)FlyoutBase.GetAttachedFlyout(moreButton);
+                attachedFlyout.ShowAt(tappedItem, e.GetPosition(tappedItem));
             }
         }
 

@@ -1339,7 +1339,7 @@ namespace Discord_UWP.MarkdownTextBlock
                     break;
                 }
             }
-            App.FireLinkClicked(this, eventArgs);
+            App.FireLinkClicked(sender, eventArgs);
         }
 
         private bool multiClickDetectionTriggered;
