@@ -62,7 +62,7 @@ namespace Discord_UWP.Flyouts
             MenuFlyoutItem delete = new MenuFlyoutItem()
             {
                 Text = App.GetString("/Controls/DeleteItem"),
-                Tag = member.User.Id,
+                Tag = message.User.Id,
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 71, 71)),
                 Icon = new SymbolIcon(Symbol.Delete)
             };
