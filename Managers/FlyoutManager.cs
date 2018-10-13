@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
@@ -244,6 +245,55 @@ namespace Discord_UWP.Managers
             App.MuteChannel((sender as MenuFlyoutItem).Tag.ToString());
             var item = ((sender as MenuFlyoutItem));
         }
+        #endregion
+
+        #region Messages
+
+        public static void Reply(object sender, RoutedEventArgs e)
+        {
+            App.MentionUser(((sender as MenuFlyoutItem).Tag as Message).User.Username, ((sender as MenuFlyoutItem).Tag as Message).User.Discriminator);
+        }
+
+        private async void Pin(object sender, RoutedEventArgs e)
+        {
+            if (((sender as MenuFlyoutItem).Tag as Message).Pinned)
+            {
+                await RESTCalls.UnpinMessage(((sender as MenuFlyoutItem).Tag as Message).ChannelId, ((sender as MenuFlyoutItem).Tag as Message).Id);
+            }
+            else
+            {
+                await RESTCalls.PinMessage(((sender as MenuFlyoutItem).Tag as Message).ChannelId, ((sender as MenuFlyoutItem).Tag as Message).Id);
+            }
+        }
+
+        //private void AddReaction(object sender, RoutedEventArgs e)
+        //{
+        //    Flyout PickReaction;
+        //    PickReaction = new Flyout();
+        //    EmojiControl emojiPicker = new EmojiControl();
+        //    emojiPicker.PickedEmoji += ReactionSelected;
+        //    PickReaction.FlyoutPresenterStyle = (Style)App.Current.Resources["FlyoutPresenterStyle1"];
+        //    PickReaction.Content = emojiPicker;
+        //    PickReaction.ShowAt(moreButton);
+        //}
+
+        //private void Edit(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+
+        private void Delete(object sender, RoutedEventArgs e)
+        {
+            App.DeleteMessage(((sender as MenuFlyoutItem).Tag as Message).ChannelId, ((sender as MenuFlyoutItem).Tag as Message).Id);
+        }
+
+        private void CopyId(object sender, RoutedEventArgs e)
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(((sender as MenuFlyoutItem).Tag as Message).Id);
+            Clipboard.SetContent(dataPackage);
+        }
+
         #endregion
 
         #region API

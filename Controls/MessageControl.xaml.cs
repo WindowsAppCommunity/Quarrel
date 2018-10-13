@@ -466,8 +466,8 @@ namespace Discord_UWP.Controls
                 VerticalSpacing=4
             };
             return wg;
-            
         }
+
         public void UpdateMessage(bool edited = false)
         {
             content.FontSize = Storage.Settings.MSGFontSize;
@@ -959,7 +959,7 @@ namespace Discord_UWP.Controls
                 await RESTCalls.UnpinMessage(Message.ChannelId, Message.Id);
             } else
             {
-                await RESTCalls.PinMesage(Message.ChannelId, Message.Id);
+                await RESTCalls.PinMessage(Message.ChannelId, Message.Id);
             }
         }
 
