@@ -94,6 +94,10 @@
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
+                                <Run Text="• Spanish Translations"/>
+                            </Paragraph>
+                            <Paragraph FontSize="8"/>
+                            <Paragraph>
                                 <Run Text="• Bug Fixes"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
