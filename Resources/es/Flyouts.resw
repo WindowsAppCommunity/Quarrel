@@ -216,4 +216,7 @@
   <data name="CloseDM" xml:space="preserve">
     <value>Cerrar MD</value>
   </data>
+  <data name="SavePicture" xml:space="preserve">
+    <value>Guardar imagen</value>
+  </data>
 </root>
