@@ -153,6 +153,7 @@
       <DependentUpon>RichPresenceControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flyouts\SavePictureFlyout.cs" />
+    <Compile Include="Flyouts\MessageFlyout.cs" />
     <Compile Include="Javascript sources\DiffieHellman\BigInt.cs" />
     <Compile Include="Javascript sources\DiffieHellman\DiffieHellman.cs" />
     <Compile Include="Javascript sources\DiffieHellman\StrongNumberProvider.cs" />

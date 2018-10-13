@@ -1288,7 +1288,7 @@ namespace Discord_UWP
             return new Message();
         }
 
-        public static async Task PinMesage(string chnId, string msgId)
+        public static async Task PinMessage(string chnId, string msgId)
         {
             try
             {
