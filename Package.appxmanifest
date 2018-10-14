@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="9.3.0.0" />
+  <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="9.4.0.0" />
   <mp:PhoneIdentity PhoneProductId="72aa4b1e-65cf-4925-894f-f4347955ffac" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Discord UWP</DisplayName>
@@ -112,13 +112,19 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Quarrel.App">
       <Extensions>
-        --><!--<desktop:Extension Category="windows.fullTrustProcess" Executable="NamedPipeService\NamedPipeServer.exe" />--><!--
-        --><!--<uap3:Extension Category="windows.appUriHandler">
+        -->
+<!--<desktop:Extension Category="windows.fullTrustProcess" Executable="NamedPipeService\NamedPipeServer.exe" />-->
+<!--
+        -->
+<!--<uap3:Extension Category="windows.appUriHandler">
           <uap3:AppUriHandler>
             <uap3:Host Name="discordapp.com"/>
           </uap3:AppUriHandler>
-        </uap3:Extension>--><!--
-        --><!--<uap4:Extension Category="windows.contactPanel" />--><!--
+        </uap3:Extension>-->
+<!--
+        -->
+<!--<uap4:Extension Category="windows.contactPanel" />-->
+<!--
         <Extension Category="windows.backgroundTasks" EntryPoint="InvisibleBackgroundTask.Main">
           <BackgroundTasks>
             <Task Type="systemEvent" />
@@ -183,10 +189,13 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
-    --><!--<uap:Capability Name="contacts" />--><!--
+    -->
+<!--<uap:Capability Name="contacts" />-->
+<!--
     <DeviceCapability Name="microphone" />
   </Capabilities>
-  --><!--<Extensions>
+  -->
+<!--<Extensions>
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>
         <Path>libsodium-uwp.dll</Path>
@@ -211,5 +220,6 @@
         <ActivatableClass ActivatableClassId="Sodium.Utilities" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
-  </Extensions>--><!--
+  </Extensions>-->
+<!--
 </Package>-->
