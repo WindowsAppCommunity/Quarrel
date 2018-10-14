@@ -1215,6 +1215,7 @@ namespace Discord_UWP
                         chn.IsSelected = true;
                     else if (chn.Type != 2)
                         chn.IsSelected = false;
+                MessageBox1.FocusTextBox();
             }
             else //Out of guild navigation
             {
@@ -1369,6 +1370,7 @@ namespace Discord_UWP
                 RenderMessages();
 
                 LoadDraft();
+                MessageBox1.FocusTextBox();
             }
 
             _currentPage = new Tuple<string, string>(App.CurrentGuildId, App.CurrentChannelId);
