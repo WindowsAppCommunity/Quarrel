@@ -124,6 +124,7 @@
     <Compile Include="Classes\FancyTextGenerator.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
     <Compile Include="Classes\LoadingStack.cs" />
+    <Compile Include="Classes\SerializableDictionary.cs" />
     <Compile Include="Classes\StatusPage.cs" />
     <Compile Include="Classes\StatusPageClasses.cs" />
     <Compile Include="Common.cs" />
