@@ -2276,12 +2276,24 @@
 
                                         <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation Storyboard.TargetName="focusGlow" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
                                                     <DoubleAnimation.EasingFunction>
                                                         <ExponentialEase EasingMode="EaseInOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                                <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="focusGlow" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOverSelected">
