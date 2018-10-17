@@ -227,13 +227,13 @@ namespace Discord_UWP.Controls
             {
                 if(IsMuted)
                 {
-                    ChannelName.Fade(0.35f, 200).Start();
-                    HashtagIcon.Fade(0.35f, 200).Start();
+                    ChannelName.Fade(0.25f, 200).Start();
+                    HashtagIcon.Fade(0.25f, 200).Start();
                 }
                 else
                 {
-                    ChannelName.Fade(0.6f, 200).Start();
-                    HashtagIcon.Fade(0.6f, 200).Start();
+                    ChannelName.Fade(0.4f, 200).Start();
+                    HashtagIcon.Fade(0.4f, 200).Start();
                 }
             }
         }
@@ -254,12 +254,12 @@ namespace Discord_UWP.Controls
                     if (IsSelected)
                     {
                         VoiceIcon.Fade(1, 200).Start();
-                        SelectIndicator.Fade(0.6f, 200).Start();
+                        SelectIndicator.Fade(0.4f, 200).Start();
                     }
                     else
                     {
-                        VoiceIcon.Fade(0.6f, 200).Start();
-                        SelectIndicator.Fade(0.6f, 200).Start();
+                        VoiceIcon.Fade(0.4f, 200).Start();
+                        SelectIndicator.Fade(0.4f, 200).Start();
                     }
                 }
                 else
@@ -294,7 +294,7 @@ namespace Discord_UWP.Controls
                     }
                     else
                     {
-                        game.Opacity = 0.6;
+                        game.Opacity = 0.4;
                         rich.Visibility = Visibility.Collapsed;
                     }
                     switch (UserStatus.Game.Type)
