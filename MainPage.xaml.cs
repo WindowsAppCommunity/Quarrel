@@ -1629,7 +1629,6 @@ namespace Discord_UWP
         {
             if (!App.CurrentGuildIsDM)
             {
-                var member = new GuildMember();
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
                     FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id], e.WebHook).ShowAt(sender as FrameworkElement);
