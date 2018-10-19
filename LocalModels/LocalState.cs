@@ -6,7 +6,7 @@ using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.LocalModels
 {
-    public class LocalState
+    public static class LocalState
     {
         public static Dictionary<string, Guild> Guilds = new Dictionary<string, Guild>();
         public static Dictionary<string, DirectMessageChannel> DMs = new Dictionary<string, DirectMessageChannel>();
@@ -27,5 +27,7 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, string> Drafts = new Dictionary<string, string>();
         public static Dictionary<string, List<GameNews>> GameNews = new Dictionary<string, List<GameNews>>();
         public static FeedSettings FeedSettings = new FeedSettings();
+
+        public static Guild CurrentGuild => Guilds[App.CurrentGuildId];
     }
 }

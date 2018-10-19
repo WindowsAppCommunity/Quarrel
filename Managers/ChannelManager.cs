@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-
 using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
 using Discord_UWP.SimpleClasses;
@@ -27,19 +21,15 @@ namespace Discord_UWP.Managers
             switch (channel.raw.Type)
             {
                 case 0:
-                    sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
+                    sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) && (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted);
                     if (LocalState.RPC.ContainsKey(sc.Id))
                     {
                         ReadState readstate = LocalState.RPC[sc.Id];
                         sc.NotificationCount = readstate.MentionCount;
                         var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
-                        if (StorageChannel != null && StorageChannel.raw.LastMessageId != null &&
-                            readstate.LastMessageId != StorageChannel.raw.LastMessageId)
-                            sc.IsUnread = true;
-                        else
-                            sc.IsUnread = false;
+                        sc.IsUnread = StorageChannel?.raw.LastMessageId != null && readstate.LastMessageId != StorageChannel.raw.LastMessageId;
                     }
-                    if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                    if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id)
                     {
                         return sc;
                     }
@@ -47,7 +37,7 @@ namespace Discord_UWP.Managers
                 case 2:
                     if (Storage.Settings.VoiceChannels)
                     {
-                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
                         {
                             return sc;
                         }
@@ -138,7 +128,7 @@ namespace Discord_UWP.Managers
                     //    sc.Members.Add(user.Id, user);
                     //}
 
-                    if (channel.Name != null && channel.Name != "")
+                    if (!string.IsNullOrEmpty(channel.Name))
                     {
                         sc.Name = channel.Name;
                     }
@@ -182,19 +172,16 @@ namespace Discord_UWP.Managers
                 switch (channel.raw.Type)
                 {
                     case 0:
-                        sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) ? (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) ? LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted : false) : false;
+                        sc.IsMuted = LocalState.GuildSettings.ContainsKey(channel.raw.GuildId) && (LocalState.GuildSettings[channel.raw.GuildId].channelOverrides.ContainsKey(channel.raw.Id) && LocalState.GuildSettings[channel.raw.GuildId].channelOverrides[channel.raw.Id].Muted);
                         if (LocalState.RPC.ContainsKey(sc.Id))
                         {
                             ReadState readstate = LocalState.RPC[sc.Id];
                             sc.NotificationCount = readstate.MentionCount;
-                            var StorageChannel = LocalState.Guilds[App.CurrentGuildId].channels[sc.Id];
-                            if (StorageChannel != null && StorageChannel.raw.LastMessageId != null &&
-                                readstate.LastMessageId != StorageChannel.raw.LastMessageId)
-                                sc.IsUnread = true;
-                            else
-                                sc.IsUnread = false;
+                            var storageChannel = LocalState.CurrentGuild.channels[sc.Id];
+                            sc.IsUnread = storageChannel?.raw.LastMessageId != null &&
+                                          readstate.LastMessageId != storageChannel.raw.LastMessageId;
                         }
-                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId || 1 == 1)
+                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages || App.CurrentGuildId == sc.Id)
                         {
                             returnChannels.Add(sc);
                         }
@@ -202,7 +189,7 @@ namespace Discord_UWP.Managers
                     case 2:
                         if (Storage.Settings.VoiceChannels)
                         {
-                            if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Administrator || LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id || LocalState.CurrentUser.Id == LocalState.Guilds[App.CurrentGuildId].Raw.OwnerId)
+                            if (LocalState.CurrentGuild.channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
                             {
                                 returnChannels.Add(sc);
                             }

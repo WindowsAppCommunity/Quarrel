@@ -87,7 +87,6 @@ namespace Discord_UWP
 
         public static Settings Settings = new Settings();
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
-        public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
     }
 
