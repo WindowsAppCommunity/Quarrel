@@ -31,6 +31,10 @@ namespace Discord_UWP
             this.InitializeComponent();
         }
         string mfaTicket;
+
+        string cusername;
+        string cpassword;
+
         private async void LogIn(object sender, RoutedEventArgs e)
         {
             loginButton.IsEnabled = false;
@@ -50,8 +54,12 @@ namespace Discord_UWP
                 });
                 if(result.CaptchaKey != null)
                 {
-                    MessageDialog md = new MessageDialog("...And won't let us log you in. To fix this, simply log in to Discord from a web browser on this device, and try again here", "Discord thinks you're a bot!");
-                    md.ShowAsync();
+                    CaptchaView.Visibility = Visibility.Visible;
+                    CaptchaView.Navigate(new Uri("https://discordapp.com/login"));
+                    cusername = username;
+                    cpassword = password;
+                    MessageDialog md = new MessageDialog("Login in Failed, try again here", "Discord thinks you're a bot!");
+                    await md.ShowAsync();
                 }
                 else if (result.exception != null)
                 {
@@ -242,6 +250,16 @@ namespace Discord_UWP
                 sms = true;
             }
             
+        }
+
+        private void Navigating(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            if (args.Uri != new Uri("https://discordapp.com/login"))
+            {
+                Username.Text = cusername;
+                Password.Password = cpassword;
+                LogIn(loginButton, null);
+            }
         }
     }
 }

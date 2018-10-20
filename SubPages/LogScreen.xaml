@@ -75,5 +75,8 @@
         </HyperlinkButton>
         <HyperlinkButton x:Name="LoginWithToken" TabIndex="6" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource Blurple}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
 
+        <WebView x:Name="CaptchaView" NavigationStarting="Navigating" Visibility="Collapsed">
+            
+        </WebView>
     </Grid>
 </Page>
