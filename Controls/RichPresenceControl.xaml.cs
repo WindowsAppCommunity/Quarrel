@@ -259,13 +259,13 @@ namespace Discord_UWP.Controls
                 var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.End.Value);
 
                 var timeleft = t.Subtract(DateTimeOffset.Now);
-                TimeTB.Text = timeleft.ToString(@"mm\:ss") + " left";
+                TimeTB.Text = timeleft.ToString(@"hh\:mm\:ss") + " left";
             }
             else if (GameContent.TimeStamps.Start.HasValue)
             {
                 var t = DateTimeOffset.FromUnixTimeMilliseconds(GameContent.TimeStamps.Start.Value);
                 var timeleft = DateTimeOffset.Now.Subtract(t);
-                TimeTB.Text = timeleft.ToString(@"mm\:ss") + " elapsed";
+                TimeTB.Text = timeleft.ToString(@"hh\:mm\:ss") + " elapsed";
             }
         }
         private void UpdateProgressBar(object sender, object e)
