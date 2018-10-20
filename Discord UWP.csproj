@@ -124,6 +124,7 @@
     <Compile Include="Classes\FancyTextGenerator.cs" />
     <Compile Include="Classes\GroupedObservableCollection.cs" />
     <Compile Include="Classes\LoadingStack.cs" />
+    <Compile Include="Classes\SerializableDictionary.cs" />
     <Compile Include="Classes\StatusPage.cs" />
     <Compile Include="Classes\StatusPageClasses.cs" />
     <Compile Include="Common.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Common\Regex.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Arduino.cs" />
     <Compile Include="Markdown\ColorCode\ColorCode.Core\Compilation\Languages\Python.cs" />
+    <Compile Include="Markdown\Parse\Inlines\UnderlineTextInline.cs" />
     <Compile Include="SubPages\AuditLog.xaml.cs">
       <DependentUpon>AuditLog.xaml</DependentUpon>
     </Compile>

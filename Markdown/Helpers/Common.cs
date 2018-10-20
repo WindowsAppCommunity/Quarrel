@@ -85,6 +85,11 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
             /// Image element.
             /// </summary>
             Image,
+
+            /// <summary>
+            /// An underline block.
+            /// </summary>
+            Underline,
         }
 
         /// <summary>
@@ -116,6 +121,7 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
            /* SuperscriptTextInline.AddTripChars(_triggerList);*/
             CodeInline.AddTripChars(_triggerList);
             ImageInline.AddTripChars(_triggerList);
+            UnderlineTextInline.AddTripChars(_triggerList);
 
             // Create an array of characters to search against using IndexOfAny.
             _tripCharacters = _triggerList.Select(trigger => trigger.FirstChar).Distinct().ToArray();
@@ -282,9 +288,13 @@ namespace Discord_UWP.MarkdownTextBlock.Helpers
                             case InlineParseMethod.Code:
                                 parseResult = CodeInline.Parse(markdown, pos, end);
                                 break;
-                          /*  case InlineParseMethod.Image:
-                                parseResult = ImageInline.Parse(markdown, pos, end);
-                                break;*/
+                            /*  case InlineParseMethod.Image:
+                                  parseResult = ImageInline.Parse(markdown, pos, end);
+                                  break;*/
+
+                            case InlineParseMethod.Underline:
+                                parseResult = UnderlineTextInline.Parse(markdown, pos, end);
+                                break;
                         }
 
                         if (parseResult != null)

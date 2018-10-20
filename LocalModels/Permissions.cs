@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Discord_UWP.SharedModels;
 
 namespace Discord_UWP.LocalModels
 {
@@ -11,76 +10,63 @@ namespace Discord_UWP.LocalModels
         public IEnumerable<string> RemovedPermissions { get; set; }
         public IEnumerable<string> AddedPermissions { get; set; }
     }
+
+    [Flags]
+    public enum GuildPermission
+    {
+        CreateInstantInvite = 0x1,
+        KickMembers = 0x2,
+        BanMembers = 0x4,
+        Administrator = 0x8,
+        ManageChannels = 0x10,
+        ManangeGuild = 0x20,
+        AddReactions = 0x40,
+        ViewAuditLog = 0x80,
+        PrioritySpeaker = 0x100,
+        ReadMessages = 0x400,
+        SendMessages = 0x800,
+        SendTtsMessages = 0x1000,
+        ManageMessages = 0x2000,
+        EmbedLinks = 0x4000,
+        AttachFiles = 0x8000,
+        ReadMessageHistory = 0x10000,
+        MentionEveryone = 0x20000,
+        UseExternalEmojis = 0x40000,
+        Connect = 0x100000,
+        Speak = 0x200000,
+        MuteMembers = 0x400000,
+        DeafenMembers = 0x800000,
+        MoveMembers = 0x1000000,
+        UseVad = 0x2000000,
+        ChangeNickname = 0x4000000,
+        ManageNicknames = 0x8000000,
+        ManageRoles = 0x10000000,
+        ManageWebhooks = 0x20000000,
+        ManageEmojis = 0x40000000
+    }
+
     public class Permissions
     {
-        public PermissionDifference GetDifference(Permissions oldPermissions)
-        {
-            var oldperms = oldPermissions.GetPermissions();
-            var newperms = GetPermissions();
-            var added = oldperms.Except(newperms);
-            var removed = newperms.Except(oldperms);
-            return new PermissionDifference()
-            {
-                AddedPermissions = added,
-                RemovedPermissions = removed
-            };
-        }
-        public List<string> GetPermissions()
-        {
-            var perms = new List<string>();
-            if (Administrator)        perms.Add(App.GetString("/Permissions/ADMINISTRATOR"));
-            if (AddReactions)         perms.Add(App.GetString("/Permissions/ADD_REACTIONS"));
-            if (AttachFiles)          perms.Add(App.GetString("/Permissions/ATTACH_FILES"));
-            if (BanMembers)           perms.Add(App.GetString("/Permissions/BAN_MEMBERS"));
-            if (ChangeNickname)       perms.Add(App.GetString("/Permissions/CHANGE_NICKNAME"));
-            if (Connect)              perms.Add(App.GetString("/Permissions/CONNECT"));
-            if (CreateInstantInvite)  perms.Add(App.GetString("/Permissions/CREATE_INSTANT_INVITE"));
-            if (DeafenMembers)        perms.Add(App.GetString("/Permissions/DEAFEN_MEMBERS"));
-            if (EmbedLinks)           perms.Add(App.GetString("/Permissions/EMBED_LINKS"));
-            if (KickMembers)          perms.Add(App.GetString("/Permissions/KICK_MEMBERS"));
-            if (ManageChannels)       perms.Add(App.GetString("/Permissions/MANAGE_CHANNELS"));
-            if (ManageEmojis)         perms.Add(App.GetString("/Permissions/MANAGE_EMOJIS"));
-            if (ManageMessages)       perms.Add(App.GetString("/Permissions/MANAGE_MESSAGES"));
-            if (ManageNicknames)      perms.Add(App.GetString("/Permissions/MANAGE_NICKNAMES"));
-            if (ManageRoles)          perms.Add(App.GetString("/Permissions/MANAGE_ROLES"));
-            if (ManageWebhooks)       perms.Add(App.GetString("/Permissions/MANAGE_WEBHOOKS"));
-            if (ManangeGuild)         perms.Add(App.GetString("/Permissions/MANAGE_GUILD"));
-            if (MentionEveryone)      perms.Add(App.GetString("/Permissions/MENTION_EVERYONE"));
-            if (MoveMembers)          perms.Add(App.GetString("/Permissions/MOVE_MEMBERS"));
-            if (MuteMembers)          perms.Add(App.GetString("/Permissions/MUTE_MEMBERS"));
-            if (ReadMessageHistory)   perms.Add(App.GetString("/Permissions/READ_MESSAGE_HISTORY"));
-            if (ReadMessages)         perms.Add(App.GetString("/Permissions/READ_MESSAGES"));
-            if (SendMessages)         perms.Add(App.GetString("/Permissions/SEND_MESSAGES"));
-            if (SendTtsMessages)      perms.Add(App.GetString("/Permissions/SEND_TTS_MESSAGES"));
-            if (Speak)                perms.Add(App.GetString("/Permissions/SPEAK"));
-            if (UseExternalEmojis)    perms.Add(App.GetString("/Permissions/USE_EXTERNAL_EMOJIS"));
-            if (UseVad)               perms.Add(App.GetString("/Permissions/USE_VAD"));
-            if (ViewAuditLog)         perms.Add(App.GetString("/Permissions/VIEW_AUDIT_LOGS"));
-            if (PrioritySpeaker)      perms.Add(App.GetString("/Permissions/PRIORITY_SPEAKER"));
-            return perms;
-        }
+        private GuildPermission _perms;
 
         public Permissions(int perms)
         {
-            Perms = perms;
+            _perms = (GuildPermission)perms;
+        }
+        public Permissions(GuildPermission perms)
+        {
+            _perms = perms;
         }
 
         public Permissions(string guildId, string channelId = "", string userId = "")
         {
-            if (userId == "")
-            {
-                userId = LocalState.CurrentUser.Id;
-            }
+            if (userId == "") userId = LocalState.CurrentUser.Id;
 
-            Perms = 0;
+            _perms = 0;
+            AddAllows((GuildPermission)(LocalState.Guilds[guildId].roles.First(a => a.Value.Position == 0).Value.Permissions));
             if (LocalState.Guilds[guildId].members.ContainsKey(userId))
-            {
                 foreach (string role in LocalState.Guilds[guildId].members[userId].Roles)
-                {
-                    AddAllows(LocalState.Guilds[guildId].roles[role].Permissions);
-                }
-
-            }
+                    AddAllows((GuildPermission)LocalState.Guilds[guildId].roles[role].Permissions);
 
             if (channelId != "" && LocalState.Guilds[guildId].channels.ContainsKey(channelId))
             {
@@ -91,205 +77,295 @@ namespace Discord_UWP.LocalModels
                 //  All Role Allows
                 //  Member denies
                 //  Member allows
+                
+                GuildPermission memberDenies = 0;
+                GuildPermission memberAllows = 0;
 
-                int roleDenies = 0;
-                int roleAllows = 0;
-                int memberDenies = 0;
-                int memberAllows = 0;
-
-                foreach (var overwrite in LocalState.Guilds[guildId].channels[channelId].raw.PermissionOverwrites)
-                {
+                foreach (Overwrite overwrite in LocalState.Guilds[guildId].channels[channelId].raw.PermissionOverwrites)
                     if (overwrite.Id == guildId)
                     {
-                        AddDenies(overwrite.Deny);
-                        AddDenies(overwrite.Allow);
-                    } else if (overwrite.Type == "role" && LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
-                    {
-                        roleDenies &= ~overwrite.Deny;
-                        roleAllows &= ~overwrite.Allow;
-                    } else if (overwrite.Type == "member" && overwrite.Id == userId)
-                    {
-                        memberDenies = overwrite.Deny;
-                        memberAllows = overwrite.Allow;
+                        AddDenies((GuildPermission)overwrite.Deny);
+                        AddAllows((GuildPermission)overwrite.Allow);
                     }
-                }
-                AddDenies(roleDenies);
-                AddAllows(roleAllows);
+                    else if (overwrite.Type == "role" &&
+                             LocalState.Guilds[guildId].members[userId].Roles.Contains(overwrite.Id))
+                    {
+                        AddDenies((GuildPermission)overwrite.Deny);
+                        AddAllows((GuildPermission)overwrite.Allow);
+                    }
+                    else if (overwrite.Type == "member" && overwrite.Id == userId)
+                    {
+                        memberDenies = (GuildPermission)overwrite.Deny;
+                        memberAllows = (GuildPermission)overwrite.Allow;
+                    }
+               
                 AddDenies(memberDenies);
                 AddAllows(memberAllows);
             }
         }
-        
-        private void AddAllows(int set)
+
+        private bool GetPerm(GuildPermission perm)
         {
-            Perms |= set;
+            return ((_perms & perm) == perm || (_perms & GuildPermission.Administrator) == GuildPermission.Administrator);
         }
 
-        private void AddDenies(int set)
+        private void SetPerm(GuildPermission perm, bool value)
         {
-            Perms &= ~set;
-        }
-
-        public int GetPermInt()
-        {
-            return Perms;
+            if (value)
+            {
+                AddAllows(perm);
+            }
+            else
+            {
+                AddDenies(perm);
+            }
         }
 
         public bool CreateInstantInvite
         {
-            get { return Convert.ToBoolean(Perms & 0x1) || Administrator; }
-            set { Perms = value ? Perms | 0x1 : Perms & ~0x1; }
+            get => GetPerm(GuildPermission.CreateInstantInvite);
+            set => SetPerm(GuildPermission.CreateInstantInvite, value);
         }
+
         public bool KickMembers
         {
-            get { return Convert.ToBoolean(Perms & 0x2) || Administrator; }
-            set { Perms = value ? Perms | 0x2 : Perms & ~0x2; }
+            get => GetPerm(GuildPermission.KickMembers);
+            set => SetPerm(GuildPermission.KickMembers, value);
         }
+
         public bool BanMembers
         {
-            get { return Convert.ToBoolean(Perms & 0x4) || Administrator; }
-            set { Perms = value ? Perms | 0x4 : Perms & ~0x4; }
+            get => GetPerm(GuildPermission.BanMembers);
+            set => SetPerm(GuildPermission.BanMembers, value);
         }
+
         public bool Administrator
         {
-            get { return Convert.ToBoolean(Perms & 0x8); }
-            set { Perms = value ? Perms | 0x8 : Perms & ~0x8; }
+            get => GetPerm(GuildPermission.Administrator);
+            set => SetPerm(GuildPermission.Administrator, value);
         }
+
         public bool ManageChannels
         {
-            get { return Convert.ToBoolean(Perms & 0x10) || Administrator; }
-            set { Perms = value ? Perms | 0x10 : Perms & ~0x10; }
+            get => GetPerm(GuildPermission.ManageChannels);
+            set => SetPerm(GuildPermission.ManageChannels, value);
         }
+
         public bool ManangeGuild
         {
-            get { return Convert.ToBoolean(Perms & 0x20) || Administrator; }
-            set { Perms = value ? Perms | 0x20 : Perms & ~0x20; }
+            get => GetPerm(GuildPermission.ManangeGuild);
+            set => SetPerm(GuildPermission.ManangeGuild, value);
         }
+
         public bool AddReactions
         {
-            get { return Convert.ToBoolean(Perms & 0x40) || Administrator; }
-            set { Perms = value ? Perms | 0x40 : Perms & ~0x40; }
+            get => GetPerm(GuildPermission.AddReactions);
+            set => SetPerm(GuildPermission.AddReactions, value);
         }
+
         public bool ViewAuditLog
         {
-            get { return Convert.ToBoolean(Perms & 0x80) || Administrator; }
-            set { Perms = value ? Perms | 0x80 : Perms & ~0x80; }
+            get => GetPerm(GuildPermission.ViewAuditLog);
+            set => SetPerm(GuildPermission.ViewAuditLog, value);
         }
+
         public bool ReadMessages
         {
-            get { return Convert.ToBoolean(Perms & 0x400) || Administrator; }
-            set { Perms = value ? Perms | 0x400 : Perms & ~0x400; }
+            get => GetPerm(GuildPermission.ReadMessages);
+            set => SetPerm(GuildPermission.ReadMessages, value);
         }
+
         public bool SendMessages
         {
-            get { return Convert.ToBoolean(Perms & 0x800) || Administrator; }
-            set { Perms = value ? Perms | 0x800 : Perms & ~0x800; }
+            get => GetPerm(GuildPermission.SendMessages);
+            set => SetPerm(GuildPermission.SendMessages, value);
         }
+
         public bool SendTtsMessages
         {
-            get { return Convert.ToBoolean(Perms & 0x1000) || Administrator; }
-            set { Perms = value ? Perms | 0x1000 : Perms & ~0x1000; }
+            get => GetPerm(GuildPermission.SendTtsMessages);
+            set => SetPerm(GuildPermission.SendTtsMessages, value);
         }
+
         public bool ManageMessages
         {
-            get { return Convert.ToBoolean(Perms & 0x2000) || Administrator; }
-            set { Perms = value ? Perms | 0x2000 : Perms & ~0x2000; }
+            get => GetPerm(GuildPermission.ManageMessages);
+            set => SetPerm(GuildPermission.ManageMessages, value);
         }
+
         public bool EmbedLinks
         {
-            get { return Convert.ToBoolean(Perms & 0x4000); }
-            set { Perms = value ? Perms | 0x4000 : Perms & ~0x4000; }
+            get => GetPerm(GuildPermission.EmbedLinks);
+            set => SetPerm(GuildPermission.EmbedLinks, value);
         }
+
         public bool AttachFiles
         {
-            get { return Convert.ToBoolean(Perms & 0x8000) || Administrator; }
-            set { Perms = value ? Perms | 0x8000 : Perms & ~0x8000; }
+            get => GetPerm(GuildPermission.AttachFiles);
+            set => SetPerm(GuildPermission.AttachFiles, value);
         }
+
         public bool ReadMessageHistory
         {
-            get { return Convert.ToBoolean(Perms & 0x10000) || Administrator; }
-            set { Perms = value ? Perms | 0x10000 : Perms & ~0x10000; }
+            get => GetPerm(GuildPermission.ReadMessageHistory);
+            set => SetPerm(GuildPermission.ReadMessageHistory, value);
         }
+
         public bool MentionEveryone
         {
-            get { return Convert.ToBoolean(Perms & 0x20000) || Administrator; }
-            set { Perms = value ? Perms | 0x20000 : Perms & ~0x20000; }
+            get => GetPerm(GuildPermission.MentionEveryone);
+            set => SetPerm(GuildPermission.MentionEveryone, value);
         }
+
         public bool UseExternalEmojis
         {
-            get { return Convert.ToBoolean(Perms & 0x40000) || Administrator; }
-            set { Perms = value ? Perms | 0x40000 : Perms & ~0x40000; }
+            get => GetPerm(GuildPermission.UseExternalEmojis);
+            set => SetPerm(GuildPermission.UseExternalEmojis, value);
         }
+
         public bool Connect
         {
-            get { return Convert.ToBoolean(Perms & 0x100000) || Administrator; }
-            set { Perms = value ? Perms | 0x100000 : Perms & ~0x100000; }
+            get => GetPerm(GuildPermission.Connect);
+            set => SetPerm(GuildPermission.Connect, value);
         }
+
         public bool Speak
         {
-            get { return Convert.ToBoolean(Perms & 0x200000) || Administrator; }
-            set { Perms = value ? Perms | 0x200000 : Perms & ~0x200000; }
+            get => GetPerm(GuildPermission.Speak);
+            set => SetPerm(GuildPermission.Speak, value);
         }
+
         public bool MuteMembers
         {
-            get { return Convert.ToBoolean(Perms & 0x400000) || Administrator; }
-            set { Perms = value ? Perms | 0x400000 : Perms & ~0x400000; }
+            get => GetPerm(GuildPermission.MuteMembers);
+            set => SetPerm(GuildPermission.MuteMembers, value);
         }
+
         public bool DeafenMembers
         {
-            get { return Convert.ToBoolean(Perms & 0x800000) || Administrator; }
-            set { Perms = value ? Perms | 0x800000 : Perms & ~0x800000; }
+            get => GetPerm(GuildPermission.DeafenMembers);
+            set => SetPerm(GuildPermission.DeafenMembers, value);
         }
+
         public bool MoveMembers
         {
-            get { return Convert.ToBoolean(Perms & 0x1000000) || Administrator; }
-            set { Perms = value ? Perms | 0x1000000 : Perms & ~0x1000000; }
+            get => GetPerm(GuildPermission.MoveMembers);
+            set => SetPerm(GuildPermission.MoveMembers, value);
         }
+
         public bool UseVad
         {
-            get { return Convert.ToBoolean(Perms & 0x2000000) || Administrator; }
-            set { Perms = value ? Perms | 0x2000000 : Perms & ~0x2000000; }
+            get => GetPerm(GuildPermission.UseVad);
+            set => SetPerm(GuildPermission.UseVad, value);
         }
+
         public bool ChangeNickname
         {
-            get { return Convert.ToBoolean(Perms & 0x4000000) || Administrator; }
-            set { Perms = value ? Perms | 0x4000000 : Perms & ~0x4000000; }
+            get => GetPerm(GuildPermission.ChangeNickname);
+            set => SetPerm(GuildPermission.ChangeNickname, value);
         }
+
         public bool ManageNicknames
         {
-            get { return Convert.ToBoolean(Perms & 0x8000000) || Administrator; }
-            set { Perms = value ? Perms | 0x8000000 : Perms & ~0x8000000; }
+            get => GetPerm(GuildPermission.ManageNicknames);
+            set => SetPerm(GuildPermission.ManageNicknames, value);
         }
+
         public bool ManageRoles
         {
-            get { return Convert.ToBoolean(Perms & 0x10000000) || Administrator; }
-            set { Perms = value ? Perms | 0x10000000 : Perms & ~0x10000000; }
+            get => GetPerm(GuildPermission.ManageRoles);
+            set => SetPerm(GuildPermission.ManageRoles, value);
         }
+
         public bool ManageWebhooks
         {
-            get { return Convert.ToBoolean(Perms & 0x20000000) || Administrator; }
-            set { Perms = value ? Perms | 0x20000000 : Perms & ~0x20000000; }
+            get => GetPerm(GuildPermission.ManageWebhooks);
+            set => SetPerm(GuildPermission.ManageWebhooks, value);
         }
+
         public bool ManageEmojis
         {
-            get { return Convert.ToBoolean(Perms & 0x40000000) || Administrator; }
-            set { Perms = value ? Perms | 0x40000000 : Perms & ~0x40000000; }
+            get => GetPerm(GuildPermission.ManageEmojis);
+            set => SetPerm(GuildPermission.ManageEmojis, value);
         }
+
         public bool PrioritySpeaker
         {
-            get { return Convert.ToBoolean(Perms & 0x100) || Administrator; }
-            set { Perms = value ? Perms | 0x100 : Perms & ~0x100; }
+            get => GetPerm(GuildPermission.PrioritySpeaker);
+            set => SetPerm(GuildPermission.PrioritySpeaker, value);
         }
-        int Perms = 0;
+
+        public PermissionDifference GetDifference(Permissions oldPermissions)
+        {
+            List<string> oldperms = oldPermissions.GetPermissions();
+            List<string> newperms = GetPermissions();
+            IEnumerable<string> added = oldperms.Except(newperms);
+            IEnumerable<string> removed = newperms.Except(oldperms);
+            return new PermissionDifference
+            {
+                AddedPermissions = added,
+                RemovedPermissions = removed
+            };
+        }
+
+        public List<string> GetPermissions()
+        {
+            List<string> perms = new List<string>();
+            if (Administrator) perms.Add(App.GetString("/Permissions/ADMINISTRATOR"));
+            if (AddReactions) perms.Add(App.GetString("/Permissions/ADD_REACTIONS"));
+            if (AttachFiles) perms.Add(App.GetString("/Permissions/ATTACH_FILES"));
+            if (BanMembers) perms.Add(App.GetString("/Permissions/BAN_MEMBERS"));
+            if (ChangeNickname) perms.Add(App.GetString("/Permissions/CHANGE_NICKNAME"));
+            if (Connect) perms.Add(App.GetString("/Permissions/CONNECT"));
+            if (CreateInstantInvite) perms.Add(App.GetString("/Permissions/CREATE_INSTANT_INVITE"));
+            if (DeafenMembers) perms.Add(App.GetString("/Permissions/DEAFEN_MEMBERS"));
+            if (EmbedLinks) perms.Add(App.GetString("/Permissions/EMBED_LINKS"));
+            if (KickMembers) perms.Add(App.GetString("/Permissions/KICK_MEMBERS"));
+            if (ManageChannels) perms.Add(App.GetString("/Permissions/MANAGE_CHANNELS"));
+            if (ManageEmojis) perms.Add(App.GetString("/Permissions/MANAGE_EMOJIS"));
+            if (ManageMessages) perms.Add(App.GetString("/Permissions/MANAGE_MESSAGES"));
+            if (ManageNicknames) perms.Add(App.GetString("/Permissions/MANAGE_NICKNAMES"));
+            if (ManageRoles) perms.Add(App.GetString("/Permissions/MANAGE_ROLES"));
+            if (ManageWebhooks) perms.Add(App.GetString("/Permissions/MANAGE_WEBHOOKS"));
+            if (ManangeGuild) perms.Add(App.GetString("/Permissions/MANAGE_GUILD"));
+            if (MentionEveryone) perms.Add(App.GetString("/Permissions/MENTION_EVERYONE"));
+            if (MoveMembers) perms.Add(App.GetString("/Permissions/MOVE_MEMBERS"));
+            if (MuteMembers) perms.Add(App.GetString("/Permissions/MUTE_MEMBERS"));
+            if (ReadMessageHistory) perms.Add(App.GetString("/Permissions/READ_MESSAGE_HISTORY"));
+            if (ReadMessages) perms.Add(App.GetString("/Permissions/READ_MESSAGES"));
+            if (SendMessages) perms.Add(App.GetString("/Permissions/SEND_MESSAGES"));
+            if (SendTtsMessages) perms.Add(App.GetString("/Permissions/SEND_TTS_MESSAGES"));
+            if (Speak) perms.Add(App.GetString("/Permissions/SPEAK"));
+            if (UseExternalEmojis) perms.Add(App.GetString("/Permissions/USE_EXTERNAL_EMOJIS"));
+            if (UseVad) perms.Add(App.GetString("/Permissions/USE_VAD"));
+            if (ViewAuditLog) perms.Add(App.GetString("/Permissions/VIEW_AUDIT_LOGS"));
+            if (PrioritySpeaker) perms.Add(App.GetString("/Permissions/PRIORITY_SPEAKER"));
+            return perms;
+        }
+
+        private void AddAllows(GuildPermission set)
+        {
+            _perms |= set;
+        }
+
+        private void AddDenies(GuildPermission set)
+        {
+            _perms &= ~set;
+        }
+
+        public int GetPermInt()
+        {
+            return (int)_perms;
+        }
 
         public static bool CanChangeNickname(string userId, string guildId)
         {
-            if (((new Permissions(guildId)).ChangeNickname && userId == LocalState.CurrentUser.Id) ||
-               ((new Permissions(guildId)).ManageNicknames && (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]).Position >= (LocalState.Guilds[guildId].roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()]).Position))
-            {
-                return true;
-            }
-            return false;
+            Permissions cachedPerms = new Permissions(guildId);
+            return (cachedPerms.ChangeNickname && userId == LocalState.CurrentUser.Id) || cachedPerms.ManageNicknames &&
+                   LocalState.Guilds[guildId]
+                       .roles[LocalState.Guilds[guildId].members[LocalState.CurrentUser.Id].Roles.FirstOrDefault()]
+                       .Position >= LocalState.Guilds[guildId]
+                       .roles[LocalState.Guilds[guildId].members[userId].Roles.FirstOrDefault()].Position;
         }
     }
 }

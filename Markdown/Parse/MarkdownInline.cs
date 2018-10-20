@@ -67,7 +67,12 @@ namespace Discord_UWP.MarkdownTextBlock.Parse
         /// <summary>
         /// An image
         /// </summary>
-        Image
+        Image,
+
+        /// <summary>
+        /// A underline run
+        /// </summary>
+        Underline
     }
 
     /// <summary>

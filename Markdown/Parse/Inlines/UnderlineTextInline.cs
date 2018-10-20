@@ -17,13 +17,13 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
     /// <summary>
     /// Represents a span that contains bold text.
     /// </summary>
-    internal class BoldTextInline : MarkdownInline, IInlineContainer
+    internal class UnderlineTextInline : MarkdownInline, IInlineContainer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BoldTextInline"/> class.
         /// </summary>
-        public BoldTextInline()
-            : base(MarkdownInlineType.Bold)
+        public UnderlineTextInline()
+            : base(MarkdownInlineType.Underline)
         {
         }
 
@@ -37,7 +37,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
         /// </summary>
         internal static void AddTripChars(List<Helpers.Common.InlineTripCharHelper> tripCharHelpers)
         {
-            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '*', Method = Helpers.Common.InlineParseMethod.Bold });
+            tripCharHelpers.Add(new Helpers.Common.InlineTripCharHelper() { FirstChar = '_', Method = Helpers.Common.InlineParseMethod.Underline });
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
 
             // Check the start sequence.
             string startSequence = markdown.Substring(start, 2);
-            if (startSequence != "**")
+            if (startSequence != "__")
             {
                 return null;
             }
@@ -89,7 +89,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
             }
 
             // We found something!
-            var result = new BoldTextInline();
+            var result = new UnderlineTextInline();
             result.Inlines = Helpers.Common.ParseInlineChildren(markdown, innerStart, innerEnd);
             return new Helpers.Common.InlineParseResult(result, start, innerEnd + 2);
         }
@@ -105,7 +105,7 @@ namespace Discord_UWP.MarkdownTextBlock.Parse.Inlines
                 return base.ToString();
             }
 
-            return "*" + string.Join(string.Empty, Inlines) + "*";
+            return "__" + string.Join(string.Empty, Inlines) + "__";
         }
     }
 }

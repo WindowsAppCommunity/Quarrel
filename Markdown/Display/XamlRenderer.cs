@@ -892,7 +892,10 @@ namespace Discord_UWP.MarkdownTextBlock.Display
                 case MarkdownInlineType.Image:
                     RenderImage(inlineCollection, (ImageInline)element, context);
                     break;
-              
+                case MarkdownInlineType.Underline:
+                    RenderUnderlineRun(inlineCollection, (UnderlineTextInline)element, context);
+                    break;
+
             }
         }
 
@@ -1273,6 +1276,19 @@ namespace Discord_UWP.MarkdownTextBlock.Display
             // Render the children into the bold inline.
             RenderInlineChildren(strikeSpan.Inlines, element.Inlines, strikeSpan, context);
             inlineCollection.Add(strikeSpan);
+        }
+
+
+        private void RenderUnderlineRun(InlineCollection inlineCollection, UnderlineTextInline element,  RenderContext context)
+        {
+            Span underlineSpan = new Span
+            {
+                TextDecorations = TextDecorations.Underline
+            };
+
+            // Render the children into the bold inline.
+            RenderInlineChildren(underlineSpan.Inlines, element.Inlines, underlineSpan, context);
+            inlineCollection.Add(underlineSpan);
         }
 
         /// <summary>
