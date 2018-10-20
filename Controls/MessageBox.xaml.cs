@@ -2,30 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.Core;
-using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
+using Windows.Devices.Input;
 using Discord_UWP.LocalModels;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Threading;
 using Discord_UWP.Managers;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Core;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -46,13 +34,13 @@ namespace Discord_UWP.Controls
 
         public string Text
         {
-            get { return MessageEditor.Text; }
-            set { MessageEditor.Text = value; }
+            get => MessageEditor.Text;
+            set => MessageEditor.Text = value;
         }
         public new double FontSize
         {
-            get { return MessageEditor.FontSize; }
-            set { MessageEditor.FontSize = value; }
+            get => MessageEditor.FontSize;
+            set => MessageEditor.FontSize = value;
         }
         public readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
@@ -62,15 +50,15 @@ namespace Discord_UWP.Controls
 
         public new bool IsEnabled
         {
-            get { return (bool)GetValue(IsEnabledProperty); }
-            set { SetValue(IsEnabledProperty, value); }
+            get => (bool)GetValue(IsEnabledProperty);
+            set => SetValue(IsEnabledProperty, value);
         }
 
         public bool IsCompact
         {
             set
             {
-                if (value == true)
+                if (value)
                 {
                     EmojiButton.Visibility = Visibility.Collapsed;
                     attachButton.Visibility = Visibility.Collapsed;
@@ -87,8 +75,8 @@ namespace Discord_UWP.Controls
 
         public bool IsEdit
         {
-            get { return (bool)GetValue(IsEditProperty); }
-            set { SetValue(IsEditProperty, value); }
+            get => (bool)GetValue(IsEditProperty);
+            set => SetValue(IsEditProperty, value);
         }
 
         public readonly DependencyProperty IsEditProperty = DependencyProperty.Register(
@@ -105,66 +93,9 @@ namespace Discord_UWP.Controls
 
         public MessageBox()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             MessageEditor.PlaceholderText = App.GetString("/Controls/SendMessagePlaceholderText"); //TODO: Check if can be done with x:Uid
             SpotifyManager.SpotifyStateUpdated += SpotifyManager_SpotifyStateUpdated;
-            Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
-        }
-
-        private void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
-        {
-            if (MessageEditor.FocusState == FocusState.Unfocused)
-            {
-                args.Handled = false;
-                return;
-            }
-            else
-            {
-                bool HandleSuggestions = (SuggestionBlock.Items.Count != 0);
-                if (args.VirtualKey == VirtualKey.Enter)
-                {
-                    args.Handled = true;
-                    Windows.Devices.Input.KeyboardCapabilities keyboardCapabilities = new Windows.Devices.Input.KeyboardCapabilities();
-                    if (keyboardCapabilities.KeyboardPresent > 0)
-                    {
-                        if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
-                        {
-                            InsertNewLine();
-                        }
-                        else if (HandleSuggestions && SuggestionBlock.SelectedItem != null)
-                            SelectSuggestion(SuggestionBlock.SelectedItem);
-                        else
-                            SendBox_OnClick(null, null);
-                    }
-                    else if (HandleSuggestions)
-                        SelectSuggestion(SuggestionBlock.SelectedItem);
-                    else
-                        InsertNewLine();
-                    return;
-                }
-                if (SuggestionPopup.IsOpen)
-                {
-                    if (args.VirtualKey == VirtualKey.Up)
-                    {
-                        args.Handled = true;
-                        if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == 0)
-                            SuggestionBlock.SelectedIndex = SuggestionBlock.Items.Count - 1;
-                        else
-                            SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex - 1;
-                        return;
-                    }
-                    else if (args.VirtualKey == VirtualKey.Down)
-                    {
-                        args.Handled = true;
-                        if (SuggestionBlock.SelectedIndex == -1 || SuggestionBlock.SelectedIndex == SuggestionBlock.Items.Count - 1)
-                            SuggestionBlock.SelectedIndex = 0;
-                        else
-                            SuggestionBlock.SelectedIndex = SuggestionBlock.SelectedIndex + 1;
-                        return;
-                    }
-                }
-            }
-            args.Handled = false;
         }
 
         private async void SpotifyManager_SpotifyStateUpdated(object sender, EventArgs e)
@@ -216,7 +147,7 @@ namespace Discord_UWP.Controls
             }
             if(prop == IsEditProperty)
             {
-                if(IsEdit == true)
+                if(IsEdit)
                 {
                     CancelButton.Visibility = Visibility.Visible;
                     attachButton.Visibility = Visibility.Collapsed;
@@ -248,7 +179,8 @@ namespace Discord_UWP.Controls
                     if (App.CurrentGuildIsDM)
                     {
                         user = LocalState.DMs[App.CurrentChannelId].Users.FirstOrDefault(x => x.Username == username && x.Discriminator == disc);
-                    } else
+                    }
+                    else
                     {
                         user = LocalState.Guilds[App.CurrentGuildId].members.FirstOrDefault(x => x.Value.User.Username == username && x.Value.User.Discriminator == disc).Value.User;
                     }
@@ -280,10 +212,7 @@ namespace Discord_UWP.Controls
 
         private void MessageEditor_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(MessageEditor.Text))
-                SendBox.IsEnabled = false;
-            else
-                SendBox.IsEnabled = true;
+            SendBox.IsEnabled = !string.IsNullOrWhiteSpace(MessageEditor.Text);
             TextChanged?.Invoke(sender, e);
         }
         private void FrameworkElement_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -338,7 +267,52 @@ namespace Discord_UWP.Controls
         }
         private void MessageEditor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
+            if (SuggestionPopup.IsOpen)
+            {
+                e.Handled = true;
+                switch (e.Key)
+                {
+                    case VirtualKey.Down:
+                        SuggestionBlock.SelectedIndex = mod(SuggestionBlock.SelectedIndex + 1, SuggestionBlock.Items.Count);
+                        break;
+                    case VirtualKey.Up:
+                        SuggestionBlock.SelectedIndex = mod(SuggestionBlock.SelectedIndex -1, SuggestionBlock.Items.Count);
+                        break;
+                    case VirtualKey.Tab:
+                    case VirtualKey.Enter:
+                        SelectSuggestion(SuggestionBlock.SelectedItem);
+                        break;
+                    default:
+                        e.Handled = false;
+                        break;
+                }
+            }
+            else if (e.Key == VirtualKey.Enter)
+            {
+                KeyboardCapabilities keyboardCapabilities = new KeyboardCapabilities();
+                if (keyboardCapabilities.KeyboardPresent > 0)
+                {
+                    if (CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift).HasFlag(CoreVirtualKeyStates.Down))
+                    {
+                        InsertNewLine();
+                    }
+                    else
+                    {
+                        SendBox_OnClick(null, null);
+                    }
+                }
+                else
+                {
+                    InsertNewLine();
+                }
+                e.Handled = true;
+            }
+        }
 
+        private int mod(int x, int m)
+        {
+            int r = x % m;
+            return r < 0 ? r + m : r;
         }
 
         private void SuggestionBlock_OnItemClick(object sender, ItemClickEventArgs e)
@@ -655,9 +629,12 @@ namespace Discord_UWP.Controls
         {
             SpotifyManager.SpotifyStateUpdated -= SpotifyManager_SpotifyStateUpdated;
         }
+
         int querylength = 0;
         private void MessageEditor_KeyUp(object sender, KeyRoutedEventArgs e)
         {
+            if (e.Key == VirtualKey.Up || e.Key == VirtualKey.Down) return;
+
             string text = MessageEditor.Text;
             caretposition = MessageEditor.SelectionStart;
             if (text.Length > caretposition)
@@ -735,9 +712,7 @@ namespace Discord_UWP.Controls
         private void DisplayList(IEnumerable<Common.AutoComplete> list)
         {
             int counter = 0;
-            bool stopped = false;
             List<Common.AutoComplete> list2 = new List<Common.AutoComplete>();
-            int listcount = list.Count();
             while (counter < 12)
             {
                 var current = list.ElementAtOrDefault(counter);
@@ -753,7 +728,7 @@ namespace Discord_UWP.Controls
                 if (already) continue;
                 list2.Add(current);
             }
-            if (list2.Count() == 0)
+            if (list2.Count == 0)
             {
                 SuggestionBlock.ItemsSource = null;
                 SuggestionPopup.IsOpen = false;
@@ -762,8 +737,10 @@ namespace Discord_UWP.Controls
             {
                 SuggestionBlock.ItemsSource = list2;
                 SuggestionPopup.IsOpen = true;
+                SuggestionBlock.SelectedIndex = 0;
             }
         }
+
     }
 
 }

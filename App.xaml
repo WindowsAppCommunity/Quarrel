@@ -2276,12 +2276,24 @@
 
                                         <VisualState x:Name="Selected">
                                             <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0">
+                                                <DoubleAnimation Storyboard.TargetName="focusGlow" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="1">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <DoubleAnimation Storyboard.TargetName="Indic" Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.1">
                                                     <DoubleAnimation.EasingFunction>
                                                         <ExponentialEase EasingMode="EaseInOut"/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-                                                <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                                <DoubleAnimation Storyboard.TargetName="ContentPresenterTranslateTransform" Storyboard.TargetProperty="X" Duration="0:0:0.2" To="2">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="focusGlow" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                </ObjectAnimationUsingKeyFrames>
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="PointerOverSelected">
@@ -3895,7 +3907,7 @@
                 <Setter Property="Foreground" Value="{ThemeResource Blurple}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
-                <Setter Property="Margin" Value="0,0,0,-2"/>
+                <Setter Property="Margin" Value="2,0,2,-4"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -4011,8 +4023,8 @@
                                 <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                                <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
-                                <TextBlock x:Name="whiteContentPresenter" Foreground="White"  Opacity="0" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="ContentPresenter" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="whiteContentPresenter" Foreground="White"  Opacity="0" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -4023,7 +4035,7 @@
                 <Setter Property="Foreground" Value="{ThemeResource Blurple}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
-                <Setter Property="Margin" Value="0,0,0,-2"/>
+                <Setter Property="Margin" Value="2,0,2,-4"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -4139,8 +4151,8 @@
                                 <Rectangle x:Name="background" Fill="{TemplateBinding Foreground}" Opacity="0.1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                 <Rectangle x:Name="whitebackground" Fill="White" Opacity="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                                <TextBlock x:Name="ContentPresenter" Margin="0,0,0,-2" FontWeight="SemiBold" AutomationProperties.AccessibilityView="Raw" Foreground="White"  Text="{TemplateBinding Content}"/>
-                                <TextBlock x:Name="whiteContentPresenter" Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold" Opacity="0" Margin="0,0,0,-2" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="ContentPresenter" Margin="2,0,2,0" FontWeight="SemiBold" AutomationProperties.AccessibilityView="Raw" Foreground="White"  Text="{TemplateBinding Content}"/>
+                                <TextBlock x:Name="whiteContentPresenter" Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold" Opacity="0" Margin="2,0,2,0" AutomationProperties.AccessibilityView="Raw" Text="{TemplateBinding Content}"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -4151,7 +4163,7 @@
                 <Setter Property="Foreground" Value="{ThemeResource HyperlinkButtonForeground}"/>
                 <Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderBrush}"/>
                 <Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
-                <Setter Property="Padding" Value="0,6,0,6"/>
+                <Setter Property="Padding" Value="6,6,6,6"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>

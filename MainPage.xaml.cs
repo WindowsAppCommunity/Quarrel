@@ -1083,7 +1083,7 @@ namespace Discord_UWP
                 MessageBox1.Text = "";
             }
         }
-
+        
         private async void App_NavigateToGuildHandler(object sender, App.GuildNavigationArgs e)
         {
             SubscribeToIndividualChannels = false;
@@ -1165,6 +1165,23 @@ namespace Discord_UWP
                          }
                          SubscribeToGuild(channels);
                      }
+
+                     if (!App.ShowAds && Storage.Settings.SelectedChannels.ContainsKey(e.GuildId))
+                     {
+                         foreach (SimpleChannel chn in ChannelList.Items)
+                         {
+                             if (chn.Id == Storage.Settings.SelectedChannels[e.GuildId])
+                             {
+                                 lastChangeProgrammatic = true;
+                                 ChannelList.SelectedItem = chn;
+                             }
+                         }
+
+                         if (e.GuildId == "@me")
+                             App.NavigateToDMChannel(Storage.Settings.SelectedChannels[e.GuildId]);
+                         else
+                             App.NavigateToGuildChannel(e.GuildId, Storage.Settings.SelectedChannels[e.GuildId]);
+                     }
                  });
             App.UpdateUnreadIndicators();
         }
@@ -1216,6 +1233,7 @@ namespace Discord_UWP
                     else if (chn.Type != 2)
                         chn.IsSelected = false;
                 MessageBox1.FocusTextBox();
+                Storage.Settings.SelectedChannels[e.GuildId] = e.ChannelId;
             }
             else //Out of guild navigation
             {
@@ -1290,6 +1308,7 @@ namespace Discord_UWP
                     App.LastReadMsgId = LocalState.RPC[e.ChannelId].LastMessageId;
                 else
                     App.LastReadMsgId = null;
+                Storage.Settings.SelectedChannels["@me"] = e.ChannelId;
             }
             else
             {
@@ -1610,7 +1629,6 @@ namespace Discord_UWP
         {
             if (!App.CurrentGuildIsDM)
             {
-                var member = new GuildMember();
                 if (LocalState.Guilds[App.CurrentGuildId].members.ContainsKey(e.User.Id))
                 {
                     FlyoutManager.MakeUserDetailsFlyout(LocalState.Guilds[App.CurrentGuildId].members[e.User.Id], e.WebHook).ShowAt(sender as FrameworkElement);

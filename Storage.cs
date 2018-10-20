@@ -17,6 +17,7 @@ using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
 using Newtonsoft.Json;
 using Windows.UI.Xaml;
+using Discord_UWP.Classes;
 
 namespace Discord_UWP
 {
@@ -86,7 +87,6 @@ namespace Discord_UWP
 
         public static Settings Settings = new Settings();
         public static ApplicationDataContainer SavedSettings = ApplicationData.Current.LocalSettings;
-        public static LocalState State = new LocalState();
         public static PasswordVault PasswordVault = new PasswordVault();
     }
 
@@ -146,5 +146,7 @@ namespace Discord_UWP
         public bool ServerMuteIcons = true;
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
         //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
+        public SerializableDictionary<string, string> SelectedChannels = new SerializableDictionary<string, string>();
     }
+
 }

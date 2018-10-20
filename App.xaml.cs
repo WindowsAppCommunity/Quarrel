@@ -1473,9 +1473,19 @@ namespace Discord_UWP
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
-            deferral.Complete();
+            try
+            {
+                // awaiteable code
+                Storage.SaveAppSettings();
+            }
+            finally
+            {
+                deferral.Complete();
+            }
+          //  deferral.Complete();
         }
 
         private async void App_Resuming(object sender, object e)

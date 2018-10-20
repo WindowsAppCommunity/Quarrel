@@ -22,10 +22,7 @@ namespace Discord_UWP.LocalModels
             raw.GuildId = guildId;
         }
 
-        public Permissions permissions
-        {
-            get { return new Permissions(raw.GuildId, raw.Id); }
-        }
+        public Permissions permissions => new Permissions(raw.GuildId, raw.Id);
 
         public SharedModels.GuildChannel raw;
     }

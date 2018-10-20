@@ -1254,9 +1254,7 @@
                                     </ListView.ItemTemplate>
                                     <ListView.Footer>
                                         <Button x:Name="AddServerButton" Padding="0" Height="64" Width="64" Background="Transparent" Click="AddServer" Style="{StaticResource DiscordButtonAdd}" HorizontalAlignment="Center">
-                                            <Button.Content>
-
-                                            </Button.Content>
+                                        
                                         </Button>
                                     </ListView.Footer>
                                 </ListView>

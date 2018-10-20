@@ -203,7 +203,7 @@ namespace Discord_UWP.Voice
 
         public async void SendVoiceData(float[] frame)
         {
-            if (lastReady != null && frame.Length == 1920)
+            if (lastReady != null && frame.Length == 1920 && secretkey != null)
             {
                 int encodedSize = encoder.Encode(frame, 0, FrameSamplesPerChannel, buffer, 0, FrameBytes);
 
@@ -252,10 +252,10 @@ namespace Discord_UWP.Voice
                 Type = EventNames.SELECT_PROTOCOL
             };
 
-            await _webMessageSocket.SendJsonObjectAsync(package);
-
             _udpSocket.MessageReceived -= IpDiscover;
             _udpSocket.MessageReceived += processVoicePacket;
+
+            await _webMessageSocket.SendJsonObjectAsync(package);
         }
 
         private IDictionary<int, VoiceConnectionEventHandler> GetOperationHandlers()
