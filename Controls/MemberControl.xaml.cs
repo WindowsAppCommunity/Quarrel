@@ -114,7 +114,7 @@ namespace Discord_UWP.Controls
                 else if (Status.Status == "invisible")
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                 if (Status.Game != null)
-                {
+                {   
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
                     game.Text = Status.Game.Name;
