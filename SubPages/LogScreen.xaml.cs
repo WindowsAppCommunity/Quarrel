@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Security.Credentials;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Discord_UWP.API.Login.Models;
+using Newtonsoft.Json;
+using Refit;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -45,12 +39,18 @@ namespace Discord_UWP
             if(NormalAuth.Visibility == Visibility.Visible)
             {
                 //NORMAL AUTHENTICATION
-                API.Login.Models.LoginResult result = new API.Login.Models.LoginResult();
+                LoginResult result = new LoginResult();
                 var username = Username.Text;
                 var password = Password.Password;
                 await Task.Run(async () =>
                 {
                     result = await RESTCalls.Login(username, password);
+                    if (result.exception != null)
+                    {
+                        LoginResult cache = result; 
+                        result = JsonConvert.DeserializeObject<LoginResult>(((ApiException)result.exception).Content);
+                        result.exception = cache.exception;
+                    }
                 });
                 if(result.CaptchaKey != null)
                 {
@@ -60,6 +60,38 @@ namespace Discord_UWP
                     cpassword = password;
                     MessageDialog md = new MessageDialog("Login in Failed, try again here", "Discord thinks you're a bot!");
                     await md.ShowAsync();
+                }
+                else if (result.Email != null || result.Password != null)
+                {
+                    if (result.Email != null)
+                    {
+                        EmailErrorText.Text = "";
+                        for (int i = 0; i < result.Email.Count; i++)
+                        {
+                            EmailErrorText.Text += result.Email[i];
+                            if (i != result.Email.Count - 1)
+                            {
+                                EmailErrorText.Text += Environment.NewLine;
+                            }
+                        }
+
+                        EmailErrorText.Visibility = Visibility.Visible;
+                    }
+                    if (result.Password != null)
+                    {
+                        PasswordErrorText.Text = "";
+                        for (int i = 0; i < result.Password.Count; i++)
+                        {
+                            PasswordErrorText.Text += result.Password[i];
+                            if (i != result.Password.Count-1)
+                            {
+                                PasswordErrorText.Text += Environment.NewLine;
+                            }
+                        }
+
+                        PasswordErrorText.Visibility = Visibility.Visible;
+                    }
+                    
                 }
                 else if (result.exception != null)
                 {
@@ -169,9 +201,8 @@ namespace Discord_UWP
             ProgressRing.Visibility = Visibility.Collapsed;
             ProgressRing.IsActive = false;
             LoginText.Visibility = Visibility.Visible;
-            
-        }
 
+        }
         private async void Register(object sender, RoutedEventArgs e)
         {
             await Windows.System.Launcher.LaunchUriAsync(new Uri("https://discordapp.com/register"));
