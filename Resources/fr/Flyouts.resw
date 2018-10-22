@@ -216,4 +216,7 @@
   <data name="UnpinSucess" xml:space="preserve">
     <value>Déséspinglé avec succès !</value>
   </data>
+  <data name="SavePicture" xml:space="preserve">
+    <value>Enregistrer l'i</value>
+  </data>
 </root>
