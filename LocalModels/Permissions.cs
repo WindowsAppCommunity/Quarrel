@@ -102,6 +102,11 @@ namespace Discord_UWP.LocalModels
                 AddDenies(memberDenies);
                 AddAllows(memberAllows);
             }
+
+            if (LocalState.Guilds[guildId].Raw.OwnerId == userId)
+            {
+                SetPerm(GuildPermission.Administrator, true);
+            }
         }
 
         private bool GetPerm(GuildPermission perm)
