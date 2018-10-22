@@ -227,13 +227,13 @@ namespace Discord_UWP.Controls
             {
                 if(IsMuted)
                 {
-                    ChannelName.Fade(0.25f, 200).Start();
-                    HashtagIcon.Fade(0.25f, 200).Start();
+                    ChannelName.Fade(0.35f, 200).Start();
+                    HashtagIcon.Fade(0.35f, 200).Start();
                 }
                 else
                 {
-                    ChannelName.Fade(0.4f, 200).Start();
-                    HashtagIcon.Fade(0.4f, 200).Start();
+                    ChannelName.Fade(0.55f, 200).Start();
+                    HashtagIcon.Fade(0.55f, 200).Start();
                 }
             }
         }
