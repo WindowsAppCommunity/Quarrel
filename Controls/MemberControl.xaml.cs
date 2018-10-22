@@ -1,28 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Core;
-using Windows.Devices.Input;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
+﻿using Windows.Devices.Input;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using Discord_UWP.LocalModels;
 using Discord_UWP.SharedModels;
-using System.Threading.Tasks;
-
 using Discord_UWP.Managers;
-using Windows.UI.Text;
 using Discord_UWP.SimpleClasses;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -33,8 +18,8 @@ namespace Discord_UWP.Controls
     {
         public GuildMember RawMember
         {
-            get { return (GuildMember)GetValue(RawMemberProperty); }
-            set { SetValue(RawMemberProperty, value); }
+            get => (GuildMember)GetValue(RawMemberProperty);
+            set => SetValue(RawMemberProperty, value);
         }
         public static readonly DependencyProperty RawMemberProperty = DependencyProperty.Register(
             nameof(RawMember),
@@ -45,11 +30,11 @@ namespace Discord_UWP.Controls
         public Presence Status
         {
             get {
-                var pr = GetValue(PresenceProperty);
+                object pr = GetValue(PresenceProperty);
                 if (pr != null) return (Presence)pr;
                 else return new Presence();
             }
-            set { SetValue(PresenceProperty, value); }
+            set => SetValue(PresenceProperty, value);
         }
         public static readonly DependencyProperty PresenceProperty = DependencyProperty.Register(
             nameof(Status),
@@ -59,8 +44,8 @@ namespace Discord_UWP.Controls
 
         public HoistRole Role
         {
-            get { return (HoistRole)GetValue(RoleProperty); }
-            set { SetValue(RoleProperty, value); }
+            get => (HoistRole)GetValue(RoleProperty);
+            set => SetValue(RoleProperty, value);
         }
         public static readonly DependencyProperty RoleProperty = DependencyProperty.Register(
             nameof(Role),
@@ -70,8 +55,8 @@ namespace Discord_UWP.Controls
 
         public bool IsTyping
         {
-            get { return (bool)GetValue(IsTypingProperty); }
-            set { SetValue(IsTypingProperty, value); }
+            get => (bool)GetValue(IsTypingProperty);
+            set => SetValue(IsTypingProperty, value);
         }
         public static readonly DependencyProperty IsTypingProperty = DependencyProperty.Register(
             nameof(IsTyping),
@@ -81,8 +66,8 @@ namespace Discord_UWP.Controls
 
         public string Text
         {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string)GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             nameof(Text),
@@ -92,7 +77,7 @@ namespace Discord_UWP.Controls
 
         private static void OnPropertyChangedStatic(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var instance = d as MemberControl;
+            MemberControl instance = d as MemberControl;
             // Defer to the instance method.
             instance?.OnPropertyChanged(d, e.Property);
         }
@@ -104,7 +89,6 @@ namespace Discord_UWP.Controls
             {
                 if (Text == null) return;
                 username.Text = Text;
-                return;
             }
             else if(prop == RawMemberProperty)
             {
@@ -112,14 +96,9 @@ namespace Discord_UWP.Controls
 
 
                 Avatar.ImageSource = new BitmapImage(Common.AvatarUri(RawMember.User.Avatar, RawMember.User.Id, "?size=64"));
-                if (RawMember.User.Avatar != null)
-                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
-                else
-                    AvatarBG.Fill = Common.DiscriminatorColor(RawMember.User.Discriminator);
-                if (RawMember.User.Bot)
-                    BotIndicator.Visibility = Visibility.Visible;
-                else
-                    BotIndicator.Visibility = Visibility.Collapsed;
+                AvatarBG.Fill = RawMember.User.Avatar != null ? Common.GetSolidColorBrush("#00000000") : Common.DiscriminatorColor(RawMember.User.Discriminator);
+                OwnerIndicator.Visibility = RawMember.User.Id == LocalState.CurrentGuild.Raw.OwnerId ? Visibility.Visible : Visibility.Collapsed;
+                BotIndicator.Visibility = RawMember.User.Bot ? Visibility.Visible : Visibility.Collapsed;
             }
             else if(prop == IsTypingProperty)
             {
@@ -135,7 +114,7 @@ namespace Discord_UWP.Controls
                 else if (Status.Status == "invisible")
                     rectangle.Fill = (SolidColorBrush)App.Current.Resources["offline"];
                 if (Status.Game != null)
-                {
+                {   
                     playing.Visibility = Visibility.Visible;
                     game.Visibility = Visibility.Visible;
                     game.Text = Status.Game.Name;
@@ -185,7 +164,7 @@ namespace Discord_UWP.Controls
             if (RawMember?.Roles != null)
             {
                 bool changed = false;
-                foreach (var role in RawMember.Roles)
+                foreach (string role in RawMember.Roles)
                     if (LocalState.Guilds[App.CurrentGuildId].roles[role].Color != 0)
                     {
                         username.Foreground = Common.IntToColor(LocalState.Guilds[App.CurrentGuildId].roles[role].Color);

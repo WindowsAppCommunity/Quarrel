@@ -476,6 +476,7 @@
     <Content Include="Assets\CodingLanguages\vb.net.png" />
     <Content Include="Assets\CodingLanguages\xml.png" />
     <Content Include="Assets\ConnectionLogos\xbox.png" />
+    <Content Include="Assets\DiscordAssets\Crown.png" />
     <Content Include="Assets\emojifont.ttf" />
     <Content Include="Assets\emojis.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
