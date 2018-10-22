@@ -23,6 +23,10 @@ namespace Discord_UWP.API.Login.Models
 
         [JsonProperty("captcha_key")]
         public List<string> CaptchaKey { get; set; }
+        [JsonProperty("email")]
+        public List<string> Email { get; set; }
+        [JsonProperty("password")]
+        public List<string> Password { get; set; }
 
         public Exception exception { get; set; }
     }
