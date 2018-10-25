@@ -10,7 +10,7 @@
     d:DesignWidth="400" SizeChanged="UserControl_SizeChanged" >
 
     <Grid x:Name="content" MaxWidth="400" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <ProgressRing x:Name="LoadingIndic" IsActive="True" Margin="4,4,0,0" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False"/>
+        <ProgressRing x:Name="LoadingIndic" IsActive="True" Margin="4,4,0,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False"/>
         <MediaElement MediaOpened="mediaelement_MediaOpened" MediaEnded="mediaelement_MediaEnded" x:Name="mediaelement" AreTransportControlsEnabled="False" AutoPlay="False" PointerEntered="mediaelement_PointerEntered" PointerExited="mediaelement_PointerExited" PointerCaptureLost="mediaelement_PointerExited" PointerPressed="mediaelement_PointerPressed"/>
     </Grid>
 </UserControl>

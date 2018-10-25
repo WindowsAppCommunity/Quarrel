@@ -80,7 +80,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" VerticalAlignment="Center">
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -89,7 +89,7 @@
                     <StackPanel Margin="0,0,0,24">
                         <TextBlock x:Name="Message" Text="Message" FontWeight="Bold" FontSize="20" Margin="0,0,0,12" TextWrapping="WrapWholeWords"/>
                         <TextBox x:Name="StringArg" Margin="0,0,0,12" Style="{ThemeResource TextBoxStyle1}" Visibility="Collapsed"/>
-                        <HyperlinkButton x:Name="MakeFancy" Visibility="Collapsed" Content="Make fancy" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Click="MakeFancy_OnClick" Margin="0,-12,0,12"/>
+                        <HyperlinkButton x:Name="MakeFancy" Visibility="Collapsed" Content="Make fancy" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="MakeFancy_OnClick" Margin="0,-12,0,12"/>
                             <md:MarkdownTextBlock x:Name="SubMessage" Text="Topic" FontFamily="ms-appx:/Assets/emojifont.ttf#Twitter Color Emoji" Foreground="{ThemeResource ButtonBackgroundPressed}"/>
                     </StackPanel>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,0">
@@ -98,8 +98,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,12" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Name="ConfirmButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Confirm" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,12,0,12" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
+                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,12" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Name="ConfirmButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Confirm" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,12,0,12" Grid.Column="1" Padding="24,12" Click="SaveButton_Click"/>
                         </Grid>
                     </Grid>
                 </Grid>

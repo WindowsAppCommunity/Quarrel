@@ -83,7 +83,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="600" MaxHeight="1200" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -91,7 +91,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock x:Name="header" Grid.Row="0" Text="AUDIT LOG" FontWeight="SemiBold" Margin="0,0,0,12" FontSize="20"/>
-                    <ProgressRing x:Name="LoadingRing" IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource Blurple}"/>
+                    <ProgressRing x:Name="LoadingRing" IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                     <ScrollViewer Grid.Row="1" Margin="0,0,-24,0">
                         <ItemsControl x:Name="LogItems" Margin="-12,0,12,24" ItemContainerStyle="{StaticResource StretchContent}">
                             <ItemsControl.ItemTemplate>
