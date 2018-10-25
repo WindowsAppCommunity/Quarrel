@@ -90,7 +90,7 @@
             <Rectangle Tapped="UIElement_OnTapped" Fill="Transparent" Margin="-100"/>
             <Grid x:Name="grid" MaxWidth="768" MaxHeight="768" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                 <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-                <Border x:Name="border" BorderBrush="{StaticResource Blurple}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
+                <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1" CornerRadius="0" Padding="0,0,0,0" Margin="0,48,0,0">
                     <Grid Background="Black">
                         <Grid x:Name="BackgroundGrid" Grid.RowSpan="2" Opacity="1">
                             <Rectangle x:Name="PresenceColor" Opacity="0.5"/>
