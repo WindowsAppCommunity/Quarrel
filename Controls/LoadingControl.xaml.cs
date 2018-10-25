@@ -1,25 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.UI.Animations;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Media.Core;
-using Windows.Media.Playback;
-using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -34,16 +19,15 @@ namespace Discord_UWP.Controls
         { get => StatusBlock.Text; set =>UpdateStatus(value); }
         private async void UpdateStatus(string val)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
                 StatusBlock.Text = val;
             });
        }
         public LoadingControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             initialize();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(6);
+            DispatcherTimer timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(6)};
             timer.Tick += ShowReset;
             timer.Start();
             App.Splash.Dismissed += Splash_Dismissed;
@@ -53,11 +37,7 @@ namespace Discord_UWP.Controls
         {
             if (App.shareop == null)
             {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-       () =>
-       {
-           AdjustSize();
-       });
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, AdjustSize);
             }
             else
                 AdjustSize();
@@ -138,14 +118,14 @@ namespace Discord_UWP.Controls
             }
             catch (Exception)
             {
-
+                // ignored
             }
         }
         public async void Show(bool animate)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                this.Visibility = Visibility.Visible;
+                Visibility = Visibility.Visible;
                 if (animate) LoadIn.Begin();
             });
         }
@@ -157,7 +137,7 @@ namespace Discord_UWP.Controls
                 {
                     LoadOut.Begin();
                 }
-                else this.Visibility = Visibility.Collapsed;
+                else Visibility = Visibility.Collapsed;
             });
 
         }
@@ -168,7 +148,7 @@ namespace Discord_UWP.Controls
 
         private void LoadOut_Completed(object sender, object e)
         {
-            this.Visibility = Visibility.Collapsed;
+            Visibility = Visibility.Collapsed;
             Animation.Stop();
         }
 

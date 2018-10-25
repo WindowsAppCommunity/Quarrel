@@ -56,9 +56,9 @@ namespace Discord_UWP.SubPages
             
             if (e.Parameter != null)
             {
-                if(e.Parameter.GetType() == typeof(DataPackageView))
+                if(e.Parameter is DataPackageView view)
                 {
-                    var param = await (e.Parameter as DataPackageView).GetStorageItemsAsync();
+                    var param = await view.GetStorageItemsAsync();
                     foreach(var file in param)
                         AddAttachement(file as StorageFile);
                 }
@@ -71,9 +71,9 @@ namespace Discord_UWP.SubPages
                         HandleDataPackage(dataPackageView, "Clipboard");
                     }
                 }
-                else if(e.Parameter.GetType() == typeof(Windows.ApplicationModel.Contacts.Contact))
+                else if(e.Parameter is Contact contact)
                 {
-                    shareContact = (Windows.ApplicationModel.Contacts.Contact)e.Parameter;
+                    shareContact = contact;
                 }
                 else
                 {
@@ -205,12 +205,12 @@ namespace Discord_UWP.SubPages
 
             if (FilesTooLarge.Count == 1)
             {
-                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("The file " + FilesTooLarge[0] + " is too big to attach (>8MB)");
+                Windows.UI.Popups.MessageDialog dialog = new MessageDialog("The file " + FilesTooLarge[0] + " is too big to attach (>8MB)");
                 await dialog.ShowAsync();
             }
             else if (FilesTooLarge.Count > 1)
             {
-                Windows.UI.Popups.MessageDialog dialog = new Windows.UI.Popups.MessageDialog("The files " + string.Join(",", FilesTooLarge) + " are too big to attach (>8MB)");
+                Windows.UI.Popups.MessageDialog dialog = new MessageDialog("The files " + string.Join(",", FilesTooLarge) + " are too big to attach (>8MB)");
                 await dialog.ShowAsync();
             }
         }
@@ -250,7 +250,7 @@ namespace Discord_UWP.SubPages
             string FileStr = App.GetString("/Dialogs/File");
             for (int i = 0; i < attachCount; i++)
             {
-                FileNB.Text = FileStr + " " + (i+1).ToString() + "/" + attachCount;
+                FileNB.Text = FileStr + " " + (i+1) + "/" + attachCount;
                 var file = attachements.ElementAt(i).Value;
                 var props = await file.GetBasicPropertiesAsync();
                 //444 is an approximation of the http request overhead
@@ -274,13 +274,13 @@ namespace Discord_UWP.SubPages
             if (App.shareop == null)
                 CloseButton_Click(null, null);
             else
-                App.shareop.DismissUI();
+                App.shareop.ReportCompleted();
         }
 
         private ulong _fullBytesSentBuffer;
 
         private bool _lockWaitState = false;
-        private async void Session_MessageUploadProgress(IAsyncOperationWithProgress<Windows.Web.Http.HttpResponseMessage, Windows.Web.Http.HttpProgress> asyncInfo, Windows.Web.Http.HttpProgress progressInfo)
+        private async void Session_MessageUploadProgress(IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> asyncInfo, HttpProgress progressInfo)
         {
             float dest = Convert.ToSingle((100 * (_fullBytesSentBuffer + progressInfo.BytesSent))/ _fullBytesSentBuffer);
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
@@ -323,7 +323,7 @@ namespace Discord_UWP.SubPages
         }
         private void Grid_DragOver(object sender, DragEventArgs e)
         {
-            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+            e.AcceptedOperation = DataPackageOperation.Copy;
         }
 
         private async void Grid_Drop(object sender, DragEventArgs e)
@@ -453,7 +453,7 @@ namespace Discord_UWP.SubPages
 
         private async void CaptureMedia_RecordLimitationExceeded(MediaCapture sender)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await sender.StopRecordAsync();
             });
@@ -461,7 +461,7 @@ namespace Discord_UWP.SubPages
 
         private async void CaptureMedia_Failed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 await sender.StopRecordAsync();
             });
