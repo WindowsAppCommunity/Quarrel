@@ -77,7 +77,7 @@ namespace Discord_UWP
             if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
                 BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
-                AppServiceDetails =  args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                AppServiceDetails = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
                 ConnectedToAppService?.Invoke(null, null);
             }
         }
@@ -230,7 +230,8 @@ namespace Discord_UWP
             if (!user)
             {
                 NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { ChannelId = Id, UserId = null, Message = message, Send = send, OnBack = onBack });
-            } else
+            }
+            else
             {
                 NavigateToDMChannelHandler?.Invoke(typeof(App), new DMChannelNavigationArgs() { UserId = Id, ChannelId = null, Message = message, Send = send, OnBack = onBack });
             }
@@ -394,7 +395,7 @@ namespace Discord_UWP
         public static event EventHandler<RemoveGroupUserNavigationArgs> NavigateToRemoveGroupUserHandler;
         public static void NavigateToRemoveGroupUser(string channelId, string userId)
         {
-            NavigateToRemoveGroupUserHandler?.Invoke(typeof(App), new RemoveGroupUserNavigationArgs() { ChannelId = channelId, UserId = userId});
+            NavigateToRemoveGroupUserHandler?.Invoke(typeof(App), new RemoveGroupUserNavigationArgs() { ChannelId = channelId, UserId = userId });
         }
         #endregion
 
@@ -840,11 +841,11 @@ namespace Discord_UWP
             if (!App.FullyLoaded)
             {
                 PostLoadTask = "SelectGuildChannelTask";
-                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send, Navigate=navigate};
+                PostLoadTaskArgs = new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send, Navigate = navigate };
             }
             else
             {
-                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send,Navigate=navigate });
+                SelectGuildChannelHandler?.Invoke(typeof(App), new GuildChannelSelectArgs() { GuildId = guildId, ChannelId = channelId, MessageContent = messagecontent, Send = send, Navigate = navigate });
             }
         }
         public static Task SelectGuildChannelTask(string guildId, string channelId)
@@ -876,7 +877,7 @@ namespace Discord_UWP
             if (connections == null)
             {
                 //Definitely not connected to the internet
-                WentOffline?.Invoke(null,null);
+                WentOffline?.Invoke(null, null);
             }
             else
             {
@@ -1113,13 +1114,13 @@ namespace Discord_UWP
         {
             get
             {
-                #if DEBUG
+#if DEBUG
                 return true;
-                #endif
+#endif
                 return false;
             }
         }
-        
+
 
 
         #endregion
@@ -1186,12 +1187,12 @@ namespace Discord_UWP
                     refocusGuildid = null;
                     //Wait 500ms to be 100% sure the user has had time to "read" the message
                     await Task.Delay(500);
-                    if(CurrentChannelId != null && refocusChannelidClone == App.CurrentChannelId && CurrentGuildId != null && refocusGuildidClone == CurrentGuildId)
+                    if (CurrentChannelId != null && refocusChannelidClone == App.CurrentChannelId && CurrentGuildId != null && refocusGuildidClone == CurrentGuildId)
                     {
                         //It's now safe to assume that the user hasn't changed guild id or anything and has seen the message
                         App.MarkMessageAsRead(refocusMessageidClone, refocusChannelidClone);
                     }
-                    
+
                 }
             }
             e.Handled = true;
@@ -1334,14 +1335,14 @@ namespace Discord_UWP
                 }
             }
 
-                
 
-                //Cortana crap
-                //var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///VoiceCommands.xml"));
-                //await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
-                // Ensure the current window is active
-                Window.Current.Activate();
-                Window.Current.CoreWindow.Activated += WindowFocusChanged;
+
+            //Cortana crap
+            //var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///VoiceCommands.xml"));
+            //await Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+            // Ensure the current window is active
+            Window.Current.Activate();
+            Window.Current.CoreWindow.Activated += WindowFocusChanged;
 
         }
         public static event EventHandler SetupMainPage;
@@ -1445,13 +1446,13 @@ namespace Discord_UWP
                 PrimaryButtonText = App.GetString("/Dialogs/ResetQuarrel")
             };
             AreYouSure.PrimaryButtonClick += (a, e) =>
-                                 {
-                                     ResetSettings();
-                                     var token = Storage.PasswordVault.FindAllByResource("Token");
-                                     foreach (var t in token)
-                                         Storage.PasswordVault.Remove(t);
-                                     Application.Current.Exit();
-                                 };
+            {
+                ResetSettings();
+                var token = Storage.PasswordVault.FindAllByResource("Token");
+                foreach (var t in token)
+                    Storage.PasswordVault.Remove(t);
+                Application.Current.Exit();
+            };
             await AreYouSure.ShowAsync();
         }
         /// <summary>
@@ -1485,7 +1486,7 @@ namespace Discord_UWP
             {
                 deferral.Complete();
             }
-          //  deferral.Complete();
+            //  deferral.Complete();
         }
 
         private async void App_Resuming(object sender, object e)
@@ -1520,7 +1521,7 @@ namespace Discord_UWP
                 var CommandBarColor = ((SolidColorBrush)App.Current.Resources["AcrylicCommandBarBackground"]).Color;
                 if (!App.CinematicMode && Storage.Settings.EnableAcrylic && !Storage.Settings.CustomBG)
                 {
-                    
+
                     var ChannelColor = ((SolidColorBrush)App.Current.Resources["AcrylicChannelPaneBackground"]).Color;
                     App.Current.Resources["AcrylicChannelPaneBackground"] = new AcrylicBrush()
                     {
@@ -1539,7 +1540,7 @@ namespace Discord_UWP
                         FallbackColor = GuildColor,
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
                     };
-                   
+
                     App.Current.Resources["AcrylicCommandBarBackground"] = new AcrylicBrush()
                     {
                         TintOpacity = Storage.Settings.CmdOpacity,
@@ -1558,7 +1559,7 @@ namespace Discord_UWP
                         BackgroundSource = AcrylicBackgroundSource.HostBackdrop
                     };
                 }
-                
+
                 App.Current.Resources["AcrylicUserBackground"] = new AcrylicBrush()
                 {
                     TintOpacity = 0.3,
@@ -1614,12 +1615,20 @@ namespace Discord_UWP
                 App.Current.Resources["BlurpleColorTransparent"] = Color.FromArgb(0, accentColor.R, accentColor.G, accentColor.B);
 
                 App.Current.Resources["BlurpleColorSemiTransparent"] = Color.FromArgb(127, accentColor.R, accentColor.G, accentColor.B);
+
+
+                ((Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
+                ((Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
             }
             else
             {
                 var blurple = Color.FromArgb(255, 114, 137, 218);
                 App.Current.Resources["Blurple"] = new SolidColorBrush(blurple); //Set to Blurple default
                 App.Current.Resources["BlurpleColor"] = blurple;
+
+
+                ((Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
+                ((Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
             }
 
             //var onlineString = Storage.Settings.OnlineBursh;
@@ -1656,7 +1665,7 @@ namespace Discord_UWP
                     statusBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["MessageForeground"]).Color;
                 }
             }
-            
+
             //view.TitleBar.BackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
             //view.TitleBar.ForegroundColor = ((SolidColorBrush)Application.Current.Resources["InvertedBG"]).Color;
             //view.TitleBar.ButtonBackgroundColor = ((SolidColorBrush)Application.Current.Resources["DarkBG"]).Color;
