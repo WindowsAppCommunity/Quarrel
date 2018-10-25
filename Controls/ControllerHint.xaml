@@ -11,16 +11,16 @@
     d:DesignWidth="400" RequestedTheme="Dark">
     <Grid>
         <Grid x:Name="glow" Padding="6,6,6,6" Opacity="0">
-            <FontIcon x:Name="glyphGlow" Glyph="{Binding Glyph, ElementName=glyph, UpdateSourceTrigger=PropertyChanged}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBlock x:Name="labelGlow" Text="{Binding Text, ElementName=label, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,1,0,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <FontIcon x:Name="glyphGlow" Glyph="{Binding Glyph, ElementName=glyph, UpdateSourceTrigger=PropertyChanged}" Foreground="{ThemeResource Blurple}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBlock x:Name="labelGlow" Text="{Binding Text, ElementName=label, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,1,0,0" Foreground="{ThemeResource Blurple}"/>
         </Grid>
         <Grid Padding="6,6,6,6" x:Name="normal" Opacity="0.6">
-            <FontIcon x:Name="glyph" Glyph="" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <FontIcon x:Name="glyph" Glyph="" Foreground="{ThemeResource Blurple}" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <FontIcon.RenderTransform>
                     <ScaleTransform/>
                 </FontIcon.RenderTransform>
             </FontIcon>
-            <TextBlock x:Name="label" Text="Test" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,1,0,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <TextBlock x:Name="label" Text="Test" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,1,0,0" Foreground="{ThemeResource Blurple}"/>
         </Grid>
     </Grid>
 

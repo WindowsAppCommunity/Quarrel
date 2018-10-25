@@ -206,7 +206,7 @@
                                         <Rectangle x:Name="Seperate" Fill="White" Width="5" Margin="10,0" Visibility="Collapsed"/>
                                         <TextBlock x:Name="username" Text="" Foreground="White" FontSize="26" VerticalAlignment="Top" FontWeight="SemiLight"/>
                                         <TextBlock x:Name="discriminator" Foreground="White" Text="" FontSize="26" Opacity="0.4" Margin="4,0,0,0" VerticalAlignment="Top" FontWeight="Light"/>
-                                        <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" Margin="6,2,0,0" Padding="8,4" CornerRadius="2" Visibility="Collapsed">
+                                        <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" VerticalAlignment="Center" Margin="6,2,0,0" Padding="8,4" CornerRadius="2" Visibility="Collapsed">
                                             <TextBlock x:Uid="BotTB" Text="BOT" FontSize="14" VerticalAlignment="Center"/>
                                         </Border>
                                     </StackPanel>
@@ -223,7 +223,7 @@
                                                 <TextBlock x:Uid="/Dialogs/AcceptFriendReqBTN" Text="Accept friend request" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
+                                        <HyperlinkButton  x:Name="pendingFriend" Margin="0,0,24,0" Foreground="{ThemeResource Blurple}" Style="{StaticResource HyperlinkButtonStyle1}" Click="SendFriendRequest" Visibility="Collapsed">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/FriendReqSentBTN" Text="Friend request sent" Margin="28,0,0,0"/>
@@ -235,31 +235,31 @@
                                                 <TextBlock x:Uid="/Dialogs/UnblockBTN" Text="Accept friend request" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
+                                        <HyperlinkButton x:Name="RemoveFriendLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="RemoveFriend">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE1E0;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/RemoveFriendTB" Text="Remove Friend" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton x:Name="AccountSettings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed" Click="AccountSettings_Click">
+                                        <HyperlinkButton x:Name="AccountSettings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="AccountSettings_Click">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE779;" HorizontalAlignment="Left"/>
                                                 <TextBlock Text="Account Settings" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton x:Name="ViewStats" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed" Click="ViewStats_Click">
+                                        <HyperlinkButton x:Name="ViewStats" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="ViewStats_Click">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE9D2;" HorizontalAlignment="Left"/>
                                                 <TextBlock Text="Server stats" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
+                                        <HyperlinkButton x:Name="SendMessageLink" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="0,0,24,0" Visibility="Collapsed" Click="SendMessageLink_Click">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE122;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/SendMessageTB" Text="Send Message" Margin="28,0,0,0"/>
                                             </Grid>
                                         </HyperlinkButton>
-                                        <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Visibility="Collapsed" Click="Block_Click">
+                                        <HyperlinkButton x:Name="Block" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Visibility="Collapsed" Click="Block_Click">
                                             <Grid>
                                                 <FontIcon Glyph="&#xE25B;" HorizontalAlignment="Left"/>
                                                 <TextBlock x:Uid="/Dialogs/BlockTB" Text="Block" Margin="28,0,0,0"/>

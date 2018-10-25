@@ -89,7 +89,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="username" Text="Username" VerticalAlignment="Center" FontSize="14" FontWeight="Normal"/>
                 <Image x:Name="OwnerIndicator" Height="12" Source="/Assets/DiscordAssets/Crown.png" Stretch="UniformToFill" Margin="5,0,0,0" Visibility="Collapsed"/>
-                <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
+                <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="4,0,0,0" Padding="6,0" CornerRadius="2" Visibility="Collapsed">
                     <TextBlock x:Uid="/Controls/BotTB" Foreground="{ThemeResource Foreground}" Text="BOT" FontSize="10" FontWeight="Bold" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
