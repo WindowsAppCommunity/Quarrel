@@ -39,7 +39,7 @@
                     <TextBlock x:Name="offlineCounter" Foreground="{ThemeResource InvertedBG}" Text="Members" Opacity="0.6"  FontSize="11" Margin="4,0,0,0"/>
                 </StackPanel>
             </StackPanel>
-            <ProgressRing Grid.Row="1" x:Name="Loading" Foreground="{StaticResource Blurple}" IsActive="True"/>
+            <ProgressRing Grid.Row="1" x:Name="Loading" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
         </Grid>
     </Button>
 

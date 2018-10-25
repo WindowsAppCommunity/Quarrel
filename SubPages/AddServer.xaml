@@ -57,7 +57,7 @@
                         </Button.Content>
                     </Button>
 
-                    <Button Style="{StaticResource DiscordButton}" Background="{StaticResource Blurple}" Margin="12,0,0,0" Grid.Column="2" Click="JoinServerClick" Width="124">
+                    <Button Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,0,0,0" Grid.Column="2" Click="JoinServerClick" Width="124">
                         <Button.Content>
                             <StackPanel>
                                 <TextBlock x:Uid="/Dialogs/JoinServerTB" Text="Join Server" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center"/>
