@@ -3906,7 +3906,7 @@
                         <ControlTemplate TargetType="HyperlinkButton">
                             <Grid x:Name="RootGrid">
                                 <Grid.Background>
-                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
+                                    <SolidColorBrush Color="{ThemeResource SystemControlBackgroundAccentBrushColor}" Opacity="0.1"/>
                                 </Grid.Background>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
