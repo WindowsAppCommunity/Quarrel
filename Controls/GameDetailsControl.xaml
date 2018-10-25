@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     d:DesignHeight="500"
     d:DesignWidth="400">
-    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="384" BorderBrush="{ThemeResource Blurple}" VerticalAlignment="Top">
+    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="384" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Top">
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

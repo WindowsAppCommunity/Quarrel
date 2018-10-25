@@ -167,9 +167,9 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="0,0,6,0"/>
-            <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" FontWeight="SemiLight" Grid.Column="1" Foreground="{ThemeResource Blurple}"/>
-            <Rectangle Height="1" Stroke="{ThemeResource Blurple}" Margin="6,0,0,0" Grid.Column="2"/>
+            <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,6,0"/>
+            <TextBlock x:Name="HeaderText" Text="NEW MESSAGES" FontWeight="SemiLight" Grid.Column="1" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <Rectangle Height="1" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="6,0,0,0" Grid.Column="2"/>
         </Grid>
 
         <!--<toolkit:DropShadowPanel x:Name="ShadowPresence" Color="Cyan" BlurRadius="10" Height="50" Width="50" Padding="1" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,6,0,-48" Grid.Row="1">
@@ -187,7 +187,7 @@ xmlns:md="using:Discord_UWP.MarkdownTextBlock"
         </Canvas>
         <StackPanel x:Name="contentStacker" Orientation="Horizontal" Grid.Column="1" Grid.Row="1" PointerPressed="UserControl_PointerPressed">
             <HyperlinkButton x:Name="username" Foreground="{ThemeResource Foreground}" VerticalAlignment="Bottom" Content="Username" Margin="6,0" FontWeight="Normal" Style="{StaticResource PlainHyperlinkStyle}" Click="Username_OnClick" RightTapped="username_RightTapped" Holding="username_Holding" PointerPressed="UserControl_PointerPressed"/>
-            <Border x:Name="BotIndicator" Background="{ThemeResource Blurple}" Margin="0,2,6,0" CornerRadius="2" Visibility="Collapsed">
+            <Border x:Name="BotIndicator" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,2,6,0" CornerRadius="2" Visibility="Collapsed">
                 <TextBlock x:Uid="/Controls/BotTB" Text="BOT" FontSize="10" Margin="4,0" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
             </Border>
             <TextBlock x:Name="timestamp" FontSize="11" Text="Today at 10:20" Margin="0,0,0,1" VerticalAlignment="Bottom" Opacity="0.3"/>

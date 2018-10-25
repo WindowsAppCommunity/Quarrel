@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Globalization;
 using Windows.Storage.Pickers;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -617,6 +618,22 @@ namespace Discord_UWP.SubPages
         private void PlaySound(object sender, RoutedEventArgs e)
         {
             AudioManager.PlaySoundEffect((sender as Button).Tag.ToString(), (radio_DiscordSounds.IsChecked.Value) ? "discord" : "windows");
+        }
+
+        private void BlurpleChecked(object sender, RoutedEventArgs e)
+        {
+            var blurple = Color.FromArgb(255, 114, 137, 218);
+            App.Current.Resources["Blurple"] = new SolidColorBrush(blurple); //Set to Blurple default
+            App.Current.Resources["BlurpleColor"] = blurple;
+
+            ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
+            ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
+        }
+
+        private void AccentChecked(object sender, RoutedEventArgs e)
+        {
+            ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
+            ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
         }
     }
 }
