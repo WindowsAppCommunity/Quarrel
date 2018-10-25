@@ -80,7 +80,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="512" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -99,7 +99,7 @@
                                         </TransitionCollection>
                                     </StackPanel.ChildrenTransitions>
                                     <TextBlock Text="MIT License" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
-                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource Blurple}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click"/>
+                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click"/>
                             </StackPanel>
                             <RichTextBlock x:Name="mitlicense" Visibility="Collapsed" Opacity="0.5" FontSize="11">
                                 <Paragraph>
@@ -127,33 +127,33 @@ THE SOFTWARE.
                                 </Paragraph>
                             </RichTextBlock>
                             <StackPanel ToolTipService.ToolTip="Used to interact in a simple and streamlined way with Discord's API">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/reactiveui/refit" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="refit" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/reactiveui/refit" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="refit" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2012 GitHub"/>
                             </StackPanel>
                             <StackPanel ToolTipService.ToolTip="Used within the autosuggest box when typing a syntax highlighting language after ```">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/vscode-icons/vscode-icons" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="vs-code-icons" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/vscode-icons/vscode-icons" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="vs-code-icons" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2016 Roberto Huertas"/>
                             </StackPanel>
                             <StackPanel ToolTipService.ToolTip="Used for various helper functions and UI elements">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/Microsoft/WindowsCommunityToolkit" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Windows Community Toolkit" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/Microsoft/WindowsCommunityToolkit" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Windows Community Toolkit" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright © .NET Foundation and Contributors"/>
                             </StackPanel>
                             <StackPanel ToolTipService.ToolTip="Used for serializing and deserializing JSON data">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/JamesNK/Newtonsoft.Json" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="JSON.NET" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/JamesNK/Newtonsoft.Json" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="JSON.NET" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2007 James Newton-King"/>
                             </StackPanel>
                             <StackPanel ToolTipService.ToolTip="Used for manipulating emojis">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/neosmart/unicode.net" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Unicode.Net" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/neosmart/unicode.net" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Unicode.Net" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2017 NeoSmart Technologies"/>
                             </StackPanel>
                             <StackPanel ToolTipService.ToolTip="Used for manipulating emojis">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/gmamaladze/trienet" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="TrieNet" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/gmamaladze/trienet" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="TrieNet" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2013 George Mamaladze"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
 
                                 <TextBlock Text="Microsoft Public License" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
-                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource Blurple}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_2"/>
+                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_2"/>
                             </StackPanel>
                             <RichTextBlock x:Name="mspllicense" Visibility="Collapsed" Opacity="0.5" FontSize="11">
                                 <Paragraph>
@@ -213,13 +213,13 @@ THE SOFTWARE.
                                 </Paragraph>
                             </RichTextBlock>
                             <StackPanel ToolTipService.ToolTip="Used for code highlighting">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/WilliamABradley/ColorCode-Universal" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="ColorCode-Universal" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/WilliamABradley/ColorCode-Universal" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="ColorCode-Universal" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2018 William Bradley"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
 
                                 <TextBlock Text="Apache 2.0 License" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
-                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource Blurple}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_4"/>
+                                    <Button  ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_4"/>
                             </StackPanel>
                                 <RichTextBlock x:Name="apachelicense" Visibility="Collapsed" Opacity="0.5" FontSize="11">
                                     <Paragraph>
@@ -430,13 +430,13 @@ THE SOFTWARE.
                                 </RichTextBlock>
 
                                 <StackPanel ToolTipService.ToolTip="Used for converting pasted HTML content to markdown">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/baynezy/Html2Markdown" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Html2Markdown" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/baynezy/Html2Markdown" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Html2Markdown" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" Text="Copyright ©2018 Simon Baynes"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
 
                                 <TextBlock Text="Other" FontSize="24" FontWeight="Light" Margin="0,24,0,0"/>
-                                <Button ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource Blurple}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_3"/>
+                                <Button ToolTipService.ToolTip="Read license" Style="{StaticResource DimButton}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="" VerticalAlignment="Bottom" FontFamily="Segoe MDL2 Assets" Margin="6,0,6,4" FontSize="18" Click="Button_Click_3"/>
                             </StackPanel>
                                 <RichTextBlock x:Name="concentuslicense" Visibility="Collapsed" Opacity="0.5" FontSize="11">
                                     <Paragraph>
@@ -479,7 +479,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </Paragraph>
                                 </RichTextBlock>
                                 <StackPanel ToolTipService.ToolTip="Used for decoding the voice data">
-                                <HyperlinkButton Foreground="{ThemeResource Blurple}" NavigateUri="https://github.com/lostromb/concentus" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Concentus" Margin="0,6,0,0"/>
+                                <HyperlinkButton Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" NavigateUri="https://github.com/lostromb/concentus" Style="{StaticResource PlainHyperlinkStyle}" FontWeight="SemiBold" FontSize="14" Content="Concentus" Margin="0,6,0,0"/>
                                 <TextBlock Opacity="0.5" FontSize="12" TextWrapping="Wrap" Text="Copyright © by various holding parties, including (but not limited to): Skype Limited, Xiph.Org Foundation, CSIRO, Microsoft Corporation, Jean-Marc Valin, Gregory Maxwell, Mark Borgerding, Timothy B. Terriberry, Logan Stromberg"/>
                             </StackPanel>
                         </StackPanel>

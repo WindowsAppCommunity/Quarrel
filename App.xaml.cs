@@ -1614,12 +1614,20 @@ namespace Discord_UWP
                 App.Current.Resources["BlurpleColorTransparent"] = Color.FromArgb(0, accentColor.R, accentColor.G, accentColor.B);
 
                 App.Current.Resources["BlurpleColorSemiTransparent"] = Color.FromArgb(127, accentColor.R, accentColor.G, accentColor.B);
+
+
+                ((Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
+                ((Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
             }
             else
             {
                 var blurple = Color.FromArgb(255, 114, 137, 218);
                 App.Current.Resources["Blurple"] = new SolidColorBrush(blurple); //Set to Blurple default
                 App.Current.Resources["BlurpleColor"] = blurple;
+
+
+                ((Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
+                ((Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = blurple;
             }
 
             //var onlineString = Storage.Settings.OnlineBursh;

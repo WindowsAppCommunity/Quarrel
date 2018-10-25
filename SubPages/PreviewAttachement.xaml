@@ -816,9 +816,9 @@
         <Rectangle Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid">
 
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" BorderThickness="0" CornerRadius="4" Padding="0" Margin="0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="0" CornerRadius="4" Padding="0" Margin="0">
                 <Grid>
-                    <ProgressRing x:Name="LoadingRing" IsActive="True" IsHitTestVisible="False" Foreground="{ThemeResource Blurple}"/>
+                    <ProgressRing x:Name="LoadingRing" IsActive="True" IsHitTestVisible="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                     <ScrollViewer HorizontalScrollMode="Auto" VerticalScrollMode="Auto" HorizontalScrollBarVisibility="Auto" ZoomMode="Enabled" MinZoomFactor="1" ViewChanged="ScrollViewer_ViewChanged" Tapped="ScrollViewer_Tapped">
                         <Grid>
                             <Rectangle Fill="Transparent" Tapped="Rectangle_Tapped"/>
