@@ -81,7 +81,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="450" VerticalAlignment="Center" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,18,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,18,24,0" Margin="0,48,0,0">
                 <StackPanel x:Name="PurchasesPopup" Grid.ColumnSpan="3" Padding="0,0,0,18">
                     <TextBlock x:Uid="/Dialogs/ListenTogetherTB" x:Name="header" Text="LISTEN TOGETHER ON SPOTIFY" FontWeight="SemiBold" FontSize="20"/>
                      <controls:ListenOnSpotify x:Name="widgetSpotify" HorizontalAlignment="Left" Margin="0,12,0,0"/>

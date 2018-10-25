@@ -52,8 +52,8 @@
         
         <!--
         <StackPanel Grid.ColumnSpan="2" Grid.Row="1">
-            <Button x:Name="Spectate" Content="Spectate" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Click="Spectate_Click"/>
-            <Button x:Name="AskToJoin" Content="Ask to join" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Click="AskToJoin_Click"/>
+            <Button x:Name="Spectate" Content="Spectate" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Click="Spectate_Click"/>
+            <Button x:Name="AskToJoin" Content="Ask to join" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Click="AskToJoin_Click"/>
         </StackPanel>-->
     </Grid>
 </UserControl>

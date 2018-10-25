@@ -61,7 +61,7 @@
                             <Grid.Resources>
                                 <Style x:Key="SliderThumbStyle" TargetType="Thumb">
                                     <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Background" Value="{ThemeResource Blurple}"/>
+                                    <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="Thumb">
@@ -208,7 +208,7 @@
                                         <RowDefinition Height="18"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle x:Name="HorizontalTrackRect" Grid.ColumnSpan="3" Fill="{ThemeResource InvertedBG}" Opacity="0.4" Height="{ThemeResource SliderTrackThemeHeight}" Grid.Row="1"/>
-                                    <Rectangle x:Name="HorizontalDecreaseRect" Fill="{ThemeResource Blurple}" Opacity="1" Grid.Row="1"/>
+                                    <Rectangle x:Name="HorizontalDecreaseRect" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="1" Grid.Row="1"/>
                                     <TickBar x:Name="TopTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderTickBarFill}" Height="{ThemeResource SliderOutsideTickBarThemeHeight}" Margin="0,0,0,4" Visibility="Collapsed" VerticalAlignment="Bottom"/>
                                     <TickBar x:Name="HorizontalInlineTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderInlineTickBarFill}" Height="{ThemeResource SliderTrackThemeHeight}" Grid.Row="1" Visibility="Collapsed"/>
                                     <TickBar x:Name="BottomTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderTickBarFill}" Height="{ThemeResource SliderOutsideTickBarThemeHeight}" Margin="0,4,0,0" Grid.Row="2" Visibility="Collapsed" VerticalAlignment="Top"/>
@@ -549,7 +549,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -561,10 +561,10 @@
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel x:Name="UI_Menu">
                                     <!--<CheckBox x:Name="HideOfflineMembers_checkbox" Content="Show offline members" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}"/>-->
+                                    <!-- <TextBlock x:Uid="/Settings/ResponsiveUiTB" Text="RESPONSIVE UI" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>-->
                                     <!--<CheckBox x:Uid="/Settings/AppBarAtBottomCB" x:Name="AppBarAtBottom_checkbox" Content="Align app Bar to the bottom" Style="{StaticResource CheckBoxStyle1}"/>-->
-                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
-                                    <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
+                                    <TextBlock x:Uid="/Settings/ThemeTB" Text="THEME" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                                    <TextBlock x:Uid="/Settings/RestartRequiredTB" Text="(Restart required)" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
                                     <RadioButton x:Uid="/Settings/DarkRadio" x:Name="radio_Dark" Style="{StaticResource DiscordRadioButton}" Content="Dark" GroupName="Theme" Margin="0,6,0,-4"/>
                                     <RadioButton x:Uid="/Settings/LightRadio" x:Name="radio_Light" Style="{StaticResource DiscordRadioButton}" Content="Light" GroupName="Theme" Margin="0,0,0,-4"/>
                                     <RadioButton x:Uid="/Settings/WindowsRadio" x:Name="radio_Windows" Style="{StaticResource DiscordRadioButton}" Content="Windows" GroupName="Theme" Margin="0,0,0,-4"/>
@@ -572,14 +572,14 @@
                                     <CheckBox x:Uid="/Settings/EnableAcrylic" x:Name="EnableAcrylic" Content="Enable Acrylic effects (background blur)" Style="{StaticResource CheckBoxStyle1}"/>
 
                                     <TextBlock x:Uid="/Settings/AccentColorTB" Text="Accent color" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
-                                    <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4"/>
-                                    <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent"/>
+                                    <RadioButton x:Uid="/Settings/BlurpleRadio" x:Name="radioAccent_Discord" Style="{StaticResource DiscordRadioButton}" Foreground="#FF7289DA" Content="Discord Blurple" GroupName="Accent" Margin="0,6,0,-4" Checked="BlurpleChecked"/>
+                                    <RadioButton x:Uid="/Settings/AccentRadio" x:Name="radioAccent_Windows" Style="{StaticResource DiscordRadioButton}" Foreground="{ThemeResource SystemControlForegroundAccentBrush}" Content="System accent color" GroupName="Accent" Checked="AccentChecked"/>
 
                                     <CheckBox x:Uid="/Settings/DerivedRadio" x:Name="DerviedColor" Style="{ThemeResource CheckBoxStyle2}" Content="Derived Color" Foreground="{ThemeResource InvertedBG}" IsChecked="True"/>
 
 
 
-                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                    <TextBlock x:Uid="/Settings/MESSAGESTB" Text="MESSAGES" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     
                                     <TextBlock x:Uid="/Settings/FontSizeTB" Text="Message font size" FontSize="14" FontWeight="SemiBold" Margin="0,12,0,0"/>
                                     <Grid>
@@ -624,7 +624,7 @@
 
                                     <TextBox x:Uid="/Settings/CustomTimeF" x:Name="CustomTimeF"  Header="Custom Time Format" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
 
-                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                    <TextBlock x:Uid="/Settings/OTHERTB" Text="OTHER" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     <CheckBox x:Uid="/Settings/ExpensiveRenderCB" x:Name="ExpensiveUI" Content="Expensive Rendering" Style="{StaticResource CheckBoxStyle1}" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowServerMuteCB" x:Name="ShowServerMute" Style="{StaticResource CheckBoxStyle1}" Content="Show Mute icon on servers" Margin="0,0,0,0"/>
                                     <CheckBox x:Uid="/Settings/ShowWelcomeCB" x:Name="ShowWelcome" Style="{StaticResource CheckBoxStyle1}" Content="Show welcome messages" Margin="0,0,0,0"/>
@@ -637,7 +637,7 @@
                         <PivotItem x:Uid="/Settings/NotificationsPI" Header="Notifications" Margin="0,0,12,0">
                             <ScrollViewer>
                                 <StackPanel x:Name="UserNotifications_Menu">
-                                    <TextBlock x:Uid="/Settings/BGNotifsTB" Text="BACKGROUND NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/BGNotifsTB" Text="BACKGROUND NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
                                     <ToggleSwitch x:Uid="/Settings/BGEnableTS" x:Name="bgEnabler" FontSize="13.333" VerticalContentAlignment="Top" Style="{StaticResource DiscordToggleSwitch}" Margin="12,0,12,0" OffContent="Enable background notifications" Toggled="bgEnabler_Toggled" OnContent="Enable background notifications" HorizontalAlignment="Stretch"/>
                                     <TextBlock x:Uid="/Settings/BGNotifInfoTB" Text="You will receive notifications for whatever is selected below every time the background process runs" TextWrapping="Wrap" FontSize="10" Opacity="0.5" Margin="12,-16,72,0"/>
                                     <TextBlock x:Name="RunEveryLabel" Text="Run background process every:" FontSize="13.333" Margin="12,6,0,0"/>
@@ -650,25 +650,25 @@
                                     <CheckBox x:Uid="/Settings/BGNotifyMentionsCB" x:Name="bgNotifyMention" Margin="12,0,0,0" Content="New mentions" Style="{StaticResource CheckBoxStyle1}"/>
                                     <CheckBox x:Uid="/Settings/BGNotifyMutedMentionsCB" x:Name="bgNotifyMutedMention" Margin="12,0,0,0" Content="New mentions in Muted Servers" Style="{StaticResource CheckBoxStyle1}"/>
                                     <StackPanel Margin="12,0,0,0">
-                                        <TextBlock x:Uid="/Settings/IAPNotifsTB" Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                        <TextBlock x:Uid="/Settings/IAPNotifsTB" Text="IN-APP NOTIFICATIONS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                         <CheckBox x:Uid="/Settings/HighlightEveryoneCB" x:Name="HighlightEveryone" Content="Highlight @everyone" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
                                         <CheckBox x:Uid="/Settings/VibrateCB" x:Name="Vibrate" Content="Vibrate on message reception" Style="{StaticResource CheckBoxStyle1}"/>
                                         <!--<CheckBox x:Uid="/Settings/ShowToastsCB" x:Name="Toasts" Content="Show in-app toast notifications" Style="{StaticResource CheckBoxStyle1}"/>-->
                                         <CheckBox x:Uid="/Settings/LiveTileCB" x:Name="LiveTile" Content="Show newest message on Start tile and lock screen" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/BadgeCB" x:Name="Badge" Content="Show mention count as badge" Style="{StaticResource CheckBoxStyle1}"/>
-                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <TextBlock x:Uid="/Settings/FriendsNotifyTB" Text="What adds to Friends list notifications?" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                         <CheckBox x:Uid="/Settings/DMsCB" x:Name="FriendsNotifyDMs" Content="DMs" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/FriendRequestsCB" x:Name="FriendsNotifyFriendRequests" Content="Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/mutedChannelsAffectServerCB" x:Name="mutedChannelsAffectServer" Content="Muted channels effect server unread status?" Style="{StaticResource CheckBoxStyle1}"/>
                                         <!--<CheckBox x:Uid="/Settings/IncomingFriendsCB" x:Name="FriendsNotifyIncomingFriendRequests" Content="Incoming Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>
                                         <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
-                                        <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                         <RadioButton x:Uid="/Settings/None" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
                                         <RadioButton x:Uid="/Settings/Unread" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
                                         <RadioButton x:Uid="/Settings/Mention" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
 
-                                        <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0"/>
+                                        <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Only mentions and direct messages (default)</RadioButton>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications">Everything in the selected channel</RadioButton>
@@ -683,10 +683,10 @@
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
                                     <CheckBox x:Name="NotificationSounds" x:Uid="/Settings/SoundsCB" Content="Sounds" Margin="12,12,0,0" Style="{StaticResource CheckBoxStyle1}"/>
-                                    <TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/SoundTypesTB" Text="Sound Types" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
                                     <RadioButton x:Name="radio_DiscordSounds" x:Uid="/Settings/DiscordRB" Content="Discord" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
                                     <RadioButton x:Name="radio_WindowsSounds" x:Uid="/Settings/WindowsRB" Content="Windows" GroupName="SoundStyle" Margin="12,-4,12,0" Style="{StaticResource DiscordRadioButton}"/>
-                                    <TextBlock x:Uid="/Settings/SoundsTB" Text="Sounds" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="12,12,0,0"/>
+                                    <TextBlock x:Uid="/Settings/SoundsTB" Text="Sounds" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,12,0,0"/>
                                     <StackPanel Orientation="Horizontal" Margin="12,-4,12,0">
                                         <CheckBox Content="Message" MinWidth="30"/>
                                         <Button Background="Transparent" Tag="message" Click="PlaySound">
@@ -709,10 +709,10 @@
                         <PivotItem x:Uid="/Settings/AdvancedPI" Header="Advanced">
                             <ScrollViewer Margin="0,0,-12,0" Padding="0,0,24,0">
                                 <StackPanel>
-                                    <TextBlock Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}"/>
+                                    <TextBlock Text="CONNECTION" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                                     <CheckBox x:Uid="/Settings/UseCompression" x:Name="UseCompression" Content="Enable compression (Faster)" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"/>
 
-                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0"/>
+                                    <TextBlock x:Uid="/Settings/ResponsiveUiBreaksTB" Text="RESPONSIVE UI BREAKPOINTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0"/>
                                     <TextBlock x:Uid="/Settings/ResponsiveUiBreaksDescTB" Text="These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width." TextWrapping="Wrap" FontSize="13" Opacity="0.5" Margin="0,6,0,12"/>
                                     <Slider x:Uid="/Settings/SliderM" x:Name="RespUI_M" Header="M (Servers)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Margin="0,6,0,0" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
                                     <Slider x:Uid="/Settings/SliderL" x:Name="RespUI_L" Header="L (Servers + Channels)" FontSize="13.333" ValueChanged="RespUI_ValueChanged" Maximum="2000" Style="{StaticResource DiscordSlider}"/>
@@ -725,7 +725,7 @@
                         </PivotItem>
                     </Pivot>
                     <Grid Grid.Row="1" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
-                        <HyperlinkButton x:Uid="/Settings/AccountSettingsHLBTN" Content="Account Settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
+                        <HyperlinkButton x:Uid="/Settings/AccountSettingsHLBTN" Content="Account Settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -733,8 +733,8 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Button x:Uid="/Settings/LogoutBTN" VerticalAlignment="Bottom" Margin="0,0,2,0" HorizontalAlignment="Stretch" Content="Logout" Background="#FFCD3232" Style="{StaticResource DiscordButton}" Padding="24,12" Click="CheckLogout"/>
-                            <!--<Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>-->
-                            <Button x:Uid="/Dialogs/SaveBTN" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
+                            <!--<Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>-->
+                            <Button x:Uid="/Dialogs/SaveBTN" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Save" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
                         </Grid>
                     </Grid>
                 </Grid>
