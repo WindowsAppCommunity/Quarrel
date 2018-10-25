@@ -64,7 +64,7 @@
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
 
-            <TextBlock x:Name="OfflineReason"  Text="You're either offline or on too slow a connection to start the Gateway" TextWrapping="WrapWholeWords" Foreground="{ThemeResource Blurple}" FontSize="20" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Name="OfflineReason"  Text="You're either offline or on too slow a connection to start the Gateway" TextWrapping="WrapWholeWords" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="20" TextAlignment="Center" Margin="0,0,0,12"/>
             <Button x:Name="statusButton" FontWeight="SemiBold" Content="View Discord status"  MaxWidth="500" HorizontalAlignment="Stretch" Click="StatusButton_OnClick"  Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource idle}">
                 <Button.Transitions>
                     <TransitionCollection>
@@ -72,7 +72,7 @@
                     </TransitionCollection>
                 </Button.Transitions>
             </Button>
-            <Button x:Name="loginButton" MaxWidth="500" HorizontalAlignment="Stretch" Click="TryLogin" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
+            <Button x:Name="loginButton" MaxWidth="500" HorizontalAlignment="Stretch" Click="TryLogin" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <Button.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="250"/>

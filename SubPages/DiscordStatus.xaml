@@ -111,14 +111,14 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Rectangle x:Name="cache" Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource Blurple}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <ProgressRing x:Name="LoadingRing" IsEnabled="True" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock x:Name="FailedToLoad" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Text="FAILED TO GET DISCORD STATUS :/" TextWrapping="Wrap" FontWeight="SemiBold" Margin="12"/>
         <Grid x:Name="grid" MaxWidth="400" Opacity="1" MaxHeight="512" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <Grid.RenderTransform>
                     <ScaleTransform x:Name="scale2"/>
                 </Grid.RenderTransform>
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <StackPanel>
                         <TextBlock Text="DISCORD STATUS" FontWeight="SemiBold" Margin="0,0,0,0" FontSize="20"/>
                         <Border x:Name="statusContainer" Visibility="Collapsed" Margin="-24,12" Padding="24,12" Background="{ThemeResource online}">
@@ -146,11 +146,11 @@
                     <Grid>
                         <TextBlock Grid.Column="1" FontWeight="SemiLight" FontSize="16"  Text="API Response Time"/>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Bottom">
-                            <HyperlinkButton x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Foreground="{ThemeResource Blurple}"  Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click"/>
+                            <HyperlinkButton x:Name="dayDuration" Content="Day" Margin="2,0" IsEnabled="False" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"  Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click"/>
                             <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                            <HyperlinkButton x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Foreground="{ThemeResource Blurple}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_1"/>
+                            <HyperlinkButton x:Name="weekDuration" Content="Week"  Margin="2,0" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_1"/>
                             <TextBlock Text="/" FontSize="12" Margin="2,0" Opacity="0.2"/>
-                            <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Foreground="{ThemeResource Blurple}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_2"/>
+                            <HyperlinkButton x:Name="monthDuration" Content="Month" Margin="2,0" FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"   Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click_2"/>
                         </StackPanel>
                     </Grid>
                     <Grid SizeChanged="FrameworkElement_OnSizeChanged"  Margin="-24,12,-24,6">
