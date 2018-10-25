@@ -632,6 +632,10 @@ namespace Discord_UWP.SubPages
 
         private void AccentChecked(object sender, RoutedEventArgs e)
         {
+            var blurple = (Color)Resources["SystemAccentColor"];
+            App.Current.Resources["Blurple"] = new SolidColorBrush(blurple); //Set to Blurple default
+            App.Current.Resources["BlurpleColor"] = blurple;
+
             ((App.Current.Resources.ThemeDictionaries["Light"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
             ((App.Current.Resources.ThemeDictionaries["Dark"] as ResourceDictionary)["SystemControlBackgroundAccentBrush"] as SolidColorBrush).Color = (Color)Resources["SystemAccentColor"];
         }
