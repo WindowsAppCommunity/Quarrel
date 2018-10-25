@@ -39,7 +39,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewHeaderItem">
                         <StackPanel BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ContentPresenter TextWrapping="Wrap" FontSize="15" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter TextWrapping="Wrap" FontSize="15" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
@@ -123,7 +123,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="512" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
 
                 <ScrollViewer>
                     <Grid>
@@ -179,7 +179,7 @@
                                 <TextBlock x:Uid="/About/AustinAndelinCredit"  TextWrapping="Wrap" Text="Austin Andelin, for conecptualizing the app's icon" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                                 <TextBlock x:Uid="/About/ChristopherBlackmanCredit"  TextWrapping="Wrap" Text="Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help" FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>
                                 <!--<TextBlock x:Uid="/About/TranslatorsCredit" TextWrapping="Wrap" Text="Translators: " FontWeight="SemiLight" Opacity="0.6"  FontSize="11"/>-->
-                                <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
+                                <HyperlinkButton x:Uid="/About/LicensesHLBTN" Content="Licenses" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" Click="HyperlinkButton_Click"/>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
                                     <TextBlock x:Uid="/About/AccordingToMicrosoftTB" Text="According to Microsoft's Licensing you have bought:" FontWeight="Bold"/>

@@ -178,7 +178,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}">
+    <Border x:Name="borderColor" Margin="0" CornerRadius="4" BorderThickness="1" Grid.RowSpan="2" Width="248" BorderBrush="{ThemeResource Blurple}">
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

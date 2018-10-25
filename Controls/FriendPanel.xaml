@@ -334,7 +334,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Grid Height="32" VerticalAlignment="Top" Margin="0">
-                                <Rectangle x:Name="RectangleFill" RadiusX="3" RadiusY="3" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" Width="20" Height="20" Opacity="21"/>
+                                <Rectangle x:Name="RectangleFill" RadiusX="3" RadiusY="3" Fill="{ThemeResource Blurple}" Width="20" Height="20" Opacity="21"/>
                                 <Rectangle x:Name="NormalRectangle" RadiusX="3" RadiusY="3" Height="20" Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}" StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}" UseLayoutRounding="False" Width="20">
                                     <Rectangle.RenderTransform>
                                         <ScaleTransform x:Name="RectangleScale" CenterX="10" CenterY="10"/>
@@ -371,7 +371,7 @@
                             <Grid.Resources>
                                 <Style x:Key="SliderThumbStyle" TargetType="Thumb">
                                     <Setter Property="BorderThickness" Value="0"/>
-                                    <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                                    <Setter Property="Background" Value="{ThemeResource Blurple}"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="Thumb">
@@ -518,7 +518,7 @@
                                         <RowDefinition Height="18"/>
                                     </Grid.RowDefinitions>
                                     <Rectangle x:Name="HorizontalTrackRect" Grid.ColumnSpan="3" Fill="{ThemeResource InvertedBG}" Opacity="0.4" Height="{ThemeResource SliderTrackThemeHeight}" Grid.Row="1"/>
-                                    <Rectangle x:Name="HorizontalDecreaseRect" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="1" Grid.Row="1"/>
+                                    <Rectangle x:Name="HorizontalDecreaseRect" Fill="{ThemeResource Blurple}" Opacity="1" Grid.Row="1"/>
                                     <TickBar x:Name="TopTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderTickBarFill}" Height="{ThemeResource SliderOutsideTickBarThemeHeight}" Margin="0,0,0,4" Visibility="Collapsed" VerticalAlignment="Bottom"/>
                                     <TickBar x:Name="HorizontalInlineTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderInlineTickBarFill}" Height="{ThemeResource SliderTrackThemeHeight}" Grid.Row="1" Visibility="Collapsed"/>
                                     <TickBar x:Name="BottomTickBar" Grid.ColumnSpan="3" Fill="{ThemeResource SliderTickBarFill}" Height="{ThemeResource SliderOutsideTickBarThemeHeight}" Margin="0,4,0,0" Grid.Row="2" Visibility="Collapsed" VerticalAlignment="Top"/>

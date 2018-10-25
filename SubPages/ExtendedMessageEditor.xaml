@@ -214,7 +214,7 @@
                             <Grid x:Name="SwitchAreaGrid" Background="{ThemeResource ToggleSwitchContainerBackground}" Grid.ColumnSpan="3" Control.IsTemplateFocusTarget="True" Margin="0,5" Grid.Row="1" Grid.RowSpan="3"/>
                             <ContentPresenter x:Name="OffContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding OffContentTemplate}" Content="{TemplateBinding OffContent}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Opacity="0" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <ContentPresenter x:Name="OnContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding OnContentTemplate}" Content="{TemplateBinding OnContent}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Opacity="0" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Rectangle x:Name="SwitchKnobBounds" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" Height="24" Opacity="0" RadiusY="12" Grid.Row="2" RadiusX="12"  Width="48" Grid.Column="2"/>
+                            <Rectangle x:Name="SwitchKnobBounds" Fill="{ThemeResource Blurple}" Height="24" Opacity="0" RadiusY="12" Grid.Row="2" RadiusX="12"  Width="48" Grid.Column="2"/>
                             <Rectangle x:Name="OuterBorder" Fill="{ThemeResource InvertedBG}" Opacity="0.2" Height="24" RadiusY="12" Grid.Row="2" RadiusX="12" Width="48" Grid.Column="2"/>
 
                             <Grid x:Name="SwitchKnob" HorizontalAlignment="Left" Height="24" Grid.Row="2" Width="24" Grid.Column="2">
@@ -345,7 +345,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="500" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -361,7 +361,7 @@
                             <TextBlock x:Name="header" x:Uid="/Dialogs/AdvancedMessageEditorTB" Text="ADVANCED MESSAGE EDITOR" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                             <StackPanel x:Name="shareTarget" Visibility="Collapsed">
 
-                                <TextBlock x:Uid="/Dialogs/ServerSelectTB" FontSize="15" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Text="SERVER" Margin="0,12,0,0"/>
+                                <TextBlock x:Uid="/Dialogs/ServerSelectTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="SERVER" Margin="0,12,0,0"/>
                                 <ComboBox x:Name="serverOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="serverOption_SelectionChanged" BorderThickness="1">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -376,7 +376,7 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <TextBlock x:Uid="/Dialogs/ChannelSelectTB" FontSize="15" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Text="CHANNEL" Margin="0,12,0,0"/>
+                                <TextBlock x:Uid="/Dialogs/ChannelSelectTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="CHANNEL" Margin="0,12,0,0"/>
                                 <ComboBox x:Name="channelOption" Margin="0,4,0,0" HorizontalAlignment="Stretch" SelectionChanged="channelOption_SelectionChanged" BorderThickness="1">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -389,9 +389,9 @@
                                 </ComboBox>
                             </StackPanel>
 
-                            <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
+                            <TextBlock x:Name="BodyText" x:Uid="/Dialogs/BodyTB" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="BODY" Margin="0,12,0,0"/>
                             <TextBox x:Name="Editor" Style="{StaticResource TextBoxStyle1}" Margin="0,6,0,0"/>
-                            <TextBlock x:Uid="/Dialogs/AttachementsTB"  x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
+                            <TextBlock x:Uid="/Dialogs/AttachementsTB"  x:Name="AttachmentsText" FontSize="15" Foreground="{ThemeResource Blurple}" FontWeight="Bold" Text="ATTACHEMENTS" Margin="0,12,0,0"/>
                             <Grid Margin="0,6,0,0">
                                 <Grid.ChildrenTransitions>
                                     <TransitionCollection>
@@ -447,8 +447,8 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
-                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Send" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12" Click="SaveButton_Click"/>
+                            <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
+                            <Button x:Uid="/Dialogs/SaveBTN" x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Send" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12" Click="SaveButton_Click"/>
                         </Grid>
                     </Grid>
                     <Grid x:Name="ProgressViewer" Visibility="Collapsed" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="-24,-24,-24,0">
@@ -456,12 +456,12 @@
                             <SolidColorBrush Color="{ThemeResource SystemAltHighColor}" Opacity="0.75"/>
                         </Grid.Background>
                         <Grid Width="250" Height="250" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="48,0">
-                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="Waiting" Visibility="Collapsed" Text="PROCESSING..." FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="progressVal" Text="0%" FontSize="48" FontWeight="Light" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="Waiting" Visibility="Collapsed" Text="PROCESSING..." FontSize="14" FontWeight="SemiBold" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                            <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="13.33" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,48"/>
+                            <TextBlock x:Name="FileNB" Visibility="Collapsed" Text="File 1/2" Opacity="0.6" FontSize="13.33" Foreground="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,48"/>
 
-                            <control:RadialProgressBar x:Name="progressBar" Value="0" Maximum="100" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0"/>
+                            <control:RadialProgressBar x:Name="progressBar" Value="0" Maximum="100" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0"/>
                         </Grid>
                     </Grid>
                 </Grid>

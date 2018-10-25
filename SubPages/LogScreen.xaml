@@ -22,7 +22,7 @@
                     </TransitionCollection>
                 </Image.Transitions>
             </Image>
-            <TextBlock Text="Q U A R R E L" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
+            <TextBlock Text="Q U A R R E L" VerticalAlignment="Center" FontWeight="Thin" Foreground="{ThemeResource Blurple}" TextAlignment="Center" FontSize="32" CharacterSpacing="220">
                 <TextBlock.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="-600"/>
@@ -31,7 +31,7 @@
             </TextBlock>
 
 
-            <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Uid="/About/QuarrelDescTB" Text="Discord client for the Universal Windows Platform" Foreground="{ThemeResource Blurple}" FontSize="12" TextAlignment="Center" Margin="0,0,0,12"/>
             <Grid>
                 <StackPanel x:Name="TokenAuth" Visibility="Collapsed">
                     <PasswordBox x:Name="Token" VerticalAlignment="Center" Padding="12" TabIndex="0" InputScope="Password" PlaceholderText="Discord token" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="Token_KeyDown"/>
@@ -44,10 +44,10 @@
                 </StackPanel>
                 <StackPanel x:Name="MFAuth" Visibility="Collapsed">
                     <PasswordBox x:Uid="/About/MFAPasswordTBox" TabIndex="0" InputScope="Number" Header="Two-factor authentication:" x:Name="MFAPassword" VerticalAlignment="Center" PlaceholderText="Authentication code" Padding="12" Margin="0,4,0,0" Style="{StaticResource PasswordBoxStyle1}" KeyDown="MFAPassword_KeyDown"/>
-                    <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
+                    <HyperlinkButton x:Name="MFAsms" Click="MFAsms_Click" Style="{StaticResource PlainHyperlinkStyle}" FontSize="13" Foreground="{ThemeResource Blurple}" Margin="0,4,0,4" >Send code by SMS</HyperlinkButton>
                 </StackPanel>
             </Grid>
-            <Button x:Name="loginButton" HorizontalAlignment="Stretch" TabIndex="2" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+            <Button x:Name="loginButton" HorizontalAlignment="Stretch" TabIndex="2" Click="LogIn" Margin="0,4,0,0" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}">
                 <Button.Transitions>
                     <TransitionCollection>
                         <EntranceThemeTransition FromVerticalOffset="250"/>
@@ -63,7 +63,7 @@
                 <HyperlinkButton x:Uid="/About/DontHaveAccountHLBTN" TabIndex="4" Content="Don't have an account?" HorizontalAlignment="Right" FontSize="13.333" Foreground="{ThemeResource Greyple}" Click="Register" VerticalAlignment="Top"/>
             </Grid>
          </StackPanel>
-        <HyperlinkButton Content="Privacy policy" TabIndex="5" HorizontalAlignment="Left" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
+        <HyperlinkButton Content="Privacy policy" TabIndex="5" HorizontalAlignment="Left" Foreground="{ThemeResource Blurple}" VerticalAlignment="Bottom" Margin="24,0,0,12" Click="HyperlinkButton_Click">
             <HyperlinkButton.ContextFlyout>
                 <Flyout FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle1}">
                     <Grid MaxWidth="256">
@@ -75,7 +75,7 @@
                 </Flyout>
             </HyperlinkButton.ContextFlyout>
         </HyperlinkButton>
-        <HyperlinkButton x:Name="LoginWithToken" TabIndex="6" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
+        <HyperlinkButton x:Name="LoginWithToken" TabIndex="6" Tag="Token" Content="Login with Discord Token" HorizontalAlignment="Right" Foreground="{ThemeResource Blurple}" Margin="0,32,24,12" VerticalAlignment="Bottom" Click="HyperlinkButton_Click_1"/>
 
         <WebView x:Name="CaptchaView" NavigationStarting="Navigating" Visibility="Collapsed">
             

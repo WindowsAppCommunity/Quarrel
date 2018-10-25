@@ -184,6 +184,6 @@
             <TextBlock x:Uid="/Controls/LoadingTB" Text="LOADING" x:Name="StatusBlock" Opacity="0.6" FontWeight="SemiBold" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,0,0,0" FontSize="13"/>
         </StackPanel>
         <TextBlock Text="" x:Name="CreditBlock" Opacity="0.4" FontSize="12" HorizontalAlignment="Center" TextAlignment="Center" Margin="12,12,12,24" VerticalAlignment="Bottom"/>
-        <Button x:Name="ResetButton" x:Uid="/Controls/TryResetBTN" Visibility="Collapsed" Opacity="0" Content="Having issues? Try resetting Quarrel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Click="ResetButton_Click"/>
+        <Button x:Name="ResetButton" x:Uid="/Controls/TryResetBTN" Visibility="Collapsed" Opacity="0" Content="Having issues? Try resetting Quarrel" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60" Click="ResetButton_Click"/>
     </Grid>
 </UserControl>

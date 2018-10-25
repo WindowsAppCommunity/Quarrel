@@ -43,7 +43,7 @@
                 <Viewbox x:Name="ImageViewbox"  HorizontalAlignment="Left" Visibility="Collapsed" StretchDirection="DownOnly" Grid.Row="4" MaxWidth="480" MaxHeight="300"  Grid.Column="1" Margin="6">
                     <Image x:Name="ImageViewer" Tapped="AttachedImageViewer_Tapped"/>
                 </Viewbox>
-                <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
+                <ProgressRing x:Name="LoadingImage" Foreground="{ThemeResource Blurple}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="6" Visibility="Collapsed"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

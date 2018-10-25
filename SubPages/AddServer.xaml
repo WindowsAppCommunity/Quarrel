@@ -33,7 +33,7 @@
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" VerticalAlignment="Center" HorizontalAlignment="Center">
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -44,7 +44,7 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,0,12,0" Click="CreateServerClick" Width="124">
+                    <Button Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="0,0,12,0" Click="CreateServerClick" Width="124">
                         <Button.Content>
                             <StackPanel>
                                 <TextBlock x:Uid="/Dialogs/CreateServerTB" Text="Create Server" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"/>

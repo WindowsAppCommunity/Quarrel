@@ -85,7 +85,7 @@
         <Rectangle Tapped="UIElement_OnTapped" Fill="Transparent" Margin="-100"/>
         <Grid x:Name="grid" MaxWidth="512" MaxHeight="600" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
-            <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
+            <Border x:Name="border" BorderBrush="{ThemeResource Blurple}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -109,7 +109,7 @@
                                         </Rectangle>
                                         <StackPanel Margin="0,6,0,0"  Grid.Row="1">
 
-                                            <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image"/>
+                                            <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource Blurple}" Content="Upload image"/>
                                             <HyperlinkButton x:Uid="/Settings/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                         </StackPanel>
                                     </Grid>
@@ -117,14 +117,14 @@
                                     <TextBox x:Uid="/Settings/EmailBox" x:Name="emailBox" Style="{StaticResource TextBoxStyle1}" Header="Email" Margin="0,12,0,0" TextChanged="emailBox_TextChanged"/>
                                     <TextBlock x:Name="MustFill" x:Uid="/Settings/MustFillOut" Visibility="Collapsed" Text="Must fill out Current Password" Foreground="Red" Margin="0,12,0,-12"/>
                                     <PasswordBox x:Uid="/Settings/CurrentPswrdPBox" x:Name="password" Style="{StaticResource PasswordBoxStyle1}" Header="Current password" Margin="0,12,0,0"/>
-                                    <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
+                                    <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                                     <PasswordBox x:Uid="/Settings/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
-                                    <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="24,24,24,0" Grid.Column="2" Padding="24,12">
+                                    <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource Blurple}" Margin="24,24,24,0" Grid.Column="2" Padding="24,12">
                                         <Button.Content>
                                             <Grid>
                                                 <TextBlock x:Uid="/Settings/SaveTB" x:Name="saveBTNtext" Text="Save"/>
-                                                <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
+                                                <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource Blurple}" IsActive="True"/>
                                             </Grid>
                                         </Button.Content>
                                     </Button>
@@ -196,8 +196,8 @@
                                 <StackPanel>
                                     <TextBlock Text="COMING SOON... (but not 9.2)" Margin="12,6,12,0"/>
                                     <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24" Opacity="0.25" IsHitTestVisible="False">
-                                        <TextBlock x:Uid="/Settings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0" TextWrapping="Wrap"/>
-                                        <TextBlock x:Uid="/Settings/DMFilterExpoTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Opacity="0.75"/>
+                                        <TextBlock x:Uid="/Settings/DMFilterTB" Text="DIRECT MESSAGE FILTERING" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,12,0,0" TextWrapping="Wrap"/>
+                                        <TextBlock x:Uid="/Settings/DMFilterExpoTB" Text="Analyze and automatically delete direct messages containing explicit content" TextWrapping="Wrap"  FontSize="12" Foreground="{ThemeResource Blurple}" Opacity="0.75"/>
                                         <RadioButton x:Name="Filtering0" Style="{StaticResource DiscordRadioButton}" Foreground="{StaticResource online}" Margin="0,6,0,0">
                                             <StackPanel>
                                                 <TextBlock x:Uid="/Settings/ProtectMeTB" Text="Protect me"/>
@@ -216,7 +216,7 @@
                                                 <TextBlock x:Uid="/Settings/DangerZoneExpoTB" FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Don't analyze any DMs"/>
                                             </StackPanel>
                                         </RadioButton>
-                                        <TextBlock x:Uid="/Settings/FriendRequestOptionsTB" Text="WHO CAN SEND FRIEND REQUESTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,24,0,0" TextWrapping="Wrap"/>
+                                        <TextBlock x:Uid="/Settings/FriendRequestOptionsTB" Text="WHO CAN SEND FRIEND REQUESTS" FontSize="18" FontWeight="Bold" Foreground="{ThemeResource Blurple}" Margin="0,24,0,0" TextWrapping="Wrap"/>
                                         <CheckBox x:Uid="/Settings/EveryoneCB" x:Name="FriendRequest0" Style="{StaticResource CheckBoxStyle1}" Margin="0,6,0,0"  Content="Everyone" Checked="FriendRequest0_OnChecked" Unchecked="FriendRequest0_OnChecked"/>
                                         <CheckBox x:Uid="/Settings/MutualFriendsCB" x:Name="FriendRequest1" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="The friends of my friends" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
                                         <CheckBox x:Uid="/Settings/MutualServerMembersCB" x:Name="FriendRequest2" Style="{StaticResource CheckBoxStyle1}" Margin="0,-4,0,0" Content="Mutual server members" Checked="FriendRequest_OnChecked" Unchecked="FriendRequest_OnChecked"/>
@@ -227,7 +227,7 @@
                         </PivotItem>
                         </Pivot>
                     <Grid Grid.Row="1" Height="70.4" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
-                        <HyperlinkButton x:Uid="AppSettingsHLBTN" Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
+                        <HyperlinkButton x:Uid="AppSettingsHLBTN" Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource Blurple}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

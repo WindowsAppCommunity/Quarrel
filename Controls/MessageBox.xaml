@@ -226,7 +226,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="0.5"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource Blurple}"/>
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource Foreground}"/>
@@ -528,8 +528,8 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="bg"  Background="{ThemeResource InvertedBG}" CornerRadius="0,4,4,0"/>
-                            <Border x:Name="bbg"  Background="{ThemeResource SystemControlBackgroundAccentBrush}" CornerRadius="0,4,4,0"/>
-                            <TextBlock x:Name="blurple" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Border x:Name="bbg"  Background="{ThemeResource Blurple}" CornerRadius="0,4,4,0"/>
+                            <TextBlock x:Name="blurple" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource Blurple}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <TextBlock x:Name="fg" Opacity="0" Text="&#xE122;" Foreground="{ThemeResource AcrylicMessageBackground}" FontSize="18" Margin="8,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                         </Grid>
@@ -549,7 +549,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="UseSystemFocusVisuals" Value="false"/>
-            <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+            <Setter Property="FocusVisualPrimaryBrush" Value="{ThemeResource Blurple}"/>
             <Setter Property="FocusVisualPrimaryThickness" Value="1"/>
             <Setter Property="FocusVisualSecondaryThickness" Value="0"/>
             <Setter Property="FocusVisualMargin" Value="-24,0,-24,0"/>
@@ -893,7 +893,7 @@
                             </Grid>
 
                             <controls:DropShadowPanel x:Name="focusGlow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Visibility="Collapsed" Opacity="0" Margin="0,0,0,0"  OffsetX="0" OffsetY="0" BlurRadius="10" Color="{ThemeResource BlurpleColor}">
-                                <Rectangle Width="2" Fill="{ThemeResource SystemControlBackgroundAccentBrush}"/>
+                                <Rectangle Width="2" Fill="{ThemeResource Blurple}"/>
                             </controls:DropShadowPanel>
                             <!-- The 'Xg' text simulates the amount of space one line of text will occupy.
                           In the DataPlaceholder state, the Content is not loaded yet so we
@@ -1021,14 +1021,14 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Uid="/Controls/SendMessagePlaceholderText" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
-        <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Width="48"/>
+        <TextBox x:Uid="/Controls/SendMessagePlaceholderText" x:Name="MessageEditor" PlaceholderText="Send message" Grid.Column="1" TextChanged="MessageEditor_OnTextChanged" KeyDown="MessageEditor_OnKeyDown" LostFocus="MessageEditor_OnLostFocus" TextWrapping="Wrap" SelectionHighlightColor="{ThemeResource Blurple}" Style="{StaticResource TextBoxStyle1}" AcceptsReturn="False" MaxHeight="256" Paste="MessageEditor_Paste" KeyUp="MessageEditor_KeyUp"/>
+        <Button x:Name="SendBox" Grid.Column="2" Style="{StaticResource SendButton}" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendBox_OnClick" Grid.Row="0" IsEnabled="False" Foreground="{ThemeResource Blurple}" Width="48"/>
         
         <Popup x:Name="SuggestionPopup" IsOpen="False" Margin="24,0,0,0" Grid.ColumnSpan="2">
             <Popup.RenderTransform>
                 <TranslateTransform x:Name="PopupTransform"/>
             </Popup.RenderTransform>
-            <Border CornerRadius="4,4,0,0" SizeChanged="FrameworkElement_OnSizeChanged" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" BorderThickness="1,1,1,0" Background="{ThemeResource DeepBG}">
+            <Border CornerRadius="4,4,0,0" SizeChanged="FrameworkElement_OnSizeChanged" BorderBrush="{ThemeResource Blurple}" BorderThickness="1,1,1,0" Background="{ThemeResource DeepBG}">
                 <ListView x:Name="SuggestionBlock" Width="{Binding ActualWidth, ElementName=MessageEditor}" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource SuggestionStyle}" ItemClick="SuggestionBlock_OnItemClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -1064,7 +1064,7 @@
             </Button>
         </StackPanel>
         
-        <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
+        <HyperlinkButton x:Uid="/Dialogs/CancelBTN" x:Name="CancelButton" Visibility="Collapsed" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource Blurple}" Content="Cancel" Margin="0,4,0,6" Click="CancelButton_Click"/>
         <Button x:Name="attachButton" Style="{StaticResource ContentButton}" Foreground="{ThemeResource InvertedBG}" Opacity="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="8" Click="Button_Click_1">
             <Grid>
                 <Grid.RenderTransform>
@@ -1101,7 +1101,7 @@
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <ProgressRing x:Name="progring" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
+            <ProgressRing x:Name="progring" Foreground="{ThemeResource Blurple}" IsActive="True"/>
             <ListView x:Name="GiphyList" Height="100" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.VerticalScrollMode="Disabled" SelectionMode="None" IsItemClickEnabled="True" ItemClick="GiphyList_ItemClick">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
