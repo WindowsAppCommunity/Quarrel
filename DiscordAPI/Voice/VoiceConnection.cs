@@ -331,12 +331,12 @@ namespace Discord_UWP.Voice
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
 
-            SendSpeaking(true);
+         //   SendSpeaking(true);
             for (int i = 0; i < 100; i++)
             {
-                SendSilence();
+           //     SendSilence();
             }
-            SendSpeaking(false);
+            //SendSpeaking(false);
         }
 
         private void OnSpeaking(SocketFrame Event)
@@ -427,7 +427,7 @@ namespace Discord_UWP.Voice
                 var heartbeatEvent = new SocketFrame
                 {
                     Operation = OperationCode.Heartbeat.ToInt(),
-                    Payload = lastEvent?.SequenceNumber ?? 0
+                    Payload = Math.Round(DateTime.Now.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds)
                 };
 
                 await _webMessageSocket.SendJsonObjectAsync(heartbeatEvent);

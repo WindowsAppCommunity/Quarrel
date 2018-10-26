@@ -16,6 +16,8 @@ namespace Discord_UWP.Managers
             public string ChannelId { get; set; }
             public string GuildId { get; set; }
         }
+
+        private static bool hasSentSpeeking = false;
         public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
@@ -35,9 +37,10 @@ namespace Discord_UWP.Managers
         {
             //TODO: Sending voice
             //TODO: silence detection
-            if (!speaking)
+            if (!speaking && !hasSentSpeeking)
             {
                 VoiceConnection.SendSpeaking(true);
+                hasSentSpeeking = true;
             }
             VoiceConnection.SendVoiceData(e);
         }
