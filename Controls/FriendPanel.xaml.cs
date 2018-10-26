@@ -182,6 +182,7 @@ namespace Discord_UWP.Controls
             PendingView.Items.Clear();
             BlockedView.Items.Clear();
             int pending = 0;
+            var contactManager = new Managers.ContactManager();
             foreach (var f in LocalState.Friends)
             {
                 var friend = NewSF(f);
@@ -192,20 +193,8 @@ namespace Discord_UWP.Controls
                 }
                 else if (friend.RelationshipStatus == 1)
                 {
-                    /*
-                    ContactAnnotation annotation = new ContactAnnotation();
-                    annotation.ContactId = myContact.Id;
-
-                    // Add appId and contact panel support to the annotation
-                    String appId = "MyApp_vqvv5s4y3scbg!App";
-                    annotation.ProviderProperties.Add("UserId", appId);
-                    annotation.SupportedOperations = ContactAnnotationOperations.ContactProfile | ContactAnnotationOperations.Message;
-
-                    // Save annotation to contact annotation list
-                    // Windows.ApplicationModel.Contacts.ContactAnnotationList 
-                    await contactAnnotationList.TrySaveAnnotationAsync(annotation));*/
-
                     AllView.Items.Add(friend);
+                    await contactManager.AddContact(f.Value.user);
                 }
                     
                 else if (friend.RelationshipStatus == 2)
