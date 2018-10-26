@@ -132,9 +132,9 @@ namespace Discord_UWP.Controls
         private async Task AddRelationshipToUI(Gateway.GatewayEventArgs<Friend> e)
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
+                async () =>
                 {
-                    SimpleFriend sfriend = NewSF(e.EventData);
+                    SimpleFriend sfriend = await NewSF(e.EventData);
                     if (sfriend.RelationshipStatus == 1)
                         AllView.Items.Add(sfriend);
                     else if (sfriend.RelationshipStatus == 2)
@@ -150,17 +150,29 @@ namespace Discord_UWP.Controls
                     }
                 });
         }
-        private SimpleFriend NewSF(KeyValuePair<string, Friend> f)
+        private async Task<SimpleFriend> NewSF(KeyValuePair<string, Friend> f)
         {
-            return NewSF(f.Value);
+            return await NewSF(f.Value);
         }
-        private SimpleFriend NewSF(Friend f)
+        private async Task<SimpleFriend> NewSF(Friend f)
         {
             var friend = new SimpleFriend();
             friend.User = f.user;
             friend.RelationshipStatus = f.Type;
             friend.SharedGuilds = new List<SimpleFriend.SharedGuild>();
-            foreach (var guild in LocalState.Guilds)
+            //TODO: real fix instead of work around.
+            UserProfile profile = await RESTCalls.GetUserProfile(friend.User.Id);
+            foreach (MutualGuild guild in profile.MutualGuilds)
+            {
+                friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
+                {
+                    Id = guild.Id,
+                    ImageUrl = LocalState.Guilds[guild.Id].Raw.Icon,
+                    Name = LocalState.Guilds[guild.Id].Raw.Name
+                });
+
+            }
+          /*  foreach (var guild in LocalState.Guilds)
             {
                 if (guild.Value.members.ContainsKey(friend.User.Id))
                     friend.SharedGuilds.Add(new SimpleFriend.SharedGuild()
@@ -169,7 +181,7 @@ namespace Discord_UWP.Controls
                         ImageUrl = guild.Value.Raw.Icon,
                         Name = guild.Value.Raw.Name
                     });
-            }
+            }*/
             if (LocalState.PresenceDict.ContainsKey(f.user.Id))
                 friend.UserStatus = LocalState.PresenceDict[f.user.Id].Status;
             else
@@ -185,7 +197,7 @@ namespace Discord_UWP.Controls
             var contactManager = new Managers.ContactManager();
             foreach (var f in LocalState.Friends)
             {
-                var friend = NewSF(f);
+                var friend = await NewSF(f);
                 if (f.Value.Type == 3 || f.Value.Type == 4)
                 {
                     pending++;
