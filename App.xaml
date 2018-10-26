@@ -2773,7 +2773,7 @@
                                                         <CircleEase/>
                                                     </DoubleAnimation.EasingFunction>
                                                 </DoubleAnimation>
-    
+
                                                 <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
                                             </Storyboard>
                                         </VisualState>
@@ -2817,7 +2817,7 @@
                                     <Rectangle Height="48" Width="48" RadiusX="30" RadiusY="30" Stroke="{ThemeResource SystemControlBackgroundAccentBrush}"/>
                                     <SymbolIcon Symbol="Add" Foreground="{ThemeResource InvertedBG}"/>
                                 </Grid>
-                               
+
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -3906,7 +3906,7 @@
                         <ControlTemplate TargetType="HyperlinkButton">
                             <Grid x:Name="RootGrid">
                                 <Grid.Background>
-                                    <SolidColorBrush Color="{ThemeResource SystemControlBackgroundAccentBrushColor}" Opacity="0.1"/>
+                                    <SolidColorBrush Color="{ThemeResource BlurpleColor}" Opacity="0.1"/>
                                 </Grid.Background>
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="CommonStates">
