@@ -90,6 +90,14 @@
                     <StackPanel Margin="0,12,0,0">
                         <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
+                                <Run Text="• Owner indicator icon"/>
+                            </Paragraph>
+                            <Paragraph FontSize="8"/>
+                            <Paragraph>
+                                <Run Text="• Improved Captcha work arounds"/>
+                            </Paragraph>
+                            <Paragraph FontSize="8"/>
+                            <Paragraph>
                                 <Run Text="• Redesigned Flyouts"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
