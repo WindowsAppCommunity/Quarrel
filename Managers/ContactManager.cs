@@ -22,12 +22,13 @@ namespace Discord_UWP.Managers
             contactList = await GetContactList();
             annotationList = await GetContactAnnotationList();
         }
+
          ContactStore store;
          ContactAnnotationStore annotationStore;
          ContactList contactList;
          ContactAnnotationList annotationList;
 
-        private  async Task<ContactList> GetContactList()
+        private async Task<ContactList> GetContactList()
         {
             if (contactList == null)
             {
@@ -265,7 +266,6 @@ namespace Discord_UWP.Managers
                 
                 if (annotationList == null)
                 {
-                    
                     return;
                 }
 
@@ -288,7 +288,7 @@ namespace Discord_UWP.Managers
                 annotation.ProviderProperties.Add("ContactPanelAppID", Windows.ApplicationModel.Package.Current.Id.FamilyName + "!App");
 
                 if(!await annotationList.TrySaveAnnotationAsync(annotation))
-                    {
+                {
                     Debug.WriteLine("Failed to save contact " + user.Username);
                 }
 

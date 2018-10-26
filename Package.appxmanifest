@@ -47,6 +47,11 @@
             <Task Type="systemEvent" />
           </BackgroundTasks>
         </Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="ms-ipmessaging">
+            <uap:DisplayName>Message with Quarrel</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
       <uap:VisualElements DisplayName="Quarrel" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Unofficial client for Discord" BackgroundColor="transparent">
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
@@ -65,6 +70,7 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
+    <uap:Capability Name="contacts" />
     <DeviceCapability Name="microphone" />
   </Capabilities>
   <!--<Extensions>
