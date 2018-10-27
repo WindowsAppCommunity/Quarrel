@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
 using RuntimeComponent;
 
 //Discord DOCs https://discordapp.com/developers/docs/topics/voice-connections
@@ -149,11 +148,15 @@ namespace Discord_UWP.Voice
 
         public async void SendSpeaking(bool speaking)
         {
+            DownstreamEvents.Speak Event = new DownstreamEvents.Speak
+            {
+                Speaking = speaking
+            };
+            Speak?.Invoke(this, new VoiceConnectionEventArgs<DownstreamEvents.Speak>(Event));
             if (speaking == false)
             {
                 SendSilence();
             }
-            Random rnd = new Random();
 
             var speakingPacket = new SocketFrame
             {
