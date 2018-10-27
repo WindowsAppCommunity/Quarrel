@@ -138,7 +138,6 @@ namespace Discord_UWP.Controls
 
         private void Mute_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Toggle local mute
             App.UpdateLocalMute(!LocalModels.LocalState.VoiceState.SelfMute);
         }
 
