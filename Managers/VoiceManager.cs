@@ -36,13 +36,30 @@ namespace Discord_UWP.Managers
         private static void AudioManager_InputRecieved(object sender, float[] e)
         {
             //TODO: Sending voice
-            //TODO: silence detection
-            if (!speaking && !hasSentSpeeking)
+
+            double decibels = 0f;
+            foreach (var sample in e)
             {
-                VoiceConnection.SendSpeaking(true);
-                hasSentSpeeking = true;
+                decibels += Math.Abs(sample);
             }
-            VoiceConnection.SendVoiceData(e);
+            decibels = 20 * Math.Log10(decibels / e.Length);
+            if (decibels < -40)
+            {
+                if (!speaking && hasSentSpeeking)
+                {
+                    VoiceConnection.SendSpeaking(false);
+                    hasSentSpeeking = false;
+                }
+            }
+            else
+            {
+                if (!speaking && !hasSentSpeeking)
+                {
+                    VoiceConnection.SendSpeaking(true);
+                    hasSentSpeeking = true;
+                }
+                VoiceConnection.SendVoiceData(e);
+            }
         }
 
         private static void VoiceConnection_VoiceDataRecieved(object sender, VoiceConnectionEventArgs<Voice.DownstreamEvents.VoiceData> e)

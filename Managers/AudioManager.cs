@@ -332,23 +332,17 @@ namespace Discord_UWP
 
         public static void DisposeAudioGraphs()
         {
-            if (ingraph != null)
-            {
-                ingraph.Dispose();
-            }
+            ingraph?.Dispose();
             frameOutputNode = null;
             deviceInputNode = null;
             ingraph = null;
-            if (outgraph != null)
-            {
-                outgraph.Dispose();
-            }
+            outgraph?.Dispose();
             frameInputNode = null;
             deviceOutputNode = null;
             outgraph = null;
         }
 
-        unsafe public static void AddFrame(float[] framedata, uint samples)
+        public static unsafe void AddFrame(float[] framedata, uint samples)
         {
             if (!ready)
                 return;
@@ -361,11 +355,8 @@ namespace Discord_UWP
                 using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
                 using (IMemoryBufferReference reference = buffer.CreateReference())
                 {
-                    byte* dataInBytes;
-                    uint capacityInBytes;
-
                     // Get the buffer from the AudioFrame
-                    ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+                    ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
                     // Cast to float since the data we are generating is float
                     float* dataInFloat = (float*)dataInBytes;
                     fixed (float* frames = framedata)
@@ -410,7 +401,7 @@ namespace Discord_UWP
                 frameInputNode.AddFrame(frame);
         }
 
-        unsafe static public AudioFrame GenerateAudioData(uint samples)
+        public static unsafe AudioFrame GenerateAudioData(uint samples)
         {
             // Buffer size is (number of samples) * (size of each sample) * (number of channels)
             uint bufferSize = samples * sizeof(float) * 2;
@@ -419,15 +410,11 @@ namespace Discord_UWP
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
             {
-                byte* dataInBytes;
-                uint capacityInBytes;
-                float* dataInFloat;
-
                 // Get the buffer from the AudioFrame
-                ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint _);
 
                 // Cast to float since the data we are generating is float
-                dataInFloat = (float*)dataInBytes;
+                float* dataInFloat = (float*)dataInBytes;
 
                 float freq = 17000; // choosing to generate frequency of 17kHz
                 float amplitude = 0.3f;
@@ -482,24 +469,20 @@ namespace Discord_UWP
         {
            if (++quantum % 2 == 0)
            {
-              AudioFrame frame = frameOutputNode.GetFrame();
+               AudioFrame frame = frameOutputNode.GetFrame();
               ProcessFrameOutput(frame);
            }
         }
 
-        unsafe private static void ProcessFrameOutput(AudioFrame frame)
+        private static unsafe void ProcessFrameOutput(AudioFrame frame)
         {
             using (AudioBuffer buffer = frame.LockBuffer(AudioBufferAccessMode.Write))
             using (IMemoryBufferReference reference = buffer.CreateReference())
             {
-                byte* dataInBytes;
-                uint capacityInBytes;
-                float* dataInFloat;
-
                 // Get the buffer from the AudioFrame
-                ((IMemoryBufferByteAccess)reference).GetBuffer(out dataInBytes, out capacityInBytes);
+                ((IMemoryBufferByteAccess)reference).GetBuffer(out byte* dataInBytes, out uint capacityInBytes);
 
-                dataInFloat = (float*)dataInBytes;
+                float* dataInFloat = (float*)dataInBytes;
                 float[] dataInFloats = new float[capacityInBytes/sizeof(float)];
 
                 for (int i = 0; i < capacityInBytes / sizeof(float); i++)
