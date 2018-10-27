@@ -17,7 +17,9 @@ namespace Discord_UWP.Managers
             public string GuildId { get; set; }
         }
 
-        private static bool hasSentSpeeking = false;
+        private static bool hasSentSpeeking;
+        private static bool stopSpeaking;
+        private static readonly object syncLock = new object();
         public static event EventHandler<ConnectToVoiceArgs> ConnectoToVoiceHandler;
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
@@ -33,6 +35,22 @@ namespace Discord_UWP.Managers
             AudioManager.InputRecieved += AudioManager_InputRecieved;
         }
 
+        private static async void StopSpeaking()
+        {
+            stopSpeaking = true;
+            await Task.Delay(2000);
+            lock (syncLock)
+            {
+                if (stopSpeaking)
+                {
+                    VoiceConnection.SendSpeaking(false);
+                    hasSentSpeeking = false;
+                    stopSpeaking = false;
+                }
+            }
+
+        }
+
         private static void AudioManager_InputRecieved(object sender, float[] e)
         {
             //TODO: Sending voice
@@ -45,14 +63,14 @@ namespace Discord_UWP.Managers
             decibels = 20 * Math.Log10(decibels / e.Length);
             if (decibels < -40)
             {
-                if (!speaking && hasSentSpeeking)
+                if (!speaking && hasSentSpeeking && !stopSpeaking)
                 {
-                    VoiceConnection.SendSpeaking(false);
-                    hasSentSpeeking = false;
+                    StopSpeaking();
                 }
             }
             else
             {
+                stopSpeaking = false;
                 if (!speaking && !hasSentSpeeking)
                 {
                     VoiceConnection.SendSpeaking(true);
