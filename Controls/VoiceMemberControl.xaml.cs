@@ -39,7 +39,7 @@ namespace Discord_UWP.Controls
             {
                 member = LocalState.CurrentGuild.members[DisplayedUser.UserId];
 
-                username.Text = member.User.Username;
+                username.Text = member.Nick ?? member.User.Username;
 
                 AvatarBrush.ImageSource = new BitmapImage(Common.AvatarUri(member.User.Avatar, member.User.Id));
 

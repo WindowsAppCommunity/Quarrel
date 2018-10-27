@@ -286,7 +286,7 @@
     <value>Time Format</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>(EXPERIMENTAL) Voice Channels (Recieve only)</value>
+    <value>(EXPERIMENTAL) Voice Channels</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
