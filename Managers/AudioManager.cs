@@ -233,7 +233,7 @@ namespace Discord_UWP
 
 
             AudioGraphSettings nodesettings = new AudioGraphSettings(AudioRenderCategory.GameChat);
-            nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 16);
+            nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32);
             nodesettings.DesiredSamplesPerQuantum = 960;
             nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
             frameOutputNode = ingraph.CreateFrameOutputNode(outgraph.EncodingProperties);
