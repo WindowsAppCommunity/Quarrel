@@ -2714,7 +2714,8 @@ namespace Discord_UWP
 
         private async void StartAppService()
         {
-            await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+            //Permission not set
+            //await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
         }
 
         private async void App_ReadyRecievedHandler(object sender, EventArgs e)
