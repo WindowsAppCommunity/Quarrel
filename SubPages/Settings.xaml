@@ -699,7 +699,7 @@
                         <PivotItem x:Uid="/Settings/VoicePI" Header="Voice" Margin="12,0,0,0">
                             <ScrollViewer Padding="0,0,12,0">
                                 <StackPanel>
-                                    <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels (Receive only)" Margin="0,6,0,0"/>
+                                    <CheckBox x:Uid="/Settings/ExpVoiceChannels" x:Name="VoiceChannels" Style="{StaticResource CheckBoxStyle1}" Content="(EXPERIMENTAL) Voice Channels" Margin="0,6,0,0"/>
                                     <ComboBox x:Uid="/Settings/OutputDevicesCB" x:Name="OutputDevices" Header="Output Devices"/>
                                     <!--<ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>-->
                                     <TextBlock x:Uid="/Settings/DeviceOverrideTB" Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/>

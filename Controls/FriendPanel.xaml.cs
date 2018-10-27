@@ -209,7 +209,15 @@ namespace Discord_UWP.Controls
                 else if (friend.RelationshipStatus == 1)
                 {
                     AllView.Items.Add(friend);
-                    await contactManager.AddContact(f.Value.user);
+                    try
+                    {
+                        await contactManager.AddContact(f.Value.user);
+                    }
+
+                    catch (Exception exception)
+                    {
+                        Debug.WriteLine(exception.Message);
+                    }
                 }
                     
                 else if (friend.RelationshipStatus == 2)
