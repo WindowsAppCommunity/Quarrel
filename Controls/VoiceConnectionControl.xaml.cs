@@ -324,14 +324,68 @@ namespace Discord_UWP.Controls
             Point8 = Segment * 8;
         }
 
-        private void OpenAudioCaptrueFlyout(object sender, RightTappedRoutedEventArgs e)
+        private async void OpenAudioCaptrueFlyout(object sender, RightTappedRoutedEventArgs e)
         {
+            e.Handled = true;
+            if (e.PointerDeviceType != Windows.Devices.Input.PointerDeviceType.Touch)
+            {
+                MenuFlyout menu = new MenuFlyout();
+                menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
 
+                MenuFlyoutItem defaultflyoutItem = new MenuFlyoutItem()
+                {
+                    Text = "Default",
+                    Tag = "Default"
+                };
+                defaultflyoutItem.Click += OverrideOutputDevice;
+                menu.Items.Add(defaultflyoutItem);
+
+                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                foreach (var device in devices)
+                {
+                    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
+                    {
+                        Text = device.Name,
+                        Tag = device.Id,
+                        IsEnabled = device.IsEnabled
+                    };
+                    flyoutItem.Click += OverrideOutputDevice;
+                    menu.Items.Add(flyoutItem);
+                }
+                menu.ShowAt(this, e.GetPosition(this));
+            }
         }
 
-        private void OpenAudioCaptureFlyout(object sender, HoldingRoutedEventArgs e)
+        private async void OpenAudioCaptureFlyout(object sender, HoldingRoutedEventArgs e)
         {
+            e.Handled = true;
+            if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
+            {
+                MenuFlyout menu = new MenuFlyout();
+                menu.MenuFlyoutPresenterStyle = (Style)App.Current.Resources["MenuFlyoutPresenterStyle1"];
 
+                MenuFlyoutItem defaultflyoutItem = new MenuFlyoutItem()
+                {
+                    Text = "Default",
+                    Tag = "Default"
+                };
+                defaultflyoutItem.Click += OverrideOutputDevice;
+                menu.Items.Add(defaultflyoutItem);
+
+                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
+                foreach (var device in devices)
+                {
+                    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
+                    {
+                        Text = device.Name,
+                        Tag = device.Id,
+                        IsEnabled = device.IsEnabled
+                    };
+                    flyoutItem.Click += OverrideOutputDevice;
+                    menu.Items.Add(flyoutItem);
+                }
+                menu.ShowAt(this, e.GetPosition(this));
+            }
         }
 
         private async void OpenAudioRenderFlyout(object sender, RightTappedRoutedEventArgs e)
@@ -350,7 +404,7 @@ namespace Discord_UWP.Controls
                 defaultflyoutItem.Click += OverrideOutputDevice;
                 menu.Items.Add(defaultflyoutItem);
 
-                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
                 foreach (var device in devices)
                 {
                     MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
@@ -399,6 +453,11 @@ namespace Discord_UWP.Controls
         }
 
         private void OverrideOutputDevice(object sender, RoutedEventArgs e)
+        {
+            AudioManager.UpdateOutputDeviceID((sender as MenuFlyoutItem).Tag.ToString());
+        }
+
+        private void OverrideInputDevice(object sender, RoutedEventArgs e)
         {
             AudioManager.UpdateOutputDeviceID((sender as MenuFlyoutItem).Tag.ToString());
         }

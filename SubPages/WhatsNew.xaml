@@ -86,44 +86,17 @@
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="header" Text="Version 9.4" FontWeight="SemiBold" Margin="0" FontSize="20"/>
+                    <TextBlock x:Name="header" Text="Version 10.0.1 (Insider)" FontWeight="SemiBold" Margin="0" FontSize="20"/>
                     <StackPanel Margin="0,12,0,0">
                         <RichTextBlock x:Name="notDetailed" TextWrapping="Wrap" FontFamily="Segoe UI" Margin="0,32,0,12">
                             <Paragraph>
-                                <Run Text="• Owner indicator icon"/>
+                                <Run Text="• Full voice"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
                             <Paragraph>
-                                <Run Text="• Improved Captcha work arounds"/>
+                                <Run Text="• MyPeople support"/>
                             </Paragraph>
                             <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Redesigned Flyouts"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Spanish Translations"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Bug Fixes"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <!--<Paragraph>
-                                <Run Text="• Change language without changing Windows region"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Resuming after losing connection"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Even better syntax highlighting"/>
-                            </Paragraph>
-                            <Paragraph FontSize="8"/>
-                            <Paragraph>
-                                <Run Text="• Bug Fixes"/>
-                            </Paragraph>-->
                         </RichTextBlock>
                         <ScrollViewer x:Name="Detailed" Visibility="Collapsed">
                             <RichTextBlock TextWrapping="Wrap" FontFamily="Segoe UI" FontSize="12" Margin="0,32,0,12">
