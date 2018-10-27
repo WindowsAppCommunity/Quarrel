@@ -338,10 +338,10 @@ namespace Discord_UWP.Controls
                     Text = "Default",
                     Tag = "Default"
                 };
-                defaultflyoutItem.Click += OverrideOutputDevice;
+                defaultflyoutItem.Click += OverrideInputDevice;
                 menu.Items.Add(defaultflyoutItem);
 
-                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
                 foreach (var device in devices)
                 {
                     MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
@@ -350,9 +350,23 @@ namespace Discord_UWP.Controls
                         Tag = device.Id,
                         IsEnabled = device.IsEnabled
                     };
-                    flyoutItem.Click += OverrideOutputDevice;
+                    flyoutItem.Click += OverrideInputDevice;
                     menu.Items.Add(flyoutItem);
                 }
+
+                var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                foreach (var device in odevices)
+                {
+                    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
+                    {
+                        Text = device.Name,
+                        Tag = device.Id,
+                        IsEnabled = device.IsEnabled
+                    };
+                    flyoutItem.Click += OverrideInputDevice;
+                    menu.Items.Add(flyoutItem);
+                }
+
                 menu.ShowAt(this, e.GetPosition(this));
             }
         }
@@ -370,7 +384,7 @@ namespace Discord_UWP.Controls
                     Text = "Default",
                     Tag = "Default"
                 };
-                defaultflyoutItem.Click += OverrideOutputDevice;
+                defaultflyoutItem.Click += OverrideInputDevice;
                 menu.Items.Add(defaultflyoutItem);
 
                 var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
@@ -382,9 +396,26 @@ namespace Discord_UWP.Controls
                         Tag = device.Id,
                         IsEnabled = device.IsEnabled
                     };
-                    flyoutItem.Click += OverrideOutputDevice;
+                    flyoutItem.Click += OverrideInputDevice;
                     menu.Items.Add(flyoutItem);
                 }
+
+                //MenuFlyoutSeparator separator = new MenuFlyoutSeparator();
+                //menu.Items.Add(separator);
+
+                //var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                //foreach (var device in odevices)
+                //{
+                //    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
+                //    {
+                //        Text = device.Name,
+                //        Tag = device.Id,
+                //        IsEnabled = device.IsEnabled
+                //    };
+                //    flyoutItem.Click += OverrideInputDevice;
+                //    menu.Items.Add(flyoutItem);
+                //}
+
                 menu.ShowAt(this, e.GetPosition(this));
             }
         }
@@ -405,7 +436,7 @@ namespace Discord_UWP.Controls
                 defaultflyoutItem.Click += OverrideOutputDevice;
                 menu.Items.Add(defaultflyoutItem);
 
-                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
+                var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
                 foreach (var device in devices)
                 {
                     MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
@@ -460,7 +491,7 @@ namespace Discord_UWP.Controls
 
         private void OverrideInputDevice(object sender, RoutedEventArgs e)
         {
-            AudioManager.UpdateOutputDeviceID((sender as MenuFlyoutItem).Tag.ToString());
+            AudioManager.UpdateInputDeviceID((sender as MenuFlyoutItem).Tag.ToString());
         }
 
         public void Dispose()
