@@ -55,8 +55,8 @@ namespace Discord_UWP.Controls
 
         public bool FullScreen
         {
-            get { return (bool)GetValue(FullscreenProperty); }
-            set { SetValue(FullscreenProperty, value); }
+            get => (bool)GetValue(FullscreenProperty);
+            set => SetValue(FullscreenProperty, value);
         }
         public static readonly DependencyProperty FullscreenProperty = DependencyProperty.Register(
             nameof(FullScreen),
@@ -111,7 +111,6 @@ namespace Discord_UWP.Controls
         private void App_VoiceConnectHandler(object sender, App.VoiceConnectArgs e)
         {
             App.NavigateToGuildHandler += App_NavigateToGuildHandler;
-            App.UpdateLocalMute(true);
             guildid = e.GuildId;
             channelid = e.ChannelId;
             ChannelName.Text = e.ChannelName;

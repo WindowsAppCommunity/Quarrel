@@ -19,8 +19,8 @@ namespace Discord_UWP.Controls
 
         public VoiceState DisplayedUser
         {
-            get { return (VoiceState)GetValue(DisplayedUserProperty); }
-            set { SetValue(DisplayedUserProperty, value); }
+            get => (VoiceState)GetValue(DisplayedUserProperty);
+            set => SetValue(DisplayedUserProperty, value);
         }
         public static readonly DependencyProperty DisplayedUserProperty = DependencyProperty.Register(
             nameof(DisplayedUser),
@@ -134,7 +134,7 @@ namespace Discord_UWP.Controls
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     if (e.EventData.UserId == DisplayedUser.UserId)
+                     if (e.EventData.UserId == DisplayedUser.UserId || (e.EventData.UserId == null && DisplayedUser.UserId == LocalState.CurrentUser.Id))
                      {
                          if (e.EventData.Speaking)
                          {
@@ -175,8 +175,13 @@ namespace Discord_UWP.Controls
         private VoiceState voiceState;
         public VoiceState VoiceState
         {
-            get { return voiceState; }
-            set { if (voiceState != null && voiceState.Equals(value)) return; voiceState = value; OnPropertyChanged("VoiceState"); }
+            get => voiceState;
+            set
+            {
+                if (voiceState != null && voiceState.Equals(value)) return;
+                voiceState = value;
+                OnPropertyChanged("VoiceState");
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

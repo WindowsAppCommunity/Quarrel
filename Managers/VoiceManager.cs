@@ -25,6 +25,7 @@ namespace Discord_UWP.Managers
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
             App.UpdateLocalDeaf(false);
+            App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
             //App.UpdateLocalMute(true); //LocalState.Muted);
             VoiceConnection = new VoiceConnection(data, LocalState.VoiceState);
             VoiceConnection.VoiceDataRecieved += VoiceConnection_VoiceDataRecieved;
@@ -38,7 +39,10 @@ namespace Discord_UWP.Managers
         private static async void StopSpeaking()
         {
             stopSpeaking = true;
-            await Task.Delay(2000);
+            if (!muted)
+            {
+                await Task.Delay(2000);
+            }
             lock (syncLock)
             {
                 if (stopSpeaking)
@@ -49,6 +53,10 @@ namespace Discord_UWP.Managers
                 }
             }
 
+        }
+        private static void App_UpdateVoiceStateHandler(object sender, EventArgs e)
+        {
+            muted = LocalModels.LocalState.VoiceState.SelfMute;
         }
 
         private static void AudioManager_InputRecieved(object sender, float[] e)
@@ -63,20 +71,23 @@ namespace Discord_UWP.Managers
             decibels = 20 * Math.Log10(decibels / e.Length);
             if (decibels < -40)
             {
-                if (!speaking && hasSentSpeeking && !stopSpeaking)
+                if (hasSentSpeeking && !stopSpeaking)
                 {
                     StopSpeaking();
                 }
             }
             else
             {
-                stopSpeaking = false;
-                if (!speaking && !hasSentSpeeking)
+                if (!muted)
                 {
-                    VoiceConnection.SendSpeaking(true);
-                    hasSentSpeeking = true;
+                    stopSpeaking = false;
+                    if (!hasSentSpeeking)
+                    {
+                        VoiceConnection.SendSpeaking(true);
+                        hasSentSpeeking = true;
+                    }
+                    VoiceConnection.SendVoiceData(e);
                 }
-                VoiceConnection.SendVoiceData(e);
             }
         }
 
@@ -85,7 +96,9 @@ namespace Discord_UWP.Managers
             AudioManager.AddFrame(e.EventData.data, e.EventData.samples);
         }
 
+
+
         public static VoiceConnection VoiceConnection;
-        public static bool speaking = false;
+        public static bool muted = false;
     }
 }
