@@ -35,9 +35,9 @@ namespace Discord_UWP.Controls
         }
         private void OnPropertyChanged(DependencyObject d, DependencyProperty prop)
         {
-            if (prop == DisplayedUserProperty)
+            if (prop == DisplayedUserProperty && LocalState.CurrentGuild.members.ContainsKey(DisplayedUser.UserId))
             {
-                member = LocalState.Guilds[App.CurrentGuildId].members[DisplayedUser.UserId];
+                member = LocalState.CurrentGuild.members[DisplayedUser.UserId];
 
                 username.Text = member.User.Username;
 
