@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources.Core;
 
 using RuntimeComponent;
 
@@ -52,7 +51,7 @@ namespace Discord_UWP.Voice
         private OpusEncoder encoder = new OpusEncoder(48000, 2, Concentus.Enums.OpusApplication.OPUS_APPLICATION_VOIP);
         private OpusDecoder decoder = new OpusDecoder(48000, 2);
 
-        private ushort sequence = 1;
+        private ushort sequence = 0;
 
         private const int framesize = 20 * 48 * 2; //20 ms * 48 samples per ms * 2 bytes per sample
 
@@ -69,6 +68,8 @@ namespace Discord_UWP.Voice
         private float[] output = new float[framesize*2];
 
         private byte[] secretkey;
+
+        private uint timestamp;
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
@@ -152,6 +153,7 @@ namespace Discord_UWP.Voice
             {
                 SendSilence();
             }
+            Random rnd = new Random();
 
             var speakingPacket = new SocketFrame
             {
@@ -171,6 +173,7 @@ namespace Discord_UWP.Voice
             byte[] header = new byte[24];
             if (lastReady != null)
             {
+                sequence = unchecked ((ushort) (sequence + 1));
                 header[0] = 0x80; //No extension
                 header[1] = 0x78;
 
@@ -185,18 +188,29 @@ namespace Discord_UWP.Voice
                     header[3] = (byte)(sequence >> 8);
                 }
 
-                byte[] time = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(sequence*20));
+
+
+                byte[] time = BitConverter.GetBytes(timestamp);
+
+                if (BitConverter.IsLittleEndian)
+                {
+                    Array.Reverse(time);
+                }
                 header[4] = time[0];
                 header[5] = time[1];
                 header[6] = time[2];
                 header[7] = time[3];
-                sequence++;
 
-                byte[] ssrc = BitConverter.GetBytes(System.Net.IPAddress.HostToNetworkOrder(lastReady.SSRC));
-                header[8] = ssrc[0];
-                header[9] = ssrc[1];
-                header[10] = ssrc[2];
-                header[11] = ssrc[3];
+                byte[] SSRCBytes = BitConverter.GetBytes(lastReady.SSRC);
+
+                if (BitConverter.IsLittleEndian)
+                {
+                    Array.Reverse(SSRCBytes);
+                }
+                header[8] = SSRCBytes[0];
+                header[9] = SSRCBytes[1];
+                header[10] = SSRCBytes[2];
+                header[11] = SSRCBytes[3];
             }
             return header;
         }
@@ -211,6 +225,7 @@ namespace Discord_UWP.Voice
                 byte[] nonce = makeHeader();
                 Buffer.BlockCopy(nonce, 0, opus, 0, 12);
                 Buffer.BlockCopy(buffer, 0, opus, 12, encodedSize);
+                timestamp = unchecked(timestamp + 960);
                 Cypher.encrypt(opus, 12, encodedSize, opus, 12, nonce, secretkey);
                 await _udpSocket.SendBytesAsync(opus);
             }
@@ -224,7 +239,7 @@ namespace Discord_UWP.Voice
             try
             {
                 ip = Encoding.UTF8.GetString(packet, 4, 70 - 6).TrimEnd('\0');
-                port = (packet[69] << 8) | packet[68];
+                port = (packet[68] << 8) | packet[69];
             }
             catch /*(Exception exception)*/
             {
