@@ -513,6 +513,13 @@ namespace Discord_UWP
             await CreateOutputDeviceNode();
         }
 
+        public static async void UpdateInputDeviceID(string inID)
+        {
+            InputDeviceID = inID;
+            await CreateInputDeviceNode();
+        }
+
+
         public static async void PlaySoundEffect(string file)
         {
             await CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,

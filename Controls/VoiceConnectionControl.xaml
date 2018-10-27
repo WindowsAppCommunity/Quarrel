@@ -511,7 +511,7 @@
         </Grid>
         <Grid Grid.Row="3" Background="{ThemeResource AcrylicUserBackgroundDarker}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -523,12 +523,12 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <canvas:CanvasAnimatedControl  Grid.ColumnSpan="6" Grid.RowSpan="3" Draw="CanvasAnimatedControl_Draw" SizeChanged="CanvasAnimatedControl_SizeChanged"/>
-            <ToggleButton Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MiniView_Click"/>
-            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" Content="" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click" RightTapped="OpenAudioCaptrueFlyout" Holding="OpenAudioCaptureFlyout"/>
-            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click" RightTapped="OpenAudioRenderFlyout" Holding="OpenAudioRenderFlyout"/>
-
-            <Button FontWeight="SemiBold" Content="" Grid.Row="2" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
-            <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle2}" x:Name="Minimode" Content="" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="MiniView_Click"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click" RightTapped="OpenAudioCaptrueFlyout" Holding="OpenAudioCaptureFlyout"/>
+            <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click" RightTapped="OpenAudioRenderFlyout" Holding="OpenAudioRenderFlyout"/>
+            
+            <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+            <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
             <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
