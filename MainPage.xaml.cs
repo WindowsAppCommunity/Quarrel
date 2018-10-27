@@ -991,8 +991,14 @@ namespace Discord_UWP
                         var games = await RESTCalls.GetGamelist();
                         foreach (var game in games)
                         {
-                            LocalState.SupportedGames.Add(game.Id, game);
-                            LocalState.SupportedGamesNames.Add(game.Name, game.Id);
+                            if (!LocalState.SupportedGames.ContainsKey(game.Id))
+                            {
+                                LocalState.SupportedGames.Add(game.Id, game);
+                            }
+                            if (LocalState.SupportedGamesNames.ContainsKey(game.Name))
+                            {
+                                LocalState.SupportedGamesNames.Add(game.Name, game.Id);
+                            }
                         }
                     }
                 } else
