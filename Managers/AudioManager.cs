@@ -123,7 +123,7 @@ namespace Discord_UWP
         public static async Task CreateAudioGraphs()
         {
             OutputDeviceID = Storage.Settings.OutputDevice;
-            //InputDeviceID = Storage.Settings.InputDevice;
+            InputDeviceID = Storage.Settings.InputDevice;
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
             await CreateOutputDeviceNode();
             await CreateInputDeviceNode();
@@ -132,7 +132,7 @@ namespace Discord_UWP
         private static void Storage_SettingsChangedHandler(object sender, EventArgs e)
         {
             OutputDeviceID = Storage.Settings.OutputDevice;
-            //InputDeviceID = Storage.Settings.InputDevice;
+            InputDeviceID = Storage.Settings.InputDevice;
         }
 
         public static async Task CreateOutputDeviceNode()
@@ -236,7 +236,7 @@ namespace Discord_UWP
             nodesettings.EncodingProperties = AudioEncodingProperties.CreatePcm(48000, 2, 32);
             nodesettings.DesiredSamplesPerQuantum = 960;
             nodesettings.QuantumSizeSelectionMode = QuantumSizeSelectionMode.ClosestToDesired;
-            frameOutputNode = ingraph.CreateFrameOutputNode(outgraph.EncodingProperties);
+            frameOutputNode = ingraph.CreateFrameOutputNode(ingraph.EncodingProperties);
             quantum = 0;
             ingraph.QuantumStarted += Graph_QuantumStarted;
 
@@ -260,7 +260,7 @@ namespace Discord_UWP
                 catch
                 {
                     selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
-                    OutputDeviceID = "Default";
+                    InputDeviceID = "Default";
                 }
             }
 
