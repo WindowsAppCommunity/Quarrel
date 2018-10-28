@@ -118,242 +118,250 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTB.Text" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Цвет акцента</value>
   </data>
   <data name="AdvancedPI.Header" xml:space="preserve">
-    <value>Advanced</value>
-    <comment>Iconic tile template, used for badge tile updates</comment>
+    <value>Расширенные</value>
   </data>
   <data name="AppBarAtBottomCB.Content" xml:space="preserve">
-    <value>Align command bar at the bottom</value>
+    <value>Выровнять нижнюю панель команд </value>
   </data>
   <data name="CompactModeCB.Content" xml:space="preserve">
-    <value>Compact mode</value>
+    <value>Компактный режим</value>
   </data>
   <data name="CustomPresenceColorsTB.Text" xml:space="preserve">
-    <value>Custom presence colors</value>
+    <value>Пользовательские цвета</value>
   </data>
   <data name="DarkRadio.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>Темный</value>
   </data>
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
   <data name="DMsCB" xml:space="preserve">
-    <value>DMs</value>
+    <value>DM's</value>
   </data>
   <data name="DndColorTB.Text" xml:space="preserve">
-    <value>Do not disturb</value>
+    <value>Не беспокоить</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
-    <value>Expensive rendering (blur effects etc...)</value>
+    <value>Мощный рендеринг (Эффекты блюра и т.д)</value>
   </data>
   <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>What adds to Friends list notifications?</value>
+    <value>Что добавляет к уведомлениям о друзьях?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
-    <value>Highlight @everyone</value>
+    <value>Выделение @everyone</value>
   </data>
   <data name="IdleColorTB.Text" xml:space="preserve">
-    <value>Idle</value>
+    <value>Стандартный</value>
   </data>
   <data name="IncomingFriendsCB" xml:space="preserve">
-    <value>Incoming Friend Requests</value>
+    <value>Входящие запросы друзей</value>
   </data>
   <data name="LightRadio.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>Светлый</value>
   </data>
   <data name="LogoutBTN.Content" xml:space="preserve">
-    <value>Log out</value>
+    <value>Выйти</value>
   </data>
   <data name="NotificationsPI.Header" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Уведомление</value>
   </data>
   <data name="OnlineColorTB.Text" xml:space="preserve">
-    <value>Online</value>
+    <value>Онлайн</value>
   </data>
   <data name="OutgoingFriendsCB" xml:space="preserve">
-    <value>Outgoing Friend Requests</value>
+    <value>Исходящие запросы друзей</value>
   </data>
   <data name="ResetRespUiHyperlink.Content" xml:space="preserve">
-    <value>Reset breakpoints to default</value>
+    <value>Сбросить реагирования по умолчанию</value>
   </data>
   <data name="ResponsiveUiBreaksDescTB.Text" xml:space="preserve">
-    <value>These are the trigger widths at which the UI shows more or less info on the screen, depending on the screen width.</value>
+    <value>Это полоса, при которой пользовательский интерфейс 
+показывает более или менее информацию на экране в зависимости от ширины экрана.</value>
   </data>
   <data name="ResponsiveUiBreaksTB.Text" xml:space="preserve">
-    <value>RESPONSIVE UI BREAKPOINTS</value>
+    <value>Отклонения реагирования UI</value>
   </data>
   <data name="ResponsiveUiTB.Text" xml:space="preserve">
-    <value>RESPONSIVE UI</value>
+    <value>Отклонения UI</value>
   </data>
   <data name="RestartRequiredTB.Text" xml:space="preserve">
-    <value>(You'll need to restart the app)</value>
+    <value>(Вам нужно будет перезагрузить приложение)</value>
   </data>
   <data name="SettingsTB.Text" xml:space="preserve">
-    <value>SETTINGS</value>
+    <value>ПАРАМЕТРЫ</value>
   </data>
   <data name="ShowToastsCB.Content" xml:space="preserve">
-    <value>Show in-app toast notifications</value>
+    <value>Показать тост-уведомления</value>
   </data>
   <data name="SliderL.Header" xml:space="preserve">
-    <value>L (Servers and channels are visible)</value>
+    <value>L (Серверы и каналы видимые)</value>
   </data>
   <data name="SliderM.Header" xml:space="preserve">
-    <value>M (Servers are visible)</value>
+    <value>M (Сервера видимы)</value>
   </data>
   <data name="SliderXL.Header" xml:space="preserve">
-    <value>XL (Servers, channels, and members are visible)</value>
+    <value>XL (Сервера, каналы и участники видимы)</value>
   </data>
   <data name="SystemAccentColorTB.Text" xml:space="preserve">
-    <value>System accent color</value>
+    <value>Системные цвета</value>
   </data>
   <data name="ThemeTB.Text" xml:space="preserve">
-    <value>THEME</value>
+    <value>ТЕМЫ</value>
   </data>
   <data name="UiPI.Header" xml:space="preserve">
-    <value>UI</value>
+    <value>Интерфейс</value>
   </data>
   <data name="VerifyLogout" xml:space="preserve">
-    <value>Are you sure you want to log out?</value>
+    <value>Вы точно хотите выйти?</value>
   </data>
   <data name="VibrateCB.Content" xml:space="preserve">
-    <value>Vibration on message reception</value>
+    <value>Вибрация при появлении сообщений</value>
   </data>
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
   <data name="FriendRequestsCB" xml:space="preserve">
-    <value>Friend Requests</value>
+    <value>Запросы в друзья</value>
   </data>
   <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Muted channels affect server unread status?</value>
+    <value>Отключенные каналы влияют
+ на непрочитанный статус сервера?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
-    <value>System accent color</value>
+    <value>Системные цвета</value>
   </data>
   <data name="BlurpleRadio.Content" xml:space="preserve">
     <value>Discord Blurple</value>
   </data>
   <data name="OTHERTB.Text" xml:space="preserve">
-    <value>OTHER</value>
+    <value>Другие</value>
   </data>
   <data name="ShowWelcomeCB.Content" xml:space="preserve">
-    <value>Show loading messages</value>
+    <value>Показать загруженные сообщения</value>
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
-    <value>Enable Acrylic effects (blurred background)</value>
+    <value>Включить акриловый эффект (Размытый фон)</value>
   </data>
   <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Muted channels effect server unread status?</value>
+    <value>Неверный статус сервера 
+с отключенными каналами?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
-    <value>Enable data compression (Faster)</value>
+    <value>Включить сжатие данных (быстрее)</value>
   </data>
   <data name="VideoAds.Content" xml:space="preserve">
-    <value>Use video ads instead of banners</value>
+    <value>Использовать видеообьявления вместо 
+рекламных баннеров</value>
   </data>
   <data name="MESSAGESTB.Text" xml:space="preserve">
-    <value>MESSAGES</value>
+    <value>СООБЩЕНИЯ</value>
   </data>
   <data name="GifsOnHoverCB.Content" xml:space="preserve">
-    <value>Only play gifs on hover or click</value>
+    <value>Включать gif'ки только при наведении мыши</value>
   </data>
   <data name="Enable compression (Faster)" xml:space="preserve">
-    <value>Enable data compression</value>
+    <value>Включить сжатие данных</value>
   </data>
   <data name="Mentions" xml:space="preserve">
-    <value>Mentions</value>
+    <value>Упомения</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>Нет</value>
   </data>
   <data name="Unread" xml:space="preserve">
-    <value>Unread</value>
+    <value>Непрочитанный</value>
   </data>
   <data name="TranslatorPI" xml:space="preserve">
-    <value>Translations</value>
+    <value>Язык</value>
   </data>
   <data name="CustomTimeF.Header" xml:space="preserve">
-    <value>Custom Time Format</value>
+    <value>Свой формат времени</value>
   </data>
   <data name="CustomDateF" xml:space="preserve">
-    <value>Custom Date Format</value>
+    <value>Свой формат даты</value>
   </data>
   <data name="DateFormat.Header" xml:space="preserve">
-    <value>Date Format</value>
+    <value>Формат даты</value>
   </data>
   <data name="TimeFormat.Header" xml:space="preserve">
-    <value>Time Format</value>
+    <value>Формат времени</value>
   </data>
   <data name="ExpVoiceChannels.Content" xml:space="preserve">
-    <value>(EXPERIMENTAL) Voice Channels (Receive only)</value>
+    <value>(ЭКСПЕРЕМЕНТАЛЬНО) Голосовые каналы
+(Только получение)</value>
   </data>
   <data name="Logout" xml:space="preserve">
-    <value>Log out</value>
+    <value>Выйти</value>
   </data>
   <data name="AudioPI.Header" xml:space="preserve">
-    <value>Audio</value>
+    <value>Аудио</value>
   </data>
   <data name="BGEnableTS.OffContent" xml:space="preserve">
-    <value>Enable background notifications</value>
+    <value>Включить фоновые уведомления</value>
   </data>
   <data name="BGEnableTS.OnContent" xml:space="preserve">
-    <value>Disable background notifications</value>
+    <value>Выключить фоновые уведомления</value>
   </data>
   <data name="BGNotifInfoTB.Text" xml:space="preserve">
-    <value>You will receive notifications for whatever is selected below every time the background process runs</value>
+    <value>Вы будете получать уведомления те, что выбрано ниже, каждый раз,
+когда приложение работает в фоновом режиме</value>
   </data>
   <data name="BGNotifsTB.Text" xml:space="preserve">
-    <value>BACKGROUND NOTIFICATIONS</value>
+    <value>ФОНОВЫЕ УВЕДОМЛЕНИЯ</value>
   </data>
   <data name="BGNotifyDMCB.Content" xml:space="preserve">
-    <value>Unread DMs</value>
+    <value>Непрочитанные DM</value>
   </data>
   <data name="BGNotifyFriendsCB.Content" xml:space="preserve">
-    <value>Friend requests</value>
+    <value>Запросы в друзья</value>
   </data>
   <data name="BGNotifyMentionsCB.Content" xml:space="preserve">
-    <value>New mentions</value>
+    <value>Новые упоминания</value>
   </data>
   <data name="IAPNotifsTB.Text" xml:space="preserve">
-    <value>IN-APP NOTIFICATIONS</value>
+    <value>Уведомления приложения</value>
   </data>
   <data name="MentionGlowCB.Content" xml:space="preserve">
-    <value>Glow the left side of the screen when you are mentioned</value>
+    <value>Свечение левой стороны экрана, 
+когда вас упомянули</value>
   </data>
   <data name="OutputDevicesCB.Header" xml:space="preserve">
-    <value>Output Devices</value>
+    <value>Устройства вывода</value>
   </data>
   <data name="DeviceOverrideCB.Content" xml:space="preserve">
-    <value>Can be overriden by session by right clicking or holding the Deafen button in Voice Channel</value>
+    <value>Может быть отменено сессией, 
+щелкнув правой кнопкой мыши 
+или удерживая кнопкой заглушки в голосовом канале</value>
   </data>
   <data name="AccountSettingsHLBTN.Content" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Настройки аккаунта</value>
   </data>
   <data name="ShowServerMuteCB.Content" xml:space="preserve">
-    <value>Show Mute icon on servers</value>
+    <value>Показывать иконку заглушки у сервера</value>
   </data>
   <data name="FontSizeTB.Text" xml:space="preserve">
-    <value>Message font size</value>
+    <value>Размер шрифта у сообщений</value>
   </data>
   <data name="AaTB.Text" xml:space="preserve">
-    <value>Aa</value>
+    <value>Аа</value>
   </data>
   <data name="BGNotifyMutedMentionsCB.Content" xml:space="preserve">
-    <value>New mentions in Muted Servers</value>
+    <value>Новые упоминания в заглушенных серверах</value>
   </data>
   <data name="SoundsCB.Content" xml:space="preserve">
-    <value>Sounds</value>
+    <value>Звуки</value>
   </data>
   <data name="SoundsPI.Header" xml:space="preserve">
-    <value>Sounds</value>
+    <value>Звуки</value>
   </data>
   <data name="VoicePI.Header" xml:space="preserve">
-    <value>Voice</value>
+    <value>Голос</value>
   </data>
   <data name="SoundTypesTB.Text" xml:space="preserve">
-    <value>Sound Types</value>
+    <value>Типы звуков</value>
   </data>
   <data name="DiscordRB.Content" xml:space="preserve">
     <value>Discord</value>
@@ -365,84 +373,86 @@
     <value>Windows</value>
   </data>
   <data name="AccountSettingTB.Text" xml:space="preserve">
-    <value>ACCOUNT SETTINGS</value>
+    <value>НАСТРОЙКИ АККАУНТА</value>
   </data>
   <data name="AccountPI.Header" xml:space="preserve">
-    <value>Account</value>
+    <value>Аккаунт</value>
   </data>
   <data name="AccountPrivacyPI.Header" xml:space="preserve">
-    <value>Privacy</value>
+    <value>Конфиденциальность</value>
   </data>
   <data name="UploadImageHLBTN.Content" xml:space="preserve">
-    <value>Upload image</value>
+    <value>Загрузить изображение</value>
   </data>
   <data name="DeleteImageHLBTN.Content" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="UsernameBox.Header" xml:space="preserve">
-    <value>Username</value>
+    <value>Имя пользователя</value>
   </data>
   <data name="EmailBox.Header" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="CurrentPswrdPBox.Header" xml:space="preserve">
-    <value>Current password</value>
+    <value>Текущий пароль</value>
   </data>
   <data name="ChangePswrdHLBTN.Content" xml:space="preserve">
-    <value>Change password</value>
+    <value>Изменить пароль</value>
   </data>
   <data name="NewPswrdPBox.Header" xml:space="preserve">
-    <value>New password</value>
+    <value>Новый пароль</value>
   </data>
   <data name="SaveTB.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>Сохранить</value>
   </data>
   <data name="DMFilterTB.Text" xml:space="preserve">
-    <value>DIRECT MESSAGE FILTERING</value>
+    <value>ФИЛЬТРАЦИЯ ПРЯМЫХ СООБЩЕНИЙ</value>
   </data>
   <data name="DMFilterExpoTB.Text" xml:space="preserve">
-    <value>Analyze and automatically delete direct messages containing explicit content</value>
+    <value>Анализ и автоматическое удаление прямых сообщений,
+ содержащих явный контент</value>
   </data>
   <data name="ProtectMeTB.Text" xml:space="preserve">
-    <value>Protect me</value>
+    <value>Защити меня</value>
   </data>
   <data name="ProtectMeExpoTB.Text" xml:space="preserve">
-    <value>Analyze all DMs</value>
+    <value>Анализ всех DM</value>
   </data>
   <data name="NiceFriendsTB.Text" xml:space="preserve">
-    <value>My friends are nice</value>
+    <value>Мои друзья хорошие</value>
   </data>
   <data name="NiceFriendsExpoTB.Text" xml:space="preserve">
-    <value>Analyze all DMs, except from my friends</value>
+    <value>Анализ всех DM, кроме моих друзей</value>
   </data>
   <data name="DangerZoneTB.Text" xml:space="preserve">
-    <value>I live dangerously</value>
+    <value>Я живу в опасности</value>
   </data>
   <data name="DangerZoneExpoTB.Text" xml:space="preserve">
-    <value>Don't analyze any DMs</value>
+    <value>Не анализировать DM</value>
   </data>
   <data name="FriendRequestOptionsTB.Text" xml:space="preserve">
-    <value>WHO CAN SEND FRIEND REQUESTS</value>
+    <value>КТО МОЖЕТ ОТПРАВИТЬ ЗАПРОС ДРУГА</value>
   </data>
   <data name="EveryoneCB.Content" xml:space="preserve">
-    <value>Everyone</value>
+    <value>Все</value>
   </data>
   <data name="MutualFriendsCB.Content" xml:space="preserve">
-    <value>The friends of my friends</value>
+    <value>Друзья друзей</value>
   </data>
   <data name="MutualServerMembersCB.Content" xml:space="preserve">
-    <value>Mutual server members</value>
+    <value>Взаимные члены сервера</value>
   </data>
   <data name="FullPrivacySettingsTB.Text" xml:space="preserve">
-    <value>To access the rest of your privacy settings, please use the official Discord website or client</value>
+    <value>Для получения доступа к приватным параметрам, пожалуйста используйте
+официальный сайт Дискорда или через клиент.</value>
   </data>
   <data name="DerivedRadio.Content" xml:space="preserve">
-    <value>Derived Color</value>
+    <value>Производный цвеб</value>
   </data>
   <data name="LanguageComboB.Header" xml:space="preserve">
-    <value>Language (requires restart)</value>
+    <value>Язык (Необходим рестарт)</value>
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
-    <value>Default</value>
+    <value>Стандартный</value>
   </data>
 </root>
