@@ -4095,5 +4095,10 @@ namespace Discord_UWP
         {
             SubFrameNavigator(typeof(SubPages.CreateChannel));
         }
+
+        private void AddFriend_Click(object sender, RoutedEventArgs e)
+        {
+            SendFriendTB.Focus(FocusState.Keyboard);
+        }
     }
 }

@@ -117,141 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutDesc1.Text" xml:space="preserve">
-    <value>Quarrel is an</value>
-    <comment>Disclaimer</comment>
+  <data name="AcceptFriendRequest" xml:space="preserve">
+    <value>Принять запрос дружбы</value>
   </data>
-  <data name="AboutDesc2.Text" xml:space="preserve">
-    <value>unofficial</value>
-    <comment>Disclaimer pt. 2 in bold</comment>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Добавить друга</value>
   </data>
-  <data name="AboutDesc3.Text" xml:space="preserve">
-    <value>client for Discord.</value>
-    <comment>Discaimer pt. 3</comment>
+  <data name="BanMember" xml:space="preserve">
+    <value>Забанить участника</value>
   </data>
-  <data name="AboutDesc4.Text" xml:space="preserve">
-    <value>The developers are in no way affiliated with Discord, Inc.</value>
-    <comment>Disclaimer pt. 4 in bold</comment>
+  <data name="Block" xml:space="preserve">
+    <value>Блокирвать</value>
   </data>
-  <data name="AboutDesc5.Text" xml:space="preserve">
-    <value>If something goes wrong while you are using this app, please contact support via any of the methods below. However any issues we cannot resolve we are not liable for.</value>
-    <comment>Disclaimer pt. 5 in bold</comment>
+  <data name="ChangeNickname" xml:space="preserve">
+    <value>Изменить никнейм</value>
   </data>
-  <data name="AboutTB.Text" xml:space="preserve">
-    <value>ABOUT</value>
-    <comment>ABOUT header</comment>
+  <data name="CloseDM" xml:space="preserve">
+    <value>Закрыть DM</value>
   </data>
-  <data name="AustinAndelinCredit.Text" xml:space="preserve">
-    <value>Austin Andelin, for conceptualizing the app's icon</value>
+  <data name="Deafen" xml:space="preserve">
+    <value>Заглушить</value>
   </data>
-  <data name="Build" xml:space="preserve">
-    <value>Build</value>
+  <data name="DeleteChannel" xml:space="preserve">
+    <value>Удалить канал</value>
   </data>
-  <data name="ChangelogTB.Text" xml:space="preserve">
-    <value>CHANGELOG</value>
-    <comment>CHANGELOG header</comment>
+  <data name="DeleteServer" xml:space="preserve">
+    <value>Удалить сервер</value>
   </data>
-  <data name="ChristopherBlackmanCredit.Text" xml:space="preserve">
-    <value>Christopher Blackman (who wrote the awesome MyTube app) for the invaluable tips and help</value>
+  <data name="EditChannel" xml:space="preserve">
+    <value>Редактировать канал</value>
   </data>
-  <data name="Commit" xml:space="preserve">
-    <value>Commit</value>
+  <data name="EditServer" xml:space="preserve">
+    <value>Редактировать сервер</value>
   </data>
-  <data name="DesignerCreditTB.Text" xml:space="preserve">
-    <value>Designed by Lightmagic Apps</value>
-    <comment>The designer</comment>
+  <data name="InviteToServer" xml:space="preserve">
+    <value>Пригласить на сервер</value>
   </data>
-  <data name="DevelopperCreditTB.Text" xml:space="preserve">
-    <value>Developed by Avid29 and KarmaEcrivain94</value>
-    <comment>The developer</comment>
+  <data name="KickMember" xml:space="preserve">
+    <value>Кикнуть участника</value>
   </data>
-  <data name="DiscussOnTwitterTB.Text" xml:space="preserve">
-    <value>Discuss on Twitter</value>
-    <comment>Button to discuss on twitter</comment>
+  <data name="LeaveGroup" xml:space="preserve">
+    <value>Уйти из группы</value>
   </data>
-  <data name="DontHaveAccountHLBTN.Content" xml:space="preserve">
-    <value>Don't have an account?</value>
+  <data name="LeaveServer" xml:space="preserve">
+    <value>Уйти из сервера</value>
   </data>
-  <data name="EmailTBox.PlaceholderText" xml:space="preserve">
-    <value>Email</value>
-    <comment>Placeholder text for the email login</comment>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Пометить как прочитан</value>
   </data>
-  <data name="ForgotPswrdHLBTN.Content" xml:space="preserve">
-    <value>Forgot your password?</value>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
   </data>
-  <data name="JoinDiscordUWPServer" xml:space="preserve">
-    <value>Join the app's Discord server</value>
-    <comment>Text "Join the app's discord server"</comment>
+  <data name="MoveChannel" xml:space="preserve">
+    <value>Переместить канал</value>
   </data>
-  <data name="JoinDiscordUWPServerTB.Text" xml:space="preserve">
-    <value>Join the app's Discord server</value>
-    <comment>Button to join the Quarrel server</comment>
+  <data name="Mute" xml:space="preserve">
+    <value>Заглушить</value>
   </data>
-  <data name="JoinFail" xml:space="preserve">
-    <value>Failed to join server!</value>
-    <comment>Message if joining the server fails</comment>
+  <data name="MuteChannel" xml:space="preserve">
+    <value>Заглушить канал</value>
   </data>
-  <data name="JoinSucess" xml:space="preserve">
-    <value>Success!</value>
-    <comment>Message when joining the server works</comment>
+  <data name="MuteServer" xml:space="preserve">
+    <value>Заглушить сервер</value>
   </data>
-  <data name="JoinWait" xml:space="preserve">
-    <value>Joining...</value>
-    <comment>Text while the app is trying to join the server</comment>
+  <data name="PinFailed" xml:space="preserve">
+    <value>Привязка не удалась :'(</value>
   </data>
-  <data name="LeaveFeedbackTB.Text" xml:space="preserve">
-    <value>Leave feedback</value>
-    <comment>Leave feedback button</comment>
+  <data name="PinSucess" xml:space="preserve">
+    <value>Привязка удалась!</value>
   </data>
-  <data name="LicensesHLBTN.Content" xml:space="preserve">
-    <value>Licenses</value>
+  <data name="PinToStart" xml:space="preserve">
+    <value>Закрепить в старт.панель</value>
   </data>
-  <data name="LicensesTB.Text" xml:space="preserve">
-    <value>LICENSES</value>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
   </data>
-  <data name="LoginTB.Text" xml:space="preserve">
-    <value>LOGIN</value>
+  <data name="RemoveFriend" xml:space="preserve">
+    <value>Удалить друга</value>
   </data>
-  <data name="MFAPasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Authentication code</value>
-    <comment>Placeholder text for the authentication code login box</comment>
+  <data name="RemoveFromGroup" xml:space="preserve">
+    <value>Удалить из группы</value>
   </data>
-  <data name="MFATB.Text" xml:space="preserve">
-    <value>Two-factor authentication:</value>
-    <comment>Label for "Two-factor authentication:"</comment>
+  <data name="Roles" xml:space="preserve">
+    <value>Роли</value>
   </data>
-  <data name="OfflineDescTB.Text" xml:space="preserve">
-    <value>You're either offline or on too slow a connection to start the Gateway</value>
+  <data name="Unblock" xml:space="preserve">
+    <value>Открыть</value>
   </data>
-  <data name="PasswordTBox.PlaceholderText" xml:space="preserve">
-    <value>Password</value>
-    <comment>Placeholder text for the password login box</comment>
+  <data name="UnmuteChannel" xml:space="preserve">
+    <value>Убрать заглушение с канала</value>
   </data>
-  <data name="QuarrelDescTB.Text" xml:space="preserve">
-    <value>Discord client for the Universal Windows Platform</value>
+  <data name="UnmuteServer" xml:space="preserve">
+    <value>Убрать заглушение с сервера</value>
   </data>
-  <data name="QuarrelLicensesDesc" xml:space="preserve">
-    <value>Quarrel uses a few external libraries to function:</value>
+  <data name="UnpinFromStart" xml:space="preserve">
+    <value>Отвязать из старт.панели</value>
   </data>
-  <data name="RetryLoginTB.Text" xml:space="preserve">
-    <value>Retry Login</value>
+  <data name="UnpinSucess" xml:space="preserve">
+    <value>Успешно отвязан!</value>
   </data>
-  <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Special thanks:</value>
-  </data>
-  <data name="InboundRun.Text" xml:space="preserve">
-    <value>Inbound:</value>
-  </data>
-  <data name="OutboundRun.Text" xml:space="preserve">
-    <value>Outbound:</value>
-  </data>
-  <data name="AccordingToMicrosoftTB.Text" xml:space="preserve">
-    <value>According to Microsoft's Licensing you have bought:</value>
-  </data>
-  <data name="MicrosoftNoteTB.Text" xml:space="preserve">
-    <value>If this is wrong, I have a strongly worded email to write to the Microsoft Store team</value>
-  </data>
-  <data name="WantMoreHLBTN.Content" xml:space="preserve">
-    <value>Want More?</value>
+  <data name="SavePicture" xml:space="preserve">
+    <value>Сохранить картинку</value>
   </data>
 </root>
