@@ -56,7 +56,7 @@ namespace Discord_UWP.Managers
         }
         private static void App_UpdateVoiceStateHandler(object sender, EventArgs e)
         {
-            muted = LocalModels.LocalState.VoiceState.SelfMute;
+            muted = LocalState.VoiceState.SelfMute;
         }
 
         private static void AudioManager_InputRecieved(object sender, float[] e)
@@ -68,8 +68,8 @@ namespace Discord_UWP.Managers
             {
                 decibels += Math.Abs(sample);
             }
-            decibels = 20 * Math.Log10(decibels / e.Length);
-            if (decibels < -40)
+            decibels = -20 * Math.Log10(decibels / e.Length);
+            if (decibels < Storage.Settings.NoiseSensitivity)
             {
                 if (hasSentSpeeking && !stopSpeaking)
                 {

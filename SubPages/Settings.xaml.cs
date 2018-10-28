@@ -227,7 +227,8 @@ namespace Discord_UWP.SubPages
                 OverrideMention.IsChecked = true;
             else if (Storage.Settings.collapseOverride == CollapseOverride.Unread)
                 OverrideUnread.IsChecked = true;
-            
+
+            NoiseSensitivity.Value = Storage.Settings.NoiseSensitivity;
 
             //MainPanelBlur.Value = Storage.Settings.MainOpacity;
             //SecondaryPanelBlur.Value = Storage.Settings.SecondaryOpacity;
@@ -431,6 +432,8 @@ namespace Discord_UWP.SubPages
 
             //Storage.Settings.CustomBG = CustomBGToggle.IsOn;
             //Storage.Settings.BGFilePath = FilePath.Text;
+
+            Storage.Settings.NoiseSensitivity = (int)NoiseSensitivity.Value;
 
             Storage.Settings.OutputDevice = (OutputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
             Storage.Settings.InputDevice = (InputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
