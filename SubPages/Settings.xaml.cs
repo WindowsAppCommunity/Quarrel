@@ -8,6 +8,7 @@ using Windows.Foundation.Collections;
 using Windows.Globalization;
 using Windows.Storage.Pickers;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -298,7 +299,25 @@ namespace Discord_UWP.SubPages
 
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
+
+            await AudioManager.CreateInputDeviceNode();
+            AudioManager.InputRecieved += AudioManager_InputRecieved;
         }
+
+        private async void AudioManager_InputRecieved(object sender, float[] e)
+        {
+            double decibels = 0f;
+            foreach (var sample in e)
+            {
+                decibels += Math.Abs(sample);
+            }
+            decibels = -20 * Math.Log10(decibels / e.Length);
+            if (!(Double.IsInfinity(decibels) || Double.IsNaN(decibels)))
+            {
+                await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { NoiseVisual.Value = decibels; });
+            }
+        }
+
         private void ChangeSetting(string name, bool value)
         {
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(name))
@@ -486,6 +505,7 @@ namespace Discord_UWP.SubPages
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
+            AudioManager.DisposeAudioGraphs();
             App.SubpageClosed();
         }
 
