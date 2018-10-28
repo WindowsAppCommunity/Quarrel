@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,12 +63,20 @@ namespace Discord_UWP.Sockets
 
         private void HandleMessage(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs e)
         {
-            using (var dataReader = e.GetDataReader())
+            try
             {
-                //dataReader.ByteOrder = ByteOrder.BigEndian;
-                byte[] packet = new byte[dataReader.UnconsumedBufferLength];
-                dataReader.ReadBytes(packet);
-                OnMessageReceived(packet);
+
+                using (var dataReader = e.GetDataReader())
+                {
+                    //dataReader.ByteOrder = ByteOrder.BigEndian;
+                    byte[] packet = new byte[dataReader.UnconsumedBufferLength];
+                    dataReader.ReadBytes(packet);
+                    OnMessageReceived(packet);
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
             }
         }
 

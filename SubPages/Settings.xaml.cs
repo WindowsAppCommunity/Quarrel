@@ -311,7 +311,7 @@ namespace Discord_UWP.SubPages
             {
                 decibels += Math.Abs(sample);
             }
-            decibels = -20 * Math.Log10(decibels / e.Length);
+            decibels = 20 * Math.Log10(decibels / e.Length);
             if (!(Double.IsInfinity(decibels) || Double.IsNaN(decibels)))
             {
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { NoiseVisual.Value = decibels; });
