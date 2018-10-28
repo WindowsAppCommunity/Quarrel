@@ -703,6 +703,7 @@
                                     <ComboBox x:Uid="/Settings/OutputDevicesCB" x:Name="OutputDevices" Header="Output Devices"/>
                                     <ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>
                                     <TextBlock x:Uid="/Settings/DeviceOverrideTB" Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/>
+                                    <Slider x:Name="NoiseSensitivity" x:Uid="/Settings/NoiseSensitivitySD" Header="Noise Tolerance (dB)" Value="40" Minimum="0" Maximum="100" Style="{ThemeResource DiscordSlider}"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
