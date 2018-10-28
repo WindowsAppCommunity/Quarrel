@@ -2792,13 +2792,13 @@ namespace Discord_UWP
                          App.NavigateToAbout(true);
                      }
                      loadingStack.Loaded("Finished");
-                     if (Storage.Settings.VideoAd)
-                     {
-                         InterstitialAd videoAd = new InterstitialAd();
-                         videoAd.AdReady += VideoAd_AdReady;
-                         videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
-                         videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
-                     }
+                     //if (Storage.Settings.VideoAd)
+                     //{
+                     //    InterstitialAd videoAd = new InterstitialAd();
+                     //    videoAd.AdReady += VideoAd_AdReady;
+                     //    videoAd.ErrorOccurred += VideoAd_ErrorOccurred;
+                     //    videoAd.RequestAd(AdType.Video, "9nbrwj777c8r", "1100015338");
+                     //}
                  });
             if (_setupArgs != "")
             {
@@ -2886,7 +2886,7 @@ namespace Discord_UWP
 
         private async void VideoAd_ErrorOccurred(object sender, AdErrorEventArgs e)
         {
-            Storage.Settings.VideoAd = false;
+            //Storage.Settings.VideoAd = false;
             Storage.SettingsChanged();
             Storage.SaveAppSettings();
 

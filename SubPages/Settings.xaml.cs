@@ -70,7 +70,7 @@ namespace Discord_UWP.SubPages
             EnableAcrylic.IsChecked = Storage.Settings.EnableAcrylic;
             ExpensiveUI.IsChecked = Storage.Settings.ExpensiveRender;
             UseCompression.IsChecked = Storage.Settings.UseCompression;
-            VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
+            //VoiceChannels.IsChecked = Storage.Settings.VoiceChannels;
             //GifsOnHover.IsChecked = Storage.Settings.GifsOnHover;
 
             NotificationSounds.IsChecked = Storage.Settings.SoundNotifications;
@@ -237,12 +237,13 @@ namespace Discord_UWP.SubPages
             //CustomBGToggle.IsOn = Storage.Settings.CustomBG;
             //FilePath.Text = Storage.Settings.BGFilePath;
 
+
             //Output Devices
-            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+            var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
             OutputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
             OutputDevices.SelectedIndex = 0;
             int i = 1;
-            foreach (var device in devices)
+            foreach (var device in odevices)
             {
                 OutputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled});
                 if (device.Id == Storage.Settings.OutputDevice)
@@ -251,6 +252,22 @@ namespace Discord_UWP.SubPages
                 }
                 i++;
             }
+
+            //Input Devices
+            var idevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioCapture);
+            InputDevices.Items.Add(new ComboBoxItem() { Content = "Default", Tag = "Default" });
+            InputDevices.SelectedIndex = 0;
+            i = 1;
+            foreach (var device in idevices)
+            {
+                InputDevices.Items.Add(new ComboBoxItem() { Content = device.Name, Tag = device.Id, IsEnabled = device.IsEnabled });
+                if (device.Id == Storage.Settings.OutputDevice)
+                {
+                    InputDevices.SelectedIndex = i;
+                }
+                i++;
+            }
+
 
             foreach (var language in ApplicationLanguages.ManifestLanguages)
             {
@@ -330,7 +347,7 @@ namespace Discord_UWP.SubPages
             Storage.Settings.ExpensiveRender = (bool)ExpensiveUI.IsChecked;
             Storage.Settings.ShowWelcomeMessage = (bool)ShowWelcome.IsChecked;
             Storage.Settings.UseCompression = (bool)UseCompression.IsChecked;
-            Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
+            //Storage.Settings.VoiceChannels = (bool)VoiceChannels.IsChecked;
             //Storage.Settings.GifsOnHover = (bool)GifsOnHover.IsChecked;
             Storage.Settings.ServerMuteIcons = (bool)ShowServerMute.IsChecked;
             Storage.Settings.GlowOnMention = (bool)MentionGlow.IsChecked;
@@ -416,6 +433,7 @@ namespace Discord_UWP.SubPages
             //Storage.Settings.BGFilePath = FilePath.Text;
 
             Storage.Settings.OutputDevice = (OutputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
+            Storage.Settings.InputDevice = (InputDevices.SelectedItem as ComboBoxItem).Tag.ToString();
 
             Storage.SaveAppSettings();
             Storage.SettingsChanged();

@@ -35,12 +35,9 @@ namespace Discord_UWP.Managers
                     }
                     break;
                 case 2:
-                    if (Storage.Settings.VoiceChannels)
+                    if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
                     {
-                        if (LocalState.Guilds[App.CurrentGuildId].channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
-                        {
-                            return sc;
-                        }
+                        return sc;
                     }
                     break;
                 case 4:
@@ -187,12 +184,9 @@ namespace Discord_UWP.Managers
                         }
                         break;
                     case 2:
-                        if (Storage.Settings.VoiceChannels)
+                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
                         {
-                            if (LocalState.CurrentGuild.channels[sc.Id].permissions.Connect || App.CurrentGuildId == sc.Id)
-                            {
-                                returnChannels.Add(sc);
-                            }
+                            returnChannels.Add(sc);
                         }
                         break;
                     case 4:
