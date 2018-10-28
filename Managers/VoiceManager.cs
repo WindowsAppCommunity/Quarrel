@@ -61,14 +61,12 @@ namespace Discord_UWP.Managers
 
         private static void AudioManager_InputRecieved(object sender, float[] e)
         {
-            //TODO: Sending voice
-
             double decibels = 0f;
             foreach (var sample in e)
             {
                 decibels += Math.Abs(sample);
             }
-            decibels = -20 * Math.Log10(decibels / e.Length);
+            decibels = 20 * Math.Log10(decibels / e.Length);
             if (decibels < Storage.Settings.NoiseSensitivity)
             {
                 if (hasSentSpeeking && !stopSpeaking)

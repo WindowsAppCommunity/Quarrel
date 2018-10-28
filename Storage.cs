@@ -147,7 +147,7 @@ namespace Discord_UWP
         public bool ServerMuteIcons = true;
         public CollapseOverride collapseOverride = CollapseOverride.Unread;
         //public Dictionary<string, Message> savedMessages = new Dictionary<string, Message>();
-        public int NoiseSensitivity = 40;
+        public int NoiseSensitivity = -40;
         public SerializableDictionary<string, string> SelectedChannels = new SerializableDictionary<string, string>();
     }
 

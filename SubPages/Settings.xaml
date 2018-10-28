@@ -704,8 +704,8 @@
                                     <ComboBox x:Name="InputDevices" x:Uid="/Settings/InputDevicesCB" Header="Input Devices"/>
                                     <TextBlock x:Uid="/Settings/DeviceOverrideTB" Text="Can be overriden by session by right clicking or holding the Deafen button in Voice Channel" TextWrapping="WrapWholeWords" Margin="0, 0, 0, 10" Opacity="0.5" FontStyle="Italic"/>
                                     <Grid>
-                                        <ProgressBar x:Name="NoiseVisual" Minimum="0" Maximum="100" Padding="0,36,0,22" VerticalAlignment="Stretch" Background="Transparent"/>
-                                        <Slider x:Name="NoiseSensitivity" x:Uid="/Settings/NoiseSensitivitySD" Header="Noise Tolerance (dB)" Value="40" Minimum="0" Maximum="100" Style="{ThemeResource DiscordSlider}"/>
+                                        <ProgressBar x:Name="NoiseVisual" Minimum="-100" Maximum="0" Padding="0,36,0,22" VerticalAlignment="Stretch" Background="Transparent"/>
+                                        <Slider x:Name="NoiseSensitivity" x:Uid="/Settings/NoiseSensitivitySD" Header="Noise Tolerance (dB)" Value="-40" Minimum="-100" Maximum="0" Style="{ThemeResource DiscordSlider}"/>
                                     </Grid>
                                     
                                 </StackPanel>
