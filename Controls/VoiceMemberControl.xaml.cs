@@ -1,6 +1,8 @@
 ﻿// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
+using Discord_UWP.Flyouts;
 using Discord_UWP.LocalModels;
+using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
 using System;
 using System.ComponentModel;
@@ -106,11 +108,13 @@ namespace Discord_UWP.Controls
         private void OpenVoiceFlyout(object sender, HoldingRoutedEventArgs e)
         {
             //TODO: Voice managment flyout
+            App.ShowMenuFlyout(this, FlyoutManager.Type.VoiceMember, member.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
 
         private void OpenVoiceFlyout(object sender, RightTappedRoutedEventArgs e)
         {
             //TODO: Voice managment flyout
+            App.ShowMenuFlyout(this, FlyoutManager.Type.VoiceMember, member.User.Id, App.CurrentGuildId, e.GetPosition(this));
         }
 
         private async void VoiceManager_ConnectoToVoiceHandler(object sender, Managers.VoiceManager.ConnectToVoiceArgs e)
