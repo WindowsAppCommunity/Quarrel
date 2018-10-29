@@ -35,11 +35,12 @@ namespace Discord_UWP
                 if (now.Month == 10 && now.Day == 31)
                 {
                     //Halloween
-                    switch (rand.Next(0, 2))
+                    switch (rand.Next(0, 3))
                     {
                         case 0: return kvp("Boo", "@Satan#666");
                         case 1: return kvp("Cutting pumpkins", "@Satan#666");
                         case 2: return kvp("Spooky scary skeletons...", "@austinception#5634");
+                        case 3: return kvp("Preemptivly Ruining Spooktober memes", "@Satan#666");
                     }
                 }
                 else
@@ -89,7 +90,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 124))
+            switch (rand.Next(0, 126))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -134,7 +135,7 @@ namespace Discord_UWP
                 case 42: return kvp("I should charge money for new downloads now...", "@Neel#2970");
                 case 43: return kvp("Aren't you a little short to be a storm trooper?", "@DougTheDog6#5067");
                 case 44: return kvp("Smooth animations warning", "@Gavirlas#9973");
-                case 45: return kvp("VOICE IS NOT AVAILABLE YET!");
+                case 45: return kvp("Did you plug it in?", "@WPFI#9651");
                 case 46: return kvp("Randomly pressing buttons...", "@Gavirlas#9973");
                 case 47: return kvp("Ripping FAT ergos");
                 case 48: return kvp("The developers are great!", "@Canada Baltimore Bias#2911");
@@ -214,6 +215,8 @@ namespace Discord_UWP
                 case 122: return kvp("The FitnessGram Pacer Test is a multistage...", "@melon#3569");
                 case 123: return kvp("Shrimp of an ex husband", "#psat2017");
                 case 124: return kvp("One miserable star", "#psat2018");
+                case 125: return kvp("Okay, this is epic", "@austinception#8911");
+                case 126: return kvp("Starting in Greenland");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }
