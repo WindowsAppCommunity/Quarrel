@@ -106,7 +106,6 @@ namespace Discord_UWP.Managers
                         }
                     }
                 },
-                Launch = "quarrel://answercall/" + message.Id,
                 ActivationType = ToastActivationType.Protocol,
                 Scenario = ToastScenario.IncomingCall,
                 HintToastId = "IncomingCall"

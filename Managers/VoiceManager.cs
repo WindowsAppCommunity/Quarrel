@@ -24,6 +24,7 @@ namespace Discord_UWP.Managers
 
         public static async void ConnectToVoiceChannel(SharedModels.VoiceServerUpdate data)
         {
+            if(data.GuildId == null) data.GuildId = data.ChannelId;
             App.UpdateLocalDeaf(false);
             App.UpdateVoiceStateHandler += App_UpdateVoiceStateHandler;
             //App.UpdateLocalMute(true); //LocalState.Muted);
