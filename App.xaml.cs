@@ -97,6 +97,7 @@ namespace Discord_UWP
         public static string PostLoadTask;
 
         #region Publics
+
         #region Events
 
         #region Startup
@@ -995,7 +996,7 @@ namespace Discord_UWP
         internal static int AllNotifications;
         internal static bool HasFocus = true;
         internal static bool ShowAds = true;
-        internal const bool Insider = false;
+        internal const bool Insider = true;
         internal static bool CinematicMode = false;
         internal static bool GatewayCreated = false;
         internal static bool FullyLoaded = false;
