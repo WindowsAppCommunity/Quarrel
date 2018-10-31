@@ -324,6 +324,9 @@
                                     </Grid>
                                     <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" Style="{StaticResource TextBoxStyle1}" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
+
+                                    <TextBlock x:Uid="/Dialogs/PrivacySettingsTB" Text="PRIVACY SETTINGS" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Margin="0,4"/>
+                                    <CheckBox x:Name="AllowDMs" Content="Allow Direct Messages from Server Members" Style="{StaticResource CheckBoxStyle1}" Margin="8,0,0,0"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>

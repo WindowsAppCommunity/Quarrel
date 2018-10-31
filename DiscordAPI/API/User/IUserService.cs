@@ -25,6 +25,10 @@ namespace Discord_UWP.API.User
         [Headers("Content-Type: application/json;")]
         Task UpdateSettings([Body] string settings);
 
+        [Patch("/v6/users/@me/settings")]
+        [Headers("Content-Type: application/json;")]
+        Task<UserSettings> UpdateSettings([Body] ModifyUserSettings settings);
+
         [Post("/v6/users/@me/games/start")]
         [Headers("Content-Type: application/json;")]
         Task UpdateGame([Body] string game);
