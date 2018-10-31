@@ -190,8 +190,11 @@ namespace Discord_UWP.Managers
                         }
                         break;
                     case 4:
-                        sc.Name = sc.Name.ToUpper();
-                        returnChannels.Add(sc);
+                        if (LocalState.CurrentGuild.channels[sc.Id].permissions.ReadMessages)
+                        {
+                            sc.Name = sc.Name.ToUpper();
+                            returnChannels.Add(sc);
+                        }
                         break;
                 }
             }
@@ -203,11 +206,13 @@ namespace Discord_UWP.Managers
                 Sorted.Add(noId);
             foreach(var categ in Categories)
             {
-                Sorted.Add(categ);
-                foreach (var item in Categorized.Where(x => x.ParentId == categ.Id))
-                    Sorted.Add(item);
+                if (Categorized.Where(x => x.ParentId == categ.Id).Count() > 0)
+                {
+                    Sorted.Add(categ);
+                    foreach (var item in Categorized.Where(x => x.ParentId == categ.Id))
+                        Sorted.Add(item);
+                }
             }
-
             return Sorted;
         }
 
