@@ -164,20 +164,47 @@ namespace Discord_UWP.Controls
             App.NavigateToGuild(guildid);
         }
 
+        private async void fftInitialize()
+        {
+            await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                if (Storage.Settings.ExpensiveRender)
+                {
+                    smoother1 = new Smoother(4, 6);
+                    smoother2 = new Smoother(4, 12);
+                    smoother3 = new Smoother(4, 14);
+                    smoother4 = new Smoother(4, 14);
+                    smoother5 = new Smoother(4, 15);
+                    smoother6 = new Smoother(4, 16);
+                    smoother7 = new Smoother(4, 16);
+                    smoother8 = new Smoother(4, 15);
+                    smoother9 = new Smoother(4, 14);
+                    averageSmoother = new Smoother(1000, 100);
+                    Blurple = (Color)App.Current.Resources["BlurpleColor"];
+                    TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
+                    initailized = true;
+                }
+            });
+        }
+
         private void fftInitialize(object sender, RoutedEventArgs e)
         {
-            smoother1 = new Smoother(4, 6);
-            smoother2 = new Smoother(4, 12);
-            smoother3 = new Smoother(4, 14);
-            smoother4 = new Smoother(4, 14);
-            smoother5 = new Smoother(4, 15);
-            smoother6 = new Smoother(4, 16);
-            smoother7 = new Smoother(4, 16);
-            smoother8 = new Smoother(4, 15);
-            smoother9 = new Smoother(4, 14);
-            averageSmoother = new Smoother(1000, 100);
-            Blurple = (Color)App.Current.Resources["BlurpleColor"];
-            TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
+            if (Storage.Settings.ExpensiveRender)
+            {
+                smoother1 = new Smoother(4, 6);
+                smoother2 = new Smoother(4, 12);
+                smoother3 = new Smoother(4, 14);
+                smoother4 = new Smoother(4, 14);
+                smoother5 = new Smoother(4, 15);
+                smoother6 = new Smoother(4, 16);
+                smoother7 = new Smoother(4, 16);
+                smoother8 = new Smoother(4, 15);
+                smoother9 = new Smoother(4, 14);
+                averageSmoother = new Smoother(1000, 100);
+                Blurple = (Color)App.Current.Resources["BlurpleColor"];
+                TransparentBlurple = (Color)App.Current.Resources["BlurpleColorTransparent"];
+                initailized = true;
+            }
         }
 
         private void fftDipose(object sender, RoutedEventArgs e)
@@ -192,6 +219,7 @@ namespace Discord_UWP.Controls
             smoother8 = null;
             smoother9 = null;
             averageSmoother = null;
+            initailized = false;
         }
 
         Smoother smoother1;
@@ -204,6 +232,8 @@ namespace Discord_UWP.Controls
         Smoother smoother8;
         Smoother smoother9;
         Smoother averageSmoother;
+        bool initailized = false;
+
         public class Smoother
         {
             /// <summary>
@@ -267,45 +297,55 @@ namespace Discord_UWP.Controls
             if (multiplier < 1) multiplier = 1;
             return input* multiplier;
         }
+
         private void CanvasAnimatedControl_Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args)
         {
-            using (var cpb = new CanvasPathBuilder(args.DrawingSession))
+            if (Storage.Settings.ExpensiveRender)
             {
-                cpb.BeginFigure(0, height);
-                average = averageSmoother.Smooth(AudioManager.AudioAverage);
-                Vector2 p0 = new Vector2(Point0, height - Adjust(smoother1.Smooth(AudioManager.AudioSpec1)) * height);
-                Vector2 p1 = new Vector2(Point1, height - Adjust(smoother2.Smooth(AudioManager.AudioSpec2)) * height);
-                Vector2 p2 = new Vector2(Point2, height - Adjust(smoother3.Smooth(AudioManager.AudioSpec3)) * height);
-                Vector2 p3 = new Vector2(Point3, height - Adjust(smoother4.Smooth(AudioManager.AudioSpec4)) * height);
-                Vector2 p4 = new Vector2(Point4, height - Adjust(smoother5.Smooth(AudioManager.AudioSpec5)) * height);
-                Vector2 p5 = new Vector2(Point5, height - Adjust(smoother6.Smooth(AudioManager.AudioSpec6)) * height);
-                Vector2 p6 = new Vector2(Point6, height - Adjust(smoother7.Smooth(AudioManager.AudioSpec7)) * height);
-                Vector2 p7 = new Vector2(Point7, height - Adjust(smoother8.Smooth(AudioManager.AudioSpec8)) * height);
-                Vector2 p8 = new Vector2(Point8, height - Adjust(smoother9.Smooth(AudioManager.AudioSpec9)) * height);
-
-
-
-                cpb.AddLine(p0);
-                cpb.AddCubicBezier(GetC1(p0), GetC2(p1), p1);
-                cpb.AddCubicBezier(GetC1(p1), GetC2(p2), p2);
-                cpb.AddCubicBezier(GetC1(p2), GetC2(p3), p3);
-                cpb.AddCubicBezier(GetC1(p3), GetC2(p4), p4);
-                cpb.AddCubicBezier(GetC1(p4), GetC2(p5), p5);
-                cpb.AddCubicBezier(GetC1(p5), GetC2(p6), p6);
-                cpb.AddCubicBezier(GetC1(p6), GetC2(p7), p7);
-                cpb.AddCubicBezier(GetC1(p7), GetC2(p8), p8);
-                cpb.AddLine(new Vector2(p8.X, height));
-                
-      
-                cpb.EndFigure(CanvasFigureLoop.Closed);
-                CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, TransparentBlurple, Blurple)
+                if (!initailized)
                 {
-                    EndPoint = new Vector2(0, height+48),
-                    StartPoint = new Vector2(0, -12)
-                };
-                var path = CanvasGeometry.CreatePath(cpb);
-                //args.DrawingSession.DrawGeometry(path, Blurple, 1);
-                args.DrawingSession.FillGeometry(path, gradient);
+                    fftInitialize();
+                } else
+                {
+                    using (var cpb = new CanvasPathBuilder(args.DrawingSession))
+                    {
+                        cpb.BeginFigure(0, height);
+                        average = averageSmoother.Smooth(AudioManager.AudioAverage);
+                        Vector2 p0 = new Vector2(Point0, height - Adjust(smoother1.Smooth(AudioManager.AudioSpec1)) * height);
+                        Vector2 p1 = new Vector2(Point1, height - Adjust(smoother2.Smooth(AudioManager.AudioSpec2)) * height);
+                        Vector2 p2 = new Vector2(Point2, height - Adjust(smoother3.Smooth(AudioManager.AudioSpec3)) * height);
+                        Vector2 p3 = new Vector2(Point3, height - Adjust(smoother4.Smooth(AudioManager.AudioSpec4)) * height);
+                        Vector2 p4 = new Vector2(Point4, height - Adjust(smoother5.Smooth(AudioManager.AudioSpec5)) * height);
+                        Vector2 p5 = new Vector2(Point5, height - Adjust(smoother6.Smooth(AudioManager.AudioSpec6)) * height);
+                        Vector2 p6 = new Vector2(Point6, height - Adjust(smoother7.Smooth(AudioManager.AudioSpec7)) * height);
+                        Vector2 p7 = new Vector2(Point7, height - Adjust(smoother8.Smooth(AudioManager.AudioSpec8)) * height);
+                        Vector2 p8 = new Vector2(Point8, height - Adjust(smoother9.Smooth(AudioManager.AudioSpec9)) * height);
+
+
+
+                        cpb.AddLine(p0);
+                        cpb.AddCubicBezier(GetC1(p0), GetC2(p1), p1);
+                        cpb.AddCubicBezier(GetC1(p1), GetC2(p2), p2);
+                        cpb.AddCubicBezier(GetC1(p2), GetC2(p3), p3);
+                        cpb.AddCubicBezier(GetC1(p3), GetC2(p4), p4);
+                        cpb.AddCubicBezier(GetC1(p4), GetC2(p5), p5);
+                        cpb.AddCubicBezier(GetC1(p5), GetC2(p6), p6);
+                        cpb.AddCubicBezier(GetC1(p6), GetC2(p7), p7);
+                        cpb.AddCubicBezier(GetC1(p7), GetC2(p8), p8);
+                        cpb.AddLine(new Vector2(p8.X, height));
+
+
+                        cpb.EndFigure(CanvasFigureLoop.Closed);
+                        CanvasLinearGradientBrush gradient = new CanvasLinearGradientBrush(sender, TransparentBlurple, Blurple)
+                        {
+                            EndPoint = new Vector2(0, height + 48),
+                            StartPoint = new Vector2(0, -12)
+                        };
+                        var path = CanvasGeometry.CreatePath(cpb);
+                        //args.DrawingSession.DrawGeometry(path, Blurple, 1);
+                        args.DrawingSession.FillGeometry(path, gradient);
+                    }
+                }
             }
         }
 
