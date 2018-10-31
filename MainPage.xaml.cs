@@ -445,6 +445,7 @@ namespace Discord_UWP
 
             //Auto selects
             App.SelectGuildChannelHandler += App_SelectGuildChannelHandler;
+            App.SelectDMChannelHandler += App_SelectDMChannelHandler;
 
             App.ToggleCOModeHandler += App_ToggleCOModeHandler;
 
@@ -742,6 +743,7 @@ namespace Discord_UWP
         string _autoselectchannel = "";
         string _autoselectchannelcontent = null;
         bool _autoselectchannelcontentsend = false;
+
         private void App_SelectGuildChannelHandler(object sender, App.GuildChannelSelectArgs e)
         {
             Ad.Visibility = Visibility.Collapsed;
@@ -776,6 +778,24 @@ namespace Discord_UWP
                 App.CreateMessage(e.ChannelId, e.MessageContent);
             }
             
+        }
+
+        private async void App_SelectDMChannelHandler(object sender, App.DMChannelSelectArgs e)
+        {
+            if (e.UserId != null)
+            {
+                string channelid = null;
+                foreach (var dm in LocalState.DMs)
+                    if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == e.UserId)
+                        channelid = dm.Value.Id;
+                if (channelid == null)
+                    channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+
+                App.SelectGuildChannel("@me", channelid, e.Message, e.Send, true);
+            } else
+            {
+                App.SelectGuildChannel("@me", e.ChannelId, e.Message, e.Send, true);
+            }
         }
 
         public void ClearData()
@@ -2769,6 +2789,9 @@ namespace Discord_UWP
                          {
                              case "SelectGuildChannelTask":
                                  App.SelectGuildChannel(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId, ((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).ChannelId);
+                                 break;
+                             case "SelectDMChannelTask":
+                                 App.SelectDMChannel((App.DMChannelSelectArgs)App.PostLoadTaskArgs);
                                  break;
                              case "invite":
                                  App.NavigateToJoinServer(((App.GuildChannelSelectArgs)App.PostLoadTaskArgs).GuildId);

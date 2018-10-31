@@ -827,6 +827,48 @@ namespace Discord_UWP
         #endregion
 
         #region AutoSelects
+        public class DMChannelSelectArgs : EventArgs
+        {
+            public string ChannelId { get; set; }
+            public string UserId { get; set; }
+            public string Message { get; set; }
+            public bool Send { get; set; }
+            public bool OnBack { get; set; }
+        }
+        public static event EventHandler<DMChannelSelectArgs> SelectDMChannelHandler;
+
+        public static void SelectDMChannel(DMChannelSelectArgs args)
+        {
+            SelectDMChannelHandler?.Invoke(typeof(App), args);
+        }
+
+        public static void SelectDMChannel(string Id, string message = null, bool send = false, bool onBack = false, bool user = false)
+        {
+            if (!App.FullyLoaded)
+            {
+                PostLoadTask = "SelectDMChannelTask";
+                if (!user)
+                {
+                    PostLoadTaskArgs = new DMChannelSelectArgs() { ChannelId = Id, UserId = null, Message = message, Send = send, OnBack = onBack };
+                }
+                else
+                {
+                    PostLoadTaskArgs = new DMChannelSelectArgs() { UserId = Id, ChannelId = null, Message = message, Send = send, OnBack = onBack };
+                }
+            }
+            else
+            {
+                if (!user)
+                {
+                    SelectDMChannelHandler?.Invoke(typeof(App), new DMChannelSelectArgs() { ChannelId = Id, UserId = null, Message = message, Send = send, OnBack = onBack });
+                }
+                else
+                {
+                    SelectDMChannelHandler?.Invoke(typeof(App), new DMChannelSelectArgs() { UserId = Id, ChannelId = null, Message = message, Send = send, OnBack = onBack });
+                }
+            }
+        }
+
         public class GuildChannelSelectArgs : EventArgs
         {
             public string GuildId { get; set; }
@@ -1376,53 +1418,76 @@ namespace Discord_UWP
 
                 case ActivationKind.Protocol:
                     {
-                        ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                        string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
-                            .Replace("discorduwp://", "").Split('/');
-                        var count = segments.Count();
-                        if (count > 0)
+                            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                        if (eventArgs.Uri.ToString().StartsWith("discorduwp://"))
                         {
-                            if (segments[0] == "guild" || segments[0] == "channels")
+                            //uri launch args
+                            string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
+                               .Replace("discorduwp://", "").Split('/');
+                            var count = segments.Count();
+                            if (count > 0)
                             {
-                                if (count == 3)
-                                    SelectGuildChannel(segments[1], segments[2]);
-                                else if (count == 2)
-                                    SelectGuildChannel(segments[1], null);
-                            }
-                            else if (segments[0] == "reset")
-                            {
-                                await RequestReset();
-                            }
-                            else if (segments[0] == "nologin")
-                            {
-                                DontLogin = true;
-                            }
-                            else if (segments[0] == "invite")
-                            {
-                                NavigateToJoinServer(segments[1]);
-                            }
-                            else if (segments[0] == "friendrequests")
-                            {
-                                App.SelectGuildChannel("friendrequests", null);
-                            }
-                            else if (segments[0] == "cinematic")
-                            {
-                                App.CinematicMode = true;
-                            }
-                            else if (segments[0] == "call")
-                            {
-                                if (segments[1] == "accept")
+                                if (segments[0] == "guild" || segments[0] == "channels")
                                 {
-                                    RESTCalls.StartCall(segments[1]);
+                                    if (count == 3)
+                                        SelectGuildChannel(segments[1], segments[2]);
+                                    else if (count == 2)
+                                        SelectGuildChannel(segments[1], null);
                                 }
-                                else if (segments[1] == "decline")
+                                else if (segments[0] == "reset")
                                 {
-                                    RESTCalls.DeclineCall(segments[1]);
+                                    await RequestReset();
+                                }
+                                else if (segments[0] == "nologin")
+                                {
+                                    DontLogin = true;
+                                }
+                                else if (segments[0] == "invite")
+                                {
+                                    NavigateToJoinServer(segments[1]);
+                                }
+                                else if (segments[0] == "friendrequests")
+                                {
+                                    App.SelectGuildChannel("friendrequests", null);
+                                }
+                                else if (segments[0] == "cinematic")
+                                {
+                                    App.CinematicMode = true;
+                                }
+                                else if (segments[0] == "call")
+                                {
+                                    if (segments[1] == "accept")
+                                    {
+                                        RESTCalls.StartCall(segments[1]);
+                                    }
+                                    else if (segments[1] == "decline")
+                                    {
+                                        RESTCalls.DeclineCall(segments[1]);
+                                    }
+                                }
+                            };
+                        } else
+                        {
+                            Dictionary<string, string> activationKeyPairs = new Dictionary<string, string>();
+                            var scheme = eventArgs?.Uri.Scheme;
+
+                            var queryArgs = eventArgs?.Uri.Query.Replace("?", "").Split('&');
+                            foreach (var queryArg in queryArgs)
+                            {
+                                var keyPair = queryArg.Split('=');
+                                if (keyPair.Count() == 2)
+                                {
+                                    activationKeyPairs.Add(keyPair[0], keyPair[1]);
                                 }
                             }
-                        };
-                        break;
+
+                            if (activationKeyPairs.ContainsKey("ContactRemoteIds"))
+                            {
+                                App.SelectDMChannel(activationKeyPairs["ContactRemoteIds"], null, false, false, true);
+                            }
+                        }
                     }
+                    break;
 
                 #endregion
 
