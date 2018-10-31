@@ -1420,11 +1420,10 @@ namespace Discord_UWP
                 case ActivationKind.Protocol:
                     {
                             ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                        if (eventArgs.Uri.ToString().StartsWith("discorduwp://"))
+                        if (eventArgs.Uri.ToString().StartsWith("quarrel://"))
                         {
                             //uri launch args
-                            string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "")
-                               .Replace("discorduwp://", "").Split('/');
+                            string[] segments = eventArgs.Uri.ToString().ToLower().Replace("quarrel://", "").Split('/');
                             var count = segments.Count();
                             if (count > 0)
                             {
@@ -1457,17 +1456,18 @@ namespace Discord_UWP
                                 }
                                 else if (segments[0] == "call")
                                 {
-                                    if (segments[1] == "accept")
+                                    if (segments[1] == "answer")
                                     {
-                                        RESTCalls.StartCall(segments[1]);
+                                        App.ConnectToVoice(segments[2], null, "@User", "");
                                     }
                                     else if (segments[1] == "decline")
                                     {
-                                        RESTCalls.DeclineCall(segments[1]);
+                                        RESTCalls.DeclineCall(segments[2]);
                                     }
                                 }
                             };
-                        } else
+                        }
+                        else
                         {
                             Dictionary<string, string> activationKeyPairs = new Dictionary<string, string>();
                             var scheme = eventArgs?.Uri.Scheme;
@@ -1502,7 +1502,7 @@ namespace Discord_UWP
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
                 LaunchProcedure(args.SplashScreen, args.PreviousExecutionState, false, launchArgs);
         }
-        public async static Task RequestReset()
+        public static async Task RequestReset()
         {
             ContentDialog AreYouSure = new ContentDialog
             {

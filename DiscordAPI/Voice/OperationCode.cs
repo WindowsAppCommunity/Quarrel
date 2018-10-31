@@ -18,7 +18,11 @@ namespace Discord_UWP.Voice
         Resume = 7,
         Hello = 8,
         Resumed = 9,
-        ClientDisconnect = 10
+        Signal = 10,
+        IDK1 = 11,
+        Video = 12,
+        ClientDisconnect = 13,
+        IDK2 = 14
     }
 
     public static class OperationCodeExtensions

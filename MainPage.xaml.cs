@@ -2991,10 +2991,11 @@ namespace Discord_UWP
                  async () =>
                  {
 
-                     if (e.Message.Type == 3 && App.Insider)
+                     if (e.Message.Type == 3)
                      {
                          //TODO: Pretty up this shit (animations)
-                         //AcceptCallUI.Visibility = Visibility.Visible;
+                         AcceptCallUI.Tag = e.Message.ChannelId;
+                        // AcceptCallUI.Visibility = Visibility.Visible;
                          NotificationManager.CreateCallNotification(e.Message);
                      }
 
@@ -4036,12 +4037,26 @@ namespace Discord_UWP
 
         private void AcceptCall(object sender, RoutedEventArgs e)
         {
-            App.ConnectToVoice(AcceptCallUI.Tag.ToString(), null, "@User", "");
+            try
+            {
+                App.ConnectToVoice(AcceptCallUI.Tag.ToString(), null, "@User", "");
+            }
+            catch(Exception err)
+            {
+                Debug.WriteLine(err);
+            }
         }
 
         private async void DeclineCall(object sender, RoutedEventArgs e)
         {
-            await RESTCalls.DeclineCall(AcceptCallUI.Tag.ToString());
+            try
+            {
+                await RESTCalls.DeclineCall(AcceptCallUI.Tag.ToString());
+            }
+            catch (Exception err)
+            {
+                Debug.WriteLine(err);
+            }
         }
 
         private async void SendFriendRequest(object sender, RoutedEventArgs e)
