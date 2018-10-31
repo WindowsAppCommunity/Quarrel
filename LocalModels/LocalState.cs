@@ -14,6 +14,7 @@ namespace Discord_UWP.LocalModels
         public static Dictionary<string, Friend> Friends = new Dictionary<string, Friend>();
         public static Dictionary<string, Friend> Blocked = new Dictionary<string, Friend>();
         public static Dictionary<string, string> Notes = new Dictionary<string, string>();
+        public static UserSettings Settings = new UserSettings();
 
         public static Dictionary<string, Dictionary<string, DispatcherTimer>> Typers = new Dictionary<string, Dictionary<string, DispatcherTimer>>();
         public static List<DispatcherTimer> TyperTimers = new List<DispatcherTimer>();
