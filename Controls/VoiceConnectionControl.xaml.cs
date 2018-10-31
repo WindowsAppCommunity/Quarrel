@@ -353,18 +353,21 @@ namespace Discord_UWP.Controls
                     menu.Items.Add(flyoutItem);
                 }
 
-                var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
-                foreach (var device in odevices)
-                {
-                    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
-                    {
-                        Text = device.Name,
-                        Tag = device.Id,
-                        IsEnabled = device.IsEnabled
-                    };
-                    flyoutItem.Click += OverrideInputDevice;
-                    menu.Items.Add(flyoutItem);
-                }
+                //MenuFlyoutSeparator separator = new MenuFlyoutSeparator();
+                //menu.Items.Add(separator);
+
+                //var odevices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.AudioRender);
+                //foreach (var device in odevices)
+                //{
+                //    MenuFlyoutItem flyoutItem = new MenuFlyoutItem()
+                //    {
+                //        Text = device.Name,
+                //        Tag = device.Id,
+                //        IsEnabled = device.IsEnabled
+                //    };
+                //    flyoutItem.Click += OverrideInputDevice;
+                //    menu.Items.Add(flyoutItem);
+                //}
 
                 menu.ShowAt(this, e.GetPosition(this));
             }
@@ -372,7 +375,6 @@ namespace Discord_UWP.Controls
 
         private async void OpenAudioCaptureFlyout(object sender, HoldingRoutedEventArgs e)
         {
-            e.Handled = true;
             if (e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {
                 MenuFlyout menu = new MenuFlyout();
@@ -417,6 +419,7 @@ namespace Discord_UWP.Controls
 
                 menu.ShowAt(this, e.GetPosition(this));
             }
+            e.Handled = true;
         }
 
         private async void OpenAudioRenderFlyout(object sender, RightTappedRoutedEventArgs e)
