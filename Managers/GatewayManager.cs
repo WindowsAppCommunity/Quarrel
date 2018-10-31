@@ -288,6 +288,8 @@ namespace Discord_UWP.Managers
             }
             if (App.AslansBullshit)
                 await App.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { App.StatusChanged("Succesfully set guild positions (ln 282-290)"); });
+
+            LocalState.Settings = e.EventData.Settings;
             #endregion
 
             #region CurrentUserPresence
@@ -848,6 +850,7 @@ namespace Discord_UWP.Managers
             temp.Status = e.EventData.Status;
             LocalState.PresenceDict[LocalState.CurrentUser.Id] = temp;
             App.UserStatusChanged(e.EventData);
+            LocalState.Settings = e.EventData;
         }
         #endregion
 
