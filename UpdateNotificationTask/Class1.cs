@@ -31,7 +31,7 @@ BindingGeneric=    new ToastBindingGeneric()
 
         new AdaptiveText()
         {
-            Text = "Lots'o bug fixes and improvements"
+            Text = "Full Voice support and myPeople integration with version 10.1!"
         }
                 }
                 }
