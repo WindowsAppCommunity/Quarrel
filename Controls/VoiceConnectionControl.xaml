@@ -456,6 +456,64 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="HangupButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{ThemeResource dnd}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" CornerRadius="0,4,4,0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.8">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.6">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CircleEase/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" Foreground="{TemplateBinding Foreground}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Opacity="0.2" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <UserControl.RenderTransform>
         <TranslateTransform x:Name="ContentTranslate"/>
@@ -527,7 +585,7 @@
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Mute" Content="" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Mute_Click" RightTapped="OpenAudioCaptrueFlyout" Holding="OpenAudioCaptureFlyout"/>
             <ToggleButton Style="{StaticResource ToggleButtonStyle1}" x:Name="Deafen" Content="" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" FontSize="16" BorderThickness="0" Padding="4" Background="Transparent" Click="Deafen_Click" RightTapped="OpenAudioRenderFlyout" Holding="OpenAudioRenderFlyout"/>
             
-            <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource IntegratedButton}" Foreground="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
+            <Button FontWeight="SemiBold" Content="" Grid.Row="0" Grid.Column="3" FontSize="18" Style="{StaticResource HangupButton}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Click="Disconnect_Click"/>
             <AppBarButton Content="" Background="Transparent" BorderThickness="0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ToggleButton_Click" Width="48"/>
             <Rectangle IsHitTestVisible="False" Height="16" Opacity="0.2" Grid.RowSpan="12" Grid.ColumnSpan="12" VerticalAlignment="Bottom" Margin="0,0,0,0">
                 <Rectangle.Fill>
