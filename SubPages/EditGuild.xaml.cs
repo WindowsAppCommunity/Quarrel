@@ -84,7 +84,17 @@ namespace Discord_UWP.SubPages
                 saveBTNprog.Visibility = Visibility.Collapsed;
             }
 
+            var settings = LocalState.Settings;
+            var modify = new API.User.Models.ModifyUserSettings(LocalState.Settings);
+            if (AllowDMs.IsChecked == true && modify.RestrictedGuilds.Contains(guildId))
+            {
+                modify.RestrictedGuilds.ToList().Remove(guildId);
+            } else if (!modify.RestrictedGuilds.Contains(guildId))
+            {
+                modify.RestrictedGuilds.ToList().Add(guildId);
+            }
 
+            LocalState.Settings = await RESTCalls.ModifyUserSettings(modify);
         }
 
         private void SaveRoleSettings()
@@ -182,6 +192,9 @@ namespace Discord_UWP.SubPages
                 }
                 RolesView.SelectedIndex = 0;
             }
+
+            AllowDMs.IsChecked = LocalState.Settings.RestrictedGuilds.Contains(guildId);
+
             GatewayManager.Gateway.GuildUpdated += GuildUpdated;
             GatewayManager.Gateway.GuildBanAdded += BanAdded;
             GatewayManager.Gateway.GuildBanRemoved += BanRemoved;
