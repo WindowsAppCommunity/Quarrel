@@ -282,6 +282,21 @@ namespace Discord_UWP
         #endregion
 
         #region Set
+        public static async Task<UserSettings> ModifyUserSettings(ModifyUserSettings userSettings)
+        {
+            try
+            {
+                IUserService userService = AuthenticatedRestFactory.GetUserService();
+                return await userService.UpdateSettings(userSettings);
+            }
+            catch /*(Exception exception)*/
+            {
+                App.CheckOnline();
+                //App.NavigateToBugReport(exception);
+            }
+            return LocalState.Settings;
+        }
+
         public static async Task<SharedModels.GuildSetting> ModifyGuildSettings(string guildId, SharedModels.GuildSettingModify guildSettings)
         {
             try

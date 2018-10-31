@@ -789,7 +789,7 @@ namespace Discord_UWP
                     if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == e.UserId)
                         channelid = dm.Value.Id;
                 if (channelid == null)
-                    channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { (sender as MenuFlyoutItem).Tag.ToString() }.AsEnumerable() })).Id;
+                    channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { e.UserId }.AsEnumerable() })).Id;
 
                 App.SelectGuildChannel("@me", channelid, e.Message, e.Send, true);
             } else
