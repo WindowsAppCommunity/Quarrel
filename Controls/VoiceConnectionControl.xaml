@@ -470,7 +470,7 @@
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.8">
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.7">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase/>
                                                 </DoubleAnimation.EasingFunction>
@@ -480,7 +480,7 @@
                                     </VisualState>
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.6">
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Opacity" To="0.8">
                                                 <DoubleAnimation.EasingFunction>
                                                     <CircleEase/>
                                                 </DoubleAnimation.EasingFunction>
