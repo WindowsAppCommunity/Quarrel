@@ -86,12 +86,19 @@ namespace Discord_UWP.SubPages
 
             var settings = LocalState.Settings;
             var modify = new API.User.Models.ModifyUserSettings(LocalState.Settings);
-            if (AllowDMs.IsChecked == true && modify.RestrictedGuilds.Contains(guildId))
+            if (AllowDMs.IsChecked == true && modify.RestrictedGuilds != null && modify.RestrictedGuilds.Contains(guildId))
             {
-                modify.RestrictedGuilds.ToList().Remove(guildId);
-            } else if (!modify.RestrictedGuilds.Contains(guildId))
+                var list = modify.RestrictedGuilds.ToList();
+                list.Remove(guildId);
+                modify.RestrictedGuilds = list.ToArray();
+            } else if (modify.RestrictedGuilds != null && !modify.RestrictedGuilds.Contains(guildId))
             {
-                modify.RestrictedGuilds.ToList().Add(guildId);
+                var list = modify.RestrictedGuilds.ToList();
+                list.Add(guildId);
+                modify.RestrictedGuilds = list.ToArray();
+            } else
+            {
+                modify.RestrictedGuilds = new string[] { guildId };
             }
 
             LocalState.Settings = await RESTCalls.ModifyUserSettings(modify);
