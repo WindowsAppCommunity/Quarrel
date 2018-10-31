@@ -193,7 +193,8 @@ namespace Discord_UWP.SubPages
                 RolesView.SelectedIndex = 0;
             }
 
-            AllowDMs.IsChecked = LocalState.Settings.RestrictedGuilds.Contains(guildId);
+            AllowDMs.IsChecked = LocalState.Settings.RestrictedGuilds == null || !LocalState.Settings.RestrictedGuilds.Contains(guildId);
+
 
             GatewayManager.Gateway.GuildUpdated += GuildUpdated;
             GatewayManager.Gateway.GuildBanAdded += BanAdded;
