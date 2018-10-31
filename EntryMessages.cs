@@ -90,7 +90,7 @@ namespace Discord_UWP
                 }
             }
             
-            switch (rand.Next(0, 126))
+            switch (rand.Next(0, 127))
             {
                 case 0:  return kvp("HUZZAH");
                 case 1:  return kvp("Beam me up Scotty!!!");
@@ -217,6 +217,7 @@ namespace Discord_UWP
                 case 124: return kvp("One miserable star", "#psat2018");
                 case 125: return kvp("Okay, this is epic", "@austinception#8911");
                 case 126: return kvp("Starting in Greenland");
+                case 127: return kvp("Kowalski, Analysis");
                 default: return kvp("Waiting for the Ready Packet");
             }
         }

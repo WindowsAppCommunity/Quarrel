@@ -349,12 +349,14 @@ namespace Discord_UWP.Voice
             var Desc = Event.GetData<SessionDescription>();
             secretkey = Desc.SecretKey;
 
-         //   SendSpeaking(true);
+
+            //Needs to speak 100 silent frames to get first listen packet
+            SendSpeaking(true);
             for (int i = 0; i < 100; i++)
             {
-           //     SendSilence();
+                SendSilence();
             }
-            //SendSpeaking(false);
+            SendSpeaking(false);
         }
 
         private void OnSpeaking(SocketFrame Event)

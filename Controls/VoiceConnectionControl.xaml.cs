@@ -122,7 +122,7 @@ namespace Discord_UWP.Controls
             guildid = "";
             channelid = "";
             App.ConnectToVoice(null, null, "","");
-            AudioManager.DisposeAudioGraphs();
+            AudioManager.LightDisposeAudioGraphs();
             App.NavigateToGuildHandler -= App_NavigateToGuildHandler;
         }
 

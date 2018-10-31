@@ -300,7 +300,7 @@ namespace Discord_UWP.SubPages
             if (LanguageSelection.SelectedIndex == -1)
                 LanguageSelection.SelectedIndex = 0;
 
-            await AudioManager.CreateInputDeviceNode();
+            await AudioManager.CreateInputDeviceNode(Storage.Settings.InputDevice);
             AudioManager.InputRecieved += AudioManager_InputRecieved;
         }
 
@@ -505,7 +505,8 @@ namespace Discord_UWP.SubPages
             scale.CenterY = this.ActualHeight / 2;
             scale.CenterX = this.ActualWidth / 2;
             NavAway.Begin();
-            AudioManager.DisposeAudioGraphs();
+            AudioManager.LightDisposeInGraph();
+            AudioManager.InputRecieved -= AudioManager_InputRecieved;
             App.SubpageClosed();
         }
 

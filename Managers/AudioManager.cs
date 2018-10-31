@@ -68,6 +68,9 @@ namespace Discord_UWP
 
     public static class AudioManager
     {
+        private static int inGraphCount = 0;
+        private static int outGraphCount = 0;
+
         public static event EventHandler<float[]> InputRecieved;
         
         static AudioGraph ingraph;
@@ -122,27 +125,25 @@ namespace Discord_UWP
 
         public static async Task CreateAudioGraphs()
         {
-            OutputDeviceID = Storage.Settings.OutputDevice;
-            InputDeviceID = Storage.Settings.InputDevice;
             Storage.SettingsChangedHandler += Storage_SettingsChangedHandler;
-            await CreateOutputDeviceNode();
-            await CreateInputDeviceNode();
+            await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
+            await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
-        private static void Storage_SettingsChangedHandler(object sender, EventArgs e)
+        private static async void Storage_SettingsChangedHandler(object sender, EventArgs e)
         {
-            OutputDeviceID = Storage.Settings.OutputDevice;
-            InputDeviceID = Storage.Settings.InputDevice;
+            await CreateOutputDeviceNode(Storage.Settings.OutputDevice);
+            await CreateInputDeviceNode(Storage.Settings.InputDevice);
         }
 
-        public static async Task CreateOutputDeviceNode()
+        public static async Task CreateOutputDeviceNode(string deviceId)
         {
-            if (outgraph != null)
+            if (outgraph != null && OutputDeviceID != outgraph.PrimaryRenderDevice.Id)
             {
-                outgraph.Dispose();
-                outgraph = null;
-                frameInputNode = null;
-                deviceOutputNode = null;
+                HeavyDisposeOutGraph();
+            } else
+            {
+                outGraphCount++;
             }
 
             Console.WriteLine("Creating AudioGraphs");
@@ -156,7 +157,7 @@ namespace Discord_UWP
             graphsettings.EncodingProperties.Bitrate = 3072000;
 
             DeviceInformation selectedDevice;
-            if (OutputDeviceID == "Default" || OutputDeviceID == null)
+            if (deviceId == "Default" || deviceId == null)
             {
                 selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioRenderId(Windows.Media.Devices.AudioDeviceRole.Default));
                 Windows.Media.Devices.MediaDevice.DefaultAudioRenderDeviceChanged += MediaDevice_DefaultAudioRenderDeviceChanged;
@@ -169,12 +170,12 @@ namespace Discord_UWP
             {
                 try
                 {
-                    selectedDevice = await DeviceInformation.CreateFromIdAsync(OutputDeviceID);
+                    selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
                 }
                 catch
                 {
                     selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioRenderId(Windows.Media.Devices.AudioDeviceRole.Default));
-                    OutputDeviceID = "Default";
+                    deviceId = "Default";
                 }
             }
 
@@ -203,13 +204,22 @@ namespace Discord_UWP
             // Create the FrameInputNode at the same format as the graph, except explicitly set stereo.
             frameInputNode = outgraph.CreateFrameInputNode(outgraph.EncodingProperties);
             frameInputNode.AddOutgoingConnection(deviceOutputNode);
+            OutputDeviceID = deviceId;
             frameInputNode.Start();
             ready = true;
             outgraph.Start();
         }
 
-        public static async Task CreateInputDeviceNode()
+        public static async Task CreateInputDeviceNode(string deviceId)
         {
+            if (ingraph != null && deviceId != InputDeviceID)
+            {
+                HeavyDisposeInGraph();
+            } else
+            {
+                inGraphCount++;
+            }
+
             Console.WriteLine("Creating AudioGraphs");
             // Create an AudioGraph with default settings
             AudioGraphSettings graphsettings = new AudioGraphSettings(AudioRenderCategory.Media);
@@ -242,7 +252,7 @@ namespace Discord_UWP
 
             DeviceInformation selectedDevice;
 
-            if (InputDeviceID == "Default" || InputDeviceID == null)
+            if (deviceId == "Default" || deviceId == null)
             {
                 selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
                 Windows.Media.Devices.MediaDevice.DefaultAudioCaptureDeviceChanged += MediaDevice_DefaultAudioCaptureDeviceChanged;
@@ -255,12 +265,12 @@ namespace Discord_UWP
             {
                 try
                 {
-                    selectedDevice = await DeviceInformation.CreateFromIdAsync(InputDeviceID);
+                    selectedDevice = await DeviceInformation.CreateFromIdAsync(deviceId);
                 }
                 catch
                 {
                     selectedDevice = await DeviceInformation.CreateFromIdAsync(Windows.Media.Devices.MediaDevice.GetDefaultAudioCaptureId(Windows.Media.Devices.AudioDeviceRole.Default));
-                    InputDeviceID = "Default";
+                    deviceId = "Default";
                 }
             }
 
@@ -275,6 +285,7 @@ namespace Discord_UWP
 
             deviceInputNode = result.DeviceInputNode;
             deviceInputNode.AddOutgoingConnection(frameOutputNode);
+            InputDeviceID = deviceId;
             frameOutputNode.Start();
             ingraph.Start();
         }
@@ -283,7 +294,8 @@ namespace Discord_UWP
 
         private static async void MediaDevice_DefaultAudioRenderDeviceChanged(object sender, Windows.Media.Devices.DefaultAudioRenderDeviceChangedEventArgs args)
         {
-            await CreateOutputDeviceNode();
+            HeavyDisposeOutGraph();
+            await CreateOutputDeviceNode(OutputDeviceID);
         }
 
         //private static void OutputDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)
@@ -330,12 +342,60 @@ namespace Discord_UWP
 
         #endregion
 
-        public static void DisposeAudioGraphs()
+
+        public static void LightDisposeAudioGraphs()
+        {
+            LightDisposeInGraph();
+            LightDisposeOutGraph();
+        }
+
+        public static void LightDisposeInGraph()
+        {
+            if (inGraphCount <= 1)
+            {
+                ingraph?.Dispose();
+                frameOutputNode = null;
+                deviceInputNode = null;
+                ingraph = null;
+                inGraphCount = 0;
+            }
+            else
+            {
+                inGraphCount--;
+            }
+        }
+
+        public static void LightDisposeOutGraph()
+        {
+            if (outGraphCount <= 1)
+            {
+                outgraph?.Dispose();
+                frameInputNode = null;
+                deviceOutputNode = null;
+                outgraph = null;
+                outGraphCount = 0;
+            } else
+            {
+                outGraphCount--;
+            }
+        }
+
+        public static void HeavyDisposeAudioGraphs()
+        {
+            HeavyDisposeInGraph();
+            HeavyDisposeOutGraph();
+        }
+
+        public static void HeavyDisposeInGraph()
         {
             ingraph?.Dispose();
             frameOutputNode = null;
             deviceInputNode = null;
             ingraph = null;
+        }
+
+        public static void HeavyDisposeOutGraph()
+        {
             outgraph?.Dispose();
             frameInputNode = null;
             deviceOutputNode = null;
@@ -509,14 +569,18 @@ namespace Discord_UWP
 
         public static async void UpdateOutputDeviceID(string outID)
         {
-            OutputDeviceID = outID;
-            await CreateOutputDeviceNode();
+            if (outID != OutputDeviceID)
+            {
+                await CreateOutputDeviceNode(outID);
+            }
         }
 
         public static async void UpdateInputDeviceID(string inID)
         {
-            InputDeviceID = inID;
-            await CreateInputDeviceNode();
+            if (inID != InputDeviceID)
+            {
+                await CreateInputDeviceNode(inID);
+            }
         }
 
 
