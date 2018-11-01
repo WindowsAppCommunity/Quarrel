@@ -54,6 +54,42 @@ namespace Discord_UWP.SubPages
             App.SubpageCloseHandler -= App_SubpageCloseHandler;
         }
 
+        private int GetVfLvl()
+        {
+            if (vfLvl0.IsChecked == true)
+            {
+                return 0;
+            } else if (vfLvl1.IsChecked == true)
+            {
+                return 1;
+            } else if (vfLvl2.IsChecked == true)
+            {
+                return 2;
+            } else if (vfLvl3.IsChecked == true)
+            {
+                return 3;
+            } else
+            {
+                return 4;
+            }
+        }
+
+        private int GetECFLvl()
+        {
+            if (ecfLvl0.IsChecked == true)
+            {
+                return 0;
+            }
+            else if (ecfLvl1.IsChecked == true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+
         private async void SaveGuildSettings(object sender, RoutedEventArgs e)
         {
             saveBTNtext.Opacity = 0;
@@ -63,11 +99,11 @@ namespace Discord_UWP.SubPages
             {
                 API.Guild.Models.ModifyGuild modifyguild;
                 if (string.IsNullOrEmpty(base64img))
-                    modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                    modifyguild = new API.Guild.Models.ModifyGuild() { Name = GuildName.Text, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout, VerificationLevel = GetVfLvl(), ExplicitContentFilter = GetECFLvl() };
                 else
-                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = base64img, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout, VerificationLevel = GetVfLvl(), ExplicitContentFilter = GetECFLvl() };
                 if (DeletedImage)
-                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout };
+                    modifyguild = new API.Guild.Models.ModifyGuildIcon() { Name = GuildName.Text, Icon = null, AfkTimeout = LocalState.Guilds[guildId].Raw.AfkTimeout, VerificationLevel = GetVfLvl(), ExplicitContentFilter = GetECFLvl() };
                 await Task.Run(async () =>
                 {
                     await RESTCalls.ModifyGuild(guildId, modifyguild); //TODO: Rig to App.Events
