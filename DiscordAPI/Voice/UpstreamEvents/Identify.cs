@@ -17,5 +17,7 @@ namespace Discord_UWP.Voice.UpstreamEvents
         public string SessionId { get; set; }
         [JsonProperty("token")]
         public string Token { get; set; }
+        [JsonProperty("video")]
+        public bool Video { get; set; }
     }
 }
