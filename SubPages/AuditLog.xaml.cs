@@ -667,8 +667,11 @@ namespace Discord_UWP.SubPages
                     {
                         foreach (var user in auditlog.Users)
                         {
-                            users.Add(user.Id, user);
-                            usersForMD.Add(new User(){Avatar = user.Avatar, Username = user.Username, Id = user.Id, Discriminator= user.Discriminator, });
+                            if (!users.ContainsKey(user.Id))
+                            {
+                                users.Add(user.Id, user);
+                                usersForMD.Add(new User() { Avatar = user.Avatar, Username = user.Username, Id = user.Id, Discriminator = user.Discriminator, });
+                            }
                         }
                     }
                     if (auditlog.Webhooks != null)

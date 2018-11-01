@@ -202,6 +202,44 @@ namespace Discord_UWP.SubPages
 
             AllowDMs.IsChecked = LocalState.Settings.RestrictedGuilds == null || !LocalState.Settings.RestrictedGuilds.Contains(guildId);
 
+            switch (guild.Raw.VerificationLevel)
+            {
+                case 0:
+                    vfLvl0.IsChecked = true;
+                    break;
+                case 1:
+                    vfLvl1.IsChecked = true;
+                    break;
+                case 2:
+                    vfLvl2.IsChecked = true;
+                    break;
+                case 3:
+                    vfLvl3.IsChecked = true;
+                    break;
+                case 4:
+                    vfLvl4.IsChecked = true;
+                    break;
+            }
+
+            switch (guild.Raw.ExplicitContentFilter)
+            {
+                case 0:
+                    ecfLvl0.IsChecked = true;
+                    break;
+                case 1:
+                    ecfLvl1.IsChecked = true;
+                    break;
+                case 2:
+                    ecfLvl2.IsChecked = true;
+                    break;
+            }
+
+
+            if (!guild.permissions.ManangeGuild)
+            {
+                ServerManagementSettings.Opacity = 0.5;
+                ServerManagementSettings.IsHitTestVisible = false;
+            }
 
             GatewayManager.Gateway.GuildUpdated += GuildUpdated;
             GatewayManager.Gateway.GuildBanAdded += BanAdded;

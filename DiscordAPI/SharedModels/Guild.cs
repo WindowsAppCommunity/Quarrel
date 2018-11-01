@@ -27,6 +27,8 @@ namespace Discord_UWP.SharedModels
         public int AfkTimeout { get; set; }
         [JsonProperty("embed_enabled")]
         public bool EmbedEnabled { get; set; }
+        [JsonProperty("explicit_content_filter")]
+        public int ExplicitContentFilter { get; set; }
         [JsonProperty("embed_channel_id")]
         public string EmbedChannelId { get; set; }
         [JsonProperty("verification_level")]
