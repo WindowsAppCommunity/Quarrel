@@ -85,6 +85,7 @@ namespace Discord_UWP.Voice
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
+        public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VideoDataRecieved;
         public event EventHandler<VoiceConnectionEventArgs<DownstreamEvents.Speak>> Speak;
 
         public VoiceConnection()
@@ -117,7 +118,7 @@ namespace Discord_UWP.Voice
 
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("3"));
+            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("4"));
             IdentifySelfToVoiceConnection();
         }
 
@@ -405,21 +406,25 @@ namespace Discord_UWP.Voice
             data = new byte[packet.Length - 12 - 16];
 
 
-            int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey);
-            if (data.Length != outputLength)
-            {
-                throw new Exception("UGHHHH...."); //Conflicting sizes
-            }
 
             int payloadType = packet[1];
             switch (payloadType)
             {
                 case 120:
                     //Opus Audio
+                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                    {
+                        throw new Exception("Conflicting sizes"); //Conflicting sizes
+                    }
                     processVoicePacket(packet, data);
                     break;
                 case 101:
-                    //TODO: VP8 Video
+                    //VP8 Video
+                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                    {
+                        throw new Exception("Conflicting sizes"); //Conflicting sizes
+                    }
+                    processVP8Packet(packet, data);
                     break;
                 case 102:
                     //TODO: RTX Video
@@ -442,7 +447,22 @@ namespace Discord_UWP.Voice
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.Message);
+            }
+        }
+
+        private void processVP8Packet(byte[] packet, byte[] data)
+        {
+            try
+            {
+              //  int headerSize = GetHeaderSize(packet, data);
+              //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
+
+             //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
             }
         }
         #endregion
