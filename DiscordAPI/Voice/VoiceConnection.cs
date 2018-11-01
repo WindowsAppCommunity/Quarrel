@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 //using Sodium;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using RuntimeComponent;
@@ -41,8 +42,6 @@ namespace Discord_UWP.Voice
         private readonly UDPSocket _udpSocket;
         private readonly VoiceState _state;
         private readonly VoiceServerUpdate _voiceServerConfig;
-        private byte[] _nonce = new byte[24];
-        private byte[] _data;
 
         //private float[] partialFrame = null;
         byte[] buffer = new byte[FrameBytes];
@@ -58,6 +57,20 @@ namespace Discord_UWP.Voice
         public const int Channels = 2;
         public const int FrameMillis = 20;
 
+        public const int VideoDeviceBitrate = 600000;
+        public const int VideoDeviceMinBitrate = 150000;
+        public const int VideoDeviceMaxBitrate = 2500000;
+        public const int VideoDeviceWidth = 1280;
+        public const int VideoDeviceHeight = 720;
+        public const int VideoFrameRate = 30;
+
+        public const int DesktopBitrate = 600000;
+        public const int DesktopMinBitrate = 150000;
+        public const int DesktopMaxBitrate = 2500000;
+        public const int DesktopWidth = 1280;
+        public const int DesktopHeight = 720;
+        public const int DesktopFrameRate = 30;
+
         public const int SampleBytes = sizeof(float) * Channels;
 
         public const int FrameSamplesPerChannel = SamplingRate / 1000 * FrameMillis;
@@ -72,6 +85,7 @@ namespace Discord_UWP.Voice
 
         public event EventHandler<VoiceConnectionEventArgs<Ready>> Ready;
         public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VoiceDataRecieved;
+        public event EventHandler<VoiceConnectionEventArgs<VoiceData>> VideoDataRecieved;
         public event EventHandler<VoiceConnectionEventArgs<DownstreamEvents.Speak>> Speak;
 
         public VoiceConnection()
@@ -104,7 +118,7 @@ namespace Discord_UWP.Voice
 
         public async Task ConnectAsync()
         {
-            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("3"));
+            await _webMessageSocket.ConnectAsync(_voiceServerConfig.GetConnectionUrl("4"));
             IdentifySelfToVoiceConnection();
         }
 
@@ -253,7 +267,25 @@ namespace Discord_UWP.Voice
             {
                 Address = ip,
                 Port = port,
-                //Codecs = (new List<Codec>() { new Codec() { Name = "opus", payloadType = 120, Priority = 1, Type = "audio" }/*, new Codec() { Name = "VP8", payloadType = 101, Priority = 1, Type = "video" }*/ }).ToArray(),
+                Codecs = new List<Codec>()
+                {
+                    new Codec()
+                    {
+                        Name = "opus",
+                        payloadType = 120,
+                        Priority = 1000,
+                        Type = "audio",
+                        rtxPayloadType = 120
+                    },
+                    new Codec()
+                    {
+                        Name = "VP8",
+                        payloadType = 101,
+                        Priority = 1000,
+                        Type = "video",
+                        rtxPayloadType = 102
+                    }
+                }.ToArray(),
                 Mode = "xsalsa20_poly1305" //"_suffix"
             };
 
@@ -265,13 +297,13 @@ namespace Discord_UWP.Voice
 
             SocketFrame package = new SocketFrame()
             {
-                Operation = 1,
+                Operation = (int)OperationCode.SelectProtocol,
                 Payload = payload,
                 Type = EventNames.SELECT_PROTOCOL
             };
 
             _udpSocket.MessageReceived -= IpDiscover;
-            _udpSocket.MessageReceived += processVoicePacket;
+            _udpSocket.MessageReceived += processUdpPacket;
 
             await _webMessageSocket.SendJsonObjectAsync(package);
         }
@@ -365,32 +397,72 @@ namespace Discord_UWP.Voice
             FireEventOnDelegate(Event, Speak);
         }
 
-        private void processVoicePacket(object sender, PacketReceivedEventArgs e)
+        private void processUdpPacket(object sender, PacketReceivedEventArgs e)
+        {
+            byte[] packet = (byte[])e.Message;
+            byte[] nonce = new byte[24];
+            byte[] data;
+            Buffer.BlockCopy(packet, 0, nonce, 0, 12);
+            data = new byte[packet.Length - 12 - 16];
+
+
+
+            int payloadType = packet[1];
+            switch (payloadType)
+            {
+                case 120:
+                    //Opus Audio
+                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                    {
+                        throw new Exception("Conflicting sizes"); //Conflicting sizes
+                    }
+                    processVoicePacket(packet, data);
+                    break;
+                case 101:
+                    //VP8 Video
+                    if (data.Length != Cypher.decrypt(packet, 12, packet.Length - 12, data, 0, nonce, secretkey))
+                    {
+                        throw new Exception("Conflicting sizes"); //Conflicting sizes
+                    }
+                    processVP8Packet(packet, data);
+                    break;
+                case 102:
+                    //TODO: RTX Video
+                    Debug.WriteLine($"RTX payload: {payloadType}");
+                    break;
+                default:
+                    Debug.WriteLine($"Unknown payload Type: {payloadType}");
+                    break;
+            }
+        }
+
+        private void processVoicePacket(byte[] packet, byte[] data)
         {
             try
             {
-                if (secretkey != null)
-                {
-                    var packet = (byte[])e.Message;
-                    Buffer.BlockCopy(packet, 0, _nonce, 0, 12);
-                    _data = new byte[packet.Length - 12 - 16];
+                int headerSize = GetHeaderSize(packet, data);
+                int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
 
-
-                    int outputLength = Cypher.decrypt(packet, 12, packet.Length - 12, _data, 0, _nonce, secretkey);
-                    if (_data.Length != outputLength)
-                    {
-                        throw new Exception("UGHHHH...."); //Conflicting sizes
-                    }
-
-                    int headerSize = GetHeaderSize(packet, _data);
-                    int samples = decoder.Decode(_data, headerSize, _data.Length - headerSize, output, 0, framesize);
-
-                    VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
-                }
+                VoiceDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.Message);
+            }
+        }
+
+        private void processVP8Packet(byte[] packet, byte[] data)
+        {
+            try
+            {
+              //  int headerSize = GetHeaderSize(packet, data);
+              //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
+
+             //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
             }
         }
         #endregion
