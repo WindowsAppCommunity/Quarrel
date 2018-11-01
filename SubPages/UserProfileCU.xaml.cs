@@ -107,59 +107,6 @@ namespace Discord_UWP.SubPages
             Frame.Navigate(typeof(SubPages.Settings));
         }
 
-        private async void UpdateUser(object sender, RoutedEventArgs e)
-        {
-            saveBTNtext.Opacity = 0;
-            SaveButton.IsEnabled = false;
-            saveBTNprog.Visibility = Visibility.Visible;
-            API.User.Models.ModifyUser modifyuser;
-            if (!String.IsNullOrEmpty(password.Password))
-            {
-                string newpass = null;
-                if (string.IsNullOrWhiteSpace(newpassword.Password))
-                    newpass = null;
-                if (string.IsNullOrEmpty(base64img))
-                    modifyuser = new API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
-                else
-                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
-                if (DeletedImage)
-                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
-                User response = null;
-
-                await Task.Run(async () =>
-                {
-                    response = await RESTCalls.ModifyCurrentUser(modifyuser); //TODO: Rig to App.Events
-                });
-                if (response == null || response?.Id == null)
-                {
-                    string error = App.GetString("ThereWasAnErrorClarify");
-                    if (!string.IsNullOrEmpty(response.Username))
-                        error += response.Username + "\n";
-                    if (!string.IsNullOrEmpty(response.Avatar))
-                        error += response.Username + "\n";
-                    if (!string.IsNullOrEmpty(response.Email))
-                        error += response.Email + "\n";
-
-                    MessageDialog md = new MessageDialog(error, App.GetString("/Dialogs/Sorry"));
-                    saveBTNtext.Opacity = 1;
-                    SaveButton.IsEnabled = true;
-                    saveBTNprog.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    CloseButton_Click(null, null);
-                    LocalState.CurrentUser = response;
-                }
-            }
-            else
-            {
-                //TODO: Highlight Current Password
-                MustFill.Visibility = Visibility.Visible;
-                saveBTNtext.Opacity = 1;
-                SaveButton.IsEnabled = true;
-                saveBTNprog.Visibility = Visibility.Collapsed;
-            }
-        }
 
         string base64img = "";
         bool DeletedImage = false;
@@ -308,7 +255,75 @@ namespace Discord_UWP.SubPages
         //    }
         //}
 
-        private async void SaveUserSettings(object sender, RoutedEventArgs e)
+
+        private void SaveButtonClick(object sender, RoutedEventArgs e)
+        {
+            switch (Pivot.SelectedIndex)
+            {
+                case 0:
+                    UpdateUser();
+                    break;
+                case 1:
+                    SaveUserSettings();
+                    break;
+            }
+        }
+
+        private async void UpdateUser()
+        {
+            saveBTNtext.Opacity = 0;
+            SaveButton.IsEnabled = false;
+            saveBTNprog.Visibility = Visibility.Visible;
+            API.User.Models.ModifyUser modifyuser;
+            if (!String.IsNullOrEmpty(password.Password))
+            {
+                string newpass = null;
+                if (string.IsNullOrWhiteSpace(newpassword.Password))
+                    newpass = null;
+                if (string.IsNullOrEmpty(base64img))
+                    modifyuser = new API.User.Models.ModifyUser() { Username = usernameBox.Text, Password = password.Password, NewPassword = newpass };
+                else
+                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = base64img, NewPassword = newpass };
+                if (DeletedImage)
+                    modifyuser = new API.User.Models.ModifyUserAndAvatar() { Username = usernameBox.Text, Password = password.Password, Avatar = null, NewPassword = newpass };
+                User response = null;
+
+                await Task.Run(async () =>
+                {
+                    response = await RESTCalls.ModifyCurrentUser(modifyuser); //TODO: Rig to App.Events
+                });
+                if (response == null || response?.Id == null)
+                {
+                    string error = App.GetString("ThereWasAnErrorClarify");
+                    if (!string.IsNullOrEmpty(response.Username))
+                        error += response.Username + "\n";
+                    if (!string.IsNullOrEmpty(response.Avatar))
+                        error += response.Username + "\n";
+                    if (!string.IsNullOrEmpty(response.Email))
+                        error += response.Email + "\n";
+
+                    MessageDialog md = new MessageDialog(error, App.GetString("/Dialogs/Sorry"));
+                    saveBTNtext.Opacity = 1;
+                    SaveButton.IsEnabled = true;
+                    saveBTNprog.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    CloseButton_Click(null, null);
+                    LocalState.CurrentUser = response;
+                }
+            }
+            else
+            {
+                //TODO: Highlight Current Password
+                MustFill.Visibility = Visibility.Visible;
+                saveBTNtext.Opacity = 1;
+                SaveButton.IsEnabled = true;
+                saveBTNprog.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void SaveUserSettings()
         {
             var modify = new API.User.Models.ModifyUserSettings(LocalState.Settings);
 

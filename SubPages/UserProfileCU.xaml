@@ -92,7 +92,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Uid="/Settings/AccountSettingTB" x:Name="header" Text="ACCOUNT SETTINGS" FontWeight="SemiBold" Margin="0" FontSize="20"/>
-                    <Pivot Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
+                    <Pivot x:Name="Pivot" Grid.ColumnSpan="2" Margin="-12,24,-24,0" Grid.Row="0" Padding="0">
                         <PivotItem x:Uid="/Settings/AccountPI" Header="Account">
                             <ScrollViewer Margin="-12,0,0,0" Grid.Row="0" Padding="0">
                                 <StackPanel Grid.Row="0" Margin="12,0,12,0" Padding="0,0,0,24">
@@ -108,7 +108,6 @@
                                             </Rectangle.Fill>
                                         </Rectangle>
                                         <StackPanel Margin="0,6,0,0"  Grid.Row="1">
-
                                             <HyperlinkButton x:Uid="/Settings/UploadImageHLBTN" x:Name="uploadImage" Style="{StaticResource PlainHyperlinkStyle}" Click="HyperlinkButton_Click" FontWeight="SemiBold" BorderThickness="0" Padding="0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Content="Upload image"/>
                                             <HyperlinkButton x:Uid="/Settings/DeleteImageHLBTN" x:Name="deleteImage" Click="deleteImage_Click" Style="{StaticResource PlainHyperlinkStyle}" BorderThickness="0" Padding="0" Foreground="{ThemeResource dnd}" Content="Delete"/>
                                         </StackPanel>
@@ -120,14 +119,7 @@
                                     <HyperlinkButton x:Uid="/Settings/ChangePswrdHLBTN" x:Name="changepass"  FontSize="13.33" Content="Change password" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,6,0,0" HorizontalAlignment="Left" Click="changepass_Click"/>
                                     <PasswordBox x:Uid="/Settings/NewPswrdPBox" x:Name="newpassword" Visibility="Collapsed" Style="{StaticResource PasswordBoxStyle1}" Header="New password" Margin="0,6,0,0"/>
                                     <TextBlock x:Uid="/Settings/ConnectionsTB" Text="Connections" Margin="0,12" Visibility="Collapsed"/>
-                                    <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="UpdateUser" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="24,24,24,0" Grid.Column="2" Padding="24,12">
-                                        <Button.Content>
-                                            <Grid>
-                                                <TextBlock x:Uid="/Settings/SaveTB" x:Name="saveBTNtext" Text="Save"/>
-                                                <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
+                                    
                                     <Grid Height="100" Margin="25,0" Visibility="Collapsed">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -233,7 +225,15 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Button x:Uid="/Dialogs/SaveBTN" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>
+                            <!--<Button x:Uid="/Dialogs/SaveBTN" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveUserSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12"/>-->
+                            <Button x:Name="SaveButton" IsEnabled="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="SaveButtonClick" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
+                                <Button.Content>
+                                    <Grid>
+                                        <TextBlock x:Uid="/Settings/SaveTB" x:Name="saveBTNtext" Text="Save"/>
+                                        <ProgressRing x:Name="saveBTNprog" Visibility="Collapsed" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" IsActive="True"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
