@@ -62,6 +62,26 @@ namespace Discord_UWP.SubPages
             usernameBox.Text = LocalState.CurrentUser.Username;
             emailBox.Text = LocalState.CurrentUser.Email;
 
+            switch (LocalState.Settings.ExplicitContentFilter)
+            {
+                case 0:
+                    Filtering2.IsChecked = true;
+                    break;
+                case 1:
+                    Filtering1.IsChecked = true;
+                    break;
+                case 2:
+                    Filtering2.IsChecked = true;
+                    break;
+            }
+
+            //if (LocalState.Settings.FriendSourceFlag != null)
+            //{
+            //    FriendRequest0.IsChecked = LocalState.Settings.FriendSourceFlag.All;
+            //    FriendRequest1.IsChecked = LocalState.Settings.FriendSourceFlag.MutualFriends;
+            //    FriendRequest2.IsChecked = LocalState.Settings.FriendSourceFlag.MutualGuilds;
+            //}
+
             if (string.IsNullOrEmpty(LocalState.CurrentUser.Avatar))
                 deleteImage.Visibility = Visibility.Collapsed;
             else
@@ -87,7 +107,7 @@ namespace Discord_UWP.SubPages
             Frame.Navigate(typeof(SubPages.Settings));
         }
 
-        private async void SaveUserSettings(object sender, RoutedEventArgs e)
+        private async void UpdateUser(object sender, RoutedEventArgs e)
         {
             saveBTNtext.Opacity = 0;
             SaveButton.IsEnabled = false;
@@ -271,21 +291,47 @@ namespace Discord_UWP.SubPages
             await Windows.System.Launcher.LaunchUriAsync(new Uri(await RESTCalls.GetConnectionUrl(((sender as Button).Tag.ToString()))));
         }
 
-        private void FriendRequest0_OnChecked(object sender, RoutedEventArgs e)
+        //private void FriendRequest0_OnChecked(object sender, RoutedEventArgs e)
+        //{
+        //    if (FriendRequest0.IsChecked == true)
+        //    {
+        //        FriendRequest1.IsChecked = true;
+        //        FriendRequest2.IsChecked = true;
+        //    }
+        //}
+        //private void FriendRequest_OnChecked(object sender, RoutedEventArgs e)
+        //{
+        //    if (FriendRequest0.IsChecked == true)
+        //    {
+        //        FriendRequest1.IsChecked = true;
+        //        FriendRequest2.IsChecked = true;
+        //    }
+        //}
+
+        private async void SaveUserSettings(object sender, RoutedEventArgs e)
         {
-            if (FriendRequest0.IsChecked == true)
+            var modify = new API.User.Models.ModifyUserSettings(LocalState.Settings);
+
+            if (Filtering2.IsChecked == true)
             {
-                FriendRequest1.IsChecked = true;
-                FriendRequest2.IsChecked = true;
+                modify.ExplicitContentFilter = 2;
             }
-        }
-        private void FriendRequest_OnChecked(object sender, RoutedEventArgs e)
-        {
-            if (FriendRequest0.IsChecked == true)
+            else if (Filtering1.IsChecked == true)
             {
-                FriendRequest1.IsChecked = true;
-                FriendRequest2.IsChecked = true;
+                modify.ExplicitContentFilter = 1;
             }
+            else
+            {
+                modify.ExplicitContentFilter = 0;
+            }
+
+            //modify.FriendSourceFlag.All = FriendRequest0.IsChecked == true;
+            //modify.FriendSourceFlag.MutualFriends = FriendRequest1.IsChecked == true;
+            //modify.FriendSourceFlag.MutualGuilds = FriendRequest2.IsChecked == true;
+
+            LocalState.Settings = await RESTCalls.ModifyUserSettings(modify);
+
+            CloseButton_Click(null, null);
         }
     }
 }

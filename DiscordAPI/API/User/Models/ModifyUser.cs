@@ -78,7 +78,7 @@ namespace Discord_UWP.API.User.Models
         public IEnumerable<string> GuildOrder { get; set; }
 
         [JsonProperty("friend_source_flag")] /* Dafuq is this? */
-        public object FriendSourceFlag { get; set; }
+        public FriendSourceFlag FriendSourceFlag { get; set; }
 
         [JsonProperty("explicit_content_filter")]
         public int ExplicitContentFilter { get; set; }

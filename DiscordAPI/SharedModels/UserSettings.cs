@@ -45,8 +45,8 @@ namespace Discord_UWP.SharedModels
         [JsonProperty("guild_positions")]
         public IEnumerable<string> GuildOrder { get; set; }
 
-        [JsonProperty("friend_source_flag")] /* Dafuq is this? */
-        public object FriendSourceFlag { get; set; }
+        [JsonProperty("friend_source_flag")]
+        public FriendSourceFlag FriendSourceFlag { get; set; }
 
         [JsonProperty("explicit_content_filter")]
         public int ExplicitContentFilter { get; set; }
@@ -115,5 +115,17 @@ namespace Discord_UWP.SharedModels
 
         [JsonProperty("message_notifications")]
         public int MessageNotifications { get; set; }
+    }
+
+    public class FriendSourceFlag
+    {
+        [JsonProperty("all")]
+        public bool All { get; set; }
+
+        [JsonProperty("mutual_friends")]
+        public bool MutualFriends { get; set; }
+
+        [JsonProperty("mutual_guilds")]
+        public bool MutualGuilds { get; set; }
     }
 }
