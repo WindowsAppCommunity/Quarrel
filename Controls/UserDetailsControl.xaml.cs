@@ -1,35 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 using Discord_UWP.LocalModels;
 using Discord_UWP.Managers;
 using Discord_UWP.SharedModels;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Composition;
 using Microsoft.Graphics.Canvas.Effects;
-using Windows.Graphics.Effects;
 using Windows.UI.Xaml.Hosting;
-
 using System.Numerics;
 
 namespace Discord_UWP.Controls
@@ -38,8 +28,8 @@ namespace Discord_UWP.Controls
     {
         public GuildMember DisplayedMember
         {
-            get { return (GuildMember)GetValue(DisplayedMemberProperty); }
-            set { SetValue(DisplayedMemberProperty, value); }
+            get => (GuildMember)GetValue(DisplayedMemberProperty);
+            set => SetValue(DisplayedMemberProperty, value);
         }
         public static readonly DependencyProperty DisplayedMemberProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
@@ -49,8 +39,8 @@ namespace Discord_UWP.Controls
 
         public bool DMPane
         {
-            get { return (bool)GetValue(DMPaneProperty); }
-            set { SetValue(DMPaneProperty, value); }
+            get => (bool)GetValue(DMPaneProperty);
+            set => SetValue(DMPaneProperty, value);
         }
         public static readonly DependencyProperty DMPaneProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
@@ -60,8 +50,8 @@ namespace Discord_UWP.Controls
 
         public bool Webhook
         {
-            get { return (bool)GetValue(WebhookProperty); }
-            set { SetValue(WebhookProperty, value); }
+            get => (bool)GetValue(WebhookProperty);
+            set => SetValue(WebhookProperty, value);
         }
         public static readonly DependencyProperty WebhookProperty = DependencyProperty.Register(
             nameof(DisplayedMember),
@@ -106,7 +96,7 @@ namespace Discord_UWP.Controls
                 else
                 {
                     UserStacker.Opacity = 1;
-                    UserStacker.Margin = new Thickness(0, 20, 0, 20);
+                    UserStacker.Margin = new Thickness(0, 0, 0, 20);
                     Username.FontSize = 16;
                     Username.FontWeight = Windows.UI.Text.FontWeights.SemiBold;
                     Discriminator.FontSize = 14;
@@ -122,13 +112,7 @@ namespace Discord_UWP.Controls
                 SetupComposition(imageURL);
 
 
-                if (user.Avatar == null)
-                {
-                    AvatarBG.Fill = Common.DiscriminatorColor(user.Discriminator);
-                } else
-                {
-                    AvatarBG.Fill = Common.GetSolidColorBrush("#00000000");
-                }
+                AvatarBG.Fill = user.Avatar == null ? Common.DiscriminatorColor(user.Discriminator) : Common.GetSolidColorBrush("#00000000");
 
                 if (LocalState.PresenceDict.ContainsKey(user.Id))
                 {
@@ -143,7 +127,7 @@ namespace Discord_UWP.Controls
 
                 if (DisplayedMember.JoinedAt.Ticks != 0)
                 {
-                    if (DisplayedMember.Roles.Count() == 0)
+                    if (!DisplayedMember.Roles.Any())
                     {
                      //   RoleHeader.Visibility = Visibility.Collapsed;
                     }
@@ -274,15 +258,12 @@ namespace Discord_UWP.Controls
                     borderColor.Width = 228;
                     borderColor.CornerRadius = new CornerRadius(0);
                     borderColor.BorderThickness = new Thickness(0);
-                    UserStacker.HorizontalAlignment = HorizontalAlignment.Left;
-                    Nick.HorizontalAlignment = HorizontalAlignment.Left;
-                    profileGrid.HorizontalAlignment = HorizontalAlignment.Left;
                     Nick.Margin = new Thickness(12, 12, 0, 0);
                     UserStacker.Margin = new Thickness(12, 6, 0, 12);
                     Username.FontSize = 14;
                     Discriminator.FontSize = 12;
                     profileGrid.Margin = new Thickness(12, 24, 0, 0);
-                    Row1Grid.Background = new SolidColorBrush(Windows.UI.Colors.Transparent);
+                    Row1Grid.Background = new SolidColorBrush(Colors.Transparent);
                 } else
                 {
                    //Not actually necessary, because there is absolutely no risk of the control getting recycled in a different situation
@@ -349,7 +330,7 @@ namespace Discord_UWP.Controls
 
         public UserDetailsControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             SendDM.Send += SendDirectMessage;
             if (App.GatewayCreated)
             {
@@ -366,10 +347,9 @@ namespace Discord_UWP.Controls
 
         private async void Gateway_PresenceUpdated(object sender, Gateway.GatewayEventArgs<Presence> e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                    () =>
-                    {
-                        try
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                try
                 {
                     if (e.EventData.User.Id == DisplayedMember.User.Id)
                     {
@@ -406,10 +386,10 @@ namespace Discord_UWP.Controls
         {
             string channelid = null;
             foreach (var dm in LocalState.DMs)
-                if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == DisplayedMember.User.Id.ToString())
+                if (dm.Value.Type == 1 && dm.Value.Users.FirstOrDefault()?.Id == DisplayedMember.User.Id)
                     channelid = dm.Value.Id;
             if (channelid == null)
-                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id.ToString() }.AsEnumerable() })).Id;
+                channelid = (await RESTCalls.CreateDM(new API.User.Models.CreateDM() { Recipients = new List<string>() { DisplayedMember.User.Id }.AsEnumerable() })).Id;
             if (string.IsNullOrEmpty(channelid)) return;
             App.SelectGuildChannel("@me", channelid, SendDM.Text, true);
         }
