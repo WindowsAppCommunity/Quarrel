@@ -706,6 +706,8 @@
                                 <Viewbox x:Name="ContentViewbox" AutomationProperties.AccessibilityView="Raw" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="20" Margin="0,0,0,0">
                                     <ContentPresenter x:Name="Content" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" Height="20"/>
                                 </Viewbox>
+                                <TextBlock x:Name="TextLabel" AutomationProperties.AccessibilityView="Raw" FontFamily="{TemplateBinding FontFamily}" Foreground="{TemplateBinding Foreground}" FontSize="12" Margin="2,0,2,6" Grid.Row="1" Text="{TemplateBinding Label}" TextWrapping="Wrap" TextAlignment="Center"/>
+                                <TextBlock x:Name="OverflowTextLabel" AutomationProperties.AccessibilityView="Raw" FontFamily="{TemplateBinding FontFamily}" Foreground="{TemplateBinding Foreground}" FontSize="15" HorizontalAlignment="Stretch" Margin="12,0,12,0" Padding="0,5,0,7" Text="{TemplateBinding Label}" TextTrimming="Clip" TextWrapping="NoWrap" TextAlignment="Left" VerticalAlignment="Center" Visibility="Collapsed"/>
                             </Grid>
                         </Grid>
                     </ControlTemplate>
