@@ -15,6 +15,8 @@ namespace Discord_UWP.API.Guild.Models
         public string Region { get; set; }
         [JsonProperty("verification_level")]
         public int VerificationLevel { get; set; }
+        [JsonProperty("explicit_content_filter")]
+        public int ExplicitContentFilter { get; set; }
         [JsonProperty("afk_channel_id")]
         public string AfkChannelId { get; set; }
         [JsonProperty("afk_timeout")]
@@ -24,6 +26,7 @@ namespace Discord_UWP.API.Guild.Models
         [JsonProperty("splash")]
         public string Splash { get; set; }
     }
+
     public class ModifyGuildIcon : ModifyGuild
     {
         [JsonProperty("icon")]
