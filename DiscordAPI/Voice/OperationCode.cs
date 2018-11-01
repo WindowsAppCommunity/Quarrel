@@ -20,7 +20,7 @@ namespace Discord_UWP.Voice
         Resumed = 9,
         Signal = 10,
         IDK1 = 11,
-        Video = 12,
+        MediaSources = 12,
         ClientDisconnect = 13,
         IDK2 = 14
     }
