@@ -112,6 +112,10 @@
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
+                        <!--TODO: Translate-->
+                        <!--<PivotItem Header="Permissions">
+                            
+                        </PivotItem>-->
                         <PivotItem x:Uid="/Dialogs/InvitesPI" Header="Invites">
                             <Grid>
                                 <ListView x:Name="InviteView" HorizontalContentAlignment="Stretch" SelectionMode="None" IsItemClickEnabled="False">
