@@ -290,7 +290,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Rectangle Fill="Transparent" Tapped="UIElement_OnTapped" Margin="-100"/>
-        <Grid x:Name="grid" MaxWidth="800" MaxHeight="1200" >
+        <Grid x:Name="grid" MaxWidth="1200" MaxHeight="1000" >
             <AppBarButton x:Name="appBarButton" Icon="Clear" HorizontalAlignment="Right" Height="48" Margin="0" Click="CloseButton_Click"/>
             <Border x:Name="border" BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}" Background="{ThemeResource DeepBG}" BorderThickness="1" CornerRadius="1" Padding="24,24,24,0" Margin="0,48,0,0">
                 <Grid>
@@ -325,8 +325,65 @@
                                     <TextBox x:Uid="/Dialogs/EditServerNameTBox" Margin="0,24,0,0" x:Name="GuildName" Header="Server Name" Style="{StaticResource TextBoxStyle1}" TextChanged="ServerName_TextChanged"/>
                                     <TextBlock x:Name="NameCharCounter" Text="100" Foreground="{ThemeResource InvertedBG}" FontSize="11" Opacity="0.5" HorizontalAlignment="Right" Margin="0,4,0,0"/>
 
-                                    <TextBlock x:Uid="/Dialogs/PrivacySettingsTB" Text="PRIVACY SETTINGS" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Margin="0,4"/>
+                                    <!--TODO: Translate-->
+                                    <TextBlock Text="PRIVACY SETTINGS" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Margin="0,4"/>
                                     <CheckBox x:Name="AllowDMs" Content="Allow Direct Messages from Server Members" Style="{StaticResource CheckBoxStyle1}" Margin="8,0,0,0"/>
+
+                                    <TextBlock Text="MODERATION SETTINGS" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontWeight="Bold" Margin="0,16,0,4"/>
+
+                                    <StackPanel x:Name="ServerManagementSettings">
+                                        <TextBlock Text="Verification Levels" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
+                                        <RadioButton x:Name="vfLvl0" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="VfLvl" IsChecked="True">
+                                            <StackPanel>
+                                                <TextBlock Text="None"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Unrestricted"/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="vfLvl1" Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="VfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="Low"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified email attached to their account." />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="vfLvl2" Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="VfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="Medium"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be registered on Discord for longer than 5 minutes." />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="vfLvl3" Foreground="#F57731" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="VfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="(╯°□°）╯︵ ┻━┻"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Must also be a member of this server longer than 10 minutes." />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="vfLvl4" Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="VfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="┻━┻彡 ヽ(ಠ益ಠ)ノ彡┻━┻"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Must have a verified phone on their discord account." />
+                                            </StackPanel>
+                                        </RadioButton>
+
+                                        <TextBlock Text="Explicit Content Filter" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontSize="14" FontWeight="SemiBold" Margin="4,16,0,4"/>
+                                        <RadioButton x:Name="ecfLvl0" Foreground="{ThemeResource online}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="EcfLvl" IsChecked="True">
+                                            <StackPanel>
+                                                <TextBlock Text="Don't scan any messages."/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Ain't no party like my grandma's tea party."/>
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="ecfLvl1" Foreground="{ThemeResource idle}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="EcfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="Scan messages from members without a role"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for servers that use roles for trusted membership." />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="ecfLvl2" Foreground="{ThemeResource dnd}" Style="{StaticResource DiscordRadioButton}" Margin="8,0,0,0" GroupName="EcfLvl">
+                                            <StackPanel>
+                                                <TextBlock Text="Scan messages send by all memers"/>
+                                                <TextBlock FontSize="11" Foreground="{ThemeResource InvertedBG}" Opacity="0.5" TextWrapping="Wrap" Text="Recommended option for when you want that squeaky clean shine" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                    </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
                         </PivotItem>
@@ -504,7 +561,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <HyperlinkButton  Visibility="Collapsed" Content="Audit Log" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="NavigateToAudit_Click"/>
+                            <HyperlinkButton  Visibility="Visible" Content="Audit Log" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="NavigateToAudit_Click"/>
                             <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
                             <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
                                 <Button.Content>
