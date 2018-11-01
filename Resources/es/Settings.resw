@@ -264,7 +264,7 @@
   <data name="None" xml:space="preserve">
     <value>Ninguno</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="MentionsCB.Content" xml:space="preserve">
     <value>Menciones</value>
   </data>
   <data name="Unread" xml:space="preserve">
@@ -443,5 +443,29 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Por defecto</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Menciones</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>No leídos</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>¿Qué añade a las notificaciones de lista de amigos?</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>Solicitudes de Amistad</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>MDs</value>
   </data>
 </root>

@@ -139,7 +139,7 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
+  <data name="DMsCB.Content" xml:space="preserve">
     <value>DMs</value>
   </data>
   <data name="DndColorTB.Text" xml:space="preserve">
@@ -148,7 +148,7 @@
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Expensive rendering (blur effects etc...)</value>
   </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
     <value>What adds to Friends list notifications?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
@@ -223,10 +223,10 @@
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="FriendRequestsCB" xml:space="preserve">
+  <data name="FriendRequestsCBContent" xml:space="preserve">
     <value>Friend Requests</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
     <value>Muted channels affect server unread status?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
@@ -244,7 +244,7 @@
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Enable Acrylic effects (blurred background)</value>
   </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
     <value>Muted channels effect server unread status?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
@@ -265,10 +265,10 @@
   <data name="Mentions" xml:space="preserve">
     <value>Mentions</value>
   </data>
-  <data name="None" xml:space="preserve">
+  <data name="NoneRB.Content" xml:space="preserve">
     <value>None</value>
   </data>
-  <data name="Unread" xml:space="preserve">
+  <data name="UnreadRB.Content" xml:space="preserve">
     <value>Unread</value>
   </data>
   <data name="TranslatorPI" xml:space="preserve">
@@ -444,5 +444,32 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Default</value>
+  </data>
+  <data name="AppSettingsHLBTN.Content" xml:space="preserve">
+    <value>Application Settings</value>
+  </data>
+  <data name="MentionsCB.Content" xml:space="preserve">
+    <value>Mentions</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Unread" xml:space="preserve">
+    <value>Unread</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
+    <value>Muted channels affect server unread status?</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
+    <value>Muted channels effect server unread status?</value>
+  </data>
+  <data name="FriendsNotifyTB" xml:space="preserve">
+    <value>What adds to Friends list notifications?</value>
+  </data>
+  <data name="FriendRequestsCB" xml:space="preserve">
+    <value>Friend Requests</value>
+  </data>
+  <data name="DMsCB" xml:space="preserve">
+    <value>DMs</value>
   </data>
 </root>

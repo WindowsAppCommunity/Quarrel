@@ -218,7 +218,7 @@
                         </PivotItem>
                     </Pivot>
                     <Grid Grid.Row="1" Height="70.4" Margin="-24,0" Background="{ThemeResource DarkBG}" Padding="24,12">
-                        <HyperlinkButton x:Uid="AppSettingsHLBTN" Content="Application settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
+                        <HyperlinkButton x:Uid="/Settings/AppSettingsHLBTN" Content="Application Settings" Style="{StaticResource HyperlinkButtonStyle1}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="12,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Click="Button_Click"/>
                         <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

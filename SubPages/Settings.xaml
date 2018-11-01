@@ -665,9 +665,9 @@
                                         <CheckBox x:Uid="/Settings/OutgoingFriendsCB" x:Name="FriendsNotifyOutgoingFriendRequests" Content="Outgoing Friend Requests" Style="{StaticResource CheckBoxStyle1}"/>-->
 
                                         <TextBlock Text="Override Category Collapse" FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
-                                        <RadioButton x:Uid="/Settings/None" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        <RadioButton x:Uid="/Settings/Unread" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
-                                        <RadioButton x:Uid="/Settings/Mention" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/NoneRB" Content="No Override" x:Name="NoOverride" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/UnreadRB" Content="Unread" x:Name="OverrideUnread" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                        <RadioButton x:Uid="/Settings/MentionsRB" Content="Mentions" x:Name="OverrideMention" Style="{StaticResource DiscordRadioButton}" GroupName="CollapseOverride" Margin="0,6,0,0" HorizontalAlignment="Left"/>
 
                                         <!--<TextBlock Text="NOTIFY ME FOR..." FontSize="16" FontWeight="SemiBold" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="0,12,0,0"/>
                                 <RadioButton Style="{StaticResource DiscordRadioButton}" GroupName="Notifications" Margin="0,6,0,0" HorizontalAlignment="Left">Nothing</RadioButton>

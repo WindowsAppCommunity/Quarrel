@@ -261,7 +261,7 @@
   <data name="Enable compression (Faster)" xml:space="preserve">
     <value>Activer la compression de données</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="MentionsCB.Content" xml:space="preserve">
     <value>Mentionne</value>
   </data>
   <data name="None" xml:space="preserve">
@@ -443,5 +443,29 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Default</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Mentionne</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>Non-lu</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>Les salons muets affectent le statut "lu" du serveur?</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>Les salons muets affectent le statut "lu" du serveur?</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis ?</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>Demandes d'amis</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>DMs</value>
   </data>
 </root>

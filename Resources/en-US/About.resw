@@ -237,7 +237,7 @@
     <value>Retry Login</value>
   </data>
   <data name="SpecialThxTB.Text" xml:space="preserve">
-    <value>Special thanks:</value>
+    <value>Special Thanks:</value>
   </data>
   <data name="InboundRun.Text" xml:space="preserve">
     <value>Inbound:</value>
