@@ -261,7 +261,7 @@
   <data name="Enable compression (Faster)" xml:space="preserve">
     <value>Zezwól na kompresowanie danych</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="MentionsCB.Content" xml:space="preserve">
     <value>Wzmianki</value>
   </data>
   <data name="None" xml:space="preserve">
@@ -443,5 +443,29 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Domyślny</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Wzmianki</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>Nic</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>Nieprzeczytane</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>Wyciszone kanały mają wpływ na nieprzeczytany status serwera</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>Wyciszone kanały mają wpływ na nieprzeczytany status serwera</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>Co dodać do powiadomień Listy znajomych?</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>Prośby o dodanie do znajomych</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>PW</value>
   </data>
 </root>

@@ -265,7 +265,7 @@
   <data name="Enable compression (Faster)" xml:space="preserve">
     <value>Включить сжатие данных</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="MentionsCB.Content" xml:space="preserve">
     <value>Упомения</value>
   </data>
   <data name="None" xml:space="preserve">
@@ -454,5 +454,31 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Стандартный</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>Упомения</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>Непрочитанный</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>Отключенные каналы влияют
+ на непрочитанный статус сервера?</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>Отключенные каналы влияют
+ на непрочитанный статус сервера?</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>Что добавляет к уведомлениям о друзьях?</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>Запросы в друзья</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>DM's</value>
   </data>
 </root>

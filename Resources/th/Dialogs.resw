@@ -464,7 +464,7 @@
     <value>กำลังบันทึก</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>ไฟล์</value>
+    <value>ไฟล์ที่: </value>
   </data>
   <data name="GotIt.Content" xml:space="preserve">
     <value>ปิด</value>
@@ -716,10 +716,10 @@
     <value>ได้เปลี่ยนชื่อเป็น &lt;name&gt;</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwFalse" xml:space="preserve">
-    <value>ได้ตั้งสถานะแชนเนลเป็น **ระดับทั่วไป**</value>
+    <value>ได้ตั้งสถานะแชนเนลเป็นระดับทั่วไป</value>
   </data>
   <data name="AuditLogChannelUpdateNsfwTrue" xml:space="preserve">
-    <value>ได้ตั้งสถานะแชนเนลเป็น **ระดับที่มีเนื้อหาทางเพศที่ไม่เหมาะสม**</value>
+    <value>ได้ตั้งสถานะแชนเนลเป็นระดับที่มีเนื้อหาทางเพศที่ไม่เหมาะสม</value>
   </data>
   <data name="AuditLogChannelUpdateTopic" xml:space="preserve">
     <value>ได้ตั้งหัวข้อของแชนเนลเป็น &lt;subject&gt;</value>
@@ -728,16 +728,16 @@
     <value>ได้เปลี่ยนหัวข้อจาก &lt;old&gt; เป็น &lt;new&gt;</value>
   </data>
   <data name="AuditLogPermissionGiven" xml:space="preserve">
-    <value>**ให้สิทธิ์** &lt;permission&gt; ให้กับ &lt;role&gt;</value>
+    <value>ได้ให้สิทธิ์ &lt;permission&gt; ให้กับ &lt;role&gt;</value>
   </data>
   <data name="AuditLogPermissionRevoked" xml:space="preserve">
-    <value>**ถอดถอนสิทธิ์** &lt;permission&gt; จาก &lt;role&gt;</value>
+    <value>ได้ถอดถอนสิทธิ์ &lt;permission&gt; จาก &lt;role&gt;</value>
   </data>
   <data name="AuditLogServerUpdateAfkChannel" xml:space="preserve">
     <value>&lt;channel&gt; ได้ถูกตั้งให้เป็นแชนเนลสำหรับผู้ที่เงียบหายฟป</value>
   </data>
   <data name="AuditLogServerUpdateAfkTimeout" xml:space="preserve">
-    <value>ระยะเวลา &lt;time&gt; **นาที** เป็นระยะเวลาขั้นต่ำของผู้ที่เงียบหายไป</value>
+    <value>ระยะเวลา &lt;time&gt; นาที เป็นระยะเวลาขั้นต่ำของผู้ที่เงียบหายไป</value>
   </data>
   <data name="AuditLogServerUpdateIcon" xml:space="preserve">
     <value>รูปโปรไฟล์ของเซิฟเวอร์ถูกเปลี่ยน</value>
@@ -909,5 +909,65 @@
   </data>
   <data name="Remove" xml:space="preserve">
     <value>ลบ</value>
+  </data>
+  <data name="PrivacySettingsTB.Text" xml:space="preserve">
+    <value>ความเป็นส่วนตัว</value>
+  </data>
+  <data name="AllowDMsCB.Content" xml:space="preserve">
+    <value>อนุญาตให้สมาชิกในเซิฟเวอร์ส่งข้อความหาได้</value>
+  </data>
+  <data name="ModerationSettingsTB.Text" xml:space="preserve">
+    <value>ระดับความเข้มงวด</value>
+  </data>
+  <data name="VFLevelsTB.Text" xml:space="preserve">
+    <value>ความต้องการในการยืนยันตัวตน</value>
+  </data>
+  <data name="NoneVfTB.Text" xml:space="preserve">
+    <value>ไม่จำเป็น</value>
+  </data>
+  <data name="NoneDescVfTB.Text" xml:space="preserve">
+    <value>อนุญาตทุกคน</value>
+  </data>
+  <data name="LowVfTB.Text" xml:space="preserve">
+    <value>เล็กน้อย</value>
+  </data>
+  <data name="LowDescVfTB.Text" xml:space="preserve">
+    <value>ต้องยืนยันตัวด้วยอีเมลก่อน</value>
+  </data>
+  <data name="MediumVfTB.Text" xml:space="preserve">
+    <value>ปานกลาง</value>
+  </data>
+  <data name="MediumDescVfTB.Text" xml:space="preserve">
+    <value>ต้องสมัครเป็นสมาชิก Discord มาแล้วอย่างน้อย 5 นาที</value>
+  </data>
+  <data name="HighDescVfTB.Text" xml:space="preserve">
+    <value>ต้องเป็นสมาชิกในเซิฟเวอร์อย่างน้อย 10 นาที</value>
+  </data>
+  <data name="VeryHighDescVFTB.Text" xml:space="preserve">
+    <value>ต้องมีเบอร์โทรศัพท์ผูกกับบัญชีแล้ว</value>
+  </data>
+  <data name="ECFTB.Text" xml:space="preserve">
+    <value>การครวจสอบและคัดกรองเนื้อหา</value>
+  </data>
+  <data name="ECF0TB.Text" xml:space="preserve">
+    <value>ไม่ต้องตรวจสอบข้อความใดๆ</value>
+  </data>
+  <data name="ECF0DescTB.Text" xml:space="preserve">
+    <value>สุขสันต์ เฮฮา จะพูดอะไร ก็ตามใจ</value>
+  </data>
+  <data name="ECF1TB.Text" xml:space="preserve">
+    <value>ตรวจสอบข้อความจากสมาชิกที่ไม่มีสิทธิ์ใดๆ</value>
+  </data>
+  <data name="ECF1DescTB.Text" xml:space="preserve">
+    <value>แนะนำสำหรับเซิฟเวอร์ที่ใช้สิทธิ์แยกคนที่ไว้ใจกับคนไม่รู้จัก</value>
+  </data>
+  <data name="ECF2TB.Text" xml:space="preserve">
+    <value>ตรวจสอบข้อความทุกข้อความ</value>
+  </data>
+  <data name="ECF2DescTB.Text" xml:space="preserve">
+    <value>สำหรับเซิฟเวอร์ที่มีกฏเคร่งครัดในการพูดคุยในเซิฟเวอร์</value>
+  </data>
+  <data name="AuditLogsTB.Text" xml:space="preserve">
+    <value>ประวัติการแก้ไขเซิฟเวอร์</value>
   </data>
 </root>

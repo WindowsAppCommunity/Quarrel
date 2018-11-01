@@ -261,7 +261,7 @@
   <data name="Enable compression (Faster)" xml:space="preserve">
     <value>เปิดใช้งานการบีบอัดข้อความ</value>
   </data>
-  <data name="Mentions" xml:space="preserve">
+  <data name="MentionsCB.Content" xml:space="preserve">
     <value>พูดถึง</value>
   </data>
   <data name="None" xml:space="preserve">
@@ -443,5 +443,29 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>ค่าเริ่มต้น</value>
+  </data>
+  <data name="Mentions" xml:space="preserve">
+    <value>พูดถึง</value>
+  </data>
+  <data name="NoneRB.Content" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="UnreadRB.Content" xml:space="preserve">
+    <value>ไม่ได้อ่าน</value>
+  </data>
+  <data name="mutedChannelsAffectServerCB.Content" xml:space="preserve">
+    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
+  </data>
+  <data name="mutedChannelsEffectServerCB.Content" xml:space="preserve">
+    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
+  </data>
+  <data name="FriendsNotifyTB.Text" xml:space="preserve">
+    <value>ต้องการรับการแจ้งเตือนใดบ้างเกี่ยวกับเพื่อน?</value>
+  </data>
+  <data name="FriendRequestsCBContent" xml:space="preserve">
+    <value>คำขอเป็นเพื่อน</value>
+  </data>
+  <data name="DMsCB.Content" xml:space="preserve">
+    <value>ข้อความส่วนตัว</value>
   </data>
 </root>
