@@ -1258,7 +1258,10 @@ namespace Discord_UWP
                         chn.IsSelected = true;
                     else if (chn.Type != 2)
                         chn.IsSelected = false;
-                MessageBox1.FocusTextBox();
+                if (App.IsDesktop)
+                {
+                    MessageBox1.FocusTextBox();
+                }
                 Storage.Settings.SelectedChannels[e.GuildId] = e.ChannelId;
             }
             else //Out of guild navigation
