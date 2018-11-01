@@ -337,7 +337,8 @@ namespace Discord_UWP.Voice
                 GuildId = _voiceServerConfig.GuildId,
                 SessionId = _state.SessionId,
                 Token = _voiceServerConfig.Token,
-                UserId = _state.UserId
+                UserId = _state.UserId,
+                Video = false
             };
         }
 
@@ -455,7 +456,7 @@ namespace Discord_UWP.Voice
         {
             try
             {
-              //  int headerSize = GetHeaderSize(packet, data);
+             //   int headerSize = GetHeaderSize(packet, data);
               //  int samples = decoder.Decode(data, headerSize, data.Length - headerSize, output, 0, framesize);
 
              //   VideoDataRecieved?.Invoke(null, new VoiceConnectionEventArgs<VoiceData>(new VoiceData() { data = output, samples = (uint)samples }));
