@@ -3086,17 +3086,41 @@ namespace Discord_UWP
                     PackageId packageId = package.Id;
                     string version = packageId.Version.Build + packageId.Version.Major.ToString() +
                                      packageId.Version.Minor;
+
                     if (Storage.Settings.lastVerison == "0")
                     {
                         Storage.Settings.lastVerison = version;
                         Storage.SaveAppSettings();
+
                         App.NavigateToAbout(true);
+                        SubFrameNavigator(typeof(DynamicSubPage), new SubPageData
+                        {
+                            Message = "Mypeople intergration.",
+                            ConfirmMessage = "",
+                            SubMessage = "Quarrel now supports mypeople intergration!",
+                            StartText = "",
+                            PlaceHolderText = null,
+                            ConfirmRed = false,
+                            ReadOnly = true,
+                            CanBeFancy = false
+                        });
                     }
                     else if (Storage.Settings.lastVerison != version)
                     {
                         Storage.Settings.lastVerison = version;
                         Storage.SaveAppSettings();
                         App.NavigateToAbout(true);
+                        SubFrameNavigator(typeof(DynamicSubPage), new SubPageData
+                        {
+                            Message = "Mypeople intergration.",
+                            ConfirmMessage = "",
+                            SubMessage = "Quarrel now supports mypeople intergration!",
+                            StartText = "",
+                            PlaceHolderText = null,
+                            ConfirmRed = false,
+                            ReadOnly = true,
+                            CanBeFancy = false
+                        });
                     }
 
                     loadingStack.Loaded("Finished");
