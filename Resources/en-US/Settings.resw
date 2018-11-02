@@ -457,19 +457,4 @@
   <data name="Unread" xml:space="preserve">
     <value>Unread</value>
   </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Muted channels affect server unread status?</value>
-  </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Muted channels effect server unread status?</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>What adds to Friends list notifications?</value>
-  </data>
-  <data name="FriendRequestsCB" xml:space="preserve">
-    <value>Friend Requests</value>
-  </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>DMs</value>
-  </data>
 </root>

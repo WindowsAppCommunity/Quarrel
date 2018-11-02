@@ -529,8 +529,15 @@ namespace Discord_UWP
         {
            if (++quantum % 2 == 0)
            {
-               AudioFrame frame = frameOutputNode.GetFrame();
-               ProcessFrameOutput(frame);
+               try
+               {
+                   AudioFrame frame = frameOutputNode.GetFrame();
+                   ProcessFrameOutput(frame);
+               }
+               catch (Exception e)
+               {
+                   Debug.WriteLine(e);
+               }
            }
         }
 

@@ -138,17 +138,11 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>DMs</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>Do not disturb</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Expensive rendering (blur effects etc...)</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>What adds to Friends list notifications?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>Highlight @everyone</value>
@@ -225,9 +219,6 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Friend Requests</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Muted channels affect server unread status?</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>System accent colour</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Enable Acrylic effects (blurred background)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Muted channels effect server unread status?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Enable data compression (Faster)</value>
@@ -443,9 +431,6 @@
   </data>
   <data name="DefaultComboBI.Content" xml:space="preserve">
     <value>Default</value>
-  </data>
-  <data name="Mentions" xml:space="preserve">
-    <value>Mentions</value>
   </data>
   <data name="NoneRB.Content" xml:space="preserve">
     <value>None</value>

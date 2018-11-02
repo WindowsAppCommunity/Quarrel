@@ -138,17 +138,11 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>DMs</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>Ne pas déranger</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Rendu plus exigeant (effets de flou, etc...)</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>Qu'est-ce qui ajoute aux notifications de liste d'amis ?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>Surligner @everyone</value>
@@ -225,9 +219,6 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Demandes d'amis</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Les salons muets affectent le statut "lu" du serveur?</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Couleur d'accentuation système</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Activer les effets Acrylic (arrière-plan flouté)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Les serveurs muets affectent l'indicateur "lu" du serveur?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Activer la compression des données (plus rapide)</value>

@@ -138,17 +138,11 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>DM's</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>Не беспокоить</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Мощный рендеринг (Эффекты блюра и т.д)</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>Что добавляет к уведомлениям о друзьях?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>Выделение @everyone</value>
@@ -226,10 +220,6 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Запросы в друзья</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Отключенные каналы влияют
- на непрочитанный статус сервера?</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Системные цвета</value>
   </data>
@@ -244,10 +234,6 @@
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Включить акриловый эффект (Размытый фон)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Неверный статус сервера 
-с отключенными каналами?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Включить сжатие данных (быстрее)</value>
