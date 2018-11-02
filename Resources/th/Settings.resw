@@ -138,17 +138,11 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>ข้อความส่วนตัว</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>ห้ามรบกวน</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>ใช้เอฟเฟคเพิ่มเติม (เช่น การเบลอ)</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>ต้องการรับการแจ้งเตือนใดบ้างเกี่ยวกับเพื่อน?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>เน้นข้อความที่กล่าวถึงทุกคน (@everyone)</value>
@@ -225,9 +219,6 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>คำขอเป็นเพื่อน</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>สีประจำจากระบบ</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>ใช้เอฟเฟคสีน้ำ (แถบสี+เบลอภาพพื้นหลัง)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>แชนเนลที่ปิดเสียงไว้ควรมีผลกับสถานะไม่ได้อ่านของเซิฟเวอร์?</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>เปิดใช้งานการบีบอัดข้อความ (ทำให้ข้อความโหลดเร็วขึ้น)</value>

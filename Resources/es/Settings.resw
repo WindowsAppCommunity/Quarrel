@@ -138,9 +138,6 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>MDs</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>No molestar</value>
   </data>
@@ -219,14 +216,8 @@
   <data name="WindowsRadio.Content" xml:space="preserve">
     <value>Windows</value>
   </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>¿Qué añade a las notificaciones de lista de amigos?</value>
-  </data>
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Solicitudes de Amistad</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
   </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Color del acento del sistema</value>
@@ -239,9 +230,6 @@
   </data>
   <data name="ShowWelcomeCB.Content" xml:space="preserve">
     <value>Mostrar mensajes de carga</value>
-  </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>¿Los canales silenciados afectan el estado de no-leído del servidor?</value>
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Activar efectos acrílicos (fondo borroso)</value>

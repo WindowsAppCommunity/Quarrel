@@ -138,17 +138,11 @@
   <data name="DiscordRadio.Content" xml:space="preserve">
     <value>Discord</value>
   </data>
-  <data name="DMsCB" xml:space="preserve">
-    <value>PW</value>
-  </data>
   <data name="DndColorTB.Text" xml:space="preserve">
     <value>Nie przeszkadzać</value>
   </data>
   <data name="ExpensiveRenderCB.Content" xml:space="preserve">
     <value>Kosztowne renderowanie (efekty rozmycia itd.)</value>
-  </data>
-  <data name="FriendsNotifyTB" xml:space="preserve">
-    <value>Co dodać do powiadomień Listy znajomych?</value>
   </data>
   <data name="HighlightEveryoneCB.Content" xml:space="preserve">
     <value>Podświetl @everyone</value>
@@ -225,9 +219,6 @@
   <data name="FriendRequestsCB" xml:space="preserve">
     <value>Prośby o dodanie do znajomych</value>
   </data>
-  <data name="mutedChannelsAffectServerCB" xml:space="preserve">
-    <value>Wyciszone kanały mają wpływ na nieprzeczytany status serwera</value>
-  </data>
   <data name="AccentRadio.Content" xml:space="preserve">
     <value>Systemowy kolor dominujący</value>
   </data>
@@ -242,9 +233,6 @@
   </data>
   <data name="EnableAcrylic.Content" xml:space="preserve">
     <value>Zezwól na akrylowe efekty (rozmyte tło)</value>
-  </data>
-  <data name="mutedChannelsEffectServerCB" xml:space="preserve">
-    <value>Wyciszone kanały mają efekt na nieprzeczytany status serwera</value>
   </data>
   <data name="UseCompression.Content" xml:space="preserve">
     <value>Zezwól na kompresowanie danych</value>
