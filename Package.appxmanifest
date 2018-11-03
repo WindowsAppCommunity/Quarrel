@@ -3,7 +3,7 @@
   <Identity Name="38062AvishaiDernis.DiscordUWP" Publisher="CN=43D24869-0557-46C9-8B30-13C6ACFDB86B" Version="10.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="69853adf-5f21-4e45-984d-9ad288ac97d0" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Discord UWP</DisplayName>
+    <DisplayName>Quarrel</DisplayName>
     <PublisherDisplayName>Avishai Dernis</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
