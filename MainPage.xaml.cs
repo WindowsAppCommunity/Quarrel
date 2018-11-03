@@ -3097,7 +3097,7 @@ namespace Discord_UWP
                         {
                             Message = "Mypeople intergration.",
                             ConfirmMessage = "",
-                            SubMessage = "Quarrel now supports mypeople intergration!",
+                            SubMessage = "Quarrel now supports mypeople intergration! The app has created contacts in your People app for all your friends in Discord.",
                             StartText = "",
                             PlaceHolderText = null,
                             ConfirmRed = false,

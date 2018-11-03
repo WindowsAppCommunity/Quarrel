@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Discord UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>00D43F5C1E6D9CDF309710FDD0C2FDA364857BDA</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>9761F6446948B6C291EE3BB6BDA82AA06F78061B</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
