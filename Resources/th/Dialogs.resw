@@ -967,7 +967,7 @@
   <data name="ECF2DescTB.Text" xml:space="preserve">
     <value>สำหรับเซิฟเวอร์ที่มีกฏเคร่งครัดในการพูดคุยในเซิฟเวอร์</value>
   </data>
-  <data name="AuditLogsTB.Text" xml:space="preserve">
+  <data name="AuditLogsTB.Content" xml:space="preserve">
     <value>ประวัติการแก้ไขเซิฟเวอร์</value>
   </data>
 </root>
