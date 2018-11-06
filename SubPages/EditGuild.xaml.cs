@@ -208,6 +208,7 @@ namespace Discord_UWP.SubPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             guildId = e.Parameter.ToString();
+            
             var guild = LocalState.Guilds[guildId];
             GuildName.Text = guild.Raw.Name;
             if (string.IsNullOrEmpty(guild.Raw.Icon))
@@ -216,6 +217,12 @@ namespace Discord_UWP.SubPages
                 GuildIcon.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/icons/" + guild.Raw.Id + "/" + guild.Raw.Icon + ".png"));
 
             header.Text = App.GetString("/Dialogs/EDIT") + " " + guild.Raw.Name.ToUpper();
+
+            if (!LocalState.Guilds[guildId].permissions.ViewAuditLog)
+            {
+                AuditLogButton.IsEnabled = false;
+            }
+
             if (!LocalState.Guilds[guildId].permissions.ManangeGuild && !LocalState.Guilds[guildId].permissions.Administrator && LocalState.Guilds[guildId].Raw.OwnerId != LocalState.CurrentUser.Id)
             {
                 deleteImage.IsEnabled = false;

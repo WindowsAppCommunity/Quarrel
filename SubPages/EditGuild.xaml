@@ -562,7 +562,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <HyperlinkButton x:Uid="/Dialogs/AuditLogsTB" Content="Audit Log" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="NavigateToAudit_Click"/>
+                            <HyperlinkButton x:Uid="/Dialogs/AuditLogsTB" x:Name="AuditLogButton" Content="Audit Log" Style="{StaticResource PlainHyperlinkStyle}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Click="NavigateToAudit_Click"/>
                             <Button x:Uid="/Dialogs/CancelBTN" x:Name="button" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Content="Cancel" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0" Grid.Column="1" Padding="24,12" Visibility="Collapsed" Click="CloseButton_Click"/>
                             <Button x:Name="SaveButton" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="SaveGuildSettings" Style="{StaticResource DiscordButton}" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="2,0,0,0" Grid.Column="2" Padding="24,12">
                                 <Button.Content>
